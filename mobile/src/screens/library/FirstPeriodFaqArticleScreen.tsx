@@ -1967,6 +1967,880 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     shareMessage: 'Ilkinji aýbaşyňyz barada köp berilýän soraglar — AWA',
   },
+  ms: {
+    badge: 'HAID PERTAMA',
+    title: 'Soalan yang kerap ditanya\ntentang haid pertama anda',
+    metaDuration: '4 min bacaan',
+    metaType: 'Soalan Lazim',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Jawapan mudah kepada soalan paling lazim tentang haid pertama anda.',
+    contentsTitle: 'Dalam artikel ini',
+    faq: [
+      {
+        question: '“Adakah normal untuk mengeluarkan sangat sedikit darah?”',
+        answer:
+          'Ya. Kitaran yang paling awal selalunya mempunyai aliran yang ringan. Aliran boleh berbeza dari satu kitaran ke kitaran berikutnya, terutamanya pada permulaan.',
+      },
+      {
+        question: '“Adakah normal untuk mengeluarkan banyak darah?”',
+        answer:
+          'Aliran yang lebih banyak juga boleh berlaku, terutamanya dalam dua hari pertama. Jika anda perlu menukar perlindungan lebih daripada sekali dalam sejam selama beberapa jam berturut-turut, adalah baik untuk berbincang tentangnya dengan pengamal penjagaan kesihatan.',
+      },
+      {
+        question: '“Adakah normal untuk mengalami kekejangan?”',
+        answer:
+          'Kekejangan ringan di perut bawah adalah lazim dan biasanya tidak perlu dibimbangkan. Botol air panas atau sedikit rehat boleh membantu. Sakit yang sangat kuat patut disebut kepada seseorang.',
+      },
+      {
+        question: '“Bolehkah saya bersukan?”',
+        answer:
+          'Ya, anda masih boleh bersukan semasa haid. Cuma laraskan keamatan mengikut perasaan tubuh anda pada hari itu.',
+      },
+      {
+        question: '“Bolehkah saya berenang?”',
+        answer:
+          'Ya, anda masih boleh berenang dengan perlindungan yang sesuai. Ramai orang hanya memilih untuk menunggu sehingga mereka berasa lebih selesa dengan idea itu.',
+      },
+    ],
+    tipTitle: 'Elok diketahui',
+    tipText: 'Tiada soalan yang memalukan: setiap tubuh berbeza, dan anda sentiasa boleh berbincang dengan seseorang yang anda percayai.',
+    relatedTitle: '♥  Anda mungkin juga suka',
+    related: [
+      {title: 'Haid pertama anda: apa yang dijangka', meta: '5 min  ·  Panduan'},
+      {title: 'Perlindungan manakah yang patut saya pilih untuk haid pertama?', meta: '6 min  ·  Panduan'},
+      {title: 'Menguruskan sakit haid', meta: '7 min  ·  Panduan'},
+    ],
+    shareMessage: 'Soalan yang kerap ditanya tentang haid pertama anda — AWA',
+  },
+  so: {
+    badge: 'CAADADA UGU HORREYSA',
+    title: 'Su’aalaha inta badan la weydiiyo\nee caadadaada ugu horreysa',
+    metaDuration: '4 daq akhris',
+    metaType: 'FAQ',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Jawaabo fudud oo ku saabsan su’aalaha ugu badan ee caadada ugu horreysa.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    faq: [
+      {
+        question: '“Ma caadi baa in dhiig aad u yar la helo?”',
+        answer:
+          'Haa. Wareegyada ugu horreeya inta badan waxay leeyihiin socod fudud. Socodku wuu ku kala duwanaan karaa wareeg ilaa wareeg, gaar ahaan bilowga.',
+      },
+      {
+        question: '“Ma caadi baa in dhiig badan la helo?”',
+        answer:
+          'Socod ka culus ayaa sidoo kale dhici kara, gaar ahaan labada maalmood ee ugu horreeya. Haddii aad u baahan tahay inaad beddesho ilaalintaada in ka badan hal mar saacadii dhowr saacadood oo isku xigta, waa fikrad wanaagsan inaad xirfadle caafimaad kala hadasho.',
+      },
+      {
+        question: '“Ma caadi baa in qallal la helo?”',
+        answer:
+          'Qallal khafiif ah oo calooshaada hoose ah waa caadi wuxuuna inta badan ahayn wax laga walaacsan yahay. Dhalo biyo kulul ama nasasho yar ayaa caawin kara. Xanuun aad u xoog badan waa mudan in qof la sheego.',
+      },
+      {
+        question: '“Ma ciyaari karaa?”',
+        answer:
+          'Haa, weli waad ciyaari kartaa inta caadadaadu jirto. Kaliya hagaaji xoogga iyadoo la eegayo sida jidhkaagu u dareemayo maalintaas.',
+      },
+      {
+        question: '“Ma dabaalan karaa?”',
+        answer:
+          'Haa, weli waad dabaalan kartaa adigoo isticmaalaya ilaalin ku habboon. Dad badan ayaa si fudud u doorta inay sugaan ilaa ay ka raaxaystaan fikradda.',
+      },
+    ],
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText: 'Su’aal ceeb ah ma jirto: jidh kastaa waa kala duwan yahay, mar walbana waad la hadli kartaa qof aad aamintid.',
+    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    related: [
+      {title: 'Caadadaada ugu horreysa: waxa la filayo', meta: '5 daq  ·  Hage'},
+      {title: 'Waa kuwee ilaalin ah ee aan dooran lahaa caadadayda ugu horreysa?', meta: '6 daq  ·  Hage'},
+      {title: 'Maamulka xanuunka caadada', meta: '7 daq  ·  Hage'},
+    ],
+    shareMessage: 'Su’aalaha inta badan la weydiiyo ee caadadaada ugu horreysa — AWA',
+  },
+  sw: {
+    badge: 'HEDHI YA KWANZA',
+    title: 'Maswali yanayoulizwa mara kwa mara\nkuhusu hedhi yako ya kwanza',
+    metaDuration: 'Dakika 4 za kusoma',
+    metaType: 'Maswali na majibu',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Majibu rahisi kwa maswali ya kawaida zaidi kuhusu hedhi yako ya kwanza.',
+    contentsTitle: 'Katika makala hii',
+    faq: [
+      {
+        question: '“Je, ni kawaida kupata damu kidogo sana?”',
+        answer:
+          'Ndiyo. Mizunguko ya kwanza kabisa mara nyingi huwa na mtiririko mwepesi. Mtiririko unaweza kutofautiana kutoka mzunguko mmoja hadi mwingine, hasa mwanzoni.',
+      },
+      {
+        question: '“Je, ni kawaida kupata damu nyingi?”',
+        answer:
+          'Mtiririko mzito zaidi unaweza pia kutokea, hasa katika siku mbili za kwanza. Ikiwa unahitaji kubadilisha kinga yako zaidi ya mara moja kwa saa kwa saa kadhaa mfululizo, ni vyema kuzungumza na mtaalamu wa afya kuhusu hilo.',
+      },
+      {
+        question: '“Je, ni kawaida kuwa na maumivu ya tumbo?”',
+        answer:
+          'Maumivu madogo ya tumbo la chini ni ya kawaida na kwa kawaida hayana wasiwasi. Chupa ya maji ya moto au kupumzika kidogo kunaweza kusaidia. Maumivu makali sana yanastahili kutajwa kwa mtu.',
+      },
+      {
+        question: '“Je, naweza kucheza michezo?”',
+        answer:
+          'Ndiyo, bado unaweza kucheza michezo wakati wa hedhi yako. Rekebisha tu kiwango kulingana na jinsi mwili wako unavyohisi siku hiyo.',
+      },
+      {
+        question: '“Je, naweza kuogelea?”',
+        answer:
+          'Ndiyo, bado unaweza kuogelea ukiwa na kinga inayofaa. Watu wengi huchagua tu kusubiri hadi wajisikie huru zaidi na wazo hilo.',
+      },
+    ],
+    tipTitle: 'Vyema kujua',
+    tipText: 'Hakuna swali la aibu: kila mwili ni tofauti, na unaweza daima kuzungumza na mtu unayemwamini.',
+    relatedTitle: '♥  Huenda pia ukapenda',
+    related: [
+      {title: 'Hedhi yako ya kwanza: nini cha kutarajia', meta: 'Dakika 5  ·  Mwongozo'},
+      {title: 'Nichague kinga gani kwa hedhi yangu ya kwanza?', meta: 'Dakika 6  ·  Mwongozo'},
+      {title: 'Kudhibiti maumivu ya hedhi', meta: 'Dakika 7  ·  Mwongozo'},
+    ],
+    shareMessage: 'Maswali yanayoulizwa mara kwa mara kuhusu hedhi yako ya kwanza — AWA',
+  },
+  kk: {
+    badge: 'АЛҒАШҚЫ ЕТЕККІР',
+    title: 'Алғашқы етеккір туралы\nжиі қойылатын сұрақтар',
+    metaDuration: '4 мин оқу',
+    metaType: 'ЖҚС',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Алғашқы етеккір туралы ең көп қойылатын сұрақтарға қарапайым жауаптар.',
+    contentsTitle: 'Осы мақалада',
+    faq: [
+      {
+        question: '“Қан өте аз болуы қалыпты ма?”',
+        answer:
+          'Иә. Ең алғашқы циклдарда көлем жиі аз болады. Көлем бір циклден екіншісіне, әсіресе басында, өзгеруі мүмкін.',
+      },
+      {
+        question: '“Қан көп болуы қалыпты ма?”',
+        answer:
+          'Мол көлем де болуы мүмкін, әсіресе алғашқы екі күнде. Қорғаныс құралыңызды бірнеше сағат қатарынан сағатына бірден жиі ауыстыру керек болса, бұл туралы медицина маманымен сөйлескен жөн.',
+      },
+      {
+        question: '“Іш құрысулары болуы қалыпты ма?”',
+        answer:
+          'Іштің төменгі жағындағы жеңіл құрысулар жиі кездеседі және әдетте алаңдатпайды. Ыстық су грелкасы немесе азғантай демалу көмектесуі мүмкін. Өте қатты ауыру туралы біреуге айту керек.',
+      },
+      {
+        question: '“Спортпен айналыса аламын ба?”',
+        answer:
+          'Иә, етеккір кезінде де спортпен айналыса беруге болады. Қарқынды сол күні денеңіздің сезіміне қарай реттеңіз.',
+      },
+      {
+        question: '“Суға түсе аламын ба?”',
+        answer:
+          'Иә, тиісті қорғаныспен суға түсе беруге болады. Көптеген адамдар бұл ойға көбірек үйренгенше күтуді жай ғана таңдайды.',
+      },
+    ],
+    tipTitle: 'Білуге тиісті',
+    tipText: 'Ұят сұрақ деген жоқ: әр дене әртүрлі, сенетін адаммен әрқашан сөйлесе аласыз.',
+    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    related: [
+      {title: 'Алғашқы етеккіріңіз: нені күту керек', meta: '5 мин  ·  Нұсқаулық'},
+      {title: 'Алғашқы етеккірім үшін қандай қорғаныс таңдауым керек?', meta: '6 мин  ·  Нұсқаулық'},
+      {title: 'Етеккір ауыруын басқару', meta: '7 мин  ·  Нұсқаулық'},
+    ],
+    shareMessage: 'Алғашқы етеккір туралы жиі қойылатын сұрақтар — AWA',
+  },
+  wo: {
+    badge: 'RÈGLE BU NJËKK',
+    title: 'Laaj yu ñu bari\nci sa règle bu njëkk',
+    metaDuration: '4 simili jàng',
+    metaType: 'Laaj',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Tontu yu yomb ci laaj yi gëna bari ci sa règle bu njëkk.',
+    contentsTitle: 'Ci bind bii',
+    faq: [
+      {
+        question: '“Daa jub am deret bu ndaw lool?”',
+        answer:
+          'Waaw. Wërsëg yu njëkk daa am deret bu neex. Deret bi mën na wuute ci wërsëg ak wërsëg, lool ci tàmbali.',
+      },
+      {
+        question: '“Daa jub am deret bu bari?”',
+        answer:
+          'Deret bu bari mën na am itam, lool ci ñaari fan yu njëkk. Bu soxla nga soppi sa aar lu ëpp benn yoon ci waxtu, ay waxtu yu toftale, baax na nga wax ak benn liggéeykatu wér.',
+      },
+      {
+        question: '“Daa jub am metit ci biir?”',
+        answer:
+          'Metit bu neex ci suufu biir daa bari te du lu tiital. Benn butel ndox bu tàng walla tuuti noppalu mën na dimbli. Metit bu metti lool war na nga wax ko.',
+      },
+      {
+        question: '“Mën naa def sport?”',
+        answer:
+          'Waaw, mën nga kontine sport ci sa règle. Defar rekk dayoy jëf bi ci naka sa yaram di dégg bés boobu.',
+      },
+      {
+        question: '“Mën naa dox ci ndox?”',
+        answer:
+          'Waaw, mën nga dox ci ndox ak aar bu méngoo. Yenn nit dañuy tànn rekk a xaar ba ñu gën a dal ak xalaat bi.',
+      },
+    ],
+    tipTitle: 'Lu baax a xam',
+    tipText: 'Amul laaj bu rus: yaram bu nekk wuute na, te mën nga wax saa su ne ak kenn ku nga wóolu.',
+    relatedTitle: '♥  Mën nga bëgg itam',
+    related: [
+      {title: 'Sa règle bu njëkk: lu ñuy xaar', meta: '5 simili  ·  Ndigal'},
+      {title: 'Ban aar laay tànn ngir sama règle bu njëkk?', meta: '6 simili  ·  Ndigal'},
+      {title: 'Yor metitu règle', meta: '7 simili  ·  Ndigal'},
+    ],
+    shareMessage: 'Laaj yu ñu bari ci sa règle bu njëkk — AWA',
+  },
+  ha: {
+    badge: 'HAILAR FARKO',
+    title: 'Tambayoyin da ake yawan yi\ngame da hailarki ta farko',
+    metaDuration: 'karatun minti 4',
+    metaType: 'Tambayoyi',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Amsoshi masu sauƙi ga tambayoyin da aka fi yi game da hailarki ta farko.',
+    contentsTitle: 'A cikin wannan labari',
+    faq: [
+      {
+        question: '“Shin al’ada ne a samu jini kaɗan sosai?”',
+        answer:
+          'Eh. Zagaye na farko galibi suna da jini kaɗan. Yawan jini na iya bambanta daga zagaye zuwa zagaye, musamman a farko.',
+      },
+      {
+        question: '“Shin al’ada ne a samu jini da yawa?”',
+        answer:
+          'Jini mai yawa ma na iya faruwa, musamman a kwanaki biyu na farko. Idan kina bukatar canza kariyarki fiye da sau ɗaya a sa’a na sa’o’i da dama a jere, yana da kyau ki yi magana da ma’aikacin lafiya game da hakan.',
+      },
+      {
+        question: '“Shin al’ada ne a samu murɗawar ciki?”',
+        answer:
+          'Ƙananan murɗawa a ƙasan ciki sun zama ruwan dare kuma yawanci babu abin damuwa. Kwalbar ruwan zafi ko ɗan hutu na iya taimakawa. Ciwo mai ƙarfi sosai ya cancanci a faɗa wa wani.',
+      },
+      {
+        question: '“Zan iya yin wasanni?”',
+        answer:
+          'Eh, za ki iya yin wasanni lokacin hailarki. Kawai daidaita ƙarfin da yadda jikinki yake ji a ranar.',
+      },
+      {
+        question: '“Zan iya ninƙaya?”',
+        answer:
+          'Eh, za ki iya ninƙaya da kariya mai dacewa. Mutane da dama kawai suna zaɓar jira har sai sun ji daɗin ra’ayin.',
+      },
+    ],
+    tipTitle: 'Abin da ya dace a sani',
+    tipText: 'Babu tambayar da ke kunyatarwa: kowane jiki daban ne, kuma kullum za ki iya magana da wanda kike amincewa da shi.',
+    relatedTitle: '♥  Kila ma za ki so',
+    related: [
+      {title: 'Hailarki ta farko: abin da za ki tsammata', meta: 'minti 5  ·  Jagora'},
+      {title: 'Wace kariya zan zaɓa don hailata ta farko?', meta: 'minti 6  ·  Jagora'},
+      {title: 'Magance ciwon haila', meta: 'minti 7  ·  Jagora'},
+    ],
+    shareMessage: 'Tambayoyin da ake yawan yi game da hailarki ta farko — AWA',
+  },
+  am: {
+    badge: 'የመጀመሪያ የወር አበባ',
+    title: 'ስለ መጀመሪያ የወር አበባሽ\nተደጋጋሚ ጥያቄዎች',
+    metaDuration: '4 ደቂቃ ንባብ',
+    metaType: 'ተደጋጋሚ ጥያቄዎች',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'ስለ መጀመሪያ የወር አበባሽ በጣም ተደጋጋሚ ለሆኑ ጥያቄዎች ቀላል መልሶች።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    faq: [
+      {
+        question: '“በጣም ጥቂት ደም መኖሩ የተለመደ ነው?”',
+        answer:
+          'አዎ። የመጀመሪያዎቹ ዑደቶች ብዙ ጊዜ ቀላል ፍሰት አላቸው። ፍሰቱ ከዑደት ወደ ዑደት፣ በተለይ በመጀመሪያ፣ ሊለያይ ይችላል።',
+      },
+      {
+        question: '“ብዙ ደም መኖሩ የተለመደ ነው?”',
+        answer:
+          'ይበልጥ ብዙ ፍሰት ሊከሰት ይችላል፣ በተለይ በመጀመሪያዎቹ ሁለት ቀናት። መከላከያሽን በተከታታይ ለበርካታ ሰዓታት በሰዓት ከአንድ ጊዜ በላይ መቀየር ካስፈለገሽ ስለሱ ከጤና ባለሙያ ጋር መነጋገር ጥሩ ነው።',
+      },
+      {
+        question: '“የሆድ ቁርጠት መኖሩ የተለመደ ነው?”',
+        answer:
+          'በታችኛው ሆድ ቀላል ቁርጠት የተለመደ ሲሆን ብዙውን ጊዜ የሚያሳስብ አይደለም። የሞቀ ውሃ ጠርሙስ ወይም ትንሽ እረፍት ሊረዳ ይችላል። በጣም ከባድ ህመም ለአንድ ሰው መንገር ተገቢ ነው።',
+      },
+      {
+        question: '“ስፖርት መሥራት እችላለሁ?”',
+        answer:
+          'አዎ፣ በወር አበባሽ ጊዜ አሁንም ስፖርት መሥራት ትችያለሽ። ጥንካሬውን በዚያ ቀን ሰውነትሽ ከሚሰማው ጋር ብቻ አስተካክዪ።',
+      },
+      {
+        question: '“መዋኘት እችላለሁ?”',
+        answer:
+          'አዎ፣ በትክክለኛ መከላከያ አሁንም መዋኘት ትችያለሽ። ብዙ ሰዎች በሃሳቡ ምቾት እስኪሰማቸው መጠበቅን በቀላሉ ይመርጣሉ።',
+      },
+    ],
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText: 'ሐፍረት የሚያስከትል ጥያቄ የለም፦ እያንዳንዱ አካል የተለየ ነው፣ ሁልጊዜም ከምታምኚው ሰው ጋር መነጋገር ትችያለሽ።',
+    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    related: [
+      {title: 'የመጀመሪያ የወር አበባሽ፦ ምን መጠበቅ', meta: '5 ደቂቃ  ·  መመሪያ'},
+      {title: 'ለመጀመሪያ የወር አበባዬ የትኛውን መከላከያ ልምረጥ?', meta: '6 ደቂቃ  ·  መመሪያ'},
+      {title: 'የወር አበባ ህመምን መቆጣጠር', meta: '7 ደቂቃ  ·  መመሪያ'},
+    ],
+    shareMessage: 'ስለ መጀመሪያ የወር አበባሽ ተደጋጋሚ ጥያቄዎች — AWA',
+  },
+  nl: {
+    badge: 'EERSTE MENSTRUATIE',
+    title: 'Veelgestelde vragen\nover je eerste menstruatie',
+    metaDuration: '4 min lezen',
+    metaType: 'Veelgestelde vragen',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Eenvoudige antwoorden op de meest gestelde vragen over je eerste menstruatie.',
+    contentsTitle: 'In dit artikel',
+    faq: [
+      {
+        question: '“Is het normaal om heel weinig bloed te hebben?”',
+        answer:
+          'Ja. De allereerste cycli hebben vaak een lichte bloeding. De hoeveelheid kan van cyclus tot cyclus verschillen, vooral in het begin.',
+      },
+      {
+        question: '“Is het normaal om veel bloed te hebben?”',
+        answer:
+          'Een hevigere bloeding kan ook voorkomen, vooral tijdens de eerste twee dagen. Als je je bescherming meer dan eens per uur moet verwisselen gedurende meerdere uren achter elkaar, is het verstandig er met een zorgverlener over te praten.',
+      },
+      {
+        question: '“Is het normaal om krampen te hebben?”',
+        answer:
+          'Lichte krampen in de onderbuik komen vaak voor en zijn meestal niets om je zorgen over te maken. Een kruik of wat rust kan helpen. Zeer hevige pijn is de moeite waard om aan iemand te vertellen.',
+      },
+      {
+        question: '“Kan ik sporten?”',
+        answer:
+          'Ja, je kunt tijdens je menstruatie gewoon blijven sporten. Pas alleen de intensiteit aan op hoe je lichaam zich die dag voelt.',
+      },
+      {
+        question: '“Kan ik gaan zwemmen?”',
+        answer:
+          'Ja, je kunt met de juiste bescherming gewoon gaan zwemmen. Veel mensen kiezen er gewoon voor te wachten tot ze zich comfortabeler voelen bij het idee.',
+      },
+    ],
+    tipTitle: 'Goed om te weten',
+    tipText: 'Er bestaat niet zoiets als een gênante vraag: elk lichaam is anders en je kunt altijd met iemand praten die je vertrouwt.',
+    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    related: [
+      {title: 'Je eerste menstruatie: wat je kunt verwachten', meta: '5 min  ·  Gids'},
+      {title: 'Welke bescherming kies ik voor mijn eerste menstruatie?', meta: '6 min  ·  Gids'},
+      {title: 'Menstruatiepijn beheersen', meta: '7 min  ·  Gids'},
+    ],
+    shareMessage: 'Veelgestelde vragen over je eerste menstruatie — AWA',
+  },
+  fi: {
+    badge: 'ENSIMMÄISET KUUKAUTISET',
+    title: 'Usein kysytyt kysymykset\nensimmäisistä kuukautisista',
+    metaDuration: '4 min lukuaika',
+    metaType: 'UKK',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Yksinkertaisia vastauksia yleisimpiin kysymyksiin ensimmäisistä kuukautisista.',
+    contentsTitle: 'Tässä artikkelissa',
+    faq: [
+      {
+        question: '“Onko normaalia, että verta on hyvin vähän?”',
+        answer:
+          'Kyllä. Aivan ensimmäisissä kierroissa vuoto on usein niukka. Vuodon määrä voi vaihdella kierrosta toiseen erityisesti alussa.',
+      },
+      {
+        question: '“Onko normaalia, että verta on paljon?”',
+        answer:
+          'Runsaampi vuoto on myös mahdollinen, erityisesti kahden ensimmäisen päivän aikana. Jos joudut vaihtamaan suojaasi useammin kuin kerran tunnissa useiden tuntien ajan, kannattaa puhua asiasta terveydenhuollon ammattilaiselle.',
+      },
+      {
+        question: '“Onko normaalia, että on kramppeja?”',
+        answer:
+          'Lievät kramppi alavatsalla on yleistä, eikä yleensä ole syytä huoleen. Kuuma vesipullo tai vähän lepoa voi auttaa. Erittäin voimakkaasta kivusta kannattaa kertoa jollekulle.',
+      },
+      {
+        question: '“Voinko urheilla?”',
+        answer:
+          'Kyllä, voit edelleen urheilla kuukautisten aikana. Säädä vain voimakkuus sen mukaan, miltä kehosi sinä päivänä tuntuu.',
+      },
+      {
+        question: '“Voinko mennä uimaan?”',
+        answer:
+          'Kyllä, voit edelleen uida sopivalla suojalla. Monet haluavat yksinkertaisesti odottaa, kunnes ajatus tuntuu mukavammalta.',
+      },
+    ],
+    tipTitle: 'Hyvä tietää',
+    tipText: 'Kiusallista kysymystä ei ole: jokainen keho on erilainen, ja voit aina puhua jollekulle, johon luotat.',
+    relatedTitle: '♥  Saatat pitää myös näistä',
+    related: [
+      {title: 'Ensimmäiset kuukautisesi: mitä odottaa', meta: '5 min  ·  Opas'},
+      {title: 'Minkä suojan valitsen ensimmäisiin kuukautisiini?', meta: '6 min  ·  Opas'},
+      {title: 'Kuukautiskivun hallinta', meta: '7 min  ·  Opas'},
+    ],
+    shareMessage: 'Usein kysytyt kysymykset ensimmäisistä kuukautisista — AWA',
+  },
+  el: {
+    badge: 'ΠΡΩΤΗ ΠΕΡΙΟΔΟΣ',
+    title: 'Συχνές ερωτήσεις\nγια την πρώτη σου περίοδο',
+    metaDuration: '4 λεπτά ανάγνωσης',
+    metaType: 'Συχνές ερωτήσεις',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Απλές απαντήσεις στις πιο συνηθισμένες ερωτήσεις για την πρώτη σου περίοδο.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    faq: [
+      {
+        question: '«Είναι φυσιολογικό να έχω πολύ λίγο αίμα;»',
+        answer:
+          'Ναι. Οι πολύ πρώτοι κύκλοι έχουν συχνά ελαφριά ροή. Η ροή μπορεί να διαφέρει από τον έναν κύκλο στον άλλο, ειδικά στην αρχή.',
+      },
+      {
+        question: '«Είναι φυσιολογικό να έχω πολύ αίμα;»',
+        answer:
+          'Μπορεί να συμβεί και πιο έντονη ροή, ειδικά τις δύο πρώτες ημέρες. Αν χρειάζεται να αλλάζεις την προστασία σου περισσότερες από μία φορά την ώρα για αρκετές συνεχόμενες ώρες, είναι καλή ιδέα να μιλήσεις γι’ αυτό με έναν επαγγελματία υγείας.',
+      },
+      {
+        question: '«Είναι φυσιολογικό να έχω κράμπες;»',
+        answer:
+          'Οι ήπιες κράμπες στην κάτω κοιλιά είναι συχνές και συνήθως δεν πρέπει να ανησυχείς. Ένα θερμοφόρο ή λίγη ξεκούραση μπορεί να βοηθήσει. Ένας πολύ έντονος πόνος αξίζει να αναφερθεί σε κάποιον.',
+      },
+      {
+        question: '«Μπορώ να αθλούμαι;»',
+        answer:
+          'Ναι, μπορείς να συνεχίσεις να αθλείσαι κατά την περίοδό σου. Απλώς προσάρμοσε την ένταση σε αυτό που νιώθει το σώμα σου εκείνη την ημέρα.',
+      },
+      {
+        question: '«Μπορώ να κολυμπήσω;»',
+        answer:
+          'Ναι, μπορείς να κολυμπήσεις με τη σωστή προστασία. Πολλές γυναίκες απλώς επιλέγουν να περιμένουν μέχρι να νιώσουν πιο άνετα με την ιδέα.',
+      },
+    ],
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText: 'Δεν υπάρχει ερώτηση που να ντρέπεσαι να κάνεις: κάθε σώμα είναι διαφορετικό και μπορείς πάντα να μιλήσεις με κάποιον που εμπιστεύεσαι.',
+    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    related: [
+      {title: 'Η πρώτη σου περίοδος: τι να περιμένεις', meta: '5 λεπτά  ·  Οδηγός'},
+      {title: 'Ποια προστασία να επιλέξω για την πρώτη μου περίοδο;', meta: '6 λεπτά  ·  Οδηγός'},
+      {title: 'Διαχείριση του πόνου της περιόδου', meta: '7 λεπτά  ·  Οδηγός'},
+    ],
+    shareMessage: 'Συχνές ερωτήσεις για την πρώτη σου περίοδο — AWA',
+  },
+  fil: {
+    badge: 'UNANG REGLA',
+    title: 'Mga madalas itanong\ntungkol sa iyong unang regla',
+    metaDuration: '4 min na babasahin',
+    metaType: 'FAQ',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Simpleng mga sagot sa pinakakaraniwang tanong tungkol sa iyong unang regla.',
+    contentsTitle: 'Sa artikulong ito',
+    faq: [
+      {
+        question: '“Normal ba na kaunti lang ang dugo?”',
+        answer:
+          'Oo. Madalas magaan ang daloy ng mga pinakaunang siklo. Maaaring mag-iba ang daloy sa bawat siklo, lalo na sa simula.',
+      },
+      {
+        question: '“Normal ba na marami ang dugo?”',
+        answer:
+          'Maaari ring mangyari ang mas malakas na daloy, lalo na sa unang dalawang araw. Kung kailangan mong magpalit ng proteksyon nang higit sa isang beses kada oras sa loob ng ilang oras na magkakasunod, mabuting pag-usapan ito sa propesyonal sa kalusugan.',
+      },
+      {
+        question: '“Normal ba na magkaroon ng pulikat?”',
+        answer:
+          'Karaniwan ang banayad na pulikat sa ibabang tiyan at kadalasang walang dapat ikabahala. Makakatulong ang hot water bottle o kaunting pahinga. Karapat-dapat banggitin sa isang tao ang napakatinding sakit.',
+      },
+      {
+        question: '“Puwede ba akong maglaro ng isport?”',
+        answer:
+          'Oo, maaari ka pa ring maglaro ng isport habang may regla. Iayos lamang ang tindi ayon sa pakiramdam ng iyong katawan sa araw na iyon.',
+      },
+      {
+        question: '“Puwede ba akong lumangoy?”',
+        answer:
+          'Oo, maaari ka pa ring lumangoy gamit ang tamang proteksyon. Maraming babae ang pinipiling maghintay hanggang mas komportable na sila sa ideya.',
+      },
+    ],
+    tipTitle: 'Mabuting malaman',
+    tipText: 'Walang katanungang nakakahiya: magkakaiba ang bawat katawan, at maaari kang palaging makipag-usap sa taong pinagkakatiwalaan mo.',
+    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    related: [
+      {title: 'Ang iyong unang regla: ano ang aasahan', meta: '5 min  ·  Gabay'},
+      {title: 'Anong proteksyon ang pipiliin ko para sa unang regla?', meta: '6 min  ·  Gabay'},
+      {title: 'Pangangasiwa sa sakit ng regla', meta: '7 min  ·  Gabay'},
+    ],
+    shareMessage: 'Mga madalas itanong tungkol sa iyong unang regla — AWA',
+  },
+  ta: {
+    badge: 'முதல் மாதவிடாய்',
+    title: 'உங்கள் முதல் மாதவிடாய் பற்றி\nஅடிக்கடி கேட்கப்படும் கேள்விகள்',
+    metaDuration: '4 நிமிடம் படிக்க',
+    metaType: 'கேள்வி-பதில்',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'உங்கள் முதல் மாதவிடாய் பற்றிய மிகப் பொதுவான கேள்விகளுக்கான எளிய பதில்கள்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    faq: [
+      {
+        question: '“மிகக் குறைவான இரத்தம் இருப்பது இயல்பா?”',
+        answer:
+          'ஆம். மிக முதல் சுழற்சிகளில் பெரும்பாலும் குறைவான ஓட்டம் இருக்கும். ஓட்டம் ஒரு சுழற்சியிலிருந்து அடுத்ததுக்கு மாறுபடலாம், குறிப்பாகத் தொடக்கத்தில்.',
+      },
+      {
+        question: '“அதிக இரத்தம் இருப்பது இயல்பா?”',
+        answer:
+          'அதிக ஓட்டமும் ஏற்படலாம், குறிப்பாக முதல் இரண்டு நாட்களில். பல மணிநேரம் தொடர்ந்து ஒரு மணிநேரத்துக்கு ஒன்றுக்கு மேற்பட்ட முறை உங்கள் பாதுகாப்பை மாற்ற வேண்டியிருந்தால், ஒரு சுகாதார நிபுணரிடம் அதைப் பற்றிப் பேசுவது நல்லது.',
+      },
+      {
+        question: '“வயிற்றுப் பிடிப்புகள் இருப்பது இயல்பா?”',
+        answer:
+          'அடிவயிற்றில் லேசான பிடிப்புகள் பொதுவானவை, பொதுவாகக் கவலைப்பட வேண்டியதில்லை. ஒரு சுடுநீர்ப் பையோ சிறிது ஓய்வோ உதவலாம். மிகத் தீவிரமான வலியை யாரிடமாவது குறிப்பிடுவது நல்லது.',
+      },
+      {
+        question: '“நான் விளையாட்டு விளையாடலாமா?”',
+        answer:
+          'ஆம், மாதவிடாயின்போதும் நீங்கள் விளையாட்டு விளையாடலாம். அன்றைய நாளில் உங்கள் உடல் எப்படி உணர்கிறது என்பதற்கேற்ப தீவிரத்தை மட்டும் சரிசெய்யுங்கள்.',
+      },
+      {
+        question: '“நான் நீந்தலாமா?”',
+        answer:
+          'ஆம், சரியான பாதுகாப்புடன் நீங்கள் இன்னும் நீந்தலாம். பலர் அந்த யோசனையில் அதிக வசதியாக உணரும் வரை காத்திருக்கத் தேர்ந்தெடுக்கிறார்கள்.',
+      },
+    ],
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText: 'சங்கடமான கேள்வி என்று எதுவும் இல்லை: ஒவ்வொரு உடலும் வேறுபட்டது, நீங்கள் எப்போதும் நீங்கள் நம்பும் ஒருவரிடம் பேசலாம்.',
+    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    related: [
+      {title: 'உங்கள் முதல் மாதவிடாய்: என்ன எதிர்பார்ப்பது', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
+      {title: 'என் முதல் மாதவிடாய்க்கு எந்தப் பாதுகாப்பைத் தேர்ந்தெடுப்பது?', meta: '6 நிமிடம்  ·  வழிகாட்டி'},
+      {title: 'மாதவிடாய் வலியைக் கையாளுதல்', meta: '7 நிமிடம்  ·  வழிகாட்டி'},
+    ],
+    shareMessage: 'உங்கள் முதல் மாதவிடாய் பற்றி அடிக்கடி கேட்கப்படும் கேள்விகள் — AWA',
+  },
+  te: {
+    badge: 'మొదటి నెలసరి',
+    title: 'మీ మొదటి నెలసరి గురించి\nతరచుగా అడిగే ప్రశ్నలు',
+    metaDuration: '4 నిమిషాల పఠనం',
+    metaType: 'తరచుగా అడిగే ప్రశ్నలు',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'మీ మొదటి నెలసరి గురించి అత్యంత సాధారణ ప్రశ్నలకు సరళమైన సమాధానాలు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    faq: [
+      {
+        question: '“చాలా తక్కువ రక్తం రావడం సహజమేనా?”',
+        answer:
+          'అవును. మొదటి చక్రాలు తరచుగా తేలికపాటి రక్తస్రావం కలిగి ఉంటాయి. రక్తస్రావం ఒక చక్రం నుండి మరొక చక్రానికి మారవచ్చు, ముఖ్యంగా ఆరంభంలో.',
+      },
+      {
+        question: '“చాలా ఎక్కువ రక్తం రావడం సహజమేనా?”',
+        answer:
+          'ఎక్కువ రక్తస్రావం కూడా జరగవచ్చు, ముఖ్యంగా మొదటి రెండు రోజుల్లో. మీరు వరుసగా అనేక గంటలు గంటకు ఒకసారి కంటే ఎక్కువగా మీ రక్షణను మార్చాల్సి వస్తే, దాని గురించి ఒక ఆరోగ్య నిపుణుడితో మాట్లాడటం మంచిది.',
+      },
+      {
+        question: '“పొత్తికడుపు పట్టేయడం సహజమేనా?”',
+        answer:
+          'కింది పొట్టలో తేలికపాటి పట్టేయడం సాధారణం, సాధారణంగా ఆందోళన చెందాల్సిన విషయం కాదు. ఒక వెచ్చని నీటి సీసా లేదా కొంచెం విశ్రాంతి సహాయపడగలదు. చాలా తీవ్రమైన నొప్పిని ఎవరికైనా చెప్పడం విలువైనది.',
+      },
+      {
+        question: '“నేను క్రీడలు ఆడవచ్చా?”',
+        answer:
+          'అవును, నెలసరిలో కూడా మీరు క్రీడలు ఆడవచ్చు. ఆ రోజు మీ శరీరం ఎలా అనిపిస్తుందో దానికి తగ్గట్టుగా తీవ్రతను సర్దుబాటు చేసుకోండి.',
+      },
+      {
+        question: '“నేను ఈతకు వెళ్లవచ్చా?”',
+        answer:
+          'అవును, సరైన రక్షణతో మీరు ఇంకా ఈతకు వెళ్లవచ్చు. చాలామంది ఆ ఆలోచనతో మరింత సౌకర్యంగా అనిపించే వరకు వేచి ఉండటాన్ని ఎంచుకుంటారు.',
+      },
+    ],
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText: 'ఇబ్బందికరమైన ప్రశ్న అంటూ ఏదీ లేదు: ప్రతి శరీరం భిన్నమైనది, మీరు ఎల్లప్పుడూ మీరు నమ్మే వ్యక్తితో మాట్లాడవచ్చు.',
+    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    related: [
+      {title: 'మీ మొదటి నెలసరి: ఏమి ఆశించాలి', meta: '5 ని  ·  గైడ్'},
+      {title: 'నా మొదటి నెలసరికి ఏ రక్షణను ఎంచుకోవాలి?', meta: '6 ని  ·  గైడ్'},
+      {title: 'నెలసరి నొప్పిని నిర్వహించడం', meta: '7 ని  ·  గైడ్'},
+    ],
+    shareMessage: 'మీ మొదటి నెలసరి గురించి తరచుగా అడిగే ప్రశ్నలు — AWA',
+  },
+  mr: {
+    badge: 'पहिली पाळी',
+    title: 'तुमच्या पहिल्या पाळीबद्दल\nवारंवार विचारले जाणारे प्रश्न',
+    metaDuration: '4 मिनिटे वाचन',
+    metaType: 'वारंवार विचारले जाणारे प्रश्न',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'तुमच्या पहिल्या पाळीबद्दलच्या सर्वात सामान्य प्रश्नांची सोपी उत्तरे.',
+    contentsTitle: 'या लेखात',
+    faq: [
+      {
+        question: '“खूप कमी रक्त येणे सामान्य आहे का?”',
+        answer:
+          'होय. अगदी पहिल्या पाळ्यांमध्ये बहुतेकदा स्राव हलका असतो. स्राव एका पाळीपासून दुसऱ्या पाळीपर्यंत बदलू शकतो, विशेषतः सुरुवातीला.',
+      },
+      {
+        question: '“खूप रक्त येणे सामान्य आहे का?”',
+        answer:
+          'जास्त स्रावही होऊ शकतो, विशेषतः पहिल्या दोन दिवसांत. सलग अनेक तास तुम्हाला तासाला एकापेक्षा जास्त वेळा तुमचे संरक्षण बदलावे लागत असेल, तर आरोग्य व्यावसायिकाशी त्याबद्दल बोलणे चांगले.',
+      },
+      {
+        question: '“पोटात पेटके येणे सामान्य आहे का?”',
+        answer:
+          'पोटाच्या खालच्या भागात सौम्य पेटके सामान्य आहेत आणि सहसा काळजी करण्यासारखे काही नसते. गरम पाण्याची पिशवी किंवा थोडी विश्रांती मदत करू शकते. खूप तीव्र वेदना कोणाला तरी सांगण्यासारख्या आहेत.',
+      },
+      {
+        question: '“मी खेळ खेळू शकते का?”',
+        answer:
+          'होय, तुम्ही पाळीतही खेळ खेळू शकता. फक्त त्या दिवशी तुमचे शरीर कसे वाटते त्यानुसार तीव्रता जुळवा.',
+      },
+      {
+        question: '“मी पोहायला जाऊ शकते का?”',
+        answer:
+          'होय, योग्य संरक्षणासह तुम्ही पोहायला जाऊ शकता. अनेकजणी फक्त या कल्पनेशी सहज वाटेपर्यंत थांबणे पसंत करतात.',
+      },
+    ],
+    tipTitle: 'हे जाणून घ्या',
+    tipText: 'लाजिरवाणा प्रश्न असा काही नसतो: प्रत्येक शरीर वेगळे असते आणि तुम्ही तुमचा विश्वास असलेल्या व्यक्तीशी नेहमी बोलू शकता.',
+    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    related: [
+      {title: 'तुमची पहिली पाळी: काय अपेक्षित आहे', meta: '5 मिनिटे  ·  मार्गदर्शक'},
+      {title: 'माझ्या पहिल्या पाळीसाठी मी कोणते संरक्षण निवडावे?', meta: '6 मिनिटे  ·  मार्गदर्शक'},
+      {title: 'पाळीतील वेदना सांभाळणे', meta: '7 मिनिटे  ·  मार्गदर्शक'},
+    ],
+    shareMessage: 'तुमच्या पहिल्या पाळीबद्दल वारंवार विचारले जाणारे प्रश्न — AWA',
+  },
+  gu: {
+    badge: 'પ્રથમ માસિક',
+    title: 'તમારા પ્રથમ માસિક વિશે\nવારંવાર પૂછાતા પ્રશ્નો',
+    metaDuration: '4 મિનિટ વાંચન',
+    metaType: 'FAQ',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'તમારા પ્રથમ માસિક વિશેના સૌથી સામાન્ય પ્રશ્નોના સરળ જવાબો.',
+    contentsTitle: 'આ લેખમાં',
+    faq: [
+      {
+        question: '“ખૂબ ઓછું લોહી આવવું શું સામાન્ય છે?”',
+        answer:
+          'હા. સાવ પ્રથમ ચક્રોમાં ઘણી વાર સ્રાવ હળવો હોય છે. સ્રાવ એક ચક્રથી બીજા ચક્રમાં બદલાઈ શકે છે, ખાસ કરીને શરૂઆતમાં.',
+      },
+      {
+        question: '“ખૂબ વધારે લોહી આવવું શું સામાન્ય છે?”',
+        answer:
+          'વધુ સ્રાવ પણ થઈ શકે છે, ખાસ કરીને પ્રથમ બે દિવસમાં. જો તમારે સતત ઘણા કલાકો સુધી કલાકમાં એક કરતાં વધુ વાર સંરક્ષણ બદલવું પડે, તો આરોગ્ય વ્યાવસાયિક સાથે તેના વિશે વાત કરવી સારી છે.',
+      },
+      {
+        question: '“ખેંચાણ થવું શું સામાન્ય છે?”',
+        answer:
+          'નીચલા પેટમાં હળવું ખેંચાણ સામાન્ય છે અને સામાન્ય રીતે ચિંતા કરવા જેવું નથી. ગરમ પાણીની બોટલ કે થોડો આરામ મદદ કરી શકે છે. ખૂબ તીવ્ર દુખાવા વિશે કોઈને જણાવવું યોગ્ય છે.',
+      },
+      {
+        question: '“શું હું રમતગમત કરી શકું?”',
+        answer:
+          'હા, માસિક દરમિયાન પણ તમે રમતગમત કરી શકો છો. ફક્ત તે દિવસે તમારું શરીર કેવું અનુભવે છે તે પ્રમાણે તીવ્રતા ગોઠવો.',
+      },
+      {
+        question: '“શું હું તરવા જઈ શકું?”',
+        answer:
+          'હા, યોગ્ય સંરક્ષણ સાથે તમે તરવા જઈ શકો છો. ઘણા લોકો આ વિચાર સાથે વધુ સહજ થાય ત્યાં સુધી રાહ જોવાનું પસંદ કરે છે.',
+      },
+    ],
+    tipTitle: 'જાણવા જેવું',
+    tipText: 'શરમજનક પ્રશ્ન જેવું કંઈ હોતું નથી: દરેક શરીર અલગ હોય છે, અને તમે હંમેશાં તમારા વિશ્વાસુ કોઈ વ્યક્તિ સાથે વાત કરી શકો છો.',
+    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    related: [
+      {title: 'તમારું પ્રથમ માસિક: શું અપેક્ષા રાખવી', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
+      {title: 'મારા પ્રથમ માસિક માટે મારે કયું સંરક્ષણ પસંદ કરવું?', meta: '6 મિનિટ  ·  માર્ગદર્શિકા'},
+      {title: 'માસિકના દુખાવાને સંભાળવો', meta: '7 મિનિટ  ·  માર્ગદર્શિકા'},
+    ],
+    shareMessage: 'તમારા પ્રથમ માસિક વિશે વારંવાર પૂછાતા પ્રશ્નો — AWA',
+  },
+  pa: {
+    badge: 'ਪਹਿਲੀ ਮਾਹਵਾਰੀ',
+    title: 'ਆਪਣੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਬਾਰੇ\nਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ',
+    metaDuration: '4 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਬਾਰੇ ਸਭ ਤੋਂ ਆਮ ਸਵਾਲਾਂ ਦੇ ਸੌਖੇ ਜਵਾਬ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    faq: [
+      {
+        question: '“ਕੀ ਬਹੁਤ ਘੱਟ ਖ਼ੂਨ ਆਉਣਾ ਆਮ ਹੈ?”',
+        answer:
+          'ਹਾਂ। ਬਿਲਕੁਲ ਪਹਿਲੇ ਚੱਕਰਾਂ ਵਿੱਚ ਅਕਸਰ ਵਹਾਅ ਹਲਕਾ ਹੁੰਦਾ ਹੈ। ਵਹਾਅ ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਚੱਕਰ ਵਿੱਚ ਬਦਲ ਸਕਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਸ਼ੁਰੂ ਵਿੱਚ।',
+      },
+      {
+        question: '“ਕੀ ਬਹੁਤ ਜ਼ਿਆਦਾ ਖ਼ੂਨ ਆਉਣਾ ਆਮ ਹੈ?”',
+        answer:
+          'ਵੱਧ ਵਹਾਅ ਵੀ ਹੋ ਸਕਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਪਹਿਲੇ ਦੋ ਦਿਨਾਂ ਵਿੱਚ। ਜੇ ਤੁਹਾਨੂੰ ਲਗਾਤਾਰ ਕਈ ਘੰਟੇ ਹਰ ਘੰਟੇ ਵਿੱਚ ਇੱਕ ਤੋਂ ਵੱਧ ਵਾਰ ਆਪਣਾ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਬਦਲਣਾ ਪਵੇ, ਤਾਂ ਇਸ ਬਾਰੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨਾ ਚੰਗਾ ਹੈ।',
+      },
+      {
+        question: '“ਕੀ ਮਰੋੜ ਪੈਣਾ ਆਮ ਹੈ?”',
+        answer:
+          'ਹੇਠਲੇ ਪੇਟ ਵਿੱਚ ਹਲਕੇ ਮਰੋੜ ਆਮ ਹਨ ਅਤੇ ਆਮ ਤੌਰ \'ਤੇ ਚਿੰਤਾ ਦੀ ਗੱਲ ਨਹੀਂ ਹੁੰਦੇ। ਗਰਮ ਪਾਣੀ ਦੀ ਬੋਤਲ ਜਾਂ ਥੋੜ੍ਹਾ ਆਰਾਮ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ। ਬਹੁਤ ਤੇਜ਼ ਦਰਦ ਬਾਰੇ ਕਿਸੇ ਨੂੰ ਦੱਸਣਾ ਚਾਹੀਦਾ ਹੈ।',
+      },
+      {
+        question: '“ਕੀ ਮੈਂ ਖੇਡਾਂ ਖੇਡ ਸਕਦੀ ਹਾਂ?”',
+        answer:
+          'ਹਾਂ, ਮਾਹਵਾਰੀ ਦੌਰਾਨ ਵੀ ਤੁਸੀਂ ਖੇਡਾਂ ਖੇਡ ਸਕਦੇ ਹੋ। ਬਸ ਉਸ ਦਿਨ ਆਪਣੇ ਸਰੀਰ ਦੀ ਹਾਲਤ ਅਨੁਸਾਰ ਜ਼ੋਰ ਘੱਟ-ਵੱਧ ਕਰ ਲਓ।',
+      },
+      {
+        question: '“ਕੀ ਮੈਂ ਤੈਰਾਕੀ ਕਰ ਸਕਦੀ ਹਾਂ?”',
+        answer:
+          'ਹਾਂ, ਸਹੀ ਬਚਾਅ ਵਾਲੇ ਸਾਮਾਨ ਨਾਲ ਤੁਸੀਂ ਤੈਰਾਕੀ ਵੀ ਕਰ ਸਕਦੇ ਹੋ। ਬਹੁਤ ਸਾਰੇ ਲੋਕ ਬਸ ਉਦੋਂ ਤੱਕ ਉਡੀਕ ਕਰਨਾ ਚੁਣਦੇ ਹਨ ਜਦੋਂ ਤੱਕ ਉਹ ਇਸ ਵਿਚਾਰ ਨਾਲ ਸਹਿਜ ਨਾ ਹੋ ਜਾਣ।',
+      },
+    ],
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText: 'ਸ਼ਰਮਿੰਦਗੀ ਵਾਲਾ ਸਵਾਲ ਕੋਈ ਨਹੀਂ ਹੁੰਦਾ: ਹਰ ਸਰੀਰ ਵੱਖਰਾ ਹੈ, ਅਤੇ ਤੁਸੀਂ ਹਮੇਸ਼ਾ ਕਿਸੇ ਭਰੋਸੇਯੋਗ ਵਿਅਕਤੀ ਨਾਲ ਗੱਲ ਕਰ ਸਕਦੇ ਹੋ।',
+    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    related: [
+      {title: 'ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ: ਕੀ ਉਮੀਦ ਰੱਖੀਏ', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
+      {title: 'ਮੈਨੂੰ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਲਈ ਕਿਹੜਾ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ?', meta: '6 ਮਿੰਟ  ·  ਗਾਈਡ'},
+      {title: 'ਮਾਹਵਾਰੀ ਦੇ ਦਰਦ ਨੂੰ ਸੰਭਾਲਣਾ', meta: '7 ਮਿੰਟ  ·  ਗਾਈਡ'},
+    ],
+    shareMessage: 'ਆਪਣੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਬਾਰੇ ਅਕਸਰ ਪੁੱਛੇ ਜਾਂਦੇ ਸਵਾਲ — AWA',
+  },
+  my: {
+    badge: 'ပထမဆုံးရာသီ',
+    title: 'သင့်ပထမဆုံးရာသီနှင့်ပတ်သက်သော\nမကြာခဏမေးလေ့ရှိသော မေးခွန်းများ',
+    metaDuration: 'ဖတ်ချိန် 4 မိနစ်',
+    metaType: 'မကြာခဏမေးလေ့ရှိသော မေးခွန်းများ',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'သင့်ပထမဆုံးရာသီနှင့်ပတ်သက်၍ အများဆုံးမေးလေ့ရှိသော မေးခွန်းများအတွက် ရိုးရှင်းသောအဖြေများ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    faq: [
+      {
+        question: '“သွေးအလွန်နည်းနည်းသာ ထွက်ခြင်းသည် ပုံမှန်ဖြစ်ပါသလား။”',
+        answer:
+          'ဟုတ်ပါသည်။ အလွန်ပထမဆုံး ရာသီစက်ဝန်းများတွင် သွေးထွက်ပမာဏ အနည်းငယ်သာ ရှိလေ့ရှိသည်။ သွေးထွက်ပမာဏသည် ရာသီစက်ဝန်းတစ်ခုမှ တစ်ခုသို့ ကွဲပြားနိုင်သည်၊ အထူးသဖြင့် အစပိုင်းတွင် ဖြစ်သည်။',
+      },
+      {
+        question: '“သွေးအများကြီးထွက်ခြင်းသည် ပုံမှန်ဖြစ်ပါသလား။”',
+        answer:
+          'သွေးထွက်ပမာဏ ပိုများခြင်းလည်း ဖြစ်နိုင်သည်၊ အထူးသဖြင့် ပထမနှစ်ရက်အတွင်း ဖြစ်သည်။ ဆက်တိုက်နာရီအတော်ကြာ တစ်နာရီလျှင် တစ်ကြိမ်ထက်ပို၍ ကာကွယ်ရေးပစ္စည်းကို လဲရန်လိုလျှင် ကျန်းမာရေးပညာရှင်တစ်ဦးနှင့် ပြောဆိုခြင်းသည် ကောင်းမွန်သည်။',
+      },
+      {
+        question: '“ဝမ်းဗိုက်နာခြင်း (ကြွက်သားတက်ခြင်း) သည် ပုံမှန်ဖြစ်ပါသလား။”',
+        answer:
+          'အောက်ပိုင်းဝမ်းဗိုက်တွင် အနည်းငယ်နာခြင်းသည် အဖြစ်များပြီး များသောအားဖြင့် စိုးရိမ်စရာမရှိပါ။ ရေနွေးအိတ် သို့မဟုတ် အနားယူခြင်းက ကူညီနိုင်သည်။ အလွန်ပြင်းထန်သော နာကျင်မှုကို တစ်စုံတစ်ဦးအား ပြောပြသင့်သည်။',
+      },
+      {
+        question: '“အားကစားလုပ်နိုင်ပါသလား။”',
+        answer:
+          'ဟုတ်ပါသည်၊ ရာသီလာစဉ်တွင်လည်း အားကစားဆက်လုပ်နိုင်သည်။ ထိုနေ့တွင် သင့်ခန္ဓာကိုယ်ခံစားရသည့်အတိုင်း ပြင်းအားကိုသာ ညှိပါ။',
+      },
+      {
+        question: '“ရေကူးနိုင်ပါသလား။”',
+        answer:
+          'ဟုတ်ပါသည်၊ သင့်လျော်သော ကာကွယ်ရေးပစ္စည်းဖြင့် ရေကူးနိုင်သည်။ လူအများအပြားသည် အကြံကို ပိုမိုသက်တောင့်သက်သာ ခံစားရသည်အထိ စောင့်ဆိုင်းရန် ရွေးချယ်ကြသည်။',
+      },
+    ],
+    tipTitle: 'သိထားသင့်သည်',
+    tipText: 'ရှက်စရာမေးခွန်းဟူ၍ မရှိပါ - ခန္ဓာကိုယ်တိုင်း မတူညီပြီး သင်ယုံကြည်ရသူနှင့် အမြဲပြောဆိုနိုင်သည်။',
+    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    related: [
+      {title: 'သင့်ပထမဆုံးရာသီ၊ ဘာတွေမျှော်လင့်ရမလဲ', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
+      {title: 'ပထမဆုံးရာသီအတွက် မည်သည့်ကာကွယ်ရေးပစ္စည်းကို ရွေးသင့်သနည်း။', meta: '6 မိနစ်  ·  လမ်းညွှန်'},
+      {title: 'ရာသီလာချိန် ဝမ်းဗိုက်နာခြင်းကို စီမံခြင်း', meta: '7 မိနစ်  ·  လမ်းညွှန်'},
+    ],
+    shareMessage: 'သင့်ပထမဆုံးရာသီနှင့်ပတ်သက်သော မကြာခဏမေးလေ့ရှိသော မေးခွန်းများ — AWA',
+  },
+  km: {
+    badge: 'រដូវដំបូង',
+    title: 'សំណួរដែលសួរញឹកញាប់\nអំពីរដូវដំបូងរបស់អ្នក',
+    metaDuration: 'អាន 4 នាទី',
+    metaType: 'សំណួរដែលសួរញឹកញាប់',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'ចម្លើយសាមញ្ញចំពោះសំណួរទូទៅបំផុតអំពីរដូវដំបូងរបស់អ្នក។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    faq: [
+      {
+        question: '“តើវាធម្មតាទេដែលមានឈាមតិចណាស់?”',
+        answer:
+          'បាទ/ចាស។ វដ្តរដូវដំបូងបំផុតជាញឹកញាប់មានបរិមាណឈាមរដូវតិច។ បរិមាណឈាមរដូវអាចប្រែប្រួលពីវដ្តមួយទៅវដ្តមួយ ជាពិសេសនៅពេលចាប់ផ្តើម។',
+      },
+      {
+        question: '“តើវាធម្មតាទេដែលមានឈាមច្រើន?”',
+        answer:
+          'បរិមាណឈាមរដូវច្រើនជាងមុនក៏អាចកើតឡើងដែរ ជាពិសេសក្នុងរយៈពេលពីរថ្ងៃដំបូង។ ប្រសិនបើអ្នកត្រូវផ្លាស់ប្តូរសម្ភារៈការពារច្រើនជាងមួយដងក្នុងមួយម៉ោង ជាច្រើនម៉ោងជាប់គ្នា វាជាការល្អដែលនិយាយជាមួយអ្នកជំនាញសុខាភិបាលអំពីរឿងនេះ។',
+      },
+      {
+        question: '“តើវាធម្មតាទេដែលមានការចុកពោះ?”',
+        answer:
+          'ការចុកពោះស្រាលៗនៅផ្នែកក្រោមពោះគឺជារឿងទូទៅ ហើយជាធម្មតាមិនមានអ្វីគួរព្រួយបារម្ភទេ។ ដបទឹកក្តៅ ឬការសម្រាកបន្តិចអាចជួយបាន។ ការឈឺចាប់ខ្លាំងណាស់គួរតែប្រាប់អ្នកណាម្នាក់។',
+      },
+      {
+        question: '“តើខ្ញុំអាចលេងកីឡាបានទេ?”',
+        answer:
+          'បាទ/ចាស អ្នកនៅតែអាចលេងកីឡាក្នុងអំឡុងពេលរដូវបាន។ គ្រាន់តែកែសម្រួលកម្រិតខ្លាំងតាមអារម្មណ៍នៃរាងកាយរបស់អ្នកក្នុងថ្ងៃនោះ។',
+      },
+      {
+        question: '“តើខ្ញុំអាចទៅហែលទឹកបានទេ?”',
+        answer:
+          'បាទ/ចាស អ្នកនៅតែអាចទៅហែលទឹកបានដោយមានសម្ភារៈការពារត្រឹមត្រូវ។ មនុស្សជាច្រើនគ្រាន់តែជ្រើសរើសរង់ចាំរហូតដល់ពួកគេមានអារម្មណ៍ស្រួលចិត្តជាមួយគំនិតនេះ។',
+      },
+    ],
+    tipTitle: 'គួរដឹង',
+    tipText: 'គ្មានសំណួរណាដែលគួរឱ្យអៀនខ្មាសនោះទេ៖ រាងកាយមនុស្សម្នាក់ៗខុសគ្នា ហើយអ្នកអាចនិយាយជាមួយអ្នកដែលអ្នកទុកចិត្តបានជានិច្ច។',
+    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    related: [
+      {title: 'រដូវដំបូងរបស់អ្នក៖ អ្វីដែលត្រូវរំពឹងទុក', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
+      {title: 'តើខ្ញុំគួរជ្រើសរើសសម្ភារៈការពារអ្វីសម្រាប់រដូវដំបូងរបស់ខ្ញុំ?', meta: '6 នាទី  ·  មគ្គុទ្ទេសក៍'},
+      {title: 'ការគ្រប់គ្រងការឈឺពោះរដូវ', meta: '7 នាទី  ·  មគ្គុទ្ទេសក៍'},
+    ],
+    shareMessage: 'សំណួរដែលសួរញឹកញាប់អំពីរដូវដំបូងរបស់អ្នក — AWA',
+  },
+  lo: {
+    badge: 'ປະຈຳເດືອນຄັ້ງທຳອິດ',
+    title: 'ຄຳຖາມທີ່ພົບເລື້ອຍ\nກ່ຽວກັບປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ',
+    metaDuration: 'ອ່ານ 4 ນາທີ',
+    metaType: 'ຄຳຖາມທີ່ພົບເລື້ອຍ',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ຄຳຕອບງ່າຍໆສຳລັບຄຳຖາມທີ່ພົບເລື້ອຍທີ່ສຸດກ່ຽວກັບປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    faq: [
+      {
+        question: '“ເປັນເລື່ອງປົກກະຕິບໍທີ່ມີເລືອດອອກໜ້ອຍຫຼາຍ?”',
+        answer:
+          'ແມ່ນ. ຮອບເດືອນຮອບທຳອິດໆ ມັກມີປະລິມານເລືອດປະຈຳເດືອນເບົາ. ປະລິມານເລືອດປະຈຳເດືອນອາດປ່ຽນແປງຈາກຮອບໜຶ່ງໄປອີກຮອບໜຶ່ງ ໂດຍສະເພາະໃນຕອນເລີ່ມຕົ້ນ.',
+      },
+      {
+        question: '“ເປັນເລື່ອງປົກກະຕິບໍທີ່ມີເລືອດອອກຫຼາຍ?”',
+        answer:
+          'ປະລິມານເລືອດປະຈຳເດືອນທີ່ຫຼາຍກວ່າກໍອາດເກີດຂຶ້ນໄດ້ ໂດຍສະເພາະໃນສອງມື້ທຳອິດ. ຖ້າທ່ານຕ້ອງປ່ຽນຜ້າອະນາໄມຫຼາຍກວ່າໜຶ່ງຄັ້ງຕໍ່ຊົ່ວໂມງຕິດຕໍ່ກັນຫຼາຍຊົ່ວໂມງ ຄວນລົມກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບກ່ຽວກັບເລື່ອງນີ້.',
+      },
+      {
+        question: '“ເປັນເລື່ອງປົກກະຕິບໍທີ່ມີອາການເຈັບທ້ອງ?”',
+        answer:
+          'ອາການເຈັບທ້ອງນ້ອຍເບົາໆເປັນເລື່ອງທົ່ວໄປ ແລະ ມັກບໍ່ຕ້ອງກັງວົນ. ຖົງນ້ຳຮ້ອນ ຫຼື ການພັກຜ່ອນເລັກນ້ອຍອາດຊ່ວຍໄດ້. ຖ້າເຈັບຮຸນແຮງຫຼາຍ ຄວນບອກໃຫ້ຜູ້ໃດຜູ້ໜຶ່ງຮູ້.',
+      },
+      {
+        question: '“ຂ້ອຍຫຼິ້ນກີລາໄດ້ບໍ?”',
+        answer:
+          'ໄດ້ ທ່ານຍັງຫຼິ້ນກີລາໄດ້ໃນລະຫວ່າງມີປະຈຳເດືອນ. ພຽງແຕ່ປັບຄວາມແຮງໃຫ້ເຂົ້າກັບຄວາມຮູ້ສຶກຂອງຮ່າງກາຍໃນມື້ນັ້ນ.',
+      },
+      {
+        question: '“ຂ້ອຍລອຍນ້ຳໄດ້ບໍ?”',
+        answer:
+          'ໄດ້ ທ່ານຍັງລອຍນ້ຳໄດ້ດ້ວຍການປ້ອງກັນທີ່ເໝາະສົມ. ຫຼາຍຄົນພຽງແຕ່ເລືອກລໍຖ້າຈົນກວ່າຈະຮູ້ສຶກສະບາຍໃຈກັບແນວຄິດນີ້ຫຼາຍຂຶ້ນ.',
+      },
+    ],
+    tipTitle: 'ຄວນຮູ້',
+    tipText: 'ບໍ່ມີຄຳຖາມທີ່ໜ້າອາຍ: ທຸກຮ່າງກາຍແຕກຕ່າງກັນ ແລະ ທ່ານສາມາດລົມກັບຄົນທີ່ທ່ານໄວ້ວາງໃຈໄດ້ສະເໝີ.',
+    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    related: [
+      {title: 'ປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ: ສິ່ງທີ່ຄວນຄາດຫວັງ', meta: '5 ນາທີ  ·  ຄູ່ມື'},
+      {title: 'ຄວນເລືອກຜ້າອະນາໄມແບບໃດສຳລັບປະຈຳເດືອນຄັ້ງທຳອິດ?', meta: '6 ນາທີ  ·  ຄູ່ມື'},
+      {title: 'ການຈັດການອາການເຈັບທ້ອງປະຈຳເດືອນ', meta: '7 ນາທີ  ·  ຄູ່ມື'},
+    ],
+    shareMessage: 'ຄຳຖາມທີ່ພົບເລື້ອຍກ່ຽວກັບປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

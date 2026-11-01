@@ -2497,6 +2497,1127 @@ const CONTENT = withBrazilianPortuguese('Patch', {
     ],
     shareMessage: 'Göwrelilikden goraýjy plastyr — AWA',
   },
+  ms: {
+    badge: 'TAMPALAN KONTRASEPTIF',
+    title: 'Tampalan\nkontraseptif',
+    metaDuration: '5 min bacaan',
+    metaType: 'Artikel',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Alternatif mingguan kepada pil harian.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Bagaimana tampalan berfungsi',
+      'Jadual pelekatan',
+      'Apa yang perlu anda ketahui',
+      'Perkara penting untuk diingat',
+    ],
+    section1Body:
+      'Tampalan melepaskan hormon secara berterusan melalui kulit, berfungsi dengan cara yang setanding dengan pil kombinasi: ia mencegah ovulasi dan memekatkan lendir serviks.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Kelebihan utamanya ialah ia tidak memerlukan dos harian.',
+    section2Body:
+      'Tampalan biasanya ditukar sekali seminggu selama tiga minggu, diikuti seminggu tanpa tampalan.',
+    applicationTips: [
+      'Tukar tempat pelekatan setiap kali',
+      'Semak bahawa ia masih melekat dengan kukuh',
+      'Lekatkan pada kulit yang bersih dan kering',
+    ],
+    sectionIntro:
+      'Perkara utama yang perlu diketahui sebelum dan semasa penggunaan.',
+    facts: [
+      {title: 'Setiap minggu', text: 'Tampalan diganti sekali seminggu.'},
+      {title: 'Kulit kering', text: 'Ia mesti dilekatkan pada kulit yang bersih dan kering.'},
+      {title: 'Perlindungan', text: 'Ia berfungsi secara berterusan apabila digunakan dengan betul.'},
+      {title: 'Perhatikan', text: 'Kerengsaan setempat kadangkala boleh berlaku.'},
+    ],
+    comparisonTitle: 'Kelebihan & batasan',
+    advantageTitle: 'Kelebihan',
+    advantages: [
+      '• Satu pelekatan seminggu',
+      '• Tiada dos harian',
+      '• Pelepasan hormon yang berterusan',
+    ],
+    limitTitle: 'Batasan',
+    limits: [
+      'Tidak melindungi daripada STI',
+      'Mungkin menyebabkan kerengsaan kulit',
+      'Memerlukan pematuhan jadual penggantian',
+    ],
+    alertTitle: 'Sila ambil perhatian',
+    alertText:
+      'Sedikit kerengsaan mungkin muncul pada tempat pelekatan. Bertukar-tukar tempat pelekatan boleh membantu mengehadkannya.',
+    rememberTitle: '3 perkara penting',
+    remember: [
+      'Tukar tampalan setiap minggu.',
+      'Semak secara tetap bahawa ia melekat dengan baik.',
+      'Mintalah nasihat pengamal penjagaan kesihatan jika perlu.',
+    ],
+    shareMessage: 'Tampalan kontraseptif — AWA',
+  },
+  so: {
+    badge: 'TAMPALKA KA HORTAGGA UURKA',
+    title: 'Tampalka\nka hortagga uurka',
+    metaDuration: '5 daq akhris',
+    metaType: 'Maqaal',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Beddel toddobaadle ah oo kiniinka maalinlaha ah.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Sida tampalku u shaqeeyo',
+      'Jadwalka dhejinta',
+      'Waxa aad u baahan tahay inaad ogaato',
+      'Qodobbada muhiimka ah',
+    ],
+    section1Body:
+      'Tampalku wuxuu si joogto ah u sii daayaa hormoonno maqaarka dhexdiisa, isagoo u shaqeeya si la mid ah kiniinka isku-dhafka ah: wuxuu ka hortagaa ukun-sii-deynta wuxuuna dhumuc weyneeyaa dheecaanka afka ilmo-galeenka.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Faa’iidadiisa ugu weyn waa inaanu u baahnayn qiyaas maalinle ah.',
+    section2Body:
+      'Tampalka guud ahaan waxaa la beddelaa hal mar toddobaadkii saddex toddobaad, kadibna hal toddobaad tampal la’aan.',
+    applicationTips: [
+      'Beddel goobta dhejinta mar kasta',
+      'Hubi inuu weli si adag ugu dhegsan yahay',
+      'U dheji maqaar nadiif ah, engegan',
+    ],
+    sectionIntro:
+      'Qodobbada muhiimka ah ee la ogaado ka hor iyo inta lagu jiro isticmaalka.',
+    facts: [
+      {title: 'Toddobaad kasta', text: 'Tampalka waxaa la beddelaa hal mar toddobaadkii.'},
+      {title: 'Maqaar engegan', text: 'Waa in lagu dhejiyaa maqaar nadiif ah, engegan.'},
+      {title: 'Ilaalin', text: 'Wuxuu si joogto ah u shaqeeyaa marka si sax ah loo isticmaalo.'},
+      {title: 'Feejignow', text: 'Kicin maxalli ah ayaa mararka qaarkood dhici kara.'},
+    ],
+    comparisonTitle: 'Faa’iidooyin & xaddidaado',
+    advantageTitle: 'Faa’iidooyin',
+    advantages: [
+      '• Hal dhejin toddobaadkii',
+      '• Qiyaas maalinle ah ma jiro',
+      '• Sii daynta hormoonka joogto ah',
+    ],
+    limitTitle: 'Xaddidaado',
+    limits: [
+      'Ma ilaaliyo cudurrada dhex-galmada ku faafa (STI)',
+      'Wuxuu keeni karaa kicin maqaarka',
+      'Wuxuu u baahan yahay in la raaco jadwalka beddelka',
+    ],
+    alertTitle: 'Fadlan ogow',
+    alertText:
+      'Kicin yar ayaa laga yaabaa inuu ka soo muuqdo goobta dhejinta. Beddelidda goobaha dhejinta ayaa caawin karta yareynta.',
+    rememberTitle: '3-da qodob ee muhiimka ah',
+    remember: [
+      'Tampalka beddel toddobaad kasta.',
+      'Si joogto ah u hubi inuu si wanaagsan u dhegsan yahay.',
+      'Weydiiso xirfadle caafimaad talo haddii loo baahdo.',
+    ],
+    shareMessage: 'Tampalka ka hortagga uurka — AWA',
+  },
+  sw: {
+    badge: 'KIBANDIKO CHA UZAZI WA MPANGO',
+    title: 'Kibandiko cha\nuzazi wa mpango',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaType: 'Makala',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Mbadala wa kila wiki wa kidonge cha kila siku.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Jinsi kibandiko kinavyofanya kazi',
+      'Ratiba ya kukibandika',
+      'Unachohitaji kujua',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    section1Body:
+      'Kibandiko hutoa homoni mfululizo kupitia ngozi, kikifanya kazi kwa njia inayofanana na kidonge kilichochanganywa: huzuia utoaji wa yai na huongeza unene wa ute wa shingo ya kizazi.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Faida yake kuu ni kwamba haihitaji dozi ya kila siku.',
+    section2Body:
+      'Kibandiko kwa kawaida hubadilishwa mara moja kwa wiki kwa wiki tatu, ikifuatiwa na wiki moja bila kibandiko.',
+    applicationTips: [
+      'Badilisha mahali pa kukibandika kila mara',
+      'Hakikisha bado kimeshikamana imara',
+      'Kibandike kwenye ngozi safi na kavu',
+    ],
+    sectionIntro:
+      'Mambo makuu ya kujua kabla na wakati wa matumizi.',
+    facts: [
+      {title: 'Kila wiki', text: 'Kibandiko hubadilishwa mara moja kwa wiki.'},
+      {title: 'Ngozi kavu', text: 'Lazima kibandikwe kwenye ngozi safi na kavu.'},
+      {title: 'Ulinzi', text: 'Kinafanya kazi mfululizo kinapotumiwa ipasavyo.'},
+      {title: 'Zingatia', text: 'Muwasho wa eneo husika unaweza wakati mwingine kutokea.'},
+    ],
+    comparisonTitle: 'Faida na mapungufu',
+    advantageTitle: 'Faida',
+    advantages: [
+      '• Kukibandika mara moja kwa wiki',
+      '• Hakuna dozi ya kila siku',
+      '• Kutolewa kwa homoni mfululizo',
+    ],
+    limitTitle: 'Mapungufu',
+    limits: [
+      'Hakilindi dhidi ya magonjwa ya zinaa (STI)',
+      'Kinaweza kusababisha muwasho wa ngozi',
+      'Kinahitaji kuzingatia ratiba ya kubadilisha',
+    ],
+    alertTitle: 'Tafadhali zingatia',
+    alertText:
+      'Muwasho mdogo unaweza kuonekana mahali pa kukibandika. Kubadilishabadilisha mahali pa kukibandika kunaweza kusaidia kupunguza hili.',
+    rememberTitle: 'Mambo 3 ya msingi',
+    remember: [
+      'Badilisha kibandiko kila wiki.',
+      'Kagua mara kwa mara kwamba kinashikamana vizuri.',
+      'Muulize mtaalamu wa afya ushauri ikihitajika.',
+    ],
+    shareMessage: 'Kibandiko cha uzazi wa mpango — AWA',
+  },
+  kk: {
+    badge: 'КОНТРАЦЕПТИВТІК ПЛАСТЫРЬ',
+    title: 'Контрацептивтік\nпластырь',
+    metaDuration: '5 мин оқу',
+    metaType: 'Мақала',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Күнделікті таблеткаға апталық балама.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Пластырь қалай жұмыс істейді',
+      'Жабыстыру кестесі',
+      'Білуге тиісті мәліметтер',
+      'Негізгі қорытындылар',
+    ],
+    section1Body:
+      'Пластырь гормондарды тері арқылы үздіксіз бөліп шығарады, біріктірілген таблеткаға ұқсас жұмыс істейді: ол овуляцияны болдырмайды және жатыр мойны шырышын қоюлатады.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Оның басты артықшылығы — күнделікті доза қажет емес.',
+    section2Body:
+      'Пластырь әдетте үш апта бойы аптасына бір рет ауыстырылады, содан кейін пластырьсіз бір апта болады.',
+    applicationTips: [
+      'Әр жолы жабыстыру орнын өзгертіңіз',
+      'Оның әлі мықты жабысып тұрғанын тексеріңіз',
+      'Оны таза, құрғақ теріге жабыстырыңыз',
+    ],
+    sectionIntro:
+      'Қолданар алдында және қолдану кезінде білуге тиісті негізгі нүктелер.',
+    facts: [
+      {title: 'Әр апта', text: 'Пластырь аптасына бір рет ауыстырылады.'},
+      {title: 'Құрғақ тері', text: 'Оны таза, құрғақ теріге жабыстыру керек.'},
+      {title: 'Қорғаныс', text: 'Дұрыс қолданғанда ол үздіксіз жұмыс істейді.'},
+      {title: 'Назар аударыңыз', text: 'Жергілікті тітіркену кейде болуы мүмкін.'},
+    ],
+    comparisonTitle: 'Артықшылықтары мен шектеулері',
+    advantageTitle: 'Артықшылықтары',
+    advantages: [
+      '• Аптасына бір жабыстыру',
+      '• Күнделікті доза жоқ',
+      '• Гормондардың үздіксіз бөлінуі',
+    ],
+    limitTitle: 'Шектеулері',
+    limits: [
+      'ЖЖБИ-ден қорғамайды',
+      'Тері тітіркенуін тудыруы мүмкін',
+      'Ауыстыру кестесін сақтауды қажет етеді',
+    ],
+    alertTitle: 'Назар аударыңыз',
+    alertText:
+      'Жабыстырылған жерде жеңіл тітіркену пайда болуы мүмкін. Жабыстыру орындарын кезектестіру мұны шектеуге көмектесе алады.',
+    rememberTitle: '3 негізгі нәрсе',
+    remember: [
+      'Пластырьді апта сайын ауыстырыңыз.',
+      'Оның жақсы жабысып тұрғанын үнемі тексеріңіз.',
+      'Қажет болса, медицина маманынан кеңес сұраңыз.',
+    ],
+    shareMessage: 'Контрацептивтік пластырь — AWA',
+  },
+  wo: {
+    badge: 'PAAJ ŊÀBBAL ËMB',
+    title: 'Paaj\nŋàbbal ëmb',
+    metaDuration: '5 simili jàng',
+    metaType: 'Bind',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Benn tànneef bu ayu-bés ci kaw pilul bu bés.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Naka paaj bi di dem',
+      'Tëralinu tegu',
+      'Li war a xam',
+      'Li am solo',
+    ],
+    section1Body:
+      'Paaj bi dafay génne hormon ci saa su ne ci der, ak jëf bu méngoo ak pilul bu ñu boole: dafay tee ovilasiyoŋ te def ndox mu bërëb jëmm gën a dëgër.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Njariñam bu gëna mag mooy ne soxlawul benn dos bu bés.',
+    section2Body:
+      'Paaj bi daa soppiku benn yoon ci ayu-bés ci ñetti ayu-bés, ginnaaw loolu benn ayu-bés te paaj amul.',
+    applicationTips: [
+      'Soppi bérëb bi nga ko tegal saa su ne',
+      'Seetlu ne mu ngi ko takk bu baax',
+      'Tegal ko ci der bu set te wow',
+    ],
+    sectionIntro:
+      'Li am solo a xam balaa ak ci jëfandikoo.',
+    facts: [
+      {title: 'Ayu-bés bu nekk', text: 'Paaj bi dañu koy soppi benn yoon ci ayu-bés.'},
+      {title: 'Der bu wow', text: 'War na ñu ko tegal ci der bu set te wow.'},
+      {title: 'Aar', text: 'Dafay jëf saa su ne bu ñu ko jëfandikoo bu jub.'},
+      {title: 'Teg', text: 'Tiis ci bérëb bi mën na am yenn saa.'},
+    ],
+    comparisonTitle: 'Njariñ ak dayo',
+    advantageTitle: 'Njariñ',
+    advantages: [
+      '• Benn tegu ci ayu-bés',
+      '• Amul dos bu bés',
+      '• Hormon yu di génn saa su ne',
+    ],
+    limitTitle: 'Dayo',
+    limits: [
+      'Du aar ci IST',
+      'Mën na def tiis ci der',
+      'Soxla topp tëralinu soppi bi',
+    ],
+    alertTitle: 'Teg',
+    alertText:
+      'Tiis bu ndaw mën na feeñ ci bérëb bi ñu ko tegal. Soppi bérëb yi mën na dimbli ngir wàññi ko.',
+    rememberTitle: 'Li am solo ci ñetti',
+    remember: [
+      'Soppil paaj bi ayu-bés bu nekk.',
+      'Seetlu ci yoon ne mu ngi takk bu baax.',
+      'Ñaanal benn liggéeykatu wér ndigal bu soxlaa.',
+    ],
+    shareMessage: 'Paaj ŋàbbal ëmb — AWA',
+  },
+  ha: {
+    badge: 'FACIN HANA HAIHUWA',
+    title: 'Facin\nhana haihuwa',
+    metaDuration: 'karatun minti 5',
+    metaType: 'Labari',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Madadin mako-mako ga kwayar yau da kullum.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Yadda facin ke aiki',
+      'Jadawalin manna shi',
+      'Abin da ya kamata ki sani',
+      'Muhimman abubuwa',
+    ],
+    section1Body:
+      'Facin yana sakin hormone ta fata a ci gaba, yana aiki ta hanya mai kama da kwayar haɗaka: yana hana fitar ƙwai kuma yana ƙara kauri na majinar mahaifa.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Babbar fa’idarsa ita ce ba ya bukatar sha kullum.',
+    section2Body:
+      'Yawanci ana canza facin sau ɗaya a mako na makonni uku, sannan mako ɗaya ba tare da faci ba.',
+    applicationTips: [
+      'Canza wurin manna shi kowane lokaci',
+      'Duba cewa har yanzu yana manne sosai',
+      'Manna shi a fata mai tsabta, busasshiya',
+    ],
+    sectionIntro:
+      'Muhimman abubuwan da za a sani kafin da lokacin amfani.',
+    facts: [
+      {title: 'Kowane mako', text: 'Ana maye gurbin facin sau ɗaya a mako.'},
+      {title: 'Fata busasshiya', text: 'Dole ne a manna shi a fata mai tsabta, busasshiya.'},
+      {title: 'Kariya', text: 'Yana aiki a ci gaba idan aka yi amfani da shi daidai.'},
+      {title: 'Ki lura', text: 'Ƙaiƙayi na gida na iya faruwa wani lokaci.'},
+    ],
+    comparisonTitle: 'Fa’idodi & iyaka',
+    advantageTitle: 'Fa’idodi',
+    advantages: [
+      '• Manna sau ɗaya a mako',
+      '• Babu sha kullum',
+      '• Sakin hormone a ci gaba',
+    ],
+    limitTitle: 'Iyaka',
+    limits: [
+      'Ba ya kare daga cututtukan jima’i (STIs)',
+      'Zai iya haifar da ƙaiƙayin fata',
+      'Yana bukatar bin jadawalin maye gurbin',
+    ],
+    alertTitle: 'Ki lura',
+    alertText:
+      'Ɗan ƙaiƙayi na iya bayyana a wurin da aka manna. Canza wuraren manna na iya taimakawa rage wannan.',
+    rememberTitle: 'Muhimman abubuwa 3',
+    remember: [
+      'Canza facin kowane mako.',
+      'Duba akai-akai cewa yana manne da kyau.',
+      'Nemi shawarar ma’aikacin lafiya idan ya zama dole.',
+    ],
+    shareMessage: 'Facin hana haihuwa — AWA',
+  },
+  am: {
+    badge: 'የእርግዝና መከላከያ ፓች',
+    title: 'የእርግዝና መከላከያ\nፓች',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaType: 'ጽሑፍ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro: 'ለዕለታዊ ኪኒን ሳምንታዊ አማራጭ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ፓቹ እንዴት እንደሚሠራ',
+      'የመለጠፊያ መርሐ ግብር',
+      'ማወቅ ያለብሽ ነገር',
+      'ዋና ዋና ነጥቦች',
+    ],
+    section1Body:
+      'ፓቹ በቆዳ በኩል ሆርሞኖችን ያለማቋረጥ ይለቃል፤ ከተደባለቀ ኪኒን ጋር በሚመሳሰል መንገድ ይሠራል፦ እንቁላል መልቀቅን ይከላከላል እና የማህፀን በር ንፋጭን ያጠጋል።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'ዋነኛ ጥቅሙ ዕለታዊ መጠን የማይፈልግ መሆኑ ነው።',
+    section2Body:
+      'ፓቹ በአጠቃላይ ለሦስት ሳምንታት በሳምንት አንድ ጊዜ ይቀየራል፤ ከዚያ አንድ ሳምንት ያለ ፓች ይቆያል።',
+    applicationTips: [
+      'የመለጠፊያውን ቦታ በእያንዳንዱ ጊዜ ቀይሪ',
+      'አሁንም በደንብ መጣበቁን አረጋግጪ',
+      'በንጹሕና ደረቅ ቆዳ ላይ ለጥፊው',
+    ],
+    sectionIntro:
+      'ከመጠቀምሽ በፊትና በሚጠቀሚበት ጊዜ ማወቅ ያለብሽ ዋና ነጥቦች።',
+    facts: [
+      {title: 'በየሳምንቱ', text: 'ፓቹ በሳምንት አንድ ጊዜ ይተካል።'},
+      {title: 'ደረቅ ቆዳ', text: 'በንጹሕና ደረቅ ቆዳ ላይ መለጠፍ አለበት።'},
+      {title: 'ጥበቃ', text: 'በትክክል ሲጠቀሙበት ያለማቋረጥ ይሠራል።'},
+      {title: 'ልብ በይ', text: 'አንዳንድ ጊዜ የአካባቢ ብስጭት ሊከሰት ይችላል።'},
+    ],
+    comparisonTitle: 'ጥቅሞች እና ገደቦች',
+    advantageTitle: 'ጥቅሞች',
+    advantages: [
+      '• በሳምንት አንድ ጊዜ መለጠፍ',
+      '• ዕለታዊ መጠን የለም',
+      '• ያለማቋረጥ የሆርሞን መለቀቅ',
+    ],
+    limitTitle: 'ገደቦች',
+    limits: [
+      'ከአባላዘር በሽታዎች አይከላከልም',
+      'የቆዳ ብስጭት ሊያስከትል ይችላል',
+      'የመተኪያ መርሐ ግብሩን መከተል ይጠይቃል',
+    ],
+    alertTitle: 'ልብ በይ',
+    alertText:
+      'በመለጠፊያው ቦታ ላይ ትንሽ ብስጭት ሊታይ ይችላል። የመለጠፊያ ቦታዎችን መቀያየር ይህን ለመገደብ ይረዳል።',
+    rememberTitle: '3ቱ አስፈላጊ ነገሮች',
+    remember: [
+      'ፓቹን በየሳምንቱ ቀይሪ።',
+      'በደንብ መጣበቁን በየጊዜው አረጋግጪ።',
+      'ካስፈለገ የጤና ባለሙያ ምክር ጠይቂ።',
+    ],
+    shareMessage: 'የእርግዝና መከላከያ ፓች — AWA',
+  },
+  nl: {
+    badge: 'ANTICONCEPTIEPLEISTER',
+    title: 'De anticonceptie-\npleister',
+    metaDuration: '5 min lezen',
+    metaType: 'Artikel',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Een wekelijks alternatief voor de dagelijkse pil.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Hoe de pleister werkt',
+      'Schema voor het aanbrengen',
+      'Wat je moet weten',
+      'Belangrijkste punten',
+    ],
+    section1Body:
+      'De pleister geeft continu hormonen af via de huid en werkt op een manier die vergelijkbaar is met de gecombineerde pil: ze voorkomt de eisprong en verdikt het baarmoederhalsslijm.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Het grootste voordeel is dat ze geen dagelijkse dosis vereist.',
+    section2Body:
+      'De pleister wordt over het algemeen drie weken lang eenmaal per week vervangen, gevolgd door een week zonder pleister.',
+    applicationTips: [
+      'Wissel elke keer de plek af waar je de pleister plakt',
+      'Controleer of ze nog stevig vastzit',
+      'Plak haar op schone, droge huid',
+    ],
+    sectionIntro:
+      'De belangrijkste punten om te weten vóór en tijdens het gebruik.',
+    facts: [
+      {title: 'Elke week', text: 'De pleister wordt eenmaal per week vervangen.'},
+      {title: 'Droge huid', text: 'Ze moet op schone, droge huid worden geplakt.'},
+      {title: 'Bescherming', text: 'Ze werkt continu wanneer ze correct wordt gebruikt.'},
+      {title: 'Let op', text: 'Soms kan lokale irritatie optreden.'},
+    ],
+    comparisonTitle: 'Voordelen & beperkingen',
+    advantageTitle: 'Voordelen',
+    advantages: [
+      '• Eén keer per week plakken',
+      '• Geen dagelijkse dosis',
+      '• Continue afgifte van hormonen',
+    ],
+    limitTitle: 'Beperkingen',
+    limits: [
+      'Beschermt niet tegen soa’s',
+      'Kan huidirritatie veroorzaken',
+      'Vereist het volgen van het vervangingsschema',
+    ],
+    alertTitle: 'Let op',
+    alertText:
+      'Op de plek waar de pleister zit kan lichte irritatie optreden. Het afwisselen van de plekken kan helpen dit te beperken.',
+    rememberTitle: 'De 3 essentiële dingen',
+    remember: [
+      'Vervang de pleister elke week.',
+      'Controleer regelmatig of ze goed vastzit.',
+      'Vraag zo nodig een zorgverlener om advies.',
+    ],
+    shareMessage: 'De anticonceptiepleister — AWA',
+  },
+  fi: {
+    badge: 'EHKÄISYLAASTARI',
+    title: 'Ehkäisylaastari',
+    metaDuration: '5 min lukuaika',
+    metaType: 'Artikkeli',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Viikoittainen vaihtoehto päivittäiselle pillerille.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Miten laastari toimii',
+      'Kiinnitysaikataulu',
+      'Mitä sinun pitää tietää',
+      'Tärkeimmät asiat',
+    ],
+    section1Body:
+      'Laastari vapauttaa hormoneja jatkuvasti ihon kautta ja toimii yhdistelmäpillerin kaltaisesti: se estää ovulaation ja sakeuttaa kohdunkaulan limaa.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Sen tärkein etu on, ettei se vaadi päivittäistä annosta.',
+    section2Body:
+      'Laastari vaihdetaan yleensä kerran viikossa kolmen viikon ajan, minkä jälkeen on yhden viikon tauko ilman laastaria.',
+    applicationTips: [
+      'Vaihda kiinnityskohtaa joka kerta',
+      'Tarkista, että se on edelleen tiukasti kiinni',
+      'Kiinnitä se puhtaalle, kuivalle iholle',
+    ],
+    sectionIntro:
+      'Tärkeimmät asiat, jotka on hyvä tietää ennen käyttöä ja sen aikana.',
+    facts: [
+      {title: 'Joka viikko', text: 'Laastari vaihdetaan kerran viikossa.'},
+      {title: 'Kuiva iho', text: 'Se on kiinnitettävä puhtaalle, kuivalle iholle.'},
+      {title: 'Suoja', text: 'Se toimii jatkuvasti, kun sitä käytetään oikein.'},
+      {title: 'Huomioitavaa', text: 'Paikallista ärsytystä voi joskus esiintyä.'},
+    ],
+    comparisonTitle: 'Edut ja rajoitukset',
+    advantageTitle: 'Edut',
+    advantages: [
+      '• Yksi kiinnitys viikossa',
+      '• Ei päivittäistä annosta',
+      '• Jatkuva hormonien vapautuminen',
+    ],
+    limitTitle: 'Rajoitukset',
+    limits: [
+      'Ei suojaa sukupuolitaudeilta',
+      'Voi aiheuttaa ihoärsytystä',
+      'Vaatii vaihtoaikataulun noudattamista',
+    ],
+    alertTitle: 'Huomaa',
+    alertText:
+      'Kiinnityskohdassa voi ilmetä lievää ärsytystä. Kiinnityskohtien vuorottelu voi auttaa rajoittamaan sitä.',
+    rememberTitle: '3 olennaista asiaa',
+    remember: [
+      'Vaihda laastari joka viikko.',
+      'Tarkista säännöllisesti, että se pysyy kiinni.',
+      'Pyydä tarvittaessa neuvoa terveydenhuollon ammattilaiselta.',
+    ],
+    shareMessage: 'Ehkäisylaastari — AWA',
+  },
+  el: {
+    badge: 'ΑΝΤΙΣΥΛΛΗΠΤΙΚΟ ΕΜΠΛΑΣΤΡΟ',
+    title: 'Το αντισυλληπτικό\nέμπλαστρο',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaType: 'Άρθρο',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Μια εβδομαδιαία εναλλακτική στο καθημερινό χάπι.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Πώς λειτουργεί το έμπλαστρο',
+      'Πρόγραμμα εφαρμογής',
+      'Τι πρέπει να γνωρίζεις',
+      'Βασικά συμπεράσματα',
+    ],
+    section1Body:
+      'Το έμπλαστρο απελευθερώνει συνεχώς ορμόνες μέσω του δέρματος, λειτουργώντας με τρόπο συγκρίσιμο με το συνδυασμένο χάπι: αποτρέπει την ωορρηξία και πυκνώνει την τραχηλική βλέννα.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Το κύριο πλεονέκτημά του είναι ότι δεν απαιτεί καθημερινή δόση.',
+    section2Body:
+      'Το έμπλαστρο αλλάζεται γενικά μία φορά την εβδομάδα για τρεις εβδομάδες, και ακολουθεί μία εβδομάδα χωρίς έμπλαστρο.',
+    applicationTips: [
+      'Άλλαζε το σημείο εφαρμογής κάθε φορά',
+      'Έλεγχε ότι εξακολουθεί να είναι καλά κολλημένο',
+      'Εφάρμοσέ το σε καθαρό, στεγνό δέρμα',
+    ],
+    sectionIntro:
+      'Τα βασικά σημεία που πρέπει να γνωρίζεις πριν και κατά τη χρήση.',
+    facts: [
+      {title: 'Κάθε εβδομάδα', text: 'Το έμπλαστρο αντικαθίσταται μία φορά την εβδομάδα.'},
+      {title: 'Στεγνό δέρμα', text: 'Πρέπει να εφαρμόζεται σε καθαρό, στεγνό δέρμα.'},
+      {title: 'Προστασία', text: 'Λειτουργεί συνεχώς όταν χρησιμοποιείται σωστά.'},
+      {title: 'Πρόσεξε', text: 'Μπορεί μερικές φορές να εμφανιστεί τοπικός ερεθισμός.'},
+    ],
+    comparisonTitle: 'Πλεονεκτήματα και περιορισμοί',
+    advantageTitle: 'Πλεονεκτήματα',
+    advantages: [
+      '• Μία εφαρμογή την εβδομάδα',
+      '• Καμία καθημερινή δόση',
+      '• Συνεχής απελευθέρωση ορμονών',
+    ],
+    limitTitle: 'Περιορισμοί',
+    limits: [
+      'Δεν προστατεύει από τις ΣΜΛ',
+      'Μπορεί να προκαλέσει ερεθισμό του δέρματος',
+      'Απαιτεί τήρηση του προγράμματος αντικατάστασης',
+    ],
+    alertTitle: 'Σημείωση',
+    alertText:
+      'Ελαφρύς ερεθισμός μπορεί να εμφανιστεί στο σημείο εφαρμογής. Η εναλλαγή των σημείων εφαρμογής μπορεί να βοηθήσει να περιοριστεί.',
+    rememberTitle: 'Τα 3 βασικά',
+    remember: [
+      'Άλλαζε το έμπλαστρο κάθε εβδομάδα.',
+      'Έλεγχε τακτικά ότι κολλάει καλά.',
+      'Ζήτησε συμβουλή από έναν επαγγελματία υγείας αν χρειάζεται.',
+    ],
+    shareMessage: 'Το αντισυλληπτικό έμπλαστρο — AWA',
+  },
+  fil: {
+    badge: 'KONTRASEPTIBONG PATCH',
+    title: 'Ang kontraseptibong\npatch',
+    metaDuration: '5 min na babasahin',
+    metaType: 'Artikulo',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Isang lingguhang alternatibo sa pang-araw-araw na pill.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Paano gumagana ang patch',
+      'Iskedyul ng paglalagay',
+      'Ang dapat mong malaman',
+      'Mahahalagang tandaan',
+    ],
+    section1Body:
+      'Tuloy-tuloy na naglalabas ng mga hormone sa pamamagitan ng balat ang patch, na gumagana sa paraang maihahambing sa combined pill: pinipigilan nito ang obulasyon at pinapakapal ang cervical mucus.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Ang pangunahing bentahe nito ay hindi ito nangangailangan ng pang-araw-araw na dosis.',
+    section2Body:
+      'Karaniwang pinapalitan ang patch isang beses kada linggo sa loob ng tatlong linggo, na sinusundan ng isang linggong walang patch.',
+    applicationTips: [
+      'Palitan ang lugar ng paglalagay sa bawat pagkakataon',
+      'Tiyaking nakadikit pa rin nang mahigpit',
+      'Ilagay ito sa malinis at tuyong balat',
+    ],
+    sectionIntro:
+      'Ang mga pangunahing punto na dapat malaman bago at habang ginagamit.',
+    facts: [
+      {title: 'Linggu-linggo', text: 'Pinapalitan ang patch isang beses kada linggo.'},
+      {title: 'Tuyong balat', text: 'Dapat itong ilagay sa malinis at tuyong balat.'},
+      {title: 'Proteksyon', text: 'Tuloy-tuloy itong gumagana kapag tama ang paggamit.'},
+      {title: 'Bantayan', text: 'Maaaring minsang magkaroon ng lokal na iritasyon.'},
+    ],
+    comparisonTitle: 'Mga bentahe at limitasyon',
+    advantageTitle: 'Mga bentahe',
+    advantages: [
+      '• Isang paglalagay kada linggo',
+      '• Walang pang-araw-araw na dosis',
+      '• Tuloy-tuloy na paglabas ng hormone',
+    ],
+    limitTitle: 'Mga limitasyon',
+    limits: [
+      'Hindi nagpoprotekta laban sa mga STI',
+      'Maaaring magdulot ng iritasyon sa balat',
+      'Nangangailangan ng pagsunod sa iskedyul ng pagpapalit',
+    ],
+    alertTitle: 'Pakitandaan',
+    alertText:
+      'Maaaring lumitaw ang bahagyang iritasyon sa lugar ng paglalagay. Ang pagpapalit-palit ng mga lugar ng paglalagay ay makakatulong na limitahan ito.',
+    rememberTitle: 'Ang 3 mahalaga',
+    remember: [
+      'Palitan ang patch linggu-linggo.',
+      'Regular na tingnan kung maayos ang pagkakadikit.',
+      'Humingi ng payo sa propesyonal sa kalusugan kung kinakailangan.',
+    ],
+    shareMessage: 'Ang kontraseptibong patch — AWA',
+  },
+  ta: {
+    badge: 'கருத்தடைப் பேட்ச்',
+    title: 'கருத்தடைப்\nபேட்ச்',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaType: 'கட்டுரை',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'தினசரி மாத்திரைக்கு ஒரு வாராந்திர மாற்று.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'பேட்ச் எப்படிச் செயல்படுகிறது',
+      'ஒட்டும் அட்டவணை',
+      'நீங்கள் தெரிந்துகொள்ள வேண்டியவை',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    section1Body:
+      'பேட்ச் தோல் வழியாகத் தொடர்ந்து ஹார்மோன்களை வெளியிடுகிறது, கூட்டு மாத்திரைக்கு ஒப்பான விதத்தில் செயல்படுகிறது: அது அண்டவிடுப்பைத் தடுத்து கருப்பைவாய் சளியை அடர்த்தியாக்குகிறது.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'தினசரி அளவு தேவையில்லை என்பதே இதன் முக்கிய நன்மை.',
+    section2Body:
+      'பேட்ச் பொதுவாக மூன்று வாரங்களுக்கு வாரத்துக்கு ஒரு முறை மாற்றப்படுகிறது, அதைத் தொடர்ந்து ஒரு வாரம் பேட்ச் இல்லாமல் இருக்கும்.',
+    applicationTips: [
+      'ஒவ்வொரு முறையும் ஒட்டும் இடத்தை மாற்றுங்கள்',
+      'அது இன்னும் உறுதியாக ஒட்டியிருக்கிறதா எனச் சரிபாருங்கள்',
+      'சுத்தமான, உலர்ந்த தோலில் ஒட்டுங்கள்',
+    ],
+    sectionIntro:
+      'பயன்படுத்தும் முன்பும் பயன்படுத்தும்போதும் தெரிந்துகொள்ள வேண்டிய முக்கியப் புள்ளிகள்.',
+    facts: [
+      {title: 'வாரந்தோறும்', text: 'பேட்ச் வாரத்துக்கு ஒரு முறை மாற்றப்படுகிறது.'},
+      {title: 'உலர்ந்த தோல்', text: 'இது சுத்தமான, உலர்ந்த தோலில் ஒட்டப்பட வேண்டும்.'},
+      {title: 'பாதுகாப்பு', text: 'சரியாகப் பயன்படுத்தும்போது இது தொடர்ந்து செயல்படுகிறது.'},
+      {title: 'கவனியுங்கள்', text: 'உள்ளூர் எரிச்சல் சில நேரங்களில் ஏற்படலாம்.'},
+    ],
+    comparisonTitle: 'நன்மைகளும் வரம்புகளும்',
+    advantageTitle: 'நன்மைகள்',
+    advantages: [
+      '• வாரத்துக்கு ஒரு ஒட்டுதல்',
+      '• தினசரி அளவு இல்லை',
+      '• தொடர்ச்சியான ஹார்மோன் வெளியீடு',
+    ],
+    limitTitle: 'வரம்புகள்',
+    limits: [
+      'STI-களிலிருந்து பாதுகாக்காது',
+      'தோல் எரிச்சலை ஏற்படுத்தலாம்',
+      'மாற்றும் அட்டவணையைப் பின்பற்ற வேண்டும்',
+    ],
+    alertTitle: 'கவனத்தில் கொள்ளவும்',
+    alertText:
+      'ஒட்டும் இடத்தில் லேசான எரிச்சல் தோன்றலாம். ஒட்டும் இடங்களை மாற்றி மாற்றிப் பயன்படுத்துவது இதைக் குறைக்க உதவலாம்.',
+    rememberTitle: '3 அத்தியாவசியங்கள்',
+    remember: [
+      'பேட்சை வாரந்தோறும் மாற்றுங்கள்.',
+      'அது நன்கு ஒட்டியிருக்கிறதா எனத் தொடர்ந்து சரிபாருங்கள்.',
+      'தேவைப்பட்டால் ஒரு சுகாதார நிபுணரிடம் ஆலோசனை கேளுங்கள்.',
+    ],
+    shareMessage: 'கருத்தடைப் பேட்ச் — AWA',
+  },
+  te: {
+    badge: 'గర్భనిరోధక ప్యాచ్',
+    title: 'గర్భనిరోధక\nప్యాచ్',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaType: 'వ్యాసం',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'రోజువారీ మాత్రకు వారానికి ఒకసారి ప్రత్యామ్నాయం.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'ప్యాచ్ ఎలా పనిచేస్తుంది',
+      'అంటించే షెడ్యూల్',
+      'మీరు తెలుసుకోవాల్సినవి',
+      'ముఖ్యాంశాలు',
+    ],
+    section1Body:
+      'ప్యాచ్ చర్మం ద్వారా నిరంతరం హార్మోన్లను విడుదల చేస్తుంది, కలిపి ఉండే మాత్రకు సమానమైన రీతిలో పనిచేస్తుంది: ఇది అండోత్సర్గాన్ని నివారించి గర్భాశయ ముఖద్వార స్రావాన్ని చిక్కబరుస్తుంది.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'రోజువారీ మోతాదు అవసరం లేకపోవడం దీని ప్రధాన ప్రయోజనం.',
+    section2Body:
+      'ప్యాచ్‌ను సాధారణంగా మూడు వారాల పాటు వారానికి ఒకసారి మారుస్తారు, ఆపై ఒక వారం ప్యాచ్ లేకుండా ఉంటారు.',
+    applicationTips: [
+      'ప్రతిసారీ అంటించే చోటును మార్చండి',
+      'అది ఇంకా దృఢంగా అంటుకుని ఉందో సరిచూసుకోండి',
+      'శుభ్రమైన, పొడి చర్మంపై అంటించండి',
+    ],
+    sectionIntro:
+      'ఉపయోగించే ముందు, ఉపయోగిస్తున్నప్పుడు తెలుసుకోవాల్సిన ముఖ్య అంశాలు.',
+    facts: [
+      {title: 'ప్రతి వారం', text: 'ప్యాచ్‌ను వారానికి ఒకసారి మారుస్తారు.'},
+      {title: 'పొడి చర్మం', text: 'దీన్ని శుభ్రమైన, పొడి చర్మంపై అంటించాలి.'},
+      {title: 'రక్షణ', text: 'సరిగ్గా ఉపయోగిస్తే ఇది నిరంతరం పనిచేస్తుంది.'},
+      {title: 'గమనించాల్సినవి', text: 'స్థానిక చికాకు కొన్నిసార్లు ఏర్పడవచ్చు.'},
+    ],
+    comparisonTitle: 'ప్రయోజనాలు & పరిమితులు',
+    advantageTitle: 'ప్రయోజనాలు',
+    advantages: [
+      '• వారానికి ఒక అంటింపు',
+      '• రోజువారీ మోతాదు లేదు',
+      '• నిరంతర హార్మోన్ విడుదల',
+    ],
+    limitTitle: 'పరిమితులు',
+    limits: [
+      'STIల నుండి రక్షించదు',
+      'చర్మ చికాకును కలిగించవచ్చు',
+      'మార్పిడి షెడ్యూల్‌ను పాటించాలి',
+    ],
+    alertTitle: 'గమనించండి',
+    alertText:
+      'అంటించిన చోట స్వల్ప చికాకు కనిపించవచ్చు. అంటించే చోట్లను మార్చడం దీన్ని పరిమితం చేయడానికి సహాయపడవచ్చు.',
+    rememberTitle: '3 ముఖ్యమైనవి',
+    remember: [
+      'ప్యాచ్‌ను ప్రతి వారం మార్చండి.',
+      'అది బాగా అంటుకుని ఉందో క్రమం తప్పకుండా సరిచూసుకోండి.',
+      'అవసరమైతే ఒక ఆరోగ్య నిపుణుడిని సలహా అడగండి.',
+    ],
+    shareMessage: 'గర్భనిరోధక ప్యాచ్ — AWA',
+  },
+  mr: {
+    badge: 'गर्भनिरोधक पॅच',
+    title: 'गर्भनिरोधक\nपॅच',
+    metaDuration: '5 मिनिटे वाचन',
+    metaType: 'लेख',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'रोजच्या गोळीला साप्ताहिक पर्याय.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'पॅच कसा काम करतो',
+      'लावण्याचे वेळापत्रक',
+      'तुम्हाला काय माहीत असले पाहिजे',
+      'मुख्य मुद्दे',
+    ],
+    section1Body:
+      'पॅच त्वचेतून सतत हार्मोन्स सोडतो, संयुक्त गोळीशी तुलना करता येईल अशा पद्धतीने काम करतो: तो बीजोत्सर्जन रोखतो आणि गर्भाशयमुखाचा स्राव घट्ट करतो.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'त्याचा मुख्य फायदा म्हणजे त्यासाठी रोजची मात्रा लागत नाही.',
+    section2Body:
+      'पॅच साधारणपणे तीन आठवडे आठवड्यातून एकदा बदलला जातो, आणि मग एक आठवडा पॅचशिवाय असतो.',
+    applicationTips: [
+      'प्रत्येक वेळी लावण्याची जागा बदला',
+      'तो अजूनही घट्ट चिकटलेला आहे का ते तपासा',
+      'तो स्वच्छ, कोरड्या त्वचेवर लावा',
+    ],
+    sectionIntro:
+      'वापरण्यापूर्वी आणि वापरताना माहीत असायला हवे असे मुख्य मुद्दे.',
+    facts: [
+      {title: 'दर आठवड्याला', text: 'पॅच आठवड्यातून एकदा बदलला जातो.'},
+      {title: 'कोरडी त्वचा', text: 'तो स्वच्छ, कोरड्या त्वचेवर लावला पाहिजे.'},
+      {title: 'संरक्षण', text: 'योग्य प्रकारे वापरल्यास तो सतत काम करतो.'},
+      {title: 'लक्ष ठेवा', text: 'स्थानिक जळजळ कधी कधी होऊ शकते.'},
+    ],
+    comparisonTitle: 'फायदे आणि मर्यादा',
+    advantageTitle: 'फायदे',
+    advantages: [
+      '• आठवड्यातून एकदा लावणे',
+      '• रोजची मात्रा नाही',
+      '• हार्मोन्सचे सतत सोडले जाणे',
+    ],
+    limitTitle: 'मर्यादा',
+    limits: [
+      'लैंगिक संसर्गांपासून संरक्षण देत नाही',
+      'त्वचेची जळजळ होऊ शकते',
+      'बदलण्याच्या वेळापत्रकाचे पालन करणे आवश्यक',
+    ],
+    alertTitle: 'कृपया लक्षात घ्या',
+    alertText:
+      'लावण्याच्या जागी हलकी जळजळ दिसू शकते. लावण्याची जागा आलटून पालटून बदलल्याने ती मर्यादित ठेवण्यास मदत होऊ शकते.',
+    rememberTitle: '3 आवश्यक गोष्टी',
+    remember: [
+      'पॅच दर आठवड्याला बदला.',
+      'तो नीट चिकटलेला आहे का ते नियमितपणे तपासा.',
+      'गरज असल्यास आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+    ],
+    shareMessage: 'गर्भनिरोधक पॅच — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભનિરોધક પેચ',
+    title: 'ગર્ભનિરોધક\nપેચ',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaType: 'લેખ',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'રોજની ગોળીનો સાપ્તાહિક વિકલ્પ.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'પેચ કેવી રીતે કામ કરે છે',
+      'લગાવવાનું સમયપત્રક',
+      'તમારે શું જાણવું જોઈએ',
+      'મુખ્ય મુદ્દા',
+    ],
+    section1Body:
+      'પેચ ત્વચા દ્વારા સતત હોર્મોન છોડે છે, અને સંયુક્ત ગોળી જેવી રીતે કામ કરે છે: તે અંડોત્સર્જન અટકાવે છે અને ગર્ભાશયમુખનો સ્રાવ ઘટ્ટ કરે છે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'તેનો મુખ્ય ફાયદો એ છે કે તેમાં રોજ ડોઝ લેવાની જરૂર નથી.',
+    section2Body:
+      'પેચ સામાન્ય રીતે ત્રણ અઠવાડિયા સુધી અઠવાડિયામાં એક વાર બદલવામાં આવે છે, ત્યારબાદ એક અઠવાડિયું પેચ વિના રાખવામાં આવે છે.',
+    applicationTips: [
+      'દર વખતે લગાવવાની જગ્યા બદલો',
+      'તપાસો કે તે હજી મજબૂત ચોંટેલો છે',
+      'તેને સ્વચ્છ, સૂકી ત્વચા પર લગાવો',
+    ],
+    sectionIntro:
+      'ઉપયોગ પહેલાં અને દરમિયાન જાણવા જેવા મુખ્ય મુદ્દા.',
+    facts: [
+      {title: 'દર અઠવાડિયે', text: 'પેચ અઠવાડિયામાં એક વાર બદલવામાં આવે છે.'},
+      {title: 'સૂકી ત્વચા', text: 'તે સ્વચ્છ, સૂકી ત્વચા પર લગાવવો જોઈએ.'},
+      {title: 'રક્ષણ', text: 'યોગ્ય રીતે વાપરવામાં આવે તો તે સતત કામ કરે છે.'},
+      {title: 'ધ્યાન રાખો', text: 'ક્યારેક સ્થાનિક બળતરા થઈ શકે છે.'},
+    ],
+    comparisonTitle: 'ફાયદા અને મર્યાદાઓ',
+    advantageTitle: 'ફાયદા',
+    advantages: [
+      '• અઠવાડિયામાં એક જ વાર લગાવવો',
+      '• રોજ ડોઝ લેવાનો નથી',
+      '• હોર્મોનનો સતત પ્રવાહ',
+    ],
+    limitTitle: 'મર્યાદાઓ',
+    limits: [
+      'જાતીય સંક્રમિત ચેપ (STI) સામે રક્ષણ આપતો નથી',
+      'ત્વચામાં બળતરા થઈ શકે છે',
+      'બદલવાના સમયપત્રકનું પાલન કરવું પડે છે',
+    ],
+    alertTitle: 'કૃપા કરીને નોંધો',
+    alertText:
+      'લગાવેલી જગ્યાએ હળવી બળતરા થઈ શકે છે. લગાવવાની જગ્યા વારાફરતી બદલવાથી તેને ઓછી કરવામાં મદદ મળી શકે છે.',
+    rememberTitle: '3 મુખ્ય બાબતો',
+    remember: [
+      'દર અઠવાડિયે પેચ બદલો.',
+      'નિયમિત તપાસો કે તે બરાબર ચોંટેલો છે.',
+      'જરૂર હોય તો આરોગ્ય વ્યાવસાયિક પાસેથી સલાહ લો.',
+    ],
+    shareMessage: 'ગર્ભનિરોધક પેચ — AWA',
+  },
+  pa: {
+    badge: 'ਗਰਭ ਨਿਰੋਧਕ ਪੈਚ',
+    title: 'ਗਰਭ ਨਿਰੋਧਕ\nਪੈਚ',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਲੇਖ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਰੋਜ਼ਾਨਾ ਗੋਲੀ ਦਾ ਹਫ਼ਤਾਵਾਰੀ ਵਿਕਲਪ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਪੈਚ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ',
+      'ਲਗਾਉਣ ਦਾ ਸਮਾਂ-ਸਾਰਣੀ',
+      'ਤੁਹਾਨੂੰ ਕੀ ਜਾਣਨਾ ਚਾਹੀਦਾ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    section1Body:
+      'ਪੈਚ ਚਮੜੀ ਰਾਹੀਂ ਲਗਾਤਾਰ ਹਾਰਮੋਨ ਛੱਡਦਾ ਹੈ ਅਤੇ ਸੰਯੁਕਤ ਗੋਲੀ ਵਰਗੇ ਢੰਗ ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ: ਇਹ ਓਵੂਲੇਸ਼ਨ ਨੂੰ ਰੋਕਦਾ ਹੈ ਅਤੇ ਬੱਚੇਦਾਨੀ ਦੇ ਮੂੰਹ ਦੇ ਰਿਸਾਅ ਨੂੰ ਗਾੜ੍ਹਾ ਕਰਦਾ ਹੈ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਇਸ ਦਾ ਮੁੱਖ ਫ਼ਾਇਦਾ ਇਹ ਹੈ ਕਿ ਇਸ ਲਈ ਰੋਜ਼ਾਨਾ ਖ਼ੁਰਾਕ ਦੀ ਲੋੜ ਨਹੀਂ ਹੁੰਦੀ।',
+    section2Body:
+      'ਪੈਚ ਆਮ ਤੌਰ \'ਤੇ ਤਿੰਨ ਹਫ਼ਤੇ ਹਫ਼ਤੇ ਵਿੱਚ ਇੱਕ ਵਾਰ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਫਿਰ ਇੱਕ ਹਫ਼ਤਾ ਬਿਨਾਂ ਪੈਚ ਦੇ ਰਹਿੰਦਾ ਹੈ।',
+    applicationTips: [
+      'ਹਰ ਵਾਰ ਲਗਾਉਣ ਦੀ ਥਾਂ ਬਦਲੋ',
+      'ਦੇਖੋ ਕਿ ਇਹ ਅਜੇ ਵੀ ਚੰਗੀ ਤਰ੍ਹਾਂ ਚਿਪਕਿਆ ਹੋਇਆ ਹੈ',
+      'ਇਸ ਨੂੰ ਸਾਫ਼, ਸੁੱਕੀ ਚਮੜੀ \'ਤੇ ਲਗਾਓ',
+    ],
+    sectionIntro:
+      'ਵਰਤੋਂ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਦੌਰਾਨ ਜਾਣਨ ਵਾਲੀਆਂ ਮੁੱਖ ਗੱਲਾਂ।',
+    facts: [
+      {title: 'ਹਰ ਹਫ਼ਤੇ', text: 'ਪੈਚ ਹਫ਼ਤੇ ਵਿੱਚ ਇੱਕ ਵਾਰ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ।'},
+      {title: 'ਸੁੱਕੀ ਚਮੜੀ', text: 'ਇਸ ਨੂੰ ਸਾਫ਼, ਸੁੱਕੀ ਚਮੜੀ \'ਤੇ ਲਗਾਉਣਾ ਚਾਹੀਦਾ ਹੈ।'},
+      {title: 'ਸੁਰੱਖਿਆ', text: 'ਸਹੀ ਢੰਗ ਨਾਲ ਵਰਤਣ \'ਤੇ ਇਹ ਲਗਾਤਾਰ ਕੰਮ ਕਰਦਾ ਹੈ।'},
+      {title: 'ਧਿਆਨ ਰੱਖੋ', text: 'ਕਦੇ-ਕਦੇ ਸਥਾਨਕ ਜਲਣ ਹੋ ਸਕਦੀ ਹੈ।'},
+    ],
+    comparisonTitle: 'ਫ਼ਾਇਦੇ ਅਤੇ ਸੀਮਾਵਾਂ',
+    advantageTitle: 'ਫ਼ਾਇਦੇ',
+    advantages: [
+      '• ਹਫ਼ਤੇ ਵਿੱਚ ਇੱਕ ਵਾਰ ਲਗਾਉਣਾ',
+      '• ਰੋਜ਼ਾਨਾ ਖ਼ੁਰਾਕ ਨਹੀਂ',
+      '• ਹਾਰਮੋਨ ਦਾ ਲਗਾਤਾਰ ਛੱਡਿਆ ਜਾਣਾ',
+    ],
+    limitTitle: 'ਸੀਮਾਵਾਂ',
+    limits: [
+      'ਜਿਨਸੀ ਸੰਚਾਰਿਤ ਲਾਗ (STI) ਤੋਂ ਸੁਰੱਖਿਆ ਨਹੀਂ ਦਿੰਦਾ',
+      'ਚਮੜੀ ਵਿੱਚ ਜਲਣ ਹੋ ਸਕਦੀ ਹੈ',
+      'ਬਦਲਣ ਦੇ ਸਮੇਂ ਦੀ ਪਾਲਣਾ ਕਰਨੀ ਪੈਂਦੀ ਹੈ',
+    ],
+    alertTitle: 'ਕਿਰਪਾ ਕਰਕੇ ਧਿਆਨ ਦਿਓ',
+    alertText:
+      'ਲਗਾਉਣ ਵਾਲੀ ਥਾਂ \'ਤੇ ਹਲਕੀ ਜਲਣ ਹੋ ਸਕਦੀ ਹੈ। ਲਗਾਉਣ ਦੀਆਂ ਥਾਵਾਂ ਨੂੰ ਵਾਰੀ-ਵਾਰੀ ਬਦਲਣ ਨਾਲ ਇਸ ਨੂੰ ਘੱਟ ਕਰਨ ਵਿੱਚ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।',
+    rememberTitle: '3 ਜ਼ਰੂਰੀ ਗੱਲਾਂ',
+    remember: [
+      'ਹਰ ਹਫ਼ਤੇ ਪੈਚ ਬਦਲੋ।',
+      'ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਦੇਖੋ ਕਿ ਇਹ ਚੰਗੀ ਤਰ੍ਹਾਂ ਚਿਪਕਿਆ ਹੈ।',
+      'ਲੋੜ ਪੈਣ \'ਤੇ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸਲਾਹ ਲਓ।',
+    ],
+    shareMessage: 'ਗਰਭ ਨਿਰੋਧਕ ਪੈਚ — AWA',
+  },
+  my: {
+    badge: 'ကိုယ်ဝန်တား ကပ်ပြား',
+    title: 'ကိုယ်ဝန်တား\nကပ်ပြား',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaType: 'ဆောင်းပါး',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'နေ့စဉ်သောက်ရသော ဆေးပြားအတွက် တစ်ပတ်လျှင်တစ်ကြိမ် အသုံးပြုရသည့် အစားထိုးနည်းလမ်း။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ကပ်ပြားအလုပ်လုပ်ပုံ',
+      'ကပ်ရမည့် အချိန်ဇယား',
+      'သိထားသင့်သည့်အချက်များ',
+      'အဓိကအချက်များ',
+    ],
+    section1Body:
+      'ကပ်ပြားသည် အရေပြားမှတစ်ဆင့် ဟော်မုန်းများကို ဆက်တိုက်ထုတ်လွှတ်ပေးပြီး ပေါင်းစပ်ဆေးပြားနှင့် ဆင်တူစွာ အလုပ်လုပ်သည်။ ၎င်းသည် မျိုးဥကြွေခြင်းကို တားဆီးပေးပြီး သားအိမ်ခေါင်းအချွဲကို ပိုပျစ်စေသည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'ဤနည်း၏ အဓိကအားသာချက်မှာ နေ့စဉ်ဆေးသောက်ရန် မလိုအပ်ခြင်းဖြစ်သည်။',
+    section2Body:
+      'ကပ်ပြားကို ပုံမှန်အားဖြင့် သုံးပတ်ကြာ တစ်ပတ်လျှင်တစ်ကြိမ် လဲလှယ်ကပ်ပြီး နောက်တစ်ပတ်တွင် ကပ်ပြားမကပ်ဘဲ နားရသည်။',
+    applicationTips: [
+      'ကပ်သည့်နေရာကို အကြိမ်တိုင်း ပြောင်းပါ',
+      'ကပ်ပြားက ခိုင်ခိုင်မြဲမြဲ ကပ်နေသေးကြောင်း စစ်ဆေးပါ',
+      'သန့်ရှင်းခြောက်သွေ့သော အရေပြားပေါ်တွင် ကပ်ပါ',
+    ],
+    sectionIntro:
+      'အသုံးမပြုမီနှင့် အသုံးပြုနေစဉ် သိထားသင့်သည့် အဓိကအချက်များ။',
+    facts: [
+      {title: 'အပတ်တိုင်း', text: 'ကပ်ပြားကို တစ်ပတ်လျှင်တစ်ကြိမ် လဲလှယ်သည်။'},
+      {title: 'ခြောက်သွေ့သောအရေပြား', text: 'သန့်ရှင်းခြောက်သွေ့သော အရေပြားပေါ်တွင် ကပ်ရမည်။'},
+      {title: 'ကာကွယ်မှု', text: 'မှန်ကန်စွာ အသုံးပြုပါက ဆက်တိုက် အလုပ်လုပ်သည်။'},
+      {title: 'သတိထားရန်', text: 'ကပ်သည့်နေရာတွင် ယားယံရှစ်ရောင်ခြင်း တခါတရံ ဖြစ်တတ်သည်။'},
+    ],
+    comparisonTitle: 'အားသာချက်များနှင့် ကန့်သတ်ချက်များ',
+    advantageTitle: 'အားသာချက်များ',
+    advantages: [
+      '• တစ်ပတ်လျှင် တစ်ကြိမ်သာ ကပ်ရသည်',
+      '• နေ့စဉ်ဆေးသောက်ရန် မလိုပါ',
+      '• ဟော်မုန်းကို ဆက်တိုက်ထုတ်လွှတ်ပေးသည်',
+    ],
+    limitTitle: 'ကန့်သတ်ချက်များ',
+    limits: [
+      'လိင်မှတစ်ဆင့်ကူးစက်သောရောဂါ (STI) ကို မကာကွယ်ပေးနိုင်ပါ',
+      'အရေပြား ယားယံရှစ်ရောင်စေနိုင်သည်',
+      'လဲလှယ်ရမည့် အချိန်ဇယားကို တိတိကျကျ လိုက်နာရန် လိုအပ်သည်',
+    ],
+    alertTitle: 'ကျေးဇူးပြု၍ သတိပြုပါ',
+    alertText:
+      'ကပ်သည့်နေရာတွင် အနည်းငယ် ယားယံရှစ်ရောင်ခြင်း ဖြစ်နိုင်သည်။ ကပ်သည့်နေရာကို အလှည့်ကျ ပြောင်းခြင်းဖြင့် ၎င်းကို လျှော့ချနိုင်သည်။',
+    rememberTitle: 'မရှိမဖြစ် အချက် 3 ချက်',
+    remember: [
+      'ကပ်ပြားကို အပတ်တိုင်း လဲလှယ်ပါ။',
+      'ကပ်ပြားက ကောင်းစွာ ကပ်နေခြင်းရှိမရှိ ပုံမှန်စစ်ဆေးပါ။',
+      'လိုအပ်ပါက ကျန်းမာရေးပညာရှင်ထံ အကြံဉာဏ်တောင်းပါ။',
+    ],
+    shareMessage: 'ကိုယ်ဝန်တား ကပ်ပြား — AWA',
+  },
+  km: {
+    badge: 'បន្ទះបិទពន្យារកំណើត',
+    title: 'បន្ទះបិទ\nពន្យារកំណើត',
+    metaDuration: 'អាន 5 នាទី',
+    metaType: 'អត្ថបទ',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'ជម្រើសមួយសប្តាហ៍ម្តង ជំនួសថ្នាំគ្រាប់ប្រចាំថ្ងៃ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'របៀបដែលបន្ទះបិទដំណើរការ',
+      'កាលវិភាគនៃការបិទ',
+      'អ្វីដែលអ្នកគួរដឹង',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    section1Body:
+      'បន្ទះបិទបញ្ចេញអរម៉ូនជាបន្តបន្ទាប់តាមរយៈស្បែក ដោយដំណើរការស្រដៀងនឹងថ្នាំគ្រាប់ចម្រុះ គឺរារាំងការបញ្ចេញពងអូវុល និងធ្វើឱ្យទឹករំអិលមាត់ស្បូនខាប់។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'គុណសម្បត្តិចម្បងរបស់វា គឺមិនចាំបាច់លេបជារៀងរាល់ថ្ងៃទេ។',
+    section2Body:
+      'ជាទូទៅ បន្ទះបិទត្រូវបានប្តូរមួយសប្តាហ៍ម្តងរយៈពេលបីសប្តាហ៍ បន្ទាប់មកមួយសប្តាហ៍ដោយមិនបិទបន្ទះ។',
+    applicationTips: [
+      'ប្តូរកន្លែងបិទរាល់ដង',
+      'ពិនិត្យថាវានៅជាប់ជាប្រក្រតី',
+      'បិទលើស្បែកស្អាត និងស្ងួត',
+    ],
+    sectionIntro:
+      'ចំណុចសំខាន់ៗដែលគួរដឹងមុន និងអំឡុងពេលប្រើប្រាស់។',
+    facts: [
+      {title: 'រាល់សប្តាហ៍', text: 'បន្ទះបិទត្រូវបានប្តូរមួយសប្តាហ៍ម្តង។'},
+      {title: 'ស្បែកស្ងួត', text: 'ត្រូវបិទលើស្បែកស្អាត និងស្ងួត។'},
+      {title: 'ការការពារ', text: 'វាដំណើរការជាបន្តបន្ទាប់ នៅពេលប្រើប្រាស់បានត្រឹមត្រូវ។'},
+      {title: 'ត្រូវប្រុងប្រយ័ត្ន', text: 'ការរមាស់ ឬរលាកនៅកន្លែងបិទអាចកើតមានជួនកាល។'},
+    ],
+    comparisonTitle: 'គុណសម្បត្តិ និងដែនកំណត់',
+    advantageTitle: 'គុណសម្បត្តិ',
+    advantages: [
+      '• បិទតែម្តងក្នុងមួយសប្តាហ៍',
+      '• មិនចាំបាច់លេបជារៀងរាល់ថ្ងៃ',
+      '• បញ្ចេញអរម៉ូនជាបន្តបន្ទាប់',
+    ],
+    limitTitle: 'ដែនកំណត់',
+    limits: [
+      'មិនការពារជំងឺកាមរោគ (STI) ទេ',
+      'អាចបណ្តាលឱ្យរលាកស្បែក',
+      'ត្រូវប្រកាន់ខ្ជាប់តាមកាលវិភាគប្តូរបន្ទះ',
+    ],
+    alertTitle: 'សូមកត់សម្គាល់',
+    alertText:
+      'ការរលាកស្រាលៗអាចលេចឡើងនៅកន្លែងបិទ។ ការប្តូរកន្លែងបិទជាវេនអាចជួយកាត់បន្ថយបញ្ហានេះ។',
+    rememberTitle: 'ចំណុចសំខាន់ទាំង 3',
+    remember: [
+      'ប្តូរបន្ទះបិទរាល់សប្តាហ៍។',
+      'ពិនិត្យជាប្រចាំថាវានៅជាប់ល្អ។',
+      'សួរដំបូន្មានពីអ្នកជំនាញសុខាភិបាល ប្រសិនបើចាំបាច់។',
+    ],
+    shareMessage: 'បន្ទះបិទពន្យារកំណើត — AWA',
+  },
+  lo: {
+    badge: 'ແຜ່ນແປະຄຸມກຳເນີດ',
+    title: 'ແຜ່ນແປະ\nຄຸມກຳເນີດ',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaType: 'ບົດຄວາມ',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ທາງເລືອກແບບອາທິດລະເທື່ອ ແທນການກິນຢາທຸກມື້.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ແຜ່ນແປະເຮັດວຽກແນວໃດ',
+      'ຕາຕະລາງການແປະ',
+      'ສິ່ງທີ່ທ່ານຄວນຮູ້',
+      'ຈຸດສຳຄັນ',
+    ],
+    section1Body:
+      'ແຜ່ນແປະປ່ອຍຮໍໂມນຜ່ານຜິວໜັງຢ່າງຕໍ່ເນື່ອງ ແລະ ເຮັດວຽກຄ້າຍຄືກັບຢາຄຸມກຳເນີດແບບປະສົມ: ມັນຢັບຢັ້ງການຕົກໄຂ່ ແລະ ເຮັດໃຫ້ເມືອກປາກມົດລູກຂຸ້ນຂຶ້ນ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ຂໍ້ດີຫຼັກຂອງມັນແມ່ນບໍ່ຕ້ອງກິນຢາທຸກມື້.',
+    section2Body:
+      'ໂດຍທົ່ວໄປ ແຜ່ນແປະຈະຖືກປ່ຽນອາທິດລະເທື່ອເປັນເວລາສາມອາທິດ ແລ້ວຕາມດ້ວຍຫນຶ່ງອາທິດທີ່ບໍ່ແປະແຜ່ນ.',
+    applicationTips: [
+      'ປ່ຽນບ່ອນແປະທຸກຄັ້ງ',
+      'ກວດເບິ່ງວ່າຍັງຕິດແໜ້ນຢູ່',
+      'ແປະໃສ່ຜິວທີ່ສະອາດ ແລະ ແຫ້ງ',
+    ],
+    sectionIntro:
+      'ຈຸດສຳຄັນທີ່ຄວນຮູ້ກ່ອນ ແລະ ໃນລະຫວ່າງການໃຊ້.',
+    facts: [
+      {title: 'ທຸກອາທິດ', text: 'ປ່ຽນແຜ່ນແປະອາທິດລະເທື່ອ.'},
+      {title: 'ຜິວແຫ້ງ', text: 'ຕ້ອງແປະໃສ່ຜິວທີ່ສະອາດ ແລະ ແຫ້ງ.'},
+      {title: 'ການປົກປ້ອງ', text: 'ມັນເຮັດວຽກຢ່າງຕໍ່ເນື່ອງ ເມື່ອໃຊ້ຢ່າງຖືກຕ້ອງ.'},
+      {title: 'ສິ່ງທີ່ຄວນສັງເກດ', text: 'ບາງຄັ້ງອາດເກີດການລະຄາຍເຄືອງຕາມບ່ອນແປະ.'},
+    ],
+    comparisonTitle: 'ຂໍ້ດີ ແລະ ຂໍ້ຈຳກັດ',
+    advantageTitle: 'ຂໍ້ດີ',
+    advantages: [
+      '• ແປະອາທິດລະເທື່ອ',
+      '• ບໍ່ຕ້ອງກິນຢາທຸກມື້',
+      '• ປ່ອຍຮໍໂມນຢ່າງຕໍ່ເນື່ອງ',
+    ],
+    limitTitle: 'ຂໍ້ຈຳກັດ',
+    limits: [
+      'ບໍ່ປ້ອງກັນພະຍາດຕິດຕໍ່ທາງເພດສຳພັນ (STI)',
+      'ອາດເຮັດໃຫ້ຜິວລະຄາຍເຄືອງ',
+      'ຕ້ອງປະຕິບັດຕາມຕາຕະລາງການປ່ຽນແຜ່ນ',
+    ],
+    alertTitle: 'ກະລຸນາສັງເກດ',
+    alertText:
+      'ອາດມີອາການລະຄາຍເຄືອງເລັກນ້ອຍຕາມບ່ອນແປະ. ການສະຫຼັບບ່ອນແປະສາມາດຊ່ວຍຈຳກັດອາການນີ້ໄດ້.',
+    rememberTitle: '3 ຢ່າງທີ່ຕ້ອງຈື່',
+    remember: [
+      'ປ່ຽນແຜ່ນແປະທຸກອາທິດ.',
+      'ກວດເບິ່ງເປັນປະຈຳວ່າມັນຍັງຕິດດີ.',
+      'ຖາມຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ ຫາກຈຳເປັນ.',
+    ],
+    shareMessage: 'ແຜ່ນແປະຄຸມກຳເນີດ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -2469,6 +2469,1222 @@ const CONTENT = withBrazilianPortuguese('ReligiousFaqAfterLoss', {
       'Özüňize ideg etmek, goldaw gözlemek we umyda ýapyşmak asudalyga eltýän ýolda ýuwaş-ýuwaşdan ugrukdyrmaga kömek edip biler.',
     shareMessage: 'Ýitgiden soň ruhy ugrukdyrma — AWA',
   },
+  ms: {
+    badge: 'PANDUAN ROHANI',
+    title: 'Panduan rohani\nselepas kehilangan',
+    metaDuration: '5 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaEducational: 'Kandungan pendidikan',
+    intro:
+      'Beberapa panduan rohani untuk membantu anda melalui kehilangan dengan kelembutan, kesabaran dan belas kasihan.',
+    disclaimerTitle: 'Maklumat penting',
+    disclaimerText:
+      'Kandungan ini bersifat pendidikan. Persoalan agama yang khusus perlu disahkan dengan ulama yang layak. AWA tidak mengeluarkan fatwa yang diperibadikan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Ujian yang diiktiraf',
+      'Status yang bergantung pada keadaan',
+      'Kesabaran dan harapan',
+      'Beberapa panduan untuk melangkah ke hadapan',
+    ],
+    section1H2: '1. Ujian yang diiktiraf',
+    section1Body1:
+      'Kehilangan kehamilan boleh menjadi ujian yang sangat menyakitkan. Kesedihan, kesunyian, kekeliruan atau keperluan untuk menarik diri ialah tindak balas manusia yang semula jadi.',
+    section1Body2:
+      'Merasai emosi ini tidak bermakna kekurangan iman. Setiap wanita boleh melalui kesedihannya mengikut rentaknya sendiri.',
+    visual1Title: 'Menerima emosi anda',
+    visual1Body: 'Kesedihan • keperluan untuk berehat • kesunyian • sokongan',
+    section2H2: '2. Status yang boleh berbeza bergantung pada keadaan',
+    section2Body1:
+      'Selepas kehilangan, hukum agama boleh bergantung pada keadaan dan sifat pendarahan.',
+    section2Body2:
+      'Khususnya, mungkin perlu membezakan antara pelbagai jenis pendarahan sebelum menentukan amalan agama yang perlu diikuti.',
+    schemaTitle: 'Prinsip umum',
+    schemaLabel1: 'Keadaan',
+    schemaLabel2: 'Sifat pendarahan',
+    schemaLabel3: 'Panduan yang sesuai',
+    doubtTipTitle: 'Jika ragu-ragu',
+    doubtTipText:
+      'Keadaan peribadi mungkin memerlukan jawapan yang berbeza. Lebih baik mendapatkan nasihat daripada orang yang layak.',
+    section3H2: '3. Kesabaran dan harapan',
+    section3Body1:
+      'Kesabaran (sabar) tidak bermakna tidak menangis atau tidak merasai sakit. Ia boleh sekadar menemani perjalanan dengan iman dan harapan.',
+    section3Body2:
+      'Gerak-geri kecil boleh membantu memulihkan rasa tenteram secara beransur-ansur: satu doa, saat berzikir, mendengar kandungan rohani atau kehadiran orang tersayang.',
+    spiritual1: 'Doa',
+    spiritual2: 'Zikir',
+    spiritual3: 'Sokongan',
+    retainTipTitle: 'Perlu diingat',
+    retainTipText:
+      'Penyembuhan mengambil masa. Tiada rentak sejagat untuk melalui kehilangan.',
+    section4H2: '4. Beberapa panduan untuk melangkah ke hadapan',
+    section4Body:
+      'Tidak perlu melakukan segala-galanya sekali gus. Pilih apa yang sepadan dengan perasaan anda dan apa yang anda perlukan sekarang.',
+    gentleSteps: [
+      'Luangkan masa untuk menjalani kesedihan anda',
+      'Kelilingi diri anda dengan orang yang prihatin',
+      'Teruskan amalan rohani kecil jika ia membawa ketenangan',
+      'Dapatkan nasihat untuk sebarang persoalan agama yang khusus',
+      'Dapatkan sokongan jika kesedihan menjadi terlalu sukar untuk ditanggung',
+    ],
+    finalTitle: 'Perjalanan mengikut rentak anda',
+    finalText:
+      'Menjaga diri anda, mencari sokongan dan berpegang pada harapan boleh beransur-ansur membantu memandu perjalanan ke arah ketenangan.',
+    shareMessage: 'Panduan rohani selepas kehilangan — AWA',
+  },
+  so: {
+    badge: 'HAGID RUUXI AH',
+    title: 'Hagid ruuxi ah\nlumis ka dib',
+    metaDuration: '5 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaEducational: 'Macluumaad waxbarasho',
+    intro:
+      'Dhowr qodob oo hagid ruuxi ah oo kaa caawinaya inaad lumis ku martid jilicsanaan, samir, iyo naxariis.',
+    disclaimerTitle: 'Macluumaad muhiim ah',
+    disclaimerText:
+      'Macluumaadkani waa waxbarasho. Su’aalaha diineed ee gaarka ah waa in lagu hubiyo culimo xirfad leh. AWA ma soo saaro fatwooyin shakhsi ah.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Imtixaan la aqoonsaday',
+      'Xaalad ku xiran xaaladda',
+      'Samir iyo rajo',
+      'Dhowr qodob oo hagid ah oo lagu horumaro',
+    ],
+    section1H2: '1. Imtixaan la aqoonsaday',
+    section1Body1:
+      'Uur-lumis wuxuu noqon karaa imtixaan aad u xanuun badan. Murugo, aamusnaan, jaha-wareer, ama baahida aad u baahan tahay inaad dib u dhacdo waa falcelinno dabiici ah oo dadnimo.',
+    section1Body2:
+      'Dareenka dareennadan macnaheedu maaha caqiido la’aan. Naag kastaa wuxuu barooranaantiisa ku marayaa xawaarihiisa.',
+    visual1Title: 'Soo dhawaynta dareennadaada',
+    visual1Body: 'Murugo • baahi nasasho • aamusnaan • taageero',
+    section2H2: '2. Xaalad ku kala duwanaan karta iyadoo ku xiran xaaladda',
+    section2Body1:
+      'Lumis ka dib, xeerarka diineed way ku xirnaan karaan xaaladda iyo nooca dhiigbaxa.',
+    section2Body2:
+      'Gaar ahaan, waxaa laga yaabaa in loo baahdo in la kala saaro noocyada dhiigbaxa ka hor intaan la go’aaminin cibaadada la raaco.',
+    schemaTitle: 'Mabda’a guud',
+    schemaLabel1: 'Xaalad',
+    schemaLabel2: 'Nooca dhiigbaxa',
+    schemaLabel3: 'Hagid ku habboon',
+    doubtTipTitle: 'Haddii shaki jiro',
+    doubtTipText:
+      'Xaalad shakhsi ah ayaa u baahan kartaa jawaab ka duwan. Waxaa ugu wanaagsan in talo laga raadsado qof xirfad leh.',
+    section3H2: '3. Samir iyo rajo',
+    section3Body1:
+      'Samirka (sabr) macnaheedu maaha inaan la ooyin ama aan la dareemin xanuun. Wuxuu si fudud u raaci karaa safarka caqiido iyo rajo.',
+    section3Body2:
+      'Ficillo yaryar ayaa caawin kara dib u soo celinta tartiib ah ee dareenka nabadda: duco, wakhti dhikr ah, dhegaysi ruuxi ah, ama joogitaanka qof kuu dhow.',
+    spiritual1: 'Duco',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Taageero',
+    retainTipTitle: 'Maskaxda ku hay',
+    retainTipText:
+      'Bogsiintu waxay qaadataa waqti. Xawaare caalami ah oo lagu maro lumis ma jiro.',
+    section4H2: '4. Dhowr qodob oo hagid ah oo lagu horumaro',
+    section4Body:
+      'Looma baahna inaad wax walba hal mar sameyso. Dooro waxa la jaan qaadaya sida aad dareemayso iyo waxa aad hadda u baahan tahay.',
+    gentleSteps: [
+      'Qaado waqtiga aad barooranaantaada ku noolaato',
+      'Naftaada ku wareeji dad daryeel leh',
+      'Sii wad dhaqamo ruuxi ah oo yaryar haddii ay kuu keenaan raaxo',
+      'Talo ka raadso su’aal diineed oo gaar ah kasta',
+      'Raadi taageero haddii barooranaantu noqoto mid aad u adag in la sido',
+    ],
+    finalTitle: 'Jid xawaarahaaga ah',
+    finalText:
+      'Naftaada daryeelka, raadinta taageero, iyo haynta rajo ayaa tartiib kaa caawin kara hagidda jidka nabadda.',
+    shareMessage: 'Hagid ruuxi ah lumis ka dib — AWA',
+  },
+  sw: {
+    badge: 'MWONGOZO WA KIROHO',
+    title: 'Mwongozo wa kiroho\nbaada ya kupoteza mimba',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaEducational: 'Maudhui ya kielimu',
+    intro:
+      'Vielelezo vichache vya mwongozo wa kiroho vya kukusaidia kupita hasara kwa upole, subira, na huruma.',
+    disclaimerTitle: 'Taarifa muhimu',
+    disclaimerText:
+      'Maudhui haya ni ya kielimu. Masuala mahususi ya kidini yanapaswa kuthibitishwa na mwanazuoni aliyehitimu. AWA haitoi fatwa zilizobinafsishwa.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Mtihani unaotambuliwa',
+      'Hadhi inayotegemea hali',
+      'Subira na matumaini',
+      'Vielelezo vichache vya kusonga mbele',
+    ],
+    section1H2: '1. Mtihani unaotambuliwa',
+    section1Body1:
+      'Kupoteza mimba kunaweza kuwa mtihani wenye maumivu makubwa. Huzuni, ukimya, mchanganyiko, au hitaji la kujiondoa ni miitikio ya asili ya kibinadamu.',
+    section1Body2:
+      'Kuhisi hisia hizi haimaanishi kukosa imani. Kila mwanamke anaweza kupitia huzuni yake kwa mwendo wake mwenyewe.',
+    visual1Title: 'Kukaribisha hisia zako',
+    visual1Body: 'Huzuni • hitaji la kupumzika • ukimya • msaada',
+    section2H2: '2. Hadhi inayoweza kutofautiana kulingana na hali',
+    section2Body1:
+      'Baada ya kupoteza mimba, kanuni za kidini zinaweza kutegemea hali na asili ya kutokwa damu.',
+    section2Body2:
+      'Hasa, inaweza kuwa muhimu kutofautisha kati ya aina tofauti za kutokwa damu kabla ya kubaini ni ibada zipi za kufuata.',
+    schemaTitle: 'Kanuni ya jumla',
+    schemaLabel1: 'Hali',
+    schemaLabel2: 'Asili ya kutokwa damu',
+    schemaLabel3: 'Mwongozo unaofaa',
+    doubtTipTitle: 'Ukiwa na shaka',
+    doubtTipText:
+      'Hali binafsi inaweza kuhitaji jibu tofauti. Ni bora kutafuta ushauri wa mtu aliyehitimu.',
+    section3H2: '3. Subira na matumaini',
+    section3Body1:
+      'Subira (sabr) haimaanishi kutolia au kutohisi maumivu. Inaweza tu kuandamana na safari kwa imani na matumaini.',
+    section3Body2:
+      'Vitendo vidogo vinaweza kusaidia kurejesha polepole hisia ya amani: dua, wakati wa dhikri, kusikiliza mambo ya kiroho, au uwepo wa mpendwa.',
+    spiritual1: 'Dua',
+    spiritual2: 'Dhikri',
+    spiritual3: 'Msaada',
+    retainTipTitle: 'Kumbuka',
+    retainTipText:
+      'Uponyaji huchukua muda. Hakuna mwendo wa jumla wa kupita hasara.',
+    section4H2: '4. Vielelezo vichache vya kusonga mbele',
+    section4Body:
+      'Hakuna haja ya kufanya kila kitu mara moja. Chagua kinacholingana na unavyojisikia na unachohitaji sasa hivi.',
+    gentleSteps: [
+      'Chukua muda wa kuishi huzuni yako',
+      'Jizunguke na watu wenye kujali',
+      'Endelea na ibada ndogo za kiroho ikiwa zinaleta faraja',
+      'Tafuta ushauri kwa swali lolote mahususi la kidini',
+      'Tafuta msaada ikiwa huzuni inakuwa ngumu mno kubeba',
+    ],
+    finalTitle: 'Njia kwa mwendo wako mwenyewe',
+    finalText:
+      'Kujijali, kutafuta msaada, na kushikilia matumaini kunaweza polepole kusaidia kuongoza njia kuelekea amani.',
+    shareMessage: 'Mwongozo wa kiroho baada ya kupoteza mimba — AWA',
+  },
+  kk: {
+    badge: 'РУХАНИ БАҒЫТ',
+    title: 'Түсіктен кейінгі\nрухани бағыт',
+    metaDuration: '5 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaEducational: 'Білім беру мазмұны',
+    intro:
+      'Жоғалтудан жұмсақтықпен, шыдамдылықпен және мейіріммен өтуге көмектесетін бірнеше рухани бағыттау нүктесі.',
+    disclaimerTitle: 'Маңызды ақпарат',
+    disclaimerText:
+      'Бұл мазмұн білім беру үшін. Нақты діни сұрақтарды білікті ғалыммен тексеру керек. AWA жекелендірілген фатуа бермейді.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Мойындалған сынақ',
+      'Жағдайға байланысты мәртебе',
+      'Шыдамдылық және үміт',
+      'Алға жылжуға арналған бірнеше бағыттау нүктесі',
+    ],
+    section1H2: '1. Мойындалған сынақ',
+    section1Body1:
+      'Жүктілікті жоғалту терең ауыратын сынақ болуы мүмкін. Мұң, үнсіздік, абыржу немесе шегінуге деген қажеттілік — табиғи адами реакциялар.',
+    section1Body2:
+      'Бұл эмоцияларды сезіну сенімнің жетіспеуін білдірмейді. Әр әйел қайғысын өз қарқынымен бастан өткере алады.',
+    visual1Title: 'Эмоцияларыңызды қабылдау',
+    visual1Body: 'Мұң • демалуға қажеттілік • үнсіздік • қолдау',
+    section2H2: '2. Жағдайға байланысты өзгеруі мүмкін мәртебе',
+    section2Body1:
+      'Жоғалтудан кейін діни ережелер жағдайға және қан кетудің табиғатына байланысты болуы мүмкін.',
+    section2Body2:
+      'Атап айтқанда, қандай діни тәжірибелерді ұстану керектігін анықтамас бұрын қан кетудің әртүрлі түрлерін ажырату қажет болуы мүмкін.',
+    schemaTitle: 'Жалпы қағида',
+    schemaLabel1: 'Жағдай',
+    schemaLabel2: 'Қан кетудің табиғаты',
+    schemaLabel3: 'Тиісті бағыт',
+    doubtTipTitle: 'Күмән туындаса',
+    doubtTipText:
+      'Жеке жағдай басқа жауапты қажет етуі мүмкін. Білікті адамнан кеңес сұрау жақсы.',
+    section3H2: '3. Шыдамдылық және үміт',
+    section3Body1:
+      'Шыдамдылық (сабыр) жыламауды немесе ауырудан сезінбеуді білдірмейді. Ол жай ғана жолды сеніммен және үмітпен сүйемелдей алады.',
+    section3Body2:
+      'Шағын әрекеттер біртіндеп тыныштық сезімін қалпына келтіруге көмектесе алады: дұға, зікір сәті, рухани мазмұнды тыңдау немесе жақын адамның қасында болуы.',
+    spiritual1: 'Дұға',
+    spiritual2: 'Зікір',
+    spiritual3: 'Қолдау',
+    retainTipTitle: 'Есте сақтаңыз',
+    retainTipText:
+      'Емделу уақыт алады. Жоғалтудан өтудің әмбебап қарқыны жоқ.',
+    section4H2: '4. Алға жылжуға арналған бірнеше бағыттау нүктесі',
+    section4Body:
+      'Бәрін бірден істеудің қажеті жоқ. Сезіміңізге және қазір қажет етіп отырғаныңызға сәйкес келетінді таңдаңыз.',
+    gentleSteps: [
+      'Қайғыңызды бастан өткеруге уақыт бөліңіз',
+      'Қамқор адамдармен қоршаныңыз',
+      'Жұбаныш әкелсе, шағын рухани тәжірибелерді жалғастырыңыз',
+      'Кез келген нақты діни сұрақ үшін кеңес сұраңыз',
+      'Қайғы көтеру тым ауыр болса, қолдау іздеңіз',
+    ],
+    finalTitle: 'Өз қарқыныңызбен жол',
+    finalText:
+      'Өзіңізге қамқор болу, қолдау іздеу және үмітті сақтау біртіндеп тыныштыққа апаратын жолды бағыттауға көмектесе алады.',
+    shareMessage: 'Түсіктен кейінгі рухани бағыт — AWA',
+  },
+  wo: {
+    badge: 'NDIGAL BU XOL',
+    title: 'Ndigal bu xol\nginnaaw ëmb bu rees',
+    metaDuration: '5 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaEducational: 'Mbind ngir njàng',
+    intro:
+      'Yenn màndargay xol ngir dimbli nga jàll ëmb bu rees ak lewet, muñ ak yërmànde.',
+    disclaimerTitle: 'Xibaar bu am solo',
+    disclaimerText:
+      'Mbind mii ngir njàng la. Laaj yu diine yu sa bopp war nañu ñu seetlu ak benn jàngalekat bu am kàttan. AWA du génne fatwa yu sa bopp.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Benn sonda bu ñu xam',
+      'Benn anam bu mën a soppiku ci mbir bi',
+      'Muñ ak yaakaar',
+      'Yenn màndarga ngir dem kanam',
+    ],
+    section1H2: '1. Benn sonda bu ñu xam',
+    section1Body1:
+      'Ëmb bu rees mën na nekk benn sonda bu metti lool. Naqar, jaaxle, xel-ñaar walla soxla tàggoo ay jëfe yu cosaan lañu yu nit.',
+    section1Body2:
+      'Dégg ni dégg yii du tekki ñàkk ngëm. Jigéen ju nekk mën na jàll sa tiis ci sa ritm.',
+    visual1Title: 'Nangu say dégg',
+    visual1Body: 'Naqar • soxla noppalu • jàmm • dimbali',
+    section2H2: '2. Benn anam bu mën a soppiku ci mbir bi',
+    section2Body1:
+      'Ginnaaw ëmb bu rees, yoon yu diine mën nañu sukkandiku ci mbir bi ak anamu deret bi.',
+    section2Body2:
+      'Lool, mën na soxla séddale ay xeetu deret balaa nga dogal ban jëfu diine nga war a topp.',
+    schemaTitle: 'Yoon bu yaatu',
+    schemaLabel1: 'Mbir',
+    schemaLabel2: 'Anamu deret bi',
+    schemaLabel3: 'Ndigal bu méngoo',
+    doubtTipTitle: 'Bu xel-ñaar am',
+    doubtTipText:
+      'Benn mbir bu sa bopp mën na soxla benn tontu bu wuute. Baax na nga ñaan ndigalu keneen ku am kàttan.',
+    section3H2: '3. Muñ ak yaakaar',
+    section3Body1:
+      'Muñ (sabr) du tekki bañ a jooy walla bañ a dégg metit. Mën na rekk topp yoon bi ak ngëm ak yaakaar.',
+    section3Body2:
+      'Yoon yu ndaw mën nañu dimbli ngir dellu ci jàmm tuuti-tuuti: benn dëgg-dëgg, benn simili dhikr, déglu benn mbind bu xol walla nekk ak benn nit ku sa bopp.',
+    spiritual1: 'Dëgg-dëgg',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Dimbali',
+    retainTipTitle: 'Fàttaliku',
+    retainTipText:
+      'Wér dafay jël jamono. Amul benn ritm bu bokk ngir jàll ëmb bu rees.',
+    section4H2: '4. Yenn màndarga ngir dem kanam',
+    section4Body:
+      'Soxlawul nga def lépp ci benn yoon. Tànn li méngoo li nga dégg ak li nga soxla léegi.',
+    gentleSteps: [
+      'Jël jamono ngir dund sa tiis',
+      'Wër sa bopp ak ñu la teg',
+      'Kontine ay yoonu xol yu ndaw bu ñu la neex',
+      'Ñaan ndigal ngir laaj bu nekk bu diine bu leer',
+      'Seet dimbali bu tiis bi di diis lool',
+    ],
+    finalTitle: 'Benn yoon ci sa ritm',
+    finalText:
+      'Yër sa bopp, seet dimbali te denc yaakaar mën nañu dimbli ngir jëmal yoon bi ci jàmm tuuti-tuuti.',
+    shareMessage: 'Ndigal bu xol ginnaaw ëmb bu rees — AWA',
+  },
+  ha: {
+    badge: 'JAGORAR RUHANIYA',
+    title: 'Jagorar ruhaniya\nbayan rashi',
+    metaDuration: 'karatun minti 5',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaEducational: 'Abun ilimantarwa',
+    intro:
+      'Wasu jagorori na ruhaniya don taimaka miki ki wuce rashi cikin laushi, haƙuri, da jin ƙai.',
+    disclaimerTitle: 'Muhimmin bayani',
+    disclaimerText:
+      'Wannan abun ilimantarwa ne. Ya kamata a tabbatar da takamaiman tambayoyin addini tare da ƙwararren malami. AWA ba ta ba da fatawa ta mutum ba.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Jarabawa da aka amince da ita',
+      'Matsayi da ya dogara ga yanayi',
+      'Haƙuri da bege',
+      'Wasu jagorori don ci gaba',
+    ],
+    section1H2: '1. Jarabawa da aka amince da ita',
+    section1Body1:
+      'Rashin ciki na iya zama jarabawa mai zafi sosai. Baƙin ciki, shiru, ruɗani, ko bukatar ja da baya martani ne na ɗan adam na halitta.',
+    section1Body2:
+      'Jin waɗannan ji ba ya nufin rashin imani. Kowace mace za ta iya wucewa ta baƙin cikinta bisa saurinta.',
+    visual1Title: 'Karɓar jinki',
+    visual1Body: 'Baƙin ciki • bukatar hutu • shiru • tallafi',
+    section2H2: '2. Matsayi da zai iya bambanta bisa yanayi',
+    section2Body1:
+      'Bayan rashi, ƙa’idodin addini na iya dogara ga yanayin da kuma nau’in zubar jinin.',
+    section2Body2:
+      'Musamman, ana iya bukatar a bambanta tsakanin nau’ikan zubar jini daban-daban kafin a tantance ayyukan ibada da za a bi.',
+    schemaTitle: 'Ƙa’ida gama gari',
+    schemaLabel1: 'Yanayi',
+    schemaLabel2: 'Nau’in zubar jinin',
+    schemaLabel3: 'Jagora mai dacewa',
+    doubtTipTitle: 'Idan akwai shakka',
+    doubtTipText:
+      'Yanayin mutum na iya bukatar amsa daban. Ya fi kyau a nemi shawara daga ƙwararre.',
+    section3H2: '3. Haƙuri da bege',
+    section3Body1:
+      'Haƙuri (sabr) ba ya nufin rashin kuka ko rashin jin ciwo. Zai iya raka tafiyar kawai da imani da bege.',
+    section3Body2:
+      'Ƙananan ayyuka na iya taimakawa wajen mayar da jin kwanciyar hankali a hankali: addu’a, lokacin zikiri, sauraron ruhaniya, ko kasancewar ƙaunataccen.',
+    spiritual1: 'Addu’a',
+    spiritual2: 'Zikiri',
+    spiritual3: 'Tallafi',
+    retainTipTitle: 'Ki tuna',
+    retainTipText:
+      'Warkewa yana ɗaukar lokaci. Babu saurin kowa na wucewa ta rashi.',
+    section4H2: '4. Wasu jagorori don ci gaba',
+    section4Body:
+      'Babu bukatar yin komai a lokaci ɗaya. Zaɓi abin da ya dace da yadda kike ji da abin da kike bukata a yanzu.',
+    gentleSteps: [
+      'Ɗauki lokaci don rayuwar baƙin cikinki',
+      'Kewaye kanki da mutane masu kulawa',
+      'Ci gaba da ƙananan ayyukan ruhaniya idan suna kawo kwanciyar hankali',
+      'Nemi shawara ga kowace takamaiman tambayar addini',
+      'Nemi tallafi idan baƙin cikin ya yi wuyar ɗauka',
+    ],
+    finalTitle: 'Hanya bisa saurinki',
+    finalText:
+      'Kula da kanki, neman tallafi, da riƙe bege na iya taimakawa a hankali wajen jagorantar hanya zuwa kwanciyar hankali.',
+    shareMessage: 'Jagorar ruhaniya bayan rashi — AWA',
+  },
+  am: {
+    badge: 'መንፈሳዊ መመሪያ',
+    title: 'ከኪሳራ በኋላ\nመንፈሳዊ መመሪያ',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaEducational: 'ትምህርታዊ ይዘት',
+    intro:
+      'ኪሳራን በለዘብታ፣ በትዕግሥት እና በርኅራኄ እንድታልፊ የሚረዱ ጥቂት መንፈሳዊ መመሪያ ነጥቦች።',
+    disclaimerTitle: 'አስፈላጊ መረጃ',
+    disclaimerText:
+      'ይህ ይዘት ትምህርታዊ ነው። የተወሰኑ የሃይማኖት ጥያቄዎች ከብቁ ሊቅ ጋር መረጋገጥ አለባቸው። AWA ግላዊ ፈትዋ አይሰጥም።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የታወቀ ፈተና',
+      'በሁኔታው ላይ የሚወሰን ሁኔታ',
+      'ትዕግሥትና ተስፋ',
+      'ወደ ፊት ለመሄድ ጥቂት የመመሪያ ነጥቦች',
+    ],
+    section1H2: '1. የታወቀ ፈተና',
+    section1Body1:
+      'የእርግዝና ኪሳራ ጥልቅ የሚያም ፈተና ሊሆን ይችላል። ሐዘን፣ ዝምታ፣ ግራ መጋባት ወይም ወደ ኋላ የመመለስ ፍላጎት ተፈጥሯዊ የሰው ምላሾች ናቸው።',
+    section1Body2:
+      'እነዚህን ስሜቶች መሰማት የእምነት እጥረት ማለት አይደለም። እያንዳንዷ ሴት ሐዘኗን በራሷ ፍጥነት ማሳለፍ ትችላለች።',
+    visual1Title: 'ስሜቶችሽን መቀበል',
+    visual1Body: 'ሐዘን • የእረፍት ፍላጎት • ዝምታ • ድጋፍ',
+    section2H2: '2. እንደ ሁኔታው ሊለያይ የሚችል ሁኔታ',
+    section2Body1:
+      'ከኪሳራ በኋላ ሃይማኖታዊ ደንቦች በሁኔታው እና በደም መፍሰሱ ዓይነት ላይ ሊወሰኑ ይችላሉ።',
+    section2Body2:
+      'በተለይ የትኞቹን ሃይማኖታዊ ተግባራት መከተል እንዳለብሽ ከመወሰንሽ በፊት በተለያዩ የደም መፍሰስ ዓይነቶች መካከል መለየት አስፈላጊ ሊሆን ይችላል።',
+    schemaTitle: 'አጠቃላይ መርህ',
+    schemaLabel1: 'ሁኔታ',
+    schemaLabel2: 'የደም መፍሰሱ ዓይነት',
+    schemaLabel3: 'ተስማሚ መመሪያ',
+    doubtTipTitle: 'ጥርጣሬ ካለ',
+    doubtTipText:
+      'ግላዊ ሁኔታ የተለየ መልስ ሊጠይቅ ይችላል። ብቁ ሰው ምክር መጠየቅ ይመረጣል።',
+    section3H2: '3. ትዕግሥትና ተስፋ',
+    section3Body1:
+      'ትዕግሥት (ሰብር) አለማልቀስ ወይም ህመም አለመሰማት ማለት አይደለም። በቀላሉ ጉዞውን በእምነትና በተስፋ ሊያጅብ ይችላል።',
+    section3Body2:
+      'ትናንሽ ድርጊቶች ቀስ በቀስ የሰላም ስሜትን ለመመለስ ሊረዱ ይችላሉ፦ ልመና፣ የዚክር ጊዜ፣ መንፈሳዊ ማዳመጥ ወይም የምትወጂው ሰው መኖር።',
+    spiritual1: 'ልመና',
+    spiritual2: 'ዚክር',
+    spiritual3: 'ድጋፍ',
+    retainTipTitle: 'አስታውሺ',
+    retainTipText:
+      'መፈወስ ጊዜ ይወስዳል። ኪሳራን ለማለፍ ሁለንተናዊ ፍጥነት የለም።',
+    section4H2: '4. ወደ ፊት ለመሄድ ጥቂት የመመሪያ ነጥቦች',
+    section4Body:
+      'ሁሉንም በአንድ ጊዜ ማድረግ አያስፈልግም። ከሚሰማሽና አሁን ከምትፈልጊው ጋር የሚስማማውን ምረጪ።',
+    gentleSteps: [
+      'ሐዘንሽን ለማሳለፍ ጊዜ ውሰጂ',
+      'በሚንከባከቡ ሰዎች ተከበቢ',
+      'ማጽናኛ የሚሰጡ ከሆነ ትናንሽ መንፈሳዊ ተግባራትን ቀጥዪ',
+      'ለማንኛውም የተለየ የሃይማኖት ጥያቄ ምክር ፈልጊ',
+      'ሐዘኑ ለመሸከም በጣም ከከበደ ድጋፍ ፈልጊ',
+    ],
+    finalTitle: 'በራስሽ ፍጥነት የሚሄድ መንገድ',
+    finalText:
+      'ራስሽን መንከባከብ፣ ድጋፍ መፈለግ እና ተስፋን መያዝ ወደ ሰላም የሚወስደውን መንገድ ቀስ በቀስ ለመምራት ሊረዳ ይችላል።',
+    shareMessage: 'ከኪሳራ በኋላ መንፈሳዊ መመሪያ — AWA',
+  },
+  nl: {
+    badge: 'SPIRITUELE BEGELEIDING',
+    title: 'Spirituele begeleiding\nna een verlies',
+    metaDuration: '5 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaEducational: 'Educatieve inhoud',
+    intro:
+      'Enkele punten van spirituele begeleiding om je te helpen een verlies met zachtheid, geduld en mededogen te doorstaan.',
+    disclaimerTitle: 'Belangrijke informatie',
+    disclaimerText:
+      'Deze inhoud is educatief. Specifieke religieuze vragen moeten bij een gekwalificeerde geleerde worden nagevraagd. AWA geeft geen persoonlijke fatwa’s.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Een erkende beproeving',
+      'Een status die van de situatie afhangt',
+      'Geduld en hoop',
+      'Enkele richtpunten om verder te gaan',
+    ],
+    section1H2: '1. Een erkende beproeving',
+    section1Body1:
+      'Een zwangerschapsverlies kan een diep pijnlijke beproeving zijn. Verdriet, stilte, verwarring of de behoefte om afstand te nemen zijn natuurlijke menselijke reacties.',
+    section1Body2:
+      'Deze emoties voelen betekent niet dat het je aan geloof ontbreekt. Elke vrouw kan haar rouw in haar eigen tempo doorlopen.',
+    visual1Title: 'Je emoties verwelkomen',
+    visual1Body: 'Verdriet • behoefte aan rust • stilte • steun',
+    section2H2: '2. Een status die kan variëren naargelang de situatie',
+    section2Body1:
+      'Na een verlies kunnen de religieuze regels afhangen van de situatie en de aard van het bloedverlies.',
+    section2Body2:
+      'Het kan met name nodig zijn onderscheid te maken tussen verschillende soorten bloedverlies voordat wordt bepaald welke religieuze praktijken je volgt.',
+    schemaTitle: 'Het algemene principe',
+    schemaLabel1: 'Situatie',
+    schemaLabel2: 'Aard van het bloedverlies',
+    schemaLabel3: 'Passende begeleiding',
+    doubtTipTitle: 'Bij twijfel',
+    doubtTipText:
+      'Een persoonlijke situatie kan om een ander antwoord vragen. Het beste is advies te vragen aan een gekwalificeerd persoon.',
+    section3H2: '3. Geduld en hoop',
+    section3Body1:
+      'Geduld (sabr) betekent niet niet huilen of geen pijn voelen. Het kan het traject eenvoudig vergezellen met geloof en hoop.',
+    section3Body2:
+      'Kleine gebaren kunnen helpen geleidelijk weer rust te vinden: een smeekbede, een moment van dhikr, spiritueel luisteren of de aanwezigheid van een dierbare.',
+    spiritual1: 'Smeekbede',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Steun',
+    retainTipTitle: 'Houd in gedachten',
+    retainTipText:
+      'Genezing kost tijd. Er is geen universeel tempo om een verlies te doorstaan.',
+    section4H2: '4. Enkele richtpunten om verder te gaan',
+    section4Body:
+      'Je hoeft niet alles tegelijk te doen. Kies wat past bij hoe je je voelt en wat je nu nodig hebt.',
+    gentleSteps: [
+      'Neem de tijd om je rouw te doorleven',
+      'Omring jezelf met zorgzame mensen',
+      'Houd kleine spirituele praktijken aan als ze troost brengen',
+      'Vraag advies bij elke specifieke religieuze vraag',
+      'Zoek steun als de rouw te zwaar wordt om te dragen',
+    ],
+    finalTitle: 'Een weg in je eigen tempo',
+    finalText:
+      'Voor jezelf zorgen, steun zoeken en vasthouden aan hoop kan geleidelijk helpen de weg naar vrede te wijzen.',
+    shareMessage: 'Spirituele begeleiding na een verlies — AWA',
+  },
+  fi: {
+    badge: 'HENGELLINEN OHJAUS',
+    title: 'Hengellinen ohjaus\nmenetyksen jälkeen',
+    metaDuration: '5 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaEducational: 'Opetussisältö',
+    intro:
+      'Muutama hengellisen ohjauksen kohta, jotka auttavat käymään menetyksen läpi lempeästi, kärsivällisesti ja myötätuntoisesti.',
+    disclaimerTitle: 'Tärkeää tietoa',
+    disclaimerText:
+      'Tämä sisältö on opetuksellista. Erityiset uskonnolliset kysymykset tulee tarkistaa pätevältä oppineelta. AWA ei anna henkilökohtaisia fatwoja.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Tunnustettu koettelemus',
+      'Tilanteesta riippuva asema',
+      'Kärsivällisyys ja toivo',
+      'Muutama ohjenuora eteenpäin menemiseen',
+    ],
+    section1H2: '1. Tunnustettu koettelemus',
+    section1Body1:
+      'Raskausmenetys voi olla syvästi kivulias koettelemus. Suru, hiljaisuus, hämmennys tai tarve vetäytyä ovat luonnollisia inhimillisiä reaktioita.',
+    section1Body2:
+      'Näiden tunteiden kokeminen ei tarkoita uskon puutetta. Jokainen nainen voi käydä surunsa läpi omaan tahtiinsa.',
+    visual1Title: 'Tunteidesi vastaanottaminen',
+    visual1Body: 'Suru • levon tarve • hiljaisuus • tuki',
+    section2H2: '2. Asema, joka voi vaihdella tilanteen mukaan',
+    section2Body1:
+      'Menetyksen jälkeen uskonnolliset säännöt voivat riippua tilanteesta ja vuodon luonteesta.',
+    section2Body2:
+      'Erityisesti voi olla tarpeen erottaa eri vuototyypit ennen sen päättämistä, mitä uskonnollisia käytäntöjä noudatetaan.',
+    schemaTitle: 'Yleinen periaate',
+    schemaLabel1: 'Tilanne',
+    schemaLabel2: 'Vuodon luonne',
+    schemaLabel3: 'Sopiva ohjaus',
+    doubtTipTitle: 'Epäselvässä tilanteessa',
+    doubtTipText:
+      'Henkilökohtainen tilanne voi vaatia erilaista vastausta. On parasta pyytää neuvoa pätevältä henkilöltä.',
+    section3H2: '3. Kärsivällisyys ja toivo',
+    section3Body1:
+      'Kärsivällisyys (sabr) ei tarkoita itkemättömyyttä tai kivun tuntemattomuutta. Se voi yksinkertaisesti seurata matkaa uskon ja toivon kanssa.',
+    section3Body2:
+      'Pienet eleet voivat auttaa palauttamaan rauhan tunnetta vähitellen: rukous, dhikrin hetki, hengellinen kuuntelu tai läheisen läsnäolo.',
+    spiritual1: 'Rukous',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Tuki',
+    retainTipTitle: 'Pidä mielessä',
+    retainTipText:
+      'Paraneminen vie aikaa. Menetyksen läpikäymiseen ei ole yleistä tahtia.',
+    section4H2: '4. Muutama ohjenuora eteenpäin menemiseen',
+    section4Body:
+      'Kaikkea ei tarvitse tehdä kerralla. Valitse se, mikä vastaa tuntemuksiasi ja sitä, mitä juuri nyt tarvitset.',
+    gentleSteps: [
+      'Ota aikaa surusi läpielämiseen',
+      'Ympäröi itsesi huolehtivilla ihmisillä',
+      'Pidä yllä pieniä hengellisiä käytäntöjä, jos ne tuovat lohtua',
+      'Pyydä neuvoa kaikissa erityisissä uskonnollisissa kysymyksissä',
+      'Hae tukea, jos suru käy liian raskaaksi kantaa',
+    ],
+    finalTitle: 'Tie omaan tahtiisi',
+    finalText:
+      'Itsestäsi huolehtiminen, tuen hakeminen ja toivosta kiinni pitäminen voivat vähitellen auttaa ohjaamaan tietä kohti rauhaa.',
+    shareMessage: 'Hengellinen ohjaus menetyksen jälkeen — AWA',
+  },
+  el: {
+    badge: 'ΠΝΕΥΜΑΤΙΚΗ ΚΑΘΟΔΗΓΗΣΗ',
+    title: 'Πνευματική καθοδήγηση\nμετά από απώλεια',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaEducational: 'Εκπαιδευτικό περιεχόμενο',
+    intro:
+      'Μερικά σημεία πνευματικής καθοδήγησης που σε βοηθούν να περάσεις μια απώλεια με τρυφερότητα, υπομονή και συμπόνια.',
+    disclaimerTitle: 'Σημαντική πληροφορία',
+    disclaimerText:
+      'Αυτό το περιεχόμενο είναι εκπαιδευτικό. Τα συγκεκριμένα θρησκευτικά ζητήματα πρέπει να επαληθεύονται με έναν ειδικό θεολόγο. Το AWA δεν εκδίδει εξατομικευμένα φετβά.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Μια αναγνωρισμένη δοκιμασία',
+      'Μια κατάσταση που εξαρτάται από την περίπτωση',
+      'Υπομονή και ελπίδα',
+      'Μερικά σημεία καθοδήγησης για να προχωρήσεις',
+    ],
+    section1H2: '1. Μια αναγνωρισμένη δοκιμασία',
+    section1Body1:
+      'Η απώλεια μιας εγκυμοσύνης μπορεί να είναι μια βαθιά επώδυνη δοκιμασία. Η λύπη, η σιωπή, η σύγχυση ή η ανάγκη να αποτραβηχτείς είναι φυσικές ανθρώπινες αντιδράσεις.',
+    section1Body2:
+      'Το να νιώθεις αυτά τα συναισθήματα δεν σημαίνει έλλειψη πίστης. Κάθε γυναίκα μπορεί να περάσει το πένθος της με τον δικό της ρυθμό.',
+    visual1Title: 'Καλωσορίζοντας τα συναισθήματά σου',
+    visual1Body: 'Λύπη • ανάγκη για ξεκούραση • σιωπή • στήριξη',
+    section2H2: '2. Μια κατάσταση που μπορεί να διαφέρει ανάλογα με την περίπτωση',
+    section2Body1:
+      'Μετά από μια απώλεια, οι θρησκευτικοί κανόνες μπορεί να εξαρτώνται από την περίπτωση και τη φύση της αιμορραγίας.',
+    section2Body2:
+      'Συγκεκριμένα, μπορεί να χρειάζεται να γίνει διάκριση ανάμεσα σε διαφορετικούς τύπους αιμορραγίας πριν καθοριστεί ποιες θρησκευτικές πρακτικές πρέπει να ακολουθηθούν.',
+    schemaTitle: 'Η γενική αρχή',
+    schemaLabel1: 'Περίπτωση',
+    schemaLabel2: 'Φύση της αιμορραγίας',
+    schemaLabel3: 'Κατάλληλη καθοδήγηση',
+    doubtTipTitle: 'Σε περίπτωση αμφιβολίας',
+    doubtTipText:
+      'Μια προσωπική περίπτωση μπορεί να απαιτεί διαφορετική απάντηση. Είναι καλύτερα να ζητήσεις συμβουλή από ένα αρμόδιο πρόσωπο.',
+    section3H2: '3. Υπομονή και ελπίδα',
+    section3Body1:
+      'Η υπομονή (σαμπρ) δεν σημαίνει ότι δεν κλαις ή ότι δεν νιώθεις πόνο. Μπορεί απλώς να συνοδεύει το ταξίδι με πίστη και ελπίδα.',
+    section3Body2:
+      'Οι μικρές χειρονομίες μπορούν να βοηθήσουν να αποκατασταθεί σταδιακά ένα αίσθημα γαλήνης: μια επίκληση, μια στιγμή ντικρ, πνευματική ακρόαση ή η παρουσία ενός αγαπημένου προσώπου.',
+    spiritual1: 'Επίκληση',
+    spiritual2: 'Ντικρ',
+    spiritual3: 'Στήριξη',
+    retainTipTitle: 'Να το έχεις υπόψη',
+    retainTipText:
+      'Η επούλωση παίρνει χρόνο. Δεν υπάρχει καθολικός ρυθμός για να περάσεις μια απώλεια.',
+    section4H2: '4. Μερικά σημεία καθοδήγησης για να προχωρήσεις',
+    section4Body:
+      'Δεν χρειάζεται να τα κάνεις όλα ταυτόχρονα. Επίλεξε ό,τι ταιριάζει με το πώς νιώθεις και με όσα χρειάζεσαι αυτή τη στιγμή.',
+    gentleSteps: [
+      'Πάρε τον χρόνο να ζήσεις το πένθος σου',
+      'Περιβάλλου με ανθρώπους που νοιάζονται',
+      'Διατήρησε μικρές πνευματικές πρακτικές αν σου φέρνουν παρηγοριά',
+      'Ζήτησε συμβουλή για κάθε συγκεκριμένο θρησκευτικό ζήτημα',
+      'Αναζήτησε στήριξη αν το πένθος γίνει πολύ δύσκολο να το σηκώσεις',
+    ],
+    finalTitle: 'Ένας δρόμος με τον δικό σου ρυθμό',
+    finalText:
+      'Το να φροντίζεις τον εαυτό σου, να αναζητάς στήριξη και να κρατάς την ελπίδα μπορεί να βοηθήσει σταδιακά να καθοδηγηθεί ο δρόμος προς τη γαλήνη.',
+    shareMessage: 'Πνευματική καθοδήγηση μετά από απώλεια — AWA',
+  },
+  fil: {
+    badge: 'ESPIRITUWAL NA GABAY',
+    title: 'Espirituwal na gabay\npagkatapos ng pagkawala',
+    metaDuration: '5 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaEducational: 'Pang-edukasyong nilalaman',
+    intro:
+      'Ilang punto ng espirituwal na gabay upang matulungan kang daanan ang pagkawala nang may kahinahunan, pasensya, at malasakit.',
+    disclaimerTitle: 'Mahalagang impormasyon',
+    disclaimerText:
+      'Pang-edukasyon ang nilalamang ito. Ang mga partikular na tanong na panrelihiyon ay dapat beripikahin sa kuwalipikadong iskolar. Hindi naglalabas ang AWA ng mga personalisadong fatwa.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Isang kinikilalang pagsubok',
+      'Isang katayuang nakadepende sa sitwasyon',
+      'Pasensya at pag-asa',
+      'Ilang punto ng gabay para sa pagsulong',
+    ],
+    section1H2: '1. Isang kinikilalang pagsubok',
+    section1Body1:
+      'Ang pagkawala ng pagbubuntis ay maaaring maging labis na masakit na pagsubok. Ang kalungkutan, katahimikan, kalituhan, o pangangailangang lumayo muna ay natural na reaksyon ng tao.',
+    section1Body2:
+      'Ang pagdama sa mga emosyong ito ay hindi nangangahulugang kulang sa pananampalataya. Ang bawat babae ay maaaring dumaan sa kanyang pagdadalamhati sa sarili niyang bilis.',
+    visual1Title: 'Pagtanggap sa iyong mga emosyon',
+    visual1Body: 'Kalungkutan • pangangailangan ng pahinga • katahimikan • suporta',
+    section2H2: '2. Isang katayuang maaaring mag-iba depende sa sitwasyon',
+    section2Body1:
+      'Pagkatapos ng pagkawala, maaaring nakadepende sa sitwasyon at sa kalikasan ng pagdurugo ang mga tuntuning panrelihiyon.',
+    section2Body2:
+      'Partikular, maaaring kinakailangang ihiwalay ang iba’t ibang uri ng pagdurugo bago tukuyin kung aling mga gawaing panrelihiyon ang susundin.',
+    schemaTitle: 'Ang pangkalahatang prinsipyo',
+    schemaLabel1: 'Sitwasyon',
+    schemaLabel2: 'Kalikasan ng pagdurugo',
+    schemaLabel3: 'Angkop na gabay',
+    doubtTipTitle: 'Kung nag-aalinlangan',
+    doubtTipText:
+      'Ang personal na sitwasyon ay maaaring mangailangan ng ibang sagot. Pinakamainam na humingi ng payo sa kuwalipikadong tao.',
+    section3H2: '3. Pasensya at pag-asa',
+    section3Body1:
+      'Ang pasensya (sabr) ay hindi nangangahulugang hindi umiiyak o hindi nakadarama ng sakit. Maaari lamang itong samahan ang paglalakbay nang may pananampalataya at pag-asa.',
+    section3Body2:
+      'Ang maliliit na kilos ay maaaring makatulong na unti-unting ibalik ang pakiramdam ng kapayapaan: isang panalangin, sandali ng dhikr, espirituwal na pakikinig, o presensya ng isang mahal sa buhay.',
+    spiritual1: 'Panalangin',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Suporta',
+    retainTipTitle: 'Tandaan',
+    retainTipText:
+      'Nangangailangan ng oras ang paghilom. Walang pangkalahatang bilis sa pagdaan sa pagkawala.',
+    section4H2: '4. Ilang punto ng gabay para sa pagsulong',
+    section4Body:
+      'Hindi kailangang gawin ang lahat nang sabay-sabay. Piliin ang tugma sa nararamdaman mo at sa kailangan mo ngayon.',
+    gentleSteps: [
+      'Maglaan ng oras para danasin ang iyong pagdadalamhati',
+      'Palibutan ang sarili ng mga mapagmalasakit na tao',
+      'Ipagpatuloy ang maliliit na espirituwal na gawain kung nagbibigay ito ng ginhawa',
+      'Humingi ng payo para sa anumang partikular na tanong na panrelihiyon',
+      'Humingi ng suporta kung nagiging masyadong mabigat dalhin ang pagdadalamhati',
+    ],
+    finalTitle: 'Isang landas sa sarili mong bilis',
+    finalText:
+      'Ang pag-aalaga sa sarili, paghahanap ng suporta, at pagpapanatili ng pag-asa ay maaaring unti-unting makatulong na gabayan ang landas tungo sa kapayapaan.',
+    shareMessage: 'Espirituwal na gabay pagkatapos ng pagkawala — AWA',
+  },
+  ta: {
+    badge: 'ஆன்மிக வழிகாட்டுதல்',
+    title: 'இழப்புக்குப் பின்\nஆன்மிக வழிகாட்டுதல்',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaEducational: 'கல்வி உள்ளடக்கம்',
+    intro:
+      'ஓர் இழப்பை மென்மையுடனும் பொறுமையுடனும் இரக்கத்துடனும் கடக்க உதவும் சில ஆன்மிக வழிகாட்டுதல் புள்ளிகள்.',
+    disclaimerTitle: 'முக்கியத் தகவல்',
+    disclaimerText:
+      'இந்த உள்ளடக்கம் கல்விசார்ந்தது. குறிப்பிட்ட மார்க்கக் கேள்விகளைத் தகுதியான அறிஞரிடம் சரிபார்க்க வேண்டும். AWA தனிப்பயன் பத்வாக்களை வழங்குவதில்லை.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'அங்கீகரிக்கப்பட்ட ஒரு சோதனை',
+      'சூழ்நிலையைப் பொறுத்த ஒரு நிலை',
+      'பொறுமையும் நம்பிக்கையும்',
+      'முன்னேற உதவும் சில வழிகாட்டுதல் புள்ளிகள்',
+    ],
+    section1H2: '1. அங்கீகரிக்கப்பட்ட ஒரு சோதனை',
+    section1Body1:
+      'கர்ப்ப இழப்பு ஆழ்ந்த வலியளிக்கும் ஒரு சோதனையாக இருக்கலாம். சோகம், மௌனம், குழப்பம் அல்லது விலகி இருக்க வேண்டிய தேவை இயல்பான மனித எதிர்வினைகள்.',
+    section1Body2:
+      'இந்த உணர்வுகளை அனுபவிப்பது இறைநம்பிக்கை குறைவு என்று பொருளல்ல. ஒவ்வொரு பெண்ணும் தன் துயரத்தைத் தன் சொந்த வேகத்தில் கடக்கலாம்.',
+    visual1Title: 'உங்கள் உணர்வுகளை ஏற்றல்',
+    visual1Body: 'சோகம் • ஓய்வுத் தேவை • மௌனம் • ஆதரவு',
+    section2H2: '2. சூழ்நிலையைப் பொறுத்து மாறக்கூடிய ஒரு நிலை',
+    section2Body1:
+      'இழப்புக்குப் பின், மார்க்க விதிகள் சூழ்நிலையையும் இரத்தப்போக்கின் தன்மையையும் சார்ந்திருக்கலாம்.',
+    section2Body2:
+      'குறிப்பாக, எந்த மார்க்க நடைமுறைகளைப் பின்பற்ற வேண்டும் என்று தீர்மானிக்கும் முன் வெவ்வேறு வகை இரத்தப்போக்குகளுக்கு இடையே வேறுபடுத்த வேண்டியிருக்கலாம்.',
+    schemaTitle: 'பொதுவான கொள்கை',
+    schemaLabel1: 'சூழ்நிலை',
+    schemaLabel2: 'இரத்தப்போக்கின் தன்மை',
+    schemaLabel3: 'பொருத்தமான வழிகாட்டுதல்',
+    doubtTipTitle: 'சந்தேகம் இருந்தால்',
+    doubtTipText:
+      'ஒரு தனிப்பட்ட சூழ்நிலைக்கு வேறுபட்ட பதில் தேவைப்படலாம். தகுதியான ஒருவரிடம் ஆலோசனை பெறுவது சிறந்தது.',
+    section3H2: '3. பொறுமையும் நம்பிக்கையும்',
+    section3Body1:
+      'பொறுமை (ஸப்ர்) என்பது அழாமல் இருப்பதோ வலியை உணராமல் இருப்பதோ அல்ல. அது இறைநம்பிக்கையுடனும் நம்பிக்கையுடனும் பயணத்துடன் வருவதாக இருக்கலாம்.',
+    section3Body2:
+      'சிறு செயல்கள் மெதுவாக மனஅமைதியை மீட்க உதவலாம்: ஒரு துஆ, ஒரு தருணத் திக்ர், ஆன்மிகச் செவிமடுத்தல் அல்லது அன்பானவரின் இருப்பு.',
+    spiritual1: 'துஆ',
+    spiritual2: 'திக்ர்',
+    spiritual3: 'ஆதரவு',
+    retainTipTitle: 'நினைவில் கொள்ளுங்கள்',
+    retainTipText:
+      'குணமடைய நேரம் எடுக்கும். ஓர் இழப்பைக் கடக்க எல்லோருக்கும் பொருந்தும் ஒரே வேகம் இல்லை.',
+    section4H2: '4. முன்னேற உதவும் சில வழிகாட்டுதல் புள்ளிகள்',
+    section4Body:
+      'எல்லாவற்றையும் ஒரே நேரத்தில் செய்ய வேண்டியதில்லை. நீங்கள் உணரும் விதத்துக்கும் இப்போது உங்களுக்குத் தேவையானதற்கும் ஏற்றதைத் தேர்ந்தெடுங்கள்.',
+    gentleSteps: [
+      'உங்கள் துயரத்தை அனுபவிக்க நேரம் எடுத்துக்கொள்ளுங்கள்',
+      'அக்கறையுள்ளவர்களால் உங்களைச் சூழ்ந்துகொள்ளுங்கள்',
+      'ஆறுதல் தந்தால், சிறு ஆன்மிக நடைமுறைகளைத் தொடருங்கள்',
+      'ஏதேனும் குறிப்பிட்ட மார்க்கக் கேள்விக்கு ஆலோசனை பெறுங்கள்',
+      'துயரம் சுமக்க மிகக் கடினமானால் ஆதரவு தேடுங்கள்',
+    ],
+    finalTitle: 'உங்கள் சொந்த வேகத்தில் ஒரு பாதை',
+    finalText:
+      'உங்களைக் கவனித்துக்கொள்வதும் ஆதரவு தேடுவதும் நம்பிக்கையைப் பற்றிக்கொள்வதும் அமைதியை நோக்கிய பாதையை மெதுவாக வழிநடத்த உதவலாம்.',
+    shareMessage: 'இழப்புக்குப் பின் ஆன்மிக வழிகாட்டுதல் — AWA',
+  },
+  te: {
+    badge: 'ఆధ్యాత్మిక మార్గదర్శనం',
+    title: 'నష్టం తర్వాత\nఆధ్యాత్మిక మార్గదర్శనం',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaEducational: 'విద్యాపరమైన కంటెంట్',
+    intro:
+      'సున్నితత్వంతో, సహనంతో, కరుణతో ఒక నష్టాన్ని దాటడానికి సహాయపడే కొన్ని ఆధ్యాత్మిక మార్గదర్శక సూచనలు.',
+    disclaimerTitle: 'ముఖ్యమైన సమాచారం',
+    disclaimerText:
+      'ఈ కంటెంట్ విద్యాపరమైనది. నిర్దిష్ట మార్గదర్శక ప్రశ్నలను అర్హత కలిగిన పండితుడితో ధృవీకరించుకోవాలి. AWA వ్యక్తిగత ఫత్వాలను ఇవ్వదు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'గుర్తింపు పొందిన పరీక్ష',
+      'పరిస్థితిని బట్టి ఆధారపడే హోదా',
+      'సహనం, ఆశ',
+      'ముందుకు సాగడానికి కొన్ని మార్గదర్శక సూచనలు',
+    ],
+    section1H2: '1. గుర్తింపు పొందిన పరీక్ష',
+    section1Body1:
+      'గర్భ నష్టం అత్యంత బాధాకరమైన పరీక్ష కావచ్చు. దుఃఖం, నిశ్శబ్దం, అయోమయం లేదా పక్కకు తప్పుకోవాలనే అవసరం సహజ మానవ ప్రతిస్పందనలు.',
+    section1Body2:
+      'ఈ భావోద్వేగాలను అనుభవించడం విశ్వాసం లేకపోవడం కాదు. ప్రతి మహిళ తన దుఃఖాన్ని తన సొంత వేగంతో దాటవచ్చు.',
+    visual1Title: 'మీ భావోద్వేగాలను స్వాగతించడం',
+    visual1Body: 'దుఃఖం • విశ్రాంతి అవసరం • నిశ్శబ్దం • తోడ్పాటు',
+    section2H2: '2. పరిస్థితిని బట్టి మారగల హోదా',
+    section2Body1:
+      'నష్టం తర్వాత, మార్గదర్శక నియమాలు పరిస్థితిపై, రక్తస్రావపు స్వభావంపై ఆధారపడవచ్చు.',
+    section2Body2:
+      'ముఖ్యంగా, ఏ మార్గదర్శక ఆచరణలను అనుసరించాలో నిర్ణయించే ముందు, వివిధ రకాల రక్తస్రావాల మధ్య తేడాను గుర్తించాల్సి రావచ్చు.',
+    schemaTitle: 'సాధారణ సూత్రం',
+    schemaLabel1: 'పరిస్థితి',
+    schemaLabel2: 'రక్తస్రావపు స్వభావం',
+    schemaLabel3: 'తగిన మార్గదర్శనం',
+    doubtTipTitle: 'సందేహం ఉంటే',
+    doubtTipText:
+      'వ్యక్తిగత పరిస్థితికి భిన్న సమాధానం అవసరం కావచ్చు. అర్హత కలిగిన వ్యక్తి నుండి సలహా తీసుకోవడం ఉత్తమం.',
+    section3H2: '3. సహనం, ఆశ',
+    section3Body1:
+      'సహనం (సబ్ర్) అంటే ఏడవకపోవడం లేదా బాధ అనుభవించకపోవడం కాదు. అది కేవలం విశ్వాసంతో, ఆశతో ఈ ప్రయాణంలో తోడుగా ఉండగలదు.',
+    section3Body2:
+      'చిన్న చర్యలు క్రమంగా శాంతి భావనను పునరుద్ధరించడానికి సహాయపడవచ్చు: ఒక దుఆ, ఒక క్షణం జిక్ర్, ఆధ్యాత్మిక శ్రవణం, లేదా ప్రియమైన వ్యక్తి సాన్నిధ్యం.',
+    spiritual1: 'దుఆ',
+    spiritual2: 'జిక్ర్',
+    spiritual3: 'తోడ్పాటు',
+    retainTipTitle: 'గుర్తుంచుకోండి',
+    retainTipText:
+      'కోలుకోవడానికి సమయం పడుతుంది. నష్టాన్ని దాటడానికి సార్వత్రిక వేగం అంటూ ఏదీ లేదు.',
+    section4H2: '4. ముందుకు సాగడానికి కొన్ని మార్గదర్శక సూచనలు',
+    section4Body:
+      'అన్నీ ఒకేసారి చేయాల్సిన అవసరం లేదు. మీకు అనిపించే దానికి, ప్రస్తుతం మీకు అవసరమైన దానికి సరిపోయేది ఎంచుకోండి.',
+    gentleSteps: [
+      'మీ దుఃఖాన్ని అనుభవించడానికి సమయం తీసుకోండి',
+      'శ్రద్ధ చూపే వ్యక్తులతో చుట్టుకొని ఉండండి',
+      'ఓదార్పునిస్తే చిన్న ఆధ్యాత్మిక ఆచరణలను కొనసాగించండి',
+      'ఏదైనా నిర్దిష్ట మార్గదర్శక ప్రశ్నకు సలహా కోరండి',
+      'దుఃఖం భరించలేనంత కష్టంగా మారితే తోడ్పాటు కోరండి',
+    ],
+    finalTitle: 'మీ సొంత వేగంతో ఒక మార్గం',
+    finalText:
+      'మిమ్మల్ని మీరు చూసుకోవడం, తోడ్పాటు కోరడం, ఆశను పట్టుకొని ఉండటం క్రమంగా శాంతి వైపు మార్గనిర్దేశం చేయగలవు.',
+    shareMessage: 'నష్టం తర్వాత ఆధ్యాత్మిక మార్గదర్శనం — AWA',
+  },
+  mr: {
+    badge: 'आध्यात्मिक मार्गदर्शन',
+    title: 'नुकसानानंतर\nआध्यात्मिक मार्गदर्शन',
+    metaDuration: '5 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaEducational: 'शैक्षणिक मजकूर',
+    intro:
+      'सौम्यतेने, संयमाने आणि करुणेने नुकसानातून जाण्यास मदत करणाऱ्या काही आध्यात्मिक मार्गदर्शक सूचना.',
+    disclaimerTitle: 'महत्त्वाची माहिती',
+    disclaimerText:
+      'हा मजकूर शैक्षणिक आहे. विशिष्ट धार्मिक प्रश्न पात्र विद्वानाकडून पडताळून घ्यावेत. AWA वैयक्तिक फतवे देत नाही.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'एक मान्यताप्राप्त परीक्षा',
+      'परिस्थितीनुसार अवलंबून असलेली स्थिती',
+      'संयम आणि आशा',
+      'पुढे जाण्यासाठी काही मार्गदर्शक सूचना',
+    ],
+    section1H2: '1. एक मान्यताप्राप्त परीक्षा',
+    section1Body1:
+      'गर्भधारणा गमावणे ही अत्यंत वेदनादायी परीक्षा असू शकते. दुःख, शांतता, गोंधळ किंवा बाजूला होण्याची गरज या नैसर्गिक मानवी प्रतिक्रिया आहेत.',
+    section1Body2:
+      'या भावना जाणवणे म्हणजे श्रद्धेचा अभाव असा अर्थ नाही. प्रत्येक स्त्री तिचे दुःख तिच्या स्वतःच्या गतीने जगू शकते.',
+    visual1Title: 'तुमच्या भावनांचे स्वागत करणे',
+    visual1Body: 'दुःख • विश्रांतीची गरज • शांतता • आधार',
+    section2H2: '2. परिस्थितीनुसार बदलू शकणारी स्थिती',
+    section2Body1:
+      'नुकसानानंतर, धार्मिक नियम परिस्थितीवर आणि रक्तस्रावाच्या स्वरूपावर अवलंबून असू शकतात.',
+    section2Body2:
+      'विशेषतः, कोणत्या धार्मिक आचरणांचे पालन करायचे हे ठरवण्यापूर्वी, वेगवेगळ्या प्रकारच्या रक्तस्रावांमध्ये फरक करणे आवश्यक असू शकते.',
+    schemaTitle: 'सर्वसाधारण सूत्र',
+    schemaLabel1: 'परिस्थिती',
+    schemaLabel2: 'रक्तस्रावाचे स्वरूप',
+    schemaLabel3: 'योग्य मार्गदर्शन',
+    doubtTipTitle: 'शंका असल्यास',
+    doubtTipText:
+      'वैयक्तिक परिस्थितीला वेगळे उत्तर लागू शकते. पात्र व्यक्तीकडून सल्ला घेणे उत्तम.',
+    section3H2: '3. संयम आणि आशा',
+    section3Body1:
+      'संयम (सब्र) म्हणजे न रडणे किंवा वेदना न जाणवणे नव्हे. तो फक्त श्रद्धेने आणि आशेने या प्रवासात साथ देऊ शकतो.',
+    section3Body2:
+      'छोट्या कृती हळूहळू शांततेची भावना परत मिळवण्यास मदत करू शकतात: एक दुआ, जिक्रचा एक क्षण, आध्यात्मिक श्रवण किंवा प्रियजनाची उपस्थिती.',
+    spiritual1: 'दुआ',
+    spiritual2: 'जिक्र',
+    spiritual3: 'आधार',
+    retainTipTitle: 'लक्षात ठेवा',
+    retainTipText:
+      'बरे होण्यास वेळ लागतो. नुकसानातून जाण्यासाठी कोणतीही सार्वत्रिक गती नाही.',
+    section4H2: '4. पुढे जाण्यासाठी काही मार्गदर्शक सूचना',
+    section4Body:
+      'सर्व काही एकदम करण्याची गरज नाही. तुम्हाला जे वाटते त्याला आणि सध्या तुम्हाला ज्याची गरज आहे त्याला जुळणारे निवडा.',
+    gentleSteps: [
+      'तुमचे दुःख जगण्यासाठी वेळ घ्या',
+      'काळजी घेणाऱ्या लोकांमध्ये राहा',
+      'दिलासा देत असल्यास छोट्या आध्यात्मिक सवयी सुरू ठेवा',
+      'कोणत्याही विशिष्ट धार्मिक प्रश्नासाठी सल्ला घ्या',
+      'दुःख सोसायला खूप कठीण झाल्यास आधार मागा',
+    ],
+    finalTitle: 'तुमच्या गतीने एक मार्ग',
+    finalText:
+      'स्वतःची काळजी घेणे, आधार मागणे आणि आशा धरून ठेवणे हळूहळू शांततेच्या मार्गाकडे घेऊन जाऊ शकते.',
+    shareMessage: 'नुकसानानंतर आध्यात्मिक मार्गदर्शन — AWA',
+  },
+  gu: {
+    badge: 'આધ્યાત્મિક માર્ગદર્શન',
+    title: 'નુકસાન પછી\nઆધ્યાત્મિક માર્ગદર્શન',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaEducational: 'શૈક્ષણિક સામગ્રી',
+    intro:
+      'કેટલાક આધ્યાત્મિક માર્ગદર્શનના મુદ્દા, જે તમને નમ્રતા, ધીરજ અને કરુણા સાથે નુકસાનમાંથી પસાર થવામાં મદદ કરે.',
+    disclaimerTitle: 'મહત્ત્વની માહિતી',
+    disclaimerText:
+      'આ સામગ્રી શૈક્ષણિક છે. ચોક્કસ ધાર્મિક પ્રશ્નોની ચકાસણી યોગ્ય વિદ્વાન પાસેથી કરાવવી જોઈએ. AWA વ્યક્તિગત ફતવા આપતું નથી.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'એક માન્ય કસોટી',
+      'પરિસ્થિતિ પર આધારિત દરજ્જો',
+      'ધીરજ અને આશા',
+      'આગળ વધવા માટેના કેટલાક માર્ગદર્શક મુદ્દા',
+    ],
+    section1H2: '1. એક માન્ય કસોટી',
+    section1Body1:
+      'ગર્ભાવસ્થાનું નુકસાન ઊંડી પીડાદાયક કસોટી હોઈ શકે. ઉદાસી, મૌન, મૂંઝવણ કે પાછળ હટી જવાની જરૂર કુદરતી માનવીય પ્રતિક્રિયાઓ છે.',
+    section1Body2:
+      'આ લાગણીઓ અનુભવવાનો અર્થ શ્રદ્ધાની ઓછપ નથી. દરેક સ્ત્રી પોતાના શોકમાંથી પોતાની ગતિએ પસાર થઈ શકે છે.',
+    visual1Title: 'તમારી લાગણીઓને સ્વીકારો',
+    visual1Body: 'ઉદાસી • આરામની જરૂર • મૌન • સહારો',
+    section2H2: '2. પરિસ્થિતિ પ્રમાણે બદલાઈ શકતો દરજ્જો',
+    section2Body1:
+      'નુકસાન પછી, ધાર્મિક નિયમો પરિસ્થિતિ અને રક્તસ્રાવના સ્વરૂપ પર આધાર રાખી શકે.',
+    section2Body2:
+      'ખાસ કરીને, કયા ધાર્મિક આચરણનું પાલન કરવું તે નક્કી કરતા પહેલાં રક્તસ્રાવના જુદા જુદા પ્રકારો વચ્ચે ભેદ કરવો જરૂરી હોઈ શકે.',
+    schemaTitle: 'સામાન્ય સિદ્ધાંત',
+    schemaLabel1: 'પરિસ્થિતિ',
+    schemaLabel2: 'રક્તસ્રાવનું સ્વરૂપ',
+    schemaLabel3: 'યોગ્ય માર્ગદર્શન',
+    doubtTipTitle: 'જો શંકા હોય',
+    doubtTipText:
+      'વ્યક્તિગત પરિસ્થિતિ અલગ જવાબ માગી શકે. યોગ્ય વ્યક્તિ પાસેથી સલાહ લેવી શ્રેષ્ઠ છે.',
+    section3H2: '3. ધીરજ અને આશા',
+    section3Body1:
+      'ધીરજ (સબ્ર)નો અર્થ રડવું નહીં કે પીડા અનુભવવી નહીં એવો નથી. તે ફક્ત શ્રદ્ધા અને આશા સાથે આ સફરમાં સાથ આપી શકે.',
+    section3Body2:
+      'નાની બાબતો ધીમે ધીમે શાંતિની લાગણી પાછી લાવવામાં મદદ કરી શકે: એક દુઆ, ઝિક્રની એક ક્ષણ, આધ્યાત્મિક શ્રવણ, કે કોઈ પ્રિયજનની હાજરી.',
+    spiritual1: 'દુઆ',
+    spiritual2: 'ઝિક્ર',
+    spiritual3: 'સહારો',
+    retainTipTitle: 'યાદ રાખો',
+    retainTipText:
+      'સ્વસ્થ થવામાં સમય લાગે છે. નુકસાનમાંથી પસાર થવાની કોઈ એક સર્વસામાન્ય ગતિ નથી.',
+    section4H2: '4. આગળ વધવા માટેના કેટલાક માર્ગદર્શક મુદ્દા',
+    section4Body:
+      'બધું એકસાથે કરવાની જરૂર નથી. તમને જેવું લાગે છે અને અત્યારે જે જોઈએ છે તેને અનુરૂપ પસંદ કરો.',
+    gentleSteps: [
+      'તમારા શોકને જીવવા માટે સમય લો',
+      'કાળજી રાખનારા લોકોને તમારી આસપાસ રાખો',
+      'જો આરામ આપતી હોય તો નાની આધ્યાત્મિક ટેવો ચાલુ રાખો',
+      'કોઈ પણ ચોક્કસ ધાર્મિક પ્રશ્ન માટે સલાહ લો',
+      'જો શોક સહન કરવો ખૂબ મુશ્કેલ બને તો સહારો માગો',
+    ],
+    finalTitle: 'તમારી પોતાની ગતિએ એક માર્ગ',
+    finalText:
+      'તમારી સંભાળ રાખવી, સહારો માગવો અને આશા પકડી રાખવી ધીમે ધીમે શાંતિ તરફના માર્ગને દોરવામાં મદદ કરી શકે.',
+    shareMessage: 'નુકસાન પછી આધ્યાત્મિક માર્ગદર્શન — AWA',
+  },
+  pa: {
+    badge: 'ਰੂਹਾਨੀ ਰਹਿਨੁਮਾਈ',
+    title: 'ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ\nਰੂਹਾਨੀ ਰਹਿਨੁਮਾਈ',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaEducational: 'ਸਿੱਖਿਆਦਾਇਕ ਸਮੱਗਰੀ',
+    intro:
+      'ਰੂਹਾਨੀ ਰਹਿਨੁਮਾਈ ਦੇ ਕੁਝ ਨੁਕਤੇ, ਜੋ ਤੁਹਾਨੂੰ ਨੁਕਸਾਨ ਵਿੱਚੋਂ ਨਰਮੀ, ਸਬਰ ਅਤੇ ਹਮਦਰਦੀ ਨਾਲ ਲੰਘਣ ਵਿੱਚ ਮਦਦ ਕਰਨ।',
+    disclaimerTitle: 'ਜ਼ਰੂਰੀ ਜਾਣਕਾਰੀ',
+    disclaimerText:
+      'ਇਹ ਸਮੱਗਰੀ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਖ਼ਾਸ ਧਾਰਮਿਕ ਸਵਾਲਾਂ ਦੀ ਪੁਸ਼ਟੀ ਕਿਸੇ ਯੋਗ ਵਿਦਵਾਨ ਤੋਂ ਕਰਵਾਉਣੀ ਚਾਹੀਦੀ ਹੈ। AWA ਨਿੱਜੀ ਫ਼ਤਵੇ ਜਾਰੀ ਨਹੀਂ ਕਰਦਾ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਇੱਕ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਇਮਤਿਹਾਨ',
+      'ਹਾਲਾਤ ਉੱਤੇ ਨਿਰਭਰ ਦਰਜਾ',
+      'ਸਬਰ ਅਤੇ ਉਮੀਦ',
+      'ਅੱਗੇ ਵਧਣ ਲਈ ਕੁਝ ਰਹਿਨੁਮਾ ਨੁਕਤੇ',
+    ],
+    section1H2: '1. ਇੱਕ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਇਮਤਿਹਾਨ',
+    section1Body1:
+      'ਗਰਭ-ਅਵਸਥਾ ਦਾ ਨੁਕਸਾਨ ਡੂੰਘਾ ਦੁਖਦਾਈ ਇਮਤਿਹਾਨ ਹੋ ਸਕਦਾ ਹੈ। ਉਦਾਸੀ, ਚੁੱਪ, ਉਲਝਣ ਜਾਂ ਪਿੱਛੇ ਹਟਣ ਦੀ ਲੋੜ ਕੁਦਰਤੀ ਮਨੁੱਖੀ ਪ੍ਰਤੀਕਰਮ ਹਨ।',
+    section1Body2:
+      'ਇਨ੍ਹਾਂ ਭਾਵਨਾਵਾਂ ਨੂੰ ਮਹਿਸੂਸ ਕਰਨ ਦਾ ਮਤਲਬ ਈਮਾਨ ਦੀ ਕਮੀ ਨਹੀਂ ਹੈ। ਹਰ ਔਰਤ ਆਪਣੇ ਗ਼ਮ ਵਿੱਚੋਂ ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ ਲੰਘ ਸਕਦੀ ਹੈ।',
+    visual1Title: 'ਆਪਣੀਆਂ ਭਾਵਨਾਵਾਂ ਨੂੰ ਸਵੀਕਾਰ ਕਰਨਾ',
+    visual1Body: 'ਉਦਾਸੀ • ਆਰਾਮ ਦੀ ਲੋੜ • ਚੁੱਪ • ਸਹਾਰਾ',
+    section2H2: '2. ਹਾਲਾਤ ਮੁਤਾਬਕ ਬਦਲ ਸਕਣ ਵਾਲਾ ਦਰਜਾ',
+    section2Body1:
+      'ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ, ਧਾਰਮਿਕ ਨਿਯਮ ਹਾਲਾਤ ਅਤੇ ਖ਼ੂਨ ਦੀ ਕਿਸਮ ਉੱਤੇ ਨਿਰਭਰ ਹੋ ਸਕਦੇ ਹਨ।',
+    section2Body2:
+      'ਖ਼ਾਸ ਤੌਰ ਉੱਤੇ, ਇਹ ਤੈਅ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਕਿ ਕਿਹੜੇ ਧਾਰਮਿਕ ਅਮਲ ਕਰਨੇ ਹਨ, ਖ਼ੂਨ ਦੀਆਂ ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਵਿੱਚ ਫ਼ਰਕ ਕਰਨਾ ਜ਼ਰੂਰੀ ਹੋ ਸਕਦਾ ਹੈ।',
+    schemaTitle: 'ਆਮ ਅਸੂਲ',
+    schemaLabel1: 'ਹਾਲਤ',
+    schemaLabel2: 'ਖ਼ੂਨ ਦੀ ਕਿਸਮ',
+    schemaLabel3: 'ਢੁੱਕਵੀਂ ਰਹਿਨੁਮਾਈ',
+    doubtTipTitle: 'ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ',
+    doubtTipText:
+      'ਕਿਸੇ ਨਿੱਜੀ ਹਾਲਤ ਲਈ ਵੱਖਰਾ ਜਵਾਬ ਹੋ ਸਕਦਾ ਹੈ। ਕਿਸੇ ਯੋਗ ਵਿਅਕਤੀ ਤੋਂ ਸਲਾਹ ਲੈਣਾ ਸਭ ਤੋਂ ਚੰਗਾ ਹੈ।',
+    section3H2: '3. ਸਬਰ ਅਤੇ ਉਮੀਦ',
+    section3Body1:
+      'ਸਬਰ ਦਾ ਮਤਲਬ ਰੋਣਾ ਨਾ ਜਾਂ ਦਰਦ ਮਹਿਸੂਸ ਨਾ ਕਰਨਾ ਨਹੀਂ ਹੈ। ਇਹ ਸਿਰਫ਼ ਈਮਾਨ ਅਤੇ ਉਮੀਦ ਨਾਲ ਇਸ ਸਫ਼ਰ ਵਿੱਚ ਸਾਥ ਦੇ ਸਕਦਾ ਹੈ।',
+    section3Body2:
+      'ਛੋਟੇ-ਛੋਟੇ ਕੰਮ ਹੌਲੀ-ਹੌਲੀ ਸਕੂਨ ਦਾ ਅਹਿਸਾਸ ਮੁੜ ਲਿਆਉਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ: ਇੱਕ ਦੁਆ, ਜ਼ਿਕਰ ਦਾ ਇੱਕ ਪਲ, ਰੂਹਾਨੀ ਸੁਣਨਾ, ਜਾਂ ਕਿਸੇ ਆਪਣੇ ਦੀ ਮੌਜੂਦਗੀ।',
+    spiritual1: 'ਦੁਆ',
+    spiritual2: 'ਜ਼ਿਕਰ',
+    spiritual3: 'ਸਹਾਰਾ',
+    retainTipTitle: 'ਯਾਦ ਰੱਖੋ',
+    retainTipText:
+      'ਠੀਕ ਹੋਣ ਵਿੱਚ ਸਮਾਂ ਲੱਗਦਾ ਹੈ। ਨੁਕਸਾਨ ਵਿੱਚੋਂ ਲੰਘਣ ਦੀ ਕੋਈ ਇੱਕੋ ਜਿਹੀ ਰਫ਼ਤਾਰ ਨਹੀਂ ਹੁੰਦੀ।',
+    section4H2: '4. ਅੱਗੇ ਵਧਣ ਲਈ ਕੁਝ ਰਹਿਨੁਮਾ ਨੁਕਤੇ',
+    section4Body:
+      'ਸਭ ਕੁਝ ਇੱਕੋ ਵਾਰ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ ਹੈ। ਉਹੀ ਚੁਣੋ ਜੋ ਤੁਹਾਡੇ ਮਹਿਸੂਸ ਕਰਨ ਅਤੇ ਇਸ ਵੇਲੇ ਦੀ ਲੋੜ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੋਵੇ।',
+    gentleSteps: [
+      'ਆਪਣੇ ਗ਼ਮ ਨੂੰ ਜਿਉਣ ਲਈ ਸਮਾਂ ਲਓ',
+      'ਆਪਣੇ ਆਲੇ-ਦੁਆਲੇ ਹਮਦਰਦ ਲੋਕ ਰੱਖੋ',
+      'ਜੇ ਛੋਟੇ ਰੂਹਾਨੀ ਅਮਲ ਸਕੂਨ ਦਿੰਦੇ ਹਨ ਤਾਂ ਉਨ੍ਹਾਂ ਨੂੰ ਜਾਰੀ ਰੱਖੋ',
+      'ਕਿਸੇ ਵੀ ਖ਼ਾਸ ਧਾਰਮਿਕ ਸਵਾਲ ਲਈ ਸਲਾਹ ਲਓ',
+      'ਜੇ ਗ਼ਮ ਚੁੱਕਣਾ ਬਹੁਤ ਔਖਾ ਹੋ ਜਾਵੇ ਤਾਂ ਸਹਾਰਾ ਮੰਗੋ',
+    ],
+    finalTitle: 'ਤੁਹਾਡੀ ਆਪਣੀ ਰਫ਼ਤਾਰ ਦਾ ਰਾਹ',
+    finalText:
+      'ਆਪਣਾ ਖ਼ਿਆਲ ਰੱਖਣਾ, ਸਹਾਰਾ ਮੰਗਣਾ ਅਤੇ ਉਮੀਦ ਨੂੰ ਫੜੀ ਰੱਖਣਾ ਹੌਲੀ-ਹੌਲੀ ਸਕੂਨ ਵੱਲ ਜਾਂਦੇ ਰਾਹ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+    shareMessage: 'ਨੁਕਸਾਨ ਤੋਂ ਬਾਅਦ ਰੂਹਾਨੀ ਰਹਿਨੁਮਾਈ — AWA',
+  },
+  my: {
+    badge: 'ဝိညာဉ်ရေးလမ်းညွှန်မှု',
+    title: 'ဆုံးရှုံးမှုအပြီး\nဝိညာဉ်ရေးလမ်းညွှန်မှု',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaEducational: 'ပညာပေးအကြောင်းအရာ',
+    intro:
+      'ဆုံးရှုံးမှုကို ညင်သာမှု၊ သည်းခံမှုနှင့် စာနာမှုတို့ဖြင့် ဖြတ်သန်းရန် ကူညီပေးမည့် ဝိညာဉ်ရေးလမ်းညွှန်ချက် အချို့။',
+    disclaimerTitle: 'အရေးကြီးသော အချက်အလက်',
+    disclaimerText:
+      'ဤအကြောင်းအရာသည် ပညာပေးဆိုင်ရာဖြစ်သည်။ သီးသန့်ဘာသာရေးမေးခွန်းများကို အရည်အချင်းပြည့်မီသော ပညာရှင်နှင့် စစ်ဆေးအတည်ပြုသင့်သည်။ AWA သည် ကိုယ်ပိုင်ဖတ်ဝါများ မထုတ်ပြန်ပါ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'အသိအမှတ်ပြုထားသော စမ်းသပ်မှု',
+      'အခြေအနေပေါ်မူတည်သော အဆင့်အတန်း',
+      'သည်းခံခြင်းနှင့် မျှော်လင့်ခြင်း',
+      'ရှေ့ဆက်ရန် လမ်းညွှန်ချက်အချို့',
+    ],
+    section1H2: '1. အသိအမှတ်ပြုထားသော စမ်းသပ်မှု',
+    section1Body1:
+      'ကိုယ်ဝန်ဆုံးရှုံးခြင်းသည် နက်ရှိုင်းစွာ နာကျင်စေသော စမ်းသပ်မှုတစ်ခု ဖြစ်နိုင်သည်။ ဝမ်းနည်းခြင်း၊ တိတ်ဆိတ်ခြင်း၊ ရှုပ်ထွေးခြင်း သို့မဟုတ် နောက်ဆုတ်ရန် လိုအပ်ခြင်းတို့သည် လူသားသဘာဝ တုံ့ပြန်မှုများဖြစ်သည်။',
+    section1Body2:
+      'ဤစိတ်ခံစားချက်များ ခံစားရခြင်းသည် ယုံကြည်ခြင်း မရှိခြင်းကို မဆိုလိုပါ။ အမျိုးသမီးတစ်ဦးစီသည် ကိုယ်ပိုင်အရှိန်ဖြင့် ဝမ်းနည်းကြေကွဲမှုကို ဖြတ်သန်းနိုင်သည်။',
+    visual1Title: 'သင့်စိတ်ခံစားချက်များကို လက်ခံခြင်း',
+    visual1Body: 'ဝမ်းနည်းခြင်း • အနားယူရန် လိုအပ်ခြင်း • တိတ်ဆိတ်ခြင်း • ထောက်ခံမှု',
+    section2H2: '2. အခြေအနေပေါ်မူတည်၍ ကွဲပြားနိုင်သော အဆင့်အတန်း',
+    section2Body1:
+      'ဆုံးရှုံးမှုအပြီး ဘာသာရေးစည်းမျဉ်းများသည် အခြေအနေနှင့် သွေးထွက်ခြင်း၏ သဘာဝအပေါ် မူတည်နိုင်သည်။',
+    section2Body2:
+      'အထူးသဖြင့် မည်သည့်ဘာသာရေးကျင့်ဝတ်များကို လိုက်နာမည်ကို မဆုံးဖြတ်မီ မတူညီသော သွေးထွက်ခြင်းအမျိုးအစားများကို ခွဲခြားရန် လိုအပ်နိုင်သည်။',
+    schemaTitle: 'ယေဘုယျ မူ',
+    schemaLabel1: 'အခြေအနေ',
+    schemaLabel2: 'သွေးထွက်ခြင်း၏ သဘာဝ',
+    schemaLabel3: 'သင့်လျော်သော လမ်းညွှန်မှု',
+    doubtTipTitle: 'သံသယရှိပါက',
+    doubtTipText:
+      'ကိုယ်ပိုင်အခြေအနေတစ်ခုသည် ကွဲပြားသော အဖြေကို လိုအပ်နိုင်သည်။ အရည်အချင်းပြည့်မီသူထံ အကြံဉာဏ်မေးခြင်းက အကောင်းဆုံးဖြစ်သည်။',
+    section3H2: '3. သည်းခံခြင်းနှင့် မျှော်လင့်ခြင်း',
+    section3Body1:
+      'သည်းခံခြင်း (ဆဗ်ရ်) သည် မငိုခြင်း သို့မဟုတ် နာကျင်မှုမခံစားခြင်းကို မဆိုလိုပါ။ ၎င်းသည် ယုံကြည်ခြင်းနှင့် မျှော်လင့်ခြင်းတို့ဖြင့် ခရီးလမ်းကို အဖော်ပြုနိုင်သည်သာ ဖြစ်သည်။',
+    section3Body2:
+      'အပြုအမူသေးငယ်များက ငြိမ်သက်မှုခံစားချက်ကို တဖြည်းဖြည်း ပြန်လည်ရရှိစေရန် ကူညီနိုင်သည်။ ဆုတောင်းခြင်း၊ ဇိက်ရ်ပြုခြင်းတစ်ခဏ၊ ဝိညာဉ်ရေးနားထောင်ခြင်း သို့မဟုတ် ချစ်ခင်သူ၏ ရှိနေခြင်းတို့ ဖြစ်သည်။',
+    spiritual1: 'ဆုတောင်းခြင်း',
+    spiritual2: 'ဇိက်ရ်',
+    spiritual3: 'ထောက်ခံမှု',
+    retainTipTitle: 'စိတ်ထဲမှတ်ထားပါ',
+    retainTipText:
+      'ပြန်လည်ကောင်းမွန်လာရန် အချိန်ယူရသည်။ ဆုံးရှုံးမှုကို ဖြတ်သန်းရန် အားလုံးအတွက် တူညီသော အရှိန်မရှိပါ။',
+    section4H2: '4. ရှေ့ဆက်ရန် လမ်းညွှန်ချက်အချို့',
+    section4Body:
+      'အရာအားလုံးကို တစ်ပြိုင်နက်လုပ်ရန် မလိုပါ။ သင့်ခံစားချက်နှင့် ယခုလိုအပ်သည်များနှင့် ကိုက်ညီသည်ကို ရွေးပါ။',
+    gentleSteps: [
+      'သင့်ဝမ်းနည်းကြေကွဲမှုကို ဖြတ်သန်းရန် အချိန်ယူပါ',
+      'ဂရုစိုက်သော လူများဖြင့် ပတ်ဝန်းကျင်ကို ဖွဲ့စည်းပါ',
+      'သက်သာစေပါက ဝိညာဉ်ရေးအကျင့်သေးသေးလေးများကို ဆက်လက်လုပ်ပါ',
+      'သီးသန့်ဘာသာရေးမေးခွန်းတိုင်းအတွက် အကြံဉာဏ်မေးပါ',
+      'ဝမ်းနည်းကြေကွဲမှု ထမ်းရခက်လာပါက ထောက်ခံမှုတောင်းပါ',
+    ],
+    finalTitle: 'သင့်ကိုယ်ပိုင်အရှိန်ဖြင့် လမ်းတစ်ခု',
+    finalText:
+      'ကိုယ့်ကိုယ်ကို ဂရုစိုက်ခြင်း၊ ထောက်ခံမှုတောင်းခြင်းနှင့် မျှော်လင့်ချက်ကို ဆုပ်ကိုင်ထားခြင်းတို့သည် ငြိမ်းချမ်းမှုသို့ လမ်းကို တဖြည်းဖြည်း လမ်းညွှန်ပေးနိုင်သည်။',
+    shareMessage: 'ဆုံးရှုံးမှုအပြီး ဝိညာဉ်ရေးလမ်းညွှန်မှု — AWA',
+  },
+  km: {
+    badge: 'ការណែនាំខាងវិញ្ញាណ',
+    title: 'ការណែនាំខាងវិញ្ញាណ\nក្រោយការបាត់បង់',
+    metaDuration: 'អាន 5 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaEducational: 'មាតិកាអប់រំ',
+    intro:
+      'ចំណុចណែនាំខាងវិញ្ញាណមួយចំនួន ដើម្បីជួយអ្នកឆ្លងកាត់ការបាត់បង់ដោយភាពទន់ភ្លន់ ការអត់ធ្មត់ និងក្តីអាណិតអាសូរ។',
+    disclaimerTitle: 'ព័ត៌មានសំខាន់',
+    disclaimerText:
+      'មាតិកានេះជាមាតិកាអប់រំ។ សំណួរខាងសាសនាជាក់លាក់គួរតែត្រូវបានផ្ទៀងផ្ទាត់ជាមួយអ្នកប្រាជ្ញសាសនាដែលមានសមត្ថភាព។ AWA មិនចេញហ្វាតវ៉ាផ្ទាល់ខ្លួនទេ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការសាកល្បងដែលត្រូវបានទទួលស្គាល់',
+      'ស្ថានភាពដែលអាស្រ័យលើស្ថានការណ៍',
+      'ការអត់ធ្មត់ និងក្តីសង្ឃឹម',
+      'ចំណុចណែនាំមួយចំនួនសម្រាប់ដើរទៅមុខ',
+    ],
+    section1H2: '1. ការសាកល្បងដែលត្រូវបានទទួលស្គាល់',
+    section1Body1:
+      'ការបាត់បង់ផ្ទៃពោះអាចជាការសាកល្បងដ៏ឈឺចាប់យ៉ាងខ្លាំង។ ភាពសោកសៅ ភាពស្ងប់ស្ងាត់ ភាពច្របូកច្របល់ ឬតម្រូវការដកខ្លួនចេញ គឺជាប្រតិកម្មធម្មជាតិរបស់មនុស្ស។',
+    section1Body2:
+      'ការមានអារម្មណ៍ទាំងនេះមិនមែនមានន័យថាខ្វះជំនឿទេ។ ស្ត្រីម្នាក់ៗអាចឆ្លងកាត់ទុក្ខសោករបស់នាងតាមល្បឿនផ្ទាល់ខ្លួន។',
+    visual1Title: 'ទទួលយកអារម្មណ៍របស់អ្នក',
+    visual1Body: 'ភាពសោកសៅ • តម្រូវការសម្រាក • ភាពស្ងប់ស្ងាត់ • ការគាំទ្រ',
+    section2H2: '2. ស្ថានភាពដែលអាចខុសគ្នាទៅតាមស្ថានការណ៍',
+    section2Body1:
+      'ក្រោយការបាត់បង់ ច្បាប់សាសនាអាចអាស្រ័យលើស្ថានការណ៍ និងលក្ខណៈនៃការហូរឈាម។',
+    section2Body2:
+      'ជាពិសេស វាអាចចាំបាច់ត្រូវបែងចែករវាងប្រភេទផ្សេងៗនៃការហូរឈាម មុនពេលកំណត់ថាត្រូវប្រតិបត្តិសាសនាបែបណា។',
+    schemaTitle: 'គោលការណ៍ទូទៅ',
+    schemaLabel1: 'ស្ថានការណ៍',
+    schemaLabel2: 'លក្ខណៈនៃការហូរឈាម',
+    schemaLabel3: 'ការណែនាំសមស្រប',
+    doubtTipTitle: 'ប្រសិនបើសង្ស័យ',
+    doubtTipText:
+      'ស្ថានភាពផ្ទាល់ខ្លួនអាចត្រូវការចម្លើយខុសគ្នា។ ល្អបំផុតគឺសុំដំបូន្មានពីអ្នកដែលមានសមត្ថភាព។',
+    section3H2: '3. ការអត់ធ្មត់ និងក្តីសង្ឃឹម',
+    section3Body1:
+      'ការអត់ធ្មត់ (សាប៊ើរ) មិនមែនមានន័យថាមិនយំ ឬមិនឈឺចាប់ទេ។ វាអាចគ្រាន់តែអមដំណើរដោយជំនឿ និងក្តីសង្ឃឹម។',
+    section3Body2:
+      'ទង្វើតូចៗអាចជួយស្តារអារម្មណ៍សុខសាន្តបន្តិចម្តងៗ៖ ការទូរអា ពេលនៃការរំលឹកអល់ឡោះ (ឌីកៀរ) ការស្តាប់ខាងវិញ្ញាណ ឬវត្តមានរបស់មនុស្សជាទីស្រឡាញ់។',
+    spiritual1: 'ការទូរអា',
+    spiritual2: 'ឌីកៀរ',
+    spiritual3: 'ការគាំទ្រ',
+    retainTipTitle: 'សូមចងចាំ',
+    retainTipText:
+      'ការជាសះស្បើយត្រូវការពេលវេលា។ គ្មានល្បឿនសកលសម្រាប់ឆ្លងកាត់ការបាត់បង់ទេ។',
+    section4H2: '4. ចំណុចណែនាំមួយចំនួនសម្រាប់ដើរទៅមុខ',
+    section4Body:
+      'មិនចាំបាច់ធ្វើអ្វីៗទាំងអស់ក្នុងពេលតែមួយទេ។ សូមជ្រើសរើសអ្វីដែលស្របនឹងអារម្មណ៍របស់អ្នក និងអ្វីដែលអ្នកត្រូវការនៅពេលនេះ។',
+    gentleSteps: [
+      'ចំណាយពេលរស់នៅជាមួយទុក្ខសោករបស់អ្នក',
+      'នៅជុំវិញដោយមនុស្សដែលយកចិត្តទុកដាក់',
+      'បន្តការអនុវត្តខាងវិញ្ញាណតូចៗ ប្រសិនបើវាផ្តល់ការសម្រាលទុក្ខ',
+      'សុំដំបូន្មានសម្រាប់សំណួរខាងសាសនាជាក់លាក់ណាមួយ',
+      'ស្វែងរកការគាំទ្រ ប្រសិនបើទុក្ខសោកកាន់តែពិបាកទ្រាំ',
+    ],
+    finalTitle: 'ផ្លូវដែលដើរតាមល្បឿនរបស់អ្នក',
+    finalText:
+      'ការថែរក្សាខ្លួនឯង ការស្វែងរកការគាំទ្រ និងការកាន់ជាប់នូវក្តីសង្ឃឹម អាចជួយនាំផ្លូវទៅរកភាពសុខសាន្តបន្តិចម្តងៗ។',
+    shareMessage: 'ការណែនាំខាងវិញ្ញាណក្រោយការបាត់បង់ — AWA',
+  },
+  lo: {
+    badge: 'ການແນະນຳທາງຈິດໃຈ',
+    title: 'ການແນະນຳທາງຈິດໃຈ\nຫຼັງການສູນເສຍ',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaEducational: 'ເນື້ອຫາດ້ານການສຶກສາ',
+    intro:
+      'ຈຸດແນະນຳທາງຈິດໃຈບາງຢ່າງເພື່ອຊ່ວຍໃຫ້ທ່ານຜ່ານຜ່າການສູນເສຍດ້ວຍຄວາມອ່ອນໂຍນ ຄວາມອົດທົນ ແລະ ຄວາມເມດຕາ.',
+    disclaimerTitle: 'ຂໍ້ມູນສຳຄັນ',
+    disclaimerText:
+      'ເນື້ອຫານີ້ມີຈຸດປະສົງເພື່ອການສຶກສາ. ຄຳຖາມທາງສາສະໜາສະເພາະຄວນກວດສອບກັບນັກປາດສາສະໜາທີ່ມີຄຸນວຸດທິ. AWA ບໍ່ອອກຟັດວາສະເພາະບຸກຄົນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ບົດທົດສອບທີ່ໄດ້ຮັບການຍອມຮັບ',
+      'ສະຖານະທີ່ຂຶ້ນກັບສະຖານະການ',
+      'ຄວາມອົດທົນ ແລະ ຄວາມຫວັງ',
+      'ຈຸດແນະນຳບາງຢ່າງເພື່ອກ້າວຕໍ່ໄປ',
+    ],
+    section1H2: '1. ບົດທົດສອບທີ່ໄດ້ຮັບການຍອມຮັບ',
+    section1Body1:
+      'ການສູນເສຍການຖືພາອາດເປັນບົດທົດສອບທີ່ເຈັບປວດຢ່າງເລິກເຊິ່ງ. ຄວາມໂສກເສົ້າ ຄວາມງຽບ ຄວາມສັບສົນ ຫຼື ຄວາມຕ້ອງການຖອຍອອກມາ ແມ່ນປະຕິກິລິຍາທຳມະຊາດຂອງມະນຸດ.',
+    section1Body2:
+      'ການຮູ້ສຶກອາລົມເຫຼົ່ານີ້ບໍ່ໄດ້ໝາຍຄວາມວ່າຂາດສັດທາ. ແມ່ຍິງແຕ່ລະຄົນສາມາດຜ່ານຜ່າຄວາມໂສກເສົ້າຂອງຕົນຕາມຈັງຫວະຂອງຕົນເອງ.',
+    visual1Title: 'ຍອມຮັບອາລົມຂອງທ່ານ',
+    visual1Body: 'ຄວາມໂສກເສົ້າ • ຄວາມຕ້ອງການພັກຜ່ອນ • ຄວາມງຽບ • ການສະໜັບສະໜູນ',
+    section2H2: '2. ສະຖານະທີ່ອາດແຕກຕ່າງຕາມສະຖານະການ',
+    section2Body1:
+      'ຫຼັງການສູນເສຍ ຫຼັກທາງສາສະໜາອາດຂຶ້ນກັບສະຖານະການ ແລະ ລັກສະນະຂອງເລືອດທີ່ອອກ.',
+    section2Body2:
+      'ໂດຍສະເພາະ ອາດຈຳເປັນຕ້ອງແຍກແຍະປະເພດຂອງເລືອດທີ່ອອກກ່ອນທີ່ຈະກຳນົດວ່າຄວນປະຕິບັດຕາມຫຼັກທາງສາສະໜາຂໍ້ໃດ.',
+    schemaTitle: 'ຫຼັກການທົ່ວໄປ',
+    schemaLabel1: 'ສະຖານະການ',
+    schemaLabel2: 'ລັກສະນະຂອງເລືອດທີ່ອອກ',
+    schemaLabel3: 'ການແນະນຳທີ່ເໝາະສົມ',
+    doubtTipTitle: 'ຖ້າຍັງສົງໄສ',
+    doubtTipText:
+      'ສະຖານະການສ່ວນຕົວອາດຕ້ອງການຄຳຕອບທີ່ແຕກຕ່າງ. ຄວນຂໍຄຳແນະນຳຈາກຜູ້ທີ່ມີຄຸນວຸດທິ.',
+    section3H2: '3. ຄວາມອົດທົນ ແລະ ຄວາມຫວັງ',
+    section3Body1:
+      'ຄວາມອົດທົນ (ຊັບຣ໌) ບໍ່ໄດ້ໝາຍຄວາມວ່າບໍ່ຮ້ອງໄຫ້ ຫຼື ບໍ່ຮູ້ສຶກເຈັບປວດ. ມັນພຽງແຕ່ສາມາດຢູ່ຄຽງຂ້າງການເດີນທາງດ້ວຍສັດທາ ແລະ ຄວາມຫວັງ.',
+    section3Body2:
+      'ການກະທຳນ້ອຍໆສາມາດຊ່ວຍຟື້ນຟູຄວາມສະຫງົບໄດ້ເທື່ອລະກ້າວ: ການອ້ອນວອນ ຊ່ວງເວລາແຫ່ງການລະນຶກເຖິງອັລລອຮ໌ (ຊິກຣ໌) ການຮັບຟັງທາງຈິດໃຈ ຫຼື ການມີຄົນທີ່ຮັກຢູ່ໃກ້ໆ.',
+    spiritual1: 'ການອ້ອນວອນ',
+    spiritual2: 'ຊິກຣ໌',
+    spiritual3: 'ການສະໜັບສະໜູນ',
+    retainTipTitle: 'ຄວນຈື່ໄວ້',
+    retainTipText:
+      'ການເຍີຍວຍາໃຊ້ເວລາ. ບໍ່ມີຈັງຫວະທົ່ວໄປໃນການຜ່ານຜ່າການສູນເສຍ.',
+    section4H2: '4. ຈຸດແນະນຳບາງຢ່າງເພື່ອກ້າວຕໍ່ໄປ',
+    section4Body:
+      'ບໍ່ຈຳເປັນຕ້ອງເຮັດທຸກຢ່າງພ້ອມກັນ. ເລືອກສິ່ງທີ່ກົງກັບຄວາມຮູ້ສຶກຂອງທ່ານ ແລະ ສິ່ງທີ່ທ່ານຕ້ອງການໃນຕອນນີ້.',
+    gentleSteps: [
+      'ໃຊ້ເວລາເພື່ອຜ່ານຜ່າຄວາມໂສກເສົ້າຂອງທ່ານ',
+      'ຢູ່ຮ່ວມກັບຄົນທີ່ເປັນຫ່ວງເປັນໄຍທ່ານ',
+      'ປະຕິບັດກິດຈະກຳທາງຈິດໃຈເລັກໆນ້ອຍໆຕໍ່ໄປ ຖ້າມັນນຳມາເຊິ່ງຄວາມສະບາຍໃຈ',
+      'ຂໍຄຳແນະນຳສຳລັບຄຳຖາມທາງສາສະໜາສະເພາະ',
+      'ຂໍການສະໜັບສະໜູນ ຖ້າຄວາມໂສກເສົ້າໜັກເກີນກວ່າຈະແບກຮັບໄດ້',
+    ],
+    finalTitle: 'ເສັ້ນທາງຕາມຈັງຫວະຂອງທ່ານເອງ',
+    finalText:
+      'ການດູແລຕົນເອງ ການຂໍການສະໜັບສະໜູນ ແລະ ການຍຶດໝັ້ນໃນຄວາມຫວັງ ສາມາດຊ່ວຍນຳທາງໄປສູ່ຄວາມສະຫງົບໄດ້ເທື່ອລະກ້າວ.',
+    shareMessage: 'ການແນະນຳທາງຈິດໃຈຫຼັງການສູນເສຍ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

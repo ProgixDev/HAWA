@@ -2912,6 +2912,1431 @@ const CONTENT = withBrazilianPortuguese('MenopauseTransition', {
       'Perimenopauza we menopauza tebigy tapgyrlar, kesellik däl. Bu ötüşi has rahat geçirmäge kömek edýän köp çözgüt bar: saglyk hünärmeni olary ýagdaýyňyza uýgunlaşdyrmak üçin iň gowy çeşme bolup galýar.',
     shareMessage: 'Menopauza ötüşini düşünmek — AWA',
   },
+  ms: {
+    badge: 'PERIMENOPAUS & MENOPAUS',
+    title: 'Memahami peralihan menopaus',
+    metaDuration: '10 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Apa yang berubah secara beransur-ansur, bertahun-tahun sebelum haid berhenti, dan bagaimana menghadapi peringkat ini dengan lebih jelas.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Perimenopaus dan menopaus: takrifan',
+      'Kitaran yang semakin tidak teratur',
+      'Tidur dan emosi',
+      'Keintiman dan kekeringan faraj',
+      'Berat badan dan metabolisme',
+      'Mitos lazim tentang menopaus',
+      'Simptom normal dan tanda yang perlu diperhatikan',
+      'Petua praktikal harian',
+      'Perkara penting untuk diingat',
+    ],
+    h1: '1. Perimenopaus dan menopaus: takrifan',
+    body1a:
+      'Perimenopaus merujuk kepada tempoh peralihan hormon yang mendahului menopaus: ia boleh bermula beberapa tahun lebih awal, biasanya dari usia empat puluhan, dengan tahap estrogen yang berubah-ubah secara tidak teratur.',
+    body1b:
+      'Menopaus pula ialah satu detik tertentu: ia disahkan selepas 12 bulan berturut-turut tanpa haid, tanpa sebab lain. Di Perancis, ia berlaku secara purata sekitar umur 51 tahun, walaupun umur ini secara semula jadi berbeza dari seorang wanita ke seorang wanita.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Setiap wanita melalui peralihan ini secara berbeza, dari segi tempoh dan keamatan simptom. Berbincang tentangnya secara terbuka membantu anda menjangkanya dengan lebih baik.',
+    h2: '2. Kitaran yang semakin tidak teratur',
+    body2:
+      'Salah satu tanda pertama perimenopaus selalunya perubahan pada rentak kitaran: kitaran mungkin menjadi lebih pendek, lebih panjang, lebih berjarak atau mempunyai aliran yang berbeza dari satu bulan ke bulan berikutnya.',
+    alert1Title: 'Sila ambil perhatian',
+    alert1Text:
+      'Pendarahan yang sangat banyak, pendarahan yang berlaku sangat rapat antara satu sama lain, atau pendarahan yang berlaku selepas setahun tanpa haid memerlukan nasihat perubatan, kerana ini tidak dianggap sebagai tanda tipikal peralihan.',
+    h3: '3. Tidur dan emosi',
+    body3a:
+      'Penurunan dan perubahan estrogen dan progesteron boleh mengganggu tidur (sukar tidur, terjaga pada waktu malam) dan mungkin disertai kemudahan marah, keresahan atau perubahan emosi yang luar biasa.',
+    body3b:
+      'Perubahan ini mempunyai penjelasan biologi yang sebenar: ia tidak mencerminkan kekurangan kekuatan semangat mahupun masalah psikologi yang terpencil.',
+    h4: '4. Keintiman dan kekeringan faraj',
+    body4:
+      'Penurunan estrogen boleh menyebabkan kekeringan faraj, kadangkala menyebabkan ketidakselesaan atau sakit semasa hubungan intim. Keinginan juga boleh berubah, sama ada meningkat atau berkurangan, bergantung pada wanita itu.',
+    tip2Title: 'Elok diketahui',
+    tip2Text:
+      'Penyelesaian yang mudah wujud (pelincir, pelembap faraj, rawatan setempat): berbincang dengan pengamal penjagaan kesihatan boleh membantu anda menemui penyelesaian yang betul, tanpa tabu.',
+    h5: '5. Berat badan dan metabolisme',
+    body5:
+      'Metabolisme boleh menjadi sedikit perlahan dalam tempoh ini, dan taburan lemak cenderung beralih ke arah perut. Perubahan ini lazim dan tidak bergantung semata-mata pada kekuatan semangat.',
+    h6: '6. Mitos lazim tentang menopaus',
+    myths: [
+      'Menopaus "berlaku sekali gus" — sebenarnya, ia didahului oleh beberapa tahun peralihan (perimenopaus)',
+      'Semua simptom teruk bagi semua orang — keamatannya sangat berbeza dari seorang wanita ke seorang wanita',
+      'Tiada apa yang boleh dilakukan — banyak penyelesaian, hormon atau bukan, wujud untuk melegakan simptom yang mengganggu',
+      'Kehidupan intim berakhir — ia berubah, tetapi kekal sepenuhnya mungkin dan memuaskan dengan penyesuaian yang betul',
+    ],
+    h7: '7. Simptom normal dan tanda yang perlu diperhatikan',
+    body7:
+      'Sebahagian besar perubahan yang diterangkan di sini ialah manifestasi normal peralihan. Walau bagaimanapun, tanda tertentu memerlukan perhatian perubatan segera.',
+    alert2Title: 'Berjumpa doktor jika',
+    alert2Text:
+      'Pendarahan selepas menopaus disahkan, sakit pelvis yang luar biasa, simptom yang mengganggu kehidupan seharian dengan ketara, atau sebarang keraguan yang berterusan.',
+    h8: '8. Petua praktikal harian',
+    dailyHabits: [
+      'Pemakanan yang kaya dengan kalsium dan serat',
+      'Aktiviti fizikal yang tetap',
+      'Rutin tidur yang stabil',
+      'Saat-saat relaksasi setiap hari',
+    ],
+    h9: '9. Perkara penting untuk diingat',
+    tip3Title: 'Elok diketahui',
+    tip3Text:
+      'Perimenopaus dan menopaus ialah peringkat semula jadi, bukan penyakit. Banyak penyelesaian wujud untuk membantu anda melalui peralihan ini dengan lebih selesa: pengamal penjagaan kesihatan kekal sebagai sumber terbaik untuk menyesuaikannya dengan keadaan anda.',
+    shareMessage: 'Memahami peralihan menopaus — AWA',
+  },
+  so: {
+    badge: 'PRE-MENOPAUSE & MENOPAUSE',
+    title: 'Fahamka isbeddelka menopause',
+    metaDuration: '10 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Waxa tartiib isbeddela, sannado ka hor intaan caadadu joogsan, iyo sida heerkan loogu dhowaado cadaan badan.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Pre-menopause iyo menopause: qeexitaanno',
+      'Wareegyo sii kordhaya oo aan joogto ahayn',
+      'Hurdo iyo niyad',
+      'Nolol gaar ah iyo engegnaanta xiniinyaha',
+      'Miisaan iyo dheef-shiid kimiyaad',
+      'Xaqiiqooyin been ah oo caan ah oo ku saabsan menopause',
+      'Astaamaha caadiga ah iyo calaamadaha la eego',
+      'Talooyin ficil ah oo maalinle ah',
+      'Qodobbada muhiimka ah',
+    ],
+    h1: '1. Pre-menopause iyo menopause: qeexitaanno',
+    body1a:
+      'Pre-menopause waxay tilmaamaysaa muddada isbeddelka hormoonka ee ka horreeya menopause: wuxuu bilaabmi karaa dhowr sano ka hor, guud ahaan laga bilaabo afartanaadkaaga, iyadoo heerarka estrogen ay si aan joogto ahayn u kala duwanaadaan.',
+    body1b:
+      'Menopause, dhanka kale, waa qodob waqti gaar ah: waxaa la xaqiijiyaa ka dib 12 bilood oo isku xigta oo caado la’aan ah, iyadoo sabab kale aan jirin. Faransiiska, celcelis ahaan wuxuu dhacaa ku dhawaad da’da 51, in kasta oo da’daani si dabiici ah ugu kala duwan tahay naag ilaa naag.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Naag kastaa isbeddelkan wuxuu ku maraa si ka duwan, muddada iyo xoogga astaamaha labadaba. La hadalka furan wuxuu kaa caawinayaa inaad si wanaagsan hore u saadaaliso.',
+    h2: '2. Wareegyo sii kordhaya oo aan joogto ahayn',
+    body2:
+      'Mid ka mid ah calaamadaha ugu horreeya ee pre-menopause inta badan waa isbeddel xawaaraha wareegga: wareegyadu waxay noqon karaan kuwo gaaban, dheer, ka sii kala fog, ama leh socod ka duwan bil ilaa bil.',
+    alert1Title: 'Fadlan ogow',
+    alert1Text:
+      'Dhiigbax aad u culus, dhiigbax aad isu dhow, ama dhiigbax dhaca ka dib hal sano oo caado la’aan ah wuxuu u baahan yahay talo caafimaad, maadaama aan loo tixgelin calaamado caadi ah oo isbeddelka ah.',
+    h3: '3. Hurdo iyo niyad',
+    body3a:
+      'Hoos u dhaca iyo kala duwanaanshaha estrogen iyo progesterone ayaa jari kara hurdada (hurdo qaadashada, soo-toosidda habeenkii) wuxuuna la socon karaa cadho degdeg ah, walaac, ama isbeddello niyadeed oo aan caadi ahayn.',
+    body3b:
+      'Isbeddeladani waxay leeyihiin sharraxaad bayooloji ah oo dhab ah: ma muujiyaan awood xoog la’aan ama dhibaato nafsi ah oo go’doon ah.',
+    h4: '4. Nolol gaar ah iyo engegnaanta xiniinyaha',
+    body4:
+      'Hoos u dhaca estrogen wuxuu keeni karaa engegnaanta xiniinyaha, mararka qaar keenaya raaxo-darro ama xanuun inta galmada lagu jiro. Rabitaanka sidoo kale wuu isbeddeli karaa, wuu kordhi karaa ama wuu yaraan karaa, iyadoo ku xiran naagta.',
+    tip2Title: 'Waxtar leh in la ogaado',
+    tip2Text:
+      'Xalal fudud ayaa jira (dufan-yareeyayaal, qoyaan-bixiyayaal xiniinyaha, daaweynno maxalli ah): la hadalka xirfadle caafimaad wuxuu kaa caawin karaa inaad hesho xalka saxda ah, ceeb la’aan.',
+    h5: '5. Miisaan iyo dheef-shiid kimiyaad',
+    body5:
+      'Dheef-shiid kimiyaadku wuxuu xoogaa gaabin karaa muddadan, qaybinta dufanku waxay u janjeeraan inay u dhaqaaqdo caloosha. Isbeddeladani waa caadi mana ku xirna awood xoog oo keliya.',
+    h6: '6. Xaqiiqooyin been ah oo caan ah oo ku saabsan menopause',
+    myths: [
+      'Menopause “mar keliya ayuu dhacaa” — dhab ahaan, waxaa ka horreeya dhowr sano oo isbeddel ah (pre-menopause)',
+      'Astaamaha oo dhan waa kuwo daran qof walba — xooggoodu aad ayuu ugu kala duwan yahay naag ilaa naag',
+      'Waxba laguma samayn karo — xalal badan, hormoon ama aan hormoon ahayn, ayaa jira si loo yareeyo astaamaha dhibka leh',
+      'Nolosha gaarka ah way dhammaataa — way isbeddeshaa, laakiin way suurtagal ahaanaysaa oo wanaagsan tahay iyadoo la leh hagaajin ku habboon',
+    ],
+    h7: '7. Astaamaha caadiga ah iyo calaamadaha la eego',
+    body7:
+      'Inta ugu badan ee isbeddelada halkan lagu sharaxay waa muuqaallo caadi ah oo isbeddelka ah. Si kastaba, calaamado qaar ayaa mudan feejignaan caafimaad oo degdeg ah.',
+    alert2Title: 'Arag dhakhtar haddii',
+    alert2Text:
+      'Dhiigbax menopause la xaqiijiyey ka dib, xanuun miskaha oo aan caadi ahayn, astaamo si weyn u dhibaya nolol-maalmeedka, ama shaki kasta oo sii socda.',
+    h8: '8. Talooyin ficil ah oo maalinle ah',
+    dailyHabits: [
+      'Cunto hodan ku ah calcium iyo fiber',
+      'Firfircooni jidheed joogto ah',
+      'Nidaam hurdo oo degan',
+      'Wakhtiyo nasasho maalinle ah',
+    ],
+    h9: '9. Qodobbada muhiimka ah',
+    tip3Title: 'Waxtar leh in la ogaado',
+    tip3Text:
+      'Pre-menopause iyo menopause waa heerar dabiici ah, ma aha cudur. Xalal badan ayaa jira oo kaa caawinaya inaad isbeddelkan si ka raaxo badan u marto: xirfadle caafimaad ayaa weli ah il-ka-helka ugu fiican si loogu habeeyo xaaladdaada.',
+    shareMessage: 'Fahamka isbeddelka menopause — AWA',
+  },
+  sw: {
+    badge: 'KUKARIBIA KUKOMA HEDHI NA KUKOMA HEDHI',
+    title: 'Kuelewa mpito wa kukoma hedhi',
+    metaDuration: 'Dakika 10 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Kinachobadilika polepole, miaka kabla ya hedhi kukoma, na jinsi ya kukaribia hatua hii kwa uwazi zaidi.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kukaribia kukoma hedhi na kukoma hedhi: fasili',
+      'Mizunguko isiyo ya mpangilio inayozidi',
+      'Usingizi na hali ya moyo',
+      'Ukaribu na ukavu ukeni',
+      'Uzito na kimetaboliki',
+      'Imani potofu za kawaida kuhusu kukoma hedhi',
+      'Dalili za kawaida na ishara za kuzingatia',
+      'Vidokezo vya vitendo vya kila siku',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    h1: '1. Kukaribia kukoma hedhi na kukoma hedhi: fasili',
+    body1a:
+      'Kukaribia kukoma hedhi kunarejelea kipindi cha mpito wa homoni kinachotangulia kukoma hedhi: kinaweza kuanza miaka kadhaa mapema, kwa kawaida kuanzia miaka ya arobaini, huku viwango vya estrojeni vikibadilikabadilika bila mpangilio.',
+    body1b:
+      'Kukoma hedhi, kwa upande mwingine, ni wakati mahususi: huthibitishwa baada ya miezi 12 mfululizo bila hedhi, bila sababu nyingine. Nchini Ufaransa, hutokea kwa wastani karibu na umri wa miaka 51, ingawa umri huu kiasili hutofautiana kutoka mwanamke hadi mwanamke.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Kila mwanamke hupitia mpito huu kwa njia tofauti, kwa muda na kwa ukali wa dalili. Kuzungumza kuhusu hilo waziwazi kunakusaidia kujiandaa vizuri zaidi.',
+    h2: '2. Mizunguko isiyo ya mpangilio inayozidi',
+    body2:
+      'Mojawapo ya dalili za kwanza za kukaribia kukoma hedhi mara nyingi ni mabadiliko ya mdundo wa mzunguko: mizunguko inaweza kuwa mifupi, mirefu, iliyotengana zaidi, au kuwa na mtiririko tofauti kutoka mwezi mmoja hadi mwingine.',
+    alert1Title: 'Tafadhali zingatia',
+    alert1Text:
+      'Kutokwa damu nyingi sana, kutokwa damu kunakotokea karibu sana na mwingine, au kutokwa damu kunakotokea baada ya mwaka bila hedhi kunahitaji ushauri wa kitabibu, kwa kuwa hizi hazizingatiwi kuwa dalili za kawaida za mpito.',
+    h3: '3. Usingizi na hali ya moyo',
+    body3a:
+      'Kushuka na mabadiliko ya estrojeni na projesteroni kunaweza kuvuruga usingizi (kupata usingizi, kuamka usiku) na kunaweza kuambatana na hasira, wasiwasi, au mabadiliko yasiyo ya kawaida ya hali ya moyo.',
+    body3b:
+      'Mabadiliko haya yana maelezo halisi ya kibiolojia: hayaonyeshi ukosefu wa nguvu ya utashi wala tatizo la kisaikolojia la pekee.',
+    h4: '4. Ukaribu na ukavu ukeni',
+    body4:
+      'Kushuka kwa estrojeni kunaweza kusababisha ukavu ukeni, wakati mwingine kusababisha usumbufu au maumivu wakati wa tendo la ndoa. Hamu pia inaweza kubadilika, ikiongezeka au kupungua, kulingana na mwanamke.',
+    tip2Title: 'Vyema kujua',
+    tip2Text:
+      'Suluhisho rahisi zipo (vilainishi, vimiminia unyevu vya ukeni, matibabu ya eneo husika): kuzungumza na mtaalamu wa afya kunaweza kukusaidia kupata suluhisho sahihi, bila mwiko.',
+    h5: '5. Uzito na kimetaboliki',
+    body5:
+      'Kimetaboliki inaweza kupungua kidogo katika kipindi hiki, na mgawanyo wa mafuta huelekea kuhamia tumboni. Mabadiliko haya ni ya kawaida na hayategemei nguvu ya utashi pekee.',
+    h6: '6. Imani potofu za kawaida kuhusu kukoma hedhi',
+    myths: [
+      'Kukoma hedhi “hutokea mara moja” — kwa kweli, kunatanguliwa na miaka kadhaa ya mpito (kukaribia kukoma hedhi)',
+      'Dalili zote ni kali kwa kila mtu — ukali wake hutofautiana sana kutoka mwanamke hadi mwanamke',
+      'Hakuna kinachoweza kufanywa — suluhisho nyingi, za homoni au la, zipo kupunguza dalili zinazosumbua',
+      'Maisha ya ndoa yanafikia mwisho — yanabadilika, lakini yanabaki yanawezekana na yenye kuridhisha kabisa kwa marekebisho yanayofaa',
+    ],
+    h7: '7. Dalili za kawaida na ishara za kuzingatia',
+    body7:
+      'Idadi kubwa sana ya mabadiliko yaliyoelezwa hapa ni udhihirisho wa kawaida wa mpito. Hata hivyo, ishara fulani zinastahili uangalizi wa haraka wa kitabibu.',
+    alert2Title: 'Mwone daktari ikiwa',
+    alert2Text:
+      'Kutokwa damu baada ya kukoma hedhi kuthibitishwa, maumivu ya nyonga yasiyo ya kawaida, dalili zinazovuruga sana maisha ya kila siku, au shaka yoyote ya kuendelea.',
+    h8: '8. Vidokezo vya vitendo vya kila siku',
+    dailyHabits: [
+      'Lishe yenye kalsiamu na nyuzinyuzi nyingi',
+      'Shughuli za mara kwa mara za mwili',
+      'Utaratibu thabiti wa usingizi',
+      'Nyakati za kutuliza mwili na akili kila siku',
+    ],
+    h9: '9. Mambo muhimu ya kukumbuka',
+    tip3Title: 'Vyema kujua',
+    tip3Text:
+      'Kukaribia kukoma hedhi na kukoma hedhi ni hatua za asili, si ugonjwa. Suluhisho nyingi zipo za kukusaidia kupitia mpito huu kwa faraja zaidi: mtaalamu wa afya anabaki kuwa nyenzo bora ya kuzirekebisha kulingana na hali yako.',
+    shareMessage: 'Kuelewa mpito wa kukoma hedhi — AWA',
+  },
+  kk: {
+    badge: 'ПЕРИМЕНОПАУЗА ЖӘНЕ МЕНОПАУЗА',
+    title: 'Менопауза өтпелі кезеңін түсіну',
+    metaDuration: '10 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Етеккір тоқтауынан бірнеше жыл бұрын біртіндеп не өзгереді және бұл кезеңге анығырақ қалай қарауға болады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Перименопауза және менопауза: анықтамалар',
+      'Барған сайын тұрақсыз циклдар',
+      'Ұйқы және көңіл-күй',
+      'Жақындық және қынаптың құрғауы',
+      'Салмақ және метаболизм',
+      'Менопауза туралы жиі кездесетін қате пікірлер',
+      'Қалыпты белгілер және назар аударатын белгілер',
+      'Күнделікті практикалық кеңестер',
+      'Негізгі қорытындылар',
+    ],
+    h1: '1. Перименопауза және менопауза: анықтамалар',
+    body1a:
+      'Перименопауза менопаузаға дейінгі гормондық өтпелі кезеңді білдіреді: ол бірнеше жыл бұрын, әдетте қырықтан кейін басталуы мүмкін, эстроген деңгейлері тұрақсыз ауытқиды.',
+    body1b:
+      'Менопауза, керісінше, нақты бір сәт: ол басқа себепсіз, қатарынан 12 ай етеккір болмағаннан кейін расталады. Францияда ол орта есеппен 51 жасқа жуық кезде болады, дегенмен бұл жас әйелден әйелге табиғи түрде өзгереді.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Әр әйел бұл өтпелі кезеңді, ұзақтығы мен белгілердің қарқындылығы бойынша, әртүрлі бастан кешіреді. Бұл туралы ашық сөйлесу оған жақсырақ дайындалуға көмектеседі.',
+    h2: '2. Барған сайын тұрақсыз циклдар',
+    body2:
+      'Перименопаузаның алғашқы белгілерінің бірі көбіне цикл ырғағының өзгеруі: циклдар қысқарақ, ұзағырақ, аралығы үлкенірек болуы немесе айдан айға көлемі өзгеруі мүмкін.',
+    alert1Title: 'Назар аударыңыз',
+    alert1Text:
+      'Өте мол қан кету, бір-біріне өте жақын қан кету немесе етеккірсіз бір жылдан кейін болатын қан кету медициналық кеңесті қажет етеді, себебі бұлар өтпелі кезеңнің әдеттегі белгілері болып саналмайды.',
+    h3: '3. Ұйқы және көңіл-күй',
+    body3a:
+      'Эстроген мен прогестеронның төмендеуі және ауытқуы ұйқыны (ұйықтап кету, түнде ояну) бұзуы мүмкін және ашушаңдықпен, алаңдаушылықпен немесе әдеттен тыс көңіл-күй ауытқуларымен қатар жүруі мүмкін.',
+    body3b:
+      'Бұл өзгерістердің нақты биологиялық түсініктемесі бар: олар ерік күшінің жетіспеушілігін де, оқшау психологиялық мәселені де көрсетпейді.',
+    h4: '4. Жақындық және қынаптың құрғауы',
+    body4:
+      'Эстрогеннің төмендеуі қынаптың құрғауына әкелуі мүмкін, кейде жыныстық қатынас кезінде жайсыздық немесе ауыру тудырады. Қалау да әйелге байланысты артуы немесе азаюы мүмкін.',
+    tip2Title: 'Білуге тиісті',
+    tip2Text:
+      'Қарапайым шешімдер бар (майлағыштар, қынапты ылғалдандыратын құралдар, жергілікті емдеу): медицина маманымен сөйлесу тыйымсыз, сізге дұрыс шешім табуға көмектесе алады.',
+    h5: '5. Салмақ және метаболизм',
+    body5:
+      'Метаболизм бұл кезеңде сәл баяулауы мүмкін, ал май таралуы іш аймағына ауысуға бейім. Бұл өзгерістер жиі кездеседі және тек ерік күшіне байланысты емес.',
+    h6: '6. Менопауза туралы жиі кездесетін қате пікірлер',
+    myths: [
+      'Менопауза “бірден болады” — шын мәнінде, оған бірнеше жылдық өтпелі кезең (перименопауза) алдын ала келеді',
+      'Барлық белгілер барлығында ауыр — олардың қарқындылығы әйелден әйелге айтарлықтай әртүрлі',
+      'Ештеңе істеуге болмайды — мазалайтын белгілерді жеңілдету үшін гормондық немесе гормондық емес көптеген шешімдер бар',
+      'Жыныстық өмір аяқталады — ол өзгереді, бірақ дұрыс бейімделумен толығымен мүмкін және қанағаттанарлық болып қалады',
+    ],
+    h7: '7. Қалыпты белгілер және назар аударатын белгілер',
+    body7:
+      'Мұнда сипатталған өзгерістердің басым көпшілігі өтпелі кезеңнің қалыпты көріністері. Дегенмен, кейбір белгілер дереу медициналық назарды қажет етеді.',
+    alert2Title: 'Мына жағдайда дәрігерге барыңыз',
+    alert2Text:
+      'Расталған менопаузадан кейінгі қан кету, әдеттен тыс жамбас ауыруы, күнделікті өмірді айтарлықтай бұзатын белгілер немесе кез келген тұрақты күмән.',
+    h8: '8. Күнделікті практикалық кеңестер',
+    dailyHabits: [
+      'Кальций мен талшыққа бай тамақтану',
+      'Тұрақты дене белсенділігі',
+      'Тұрақты ұйқы тәртібі',
+      'Күн сайынғы босаңсу сәттері',
+    ],
+    h9: '9. Негізгі қорытындылар',
+    tip3Title: 'Білуге тиісті',
+    tip3Text:
+      'Перименопауза мен менопауза — табиғи кезеңдер, ауру емес. Бұл өтпелі кезеңнен жайлырақ өтуге көмектесетін көптеген шешімдер бар: оларды жағдайыңызға бейімдеу үшін медицина маманы ең жақсы ресурс болып қала береді.',
+    shareMessage: 'Менопауза өтпелі кезеңін түсіну — AWA',
+  },
+  wo: {
+    badge: 'PERIMENOPOOS AK MENOPOOS',
+    title: 'Xam jàll bi ci menopoos',
+    metaDuration: '10 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Li di soppiku tuuti-tuuti, at yu bari balaa règle yi di taxaw, ak naka ngay jëm ci jamono jii ak leer bu gën a bari.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Perimenopoos ak menopoos: tekki',
+      'Wërsëg yu di gën a jubul',
+      'Nelaw ak xol',
+      'Cér-bopp ak wow ci ndey',
+      'Yenn ak metabolism',
+      'Gëm-gëm yu bari ci menopoos',
+      'Màndarga yu cosaan ak yu war a teg',
+      'Ndigal yu jëfandikoo ci bés bu nekk',
+      'Li am solo',
+    ],
+    h1: '1. Perimenopoos ak menopoos: tekki',
+    body1a:
+      'Perimenopoos mooy diiru jàll bu hormon bu jiitu menopoos: mën na tàmbali ay at balaa, ci yoon ci wetu at 40, ak estrojen di yëngu ci jubul.',
+    body1b:
+      'Menopoos, moom, benn jamono bu leer la: dees na ko dëggal ginnaaw 12 weer yu toftal te amul règle, te amul beneen sabab. Ci Farãs, daa am ci wetu at 51 ci digg-dóomu, waaye at bii mën na wuute ci jigéen ak jigéen.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Jigéen ju nekk dafay dund jàll bii ci anamam, ci diir ak ci dayoy màndarga yi. Wax ko ci kaw dafay dimbli nga xaar ko bu gën a baax.',
+    h2: '2. Wërsëg yu di gën a jubul',
+    body2:
+      'Benn ci màndarga yu njëkk yu perimenopoos mooy soppi ci ritmu wërsëg: wërsëg yi mën nañu gën a gàtt, gën a gudd, gën a tasaaru walla am deret bu wuute ci weer ak weer.',
+    alert1Title: 'Teg',
+    alert1Text:
+      'Deret bu bari lool, deret bu jege lool seen bopp, walla deret bu am ginnaaw benn at te amul règle soxla na ndigalu doktoor, ndax duñu màndarga yu cosaan yu jàll bi.',
+    h3: '3. Nelaw ak xol',
+    body3a:
+      'Wàññiku ak yëngu yu estrojen ak progesteron mën nañu ñaawal nelaw (dugg ci nelaw, yewu guddi) te mën nañu ànd ak mer, tiitaange walla soppi yu xol yu cosaanul.',
+    body3b:
+      'Soppi yii am nañu benn leeral bu bioloji: duñu wone ñàkk fit walla benn jafe-jafe bu xel bu sa bopp.',
+    h4: '4. Cér-bopp ak wow ci ndey',
+    body4:
+      'Wàññiku estrojen mën na def wow ci ndey, yenn saa def tiis walla metit ci jaam. Bëgg-bëgg mën na soppiku itam, di yokku walla di wàññiku, ci jigéen ak jigéen.',
+    tip2Title: 'Lu baax a xam',
+    tip2Text:
+      'Jawab yu yomb am nañu (jumtukaay yu neex, yu sedd ndey, garab yu bérëb): wax ak benn liggéeykatu wér mën na dimbli nga gis li la méngoo, te amul tabu.',
+    h5: '5. Yenn ak metabolism',
+    body5:
+      'Metabolism mën na yeex tuuti ci jamono jii, te séddalig meew di dem jëm ci biir. Soppi yii daa bari te duñu sukkandiku ci fit rekk.',
+    h6: '6. Gëm-gëm yu bari ci menopoos',
+    myths: [
+      'Menopoos "dafay dikk ci benn yoon" — ci dëgg, ay at yu jàll (perimenopoos) mooy ko jiitu',
+      'Màndarga yépp dañuy metti ci ñépp — seen dayo wuute na lool ci jigéen ak jigéen',
+      'Amul lu ñuy def — ay jawab yu bari, yu hormon walla yu amul, am nañu ngir dalal màndarga yu tiis',
+      'Dund bu nëbbu dafay jeex — dafay soppiku, waaye des na lu mën a am te neex ak soppi yu jub',
+    ],
+    h7: '7. Màndarga yu cosaan ak yu war a teg',
+    body7:
+      'Bari ci soppi yi ñu tekki fii ay jëfe yu cosaan yu jàll bi lañu. Waaye yenn màndarga war nañu ñu seet ndigalu doktoor ci gaaw.',
+    alert2Title: 'Seet doktoor bu',
+    alert2Text:
+      'Deret ginnaaw menopoos bu dëggal, metit ci suufu ndey bu cosaanul, màndarga yu ñaawal lool dund bu bés, walla benn xel-ñaar bu sax.',
+    h8: '8. Ndigal yu jëfandikoo ci bés bu nekk',
+    dailyHabits: [
+      'Lekk bu fees ci kalsiyom ak fibr',
+      'Jëfu yaram bu sax',
+      'Benn ritm bu sax ci nelaw',
+      'Jamono yu noppalu bés bu nekk',
+    ],
+    h9: '9. Li am solo',
+    tip3Title: 'Lu baax a xam',
+    tip3Text:
+      'Perimenopoos ak menopoos ñaar fuñ yu natural lañu, du feebar. Ay jawab yu bari am nañu ngir dimbli nga jàll jàll bii ak neex: benn liggéeykatu wér des na jumtukaay bi gëna baax ngir defar leen ci sa mbir.',
+    shareMessage: 'Xam jàll bi ci menopoos — AWA',
+  },
+  ha: {
+    badge: 'KAFIN DAINA HAILA & DAINA HAILA',
+    title: 'Fahimtar sauyawa zuwa daina haila',
+    metaDuration: 'karatun minti 10',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Abin da ke canzawa a hankali, shekaru kafin haila ta tsaya, da yadda za a kusanci wannan mataki da ƙarin tsabta.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Kafin daina haila da daina haila: ma’anoni',
+      'Zagaye masu ƙara rashin tsari',
+      'Barci da yanayi',
+      'Kusanci da bushewar al’aura',
+      'Nauyi da metabolism',
+      'Tatsuniyoyi gama gari game da daina haila',
+      'Alamomin al’ada da alamomin da za a lura da su',
+      'Shawarwari masu amfani na yau da kullum',
+      'Muhimman abubuwa',
+    ],
+    h1: '1. Kafin daina haila da daina haila: ma’anoni',
+    body1a:
+      'Kafin daina haila yana nufin lokacin sauyin hormone da ke gabaci daina haila: zai iya farawa shekaru da dama a baya, yawanci daga shekarun arba’in, tare da matakan estrogen suna canzawa ba tare da tsari ba.',
+    body1b:
+      'Daina haila kuwa, wani ainihin lokaci ne: ana tabbatar da shi bayan watanni 12 a jere ba tare da haila ba, ba tare da wani dalili ba. A Faransa, yana faruwa a matsakaici a kusa da shekaru 51, ko da yake wannan shekaru a zahiri yana bambanta daga mace zuwa mace.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Kowace mace tana rayuwar wannan sauyi daban, ta fuskar tsawon lokaci da ƙarfin alamomi. Magana game da shi a fili yana taimaka miki ki fi shiryawa.',
+    h2: '2. Zagaye masu ƙara rashin tsari',
+    body2:
+      'Ɗaya daga cikin alamomin farko na kafin daina haila galibi sauyi ne a tsarin zagaye: zagaye na iya zama gajeru, dogaye, masu nisa, ko su yi yawan jini daban daga wata zuwa wata.',
+    alert1Title: 'Ki lura',
+    alert1Text:
+      'Zubar jini mai yawa sosai, zubar jini da ke faruwa kusa da juna sosai, ko zubar jini da ke faruwa bayan shekara ba tare da haila ba yana bukatar shawarar likita, domin ba a ɗauke su a matsayin alamomin sauyin na al’ada ba.',
+    h3: '3. Barci da yanayi',
+    body3a:
+      'Raguwa da sauyin estrogen da progesterone na iya dagula barci (yin barci, farkawa da dare) kuma suna iya zuwa tare da fushi, damuwa, ko sauye-sauyen yanayi ba na al’ada ba.',
+    body3b:
+      'Waɗannan sauye-sauye suna da ainihin bayani na halittu: ba sa nuna rashin ƙarfin zuciya ko wata matsalar ruhi ta daban.',
+    h4: '4. Kusanci da bushewar al’aura',
+    body4:
+      'Raguwar estrogen na iya haifar da bushewar al’aura, wani lokaci tana haifar da rashin jin daɗi ko ciwo yayin kusanci. Sha’awa ma na iya canzawa, ta ƙaru ko ta ragu, bisa mace.',
+    tip2Title: 'Abin da ya dace a sani',
+    tip2Text:
+      'Akwai mafita masu sauƙi (man shafawa, masu danshin al’aura, magunguna na gida): magana da ma’aikacin lafiya na iya taimaka miki ki sami mafita mai kyau, ba tare da kunya ba.',
+    h5: '5. Nauyi da metabolism',
+    body5:
+      'Metabolism na iya raguwa kaɗan a wannan lokaci, kuma rarraba kitse yana kan komawa ciki. Waɗannan sauye-sauye sun zama ruwan dare kuma ba sa dogara ga ƙarfin zuciya kaɗai ba.',
+    h6: '6. Tatsuniyoyi gama gari game da daina haila',
+    myths: [
+      'Daina haila “yana faruwa a lokaci ɗaya” — a gaskiya, shekaru da dama na sauyawa (kafin daina haila) suna gabace shi',
+      'Duk alamomi masu tsanani ne ga kowa — ƙarfinsu ya bambanta sosai daga mace zuwa mace',
+      'Babu abin da za a iya yi — mafita da dama, ta hormone ko akasin haka, suna nan don rage alamomi masu damuwa',
+      'Rayuwar aure ta ƙare — tana canzawa, amma tana nan mai yiwuwa kuma mai gamsarwa gaba ɗaya da gyare-gyare masu dacewa',
+    ],
+    h7: '7. Alamomin al’ada da alamomin da za a lura da su',
+    body7:
+      'Mafi yawan sauye-sauyen da aka bayyana a nan bayyanar sauyin ne ta al’ada. Duk da haka, wasu alamomi suna bukatar kulawar likita nan take.',
+    alert2Title: 'Ga likita idan',
+    alert2Text:
+      'Zubar jini bayan an tabbatar da daina haila, ciwon ƙugu ba na al’ada ba, alamomin da ke dagula rayuwar yau da kullum sosai, ko duk wata shakka mai dawwama.',
+    h8: '8. Shawarwari masu amfani na yau da kullum',
+    dailyHabits: [
+      'Abinci mai wadatar calcium da fiber',
+      'Motsa jiki akai-akai',
+      'Tsayayyen tsarin barci',
+      'Lokutan hutawa kullum',
+    ],
+    h9: '9. Muhimman abubuwa',
+    tip3Title: 'Abin da ya dace a sani',
+    tip3Text:
+      'Kafin daina haila da daina haila matakai ne na halitta, ba cuta ba. Mafita da dama suna nan don taimaka miki ki wuce wannan sauyi cikin sauƙi: ma’aikacin lafiya shi ne mafi kyawun hanya don daidaita su da yanayinki.',
+    shareMessage: 'Fahimtar sauyawa zuwa daina haila — AWA',
+  },
+  am: {
+    badge: 'ወደ ማረጥ መቃረብ እና ማረጥ',
+    title: 'የማረጥ ሽግግርን መረዳት',
+    metaDuration: '10 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro:
+      'የወር አበባ ከመቆሙ ዓመታት በፊት ቀስ በቀስ የሚለወጠው፣ እና ይህን ደረጃ በበለጠ ግልጽነት እንዴት እንደምትቀርቢ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ወደ ማረጥ መቃረብ እና ማረጥ፦ ትርጓሜዎች',
+      'እየጨመረ ወጥ ያልሆኑ ዑደቶች',
+      'እንቅልፍ እና ስሜት',
+      'ቅርበት እና የማህፀን መድረቅ',
+      'ክብደት እና ሜታቦሊዝም',
+      'ስለ ማረጥ የተለመዱ አፈ ታሪኮች',
+      'የተለመዱ ምልክቶችና ልብ ሊባሉ የሚገቡ ምልክቶች',
+      'ተግባራዊ የዕለት ምክሮች',
+      'ዋና ዋና ነጥቦች',
+    ],
+    h1: '1. ወደ ማረጥ መቃረብ እና ማረጥ፦ ትርጓሜዎች',
+    body1a:
+      'ወደ ማረጥ መቃረብ ከማረጥ በፊት ያለውን የሆርሞን ሽግግር ጊዜ ያመለክታል፦ በበርካታ ዓመታት ቀደም ብሎ ሊጀምር ይችላል፣ በአጠቃላይ ከአርባዎቹ ዕድሜ ጀምሮ፣ የኢስትሮጅን መጠን ያለ ወጥነት እየተለዋወጠ።',
+    body1b:
+      'ማረጥ ግን የተወሰነ ነጥብ ነው፦ ያለ ሌላ ምክንያት 12 ተከታታይ ወራት የወር አበባ ሳይኖር ሲቀር ይረጋገጣል። በፈረንሳይ በአማካይ በ51 ዓመት አካባቢ ይከሰታል፣ ምንም እንኳን ይህ ዕድሜ በተፈጥሮ ከሴት ወደ ሴት ቢለያይም።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'እያንዳንዷ ሴት ይህን ሽግግር በቆይታውም ሆነ በምልክቶቹ ጥንካሬ በተለየ መንገድ ትኖራለች። ስለሱ በግልጽ መነጋገር በተሻለ እንድትዘጋጂ ይረዳሻል።',
+    h2: '2. እየጨመረ ወጥ ያልሆኑ ዑደቶች',
+    body2:
+      'ወደ ማረጥ ከመቃረብ የመጀመሪያ ምልክቶች አንዱ ብዙ ጊዜ በዑደት ሪትም ላይ ለውጥ ነው፦ ዑደቶች አጭር፣ ረዥም፣ ይበልጥ የተራራቁ ወይም ከወር ወደ ወር የተለየ ፍሰት ሊኖራቸው ይችላል።',
+    alert1Title: 'ልብ በይ',
+    alert1Text:
+      'በጣም ብዙ ደም መፍሰስ፣ በጣም የተቀራረበ ደም መፍሰስ፣ ወይም ከአንድ ዓመት የወር አበባ አለመኖር በኋላ የሚከሰት ደም መፍሰስ የሕክምና ምክር ይፈልጋል፣ ምክንያቱም እነዚህ የሽግግሩ የተለመዱ ምልክቶች ተደርገው አይቆጠሩም።',
+    h3: '3. እንቅልፍ እና ስሜት',
+    body3a:
+      'የኢስትሮጅንና የፕሮጄስትሮን መቀነስና መለዋወጥ እንቅልፍን (መተኛት፣ በሌሊት መንቃት) ሊያዛባ እና ከብስጭት፣ ጭንቀት ወይም ያልተለመደ የስሜት መለዋወጥ ጋር ሊመጣ ይችላል።',
+    body3b:
+      'እነዚህ ለውጦች እውነተኛ ባዮሎጂካዊ ማብራሪያ አላቸው፦ የፍላጎት ኃይል እጦትን ወይም የተናጠል የሥነ ልቦና ችግርን አያንጸባርቁም።',
+    h4: '4. ቅርበት እና የማህፀን መድረቅ',
+    body4:
+      'የኢስትሮጅን መቀነስ የማህፀን መድረቅ ሊያስከትል ይችላል፣ አንዳንድ ጊዜ በግንኙነት ጊዜ ምቾት ማጣትን ወይም ህመምን ያስከትላል። ፍላጎትም ሊለወጥ ይችላል፣ እንደ ሴቲቱ ሊጨምር ወይም ሊቀንስ ይችላል።',
+    tip2Title: 'ማወቅ ጠቃሚ ነው',
+    tip2Text:
+      'ቀላል መፍትሔዎች አሉ (ቅባቶች፣ የማህፀን እርጥበት ሰጪዎች፣ የአካባቢ ሕክምናዎች)፦ ከጤና ባለሙያ ጋር መነጋገር ያለ ክልከላ ትክክለኛውን መፍትሔ ለማግኘት ሊረዳሽ ይችላል።',
+    h5: '5. ክብደት እና ሜታቦሊዝም',
+    body5:
+      'ሜታቦሊዝም በዚህ ወቅት በትንሹ ሊዘገይ ይችላል፣ የስብ ስርጭትም ወደ ሆድ የመዛወር ዝንባሌ አለው። እነዚህ ለውጦች የተለመዱ ናቸው እና በፍላጎት ኃይል ብቻ አይወሰኑም።',
+    h6: '6. ስለ ማረጥ የተለመዱ አፈ ታሪኮች',
+    myths: [
+      'ማረጥ “በአንድ ጊዜ ይከሰታል” — በእውነቱ፣ ከብዙ ዓመታት ሽግግር (ወደ ማረጥ መቃረብ) ይቀድማል',
+      'ሁሉም ምልክቶች ለሁሉም ከባድ ናቸው — ጥንካሬያቸው ከሴት ወደ ሴት በጣም ይለያያል',
+      'ምንም ማድረግ አይቻልም — የሚያስቸግሩ ምልክቶችን ለማቃለል፣ በሆርሞን ወይም ያለ ሆርሞን፣ ብዙ መፍትሔዎች አሉ',
+      'የቅርበት ሕይወት ያበቃል — ይለወጣል፣ ነገር ግን በትክክለኛ ማስተካከያዎች ሙሉ በሙሉ የሚቻል እና አርኪ ሆኖ ይቆያል',
+    ],
+    h7: '7. የተለመዱ ምልክቶችና ልብ ሊባሉ የሚገቡ ምልክቶች',
+    body7:
+      'እዚህ ከተገለጹት ለውጦች አብዛኞቹ የሽግግሩ መደበኛ መገለጫዎች ናቸው። ሆኖም፣ አንዳንድ ምልክቶች ወዲያውኑ የሕክምና ትኩረት ይፈልጋሉ።',
+    alert2Title: 'ሐኪም ማየት ያለብሽ ከሆነ',
+    alert2Text:
+      'ከተረጋገጠ ማረጥ በኋላ ደም መፍሰስ፣ ያልተለመደ የዳሌ ህመም፣ የዕለት ሕይወትን በእጅጉ የሚያዛቡ ምልክቶች፣ ወይም ማንኛውም የሚቀጥል ጥርጣሬ።',
+    h8: '8. ተግባራዊ የዕለት ምክሮች',
+    dailyHabits: [
+      'በካልሲየምና በፋይበር የበለጸገ አመጋገብ',
+      'መደበኛ የአካል እንቅስቃሴ',
+      'የተረጋጋ የእንቅልፍ ሥርዓት',
+      'የዕለት የመዝናኛ አፍታዎች',
+    ],
+    h9: '9. ዋና ዋና ነጥቦች',
+    tip3Title: 'ማወቅ ጠቃሚ ነው',
+    tip3Text:
+      'ወደ ማረጥ መቃረብና ማረጥ ተፈጥሯዊ ደረጃዎች ናቸው እንጂ ህመም አይደሉም። ይህን ሽግግር በበለጠ ምቾት ለማለፍ የሚረዱ ብዙ መፍትሔዎች አሉ፦ የጤና ባለሙያ ከሁኔታሽ ጋር ለማስማማት ምርጡ ምንጭ ሆኖ ይቆያል።',
+    shareMessage: 'የማረጥ ሽግግርን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'OVERGANG & MENOPAUZE',
+    title: 'De overgang naar de menopauze begrijpen',
+    metaDuration: '10 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Wat er geleidelijk verandert, jaren voordat de menstruatie stopt, en hoe je deze fase met meer duidelijkheid tegemoet gaat.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Overgang en menopauze: definities',
+      'Steeds onregelmatigere cycli',
+      'Slaap en stemming',
+      'Intimiteit en vaginale droogheid',
+      'Gewicht en stofwisseling',
+      'Veelvoorkomende mythen over de menopauze',
+      'Normale symptomen en tekenen om op te letten',
+      'Praktische dagelijkse tips',
+      'Belangrijkste punten',
+    ],
+    h1: '1. Overgang en menopauze: definities',
+    body1a:
+      'De overgang (perimenopauze) verwijst naar de hormonale overgangsperiode die aan de menopauze voorafgaat: ze kan enkele jaren eerder beginnen, over het algemeen vanaf je veertigste, met onregelmatig schommelende oestrogeenniveaus.',
+    body1b:
+      'De menopauze daarentegen is een specifiek moment: ze wordt bevestigd na 12 opeenvolgende maanden zonder menstruatie, zonder andere oorzaak. In Frankrijk treedt ze gemiddeld rond de leeftijd van 51 jaar op, al verschilt deze leeftijd van nature van vrouw tot vrouw.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Elke vrouw beleeft deze overgang anders, zowel in duur als in de intensiteit van de symptomen. Er openlijk over praten helpt je er beter op voor te bereiden.',
+    h2: '2. Steeds onregelmatigere cycli',
+    body2:
+      'Een van de eerste tekenen van de overgang is vaak een verandering in het ritme van de cyclus: cycli kunnen korter, langer, verder uit elkaar liggen of van maand tot maand een andere bloeding hebben.',
+    alert1Title: 'Let op',
+    alert1Text:
+      'Zeer hevig bloedverlies, bloedverlies dat heel kort op elkaar volgt of bloedverlies na een jaar zonder menstruatie vraagt om medisch advies, omdat dit niet als typische tekenen van de overgang worden beschouwd.',
+    h3: '3. Slaap en stemming',
+    body3a:
+      'De daling en schommelingen van oestrogeen en progesteron kunnen de slaap verstoren (inslapen, ’s nachts wakker worden) en gepaard gaan met prikkelbaarheid, angst of ongewone stemmingswisselingen.',
+    body3b:
+      'Deze veranderingen hebben een echte biologische verklaring: ze weerspiegelen noch een gebrek aan wilskracht, noch een op zichzelf staand psychologisch probleem.',
+    h4: '4. Intimiteit en vaginale droogheid',
+    body4:
+      'De daling van oestrogeen kan leiden tot vaginale droogheid, wat soms ongemak of pijn bij gemeenschap veroorzaakt. Ook het verlangen kan veranderen, toenemen of afnemen, afhankelijk van de vrouw.',
+    tip2Title: 'Goed om te weten',
+    tip2Text:
+      'Er bestaan eenvoudige oplossingen (glijmiddelen, vaginale hydratatiemiddelen, lokale behandelingen): praten met een zorgverlener kan je helpen de juiste oplossing te vinden, zonder taboe.',
+    h5: '5. Gewicht en stofwisseling',
+    body5:
+      'De stofwisseling kan in deze periode licht vertragen en de vetverdeling verschuift meestal naar de buik. Deze veranderingen komen vaak voor en hangen niet alleen af van wilskracht.',
+    h6: '6. Veelvoorkomende mythen over de menopauze',
+    myths: [
+      'De menopauze "gebeurt ineens" — in werkelijkheid gaan er enkele jaren overgang (perimenopauze) aan vooraf',
+      'Alle symptomen zijn voor iedereen ernstig — hun intensiteit verschilt enorm van vrouw tot vrouw',
+      'Je kunt er niets aan doen — er bestaan veel oplossingen, hormonaal of niet, om hinderlijke symptomen te verlichten',
+      'Het intieme leven komt tot een einde — het verandert, maar blijft met de juiste aanpassingen volkomen mogelijk en bevredigend',
+    ],
+    h7: '7. Normale symptomen en tekenen om op te letten',
+    body7:
+      'De overgrote meerderheid van de hier beschreven veranderingen zijn normale uitingen van de overgang. Bepaalde tekenen verdienen echter snelle medische aandacht.',
+    alert2Title: 'Zie een arts als',
+    alert2Text:
+      'Bloedverlies na bevestigde menopauze, ongewone bekkenpijn, symptomen die het dagelijks leven aanzienlijk verstoren of aanhoudende twijfel.',
+    h8: '8. Praktische dagelijkse tips',
+    dailyHabits: [
+      'Een voeding rijk aan calcium en vezels',
+      'Regelmatige lichaamsbeweging',
+      'Een stabiel slaapritme',
+      'Dagelijkse momenten van ontspanning',
+    ],
+    h9: '9. Belangrijkste punten',
+    tip3Title: 'Goed om te weten',
+    tip3Text:
+      'Overgang en menopauze zijn natuurlijke fasen, geen ziekte. Er bestaan veel oplossingen om deze overgang comfortabeler door te komen: een zorgverlener blijft de beste bron om ze aan je situatie aan te passen.',
+    shareMessage: 'De overgang naar de menopauze begrijpen — AWA',
+  },
+  fi: {
+    badge: 'PERIMENOPAUSSI JA VAIHDEVUODET',
+    title: 'Vaihdevuosisiirtymän ymmärtäminen',
+    metaDuration: '10 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Mikä muuttuu vähitellen vuosia ennen kuukautisten loppumista ja miten tähän vaiheeseen voi suhtautua selkeämmin.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Perimenopaussi ja vaihdevuodet: määritelmät',
+      'Yhä epäsäännöllisemmät kierrot',
+      'Uni ja mieliala',
+      'Läheisyys ja emättimen kuivuus',
+      'Paino ja aineenvaihdunta',
+      'Yleiset myytit vaihdevuosista',
+      'Normaalit oireet ja huomioitavat merkit',
+      'Käytännön päivittäiset vinkit',
+      'Tärkeimmät asiat',
+    ],
+    h1: '1. Perimenopaussi ja vaihdevuodet: määritelmät',
+    body1a:
+      'Perimenopaussi tarkoittaa vaihdevuosia edeltävää hormonaalista siirtymäkautta: se voi alkaa useita vuosia aiemmin, yleensä nelikymppisenä, kun estrogeenitasot vaihtelevat epäsäännöllisesti.',
+    body1b:
+      'Vaihdevuodet puolestaan ovat tietty ajankohta: ne vahvistetaan, kun on kulunut 12 peräkkäistä kuukautta ilman kuukautisia ilman muuta syytä. Ranskassa ne tulevat keskimäärin noin 51 vuoden iässä, vaikka tämä ikä luonnollisesti vaihtelee naisesta toiseen.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Jokainen nainen kokee tämän siirtymän eri tavalla sekä kestoltaan että oireiden voimakkuudeltaan. Asiasta puhuminen avoimesti auttaa ennakoimaan sitä paremmin.',
+    h2: '2. Yhä epäsäännöllisemmät kierrot',
+    body2:
+      'Yksi perimenopaussin ensimmäisistä merkeistä on usein kierron rytmin muutos: kierrot voivat muuttua lyhyemmiksi, pidemmiksi, harvemmiksi tai vuoto voi olla erilainen kuukaudesta toiseen.',
+    alert1Title: 'Huomaa',
+    alert1Text:
+      'Hyvin runsas vuoto, hyvin lähekkäin tapahtuva vuoto tai vuoto, joka ilmenee vuoden ilman kuukautisia jälkeen, vaatii lääketieteellistä neuvontaa, sillä niitä ei pidetä siirtymän tyypillisinä merkkeinä.',
+    h3: '3. Uni ja mieliala',
+    body3a:
+      'Estrogeenin ja progesteronin lasku ja vaihtelut voivat häiritä unta (nukahtaminen, öinen herääminen) ja niihin voi liittyä ärtyisyyttä, ahdistusta tai epätavallisia mielialan vaihteluita.',
+    body3b:
+      'Näille muutoksille on todellinen biologinen selitys: ne eivät kuvasta tahdonvoiman puutetta eivätkä erillistä psykologista ongelmaa.',
+    h4: '4. Läheisyys ja emättimen kuivuus',
+    body4:
+      'Estrogeenin lasku voi aiheuttaa emättimen kuivuutta, mikä joskus aiheuttaa epämukavuutta tai kipua yhdynnän aikana. Myös halu voi muuttua joko lisääntyen tai vähentyen naisesta riippuen.',
+    tip2Title: 'Hyvä tietää',
+    tip2Text:
+      'Yksinkertaisia ratkaisuja on olemassa (liukuvoiteet, emättimen kosteuttajat, paikallishoidot): terveydenhuollon ammattilaisen kanssa puhuminen voi auttaa löytämään oikean ratkaisun tabuitta.',
+    h5: '5. Paino ja aineenvaihdunta',
+    body5:
+      'Aineenvaihdunta voi hidastua hieman tänä aikana, ja rasvan jakautuminen siirtyy yleensä kohti vatsaa. Nämä muutokset ovat yleisiä, eivätkä ne riipu pelkästään tahdonvoimasta.',
+    h6: '6. Yleiset myytit vaihdevuosista',
+    myths: [
+      'Vaihdevuodet “tulevat kerralla” — todellisuudessa niitä edeltää useiden vuosien siirtymäkausi (perimenopaussi)',
+      'Kaikki oireet ovat kaikilla vaikeita — niiden voimakkuus vaihtelee valtavasti naisesta toiseen',
+      'Mitään ei voi tehdä — monia ratkaisuja, hormonaalisia tai ei, on olemassa haittaavien oireiden lievittämiseksi',
+      'Intiimi elämä päättyy — se muuttuu, mutta pysyy täysin mahdollisena ja antoisana oikeilla säädöillä',
+    ],
+    h7: '7. Normaalit oireet ja huomioitavat merkit',
+    body7:
+      'Valtaosa tässä kuvatuista muutoksista on siirtymän normaaleja ilmentymiä. Tietyt merkit kuitenkin vaativat pikaista lääketieteellistä huomiota.',
+    alert2Title: 'Mene lääkäriin, jos',
+    alert2Text:
+      'Vuoto vahvistettujen vaihdevuosien jälkeen, epätavallinen lantiokipu, oireet, jotka häiritsevät merkittävästi arkea, tai mikä tahansa jatkuva epäilys.',
+    h8: '8. Käytännön päivittäiset vinkit',
+    dailyHabits: [
+      'Kalsium- ja kuiturikas ruokavalio',
+      'Säännöllinen liikunta',
+      'Vakaa unirytmi',
+      'Päivittäiset rentoutumishetket',
+    ],
+    h9: '9. Tärkeimmät asiat',
+    tip3Title: 'Hyvä tietää',
+    tip3Text:
+      'Perimenopaussi ja vaihdevuodet ovat luonnollisia vaiheita, eivät sairaus. Monia ratkaisuja on olemassa, jotta tämä siirtymä olisi mukavampi: terveydenhuollon ammattilainen on edelleen paras resurssi niiden mukauttamiseen tilanteeseesi.',
+    shareMessage: 'Vaihdevuosisiirtymän ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'ΠΕΡΙΕΜΜΗΝΟΠΑΥΣΗ ΚΑΙ ΕΜΜΗΝΟΠΑΥΣΗ',
+    title: 'Κατανοώντας τη μετάβαση στην εμμηνόπαυση',
+    metaDuration: '10 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Τι αλλάζει σταδιακά, χρόνια πριν σταματήσει η περίοδος, και πώς να προσεγγίσεις αυτό το στάδιο με μεγαλύτερη σαφήνεια.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Περιεμμηνόπαυση και εμμηνόπαυση: ορισμοί',
+      'Όλο και πιο ακανόνιστοι κύκλοι',
+      'Ύπνος και διάθεση',
+      'Οικειότητα και κολπική ξηρότητα',
+      'Βάρος και μεταβολισμός',
+      'Συχνοί μύθοι για την εμμηνόπαυση',
+      'Φυσιολογικά συμπτώματα και σημάδια που πρέπει να προσέχεις',
+      'Πρακτικές καθημερινές συμβουλές',
+      'Βασικά συμπεράσματα',
+    ],
+    h1: '1. Περιεμμηνόπαυση και εμμηνόπαυση: ορισμοί',
+    body1a:
+      'Η περιεμμηνόπαυση αναφέρεται στην ορμονική μεταβατική περίοδο που προηγείται της εμμηνόπαυσης: μπορεί να ξεκινήσει αρκετά χρόνια νωρίτερα, γενικά από τα σαράντα και μετά, με τα επίπεδα οιστρογόνου να διακυμαίνονται ακανόνιστα.',
+    body1b:
+      'Η εμμηνόπαυση, αντίθετα, είναι ένα συγκεκριμένο χρονικό σημείο: επιβεβαιώνεται μετά από 12 συνεχόμενους μήνες χωρίς περίοδο, χωρίς άλλη αιτία. Στη Γαλλία, συμβαίνει κατά μέσο όρο γύρω στα 51, αν και αυτή η ηλικία φυσικά διαφέρει από γυναίκα σε γυναίκα.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Κάθε γυναίκα βιώνει αυτή τη μετάβαση διαφορετικά, τόσο ως προς τη διάρκεια όσο και ως προς την ένταση των συμπτωμάτων. Το να μιλάς γι’ αυτήν ανοιχτά σε βοηθά να την προβλέπεις καλύτερα.',
+    h2: '2. Όλο και πιο ακανόνιστοι κύκλοι',
+    body2:
+      'Ένα από τα πρώτα σημάδια της περιεμμηνόπαυσης είναι συχνά η αλλαγή στον ρυθμό του κύκλου: οι κύκλοι μπορεί να γίνουν πιο σύντομοι, πιο μεγάλοι, πιο αραιοί ή να έχουν διαφορετική ροή από τον έναν μήνα στον άλλο.',
+    alert1Title: 'Σημείωση',
+    alert1Text:
+      'Η πολύ έντονη αιμορραγία, η αιμορραγία που εμφανίζεται πολύ κοντά μεταξύ της ή η αιμορραγία που συμβαίνει μετά από ένα χρόνο χωρίς περίοδο απαιτεί ιατρική συμβουλή, αφού δεν θεωρούνται τυπικά σημάδια της μετάβασης.',
+    h3: '3. Ύπνος και διάθεση',
+    body3a:
+      'Η μείωση και οι διακυμάνσεις του οιστρογόνου και της προγεστερόνης μπορούν να διαταράξουν τον ύπνο (δυσκολία στον ύπνο, ξυπνήματα τη νύχτα) και μπορεί να συνοδεύονται από ευερεθιστότητα, άγχος ή ασυνήθιστες εναλλαγές διάθεσης.',
+    body3b:
+      'Αυτές οι αλλαγές έχουν πραγματική βιολογική εξήγηση: δεν αντανακλούν ούτε έλλειψη θέλησης ούτε ένα μεμονωμένο ψυχολογικό πρόβλημα.',
+    h4: '4. Οικειότητα και κολπική ξηρότητα',
+    body4:
+      'Η μείωση του οιστρογόνου μπορεί να οδηγήσει σε κολπική ξηρότητα, προκαλώντας μερικές φορές δυσφορία ή πόνο κατά τη σεξουαλική επαφή. Η επιθυμία μπορεί επίσης να αλλάξει, είτε να αυξηθεί είτε να μειωθεί, ανάλογα με τη γυναίκα.',
+    tip2Title: 'Καλό είναι να γνωρίζεις',
+    tip2Text:
+      'Υπάρχουν απλές λύσεις (λιπαντικά, κολπικά ενυδατικά, τοπικές θεραπείες): η συζήτηση με έναν επαγγελματία υγείας μπορεί να σε βοηθήσει να βρεις τη σωστή λύση, χωρίς ταμπού.',
+    h5: '5. Βάρος και μεταβολισμός',
+    body5:
+      'Ο μεταβολισμός μπορεί να επιβραδυνθεί ελαφρά σε αυτή την περίοδο και η κατανομή του λίπους τείνει να μετατοπίζεται προς την κοιλιά. Αυτές οι αλλαγές είναι συχνές και δεν εξαρτώνται αποκλειστικά από τη θέληση.',
+    h6: '6. Συχνοί μύθοι για την εμμηνόπαυση',
+    myths: [
+      'Η εμμηνόπαυση «συμβαίνει ξαφνικά» — στην πραγματικότητα, προηγούνται αρκετά χρόνια μετάβασης (περιεμμηνόπαυση)',
+      'Όλα τα συμπτώματα είναι έντονα για όλες — η ένταση τους διαφέρει τεράστια από γυναίκα σε γυναίκα',
+      'Δεν μπορεί να γίνει τίποτα — υπάρχουν πολλές λύσεις, ορμονικές ή μη, για την ανακούφιση των ενοχλητικών συμπτωμάτων',
+      'Η προσωπική ζωή τελειώνει — αλλάζει, αλλά παραμένει απόλυτα δυνατή και ικανοποιητική με τις σωστές προσαρμογές',
+    ],
+    h7: '7. Φυσιολογικά συμπτώματα και σημάδια που πρέπει να προσέχεις',
+    body7:
+      'Η συντριπτική πλειονότητα των αλλαγών που περιγράφονται εδώ είναι φυσιολογικές εκδηλώσεις της μετάβασης. Ωστόσο, ορισμένα σημάδια απαιτούν άμεση ιατρική προσοχή.',
+    alert2Title: 'Επισκέψου γιατρό αν',
+    alert2Text:
+      'Αιμορραγία μετά από επιβεβαιωμένη εμμηνόπαυση, ασυνήθιστος πυελικός πόνος, συμπτώματα που διαταράσσουν σημαντικά την καθημερινή ζωή ή οποιαδήποτε επίμονη αμφιβολία.',
+    h8: '8. Πρακτικές καθημερινές συμβουλές',
+    dailyHabits: [
+      'Διατροφή πλούσια σε ασβέστιο και φυτικές ίνες',
+      'Τακτική σωματική δραστηριότητα',
+      'Σταθερή ρουτίνα ύπνου',
+      'Καθημερινές στιγμές χαλάρωσης',
+    ],
+    h9: '9. Βασικά συμπεράσματα',
+    tip3Title: 'Καλό είναι να γνωρίζεις',
+    tip3Text:
+      'Η περιεμμηνόπαυση και η εμμηνόπαυση είναι φυσικά στάδια, όχι ασθένεια. Υπάρχουν πολλές λύσεις που σε βοηθούν να περάσεις αυτή τη μετάβαση πιο άνετα: ένας επαγγελματίας υγείας παραμένει η καλύτερη πηγή για να τις προσαρμόσεις στην κατάστασή σου.',
+    shareMessage: 'Κατανοώντας τη μετάβαση στην εμμηνόπαυση — AWA',
+  },
+  fil: {
+    badge: 'PERIMENOPAUSE AT MENOPAUSE',
+    title: 'Pag-unawa sa paglipat patungo sa menopause',
+    metaDuration: '10 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Ano ang unti-unting nagbabago, ilang taon bago huminto ang regla, at paano harapin ang yugtong ito nang may mas malinaw na pag-unawa.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Perimenopause at menopause: mga kahulugan',
+      'Palaki nang palaking hindi regular na mga siklo',
+      'Tulog at mood',
+      'Intimacy at pagkatuyo ng ari',
+      'Timbang at metabolismo',
+      'Mga karaniwang mito tungkol sa menopause',
+      'Mga normal na sintomas at senyales na dapat bantayan',
+      'Praktikal na payo sa araw-araw',
+      'Mahahalagang tandaan',
+    ],
+    h1: '1. Perimenopause at menopause: mga kahulugan',
+    body1a:
+      'Ang perimenopause ay tumutukoy sa panahon ng hormonal na paglipat bago ang menopause: maaari itong magsimula ilang taon nang mas maaga, karaniwang mula sa edad na kuwarenta pataas, na hindi regular na nagbabago-bago ang antas ng estrogen.',
+    body1b:
+      'Ang menopause naman ay isang tiyak na punto sa panahon: kinukumpirma ito pagkatapos ng 12 magkakasunod na buwan na walang regla, nang walang ibang sanhi. Sa France, nangyayari ito sa average na edad na humigit-kumulang 51, bagaman natural na nag-iiba ang edad na ito sa bawat babae.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Iba-iba ang karanasan ng bawat babae sa paglipat na ito, sa tagal at sa tindi ng mga sintomas. Ang hayagang pag-uusap tungkol dito ay tumutulong na mas maihanda ito.',
+    h2: '2. Palaki nang palaking hindi regular na mga siklo',
+    body2:
+      'Isa sa mga unang senyales ng perimenopause ang madalas na pagbabago sa ritmo ng siklo: maaaring maging mas maikli, mas mahaba, mas magkakalayo, o magkaiba ang daloy mula isang buwan hanggang sa susunod.',
+    alert1Title: 'Pakitandaan',
+    alert1Text:
+      'Ang napakalakas na pagdurugo, pagdurugong napakalapit sa isa’t isa, o pagdurugong nangyayari pagkatapos ng isang taon na walang regla ay nangangailangan ng payong medikal, dahil hindi ito itinuturing na karaniwang senyales ng paglipat.',
+    h3: '3. Tulog at mood',
+    body3a:
+      'Ang pagbaba at pagbabago-bago ng estrogen at progesterone ay maaaring makagambala sa tulog (pagkakatulog, paggising sa gabi) at maaaring may kasamang pagiging mainitin ang ulo, pagkabalisa, o hindi pangkaraniwang pagbabago ng mood.',
+    body3b:
+      'May tunay na biyolohikal na paliwanag ang mga pagbabagong ito: hindi ito kakulangan ng lakas ng loob ni nakahiwalay na sikolohikal na problema.',
+    h4: '4. Intimacy at pagkatuyo ng ari',
+    body4:
+      'Ang pagbaba ng estrogen ay maaaring humantong sa pagkatuyo ng ari, na minsan ay nagdudulot ng hirap o sakit sa pakikipagtalik. Maaari ring magbago ang pagnanasa, tumaas man o bumaba, depende sa babae.',
+    tip2Title: 'Mabuting malaman',
+    tip2Text:
+      'May mga simpleng solusyon (lubricant, vaginal moisturizer, lokal na paggamot): ang pakikipag-usap sa propesyonal sa kalusugan ay makakatulong na mahanap ang tamang solusyon, nang walang bawal na paksa.',
+    h5: '5. Timbang at metabolismo',
+    body5:
+      'Maaaring bahagyang bumagal ang metabolismo sa panahong ito, at may tendensiyang lumipat patungo sa tiyan ang distribusyon ng taba. Karaniwan ang mga pagbabagong ito at hindi lamang nakadepende sa lakas ng loob.',
+    h6: '6. Mga karaniwang mito tungkol sa menopause',
+    myths: [
+      'Ang menopause ay “nangyayari nang sabay-sabay” — sa totoo, nauuna rito ang ilang taon ng paglipat (perimenopause)',
+      'Matindi ang lahat ng sintomas para sa lahat — lubhang nag-iiba ang tindi mula sa isang babae hanggang sa iba',
+      'Walang magagawa — maraming solusyon, hormonal man o hindi, para maibsan ang nakakaabalang sintomas',
+      'Natatapos na ang buhay-intimate — nagbabago ito, ngunit nananatiling lubos na posible at kasiya-siya sa tamang mga pag-aayos',
+    ],
+    h7: '7. Mga normal na sintomas at senyales na dapat bantayan',
+    body7:
+      'Ang napakalaking karamihan ng mga pagbabagong inilarawan dito ay normal na pagpapakita ng paglipat. Gayunpaman, ang ilang senyales ay nangangailangan ng agarang medikal na atensyon.',
+    alert2Title: 'Magpatingin sa doktor kung',
+    alert2Text:
+      'May pagdurugo pagkatapos ng kumpirmadong menopause, hindi pangkaraniwang pananakit ng balakang, mga sintomas na malaki ang epekto sa pang-araw-araw na buhay, o anumang patuloy na alinlangan.',
+    h8: '8. Praktikal na payo sa araw-araw',
+    dailyHabits: [
+      'Pagkaing mayaman sa calcium at fiber',
+      'Regular na pisikal na aktibidad',
+      'Matatag na gawi sa pagtulog',
+      'Mga sandali ng pagpapahinga araw-araw',
+    ],
+    h9: '9. Mahahalagang tandaan',
+    tip3Title: 'Mabuting malaman',
+    tip3Text:
+      'Ang perimenopause at menopause ay natural na mga yugto, hindi sakit. Maraming solusyon ang makakatulong na mas komportableng daanan ang paglipat na ito: nananatiling pinakamahusay na mapagkukunan ang propesyonal sa kalusugan upang iangkop ang mga ito sa iyong sitwasyon.',
+    shareMessage: 'Pag-unawa sa paglipat patungo sa menopause — AWA',
+  },
+  ta: {
+    badge: 'மாதவிடாய் நிறுத்தத்துக்கு முந்தையதும் மாதவிடாய் நிறுத்தமும்',
+    title: 'மாதவிடாய் நிறுத்த மாற்றத்தைப் புரிந்துகொள்ளுதல்',
+    metaDuration: '10 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro:
+      'மாதவிடாய் நிற்பதற்கு ஆண்டுகள் முன்பே படிப்படியாக என்ன மாறுகிறது, இந்தக் கட்டத்தை அதிகத் தெளிவுடன் எப்படி அணுகுவது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலமும் மாதவிடாய் நிறுத்தமும்: வரையறைகள்',
+      'மேலும் மேலும் ஒழுங்கற்றதாகும் சுழற்சிகள்',
+      'உறக்கமும் மனநிலையும்',
+      'நெருக்கமும் யோனி வறட்சியும்',
+      'எடையும் வளர்சிதை மாற்றமும்',
+      'மாதவிடாய் நிறுத்தம் பற்றிய பொதுவான தவறான நம்பிக்கைகள்',
+      'இயல்பான அறிகுறிகளும் கவனிக்க வேண்டிய அறிகுறிகளும்',
+      'நடைமுறை அன்றாடக் குறிப்புகள்',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    h1: '1. மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலமும் மாதவிடாய் நிறுத்தமும்: வரையறைகள்',
+    body1a:
+      'மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலம் என்பது மாதவிடாய் நிறுத்தத்துக்கு முந்தைய ஹார்மோன் மாற்றக் காலத்தைக் குறிக்கிறது: இது பல ஆண்டுகளுக்கு முன்பே, பொதுவாக உங்கள் நாற்பதுகளிலிருந்து, ஈஸ்ட்ரோஜன் அளவுகள் ஒழுங்கற்ற முறையில் ஏற்ற இறக்கமடைந்து தொடங்கலாம்.',
+    body1b:
+      'மாதவிடாய் நிறுத்தம், மறுபுறம், ஒரு குறிப்பிட்ட கணம்: வேறு எந்தக் காரணமும் இல்லாமல் 12 தொடர்ச்சியான மாதங்களுக்கு மாதவிடாய் இல்லாமல் இருந்த பின் அது உறுதிப்படுத்தப்படுகிறது. பிரான்சில், இது சராசரியாக ஏறக்குறைய 51 வயதில் நிகழ்கிறது, இந்த வயது ஒரு பெண்ணுக்கு மற்றொரு பெண்ணிடமிருந்து இயல்பாகவே மாறுபடும்.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'ஒவ்வொரு பெண்ணும் இந்த மாற்றத்தை வேறுவிதமாக அனுபவிக்கிறாள், கால அளவிலும் அறிகுறிகளின் தீவிரத்திலும். இதைப் பற்றி வெளிப்படையாகப் பேசுவது அதை நன்கு எதிர்பார்க்க உதவுகிறது.',
+    h2: '2. மேலும் மேலும் ஒழுங்கற்றதாகும் சுழற்சிகள்',
+    body2:
+      'மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலத்தின் முதல் அறிகுறிகளில் ஒன்று பெரும்பாலும் சுழற்சித் தாளத்தில் மாற்றம்: சுழற்சிகள் குறுகியதாக, நீண்டதாக, அதிக இடைவெளியுடன், அல்லது ஒரு மாதத்திலிருந்து அடுத்ததுக்கு வேறுபட்ட ஓட்டத்துடன் இருக்கலாம்.',
+    alert1Title: 'கவனத்தில் கொள்ளவும்',
+    alert1Text:
+      'மிக அதிகமான இரத்தப்போக்கு, மிக நெருக்கமாக நிகழும் இரத்தப்போக்கு, அல்லது ஓராண்டு மாதவிடாய் இல்லாமல் இருந்த பின் நிகழும் இரத்தப்போக்குக்கு மருத்துவ ஆலோசனை தேவை, ஏனெனில் இவை மாற்றத்தின் வழக்கமான அறிகுறிகளாகக் கருதப்படுவதில்லை.',
+    h3: '3. உறக்கமும் மனநிலையும்',
+    body3a:
+      'ஈஸ்ட்ரோஜன் மற்றும் புரோஜெஸ்டிரோனின் குறைவும் ஏற்ற இறக்கங்களும் உறக்கத்தைச் சீர்குலைக்கலாம் (தூங்குவது, இரவில் விழிப்பது), எரிச்சல், பதற்றம் அல்லது வழக்கத்துக்கு மாறான மனநிலை ஏற்ற இறக்கங்களுடன் சேர்ந்து வரலாம்.',
+    body3b:
+      'இந்த மாற்றங்களுக்கு உண்மையான உயிரியல் விளக்கம் உண்டு: அவை மனவலிமையின்மையையோ தனிமைப்படுத்தப்பட்ட உளவியல் பிரச்சினையையோ பிரதிபலிப்பதில்லை.',
+    h4: '4. நெருக்கமும் யோனி வறட்சியும்',
+    body4:
+      'ஈஸ்ட்ரோஜன் குறைவது யோனி வறட்சிக்கு வழிவகுக்கலாம், சில நேரங்களில் உடலுறவின்போது அசௌகரியத்தையோ வலியையோ ஏற்படுத்தலாம். ஆசையும் பெண்ணைப் பொறுத்து அதிகரிக்கவோ குறையவோ மாறலாம்.',
+    tip2Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip2Text:
+      'எளிய தீர்வுகள் உள்ளன (மசகுகள், யோனி ஈரப்பதமூட்டிகள், உள்ளூர் சிகிச்சைகள்): ஒரு சுகாதார நிபுணருடன் பேசுவது, தயக்கம் இல்லாமல், சரியான தீர்வைக் கண்டறிய உதவலாம்.',
+    h5: '5. எடையும் வளர்சிதை மாற்றமும்',
+    body5:
+      'இந்தக் காலத்தில் வளர்சிதை மாற்றம் சிறிதளவு மெதுவாகலாம், கொழுப்பு விநியோகம் வயிற்றை நோக்கி மாற முனைகிறது. இந்த மாற்றங்கள் பொதுவானவை, மனவலிமையை மட்டும் சார்ந்தவை அல்ல.',
+    h6: '6. மாதவிடாய் நிறுத்தம் பற்றிய பொதுவான தவறான நம்பிக்கைகள்',
+    myths: [
+      'மாதவிடாய் நிறுத்தம் "ஒரே நேரத்தில் நிகழ்கிறது" — உண்மையில், அதற்கு முன் பல ஆண்டுகள் மாற்றம் (மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலம்) உள்ளது',
+      'அனைவருக்கும் எல்லா அறிகுறிகளும் கடுமையானவை — அவற்றின் தீவிரம் ஒரு பெண்ணுக்கு மற்றொரு பெண்ணிடமிருந்து மிகவும் மாறுபடும்',
+      'எதுவும் செய்ய முடியாது — தொந்தரவான அறிகுறிகளைத் தணிக்க ஹார்மோன் அல்லது ஹார்மோன் அல்லாத பல தீர்வுகள் உள்ளன',
+      'அந்தரங்க வாழ்க்கை முடிவுக்கு வருகிறது — அது மாறுகிறது, ஆனால் சரியான சரிசெய்தல்களுடன் முற்றிலும் சாத்தியமாகவும் நிறைவாகவும் இருக்கும்',
+    ],
+    h7: '7. இயல்பான அறிகுறிகளும் கவனிக்க வேண்டிய அறிகுறிகளும்',
+    body7:
+      'இங்கே விவரிக்கப்பட்ட மாற்றங்களில் பெரும்பாலானவை மாற்றத்தின் இயல்பான வெளிப்பாடுகள். இருப்பினும், சில அறிகுறிகளுக்கு உடனடி மருத்துவக் கவனம் தேவை.',
+    alert2Title: 'மருத்துவரைப் பாருங்கள், இவை இருந்தால்',
+    alert2Text:
+      'உறுதிப்படுத்தப்பட்ட மாதவிடாய் நிறுத்தத்துக்குப் பின் இரத்தப்போக்கு, வழக்கத்துக்கு மாறான இடுப்பு வலி, அன்றாட வாழ்க்கையை குறிப்பிடத்தக்க அளவில் சீர்குலைக்கும் அறிகுறிகள், அல்லது ஏதேனும் தொடர்ந்த சந்தேகம்.',
+    h8: '8. நடைமுறை அன்றாடக் குறிப்புகள்',
+    dailyHabits: [
+      'கால்சியமும் நார்ச்சத்தும் நிறைந்த உணவு',
+      'தொடர்ந்த உடல் செயல்பாடு',
+      'நிலையான உறக்க வழக்கம்',
+      'தினசரித் தளர்வுத் தருணங்கள்',
+    ],
+    h9: '9. முக்கியக் குறிப்புகள்',
+    tip3Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip3Text:
+      'மாதவிடாய் நிறுத்தத்துக்கு முந்தைய காலமும் மாதவிடாய் நிறுத்தமும் இயற்கையான கட்டங்கள், நோய் அல்ல. இந்த மாற்றத்தை மேலும் வசதியாகக் கடக்க உதவும் பல தீர்வுகள் உள்ளன: அவற்றை உங்கள் சூழ்நிலைக்கு ஏற்ப மாற்றியமைக்க ஒரு சுகாதார நிபுணரே சிறந்த ஆதாரம்.',
+    shareMessage: 'மாதவிடாய் நிறுத்த மாற்றத்தைப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'రుతువిరతి ముందు & రుతువిరతి',
+    title: 'రుతువిరతి పరివర్తనను అర్థం చేసుకోవడం',
+    metaDuration: '10 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'మీ నెలసరులు ఆగిపోవడానికి సంవత్సరాల ముందు నుండి క్రమంగా ఏమి మారుతుంది, ఈ దశను మరింత స్పష్టతతో ఎలా సమీపించాలి.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'రుతువిరతి ముందు దశ మరియు రుతువిరతి: నిర్వచనాలు',
+      'మరింత మరింత అస్తవ్యస్తమయ్యే చక్రాలు',
+      'నిద్ర & మానసిక స్థితి',
+      'సాన్నిహిత్యం & యోని పొడిబారడం',
+      'బరువు & జీవక్రియ',
+      'రుతువిరతి గురించి సాధారణ అపోహలు',
+      'సహజ లక్షణాలు, గమనించాల్సిన సంకేతాలు',
+      'ఆచరణాత్మక రోజువారీ చిట్కాలు',
+      'ముఖ్యాంశాలు',
+    ],
+    h1: '1. రుతువిరతి ముందు దశ మరియు రుతువిరతి: నిర్వచనాలు',
+    body1a:
+      'రుతువిరతి ముందు దశ అంటే రుతువిరతికి ముందు ఉండే హార్మోన్ పరివర్తన కాలం: ఇది అనేక సంవత్సరాల ముందే, సాధారణంగా నలభైల నుండి, ఈస్ట్రోజెన్ స్థాయిలు అస్తవ్యస్తంగా ఊగిసలాడుతూ మొదలవవచ్చు.',
+    body1b:
+      'రుతువిరతి, మరోవైపు, ఒక నిర్దిష్ట కాలబిందువు: ఇతర కారణం లేకుండా వరుసగా 12 నెలలు నెలసరి లేకపోతే ఇది నిర్ధారించబడుతుంది. ఫ్రాన్స్‌లో, ఇది సగటున 51 ఏళ్ల చుట్టూ సంభవిస్తుంది, అయితే ఈ వయసు ఒక మహిళ నుండి మరొకరికి సహజంగా మారుతుంది.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'ప్రతి మహిళ ఈ పరివర్తనను భిన్నంగా అనుభవిస్తుంది, వ్యవధిలో, లక్షణాల తీవ్రతలో రెండింటిలోనూ. దాని గురించి బహిరంగంగా మాట్లాడటం దాన్ని మరింత బాగా ముందే ఊహించడానికి సహాయపడుతుంది.',
+    h2: '2. మరింత మరింత అస్తవ్యస్తమయ్యే చక్రాలు',
+    body2:
+      'రుతువిరతి ముందు దశ యొక్క మొదటి సంకేతాల్లో ఒకటి తరచుగా చక్రం లయలో మార్పు: చక్రాలు చిన్నవి కావచ్చు, పొడవు కావచ్చు, మరింత ఎడంగా ఉండవచ్చు, లేదా ఒక నెల నుండి మరొక నెలకు భిన్నమైన రక్తస్రావం ఉండవచ్చు.',
+    alert1Title: 'గమనించండి',
+    alert1Text:
+      'చాలా ఎక్కువ రక్తస్రావం, చాలా దగ్గరగా సంభవించే రక్తస్రావం, లేదా ఒక సంవత్సరం నెలసరి లేని తర్వాత జరిగే రక్తస్రావానికి వైద్య సలహా అవసరం, ఎందుకంటే ఇవి పరివర్తన యొక్క సాధారణ సంకేతాలుగా పరిగణించబడవు.',
+    h3: '3. నిద్ర & మానసిక స్థితి',
+    body3a:
+      'ఈస్ట్రోజెన్, ప్రొజెస్టిరోన్ తగ్గడం, ఊగిసలాటలు నిద్రను (నిద్ర పట్టడం, రాత్రి మెలకువ రావడం) భంగపరచవచ్చు, చిరాకు, ఆందోళన లేదా అసాధారణ మానసిక స్థితి ఊగిసలాటలతో కలిసి రావచ్చు.',
+    body3b:
+      'ఈ మార్పులకు నిజమైన జీవసంబంధ వివరణ ఉంది: అవి సంకల్ప బలం లేకపోవడాన్ని కానీ, వేరుగా ఉన్న మానసిక సమస్యను కానీ ప్రతిబింబించవు.',
+    h4: '4. సాన్నిహిత్యం & యోని పొడిబారడం',
+    body4:
+      'ఈస్ట్రోజెన్ తగ్గడం యోని పొడిబారడానికి దారితీయవచ్చు, కొన్నిసార్లు సంభోగ సమయంలో అసౌకర్యాన్ని లేదా నొప్పిని కలిగిస్తుంది. కోరిక కూడా మారవచ్చు, మహిళను బట్టి పెరగవచ్చు లేదా తగ్గవచ్చు.',
+    tip2Title: 'తెలుసుకోవాల్సినవి',
+    tip2Text:
+      'సరళమైన పరిష్కారాలు ఉన్నాయి (లూబ్రికెంట్లు, యోని మాయిశ్చరైజర్లు, స్థానిక చికిత్సలు): ఒక ఆరోగ్య నిపుణుడితో మాట్లాడటం, నిషేధ భావన లేకుండా, సరైన పరిష్కారాన్ని కనుగొనడానికి సహాయపడగలదు.',
+    h5: '5. బరువు & జీవక్రియ',
+    body5:
+      'ఈ కాలంలో జీవక్రియ కొద్దిగా నెమ్మదించవచ్చు, కొవ్వు పంపిణీ పొట్ట వైపు మారే ధోరణి ఉంటుంది. ఈ మార్పులు సాధారణం, కేవలం సంకల్ప బలంపై ఆధారపడవు.',
+    h6: '6. రుతువిరతి గురించి సాధారణ అపోహలు',
+    myths: [
+      'రుతువిరతి "ఒక్కసారిగా జరుగుతుంది" — వాస్తవానికి, దానికి ముందు అనేక సంవత్సరాల పరివర్తన (రుతువిరతి ముందు దశ) ఉంటుంది',
+      'అన్ని లక్షణాలు అందరికీ తీవ్రంగా ఉంటాయి — వాటి తీవ్రత ఒక మహిళ నుండి మరొకరికి అపారంగా మారుతుంది',
+      'ఏమీ చేయలేరు — ఇబ్బందికరమైన లక్షణాలను తగ్గించడానికి హార్మోన్ సంబంధమైనవి, కానివి అనేక పరిష్కారాలు ఉన్నాయి',
+      'సన్నిహిత జీవితం ముగిసిపోతుంది — అది మారుతుంది, కానీ సరైన సర్దుబాట్లతో పూర్తిగా సాధ్యమే, సంతృప్తికరమే',
+    ],
+    h7: '7. సహజ లక్షణాలు, గమనించాల్సిన సంకేతాలు',
+    body7:
+      'ఇక్కడ వివరించిన మార్పులలో అత్యధికం పరివర్తన యొక్క సహజ వ్యక్తీకరణలు. అయితే, కొన్ని సంకేతాలకు వెంటనే వైద్య శ్రద్ధ అవసరం.',
+    alert2Title: 'ఇవి ఉంటే వైద్యుడిని కలవండి',
+    alert2Text:
+      'నిర్ధారిత రుతువిరతి తర్వాత రక్తస్రావం, అసాధారణ కటి నొప్పి, రోజువారీ జీవితాన్ని గణనీయంగా భంగపరిచే లక్షణాలు, లేదా కొనసాగే ఏదైనా సందేహం.',
+    h8: '8. ఆచరణాత్మక రోజువారీ చిట్కాలు',
+    dailyHabits: [
+      'కాల్షియం, పీచు సమృద్ధిగా ఉన్న ఆహారం',
+      'క్రమమైన శారీరక కార్యకలాపం',
+      'స్థిరమైన నిద్ర దినచర్య',
+      'ప్రతి రోజూ తేలికపడే క్షణాలు',
+    ],
+    h9: '9. ముఖ్యాంశాలు',
+    tip3Title: 'తెలుసుకోవాల్సినవి',
+    tip3Text:
+      'రుతువిరతి ముందు దశ, రుతువిరతి సహజ దశలు, అనారోగ్యం కాదు. ఈ పరివర్తనను మరింత సౌకర్యంగా దాటడానికి సహాయపడే అనేక పరిష్కారాలు ఉన్నాయి: వాటిని మీ పరిస్థితికి అనుకూలంగా మార్చడానికి ఒక ఆరోగ్య నిపుణుడే ఉత్తమ వనరు.',
+    shareMessage: 'రుతువిరతి పరివర్తనను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'रजोनिवृत्तीपूर्व काळ आणि रजोनिवृत्ती',
+    title: 'रजोनिवृत्तीचे संक्रमण समजून घेणे',
+    metaDuration: '10 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'पाळी थांबण्याच्या वर्षांपूर्वीपासून हळूहळू काय बदलते आणि या टप्प्याकडे अधिक स्पष्टतेने कसे पाहावे.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'रजोनिवृत्तीपूर्व काळ आणि रजोनिवृत्ती: व्याख्या',
+      'वाढत्या प्रमाणात अनियमित होणारी पाळी',
+      'झोप आणि मनःस्थिती',
+      'जिव्हाळा आणि योनीतील कोरडेपणा',
+      'वजन आणि चयापचय',
+      'रजोनिवृत्तीबद्दलचे सामान्य गैरसमज',
+      'सामान्य लक्षणे आणि लक्ष ठेवायची चिन्हे',
+      'रोजच्या व्यावहारिक टिपा',
+      'मुख्य मुद्दे',
+    ],
+    h1: '1. रजोनिवृत्तीपूर्व काळ आणि रजोनिवृत्ती: व्याख्या',
+    body1a:
+      'रजोनिवृत्तीपूर्व काळ म्हणजे रजोनिवृत्तीच्या आधीचा हार्मोनल संक्रमण काळ: तो अनेक वर्षे आधी, साधारणपणे चाळिशीपासून, सुरू होऊ शकतो, ज्यात इस्ट्रोजेनची पातळी अनियमितपणे चढ-उतार करते.',
+    body1b:
+      'याउलट, रजोनिवृत्ती हा एक विशिष्ट क्षण आहे: दुसरे कोणतेही कारण नसताना सलग 12 महिने पाळी न आल्यावर ती निश्चित होते. फ्रान्समध्ये ती सरासरी वयाच्या 51 वर्षांच्या सुमारास येते, मात्र हे वय स्त्रीनुसार नैसर्गिकपणे बदलते.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'प्रत्येक स्त्री हे संक्रमण वेगळ्या प्रकारे अनुभवते, कालावधीतही आणि लक्षणांच्या तीव्रतेतही. याबद्दल मोकळेपणाने बोलल्याने तुम्हाला त्याचा अधिक चांगला अंदाज येतो.',
+    h2: '2. वाढत्या प्रमाणात अनियमित होणारी पाळी',
+    body2:
+      'रजोनिवृत्तीपूर्व काळाच्या पहिल्या चिन्हांपैकी एक बहुतेकदा पाळीच्या लयीतील बदल असतो: पाळी लहान, मोठी, अधिक अंतराने येणारी होऊ शकते किंवा एका महिन्यापासून दुसऱ्या महिन्यात वेगळा स्राव असू शकतो.',
+    alert1Title: 'कृपया लक्षात घ्या',
+    alert1Text:
+      'खूप जास्त रक्तस्राव, एकमेकांच्या खूप जवळ येणारा रक्तस्राव, किंवा वर्षभर पाळी न येता झाल्यानंतर येणारा रक्तस्राव यासाठी वैद्यकीय सल्ला आवश्यक आहे, कारण ही संक्रमणाची नेहमीची चिन्हे मानली जात नाहीत.',
+    h3: '3. झोप आणि मनःस्थिती',
+    body3a:
+      'इस्ट्रोजेन आणि प्रोजेस्टेरॉनची घट आणि चढ-उतार झोप विस्कळीत करू शकतात (झोप लागणे, रात्री जाग येणे) आणि त्यासोबत चिडचिड, चिंता किंवा असामान्य मनःस्थितीतील चढ-उतार असू शकतात.',
+    body3b:
+      'या बदलांचे खरे जैविक स्पष्टीकरण आहे: ते इच्छाशक्तीच्या कमतरतेचे किंवा एकट्या मानसिक समस्येचे प्रतिबिंब नाहीत.',
+    h4: '4. जिव्हाळा आणि योनीतील कोरडेपणा',
+    body4:
+      'इस्ट्रोजेनच्या घटीमुळे योनीत कोरडेपणा येऊ शकतो, ज्यामुळे कधी कधी संबंधादरम्यान अस्वस्थता किंवा वेदना होतात. इच्छाही बदलू शकते, स्त्रीनुसार वाढू शकते किंवा कमी होऊ शकते.',
+    tip2Title: 'हे जाणून घ्या',
+    tip2Text:
+      'सोपे उपाय अस्तित्वात आहेत (ल्युब्रिकंट, योनी मॉइश्चरायझर, स्थानिक उपचार): आरोग्य व्यावसायिकाशी बोलल्याने कोणत्याही संकोचाशिवाय योग्य उपाय शोधण्यास मदत होते.',
+    h5: '5. वजन आणि चयापचय',
+    body5:
+      'या काळात चयापचय थोडा मंदावू शकतो आणि चरबीचे वितरण पोटाकडे सरकण्याकडे कल असतो. हे बदल सामान्य आहेत आणि केवळ इच्छाशक्तीवर अवलंबून नसतात.',
+    h6: '6. रजोनिवृत्तीबद्दलचे सामान्य गैरसमज',
+    myths: [
+      'रजोनिवृत्ती "एकदम होते" — प्रत्यक्षात तिच्या आधी अनेक वर्षांचे संक्रमण (रजोनिवृत्तीपूर्व काळ) असते',
+      'सर्व लक्षणे प्रत्येकासाठी तीव्र असतात — त्यांची तीव्रता एका स्त्रीपासून दुसऱ्या स्त्रीपर्यंत प्रचंड बदलते',
+      'काहीच करता येत नाही — त्रासदायक लक्षणे कमी करण्यासाठी हार्मोनल किंवा हार्मोनशिवायचे अनेक उपाय अस्तित्वात आहेत',
+      'जिव्हाळ्याचे जीवन संपते — ते बदलते, पण योग्य जुळवणीसह पूर्णपणे शक्य आणि समाधानकारक राहते',
+    ],
+    h7: '7. सामान्य लक्षणे आणि लक्ष ठेवायची चिन्हे',
+    body7:
+      'इथे वर्णन केलेले बहुतेक बदल संक्रमणाची सामान्य अभिव्यक्ती आहेत. तथापि, काही चिन्हांसाठी त्वरित वैद्यकीय लक्ष आवश्यक आहे.',
+    alert2Title: 'याप्रसंगी डॉक्टरांना भेटा',
+    alert2Text:
+      'निश्चित रजोनिवृत्तीनंतर रक्तस्राव, असामान्य कटीभागातील वेदना, रोजचे जीवन लक्षणीय विस्कळीत करणारी लक्षणे किंवा कोणतीही कायम शंका.',
+    h8: '8. रोजच्या व्यावहारिक टिपा',
+    dailyHabits: [
+      'कॅल्शियम आणि तंतूंनी समृद्ध आहार',
+      'नियमित शारीरिक हालचाल',
+      'स्थिर झोपेची दिनचर्या',
+      'रोज विश्रांतीचे क्षण',
+    ],
+    h9: '9. मुख्य मुद्दे',
+    tip3Title: 'हे जाणून घ्या',
+    tip3Text:
+      'रजोनिवृत्तीपूर्व काळ आणि रजोनिवृत्ती हे नैसर्गिक टप्पे आहेत, आजार नाही. हे संक्रमण अधिक आरामात पार करण्यास मदत करणारे अनेक उपाय अस्तित्वात आहेत: ते तुमच्या परिस्थितीला जुळवण्यासाठी आरोग्य व्यावसायिक हाच सर्वोत्तम स्रोत राहतो.',
+    shareMessage: 'रजोनिवृत्तीचे संक्रमण समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'રજોનિવૃત્તિ પૂર્વેનો તબક્કો અને રજોનિવૃત્તિ',
+    title: 'રજોનિવૃત્તિના પરિવર્તનને સમજો',
+    metaDuration: '10 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'માસિક બંધ થાય તેના વર્ષો પહેલાં ધીમે ધીમે શું બદલાય છે, અને આ તબક્કાનો વધુ સ્પષ્ટતા સાથે સામનો કેવી રીતે કરવો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'રજોનિવૃત્તિ પૂર્વેનો તબક્કો અને રજોનિવૃત્તિ: વ્યાખ્યાઓ',
+      'વધુને વધુ અનિયમિત ચક્ર',
+      'ઊંઘ અને મૂડ',
+      'આત્મીયતા અને યોનિમાર્ગની શુષ્કતા',
+      'વજન અને ચયાપચય',
+      'રજોનિવૃત્તિ વિશેની સામાન્ય ગેરમાન્યતાઓ',
+      'સામાન્ય લક્ષણો અને ધ્યાન રાખવા જેવા સંકેતો',
+      'રોજિંદા જીવન માટે વ્યવહારુ સૂચનો',
+      'મુખ્ય મુદ્દા',
+    ],
+    h1: '1. રજોનિવૃત્તિ પૂર્વેનો તબક્કો અને રજોનિવૃત્તિ: વ્યાખ્યાઓ',
+    body1a:
+      'રજોનિવૃત્તિ પૂર્વેનો તબક્કો એટલે રજોનિવૃત્તિ પહેલાંનો હોર્મોનલ પરિવર્તનનો સમયગાળો: તે ઘણા વર્ષો પહેલાં શરૂ થઈ શકે છે, સામાન્ય રીતે ચાલીસ વર્ષની ઉંમર પછી, જેમાં એસ્ટ્રોજનનું સ્તર અનિયમિત રીતે વધઘટ થાય છે.',
+    body1b:
+      'બીજી બાજુ, રજોનિવૃત્તિ એક ચોક્કસ સમયબિંદુ છે: અન્ય કોઈ કારણ વિના સતત 12 મહિના સુધી માસિક ન આવે ત્યારે તેની પુષ્ટિ થાય છે. ફ્રાન્સમાં તે સરેરાશ 51 વર્ષની આસપાસ આવે છે, જોકે આ ઉંમર દરેક સ્ત્રીમાં કુદરતી રીતે અલગ હોય છે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'દરેક સ્ત્રી આ પરિવર્તનનો અનુભવ અલગ રીતે કરે છે, સમયગાળા અને લક્ષણોની તીવ્રતા બંનેમાં. તેના વિશે ખુલ્લેઆમ વાત કરવાથી તમે તેના માટે વધુ સારી રીતે તૈયાર થઈ શકો છો.',
+    h2: '2. વધુને વધુ અનિયમિત ચક્ર',
+    body2:
+      'રજોનિવૃત્તિ પૂર્વેના તબક્કાના પ્રથમ સંકેતોમાંનો એક ઘણી વાર ચક્રની લયમાં બદલાવ હોય છે: ચક્ર ટૂંકા, લાંબા, વધુ અંતરે આવતા થઈ શકે છે, અથવા એક મહિનાથી બીજા મહિને સ્રાવ અલગ હોઈ શકે છે.',
+    alert1Title: 'કૃપા કરીને નોંધો',
+    alert1Text:
+      'ખૂબ વધુ રક્તસ્રાવ, ખૂબ નજીક નજીક થતો રક્તસ્રાવ, અથવા એક વર્ષ માસિક વિના રહ્યા પછી થતો રક્તસ્રાવ માટે તબીબી સલાહ જરૂરી છે, કારણ કે આ પરિવર્તનના સામાન્ય સંકેતો ગણાતા નથી.',
+    h3: '3. ઊંઘ અને મૂડ',
+    body3a:
+      'એસ્ટ્રોજન અને પ્રોજેસ્ટેરોનમાં ઘટાડો અને વધઘટ ઊંઘમાં ખલેલ પાડી શકે છે (ઊંઘ આવવામાં, રાત્રે જાગી જવામાં) અને તેની સાથે ચીડિયાપણું, ચિંતા, અથવા અસામાન્ય મૂડ બદલાવ પણ હોઈ શકે છે.',
+    body3b:
+      'આ બદલાવોનું એક સાચું જૈવિક કારણ છે: તે ઇચ્છાશક્તિની અછત કે કોઈ અલગ માનસિક સમસ્યા દર્શાવતા નથી.',
+    h4: '4. આત્મીયતા અને યોનિમાર્ગની શુષ્કતા',
+    body4:
+      'એસ્ટ્રોજનમાં ઘટાડો યોનિમાર્ગની શુષ્કતા તરફ દોરી શકે છે, જે ક્યારેક સંભોગ દરમિયાન અગવડ કે દુખાવો કરે છે. સ્ત્રીના આધારે ઇચ્છા પણ બદલાઈ શકે છે, વધી શકે છે કે ઘટી શકે છે.',
+    tip2Title: 'જાણવા જેવું',
+    tip2Text:
+      'સરળ ઉકેલો ઉપલબ્ધ છે (લુબ્રિકન્ટ, યોનિમાર્ગ માટે મોઇશ્ચરાઇઝર, સ્થાનિક સારવાર): આરોગ્ય વ્યાવસાયિક સાથે વાત કરવાથી સંકોચ વિના યોગ્ય ઉકેલ શોધવામાં મદદ મળી શકે છે.',
+    h5: '5. વજન અને ચયાપચય',
+    body5:
+      'આ સમયગાળામાં ચયાપચય થોડો ધીમો પડી શકે છે, અને ચરબીનું વિતરણ પેટ તરફ ખસવાનું વલણ ધરાવે છે. આ બદલાવો સામાન્ય છે અને ફક્ત ઇચ્છાશક્તિ પર આધારિત નથી.',
+    h6: '6. રજોનિવૃત્તિ વિશેની સામાન્ય ગેરમાન્યતાઓ',
+    myths: [
+      'રજોનિવૃત્તિ "એકસાથે થઈ જાય છે" — હકીકતમાં, તેની પહેલાં ઘણા વર્ષોનું પરિવર્તન (રજોનિવૃત્તિ પૂર્વેનો તબક્કો) હોય છે',
+      'બધા લક્ષણો દરેક માટે તીવ્ર હોય છે — તેમની તીવ્રતા દરેક સ્ત્રીમાં ઘણી અલગ હોય છે',
+      'કંઈ કરી શકાતું નથી — તકલીફ આપતાં લક્ષણોને હળવા કરવા માટે હોર્મોનલ કે બિન-હોર્મોનલ ઘણા ઉકેલો ઉપલબ્ધ છે',
+      'અંતરંગ જીવન પૂરું થઈ જાય છે — તે બદલાય છે, પરંતુ યોગ્ય ગોઠવણ સાથે તે સંપૂર્ણ રીતે શક્ય અને સંતોષકારક રહે છે',
+    ],
+    h7: '7. સામાન્ય લક્ષણો અને ધ્યાન રાખવા જેવા સંકેતો',
+    body7:
+      'અહીં વર્ણવેલા મોટાભાગના બદલાવો આ પરિવર્તનની સામાન્ય અભિવ્યક્તિઓ છે. જોકે, કેટલાક સંકેતો માટે તરત તબીબી ધ્યાન જરૂરી છે.',
+    alert2Title: 'આ સ્થિતિમાં ડૉક્ટરને મળો',
+    alert2Text:
+      'રજોનિવૃત્તિની પુષ્ટિ પછી રક્તસ્રાવ, અસામાન્ય પેલ્વિક દુખાવો, રોજિંદા જીવનને નોંધપાત્ર રીતે ખલેલ પાડતાં લક્ષણો, અથવા કોઈપણ સતત શંકા.',
+    h8: '8. રોજિંદા જીવન માટે વ્યવહારુ સૂચનો',
+    dailyHabits: [
+      'કેલ્શિયમ અને રેસાથી ભરપૂર આહાર',
+      'નિયમિત શારીરિક પ્રવૃત્તિ',
+      'ઊંઘની સ્થિર દિનચર્યા',
+      'રોજ આરામની ક્ષણો',
+    ],
+    h9: '9. મુખ્ય મુદ્દા',
+    tip3Title: 'જાણવા જેવું',
+    tip3Text:
+      'રજોનિવૃત્તિ પૂર્વેનો તબક્કો અને રજોનિવૃત્તિ કુદરતી તબક્કાઓ છે, બીમારી નથી. આ પરિવર્તનમાંથી વધુ આરામથી પસાર થવામાં મદદ કરવા ઘણા ઉકેલો ઉપલબ્ધ છે: તેમને તમારી પરિસ્થિતિ મુજબ ગોઠવવા માટે આરોગ્ય વ્યાવસાયિક શ્રેષ્ઠ સ્રોત છે.',
+    shareMessage: 'રજોનિવૃત્તિના પરિવર્તનને સમજો — AWA',
+  },
+  pa: {
+    badge: 'ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ ਅਤੇ ਮੇਨੋਪੌਜ਼',
+    title: 'ਮੇਨੋਪੌਜ਼ ਵੱਲ ਤਬਦੀਲੀ ਨੂੰ ਸਮਝਣਾ',
+    metaDuration: '10 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਮਾਹਵਾਰੀ ਬੰਦ ਹੋਣ ਤੋਂ ਕਈ ਸਾਲ ਪਹਿਲਾਂ ਹੌਲੀ-ਹੌਲੀ ਕੀ ਬਦਲਦਾ ਹੈ, ਅਤੇ ਇਸ ਪੜਾਅ ਨੂੰ ਵਧੇਰੇ ਸਪਸ਼ਟਤਾ ਨਾਲ ਕਿਵੇਂ ਲੈਣਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ ਅਤੇ ਮੇਨੋਪੌਜ਼: ਪਰਿਭਾਸ਼ਾਵਾਂ',
+      'ਵਧਦੇ ਅਨਿਯਮਿਤ ਚੱਕਰ',
+      'ਨੀਂਦ ਅਤੇ ਮੂਡ',
+      'ਨੇੜਤਾ ਅਤੇ ਯੋਨੀ ਦੀ ਖ਼ੁਸ਼ਕੀ',
+      'ਭਾਰ ਅਤੇ ਮੈਟਾਬੋਲਿਜ਼ਮ',
+      'ਮੇਨੋਪੌਜ਼ ਬਾਰੇ ਆਮ ਭਰਮ',
+      'ਆਮ ਲੱਛਣ ਅਤੇ ਧਿਆਨ ਦੇਣ ਵਾਲੇ ਸੰਕੇਤ',
+      'ਰੋਜ਼ਾਨਾ ਦੇ ਵਿਹਾਰਕ ਨੁਕਤੇ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    h1: '1. ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ ਅਤੇ ਮੇਨੋਪੌਜ਼: ਪਰਿਭਾਸ਼ਾਵਾਂ',
+    body1a:
+      'ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ ਉਸ ਹਾਰਮੋਨ ਸੰਬੰਧੀ ਤਬਦੀਲੀ ਦੇ ਸਮੇਂ ਨੂੰ ਕਹਿੰਦੇ ਹਨ ਜੋ ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਆਉਂਦਾ ਹੈ: ਇਹ ਕਈ ਸਾਲ ਪਹਿਲਾਂ ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ ਹੈ, ਆਮ ਤੌਰ ਤੇ ਚਾਲੀਵਿਆਂ ਦੀ ਉਮਰ ਤੋਂ, ਜਦੋਂ ਐਸਟ੍ਰੋਜਨ ਦੇ ਪੱਧਰ ਅਨਿਯਮਿਤ ਢੰਗ ਨਾਲ ਘੱਟਦੇ-ਵਧਦੇ ਹਨ।',
+    body1b:
+      'ਮੇਨੋਪੌਜ਼, ਇਸ ਦੇ ਉਲਟ, ਇੱਕ ਖ਼ਾਸ ਪਲ ਹੈ: ਇਸ ਦੀ ਪੁਸ਼ਟੀ ਲਗਾਤਾਰ 12 ਮਹੀਨੇ ਮਾਹਵਾਰੀ ਨਾ ਆਉਣ ਤੋਂ ਬਾਅਦ ਹੁੰਦੀ ਹੈ, ਕਿਸੇ ਹੋਰ ਕਾਰਨ ਤੋਂ ਬਿਨਾਂ। ਫ਼ਰਾਂਸ ਵਿੱਚ ਇਹ ਔਸਤਨ ਲਗਭਗ 51 ਸਾਲ ਦੀ ਉਮਰ ਵਿੱਚ ਆਉਂਦਾ ਹੈ, ਹਾਲਾਂਕਿ ਇਹ ਉਮਰ ਹਰ ਔਰਤ ਵਿੱਚ ਕੁਦਰਤੀ ਤੌਰ ਤੇ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਹਰ ਔਰਤ ਇਸ ਤਬਦੀਲੀ ਨੂੰ ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਜਿਉਂਦੀ ਹੈ, ਮਿਆਦ ਵਿੱਚ ਵੀ ਅਤੇ ਲੱਛਣਾਂ ਦੀ ਤੀਬਰਤਾ ਵਿੱਚ ਵੀ। ਇਸ ਬਾਰੇ ਖੁੱਲ੍ਹ ਕੇ ਗੱਲ ਕਰਨ ਨਾਲ ਤੁਸੀਂ ਇਸ ਲਈ ਬਿਹਤਰ ਤਿਆਰ ਹੋ ਸਕਦੇ ਹੋ।',
+    h2: '2. ਵਧਦੇ ਅਨਿਯਮਿਤ ਚੱਕਰ',
+    body2:
+      'ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਦੌਰ ਦੇ ਪਹਿਲੇ ਸੰਕੇਤਾਂ ਵਿੱਚੋਂ ਇੱਕ ਅਕਸਰ ਚੱਕਰ ਦੀ ਲੈਅ ਦਾ ਬਦਲਣਾ ਹੈ: ਚੱਕਰ ਛੋਟੇ, ਲੰਮੇ ਜਾਂ ਵਧੇਰੇ ਫ਼ਾਸਲੇ ਵਾਲੇ ਹੋ ਸਕਦੇ ਹਨ, ਜਾਂ ਇੱਕ ਮਹੀਨੇ ਤੋਂ ਦੂਜੇ ਮਹੀਨੇ ਵੱਖਰੇ ਵਹਾਅ ਵਾਲੇ।',
+    alert1Title: 'ਕਿਰਪਾ ਕਰਕੇ ਧਿਆਨ ਦਿਓ',
+    alert1Text:
+      'ਬਹੁਤ ਜ਼ਿਆਦਾ ਖ਼ੂਨ ਵਹਿਣਾ, ਇੱਕ-ਦੂਜੇ ਦੇ ਬਹੁਤ ਨੇੜੇ ਆਉਣ ਵਾਲਾ ਖ਼ੂਨ, ਜਾਂ ਇੱਕ ਸਾਲ ਮਾਹਵਾਰੀ ਨਾ ਆਉਣ ਤੋਂ ਬਾਅਦ ਖ਼ੂਨ ਆਉਣਾ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਮੰਗ ਕਰਦਾ ਹੈ, ਕਿਉਂਕਿ ਇਹ ਇਸ ਤਬਦੀਲੀ ਦੇ ਆਮ ਸੰਕੇਤ ਨਹੀਂ ਮੰਨੇ ਜਾਂਦੇ।',
+    h3: '3. ਨੀਂਦ ਅਤੇ ਮੂਡ',
+    body3a:
+      'ਐਸਟ੍ਰੋਜਨ ਅਤੇ ਪ੍ਰੋਜੈਸਟ੍ਰੋਨ ਦਾ ਘਟਣਾ ਤੇ ਘੱਟਣਾ-ਵਧਣਾ ਨੀਂਦ ਵਿੱਚ ਵਿਘਨ ਪਾ ਸਕਦਾ ਹੈ (ਨੀਂਦ ਆਉਣ ਵਿੱਚ ਦੇਰ, ਰਾਤ ਨੂੰ ਜਾਗ ਪੈਣਾ) ਅਤੇ ਇਸ ਦੇ ਨਾਲ ਚਿੜਚਿੜਾਪਨ, ਚਿੰਤਾ ਜਾਂ ਅਸਾਧਾਰਨ ਮੂਡ ਬਦਲਣਾ ਵੀ ਹੋ ਸਕਦਾ ਹੈ।',
+    body3b:
+      'ਇਨ੍ਹਾਂ ਬਦਲਾਵਾਂ ਦੀ ਇੱਕ ਅਸਲੀ ਜੈਵਿਕ ਵਿਆਖਿਆ ਹੈ: ਇਹ ਨਾ ਤਾਂ ਇੱਛਾ-ਸ਼ਕਤੀ ਦੀ ਕਮੀ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ ਅਤੇ ਨਾ ਹੀ ਕਿਸੇ ਇਕੱਲੀ ਮਨੋਵਿਗਿਆਨਕ ਸਮੱਸਿਆ ਨੂੰ।',
+    h4: '4. ਨੇੜਤਾ ਅਤੇ ਯੋਨੀ ਦੀ ਖ਼ੁਸ਼ਕੀ',
+    body4:
+      'ਐਸਟ੍ਰੋਜਨ ਦੇ ਘਟਣ ਨਾਲ ਯੋਨੀ ਦੀ ਖ਼ੁਸ਼ਕੀ ਹੋ ਸਕਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਕਈ ਵਾਰ ਸਹਿਵਾਸ ਦੌਰਾਨ ਬੇਆਰਾਮੀ ਜਾਂ ਦਰਦ ਹੁੰਦਾ ਹੈ। ਇੱਛਾ ਵੀ ਬਦਲ ਸਕਦੀ ਹੈ, ਔਰਤ ਅਨੁਸਾਰ ਵਧ ਵੀ ਸਕਦੀ ਹੈ ਅਤੇ ਘਟ ਵੀ।',
+    tip2Title: 'ਜਾਣਨ ਯੋਗ',
+    tip2Text:
+      'ਸਾਦੇ ਹੱਲ ਮੌਜੂਦ ਹਨ (ਚਿਕਨਾਈ ਵਾਲੇ ਜੈੱਲ, ਯੋਨੀ ਨੂੰ ਨਮੀ ਦੇਣ ਵਾਲੇ ਉਤਪਾਦ, ਸਥਾਨਕ ਇਲਾਜ): ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨ ਨਾਲ ਤੁਹਾਨੂੰ ਸਹੀ ਹੱਲ ਲੱਭਣ ਵਿੱਚ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ, ਬਿਨਾਂ ਕਿਸੇ ਝਿਜਕ ਦੇ।',
+    h5: '5. ਭਾਰ ਅਤੇ ਮੈਟਾਬੋਲਿਜ਼ਮ',
+    body5:
+      'ਇਸ ਦੌਰ ਵਿੱਚ ਮੈਟਾਬੋਲਿਜ਼ਮ ਥੋੜ੍ਹਾ ਹੌਲੀ ਹੋ ਸਕਦਾ ਹੈ, ਅਤੇ ਚਰਬੀ ਦੀ ਵੰਡ ਪੇਟ ਵੱਲ ਖਿਸਕਦੀ ਹੈ। ਇਹ ਬਦਲਾਅ ਆਮ ਹਨ ਅਤੇ ਸਿਰਫ਼ ਇੱਛਾ-ਸ਼ਕਤੀ ਤੇ ਨਿਰਭਰ ਨਹੀਂ ਕਰਦੇ।',
+    h6: '6. ਮੇਨੋਪੌਜ਼ ਬਾਰੇ ਆਮ ਭਰਮ',
+    myths: [
+      'ਮੇਨੋਪੌਜ਼ "ਇੱਕਦਮ ਹੋ ਜਾਂਦਾ ਹੈ" — ਅਸਲ ਵਿੱਚ, ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਕਈ ਸਾਲ ਦੀ ਤਬਦੀਲੀ (ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ) ਹੁੰਦੀ ਹੈ',
+      'ਸਾਰਿਆਂ ਲਈ ਸਾਰੇ ਲੱਛਣ ਗੰਭੀਰ ਹੁੰਦੇ ਹਨ — ਇਨ੍ਹਾਂ ਦੀ ਤੀਬਰਤਾ ਹਰ ਔਰਤ ਵਿੱਚ ਬਹੁਤ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ',
+      'ਕੁਝ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ — ਪਰੇਸ਼ਾਨ ਕਰਨ ਵਾਲੇ ਲੱਛਣਾਂ ਨੂੰ ਘਟਾਉਣ ਲਈ, ਹਾਰਮੋਨਲ ਜਾਂ ਗ਼ੈਰ-ਹਾਰਮੋਨਲ, ਕਈ ਹੱਲ ਮੌਜੂਦ ਹਨ',
+      'ਵਿਆਹੁਤਾ ਜ਼ਿੰਦਗੀ ਖ਼ਤਮ ਹੋ ਜਾਂਦੀ ਹੈ — ਇਹ ਬਦਲਦੀ ਹੈ, ਪਰ ਸਹੀ ਅਨੁਕੂਲਨ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੰਭਵ ਅਤੇ ਸੰਤੁਸ਼ਟੀ ਭਰੀ ਰਹਿੰਦੀ ਹੈ',
+    ],
+    h7: '7. ਆਮ ਲੱਛਣ ਅਤੇ ਧਿਆਨ ਦੇਣ ਵਾਲੇ ਸੰਕੇਤ',
+    body7:
+      'ਇੱਥੇ ਦੱਸੇ ਗਏ ਬਹੁਤੇ ਬਦਲਾਅ ਇਸ ਤਬਦੀਲੀ ਦੇ ਆਮ ਪ੍ਰਗਟਾਵੇ ਹਨ। ਫਿਰ ਵੀ, ਕੁਝ ਸੰਕੇਤਾਂ ਵੱਲ ਜਲਦੀ ਡਾਕਟਰੀ ਧਿਆਨ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ।',
+    alert2Title: 'ਡਾਕਟਰ ਨੂੰ ਮਿਲੋ ਜੇ',
+    alert2Text:
+      'ਮੇਨੋਪੌਜ਼ ਦੀ ਪੁਸ਼ਟੀ ਤੋਂ ਬਾਅਦ ਖ਼ੂਨ ਆਵੇ, ਪੇਡੂ ਵਿੱਚ ਅਸਾਧਾਰਨ ਦਰਦ ਹੋਵੇ, ਲੱਛਣ ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਨੂੰ ਕਾਫ਼ੀ ਵਿਗਾੜਨ, ਜਾਂ ਕੋਈ ਵੀ ਲਗਾਤਾਰ ਸ਼ੱਕ ਹੋਵੇ।',
+    h8: '8. ਰੋਜ਼ਾਨਾ ਦੇ ਵਿਹਾਰਕ ਨੁਕਤੇ',
+    dailyHabits: [
+      'ਕੈਲਸ਼ੀਅਮ ਅਤੇ ਰੇਸ਼ੇ ਨਾਲ ਭਰਪੂਰ ਖ਼ੁਰਾਕ',
+      'ਨਿਯਮਿਤ ਸਰੀਰਕ ਸਰਗਰਮੀ',
+      'ਨੀਂਦ ਦੀ ਪੱਕੀ ਰੁਟੀਨ',
+      'ਰੋਜ਼ਾਨਾ ਆਰਾਮ ਦੇ ਪਲ',
+    ],
+    h9: '9. ਮੁੱਖ ਨੁਕਤੇ',
+    tip3Title: 'ਜਾਣਨ ਯੋਗ',
+    tip3Text:
+      'ਮੇਨੋਪੌਜ਼ ਤੋਂ ਪਹਿਲਾਂ ਦਾ ਦੌਰ ਅਤੇ ਮੇਨੋਪੌਜ਼ ਕੁਦਰਤੀ ਪੜਾਅ ਹਨ, ਕੋਈ ਬਿਮਾਰੀ ਨਹੀਂ। ਇਸ ਤਬਦੀਲੀ ਵਿੱਚੋਂ ਵਧੇਰੇ ਆਰਾਮ ਨਾਲ ਲੰਘਣ ਵਿੱਚ ਮਦਦ ਲਈ ਕਈ ਹੱਲ ਮੌਜੂਦ ਹਨ: ਉਨ੍ਹਾਂ ਨੂੰ ਤੁਹਾਡੀ ਸਥਿਤੀ ਅਨੁਸਾਰ ਢਾਲਣ ਲਈ ਸਿਹਤ ਮਾਹਿਰ ਸਭ ਤੋਂ ਵਧੀਆ ਸਾਧਨ ਹੈ।',
+    shareMessage: 'ਮੇਨੋਪੌਜ਼ ਵੱਲ ਤਬਦੀਲੀ ਨੂੰ ਸਮਝਣਾ — AWA',
+  },
+  my: {
+    badge: 'ရာသီမဆုံးမီ အကူးအပြောင်းကာလနှင့် ရာသီဆုံးခြင်း',
+    title: 'ရာသီဆုံးခြင်း အကူးအပြောင်းကာလကို နားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 10 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'ရာသီလာခြင်း မရပ်မီ နှစ်များစွာ ကတည်းက တဖြည်းဖြည်း ပြောင်းလဲလာသည်များနှင့် ဤအချိန်ကာလကို ပိုမိုရှင်းလင်းစွာ ကိုင်တွယ်နိုင်ပုံ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ရာသီမဆုံးမီ အကူးအပြောင်းကာလနှင့် ရာသီဆုံးခြင်း၏ အဓိပ္ပာယ်',
+      'ပိုမိုမမှန်ကန်လာသော ရာသီစက်ဝန်းများ',
+      'အိပ်စက်ခြင်းနှင့် စိတ်ခံစားမှု',
+      'လင်မယားဆက်ဆံရေးနှင့် မီးယပ်လမ်းကြောင်း ခြောက်သွေ့ခြင်း',
+      'ကိုယ်အလေးချိန်နှင့် ဇီဝဖြစ်စဉ်',
+      'ရာသီဆုံးခြင်းနှင့်ပတ်သက်သော အဖြစ်များသည့် ယုံမှားမှုများ',
+      'ပုံမှန်လက္ခဏာများနှင့် သတိထားရမည့် လက္ခဏာများ',
+      'နေ့စဉ်လက်တွေ့အကြံပြုချက်များ',
+      'အဓိကအချက်များ',
+    ],
+    h1: '1။ ရာသီမဆုံးမီ အကူးအပြောင်းကာလနှင့် ရာသီဆုံးခြင်း၏ အဓိပ္ပာယ်',
+    body1a:
+      'ရာသီမဆုံးမီ အကူးအပြောင်းကာလဆိုသည်မှာ ရာသီဆုံးခြင်းမတိုင်မီ ဟော်မုန်းများ ပြောင်းလဲသော ကာလကို ဆိုလိုသည်။ ၎င်းသည် နှစ်များစွာ စောပြီး စတင်နိုင်ပြီး ယေဘုယျအားဖြင့် အသက် လေးဆယ်ကျော်မှ စတင်ကာ အက်စ်ထရိုဂျင်ပမာဏ မမှန်ကန်စွာ အတက်အကျဖြစ်သည်။',
+    body1b:
+      'ရာသီဆုံးခြင်းမှာမူ တိကျသော အချိန်တစ်ခုဖြစ်သည်။ အခြားအကြောင်းရင်းမရှိဘဲ ရာသီမလာတော့သည်မှာ ဆက်တိုက် 12 လပြည့်ပြီးမှ အတည်ပြုနိုင်သည်။ ပြင်သစ်နိုင်ငံတွင် ပျမ်းမျှအားဖြင့် အသက် 51 နှစ်ဝန်းကျင်တွင် ဖြစ်ပေါ်သော်လည်း ဤအသက်သည် အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦး သဘာဝအတိုင်း ကွာခြားနိုင်သည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'အမျိုးသမီးတိုင်း ဤအကူးအပြောင်းကာလကို ကွဲပြားစွာ ကြုံတွေ့ရသည်။ ကြာချိန်နှင့် လက္ခဏာများ၏ပြင်းထန်မှု နှစ်ခုလုံးတွင် ကွာခြားသည်။ ဤအကြောင်းကို ပွင့်လင်းစွာ ပြောဆိုခြင်းက ကြိုတင်ပြင်ဆင်ရာတွင် ပိုမိုအထောက်အကူဖြစ်စေသည်။',
+    h2: '2။ ပိုမိုမမှန်ကန်လာသော ရာသီစက်ဝန်းများ',
+    body2:
+      'ရာသီမဆုံးမီ အကူးအပြောင်းကာလ၏ ပထမဆုံးလက္ခဏာတစ်ခုမှာ မကြာခဏ ရာသီစက်ဝန်း၏ အချိန်ကာလ ပြောင်းလဲခြင်းဖြစ်သည်။ ရာသီစက်ဝန်းများ ပိုတိုလာခြင်း၊ ပိုရှည်လာခြင်း၊ ပိုကွာလာခြင်း သို့မဟုတ် လတစ်လနှင့်တစ်လ သွေးထွက်ပမာဏ ကွာခြားလာခြင်း ဖြစ်နိုင်သည်။',
+    alert1Title: 'ကျေးဇူးပြု၍ သတိပြုပါ',
+    alert1Text:
+      'သွေးထွက်ပမာဏ အလွန်များခြင်း၊ သွေးထွက်ချိန်များ အလွန်နီးကပ်လာခြင်း သို့မဟုတ် ရာသီမလာဘဲ တစ်နှစ်ကြာပြီးနောက် သွေးထွက်ခြင်းတို့တွင် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ရယူသင့်သည်။ အဘယ်ကြောင့်ဆိုသော် ၎င်းတို့ကို အကူးအပြောင်းကာလ၏ ပုံမှန်လက္ခဏာများအဖြစ် မမှတ်ယူကြပါ။',
+    h3: '3။ အိပ်စက်ခြင်းနှင့် စိတ်ခံစားမှု',
+    body3a:
+      'အက်စ်ထရိုဂျင်နှင့် ပရိုဂျက်စတီရုန်း ကျဆင်းခြင်းနှင့် အတက်အကျဖြစ်ခြင်းတို့က အိပ်စက်ခြင်း (အိပ်ပျော်ရန်ခက်ခြင်း၊ ညဘက် နိုးထခြင်း) ကို အနှောင့်အယှက်ဖြစ်စေနိုင်ပြီး စိတ်တိုခြင်း၊ စိုးရိမ်ပူပန်ခြင်း သို့မဟုတ် ပုံမှန်မဟုတ်သော စိတ်ခံစားမှု အတက်အကျများနှင့်အတူ ဖြစ်ပေါ်နိုင်သည်။',
+    body3b:
+      'ဤပြောင်းလဲမှုများတွင် အမှန်တကယ်ရှိသော ဇီဝဗေဒဆိုင်ရာ ရှင်းလင်းချက် ရှိသည်။ ၎င်းတို့သည် စိတ်ဓာတ်ခွန်အားမရှိခြင်း သို့မဟုတ် သီးခြားစိတ်ပိုင်းဆိုင်ရာ ပြဿနာတစ်ခုကို မဖော်ပြပါ။',
+    h4: '4။ လင်မယားဆက်ဆံရေးနှင့် မီးယပ်လမ်းကြောင်း ခြောက်သွေ့ခြင်း',
+    body4:
+      'အက်စ်ထရိုဂျင် ကျဆင်းခြင်းကြောင့် မီးယပ်လမ်းကြောင်း ခြောက်သွေ့နိုင်ပြီး တခါတရံ လင်မယားဆက်ဆံချိန်တွင် မသက်မသာဖြစ်ခြင်း သို့မဟုတ် နာကျင်ခြင်း ဖြစ်စေနိုင်သည်။ လိုလားမှုသည်လည်း အမျိုးသမီးတစ်ဦးချင်းစီအလိုက် တိုးလာခြင်း သို့မဟုတ် လျော့နည်းလာခြင်းဖြင့် ပြောင်းလဲနိုင်သည်။',
+    tip2Title: 'သိထားသင့်သည်',
+    tip2Text:
+      'ရိုးရှင်းသော ဖြေရှင်းနည်းများ ရှိသည် (ချောဆီများ၊ မီးယပ်လမ်းကြောင်း စိုစွတ်စေသောပစ္စည်းများ၊ ဒေသတွင်းကုသမှုများ)။ ကျန်းမာရေးပညာရှင်နှင့် ပြောဆိုခြင်းက ယဉ်ကျေးမှုအတားအဆီးမရှိဘဲ သင့်တော်သည့် ဖြေရှင်းနည်းကို ရှာဖွေရာတွင် အထောက်အကူဖြစ်စေသည်။',
+    h5: '5။ ကိုယ်အလေးချိန်နှင့် ဇီဝဖြစ်စဉ်',
+    body5:
+      'ဤကာလအတွင်း ဇီဝဖြစ်စဉ် အနည်းငယ် နှေးကွေးလာနိုင်ပြီး အဆီဖြန့်ကျက်မှုသည် ဝမ်းဗိုက်ဘက်သို့ ပြောင်းလာလေ့ရှိသည်။ ဤပြောင်းလဲမှုများသည် ဖြစ်လေ့ဖြစ်ထရှိပြီး စိတ်ဓာတ်ခွန်အားတစ်ခုတည်းပေါ်တွင် မူတည်ခြင်းမရှိပါ။',
+    h6: '6။ ရာသီဆုံးခြင်းနှင့်ပတ်သက်သော အဖြစ်များသည့် ယုံမှားမှုများ',
+    myths: [
+      'ရာသီဆုံးခြင်းသည် “တစ်ခါတည်း ဖြစ်ပေါ်လာသည်” — အမှန်တွင် ၎င်းမတိုင်မီ နှစ်များစွာ အကူးအပြောင်းကာလ (ရာသီမဆုံးမီ အကူးအပြောင်းကာလ) ရှိသည်',
+      'လက္ခဏာအားလုံးသည် လူတိုင်းအတွက် ပြင်းထန်သည် — ၎င်းတို့၏ပြင်းထန်မှုသည် အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦး အလွန်ကွာခြားသည်',
+      'ဘာမှ လုပ်၍မရပါ — စိတ်အနှောင့်အယှက်ဖြစ်စေသော လက္ခဏာများကို သက်သာစေရန် ဟော်မုန်းသုံးသော်လည်းကောင်း၊ မသုံးသော်လည်းကောင်း ဖြေရှင်းနည်းများစွာ ရှိသည်',
+      'လင်မယားဘဝ ပြီးဆုံးသွားသည် — ပြောင်းလဲသော်လည်း သင့်တော်သော ညှိနှိုင်းမှုများဖြင့် လုံးဝဖြစ်နိုင်ပြီး ပြည့်ဝစေနိုင်သည်',
+    ],
+    h7: '7။ ပုံမှန်လက္ခဏာများနှင့် သတိထားရမည့် လက္ခဏာများ',
+    body7:
+      'ဤနေရာတွင် ဖော်ပြထားသော ပြောင်းလဲမှုအများစုသည် အကူးအပြောင်းကာလ၏ ပုံမှန်ဖော်ပြမှုများဖြစ်သည်။ သို့သော် အချို့သောလက္ခဏာများတွင် ဆေးဘက်ဆိုင်ရာ အမြန်ဂရုစိုက်မှု လိုအပ်သည်။',
+    alert2Title: 'အောက်ပါအခါများတွင် ဆရာဝန်နှင့် တွေ့ပါ',
+    alert2Text:
+      'ရာသီဆုံးပြီးကြောင်း အတည်ပြုပြီးနောက် သွေးထွက်ခြင်း၊ ပုံမှန်မဟုတ်သော တင်ပါးဆုံနာကျင်ခြင်း၊ နေ့စဉ်ဘဝကို သိသာစွာ နှောင့်ယှက်သော လက္ခဏာများ သို့မဟုတ် ဆက်လက်ရှိနေသော သံသယတစ်စုံတစ်ရာ။',
+    h8: '8။ နေ့စဉ်လက်တွေ့အကြံပြုချက်များ',
+    dailyHabits: [
+      'ကယ်လ်စီယမ်နှင့် အမျှင်ဓာတ်ကြွယ်ဝသော အစားအစာ',
+      'ပုံမှန်ကိုယ်လက်လှုပ်ရှားမှု',
+      'တည်ငြိမ်သော အိပ်စက်ချိန်စဉ်',
+      'နေ့စဉ် အပန်းဖြေချိန်များ',
+    ],
+    h9: '9။ အဓိကအချက်များ',
+    tip3Title: 'သိထားသင့်သည်',
+    tip3Text:
+      'ရာသီမဆုံးမီ အကူးအပြောင်းကာလနှင့် ရာသီဆုံးခြင်းတို့သည် သဘာဝအဆင့်များဖြစ်ပြီး ရောဂါမဟုတ်ပါ။ ဤအကူးအပြောင်းကာလကို ပိုမိုသက်သာစွာ ဖြတ်သန်းနိုင်ရန် ဖြေရှင်းနည်းများစွာ ရှိသည်။ ၎င်းတို့ကို သင့်အခြေအနေနှင့် ကိုက်ညီအောင် ညှိရန် ကျန်းမာရေးပညာရှင်သည် အကောင်းဆုံးအရင်းအမြစ် ဖြစ်နေဆဲဖြစ်သည်။',
+    shareMessage: 'ရာသီဆုံးခြင်း အကူးအပြောင်းကာလကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'ដំណាក់កាលមុនអស់រដូវ និងអស់រដូវ',
+    title: 'ការយល់ដឹងអំពីដំណាក់កាលផ្លាស់ប្តូរទៅអស់រដូវ',
+    metaDuration: 'អាន 10 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'អ្វីដែលផ្លាស់ប្តូរបន្តិចម្តងៗ ជាច្រើនឆ្នាំមុនរដូវឈប់ និងរបៀបចូលទៅកាន់ដំណាក់កាលនេះដោយមានភាពច្បាស់លាស់ជាងមុន។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ដំណាក់កាលមុនអស់រដូវ និងអស់រដូវ៖ និយមន័យ',
+      'វដ្តរដូវកាន់តែមិនទៀងទាត់',
+      'ដំណេក និងអារម្មណ៍',
+      'ជីវិតស្និទ្ធស្នាល និងភាពស្ងួតទ្វារមាស',
+      'ទម្ងន់ និងការរំលាយអាហារ',
+      'ទំនៀមទម្លាប់មិនពិតទូទៅអំពីការអស់រដូវ',
+      'រោគសញ្ញាធម្មតា និងសញ្ញាដែលត្រូវតាមដាន',
+      'គន្លឹះជាក់ស្តែងប្រចាំថ្ងៃ',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    h1: '1. ដំណាក់កាលមុនអស់រដូវ និងអស់រដូវ៖ និយមន័យ',
+    body1a:
+      'ដំណាក់កាលមុនអស់រដូវ សំដៅលើរយៈពេលផ្លាស់ប្តូរអរម៉ូនដែលកើតមានមុនអស់រដូវ៖ វាអាចចាប់ផ្តើមមុនជាច្រើនឆ្នាំ ជាទូទៅចាប់ពីអាយុសែសិបឆ្នាំឡើងទៅ ដោយកម្រិតអ៊ែស្ត្រូសែនប្រែប្រួលមិនទៀងទាត់។',
+    body1b:
+      'ចំណែកការអស់រដូវវិញ គឺជាចំណុចពេលវេលាជាក់លាក់មួយ៖ វាត្រូវបានបញ្ជាក់បន្ទាប់ពី 12 ខែជាប់គ្នាដោយគ្មានរដូវ និងគ្មានមូលហេតុផ្សេងទៀត។ នៅប្រទេសបារាំង វាកើតឡើងជាមធ្យមនៅអាយុប្រហែល 51 ឆ្នាំ ទោះបីអាយុនេះប្រែប្រួលតាមធម្មជាតិពីស្ត្រីម្នាក់ទៅម្នាក់ទៀតក៏ដោយ។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'ស្ត្រីម្នាក់ៗឆ្លងកាត់ដំណាក់កាលផ្លាស់ប្តូរនេះខុសៗគ្នា ទាំងរយៈពេល និងកម្រិតនៃរោគសញ្ញា។ ការនិយាយអំពីវាដោយបើកចិត្តជួយឱ្យអ្នកត្រៀមខ្លួនបានល្អជាងមុន។',
+    h2: '2. វដ្តរដូវកាន់តែមិនទៀងទាត់',
+    body2:
+      'សញ្ញាដំបូងមួយនៃដំណាក់កាលមុនអស់រដូវ ជាញឹកញាប់គឺការផ្លាស់ប្តូរចង្វាក់វដ្តរដូវ៖ វដ្តអាចខ្លីជាងមុន ឬវែងជាងមុន ឆ្ងាយពីគ្នាជាងមុន ឬមានបរិមាណឈាមរដូវខុសគ្នាពីខែមួយទៅខែមួយ។',
+    alert1Title: 'សូមកត់សម្គាល់',
+    alert1Text:
+      'ការហូរឈាមច្រើនខ្លាំង ការហូរឈាមដែលកើតឡើងជិតគ្នាខ្លាំង ឬការហូរឈាមដែលកើតឡើងបន្ទាប់ពីមួយឆ្នាំដោយគ្មានរដូវ ត្រូវការដំបូន្មានពីវេជ្ជបណ្ឌិត ព្រោះទាំងនេះមិនត្រូវបានចាត់ទុកថាជាសញ្ញាធម្មតានៃដំណាក់កាលផ្លាស់ប្តូរនេះទេ។',
+    h3: '3. ដំណេក និងអារម្មណ៍',
+    body3a:
+      'ការថយចុះ និងការប្រែប្រួលនៃអ៊ែស្ត្រូសែន និងប្រូសេស្តេរ៉ូន អាចរំខានដំណេក (ពេលដេកលក់ ការភ្ញាក់ពេលយប់) ហើយអាចមកជាមួយនឹងភាពឆាប់ខឹង ការថប់បារម្ភ ឬអារម្មណ៍ប្រែប្រួលមិនធម្មតា។',
+    body3b:
+      'ការផ្លាស់ប្តូរទាំងនេះមានមូលហេតុជីវសាស្ត្រពិតប្រាកដ៖ វាមិនបង្ហាញពីការខ្វះការតាំងចិត្ត ឬបញ្ហាផ្លូវចិត្តដាច់ដោយឡែកឡើយ។',
+    h4: '4. ជីវិតស្និទ្ធស្នាល និងភាពស្ងួតទ្វារមាស',
+    body4:
+      'ការថយចុះនៃអ៊ែស្ត្រូសែនអាចនាំឱ្យទ្វារមាសស្ងួត ដែលជួនកាលបណ្តាលឱ្យមានភាពមិនស្រួល ឬឈឺពេលរួមរក្សា។ បំណងប្រាថ្នាក៏អាចផ្លាស់ប្តូរដែរ ទាំងកើនឡើង ឬថយចុះ ទៅតាមស្ត្រីម្នាក់ៗ។',
+    tip2Title: 'គួរដឹង',
+    tip2Text:
+      'មានដំណោះស្រាយសាមញ្ញៗ (ថ្នាំរំអិល ថ្នាំបំប៉នសំណើមទ្វារមាស ការព្យាបាលក្នុងតំបន់)៖ ការនិយាយជាមួយអ្នកជំនាញសុខាភិបាលអាចជួយអ្នករកដំណោះស្រាយត្រឹមត្រូវ ដោយមិនអៀនខ្មាស។',
+    h5: '5. ទម្ងន់ និងការរំលាយអាហារ',
+    body5:
+      'ការរំលាយអាហារអាចថយចុះបន្តិចក្នុងអំឡុងពេលនេះ ហើយការបែងចែកខ្លាញ់មានទំនោរប្តូរទៅរកពោះ។ ការផ្លាស់ប្តូរទាំងនេះជារឿងធម្មតា ហើយមិនពឹងផ្អែកតែលើការតាំងចិត្តប៉ុណ្ណោះទេ។',
+    h6: '6. ទំនៀមទម្លាប់មិនពិតទូទៅអំពីការអស់រដូវ',
+    myths: [
+      'ការអស់រដូវ "កើតឡើងភ្លាមៗទាំងអស់" — តាមការពិត វាមានដំណាក់កាលផ្លាស់ប្តូរជាច្រើនឆ្នាំមុននោះ (ដំណាក់កាលមុនអស់រដូវ)',
+      'រោគសញ្ញាទាំងអស់ធ្ងន់ធ្ងរសម្រាប់អ្នកគ្រប់គ្នា — កម្រិតរបស់វាប្រែប្រួលយ៉ាងខ្លាំងពីស្ត្រីម្នាក់ទៅម្នាក់ទៀត',
+      'មិនអាចធ្វើអ្វីបានទេ — មានដំណោះស្រាយជាច្រើន ទាំងប្រើអរម៉ូន ឬមិនប្រើអរម៉ូន ដើម្បីសម្រាលរោគសញ្ញាដែលរំខាន',
+      'ជីវិតស្និទ្ធស្នាលបានបញ្ចប់ — វាផ្លាស់ប្តូរ ប៉ុន្តែនៅតែអាចធ្វើទៅបាន និងពោរពេញដោយសុភមង្គលទាំងស្រុង ជាមួយនឹងការកែតម្រូវត្រឹមត្រូវ',
+    ],
+    h7: '7. រោគសញ្ញាធម្មតា និងសញ្ញាដែលត្រូវតាមដាន',
+    body7:
+      'ការផ្លាស់ប្តូរភាគច្រើនដែលបានពិពណ៌នានៅទីនេះ គឺជាការបង្ហាញធម្មតានៃដំណាក់កាលផ្លាស់ប្តូរនេះ។ ទោះយ៉ាងណា សញ្ញាមួយចំនួនត្រូវការការយកចិត្តទុកដាក់ពីវេជ្ជបណ្ឌិតភ្លាមៗ។',
+    alert2Title: 'សូមជួបវេជ្ជបណ្ឌិត ប្រសិនបើ',
+    alert2Text:
+      'ហូរឈាមបន្ទាប់ពីអស់រដូវដែលបានបញ្ជាក់ ឈឺអាងត្រគាកមិនធម្មតា រោគសញ្ញាដែលរំខានជីវិតប្រចាំថ្ងៃយ៉ាងខ្លាំង ឬការសង្ស័យដែលនៅតែមាន។',
+    h8: '8. គន្លឹះជាក់ស្តែងប្រចាំថ្ងៃ',
+    dailyHabits: [
+      'របបអាហារសម្បូរកាល់ស្យូម និងជាតិសរសៃ',
+      'សកម្មភាពរាងកាយទៀងទាត់',
+      'ទម្លាប់ដំណេកដែលមានស្ថិរភាព',
+      'ពេលវេលាសម្រាកលំហែប្រចាំថ្ងៃ',
+    ],
+    h9: '9. ចំណុចសំខាន់ៗ',
+    tip3Title: 'គួរដឹង',
+    tip3Text:
+      'ដំណាក់កាលមុនអស់រដូវ និងអស់រដូវ គឺជាដំណាក់កាលធម្មជាតិ មិនមែនជាជំងឺទេ។ មានដំណោះស្រាយជាច្រើនដើម្បីជួយអ្នកឆ្លងកាត់ដំណាក់កាលផ្លាស់ប្តូរនេះបានស្រួលជាងមុន៖ អ្នកជំនាញសុខាភិបាលនៅតែជាប្រភពល្អបំផុតក្នុងការកែសម្រួលវាឱ្យស័ក្តិសមនឹងស្ថានភាពរបស់អ្នក។',
+    shareMessage: 'ការយល់ដឹងអំពីដំណាក់កាលផ្លាស់ប្តូរទៅអស់រដូវ — AWA',
+  },
+  lo: {
+    badge: 'ໄລຍະກ່ອນໝົດປະຈຳເດືອນ ແລະ ໝົດປະຈຳເດືອນ',
+    title: 'ເຂົ້າໃຈການປ່ຽນຜ່ານສູ່ໄລຍະໝົດປະຈຳເດືອນ',
+    metaDuration: 'ອ່ານ 10 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ສິ່ງທີ່ປ່ຽນແປງຄ່ອຍໆ ຫຼາຍປີກ່ອນປະຈຳເດືອນຈະຢຸດ ແລະ ວິທີຮັບມືກັບໄລຍະນີ້ດ້ວຍຄວາມເຂົ້າໃຈທີ່ຊັດເຈນຂຶ້ນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ໄລຍະກ່ອນໝົດປະຈຳເດືອນ ແລະ ໝົດປະຈຳເດືອນ: ຄຳນິຍາມ',
+      'ຮອບເດືອນທີ່ບໍ່ສະໝ່ຳສະເໝີຫຼາຍຂຶ້ນ',
+      'ການນອນ ແລະ ອາລົມ',
+      'ຄວາມສະໜິດສະໜົມ ແລະ ຄວາມແຫ້ງຂອງຊ່ອງຄອດ',
+      'ນ້ຳໜັກ ແລະ ການເຜົາຜານພະລັງງານ',
+      'ຄວາມເຂົ້າໃຈຜິດທີ່ພົບເລື້ອຍກ່ຽວກັບການໝົດປະຈຳເດືອນ',
+      'ອາການປົກກະຕິ ແລະ ສັນຍານທີ່ຄວນສັງເກດ',
+      'ເຄັດລັບປະຕິບັດໄດ້ໃນຊີວິດປະຈຳວັນ',
+      'ຈຸດສຳຄັນ',
+    ],
+    h1: '1. ໄລຍະກ່ອນໝົດປະຈຳເດືອນ ແລະ ໝົດປະຈຳເດືອນ: ຄຳນິຍາມ',
+    body1a:
+      'ໄລຍະກ່ອນໝົດປະຈຳເດືອນ ໝາຍເຖິງໄລຍະປ່ຽນຜ່ານທາງຮໍໂມນທີ່ມາກ່ອນການໝົດປະຈຳເດືອນ: ອາດເລີ່ມຕົ້ນກ່ອນຫຼາຍປີ ໂດຍທົ່ວໄປແມ່ນຕັ້ງແຕ່ອາຍຸສີ່ສິບເປັນຕົ້ນໄປ ໂດຍລະດັບເອສໂຕຣເຈັນຈະຂຶ້ນລົງບໍ່ສະໝ່ຳສະເໝີ.',
+    body1b:
+      'ສ່ວນການໝົດປະຈຳເດືອນ ແມ່ນຈຸດເວລາສະເພາະ: ຢືນຢັນໄດ້ເມື່ອບໍ່ມີປະຈຳເດືອນຕິດຕໍ່ກັນ 12 ເດືອນ ໂດຍບໍ່ມີສາເຫດອື່ນ. ໃນປະເທດຝຣັ່ງ ໂດຍສະເລ່ຍເກີດຂຶ້ນຢູ່ປະມານອາຍຸ 51 ປີ ເຖິງແນວນັ້ນອາຍຸນີ້ກໍແຕກຕ່າງກັນໄປຕາມທຳມະຊາດໃນແຕ່ລະຄົນ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ແຕ່ລະຄົນຜ່ານໄລຍະນີ້ແຕກຕ່າງກັນ ທັງໄລຍະເວລາ ແລະ ຄວາມຮຸນແຮງຂອງອາການ. ການເວົ້າເຖິງມັນຢ່າງເປີດເຜີຍຊ່ວຍໃຫ້ທ່ານກຽມຕົວໄດ້ດີຂຶ້ນ.',
+    h2: '2. ຮອບເດືອນທີ່ບໍ່ສະໝ່ຳສະເໝີຫຼາຍຂຶ້ນ',
+    body2:
+      'ສັນຍານທຳອິດຂອງໄລຍະກ່ອນໝົດປະຈຳເດືອນຢ່າງໜຶ່ງ ມັກແມ່ນການປ່ຽນແປງຈັງຫວະຂອງຮອບເດືອນ: ຮອບເດືອນອາດສັ້ນລົງ ຍາວຂຶ້ນ ຫ່າງກັນຫຼາຍຂຶ້ນ ຫຼື ມີປະລິມານເລືອດປະຈຳເດືອນທີ່ແຕກຕ່າງກັນໃນແຕ່ລະເດືອນ.',
+    alert1Title: 'ກະລຸນາສັງເກດ',
+    alert1Text:
+      'ເລືອດອອກຫຼາຍຜິດປົກກະຕິ ເລືອດອອກຖີ່ຫຼາຍ ຫຼື ເລືອດອອກຫຼັງຈາກບໍ່ມີປະຈຳເດືອນມາແລ້ວຫນຶ່ງປີ ຄວນປຶກສາແພດ ເພາະບໍ່ຖືວ່າເປັນສັນຍານປົກກະຕິຂອງການປ່ຽນຜ່ານໄລຍະນີ້.',
+    h3: '3. ການນອນ ແລະ ອາລົມ',
+    body3a:
+      'ການຫຼຸດລົງ ແລະ ການຂຶ້ນລົງຂອງເອສໂຕຣເຈັນ ແລະ ໂປຣເຈສເຕໂຣນ ສາມາດລົບກວນການນອນ (ນອນຫຼັບຍາກ ຕື່ນກາງຄືນ) ແລະ ອາດມາພ້ອມກັບອາການຫງຸດຫງິດ ຄວາມກັງວົນ ຫຼື ອາລົມປ່ຽນແປງຜິດປົກກະຕິ.',
+    body3b:
+      'ການປ່ຽນແປງເຫຼົ່ານີ້ມີຄຳອະທິບາຍທາງຊີວະວິທະຍາຈິງ: ມັນບໍ່ແມ່ນການຂາດຄວາມຕັ້ງໃຈ ແລະ ບໍ່ແມ່ນບັນຫາທາງຈິດໃຈທີ່ເກີດຂຶ້ນໂດດດ່ຽວ.',
+    h4: '4. ຄວາມສະໜິດສະໜົມ ແລະ ຄວາມແຫ້ງຂອງຊ່ອງຄອດ',
+    body4:
+      'ການຫຼຸດລົງຂອງເອສໂຕຣເຈັນສາມາດເຮັດໃຫ້ຊ່ອງຄອດແຫ້ງ ບາງຄັ້ງເຮັດໃຫ້ຮູ້ສຶກບໍ່ສະບາຍ ຫຼື ເຈັບໃນຂະນະມີເພດສຳພັນ. ຄວາມຕ້ອງການກໍອາດປ່ຽນແປງໄດ້ ທັງເພີ່ມຂຶ້ນ ຫຼື ຫຼຸດລົງ ຂຶ້ນກັບແຕ່ລະຄົນ.',
+    tip2Title: 'ຄວນຮູ້',
+    tip2Text:
+      'ມີວິທີແກ້ໄຂງ່າຍໆ (ເຈວລໍ້ລື່ນ ຄີມເພີ່ມຄວາມຊຸ່ມຊື່ນຊ່ອງຄອດ ການຮັກສາເຉພາະທີ່): ການລົມກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບສາມາດຊ່ວຍໃຫ້ທ່ານພົບວິທີທີ່ເໝາະສົມ ໂດຍບໍ່ຕ້ອງອາຍ.',
+    h5: '5. ນ້ຳໜັກ ແລະ ການເຜົາຜານພະລັງງານ',
+    body5:
+      'ການເຜົາຜານພະລັງງານອາດຊ້າລົງເລັກນ້ອຍໃນໄລຍະນີ້ ແລະ ການກະຈາຍຂອງໄຂມັນມັກຍ້າຍໄປສະສົມທີ່ໜ້າທ້ອງ. ການປ່ຽນແປງເຫຼົ່ານີ້ພົບໄດ້ທົ່ວໄປ ແລະ ບໍ່ໄດ້ຂຶ້ນກັບຄວາມຕັ້ງໃຈພຽງຢ່າງດຽວ.',
+    h6: '6. ຄວາມເຂົ້າໃຈຜິດທີ່ພົບເລື້ອຍກ່ຽວກັບການໝົດປະຈຳເດືອນ',
+    myths: [
+      'ການໝົດປະຈຳເດືອນ "ເກີດຂຶ້ນໃນຄັ້ງດຽວ" — ຕົວຈິງແລ້ວມີໄລຍະປ່ຽນຜ່ານຫຼາຍປີມາກ່ອນ (ໄລຍະກ່ອນໝົດປະຈຳເດືອນ)',
+      'ທຸກຄົນມີອາການຮຸນແຮງໝົດ — ຄວາມຮຸນແຮງແຕກຕ່າງກັນຫຼາຍໃນແຕ່ລະຄົນ',
+      'ບໍ່ມີຫຍັງເຮັດໄດ້ເລີຍ — ມີວິທີແກ້ໄຂຫຼາຍຢ່າງ ທັງແບບໃຊ້ຮໍໂມນ ແລະ ບໍ່ໃຊ້ຮໍໂມນ ເພື່ອບັນເທົາອາການທີ່ລົບກວນ',
+      'ຊີວິດຄູ່ຈົບລົງ — ມັນປ່ຽນແປງ ແຕ່ຍັງເປັນໄປໄດ້ຢ່າງສົມບູນ ແລະ ມີຄວາມສຸກ ຖ້າປັບຕົວຢ່າງເໝາະສົມ',
+    ],
+    h7: '7. ອາການປົກກະຕິ ແລະ ສັນຍານທີ່ຄວນສັງເກດ',
+    body7:
+      'ການປ່ຽນແປງສ່ວນໃຫຍ່ທີ່ອະທິບາຍໄວ້ນີ້ແມ່ນອາການປົກກະຕິຂອງການປ່ຽນຜ່ານໄລຍະນີ້. ແນວໃດກໍຕາມ ສັນຍານບາງຢ່າງຄວນພົບແພດໂດຍໄວ.',
+    alert2Title: 'ພົບແພດຖ້າມີ',
+    alert2Text:
+      'ເລືອດອອກຫຼັງຈາກຢືນຢັນການໝົດປະຈຳເດືອນແລ້ວ ເຈັບທ້ອງນ້ອຍຜິດປົກກະຕິ ອາການທີ່ລົບກວນຊີວິດປະຈຳວັນຢ່າງຫຼວງຫຼາຍ ຫຼື ຄວາມສົງໄສທີ່ຍັງຕິດຄ້າງ.',
+    h8: '8. ເຄັດລັບປະຕິບັດໄດ້ໃນຊີວິດປະຈຳວັນ',
+    dailyHabits: [
+      'ອາຫານທີ່ອຸດົມດ້ວຍແຄວຊຽມ ແລະ ໃຍອາຫານ',
+      'ອອກກຳລັງກາຍເປັນປະຈຳ',
+      'ກິດຈະວັດການນອນທີ່ສະໝ່ຳສະເໝີ',
+      'ຊ່ວງເວລາຜ່ອນຄາຍທຸກວັນ',
+    ],
+    h9: '9. ຈຸດສຳຄັນ',
+    tip3Title: 'ຄວນຮູ້',
+    tip3Text:
+      'ໄລຍະກ່ອນໝົດປະຈຳເດືອນ ແລະ ໝົດປະຈຳເດືອນເປັນຂັ້ນຕອນຕາມທຳມະຊາດ ບໍ່ແມ່ນພະຍາດ. ມີວິທີແກ້ໄຂຫຼາຍຢ່າງທີ່ຊ່ວຍໃຫ້ທ່ານຜ່ານໄລຍະນີ້ໄດ້ສະບາຍຂຶ້ນ: ຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບຍັງເປັນແຫຼ່ງຂໍ້ມູນທີ່ດີທີ່ສຸດໃນການປັບໃຫ້ເໝາະກັບສະຖານະການຂອງທ່ານ.',
+    shareMessage: 'ເຂົ້າໃຈການປ່ຽນຜ່ານສູ່ໄລຍະໝົດປະຈຳເດືອນ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

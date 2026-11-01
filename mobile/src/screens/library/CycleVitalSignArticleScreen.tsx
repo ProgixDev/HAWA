@@ -3234,6 +3234,1583 @@ const CONTENT = withBrazilianPortuguese('CycleVitalSign', {
       'Aýbaşy sikliňiz saglygyňyzyň köp görkezijileriniň biri. Ony yzygiderli yzarlamak bedeniňizi has gowy düşünmäge we wagtyň geçmegi bilen aýratyn üns talap edýän üýtgeşmeleri görmäge kömek edip biler.',
     shareMessage: 'Sikliňiz, saglygyň beýik görkezijisi — AWA',
   },
+  ms: {
+    badge: 'KITARAN & HAID',
+    title: 'Kitaran anda, penunjuk\nkesihatan yang sangat baik',
+    metaDuration: '7 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro: 'Mengapa kitaran kadangkala dipanggil “tanda vital kelima.”',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kitaran anda: cerminan tubuh anda',
+      'Apakah kitaran yang “normal”?',
+      'Perubahan yang perlu diperhatikan',
+      'Apa yang mungkin didedahkan oleh perubahan ini?',
+      'Menjejaki kitaran anda untuk mengenali diri dengan lebih baik',
+      'Bila untuk mendapatkan nasihat?',
+      'Elok diketahui',
+    ],
+    observeLabels: [
+      'Tempoh kitaran',
+      'Tempoh haid',
+      'Aliran haid',
+      'Sakit',
+      'Lelehan faraj',
+      'Emosi',
+      'Tenaga / keletihan',
+      'Simptom berulang yang lain',
+    ],
+    factorLabels: [
+      'Tekanan',
+      'Kurang tidur',
+      'Perubahan berat badan yang ketara',
+      'Aktiviti fizikal yang sangat intensif',
+      'Perubahan hormon',
+      'Kontraseptif',
+      'Keadaan perubatan tertentu',
+    ],
+    s1Body1:
+      'Kitaran haid dipengaruhi oleh aktiviti hormon tubuh sepanjang bulan. Belajar memerhatikannya boleh membantu anda memahami bagaimana tubuh anda berfungsi, tanpa perlu menganalisis segala-galanya secara terperinci.',
+    s1Body2: 'Berikut perkara paling berguna untuk diperhatikan:',
+    s2Body1:
+      'Tiada satu kitaran yang sempurna: setiap tubuh mempunyai rentaknya sendiri, dan rentak itu juga boleh berubah sedikit dari bulan ke bulan. Kitaran biasanya dianggap teratur apabila ia berlangsung antara 21 dan 35 hari, dan haid paling kerap berlangsung 3 hingga 7 hari.',
+    s2Body2:
+      'Angka ini ialah purata: sedikit perubahan kekal sangat normal, terutamanya selepas akil baligh, selepas bersalin atau apabila menopaus menghampiri.',
+    s3Body1:
+      'Sesetengah perubahan patut diperhatikan dengan lebih teliti, seperti:',
+    changesToWatch: [
+      'Perubahan ketara pada keteraturan kitaran',
+      'Haid yang jelas lebih banyak daripada biasa',
+      'Sakit yang luar biasa kuat atau berterusan',
+      'Ketiadaan haid yang berpanjangan',
+      'Pendarahan di antara haid',
+      'Perubahan ketara yang berulang sepanjang beberapa kitaran',
+    ],
+    s3Body2:
+      'Satu kitaran luar biasa yang terpencil tidak semestinya bermakna masalah kesihatan: tubuh boleh bertindak balas secara sementara terhadap pelbagai faktor.',
+    s4Body1:
+      'Perubahan ini kadangkala boleh dikaitkan dengan beberapa faktor, tanpa semestinya menjadi masalah:',
+    s4Body2:
+      'Ini hanyalah sebahagian penjelasan yang mungkin antara yang lain: ia tidak pernah menggantikan nasihat pengamal penjagaan kesihatan.',
+    s5VisualTitle: 'Memerhati rentak anda sendiri',
+    s5VisualText:
+      'Mencatat tarikh, aliran atau perasaan anda membantu anda mengenali tabiat anda, bulan demi bulan.',
+    s5Body:
+      'Hari pertama haid anda, tempohnya, aliran, sakit, emosi, tenaga atau lelehan faraj semuanya perkara yang boleh anda catat dari semasa ke semasa. Tujuannya bukan untuk membandingkan kitaran anda dengan orang lain, tetapi untuk lebih mengenali apa yang lazim bagi anda, dan apa yang berbeza daripadanya.',
+    s6Body1:
+      'Adalah sangat normal untuk mempunyai soalan tentang kitaran anda. Mendapatkan nasihat perubatan boleh membantu dalam keadaan tertentu, contohnya:',
+    whenToAsk: [
+      'Perubahan ketara yang berterusan sepanjang beberapa kitaran',
+      'Sakit yang menghalang anda daripada aktiviti biasa',
+      'Haid yang sangat banyak',
+      'Ketiadaan haid yang berpanjangan',
+      'Pendarahan yang luar biasa',
+      'Sebarang simptom berterusan yang membimbangkan anda',
+    ],
+    s6Body2:
+      'Berbincang dengan pengamal penjagaan kesihatan boleh membantu menenangkan fikiran anda atau, jika perlu, memperoleh sokongan yang sesuai — ia tidak pernah menjadi sebab untuk bimbang dengan sendirinya.',
+    tipText:
+      'Kitaran tidak perlu sempurna teratur untuk menjadi normal. Mengetahui rentak biasa anda sendiri selalunya lebih berguna daripada mencari tempoh yang ideal.',
+    finalBody:
+      'Kitaran haid anda ialah salah satu daripada banyak penunjuk kesihatan anda. Menjejakinya secara tetap boleh membantu anda memahami tubuh anda dengan lebih baik dan, dari semasa ke semasa, menyedari perubahan yang wajar diberi perhatian khusus.',
+    shareMessage: 'Kitaran anda, penunjuk kesihatan yang sangat baik — AWA',
+  },
+  so: {
+    badge: 'WAREEG & CAADO',
+    title: 'Wareeggaaga, tilmaame\ncaafimaad oo aad u fiican',
+    metaDuration: '7 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro: 'Sababta wareegga mararka qaar loogu yeero “calaamadda nolosha ee shanaad.”',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Wareeggaaga: muuqaal jidhkaaga ah',
+      'Waa maxay wareeg “caadi” ah?',
+      'Isbeddelada la eego',
+      'Maxay isbeddeladani muujin karaan?',
+      'La socodka wareeggaaga si aad naftaada u barato',
+      'Goorma talo la raadsado?',
+      'Waxtar leh in la ogaado',
+    ],
+    observeLabels: [
+      'Dhererka wareegga',
+      'Dhererka caadada',
+      'Socodka caadada',
+      'Xanuun',
+      'Dheecaanka xiniinyaha',
+      'Niyad',
+      'Tamar / daal',
+      'Astaamo kale oo soo noqnoqda',
+    ],
+    factorLabels: [
+      'Walaac',
+      'Hurdo la’aan',
+      'Isbeddelo miisaan oo weyn',
+      'Firfircooni jidheed oo aad u xoog badan',
+      'Isbeddelada hormoonka',
+      'Ka hortagga uurka',
+      'Xaalado caafimaad oo qaar',
+    ],
+    s1Body1:
+      'Wareegga caadada waxaa saameeya howlaha hormoonka ee jidhka bisha oo dhan. Barashada indho-indheyntiisu waxay kaa caawin kartaa inaad si wanaagsan u fahanto sida jidhkaagu u shaqeeyo, adigoon u baahnayn inaad wax walba si faahfaahsan u falanqayso.',
+    s1Body2: 'Waa kuwan waxyaabaha ugu faa’iidada badan ee la ogaado:',
+    s2Body1:
+      'Wareeg qumman oo keliya ma jiro: jidh kastaa wuxuu leeyahay xawaarihiisa, xawaarahaasna wuxuu sidoo kale xoogaa u kala duwanaan karaa bil ilaa bil. Wareegga guud ahaan waxaa loo tixgeliyaa mid joogto ah marka uu socdo u dhexeeya 21 iyo 35 maalmood, caadooyinkuna inta badan waxay socdaan 3 ilaa 7 maalmood.',
+    s2Body2:
+      'Tirooyinkani waa celceliso: kala duwanaansho yar wali waa caadi buuxda, gaar ahaan qaangaarka ka dib, dhalmada ka dib, ama marka menopause soo dhowaado.',
+    s3Body1:
+      'Isbeddelo qaar ayaa mudan in si ka dhow loo eego, sida:',
+    changesToWatch: [
+      'Isbeddel muuqda oo ku yimaada joogtaynta wareegga',
+      'Caadooyin si cad uga culus sidii caadiga ahayd',
+      'Xanuun aan caadi ahayn oo xoog badan ama sii socda',
+      'Caado la’aan muddo dheer ah',
+      'Dhiigbax u dhexeeya caadooyinka',
+      'Isbeddel weyn oo ku soo noqnoqda dhowr wareeg',
+    ],
+    s3Body2:
+      'Hal wareeg aan caadi ahayn oo go’doomiyey ma muujiyo si toos ah dhibaato caafimaad: jidhku wuxuu ku falcelin karaa ku meel gaar arrimo kala duwan oo badan.',
+    s4Body1:
+      'Isbeddeladan mararka qaar waxay la xiriiri karaan dhowr arrimood, iyadoo aanay lagama maarmaan ahayn inay dhibaato yihiin:',
+    s4Body2:
+      'Kuwani waa sharraxaado suurtagal ah oo qaar ah oo ka mid ah kuwa kale: marnaba ma beddelaan talada xirfadle caafimaad.',
+    s5VisualTitle: 'Indho-indheynta xawaarahaaga',
+    s5VisualText:
+      'Xusidda taariikhahaaga, socodka, ama sida aad dareemayso waxay kaa caawisaa inaad barato caadooyinkaaga, bil kasta.',
+    s5Body:
+      'Maalinta koowaad ee caadadaada, dhererkeeda, socodka, xanuunka, niyadda, tamarta, ama dheecaanka xiniinyaha dhammaantood waa waxyaabo aad waqti ka dib xusi karto. Ujeedadu maaha inaad barbar dhigto wareeggaaga kan qof kale, balse inaad si wanaagsan u aqoonsato waxa kuu caadi ah, iyo waxa ka duwan.',
+    s6Body1:
+      'Waa caadi buuxda inaad leedahay su’aalo ku saabsan wareeggaaga. Raadinta talo caafimaad waxay faa’iido yeelan kartaa xaalado qaar, tusaale ahaan:',
+    whenToAsk: [
+      'Isbeddelo weyn oo sii socda dhowr wareeg',
+      'Xanuun ku joojiya hawlahaaga caadiga ah',
+      'Caadooyin aad u culus',
+      'Caado la’aan muddo dheer ah',
+      'Dhiigbax aan caadi ahayn',
+      'Astaan kasta oo sii socota oo ku walaaciya',
+    ],
+    s6Body2:
+      'La hadalka xirfadle caafimaad wuxuu kaa caawin karaa inuu maskaxdaada dejiyo ama, haddii loo baahdo, inuu kuu helo taageerada saxda ah — iskiis uma aha sabab walaac.',
+    tipText:
+      'Wareegga looma baahna inuu si qumman joogto u ahaado si uu caadi u noqdo. Ogaanshaha xawaarahaaga caadiga ah inta badan way ka faa’iido badan tahay raadinta dherer ku habboon.',
+    finalBody:
+      'Wareegga caadadaadu waa mid ka mid ah tilmaamayaal badan oo caafimaadkaaga. La socodkiisa joogtada ahi wuxuu kaa caawin karaa inaad si wanaagsan u fahanto jidhkaaga oo, waqti ka dib, aad ogaato isbeddelo mudan feejignaan gaar ah.',
+    shareMessage: 'Wareeggaaga, tilmaame caafimaad oo aad u fiican — AWA',
+  },
+  sw: {
+    badge: 'MZUNGUKO NA HEDHI',
+    title: 'Mzunguko wako, kiashiria\nbora cha afya',
+    metaDuration: 'Dakika 7 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro: 'Kwa nini mzunguko wakati mwingine huitwa “dalili ya tano ya uhai.”',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Mzunguko wako: kioo cha mwili wako',
+      'Mzunguko “wa kawaida” ni upi?',
+      'Mabadiliko ya kuzingatia',
+      'Mabadiliko haya yanaweza kufichua nini?',
+      'Kufuatilia mzunguko wako ili kujijua vizuri zaidi',
+      'Wakati wa kutafuta ushauri?',
+      'Vyema kujua',
+    ],
+    observeLabels: [
+      'Urefu wa mzunguko',
+      'Urefu wa hedhi',
+      'Mtiririko wa hedhi',
+      'Maumivu',
+      'Ute ukeni',
+      'Hali ya moyo',
+      'Nguvu / uchovu',
+      'Dalili nyingine zinazojirudia',
+    ],
+    factorLabels: [
+      'Msongo wa mawazo',
+      'Ukosefu wa usingizi',
+      'Mabadiliko makubwa ya uzito',
+      'Shughuli kali sana za mwili',
+      'Mabadiliko ya homoni',
+      'Uzazi wa mpango',
+      'Hali fulani za kitabibu',
+    ],
+    s1Body1:
+      'Mzunguko wa hedhi huathiriwa na shughuli za homoni za mwili katika mwezi mzima. Kujifunza kuuchunguza kunaweza kukusaidia kuelewa vizuri zaidi jinsi mwili wako unavyofanya kazi, bila kuhitaji kuchanganua kila kitu kwa kina.',
+    s1Body2: 'Haya ndiyo mambo yenye manufaa zaidi ya kuzingatia:',
+    s2Body1:
+      'Hakuna mzunguko mmoja kamili: kila mwili una mdundo wake, na mdundo huo unaweza pia kutofautiana kidogo kutoka mwezi hadi mwezi. Mzunguko kwa kawaida huchukuliwa kuwa wa mpangilio unapodumu kati ya siku 21 na 35, na hedhi mara nyingi hudumu siku 3 hadi 7.',
+    s2Body2:
+      'Takwimu hizi ni wastani: tofauti ndogo bado ni za kawaida kabisa, hasa baada ya balehe, baada ya kujifungua, au kadiri kukoma hedhi kunavyokaribia.',
+    s3Body1:
+      'Baadhi ya mabadiliko yanastahili kuangaliwa kwa karibu zaidi, kama vile:',
+    changesToWatch: [
+      'Mabadiliko makubwa katika mpangilio wa mzunguko',
+      'Hedhi nzito zaidi kuliko kawaida kwa kiasi kinachoonekana',
+      'Maumivu makali au ya kuendelea isivyo kawaida',
+      'Kutokuwa na hedhi kwa muda mrefu',
+      'Kutokwa damu kati ya hedhi',
+      'Mabadiliko makubwa yanayojirudia katika mizunguko kadhaa',
+    ],
+    s3Body2:
+      'Mzunguko mmoja usio wa kawaida peke yake haimaanishi moja kwa moja tatizo la kiafya: mwili unaweza kuitikia kwa muda mambo mengi tofauti.',
+    s4Body1:
+      'Mabadiliko haya wakati mwingine yanaweza kuhusishwa na mambo kadhaa, bila lazima kuwa tatizo:',
+    s4Body2:
+      'Hizi ni baadhi tu ya maelezo yanayowezekana miongoni mwa mengine: hazichukui kamwe nafasi ya ushauri wa mtaalamu wa afya.',
+    s5VisualTitle: 'Kuchunguza mdundo wako mwenyewe',
+    s5VisualText:
+      'Kuandika tarehe zako, mtiririko, au jinsi unavyojisikia kunakusaidia kujua tabia zako, mwezi baada ya mwezi.',
+    s5Body:
+      'Siku ya kwanza ya hedhi yako, urefu wake, mtiririko, maumivu, hali ya moyo, nguvu, au ute ukeni vyote ni vitu unavyoweza kuandika kadiri muda unavyopita. Lengo si kulinganisha mzunguko wako na wa mtu mwingine, bali kutambua vizuri zaidi kilicho cha kawaida kwako, na kinachotofautiana nacho.',
+    s6Body1:
+      'Ni kawaida kabisa kuwa na maswali kuhusu mzunguko wako. Kutafuta ushauri wa kitabibu kunaweza kusaidia katika hali fulani, kwa mfano:',
+    whenToAsk: [
+      'Mabadiliko makubwa yanayoendelea katika mizunguko kadhaa',
+      'Maumivu yanayokuzuia kufanya shughuli zako za kawaida',
+      'Hedhi nzito sana',
+      'Kutokuwa na hedhi kwa muda mrefu',
+      'Kutokwa damu kusiko kwa kawaida',
+      'Dalili yoyote ya kuendelea inayokutia wasiwasi',
+    ],
+    s6Body2:
+      'Kuzungumza na mtaalamu wa afya kunaweza kukutuliza akili au, ikiwa inahitajika, kukupatia msaada unaofaa — kamwe si sababu ya wasiwasi kwa yenyewe.',
+    tipText:
+      'Mzunguko hauhitaji kuwa wa mpangilio kikamilifu ili uwe wa kawaida. Kujua mdundo wako wa kawaida mwenyewe mara nyingi kunafaa zaidi kuliko kutafuta urefu bora.',
+    finalBody:
+      'Mzunguko wako wa hedhi ni mmoja wa viashiria vingi vya afya yako. Kuufuatilia mara kwa mara kunaweza kukusaidia kuelewa vizuri zaidi mwili wako na, kadiri muda unavyopita, kutambua mabadiliko yanayostahili uangalizi maalum.',
+    shareMessage: 'Mzunguko wako, kiashiria bora cha afya — AWA',
+  },
+  kk: {
+    badge: 'ЦИКЛ ЖӘНЕ ЕТЕККІР',
+    title: 'Циклыңыз — денсаулықтың тамаша\nкөрсеткіші',
+    metaDuration: '7 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro: 'Циклды неге кейде “бесінші өмірлік белгі” деп атайды.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Циклыңыз: денеңіздің айнасы',
+      '“Қалыпты” цикл дегеніміз не?',
+      'Назар аударатын өзгерістер',
+      'Бұл өзгерістер нені аша алады?',
+      'Өзіңізді жақсырақ білу үшін циклыңызды бақылау',
+      'Кеңесті қашан сұрау керек?',
+      'Білуге тиісті',
+    ],
+    observeLabels: [
+      'Цикл ұзақтығы',
+      'Етеккір ұзақтығы',
+      'Етеккір көлемі',
+      'Ауыру',
+      'Қынаптан бөліністер',
+      'Көңіл-күй',
+      'Қуат / шаршау',
+      'Басқа қайталанатын белгілер',
+    ],
+    factorLabels: [
+      'Күйзеліс',
+      'Ұйқының жетіспеуі',
+      'Салмақтың айтарлықтай өзгеруі',
+      'Өте қарқынды дене белсенділігі',
+      'Гормондық өзгерістер',
+      'Контрацепция',
+      'Кейбір медициналық жағдайлар',
+    ],
+    s1Body1:
+      'Етеккір циклі ай бойы дененің гормондық белсенділігінің әсеріне ұшырайды. Оны бақылауды үйрену бәрін егжей-тегжейлі талдаудың қажеті жоқ, денеңіздің қалай жұмыс істейтінін жақсырақ түсінуге көмектесуі мүмкін.',
+    s1Body2: 'Міне, байқауға ең пайдалы нәрселер:',
+    s2Body1:
+      'Бір ғана мінсіз цикл жоқ: әр дененің өз ырғағы бар, ал ол ырғақ айдан айға аздап өзгеруі де мүмкін. Цикл 21-ден 35 күнге дейін созылса тұрақты деп есептеледі, ал етеккір көбіне 3-тен 7 күнге дейін созылады.',
+    s2Body2:
+      'Бұл сандар — орташа мәндер: шамалы ауытқулар, әсіресе жыныстық жетілуден кейін, босанғаннан кейін немесе менопауза жақындаған кезде, мүлдем қалыпты болып қалады.',
+    s3Body1:
+      'Кейбір өзгерістерді мұқият бақылаған жөн, мысалы:',
+    changesToWatch: [
+      'Цикл тұрақтылығының айқын өзгеруі',
+      'Әдеттегіден айтарлықтай мол етеккір',
+      'Әдеттен тыс күшті немесе тұрақты ауыру',
+      'Етеккірдің ұзақ болмауы',
+      'Етеккір арасындағы қан кету',
+      'Бірнеше циклде қайталанатын айтарлықтай өзгеріс',
+    ],
+    s3Body2:
+      'Бір ғана оқшау әдеттен тыс цикл автоматты түрде денсаулық мәселесін білдірмейді: дене көптеген әртүрлі факторларға уақытша жауап бере алады.',
+    s4Body1:
+      'Бұл өзгерістер кейде бірнеше факторлармен байланысты болуы мүмкін, бұл міндетті түрде мәселе дегенді білдірмейді:',
+    s4Body2:
+      'Бұл тек басқалармен қатар мүмкін түсініктемелердің кейбірі: олар медицина маманының кеңесінің орнын ешқашан баспайды.',
+    s5VisualTitle: 'Өз ырғағыңызды бақылау',
+    s5VisualText:
+      'Күндеріңізді, көлемін немесе қалай сезінгеніңізді жазу ай сайын әдеттеріңізді білуге көмектеседі.',
+    s5Body:
+      'Етеккіріңіздің бірінші күнін, оның ұзақтығын, көлемін, ауыруын, көңіл-күйін, қуатын немесе қынаптан бөліністерді уақыт өте жазып отыруға болады. Мақсат — циклыңызды басқа біреудікімен салыстыру емес, өзіңіз үшін не әдеттегі екенін және одан не ерекшеленетінін жақсырақ тану.',
+    s6Body1:
+      'Циклыңыз туралы сұрақтарыңыз болуы мүлдем қалыпты. Медициналық кеңес іздеу кейбір жағдайларда пайдалы болуы мүмкін, мысалы:',
+    whenToAsk: [
+      'Бірнеше цикл бойы жалғасатын айтарлықтай өзгерістер',
+      'Әдеттегі әрекеттеріңізге кедергі келтіретін ауыру',
+      'Өте мол етеккір',
+      'Етеккірдің ұзақ болмауы',
+      'Әдеттен тыс қан кету',
+      'Сізді алаңдататын кез келген тұрақты белгі',
+    ],
+    s6Body2:
+      'Медицина маманымен сөйлесу көңіліңізді тыныштандыруға немесе қажет болса, тиісті қолдау алуға көмектесе алады — бұл өзі алаңдауға ешқашан себеп емес.',
+    tipText:
+      'Цикл қалыпты болу үшін мінсіз тұрақты болуы міндетті емес. Өзіңіздің әдеттегі ырғағыңызды білу көбіне мінсіз ұзақтықты іздеуден пайдалырақ.',
+    finalBody:
+      'Етеккір циклыңыз — денсаулығыңыздың көптеген көрсеткіштерінің бірі. Оны тұрақты бақылау денеңізді жақсырақ түсінуге және уақыт өте ерекше назар аударуға тұрарлық өзгерістерді байқауға көмектесуі мүмкін.',
+    shareMessage: 'Циклыңыз — денсаулықтың тамаша көрсеткіші — AWA',
+  },
+  wo: {
+    badge: 'WËRSËG AK RÈGLE',
+    title: 'Sa wërsëg, benn ndigal\nbu baax ci sa wér',
+    metaDuration: '7 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro: 'Lu tax ñuy wooye wërsëg “màndargay dund bu juróom”.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Sa wërsëg: nataalu sa yaram',
+      'Lan mooy wërsëg “yoon”?',
+      'Soppi yu war a teg',
+      'Lan la soppi yii mën a wone?',
+      'Topp sa wërsëg ngir xam sa bopp',
+      'Kañ ngay seet ndigal?',
+      'Lu baax a xam',
+    ],
+    observeLabels: [
+      'Diiru wërsëg',
+      'Diiru règle',
+      'Deret bu règle',
+      'Metit',
+      'Ndox mu ndey',
+      'Xol',
+      'Doole / sonn',
+      'Yeneen màndarga yu dellusi',
+    ],
+    factorLabels: [
+      'Coono',
+      'Ñàkk nelaw',
+      'Soppi yu yenn yu bari',
+      'Jëfu yaram bu metti lool',
+      'Soppi yu hormon',
+      'Ŋàbbal ëmb',
+      'Yenn feebar',
+    ],
+    s1Body1:
+      'Wërsëgu weer dafay soppiku ci kaw jëfu hormon yu yaram ci weer wi gépp. Njàng ngir seetlu ko mën na dimbli nga gën a xam naka sa yaram di dem, te soxlawul seet lépp ci xóot.',
+    s1Body2: 'Lii mooy li gëna am njariñ a gis:',
+    s2Body1:
+      'Amul benn wërsëg bu mat: yaram bu nekk am na ritmam, te ritm woowu mën na soppiku tuuti ci weer ak weer. Wërsëg dañuy ko jàppe ni bu jub bu mu am diir diggante 21 ak 35 fan, te règle yi daa yàgg 3 ba 7 fan.',
+    s2Body2:
+      'Lim yii digg-dóomu lañu: soppi yu ndaw des nañu yoon, lool ginnaaw balaa nga mag, ginnaaw jur walla bu menopoos di jege.',
+    s3Body1:
+      'Yenn soppi war nañu ñu teg tuuti gën a bari, ni:',
+    changesToWatch: [
+      'Soppi bu feeñ ci jubluñ wërsëg',
+      'Règle yu gëna bari lu cosaan',
+      'Metit bu metti walla bu yàgg lu cosaan',
+      'Amul règle ci diir bu yàgg',
+      'Deret diggante ñaari règle',
+      'Benn soppi bu am solo bu dellusi ci ay wërsëg',
+    ],
+    s3Body2:
+      'Benn wërsëg bu wuute cosaan, bu tooñ ci boppam, du wone ne am na jafe-jafe ci wér: yaram mën na jàppale ci diir bu gàtt ci ay mbir yu bari.',
+    s4Body1:
+      'Soppi yii mën nañu bokk ak ay mbir yu bari, te du dafay jafe-jafe:',
+    s4Body2:
+      'Yii ay leeral yu mën a am la ci digg yeneen: duñu wuutu ndigalu liggéeykatu wér.',
+    s5VisualTitle: 'Seetlu sa ritm',
+    s5VisualText:
+      'Bind sa bés yi, sa deret walla naka nga déggoo dafay dimbli nga xam sa yoon, weer ak weer.',
+    s5Body:
+      'Bu njëkk fanu sa règle, diirem, deret bi, metit, xol, doole walla ndox mu ndey, yépp ay lu nga mën a bind ci jamono. Li ñu bëgg du méngale sa wërsëg ak bu keneen, waaye gën a xam li cosaan ngir yaw, ak li ko wuute.',
+    s6Body1:
+      'Daa jub am laaj ci sa wërsëg. Seet ndigal bu doktoor mën na dimbli ci yenn mbir, misaal:',
+    whenToAsk: [
+      'Soppi yu am solo yu sax ci ay wërsëg',
+      'Metit bu tee la nga def sa jëf yu cosaan',
+      'Règle yu bari lool',
+      'Amul règle ci diir bu yàgg',
+      'Deret bu cosaanul',
+      'Benn màndarga bu sax bu tiital la',
+    ],
+    s6Body2:
+      'Wax ak benn liggéeykatu wér mën na dalal sa xel walla, bu soxla am, joxe la dimbali bu jub — du lu war a tiital ci boppam.',
+    tipText:
+      'Wërsëg du war a jub lu mat ngir nekk bu yoon. Xam sa ritm bu cosaan ngir yaw mu gën a am njariñ ci wër diir bu gëna baax.',
+    finalBody:
+      'Sa wërsëgu weer benn ci màndarga yu bari yu sa wér. Topp ko bu sax mën na dimbli nga gën a xam sa yaram te, ci jamono, gis soppi yu war a teg.',
+    shareMessage: 'Sa wërsëg, benn ndigal bu baax ci sa wér — AWA',
+  },
+  ha: {
+    badge: 'ZAGAYE & HAILA',
+    title: 'Zagayenki, kyakkyawan\nalamar lafiya',
+    metaDuration: 'karatun minti 7',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro: 'Dalilin da ya sa wani lokaci ake kiran zagaye “alamar rayuwa ta biyar.”',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Zagayenki: madubin jikinki',
+      'Menene zagaye “na al’ada”?',
+      'Sauye-sauyen da za a lura da su',
+      'Me waɗannan sauye-sauye za su iya bayyanawa?',
+      'Bin diddigin zagayenki don sanin kanki da kyau',
+      'Yaushe za a nemi shawara?',
+      'Abin da ya dace a sani',
+    ],
+    observeLabels: [
+      'Tsawon zagaye',
+      'Tsawon haila',
+      'Yawan zubar jinin haila',
+      'Ciwo',
+      'Ruwan al’aura',
+      'Yanayi',
+      'Kuzari / gajiya',
+      'Wasu alamomi masu maimaituwa',
+    ],
+    factorLabels: [
+      'Damuwa',
+      'Rashin barci',
+      'Sauyin nauyi mai yawa',
+      'Motsa jiki mai tsanani sosai',
+      'Sauye-sauyen hormone',
+      'Hana haihuwa',
+      'Wasu yanayin lafiya',
+    ],
+    s1Body1:
+      'Zagayen haila yana shafar aikin hormone na jiki a duk wata. Koyon lura da shi na iya taimaka miki ki fi fahimtar yadda jikinki ke aiki, ba tare da bukatar nazarin komai dalla-dalla ba.',
+    s1Body2: 'Ga abubuwan da suka fi amfani a lura da su:',
+    s2Body1:
+      'Babu cikakken zagaye ɗaya: kowane jiki yana da nasa tsari, kuma wannan tsari na iya bambanta kaɗan daga wata zuwa wata. Yawanci ana ɗaukar zagaye a matsayin na yau da kullum idan yana tsakanin kwana 21 zuwa 35, kuma haila galibi tana ɗaukar kwana 3 zuwa 7.',
+    s2Body2:
+      'Waɗannan lambobi matsakaita ne: ƙananan bambance-bambance suna nan na al’ada gaba ɗaya, musamman bayan balaga, bayan haihuwa, ko lokacin da daina haila ke gabatowa.',
+    s3Body1:
+      'Wasu sauye-sauye sun cancanci a kula da su da kyau, kamar:',
+    changesToWatch: [
+      'Sauyi bayyananne a tsarin zagaye',
+      'Haila mai yawa fiye da yadda aka saba',
+      'Ciwo mai ƙarfi ko mai dawwama ba al’ada ba',
+      'Rashin haila na tsawon lokaci',
+      'Zubar jini tsakanin haila',
+      'Sauyi mai muhimmanci da ke maimaituwa a zagaye da dama',
+    ],
+    s3Body2:
+      'Zagaye ɗaya na daban kaɗai ba lallai ba ne yana nufin matsalar lafiya: jiki na iya amsawa na ɗan lokaci ga abubuwa da dama.',
+    s4Body1:
+      'Wani lokaci waɗannan sauye-sauye na iya alaƙa da dalilai da dama, ba tare da lallai su zama matsala ba:',
+    s4Body2:
+      'Waɗannan wasu bayanai ne kawai da za su yiwu a cikin wasu: ba sa maye gurbin shawarar ma’aikacin lafiya.',
+    s5VisualTitle: 'Lura da tsarinki na kanki',
+    s5VisualText:
+      'Rubuta kwanakinki, yawan jini, ko yadda kike ji yana taimaka miki ki san dabi’unki, wata bayan wata.',
+    s5Body:
+      'Ranar farko ta hailarki, tsawonta, yawan jini, ciwo, yanayi, kuzari, ko ruwan al’aura duk abubuwa ne da za ki iya rubutawa a kan lokaci. Manufar ba ita ce kwatanta zagayenki da na wani ba, sai dai ki fi gane abin da ya saba gare ki da abin da ya bambanta da shi.',
+    s6Body1:
+      'Al’ada ne gaba ɗaya a yi tambayoyi game da zagayenki. Neman shawarar likita na iya zama da amfani a wasu yanayi, misali:',
+    whenToAsk: [
+      'Sauye-sauye masu muhimmanci da ke ci gaba a zagaye da dama',
+      'Ciwo da ke hana ki yin ayyukanki na yau da kullum',
+      'Haila mai yawa sosai',
+      'Rashin haila na tsawon lokaci',
+      'Zubar jini ba na al’ada ba',
+      'Duk wata alama mai dawwama da ke damun ki',
+    ],
+    s6Body2:
+      'Magana da ma’aikacin lafiya na iya kwantar miki da hankali ko, idan ya zama dole, ya ba ki tallafin da ya dace — ba dalilin damuwa ba ne da kansa.',
+    tipText:
+      'Zagaye ba sai ya zama cikakken tsari ba kafin ya zama na al’ada. Sanin tsarinki na al’ada galibi ya fi amfani fiye da neman tsawon da ya dace.',
+    finalBody:
+      'Zagayen hailarki ɗaya ne daga cikin alamomin lafiyarki da dama. Bin diddiginsa akai-akai na iya taimaka miki ki fi fahimtar jikinki kuma, a kan lokaci, ki lura da sauye-sauyen da suka cancanci kulawa ta musamman.',
+    shareMessage: 'Zagayenki, kyakkyawan alamar lafiya — AWA',
+  },
+  am: {
+    badge: 'ዑደት እና የወር አበባ',
+    title: 'ዑደትሽ፣ ድንቅ የጤና\nአመልካች',
+    metaDuration: '7 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro: 'ዑደት ለምን አንዳንድ ጊዜ “አምስተኛው የሕይወት ምልክት” ተብሎ እንደሚጠራ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ዑደትሽ፦ የሰውነትሽ ነጸብራቅ',
+      '“መደበኛ” ዑደት ምንድን ነው?',
+      'ልብ ሊባሉ የሚገቡ ለውጦች',
+      'እነዚህ ለውጦች ምን ሊገልጡ ይችላሉ?',
+      'ራስሽን በተሻለ ለማወቅ ዑደትሽን መከታተል',
+      'ምክር መቼ መጠየቅ?',
+      'ማወቅ ጠቃሚ ነው',
+    ],
+    observeLabels: [
+      'የዑደት ርዝመት',
+      'የወር አበባ ርዝመት',
+      'የወር አበባ ፍሰት',
+      'ህመም',
+      'የማህፀን ፈሳሽ',
+      'ስሜት',
+      'ጉልበት / ድካም',
+      'ሌሎች ተደጋጋሚ ምልክቶች',
+    ],
+    factorLabels: [
+      'ውጥረት',
+      'የእንቅልፍ እጦት',
+      'ከፍተኛ የክብደት ለውጦች',
+      'በጣም ከባድ የአካል እንቅስቃሴ',
+      'የሆርሞን ለውጦች',
+      'የእርግዝና መከላከያ',
+      'አንዳንድ የሕክምና ሁኔታዎች',
+    ],
+    s1Body1:
+      'የወር አበባ ዑደት በወሩ ሁሉ በሰውነት የሆርሞን እንቅስቃሴ ይነካል። እሱን መታዘብ መማር ሁሉን በዝርዝር ሳትተነትኚ ሰውነትሽ እንዴት እንደሚሠራ በተሻለ እንድትረጂ ሊረዳሽ ይችላል።',
+    s1Body2: 'ማስተዋል በጣም ጠቃሚ የሆኑት ነገሮች እነዚህ ናቸው፦',
+    s2Body1:
+      'አንድ ፍጹም ዑደት የለም፦ እያንዳንዱ አካል የራሱ ሪትም አለው፣ ይህ ሪትም ከወር ወደ ወርም በጥቂቱ ሊለያይ ይችላል። ዑደት ከ21 እስከ 35 ቀናት ሲቆይ በአጠቃላይ ወጥ ተብሎ ይቆጠራል፣ የወር አበባም ብዙውን ጊዜ ከ3 እስከ 7 ቀናት ይቆያል።',
+    s2Body2:
+      'እነዚህ አኃዞች አማካዮች ናቸው፦ ትናንሽ ልዩነቶች ሙሉ በሙሉ የተለመዱ ናቸው፣ በተለይ ከጉርምስና፣ ከወሊድ በኋላ፣ ወይም ማረጥ ሲቃረብ።',
+    s3Body1:
+      'አንዳንድ ለውጦች ትንሽ ይበልጥ በቅርበት መከታተል ይገባቸዋል፣ ለምሳሌ፦',
+    changesToWatch: [
+      'በዑደት ወጥነት ላይ የጎላ ለውጥ',
+      'ከወትሮው በግልጽ የሚበልጥ የወር አበባ',
+      'ያልተለመደ ጠንካራ ወይም የሚቀጥል ህመም',
+      'ለረዥም ጊዜ የወር አበባ አለመኖር',
+      'በወር አበባዎች መካከል ደም መፍሰስ',
+      'በበርካታ ዑደቶች የሚደጋገም ከፍተኛ ለውጥ',
+    ],
+    s3Body2:
+      'አንድ የተለየ ያልተለመደ ዑደት የጤና ችግር ማለት አይደለም፦ ሰውነት ለብዙ የተለያዩ ምክንያቶች በጊዜያዊነት ምላሽ ሊሰጥ ይችላል።',
+    s4Body1:
+      'እነዚህ ለውጦች አንዳንድ ጊዜ ከበርካታ ምክንያቶች ጋር ሊያያዙ ይችላሉ፣ የግድ ችግር ሳይሆኑ፦',
+    s4Body2:
+      'እነዚህ ከሌሎች መካከል አንዳንድ ሊኖሩ የሚችሉ ማብራሪያዎች ብቻ ናቸው፦ የጤና ባለሙያን ምክር ፈጽሞ አይተኩም።',
+    s5VisualTitle: 'የራስሽን ሪትም መታዘብ',
+    s5VisualText:
+      'ቀናትሽን፣ ፍሰትሽን ወይም የሚሰማሽን መመዝገብ ልማዶችሽን ወር በወር እንድታውቂ ይረዳሻል።',
+    s5Body:
+      'የወር አበባሽ የመጀመሪያ ቀን፣ ርዝመቱ፣ ፍሰቱ፣ ህመሙ፣ ስሜቱ፣ ጉልበቱ ወይም የማህፀን ፈሳሹ ሁሉም በጊዜ ሂደት መመዝገብ የምትችያቸው ነገሮች ናቸው። ዓላማው ዑደትሽን ከሌላ ሰው ጋር ማነጻጸር ሳይሆን ለአንቺ የተለመደው ምን እንደሆነ፣ እና ከዚያ የሚለየው ምን እንደሆነ በተሻለ መለየት ነው።',
+    s6Body1:
+      'ስለ ዑደትሽ ጥያቄዎች መኖራቸው ፍጹም የተለመደ ነው። የሕክምና ምክር መፈለግ በአንዳንድ ሁኔታዎች ጠቃሚ ሊሆን ይችላል፣ ለምሳሌ፦',
+    whenToAsk: [
+      'በበርካታ ዑደቶች የሚቀጥሉ ከፍተኛ ለውጦች',
+      'ከተለመዱ ተግባራትሽ የሚያግድሽ ህመም',
+      'በጣም ብዙ የወር አበባ',
+      'ለረዥም ጊዜ የወር አበባ አለመኖር',
+      'ያልተለመደ ደም መፍሰስ',
+      'የሚያሳስብሽ ማንኛውም የሚቀጥል ምልክት',
+    ],
+    s6Body2:
+      'ከጤና ባለሙያ ጋር መነጋገር ልብሽን ሊያሳርፍ ወይም አስፈላጊ ከሆነ ትክክለኛውን ድጋፍ ሊያገኝልሽ ይችላል — በራሱ የመጨነቂያ ምክንያት ፈጽሞ አይደለም።',
+    tipText:
+      'ዑደት የተለመደ ለመሆን ፍጹም ወጥ መሆን የለበትም። የራስሽን የተለመደ ሪትም ማወቅ ብዙውን ጊዜ ተስማሚ ርዝመት ከመፈለግ የበለጠ ጠቃሚ ነው።',
+    finalBody:
+      'የወር አበባ ዑደትሽ ከብዙ የጤናሽ አመልካቾች አንዱ ነው። በየጊዜው መከታተሉ ሰውነትሽን በተሻለ እንድትረጂ እና በጊዜ ሂደት ልዩ ትኩረት የሚገባቸውን ለውጦች እንድታስተውይ ሊረዳሽ ይችላል።',
+    shareMessage: 'ዑደትሽ፣ ድንቅ የጤና አመልካች — AWA',
+  },
+  nl: {
+    badge: 'CYCLUS & MENSTRUATIE',
+    title: 'Je cyclus, een uitstekende\nindicator van je gezondheid',
+    metaDuration: '7 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro: 'Waarom de cyclus soms het “vijfde vitale teken” wordt genoemd.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Je cyclus: een weerspiegeling van je lichaam',
+      'Wat is een “normale” cyclus?',
+      'Veranderingen om op te letten',
+      'Wat kunnen deze veranderingen onthullen?',
+      'Je cyclus bijhouden om jezelf beter te kennen',
+      'Wanneer advies vragen?',
+      'Goed om te weten',
+    ],
+    observeLabels: [
+      'Cyclusduur',
+      'Duur van de menstruatie',
+      'Menstruatiebloeding',
+      'Pijn',
+      'Vaginale afscheiding',
+      'Stemming',
+      'Energie / vermoeidheid',
+      'Andere terugkerende symptomen',
+    ],
+    factorLabels: [
+      'Stress',
+      'Slaapgebrek',
+      'Aanzienlijke gewichtsveranderingen',
+      'Zeer intensieve lichaamsbeweging',
+      'Hormonale veranderingen',
+      'Anticonceptie',
+      'Bepaalde medische aandoeningen',
+    ],
+    s1Body1:
+      'De menstruatiecyclus wordt gedurende de maand beïnvloed door de hormonale activiteit van het lichaam. Leren haar te observeren kan je helpen beter te begrijpen hoe je lichaam werkt, zonder dat je alles tot in detail hoeft te analyseren.',
+    s1Body2: 'Dit zijn de nuttigste dingen om op te merken:',
+    s2Body1:
+      'Er bestaat niet één perfecte cyclus: elk lichaam heeft zijn eigen ritme en dat ritme kan ook licht van maand tot maand variëren. Een cyclus wordt over het algemeen als regelmatig beschouwd wanneer hij tussen 21 en 35 dagen duurt, en menstruaties duren meestal 3 tot 7 dagen.',
+    s2Body2:
+      'Deze cijfers zijn gemiddelden: lichte variaties blijven volkomen normaal, vooral na de puberteit, na een bevalling of als de menopauze nadert.',
+    s3Body1:
+      'Bij sommige veranderingen is het goed om iets nauwkeuriger te kijken, zoals:',
+    changesToWatch: [
+      'Een duidelijke verandering in de regelmaat van de cyclus',
+      'Menstruaties die merkbaar heviger zijn dan gebruikelijk',
+      'Ongewoon sterke of aanhoudende pijn',
+      'Langdurig uitblijven van de menstruatie',
+      'Bloedverlies tussen menstruaties',
+      'Een aanzienlijke verandering die zich over meerdere cycli herhaalt',
+    ],
+    s3Body2:
+      'Eén enkele, op zichzelf staande ongewone cyclus betekent niet automatisch een gezondheidsprobleem: het lichaam kan tijdelijk reageren op veel verschillende factoren.',
+    s4Body1:
+      'Deze veranderingen kunnen soms met meerdere factoren samenhangen, zonder dat het per se een probleem is:',
+    s4Body2:
+      'Dit zijn slechts enkele mogelijke verklaringen naast andere: ze vervangen nooit het advies van een zorgverlener.',
+    s5VisualTitle: 'Je eigen ritme observeren',
+    s5VisualText:
+      'Je data, bloeding of hoe je je voelt noteren helpt je je gewoonten te leren kennen, maand na maand.',
+    s5Body:
+      'De eerste dag van je menstruatie, de duur, de bloeding, pijn, stemming, energie of vaginale afscheiding zijn allemaal dingen die je in de loop van de tijd kunt noteren. Het doel is niet om je cyclus met die van een ander te vergelijken, maar om beter te herkennen wat voor jou gebruikelijk is en wat daarvan afwijkt.',
+    s6Body1:
+      'Het is volkomen normaal om vragen te hebben over je cyclus. Medisch advies zoeken kan in bepaalde situaties nuttig zijn, bijvoorbeeld:',
+    whenToAsk: [
+      'Aanzienlijke veranderingen die over meerdere cycli aanhouden',
+      'Pijn die je belemmert in je gebruikelijke activiteiten',
+      'Zeer hevige menstruaties',
+      'Langdurig uitblijven van de menstruatie',
+      'Ongewoon bloedverlies',
+      'Elk aanhoudend symptoom dat je zorgen baart',
+    ],
+    s6Body2:
+      'Met een zorgverlener praten kan je geruststellen of, indien nodig, de juiste ondersteuning opleveren — het is op zich nooit een reden tot bezorgdheid.',
+    tipText:
+      'Een cyclus hoeft niet perfect regelmatig te zijn om normaal te zijn. Je eigen gebruikelijke ritme kennen is vaak nuttiger dan zoeken naar een ideale duur.',
+    finalBody:
+      'Je menstruatiecyclus is een van de vele indicatoren van je gezondheid. Haar regelmatig bijhouden kan je helpen je lichaam beter te begrijpen en na verloop van tijd veranderingen op te merken die bijzondere aandacht verdienen.',
+    shareMessage: 'Je cyclus, een uitstekende indicator van je gezondheid — AWA',
+  },
+  fi: {
+    badge: 'KIERTO JA KUUKAUTISET',
+    title: 'Kiertosi, erinomainen\nterveysmittari',
+    metaDuration: '7 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro: 'Miksi kiertoa kutsutaan joskus “viidenneksi elintoiminnoksi”.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Kiertosi: kehosi peili',
+      'Mikä on “normaali” kierto?',
+      'Muutokset, joihin kannattaa kiinnittää huomiota',
+      'Mitä nämä muutokset voivat paljastaa?',
+      'Kiertosi seuranta itsetuntemuksen lisäämiseksi',
+      'Milloin hakea neuvoa?',
+      'Hyvä tietää',
+    ],
+    observeLabels: [
+      'Kierron pituus',
+      'Kuukautisten kesto',
+      'Kuukautisvuoto',
+      'Kipu',
+      'Emätinerite',
+      'Mieliala',
+      'Energia / väsymys',
+      'Muut toistuvat oireet',
+    ],
+    factorLabels: [
+      'Stressi',
+      'Unen puute',
+      'Merkittävät painon muutokset',
+      'Hyvin intensiivinen liikunta',
+      'Hormonaaliset muutokset',
+      'Ehkäisy',
+      'Tietyt sairaudet',
+    ],
+    s1Body1:
+      'Kuukautiskiertoon vaikuttaa kehon hormonaalinen toiminta koko kuukauden ajan. Sen havainnoimisen oppiminen voi auttaa ymmärtämään paremmin, miten kehosi toimii, tarvitsematta analysoida kaikkea yksityiskohtaisesti.',
+    s1Body2: 'Tässä hyödyllisimmät huomioitavat asiat:',
+    s2Body1:
+      'Yhtä täydellistä kiertoa ei ole: jokaisella keholla on oma rytminsä, ja se voi myös vaihdella hieman kuukaudesta toiseen. Kiertoa pidetään yleensä säännöllisenä, kun se kestää 21–35 päivää, ja kuukautiset kestävät useimmiten 3–7 päivää.',
+    s2Body2:
+      'Nämä luvut ovat keskiarvoja: pienet vaihtelut ovat täysin normaaleja erityisesti murrosiän jälkeen, synnytyksen jälkeen tai vaihdevuosien lähestyessä.',
+    s3Body1:
+      'Joitakin muutoksia kannattaa seurata hieman tarkemmin, kuten:',
+    changesToWatch: [
+      'Selvä muutos kierron säännöllisyydessä',
+      'Tavallista selvästi runsaammat kuukautiset',
+      'Epätavallisen voimakas tai pitkäkestoinen kipu',
+      'Kuukautisten pitkittynyt poissaolo',
+      'Välivuoto kuukautisten välillä',
+      'Merkittävä muutos, joka toistuu usean kierron ajan',
+    ],
+    s3Body2:
+      'Yksittäinen, erillinen epätavallinen kierto ei automaattisesti tarkoita terveysongelmaa: keho voi reagoida tilapäisesti monenlaisiin tekijöihin.',
+    s4Body1:
+      'Nämä muutokset voivat joskus liittyä useisiin tekijöihin ilman, että kyse välttämättä on ongelmasta:',
+    s4Body2:
+      'Nämä ovat vain joitakin mahdollisia selityksiä muiden joukossa: ne eivät koskaan korvaa terveydenhuollon ammattilaisen neuvoa.',
+    s5VisualTitle: 'Oman rytmisi havainnointi',
+    s5VisualText:
+      'Päivämäärien, vuodon tai olosi kirjaaminen auttaa tuntemaan tapasi kuukausi kuukaudelta.',
+    s5Body:
+      'Kuukautistesi ensimmäinen päivä, kesto, vuoto, kipu, mieliala, energia tai emätinerite ovat kaikki asioita, joita voit kirjata ajan myötä. Tavoitteena ei ole verrata kiertoasi toisen kiertoon, vaan tunnistaa paremmin, mikä on sinulle tavallista ja mikä siitä poikkeaa.',
+    s6Body1:
+      'On täysin normaalia, että kiertoon liittyy kysymyksiä. Lääketieteellisen neuvon hakeminen voi olla hyödyllistä tietyissä tilanteissa, esimerkiksi:',
+    whenToAsk: [
+      'Merkittävät muutokset, jotka jatkuvat usean kierron ajan',
+      'Kipu, joka estää tavanomaiset toimintasi',
+      'Hyvin runsaat kuukautiset',
+      'Kuukautisten pitkittynyt poissaolo',
+      'Epätavallinen vuoto',
+      'Mikä tahansa pitkäkestoinen oire, joka huolestuttaa sinua',
+    ],
+    s6Body2:
+      'Terveydenhuollon ammattilaisen kanssa puhuminen voi rauhoittaa mieltäsi tai tarvittaessa hankkia sinulle oikeaa tukea — se ei koskaan ole sinänsä syy huoleen.',
+    tipText:
+      'Kierron ei tarvitse olla täysin säännöllinen ollakseen normaali. Oman tavanomaisen rytmisi tunteminen on usein hyödyllisempää kuin ihanteellisen pituuden tavoittelu.',
+    finalBody:
+      'Kuukautiskiertosi on yksi monista terveytesi mittareista. Sen säännöllinen seuranta voi auttaa ymmärtämään kehoasi paremmin ja ajan myötä huomaamaan muutoksia, jotka ansaitsevat erityistä huomiota.',
+    shareMessage: 'Kiertosi, erinomainen terveysmittari — AWA',
+  },
+  el: {
+    badge: 'ΚΥΚΛΟΣ ΚΑΙ ΠΕΡΙΟΔΟΙ',
+    title: 'Ο κύκλος σου, ένας εξαιρετικός\nδείκτης υγείας',
+    metaDuration: '7 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro: 'Γιατί ο κύκλος ονομάζεται μερικές φορές «πέμπτο ζωτικό σημείο».',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Ο κύκλος σου: μια αντανάκλαση του σώματός σου',
+      'Τι είναι ένας «φυσιολογικός» κύκλος;',
+      'Αλλαγές που πρέπει να προσέχεις',
+      'Τι μπορούν να αποκαλύπτουν αυτές οι αλλαγές;',
+      'Παρακολούθηση του κύκλου για να γνωρίσεις καλύτερα τον εαυτό σου',
+      'Πότε να ζητήσεις συμβουλή;',
+      'Καλό είναι να γνωρίζεις',
+    ],
+    observeLabels: [
+      'Διάρκεια κύκλου',
+      'Διάρκεια περιόδου',
+      'Εμμηνορροϊκή ροή',
+      'Πόνος',
+      'Κολπικές εκκρίσεις',
+      'Διάθεση',
+      'Ενέργεια / κόπωση',
+      'Άλλα επαναλαμβανόμενα συμπτώματα',
+    ],
+    factorLabels: [
+      'Άγχος',
+      'Έλλειψη ύπνου',
+      'Σημαντικές μεταβολές βάρους',
+      'Πολύ έντονη σωματική δραστηριότητα',
+      'Ορμονικές αλλαγές',
+      'Αντισύλληψη',
+      'Ορισμένες ιατρικές παθήσεις',
+    ],
+    s1Body1:
+      'Ο έμμηνος κύκλος επηρεάζεται από την ορμονική δραστηριότητα του σώματος σε όλη τη διάρκεια του μήνα. Το να μάθεις να τον παρατηρείς μπορεί να σε βοηθήσει να κατανοήσεις καλύτερα πώς λειτουργεί το σώμα σου, χωρίς να χρειάζεται να αναλύεις τα πάντα λεπτομερώς.',
+    s1Body2: 'Ορίστε τα πιο χρήσιμα πράγματα που αξίζει να προσέχεις:',
+    s2Body1:
+      'Δεν υπάρχει ένας τέλειος κύκλος: κάθε σώμα έχει τον δικό του ρυθμό και αυτός ο ρυθμός μπορεί επίσης να διαφέρει ελαφρά από μήνα σε μήνα. Ένας κύκλος θεωρείται γενικά κανονικός όταν διαρκεί μεταξύ 21 και 35 ημερών και οι περίοδοι διαρκούν συνήθως 3 έως 7 ημέρες.',
+    s2Body2:
+      'Αυτά τα νούμερα είναι μέσοι όροι: οι ελαφρές διακυμάνσεις παραμένουν απόλυτα φυσιολογικές, ειδικά μετά την εφηβεία, μετά τον τοκετό ή καθώς πλησιάζει η εμμηνόπαυση.',
+    s3Body1:
+      'Ορισμένες αλλαγές αξίζει να παρακολουθούνται λίγο πιο προσεκτικά, όπως:',
+    changesToWatch: [
+      'Μια έντονη αλλαγή στην κανονικότητα του κύκλου',
+      'Περίοδοι αισθητά πιο έντονες από το συνηθισμένο',
+      'Ασυνήθιστα έντονος ή επίμονος πόνος',
+      'Παρατεταμένη απουσία περιόδου',
+      'Αιμορραγία ανάμεσα στις περιόδους',
+      'Μια σημαντική αλλαγή που επαναλαμβάνεται σε αρκετούς κύκλους',
+    ],
+    s3Body2:
+      'Ένας μεμονωμένος, ασυνήθιστος κύκλος δεν σημαίνει αυτόματα πρόβλημα υγείας: το σώμα μπορεί να αντιδράσει προσωρινά σε πολλούς διαφορετικούς παράγοντες.',
+    s4Body1:
+      'Αυτές οι αλλαγές μπορεί μερικές φορές να συνδέονται με διάφορους παράγοντες, χωρίς να αποτελούν απαραίτητα πρόβλημα:',
+    s4Body2:
+      'Αυτές είναι απλώς μερικές πιθανές εξηγήσεις μεταξύ άλλων: δεν αντικαθιστούν ποτέ τη συμβουλή ενός επαγγελματία υγείας.',
+    s5VisualTitle: 'Παρατηρώντας τον δικό σου ρυθμό',
+    s5VisualText:
+      'Το να σημειώνεις τις ημερομηνίες, τη ροή ή πώς νιώθεις σε βοηθά να γνωρίσεις τις συνήθειές σου, μήνα με τον μήνα.',
+    s5Body:
+      'Η πρώτη ημέρα της περιόδου σου, η διάρκειά της, η ροή, ο πόνος, η διάθεση, η ενέργεια ή οι κολπικές εκκρίσεις είναι όλα πράγματα που μπορείς να σημειώνεις με τον καιρό. Στόχος δεν είναι να συγκρίνεις τον κύκλο σου με της άλλης, αλλά να αναγνωρίζεις καλύτερα τι είναι συνηθισμένο για σένα και τι διαφέρει από αυτό.',
+    s6Body1:
+      'Είναι απόλυτα φυσιολογικό να έχεις ερωτήσεις για τον κύκλο σου. Η αναζήτηση ιατρικής συμβουλής μπορεί να είναι χρήσιμη σε ορισμένες περιπτώσεις, για παράδειγμα:',
+    whenToAsk: [
+      'Σημαντικές αλλαγές που επιμένουν σε αρκετούς κύκλους',
+      'Πόνος που σε εμποδίζει από τις συνηθισμένες δραστηριότητές σου',
+      'Πολύ έντονες περίοδοι',
+      'Παρατεταμένη απουσία περιόδου',
+      'Ασυνήθιστη αιμορραγία',
+      'Οποιοδήποτε επίμονο σύμπτωμα που σε ανησυχεί',
+    ],
+    s6Body2:
+      'Η συζήτηση με έναν επαγγελματία υγείας μπορεί να σε καθησυχάσει ή, αν χρειαστεί, να σου εξασφαλίσει την κατάλληλη στήριξη — δεν αποτελεί ποτέ από μόνη της λόγο ανησυχίας.',
+    tipText:
+      'Ένας κύκλος δεν χρειάζεται να είναι απόλυτα κανονικός για να είναι φυσιολογικός. Το να γνωρίζεις τον δικό σου συνηθισμένο ρυθμό είναι συχνά πιο χρήσιμο από την αναζήτηση μιας ιδανικής διάρκειας.',
+    finalBody:
+      'Ο έμμηνος κύκλος σου είναι ένας από τους πολλούς δείκτες της υγείας σου. Η τακτική παρακολούθησή του μπορεί να σε βοηθήσει να κατανοήσεις καλύτερα το σώμα σου και, με τον καιρό, να παρατηρήσεις αλλαγές που αξίζουν ιδιαίτερη προσοχή.',
+    shareMessage: 'Ο κύκλος σου, ένας εξαιρετικός δείκτης υγείας — AWA',
+  },
+  fil: {
+    badge: 'SIKLO AT REGLA',
+    title: 'Ang iyong siklo, isang mahusay na\nindikasyon ng kalusugan',
+    metaDuration: '7 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro: 'Bakit tinatawag minsan ang siklo na “ikalimang vital sign.”',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ang iyong siklo: salamin ng iyong katawan',
+      'Ano ang “normal” na siklo?',
+      'Mga pagbabagong dapat bantayan',
+      'Ano ang maaaring ibunyag ng mga pagbabagong ito?',
+      'Pagsubaybay sa iyong siklo para mas makilala ang sarili',
+      'Kailan hihingi ng payo?',
+      'Mabuting malaman',
+    ],
+    observeLabels: [
+      'Haba ng siklo',
+      'Haba ng regla',
+      'Daloy ng regla',
+      'Sakit',
+      'Pagtagas sa ari',
+      'Mood',
+      'Enerhiya / pagod',
+      'Iba pang paulit-ulit na sintomas',
+    ],
+    factorLabels: [
+      'Stress',
+      'Kakulangan sa tulog',
+      'Malalaking pagbabago sa timbang',
+      'Napakatinding pisikal na aktibidad',
+      'Mga pagbabago sa hormone',
+      'Contraception',
+      'Ilang medikal na kondisyon',
+    ],
+    s1Body1:
+      'Naiimpluwensyahan ang siklo ng regla ng hormonal na aktibidad ng katawan sa buong buwan. Ang pagkatutong obserbahan ito ay makakatulong na mas maunawaan mo kung paano gumagana ang katawan mo, nang hindi kailangang suriin ang lahat nang detalyado.',
+    s1Body2: 'Narito ang mga pinakakapaki-pakinabang na dapat mapansin:',
+    s2Body1:
+      'Walang iisang perpektong siklo: may sariling ritmo ang bawat katawan, at maaari ring bahagyang mag-iba ang ritmong iyon sa bawat buwan. Karaniwang itinuturing na regular ang siklo kapag tumatagal ito ng 21 hanggang 35 araw, at kadalasang tumatagal ng 3 hanggang 7 araw ang regla.',
+    s2Body2:
+      'Mga karaniwang halaga ang mga bilang na ito: nananatiling ganap na normal ang bahagyang pagkakaiba, lalo na pagkatapos ng pagdadalaga, pagkatapos manganak, o habang papalapit ang menopause.',
+    s3Body1:
+      'May ilang pagbabagong mabuting bantayan nang mas mabuti, tulad ng:',
+    changesToWatch: [
+      'Kapansin-pansing pagbabago sa pagiging regular ng siklo',
+      'Mga regla na mas malakas kaysa karaniwan',
+      'Hindi karaniwang matindi o tuloy-tuloy na sakit',
+      'Matagal na pagkawala ng regla',
+      'Pagdurugo sa pagitan ng mga regla',
+      'Isang malaking pagbabagong inuulit sa ilang siklo',
+    ],
+    s3Body2:
+      'Hindi awtomatikong nangangahulugang may problema sa kalusugan ang nag-iisang hindi pangkaraniwang siklo: maaaring pansamantalang tumugon ang katawan sa maraming iba’t ibang salik.',
+    s4Body1:
+      'Minsan ay maaaring iugnay ang mga pagbabagong ito sa ilang salik, nang hindi kinakailangang problema:',
+    s4Body2:
+      'Ilan lamang ito sa mga posibleng paliwanag: hindi nito kailanman pinapalitan ang payo ng propesyonal sa kalusugan.',
+    s5VisualTitle: 'Pagmamasid sa sarili mong ritmo',
+    s5VisualText:
+      'Nakakatulong ang pagtatala ng iyong mga petsa, daloy, o pakiramdam para makilala mo ang iyong mga gawi, buwan-buwan.',
+    s5Body:
+      'Ang unang araw ng iyong regla, haba nito, daloy, sakit, mood, enerhiya, o pagtagas sa ari ay pawang mga bagay na maaari mong itala sa paglipas ng panahon. Hindi layuning ihambing ang iyong siklo sa iba, kundi mas makilala ang karaniwan sa iyo, at ang naiiba rito.',
+    s6Body1:
+      'Ganap na normal ang magkaroon ng mga tanong tungkol sa iyong siklo. Makakatulong ang paghingi ng medikal na payo sa ilang sitwasyon, halimbawa:',
+    whenToAsk: [
+      'Malalaking pagbabagong nagpapatuloy sa ilang siklo',
+      'Sakit na pumipigil sa iyong karaniwang mga gawain',
+      'Napakalakas na regla',
+      'Matagal na pagkawala ng regla',
+      'Hindi pangkaraniwang pagdurugo',
+      'Anumang patuloy na sintomas na bumabagabag sa iyo',
+    ],
+    s6Body2:
+      'Makakatulong ang pakikipag-usap sa propesyonal sa kalusugan na mapanatag ka o, kung kinakailangan, makuha ang tamang suporta — hindi ito kailanman dahilan ng pag-aalala sa sarili nito.',
+    tipText:
+      'Hindi kailangang perpektong regular ang siklo para maging normal. Kadalasang mas kapaki-pakinabang ang pag-alam sa sarili mong karaniwang ritmo kaysa sa paghahanap ng ideyal na haba.',
+    finalBody:
+      'Isa lamang ang iyong siklo ng regla sa maraming indikasyon ng iyong kalusugan. Ang regular na pagsubaybay dito ay makakatulong na mas maunawaan mo ang iyong katawan at, sa paglipas ng panahon, mapansin ang mga pagbabagong karapat-dapat sa partikular na atensyon.',
+    shareMessage: 'Ang iyong siklo, isang mahusay na indikasyon ng kalusugan — AWA',
+  },
+  ta: {
+    badge: 'சுழற்சியும் மாதவிடாயும்',
+    title: 'உங்கள் சுழற்சி, ஒரு சிறந்த\nஆரோக்கியக் குறிகாட்டி',
+    metaDuration: '7 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro: 'சுழற்சி ஏன் சில நேரங்களில் “ஐந்தாவது உயிர்க்குறி” என அழைக்கப்படுகிறது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'உங்கள் சுழற்சி: உங்கள் உடலின் பிரதிபலிப்பு',
+      '“இயல்பான” சுழற்சி என்றால் என்ன?',
+      'கவனிக்க வேண்டிய மாற்றங்கள்',
+      'இந்த மாற்றங்கள் எதை வெளிப்படுத்தலாம்?',
+      'உங்களை நன்கு அறிய உங்கள் சுழற்சியைக் கண்காணித்தல்',
+      'ஆலோசனையை எப்போது கேட்பது?',
+      'தெரிந்துகொள்ளுங்கள்',
+    ],
+    observeLabels: [
+      'சுழற்சி நீளம்',
+      'மாதவிடாய் நீளம்',
+      'மாதவிடாய் ஓட்டம்',
+      'வலி',
+      'யோனி வெளியேற்றம்',
+      'மனநிலை',
+      'ஆற்றல் / சோர்வு',
+      'பிற திரும்பத் திரும்ப வரும் அறிகுறிகள்',
+    ],
+    factorLabels: [
+      'மன அழுத்தம்',
+      'உறக்கமின்மை',
+      'குறிப்பிடத்தக்க எடை மாற்றங்கள்',
+      'மிகத் தீவிரமான உடல் செயல்பாடு',
+      'ஹார்மோன் மாற்றங்கள்',
+      'கருத்தடை',
+      'சில மருத்துவ நிலைமைகள்',
+    ],
+    s1Body1:
+      'மாதவிடாய்ச் சுழற்சி மாதம் முழுவதும் உடலின் ஹார்மோன் செயல்பாட்டால் பாதிக்கப்படுகிறது. அதைக் கவனிக்கக் கற்றுக்கொள்வது, அனைத்தையும் விரிவாகப் பகுப்பாய்வு செய்யத் தேவையின்றி, உங்கள் உடல் எப்படிச் செயல்படுகிறது என்பதை நன்கு புரிந்துகொள்ள உதவலாம்.',
+    s1Body2: 'கவனிக்க மிகப் பயனுள்ளவை இங்கே:',
+    s2Body1:
+      'ஒரே ஒரு முழுமையான சுழற்சி என்று எதுவும் இல்லை: ஒவ்வொரு உடலுக்கும் தன் சொந்தத் தாளம் உண்டு, அந்தத் தாளமும் மாதத்துக்கு மாதம் சிறிதளவு மாறுபடலாம். ஒரு சுழற்சி 21 முதல் 35 நாட்களுக்குள் நீடிக்கும்போது பொதுவாக ஒழுங்கானதாகக் கருதப்படுகிறது, மாதவிடாய்கள் பெரும்பாலும் 3 முதல் 7 நாட்கள் நீடிக்கும்.',
+    s2Body2:
+      'இந்த எண்கள் சராசரிகள்: சிறிய மாறுபாடுகள் முற்றிலும் இயல்பாகவே இருக்கும், குறிப்பாகப் பருவமடைந்த பின், பிரசவத்துக்குப் பின், அல்லது மாதவிடாய் நிறுத்தம் நெருங்கும்போது.',
+    s3Body1:
+      'சில மாற்றங்களை சற்று நெருக்கமாகக் கவனிக்க வேண்டும், எடுத்துக்காட்டாக:',
+    changesToWatch: [
+      'சுழற்சி ஒழுங்கில் தெளிவான மாற்றம்',
+      'வழக்கத்தை விடக் கணிசமாக அதிகமான மாதவிடாய்கள்',
+      'வழக்கத்துக்கு மாறாக வலுவான அல்லது தொடர்ந்த வலி',
+      'மாதவிடாய்கள் நீண்ட காலம் இல்லாமை',
+      'மாதவிடாய்களுக்கு இடையே இரத்தப்போக்கு',
+      'பல சுழற்சிகளில் திரும்பத் திரும்ப வரும் குறிப்பிடத்தக்க மாற்றம்',
+    ],
+    s3Body2:
+      'ஒரே ஒரு தனிப்பட்ட வழக்கத்துக்கு மாறான சுழற்சி தானாகவே ஆரோக்கியப் பிரச்சினை என்று பொருளல்ல: பல்வேறு காரணிகளுக்கு உடல் தற்காலிகமாக எதிர்வினை புரியலாம்.',
+    s4Body1:
+      'இந்த மாற்றங்கள் சில நேரங்களில் பல காரணிகளுடன் தொடர்புடையவையாக இருக்கலாம், கட்டாயம் ஒரு பிரச்சினையாக இல்லாமலேயே:',
+    s4Body2:
+      'இவை மற்றவற்றுடன் சாத்தியமான சில விளக்கங்கள் மட்டுமே: அவை சுகாதார நிபுணரின் ஆலோசனைக்கு ஒருபோதும் மாற்றாகாது.',
+    s5VisualTitle: 'உங்கள் சொந்தத் தாளத்தைக் கவனித்தல்',
+    s5VisualText:
+      'உங்கள் தேதிகளையும், ஓட்டத்தையும், நீங்கள் எப்படி உணர்கிறீர்கள் என்பதையும் குறிப்பது, மாதம் மாதமாக உங்கள் பழக்கங்களை அறிய உதவுகிறது.',
+    s5Body:
+      'உங்கள் மாதவிடாயின் முதல் நாள், அதன் நீளம், ஓட்டம், வலி, மனநிலை, ஆற்றல் அல்லது யோனி வெளியேற்றம் ஆகியவற்றை நீங்கள் காலப்போக்கில் குறிக்கலாம். உங்கள் சுழற்சியை வேறொருவருடையதுடன் ஒப்பிடுவது நோக்கம் அல்ல, உங்களுக்கு எது வழக்கமானது, எது அதிலிருந்து வேறுபடுகிறது என்பதை நன்கு அடையாளம் காண்பதே நோக்கம்.',
+    s6Body1:
+      'உங்கள் சுழற்சி பற்றிய கேள்விகள் இருப்பது முற்றிலும் இயல்பே. சில சூழ்நிலைகளில் மருத்துவ ஆலோசனையைப் பெறுவது உதவியாக இருக்கலாம், எடுத்துக்காட்டாக:',
+    whenToAsk: [
+      'பல சுழற்சிகளில் நீடிக்கும் குறிப்பிடத்தக்க மாற்றங்கள்',
+      'உங்கள் வழக்கமான செயல்களிலிருந்து உங்களைத் தடுக்கும் வலி',
+      'மிக அதிகமான மாதவிடாய்கள்',
+      'மாதவிடாய்கள் நீண்ட காலம் இல்லாமை',
+      'வழக்கத்துக்கு மாறான இரத்தப்போக்கு',
+      'உங்களைக் கவலைப்படுத்தும் ஏதேனும் தொடர்ந்த அறிகுறி',
+    ],
+    s6Body2:
+      'ஒரு சுகாதார நிபுணரிடம் பேசுவது உங்கள் மனதை நிம்மதிப்படுத்தவோ, தேவைப்பட்டால் சரியான ஆதரவைப் பெறவோ உதவலாம் — அது தன்னளவில் கவலைக்கான காரணம் அல்ல.',
+    tipText:
+      'ஒரு சுழற்சி இயல்பாக இருக்க முற்றிலும் ஒழுங்கானதாக இருக்க வேண்டியதில்லை. ஓர் இலட்சிய நீளத்தைத் தேடுவதை விட, உங்கள் சொந்த வழக்கமான தாளத்தை அறிந்திருப்பது பெரும்பாலும் பயனுள்ளது.',
+    finalBody:
+      'உங்கள் மாதவிடாய்ச் சுழற்சி உங்கள் ஆரோக்கியத்தின் பல குறிகாட்டிகளில் ஒன்று. அதைத் தொடர்ந்து கண்காணிப்பது உங்கள் உடலை நன்கு புரிந்துகொள்ளவும், காலப்போக்கில் தனிக் கவனம் தேவைப்படும் மாற்றங்களைக் கவனிக்கவும் உதவலாம்.',
+    shareMessage: 'உங்கள் சுழற்சி, ஒரு சிறந்த ஆரோக்கியக் குறிகாட்டி — AWA',
+  },
+  te: {
+    badge: 'చక్రం & నెలసరి',
+    title: 'మీ చక్రం, ఒక అద్భుతమైన\nఆరోగ్య సూచిక',
+    metaDuration: '7 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro: 'చక్రాన్ని కొన్నిసార్లు “ఐదవ ప్రాణ సూచిక” అని ఎందుకు పిలుస్తారు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'మీ చక్రం: మీ శరీరపు ప్రతిబింబం',
+      '“సాధారణ” చక్రం అంటే ఏమిటి?',
+      'గమనించాల్సిన మార్పులు',
+      'ఈ మార్పులు ఏమి వెల్లడించగలవు?',
+      'మిమ్మల్ని మీరు బాగా తెలుసుకోవడానికి మీ చక్రాన్ని ట్రాక్ చేయడం',
+      'సలహాను ఎప్పుడు కోరాలి?',
+      'తెలుసుకోవాల్సినవి',
+    ],
+    observeLabels: [
+      'చక్రం నిడివి',
+      'నెలసరి నిడివి',
+      'నెలసరి రక్తస్రావం',
+      'నొప్పి',
+      'యోని స్రావం',
+      'మానసిక స్థితి',
+      'శక్తి / అలసట',
+      'పునరావృతమయ్యే ఇతర లక్షణాలు',
+    ],
+    factorLabels: [
+      'ఒత్తిడి',
+      'నిద్ర లేమి',
+      'గణనీయమైన బరువు మార్పులు',
+      'చాలా తీవ్రమైన శారీరక కార్యకలాపం',
+      'హార్మోన్ల మార్పులు',
+      'గర్భనిరోధకం',
+      'కొన్ని వైద్య పరిస్థితులు',
+    ],
+    s1Body1:
+      'నెలసరి చక్రం నెల అంతా శరీరపు హార్మోన్ల కార్యకలాపం వల్ల ప్రభావితమవుతుంది. దాన్ని గమనించడం నేర్చుకోవడం, ప్రతిదాన్నీ వివరంగా విశ్లేషించాల్సిన అవసరం లేకుండా, మీ శరీరం ఎలా పనిచేస్తుందో మరింత బాగా అర్థం చేసుకోవడానికి సహాయపడగలదు.',
+    s1Body2: 'గమనించడానికి అత్యంత ఉపయోగకరమైనవి ఇవి:',
+    s2Body1:
+      'ఒకే పరిపూర్ణ చక్రం లేదు: ప్రతి శరీరానికి తన సొంత లయ ఉంటుంది, ఆ లయ నెలనెలా కొద్దిగా మారవచ్చు. చక్రం 21 నుండి 35 రోజుల మధ్య ఉంటే సాధారణంగా అది క్రమబద్ధంగా పరిగణించబడుతుంది, నెలసరులు చాలా తరచుగా 3 నుండి 7 రోజులు ఉంటాయి.',
+    s2Body2:
+      'ఈ సంఖ్యలు సగటులు: స్వల్ప మార్పులు పూర్తిగా సహజమే, ముఖ్యంగా యుక్తవయస్సు తర్వాత, ప్రసవం తర్వాత లేదా రుతువిరతి దగ్గరపడుతున్నప్పుడు.',
+    s3Body1:
+      'కొన్ని మార్పులను కొంచెం దగ్గరగా గమనించడం విలువైనది, ఉదాహరణకు:',
+    changesToWatch: [
+      'చక్రం క్రమబద్ధతలో స్పష్టమైన మార్పు',
+      'సాధారణం కంటే గమనించదగినంత ఎక్కువగా ఉండే నెలసరులు',
+      'అసాధారణంగా తీవ్రమైన లేదా కొనసాగే నొప్పి',
+      'నెలసరులు చాలా కాలం లేకపోవడం',
+      'నెలసరుల మధ్య రక్తస్రావం',
+      'అనేక చక్రాలలో పునరావృతమయ్యే గణనీయమైన మార్పు',
+    ],
+    s3Body2:
+      'ఒకే, వేరుగా ఉన్న అసాధారణ చక్రం ఆటోమేటిక్‌గా ఆరోగ్య సమస్య అని అర్థం కాదు: శరీరం అనేక వేర్వేరు అంశాలకు తాత్కాలికంగా స్పందించగలదు.',
+    s4Body1:
+      'ఈ మార్పులు కొన్నిసార్లు అనేక అంశాలతో ముడిపడి ఉండవచ్చు, అవి తప్పనిసరిగా సమస్య కావు:',
+    s4Body2:
+      'ఇవి ఇతరాల మధ్య సాధ్యమైన కొన్ని వివరణలు మాత్రమే: అవి ఆరోగ్య నిపుణుడి సలహాకు ఎప్పుడూ ప్రత్యామ్నాయం కావు.',
+    s5VisualTitle: 'మీ సొంత లయను గమనించడం',
+    s5VisualText:
+      'మీ తేదీలను, రక్తస్రావాన్ని లేదా మీకు ఎలా అనిపిస్తుందో గమనించడం నెలనెలా మీ అలవాట్లను తెలుసుకోవడానికి సహాయపడుతుంది.',
+    s5Body:
+      'మీ నెలసరి మొదటి రోజు, దాని నిడివి, రక్తస్రావం, నొప్పి, మానసిక స్థితి, శక్తి లేదా యోని స్రావం అన్నీ కాలక్రమేణా మీరు గమనించగలవి. లక్ష్యం మీ చక్రాన్ని మరొకరి చక్రంతో పోల్చడం కాదు, మీకు ఏది సాధారణమో, దానికి భిన్నమైనదేమిటో మరింత బాగా గుర్తించడం.',
+    s6Body1:
+      'మీ చక్రం గురించి ప్రశ్నలు ఉండటం పూర్తిగా సహజం. కొన్ని పరిస్థితుల్లో వైద్య సలహా కోరడం ఉపయోగకరం, ఉదాహరణకు:',
+    whenToAsk: [
+      'అనేక చక్రాలలో కొనసాగే గణనీయమైన మార్పులు',
+      'మీ సాధారణ కార్యకలాపాలకు అడ్డుపడే నొప్పి',
+      'చాలా ఎక్కువ రక్తస్రావం ఉండే నెలసరులు',
+      'నెలసరులు చాలా కాలం లేకపోవడం',
+      'అసాధారణ రక్తస్రావం',
+      'మిమ్మల్ని ఆందోళనపెట్టే ఏదైనా కొనసాగే లక్షణం',
+    ],
+    s6Body2:
+      'ఒక ఆరోగ్య నిపుణుడితో మాట్లాడటం మీ మనసును ప్రశాంతపరచడానికి లేదా అవసరమైతే సరైన తోడ్పాటు పొందడానికి సహాయపడగలదు — అది స్వయంగా ఆందోళనకు కారణం ఎప్పుడూ కాదు.',
+    tipText:
+      'ఒక చక్రం సాధారణంగా ఉండటానికి పరిపూర్ణంగా క్రమబద్ధంగా ఉండాల్సిన అవసరం లేదు. ఆదర్శ నిడివిని వెతకడం కంటే మీ సొంత సాధారణ లయను తెలుసుకోవడం తరచుగా ఎక్కువ ఉపయోగకరం.',
+    finalBody:
+      'మీ నెలసరి చక్రం మీ ఆరోగ్యానికి సంబంధించిన అనేక సూచికల్లో ఒకటి. దాన్ని క్రమం తప్పకుండా ట్రాక్ చేయడం మీ శరీరాన్ని మరింత బాగా అర్థం చేసుకోవడానికి, కాలక్రమేణా ప్రత్యేక శ్రద్ధకు అర్హమైన మార్పులను గమనించడానికి సహాయపడగలదు.',
+    shareMessage: 'మీ చక్రం, ఒక అద్భుతమైన ఆరోగ్య సూచిక — AWA',
+  },
+  mr: {
+    badge: 'पाळी आणि मासिक पाळी',
+    title: 'तुमची पाळी, आरोग्याचा\nउत्कृष्ट निर्देशक',
+    metaDuration: '7 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro: 'पाळीला कधी कधी “पाचवे जीवनचिन्ह” का म्हणतात.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'तुमची पाळी: तुमच्या शरीराचे प्रतिबिंब',
+      '“सामान्य” पाळी म्हणजे काय?',
+      'लक्ष ठेवण्यासारखे बदल',
+      'हे बदल काय दर्शवू शकतात?',
+      'स्वतःला अधिक चांगले जाणून घेण्यासाठी पाळीचा मागोवा',
+      'सल्ला केव्हा घ्यावा?',
+      'हे जाणून घ्या',
+    ],
+    observeLabels: [
+      'पाळीचा कालावधी',
+      'रक्तस्रावाचे दिवस',
+      'मासिक पाळीचा स्राव',
+      'वेदना',
+      'योनीतील स्राव',
+      'मनःस्थिती',
+      'ऊर्जा / थकवा',
+      'इतर वारंवार येणारी लक्षणे',
+    ],
+    factorLabels: [
+      'ताण',
+      'झोपेची कमतरता',
+      'वजनात लक्षणीय बदल',
+      'खूप तीव्र शारीरिक हालचाल',
+      'हार्मोनल बदल',
+      'गर्भनिरोधन',
+      'काही वैद्यकीय स्थिती',
+    ],
+    s1Body1:
+      'मासिक पाळीवर महिनाभर शरीरातील हार्मोनल हालचालींचा प्रभाव असतो. तिचे निरीक्षण करायला शिकल्याने तुम्हाला सर्व काही तपशीलवार विश्लेषण न करता तुमचे शरीर कसे काम करते ते अधिक चांगले समजण्यास मदत होऊ शकते.',
+    s1Body2: 'लक्षात घेण्यासाठी सर्वात उपयुक्त गोष्टी या आहेत:',
+    s2Body1:
+      'कोणतीही एक परिपूर्ण पाळी नसते: प्रत्येक शरीराची स्वतःची लय असते आणि ती लय महिन्यागणिकही थोडी बदलू शकते. पाळी 21 ते 35 दिवसांदरम्यान असल्यास ती साधारणपणे नियमित मानली जाते, आणि रक्तस्राव बहुतेकदा 3 ते 7 दिवस चालतो.',
+    s2Body2:
+      'हे आकडे सरासरी आहेत: थोडे फरक पूर्णपणे सामान्य राहतात, विशेषतः यौवनानंतर, बाळाला जन्म दिल्यानंतर किंवा रजोनिवृत्ती जवळ येताना.',
+    s3Body1:
+      'काही बदलांकडे थोडे अधिक बारकाईने लक्ष देणे योग्य आहे, जसे की:',
+    changesToWatch: [
+      'पाळीच्या नियमिततेत ठळक बदल',
+      'नेहमीपेक्षा लक्षणीय जास्त रक्तस्राव',
+      'असामान्यपणे तीव्र किंवा कायम वेदना',
+      'पाळी दीर्घकाळ न येणे',
+      'दोन पाळ्यांदरम्यान रक्तस्राव',
+      'अनेक पाळीचक्रांत पुन्हा पुन्हा होणारा लक्षणीय बदल',
+    ],
+    s3Body2:
+      'एकच, एकटी असामान्य पाळी आपोआप आरोग्य समस्या असल्याचा अर्थ देत नाही: शरीर अनेक वेगवेगळ्या घटकांना तात्पुरती प्रतिक्रिया देऊ शकते.',
+    s4Body1:
+      'हे बदल कधी कधी अनेक घटकांशी जोडलेले असू शकतात, आणि ती समस्या असेलच असे नाही:',
+    s4Body2:
+      'ही इतरांपैकी काही संभाव्य स्पष्टीकरणे आहेत: ती आरोग्य व्यावसायिकाच्या सल्ल्याची जागा कधीही घेत नाहीत.',
+    s5VisualTitle: 'तुमच्या स्वतःच्या लयीचे निरीक्षण',
+    s5VisualText:
+      'तुमच्या तारखा, स्राव किंवा तुम्हाला कसे वाटते हे नोंदवल्याने महिन्यामागून महिना तुम्हाला तुमच्या सवयी जाणून घेण्यास मदत होते.',
+    s5Body:
+      'तुमच्या पाळीचा पहिला दिवस, तिचा कालावधी, स्राव, वेदना, मनःस्थिती, ऊर्जा किंवा योनीतील स्राव या सर्व गोष्टी तुम्ही कालांतराने नोंदवू शकता. ध्येय तुमच्या पाळीची तुलना दुसऱ्याच्या पाळीशी करणे नाही, तर तुमच्यासाठी काय नेहमीचे आहे आणि त्यापेक्षा काय वेगळे आहे हे अधिक चांगले ओळखणे आहे.',
+    s6Body1:
+      'तुमच्या पाळीबद्दल प्रश्न पडणे अगदी सामान्य आहे. काही परिस्थितींत वैद्यकीय सल्ला घेणे उपयुक्त ठरू शकते, उदाहरणार्थ:',
+    whenToAsk: [
+      'अनेक पाळीचक्रांत कायम राहणारे लक्षणीय बदल',
+      'तुमच्या नेहमीच्या कामांना अडथळा आणणारी वेदना',
+      'खूप जास्त रक्तस्राव',
+      'पाळी दीर्घकाळ न येणे',
+      'असामान्य रक्तस्राव',
+      'तुम्हाला काळजीत टाकणारे कोणतेही कायम लक्षण',
+    ],
+    s6Body2:
+      'आरोग्य व्यावसायिकाशी बोलल्याने तुमचे मन शांत होऊ शकते किंवा, गरज असल्यास, तुम्हाला योग्य आधार मिळू शकतो — हे स्वतःमध्ये कधीही काळजीचे कारण नसते.',
+    tipText:
+      'पाळी सामान्य असण्यासाठी ती पूर्णपणे नियमित असण्याची गरज नाही. आदर्श कालावधी शोधण्यापेक्षा तुमची स्वतःची नेहमीची लय जाणून घेणे बहुतेकदा अधिक उपयुक्त असते.',
+    finalBody:
+      'तुमची मासिक पाळी तुमच्या आरोग्याच्या अनेक निर्देशकांपैकी एक आहे. तिचा नियमित मागोवा घेतल्याने तुम्हाला तुमचे शरीर अधिक चांगले समजण्यास आणि कालांतराने विशेष लक्ष देण्याजोगे बदल लक्षात येण्यास मदत होऊ शकते.',
+    shareMessage: 'तुमची पाळी, आरोग्याचा उत्कृष्ट निर्देशक — AWA',
+  },
+  gu: {
+    badge: 'માસિક ચક્ર અને માસિક',
+    title: 'તમારું માસિક ચક્ર, સ્વાસ્થ્યનો\nઉત્તમ સૂચક',
+    metaDuration: '7 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro: 'માસિક ચક્રને કેટલીક વાર “પાંચમું મહત્વનું સંકેત” કેમ કહેવાય છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'તમારું માસિક ચક્ર: તમારા શરીરનું પ્રતિબિંબ',
+      '“સામાન્ય” માસિક ચક્ર એટલે શું?',
+      'ધ્યાન રાખવા જેવા ફેરફારો',
+      'આ ફેરફારો શું દર્શાવી શકે?',
+      'પોતાને વધુ સારી રીતે જાણવા માટે માસિક ચક્રનું નિરીક્ષણ',
+      'ક્યારે સલાહ લેવી?',
+      'જાણવા જેવું',
+    ],
+    observeLabels: [
+      'માસિક ચક્રની લંબાઈ',
+      'માસિકનો સમયગાળો',
+      'માસિક સ્રાવ',
+      'દુખાવો',
+      'યોનિમાર્ગનો સ્રાવ',
+      'મૂડ',
+      'શક્તિ / થાક',
+      'અન્ય વારંવાર થતાં લક્ષણો',
+    ],
+    factorLabels: [
+      'તણાવ',
+      'ઊંઘની ઉણપ',
+      'વજનમાં નોંધપાત્ર ફેરફાર',
+      'ખૂબ તીવ્ર શારીરિક પ્રવૃત્તિ',
+      'હોર્મોનમાં ફેરફાર',
+      'ગર્ભનિરોધન',
+      'કેટલીક તબીબી સ્થિતિઓ',
+    ],
+    s1Body1:
+      'માસિક ચક્ર આખા મહિના દરમિયાન શરીરની હોર્મોનલ પ્રવૃત્તિથી પ્રભાવિત થાય છે. તેનું નિરીક્ષણ કરતાં શીખવાથી બધું વિગતવાર તપાસવાની જરૂર વગર તમારું શરીર કેવી રીતે કામ કરે છે તે વધુ સારી રીતે સમજવામાં મદદ મળી શકે છે.',
+    s1Body2: 'નોંધવા માટે સૌથી ઉપયોગી બાબતો આ છે:',
+    s2Body1:
+      'કોઈ એક સંપૂર્ણ માસિક ચક્ર નથી: દરેક શરીરની પોતાની લય હોય છે, અને તે લય મહિને મહિને થોડી બદલાઈ પણ શકે છે. માસિક ચક્ર 21 થી 35 દિવસ ચાલે ત્યારે સામાન્ય રીતે નિયમિત ગણાય છે, અને માસિક મોટા ભાગે 3 થી 7 દિવસ ચાલે છે.',
+    s2Body2:
+      'આ આંકડા સરેરાશ છે: થોડા ફેરફારો સંપૂર્ણપણે સામાન્ય રહે છે, ખાસ કરીને તરુણાવસ્થા પછી, પ્રસૂતિ પછી, અથવા રજોનિવૃત્તિ નજીક આવે ત્યારે.',
+    s3Body1:
+      'કેટલાક ફેરફારો થોડા વધુ નજીકથી જોવા જેવા છે, જેમ કે:',
+    changesToWatch: [
+      'માસિક ચક્રની નિયમિતતામાં સ્પષ્ટ ફેરફાર',
+      'માસિક સામાન્ય કરતાં નોંધપાત્ર રીતે વધુ સ્રાવવાળું',
+      'અસામાન્ય રીતે તીવ્ર કે સતત દુખાવો',
+      'માસિક લાંબા સમય સુધી ન આવવું',
+      'બે માસિક વચ્ચે રક્તસ્રાવ',
+      'ઘણા માસિક ચક્રો સુધી પુનરાવર્તિત થતો નોંધપાત્ર ફેરફાર',
+    ],
+    s3Body2:
+      'એક જ, એકલ અસામાન્ય માસિક ચક્રનો આપમેળે એ અર્થ નથી કે સ્વાસ્થ્યની સમસ્યા છે: શરીર ઘણાં જુદાં જુદાં પરિબળો પ્રત્યે કામચલાઉ પ્રતિક્રિયા આપી શકે છે.',
+    s4Body1:
+      'આ ફેરફારો કેટલીક વાર ઘણાં પરિબળો સાથે જોડાયેલા હોઈ શકે છે, અવશ્ય સમસ્યા હોય તે જરૂરી નથી:',
+    s4Body2:
+      'આ બીજા ઘણા સંભવિત ખુલાસાઓમાંના માત્ર કેટલાક છે: તે આરોગ્ય વ્યાવસાયિકની સલાહનું ક્યારેય સ્થાન લેતા નથી.',
+    s5VisualTitle: 'તમારી પોતાની લયનું નિરીક્ષણ',
+    s5VisualText:
+      'તમારી તારીખો, સ્રાવ કે તમને કેવું લાગે છે તે નોંધવાથી મહિને મહિને તમારી ટેવો જાણવામાં મદદ મળે છે.',
+    s5Body:
+      'તમારા માસિકનો પહેલો દિવસ, તેનો સમયગાળો, સ્રાવ, દુખાવો, મૂડ, શક્તિ અથવા યોનિમાર્ગનો સ્રાવ — આ બધું તમે સમય જતાં નોંધી શકો છો. ધ્યેય તમારા માસિક ચક્રની બીજા કોઈના ચક્ર સાથે સરખામણી કરવાનું નથી, પરંતુ તમારા માટે શું સામાન્ય છે અને શું તેનાથી અલગ છે તે વધુ સારી રીતે ઓળખવાનું છે.',
+    s6Body1:
+      'તમારા માસિક ચક્ર વિશે પ્રશ્નો હોવા સંપૂર્ણપણે સામાન્ય છે. કેટલીક પરિસ્થિતિઓમાં તબીબી સલાહ લેવી મદદરૂપ થઈ શકે છે, ઉદાહરણ તરીકે:',
+    whenToAsk: [
+      'ઘણા માસિક ચક્રો સુધી ચાલુ રહેતા નોંધપાત્ર ફેરફારો',
+      'તમને તમારી રોજિંદી પ્રવૃત્તિઓ કરતાં રોકતો દુખાવો',
+      'ખૂબ વધુ સ્રાવવાળું માસિક',
+      'માસિક લાંબા સમય સુધી ન આવવું',
+      'અસામાન્ય રક્તસ્રાવ',
+      'તમને ચિંતા કરાવતું કોઈ પણ સતત લક્ષણ',
+    ],
+    s6Body2:
+      'આરોગ્ય વ્યાવસાયિક સાથે વાત કરવાથી તમારું મન શાંત થઈ શકે અથવા, જરૂર પડે તો, તમને યોગ્ય સહાય મળી શકે — તે પોતે ક્યારેય ચિંતાનું કારણ નથી.',
+    tipText:
+      'સામાન્ય ગણાવા માટે માસિક ચક્ર સંપૂર્ણ નિયમિત હોવું જરૂરી નથી. આદર્શ લંબાઈ શોધવા કરતાં તમારી પોતાની સામાન્ય લય જાણવી ઘણી વાર વધુ ઉપયોગી છે.',
+    finalBody:
+      'તમારું માસિક ચક્ર તમારા સ્વાસ્થ્યના ઘણા સૂચકોમાંનું એક છે. તેનું નિયમિત નિરીક્ષણ કરવાથી તમે તમારા શરીરને વધુ સારી રીતે સમજી શકો અને સમય જતાં ખાસ ધ્યાન માગતા ફેરફારો નોંધી શકો.',
+    shareMessage: 'તમારું માસિક ચક્ર, સ્વાસ્થ્યનો ઉત્તમ સૂચક — AWA',
+  },
+  pa: {
+    badge: 'ਚੱਕਰ ਅਤੇ ਮਾਹਵਾਰੀ',
+    title: 'ਤੁਹਾਡਾ ਚੱਕਰ, ਸਿਹਤ ਦਾ ਇੱਕ\nਬਿਹਤਰੀਨ ਸੂਚਕ',
+    metaDuration: '7 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro: 'ਚੱਕਰ ਨੂੰ ਕਈ ਵਾਰ “ਪੰਜਵਾਂ ਮਹੱਤਵਪੂਰਨ ਸੰਕੇਤ” ਕਿਉਂ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਤੁਹਾਡਾ ਚੱਕਰ: ਤੁਹਾਡੇ ਸਰੀਰ ਦਾ ਪ੍ਰਤੀਬਿੰਬ',
+      '“ਆਮ” ਚੱਕਰ ਕੀ ਹੁੰਦਾ ਹੈ?',
+      'ਧਿਆਨ ਦੇਣ ਯੋਗ ਤਬਦੀਲੀਆਂ',
+      'ਇਹ ਤਬਦੀਲੀਆਂ ਕੀ ਦੱਸ ਸਕਦੀਆਂ ਹਨ?',
+      'ਆਪਣੇ ਆਪ ਨੂੰ ਬਿਹਤਰ ਜਾਣਨ ਲਈ ਚੱਕਰ ਦਾ ਰਿਕਾਰਡ',
+      'ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ?',
+      'ਜਾਣਨ ਯੋਗ',
+    ],
+    observeLabels: [
+      'ਚੱਕਰ ਦੀ ਲੰਬਾਈ',
+      'ਮਾਹਵਾਰੀ ਦੀ ਲੰਬਾਈ',
+      'ਮਾਹਵਾਰੀ ਦਾ ਵਹਾਅ',
+      'ਦਰਦ',
+      'ਯੋਨੀ ਦਾ ਰਿਸਾਅ',
+      'ਮੂਡ',
+      'ਊਰਜਾ / ਥਕਾਵਟ',
+      'ਹੋਰ ਵਾਰ-ਵਾਰ ਆਉਣ ਵਾਲੇ ਲੱਛਣ',
+    ],
+    factorLabels: [
+      'ਤਣਾਅ',
+      'ਨੀਂਦ ਦੀ ਕਮੀ',
+      'ਭਾਰ ਵਿੱਚ ਵੱਡੀਆਂ ਤਬਦੀਲੀਆਂ',
+      'ਬਹੁਤ ਤੀਬਰ ਸਰੀਰਕ ਸਰਗਰਮੀ',
+      'ਹਾਰਮੋਨ ਦੀਆਂ ਤਬਦੀਲੀਆਂ',
+      'ਗਰਭ ਨਿਰੋਧ',
+      'ਕੁਝ ਡਾਕਟਰੀ ਹਾਲਤਾਂ',
+    ],
+    s1Body1:
+      'ਮਾਹਵਾਰੀ ਚੱਕਰ ਪੂਰੇ ਮਹੀਨੇ ਦੌਰਾਨ ਸਰੀਰ ਦੀ ਹਾਰਮੋਨ ਸਰਗਰਮੀ ਤੋਂ ਪ੍ਰਭਾਵਿਤ ਹੁੰਦਾ ਹੈ। ਇਸ ਨੂੰ ਦੇਖਣਾ ਸਿੱਖਣਾ ਤੁਹਾਨੂੰ ਇਹ ਬਿਹਤਰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਸਰੀਰ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ, ਬਿਨਾਂ ਹਰ ਚੀਜ਼ ਦਾ ਬਾਰੀਕੀ ਨਾਲ ਵਿਸ਼ਲੇਸ਼ਣ ਕੀਤੇ।',
+    s1Body2: 'ਇੱਥੇ ਦੇਖਣ ਲਈ ਸਭ ਤੋਂ ਲਾਭਦਾਇਕ ਗੱਲਾਂ ਹਨ:',
+    s2Body1:
+      'ਕੋਈ ਇੱਕ ਸੰਪੂਰਨ ਚੱਕਰ ਨਹੀਂ ਹੁੰਦਾ: ਹਰ ਸਰੀਰ ਦੀ ਆਪਣੀ ਲੈਅ ਹੁੰਦੀ ਹੈ, ਅਤੇ ਇਹ ਲੈਅ ਮਹੀਨੇ ਤੋਂ ਮਹੀਨੇ ਥੋੜ੍ਹੀ ਬਦਲ ਵੀ ਸਕਦੀ ਹੈ। ਚੱਕਰ ਨੂੰ ਆਮ ਤੌਰ ’ਤੇ ਨਿਯਮਿਤ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ ਜਦੋਂ ਇਹ 21 ਤੋਂ 35 ਦਿਨਾਂ ਦੇ ਵਿਚਕਾਰ ਹੋਵੇ, ਅਤੇ ਮਾਹਵਾਰੀ ਅਕਸਰ 3 ਤੋਂ 7 ਦਿਨ ਚੱਲਦੀ ਹੈ।',
+    s2Body2:
+      'ਇਹ ਅੰਕੜੇ ਔਸਤ ਹਨ: ਥੋੜ੍ਹੇ ਫ਼ਰਕ ਪੂਰੀ ਤਰ੍ਹਾਂ ਆਮ ਰਹਿੰਦੇ ਹਨ, ਖ਼ਾਸ ਕਰਕੇ ਜਵਾਨੀ ਤੋਂ ਬਾਅਦ, ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ, ਜਾਂ ਮੇਨੋਪੌਜ਼ ਨੇੜੇ ਆਉਣ ’ਤੇ।',
+    s3Body1:
+      'ਕੁਝ ਤਬਦੀਲੀਆਂ ਨੂੰ ਥੋੜ੍ਹਾ ਹੋਰ ਧਿਆਨ ਨਾਲ ਦੇਖਣਾ ਚਾਹੀਦਾ ਹੈ, ਜਿਵੇਂ ਕਿ:',
+    changesToWatch: [
+      'ਚੱਕਰ ਦੀ ਨਿਯਮਿਤਤਾ ਵਿੱਚ ਸਪੱਸ਼ਟ ਤਬਦੀਲੀ',
+      'ਮਾਹਵਾਰੀ ਆਮ ਨਾਲੋਂ ਕਾਫ਼ੀ ਜ਼ਿਆਦਾ ਭਾਰੀ',
+      'ਅਸਾਧਾਰਨ ਤੌਰ ’ਤੇ ਤੇਜ਼ ਜਾਂ ਲਗਾਤਾਰ ਦਰਦ',
+      'ਮਾਹਵਾਰੀ ਦਾ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਨਾ ਆਉਣਾ',
+      'ਮਾਹਵਾਰੀਆਂ ਦੇ ਵਿਚਕਾਰ ਖ਼ੂਨ ਆਉਣਾ',
+      'ਕਈ ਚੱਕਰਾਂ ਵਿੱਚ ਦੁਹਰਾਈ ਜਾਣ ਵਾਲੀ ਕੋਈ ਵੱਡੀ ਤਬਦੀਲੀ',
+    ],
+    s3Body2:
+      'ਇੱਕ ਇਕੱਲਾ ਅਸਾਧਾਰਨ ਚੱਕਰ ਆਪਣੇ ਆਪ ਸਿਹਤ ਦੀ ਸਮੱਸਿਆ ਨਹੀਂ ਦਰਸਾਉਂਦਾ: ਸਰੀਰ ਕਈ ਵੱਖ-ਵੱਖ ਕਾਰਕਾਂ ਪ੍ਰਤੀ ਅਸਥਾਈ ਤੌਰ ’ਤੇ ਪ੍ਰਤੀਕਿਰਿਆ ਕਰ ਸਕਦਾ ਹੈ।',
+    s4Body1:
+      'ਇਹ ਤਬਦੀਲੀਆਂ ਕਈ ਵਾਰ ਕਈ ਕਾਰਕਾਂ ਨਾਲ ਜੁੜੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ, ਬਿਨਾਂ ਇਹ ਜ਼ਰੂਰੀ ਹੋਏ ਕਿ ਇਹ ਕੋਈ ਸਮੱਸਿਆ ਹੋਵੇ:',
+    s4Body2:
+      'ਇਹ ਹੋਰਨਾਂ ਵਿੱਚੋਂ ਸਿਰਫ਼ ਕੁਝ ਸੰਭਾਵੀ ਵਿਆਖਿਆਵਾਂ ਹਨ: ਇਹ ਕਦੇ ਵੀ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀਆਂ।',
+    s5VisualTitle: 'ਆਪਣੀ ਲੈਅ ਨੂੰ ਦੇਖਣਾ',
+    s5VisualText:
+      'ਆਪਣੀਆਂ ਤਾਰੀਖ਼ਾਂ, ਵਹਾਅ ਜਾਂ ਆਪਣੇ ਮਹਿਸੂਸ ਕਰਨ ਦੇ ਢੰਗ ਨੂੰ ਲਿਖਣਾ ਮਹੀਨੇ-ਦਰ-ਮਹੀਨੇ ਆਪਣੀਆਂ ਆਦਤਾਂ ਨੂੰ ਜਾਣਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।',
+    s5Body:
+      'ਮਾਹਵਾਰੀ ਦਾ ਪਹਿਲਾ ਦਿਨ, ਉਸ ਦੀ ਲੰਬਾਈ, ਵਹਾਅ, ਦਰਦ, ਮੂਡ, ਊਰਜਾ ਜਾਂ ਯੋਨੀ ਦਾ ਰਿਸਾਅ, ਇਹ ਸਭ ਉਹ ਗੱਲਾਂ ਹਨ ਜੋ ਤੁਸੀਂ ਸਮੇਂ ਦੇ ਨਾਲ ਲਿਖ ਸਕਦੇ ਹੋ। ਮਕਸਦ ਆਪਣੇ ਚੱਕਰ ਦੀ ਕਿਸੇ ਹੋਰ ਨਾਲ ਤੁਲਨਾ ਕਰਨਾ ਨਹੀਂ, ਸਗੋਂ ਇਹ ਬਿਹਤਰ ਪਛਾਣਨਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਲਈ ਆਮ ਕੀ ਹੈ ਅਤੇ ਉਸ ਤੋਂ ਵੱਖਰਾ ਕੀ ਹੈ।',
+    s6Body1:
+      'ਆਪਣੇ ਚੱਕਰ ਬਾਰੇ ਸਵਾਲ ਹੋਣਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਆਮ ਹੈ। ਕੁਝ ਹਾਲਾਤਾਂ ਵਿੱਚ ਡਾਕਟਰੀ ਸਲਾਹ ਲੈਣਾ ਮਦਦਗਾਰ ਹੋ ਸਕਦਾ ਹੈ, ਉਦਾਹਰਨ ਲਈ:',
+    whenToAsk: [
+      'ਕਈ ਚੱਕਰਾਂ ਤੱਕ ਬਣੀਆਂ ਰਹਿਣ ਵਾਲੀਆਂ ਵੱਡੀਆਂ ਤਬਦੀਲੀਆਂ',
+      'ਅਜਿਹਾ ਦਰਦ ਜੋ ਤੁਹਾਨੂੰ ਤੁਹਾਡੀਆਂ ਆਮ ਸਰਗਰਮੀਆਂ ਤੋਂ ਰੋਕੇ',
+      'ਬਹੁਤ ਭਾਰੀ ਮਾਹਵਾਰੀ',
+      'ਮਾਹਵਾਰੀ ਦਾ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਨਾ ਆਉਣਾ',
+      'ਅਸਾਧਾਰਨ ਖ਼ੂਨ ਆਉਣਾ',
+      'ਕੋਈ ਵੀ ਲਗਾਤਾਰ ਲੱਛਣ ਜੋ ਤੁਹਾਨੂੰ ਚਿੰਤਤ ਕਰੇ',
+    ],
+    s6Body2:
+      'ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨਾ ਤੁਹਾਡੇ ਮਨ ਨੂੰ ਸ਼ਾਂਤ ਕਰਨ ਜਾਂ, ਜੇ ਲੋੜ ਹੋਵੇ, ਸਹੀ ਸਹਾਰਾ ਦਿਵਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ — ਇਹ ਆਪਣੇ ਆਪ ਵਿੱਚ ਕਦੇ ਵੀ ਚਿੰਤਾ ਦਾ ਕਾਰਨ ਨਹੀਂ ਹੁੰਦਾ।',
+    tipText:
+      'ਚੱਕਰ ਦਾ ਆਮ ਹੋਣਾ ਲਈ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨਿਯਮਿਤ ਹੋਣਾ ਜ਼ਰੂਰੀ ਨਹੀਂ। ਆਪਣੀ ਆਮ ਲੈਅ ਨੂੰ ਜਾਣਨਾ ਅਕਸਰ ਕਿਸੇ ਆਦਰਸ਼ ਲੰਬਾਈ ਦੀ ਭਾਲ ਕਰਨ ਨਾਲੋਂ ਵੱਧ ਲਾਭਦਾਇਕ ਹੁੰਦਾ ਹੈ।',
+    finalBody:
+      'ਤੁਹਾਡਾ ਮਾਹਵਾਰੀ ਚੱਕਰ ਤੁਹਾਡੀ ਸਿਹਤ ਦੇ ਕਈ ਸੂਚਕਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ। ਇਸ ਦਾ ਨਿਯਮਿਤ ਰਿਕਾਰਡ ਰੱਖਣਾ ਤੁਹਾਨੂੰ ਆਪਣੇ ਸਰੀਰ ਨੂੰ ਬਿਹਤਰ ਸਮਝਣ ਅਤੇ, ਸਮੇਂ ਦੇ ਨਾਲ, ਅਜਿਹੀਆਂ ਤਬਦੀਲੀਆਂ ਨੋਟ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ ਜੋ ਖ਼ਾਸ ਧਿਆਨ ਦੀਆਂ ਹੱਕਦਾਰ ਹਨ।',
+    shareMessage: 'ਤੁਹਾਡਾ ਚੱਕਰ, ਸਿਹਤ ਦਾ ਇੱਕ ਬਿਹਤਰੀਨ ਸੂਚਕ — AWA',
+  },
+  my: {
+    badge: 'ရာသီစက်ဝန်းနှင့် ရာသီလာခြင်း',
+    title: 'သင့်ရာသီစက်ဝန်း၊ ကျန်းမာရေး၏\nအလွန်ကောင်းသော ညွှန်ပြချက်',
+    metaDuration: 'ဖတ်ချိန် 7 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro: 'ရာသီစက်ဝန်းကို တစ်ခါတစ်ရံ “ပဉ္စမမြောက် အသက်ရှင်မှုလက္ခဏာ” ဟု အဘယ်ကြောင့် ခေါ်သနည်း။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'သင့်ရာသီစက်ဝန်း၊ သင့်ခန္ဓာကိုယ်၏ ပြယုဂ်',
+      "“ပုံမှန်” ရာသီစက်ဝန်းဆိုသည်မှာ အဘယ်နည်း။",
+      'စောင့်ကြည့်သင့်သော ပြောင်းလဲမှုများ',
+      'ဤပြောင်းလဲမှုများက အဘယ်အရာကို ဖော်ပြနိုင်သနည်း',
+      'ကိုယ့်ကိုယ်ကို ပိုသိရန် ရာသီစက်ဝန်းကို မှတ်တမ်းတင်ခြင်း',
+      'အကြံဉာဏ်ကို မည်သည့်အခါ ရယူသင့်သနည်း',
+      'သိထားသင့်သည်',
+    ],
+    observeLabels: [
+      'ရာသီစက်ဝန်း၏ ကြာချိန်',
+      'ရာသီလာချိန်၏ ကြာချိန်',
+      'ရာသီသွေးထွက်ပမာဏ',
+      'နာကျင်မှု',
+      'မီးယပ်လမ်းကြောင်းမှ အရည်ထွက်ခြင်း',
+      'စိတ်ခံစားမှု',
+      'ခွန်အား / ပင်ပန်းနွမ်းနယ်ခြင်း',
+      'ထပ်ခါတလဲလဲဖြစ်သော အခြားလက္ခဏာများ',
+    ],
+    factorLabels: [
+      'စိတ်ဖိစီးမှု',
+      'အိပ်ရေးမဝခြင်း',
+      'ကိုယ်အလေးချိန် သိသာစွာ ပြောင်းလဲခြင်း',
+      'အလွန်ပြင်းထန်သော ကိုယ်ကာယလှုပ်ရှားမှု',
+      'ဟော်မုန်းပြောင်းလဲမှုများ',
+      'ကိုယ်ဝန်တားဆီးခြင်း',
+      'အချို့သော ဆေးဘက်ဆိုင်ရာ အခြေအနေများ',
+    ],
+    s1Body1:
+      'ရာသီစက်ဝန်းသည် တစ်လတာတစ်လျှောက် ခန္ဓာကိုယ်၏ ဟော်မုန်းလှုပ်ရှားမှုကြောင့် သက်ရောက်မှုခံရသည်။ ၎င်းကို စောင့်ကြည့်တတ်ခြင်းက အရာအားလုံးကို အသေးစိတ်ခွဲခြမ်းစိတ်ဖြာရန် မလိုဘဲ သင့်ခန္ဓာကိုယ် မည်သို့လုပ်ဆောင်သည်ကို ပိုမိုနားလည်ရန် ကူညီနိုင်သည်။',
+    s1Body2: 'သတိပြုသင့်သော အသုံးဝင်ဆုံးအချက်များမှာ အောက်ပါအတိုင်း ဖြစ်သည်။',
+    s2Body1:
+      'ပြီးပြည့်စုံသော ရာသီစက်ဝန်း တစ်မျိုးတည်း မရှိပါ။ ခန္ဓာကိုယ်တိုင်းတွင် ကိုယ်ပိုင်ကြိမ်နှုန်း ရှိပြီး ထိုကြိမ်နှုန်းသည် လတစ်လမှ တစ်လအကြားတွင် အနည်းငယ် ကွာခြားနိုင်သည်။ ရာသီစက်ဝန်းတစ်ခု၏ ကြာချိန် 21 ရက်မှ 35 ရက်ကြားဖြစ်ပါက ယေဘုယျအားဖြင့် ပုံမှန်ဟု သတ်မှတ်ပြီး ရာသီလာချိန်သည် အများအားဖြင့် 3 ရက်မှ 7 ရက်ကြာသည်။',
+    s2Body2:
+      'ဤကိန်းဂဏန်းများသည် ပျမ်းမျှတန်ဖိုးများ ဖြစ်သည်။ အထူးသဖြင့် ဖောက်ပြန်ချိန်ကာလ (အရွယ်ရောက်ချိန်) နောက်ပိုင်း၊ ကလေးမွေးပြီးနောက် သို့မဟုတ် ရာသီဆုံးခြင်း နီးကပ်လာချိန်တွင် အနည်းငယ် ကွာခြားမှုများသည် လုံးဝပုံမှန်ဖြစ်နေဆဲ ဖြစ်သည်။',
+    s3Body1:
+      'အချို့ပြောင်းလဲမှုများကို အနည်းငယ်ပိုမိုနီးကပ်စွာ စောင့်ကြည့်သင့်သည်။ ဥပမာ',
+    changesToWatch: [
+      'ရာသီစက်ဝန်း ပုံမှန်ဖြစ်မှုတွင် သိသာထင်ရှားသော ပြောင်းလဲမှု',
+      'ပုံမှန်ထက် သိသိသာသာ သွေးထွက်များသော ရာသီလာခြင်း',
+      'ပုံမှန်မဟုတ်ဘဲ ပြင်းထန်သော သို့မဟုတ် ဆက်လက်ဖြစ်နေသော နာကျင်မှု',
+      'ရာသီမလာခြင်း ကာလရှည်ကြာခြင်း',
+      'ရာသီလာချိန်များအကြား သွေးထွက်ခြင်း',
+      'ရာသီစက်ဝန်းများစွာတွင် ထပ်ခါတလဲလဲဖြစ်သော သိသာထင်ရှားသည့် ပြောင်းလဲမှု',
+    ],
+    s3Body2:
+      'သီးခြားတစ်ကြိမ်တည်း ပုံမှန်မဟုတ်သော ရာသီစက်ဝန်းသည် ကျန်းမာရေးပြဿနာဟု အလိုအလျောက် မဆိုလိုပါ။ ခန္ဓာကိုယ်သည် မတူညီသော အချက်များစွာကို ယာယီတုံ့ပြန်နိုင်သည်။',
+    s4Body1:
+      'ဤပြောင်းလဲမှုများသည် တစ်ခါတစ်ရံ အချက်များစွာနှင့် ဆက်စပ်နိုင်ပြီး ပြဿနာတစ်ခု ဖြစ်ချင်မှ ဖြစ်မည်။',
+    s4Body2:
+      'ဤအချက်များသည် ဖြစ်နိုင်ခြေရှိသော ရှင်းလင်းချက်အချို့သာ ဖြစ်ပြီး ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို ဘယ်တော့မှ အစားထိုးခြင်း မရှိပါ။',
+    s5VisualTitle: 'သင့်ကိုယ်ပိုင်ကြိမ်နှုန်းကို စောင့်ကြည့်ခြင်း',
+    s5VisualText:
+      'သင့်ရက်စွဲများ၊ သွေးထွက်ပမာဏ သို့မဟုတ် သင်ခံစားရပုံကို မှတ်သားခြင်းက လပေါင်းများစွာအတွင်း သင့်အလေ့အထများကို သိရှိရန် ကူညီသည်။',
+    s5Body:
+      'ရာသီလာသည့် ပထမနေ့၊ ၎င်း၏ ကြာချိန်၊ သွေးထွက်ပမာဏ၊ နာကျင်မှု၊ စိတ်ခံစားမှု၊ ခွန်အား သို့မဟုတ် မီးယပ်လမ်းကြောင်းမှ အရည်ထွက်ခြင်းတို့သည် အချိန်ကြာလာသည်နှင့်အမျှ မှတ်သားနိုင်သော အရာများ ဖြစ်သည်။ ရည်ရွယ်ချက်မှာ သင့်ရာသီစက်ဝန်းကို အခြားသူ၏နှင့် နှိုင်းယှဉ်ရန် မဟုတ်ဘဲ သင့်အတွက် ပုံမှန်ဖြစ်သည့်အရာနှင့် ကွာခြားသည့်အရာကို ပိုမိုသိရှိရန် ဖြစ်သည်။',
+    s6Body1:
+      'သင့်ရာသီစက်ဝန်းအကြောင်း မေးခွန်းများရှိခြင်းသည် လုံးဝပုံမှန်ဖြစ်သည်။ အချို့အခြေအနေများတွင် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ရယူခြင်းက အထောက်အကူဖြစ်နိုင်သည်။ ဥပမာ',
+    whenToAsk: [
+      'ရာသီစက်ဝန်းများစွာတွင် ဆက်လက်ရှိနေသော သိသာထင်ရှားသည့် ပြောင်းလဲမှုများ',
+      'သင့်ပုံမှန်လှုပ်ရှားမှုများကို မလုပ်နိုင်စေသော နာကျင်မှု',
+      'သွေးထွက်အလွန်များသော ရာသီလာခြင်း',
+      'ရာသီမလာခြင်း ကာလရှည်ကြာခြင်း',
+      'ပုံမှန်မဟုတ်သော သွေးထွက်ခြင်း',
+      'သင့်ကို စိုးရိမ်စေသော ဆက်လက်ဖြစ်နေသည့် မည်သည့်လက္ခဏာမဆို',
+    ],
+    s6Body2:
+      'ကျန်းမာရေးပညာရှင်တစ်ဦးနှင့် ပြောဆိုခြင်းက သင့်စိတ်ကို ချမ်းသာစေရန် သို့မဟုတ် လိုအပ်ပါက သင့်တော်သော ပံ့ပိုးမှု ရရှိရန် ကူညီနိုင်သည်။ ၎င်းကိုယ်တိုင်သည် စိုးရိမ်စရာအကြောင်းရင်း မဟုတ်ပါ။',
+    tipText:
+      'ရာသီစက်ဝန်းတစ်ခု ပုံမှန်ဖြစ်ရန် လုံးဝပုံမှန်ညီမျှနေရန် မလိုပါ။ စံပြကြာချိန်ကို ရှာဖွေခြင်းထက် သင့်ကိုယ်ပိုင် ပုံမှန်ကြိမ်နှုန်းကို သိရှိခြင်းက မကြာခဏ ပိုအသုံးဝင်သည်။',
+    finalBody:
+      'သင့်ရာသီစက်ဝန်းသည် သင့်ကျန်းမာရေး၏ ညွှန်ပြချက်များစွာထဲမှ တစ်ခု ဖြစ်သည်။ ၎င်းကို ပုံမှန်မှတ်တမ်းတင်ခြင်းက သင့်ခန္ဓာကိုယ်ကို ပိုမိုနားလည်ရန်နှင့် အချိန်ကြာလာသည်နှင့်အမျှ အထူးအာရုံစိုက်ထိုက်သော ပြောင်းလဲမှုများကို သတိပြုမိရန် ကူညီနိုင်သည်။',
+    shareMessage: 'သင့်ရာသီစက်ဝန်း၊ ကျန်းမာရေး၏ အလွန်ကောင်းသော ညွှန်ပြချက် — AWA',
+  },
+  km: {
+    badge: 'វដ្តរដូវ និងរដូវ',
+    title: 'វដ្តរដូវរបស់អ្នក ជាសូចនាករ\nសុខភាពដ៏ល្អឥតខ្ចោះ',
+    metaDuration: 'អាន 7 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro: 'ហេតុអ្វីបានជាវដ្តរដូវពេលខ្លះត្រូវបានគេហៅថា “សញ្ញាជីវិតទីប្រាំ”។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'វដ្តរដូវរបស់អ្នក៖ ការឆ្លុះបញ្ចាំងនៃរាងកាយអ្នក',
+      'តើវដ្តរដូវ “ធម្មតា” គឺជាអ្វី?',
+      'ការផ្លាស់ប្តូរដែលគួរតាមដាន',
+      'តើការផ្លាស់ប្តូរទាំងនេះអាចបង្ហាញអ្វីខ្លះ?',
+      'ការតាមដានវដ្តរដូវរបស់អ្នកដើម្បីស្គាល់ខ្លួនឯងកាន់តែច្បាស់',
+      'ពេលណាគួរស្វែងរកដំបូន្មាន?',
+      'គួរដឹង',
+    ],
+    observeLabels: [
+      'រយៈពេលនៃវដ្តរដូវ',
+      'រយៈពេលនៃរដូវ',
+      'បរិមាណឈាមរដូវ',
+      'ការឈឺចាប់',
+      'ទឹករំអិលទ្វារមាស',
+      'អារម្មណ៍',
+      'ថាមពល / ភាពអស់កម្លាំង',
+      'រោគសញ្ញាផ្សេងទៀតដែលកើតឡើងម្តងហើយម្តងទៀត',
+    ],
+    factorLabels: [
+      'ភាពតានតឹង',
+      'ខ្វះដំណេក',
+      'ការផ្លាស់ប្តូរទម្ងន់ច្រើន',
+      'សកម្មភាពរាងកាយខ្លាំងណាស់',
+      'ការផ្លាស់ប្តូរអរម៉ូន',
+      'ការពន្យារកំណើត',
+      'ស្ថានភាពវេជ្ជសាស្ត្រមួយចំនួន',
+    ],
+    s1Body1:
+      'វដ្តរដូវត្រូវបានជះឥទ្ធិពលដោយសកម្មភាពអរម៉ូនរបស់រាងកាយពេញមួយខែ។ ការរៀនសង្កេតវាអាចជួយអ្នកឱ្យយល់កាន់តែច្បាស់ពីរបៀបដែលរាងកាយអ្នកដំណើរការ ដោយមិនចាំបាច់វិភាគអ្វីៗទាំងអស់យ៉ាងលម្អិតនោះទេ។',
+    s1Body2: 'នេះគឺជាអ្វីដែលមានប្រយោជន៍បំផុតក្នុងការកត់សម្គាល់៖',
+    s2Body1:
+      'មិនមានវដ្តរដូវល្អឥតខ្ចោះតែមួយទេ៖ រាងកាយនីមួយៗមានចង្វាក់ផ្ទាល់ខ្លួន ហើយចង្វាក់នោះក៏អាចប្រែប្រួលបន្តិចពីខែមួយទៅខែមួយដែរ។ វដ្តរដូវជាទូទៅត្រូវបានចាត់ទុកថាទៀងទាត់ នៅពេលវាមានរយៈពេលចន្លោះពី 21 ទៅ 35 ថ្ងៃ ហើយរដូវភាគច្រើនមានរយៈពេល 3 ទៅ 7 ថ្ងៃ។',
+    s2Body2:
+      'តួលេខទាំងនេះជាមធ្យមភាគ៖ ភាពខុសគ្នាបន្តិចបន្តួចនៅតែជារឿងធម្មតាទាំងស្រុង ជាពិសេសក្រោយពេលពេញវ័យ ក្រោយពេលសម្រាលកូន ឬនៅពេលជិតអស់រដូវ។',
+    s3Body1:
+      'ការផ្លាស់ប្តូរមួយចំនួនគួរតាមដានឱ្យកាន់តែយកចិត្តទុកដាក់ ដូចជា៖',
+    changesToWatch: [
+      'ការផ្លាស់ប្តូរយ៉ាងច្បាស់នៃភាពទៀងទាត់របស់វដ្តរដូវ',
+      'រដូវមានបរិមាណច្រើនជាងធម្មតាយ៉ាងច្បាស់',
+      'ការឈឺចាប់ខ្លាំង ឬបន្តកើតមានមិនធម្មតា',
+      'ការអវត្តមានរដូវរយៈពេលយូរ',
+      'ការហូរឈាមរវាងរដូវ',
+      'ការផ្លាស់ប្តូរសំខាន់ដែលកើតឡើងម្តងទៀតក្នុងវដ្តរដូវជាច្រើន',
+    ],
+    s3Body2:
+      'វដ្តរដូវមិនធម្មតាតែមួយដាច់ឡែកមិនមែនមានន័យថាមានបញ្ហាសុខភាពដោយស្វ័យប្រវត្តិនោះទេ៖ រាងកាយអាចមានប្រតិកម្មជាបណ្តោះអាសន្នចំពោះកត្តាជាច្រើនផ្សេងៗគ្នា។',
+    s4Body1:
+      'ការផ្លាស់ប្តូរទាំងនេះពេលខ្លះអាចទាក់ទងនឹងកត្តាជាច្រើន ដោយមិនចាំបាច់ជាបញ្ហាឡើយ៖',
+    s4Body2:
+      'ទាំងនេះគ្រាន់តែជាការពន្យល់ដែលអាចកើតមានមួយចំនួនក្នុងចំណោមការពន្យល់ផ្សេងទៀត៖ វាមិនដែលជំនួសដំបូន្មានរបស់អ្នកជំនាញសុខាភិបាលឡើយ។',
+    s5VisualTitle: 'ការសង្កេតចង្វាក់ផ្ទាល់ខ្លួនរបស់អ្នក',
+    s5VisualText:
+      'ការកត់ត្រាកាលបរិច្ឆេទ បរិមាណឈាមរដូវ ឬអារម្មណ៍របស់អ្នក ជួយអ្នកឱ្យស្គាល់ទម្លាប់របស់អ្នក ពីខែមួយទៅខែមួយ។',
+    s5Body:
+      'ថ្ងៃដំបូងនៃរដូវរបស់អ្នក រយៈពេលរបស់វា បរិមាណឈាមរដូវ ការឈឺចាប់ អារម្មណ៍ ថាមពល ឬទឹករំអិលទ្វារមាស សុទ្ធតែជាអ្វីដែលអ្នកអាចកត់ត្រាតាមពេលវេលា។ គោលដៅមិនមែនដើម្បីប្រៀបធៀបវដ្តរដូវរបស់អ្នកជាមួយអ្នកផ្សេងនោះទេ ប៉ុន្តែដើម្បីស្គាល់កាន់តែច្បាស់នូវអ្វីដែលជាធម្មតាសម្រាប់អ្នក និងអ្វីដែលខុសពីនោះ។',
+    s6Body1:
+      'វាជារឿងធម្មតាទាំងស្រុងក្នុងការមានសំណួរអំពីវដ្តរដូវរបស់អ្នក។ ការស្វែងរកដំបូន្មានពីវេជ្ជបណ្ឌិតអាចមានប្រយោជន៍ក្នុងស្ថានភាពមួយចំនួន ឧទាហរណ៍៖',
+    whenToAsk: [
+      'ការផ្លាស់ប្តូរសំខាន់ដែលបន្តកើតមានក្នុងវដ្តរដូវជាច្រើន',
+      'ការឈឺចាប់ដែលរារាំងអ្នកពីសកម្មភាពធម្មតា',
+      'រដូវមានបរិមាណច្រើនខ្លាំង',
+      'ការអវត្តមានរដូវរយៈពេលយូរ',
+      'ការហូរឈាមមិនធម្មតា',
+      'រោគសញ្ញាណាមួយដែលបន្តកើតមាន ហើយធ្វើឱ្យអ្នកព្រួយបារម្ភ',
+    ],
+    s6Body2:
+      'ការនិយាយជាមួយអ្នកជំនាញសុខាភិបាលអាចជួយឱ្យអ្នកធូរចិត្ត ឬប្រសិនបើចាំបាច់ ទទួលបានការគាំទ្រត្រឹមត្រូវ — វាមិនដែលជាហេតុផលសម្រាប់ការព្រួយបារម្ភដោយខ្លួនឯងឡើយ។',
+    tipText:
+      'វដ្តរដូវមិនចាំបាច់ទៀងទាត់ឥតខ្ចោះទើបធម្មតាទេ។ ការស្គាល់ចង្វាក់ធម្មតារបស់អ្នកផ្ទាល់ ជារឿយៗមានប្រយោជន៍ជាងការស្វែងរករយៈពេលដ៏ល្អឥតខ្ចោះ។',
+    finalBody:
+      'វដ្តរដូវរបស់អ្នកគឺជាសូចនាករមួយក្នុងចំណោមសូចនាករជាច្រើនអំពីសុខភាពរបស់អ្នក។ ការតាមដានវាជាទៀងទាត់អាចជួយអ្នកឱ្យយល់ពីរាងកាយរបស់អ្នកកាន់តែច្បាស់ ហើយតាមពេលវេលា កត់សម្គាល់ការផ្លាស់ប្តូរដែលសមនឹងទទួលបានការយកចិត្តទុកដាក់ជាពិសេស។',
+    shareMessage: 'វដ្តរដូវរបស់អ្នក ជាសូចនាករសុខភាពដ៏ល្អឥតខ្ចោះ — AWA',
+  },
+  lo: {
+    badge: 'ຮອບເດືອນ ແລະ ປະຈຳເດືອນ',
+    title: 'ຮອບເດືອນຂອງທ່ານ ຕົວຊີ້ວັດ\nສຸຂະພາບທີ່ດີເລີດ',
+    metaDuration: 'ອ່ານ 7 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro: 'ເປັນຫຍັງຮອບເດືອນຈຶ່ງບາງຄັ້ງຖືກເອີ້ນວ່າ “ສັນຍານຊີບທີ່ຫ້າ.”',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ຮອບເດືອນຂອງທ່ານ: ພາບສະທ້ອນຂອງຮ່າງກາຍ',
+      'ຮອບເດືອນ “ປົກກະຕິ” ແມ່ນຫຍັງ?',
+      'ການປ່ຽນແປງທີ່ຄວນສັງເກດ',
+      'ການປ່ຽນແປງເຫຼົ່ານີ້ອາດເປີດເຜີຍຫຍັງ?',
+      'ຕິດຕາມຮອບເດືອນເພື່ອຮູ້ຈັກຕົນເອງດີຂຶ້ນ',
+      'ເມື່ອໃດຄວນຂໍຄຳແນະນຳ?',
+      'ຄວນຮູ້',
+    ],
+    observeLabels: [
+      'ຄວາມຍາວຂອງຮອບເດືອນ',
+      'ຄວາມຍາວຂອງປະຈຳເດືອນ',
+      'ປະລິມານເລືອດປະຈຳເດືອນ',
+      'ອາການເຈັບ',
+      'ການຂັບຖ່າຍຈາກຊ່ອງຄອດ',
+      'ອາລົມ',
+      'ພະລັງງານ / ອ່ອນເພຍ',
+      'ອາການອື່ນໆທີ່ເກີດຂຶ້ນຊ້ຳ',
+    ],
+    factorLabels: [
+      'ຄວາມຄຽດ',
+      'ການນອນບໍ່ພຽງພໍ',
+      'ນ້ຳໜັກປ່ຽນແປງຫຼາຍ',
+      'ການອອກກຳລັງກາຍທີ່ໜັກຫຼາຍ',
+      'ການປ່ຽນແປງຂອງຮໍໂມນ',
+      'ການຄຸມກຳເນີດ',
+      'ພາວະທາງການແພດບາງຢ່າງ',
+    ],
+    s1Body1:
+      'ຮອບເດືອນໄດ້ຮັບອິດທິພົນຈາກກິດຈະກຳຂອງຮໍໂມນໃນຮ່າງກາຍຕະຫຼອດເດືອນ. ການຮຽນຮູ້ທີ່ຈະສັງເກດມັນສາມາດຊ່ວຍໃຫ້ທ່ານເຂົ້າໃຈວິທີການເຮັດວຽກຂອງຮ່າງກາຍໄດ້ດີຂຶ້ນ ໂດຍບໍ່ຕ້ອງວິເຄາະທຸກຢ່າງຢ່າງລະອຽດ.',
+    s1Body2: 'ນີ້ແມ່ນສິ່ງທີ່ເປັນປະໂຫຍດທີ່ສຸດທີ່ຄວນສັງເກດ:',
+    s2Body1:
+      'ບໍ່ມີຮອບເດືອນທີ່ສົມບູນແບບພຽງແບບດຽວ: ທຸກຮ່າງກາຍມີຈັງຫວະຂອງຕົນເອງ ແລະ ຈັງຫວະນັ້ນກໍອາດແຕກຕ່າງເລັກນ້ອຍໃນແຕ່ລະເດືອນ. ຮອບເດືອນໂດຍທົ່ວໄປຖືວ່າສະໝ່ຳສະເໝີເມື່ອຍາວລະຫວ່າງ 21 ຫາ 35 ວັນ ແລະ ປະຈຳເດືອນສ່ວນຫຼາຍມັກຢູ່ 3 ຫາ 7 ວັນ.',
+    s2Body2:
+      'ຕົວເລກເຫຼົ່ານີ້ເປັນຄ່າສະເລ່ຍ: ຄວາມແຕກຕ່າງເລັກນ້ອຍຍັງຄົງເປັນເລື່ອງປົກກະຕິຢ່າງສົມບູນ ໂດຍສະເພາະຫຼັງໄວເຈົ້າສາວ ຫຼັງການເກີດລູກ ຫຼື ເມື່ອໃກ້ໝົດປະຈຳເດືອນ.',
+    s3Body1:
+      'ການປ່ຽນແປງບາງຢ່າງຄວນເຝົ້າສັງເກດໃກ້ຊິດຂຶ້ນເລັກນ້ອຍ ເຊັ່ນ:',
+    changesToWatch: [
+      'ຄວາມສະໝ່ຳສະເໝີຂອງຮອບເດືອນປ່ຽນແປງຢ່າງຊັດເຈນ',
+      'ປະຈຳເດືອນມາຫຼາຍກວ່າປົກກະຕິຢ່າງເຫັນໄດ້ຊັດ',
+      'ອາການເຈັບທີ່ແຮງ ຫຼື ຕໍ່ເນື່ອງຜິດປົກກະຕິ',
+      'ປະຈຳເດືອນບໍ່ມາເປັນເວລາດົນ',
+      'ມີເລືອດອອກລະຫວ່າງປະຈຳເດືອນ',
+      'ການປ່ຽນແປງທີ່ສຳຄັນທີ່ເກີດຊ້ຳຫຼາຍຮອບເດືອນ',
+    ],
+    s3Body2:
+      'ຮອບເດືອນທີ່ຜິດປົກກະຕິພຽງຄັ້ງດຽວບໍ່ໄດ້ໝາຍຄວາມວ່າມີບັນຫາສຸຂະພາບໂດຍອັດຕະໂນມັດ: ຮ່າງກາຍສາມາດຕອບສະໜອງຊົ່ວຄາວຕໍ່ປັດໄຈຕ່າງໆຫຼາຍຢ່າງ.',
+    s4Body1:
+      'ການປ່ຽນແປງເຫຼົ່ານີ້ບາງຄັ້ງອາດກ່ຽວຂ້ອງກັບຫຼາຍປັດໄຈ ໂດຍບໍ່ຈຳເປັນຕ້ອງເປັນບັນຫາ:',
+    s4Body2:
+      'ເຫຼົ່ານີ້ເປັນພຽງຄຳອະທິບາຍທີ່ເປັນໄປໄດ້ບາງຢ່າງ: ມັນບໍ່ເຄີຍແທນຄຳແນະນຳຂອງຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    s5VisualTitle: 'ສັງເກດຈັງຫວະຂອງທ່ານເອງ',
+    s5VisualText:
+      'ການບັນທຶກວັນທີ ປະລິມານເລືອດ ຫຼື ຄວາມຮູ້ສຶກຂອງທ່ານ ຊ່ວຍໃຫ້ທ່ານຮູ້ຈັກນິໄສຂອງຕົນເອງ ເດືອນແລ້ວເດືອນເຫຼົ່າ.',
+    s5Body:
+      'ມື້ທຳອິດຂອງປະຈຳເດືອນ ຄວາມຍາວ ປະລິມານເລືອດ ອາການເຈັບ ອາລົມ ພະລັງງານ ຫຼື ການຂັບຖ່າຍຈາກຊ່ອງຄອດ ລ້ວນແຕ່ເປັນສິ່ງທີ່ທ່ານສາມາດບັນທຶກຕະຫຼອດເວລາ. ເປົ້າໝາຍບໍ່ແມ່ນການປຽບທຽບຮອບເດືອນຂອງທ່ານກັບຂອງຄົນອື່ນ ແຕ່ແມ່ນການຮັບຮູ້ສິ່ງທີ່ເປັນປົກກະຕິສຳລັບທ່ານໄດ້ດີຂຶ້ນ ແລະ ສິ່ງທີ່ແຕກຕ່າງຈາກມັນ.',
+    s6Body1:
+      'ມັນເປັນເລື່ອງປົກກະຕິຢ່າງສົມບູນທີ່ຈະມີຄຳຖາມກ່ຽວກັບຮອບເດືອນຂອງທ່ານ. ການຂໍຄຳແນະນຳທາງການແພດສາມາດເປັນປະໂຫຍດໃນບາງສະຖານະການ ຕົວຢ່າງເຊັ່ນ:',
+    whenToAsk: [
+      'ການປ່ຽນແປງທີ່ສຳຄັນທີ່ຍັງຄົງຢູ່ຫຼາຍຮອບເດືອນ',
+      'ອາການເຈັບທີ່ເຮັດໃຫ້ທ່ານບໍ່ສາມາດເຮັດກິດຈະກຳປົກກະຕິໄດ້',
+      'ປະຈຳເດືອນມາຫຼາຍຫຼາຍ',
+      'ປະຈຳເດືອນບໍ່ມາເປັນເວລາດົນ',
+      'ເລືອດອອກຜິດປົກກະຕິ',
+      'ອາການໃດໆທີ່ຍັງຄົງຢູ່ ແລະ ເຮັດໃຫ້ທ່ານກັງວົນ',
+    ],
+    s6Body2:
+      'ການເວົ້າລົມກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບສາມາດຊ່ວຍໃຫ້ທ່ານສະບາຍໃຈ ຫຼື ຖ້າຈຳເປັນ ກໍໄດ້ຮັບການສະໜັບສະໜູນທີ່ເໝາະສົມ — ມັນບໍ່ເຄີຍເປັນເຫດຜົນໃຫ້ກັງວົນດ້ວຍຕົວມັນເອງ.',
+    tipText:
+      'ຮອບເດືອນບໍ່ຈຳເປັນຕ້ອງສະໝ່ຳສະເໝີຢ່າງສົມບູນຈຶ່ງຈະເປັນປົກກະຕິ. ການຮູ້ຈັກຈັງຫວະປົກກະຕິຂອງຕົນເອງມັກເປັນປະໂຫຍດກວ່າການຊອກຫາຄວາມຍາວທີ່ເໝາະສົມ.',
+    finalBody:
+      'ຮອບເດືອນຂອງທ່ານເປັນໜຶ່ງໃນຕົວຊີ້ວັດຫຼາຍຢ່າງຂອງສຸຂະພາບທ່ານ. ການຕິດຕາມມັນຢ່າງສະໝ່ຳສະເໝີສາມາດຊ່ວຍໃຫ້ທ່ານເຂົ້າໃຈຮ່າງກາຍໄດ້ດີຂຶ້ນ ແລະ ເມື່ອເວລາຜ່ານໄປ ກໍສັງເກດເຫັນການປ່ຽນແປງທີ່ຄວນເອົາໃຈໃສ່ເປັນພິເສດ.',
+    shareMessage: 'ຮອບເດືອນຂອງທ່ານ ຕົວຊີ້ວັດສຸຂະພາບທີ່ດີເລີດ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

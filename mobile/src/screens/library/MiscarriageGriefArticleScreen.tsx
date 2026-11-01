@@ -3497,6 +3497,1697 @@ const CONTENT = withBrazilianPortuguese('MiscarriageGrief', {
       'Maglumat berýän mazmun. Bu makala hünärmen maslahatyny çalyşmaýar. Kyn döwri başdan geçirýän bolsaňyz, saglyk hünärmeni bilen gürleşmekden çekinmäň.',
     shareMessage: 'Gaýgydan duýgusal geçmek — AWA',
   },
+  ms: {
+    badge: 'SELEPAS KEGUGURAN • SOKONGAN EMOSI',
+    title: 'Melalui kesedihan\ndari sudut emosi',
+    metaDuration: '7 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan maklumat',
+    intro:
+      'Tiada cara yang betul untuk melaluinya. Setiap orang melaluinya dengan caranya sendiri, mengikut rentaknya sendiri.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kesedihan yang nyata dan sah',
+      'Emosi yang berbeza dari seorang ke seorang',
+      'Apa yang mungkin membantu dari hari ke hari',
+      'Sokongan daripada orang tersayang',
+      'Bila untuk mendapatkan bantuan profesional',
+      'Perkara penting untuk diingat',
+    ],
+    section1Body:
+      'Kesedihan, kemarahan atau rasa kosong ialah tindak balas normal terhadap kehilangan ini, apa pun peringkat kehamilan. Apa yang anda rasa wajar diakui.',
+    section1InfoTitle: 'Perlu diingat',
+    section1InfoText:
+      'Tiada cara yang betul atau salah untuk melaluinya. Setiap emosi yang anda rasa adalah sah.',
+    section2Body:
+      'Anda mungkin merasai satu atau lebih daripada ini, kadangkala sekali gus:',
+    feelings: [
+      {
+        title: 'Kesedihan',
+        text: 'Kedukaan yang boleh datang dan pergi, kadangkala tanpa dijangka.',
+      },
+      {
+        title: 'Kemarahan',
+        text: 'Terhadap diri sendiri, keadaan atau rasa ketidakadilan — dan itu bukan sesuatu yang perlu dibimbangkan.',
+      },
+      {
+        title: 'Rasa kosong',
+        text: 'Perasaan kosong atau keliru tentang apa yang baru berlaku.',
+      },
+    ],
+    section3Body:
+      'Memberi diri anda masa, tanpa tekanan atau perbandingan, ialah bahagian penting dalam penyembuhan.',
+    dailySupport: [
+      {
+        title: 'Memberi diri anda masa',
+        text: 'Tanpa tekanan atau tarikh akhir untuk “berasa lebih baik.”',
+      },
+      {
+        title: 'Tidak membandingkan diri dengan orang lain',
+        text: 'Setiap kesedihan adalah unik; tiada cara yang betul untuk melaluinya.',
+      },
+      {
+        title: 'Meluahkannya dengan kata-kata',
+        text: 'Menulis atau berbicara tentang apa yang anda rasa boleh membantu meringankan beban emosi anda.',
+      },
+    ],
+    section4Body:
+      'Berbicara dengan seseorang yang rapat dengan anda, kumpulan sokongan atau pengamal profesional boleh membantu meringankan beban ini. Berikut cara orang tersayang boleh membantu:',
+    supportTitle: 'Bagaimana orang tersayang boleh menawarkan sokongan',
+    howToSupport: [
+      'Mendengar tanpa menghakimi, walaupun tanpa kata-kata yang sempurna',
+      'Mengelakkan memperkecilkan pengalaman itu (“bukan perkara besar,” “anda boleh mencuba lagi”)',
+      'Menawarkan kehadiran dan bukan penyelesaian',
+      'Terus bertanya khabar dalam minggu-minggu berikutnya',
+    ],
+    section5Body:
+      'Sesetengah tanda mungkin menunjukkan bahawa sokongan profesional boleh membantu:',
+    warningTitle: 'Tanda yang perlu diperhatikan',
+    attentionSigns: [
+      'Kesedihan berlarutan lama dan bertambah kuat dan bukan reda',
+      'Menjadi sukar untuk berfungsi dari hari ke hari',
+      'Rasa terasing yang ketara timbul',
+      'Fikiran yang mengganggu atau kesusahan yang ketara muncul',
+    ],
+    section5InfoTitle: 'Sokongan tersedia',
+    section5InfoText:
+      'Bidan, doktor, ahli psikologi atau kumpulan sokongan boleh mendengar dan menyokong anda, tanpa menghakimi.',
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Meminta bantuan bukan tanda kelemahan — ia satu cara menjaga diri anda pada masa ini.',
+    summaryPoints: [
+      'Tiada cara yang betul atau salah untuk melalui pengalaman ini.',
+      'Kesedihan, kemarahan atau rasa kosong ialah tindak balas normal.',
+      'Memberi diri anda masa, tanpa tekanan atau perbandingan, ialah sebahagian daripada penyembuhan.',
+      'Berbicara dengan seseorang yang rapat dengan anda, kumpulan sokongan atau pengamal profesional boleh membantu meringankan beban ini.',
+    ],
+    disclaimerText:
+      'Kandungan bersifat maklumat. Artikel ini tidak menggantikan nasihat profesional. Jika anda sedang melalui masa yang sukar, jangan teragak-agak berbicara dengan pengamal penjagaan kesihatan.',
+    shareMessage: 'Melalui kesedihan, dari sudut emosi — AWA',
+  },
+  so: {
+    badge: 'UUR-LUMIS KA DIB • TAAGEERO DAREEN',
+    title: 'Marista barooranaanta\ndareenka ahaan',
+    metaDuration: '7 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad',
+    intro:
+      'Hab sax ah oo lagu maro tan ma jiro. Qof kastaa wuxuu ku maraa si u gaar ah, xawaarihiisa.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Barooranaan dhab ah oo sharci ah',
+      'Dareenno ku kala duwan qof ilaa qof',
+      'Waxa caawin kara maalin kasta',
+      'Taageerada dadka kuu dhow',
+      'Goorta caawimaad xirfadle la raadsado',
+      'Qodobbada muhiimka ah',
+    ],
+    section1Body:
+      'Murugo, cadho, ama dareen madhnaan waa falcelinno caadi ah oo lumistan ah, heerka uurku wuu kasta ha ahaadee. Waxa aad dareemaysid waa mudan in la qiro.',
+    section1InfoTitle: 'Maskaxda ku hay',
+    section1InfoText:
+      'Hab sax ah ama khalad ah oo lagu maro tan ma jiro. Dareen kasta oo aad dareento waa mid sax ah.',
+    section2Body:
+      'Waxaad dareemi kartaa mid ama dhowr ka mid ah kuwan, mararka qaarkood isku mar:',
+    feelings: [
+      {
+        title: 'Murugo',
+        text: 'Murugo imaan karta oo tegi karta, mararka qaarkood lama filaan.',
+      },
+      {
+        title: 'Cadho',
+        text: 'Xagga naftaada, xaaladda, ama dareen aan cadaalad ahayn — taasna wax laga walaacsan yahay ma aha.',
+      },
+      {
+        title: 'Dareen madhnaan',
+        text: 'Dareen madhnaan ama jaha-wareer ku saabsan waxa hadda dhacay.',
+      },
+    ],
+    section3Body:
+      'Siinta naftaada waqti, cadaadis ama barbar dhig la’aan, waa qayb muhiim ah oo bogsiinta ka mid ah.',
+    dailySupport: [
+      {
+        title: 'Naftaada waqti sii',
+        text: 'Cadaadis ama wakhti kama dambeys ah oo “wanaagsan dareenka” la’aan.',
+      },
+      {
+        title: 'Ha barbar dhigin kuwa kale',
+        text: 'Barooranaan kastaa waa gaar; hab sax ah oo lagu maro ma jiro.',
+      },
+      {
+        title: 'U beddel eray',
+        text: 'Qorista ama hadalka waxa aad dareemayso ayaa caawin kara fududaynta culayska dareennadaada.',
+      },
+    ],
+    section4Body:
+      'La hadalka qof kuu dhow, koox taageero, ama xirfadle ayaa caawin kara fududaynta culaygan. Waa kuwan siyaabaha dadka kuu dhow ay kaa caawin karaan:',
+    supportTitle: 'Sida qof kuu dhow u bixin karo taageero',
+    howToSupport: [
+      'Dhegeyso xukun la’aan, xataa haddii aanad haysan ereyada qumman',
+      'Ka fogow yareynta khibradda (“wax weyn ma ahayn,” “mar kale ayaad isku dayi kartaa”)',
+      'Bixi joogitaankaaga halkii aad bixin lahayd xalal',
+      'Sii wad hubinta toddobaadyada xiga',
+    ],
+    section5Body:
+      'Calaamado qaar ayaa muujin kara in taageero xirfadle ay faa’iido yeelan karto:',
+    warningTitle: 'Calaamadaha la eego',
+    attentionSigns: [
+      'Murugadu waqti dheer ayay socotaa oo way xoogaysataa halkii ay hagaagi lahayd',
+      'Waxay noqotaa mid adag in maalin kasta la shaqeeyo',
+      'Dareen go’doon weyn ayaa soo baxa',
+      'Fikrado soo gelaya ama dhib weyn ayaa soo muuqda',
+    ],
+    section5InfoTitle: 'Taageero way jirtaa',
+    section5InfoText:
+      'Umulis, dhakhtar, saykolaji, ama koox taageero ayaa ku dhegeysan kara oo ku taageeri kara, xukun la’aan.',
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Weydiisashada caawimaad ma aha calaamad daciifnimo — waa hab aad naftaada ku daryeesho wakhtigan.',
+    summaryPoints: [
+      'Hab sax ah ama khalad ah oo lagu maro khibradan ma jiro.',
+      'Murugo, cadho, ama dareen madhnaan waa falcelinno caadi ah.',
+      'Siinta naftaada waqti, cadaadis ama barbar dhig la’aan, waa qayb ka mid ah bogsiinta.',
+      'La hadalka qof kuu dhow, koox taageero, ama xirfadle ayaa caawin kara fududaynta culaygan.',
+    ],
+    disclaimerText:
+      'Macluumaad. Maqaalkan ma beddelo talo xirfadle. Haddii aad marayso waqti adag, ha ka waaban inaad la hadasho xirfadle caafimaad.',
+    shareMessage: 'Marista barooranaanta, dareenka ahaan — AWA',
+  },
+  sw: {
+    badge: 'BAADA YA KUHARIBIKA KWA MIMBA • MSAADA WA KIHISIA',
+    title: 'Kupitia huzuni\nkihisia',
+    metaDuration: 'Dakika 7 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui ya taarifa',
+    intro:
+      'Hakuna njia sahihi ya kupitia hili. Kila mtu hupita kwa njia yake mwenyewe, kwa mwendo wake mwenyewe.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Huzuni halisi na halali',
+      'Hisia zinazotofautiana kati ya mtu na mtu',
+      'Kinachoweza kusaidia kila siku',
+      'Msaada kutoka kwa wapendwa',
+      'Wakati wa kutafuta msaada wa kitaalamu',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    section1Body:
+      'Huzuni, hasira, au hisia ya utupu ni miitikio ya kawaida kwa hasara hii, bila kujali hatua ya ujauzito. Unachohisi kinastahili kutambuliwa.',
+    section1InfoTitle: 'Kumbuka',
+    section1InfoText:
+      'Hakuna njia sahihi wala isiyo sahihi ya kupitia hili. Kila hisia unayohisi ni halali.',
+    section2Body:
+      'Unaweza kuhisi moja au zaidi ya hizi, wakati mwingine zote kwa wakati mmoja:',
+    feelings: [
+      {
+        title: 'Huzuni',
+        text: 'Maumivu ya moyo yanayoweza kuja na kuondoka, wakati mwingine bila kutarajia.',
+      },
+      {
+        title: 'Hasira',
+        text: 'Kuelekea wewe mwenyewe, hali, au hisia ya kutokuwa na haki — na hilo si jambo la kuwa na wasiwasi nalo.',
+      },
+      {
+        title: 'Hisia ya utupu',
+        text: 'Hisia ya ubatili au mchanganyiko kuhusu kilichotokea hivi punde.',
+      },
+    ],
+    section3Body:
+      'Kujipa muda, bila shinikizo wala ulinganisho, ni sehemu muhimu ya uponyaji.',
+    dailySupport: [
+      {
+        title: 'Kujipa muda',
+        text: 'Bila shinikizo au tarehe ya mwisho ya “kujisikia vizuri.”',
+      },
+      {
+        title: 'Kutojilinganisha na wengine',
+        text: 'Kila huzuni ni ya kipekee; hakuna njia sahihi ya kuipitia.',
+      },
+      {
+        title: 'Kuweka katika maneno',
+        text: 'Kuandika au kuzungumza kuhusu unachohisi kunaweza kusaidia kupunguza uzito wa hisia zako.',
+      },
+    ],
+    section4Body:
+      'Kuzungumza na mtu wa karibu nawe, kikundi cha msaada, au mtaalamu kunaweza kusaidia kupunguza uzito huu. Hivi ndivyo wapendwa wanaweza kusaidia:',
+    supportTitle: 'Jinsi mpendwa anavyoweza kutoa msaada',
+    howToSupport: [
+      'Sikiliza bila kuhukumu, hata bila kuwa na maneno kamili',
+      'Epuka kupunguza uzito wa uzoefu (“haikuwa jambo kubwa,” “unaweza kujaribu tena”)',
+      'Toa uwepo wako badala ya suluhisho',
+      'Endelea kumjulia hali katika wiki zinazofuata',
+    ],
+    section5Body:
+      'Baadhi ya dalili zinaweza kuashiria kuwa msaada wa kitaalamu unaweza kuwa wa manufaa:',
+    warningTitle: 'Dalili za kuzingatia',
+    attentionSigns: [
+      'Huzuni inadumu kwa muda mrefu na kuongezeka badala ya kupungua',
+      'Inakuwa vigumu kufanya kazi za kila siku',
+      'Hisia kubwa ya kutengwa inajitokeza',
+      'Mawazo yanayoingilia au dhiki kubwa inaonekana',
+    ],
+    section5InfoTitle: 'Msaada unapatikana',
+    section5InfoText:
+      'Mkunga, daktari, mwanasaikolojia, au kikundi cha msaada kinaweza kukusikiliza na kukusaidia, bila kuhukumu.',
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Kuomba msaada si dalili ya udhaifu — ni njia ya kujijali katika kipindi hiki.',
+    summaryPoints: [
+      'Hakuna njia sahihi wala isiyo sahihi ya kupitia uzoefu huu.',
+      'Huzuni, hasira, au hisia ya utupu ni miitikio ya kawaida.',
+      'Kujipa muda, bila shinikizo wala ulinganisho, ni sehemu ya uponyaji.',
+      'Kuzungumza na mtu wa karibu nawe, kikundi cha msaada, au mtaalamu kunaweza kusaidia kupunguza uzito huu.',
+    ],
+    disclaimerText:
+      'Maudhui ya taarifa. Makala hii haichukui nafasi ya ushauri wa kitaalamu. Ikiwa unapitia kipindi kigumu, usisite kuzungumza na mtaalamu wa afya.',
+    shareMessage: 'Kupitia huzuni, kihisia — AWA',
+  },
+  kk: {
+    badge: 'ТҮСІКТЕН КЕЙІН • ЭМОЦИЯЛЫҚ ҚОЛДАУ',
+    title: 'Қайғыны эмоциялық\nтүрде бастан өткеру',
+    metaDuration: '7 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Ақпараттық мазмұн',
+    intro:
+      'Бұдан өтудің дұрыс жолы жоқ. Әркім оны өз жолымен, өз қарқынымен бастан өткереді.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Нақты және заңды қайғы',
+      'Әр адамда әртүрлі эмоциялар',
+      'Күнделікті не көмектесе алады',
+      'Жақындардың қолдауы',
+      'Кәсіби көмекті қашан іздеу керек',
+      'Негізгі қорытындылар',
+    ],
+    section1Body:
+      'Мұң, ашу немесе бостық сезімі — жүктілік кезеңіне қарамастан, осы жоғалтуға қалыпты реакциялар. Сіз сезетін нәрсе мойындалуға тұрарлық.',
+    section1InfoTitle: 'Есте сақтаңыз',
+    section1InfoText:
+      'Бұдан өтудің дұрыс немесе бұрыс жолы жоқ. Сіз сезетін әрбір эмоция заңды.',
+    section2Body:
+      'Мыналардың біреуін немесе бірнешеуін, кейде бәрін бір мезгілде сезінуіңіз мүмкін:',
+    feelings: [
+      {
+        title: 'Мұң',
+        text: 'Келіп-кетуі мүмкін, кейде күтпеген жерден болатын қайғы.',
+      },
+      {
+        title: 'Ашу',
+        text: 'Өзіңізге, жағдайға немесе әділетсіздік сезіміне қарсы — және бұл алаңдайтын нәрсе емес.',
+      },
+      {
+        title: 'Бостық сезімі',
+        text: 'Жаңа болған жағдайға қатысты бостық немесе абыржу сезімі.',
+      },
+    ],
+    section3Body:
+      'Өзіңізге қысымсыз, салыстырусыз уақыт беру — емделудің маңызды бөлігі.',
+    dailySupport: [
+      {
+        title: 'Өзіңізге уақыт беру',
+        text: '“Жақсы сезінудің” қысымынсыз немесе мерзімінсіз.',
+      },
+      {
+        title: 'Өзіңізді басқалармен салыстырмау',
+        text: 'Әр қайғы бірегей; оны бастан өткерудің дұрыс жолы жоқ.',
+      },
+      {
+        title: 'Сөзбен жеткізу',
+        text: 'Сезінгеніңіз туралы жазу немесе айту эмоцияларыңыздың ауырлығын жеңілдетуге көмектесе алады.',
+      },
+    ],
+    section4Body:
+      'Жақын адаммен, қолдау тобымен немесе маманмен сөйлесу бұл ауырлықты жеңілдетуге көмектесе алады. Міне, жақындар қалай көмектесе алады:',
+    supportTitle: 'Жақын адам қолдауды қалай көрсете алады',
+    howToSupport: [
+      'Тамаша сөздер болмаса да, сынамай тыңдаңыз',
+      'Тәжірибені кішірейтуден аулақ болыңыз (“бұл үлкен мәселе емес еді,” “қайта тырыса аласыз”)',
+      'Шешімдердің орнына өз қасында болуыңызды ұсыныңыз',
+      'Келесі апталарда жағдайын сұрап тұрыңыз',
+    ],
+    section5Body:
+      'Кейбір белгілер кәсіби қолдаудың пайдалы болуы мүмкін екенін көрсетуі мүмкін:',
+    warningTitle: 'Назар аударатын белгілер',
+    attentionSigns: [
+      'Мұң ұзақ уақытқа созылады және басылудың орнына күшейеді',
+      'Күнделікті жұмыс істеу қиындайды',
+      'Айтарлықтай оқшаулану сезімі пайда болады',
+      'Кіріп кететін ойлар немесе айтарлықтай күйзеліс пайда болады',
+    ],
+    section5InfoTitle: 'Қолдау қолжетімді',
+    section5InfoText:
+      'Акушер, дәрігер, психолог немесе қолдау тобы сізді сынамай тыңдап, қолдай алады.',
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Көмек сұрау әлсіздіктің белгісі емес — бұл осы уақытта өзіңізге қамқор болудың бір жолы.',
+    summaryPoints: [
+      'Бұл тәжірибені бастан өткерудің дұрыс немесе бұрыс жолы жоқ.',
+      'Мұң, ашу немесе бостық сезімі — қалыпты реакциялар.',
+      'Өзіңізге қысымсыз, салыстырусыз уақыт беру — емделудің бір бөлігі.',
+      'Жақын адаммен, қолдау тобымен немесе маманмен сөйлесу бұл ауырлықты жеңілдетуге көмектесе алады.',
+    ],
+    disclaimerText:
+      'Ақпараттық мазмұн. Бұл мақала кәсіби кеңестің орнын баспайды. Қиын кезеңді бастан өткеріп жатсаңыз, медицина маманымен сөйлесуден тартынбаңыз.',
+    shareMessage: 'Қайғыны эмоциялық түрде бастан өткеру — AWA',
+  },
+  wo: {
+    badge: 'GINNAAW ËMB BU REES • DIMBALI CI XOL',
+    title: 'Jàll tiis\nci xol',
+    metaDuration: '7 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind ngir xibaar',
+    intro:
+      'Amul anam bu jub ngir jàll loolu. Ku nekk dafay jàll ko ci anamam, ci ritmam.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Benn tiis bu dëgg te jub',
+      'Dégg yu wuute ci nit ak nit',
+      'Li mën a dimbli ci bés bu nekk',
+      'Dimbali ci ñi la wër',
+      'Kañ ngay seet dimbali bu liggéeykat',
+      'Li am solo',
+    ],
+    section1Body:
+      'Naqar, mer walla benn dégg bu fas ay jëfe yu cosaan lañu ci rees bii, lu mu mën a doon anamu ëmb bi. Li nga dégg war na ñu ko nangu.',
+    section1InfoTitle: 'Fàttaliku',
+    section1InfoText:
+      'Amul anam bu jub walla bu bon ngir jàll loolu. Dégg bu nekk bi nga am jub na.',
+    section2Body:
+      'Mën nga dégg benn walla lu ëpp ci yii, yenn saa ci benn saa:',
+    feelings: [
+      {
+        title: 'Naqar',
+        text: 'Benn tiis bu mën a dikk te dem, yenn saa ci lu ñu xaarul.',
+      },
+      {
+        title: 'Mer',
+        text: 'Ci sa bopp, ci mbir bi walla ci benn dégg bu yoon amul — te loolu amul lu war a tiital.',
+      },
+      {
+        title: 'Benn dégg bu neen',
+        text: 'Benn dégg bu neen walla bu jaaxle ci li xewoon.',
+      },
+    ],
+    section3Body:
+      'Joxe sa bopp jamono, te coono ak méngale amul, benn pàrt bu am solo la ci wér.',
+    dailySupport: [
+      {
+        title: 'Joxe sa bopp jamono',
+        text: 'Te coono walla benn àtte ngir “gën a baax”.',
+      },
+      {
+        title: 'Bu méngale sa bopp ak ñeneen',
+        text: 'Tiis bu nekk wuute na; amul anam bu jub ngir jàll ko.',
+      },
+      {
+        title: 'Wax ko',
+        text: 'Bind walla wax li nga dégg mën na dimbli ngir weñ yëf yi.',
+      },
+    ],
+    section4Body:
+      'Wax ak benn nit ku jegeel la, benn mbooloo dimbali walla benn liggéeykat mën na dimbli ngir weñ yëf bii. Naka ñi la wër mën nañu dimbli:',
+    supportTitle: 'Naka benn nit ku jegeel la mën a dimbli',
+    howToSupport: [
+      'Déglu te tooñ amul, lu mu mën a doon bu amul baat yu mat',
+      'Moytu wàññi li xewoon (“du lu mag”, “mën nga jéemaat”)',
+      'Joxe sa nekk lu dul ay jawab',
+      'Kontine seetlu ko ci ayu-bés yu toftal',
+    ],
+    section5Body:
+      'Yenn màndarga mën nañu wone ne dimbali bu liggéeykat mën na dimbli:',
+    warningTitle: 'Màndarga yu war a teg',
+    attentionSigns: [
+      'Naqar bi di yàgg te gën a dëgër lu dul wàññiku',
+      'Jafe na nga dund bés bu nekk',
+      'Benn dégg bu fas ci bu keneen ne nga ñu leen jàpp',
+      'Xalaat yu bari walla tiis bu am solo di feeñ',
+    ],
+    section5InfoTitle: 'Dimbali am na',
+    section5InfoText:
+      'Benn ndey-jur, doktoor, psikolog walla mbooloo dimbali mën na la déglu te dimbli la, te tooñ amul.',
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Ñaan dimbali du màndargay ñàkk doole — benn anam la ngir yër sa bopp ci jamono jii.',
+    summaryPoints: [
+      'Amul anam bu jub walla bu bon ngir jàll dund bii.',
+      'Naqar, mer walla benn dégg bu neen ay jëfe yu cosaan lañu.',
+      'Joxe sa bopp jamono, te coono ak méngale amul, bokk na ci wér.',
+      'Wax ak benn nit ku jegeel la, benn mbooloo dimbali walla benn liggéeykat mën na dimbli ngir weñ yëf bii.',
+    ],
+    disclaimerText:
+      'Mbind ngir xibaar. Bind bii du wuutu ndigalu liggéeykat. Bu nga jàll benn jamono bu jafe, bu ñaaw a wax ak benn liggéeykatu wér.',
+    shareMessage: 'Jàll tiis ci xol — AWA',
+  },
+  ha: {
+    badge: 'BAYAN ZUBAR DA CIKI • TALLAFIN ZUCIYA',
+    title: 'Wucewa ta baƙin ciki\nta zuciya',
+    metaDuration: 'karatun minti 7',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun bayani',
+    intro:
+      'Babu hanyar da ta dace ta wucewa ta wannan. Kowa yana wucewa ta ta hanyarta, bisa saurinta.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Baƙin ciki na gaske kuma halal',
+      'Ji da ke bambanta daga mutum zuwa mutum',
+      'Abin da zai iya taimakawa kullum',
+      'Tallafin ƙaunatattu',
+      'Lokacin neman taimakon ƙwararre',
+      'Muhimman abubuwa',
+    ],
+    section1Body:
+      'Baƙin ciki, fushi, ko jin wofi martani ne na al’ada ga wannan rashi, ko wane mataki na ciki ne. Abin da kike ji ya cancanci a amince da shi.',
+    section1InfoTitle: 'Ki tuna',
+    section1InfoText:
+      'Babu hanya madaidaiciya ko kuskure ta wucewa ta wannan. Duk wani ji da kike da shi halal ne.',
+    section2Body:
+      'Za ki iya jin ɗaya ko fiye daga cikin waɗannan, wani lokaci duka a lokaci ɗaya:',
+    feelings: [
+      {
+        title: 'Baƙin ciki',
+        text: 'Baƙin ciki da zai iya zuwa ya tafi, wani lokaci ba zato ba tsammani.',
+      },
+      {
+        title: 'Fushi',
+        text: 'Ga kanki, yanayin, ko jin rashin adalci — kuma babu abin damuwa a wannan.',
+      },
+      {
+        title: 'Jin wofi',
+        text: 'Jin wofi ko ruɗani game da abin da ya faru.',
+      },
+    ],
+    section3Body:
+      'Ba kanki lokaci, ba tare da matsi ko kwatantawa ba, wani muhimmin ɓangare ne na warkewa.',
+    dailySupport: [
+      {
+        title: 'Ba kanki lokaci',
+        text: 'Ba tare da matsi ko wa’adin “jin sauƙi” ba.',
+      },
+      {
+        title: 'Kada ki kwatanta kanki da wasu',
+        text: 'Kowane baƙin ciki na musamman ne; babu hanya madaidaiciya ta wucewa ta shi.',
+      },
+      {
+        title: 'Faɗar shi da kalmomi',
+        text: 'Rubuta ko magana game da abin da kike ji na iya taimakawa rage nauyin zuciyarki.',
+      },
+    ],
+    section4Body:
+      'Magana da wani na kusa da ke, ƙungiyar tallafi, ko ƙwararre na iya taimakawa rage wannan nauyi. Ga yadda ƙaunatattu za su iya taimakawa:',
+    supportTitle: 'Yadda wani ƙaunatacce zai iya ba da tallafi',
+    howToSupport: [
+      'Saurara ba tare da hukunci ba, ko da babu kalmomin da suka dace',
+      'Guje wa rage darajar abin da ya faru (“ba wani babban abu ba ne,” “za ki iya sake gwadawa”)',
+      'Ba da kasancewarka maimakon mafita',
+      'Ci gaba da dubawa a makonni masu zuwa',
+    ],
+    section5Body:
+      'Wasu alamomi na iya nuna cewa tallafin ƙwararre na iya zama da amfani:',
+    warningTitle: 'Alamomin da za a lura da su',
+    attentionSigns: [
+      'Baƙin ciki yana daɗewa kuma yana ƙaruwa maimakon sauƙaƙa',
+      'Yin aiki kullum yana zama da wahala',
+      'Jin kaɗaici mai yawa ya shiga',
+      'Tunanin da ke damun ki ko matsananciyar damuwa sun bayyana',
+    ],
+    section5InfoTitle: 'Akwai tallafi',
+    section5InfoText:
+      'Ungozoma, likita, masanin halayyar ɗan adam, ko ƙungiyar tallafi na iya saurarenki kuma su tallafa miki, ba tare da hukunci ba.',
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Neman taimako ba alamar rauni ba ne — hanya ce ta kula da kanki a wannan lokaci.',
+    summaryPoints: [
+      'Babu hanya madaidaiciya ko kuskure ta wucewa ta wannan gogewa.',
+      'Baƙin ciki, fushi, ko jin wofi martani ne na al’ada.',
+      'Ba kanki lokaci, ba tare da matsi ko kwatantawa ba, wani ɓangare ne na warkewa.',
+      'Magana da wani na kusa da ke, ƙungiyar tallafi, ko ƙwararre na iya taimakawa rage wannan nauyi.',
+    ],
+    disclaimerText:
+      'Abun bayani. Wannan labari ba ya maye gurbin shawarar ƙwararre. Idan kina cikin lokaci mai wahala, kada ki yi jinkirin yin magana da ma’aikacin lafiya.',
+    shareMessage: 'Wucewa ta baƙin ciki, ta zuciya — AWA',
+  },
+  am: {
+    badge: 'ከእርግዝና መጥፋት በኋላ • ስሜታዊ ድጋፍ',
+    title: 'ሐዘንን በስሜት\nማለፍ',
+    metaDuration: '7 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የመረጃ ይዘት',
+    intro:
+      'ይህን ለማለፍ ትክክለኛ መንገድ የለም። እያንዳንዷ በራሷ መንገድ፣ በራሷ ፍጥነት ታልፈዋለች።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'እውነተኛ እና ህጋዊ ሐዘን',
+      'ከሰው ወደ ሰው የሚለያዩ ስሜቶች',
+      'በየቀኑ ሊረዳ የሚችለው',
+      'ከወዳጆች ድጋፍ',
+      'የባለሙያ እርዳታ መቼ መፈለግ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    section1Body:
+      'ሐዘን፣ ቁጣ ወይም የባዶነት ስሜት የእርግዝናው ደረጃ ምንም ይሁን ለዚህ ኪሳራ የተለመዱ ምላሾች ናቸው። የሚሰማሽ ነገር ሊታወቅ ይገባል።',
+    section1InfoTitle: 'ልብ በይ',
+    section1InfoText:
+      'ይህን ለማለፍ ትክክል ወይም ስህተት መንገድ የለም። የሚሰማሽ እያንዳንዱ ስሜት ትክክል ነው።',
+    section2Body:
+      'ከእነዚህ አንድ ወይም ከዚያ በላይ ሊሰማሽ ይችላል፣ አንዳንድ ጊዜ ሁሉም በአንድ ጊዜ፦',
+    feelings: [
+      {
+        title: 'ሐዘን',
+        text: 'ሊመጣና ሊሄድ የሚችል፣ አንዳንድ ጊዜ ሳይታሰብ የሚመጣ ሐዘን።',
+      },
+      {
+        title: 'ቁጣ',
+        text: 'በራስሽ፣ በሁኔታው፣ ወይም በፍትሕ እጦት ስሜት ላይ — እና ይህ የሚያሳስብ ነገር አይደለም።',
+      },
+      {
+        title: 'የባዶነት ስሜት',
+        text: 'ስለ ተከሰተው የባዶነት ስሜት ወይም ግራ መጋባት።',
+      },
+    ],
+    section3Body:
+      'ለራስሽ ያለ ጫናና ንጽጽር ጊዜ መስጠት የፈውስ አስፈላጊ አካል ነው።',
+    dailySupport: [
+      {
+        title: 'ለራስሽ ጊዜ መስጠት',
+        text: 'ያለ ጫና ወይም “መሻሻል” የመጨረሻ ቀን።',
+      },
+      {
+        title: 'ራስሽን ከሌሎች ጋር አለማነጻጸር',
+        text: 'እያንዳንዱ ሐዘን ልዩ ነው፤ ለማለፍ ትክክለኛ መንገድ የለም።',
+      },
+      {
+        title: 'በቃላት መግለጽ',
+        text: 'የሚሰማሽን መጻፍ ወይም ማውራት የስሜትሽን ክብደት ለማቃለል ሊረዳ ይችላል።',
+      },
+    ],
+    section4Body:
+      'ከቅርብ ሰው፣ ከድጋፍ ቡድን ወይም ከባለሙያ ጋር መነጋገር ይህን ክብደት ለማቃለል ሊረዳ ይችላል። ወዳጆች እንዴት ሊረዱ እንደሚችሉ እነሆ፦',
+    supportTitle: 'አንድ ወዳጅ ድጋፍ እንዴት ሊሰጥ ይችላል',
+    howToSupport: [
+      'ፍጹም ቃላት ባይኖርም ሳይፈርዱ ማዳመጥ',
+      'ተሞክሮውን ከማሳነስ መቆጠብ (“ትልቅ ነገር አልነበረም”፣ “እንደገና መሞከር ትችያለሽ”)',
+      'መፍትሔዎችን ሳይሆን መገኘትን ማቅረብ',
+      'በሚቀጥሉት ሳምንታት መጠየቅን መቀጠል',
+    ],
+    section5Body:
+      'አንዳንድ ምልክቶች የባለሙያ ድጋፍ ጠቃሚ ሊሆን እንደሚችል ሊያመለክቱ ይችላሉ፦',
+    warningTitle: 'ልብ ልትይባቸው የሚገቡ ምልክቶች',
+    attentionSigns: [
+      'ሐዘን ለረዥም ጊዜ ይቆያል እና ከመቅለል ይልቅ ይጠናከራል',
+      'በየቀኑ መሥራት ይከብዳል',
+      'ከፍተኛ የመነጠል ስሜት ይገባል',
+      'የሚያውኩ ሐሳቦች ወይም ከፍተኛ ሐዘን ይታያሉ',
+    ],
+    section5InfoTitle: 'ድጋፍ አለ',
+    section5InfoText:
+      'ሚድዋይፍ፣ ሐኪም፣ ሳይኮሎጂስት ወይም የድጋፍ ቡድን ሳይፈርድ ሊያዳምጥሽና ሊደግፍሽ ይችላል።',
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'እርዳታ መጠየቅ የድክመት ምልክት አይደለም — በዚህ ጊዜ ራስን የመንከባከብ መንገድ ነው።',
+    summaryPoints: [
+      'ይህን ተሞክሮ ለማለፍ ትክክል ወይም ስህተት መንገድ የለም።',
+      'ሐዘን፣ ቁጣ ወይም የባዶነት ስሜት የተለመዱ ምላሾች ናቸው።',
+      'ለራስሽ ያለ ጫናና ንጽጽር ጊዜ መስጠት የፈውስ አካል ነው።',
+      'ከቅርብ ሰው፣ ከድጋፍ ቡድን ወይም ከባለሙያ ጋር መነጋገር ይህን ክብደት ለማቃለል ሊረዳ ይችላል።',
+    ],
+    disclaimerText:
+      'የመረጃ ይዘት። ይህ ጽሑፍ የባለሙያ ምክርን አይተካም። አስቸጋሪ ጊዜ እያሳለፍሽ ከሆነ፣ ከጤና ባለሙያ ጋር ለመነጋገር አትዘገዪ።',
+    shareMessage: 'ሐዘንን በስሜት ማለፍ — AWA',
+  },
+  nl: {
+    badge: 'NA EEN MISKRAAM • EMOTIONELE STEUN',
+    title: 'Emotioneel door het\nverdriet heen gaan',
+    metaDuration: '7 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informatieve inhoud',
+    intro:
+      'Er is geen goede manier om hier doorheen te gaan. Iedereen doorloopt het op haar eigen manier, in haar eigen tempo.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Een echt en legitiem verdriet',
+      'Emoties die van persoon tot persoon verschillen',
+      'Wat dagelijks kan helpen',
+      'Steun van naasten',
+      'Wanneer professionele hulp zoeken',
+      'Belangrijkste punten',
+    ],
+    section1Body:
+      'Verdriet, woede of een gevoel van leegte zijn normale reacties op dit verlies, in welk stadium van de zwangerschap ook. Wat je voelt verdient erkenning.',
+    section1InfoTitle: 'Om in gedachten te houden',
+    section1InfoText:
+      'Er is geen goede of foute manier om hier doorheen te gaan. Elke emotie die je voelt is geldig.',
+    section2Body:
+      'Je kunt een of meer van deze dingen voelen, soms allemaal tegelijk:',
+    feelings: [
+      {
+        title: 'Verdriet',
+        text: 'Een smart die kan komen en gaan, soms onverwacht.',
+      },
+      {
+        title: 'Woede',
+        text: 'Tegenover jezelf, de situatie of een gevoel van onrechtvaardigheid — en daar hoef je je geen zorgen over te maken.',
+      },
+      {
+        title: 'Een gevoel van leegte',
+        text: 'Een gevoel van leegte of verwarring over wat er zojuist is gebeurd.',
+      },
+    ],
+    section3Body:
+      'Jezelf tijd geven, zonder druk of vergelijking, is een essentieel onderdeel van het genezen.',
+    dailySupport: [
+      {
+        title: 'Jezelf tijd geven',
+        text: 'Zonder druk of een deadline om je “beter te voelen”.',
+      },
+      {
+        title: 'Je niet met anderen vergelijken',
+        text: 'Elk verdriet is uniek; er is geen goede manier om er doorheen te gaan.',
+      },
+      {
+        title: 'Het onder woorden brengen',
+        text: 'Schrijven of praten over wat je voelt kan helpen de last van je emoties te verlichten.',
+      },
+    ],
+    section4Body:
+      'Praten met iemand in je omgeving, een steungroep of een professional kan helpen deze last te verlichten. Zo kunnen naasten helpen:',
+    supportTitle: 'Hoe een naaste steun kan bieden',
+    howToSupport: [
+      'Luisteren zonder te oordelen, ook zonder de perfecte woorden te hebben',
+      'Vermijden de ervaring te bagatelliseren (“het was niet zo erg”, “je kunt het opnieuw proberen”)',
+      'Je aanwezigheid aanbieden in plaats van oplossingen',
+      'Blijven informeren in de weken die volgen',
+    ],
+    section5Body:
+      'Sommige tekenen kunnen erop wijzen dat professionele ondersteuning nuttig kan zijn:',
+    warningTitle: 'Tekenen om op te letten',
+    attentionSigns: [
+      'Het verdriet duurt lang en wordt heviger in plaats van af te nemen',
+      'Het wordt moeilijk om dagelijks te functioneren',
+      'Er ontstaat een aanzienlijk gevoel van isolement',
+      'Er verschijnen opdringerige gedachten of aanzienlijk ongemak',
+    ],
+    section5InfoTitle: 'Er is steun beschikbaar',
+    section5InfoText:
+      'Een verloskundige, huisarts, psycholoog of steungroep kan naar je luisteren en je ondersteunen, zonder oordeel.',
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Om hulp vragen is geen teken van zwakte — het is een manier om in deze tijd voor jezelf te zorgen.',
+    summaryPoints: [
+      'Er is geen goede of foute manier om deze ervaring door te maken.',
+      'Verdriet, woede of een gevoel van leegte zijn normale reacties.',
+      'Jezelf tijd geven, zonder druk of vergelijking, hoort bij het genezen.',
+      'Praten met iemand in je omgeving, een steungroep of een professional kan helpen deze last te verlichten.',
+    ],
+    disclaimerText:
+      'Informatieve inhoud. Dit artikel vervangt geen professioneel advies. Als je een moeilijke tijd doormaakt, aarzel dan niet om met een zorgverlener te praten.',
+    shareMessage: 'Emotioneel door het verdriet heen gaan — AWA',
+  },
+  fi: {
+    badge: 'KESKENMENON JÄLKEEN • HENKINEN TUKI',
+    title: 'Surun läpikäyminen\nhenkisesti',
+    metaDuration: '7 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tiedoksi tarkoitettua sisältöä',
+    intro:
+      'Tämän läpikäymiseen ei ole yhtä oikeaa tapaa. Jokainen käy sen läpi omalla tavallaan, omaan tahtiinsa.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Todellinen ja oikeutettu suru',
+      'Tunteet, jotka vaihtelevat ihmisestä toiseen',
+      'Mikä voi auttaa arjessa',
+      'Läheisten tuki',
+      'Milloin hakea ammattiapua',
+      'Tärkeimmät asiat',
+    ],
+    section1Body:
+      'Suru, viha tai tyhjyyden tunne ovat normaaleja reaktioita tähän menetykseen raskauden vaiheesta riippumatta. Se, mitä tunnet, ansaitsee tulla tunnustetuksi.',
+    section1InfoTitle: 'Pidä mielessä',
+    section1InfoText:
+      'Tämän läpikäymiseen ei ole oikeaa tai väärää tapaa. Jokainen tuntemasi tunne on pätevä.',
+    section2Body:
+      'Voit tuntea yhden tai useamman näistä, joskus kaikki yhtä aikaa:',
+    feelings: [
+      {
+        title: 'Suru',
+        text: 'Murhe, joka voi tulla ja mennä, joskus odottamatta.',
+      },
+      {
+        title: 'Viha',
+        text: 'Itseä, tilannetta tai epäoikeudenmukaisuuden tunnetta kohtaan — eikä siinä ole mitään huolestuttavaa.',
+      },
+      {
+        title: 'Tyhjyyden tunne',
+        text: 'Tyhjyyden tai hämmennyksen tunne juuri tapahtuneesta.',
+      },
+    ],
+    section3Body:
+      'Itselle ajan antaminen ilman painetta tai vertailua on olennainen osa paranemista.',
+    dailySupport: [
+      {
+        title: 'Itselle ajan antaminen',
+        text: 'Ilman painetta tai määräaikaa “paremmaksi tulemiselle”.',
+      },
+      {
+        title: 'Itsensä vertaamatta jättäminen muihin',
+        text: 'Jokainen suru on ainutlaatuinen; sen läpikäymiseen ei ole oikeaa tapaa.',
+      },
+      {
+        title: 'Sanoiksi pukeminen',
+        text: 'Tuntemuksistasi kirjoittaminen tai puhuminen voi auttaa keventämään tunteittesi painoa.',
+      },
+    ],
+    section4Body:
+      'Läheisen, tukiryhmän tai ammattilaisen kanssa puhuminen voi auttaa keventämään tätä painoa. Näin läheiset voivat auttaa:',
+    supportTitle: 'Miten läheinen voi tarjota tukea',
+    howToSupport: [
+      'Kuuntele arvostelematta, vaikka ei olisi täydellisiä sanoja',
+      'Vältä kokemuksen vähättelyä (“ei se ollut iso juttu”, “voitte yrittää uudelleen”)',
+      'Tarjoa läsnäoloasi ratkaisujen sijaan',
+      'Jatka kuulumisten kysymistä seuraavien viikkojen aikana',
+    ],
+    section5Body:
+      'Jotkin merkit voivat osoittaa, että ammattilaisen tuki voisi olla hyödyllistä:',
+    warningTitle: 'Huomioitavat merkit',
+    attentionSigns: [
+      'Suru kestää pitkään ja voimistuu helpottumisen sijaan',
+      'Arjessa toimiminen käy vaikeaksi',
+      'Merkittävä yksinäisyyden tunne asettuu',
+      'Ilmaantuu päälle tunkevia ajatuksia tai merkittävää ahdistusta',
+    ],
+    section5InfoTitle: 'Tukea on saatavilla',
+    section5InfoText:
+      'Kätilö, lääkäri, psykologi tai tukiryhmä voi kuunnella ja tukea sinua arvostelematta.',
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Avun pyytäminen ei ole heikkouden merkki — se on tapa pitää huolta itsestäsi tänä aikana.',
+    summaryPoints: [
+      'Tämän kokemuksen läpikäymiseen ei ole oikeaa tai väärää tapaa.',
+      'Suru, viha tai tyhjyyden tunne ovat normaaleja reaktioita.',
+      'Itselle ajan antaminen ilman painetta tai vertailua kuuluu paranemiseen.',
+      'Läheisen, tukiryhmän tai ammattilaisen kanssa puhuminen voi auttaa keventämään tätä painoa.',
+    ],
+    disclaimerText:
+      'Tiedoksi tarkoitettua sisältöä. Tämä artikkeli ei korvaa ammattilaisen neuvontaa. Jos käyt läpi vaikeaa aikaa, älä epäröi puhua terveydenhuollon ammattilaisen kanssa.',
+    shareMessage: 'Surun läpikäyminen henkisesti — AWA',
+  },
+  el: {
+    badge: 'ΜΕΤΑ ΑΠΟ ΑΠΟΒΟΛΗ • ΣΥΝΑΙΣΘΗΜΑΤΙΚΗ ΣΤΗΡΙΞΗ',
+    title: 'Διανύοντας το πένθος\nσυναισθηματικά',
+    metaDuration: '7 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ενημερωτικό περιεχόμενο',
+    intro:
+      'Δεν υπάρχει σωστός τρόπος να το περάσεις. Καθεμία το διανύει με τον δικό της τρόπο, με τον δικό της ρυθμό.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Ένα πραγματικό και θεμιτό πένθος',
+      'Συναισθήματα που διαφέρουν από γυναίκα σε γυναίκα',
+      'Τι μπορεί να βοηθήσει στην καθημερινότητα',
+      'Στήριξη από αγαπημένα πρόσωπα',
+      'Πότε να ζητήσεις επαγγελματική βοήθεια',
+      'Βασικά συμπεράσματα',
+    ],
+    section1Body:
+      'Η λύπη, ο θυμός ή ένα αίσθημα κενού είναι φυσιολογικές αντιδράσεις σε αυτή την απώλεια, ανεξάρτητα από το στάδιο της εγκυμοσύνης. Αυτό που νιώθεις αξίζει να αναγνωριστεί.',
+    section1InfoTitle: 'Να το έχεις υπόψη',
+    section1InfoText:
+      'Δεν υπάρχει σωστός ή λάθος τρόπος να το περάσεις. Κάθε συναίσθημα που νιώθεις είναι έγκυρο.',
+    section2Body:
+      'Μπορεί να νιώσεις ένα ή περισσότερα από αυτά, μερικές φορές όλα μαζί:',
+    feelings: [
+      {
+        title: 'Λύπη',
+        text: 'Ένας πόνος που μπορεί να έρχεται και να φεύγει, μερικές φορές απρόσμενα.',
+      },
+      {
+        title: 'Θυμός',
+        text: 'Προς τον εαυτό σου, την κατάσταση ή ένα αίσθημα αδικίας — και δεν χρειάζεται να ανησυχείς γι’ αυτό.',
+      },
+      {
+        title: 'Αίσθημα κενού',
+        text: 'Ένα αίσθημα κενού ή σύγχυσης για όσα μόλις συνέβησαν.',
+      },
+    ],
+    section3Body:
+      'Το να δίνεις χρόνο στον εαυτό σου, χωρίς πίεση ή συγκρίσεις, είναι ουσιαστικό μέρος της επούλωσης.',
+    dailySupport: [
+      {
+        title: 'Δίνοντας χρόνο στον εαυτό σου',
+        text: 'Χωρίς πίεση ή προθεσμία για να «νιώσεις καλύτερα».',
+      },
+      {
+        title: 'Μη συγκρίνεσαι με άλλες',
+        text: 'Κάθε πένθος είναι μοναδικό· δεν υπάρχει σωστός τρόπος να το περάσεις.',
+      },
+      {
+        title: 'Βάζοντάς το σε λέξεις',
+        text: 'Το να γράφεις ή να μιλάς για όσα νιώθεις μπορεί να βοηθήσει να ελαφρύνει το βάρος των συναισθημάτων σου.',
+      },
+    ],
+    section4Body:
+      'Η συζήτηση με κάποιον κοντινό, μια ομάδα στήριξης ή έναν επαγγελματία μπορεί να βοηθήσει να ελαφρύνει αυτό το βάρος. Ορίστε πώς μπορούν να βοηθήσουν οι αγαπημένοι σου:',
+    supportTitle: 'Πώς μπορεί ένα αγαπημένο πρόσωπο να προσφέρει στήριξη',
+    howToSupport: [
+      'Να ακούει χωρίς κρίση, ακόμη κι αν δεν έχει τις τέλειες λέξεις',
+      'Να αποφεύγει να υποβαθμίζει την εμπειρία («δεν ήταν και τόσο σημαντικό», «μπορείτε να προσπαθήσετε ξανά»)',
+      'Να προσφέρει την παρουσία του αντί για λύσεις',
+      'Να συνεχίσει να ρωτά πώς είσαι τις εβδομάδες που ακολουθούν',
+    ],
+    section5Body:
+      'Ορισμένα σημάδια μπορεί να υποδεικνύουν ότι η επαγγελματική στήριξη θα μπορούσε να είναι χρήσιμη:',
+    warningTitle: 'Σημάδια που πρέπει να προσέχεις',
+    attentionSigns: [
+      'Η λύπη διαρκεί πολύ και εντείνεται αντί να υποχωρεί',
+      'Γίνεται δύσκολο να λειτουργείς στην καθημερινότητα',
+      'Εγκαθίσταται ένα έντονο αίσθημα απομόνωσης',
+      'Εμφανίζονται παρεμβατικές σκέψεις ή έντονη δυσφορία',
+    ],
+    section5InfoTitle: 'Υπάρχει στήριξη',
+    section5InfoText:
+      'Μια μαία, ένας γιατρός, ένας ψυχολόγος ή μια ομάδα στήριξης μπορεί να σε ακούσει και να σε στηρίξει, χωρίς κρίση.',
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Το να ζητάς βοήθεια δεν είναι σημάδι αδυναμίας — είναι ένας τρόπος να φροντίζεις τον εαυτό σου σε αυτή την περίοδο.',
+    summaryPoints: [
+      'Δεν υπάρχει σωστός ή λάθος τρόπος να περάσεις αυτή την εμπειρία.',
+      'Η λύπη, ο θυμός ή ένα αίσθημα κενού είναι φυσιολογικές αντιδράσεις.',
+      'Το να δίνεις χρόνο στον εαυτό σου, χωρίς πίεση ή συγκρίσεις, είναι μέρος της επούλωσης.',
+      'Η συζήτηση με κάποιον κοντινό, μια ομάδα στήριξης ή έναν επαγγελματία μπορεί να βοηθήσει να ελαφρύνει αυτό το βάρος.',
+    ],
+    disclaimerText:
+      'Ενημερωτικό περιεχόμενο. Αυτό το άρθρο δεν αντικαθιστά την επαγγελματική συμβουλή. Αν περνάς μια δύσκολη περίοδο, μην διστάσεις να μιλήσεις με έναν επαγγελματία υγείας.',
+    shareMessage: 'Διανύοντας το πένθος συναισθηματικά — AWA',
+  },
+  fil: {
+    badge: 'PAGKATAPOS NG PAGKALAGLAG • EMOSYONAL NA SUPORTA',
+    title: 'Pagdaan sa pagdadalamhati\nsa emosyonal na paraan',
+    metaDuration: '7 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Impormatibong nilalaman',
+    intro:
+      'Walang tamang paraan para daanan ito. Bawat isa ay dumaraan dito sa sarili niyang paraan, sa sarili niyang bilis.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Isang totoo at lehitimong pagdadalamhati',
+      'Mga emosyong nag-iiba sa bawat tao',
+      'Ang maaaring makatulong sa araw-araw',
+      'Suporta mula sa mga mahal sa buhay',
+      'Kailan hihingi ng propesyonal na tulong',
+      'Mahahalagang tandaan',
+    ],
+    section1Body:
+      'Ang kalungkutan, galit, o pakiramdam ng kawalan ay normal na reaksyon sa pagkawalang ito, anuman ang yugto ng pagbubuntis. Karapat-dapat kilalanin ang nararamdaman mo.',
+    section1InfoTitle: 'Tandaan',
+    section1InfoText:
+      'Walang tama o maling paraan para daanan ito. Balido ang bawat emosyong nararamdaman mo.',
+    section2Body:
+      'Maaari mong maramdaman ang isa o higit pa sa mga ito, minsan sabay-sabay:',
+    feelings: [
+      {
+        title: 'Kalungkutan',
+        text: 'Isang hapis na maaaring dumating at umalis, minsan nang hindi inaasahan.',
+      },
+      {
+        title: 'Galit',
+        text: 'Sa sarili, sa sitwasyon, o sa pakiramdam ng kawalang-katarungan — at hindi ito dapat ikabahala.',
+      },
+      {
+        title: 'Pakiramdam ng kawalan',
+        text: 'Pakiramdam ng kahungkagan o kalituhan tungkol sa kung ano ang kaaalis lang na nangyari.',
+      },
+    ],
+    section3Body:
+      'Ang pagbibigay ng oras sa sarili, nang walang pressure o paghahambing, ay mahalagang bahagi ng paghilom.',
+    dailySupport: [
+      {
+        title: 'Magbigay ng oras sa sarili',
+        text: 'Nang walang pressure o takdang panahon para “gumaan ang pakiramdam.”',
+      },
+      {
+        title: 'Huwag ihambing ang sarili sa iba',
+        text: 'Natatangi ang bawat pagdadalamhati; walang tamang paraan para daanan ito.',
+      },
+      {
+        title: 'Ilagay ito sa mga salita',
+        text: 'Ang pagsusulat o pagsasalita tungkol sa nararamdaman mo ay makakatulong na gumaan ang bigat ng iyong mga emosyon.',
+      },
+    ],
+    section4Body:
+      'Ang pakikipag-usap sa isang taong malapit sa iyo, support group, o propesyonal ay makakatulong na gumaan ang bigat na ito. Narito kung paano makakatulong ang mga mahal sa buhay:',
+    supportTitle: 'Paano makapagbibigay ng suporta ang isang mahal sa buhay',
+    howToSupport: [
+      'Makinig nang walang paghuhusga, kahit hindi perpekto ang mga salita',
+      'Iwasang maliitin ang karanasan (“hindi naman malaking bagay,” “puwede ka namang sumubok ulit”)',
+      'Mag-alok ng presensya sa halip na mga solusyon',
+      'Patuloy na kumustahin sa mga susunod na linggo',
+    ],
+    section5Body:
+      'Ang ilang senyales ay maaaring magpahiwatig na makakatulong ang propesyonal na suporta:',
+    warningTitle: 'Mga senyales na dapat bantayan',
+    attentionSigns: [
+      'Matagal ang kalungkutan at lalong tumitindi sa halip na gumagaan',
+      'Nagiging mahirap na gumana sa araw-araw',
+      'Lumalaganap ang malaking pakiramdam ng pag-iisa',
+      'Lumilitaw ang mapanghimasok na kaisipan o matinding pagkabalisa',
+    ],
+    section5InfoTitle: 'May magagamit na suporta',
+    section5InfoText:
+      'Ang midwife, doktor, psychologist, o support group ay maaaring makinig at sumuporta sa iyo, nang walang paghuhusga.',
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Ang paghingi ng tulong ay hindi tanda ng kahinaan — paraan ito ng pag-aalaga sa sarili sa panahong ito.',
+    summaryPoints: [
+      'Walang tama o maling paraan para daanan ang karanasang ito.',
+      'Ang kalungkutan, galit, o pakiramdam ng kawalan ay normal na reaksyon.',
+      'Ang pagbibigay ng oras sa sarili, nang walang pressure o paghahambing, ay bahagi ng paghilom.',
+      'Ang pakikipag-usap sa isang taong malapit sa iyo, support group, o propesyonal ay makakatulong na gumaan ang bigat na ito.',
+    ],
+    disclaimerText:
+      'Impormatibong nilalaman. Hindi pumapalit ang artikulong ito sa propesyonal na payo. Kung dumaraan ka sa mahirap na panahon, huwag mag-atubiling makipag-usap sa propesyonal sa kalusugan.',
+    shareMessage: 'Pagdaan sa pagdadalamhati, sa emosyonal na paraan — AWA',
+  },
+  ta: {
+    badge: 'கருச்சிதைவுக்குப் பின் • உணர்வு ஆதரவு',
+    title: 'துயரத்தை உணர்வுபூர்வமாகக்\nகடந்து செல்லுதல்',
+    metaDuration: '7 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'தகவல் உள்ளடக்கம்',
+    intro:
+      'இதைக் கடந்து செல்ல சரியான வழி என்று எதுவும் இல்லை. ஒவ்வொருவரும் தம் சொந்த வழியில், தம் சொந்த வேகத்தில் இதைக் கடக்கிறார்கள்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'ஒரு உண்மையான, நியாயமான துயரம்',
+      'ஒருவருக்கு ஒருவர் மாறுபடும் உணர்வுகள்',
+      'அன்றாடம் உதவக்கூடியவை',
+      'அன்புக்குரியவர்களின் ஆதரவு',
+      'தொழில்முறை உதவியை எப்போது நாடுவது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    section1Body:
+      'சோகம், கோபம் அல்லது வெறுமை உணர்வு இந்த இழப்புக்கு இயல்பான எதிர்வினைகள், கர்ப்பத்தின் எந்தக் கட்டமாக இருந்தாலும். நீங்கள் உணர்வது அங்கீகரிக்கப்படத் தகுந்தது.',
+    section1InfoTitle: 'மனதில் வைத்துக்கொள்ளுங்கள்',
+    section1InfoText:
+      'இதைக் கடந்து செல்ல சரி தவறான வழி என்று எதுவும் இல்லை. நீங்கள் உணரும் ஒவ்வொரு உணர்வும் செல்லுபடியாகும்.',
+    section2Body:
+      'நீங்கள் இவற்றில் ஒன்றையோ அதற்கு மேற்பட்டவற்றையோ, சில நேரங்களில் அனைத்தையும் ஒரே நேரத்தில், உணரலாம்:',
+    feelings: [
+      {
+        title: 'சோகம்',
+        text: 'வந்து போகக்கூடிய, சில நேரங்களில் எதிர்பாராத ஒரு துயரம்.',
+      },
+      {
+        title: 'கோபம்',
+        text: 'உங்கள் மீது, சூழ்நிலை மீது, அல்லது அநீதி உணர்வு — அது கவலைப்பட வேண்டிய ஒன்றல்ல.',
+      },
+      {
+        title: 'வெறுமை உணர்வு',
+        text: 'இப்போதுதான் நடந்ததைப் பற்றிய வெறுமை அல்லது குழப்ப உணர்வு.',
+      },
+    ],
+    section3Body:
+      'அழுத்தமோ ஒப்பீடோ இல்லாமல், உங்களுக்கு நேரம் கொடுப்பது குணமடைவதன் இன்றியமையாத பகுதி.',
+    dailySupport: [
+      {
+        title: 'உங்களுக்கு நேரம் கொடுங்கள்',
+        text: '“நன்றாக உணர” அழுத்தமோ காலக்கெடுவோ இல்லாமல்.',
+      },
+      {
+        title: 'மற்றவர்களுடன் உங்களை ஒப்பிடாதீர்கள்',
+        text: 'ஒவ்வொரு துயரமும் தனித்துவமானது; இதைக் கடந்து செல்ல சரியான வழி என்று எதுவும் இல்லை.',
+      },
+      {
+        title: 'அதை வார்த்தைகளாக்குங்கள்',
+        text: 'நீங்கள் உணர்வதை எழுதுவது அல்லது பேசுவது உங்கள் உணர்வுகளின் சுமையைக் குறைக்க உதவலாம்.',
+      },
+    ],
+    section4Body:
+      'உங்களுக்கு நெருக்கமான ஒருவருடன், ஓர் ஆதரவுக் குழுவுடன் அல்லது ஒரு நிபுணருடன் பேசுவது இந்தச் சுமையைக் குறைக்க உதவலாம். அன்புக்குரியவர்கள் எப்படி உதவலாம் என்பது இங்கே:',
+    supportTitle: 'அன்புக்குரியவர் எப்படி ஆதரவு தரலாம்',
+    howToSupport: [
+      'சரியான வார்த்தைகள் இல்லாவிட்டாலும், தீர்ப்பளிக்காமல் செவிகொடுங்கள்',
+      'அனுபவத்தை அற்பமாக்குவதைத் தவிருங்கள் (“அது பெரிய விஷயம் அல்ல,” “நீ மீண்டும் முயலலாம்”)',
+      'தீர்வுகளை விட உங்கள் இருப்பை வழங்குங்கள்',
+      'அடுத்த வாரங்களில் தொடர்ந்து நலம் விசாரியுங்கள்',
+    ],
+    section5Body:
+      'சில அறிகுறிகள் தொழில்முறை ஆதரவு உதவியாக இருக்கலாம் என்பதைக் குறிக்கலாம்:',
+    warningTitle: 'கவனிக்க வேண்டிய அறிகுறிகள்',
+    attentionSigns: [
+      'சோகம் நீண்ட காலம் நீடித்து, தணிவதற்குப் பதிலாகத் தீவிரமடைகிறது',
+      'அன்றாடம் இயங்குவது கடினமாகிறது',
+      'குறிப்பிடத்தக்க தனிமை உணர்வு குடிகொள்கிறது',
+      'ஊடுருவும் எண்ணங்கள் அல்லது குறிப்பிடத்தக்க மனவேதனை தோன்றுகிறது',
+    ],
+    section5InfoTitle: 'ஆதரவு கிடைக்கிறது',
+    section5InfoText:
+      'ஒரு மருத்துவச்சி, மருத்துவர், உளவியலாளர் அல்லது ஆதரவுக் குழு தீர்ப்பளிக்காமல் செவிகொடுத்து உங்களை ஆதரிக்க முடியும்.',
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'உதவி கேட்பது பலவீனத்தின் அறிகுறி அல்ல — இந்தக் காலத்தில் உங்களைக் கவனித்துக்கொள்ளும் ஒரு வழி.',
+    summaryPoints: [
+      'இந்த அனுபவத்தைக் கடந்து செல்ல சரி தவறான வழி என்று எதுவும் இல்லை.',
+      'சோகம், கோபம் அல்லது வெறுமை உணர்வு இயல்பான எதிர்வினைகள்.',
+      'அழுத்தமோ ஒப்பீடோ இல்லாமல் உங்களுக்கு நேரம் கொடுப்பது குணமடைதலின் ஒரு பகுதி.',
+      'உங்களுக்கு நெருக்கமான ஒருவருடன், ஓர் ஆதரவுக் குழுவுடன் அல்லது ஒரு நிபுணருடன் பேசுவது இந்தச் சுமையைக் குறைக்க உதவலாம்.',
+    ],
+    disclaimerText:
+      'தகவல் உள்ளடக்கம். இந்தக் கட்டுரை தொழில்முறை ஆலோசனைக்கு மாற்றல்ல. நீங்கள் ஒரு கடினமான காலத்தைக் கடந்து சென்றால், ஒரு சுகாதார நிபுணரிடம் பேசத் தயங்காதீர்கள்.',
+    shareMessage: 'துயரத்தை உணர்வுபூர்வமாகக் கடந்து செல்லுதல் — AWA',
+  },
+  te: {
+    badge: 'గర్భస్రావం తర్వాత • భావోద్వేగ తోడ్పాటు',
+    title: 'భావోద్వేగపరంగా దుఃఖాన్ని\nదాటడం',
+    metaDuration: '7 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'సమాచార కంటెంట్',
+    intro:
+      'దీన్ని దాటడానికి సరైన మార్గం అంటూ ఏదీ లేదు. ప్రతి ఒక్కరూ తమదైన రీతిలో, తమ సొంత వేగంలో దాటుతారు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'ఒక నిజమైన, న్యాయమైన దుఃఖం',
+      'ఒకరి నుండి మరొకరికి మారే భావోద్వేగాలు',
+      'రోజువారీ ఏది సహాయపడవచ్చు',
+      'ఆత్మీయుల తోడ్పాటు',
+      'నిపుణుల సహాయాన్ని ఎప్పుడు కోరాలి',
+      'ముఖ్యాంశాలు',
+    ],
+    section1Body:
+      'విచారం, కోపం లేదా శూన్య భావన ఈ నష్టానికి సహజ ప్రతిస్పందనలు, గర్భం ఏ దశలో ఉన్నా. మీకు అనిపించేది గుర్తింపునకు అర్హమైనది.',
+    section1InfoTitle: 'గుర్తుంచుకోండి',
+    section1InfoText:
+      'దీన్ని దాటడానికి సరైన లేదా తప్పు మార్గం అంటూ ఏదీ లేదు. మీకు అనిపించే ప్రతి భావోద్వేగం చెల్లుబాటయ్యేదే.',
+    section2Body:
+      'మీరు వీటిలో ఒకటి లేదా అంతకంటే ఎక్కువ అనుభవించవచ్చు, కొన్నిసార్లు అన్నీ ఒకేసారి:',
+    feelings: [
+      {
+        title: 'విచారం',
+        text: 'వచ్చి పోయే, కొన్నిసార్లు ఊహించని విధంగా వచ్చే ఒక దుఃఖం.',
+      },
+      {
+        title: 'కోపం',
+        text: 'మీ పట్ల, పరిస్థితి పట్ల లేదా అన్యాయ భావన పట్ల — అది ఆందోళన చెందాల్సిన విషయం కాదు.',
+      },
+      {
+        title: 'శూన్య భావన',
+        text: 'ఇప్పుడే జరిగిన దాని గురించి ఖాళీతనం లేదా గందరగోళ భావన.',
+      },
+    ],
+    section3Body:
+      'ఒత్తిడి లేదా పోలిక లేకుండా మీకు సమయం ఇచ్చుకోవడం నయం కావడంలో ఒక ముఖ్య భాగం.',
+    dailySupport: [
+      {
+        title: 'మీకు సమయం ఇచ్చుకోవడం',
+        text: '“బాగా అనిపించడానికి” ఒత్తిడి లేదా గడువు లేకుండా.',
+      },
+      {
+        title: 'ఇతరులతో పోల్చుకోకపోవడం',
+        text: 'ప్రతి దుఃఖం ప్రత్యేకమైనది; దాన్ని దాటడానికి సరైన మార్గం అంటూ లేదు.',
+      },
+      {
+        title: 'మాటల్లో పెట్టడం',
+        text: 'మీకు అనిపించేదాన్ని రాయడం లేదా దాని గురించి మాట్లాడటం మీ భావోద్వేగాల భారాన్ని తేలిక చేయడానికి సహాయపడగలదు.',
+      },
+    ],
+    section4Body:
+      'మీకు దగ్గరి వ్యక్తితో, ఒక తోడ్పాటు బృందంతో లేదా ఒక నిపుణుడితో మాట్లాడటం ఈ భారాన్ని తేలిక చేయడానికి సహాయపడగలదు. ఆత్మీయులు ఎలా సహాయపడగలరో ఇక్కడ ఉంది:',
+    supportTitle: 'ఒక ఆత్మీయుడు తోడ్పాటును ఎలా అందించగలరు',
+    howToSupport: [
+      'సరైన మాటలు లేకపోయినా, తీర్పు చెప్పకుండా వినండి',
+      'అనుభవాన్ని చిన్నదిగా చూపడాన్ని తప్పించుకోండి (“అదేమంత పెద్ద విషయం కాదు,” “మళ్లీ ప్రయత్నించవచ్చు”)',
+      'పరిష్కారాల కంటే మీ ఉనికిని అందించండి',
+      'తర్వాతి వారాల్లో కూడా క్షేమం అడుగుతూ ఉండండి',
+    ],
+    section5Body:
+      'కొన్ని సంకేతాలు నిపుణుల తోడ్పాటు సహాయపడవచ్చని సూచించవచ్చు:',
+    warningTitle: 'గమనించాల్సిన సంకేతాలు',
+    attentionSigns: [
+      'విచారం చాలా కాలం ఉండి, తగ్గకుండా తీవ్రమవుతుంది',
+      'రోజువారీ పనిచేయడం కష్టంగా మారుతుంది',
+      'గణనీయమైన ఏకాకితనం భావన ఏర్పడుతుంది',
+      'చొరబడే ఆలోచనలు లేదా గణనీయమైన బాధ కనిపిస్తాయి',
+    ],
+    section5InfoTitle: 'తోడ్పాటు అందుబాటులో ఉంది',
+    section5InfoText:
+      'ఒక మంత్రసాని, వైద్యులు, మనస్తత్వవేత్త లేదా తోడ్పాటు బృందం తీర్పు లేకుండా మీ మాట వినగలరు, మీకు తోడ్పడగలరు.',
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'సహాయం కోరడం బలహీనతకు సంకేతం కాదు — ఈ సమయంలో మిమ్మల్ని మీరు చూసుకునే ఒక మార్గం.',
+    summaryPoints: [
+      'ఈ అనుభవాన్ని దాటడానికి సరైన లేదా తప్పు మార్గం అంటూ ఏదీ లేదు.',
+      'విచారం, కోపం లేదా శూన్య భావన సహజ ప్రతిస్పందనలు.',
+      'ఒత్తిడి లేదా పోలిక లేకుండా మీకు సమయం ఇచ్చుకోవడం నయం కావడంలో భాగం.',
+      'మీకు దగ్గరి వ్యక్తితో, ఒక తోడ్పాటు బృందంతో లేదా ఒక నిపుణుడితో మాట్లాడటం ఈ భారాన్ని తేలిక చేయడానికి సహాయపడగలదు.',
+    ],
+    disclaimerText:
+      'సమాచార కంటెంట్. ఈ వ్యాసం నిపుణుల సలహాకు ప్రత్యామ్నాయం కాదు. మీరు కష్టకాలం గుండా వెళ్తుంటే, ఒక ఆరోగ్య నిపుణుడితో మాట్లాడటానికి వెనుకాడకండి.',
+    shareMessage: 'భావోద్వేగపరంగా దుఃఖాన్ని దాటడం — AWA',
+  },
+  mr: {
+    badge: 'गर्भपातानंतर • भावनिक आधार',
+    title: 'दुःखातून भावनिकदृष्ट्या\nजाणे',
+    metaDuration: '7 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'माहितीपर मजकूर',
+    intro:
+      'यातून जाण्याचा कोणताही एकमेव योग्य मार्ग नाही. प्रत्येकजण स्वतःच्या पद्धतीने, स्वतःच्या गतीने यातून जाते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'खरे आणि न्याय्य दुःख',
+      'व्यक्तीनुसार वेगवेगळ्या भावना',
+      'रोजच्या जीवनात काय मदत करू शकते',
+      'जवळच्यांचा आधार',
+      'व्यावसायिक मदत केव्हा घ्यावी',
+      'मुख्य मुद्दे',
+    ],
+    section1Body:
+      'गर्भारपणाचा कोणताही टप्पा असो, या नुकसानावरील सामान्य प्रतिक्रिया म्हणजे दुःख, राग किंवा रिक्तपणाची भावना. तुम्हाला जे वाटत आहे ते मान्य केले जाण्यास पात्र आहे.',
+    section1InfoTitle: 'लक्षात ठेवा',
+    section1InfoText:
+      'यातून जाण्याचा योग्य किंवा अयोग्य मार्ग नसतो. तुम्हाला जाणवणारी प्रत्येक भावना योग्यच आहे.',
+    section2Body:
+      'तुम्हाला यांपैकी एक किंवा अधिक भावना जाणवू शकतात, कधी कधी एकाच वेळी:',
+    feelings: [
+      {
+        title: 'दुःख',
+        text: 'एक वेदना जी येऊ-जाऊ शकते, कधी कधी अनपेक्षितपणे.',
+      },
+      {
+        title: 'राग',
+        text: 'स्वतःवर, परिस्थितीवर किंवा अन्यायाच्या भावनेवर — आणि त्याबद्दल काळजी करण्यासारखे काही नाही.',
+      },
+      {
+        title: 'रिक्तपणाची भावना',
+        text: 'नुकत्याच जे घडले त्याबद्दल रिकामेपणा किंवा गोंधळाची जाणीव.',
+      },
+    ],
+    section3Body:
+      'दबाव किंवा तुलनेशिवाय स्वतःला वेळ देणे हा बरे होण्याचा आवश्यक भाग आहे.',
+    dailySupport: [
+      {
+        title: 'स्वतःला वेळ देणे',
+        text: '“बरे वाटावे” यासाठी कोणत्याही दबावाशिवाय किंवा मुदतीशिवाय.',
+      },
+      {
+        title: 'इतरांशी तुलना न करणे',
+        text: 'प्रत्येक दुःख अद्वितीय असते; त्यातून जाण्याचा कोणताही योग्य मार्ग नाही.',
+      },
+      {
+        title: 'शब्दांत मांडणे',
+        text: 'तुम्हाला जे वाटते ते लिहिणे किंवा त्याबद्दल बोलणे तुमच्या भावनांचे ओझे हलके करण्यास मदत करू शकते.',
+      },
+    ],
+    section4Body:
+      'तुमच्या जवळच्या व्यक्तीशी, एखाद्या आधारगटाशी किंवा तज्ज्ञाशी बोलल्याने हे ओझे हलके होण्यास मदत होऊ शकते. जवळची माणसे कशी मदत करू शकतात ते इथे आहे:',
+    supportTitle: 'जवळची व्यक्ती आधार कसा देऊ शकते',
+    howToSupport: [
+      'परिपूर्ण शब्द नसले तरी निवाडा न करता ऐका',
+      'अनुभव कमी लेखणे टाळा (“काही मोठी गोष्ट नव्हती,” “तू पुन्हा प्रयत्न करू शकतेस”)',
+      'उपाय देण्याऐवजी तुमची उपस्थिती द्या',
+      'पुढच्या आठवड्यांतही चौकशी करत राहा',
+    ],
+    section5Body:
+      'काही चिन्हे दर्शवू शकतात की व्यावसायिक आधार उपयुक्त ठरू शकतो:',
+    warningTitle: 'लक्ष ठेवायची चिन्हे',
+    attentionSigns: [
+      'दुःख बराच काळ टिकते आणि कमी होण्याऐवजी तीव्र होते',
+      'रोजचे कामकाज करणे कठीण होते',
+      'एकटेपणाची लक्षणीय भावना निर्माण होते',
+      'त्रासदायक विचार किंवा लक्षणीय त्रास दिसू लागतो',
+    ],
+    section5InfoTitle: 'आधार उपलब्ध आहे',
+    section5InfoText:
+      'दाई, डॉक्टर, मानसशास्त्रज्ञ किंवा आधारगट निवाड्याशिवाय तुमचे ऐकू शकतात आणि तुम्हाला साथ देऊ शकतात.',
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'मदत मागणे हे दुर्बलतेचे लक्षण नाही — या काळात स्वतःची काळजी घेण्याचा तो एक मार्ग आहे.',
+    summaryPoints: [
+      'या अनुभवातून जाण्याचा योग्य किंवा अयोग्य मार्ग नाही.',
+      'दुःख, राग किंवा रिक्तपणाची भावना या सामान्य प्रतिक्रिया आहेत.',
+      'दबाव किंवा तुलनेशिवाय स्वतःला वेळ देणे बरे होण्याचा भाग आहे.',
+      'जवळच्या व्यक्तीशी, आधारगटाशी किंवा तज्ज्ञाशी बोलल्याने हे ओझे हलके होण्यास मदत होऊ शकते.',
+    ],
+    disclaimerText:
+      'माहितीपर मजकूर. हा लेख व्यावसायिक सल्ल्याची जागा घेत नाही. तुम्ही कठीण काळातून जात असाल, तर आरोग्य व्यावसायिकाशी बोलायला संकोच करू नका.',
+    shareMessage: 'दुःखातून भावनिकदृष्ट्या जाणे — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભપાત પછી • ભાવનાત્મક સહાય',
+    title: 'શોકમાંથી ભાવનાત્મક\nરીતે પસાર થવું',
+    metaDuration: '7 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'માહિતી માટેની સામગ્રી',
+    intro:
+      'આમાંથી પસાર થવાનો કોઈ એક સાચો રસ્તો નથી. દરેક સ્ત્રી પોતાની રીતે, પોતાની ગતિએ તેમાંથી પસાર થાય છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'એક સાચો અને યોગ્ય શોક',
+      'લાગણીઓ જે દરેક વ્યક્તિમાં અલગ હોય છે',
+      'રોજિંદા જીવનમાં શું મદદરૂપ થઈ શકે',
+      'પ્રિયજનો તરફથી સાથ',
+      'વ્યાવસાયિક મદદ ક્યારે લેવી',
+      'મુખ્ય મુદ્દા',
+    ],
+    section1Body:
+      'ઉદાસી, ગુસ્સો, કે ખાલીપણાની લાગણી આ નુકસાન પ્રત્યેની સામાન્ય પ્રતિક્રિયાઓ છે, ગર્ભાવસ્થા કોઈપણ તબક્કે હોય. તમે જે અનુભવો છો તેને સ્વીકારવાને તે લાયક છે.',
+    section1InfoTitle: 'યાદ રાખો',
+    section1InfoText:
+      'આમાંથી પસાર થવાનો કોઈ સાચો કે ખોટો રસ્તો નથી. તમે અનુભવો છો તે દરેક લાગણી યોગ્ય છે.',
+    section2Body:
+      'તમે આમાંથી એક કે વધુ લાગણીઓ અનુભવી શકો છો, ક્યારેક બધી એકસાથે:',
+    feelings: [
+      {
+        title: 'ઉદાસી',
+        text: 'એક દુઃખ જે આવે અને જાય, ક્યારેક અણધાર્યું.',
+      },
+      {
+        title: 'ગુસ્સો',
+        text: 'પોતાના પ્રત્યે, પરિસ્થિતિ પ્રત્યે, અથવા અન્યાયની લાગણી — અને તેમાં ચિંતા કરવા જેવું કંઈ નથી.',
+      },
+      {
+        title: 'ખાલીપણાની લાગણી',
+        text: 'હમણાં જે બન્યું તેના વિશે ખાલીપણું કે મૂંઝવણનો અનુભવ.',
+      },
+    ],
+    section3Body:
+      'દબાણ કે સરખામણી વિના પોતાને સમય આપવો એ સ્વસ્થ થવાનો એક આવશ્યક ભાગ છે.',
+    dailySupport: [
+      {
+        title: 'પોતાને સમય આપવો',
+        text: '“સારું લાગવા” માટે કોઈ દબાણ કે સમયમર્યાદા વિના.',
+      },
+      {
+        title: 'પોતાની સરખામણી અન્ય સાથે ન કરવી',
+        text: 'દરેક શોક અનોખો હોય છે; તેમાંથી પસાર થવાનો કોઈ સાચો રસ્તો નથી.',
+      },
+      {
+        title: 'શબ્દોમાં વ્યક્ત કરવું',
+        text: 'તમે જે અનુભવો છો તે લખવાથી કે તેના વિશે વાત કરવાથી તમારી લાગણીઓનો ભાર હળવો થઈ શકે છે.',
+      },
+    ],
+    section4Body:
+      'તમારી નજીકના કોઈની સાથે, સહાય જૂથમાં, કે વ્યાવસાયિક સાથે વાત કરવાથી આ ભાર હળવો થઈ શકે છે. પ્રિયજનો કેવી રીતે મદદ કરી શકે તે અહીં છે:',
+    supportTitle: 'પ્રિયજન કેવી રીતે સાથ આપી શકે',
+    howToSupport: [
+      'પરફેક્ટ શબ્દો ન હોય તો પણ, નિર્ણય કર્યા વિના સાંભળો',
+      'અનુભવને ઓછો આંકવાનું ટાળો (“એમાં કંઈ મોટી વાત નથી,” “તમે ફરી પ્રયત્ન કરી શકો છો”)',
+      'ઉકેલોને બદલે તમારી હાજરી આપો',
+      'પછીના અઠવાડિયાંમાં પણ ખબરઅંતર પૂછતા રહો',
+    ],
+    section5Body:
+      'કેટલાક સંકેતો સૂચવી શકે છે કે વ્યાવસાયિક સહાય મદદરૂપ થઈ શકે છે:',
+    warningTitle: 'ધ્યાન રાખવા જેવા સંકેતો',
+    attentionSigns: [
+      'ઉદાસી લાંબા સમય સુધી રહે છે અને હળવી થવાને બદલે વધે છે',
+      'રોજિંદા કામકાજ કરવું મુશ્કેલ બને છે',
+      'એકલતાની નોંધપાત્ર લાગણી ઘર કરી જાય છે',
+      'ઘૂસી જતા વિચારો કે નોંધપાત્ર તકલીફ દેખાય છે',
+    ],
+    section5InfoTitle: 'સહાય ઉપલબ્ધ છે',
+    section5InfoText:
+      'મિડવાઇફ, ડૉક્ટર, મનોવૈજ્ઞાનિક, કે સહાય જૂથ નિર્ણય કર્યા વિના તમને સાંભળી શકે છે અને સાથ આપી શકે છે.',
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'મદદ માગવી એ નબળાઈની નિશાની નથી — તે આ સમયમાં પોતાની કાળજી લેવાની એક રીત છે.',
+    summaryPoints: [
+      'આ અનુભવમાંથી પસાર થવાનો કોઈ સાચો કે ખોટો રસ્તો નથી.',
+      'ઉદાસી, ગુસ્સો, કે ખાલીપણાની લાગણી સામાન્ય પ્રતિક્રિયાઓ છે.',
+      'દબાણ કે સરખામણી વિના પોતાને સમય આપવો એ સ્વસ્થ થવાનો ભાગ છે.',
+      'તમારી નજીકના કોઈની સાથે, સહાય જૂથમાં, કે વ્યાવસાયિક સાથે વાત કરવાથી આ ભાર હળવો થઈ શકે છે.',
+    ],
+    disclaimerText:
+      'માહિતી માટેની સામગ્રી. આ લેખ વ્યાવસાયિક સલાહનું સ્થાન લેતો નથી. જો તમે મુશ્કેલ સમયમાંથી પસાર થઈ રહ્યા હો, તો આરોગ્ય વ્યાવસાયિક સાથે વાત કરવામાં અચકાશો નહીં.',
+    shareMessage: 'શોકમાંથી ભાવનાત્મક રીતે પસાર થવું — AWA',
+  },
+  pa: {
+    badge: 'ਗਰਭਪਾਤ ਤੋਂ ਬਾਅਦ • ਭਾਵਨਾਤਮਕ ਸਹਾਰਾ',
+    title: 'ਸੋਗ ਵਿੱਚੋਂ ਭਾਵਨਾਤਮਕ\nਤੌਰ ਤੇ ਲੰਘਣਾ',
+    metaDuration: '7 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਜਾਣਕਾਰੀ ਵਾਲੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਇਸ ਵਿੱਚੋਂ ਲੰਘਣ ਦਾ ਕੋਈ ਇੱਕ ਸਹੀ ਤਰੀਕਾ ਨਹੀਂ ਹੈ। ਹਰ ਕੋਈ ਆਪਣੇ ਢੰਗ ਨਾਲ, ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ ਲੰਘਦੀ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਇੱਕ ਅਸਲੀ ਅਤੇ ਜਾਇਜ਼ ਸੋਗ',
+      'ਭਾਵਨਾਵਾਂ ਜੋ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰੀਆਂ ਹੁੰਦੀਆਂ ਹਨ',
+      'ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਵਿੱਚ ਕੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ',
+      'ਆਪਣਿਆਂ ਦਾ ਸਹਾਰਾ',
+      'ਮਾਹਿਰ ਦੀ ਮਦਦ ਕਦੋਂ ਲੈਣੀ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    section1Body:
+      'ਉਦਾਸੀ, ਗੁੱਸਾ ਜਾਂ ਖ਼ਾਲੀਪਣ ਦਾ ਅਹਿਸਾਸ ਇਸ ਨੁਕਸਾਨ ਪ੍ਰਤੀ ਆਮ ਪ੍ਰਤੀਕਿਰਿਆਵਾਂ ਹਨ, ਭਾਵੇਂ ਗਰਭ-ਅਵਸਥਾ ਕਿਸੇ ਵੀ ਪੜਾਅ ਤੇ ਸੀ। ਜੋ ਤੁਸੀਂ ਮਹਿਸੂਸ ਕਰ ਰਹੇ ਹੋ ਉਸ ਨੂੰ ਮੰਨਿਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।',
+    section1InfoTitle: 'ਧਿਆਨ ਰੱਖੋ',
+    section1InfoText:
+      'ਇਸ ਵਿੱਚੋਂ ਲੰਘਣ ਦਾ ਕੋਈ ਸਹੀ ਜਾਂ ਗ਼ਲਤ ਤਰੀਕਾ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੀ ਹਰ ਭਾਵਨਾ ਜਾਇਜ਼ ਹੈ।',
+    section2Body:
+      'ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਕਈ ਭਾਵਨਾਵਾਂ ਮਹਿਸੂਸ ਕਰ ਸਕਦੇ ਹੋ, ਕਈ ਵਾਰ ਸਾਰੀਆਂ ਇੱਕੋ ਸਮੇਂ:',
+    feelings: [
+      {
+        title: 'ਉਦਾਸੀ',
+        text: 'ਇੱਕ ਗ਼ਮ ਜੋ ਆ ਅਤੇ ਜਾ ਸਕਦਾ ਹੈ, ਕਈ ਵਾਰ ਅਚਾਨਕ।',
+      },
+      {
+        title: 'ਗੁੱਸਾ',
+        text: 'ਆਪਣੇ ਆਪ ਤੇ, ਹਾਲਾਤ ਤੇ, ਜਾਂ ਬੇਇਨਸਾਫ਼ੀ ਦੇ ਅਹਿਸਾਸ ਕਾਰਨ — ਅਤੇ ਇਸ ਵਿੱਚ ਚਿੰਤਾ ਕਰਨ ਵਾਲੀ ਕੋਈ ਗੱਲ ਨਹੀਂ।',
+      },
+      {
+        title: 'ਖ਼ਾਲੀਪਣ ਦਾ ਅਹਿਸਾਸ',
+        text: 'ਜੋ ਹੁਣੇ ਵਾਪਰਿਆ ਉਸ ਬਾਰੇ ਖ਼ਾਲੀਪਣ ਜਾਂ ਉਲਝਣ ਦਾ ਅਹਿਸਾਸ।',
+      },
+    ],
+    section3Body:
+      'ਆਪਣੇ ਆਪ ਨੂੰ ਸਮਾਂ ਦੇਣਾ, ਬਿਨਾਂ ਦਬਾਅ ਜਾਂ ਤੁਲਨਾ ਦੇ, ਠੀਕ ਹੋਣ ਦਾ ਜ਼ਰੂਰੀ ਹਿੱਸਾ ਹੈ।',
+    dailySupport: [
+      {
+        title: 'ਆਪਣੇ ਆਪ ਨੂੰ ਸਮਾਂ ਦੇਣਾ',
+        text: '“ਬਿਹਤਰ ਮਹਿਸੂਸ ਕਰਨ” ਲਈ ਕਿਸੇ ਦਬਾਅ ਜਾਂ ਸਮਾਂ-ਸੀਮਾ ਤੋਂ ਬਿਨਾਂ।',
+      },
+      {
+        title: 'ਦੂਜਿਆਂ ਨਾਲ ਤੁਲਨਾ ਨਾ ਕਰਨਾ',
+        text: 'ਹਰ ਸੋਗ ਵਿਲੱਖਣ ਹੁੰਦਾ ਹੈ; ਇਸ ਵਿੱਚੋਂ ਲੰਘਣ ਦਾ ਕੋਈ ਇੱਕ ਸਹੀ ਤਰੀਕਾ ਨਹੀਂ।',
+      },
+      {
+        title: 'ਇਸ ਨੂੰ ਸ਼ਬਦਾਂ ਵਿੱਚ ਢਾਲਣਾ',
+        text: 'ਜੋ ਤੁਸੀਂ ਮਹਿਸੂਸ ਕਰਦੇ ਹੋ ਉਸ ਨੂੰ ਲਿਖਣਾ ਜਾਂ ਉਸ ਬਾਰੇ ਗੱਲ ਕਰਨਾ ਭਾਵਨਾਵਾਂ ਦਾ ਬੋਝ ਹਲਕਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+      },
+    ],
+    section4Body:
+      'ਆਪਣੇ ਕਿਸੇ ਨੇੜਲੇ ਨਾਲ, ਸਹਾਇਤਾ ਸਮੂਹ ਨਾਲ ਜਾਂ ਕਿਸੇ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨਾ ਇਸ ਬੋਝ ਨੂੰ ਹਲਕਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ। ਇੱਥੇ ਦੱਸਿਆ ਗਿਆ ਹੈ ਕਿ ਆਪਣੇ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ:',
+    supportTitle: 'ਕੋਈ ਆਪਣਾ ਸਹਾਰਾ ਕਿਵੇਂ ਦੇ ਸਕਦਾ ਹੈ',
+    howToSupport: [
+      'ਬਿਨਾਂ ਫ਼ੈਸਲਾ ਸੁਣਾਏ ਸੁਣੋ, ਭਾਵੇਂ ਸਹੀ ਸ਼ਬਦ ਨਾ ਵੀ ਮਿਲਣ',
+      'ਇਸ ਤਜਰਬੇ ਨੂੰ ਛੋਟਾ ਕਰਕੇ ਦੱਸਣ ਤੋਂ ਬਚੋ (“ਕੋਈ ਵੱਡੀ ਗੱਲ ਨਹੀਂ ਸੀ,” “ਤੁਸੀਂ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰ ਸਕਦੇ ਹੋ”)',
+      'ਹੱਲਾਂ ਦੀ ਥਾਂ ਆਪਣੀ ਮੌਜੂਦਗੀ ਪੇਸ਼ ਕਰੋ',
+      'ਅਗਲੇ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਵੀ ਹਾਲ-ਚਾਲ ਪੁੱਛਦੇ ਰਹੋ',
+    ],
+    section5Body:
+      'ਕੁਝ ਸੰਕੇਤ ਦੱਸ ਸਕਦੇ ਹਨ ਕਿ ਮਾਹਿਰ ਦੀ ਮਦਦ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦੀ ਹੈ:',
+    warningTitle: 'ਧਿਆਨ ਦੇਣ ਵਾਲੇ ਸੰਕੇਤ',
+    attentionSigns: [
+      'ਉਦਾਸੀ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਰਹੇ ਅਤੇ ਘਟਣ ਦੀ ਥਾਂ ਵਧਦੀ ਜਾਵੇ',
+      'ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਚਲਾਉਣੀ ਔਖੀ ਹੋ ਜਾਵੇ',
+      'ਇਕੱਲਤਾ ਦਾ ਡੂੰਘਾ ਅਹਿਸਾਸ ਬਣ ਜਾਵੇ',
+      'ਘੁਸਪੈਠ ਕਰਨ ਵਾਲੇ ਵਿਚਾਰ ਜਾਂ ਡੂੰਘੀ ਪਰੇਸ਼ਾਨੀ ਪ੍ਰਗਟ ਹੋਵੇ',
+    ],
+    section5InfoTitle: 'ਸਹਾਰਾ ਮੌਜੂਦ ਹੈ',
+    section5InfoText:
+      'ਮਿਡਵਾਈਫ਼, ਡਾਕਟਰ, ਮਨੋਵਿਗਿਆਨੀ ਜਾਂ ਸਹਾਇਤਾ ਸਮੂਹ ਤੁਹਾਨੂੰ ਸੁਣ ਸਕਦਾ ਹੈ ਅਤੇ ਸਾਥ ਦੇ ਸਕਦਾ ਹੈ, ਬਿਨਾਂ ਕਿਸੇ ਫ਼ੈਸਲੇ ਦੇ।',
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਮਦਦ ਮੰਗਣਾ ਕਮਜ਼ੋਰੀ ਦੀ ਨਿਸ਼ਾਨੀ ਨਹੀਂ — ਇਹ ਇਸ ਸਮੇਂ ਆਪਣੀ ਸੰਭਾਲ ਕਰਨ ਦਾ ਇੱਕ ਤਰੀਕਾ ਹੈ।',
+    summaryPoints: [
+      'ਇਸ ਤਜਰਬੇ ਵਿੱਚੋਂ ਲੰਘਣ ਦਾ ਕੋਈ ਸਹੀ ਜਾਂ ਗ਼ਲਤ ਤਰੀਕਾ ਨਹੀਂ ਹੈ।',
+      'ਉਦਾਸੀ, ਗੁੱਸਾ ਜਾਂ ਖ਼ਾਲੀਪਣ ਦਾ ਅਹਿਸਾਸ ਆਮ ਪ੍ਰਤੀਕਿਰਿਆਵਾਂ ਹਨ।',
+      'ਆਪਣੇ ਆਪ ਨੂੰ ਸਮਾਂ ਦੇਣਾ, ਬਿਨਾਂ ਦਬਾਅ ਜਾਂ ਤੁਲਨਾ ਦੇ, ਠੀਕ ਹੋਣ ਦਾ ਹਿੱਸਾ ਹੈ।',
+      'ਆਪਣੇ ਕਿਸੇ ਨੇੜਲੇ ਨਾਲ, ਸਹਾਇਤਾ ਸਮੂਹ ਨਾਲ ਜਾਂ ਕਿਸੇ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨਾ ਇਸ ਬੋਝ ਨੂੰ ਹਲਕਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਮਾਹਿਰ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ। ਜੇ ਤੁਸੀਂ ਕਿਸੇ ਔਖੇ ਸਮੇਂ ਵਿੱਚੋਂ ਲੰਘ ਰਹੇ ਹੋ ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨ ਤੋਂ ਨਾ ਝਿਜਕੋ।',
+    shareMessage: 'ਸੋਗ ਵਿੱਚੋਂ ਭਾਵਨਾਤਮਕ ਤੌਰ ਤੇ ਲੰਘਣਾ — AWA',
+  },
+  my: {
+    badge: 'ကိုယ်ဝန်ပျက်ကျပြီးနောက် • စိတ်ပိုင်းဆိုင်ရာ ပံ့ပိုးမှု',
+    title: 'ဝမ်းနည်းကြေကွဲမှုကို\nစိတ်ပိုင်းဆိုင်ရာ ဖြတ်သန်းခြင်း',
+    metaDuration: 'ဖတ်ချိန် 7 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'အချက်အလက်ပေးသော အကြောင်းအရာ',
+    intro:
+      'ဤအခြေအနေကို ဖြတ်သန်းရန် မှန်ကန်သောနည်းလမ်း တစ်ခုတည်း မရှိပါ။ လူတိုင်း မိမိနည်းမိမိဟန်ဖြင့်၊ မိမိအရှိန်ဖြင့် ဖြတ်သန်းကြသည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'အမှန်တကယ်ရှိပြီး တရားဝင်သော ဝမ်းနည်းကြေကွဲမှု',
+      'လူတစ်ဦးနှင့်တစ်ဦး ကွာခြားသော စိတ်ခံစားမှုများ',
+      'နေ့စဉ်ဘဝတွင် အထောက်အကူဖြစ်နိုင်သည်များ',
+      'ချစ်ခင်ရသူများ၏ ပံ့ပိုးမှု',
+      'ပညာရှင်အကူအညီ မည်သည့်အခါ ရှာသင့်သနည်း',
+      'အဓိကအချက်များ',
+    ],
+    section1Body:
+      'ကိုယ်ဝန်၏ မည်သည့်အဆင့်ဖြစ်စေ ဝမ်းနည်းခြင်း၊ ဒေါသထွက်ခြင်း သို့မဟုတ် ဟာတာတာဖြစ်ခြင်းတို့သည် ဤဆုံးရှုံးမှုအတွက် ပုံမှန်တုံ့ပြန်မှုများ ဖြစ်သည်။ သင်ခံစားနေရသည်များကို အသိအမှတ်ပြုသင့်သည်။',
+    section1InfoTitle: 'ကြောင်းကျိုးမှတ်ထားပါ',
+    section1InfoText:
+      'ဤအခြေအနေကို ဖြတ်သန်းရန် မှန်သည်၊ မှားသည်ဟူသော နည်းလမ်း မရှိပါ။ သင်ခံစားရသည့် စိတ်ခံစားမှုတိုင်း မှန်ကန်သည်။',
+    section2Body:
+      'သင်သည် ၎င်းတို့အနက် တစ်ခု သို့မဟုတ် တစ်ခုထက်ပို၍ ခံစားရနိုင်ပြီး တခါတရံ တစ်ပြိုင်နက် ခံစားရနိုင်သည်။',
+    feelings: [
+      {
+        title: 'ဝမ်းနည်းခြင်း',
+        text: 'တခါတရံ မမျှော်လင့်ဘဲ လာလိုက်ပါသွားလိုက် ဖြစ်နိုင်သော ဝမ်းနည်းကြေကွဲမှု။',
+      },
+      {
+        title: 'ဒေါသ',
+        text: 'မိမိကိုယ်ကို၊ အခြေအနေကို သို့မဟုတ် မတရားမှုခံစားချက်ကို ဦးတည်သည် — ထိုအရာမှာ စိုးရိမ်စရာမဟုတ်ပါ။',
+      },
+      {
+        title: 'ဟာတာတာဖြစ်သော ခံစားချက်',
+        text: 'ဖြစ်ပျက်ခဲ့သည်ကို ဟာတာတာဖြစ်ခြင်း သို့မဟုတ် ရှုပ်ထွေးမှုခံစားချက်။',
+      },
+    ],
+    section3Body:
+      'ဖိအားနှင့် နှိုင်းယှဉ်မှုမရှိဘဲ မိမိကိုယ်ကို အချိန်ပေးခြင်းသည် ပြန်လည်ကုစားခြင်း၏ မရှိမဖြစ်အစိတ်အပိုင်း ဖြစ်သည်။',
+    dailySupport: [
+      {
+        title: 'မိမိကိုယ်ကို အချိန်ပေးခြင်း',
+        text: '“ပိုကောင်းလာရန်” ဖိအား သို့မဟုတ် နောက်ဆုံးရက်မရှိဘဲ။',
+      },
+      {
+        title: 'အခြားသူများနှင့် မနှိုင်းယှဉ်ခြင်း',
+        text: 'ဝမ်းနည်းကြေကွဲမှုတိုင်းသည် ထူးခြားသည်။ ဖြတ်သန်းရန် မှန်ကန်သောနည်းလမ်း တစ်ခုတည်း မရှိပါ။',
+      },
+      {
+        title: 'စကားလုံးများဖြင့် ဖော်ပြခြင်း',
+        text: 'သင်ခံစားရသည်များကို ရေးခြင်း သို့မဟုတ် ပြောဆိုခြင်းက စိတ်ခံစားမှု၏ ဝန်ထုပ်ဝန်ပိုးကို ပေါ့ပါးစေရန် ကူညီနိုင်သည်။',
+      },
+    ],
+    section4Body:
+      'သင့်အနီးရှိသူတစ်ဦး၊ ပံ့ပိုးမှုအုပ်စုတစ်ခု သို့မဟုတ် ပညာရှင်တစ်ဦးနှင့် ပြောဆိုခြင်းက ဤဝန်ထုပ်ဝန်ပိုးကို ပေါ့ပါးစေရန် ကူညီနိုင်သည်။ ချစ်ခင်ရသူများက မည်သို့ကူညီနိုင်ကြောင်း ဤတွင်ဖော်ပြထားသည်။',
+    supportTitle: 'ချစ်ခင်ရသူတစ်ဦးက မည်သို့ ပံ့ပိုးနိုင်သနည်း',
+    howToSupport: [
+      'ပြီးပြည့်စုံသောစကားလုံးများ မရှိသော်လည်း အပြစ်မတင်ဘဲ နားထောင်ပေးပါ',
+      'ဖြစ်ရပ်ကို လျှော့တွက်ခြင်းကို ရှောင်ပါ (“ကြီးကြီးမားမားမဟုတ်ပါဘူး”၊ “ပြန်ကြိုးစားလို့ရတာပဲ”)',
+      'ဖြေရှင်းနည်းများထက် ရှိနေပေးခြင်းကို ပေးပါ',
+      'နောက်လာမည့်ရက်သတ္တပတ်များအတွင်း ဆက်လက်မေးမြန်းပါ',
+    ],
+    section5Body:
+      'အချို့သောလက္ခဏာများက ပညာရှင်၏ပံ့ပိုးမှုသည် အထောက်အကူဖြစ်နိုင်ကြောင်း ညွှန်ပြနိုင်သည်။',
+    warningTitle: 'သတိထားရမည့် လက္ခဏာများ',
+    attentionSigns: [
+      'ဝမ်းနည်းမှုသည် ကြာရှည်စွာခံစားရပြီး သက်သာမလာဘဲ ပိုပြင်းထန်လာသည်',
+      'နေ့စဉ်ဘဝကို ဆက်လက်ဖြတ်သန်းရန် ခက်ခဲလာသည်',
+      'အထီးကျန်ခံစားချက် သိသိသာသာ ဖြစ်ပေါ်လာသည်',
+      'စိတ်ထဲ တိုးဝင်လာသော အတွေးများ သို့မဟုတ် သိသာသော စိတ်ဆင်းရဲမှု ပေါ်လာသည်',
+    ],
+    section5InfoTitle: 'ပံ့ပိုးမှု ရရှိနိုင်သည်',
+    section5InfoText:
+      'သားဖွားဆရာမ၊ ဆရာဝန်၊ စိတ်ပညာရှင် သို့မဟုတ် ပံ့ပိုးမှုအုပ်စုတစ်ခုက အပြစ်မတင်ဘဲ သင့်ကို နားထောင်ပေးပြီး ပံ့ပိုးပေးနိုင်သည်။',
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'အကူအညီတောင်းခြင်းသည် အားနည်းချက်၏ လက္ခဏာမဟုတ်ပါ — ဤအချိန်ကာလအတွင်း မိမိကိုယ်ကို ဂရုစိုက်ခြင်း၏ နည်းလမ်းတစ်ခုဖြစ်သည်။',
+    summaryPoints: [
+      'ဤအတွေ့အကြုံကို ဖြတ်သန်းရန် မှန်သည်၊ မှားသည်ဟူသော နည်းလမ်း မရှိပါ။',
+      'ဝမ်းနည်းခြင်း၊ ဒေါသထွက်ခြင်း သို့မဟုတ် ဟာတာတာဖြစ်ခြင်းတို့သည် ပုံမှန်တုံ့ပြန်မှုများ ဖြစ်သည်။',
+      'ဖိအားနှင့် နှိုင်းယှဉ်မှုမရှိဘဲ မိမိကိုယ်ကို အချိန်ပေးခြင်းသည် ပြန်လည်ကုစားခြင်း၏ အစိတ်အပိုင်း ဖြစ်သည်။',
+      'သင့်အနီးရှိသူတစ်ဦး၊ ပံ့ပိုးမှုအုပ်စုတစ်ခု သို့မဟုတ် ပညာရှင်တစ်ဦးနှင့် ပြောဆိုခြင်းက ဤဝန်ထုပ်ဝန်ပိုးကို ပေါ့ပါးစေရန် ကူညီနိုင်သည်။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ပညာရှင်၏အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ သင်ခက်ခဲသောအချိန်ကို ဖြတ်သန်းနေပါက ကျန်းမာရေးပညာရှင်နှင့် ပြောဆိုရန် မတွန့်ဆုတ်ပါနှင့်။',
+    shareMessage: 'ဝမ်းနည်းကြေကွဲမှုကို စိတ်ပိုင်းဆိုင်ရာ ဖြတ်သန်းခြင်း — AWA',
+  },
+  km: {
+    badge: 'ក្រោយការរលូតកូន • ការគាំទ្រផ្លូវចិត្ត',
+    title: 'ឆ្លងកាត់ទុក្ខសោក\nខាងផ្លូវចិត្ត',
+    metaDuration: 'អាន 7 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាព័ត៌មាន',
+    intro:
+      'គ្មានវិធីត្រឹមត្រូវតែមួយក្នុងការឆ្លងកាត់រឿងនេះទេ។ មនុស្សគ្រប់គ្នាឆ្លងកាត់វាតាមវិធីរបស់ខ្លួន តាមល្បឿនរបស់ខ្លួន។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ទុក្ខសោកដ៏ពិត និងស្របច្បាប់',
+      'អារម្មណ៍ដែលខុសគ្នាពីមនុស្សម្នាក់ទៅម្នាក់ទៀត',
+      'អ្វីដែលអាចជួយក្នុងជីវិតប្រចាំថ្ងៃ',
+      'ការគាំទ្រពីអ្នកជិតស្និទ្ធ',
+      'ពេលណាត្រូវស្វែងរកជំនួយពីអ្នកជំនាញ',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    section1Body:
+      'ភាពសោកសៅ កំហឹង ឬអារម្មណ៍ទទេស្អាត គឺជាប្រតិកម្មធម្មតាចំពោះការបាត់បង់នេះ មិនថាដំណាក់កាលណានៃការមានផ្ទៃពោះឡើយ។ អ្វីដែលអ្នកកំពុងមានអារម្មណ៍ សមនឹងត្រូវបានទទួលស្គាល់។',
+    section1InfoTitle: 'សូមចងចាំ',
+    section1InfoText:
+      'គ្មានវិធីត្រូវ ឬខុសក្នុងការឆ្លងកាត់រឿងនេះទេ។ រាល់អារម្មណ៍ដែលអ្នកមាន សុទ្ធតែត្រឹមត្រូវ។',
+    section2Body:
+      'អ្នកអាចមានអារម្មណ៍មួយ ឬច្រើនយ៉ាងនេះ ជួនកាលទាំងអស់ក្នុងពេលតែមួយ៖',
+    feelings: [
+      {
+        title: 'ភាពសោកសៅ',
+        text: 'ទុក្ខព្រួយដែលអាចមកហើយទៅ ជួនកាលដោយមិននឹកស្មាន។',
+      },
+      {
+        title: 'កំហឹង',
+        text: 'ចំពោះខ្លួនអ្នក ស្ថានភាព ឬអារម្មណ៍ថាអយុត្តិធម៌ — ហើយនោះមិនមែនជារឿងគួរបារម្ភទេ។',
+      },
+      {
+        title: 'អារម្មណ៍ទទេស្អាត',
+        text: 'អារម្មណ៍ទទេស្អាត ឬច្របូកច្របល់អំពីអ្វីដែលទើបតែកើតឡើង។',
+      },
+    ],
+    section3Body:
+      'ការផ្តល់ពេលវេលាដល់ខ្លួនឯង ដោយគ្មានសម្ពាធ ឬការប្រៀបធៀប គឺជាផ្នែកសំខាន់នៃការជាសះស្បើយ។',
+    dailySupport: [
+      {
+        title: 'ផ្តល់ពេលវេលាដល់ខ្លួនឯង',
+        text: 'ដោយគ្មានសម្ពាធ ឬកាលកំណត់សម្រាប់ “ការមានអារម្មណ៍ល្អប្រសើរ”។',
+      },
+      {
+        title: 'កុំប្រៀបធៀបខ្លួនជាមួយអ្នកដទៃ',
+        text: 'ទុក្ខសោកនីមួយៗមានតែមួយគត់ មិនមានវិធីត្រឹមត្រូវក្នុងការឆ្លងកាត់វាទេ។',
+      },
+      {
+        title: 'ដាក់វាជាពាក្យសម្ដី',
+        text: 'ការសរសេរ ឬនិយាយអំពីអ្វីដែលអ្នកមានអារម្មណ៍ អាចជួយបន្ធូរបន្ថយទម្ងន់នៃអារម្មណ៍របស់អ្នក។',
+      },
+    ],
+    section4Body:
+      'ការនិយាយជាមួយអ្នកជិតស្និទ្ធ ក្រុមគាំទ្រ ឬអ្នកជំនាញ អាចជួយបន្ធូរបន្ថយទម្ងន់នេះ។ នេះជារបៀបដែលអ្នកជិតស្និទ្ធអាចជួយបាន៖',
+    supportTitle: 'របៀបដែលអ្នកជិតស្និទ្ធអាចផ្តល់ការគាំទ្រ',
+    howToSupport: [
+      'ស្តាប់ដោយគ្មានការវិនិច្ឆ័យ ទោះមិនមានពាក្យពេចន៍ដ៏ល្អឥតខ្ចោះក៏ដោយ',
+      'ជៀសវាងការមើលស្រាលបទពិសោធន៍នេះ (“មិនមែនជារឿងធំទេ” “អ្នកអាចព្យាយាមម្តងទៀត”)',
+      'ផ្តល់វត្តមានរបស់អ្នក ជាជាងដំណោះស្រាយ',
+      'បន្តសួរសុខទុក្ខក្នុងអំឡុងសប្តាហ៍បន្ទាប់',
+    ],
+    section5Body:
+      'សញ្ញាមួយចំនួនអាចបង្ហាញថា ការគាំទ្រពីអ្នកជំនាញអាចមានប្រយោជន៍៖',
+    warningTitle: 'សញ្ញាដែលត្រូវតាមដាន',
+    attentionSigns: [
+      'ភាពសោកសៅនៅយូរ ហើយកាន់តែខ្លាំងឡើង ជាជាងធូរស្រាល',
+      'ការរស់នៅប្រចាំថ្ងៃក្លាយជាការលំបាក',
+      'អារម្មណ៍ឯកកោយ៉ាងខ្លាំងកើតឡើង',
+      'គំនិតរំខាន ឬទុក្ខវេទនាខ្លាំងលេចឡើង',
+    ],
+    section5InfoTitle: 'មានការគាំទ្រសម្រាប់អ្នក',
+    section5InfoText:
+      'ឆ្មប វេជ្ជបណ្ឌិត អ្នកចិត្តសាស្ត្រ ឬក្រុមគាំទ្រ អាចស្តាប់ និងគាំទ្រអ្នក ដោយគ្មានការវិនិច្ឆ័យ។',
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ការស្នើសុំជំនួយមិនមែនជាសញ្ញានៃភាពខ្សោយទេ — វាជារបៀបថែរក្សាខ្លួនអ្នកក្នុងអំឡុងពេលនេះ។',
+    summaryPoints: [
+      'គ្មានវិធីត្រូវ ឬខុសក្នុងការឆ្លងកាត់បទពិសោធន៍នេះទេ។',
+      'ភាពសោកសៅ កំហឹង ឬអារម្មណ៍ទទេស្អាត គឺជាប្រតិកម្មធម្មតា។',
+      'ការផ្តល់ពេលវេលាដល់ខ្លួនឯង ដោយគ្មានសម្ពាធ ឬការប្រៀបធៀប គឺជាផ្នែកនៃការជាសះស្បើយ។',
+      'ការនិយាយជាមួយអ្នកជិតស្និទ្ធ ក្រុមគាំទ្រ ឬអ្នកជំនាញ អាចជួយបន្ធូរបន្ថយទម្ងន់នេះ។',
+    ],
+    disclaimerText:
+      'មាតិកាព័ត៌មាន។ អត្ថបទនេះមិនជំនួសដំបូន្មានពីអ្នកជំនាញទេ។ ប្រសិនបើអ្នកកំពុងឆ្លងកាត់ពេលលំបាក សូមកុំស្ទាក់ស្ទើរក្នុងការនិយាយជាមួយអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ឆ្លងកាត់ទុក្ខសោកខាងផ្លូវចិត្ត — AWA',
+  },
+  lo: {
+    badge: 'ຫຼັງການແທ້ງລູກ • ການສະໜັບສະໜູນທາງອາລົມ',
+    title: 'ຜ່ານຜ່າຄວາມໂສກເສົ້າ\nທາງອາລົມ',
+    metaDuration: 'ອ່ານ 7 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທົ່ວໄປ',
+    intro:
+      'ບໍ່ມີວິທີທີ່ຖືກຕ້ອງໃນການຜ່ານເລື່ອງນີ້. ແຕ່ລະຄົນຜ່ານໄປດ້ວຍວິທີຂອງຕົນເອງ ຕາມຈັງຫວະຂອງຕົນເອງ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ຄວາມໂສກເສົ້າທີ່ແທ້ຈິງ ແລະ ຊອບທຳ',
+      'ອາລົມທີ່ແຕກຕ່າງກັນໄປໃນແຕ່ລະຄົນ',
+      'ສິ່ງທີ່ອາດຊ່ວຍໄດ້ໃນແຕ່ລະວັນ',
+      'ການສະໜັບສະໜູນຈາກຄົນທີ່ຮັກ',
+      'ເວລາໃດຄວນຂໍຄວາມຊ່ວຍເຫຼືອຈາກຜູ້ຊ່ຽວຊານ',
+      'ຈຸດສຳຄັນ',
+    ],
+    section1Body:
+      'ຄວາມເສົ້າ ຄວາມໂກດ ຫຼື ຄວາມຮູ້ສຶກຫວ່າງເປົ່າ ແມ່ນປະຕິກິລິຍາປົກກະຕິຕໍ່ການສູນເສຍນີ້ ບໍ່ວ່າຈະຢູ່ໃນໄລຍະໃດຂອງການຖືພາ. ສິ່ງທີ່ທ່ານຮູ້ສຶກສົມຄວນໄດ້ຮັບການຍອມຮັບ.',
+    section1InfoTitle: 'ຈົ່ງຈື່ໄວ້',
+    section1InfoText:
+      'ບໍ່ມີວິທີທີ່ຖືກ ຫຼື ຜິດໃນການຜ່ານເລື່ອງນີ້. ທຸກອາລົມທີ່ທ່ານຮູ້ສຶກລ້ວນແຕ່ຊອບທຳ.',
+    section2Body:
+      'ທ່ານອາດຮູ້ສຶກອາລົມໜຶ່ງ ຫຼື ຫຼາຍອາລົມເຫຼົ່ານີ້ ບາງຄັ້ງກໍພ້ອມກັນທັງໝົດ:',
+    feelings: [
+      {
+        title: 'ຄວາມເສົ້າ',
+        text: 'ຄວາມທຸກໃຈທີ່ອາດມາແລ້ວໄປ ບາງຄັ້ງກໍມາໂດຍບໍ່ທັນຕັ້ງຕົວ.',
+      },
+      {
+        title: 'ຄວາມໂກດ',
+        text: 'ຕໍ່ຕົນເອງ ຕໍ່ສະຖານະການ ຫຼື ຄວາມຮູ້ສຶກວ່າບໍ່ຍຸຕິທຳ — ແລະ ນັ້ນບໍ່ແມ່ນສິ່ງທີ່ຕ້ອງກັງວົນ.',
+      },
+      {
+        title: 'ຄວາມຮູ້ສຶກຫວ່າງເປົ່າ',
+        text: 'ຄວາມຮູ້ສຶກຫວ່າງເປົ່າ ຫຼື ສັບສົນກັບສິ່ງທີ່ເກີດຂຶ້ນ.',
+      },
+    ],
+    section3Body:
+      'ການໃຫ້ເວລາຕົນເອງ ໂດຍບໍ່ມີຄວາມກົດດັນ ຫຼື ການປຽບທຽບ ເປັນສ່ວນສຳຄັນຂອງການເຍີຍວຍາ.',
+    dailySupport: [
+      {
+        title: 'ໃຫ້ເວລາຕົນເອງ',
+        text: 'ໂດຍບໍ່ມີຄວາມກົດດັນ ຫຼື ກຳນົດເວລາສຳລັບການ “ຮູ້ສຶກດີຂຶ້ນ.”',
+      },
+      {
+        title: 'ບໍ່ປຽບທຽບຕົນເອງກັບຄົນອື່ນ',
+        text: 'ຄວາມໂສກເສົ້າຂອງແຕ່ລະຄົນເປັນເອກະລັກ; ບໍ່ມີວິທີທີ່ຖືກຕ້ອງໃນການຜ່ານມັນ.',
+      },
+      {
+        title: 'ເອົາມັນອອກມາເປັນຄຳເວົ້າ',
+        text: 'ການຂຽນ ຫຼື ເວົ້າກ່ຽວກັບສິ່ງທີ່ທ່ານຮູ້ສຶກສາມາດຊ່ວຍຜ່ອນເບົາພາລະທາງອາລົມ.',
+      },
+    ],
+    section4Body:
+      'ການລົມກັບຄົນໃກ້ຊິດ ກຸ່ມສະໜັບສະໜູນ ຫຼື ຜູ້ຊ່ຽວຊານສາມາດຊ່ວຍຜ່ອນເບົາພາລະນີ້. ນີ້ແມ່ນວິທີທີ່ຄົນທີ່ຮັກສາມາດຊ່ວຍໄດ້:',
+    supportTitle: 'ຄົນທີ່ຮັກສາມາດໃຫ້ການສະໜັບສະໜູນໄດ້ແນວໃດ',
+    howToSupport: [
+      'ຮັບຟັງໂດຍບໍ່ຕັດສິນ ເຖິງແມ່ນບໍ່ມີຄຳເວົ້າທີ່ສົມບູນແບບ',
+      'ຫຼີກເວັ້ນການເວົ້າໃຫ້ປະສົບການນີ້ເບົາບາງລົງ (“ບໍ່ແມ່ນເລື່ອງໃຫຍ່” “ລອງໃໝ່ໄດ້ຕະຫຼອດ”)',
+      'ສະເໜີການຢູ່ຂ້າງກັນ ແທນທີ່ຈະສະເໜີວິທີແກ້ໄຂ',
+      'ສືບຕໍ່ຖາມໄຖ່ສຸກທຸກຢ່າງໃນຫຼາຍອາທິດຕໍ່ມາ',
+    ],
+    section5Body:
+      'ສັນຍານບາງຢ່າງອາດບົ່ງບອກວ່າການສະໜັບສະໜູນຈາກຜູ້ຊ່ຽວຊານອາດເປັນປະໂຫຍດ:',
+    warningTitle: 'ສັນຍານທີ່ຄວນສັງເກດ',
+    attentionSigns: [
+      'ຄວາມເສົ້າຍາວນານ ແລະ ຮຸນແຮງຂຶ້ນແທນທີ່ຈະຄ່ອຍໆບັນເທົາ',
+      'ການດຳເນີນຊີວິດປະຈຳວັນກາຍເປັນເລື່ອງຍາກ',
+      'ຄວາມຮູ້ສຶກໂດດດ່ຽວຢ່າງຫຼວງຫຼາຍເກີດຂຶ້ນ',
+      'ມີຄວາມຄິດທີ່ເຂົ້າມາລົບກວນ ຫຼື ຄວາມທຸກໃຈຢ່າງຫຼວງຫຼາຍ',
+    ],
+    section5InfoTitle: 'ມີການສະໜັບສະໜູນພ້ອມຊ່ວຍ',
+    section5InfoText:
+      'ໝໍຕຳແຍ ແພດ ນັກຈິດຕະວິທະຍາ ຫຼື ກຸ່ມສະໜັບສະໜູນສາມາດຮັບຟັງ ແລະ ສະໜັບສະໜູນທ່ານໂດຍບໍ່ຕັດສິນ.',
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ການຂໍຄວາມຊ່ວຍເຫຼືອບໍ່ແມ່ນສັນຍານຂອງຄວາມອ່ອນແອ — ມັນເປັນວິທີດູແລຕົນເອງໃນໄລຍະນີ້.',
+    summaryPoints: [
+      'ບໍ່ມີວິທີທີ່ຖືກ ຫຼື ຜິດໃນການຜ່ານປະສົບການນີ້.',
+      'ຄວາມເສົ້າ ຄວາມໂກດ ຫຼື ຄວາມຮູ້ສຶກຫວ່າງເປົ່າ ແມ່ນປະຕິກິລິຍາປົກກະຕິ.',
+      'ການໃຫ້ເວລາຕົນເອງ ໂດຍບໍ່ມີຄວາມກົດດັນ ຫຼື ການປຽບທຽບ ເປັນສ່ວນໜຶ່ງຂອງການເຍີຍວຍາ.',
+      'ການລົມກັບຄົນໃກ້ຊິດ ກຸ່ມສະໜັບສະໜູນ ຫຼື ຜູ້ຊ່ຽວຊານສາມາດຊ່ວຍຜ່ອນເບົາພາລະນີ້.',
+    ],
+    disclaimerText:
+      'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ. ບົດຄວາມນີ້ບໍ່ແທນຄຳແນະນຳຂອງຜູ້ຊ່ຽວຊານ. ຖ້າທ່ານກຳລັງຜ່ານຊ່ວງເວລາທີ່ຍາກລຳບາກ ຢ່າລັງເລທີ່ຈະລົມກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ຜ່ານຜ່າຄວາມໂສກເສົ້າທາງອາລົມ — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

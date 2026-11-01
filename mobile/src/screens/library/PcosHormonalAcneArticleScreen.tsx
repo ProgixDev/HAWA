@@ -3326,6 +3326,1640 @@ const CONTENT = withBrazilianPortuguese('PcosHormonalAcne', {
       'Bu makala diňe umumy maglumat üçin we lukmançylyk maslahatlaşmagyny çalyşmaýar. Şübhe bolsa ýa-da alamatlar dowam etse, saglyk hünärmeninden maslahat soraň.',
     shareMessage: 'Gormonal akneni düşünmek — AWA',
   },
+  ms: {
+    badge: 'PCOS • JERAWAT HORMON',
+    title: 'Memahami\njerawat hormon',
+    metaDuration: '7 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan pendidikan',
+    intro:
+      'Mengapa jerawat hormon boleh muncul dengan PCOS, bagaimana mengenalinya, dan penyelesaian yang mungkin membantu menguruskannya.',
+    introSecondary:
+      'Ia menjejaskan ramai wanita dan bukan kekurangan kebersihan mahupun sesuatu yang tidak dapat dielakkan: memahami puncanya membantu menguruskannya dengan lebih baik.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah jerawat hormon?',
+      'Mengapa PCOS boleh menyebabkan jerawat?',
+      'Bagaimana mengenali jerawat hormon',
+      'Jerawat hormon dan kitaran haid',
+      'Apa yang boleh membantu',
+      'Bila untuk berjumpa doktor?',
+      'Perkara penting untuk diingat',
+    ],
+    h1: 'Apakah jerawat hormon?',
+    body1a:
+      'Jerawat hormon ialah satu bentuk jerawat yang berkaitan secara langsung dengan perubahan atau ketidakseimbangan hormon, terutamanya androgen. Berbeza dengan jerawat yang lebih tipikal semasa remaja, ia selalunya menjejaskan wanita dewasa dan boleh berterusan atau muncul selepas tempoh itu.',
+    body1b:
+      'Ia juga dibezakan oleh lokasinya, kedalamannya dan kecenderungannya untuk muncul semula di tempat yang sama walaupun rutin penjagaan kulit yang tetap diikuti dengan baik.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Jerawat hormon tidak berkaitan dengan kekurangan kebersihan: membasuh muka lebih kerap tidak menghilangkannya, malah mungkin merengsakan kulit.',
+    h2Title: 'Mengapa PCOS boleh menyebabkan jerawat?',
+    body2:
+      'Dalam PCOS, kelebihan androgen yang relatif merangsang kelenjar sebum, yang kemudiannya menghasilkan lebih banyak sebum. Sesetengah kulit juga lebih sensitif terhadap hormon ini, yang menjelaskan mengapa jerawat boleh ketara walaupun tanpa ketidakseimbangan besar yang diukur di makmal.',
+    neutralText:
+      'Ini bukan soal kekuatan semangat: kepekaan ini berbeza dari seorang ke seorang dan tidak bergantung pada tabiat gaya hidup anda.',
+    h3Title: 'Bagaimana mengenali jerawat hormon',
+    body3:
+      'Ciri tertentu sering berulang, walaupun tidak secara sistematik:',
+    recognizeSigns: [
+      'Bahagian bawah muka: garis rahang, dagu',
+      'Jerawat yang lebih dalam, kadangkala menyakitkan',
+      'Selalunya muncul semula di tempat yang sama',
+      'Kemerahan atau parut yang berterusan',
+    ],
+    h4Title: 'Jerawat hormon dan kitaran haid',
+    body4:
+      'Jerawat hormon boleh berubah-ubah sepanjang kitaran. Ramai wanita perasan ia merebak pada hari-hari sebelum haid, apabila progesteron meningkat dan kemudian menurun dengan mendadak, merangsang penghasilan sebum buat sementara waktu.',
+    highlightTitle: 'Menjejaki kemunculan jerawat anda',
+    highlightText:
+      'Mencatat bila jerawat muncul berbanding kitaran anda boleh membantu anda dan pakar dermatologi anda memahami kaitan hormon dengan lebih baik.',
+    h5Title: 'Apa yang boleh membantu',
+    body5a:
+      'Beberapa tabiat penjagaan yang mudah boleh membantu mengehadkan kemunculan jerawat, tanpa menghilangkannya sepenuhnya dengan sendirinya:',
+    careHabits: [
+      'Bersihkan kulit anda dengan lembut pada waktu pagi dan petang',
+      'Elakkan produk yang keras atau yang menanggalkan minyak',
+      'Lindungi kulit anda daripada matahari setiap hari',
+      'Elakkan memicit atau mengorek jerawat',
+    ],
+    body5b:
+      'Bergantung pada keadaan, pakar dermatologi atau pakar sakit puan boleh mencadangkan rawatan topikal (krim, gel) atau, jika perlu, rawatan hormon yang sesuai.',
+    alertTitle: 'Jangan berubat sendiri',
+    alertText:
+      'Rawatan untuk jerawat hormon (topikal atau hormon) mesti diberikan dan dipantau oleh pengamal penjagaan kesihatan, terutamanya jika anda berharap untuk hamil.',
+    h6Title: 'Bila untuk berjumpa doktor?',
+    body6:
+      'Nasihat perubatan amat membantu dalam keadaan tertentu:',
+    consultReasons: [
+      'Jerawat yang berterusan walaupun dengan penjagaan yang sesuai',
+      'Jerawat yang menyakitkan atau dalam (nodul, sista)',
+      'Jerawat yang teruk atau yang bertambah teruk dengan pantas',
+      'Tanda atau parut yang mula menetap',
+    ],
+    h7Title: 'Perkara penting untuk diingat',
+    summaryTitle: 'Perkara utama',
+    keyPoints: [
+      'Jerawat hormon mempunyai punca yang boleh dikenal pasti, berkaitan dengan androgen.',
+      'Ia selalunya menjejaskan bahagian bawah muka dan boleh bertambah teruk sebelum haid.',
+      'Ia bukan kekurangan kebersihan mahupun sesuatu yang tidak dapat dielakkan.',
+      'Penjagaan yang lembut dan, jika perlu, rawatan yang sesuai boleh memperbaikinya.',
+      'Pakar dermatologi atau pakar sakit puan boleh menyokong anda jika ia berterusan.',
+    ],
+    finalNoteTitle: 'Panduan untuk memahami dengan lebih baik',
+    finalNoteText:
+      'Artikel ini hanya untuk maklumat am dan tidak menggantikan konsultasi perubatan. Jika ragu-ragu atau jika simptom berterusan, dapatkan nasihat daripada pengamal penjagaan kesihatan.',
+    shareMessage: 'Memahami jerawat hormon — AWA',
+  },
+  so: {
+    badge: 'PCOS • FINAN HORMOON',
+    title: 'Fahamka\nfinanka hormoonka',
+    metaDuration: '7 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad waxbarasho',
+    intro:
+      'Sababta finanka hormoonku u soo muuqan karo PCOS, sida loo aqoonsado, iyo xalalka caawin kara maamulkiisa.',
+    introSecondary:
+      'Wuxuu saameeyaa dumar badan mana aha nadaafad la’aan ama wax aan laga baxsan karin: fahamka asalkiisu wuxuu caawiyaa maamul ka wanaagsan.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay finanka hormoonka?',
+      'Maxay PCOS u keeni karaa finan?',
+      'Sida loo aqoonsado finanka hormoonka',
+      'Finanka hormoonka iyo wareegga caadada',
+      'Waxa caawin kara',
+      'Goorta dhakhtar la arko?',
+      'Qodobbada muhiimka ah',
+    ],
+    h1: 'Waa maxay finanka hormoonka?',
+    body1a:
+      'Finanka hormoonku waa nooc finan ah oo si toos ah ula xiriira kala duwanaanshaha ama dheelitir la’aanta hormoonka, gaar ahaan androgens. Si ka duwan finanka caadiga ah ee qaangaarka, inta badan wuxuu saameeyaa dumarka weyn wuxuuna sii socon karaa ama soo muuqan karaa muddadaas ka dib.',
+    body1b:
+      'Waxaa sidoo kale lagu kala saaraa meesha uu ku yaal, qoto dheerkiisa, iyo u janjeerkiisa inuu mar kale ka soo muuqdo isla meelaha iyadoo la raacay nidaam daryeel maqaar oo joogto ah oo si fiican loo raaco.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Finanka hormoonku lama xiriiro nadaafad la’aan: dhaqidda wajigaaga inta badan ma ka dhigto inuu libdho, wuxuuna xataa kicin karaa maqaarka.',
+    h2Title: 'Maxay PCOS u keeni karaa finan?',
+    body2:
+      'PCOS dhexdiisa, androgen xad dhaaf ah oo qaraabo ah ayaa kiciya qanjidhada saliidda, kuwaas oo markaas soo saara sebum badan. Maqaarka qaarkood sidoo kale wuu dareen badan yahay hormoonnadan, taasoo sharxaysa sababta finanku u noqon karo mid muuqda xataa dheelitir la’aan weyn oo shaybaarka lagu cabbiray la’aanteed.',
+    neutralText:
+      'Tani maaha arrin awood xoog: dareen-badnaantani waxay ku kala duwan tahay qof ilaa qof mana ku xirna caadooyinkaaga hab-nololeed.',
+    h3Title: 'Sida loo aqoonsado finanka hormoonka',
+    body3:
+      'Sifooyin qaar ayaa inta badan soo noqnoqda, in kasta oo aan nidaamsan ahayn:',
+    recognizeSigns: [
+      'Wajiga hoose: garka, garbiisa',
+      'Burooyin ka qotodheer, mararka qaarkood xanuun leh',
+      'Inta badan mar kale ka soo muuqda isla meelaha',
+      'Casaan ama calaamado sii jira',
+    ],
+    h4Title: 'Finanka hormoonka iyo wareegga caadada',
+    body4:
+      'Finanka hormoonku wuxuu kala duwanaan karaa wareegga oo dhan. Dumar badan ayaa ogaada kicin maalmaha ka horreeya caadadooda, marka progesterone kor u kaco ka dibna si degdeg ah hoos u dhaco, taasoo ku meel gaar kicinaysa soo saarista sebum.',
+    highlightTitle: 'La socodka kicinahaaga',
+    highlightText:
+      'Xusidda goorta burooyinku soo muuqdaan marka loo eego wareeggaaga ayaa kaa caawin kara adiga iyo dhakhtarka maqaarka inaad si wanaagsan u fahamtaan xiriirka hormoonka.',
+    h5Title: 'Waxa caawin kara',
+    body5a:
+      'Dhowr caado daryeel oo fudud ayaa caawin kara xakamaynta kicinta, iyadoo aysan keligood si buuxda u nadiifin:',
+    careHabits: [
+      'Si jilicsan u nadiifi maqaarkaaga subax iyo habeen',
+      'Ka fogow alaabta adag ama maqaarka qalajisa',
+      'Maalin kasta ka ilaali maqaarkaaga qorraxda',
+      'Ha riixin ama ha qaadin burooyinka',
+    ],
+    body5b:
+      'Iyadoo ku xiran xaaladda, dhakhtarka maqaarka ama dumarka ayaa soo jeedin kara daaweynno maxalli ah (kareemo, jel) ama, haddii loo baahdo, daaweyn hormoon oo ku habboon.',
+    alertTitle: 'Is-daaweyn ha samaynin',
+    alertText:
+      'Daaweynta finanka hormoonka (maxalli ama hormoon) waa in qoraa oo la kormeero xirfadle caafimaad, gaar ahaan haddii aad rajaynayso inaad uur yeelato.',
+    h6Title: 'Goorta dhakhtar la arko?',
+    body6:
+      'Talo caafimaad ayaa si gaar ah faa’iido u leh xaalado qaar:',
+    consultReasons: [
+      'Finan sii socda inkasta oo daryeel ku habboon la sameeyo',
+      'Burooyin xanuun leh ama qoto dheer (nodules, cysts)',
+      'Finan daran ama si degdeg ah u xumaanaya',
+      'Calaamado ama nabaro degaya',
+    ],
+    h7Title: 'Qodobbada muhiimka ah',
+    summaryTitle: 'Qodobbada ugu muhiimsan',
+    keyPoints: [
+      'Finanka hormoonku wuxuu leeyahay sabab la aqoonsan karo, oo la xiriirta androgens.',
+      'Inta badan wuxuu saameeyaa wajiga hoose wuxuuna xumaan karaa ka hor caadadaada.',
+      'Ma aha nadaafad la’aan ama wax aan laga baxsan karin.',
+      'Daryeel jilicsan iyo, haddii loo baahdo, daaweyn ku habboon ayaa hagaajin kara.',
+      'Dhakhtar maqaar ama dumarka ayaa kuu taageeri kara haddii uu sii socdo.',
+    ],
+    finalNoteTitle: 'Hage lagu fahmo',
+    finalNoteText:
+      'Maqaalkan waa macluumaad guud oo keliya mana bedelo la-talin caafimaad. Haddii aad shaki qabto ama astaamuhu sii socdaan, talo ka raadso xirfadle caafimaad.',
+    shareMessage: 'Fahamka finanka hormoonka — AWA',
+  },
+  sw: {
+    badge: 'PCOS • CHUNUSI ZA HOMONI',
+    title: 'Kuelewa\nchunusi za homoni',
+    metaDuration: 'Dakika 7 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui ya kielimu',
+    intro:
+      'Kwa nini chunusi za homoni zinaweza kuonekana ukiwa na PCOS, jinsi ya kuzitambua, na ni suluhisho gani zinaweza kusaidia kuzidhibiti.',
+    introSecondary:
+      'Zinaathiri wanawake wengi na si ukosefu wa usafi wala jambo lisiloepukika: kuelewa asili yake kunasaidia kuzidhibiti vizuri zaidi.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Chunusi za homoni ni nini?',
+      'Kwa nini PCOS inaweza kusababisha chunusi?',
+      'Jinsi ya kutambua chunusi za homoni',
+      'Chunusi za homoni na mzunguko wa hedhi',
+      'Kinachoweza kusaidia',
+      'Wakati wa kumwona daktari?',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    h1: 'Chunusi za homoni ni nini?',
+    body1a:
+      'Chunusi za homoni ni aina ya chunusi inayohusiana moja kwa moja na mabadiliko ya homoni au kutokuwa na usawa, hasa wa androjeni. Tofauti na chunusi za kawaida zaidi za ujana, mara nyingi huathiri wanawake watu wazima na zinaweza kudumu au kuonekana baada ya kipindi hicho.',
+    body1b:
+      'Pia hutofautishwa na mahali zilipo, kina chake, na tabia yake ya kujitokeza tena mahali pale pale licha ya utaratibu wa kawaida wa utunzaji wa ngozi unaofuatwa vizuri.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Chunusi za homoni hazihusiani na ukosefu wa usafi: kuosha uso mara nyingi zaidi hakuzifanyi ziondoke, na kunaweza hata kuwasha ngozi.',
+    h2Title: 'Kwa nini PCOS inaweza kusababisha chunusi?',
+    body2:
+      'Katika PCOS, ziada ya kiasi ya androjeni huchochea tezi za mafuta, ambazo kisha hutengeneza mafuta mengi zaidi ya ngozi. Ngozi nyingine pia ni nyeti zaidi kwa homoni hizi, jambo linaloeleza kwa nini chunusi zinaweza kuwa kali hata bila kutokuwa na usawa mkubwa kunakopimwa maabara.',
+    neutralText:
+      'Hili si suala la nguvu ya utashi: unyeti huu hutofautiana kati ya mtu na mtu na hautegemei tabia za mtindo wako wa maisha.',
+    h3Title: 'Jinsi ya kutambua chunusi za homoni',
+    body3:
+      'Sifa fulani mara nyingi hujirudia, ingawa si kila wakati:',
+    recognizeSigns: [
+      'Sehemu ya chini ya uso: taya, kidevu',
+      'Vipele vya kina zaidi, wakati mwingine vyenye maumivu',
+      'Mara nyingi hujitokeza tena mahali pale pale',
+      'Wekundu au alama zinazodumu',
+    ],
+    h4Title: 'Chunusi za homoni na mzunguko wa hedhi',
+    body4:
+      'Chunusi za homoni zinaweza kubadilikabadilika katika mzunguko. Wanawake wengi huona kuongezeka katika siku kabla ya hedhi yao, projesteroni inapopanda kisha kushuka kwa kasi, ikichochea kwa muda utengenezaji wa mafuta ya ngozi.',
+    highlightTitle: 'Kufuatilia kuongezeka kwa chunusi',
+    highlightText:
+      'Kuandika wakati vipele vinapoonekana kuhusiana na mzunguko wako kunaweza kukusaidia wewe na daktari wako wa ngozi kuelewa vizuri uhusiano wa homoni.',
+    h5Title: 'Kinachoweza kusaidia',
+    body5a:
+      'Tabia chache rahisi za utunzaji zinaweza kusaidia kupunguza kuongezeka kwa chunusi, bila kuziondoa kabisa zenyewe:',
+    careHabits: [
+      'Safisha ngozi yako kwa upole asubuhi na jioni',
+      'Epuka bidhaa kali au zinazoondoa mafuta yote',
+      'Linda ngozi yako dhidi ya jua kila siku',
+      'Epuka kuminya au kuchokora vipele',
+    ],
+    body5b:
+      'Kulingana na hali, daktari wa ngozi au daktari wa magonjwa ya wanawake anaweza kupendekeza matibabu ya kupaka (krimu, jeli) au, ikihitajika, matibabu ya homoni yanayofaa.',
+    alertTitle: 'Usijitibu mwenyewe',
+    alertText:
+      'Matibabu ya chunusi za homoni (ya kupaka au ya homoni) lazima yaagizwe na kufuatiliwa na mtaalamu wa afya, hasa ikiwa unatumaini kupata ujauzito.',
+    h6Title: 'Wakati wa kumwona daktari?',
+    body6:
+      'Ushauri wa kitabibu ni wa manufaa hasa katika hali fulani:',
+    consultReasons: [
+      'Chunusi zinazodumu licha ya utunzaji unaofaa',
+      'Vipele vyenye maumivu au vya kina (vinundu, vivimbe)',
+      'Chunusi kali au zinazozidi kuwa mbaya haraka',
+      'Alama au makovu yanayojitokeza',
+    ],
+    h7Title: 'Mambo muhimu ya kukumbuka',
+    summaryTitle: 'Mambo ya msingi',
+    keyPoints: [
+      'Chunusi za homoni zina sababu inayotambulika, inayohusiana na androjeni.',
+      'Mara nyingi huathiri sehemu ya chini ya uso na zinaweza kuongezeka kabla ya hedhi yako.',
+      'Si ukosefu wa usafi wala jambo lisiloepukika.',
+      'Utunzaji wa upole na, ikihitajika, matibabu yanayofaa yanaweza kuziboresha.',
+      'Daktari wa ngozi au daktari wa magonjwa ya wanawake anaweza kukusaidia ikiwa zitaendelea.',
+    ],
+    finalNoteTitle: 'Mwongozo wa kuelewa vizuri zaidi',
+    finalNoteText:
+      'Makala hii ni kwa taarifa za jumla tu na haichukui nafasi ya mashauriano ya kitabibu. Ukiwa na shaka au dalili zikiendelea, tafuta ushauri wa mtaalamu wa afya.',
+    shareMessage: 'Kuelewa chunusi za homoni — AWA',
+  },
+  kk: {
+    badge: 'ПКЯС • ГОРМОНДЫҚ БЕЗЕУ',
+    title: 'Гормондық безеуді\nтүсіну',
+    metaDuration: '7 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Білім беру мазмұны',
+    intro:
+      'Гормондық безеу ПКЯС кезінде неге пайда болуы мүмкін, оны қалай тануға болады және оны басқаруға қандай шешімдер көмектесе алады.',
+    introSecondary:
+      'Ол көптеген әйелдерге әсер етеді және гигиенаның жетіспеуі де, сөзсіз тағдыр да емес: оның шығу тегін түсіну оны жақсырақ басқаруға көмектеседі.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Гормондық безеу дегеніміз не?',
+      'ПКЯС безеуді неге тудыруы мүмкін?',
+      'Гормондық безеуді қалай тануға болады',
+      'Гормондық безеу және етеккір циклі',
+      'Не көмектесе алады',
+      'Дәрігерге қашан бару керек?',
+      'Негізгі қорытындылар',
+    ],
+    h1: 'Гормондық безеу дегеніміз не?',
+    body1a:
+      'Гормондық безеу — гормондық ауытқуларға немесе тепе-теңсіздікке, әсіресе андрогендерде, тікелей байланысты безеу түрі. Жасөспірім кезеңіндегі әдеттегі безеуден айырмашылығы, ол көбіне ересек әйелдерге әсер етеді және сол кезеңнен кейін сақталуы немесе пайда болуы мүмкін.',
+    body1b:
+      'Ол сондай-ақ орналасуымен, тереңдігімен және жақсы орындалған тұрақты тері күтімі тәртібіне қарамастан бір жерлерде қайта пайда болу бейімділігімен ерекшеленеді.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Гормондық безеу гигиенаның жетіспеуімен байланысты емес: жүзді жиірек жуу оны жоймайды, тіпті теріні тітіркендіруі мүмкін.',
+    h2Title: 'ПКЯС безеуді неге тудыруы мүмкін?',
+    body2:
+      'ПКЯС кезінде андрогендердің салыстырмалы артықтығы май бездерін ынталандырады, олар содан кейін көбірек май түзеді. Кейбір тері бұл гормондарға да сезімталырақ, бұл зертханада өлшенетін үлкен тепе-теңсіздік болмаса да, безеудің неге айқын болуы мүмкін екенін түсіндіреді.',
+    neutralText:
+      'Бұл ерік күшіне байланысты емес: бұл сезімталдық әр адамда әртүрлі және өмір салты әдеттеріңізге байланысты емес.',
+    h3Title: 'Гормондық безеуді қалай тануға болады',
+    body3:
+      'Кейбір белгілер жиі қайталанады, дегенмен жүйелі түрде емес:',
+    recognizeSigns: [
+      'Беттің төменгі бөлігі: жақ сызығы, иек',
+      'Тереңірек, кейде ауыратын бөртпелер',
+      'Көбіне бір жерлерде қайта пайда болады',
+      'Сақталатын қызару немесе іздер',
+    ],
+    h4Title: 'Гормондық безеу және етеккір циклі',
+    body4:
+      'Гормондық безеу цикл бойы ауытқуы мүмкін. Көптеген әйелдер етеккірге дейінгі күндерде, прогестерон көтеріліп, содан кейін кенеттен төмендегенде, май түзілуін уақытша ынталандырғанда, өршуді байқайды.',
+    highlightTitle: 'Өршуді бақылау',
+    highlightText:
+      'Бөртпелердің цикліңізге қатысты қашан пайда болатынын жазып қою сізге және дерматологыңызға гормондық байланысты жақсырақ түсінуге көмектесе алады.',
+    h5Title: 'Не көмектесе алады',
+    body5a:
+      'Бірнеше қарапайым күтім әдеті өршуді шектеуге көмектесе алады, бірақ өздігінен толық жоймайды:',
+    careHabits: [
+      'Теріңізді таңертең және кешке жұмсақ тазалаңыз',
+      'Қатал немесе майсыздандыратын өнімдерден аулақ болыңыз',
+      'Теріңізді күн сайын күннен қорғаңыз',
+      'Бөртпелерді қысудан немесе тістеуден аулақ болыңыз',
+    ],
+    body5b:
+      'Жағдайға байланысты дерматолог немесе гинеколог жергілікті емдеуді (кремдер, гельдер) немесе, қажет болса, тиісті гормондық емдеуді ұсына алады.',
+    alertTitle: 'Өздігінен емделмеңіз',
+    alertText:
+      'Гормондық безеуді емдеуді (жергілікті немесе гормондық) медицина маманы тағайындап, бақылауы керек, әсіресе жүкті болуды жоспарласаңыз.',
+    h6Title: 'Дәрігерге қашан бару керек?',
+    body6:
+      'Медициналық кеңес кейбір жағдайларда әсіресе пайдалы:',
+    consultReasons: [
+      'Тиісті күтімге қарамастан сақталатын безеу',
+      'Ауыратын немесе терең бөртпелер (түйіндер, кисталар)',
+      'Ауыр немесе тез нашарлайтын безеу',
+      'Орнығып жатқан іздер немесе тыртықтар',
+    ],
+    h7Title: 'Негізгі қорытындылар',
+    summaryTitle: 'Негізгі нүктелер',
+    keyPoints: [
+      'Гормондық безеудің анықталатын, андрогендерге байланысты себебі бар.',
+      'Ол көбіне беттің төменгі бөлігіне әсер етеді және етеккірге дейін нашарлауы мүмкін.',
+      'Ол гигиенаның жетіспеуі де, сөзсіз тағдыр да емес.',
+      'Жұмсақ күтім және, қажет болса, тиісті емдеу оны жақсарта алады.',
+      'Дерматолог немесе гинеколог ол сақталса, сізді қолдай алады.',
+    ],
+    finalNoteTitle: 'Жақсырақ түсінуге арналған нұсқаулық',
+    finalNoteText:
+      'Бұл мақала тек жалпы ақпаратқа арналған және медициналық консультацияның орнын баспайды. Күмән туындаса немесе белгілер сақталса, медицина маманынан кеңес сұраңыз.',
+    shareMessage: 'Гормондық безеуді түсіну — AWA',
+  },
+  wo: {
+    badge: 'PCOS • PEPPO BU HORMON',
+    title: 'Xam\npeppo bu hormon',
+    metaDuration: '7 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind ngir njàng',
+    intro:
+      'Lu tax peppo bu hormon mën a feeñ ak PCOS, naka ñuy xam ko, ak jawab yu mën a dimbli ngir yor ko.',
+    introSecondary:
+      'Dafay jëm ci jigéen yu bari te du ñàkk set walla benn mbir bu war a am: xam fan la jóge mën na dimbli nga yor ko bu gëna baax.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy peppo bu hormon?',
+      'Lu tax PCOS mën a def peppo?',
+      'Naka ngay xam peppo bu hormon',
+      'Peppo bu hormon ak wërsëgu weer',
+      'Li mën a dimbli',
+      'Kañ ngay seet doktoor?',
+      'Li am solo',
+    ],
+    h1: 'Lan mooy peppo bu hormon?',
+    body1a:
+      'Peppo bu hormon benn xeetu peppo la bu jëm ci yëngu walla jubul ci hormon, lool ci androjen. Wuute ak peppo bu cosaan bu waxambaane, dafay jëm ci jigéen ñu mag te mën na sax walla feeñ ginnaaw jamono boobu.',
+    body1b:
+      'Dafay wuute itam ci bérëbam, ci xóotam ak ci naka mu di dellusi ci bérëb yu bokk, ba tax bu ñu topp ak yoon benn yoonu der bu baax.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Peppo bu hormon jëmul ci ñàkk set: sab sa kanam lu ëpp du ko dem, te mën na tiis ko der bi.',
+    h2Title: 'Lu tax PCOS mën a def peppo?',
+    body2:
+      'Ci PCOS, androjen yu ëpp tuuti dañuy xiirtal xël-xël yu der yi, ñoom di defar diwlin gu ëpp. Yenn der yi dañuy gën a nooy ci hormon yii, loolu mooy leeral lu tax peppo mën a am lool ba tax amul benn jubul bu bari bu laboratuwaar natt.',
+    neutralText:
+      'Du mbir bu fit: nooy bii wuute na ci nit ak nit te du sukkandiku ci say yoonu dund.',
+    h3Title: 'Naka ngay xam peppo bu hormon',
+    body3:
+      'Yenn màndarga daa dellusi, waaye du saa su ne:',
+    recognizeSigns: [
+      'Suufu kanam: sës, kàmbu',
+      'Pepp yu xóot, yenn saa yu metti',
+      'Daa dellusi ci bérëb yu bokk',
+      'Xonq walla màndarga yu sax',
+    ],
+    h4Title: 'Peppo bu hormon ak wërsëgu weer',
+    body4:
+      'Peppo bu hormon mën na yëngu ci wërsëg bi gépp. Jigéen yu bari dañuy gis yokkute ci fan yi balaa règle, bu progesteron di yokku te wàññiku ci gaaw, mu xiirtal defar diwlin ci jamono bu gàtt.',
+    highlightTitle: 'Topp say yokkute',
+    highlightText:
+      'Bind kañ la peppo di feeñ ci wërsëg mën na dimbli yaw ak sa doktoor ci der nga gën a xam jokkoo bu hormon bi.',
+    h5Title: 'Li mën a dimbli',
+    body5a:
+      'Yenn yoon yu yomb yu yër der mën nañu dimbli ngir wàññi yokkute yi, te duñu ko dàq ci boppam:',
+    careHabits: [
+      'Sab sa der ak lewet suba ak guddi',
+      'Moytu jumtukaay yu metti walla yu ñàkk',
+      'Aar sa der ci jant bés bu nekk',
+      'Bu nga xëtt walla jëlal pepp yi',
+    ],
+    body5b:
+      'Ci mbir bi, benn doktoor bu der walla benn ginekolog mën na digal garab yu ñuy tegal ci der (kirem, jel) walla, bu soxlaa, benn garabu hormon bu méngoo.',
+    alertTitle: 'Bu garab sa bopp',
+    alertText:
+      'Garab yu peppo bu hormon (yu ñuy tegal walla yu hormon) war nañu ñu leen digal te topp leen benn liggéeykatu wér, lool bu nga di yaakaar ëmb.',
+    h6Title: 'Kañ ngay seet doktoor?',
+    body6:
+      'Ndigalu doktoor mën na dimbli lool ci yenn mbir:',
+    consultReasons: [
+      'Peppo bu sax ba tey ak yër bu méngoo',
+      'Pepp yu metti walla yu xóot (nodul, kist)',
+      'Peppo bu metti walla bu di ñaaw ci gaaw',
+      'Màndarga walla màndargay peppo yu di sax',
+    ],
+    h7Title: 'Li am solo',
+    summaryTitle: 'Li am solo',
+    keyPoints: [
+      'Peppo bu hormon am na benn sabab bu ñu xam, bu jëm ci androjen.',
+      'Daa jëm ci suufu kanam te mën na gën a metti balaa règle.',
+      'Du ñàkk set walla benn mbir bu war a am.',
+      'Yër bu lewet ak, bu soxlaa, benn garab bu méngoo mën nañu ko gën a baax.',
+      'Benn doktoor bu der walla ginekolog mën na la dimbli bu mu sax.',
+    ],
+    finalNoteTitle: 'Benn ndigal ngir gën a xam',
+    finalNoteText:
+      'Bind bii ngir xibaar bu yaatu rekk la te du wuutu seetlu bu doktoor. Bu am nga xel-ñaar walla bu màndarga yi sax, seet ndigalu benn liggéeykatu wér.',
+    shareMessage: 'Xam peppo bu hormon — AWA',
+  },
+  ha: {
+    badge: 'PCOS • KURAJEN HORMONE',
+    title: 'Fahimtar\nkurajen hormone',
+    metaDuration: 'karatun minti 7',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun ilimantarwa',
+    intro:
+      'Dalilin da ya sa kurajen hormone za su iya bayyana da PCOS, yadda za a gane su, da mafita da za su iya taimakawa wajen sarrafa su.',
+    introSecondary:
+      'Suna shafar mata da yawa kuma ba rashin tsabta ba ne ko wani abu da ba za a iya guje wa ba: fahimtar asalinsu yana taimakawa wajen sarrafa su da kyau.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene kurajen hormone?',
+      'Me ya sa PCOS zai iya haifar da kuraje?',
+      'Yadda za a gane kurajen hormone',
+      'Kurajen hormone da zagayen haila',
+      'Abin da zai iya taimakawa',
+      'Yaushe za a ga likita?',
+      'Muhimman abubuwa',
+    ],
+    h1: 'Menene kurajen hormone?',
+    body1a:
+      'Kurajen hormone wani nau’i ne na kuraje da ke da alaƙa kai tsaye da sauye-sauyen hormone ko rashin daidaito, musamman a androgens. Ba kamar kurajen matasa na al’ada ba, galibi suna shafar mata manya kuma suna iya dawwama ko bayyana bayan wannan lokaci.',
+    body1b:
+      'Hakanan ana bambanta su ta wurin da suke, zurfinsu, da yawan sake bayyana a wurare iri ɗaya duk da kulawar fata ta yau da kullum da aka bi da kyau.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Kurajen hormone ba su da alaƙa da rashin tsabta: wanke fuska sau da yawa ba ya sa su ɓace, kuma zai iya ma ƙara damun fata.',
+    h2Title: 'Me ya sa PCOS zai iya haifar da kuraje?',
+    body2:
+      'A PCOS, yawan androgens na dangi yana motsa glandan sebaceous, waɗanda sai su samar da sebum mai yawa. Wasu fata ma sun fi kula da waɗannan hormone, wanda ya bayyana dalilin da ya sa kuraje za su iya yin bayyananne ko da babu babban rashin daidaito da dakin gwaji ya auna.',
+    neutralText:
+      'Wannan ba batun ƙarfin zuciya ba ne: wannan kulawa tana bambanta daga mutum zuwa mutum kuma ba ta dogara ga dabi’un rayuwarki ba.',
+    h3Title: 'Yadda za a gane kurajen hormone',
+    body3:
+      'Wasu siffofi galibi suna maimaituwa, ko da yake ba koyaushe ba:',
+    recognizeSigns: [
+      'Ƙasan fuska: gefen haɓa, haɓa',
+      'Kuraje masu zurfi, wani lokaci masu ciwo',
+      'Galibi suna sake bayyana a wurare iri ɗaya',
+      'Jajayen fata ko tabo da ke dawwama',
+    ],
+    h4Title: 'Kurajen hormone da zagayen haila',
+    body4:
+      'Kurajen hormone na iya canzawa a duk zagaye. Mata da yawa suna lura da tashi a kwanakin da suka gabaci hailarsu, lokacin da progesterone ke hawa sannan ya sauka sosai, yana motsa samar da sebum na ɗan lokaci.',
+    highlightTitle: 'Bin diddigin tashinki',
+    highlightText:
+      'Rubuta lokacin da kuraje ke bayyana dangane da zagayenki na iya taimaka miki da likitan fatarki ku fi fahimtar alaƙar hormone.',
+    h5Title: 'Abin da zai iya taimakawa',
+    body5a:
+      'Wasu dabi’un kulawa masu sauƙi na iya taimakawa rage tashi, ba tare da share su gaba ɗaya da kansu ba:',
+    careHabits: [
+      'Wanke fatarki a hankali safe da yamma',
+      'Guje wa kayayyaki masu tsauri ko masu cire mai sosai',
+      'Kare fatarki daga rana kullum',
+      'Guje wa matse ko gutsure kuraje',
+    ],
+    body5b:
+      'Bisa yanayin, likitan fata ko na mata na iya ba da shawarar magunguna na shafawa (man shafawa, gel) ko, idan ya zama dole, maganin hormone da ya dace.',
+    alertTitle: 'Kada ki yi wa kanki magani',
+    alertText:
+      'Dole ne ma’aikacin lafiya ya rubuta kuma ya bi diddigin maganin kurajen hormone (na shafawa ko na hormone), musamman idan kina fatan samun ciki.',
+    h6Title: 'Yaushe za a ga likita?',
+    body6:
+      'Shawarar likita tana da amfani musamman a wasu yanayi:',
+    consultReasons: [
+      'Kuraje da ke dawwama duk da kulawa mai dacewa',
+      'Kuraje masu ciwo ko zurfi (nodules, cysts)',
+      'Kuraje masu tsanani ko masu ƙara muni da sauri',
+      'Tabo ko tabon da ke zama',
+    ],
+    h7Title: 'Muhimman abubuwa',
+    summaryTitle: 'Muhimman bayanai',
+    keyPoints: [
+      'Kurajen hormone suna da dalili da za a iya ganowa, mai alaƙa da androgens.',
+      'Galibi suna shafar ƙasan fuska kuma suna iya ƙara muni kafin hailarki.',
+      'Ba rashin tsabta ba ne ko wani abu da ba za a iya guje wa ba.',
+      'Kulawa mai laushi da, idan ya zama dole, maganin da ya dace na iya inganta su.',
+      'Likitan fata ko na mata na iya tallafa miki idan sun dawwama.',
+    ],
+    finalNoteTitle: 'Jagora don fi fahimta',
+    finalNoteText:
+      'An yi wannan labari don bayani gabaɗaya ne kawai kuma ba ya maye gurbin shawarar likita. Idan kina cikin shakka ko alamomi sun dawwama, nemi shawara daga ma’aikacin lafiya.',
+    shareMessage: 'Fahimtar kurajen hormone — AWA',
+  },
+  am: {
+    badge: 'ፒሲኦኤስ • የሆርሞን ብጉር',
+    title: 'የሆርሞን ብጉርን\nመረዳት',
+    metaDuration: '7 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ትምህርታዊ ይዘት',
+    intro:
+      'የሆርሞን ብጉር በፒሲኦኤስ ለምን ሊታይ እንደሚችል፣ እንዴት እንደሚታወቅ እና እሱን ለመቆጣጠር ምን መፍትሔዎች ሊረዱ እንደሚችሉ።',
+    introSecondary:
+      'ብዙ ሴቶችን ይነካል እና የንጽሕና እጦት ወይም የማይቀር ነገር አይደለም፦ መነሻውን መረዳት በተሻለ ለመቆጣጠር ይረዳል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የሆርሞን ብጉር ምንድን ነው?',
+      'ፒሲኦኤስ ብጉር ለምን ሊያስከትል ይችላል?',
+      'የሆርሞን ብጉርን እንዴት መለየት',
+      'የሆርሞን ብጉር እና የወር አበባ ዑደት',
+      'ምን ሊረዳ ይችላል',
+      'ሐኪም መቼ ማየት?',
+      'ዋና ዋና ነጥቦች',
+    ],
+    h1: 'የሆርሞን ብጉር ምንድን ነው?',
+    body1a:
+      'የሆርሞን ብጉር በቀጥታ ከሆርሞን መለዋወጥ ወይም አለመመጣጠን፣ በተለይም ከአንድሮጅኖች ጋር የተያያዘ የብጉር ዓይነት ነው። ከጉርምስና የተለመደ ብጉር በተለየ ብዙ ጊዜ ጎልማሳ ሴቶችን ይነካል እና ከዚያ ጊዜ በኋላ ሊቀጥል ወይም ሊታይ ይችላል።',
+    body1b:
+      'በሚገኝበት ቦታ፣ በጥልቀቱ እና በደንብ የሚከተሉት መደበኛ የቆዳ እንክብካቤ ቢኖርም በተመሳሳይ ቦታዎች እንደገና የመታየት ዝንባሌው ይለያል።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'የሆርሞን ብጉር ከንጽሕና እጦት ጋር የተያያዘ አይደለም፦ ፊትሽን ደጋግሞ መታጠብ አያጠፋውም፣ ቆዳንም ሊያበሳጭ ይችላል።',
+    h2Title: 'ፒሲኦኤስ ብጉር ለምን ሊያስከትል ይችላል?',
+    body2:
+      'በፒሲኦኤስ አንጻራዊ የአንድሮጅን ከፍተኛነት የሴባሴየስ እጢዎችን ያነቃቃል፤ እነሱም ብዙ ሰበም ያመርታሉ። አንዳንድ ቆዳ ለእነዚህ ሆርሞኖች የበለጠ ስሱ ነው፤ ይህም በላብራቶሪ የሚለካ ትልቅ አለመመጣጠን ባይኖርም ብጉር ለምን ሊጎላ እንደሚችል ያስረዳል።',
+    neutralText:
+      'ይህ የፈቃደኝነት ጉዳይ አይደለም፦ ይህ ስሜታዊነት ከሰው ወደ ሰው ይለያያል እና በአኗኗር ልማዶችሽ ላይ አይወሰንም።',
+    h3Title: 'የሆርሞን ብጉርን እንዴት መለየት',
+    body3:
+      'የተወሰኑ ገጽታዎች ብዙ ጊዜ ይደጋገማሉ፣ ምንም እንኳን ሁልጊዜ ባይሆንም፦',
+    recognizeSigns: [
+      'የፊት ታችኛው ክፍል፦ መንጋጋ፣ አገጭ',
+      'ጥልቅ፣ አንዳንድ ጊዜ የሚያም ብጉር',
+      'ብዙ ጊዜ በተመሳሳይ ቦታዎች እንደገና ይታያል',
+      'የሚቆይ መቅላት ወይም ምልክት',
+    ],
+    h4Title: 'የሆርሞን ብጉር እና የወር አበባ ዑደት',
+    body4:
+      'የሆርሞን ብጉር በዑደቱ ሁሉ ሊለዋወጥ ይችላል። ብዙ ሴቶች ከወር አበባ በፊት ባሉት ቀናት ፕሮጄስትሮን ከፍ ብሎ ከዚያ በድንገት ሲወርድ፣ ሰበም መመረትን ለጊዜው ሲያነቃቃ ብጉር መባባሱን ያስተውላሉ።',
+    highlightTitle: 'የብጉር መባባስሽን መከታተል',
+    highlightText:
+      'ብጉር ከዑደትሽ ጋር ሲነጻጸር መቼ እንደሚታይ መጻፍ አንቺና የቆዳ ሐኪምሽ የሆርሞን ግንኙነቱን በተሻለ እንድትረዱ ሊረዳ ይችላል።',
+    h5Title: 'ምን ሊረዳ ይችላል',
+    body5a:
+      'ጥቂት ቀላል የእንክብካቤ ልማዶች መባባስን ለመገደብ ሊረዱ ይችላሉ፣ ነገር ግን ብቻቸውን ሙሉ በሙሉ አያጠፉትም፦',
+    careHabits: [
+      'ቆዳሽን ጠዋትና ማታ በለስላሳ አጽጂ',
+      'ጠንካራ ወይም ቆዳን የሚያደርቁ ምርቶችን አስወግጂ',
+      'ቆዳሽን በየቀኑ ከፀሐይ ጠብቂ',
+      'ብጉርን ከመጭመቅ ወይም ከመነካካት ተቆጠቢ',
+    ],
+    body5b:
+      'እንደ ሁኔታው የቆዳ ሐኪም ወይም የማህፀንና ጽንስ ሐኪም የአካባቢ ሕክምናዎችን (ክሬሞች፣ ጄሎች) ወይም ካስፈለገ ተስማሚ የሆርሞን ሕክምና ሊጠቁም ይችላል።',
+    alertTitle: 'ራስሽን አታክሚ',
+    alertText:
+      'የሆርሞን ብጉር ሕክምናዎች (የአካባቢ ወይም የሆርሞን) በጤና ባለሙያ ሊታዘዙና ሊከታተሉ ይገባል፣ በተለይ ለማርገዝ ተስፋ ካደረግሽ።',
+    h6Title: 'ሐኪም መቼ ማየት?',
+    body6:
+      'የሕክምና ምክር በተወሰኑ ሁኔታዎች በተለይ ጠቃሚ ነው፦',
+    consultReasons: [
+      'በተገቢ እንክብካቤ ቢሆንም የሚቀጥል ብጉር',
+      'የሚያም ወይም ጥልቅ ብጉር (እባጮች፣ ሲስቶች)',
+      'ከባድ ወይም በፍጥነት የሚባባስ ብጉር',
+      'እየተቀመጡ ያሉ ምልክቶች ወይም ጠባሳዎች',
+    ],
+    h7Title: 'ዋና ዋና ነጥቦች',
+    summaryTitle: 'አስፈላጊዎቹ ነጥቦች',
+    keyPoints: [
+      'የሆርሞን ብጉር ከአንድሮጅኖች ጋር የተያያዘ ሊታወቅ የሚችል መንስኤ አለው።',
+      'ብዙ ጊዜ የፊት ታችኛውን ክፍል ይነካል እና ከወር አበባ በፊት ሊባባስ ይችላል።',
+      'የንጽሕና እጦት ወይም የማይቀር ነገር አይደለም።',
+      'ለስላሳ እንክብካቤ እና ካስፈለገ ተስማሚ ሕክምና ሊያሻሽለው ይችላል።',
+      'ከቀጠለ የቆዳ ሐኪም ወይም የማህፀንና ጽንስ ሐኪም ሊደግፍሽ ይችላል።',
+    ],
+    finalNoteTitle: 'በተሻለ ለመረዳት መመሪያ',
+    finalNoteText:
+      'ይህ ጽሑፍ ለአጠቃላይ መረጃ ብቻ ነው እና የሕክምና ምክክርን አይተካም። ጥርጣሬ ካለሽ ወይም ምልክቶች ከቀጠሉ የጤና ባለሙያ ምክር ጠይቂ።',
+    shareMessage: 'የሆርሞን ብጉርን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'PCOS • HORMONALE ACNE',
+    title: 'Hormonale acne\nbegrijpen',
+    metaDuration: '7 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Educatieve inhoud',
+    intro:
+      'Waarom hormonale acne bij PCOS kan voorkomen, hoe je het herkent en welke oplossingen kunnen helpen het te beheersen.',
+    introSecondary:
+      'Het treft veel vrouwen en is geen gebrek aan hygiëne en ook niet onvermijdelijk: de oorsprong begrijpen helpt het beter te beheersen.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is hormonale acne?',
+      'Waarom kan PCOS acne veroorzaken?',
+      'Hoe je hormonale acne herkent',
+      'Hormonale acne en de menstruatiecyclus',
+      'Wat kan helpen',
+      'Wanneer een arts zien?',
+      'Belangrijkste punten',
+    ],
+    h1: 'Wat is hormonale acne?',
+    body1a:
+      'Hormonale acne is een vorm van acne die rechtstreeks verband houdt met hormonale schommelingen of een onevenwicht, met name van androgenen. In tegenstelling tot de meer typische acne van de adolescentie treft het vaak volwassen vrouwen en kan het na die periode blijven bestaan of verschijnen.',
+    body1b:
+      'Het onderscheidt zich ook door de plaats, de diepte en de neiging om op dezelfde plekken terug te komen ondanks een goed gevolgde, regelmatige huidverzorgingsroutine.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Hormonale acne houdt geen verband met een gebrek aan hygiëne: je gezicht vaker wassen laat het niet verdwijnen en kan de huid zelfs irriteren.',
+    h2Title: 'Waarom kan PCOS acne veroorzaken?',
+    body2:
+      'Bij PCOS stimuleert een relatief teveel aan androgenen de talgklieren, die dan meer talg produceren. Sommige huid is ook gevoeliger voor deze hormonen, wat verklaart waarom acne uitgesproken kan zijn, zelfs zonder een in het lab gemeten groot onevenwicht.',
+    neutralText:
+      'Dit is geen kwestie van wilskracht: deze gevoeligheid verschilt van persoon tot persoon en hangt niet af van je leefstijlgewoonten.',
+    h3Title: 'Hoe je hormonale acne herkent',
+    body3:
+      'Bepaalde kenmerken komen vaak terug, al is dat niet systematisch:',
+    recognizeSigns: [
+      'Onderste deel van het gezicht: kaaklijn, kin',
+      'Diepere, soms pijnlijke uitbarstingen',
+      'Komt vaak terug op dezelfde plekken',
+      'Roodheid of vlekken die blijven',
+    ],
+    h4Title: 'Hormonale acne en de menstruatiecyclus',
+    body4:
+      'Hormonale acne kan gedurende de cyclus schommelen. Veel vrouwen merken een opflakkering in de dagen vóór hun menstruatie, wanneer progesteron stijgt en daarna sterk daalt, waardoor de talgproductie tijdelijk wordt gestimuleerd.',
+    highlightTitle: 'Je opflakkeringen bijhouden',
+    highlightText:
+      'Noteren wanneer uitbarstingen verschijnen ten opzichte van je cyclus kan jou en je dermatoloog helpen het hormonale verband beter te begrijpen.',
+    h5Title: 'Wat kan helpen',
+    body5a:
+      'Enkele eenvoudige verzorgingsgewoonten kunnen helpen opflakkeringen te beperken, zonder ze op zichzelf volledig te laten verdwijnen:',
+    careHabits: [
+      'Reinig je huid ’s ochtends en ’s avonds zacht',
+      'Vermijd scherpe of uitdrogende producten',
+      'Bescherm je huid dagelijks tegen de zon',
+      'Vermijd het uitknijpen of krabben aan uitbarstingen',
+    ],
+    body5b:
+      'Afhankelijk van de situatie kan een dermatoloog of gynaecoloog lokale behandelingen (crèmes, gels) of, indien nodig, een geschikte hormonale behandeling voorstellen.',
+    alertTitle: 'Geen zelfmedicatie',
+    alertText:
+      'Behandelingen voor hormonale acne (lokaal of hormonaal) moeten door een zorgverlener worden voorgeschreven en gevolgd, vooral als je zwanger hoopt te worden.',
+    h6Title: 'Wanneer een arts zien?',
+    body6:
+      'Medisch advies is in bepaalde situaties bijzonder nuttig:',
+    consultReasons: [
+      'Acne die blijft bestaan ondanks geschikte verzorging',
+      'Pijnlijke of diepe uitbarstingen (noduli, cysten)',
+      'Ernstige acne of acne die snel verergert',
+      'Vlekken of littekens die zich vestigen',
+    ],
+    h7Title: 'Belangrijkste punten',
+    summaryTitle: 'De essentiële punten',
+    keyPoints: [
+      'Hormonale acne heeft een herkenbare oorzaak, verbonden met androgenen.',
+      'Het treft vaak het onderste deel van het gezicht en kan vóór je menstruatie verergeren.',
+      'Het is geen gebrek aan hygiëne en ook niet onvermijdelijk.',
+      'Zachte verzorging en, indien nodig, een geschikte behandeling kan het verbeteren.',
+      'Een dermatoloog of gynaecoloog kan je ondersteunen als het blijft bestaan.',
+    ],
+    finalNoteTitle: 'Een gids om beter te begrijpen',
+    finalNoteText:
+      'Dit artikel is alleen bedoeld voor algemene informatie en vervangt geen medisch consult. Vraag bij twijfel of als symptomen blijven bestaan advies aan een zorgverlener.',
+    shareMessage: 'Hormonale acne begrijpen — AWA',
+  },
+  fi: {
+    badge: 'PCOS • HORMONAALINEN AKNE',
+    title: 'Hormonaalisen aknen\nymmärtäminen',
+    metaDuration: '7 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Opetussisältö',
+    intro:
+      'Miksi hormonaalista aknea voi esiintyä PCOS:n yhteydessä, miten sen tunnistaa ja mitkä ratkaisut voivat auttaa sen hallinnassa.',
+    introSecondary:
+      'Se koskettaa monia naisia, eikä se ole huonon hygienian merkki eikä väistämättömyys: sen alkuperän ymmärtäminen auttaa hallitsemaan sitä paremmin.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mikä on hormonaalinen akne?',
+      'Miksi PCOS voi aiheuttaa aknea?',
+      'Miten hormonaalisen aknen tunnistaa',
+      'Hormonaalinen akne ja kuukautiskierto',
+      'Mikä voi auttaa',
+      'Milloin mennä lääkäriin?',
+      'Tärkeimmät asiat',
+    ],
+    h1: 'Mikä on hormonaalinen akne?',
+    body1a:
+      'Hormonaalinen akne on aknen muoto, joka liittyy suoraan hormonaalisiin vaihteluihin tai epätasapainoon erityisesti androgeeneissa. Toisin kuin nuoruuden tyypillisempi akne, se koskettaa usein aikuisia naisia ja voi jatkua tai ilmaantua kyseisen jakson jälkeen.',
+    body1b:
+      'Sille ovat ominaisia myös sijainti, syvyys ja taipumus ilmaantua uudelleen samoihin kohtiin hyvin noudatetusta säännöllisestä ihonhoitorutiinista huolimatta.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Hormonaalinen akne ei liity huonoon hygieniaan: kasvojen pesu useammin ei saa sitä katoamaan ja voi jopa ärsyttää ihoa.',
+    h2Title: 'Miksi PCOS voi aiheuttaa aknea?',
+    body2:
+      'PCOS:ssa suhteellinen androgeenien liikaa stimuloi talirauhasia, jotka tuottavat silloin enemmän talia. Jotkin ihot ovat myös herkempiä näille hormoneille, mikä selittää, miksi akne voi olla voimakasta ilman laboratoriossa mitattua suurta epätasapainoa.',
+    neutralText:
+      'Kyse ei ole tahdonvoimasta: tämä herkkyys vaihtelee ihmisestä toiseen, eikä se riipu elämäntavoistasi.',
+    h3Title: 'Miten hormonaalisen aknen tunnistaa',
+    body3:
+      'Tietyt piirteet toistuvat usein, vaikkakaan ei järjestelmällisesti:',
+    recognizeSigns: [
+      'Kasvojen alaosa: leukalinja, leuka',
+      'Syvemmät, joskus kivuliaat finnit',
+      'Ilmaantuu usein uudelleen samoihin kohtiin',
+      'Punoitus tai jäljet, jotka pysyvät',
+    ],
+    h4Title: 'Hormonaalinen akne ja kuukautiskierto',
+    body4:
+      'Hormonaalinen akne voi vaihdella kierron aikana. Monet naiset huomaavat pahenemisen päivinä ennen kuukautisia, kun progesteroni nousee ja laskee sitten jyrkästi, mikä stimuloi tilapäisesti talin tuotantoa.',
+    highlightTitle: 'Pahenemisvaiheiden seuranta',
+    highlightText:
+      'Finnien ilmaantumisajankohdan kirjaaminen suhteessa kiertoosi voi auttaa sinua ja ihotautilääkäriäsi ymmärtämään hormonaalisen yhteyden paremmin.',
+    h5Title: 'Mikä voi auttaa',
+    body5a:
+      'Muutama yksinkertainen hoitotapa voi auttaa rajoittamaan pahenemisvaiheita, vaikka ne eivät yksin poista aknea kokonaan:',
+    careHabits: [
+      'Puhdista ihosi lempeästi aamuin illoin',
+      'Vältä voimakkaita tai ihoa kuivattavia tuotteita',
+      'Suojaa ihosi auringolta päivittäin',
+      'Vältä finnien puristamista tai näpräämistä',
+    ],
+    body5b:
+      'Tilanteesta riippuen ihotautilääkäri tai gynekologi voi ehdottaa paikallishoitoja (voiteet, geelit) tai tarvittaessa sopivaa hormonihoitoa.',
+    alertTitle: 'Ei itsehoitoa',
+    alertText:
+      'Hormonaalisen aknen hoidot (paikalliset tai hormonaaliset) on terveydenhuollon ammattilaisen määrättävä ja seurattava, erityisesti jos toivot tulevasi raskaaksi.',
+    h6Title: 'Milloin mennä lääkäriin?',
+    body6:
+      'Lääketieteellinen neuvonta on erityisen hyödyllistä tietyissä tilanteissa:',
+    consultReasons: [
+      'Akne, joka jatkuu sopivasta hoidosta huolimatta',
+      'Kivuliaat tai syvät finnit (kyhmyt, kystat)',
+      'Vaikea akne tai akne, joka pahenee nopeasti',
+      'Jäljet tai arvet, jotka asettuvat pysyviksi',
+    ],
+    h7Title: 'Tärkeimmät asiat',
+    summaryTitle: 'Olennaiset kohdat',
+    keyPoints: [
+      'Hormonaalisella aknella on tunnistettavissa oleva syy, joka liittyy androgeeneihin.',
+      'Se koskettaa usein kasvojen alaosaa ja voi pahentua ennen kuukautisia.',
+      'Se ei ole huonon hygienian merkki eikä väistämättömyys.',
+      'Lempeä hoito ja tarvittaessa sopiva hoito voivat parantaa tilannetta.',
+      'Ihotautilääkäri tai gynekologi voi tukea sinua, jos se jatkuu.',
+    ],
+    finalNoteTitle: 'Opas ymmärtämisen tueksi',
+    finalNoteText:
+      'Tämä artikkeli on tarkoitettu vain yleiseksi tiedoksi eikä korvaa lääkärin vastaanottoa. Epäselvässä tilanteessa tai oireiden jatkuessa pyydä neuvoa terveydenhuollon ammattilaiselta.',
+    shareMessage: 'Hormonaalisen aknen ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'PCOS • ΟΡΜΟΝΙΚΗ ΑΚΜΗ',
+    title: 'Κατανοώντας\nτην ορμονική ακμή',
+    metaDuration: '7 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Εκπαιδευτικό περιεχόμενο',
+    intro:
+      'Γιατί η ορμονική ακμή μπορεί να εμφανιστεί με PCOS, πώς να την αναγνωρίσεις και ποιες λύσεις μπορούν να βοηθήσουν στη διαχείρισή της.',
+    introSecondary:
+      'Επηρεάζει πολλές γυναίκες και δεν είναι ούτε έλλειψη υγιεινής ούτε αναπόφευκτη: η κατανόηση της προέλευσής της βοηθά να τη διαχειρίζεσαι καλύτερα.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι η ορμονική ακμή;',
+      'Γιατί το PCOS μπορεί να προκαλέσει ακμή;',
+      'Πώς να αναγνωρίσεις την ορμονική ακμή',
+      'Ορμονική ακμή και έμμηνος κύκλος',
+      'Τι μπορεί να βοηθήσει',
+      'Πότε να επισκεφθείς γιατρό;',
+      'Βασικά συμπεράσματα',
+    ],
+    h1: 'Τι είναι η ορμονική ακμή;',
+    body1a:
+      'Η ορμονική ακμή είναι μια μορφή ακμής που συνδέεται άμεσα με ορμονικές διακυμάνσεις ή ανισορροπία, ιδίως των ανδρογόνων. Σε αντίθεση με την πιο τυπική ακμή της εφηβείας, επηρεάζει συχνά ενήλικες γυναίκες και μπορεί να επιμένει ή να εμφανίζεται μετά από εκείνη την περίοδο.',
+    body1b:
+      'Ξεχωρίζει επίσης από την τοποθεσία της, το βάθος της και την τάση της να επανεμφανίζεται στα ίδια σημεία παρά την τακτική και σωστά ακολουθούμενη φροντίδα του δέρματος.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Η ορμονική ακμή δεν συνδέεται με έλλειψη υγιεινής: το να πλένεις το πρόσωπό σου πιο συχνά δεν την κάνει να φύγει και μπορεί ακόμη και να ερεθίσει το δέρμα.',
+    h2Title: 'Γιατί το PCOS μπορεί να προκαλέσει ακμή;',
+    body2:
+      'Στο PCOS, μια σχετική περίσσεια ανδρογόνων διεγείρει τους σμηγματογόνους αδένες, οι οποίοι παράγουν τότε περισσότερο σμήγμα. Ορισμένα δέρματα είναι επίσης πιο ευαίσθητα σε αυτές τις ορμόνες, κάτι που εξηγεί γιατί η ακμή μπορεί να είναι έντονη ακόμη και χωρίς μεγάλη ανισορροπία που μετράται στο εργαστήριο.',
+    neutralText:
+      'Δεν πρόκειται για θέμα θέλησης: αυτή η ευαισθησία διαφέρει από γυναίκα σε γυναίκα και δεν εξαρτάται από τις συνήθειες του τρόπου ζωής σου.',
+    h3Title: 'Πώς να αναγνωρίσεις την ορμονική ακμή',
+    body3:
+      'Ορισμένα χαρακτηριστικά επανεμφανίζονται συχνά, αν και όχι συστηματικά:',
+    recognizeSigns: [
+      'Κάτω μέρος του προσώπου: γραμμή της γνάθου, πηγούνι',
+      'Βαθύτερες, μερικές φορές επώδυνες εξάρσεις',
+      'Συχνά επανεμφανίζεται στα ίδια σημεία',
+      'Ερυθρότητα ή σημάδια που επιμένουν',
+    ],
+    h4Title: 'Ορμονική ακμή και έμμηνος κύκλος',
+    body4:
+      'Η ορμονική ακμή μπορεί να διακυμαίνεται σε όλη τη διάρκεια του κύκλου. Πολλές γυναίκες παρατηρούν έξαρση τις ημέρες πριν την περίοδο, όταν η προγεστερόνη ανεβαίνει και μετά πέφτει απότομα, διεγείροντας προσωρινά την παραγωγή σμήγματος.',
+    highlightTitle: 'Παρακολούθηση των εξάρσεών σου',
+    highlightText:
+      'Το να σημειώνεις πότε εμφανίζονται οι εξάρσεις σε σχέση με τον κύκλο σου μπορεί να βοηθήσει εσένα και τον δερματολόγο σου να κατανοήσετε καλύτερα την ορμονική σύνδεση.',
+    h5Title: 'Τι μπορεί να βοηθήσει',
+    body5a:
+      'Μερικές απλές συνήθειες φροντίδας μπορούν να βοηθήσουν να περιοριστούν οι εξάρσεις, χωρίς να τις εξαφανίζουν πλήρως από μόνες τους:',
+    careHabits: [
+      'Καθάριζε απαλά το δέρμα σου πρωί και βράδυ',
+      'Απόφυγε σκληρά ή ξηραντικά προϊόντα',
+      'Προστάτευε το δέρμα σου από τον ήλιο καθημερινά',
+      'Απόφυγε να στύβεις ή να ξύνεις τις εξάρσεις',
+    ],
+    body5b:
+      'Ανάλογα με την περίπτωση, ένας δερματολόγος ή γυναικολόγος μπορεί να προτείνει τοπικές θεραπείες (κρέμες, γέλες) ή, αν χρειάζεται, μια κατάλληλη ορμονική θεραπεία.',
+    alertTitle: 'Όχι αυτοθεραπεία',
+    alertText:
+      'Οι θεραπείες για την ορμονική ακμή (τοπικές ή ορμονικές) πρέπει να συνταγογραφούνται και να παρακολουθούνται από επαγγελματία υγείας, ιδίως αν ελπίζεις να συλλάβεις.',
+    h6Title: 'Πότε να επισκεφθείς γιατρό;',
+    body6:
+      'Η ιατρική συμβουλή είναι ιδιαίτερα χρήσιμη σε ορισμένες περιπτώσεις:',
+    consultReasons: [
+      'Ακμή που επιμένει παρά την κατάλληλη φροντίδα',
+      'Επώδυνες ή βαθιές εξάρσεις (οζίδια, κύστεις)',
+      'Σοβαρή ακμή ή ακμή που επιδεινώνεται γρήγορα',
+      'Σημάδια ή ουλές που εγκαθίστανται',
+    ],
+    h7Title: 'Βασικά συμπεράσματα',
+    summaryTitle: 'Τα βασικά σημεία',
+    keyPoints: [
+      'Η ορμονική ακμή έχει αναγνωρίσιμη αιτία, που συνδέεται με τα ανδρογόνα.',
+      'Επηρεάζει συχνά το κάτω μέρος του προσώπου και μπορεί να επιδεινωθεί πριν την περίοδο.',
+      'Δεν είναι ούτε έλλειψη υγιεινής ούτε αναπόφευκτη.',
+      'Η ήπια φροντίδα και, αν χρειάζεται, μια κατάλληλη θεραπεία μπορεί να τη βελτιώσει.',
+      'Ένας δερματολόγος ή γυναικολόγος μπορεί να σε στηρίξει αν επιμένει.',
+    ],
+    finalNoteTitle: 'Ένας οδηγός για καλύτερη κατανόηση',
+    finalNoteText:
+      'Αυτό το άρθρο είναι μόνο για γενική ενημέρωση και δεν αντικαθιστά μια ιατρική επίσκεψη. Αν έχεις αμφιβολίες ή αν τα συμπτώματα επιμένουν, ζήτησε συμβουλή από έναν επαγγελματία υγείας.',
+    shareMessage: 'Κατανοώντας την ορμονική ακμή — AWA',
+  },
+  fil: {
+    badge: 'PCOS • HORMONAL NA TIGYAWAT',
+    title: 'Pag-unawa sa\nhormonal na tigyawat',
+    metaDuration: '7 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Pang-edukasyong nilalaman',
+    intro:
+      'Bakit maaaring lumitaw ang hormonal na tigyawat kasabay ng PCOS, paano ito makilala, at anong mga solusyon ang makakatulong na pangasiwaan ito.',
+    introSecondary:
+      'Nakakaapekto ito sa maraming babae at hindi ito kakulangan sa kalinisan ni hindi maiiwasan: ang pag-unawa sa pinagmulan nito ay tumutulong na mas mapangasiwaan ito.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang hormonal na tigyawat?',
+      'Bakit maaaring magdulot ng tigyawat ang PCOS?',
+      'Paano makilala ang hormonal na tigyawat',
+      'Hormonal na tigyawat at siklo ng regla',
+      'Ang makakatulong',
+      'Kailan magpapatingin sa doktor?',
+      'Mahahalagang tandaan',
+    ],
+    h1: 'Ano ang hormonal na tigyawat?',
+    body1a:
+      'Ang hormonal na tigyawat ay anyo ng tigyawat na direktang may kaugnayan sa mga hormonal na pagbabago-bago o hindi balanse, partikular sa mga androgen. Hindi tulad ng mas tipikal na tigyawat ng pagdadalaga, madalas nitong tinatamaan ang mga nasa hustong gulang na babae at maaaring magpatuloy o lumitaw pagkatapos ng panahong iyon.',
+    body1b:
+      'Natatangi rin ito sa lokasyon, lalim, at tendensiyang muling lumitaw sa parehong mga lugar sa kabila ng maayos na sinusunod na regular na skincare routine.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Hindi nauugnay sa kakulangan sa kalinisan ang hormonal na tigyawat: ang mas madalas na paghuhugas ng mukha ay hindi nagpapawala nito, at maaari pang makairita sa balat.',
+    h2Title: 'Bakit maaaring magdulot ng tigyawat ang PCOS?',
+    body2:
+      'Sa PCOS, ang relatibong labis na androgen ay nagpapasigla sa mga sebaceous gland, na pagkatapos ay gumagawa ng mas maraming sebum. Mas sensitibo rin ang ilang balat sa mga hormone na ito, na nagpapaliwanag kung bakit maaaring maging kapansin-pansin ang tigyawat kahit walang malaking hindi balanseng nasukat sa lab.',
+    neutralText:
+      'Hindi ito usapin ng lakas ng loob: nag-iiba ang sensitibidad na ito sa bawat tao at hindi nakadepende sa iyong mga gawi sa pamumuhay.',
+    h3Title: 'Paano makilala ang hormonal na tigyawat',
+    body3:
+      'Madalas na umuulit ang ilang katangian, bagaman hindi sistematiko:',
+    recognizeSigns: [
+      'Ibabang bahagi ng mukha: panga, baba',
+      'Mas malalim, minsan masakit na mga tigyawat',
+      'Madalas na muling lumilitaw sa parehong mga lugar',
+      'Pamumula o mga markang nananatili',
+    ],
+    h4Title: 'Hormonal na tigyawat at siklo ng regla',
+    body4:
+      'Maaaring magbago-bago ang hormonal na tigyawat sa buong siklo. Maraming babae ang nakapapansin ng paglala sa mga araw bago ang regla, kapag tumataas ang progesterone at pagkatapos ay biglang bumababa, na pansamantalang nagpapasigla sa produksyon ng sebum.',
+    highlightTitle: 'Pagsubaybay sa iyong mga paglala',
+    highlightText:
+      'Ang pagtatala kung kailan lumilitaw ang mga tigyawat kaugnay ng iyong siklo ay makakatulong sa iyo at sa iyong dermatologist na mas maunawaan ang hormonal na ugnayan.',
+    h5Title: 'Ang makakatulong',
+    body5a:
+      'Ang ilang simpleng gawi sa pangangalaga ay makakatulong na limitahan ang mga paglala, nang hindi ito lubos na napapawi nang mag-isa:',
+    careHabits: [
+      'Banayad na linisin ang balat umaga at gabi',
+      'Iwasan ang matatapang o nakakatuyong produkto',
+      'Protektahan ang balat mula sa araw araw-araw',
+      'Iwasang pisilin o kutkutin ang mga tigyawat',
+    ],
+    body5b:
+      'Depende sa sitwasyon, maaaring magmungkahi ang dermatologist o gynecologist ng mga topical na paggamot (cream, gel) o, kung kinakailangan, angkop na hormonal na paggamot.',
+    alertTitle: 'Huwag gumamot sa sarili',
+    alertText:
+      'Ang mga paggamot sa hormonal na tigyawat (topical o hormonal) ay dapat ireseta at subaybayan ng propesyonal sa kalusugan, lalo na kung umaasa kang magbuntis.',
+    h6Title: 'Kailan magpapatingin sa doktor?',
+    body6:
+      'Lalong nakakatulong ang medikal na payo sa ilang sitwasyon:',
+    consultReasons: [
+      'Tigyawat na nagpapatuloy sa kabila ng angkop na pangangalaga',
+      'Masakit o malalim na mga tigyawat (nodule, cyst)',
+      'Malubhang tigyawat o tigyawat na mabilis lumalala',
+      'Mga markang peklat na nananatili',
+    ],
+    h7Title: 'Mahahalagang tandaan',
+    summaryTitle: 'Ang mahahalagang punto',
+    keyPoints: [
+      'May natutukoy na sanhi ang hormonal na tigyawat, na may kaugnayan sa mga androgen.',
+      'Madalas nitong tinatamaan ang ibabang bahagi ng mukha at maaaring lumala bago ang regla.',
+      'Hindi ito kakulangan sa kalinisan ni hindi maiiwasan.',
+      'Maaaring mapabuti ito ng banayad na pangangalaga at, kung kinakailangan, angkop na paggamot.',
+      'Maaaring suportahan ka ng dermatologist o gynecologist kung nagpapatuloy ito.',
+    ],
+    finalNoteTitle: 'Isang gabay para sa mas mahusay na pag-unawa',
+    finalNoteText:
+      'Para sa pangkalahatang impormasyon lamang ang artikulong ito at hindi pumapalit sa medikal na konsultasyon. Kung nag-aalinlangan o nagpapatuloy ang mga sintomas, humingi ng payo sa propesyonal sa kalusugan.',
+    shareMessage: 'Pag-unawa sa hormonal na tigyawat — AWA',
+  },
+  ta: {
+    badge: 'PCOS • ஹார்மோன் முகப்பரு',
+    title: 'ஹார்மோன் முகப்பருவைப்\nபுரிந்துகொள்ளுதல்',
+    metaDuration: '7 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'கல்வி உள்ளடக்கம்',
+    intro:
+      'PCOS உடன் ஹார்மோன் முகப்பரு ஏன் தோன்றலாம், அதை எப்படி அடையாளம் காண்பது, அதை நிர்வகிக்க எந்தத் தீர்வுகள் உதவலாம்.',
+    introSecondary:
+      'இது பல பெண்களைப் பாதிக்கிறது, இது சுகாதாரக் குறைபாடும் அல்ல, தவிர்க்க முடியாததும் அல்ல: அதன் தோற்றத்தைப் புரிந்துகொள்வது அதை நன்கு நிர்வகிக்க உதவுகிறது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'ஹார்மோன் முகப்பரு என்றால் என்ன?',
+      'PCOS ஏன் முகப்பருவை ஏற்படுத்தலாம்?',
+      'ஹார்மோன் முகப்பருவை எப்படி அடையாளம் காண்பது',
+      'ஹார்மோன் முகப்பருவும் மாதவிடாய்ச் சுழற்சியும்',
+      'உதவக்கூடியவை',
+      'மருத்துவரை எப்போது பார்ப்பது?',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    h1: 'ஹார்மோன் முகப்பரு என்றால் என்ன?',
+    body1a:
+      'ஹார்மோன் முகப்பரு என்பது ஹார்மோன் ஏற்ற இறக்கங்களுடன் அல்லது சமநிலையின்மையுடன், குறிப்பாக ஆண்ட்ரோஜன்களில், நேரடியாகத் தொடர்புடைய முகப்பருவின் ஒரு வடிவம். பதின்பருவத்தின் மிகவும் வழக்கமான முகப்பருவைப் போலல்லாமல், இது பெரும்பாலும் வயது வந்த பெண்களைப் பாதிக்கிறது, அந்தக் காலத்துக்குப் பின்னும் நீடிக்கலாம் அல்லது தோன்றலாம்.',
+    body1b:
+      'இது அதன் இடம், ஆழம் மற்றும் நன்கு பின்பற்றப்படும் வழக்கமான தோல் பராமரிப்பு இருந்தும் அதே இடங்களில் மீண்டும் தோன்றும் போக்கு ஆகியவற்றாலும் வேறுபடுகிறது.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'ஹார்மோன் முகப்பரு சுகாதாரக் குறைபாட்டுடன் தொடர்புடையதல்ல: உங்கள் முகத்தை அடிக்கடி கழுவுவது அதை நீக்காது, தோலுக்கு எரிச்சலையும் கூட ஏற்படுத்தலாம்.',
+    h2Title: 'PCOS ஏன் முகப்பருவை ஏற்படுத்தலாம்?',
+    body2:
+      'PCOS-இல், ஆண்ட்ரோஜன்களின் ஒப்பீட்டு அதிகரிப்பு செபேசியஸ் சுரப்பிகளைத் தூண்டி, அவை அதிக சருமத்தை (செபம்) உற்பத்தி செய்கின்றன. சில தோல்கள் இந்த ஹார்மோன்களுக்கு அதிக உணர்திறன் கொண்டவை, இது ஆய்வகத்தில் அளவிடப்பட்ட பெரிய சமநிலையின்மை இல்லாமலும் முகப்பரு தெளிவாக இருக்கக்கூடியது ஏன் என்பதை விளக்குகிறது.',
+    neutralText:
+      'இது மனவலிமையின் விஷயம் அல்ல: இந்த உணர்திறன் ஒருவருக்கு ஒருவர் மாறுபடும், உங்கள் வாழ்க்கை முறைப் பழக்கங்களைச் சார்ந்ததல்ல.',
+    h3Title: 'ஹார்மோன் முகப்பருவை எப்படி அடையாளம் காண்பது',
+    body3:
+      'சில அம்சங்கள் பெரும்பாலும் திரும்பத் திரும்ப வருகின்றன, முறையாக இல்லாவிட்டாலும்:',
+    recognizeSigns: [
+      'முகத்தின் கீழ்ப் பகுதி: தாடை, நாடி',
+      'ஆழமான, சில நேரங்களில் வலியுள்ள பருக்கள்',
+      'பெரும்பாலும் அதே இடங்களில் மீண்டும் தோன்றும்',
+      'நீடிக்கும் சிவப்பு அல்லது தழும்புகள்',
+    ],
+    h4Title: 'ஹார்மோன் முகப்பருவும் மாதவிடாய்ச் சுழற்சியும்',
+    body4:
+      'ஹார்மோன் முகப்பரு சுழற்சி முழுவதும் ஏற்ற இறக்கமடையலாம். புரோஜெஸ்டிரோன் உயர்ந்து பின்னர் கடுமையாகக் குறையும்போது, சருமம் உற்பத்தியைத் தற்காலிகமாகத் தூண்டி, பல பெண்கள் தம் மாதவிடாய்க்கு முந்தைய நாட்களில் ஒரு தீவிரத்தைக் கவனிக்கிறார்கள்.',
+    highlightTitle: 'உங்கள் தீவிரங்களைக் கண்காணித்தல்',
+    highlightText:
+      'உங்கள் சுழற்சியுடன் ஒப்பிடும்போது பருக்கள் எப்போது தோன்றுகின்றன என்பதைக் குறிப்பது, ஹார்மோன் தொடர்பை நீங்களும் உங்கள் தோல் மருத்துவரும் நன்கு புரிந்துகொள்ள உதவலாம்.',
+    h5Title: 'உதவக்கூடியவை',
+    body5a:
+      'சில எளிய பராமரிப்புப் பழக்கங்கள் தீவிரங்களைக் குறைக்க உதவலாம், அவை தாமாகவே முழுமையாகத் தீர்க்காமல்:',
+    careHabits: [
+      'காலையிலும் மாலையிலும் உங்கள் தோலை மென்மையாகச் சுத்தம் செய்யுங்கள்',
+      'கடுமையான அல்லது தோலை உலர்த்தும் பொருட்களைத் தவிருங்கள்',
+      'தினமும் உங்கள் தோலை வெயிலிலிருந்து பாதுகாக்கவும்',
+      'பருக்களை அழுத்துவதையோ கிள்ளுவதையோ தவிருங்கள்',
+    ],
+    body5b:
+      'சூழ்நிலையைப் பொறுத்து, ஒரு தோல் மருத்துவர் அல்லது மகப்பேறு மருத்துவர் மேற்பூச்சு சிகிச்சைகளை (கிரீம்கள், ஜெல்கள்) அல்லது தேவைப்பட்டால் பொருத்தமான ஹார்மோன் சிகிச்சையைப் பரிந்துரைக்கலாம்.',
+    alertTitle: 'சுய மருத்துவம் வேண்டாம்',
+    alertText:
+      'ஹார்மோன் முகப்பருவுக்கான சிகிச்சைகள் (மேற்பூச்சு அல்லது ஹார்மோன்) ஒரு சுகாதார நிபுணரால் பரிந்துரைக்கப்பட்டு கண்காணிக்கப்பட வேண்டும், குறிப்பாக நீங்கள் கருத்தரிக்க விரும்பினால்.',
+    h6Title: 'மருத்துவரை எப்போது பார்ப்பது?',
+    body6:
+      'சில சூழ்நிலைகளில் மருத்துவ ஆலோசனை குறிப்பாக உதவியாக இருக்கும்:',
+    consultReasons: [
+      'பொருத்தமான பராமரிப்பு இருந்தும் நீடிக்கும் முகப்பரு',
+      'வலியுள்ள அல்லது ஆழமான பருக்கள் (கட்டிகள், நீர்க்கட்டிகள்)',
+      'கடுமையான முகப்பரு அல்லது விரைவாக மோசமடையும் முகப்பரு',
+      'நிலைபெறும் தழும்புகள் அல்லது வடுக்கள்',
+    ],
+    h7Title: 'முக்கியக் குறிப்புகள்',
+    summaryTitle: 'அத்தியாவசியப் புள்ளிகள்',
+    keyPoints: [
+      'ஹார்மோன் முகப்பருவுக்கு ஆண்ட்ரோஜன்களுடன் தொடர்புடைய, அடையாளம் காணக்கூடிய காரணம் உண்டு.',
+      'இது பெரும்பாலும் முகத்தின் கீழ்ப் பகுதியைப் பாதிக்கிறது, உங்கள் மாதவிடாய்க்கு முன் மோசமடையலாம்.',
+      'இது சுகாதாரக் குறைபாடும் அல்ல, தவிர்க்க முடியாததும் அல்ல.',
+      'மென்மையான பராமரிப்பும், தேவைப்பட்டால், பொருத்தமான சிகிச்சையும் அதை மேம்படுத்தலாம்.',
+      'அது நீடித்தால் ஒரு தோல் மருத்துவர் அல்லது மகப்பேறு மருத்துவர் உங்களை ஆதரிக்கலாம்.',
+    ],
+    finalNoteTitle: 'நன்கு புரிந்துகொள்ள ஒரு வழிகாட்டி',
+    finalNoteText:
+      'இந்தக் கட்டுரை பொதுவான தகவலுக்கு மட்டுமே, மருத்துவ ஆலோசனைக்கு மாற்றல்ல. சந்தேகம் இருந்தால் அல்லது அறிகுறிகள் நீடித்தால், ஒரு சுகாதார நிபுணரிடம் ஆலோசனை கேளுங்கள்.',
+    shareMessage: 'ஹார்மோன் முகப்பருவைப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'PCOS • హార్మోన్ మొటిమలు',
+    title: 'హార్మోన్ మొటిమలను\nఅర్థం చేసుకోవడం',
+    metaDuration: '7 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'విద్యాపరమైన కంటెంట్',
+    intro:
+      'PCOSతో హార్మోన్ మొటిమలు ఎందుకు కనిపించవచ్చు, వాటిని ఎలా గుర్తించాలి, వాటిని నిర్వహించడానికి ఏ పరిష్కారాలు సహాయపడవచ్చు.',
+    introSecondary:
+      'ఇది చాలామంది మహిళలను ప్రభావితం చేస్తుంది, ఇది పరిశుభ్రత లోపం కాదు, తప్పనిసరిగా జరిగేదీ కాదు: దాని మూలాన్ని అర్థం చేసుకోవడం దాన్ని మరింత బాగా నిర్వహించడానికి సహాయపడుతుంది.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'హార్మోన్ మొటిమలు అంటే ఏమిటి?',
+      'PCOS మొటిమలను ఎందుకు కలిగించవచ్చు?',
+      'హార్మోన్ మొటిమలను ఎలా గుర్తించాలి',
+      'హార్మోన్ మొటిమలు మరియు నెలసరి చక్రం',
+      'ఏది సహాయపడగలదు',
+      'వైద్యుడిని ఎప్పుడు కలవాలి?',
+      'ముఖ్యాంశాలు',
+    ],
+    h1: 'హార్మోన్ మొటిమలు అంటే ఏమిటి?',
+    body1a:
+      'హార్మోన్ మొటిమలు అనేవి హార్మోన్ ఊగిసలాటలతో లేదా అసమతుల్యతతో, ముఖ్యంగా ఆండ్రోజెన్లలో, నేరుగా ముడిపడిన మొటిమల రూపం. యుక్తవయస్సు యొక్క మరింత సాధారణ మొటిమలకు భిన్నంగా, ఇది తరచుగా పెద్దవయసు మహిళలను ప్రభావితం చేస్తుంది, ఆ కాలం తర్వాత కూడా కొనసాగవచ్చు లేదా కనిపించవచ్చు.',
+    body1b:
+      'ఇది దాని స్థానం, లోతు, బాగా పాటించే క్రమమైన చర్మ సంరక్షణ ఉన్నా అదే చోట్ల మళ్లీ కనిపించే ధోరణి ద్వారా కూడా వేరుగా ఉంటుంది.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'హార్మోన్ మొటిమలు పరిశుభ్రత లోపంతో ముడిపడి ఉండవు: మీ ముఖాన్ని ఎక్కువసార్లు కడగడం వాటిని పోగొట్టదు, చర్మాన్ని చికాకుపరచవచ్చు కూడా.',
+    h2Title: 'PCOS మొటిమలను ఎందుకు కలిగించవచ్చు?',
+    body2:
+      'PCOSలో, ఆండ్రోజెన్ల సాపేక్ష అధికత సెబేషియస్ గ్రంథులను ప్రేరేపిస్తుంది, అవి అప్పుడు ఎక్కువ సెబమ్‌ను ఉత్పత్తి చేస్తాయి. కొన్ని చర్మాలు ఈ హార్మోన్లకు ఎక్కువ సున్నితంగా కూడా ఉంటాయి, ఇది ప్రయోగశాలలో కొలిచిన పెద్ద అసమతుల్యత లేకుండా కూడా మొటిమలు ఎందుకు స్పష్టంగా ఉండవచ్చో వివరిస్తుంది.',
+    neutralText:
+      'ఇది సంకల్ప బలం విషయం కాదు: ఈ సున్నితత్వం ఒకరి నుండి మరొకరికి మారుతుంది, మీ జీవనశైలి అలవాట్లపై ఆధారపడదు.',
+    h3Title: 'హార్మోన్ మొటిమలను ఎలా గుర్తించాలి',
+    body3:
+      'కొన్ని లక్షణాలు తరచుగా పునరావృతమవుతాయి, క్రమబద్ధంగా కాకపోయినా:',
+    recognizeSigns: [
+      'ముఖం కింది భాగం: దవడ, గడ్డం',
+      'లోతైన, కొన్నిసార్లు నొప్పి కలిగించే పొక్కులు',
+      'తరచుగా అదే చోట్ల మళ్లీ కనిపిస్తాయి',
+      'కొనసాగే ఎరుపు లేదా మచ్చలు',
+    ],
+    h4Title: 'హార్మోన్ మొటిమలు మరియు నెలసరి చక్రం',
+    body4:
+      'హార్మోన్ మొటిమలు చక్రం అంతటా ఊగిసలాడవచ్చు. ప్రొజెస్టిరోన్ పెరిగి ఆపై ఒక్కసారిగా తగ్గినప్పుడు, సెబమ్ ఉత్పత్తి తాత్కాలికంగా ప్రేరేపించబడి, చాలామంది మహిళలు తమ నెలసరికి ముందు రోజుల్లో తీవ్రతను గమనిస్తారు.',
+    highlightTitle: 'మీ తీవ్రతలను ట్రాక్ చేయడం',
+    highlightText:
+      'మీ చక్రానికి సంబంధించి పొక్కులు ఎప్పుడు కనిపిస్తున్నాయో గమనించడం, హార్మోన్ సంబంధాన్ని మీరు, మీ చర్మ వైద్యుడు మరింత బాగా అర్థం చేసుకోవడానికి సహాయపడగలదు.',
+    h5Title: 'ఏది సహాయపడగలదు',
+    body5a:
+      'కొన్ని సరళమైన సంరక్షణ అలవాట్లు తీవ్రతలను పరిమితం చేయడానికి సహాయపడగలవు, అవి స్వయంగా పూర్తిగా తొలగించకుండా:',
+    careHabits: [
+      'ఉదయం, సాయంత్రం మీ చర్మాన్ని మృదువుగా శుభ్రం చేయండి',
+      'కఠినమైన లేదా చర్మాన్ని పొడిబార్చే ఉత్పత్తులను తప్పించుకోండి',
+      'ప్రతి రోజూ మీ చర్మాన్ని ఎండ నుండి కాపాడండి',
+      'పొక్కులను నొక్కడం లేదా గిల్లడం తప్పించుకోండి',
+    ],
+    body5b:
+      'పరిస్థితిని బట్టి, ఒక చర్మ వైద్యుడు లేదా గైనకాలజిస్ట్ పైపూత చికిత్సలను (క్రీములు, జెల్‌లు) లేదా అవసరమైతే తగిన హార్మోన్ చికిత్సను సూచించవచ్చు.',
+    alertTitle: 'స్వీయ చికిత్స వద్దు',
+    alertText:
+      'హార్మోన్ మొటిమలకు చికిత్సలను (పైపూత లేదా హార్మోన్) ఒక ఆరోగ్య నిపుణుడు సూచించి పర్యవేక్షించాలి, ముఖ్యంగా మీరు గర్భం దాల్చాలనుకుంటే.',
+    h6Title: 'వైద్యుడిని ఎప్పుడు కలవాలి?',
+    body6:
+      'కొన్ని పరిస్థితుల్లో వైద్య సలహా ప్రత్యేకంగా సహాయపడుతుంది:',
+    consultReasons: [
+      'తగిన సంరక్షణ ఉన్నా కొనసాగే మొటిమలు',
+      'నొప్పి కలిగించే లేదా లోతైన పొక్కులు (గడ్డలు, నీటి గడ్డలు)',
+      'తీవ్రమైన లేదా వేగంగా మరింత దిగజారే మొటిమలు',
+      'స్థిరపడుతున్న మచ్చలు లేదా వాతలు',
+    ],
+    h7Title: 'ముఖ్యాంశాలు',
+    summaryTitle: 'ముఖ్యమైన అంశాలు',
+    keyPoints: [
+      'హార్మోన్ మొటిమలకు ఆండ్రోజెన్లతో ముడిపడిన, గుర్తించదగిన కారణం ఉంది.',
+      'ఇది తరచుగా ముఖం కింది భాగాన్ని ప్రభావితం చేస్తుంది, మీ నెలసరికి ముందు మరింత దిగజారవచ్చు.',
+      'ఇది పరిశుభ్రత లోపం కాదు, తప్పనిసరిగా జరిగేదీ కాదు.',
+      'మృదువైన సంరక్షణ, అవసరమైతే తగిన చికిత్స దాన్ని మెరుగుపరచగలదు.',
+      'అది కొనసాగితే ఒక చర్మ వైద్యుడు లేదా గైనకాలజిస్ట్ మీకు తోడ్పడగలరు.',
+    ],
+    finalNoteTitle: 'మరింత బాగా అర్థం చేసుకోవడానికి ఒక గైడ్',
+    finalNoteText:
+      'ఈ వ్యాసం సాధారణ సమాచారం కోసం మాత్రమే, వైద్య సంప్రదింపుకు ప్రత్యామ్నాయం కాదు. సందేహం ఉంటే లేదా లక్షణాలు కొనసాగితే, ఒక ఆరోగ్య నిపుణుడి సలహా పొందండి.',
+    shareMessage: 'హార్మోన్ మొటిమలను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'PCOS • हार्मोनल मुरूम',
+    title: 'हार्मोनल मुरूम\nसमजून घेणे',
+    metaDuration: '7 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'शैक्षणिक मजकूर',
+    intro:
+      'PCOS मध्ये हार्मोनल मुरूम का येऊ शकतात, ते कसे ओळखावेत आणि ते सांभाळण्यास कोणते उपाय मदत करू शकतात.',
+    introSecondary:
+      'तो अनेक स्त्रियांना होतो आणि तो स्वच्छतेचा अभाव नाही किंवा अपरिहार्यही नाही: त्याचे मूळ समजून घेतल्याने तो अधिक चांगला सांभाळता येतो.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'हार्मोनल मुरूम म्हणजे काय?',
+      'PCOS मुळे मुरूम का येऊ शकतात?',
+      'हार्मोनल मुरूम कसे ओळखावेत',
+      'हार्मोनल मुरूम आणि मासिक पाळी',
+      'काय मदत करू शकते',
+      'डॉक्टरांना केव्हा भेटावे?',
+      'मुख्य मुद्दे',
+    ],
+    h1: 'हार्मोनल मुरूम म्हणजे काय?',
+    body1a:
+      'हार्मोनल मुरूम हा मुरुमाचा असा प्रकार आहे जो हार्मोनल चढ-उतारांशी किंवा असंतुलनाशी, विशेषतः अँड्रोजेन्सशी, थेट जोडलेला असतो. पौगंडावस्थेतील अधिक ठरावीक मुरुमांच्या उलट, तो बहुतेकदा प्रौढ स्त्रियांना होतो आणि त्या काळानंतरही कायम राहू शकतो किंवा दिसू शकतो.',
+    body1b:
+      'त्याचे ठिकाण, त्याची खोली आणि नीट पाळलेल्या नियमित त्वचेच्या काळजीनंतरही त्याच जागी पुन्हा येण्याची प्रवृत्ती यामुळेही तो वेगळा ओळखला जातो.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'हार्मोनल मुरूम स्वच्छतेच्या अभावाशी जोडलेले नसतात: चेहरा जास्त वेळा धुतल्याने ते जात नाहीत आणि उलट त्वचेला जळजळ होऊ शकते.',
+    h2Title: 'PCOS मुळे मुरूम का येऊ शकतात?',
+    body2:
+      'PCOS मध्ये, अँड्रोजेन्सचा सापेक्ष अतिरेक तेलग्रंथींना उत्तेजित करतो, ज्या मग अधिक तेल (सीबम) तयार करतात. काही त्वचा या हार्मोन्सना अधिक संवेदनशीलही असते, ज्यामुळे प्रयोगशाळेत मोजलेले मोठे असंतुलन नसतानाही मुरूम ठळक असू शकतात हे स्पष्ट होते.',
+    neutralText:
+      'हा इच्छाशक्तीचा प्रश्न नाही: ही संवेदनशीलता एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत बदलते आणि तुमच्या जीवनशैलीच्या सवयींवर अवलंबून नसते.',
+    h3Title: 'हार्मोनल मुरूम कसे ओळखावेत',
+    body3:
+      'काही वैशिष्ट्ये वारंवार दिसतात, मात्र नेहमी नाही:',
+    recognizeSigns: [
+      'चेहऱ्याचा खालचा भाग: जबड्याची रेषा, हनुवटी',
+      'अधिक खोल, कधी कधी वेदनादायी फोड',
+      'बहुतेकदा त्याच जागी पुन्हा येतात',
+      'लालसरपणा किंवा कायम राहणारे डाग',
+    ],
+    h4Title: 'हार्मोनल मुरूम आणि मासिक पाळी',
+    body4:
+      'हार्मोनल मुरूम पाळीभर कमी-जास्त होऊ शकतात. अनेक स्त्रियांना त्यांच्या पाळीच्या आधीच्या दिवसांत, जेव्हा प्रोजेस्टेरॉन वाढते आणि मग झपाट्याने कमी होते, तेव्हा मुरमांचा उद्रेक जाणवतो, जो तात्पुरते तेल निर्मितीला उत्तेजन देतो.',
+    highlightTitle: 'तुमच्या उद्रेकांचा मागोवा',
+    highlightText:
+      'तुमच्या पाळीच्या संदर्भात फोड केव्हा येतात ते नोंदवल्याने तुम्हाला आणि तुमच्या त्वचारोगतज्ज्ञाला हार्मोनल संबंध अधिक चांगला समजण्यास मदत होऊ शकते.',
+    h5Title: 'काय मदत करू शकते',
+    body5a:
+      'काळजीच्या काही साध्या सवयी उद्रेक मर्यादित करण्यास मदत करू शकतात, एकट्याने ते पूर्णपणे दूर न करता:',
+    careHabits: [
+      'सकाळी आणि संध्याकाळी तुमची त्वचा हळुवारपणे स्वच्छ करा',
+      'तीव्र किंवा त्वचा कोरडी करणारी उत्पादने टाळा',
+      'रोज तुमची त्वचा उन्हापासून वाचवा',
+      'फोड दाबणे किंवा खुडणे टाळा',
+    ],
+    body5b:
+      'परिस्थितीनुसार, त्वचारोगतज्ज्ञ किंवा स्त्रीरोगतज्ज्ञ बाह्य उपचार (क्रीम, जेल) किंवा, गरज असल्यास, योग्य हार्मोनल उपचार सुचवू शकतात.',
+    alertTitle: 'स्वतःच औषध घेऊ नका',
+    alertText:
+      'हार्मोनल मुरुमांवरील उपचार (बाह्य किंवा हार्मोनल) आरोग्य व्यावसायिकाने लिहून दिलेले आणि देखरेखीखाली असले पाहिजेत, विशेषतः तुम्ही गर्भधारणेची अपेक्षा करत असाल तर.',
+    h6Title: 'डॉक्टरांना केव्हा भेटावे?',
+    body6:
+      'काही परिस्थितींत वैद्यकीय सल्ला विशेष उपयुक्त असतो:',
+    consultReasons: [
+      'योग्य काळजी घेऊनही कायम राहणारे मुरूम',
+      'वेदनादायी किंवा खोल फोड (गाठी, सिस्ट)',
+      'तीव्र मुरूम किंवा झपाट्याने वाढणारे मुरूम',
+      'स्थिर होत असलेले डाग किंवा व्रण',
+    ],
+    h7Title: 'मुख्य मुद्दे',
+    summaryTitle: 'आवश्यक मुद्दे',
+    keyPoints: [
+      'हार्मोनल मुरुमांचे अँड्रोजेन्सशी जोडलेले ओळखता येणारे कारण असते.',
+      'ते बहुतेकदा चेहऱ्याच्या खालच्या भागावर येतात आणि पाळीपूर्वी वाढू शकतात.',
+      'ते स्वच्छतेचा अभाव नाही किंवा अपरिहार्यही नाही.',
+      'हळुवार काळजी आणि, गरज असल्यास, योग्य उपचार त्यात सुधारणा करू शकतात.',
+      'तो कायम राहिल्यास त्वचारोगतज्ज्ञ किंवा स्त्रीरोगतज्ज्ञ तुम्हाला साथ देऊ शकतात.',
+    ],
+    finalNoteTitle: 'अधिक चांगले समजण्यासाठी एक मार्गदर्शक',
+    finalNoteText:
+      'हा लेख फक्त सर्वसाधारण माहितीसाठी आहे आणि वैद्यकीय सल्लामसलतीची जागा घेत नाही. शंका असल्यास किंवा लक्षणे कायम राहिल्यास, आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+    shareMessage: 'हार्मोनल मुरूम समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'PCOS • હોર્મોનલ ખીલ',
+    title: 'હોર્મોનલ ખીલને\nસમજવા',
+    metaDuration: '7 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'શૈક્ષણિક સામગ્રી',
+    intro:
+      'PCOS સાથે હોર્મોનલ ખીલ કેમ દેખાઈ શકે છે, તેને કેવી રીતે ઓળખવા, અને તેને સંભાળવામાં કયા ઉપાયો મદદ કરી શકે છે.',
+    introSecondary:
+      'તે ઘણી સ્ત્રીઓને અસર કરે છે અને તે સ્વચ્છતાનો અભાવ નથી કે અનિવાર્ય પણ નથી: તેનું મૂળ સમજવાથી તેને વધુ સારી રીતે સંભાળી શકાય છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'હોર્મોનલ ખીલ શું છે?',
+      'PCOS ખીલનું કારણ કેમ બની શકે છે?',
+      'હોર્મોનલ ખીલ કેવી રીતે ઓળખવા',
+      'હોર્મોનલ ખીલ અને માસિક ચક્ર',
+      'શું મદદ કરી શકે',
+      'ડૉક્ટરને ક્યારે મળવું?',
+      'મુખ્ય મુદ્દા',
+    ],
+    h1: 'હોર્મોનલ ખીલ શું છે?',
+    body1a:
+      'હોર્મોનલ ખીલ એ ખીલનો એવો પ્રકાર છે જે હોર્મોનના ઉતાર-ચઢાવ કે અસંતુલન સાથે સીધો જોડાયેલો છે, ખાસ કરીને એન્ડ્રોજનમાં. કિશોરાવસ્થાના સામાન્ય ખીલથી વિપરીત, તે ઘણી વાર પુખ્ત સ્ત્રીઓને અસર કરે છે અને તે સમયગાળા પછી પણ ચાલુ રહી શકે છે અથવા દેખાઈ શકે છે.',
+    body1b:
+      'તે તેની જગ્યા, તેની ઊંડાઈ અને નિયમિત ત્વચા સંભાળ બરાબર કરવા છતાં એ જ જગ્યાએ ફરી દેખાવાની વૃત્તિથી પણ અલગ પડે છે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'હોર્મોનલ ખીલ સ્વચ્છતાના અભાવ સાથે જોડાયેલા નથી: ચહેરો વધુ વાર ધોવાથી તે જતા નથી, અને ક્યારેક ત્વચામાં બળતરા પણ થઈ શકે છે.',
+    h2Title: 'PCOS ખીલનું કારણ કેમ બની શકે છે?',
+    body2:
+      'PCOS માં એન્ડ્રોજનનો સાપેક્ષ વધારો તેલગ્રંથિઓને ઉત્તેજિત કરે છે, જે પછી વધુ તેલ બનાવે છે. કેટલીક ત્વચા આ હોર્મોન પ્રત્યે વધુ સંવેદનશીલ પણ હોય છે, જેથી પ્રયોગશાળામાં કોઈ મોટું અસંતુલન મપાયા વિના પણ ખીલ વધુ દેખાઈ શકે છે.',
+    neutralText:
+      'આ ઇચ્છાશક્તિનો પ્રશ્ન નથી: આ સંવેદનશીલતા વ્યક્તિએ વ્યક્તિએ અલગ હોય છે અને તમારી જીવનશૈલીની ટેવો પર આધાર રાખતી નથી.',
+    h3Title: 'હોર્મોનલ ખીલ કેવી રીતે ઓળખવા',
+    body3:
+      'કેટલીક લાક્ષણિકતાઓ ઘણી વાર જોવા મળે છે, જોકે હંમેશાં નહીં:',
+    recognizeSigns: [
+      'ચહેરાનો નીચલો ભાગ: જડબાની રેખા, દાઢી',
+      'વધુ ઊંડા, ક્યારેક દુખાવાવાળા ફોલ્લીઓ',
+      'ઘણી વાર એ જ જગ્યાએ ફરી દેખાય છે',
+      'લાલાશ અથવા ડાઘ જે રહી જાય છે',
+    ],
+    h4Title: 'હોર્મોનલ ખીલ અને માસિક ચક્ર',
+    body4:
+      'હોર્મોનલ ખીલ આખા ચક્ર દરમિયાન ઓછાવત્તા થઈ શકે છે. ઘણી સ્ત્રીઓ માસિક પહેલાંના દિવસોમાં વધારો નોંધે છે, જ્યારે પ્રોજેસ્ટેરોન વધે છે અને પછી અચાનક ઘટે છે, જે અસ્થાયી રીતે તેલના ઉત્પાદનને ઉત્તેજિત કરે છે.',
+    highlightTitle: 'તમારા વધારાની નોંધ રાખો',
+    highlightText:
+      'તમારા ચક્રની સાપેક્ષે ફોલ્લીઓ ક્યારે દેખાય છે તે નોંધવાથી તમને અને તમારા ત્વચારોગ નિષ્ણાતને હોર્મોનનો સંબંધ વધુ સારી રીતે સમજવામાં મદદ મળી શકે છે.',
+    h5Title: 'શું મદદ કરી શકે',
+    body5a:
+      'કેટલીક સરળ સંભાળની ટેવો ખીલના વધારાને મર્યાદિત કરવામાં મદદ કરી શકે છે, જોકે તે એકલી તેને પૂરેપૂરા દૂર કરતી નથી:',
+    careHabits: [
+      'સવાર-સાંજ ત્વચાને હળવેથી સાફ કરો',
+      'કઠોર કે ત્વચાનું તેલ કાઢી નાખે તેવાં ઉત્પાદનો ટાળો',
+      'રોજ ત્વચાને સૂર્યથી બચાવો',
+      'ફોલ્લીઓને દબાવવાનું કે ખોતરવાનું ટાળો',
+    ],
+    body5b:
+      'પરિસ્થિતિ પ્રમાણે, ત્વચારોગ નિષ્ણાત અથવા સ્ત્રીરોગ નિષ્ણાત ત્વચા પર લગાવવાની સારવાર (ક્રીમ, જેલ) અથવા જરૂર હોય તો યોગ્ય હોર્મોનલ સારવાર સૂચવી શકે છે.',
+    alertTitle: 'જાતે દવા ન કરો',
+    alertText:
+      'હોર્મોનલ ખીલની સારવાર (ત્વચા પર લગાવવાની કે હોર્મોનલ) આરોગ્ય વ્યાવસાયિકે સૂચવેલી અને તેમની દેખરેખ હેઠળ હોવી જોઈએ, ખાસ કરીને જો તમે ગર્ભધારણની આશા રાખતા હો.',
+    h6Title: 'ડૉક્ટરને ક્યારે મળવું?',
+    body6:
+      'કેટલીક પરિસ્થિતિઓમાં તબીબી સલાહ ખાસ મદદરૂપ થાય છે:',
+    consultReasons: [
+      'યોગ્ય સંભાળ છતાં ચાલુ રહેતા ખીલ',
+      'દુખાવાવાળા કે ઊંડા ફોલ્લીઓ (ગાંઠ, સિસ્ટ)',
+      'ગંભીર ખીલ અથવા ઝડપથી વધતા ખીલ',
+      'કાયમી બની રહેલા ડાઘ કે નિશાન',
+    ],
+    h7Title: 'મુખ્ય મુદ્દા',
+    summaryTitle: 'મુખ્ય બાબતો',
+    keyPoints: [
+      'હોર્મોનલ ખીલનું ઓળખી શકાય તેવું કારણ છે, જે એન્ડ્રોજન સાથે જોડાયેલું છે.',
+      'તે ઘણી વાર ચહેરાના નીચલા ભાગને અસર કરે છે અને માસિક પહેલાં વધી શકે છે.',
+      'તે સ્વચ્છતાનો અભાવ નથી કે અનિવાર્ય પણ નથી.',
+      'હળવી સંભાળ અને જરૂર હોય તો યોગ્ય સારવાર તેમાં સુધારો લાવી શકે છે.',
+      'જો તે ચાલુ રહે તો ત્વચારોગ નિષ્ણાત અથવા સ્ત્રીરોગ નિષ્ણાત તમને મદદ કરી શકે છે.',
+    ],
+    finalNoteTitle: 'વધુ સારી રીતે સમજવા માટે માર્ગદર્શિકા',
+    finalNoteText:
+      'આ લેખ માત્ર સામાન્ય માહિતી માટે છે અને તબીબી પરામર્શનું સ્થાન લેતો નથી. શંકા હોય અથવા લક્ષણો ચાલુ રહે તો આરોગ્ય વ્યાવસાયિક પાસેથી સલાહ લો.',
+    shareMessage: 'હોર્મોનલ ખીલને સમજવા — AWA',
+  },
+  pa: {
+    badge: 'PCOS • ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ',
+    title: 'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਨੂੰ\nਸਮਝੋ',
+    metaDuration: '7 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਜਾਣਕਾਰੀ ਵਾਲੀ ਸਮੱਗਰੀ',
+    intro:
+      'PCOS ਨਾਲ ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਕਿਉਂ ਹੋ ਸਕਦੇ ਹਨ, ਇਨ੍ਹਾਂ ਨੂੰ ਕਿਵੇਂ ਪਛਾਣੀਏ, ਅਤੇ ਇਨ੍ਹਾਂ ਨੂੰ ਸੰਭਾਲਣ ਵਿੱਚ ਕਿਹੜੇ ਹੱਲ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ।',
+    introSecondary:
+      'ਇਹ ਬਹੁਤ ਸਾਰੀਆਂ ਔਰਤਾਂ ਨੂੰ ਹੁੰਦੇ ਹਨ ਅਤੇ ਨਾ ਇਹ ਸਫ਼ਾਈ ਦੀ ਘਾਟ ਹਨ ਅਤੇ ਨਾ ਹੀ ਕੋਈ ਮਜਬੂਰੀ: ਇਨ੍ਹਾਂ ਦੇ ਮੂਲ ਨੂੰ ਸਮਝਣਾ ਇਨ੍ਹਾਂ ਨੂੰ ਬਿਹਤਰ ਸੰਭਾਲਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਕੀ ਹਨ?',
+      'PCOS ਨਾਲ ਮੁਹਾਸੇ ਕਿਉਂ ਹੋ ਸਕਦੇ ਹਨ?',
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਨੂੰ ਕਿਵੇਂ ਪਛਾਣੀਏ',
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਅਤੇ ਮਾਹਵਾਰੀ ਚੱਕਰ',
+      'ਕੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ',
+      'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲੀਏ?',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    h1: 'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਕੀ ਹਨ?',
+    body1a:
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਮੁਹਾਸਿਆਂ ਦਾ ਇੱਕ ਰੂਪ ਹਨ ਜੋ ਸਿੱਧੇ ਤੌਰ \'ਤੇ ਹਾਰਮੋਨਾਂ ਦੇ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ ਜਾਂ ਅਸੰਤੁਲਨ, ਖ਼ਾਸ ਕਰਕੇ ਐਂਡਰੋਜਨ ਵਿੱਚ, ਨਾਲ ਜੁੜੇ ਹੁੰਦੇ ਹਨ। ਲੜਕਪਨ ਦੇ ਆਮ ਮੁਹਾਸਿਆਂ ਤੋਂ ਵੱਖ, ਇਹ ਅਕਸਰ ਬਾਲਗ ਔਰਤਾਂ ਨੂੰ ਹੁੰਦੇ ਹਨ ਅਤੇ ਉਸ ਉਮਰ ਤੋਂ ਬਾਅਦ ਵੀ ਬਣੇ ਰਹਿ ਸਕਦੇ ਹਨ ਜਾਂ ਨਵੇਂ ਨਿਕਲ ਸਕਦੇ ਹਨ।',
+    body1b:
+      'ਇਨ੍ਹਾਂ ਦੀ ਪਛਾਣ ਇਨ੍ਹਾਂ ਦੀ ਥਾਂ, ਡੂੰਘਾਈ ਅਤੇ ਚਮੜੀ ਦੀ ਚੰਗੀ ਤਰ੍ਹਾਂ ਨਿਯਮਿਤ ਦੇਖਭਾਲ ਦੇ ਬਾਵਜੂਦ ਉਨ੍ਹਾਂ ਹੀ ਥਾਵਾਂ \'ਤੇ ਮੁੜ ਨਿਕਲਣ ਦੇ ਰੁਝਾਨ ਤੋਂ ਵੀ ਹੁੰਦੀ ਹੈ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਸਫ਼ਾਈ ਦੀ ਘਾਟ ਨਾਲ ਨਹੀਂ ਜੁੜੇ: ਚਿਹਰਾ ਵਾਰ-ਵਾਰ ਧੋਣ ਨਾਲ ਇਹ ਦੂਰ ਨਹੀਂ ਹੁੰਦੇ, ਸਗੋਂ ਚਮੜੀ ਨੂੰ ਜਲਣ ਹੋ ਸਕਦੀ ਹੈ।',
+    h2Title: 'PCOS ਨਾਲ ਮੁਹਾਸੇ ਕਿਉਂ ਹੋ ਸਕਦੇ ਹਨ?',
+    body2:
+      'PCOS ਵਿੱਚ, ਐਂਡਰੋਜਨ ਦੀ ਸਾਪੇਖਿਕ ਵਾਧੂ ਮਾਤਰਾ ਤੇਲ ਪੈਦਾ ਕਰਨ ਵਾਲੀਆਂ ਗ੍ਰੰਥੀਆਂ ਨੂੰ ਉਤੇਜਿਤ ਕਰਦੀ ਹੈ, ਜੋ ਫਿਰ ਵਧੇਰੇ ਤੇਲ ਬਣਾਉਂਦੀਆਂ ਹਨ। ਕੁਝ ਲੋਕਾਂ ਦੀ ਚਮੜੀ ਇਨ੍ਹਾਂ ਹਾਰਮੋਨਾਂ ਪ੍ਰਤੀ ਵੱਧ ਸੰਵੇਦਨਸ਼ੀਲ ਵੀ ਹੁੰਦੀ ਹੈ, ਜਿਸ ਕਰਕੇ ਪ੍ਰਯੋਗਸ਼ਾਲਾ ਵਿੱਚ ਮਾਪੇ ਗਏ ਕਿਸੇ ਵੱਡੇ ਅਸੰਤੁਲਨ ਤੋਂ ਬਿਨਾਂ ਵੀ ਮੁਹਾਸੇ ਵਧੇਰੇ ਹੋ ਸਕਦੇ ਹਨ।',
+    neutralText:
+      'ਇਹ ਇੱਛਾ-ਸ਼ਕਤੀ ਦੀ ਗੱਲ ਨਹੀਂ: ਇਹ ਸੰਵੇਦਨਸ਼ੀਲਤਾ ਹਰ ਵਿਅਕਤੀ ਵਿੱਚ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੀ ਜੀਵਨ-ਸ਼ੈਲੀ ਦੀਆਂ ਆਦਤਾਂ \'ਤੇ ਨਿਰਭਰ ਨਹੀਂ ਕਰਦੀ।',
+    h3Title: 'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਨੂੰ ਕਿਵੇਂ ਪਛਾਣੀਏ',
+    body3:
+      'ਕੁਝ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਕਸਰ ਦੁਹਰਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਹਾਲਾਂਕਿ ਹਮੇਸ਼ਾ ਨਹੀਂ:',
+    recognizeSigns: [
+      'ਚਿਹਰੇ ਦਾ ਹੇਠਲਾ ਹਿੱਸਾ: ਜਬਾੜੇ ਦੀ ਲਕੀਰ, ਠੋਡੀ',
+      'ਵਧੇਰੇ ਡੂੰਘੇ, ਕਈ ਵਾਰ ਦਰਦ ਵਾਲੇ ਦਾਣੇ',
+      'ਅਕਸਰ ਉਨ੍ਹਾਂ ਹੀ ਥਾਵਾਂ \'ਤੇ ਮੁੜ ਨਿਕਲਦੇ ਹਨ',
+      'ਲਾਲੀ ਜਾਂ ਨਿਸ਼ਾਨ ਜੋ ਬਣੇ ਰਹਿੰਦੇ ਹਨ',
+    ],
+    h4Title: 'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਅਤੇ ਮਾਹਵਾਰੀ ਚੱਕਰ',
+    body4:
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸੇ ਪੂਰੇ ਚੱਕਰ ਦੌਰਾਨ ਘਟ-ਵਧ ਸਕਦੇ ਹਨ। ਬਹੁਤ ਸਾਰੀਆਂ ਔਰਤਾਂ ਮਾਹਵਾਰੀ ਤੋਂ ਕੁਝ ਦਿਨ ਪਹਿਲਾਂ ਮੁਹਾਸਿਆਂ ਦਾ ਭੜਕਣਾ ਦੇਖਦੀਆਂ ਹਨ, ਜਦੋਂ ਪ੍ਰੋਜੈਸਟ੍ਰੋਨ ਵਧਦਾ ਹੈ ਅਤੇ ਫਿਰ ਤੇਜ਼ੀ ਨਾਲ ਡਿੱਗਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਤੇਲ ਦਾ ਉਤਪਾਦਨ ਅਸਥਾਈ ਤੌਰ \'ਤੇ ਵਧ ਜਾਂਦਾ ਹੈ।',
+    highlightTitle: 'ਆਪਣੇ ਭੜਕਣ ਦਾ ਰਿਕਾਰਡ ਰੱਖੋ',
+    highlightText:
+      'ਇਹ ਲਿਖਣਾ ਕਿ ਮੁਹਾਸੇ ਤੁਹਾਡੇ ਚੱਕਰ ਦੇ ਸਾਪੇਖ ਕਦੋਂ ਨਿਕਲਦੇ ਹਨ, ਤੁਹਾਨੂੰ ਅਤੇ ਤੁਹਾਡੇ ਚਮੜੀ ਰੋਗ ਮਾਹਿਰ ਨੂੰ ਹਾਰਮੋਨੀ ਸਬੰਧ ਬਿਹਤਰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+    h5Title: 'ਕੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ',
+    body5a:
+      'ਦੇਖਭਾਲ ਦੀਆਂ ਕੁਝ ਸਰਲ ਆਦਤਾਂ ਭੜਕਣ ਨੂੰ ਸੀਮਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀਆਂ ਹਨ, ਹਾਲਾਂਕਿ ਇਕੱਲੀਆਂ ਇਨ੍ਹਾਂ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖ਼ਤਮ ਨਹੀਂ ਕਰਦੀਆਂ:',
+    careHabits: [
+      'ਸਵੇਰੇ ਅਤੇ ਸ਼ਾਮ ਨੂੰ ਆਪਣੀ ਚਮੜੀ ਨੂੰ ਕੋਮਲਤਾ ਨਾਲ ਸਾਫ਼ ਕਰੋ',
+      'ਕਠੋਰ ਜਾਂ ਚਮੜੀ ਨੂੰ ਖੁਸ਼ਕ ਕਰਨ ਵਾਲੇ ਉਤਪਾਦਾਂ ਤੋਂ ਬਚੋ',
+      'ਰੋਜ਼ ਆਪਣੀ ਚਮੜੀ ਨੂੰ ਧੁੱਪ ਤੋਂ ਬਚਾਓ',
+      'ਦਾਣਿਆਂ ਨੂੰ ਦਬਾਉਣ ਜਾਂ ਨੋਚਣ ਤੋਂ ਬਚੋ',
+    ],
+    body5b:
+      'ਸਥਿਤੀ ਮੁਤਾਬਕ, ਚਮੜੀ ਰੋਗ ਮਾਹਿਰ ਜਾਂ ਇਸਤਰੀ ਰੋਗ ਮਾਹਿਰ ਲਗਾਉਣ ਵਾਲੇ ਇਲਾਜ (ਕਰੀਮਾਂ, ਜੈੱਲ) ਜਾਂ, ਲੋੜ ਪੈਣ \'ਤੇ, ਕੋਈ ਢੁਕਵਾਂ ਹਾਰਮੋਨੀ ਇਲਾਜ ਸੁਝਾ ਸਕਦੇ ਹਨ।',
+    alertTitle: 'ਆਪਣੇ-ਆਪ ਦਵਾਈ ਨਾ ਲਓ',
+    alertText:
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਦੇ ਇਲਾਜ (ਲਗਾਉਣ ਵਾਲੇ ਜਾਂ ਹਾਰਮੋਨੀ) ਸਿਹਤ ਮਾਹਿਰ ਵੱਲੋਂ ਲਿਖੇ ਅਤੇ ਨਿਗਰਾਨੀ ਹੇਠ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ, ਖ਼ਾਸ ਕਰਕੇ ਜੇ ਤੁਸੀਂ ਗਰਭ ਧਾਰਨ ਦੀ ਆਸ ਰੱਖਦੇ ਹੋ।',
+    h6Title: 'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲੀਏ?',
+    body6:
+      'ਡਾਕਟਰੀ ਸਲਾਹ ਕੁਝ ਸਥਿਤੀਆਂ ਵਿੱਚ ਖ਼ਾਸ ਤੌਰ \'ਤੇ ਮਦਦਗਾਰ ਹੁੰਦੀ ਹੈ:',
+    consultReasons: [
+      'ਢੁਕਵੀਂ ਦੇਖਭਾਲ ਦੇ ਬਾਵਜੂਦ ਬਣੇ ਰਹਿਣ ਵਾਲੇ ਮੁਹਾਸੇ',
+      'ਦਰਦ ਵਾਲੇ ਜਾਂ ਡੂੰਘੇ ਦਾਣੇ (ਗੰਢਾਂ, ਗਿਲਟੀਆਂ)',
+      'ਗੰਭੀਰ ਮੁਹਾਸੇ ਜਾਂ ਜੋ ਤੇਜ਼ੀ ਨਾਲ ਵਿਗੜ ਰਹੇ ਹੋਣ',
+      'ਨਿਸ਼ਾਨ ਜਾਂ ਦਾਗ਼ ਜੋ ਪੱਕੇ ਹੋ ਰਹੇ ਹੋਣ',
+    ],
+    h7Title: 'ਮੁੱਖ ਨੁਕਤੇ',
+    summaryTitle: 'ਜ਼ਰੂਰੀ ਗੱਲਾਂ',
+    keyPoints: [
+      'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਦਾ ਇੱਕ ਪਛਾਣਨ ਯੋਗ ਕਾਰਨ ਹੈ, ਜੋ ਐਂਡਰੋਜਨ ਨਾਲ ਜੁੜਿਆ ਹੈ।',
+      'ਇਹ ਅਕਸਰ ਚਿਹਰੇ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਦੇ ਹਨ ਅਤੇ ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਵਿਗੜ ਸਕਦੇ ਹਨ।',
+      'ਇਹ ਨਾ ਸਫ਼ਾਈ ਦੀ ਘਾਟ ਹਨ ਅਤੇ ਨਾ ਹੀ ਕੋਈ ਮਜਬੂਰੀ।',
+      'ਕੋਮਲ ਦੇਖਭਾਲ ਅਤੇ, ਲੋੜ ਪੈਣ \'ਤੇ, ਢੁਕਵਾਂ ਇਲਾਜ ਇਨ੍ਹਾਂ ਨੂੰ ਸੁਧਾਰ ਸਕਦਾ ਹੈ।',
+      'ਜੇ ਇਹ ਬਣੇ ਰਹਿਣ ਤਾਂ ਚਮੜੀ ਰੋਗ ਮਾਹਿਰ ਜਾਂ ਇਸਤਰੀ ਰੋਗ ਮਾਹਿਰ ਤੁਹਾਡੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ।',
+    ],
+    finalNoteTitle: 'ਬਿਹਤਰ ਸਮਝ ਲਈ ਇੱਕ ਗਾਈਡ',
+    finalNoteText:
+      'ਇਹ ਲੇਖ ਸਿਰਫ਼ ਆਮ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦਾ। ਸ਼ੱਕ ਹੋਵੇ ਜਾਂ ਲੱਛਣ ਬਣੇ ਰਹਿਣ ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸਲਾਹ ਲਓ।',
+    shareMessage: 'ਹਾਰਮੋਨੀ ਮੁਹਾਸਿਆਂ ਨੂੰ ਸਮਝੋ — AWA',
+  },
+  my: {
+    badge: 'PCOS • ဟော်မုန်းဝက်ခြံ',
+    title: 'ဟော်မုန်းဝက်ခြံကို\nနားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 7 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပညာပေးအကြောင်းအရာ',
+    intro:
+      'PCOS ရှိသူတွင် ဟော်မုန်းဝက်ခြံ အဘယ်ကြောင့် ပေါ်လာနိုင်သည်၊ ၎င်းကို မည်သို့သိနိုင်သည်၊ စီမံရာတွင် မည်သည့်ဖြေရှင်းနည်းများ အထောက်အကူဖြစ်နိုင်သည်ကို ဖော်ပြထားသည်။',
+    introSecondary:
+      'ဤပြဿနာသည် အမျိုးသမီးများစွာကို ထိခိုက်သည်၊ သန့်ရှင်းမှုမရှိခြင်းလည်း မဟုတ်၊ ရှောင်လွှဲမရသော အရာလည်း မဟုတ်ပါ။ ၎င်း၏ မူလအကြောင်းရင်းကို နားလည်ခြင်းက ပိုမိုကောင်းစွာ စီမံနိုင်ရန် ကူညီသည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ဟော်မုန်းဝက်ခြံဆိုသည်မှာ အဘယ်နည်း။',
+      'PCOS က ဝက်ခြံကို အဘယ်ကြောင့် ဖြစ်စေနိုင်သနည်း။',
+      'ဟော်မုန်းဝက်ခြံကို မည်သို့သိနိုင်သနည်း',
+      'ဟော်မုန်းဝက်ခြံနှင့် ရာသီစက်ဝန်း',
+      'ကူညီနိုင်သည့်အရာများ',
+      'ဆရာဝန်နှင့် မည်သည့်အချိန် ပြသသင့်သနည်း။',
+      'အဓိကအချက်များ',
+    ],
+    h1: 'ဟော်မုန်းဝက်ခြံဆိုသည်မှာ အဘယ်နည်း။',
+    body1a:
+      'ဟော်မုန်းဝက်ခြံသည် ဟော်မုန်းအတက်အကျ သို့မဟုတ် အထူးသဖြင့် အန်ဒရိုဂျင် မညီမျှမှုနှင့် တိုက်ရိုက်ဆက်စပ်သော ဝက်ခြံပုံစံတစ်ခု ဖြစ်သည်။ ဆယ်ကျော်သက်ကာလ၏ ပိုမိုသာမန်ဖြစ်သော ဝက်ခြံနှင့် မတူဘဲ ၎င်းသည် အရွယ်ရောက်ပြီးသော အမျိုးသမီးများကို မကြာခဏ ထိခိုက်ပြီး ထိုကာလပြီးနောက်တွင်လည်း ဆက်ရှိနေနိုင်သည် သို့မဟုတ် ပေါ်လာနိုင်သည်။',
+    body1b:
+      'ထို့အပြင် ပေါ်သည့်နေရာ၊ နက်ရှိုင်းမှုနှင့် ပုံမှန်အသားအရေစောင့်ရှောက်မှုကို ကောင်းစွာလိုက်နာသော်လည်း တူညီသည့်နေရာများတွင် ပြန်ပေါ်လာလေ့ရှိမှုတို့ဖြင့် ကွဲပြားသည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'ဟော်မုန်းဝက်ခြံသည် သန့်ရှင်းမှု မရှိခြင်းနှင့် မသက်ဆိုင်ပါ။ မျက်နှာကို ပိုမကြာခဏ ဆေးခြင်းဖြင့် မပျောက်သွားသည့်အပြင် အသားအရေကို ယားယံရှစ်ရောင်စေနိုင်သည်။',
+    h2Title: 'PCOS က ဝက်ခြံကို အဘယ်ကြောင့် ဖြစ်စေနိုင်သနည်း။',
+    body2:
+      'PCOS တွင် အန်ဒရိုဂျင် အနည်းငယ် ပိုလွန်နေခြင်းက အဆီထွက်ဂလင်းများကို လှုံ့ဆော်ပေးပြီး အဆီ ပိုထွက်စေသည်။ အချို့သော အသားအရေသည် ဤဟော်မုန်းများကို ပိုမိုထိခိုက်လွယ်ပြီး ဓာတ်ခွဲခန်းတွင် တိုင်းတာသော ကြီးမားသည့် မညီမျှမှု မရှိသော်လည်း ဝက်ခြံ သိသာထင်ရှားနိုင်ရခြင်းကို ရှင်းပြသည်။',
+    neutralText:
+      'ဤသည်မှာ ဆန္ဒစွမ်းအားနှင့် ပတ်သက်သော ကိစ္စမဟုတ်ပါ။ ဤထိခိုက်လွယ်မှုသည် လူတစ်ဦးနှင့်တစ်ဦး ကွဲပြားပြီး သင့်နေထိုင်မှုအလေ့အထများအပေါ် မမူတည်ပါ။',
+    h3Title: 'ဟော်မုန်းဝက်ခြံကို မည်သို့သိနိုင်သနည်း',
+    body3:
+      'အချို့လက္ခဏာများသည် အမြဲတမ်းမဟုတ်သော်လည်း မကြာခဏ ထပ်ခါထပ်ခါ တွေ့ရတတ်သည်။',
+    recognizeSigns: [
+      'မျက်နှာအောက်ပိုင်း၊ မေးရိုးနှင့် မေးစေ့',
+      'ပိုနက်ပြီး တခါတရံ နာကျင်သော အဖု အပိမ့်များ',
+      'တူညီသည့်နေရာများတွင် မကြာခဏ ပြန်ပေါ်ခြင်း',
+      'ဆက်ရှိနေသော အနီစက်များ သို့မဟုတ် အမှတ်အသားများ',
+    ],
+    h4Title: 'ဟော်မုန်းဝက်ခြံနှင့် ရာသီစက်ဝန်း',
+    body4:
+      'ဟော်မုန်းဝက်ခြံသည် ရာသီစက်ဝန်းတစ်လျှောက် အတက်အကျ ဖြစ်နိုင်သည်။ အမျိုးသမီးများစွာသည် ရာသီမလာမီ ရက်များတွင် ပရိုဂျက်စတီရုန်း တက်လာပြီး ထို့နောက် သိသိသာသာ ကျဆင်းသောအခါ အဆီထွက်မှုကို ယာယီလှုံ့ဆော်ကာ ဝက်ခြံ ပိုထွက်လာသည်ကို သတိပြုမိကြသည်။',
+    highlightTitle: 'သင့်ဝက်ခြံပေါ်ချိန်များကို မှတ်တမ်းတင်ခြင်း',
+    highlightText:
+      'ဝက်ခြံများ ပေါ်လာသည့်အချိန်ကို သင့်ရာသီစက်ဝန်းနှင့် နှိုင်းယှဉ်၍ မှတ်ထားခြင်းက သင်နှင့် သင့်အရေပြားအထူးကုဆရာဝန်အား ဟော်မုန်းနှင့် ဆက်စပ်မှုကို ပိုမိုနားလည်ရန် ကူညီနိုင်သည်။',
+    h5Title: 'ကူညီနိုင်သည့်အရာများ',
+    body5a:
+      'ရိုးရှင်းသော အသားအရေစောင့်ရှောက်မှု အလေ့အထအချို့သည် ဝက်ခြံပေါ်ခြင်းကို လျှော့ချရာတွင် ကူညီနိုင်သော်လည်း ၎င်းတို့ကိုယ်တိုင်ဖြင့် လုံးဝ မပျောက်စေနိုင်ပါ။',
+    careHabits: [
+      'နံနက်နှင့်ညနေ အသားအရေကို ညင်သာစွာ သန့်စင်ပါ',
+      'ပြင်းထန်သော သို့မဟုတ် အရေပြားခြောက်သွေ့စေသော ထုတ်ကုန်များကို ရှောင်ပါ',
+      'နေ့စဉ် နေရောင်ခြည်မှ အရေပြားကို ကာကွယ်ပါ',
+      'ဝက်ခြံများကို ညှစ်ခြင်း သို့မဟုတ် ခြစ်ခြင်းကို ရှောင်ပါ',
+    ],
+    body5b:
+      'အခြေအနေပေါ်မူတည်၍ အရေပြားအထူးကုဆရာဝန် သို့မဟုတ် သားဖွားမီးယပ်အထူးကုက အပေါ်ယံသုံး ကုသမှုများ (ခရင်မ်၊ ဂျယ်လ်) သို့မဟုတ် လိုအပ်ပါက သင့်လျော်သော ဟော်မုန်းကုသမှုကို အကြံပြုနိုင်သည်။',
+    alertTitle: 'ကိုယ်တိုင်ဆေးမကုပါနှင့်',
+    alertText:
+      'ဟော်မုန်းဝက်ခြံအတွက် ကုသမှုများ (အပေါ်ယံသုံး သို့မဟုတ် ဟော်မုန်း) ကို ကျန်းမာရေးပညာရှင်က ညွှန်းဆိုပြီး စောင့်ကြည့်ရမည်။ အထူးသဖြင့် သန္ဓေတည်ရန် မျှော်လင့်ထားပါက ဖြစ်သည်။',
+    h6Title: 'ဆရာဝန်နှင့် မည်သည့်အချိန် ပြသသင့်သနည်း။',
+    body6:
+      'အချို့အခြေအနေများတွင် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်သည် အထူးအထောက်အကူဖြစ်သည်။',
+    consultReasons: [
+      'သင့်လျော်သော စောင့်ရှောက်မှုရှိသော်လည်း ဆက်ရှိနေသည့် ဝက်ခြံ',
+      'နာကျင်သော သို့မဟုတ် နက်ရှိုင်းသော ဝက်ခြံအဖုများ (အဖုအကျိတ်၊ အိတ်ကလေး)',
+      'ပြင်းထန်သော ဝက်ခြံ သို့မဟုတ် လျင်မြန်စွာ ဆိုးရွားလာသော ဝက်ခြံ',
+      'အမှတ်အသားများ သို့မဟုတ် အမာရွတ်များ တည်ငြိမ်လာခြင်း',
+    ],
+    h7Title: 'အဓိကအချက်များ',
+    summaryTitle: 'အဓိကအချက်များ',
+    keyPoints: [
+      'ဟော်မုန်းဝက်ခြံတွင် အန်ဒရိုဂျင်နှင့် ဆက်စပ်သော သိရှိနိုင်သည့် အကြောင်းရင်း ရှိသည်။',
+      'ဤဝက်ခြံသည် မျက်နှာအောက်ပိုင်းကို မကြာခဏ ထိခိုက်ပြီး ရာသီမလာမီ ပိုဆိုးလာနိုင်သည်။',
+      'ဤဝက်ခြံသည် သန့်ရှင်းမှုမရှိခြင်းလည်း မဟုတ်၊ ရှောင်လွှဲမရသောအရာလည်း မဟုတ်ပါ။',
+      'ညင်သာသော စောင့်ရှောက်မှုနှင့် လိုအပ်ပါက သင့်လျော်သော ကုသမှုက တိုးတက်စေနိုင်သည်။',
+      'ဆက်ရှိနေပါက အရေပြားအထူးကုဆရာဝန် သို့မဟုတ် သားဖွားမီးယပ်အထူးကုက ကူညီပေးနိုင်သည်။',
+    ],
+    finalNoteTitle: 'ပိုမိုနားလည်စေရန် လမ်းညွှန်ချက်',
+    finalNoteText:
+      'ဤဆောင်းပါးသည် ယေဘုယျအချက်အလက်ပေးရန်သာ ဖြစ်ပြီး ဆေးဘက်ဆိုင်ရာ ပြသမှုကို အစားထိုးခြင်းမရှိပါ။ သံသယရှိပါက သို့မဟုတ် လက္ခဏာများ ဆက်ရှိနေပါက ကျန်းမာရေးပညာရှင်ထံ အကြံဉာဏ်တောင်းပါ။',
+    shareMessage: 'ဟော်မုန်းဝက်ခြံကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'PCOS • មុនអរម៉ូន',
+    title: 'ការយល់ដឹងអំពី\nមុនអរម៉ូន',
+    metaDuration: 'អាន 7 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាអប់រំ',
+    intro:
+      'ហេតុអ្វីមុនអរម៉ូនអាចលេចឡើងជាមួយ PCOS របៀបសម្គាល់វា និងដំណោះស្រាយអ្វីខ្លះដែលអាចជួយគ្រប់គ្រងវា។',
+    introSecondary:
+      'វាប៉ះពាល់ស្ត្រីជាច្រើន ហើយមិនមែនជាការខ្វះអនាម័យ ឬជៀសមិនរួចនោះទេ៖ ការយល់ដឹងអំពីប្រភពរបស់វាជួយគ្រប់គ្រងវាបានប្រសើរជាង។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'តើមុនអរម៉ូនជាអ្វី?',
+      'ហេតុអ្វី PCOS អាចបណ្តាលឱ្យមានមុន?',
+      'របៀបសម្គាល់មុនអរម៉ូន',
+      'មុនអរម៉ូន និងវដ្តរដូវ',
+      'អ្វីដែលអាចជួយបាន',
+      'ពេលណាគួរជួបវេជ្ជបណ្ឌិត?',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    h1: 'តើមុនអរម៉ូនជាអ្វី?',
+    body1a:
+      'មុនអរម៉ូនគឺជាទម្រង់មុនដែលទាក់ទងដោយផ្ទាល់នឹងការប្រែប្រួលអរម៉ូន ឬភាពមិនស្មើគ្នា ជាពិសេសនៃអង់ដ្រូហ្សែន។ មិនដូចមុនធម្មតាជាងនៃវ័យជំទង់ទេ វាជាញឹកញាប់ប៉ះពាល់ស្ត្រីពេញវ័យ ហើយអាចនៅបន្ត ឬលេចឡើងក្រោយអំឡុងពេលនោះ។',
+    body1b:
+      'វាក៏ត្រូវបានសម្គាល់ដោយទីតាំងរបស់វា ជម្រៅរបស់វា និងទំនោរនៃការលេចឡើងម្តងទៀតនៅកន្លែងដដែល ទោះបីជាមានការថែរក្សាស្បែកទៀងទាត់ដែលអនុវត្តបានល្អក៏ដោយ។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'មុនអរម៉ូនមិនទាក់ទងនឹងការខ្វះអនាម័យទេ៖ ការលាងមុខញឹកញាប់ជាងមុនមិនធ្វើឱ្យវាបាត់ទេ ហើយថែមទាំងអាចធ្វើឱ្យស្បែករលាក។',
+    h2Title: 'ហេតុអ្វី PCOS អាចបណ្តាលឱ្យមានមុន?',
+    body2:
+      'ក្នុង PCOS អង់ដ្រូហ្សែនលើសដោយប្រៀបធៀប ជំរុញក្រពេញខ្លាញ់ ដែលបន្ទាប់មកផលិតខ្លាញ់ស្បែកកាន់តែច្រើន។ ស្បែកខ្លះក៏រងឥទ្ធិពលខ្លាំងជាងចំពោះអរម៉ូនទាំងនេះ ដែលពន្យល់ថាហេតុអ្វីមុនអាចលេចធ្លោ សូម្បីតែគ្មានភាពមិនស្មើគ្នាធំដែលវាស់បានក្នុងមន្ទីរពិសោធន៍។',
+    neutralText:
+      'នេះមិនមែនជាបញ្ហានៃឆន្ទៈទេ៖ ភាពរងឥទ្ធិពលនេះប្រែប្រួលពីមនុស្សម្នាក់ទៅម្នាក់ ហើយមិនអាស្រ័យលើទម្លាប់រស់នៅរបស់អ្នកទេ។',
+    h3Title: 'របៀបសម្គាល់មុនអរម៉ូន',
+    body3:
+      'លក្ខណៈមួយចំនួនកើតឡើងម្តងទៀតជាញឹកញាប់ ទោះបីមិនតែងតែក៏ដោយ៖',
+    recognizeSigns: [
+      'ផ្នែកខាងក្រោមនៃមុខ៖ បន្ទាត់ថ្គាម, ចង្កា',
+      'មុនដុះជ្រៅជាង ជួនកាលឈឺ',
+      'ជាញឹកញាប់លេចឡើងម្តងទៀតនៅកន្លែងដដែល',
+      'ក្រហម ឬស្នាមដែលនៅជាប់យូរ',
+    ],
+    h4Title: 'មុនអរម៉ូន និងវដ្តរដូវ',
+    body4:
+      'មុនអរម៉ូនអាចប្រែប្រួលពេញមួយវដ្តរដូវ។ ស្ត្រីជាច្រើនកត់សម្គាល់ឃើញការផ្ទុះឡើងក្នុងរយៈពេលពីរបីថ្ងៃមុនរដូវ ពេលប្រូសេស្តេរ៉ូនកើនឡើង ហើយបន្ទាប់មកធ្លាក់ចុះយ៉ាងខ្លាំង ដែលជំរុញការផលិតខ្លាញ់ស្បែកជាបណ្តោះអាសន្ន។',
+    highlightTitle: 'ការតាមដានការផ្ទុះមុនរបស់អ្នក',
+    highlightText:
+      'ការកត់ត្រាពេលដែលមុនលេចឡើងធៀបនឹងវដ្តរដូវរបស់អ្នក អាចជួយអ្នក និងគ្រូពេទ្យឯកទេសស្បែករបស់អ្នកឱ្យយល់ពីទំនាក់ទំនងអរម៉ូនបានប្រសើរជាង។',
+    h5Title: 'អ្វីដែលអាចជួយបាន',
+    body5a:
+      'ទម្លាប់ថែរក្សាងាយៗមួយចំនួនអាចជួយកំណត់ការផ្ទុះមុន ដោយមិនបំបាត់វាទាំងស្រុងដោយខ្លួនឯង៖',
+    careHabits: [
+      'លាងសម្អាតស្បែកដោយថ្នមៗ ព្រឹក និងល្ងាច',
+      'ជៀសវាងផលិតផលខ្លាំង ឬដែលធ្វើឱ្យស្បែកស្ងួត',
+      'ការពារស្បែកពីព្រះអាទិត្យជារៀងរាល់ថ្ងៃ',
+      'ជៀសវាងការច្របាច់ ឬកោសមុន',
+    ],
+    body5b:
+      'អាស្រ័យលើស្ថានភាព គ្រូពេទ្យឯកទេសស្បែក ឬគ្រូពេទ្យឯកទេសស្ត្រី អាចណែនាំការព្យាបាលលើស្បែក (ក្រែម ជែល) ឬប្រសិនបើចាំបាច់ ការព្យាបាលដោយអរម៉ូនដែលស័ក្តិសម។',
+    alertTitle: 'កុំព្យាបាលខ្លួនឯង',
+    alertText:
+      'ការព្យាបាលមុនអរម៉ូន (លើស្បែក ឬអរម៉ូន) ត្រូវតែត្រូវបានចេញវេជ្ជបញ្ជា និងតាមដានដោយអ្នកជំនាញសុខាភិបាល ជាពិសេសប្រសិនបើអ្នកសង្ឃឹមថានឹងមានផ្ទៃពោះ។',
+    h6Title: 'ពេលណាគួរជួបវេជ្ជបណ្ឌិត?',
+    body6:
+      'ដំបូន្មានផ្នែកវេជ្ជសាស្ត្រមានប្រយោជន៍ជាពិសេសក្នុងស្ថានភាពមួយចំនួន៖',
+    consultReasons: [
+      'មុនដែលនៅបន្ត ទោះបីមានការថែរក្សាសមស្រប',
+      'មុនឈឺ ឬជ្រៅ (ដុំ គ្រុំ)',
+      'មុនធ្ងន់ធ្ងរ ឬកាន់តែអាក្រក់ឡើងយ៉ាងឆាប់រហ័ស',
+      'ស្នាម ឬស្លាកស្នាមដែលចាប់ផ្តើមនៅជាប់',
+    ],
+    h7Title: 'ចំណុចសំខាន់ៗ',
+    summaryTitle: 'ចំណុចសំខាន់ៗ',
+    keyPoints: [
+      'មុនអរម៉ូនមានមូលហេតុដែលអាចកំណត់បាន ទាក់ទងនឹងអង់ដ្រូហ្សែន។',
+      'វាជាញឹកញាប់ប៉ះពាល់ផ្នែកខាងក្រោមនៃមុខ ហើយអាចកាន់តែអាក្រក់មុនរដូវ។',
+      'វាមិនមែនជាការខ្វះអនាម័យ ឬជៀសមិនរួចនោះទេ។',
+      'ការថែរក្សាដោយថ្នមៗ និងប្រសិនបើចាំបាច់ ការព្យាបាលដែលស័ក្តិសម អាចធ្វើឱ្យប្រសើរឡើង។',
+      'គ្រូពេទ្យឯកទេសស្បែក ឬគ្រូពេទ្យឯកទេសស្ត្រី អាចគាំទ្រអ្នក ប្រសិនបើវានៅបន្ត។',
+    ],
+    finalNoteTitle: 'មគ្គុទ្ទេសក៍ដើម្បីយល់កាន់តែច្បាស់',
+    finalNoteText:
+      'អត្ថបទនេះសម្រាប់ព័ត៌មានទូទៅប៉ុណ្ណោះ ហើយមិនជំនួសការពិគ្រោះផ្នែកវេជ្ជសាស្ត្រទេ។ ប្រសិនបើមានការសង្ស័យ ឬរោគសញ្ញានៅបន្ត សូមស្វែងរកដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ការយល់ដឹងអំពីមុនអរម៉ូន — AWA',
+  },
+  lo: {
+    badge: 'PCOS • ສິວຈາກຮໍໂມນ',
+    title: 'ເຂົ້າໃຈ\nສິວຈາກຮໍໂມນ',
+    metaDuration: 'ອ່ານ 7 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາເພື່ອການສຶກສາ',
+    intro:
+      'ເປັນຫຍັງສິວຈາກຮໍໂມນຈຶ່ງອາດເກີດຂຶ້ນກັບ PCOS, ວິທີສັງເກດ ແລະ ວິທີແກ້ໄຂໃດທີ່ອາດຊ່ວຍຈັດການມັນ.',
+    introSecondary:
+      'ມັນເກີດກັບຜູ້ຍິງຫຼາຍຄົນ ແລະ ບໍ່ແມ່ນຍ້ອນຂາດຄວາມສະອາດ ແລະ ບໍ່ແມ່ນສິ່ງທີ່ຫຼີກບໍ່ໄດ້: ການເຂົ້າໃຈຕົ້ນເຫດຂອງມັນຊ່ວຍໃຫ້ຈັດການໄດ້ດີຂຶ້ນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ສິວຈາກຮໍໂມນແມ່ນຫຍັງ?',
+      'ເປັນຫຍັງ PCOS ຈຶ່ງອາດເຮັດໃຫ້ເກີດສິວ?',
+      'ວິທີສັງເກດສິວຈາກຮໍໂມນ',
+      'ສິວຈາກຮໍໂມນ ແລະ ຮອບເດືອນ',
+      'ສິ່ງທີ່ອາດຊ່ວຍໄດ້',
+      'ເວລາໃດຄວນພົບແພດ?',
+      'ຈຸດສຳຄັນ',
+    ],
+    h1: 'ສິວຈາກຮໍໂມນແມ່ນຫຍັງ?',
+    body1a:
+      'ສິວຈາກຮໍໂມນແມ່ນສິວຮູບແບບໜຶ່ງທີ່ກ່ຽວຂ້ອງໂດຍກົງກັບການຜັນຜວນ ຫຼື ຄວາມບໍ່ສົມດຸນຂອງຮໍໂມນ ໂດຍສະເພາະແອນໂດຣເຈັນ. ຕ່າງຈາກສິວທີ່ພົບທົ່ວໄປໃນໄວລຸ້ນ ມັນມັກເກີດກັບຜູ້ຍິງຜູ້ໃຫຍ່ ແລະ ອາດຄົງຢູ່ ຫຼື ປາກົດຂຶ້ນຫຼັງໄວນັ້ນ.',
+    body1b:
+      'ມັນຍັງມີລັກສະນະເດັ່ນຄືຕຳແໜ່ງ, ຄວາມເລິກ ແລະ ແນວໂນ້ມທີ່ຈະກັບມາເກີດຊ້ຳບ່ອນເກົ່າ ເຖິງແມ່ນຈະດູແລຜິວຢ່າງສະໝ່ຳສະເໝີແລ້ວກໍຕາມ.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ສິວຈາກຮໍໂມນບໍ່ກ່ຽວກັບການຂາດຄວາມສະອາດ: ການລ້າງໜ້າຖີ່ຂຶ້ນບໍ່ໄດ້ເຮັດໃຫ້ມັນຫາຍໄປ ແລະ ອາດເຮັດໃຫ້ຜິວລະຄາຍເຄືອງດ້ວຍຊ້ຳ.',
+    h2Title: 'ເປັນຫຍັງ PCOS ຈຶ່ງອາດເຮັດໃຫ້ເກີດສິວ?',
+    body2:
+      'ໃນ PCOS ແອນໂດຣເຈັນທີ່ມີຫຼາຍກວ່າປົກກະຕິກະຕຸ້ນຕ່ອມໄຂມັນ ເຊິ່ງຜະລິດໄຂມັນຜິວຫຼາຍຂຶ້ນ. ຜິວບາງຄົນຍັງໄວຕໍ່ຮໍໂມນເຫຼົ່ານີ້ຫຼາຍກວ່າ ເຊິ່ງອະທິບາຍວ່າເປັນຫຍັງສິວຈຶ່ງອາດເດັ່ນຊັດ ເຖິງແມ່ນບໍ່ມີຄວາມບໍ່ສົມດຸນຫຼາຍທີ່ວັດໄດ້ໃນຫ້ອງທົດລອງ.',
+    neutralText:
+      'ນີ້ບໍ່ແມ່ນເລື່ອງຂອງກຳລັງໃຈ: ຄວາມໄວນີ້ແຕກຕ່າງກັນໃນແຕ່ລະຄົນ ແລະ ບໍ່ຂຶ້ນກັບນິໄສການດຳລົງຊີວິດຂອງທ່ານ.',
+    h3Title: 'ວິທີສັງເກດສິວຈາກຮໍໂມນ',
+    body3:
+      'ລັກສະນະບາງຢ່າງມັກເກີດຂຶ້ນຊ້ຳ ແຕ່ບໍ່ແມ່ນທຸກຄັ້ງ:',
+    recognizeSigns: [
+      'ສ່ວນລຸ່ມຂອງໃບໜ້າ: ແນວຄາງ, ຄາງ',
+      'ສິວທີ່ເລິກກວ່າ ແລະ ບາງຄັ້ງເຈັບ',
+      'ມັກກັບມາເກີດຊ້ຳບ່ອນເກົ່າ',
+      'ຮອຍແດງ ຫຼື ຮອຍທີ່ຢູ່ດົນ',
+    ],
+    h4Title: 'ສິວຈາກຮໍໂມນ ແລະ ຮອບເດືອນ',
+    body4:
+      'ສິວຈາກຮໍໂມນສາມາດຜັນຜວນຕະຫຼອດຮອບເດືອນ. ຜູ້ຍິງຫຼາຍຄົນສັງເກດເຫັນສິວຂຶ້ນຫຼາຍໃນສອງສາມມື້ກ່ອນປະຈຳເດືອນ ເມື່ອໂປຣເຈສເຕໂຣນເພີ່ມຂຶ້ນ ແລ້ວຫຼຸດລົງຢ່າງໄວ ເຊິ່ງກະຕຸ້ນການຜະລິດໄຂມັນຜິວຊົ່ວຄາວ.',
+    highlightTitle: 'ຕິດຕາມການກຳເຣີບຂອງສິວ',
+    highlightText:
+      'ການບັນທຶກວ່າສິວປາກົດເມື່ອໃດເມື່ອທຽບກັບຮອບເດືອນ ສາມາດຊ່ວຍທ່ານ ແລະ ແພດຜິວໜັງເຂົ້າໃຈຄວາມກ່ຽວຂ້ອງກັບຮໍໂມນໄດ້ດີຂຶ້ນ.',
+    h5Title: 'ສິ່ງທີ່ອາດຊ່ວຍໄດ້',
+    body5a:
+      'ນິໄສການດູແລງ່າຍໆບາງຢ່າງສາມາດຊ່ວຍຈຳກັດການກຳເຣີບ ໂດຍບໍ່ໄດ້ເຮັດໃຫ້ສິວຫາຍໝົດດ້ວຍຕົວມັນເອງ:',
+    careHabits: [
+      'ທຳຄວາມສະອາດຜິວຢ່າງອ່ອນໂຍນທັງເຊົ້າ ແລະ ແລງ',
+      'ຫຼີກເວັ້ນຜະລິດຕະພັນທີ່ແຮງ ຫຼື ລອກຜິວ',
+      'ປົກປ້ອງຜິວຈາກແສງແດດທຸກມື້',
+      'ຫຼີກເວັ້ນການບີບ ຫຼື ແກະສິວ',
+    ],
+    body5b:
+      'ຕາມສະຖານະການ ແພດຜິວໜັງ ຫຼື ສູດິ-ນາຣີແພດອາດແນະນຳການຮັກສາແບບທາ (ຄຣີມ, ເຈວ) ຫຼື ຖ້າຈຳເປັນ ການຮັກສາດ້ວຍຮໍໂມນທີ່ເໝາະສົມ.',
+    alertTitle: 'ຢ່າຮັກສາຕົນເອງ',
+    alertText:
+      'ການຮັກສາສິວຈາກຮໍໂມນ (ແບບທາ ຫຼື ຮໍໂມນ) ຕ້ອງຖືກສັ່ງ ແລະ ຕິດຕາມໂດຍຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ ໂດຍສະເພາະຖ້າທ່ານຫວັງຈະຕັ້ງຄັນ.',
+    h6Title: 'ເວລາໃດຄວນພົບແພດ?',
+    body6:
+      'ຄຳແນະນຳທາງການແພດມີປະໂຫຍດເປັນພິເສດໃນບາງສະຖານະການ:',
+    consultReasons: [
+      'ສິວທີ່ຄົງຢູ່ ທັງທີ່ດູແລຢ່າງເໝາະສົມແລ້ວ',
+      'ສິວທີ່ເຈັບ ຫຼື ເລິກ (ກ້ອນ, ຖົງນ້ຳ)',
+      'ສິວຮຸນແຮງ ຫຼື ສິວທີ່ຮ້າຍແຮງຂຶ້ນຢ່າງໄວ',
+      'ຮອຍ ຫຼື ແຜເປັນທີ່ເລີ່ມຄົງຢູ່',
+    ],
+    h7Title: 'ຈຸດສຳຄັນ',
+    summaryTitle: 'ຈຸດສຳຄັນທີ່ຕ້ອງຈື່',
+    keyPoints: [
+      'ສິວຈາກຮໍໂມນມີສາເຫດທີ່ລະບຸໄດ້ ທີ່ກ່ຽວຂ້ອງກັບແອນໂດຣເຈັນ.',
+      'ມັນມັກເກີດທີ່ສ່ວນລຸ່ມຂອງໃບໜ້າ ແລະ ອາດຮ້າຍແຮງຂຶ້ນກ່ອນປະຈຳເດືອນ.',
+      'ມັນບໍ່ແມ່ນຍ້ອນຂາດຄວາມສະອາດ ແລະ ບໍ່ແມ່ນສິ່ງທີ່ຫຼີກບໍ່ໄດ້.',
+      'ການດູແລຢ່າງອ່ອນໂຍນ ແລະ ຖ້າຈຳເປັນ ການຮັກສາທີ່ເໝາະສົມສາມາດເຮັດໃຫ້ດີຂຶ້ນ.',
+      'ແພດຜິວໜັງ ຫຼື ສູດິ-ນາຣີແພດສາມາດຊ່ວຍທ່ານໄດ້ ຫາກສິວຍັງຄົງຢູ່.',
+    ],
+    finalNoteTitle: 'ຄູ່ມືເພື່ອເຂົ້າໃຈໃຫ້ດີຂຶ້ນ',
+    finalNoteText:
+      'ບົດຄວາມນີ້ເປັນຂໍ້ມູນທົ່ວໄປເທົ່ານັ້ນ ແລະ ບໍ່ແທນການປຶກສາແພດ. ຫາກສົງໄສ ຫຼື ອາການຍັງຄົງຢູ່ ໃຫ້ຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ເຂົ້າໃຈສິວຈາກຮໍໂມນ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

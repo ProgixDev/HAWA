@@ -1472,6 +1472,728 @@ const CONTENT = withBrazilianPortuguese('Nidation', {
       'Implantasiýa görünýän alamat bilen ýa-da alamatsyz, ýaşyryn bolýar. Synagdan öň az-kem sabyr ygtybarsyz netijeden halas edýär.',
     shareMessage: 'Implantasiýany düşünmek — AWA',
   },
+  ms: {
+    badge: 'IMPLANTASI',
+    title: 'Memahami\nimplantasi',
+    metaDuration: '5 min bacaan',
+    metaType: 'Artikel',
+    metaLevel: 'Pertengahan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Apa yang berlaku antara persenyawaan dan ujian kehamilan yang positif.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Dari persenyawaan hingga implantasi',
+      'Tanda yang mungkin, tanpa kepastian',
+      'Bila ujian menjadi boleh dipercayai',
+      'Perkara penting untuk diingat',
+    ],
+    body1:
+      'Selepas persenyawaan, sel telur biasanya mengambil masa 6 hingga 10 hari untuk sampai ke rahim dan melekat di sana: inilah implantasi. Langkah ini menandakan titik permulaan sebenar kehamilan.',
+    body2:
+      'Pendarahan ringan atau kekejangan kadangkala boleh menyertai implantasi, walaupun ini tidak sistematik, dan bukan tanda yang boleh dipercayai dengan sendirinya.',
+    possibleSigns: [
+      'Pendarahan yang sangat ringan, kadangkala dipanggil "bintik darah"',
+      'Kekejangan ringan di perut bawah',
+      'Tiada tanda tertentu langsung, bagi ramai wanita',
+    ],
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Ketiadaan tanda tidak bermakna apa-apa: banyak kehamilan bermula tanpa sebarang simptom yang ketara pada peringkat ini.',
+    body3:
+      'Hanya selepas implantasi, hormon hCG mula dihasilkan dan menjadi boleh dikesan oleh ujian kehamilan. Menguji terlalu awal boleh memberikan keputusan negatif palsu.',
+    alertTitle: 'Nota',
+    alertText:
+      'Menunggu sehingga hari haid yang dijangkakan sebelum menguji memberikan keputusan yang lebih boleh dipercayai berbanding menguji terlalu awal.',
+    tip2Title: 'Elok diketahui',
+    tip2Text:
+      'Implantasi berlaku secara diskret, dengan atau tanpa tanda yang kelihatan. Sedikit kesabaran sebelum menguji menyelamatkan anda daripada keputusan yang tidak boleh dipercayai.',
+    shareMessage: 'Memahami implantasi — AWA',
+  },
+  so: {
+    badge: 'KU DHEGIDDA UKUNTA',
+    title: 'Fahamka\nku dhegidda ukunta',
+    metaDuration: '5 daq akhris',
+    metaType: 'Maqaal',
+    metaLevel: 'Dhexdhexaad',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Waxa dhaca inta u dhexeysa bacrimin iyo baaritaan uur oo togan.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Laga bilaabo bacrimin ilaa ku dhegid',
+      'Calaamadaha suurtagalka ah, hubin la’aan',
+      'Goorta baaritaanku noqdo la isku halleyn karo',
+      'Qodobbada muhiimka ah',
+    ],
+    body1:
+      'Bacrimin ka dib, ukuntu inta badan waxay qaadataa 6 ilaa 10 maalmood si ay u gaarto ilmo-galeenka oo ay halkaas ugu dhegto: tani waa ku dhegidda. Tallaabadani waxay calaamadaysaa bilowga dhabta ah ee uurka.',
+    body2:
+      'Dhiigbax fudud ama qallal ayaa mararka qaarkood la socon kara ku dhegidda, in kasta oo tani aanay ahayn nidaamsan, ama calaamad la isku halleyn karo keligeed.',
+    possibleSigns: [
+      'Dhiigbax aad u fudud, mararka qaarkood loo yaqaan “spotting”',
+      'Qallal khafiif ah oo calooshaada hoose ah',
+      'Calaamad gaar ah oo jirin, dumar badan',
+    ],
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Calaamad la’aanta waxba ma muujiso: uur badan ayaa bilaabma iyadoo astaan la dareemi karo aan jirin heerkan.',
+    body3:
+      'Waxaa ku dhegidda ka dib oo keliya in hormoonka hCG uu bilaabmo in la soo saaro oo uu noqdo mid baaritaanka uurku ogaan karo. Baaritaan hore ayaa bixin kara natiijo taban oo been ah.',
+    alertTitle: 'Ogow',
+    alertText:
+      'Sugitaanka maalinta la filayo ee caadadaada ka hor baaritaanka wuxuu bixiyaa natiijo ka la isku halleyn karo marka loo eego baaritaan hore.',
+    tip2Title: 'Waxtar leh in la ogaado',
+    tip2Text:
+      'Ku dhegiddu way dhacdaa si qarsoon, calaamad muuqata leh ama la’aan. Samir yar ka hor baaritaanka ayaa ku badbaadinaya natiijo aan la isku halleyn karin.',
+    shareMessage: 'Fahamka ku dhegidda ukunta — AWA',
+  },
+  sw: {
+    badge: 'KUJIPANDIKIZA KWA KIINITETE',
+    title: 'Kuelewa\nkujipandikiza kwa kiinitete',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaType: 'Makala',
+    metaLevel: 'Wastani',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Kinachotokea kati ya utungisho na kipimo chanya cha ujauzito.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kutoka utungisho hadi kujipandikiza',
+      'Dalili zinazowezekana, bila uhakika',
+      'Wakati kipimo kinapokuwa cha kuaminika',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    body1:
+      'Baada ya utungisho, yai kwa kawaida huchukua siku 6 hadi 10 kufika kwenye mji wa uzazi na kujipandikiza huko: hii ni kujipandikiza. Hatua hii inaashiria mwanzo halisi wa ujauzito.',
+    body2:
+      'Kutokwa damu kidogo au mikakamao ya tumbo kunaweza wakati mwingine kuambatana na kujipandikiza, ingawa hili si la kawaida kila wakati, wala si dalili ya kuaminika peke yake.',
+    possibleSigns: [
+      'Kutokwa damu kidogo sana, wakati mwingine kunaitwa "spotting"',
+      'Mikakamao hafifu kwenye tumbo la chini',
+      'Hakuna dalili yoyote maalum kabisa, kwa wanawake wengi',
+    ],
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Kukosekana kwa dalili hakumaanishi chochote: ujauzito mwingi huanza bila dalili yoyote inayoonekana katika hatua hii.',
+    body3:
+      'Ni baada ya kujipandikiza tu ndipo homoni ya hCG huanza kutengenezwa na kuweza kugunduliwa na kipimo cha ujauzito. Kupima mapema mno kunaweza kutoa matokeo hasi ya uongo.',
+    alertTitle: 'Kumbuka',
+    alertText:
+      'Kusubiri hadi siku inayodhaniwa ya hedhi yako kabla ya kupima kunatoa matokeo ya kuaminika zaidi kuliko kupima mapema mno.',
+    tip2Title: 'Vyema kujua',
+    tip2Text:
+      'Kujipandikiza hutokea kwa siri, kukiwa na dalili inayoonekana au bila. Subira kidogo kabla ya kupima inakuepusha na matokeo yasiyoaminika.',
+    shareMessage: 'Kuelewa kujipandikiza kwa kiinitete — AWA',
+  },
+  kk: {
+    badge: 'ИМПЛАНТАЦИЯ',
+    title: 'Имплантацияны\nтүсіну',
+    metaDuration: '5 мин оқу',
+    metaType: 'Мақала',
+    metaLevel: 'Орташа',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Ұрықтану мен жүктіліктің оң тесті арасында не болады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Ұрықтанудан имплантацияға дейін',
+      'Мүмкін белгілер, нақтылықсыз',
+      'Тест қашан сенімді болады',
+      'Негізгі қорытындылар',
+    ],
+    body1:
+      'Ұрықтанудан кейін жұмыртқа жасушасы әдетте жатырға жету және сонда имплантациялану үшін 6-дан 10 күнге дейін уақыт алады: бұл имплантация. Бұл қадам жүктіліктің нақты бастау нүктесін білдіреді.',
+    body2:
+      'Жеңіл қан кету немесе құрысу кейде имплантациямен бірге жүруі мүмкін, дегенмен бұл жүйелі емес, сондай-ақ жалғыз сенімді белгі де емес.',
+    possibleSigns: [
+      'Кейде "спотинг" деп аталатын өте жеңіл қан кету',
+      'Іштің төменгі жағындағы жеңіл құрысу',
+      'Көптеген әйелдерде мүлдем ерекше белгінің болмауы',
+    ],
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Белгінің болмауы ешнәрсені білдірмейді: көптеген жүктіліктер осы кезеңде байқалатын белгісіз басталады.',
+    body3:
+      'hCG гормоны тек имплантациядан кейін түзіле бастайды және жүктілік тестімен анықталатын болады. Тым ерте тестілеу жалған теріс нәтиже беруі мүмкін.',
+    alertTitle: 'Ескерту',
+    alertText:
+      'Тестілеуге дейін етеккіріңіздің болжамды күніне дейін күту тым ерте тестілеуден гөрі сенімдірек нәтиже береді.',
+    tip2Title: 'Білуге тиісті',
+    tip2Text:
+      'Имплантация көрінетін белгімен немесе онсыз байқаусыз өтеді. Тестілеуге дейін аздап шыдамдылық сізді сенімсіз нәтижеден сақтайды.',
+    shareMessage: 'Имплантацияны түсіну — AWA',
+  },
+  wo: {
+    badge: 'NIDASIYOŊ',
+    title: 'Xam\nnidasiyoŋ',
+    metaDuration: '5 simili jàng',
+    metaType: 'Bind',
+    metaLevel: 'Digg-dóomu',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Li xew diggante bindeef ak tèsu ëmb bu positif.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Jóge ci bindeef ba nidasiyoŋ',
+      'Màndarga yu mën a am, te amul wóor',
+      'Kañ tès bi di wóor',
+      'Li am solo',
+    ],
+    body1:
+      'Ginnaaw bindeef, nen bi daa jël 6 ba 10 fan ngir agsi ci bérëbu ndey te ñu dugg fa: loolu mooy nidasiyoŋ. Ñaar fuñ bii mooy tàmbali dëgg bu ëmb.',
+    body2:
+      'Deret bu neex walla metit bu ndaw mën nañu ànd ak nidasiyoŋ, waaye loolu du saa su ne, te du màndarga bu wóor ci boppam.',
+    possibleSigns: [
+      'Deret bu neex lool, yenn saa ñu ko woowe "spotting"',
+      'Metit bu neex ci suufu biir',
+      'Amul benn màndarga bu leer, ci jigéen yu bari',
+    ],
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Amul màndarga du tekki dara: ëmb yu bari dañuy tàmbali te amul benn màndarga bu leer ci jamono jii.',
+    body3:
+      'Ginnaaw nidasiyoŋ rekk la hormon hCG di tàmbali defar te mën nañu ko gis ak tèsu ëmb. Def tès bu jëkk lool mën na joxe benn njeexital bu negatif bu neen.',
+    alertTitle: 'Teg',
+    alertText:
+      'Xaar ba bésu règle bu ñu xayma balaa nga def tès dafay joxe njeexital bu gëna wóor ba def tès bu jëkk lool.',
+    tip2Title: 'Lu baax a xam',
+    tip2Text:
+      'Nidasiyoŋ daa am ci nëbbu, ak walla amul benn màndarga bu gis. Tuuti muñ balaa tès dafay la tee njeexital bu wóorul.',
+    shareMessage: 'Xam nidasiyoŋ — AWA',
+  },
+  ha: {
+    badge: 'MANNEWAR ƘWAI',
+    title: 'Fahimtar\nmannewar ƙwai',
+    metaDuration: 'karatun minti 5',
+    metaType: 'Labari',
+    metaLevel: 'Matsakaici',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Abin da ke faruwa tsakanin hadi da gwajin ciki mai kyau.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Daga hadi zuwa mannewa',
+      'Yiwuwar alamomi, ba tare da tabbaci ba',
+      'Lokacin da gwaji ke zama abin dogaro',
+      'Muhimman abubuwa',
+    ],
+    body1:
+      'Bayan hadi, ƙwai yawanci yana ɗaukar kwanaki 6 zuwa 10 don isa mahaifa ya manne a can: wannan shi ne mannewa. Wannan mataki yana alamar ainihin farkon ciki.',
+    body2:
+      'Zubar jini kaɗan ko murɗawar ciki na iya biyo bayan mannewa wani lokaci, ko da yake wannan ba koyaushe ba ne, kuma ba alama ce ta dogaro ba ita kaɗai.',
+    possibleSigns: [
+      'Zubar jini kaɗan sosai, wani lokaci ana kiranta "spotting"',
+      'Ƙaramar murɗawa a ƙasan ciki',
+      'Babu wata alama ta musamman, ga mata da yawa',
+    ],
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Rashin alama ba ya nufin komai: ciki da yawa suna farawa ba tare da wata alama da ake gani a wannan mataki ba.',
+    body3:
+      'Bayan mannewa ne kawai ake fara samar da hormone hCG kuma gwajin ciki ya iya gano shi. Yin gwaji da wuri na iya ba da sakamako marar kyau na ƙarya.',
+    alertTitle: 'Lura',
+    alertText:
+      'Jira har zuwa ranar da ake tsammanin hailarki kafin yin gwaji yana ba da sakamako mafi dogaro fiye da yin gwaji da wuri.',
+    tip2Title: 'Abin da ya dace a sani',
+    tip2Text:
+      'Mannewa tana faruwa a sirrance, tare da alama a bayyane ko babu. Ɗan haƙuri kafin yin gwaji yana ceton ki daga sakamako maras dogaro.',
+    shareMessage: 'Fahimtar mannewar ƙwai — AWA',
+  },
+  am: {
+    badge: 'የእንቁላል መቀመጥ',
+    title: 'የእንቁላል መቀመጥን\n(ኢምፕላንቴሽን) መረዳት',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaType: 'ጽሑፍ',
+    metaLevel: 'መካከለኛ',
+    metaValidated: 'የተረጋገጠ ይዘት',
+    intro:
+      'በፅንሰትና በአዎንታዊ የእርግዝና ምርመራ መካከል የሚከሰተው።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ከፅንሰት እስከ መቀመጥ',
+      'ሊኖሩ የሚችሉ ምልክቶች፣ ያለ እርግጠኝነት',
+      'ምርመራ አስተማማኝ የሚሆነው መቼ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    body1:
+      'ከፅንሰት በኋላ እንቁላሉ ወደ ማህፀን ደርሶ እዚያ ለመቀመጥ ብዙውን ጊዜ ከ6 እስከ 10 ቀናት ይወስዳል፦ ይህ መቀመጥ ነው። ይህ ደረጃ የእርግዝና እውነተኛ መነሻ ነጥብን ያመለክታል።',
+    body2:
+      'ቀላል ደም መፍሰስ ወይም ቁርጠት አንዳንድ ጊዜ መቀመጡን ሊያጅብ ይችላል፣ ምንም እንኳን ይህ ሥርዓታዊ ባይሆንም፣ ብቻውን አስተማማኝ ምልክትም አይደለም።',
+    possibleSigns: [
+      'በጣም ቀላል ደም መፍሰስ፣ አንዳንድ ጊዜ “ስፖቲንግ” ተብሎ ይጠራል',
+      'በታችኛው ሆድ ቀላል ቁርጠት',
+      'ለብዙ ሴቶች ምንም ልዩ ምልክት አለመኖር',
+    ],
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'ምልክት አለመኖር ምንም ማለት አይደለም፦ ብዙ እርግዝናዎች በዚህ ደረጃ ምንም የሚታይ ምልክት ሳይኖር ይጀምራሉ።',
+    body3:
+      'የhCG ሆርሞን መመረት የሚጀምረው እና በእርግዝና ምርመራ የሚለይ የሚሆነው ከመቀመጥ በኋላ ብቻ ነው። በጣም ቀደም ብሎ መመርመር የሐሰት አሉታዊ ውጤት ሊሰጥ ይችላል።',
+    alertTitle: 'ማሳሰቢያ',
+    alertText:
+      'ከመመርመርሽ በፊት የወር አበባሽ እንደሚመጣ እስከሚገመትበት ቀን መጠበቅ በጣም ቀደም ብሎ ከመመርመር የበለጠ አስተማማኝ ውጤት ይሰጣል።',
+    tip2Title: 'ማወቅ ጠቃሚ ነው',
+    tip2Text:
+      'መቀመጥ በሚስጥር ይከሰታል፣ ከሚታይ ምልክት ጋርም ያለ እሱም። ከመመርመር በፊት ትንሽ ትዕግሥት አስተማማኝ ያልሆነ ውጤት ያስቀርልሻል።',
+    shareMessage: 'የእንቁላል መቀመጥን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'INNESTELING',
+    title: 'De innesteling\nbegrijpen',
+    metaDuration: '5 min lezen',
+    metaType: 'Artikel',
+    metaLevel: 'Gevorderd',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Wat er gebeurt tussen de bevruchting en een positieve zwangerschapstest.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Van bevruchting tot innesteling',
+      'Mogelijke tekenen, zonder zekerheid',
+      'Wanneer een test betrouwbaar wordt',
+      'Belangrijkste punten',
+    ],
+    body1:
+      'Na de bevruchting doet de eicel er meestal 6 tot 10 dagen over om de baarmoeder te bereiken en zich daar in te nestelen: dit is de innesteling. Deze stap markeert het echte beginpunt van de zwangerschap.',
+    body2:
+      'Lichte bloeding of krampen kunnen soms de innesteling vergezellen, al is dit niet systematisch en ook op zichzelf geen betrouwbaar teken.',
+    possibleSigns: [
+      'Zeer licht bloedverlies, soms "spotting" genoemd',
+      'Lichte krampen in de onderbuik',
+      'Voor veel vrouwen helemaal geen bijzonder teken',
+    ],
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Het ontbreken van een teken betekent niets: veel zwangerschappen beginnen zonder merkbaar symptoom in dit stadium.',
+    body3:
+      'Pas na de innesteling begint het hormoon hCG te worden geproduceerd en wordt het door een zwangerschapstest detecteerbaar. Te vroeg testen kan een onterecht negatief resultaat geven.',
+    alertTitle: 'Let op',
+    alertText:
+      'Wachten tot de vermoedelijke dag van je menstruatie voordat je test geeft een betrouwbaarder resultaat dan te vroeg testen.',
+    tip2Title: 'Goed om te weten',
+    tip2Text:
+      'De innesteling gebeurt discreet, met of zonder zichtbaar teken. Een beetje geduld voordat je test bespaart je een onbetrouwbaar resultaat.',
+    shareMessage: 'De innesteling begrijpen — AWA',
+  },
+  fi: {
+    badge: 'KIINNITTYMINEN',
+    title: 'Kiinnittymisen\nymmärtäminen',
+    metaDuration: '5 min lukuaika',
+    metaType: 'Artikkeli',
+    metaLevel: 'Keskitaso',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Mitä tapahtuu hedelmöittymisen ja positiivisen raskaustestin välillä.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Hedelmöittymisestä kiinnittymiseen',
+      'Mahdolliset merkit ilman varmuutta',
+      'Milloin testi tulee luotettavaksi',
+      'Tärkeimmät asiat',
+    ],
+    body1:
+      'Hedelmöittymisen jälkeen munasolulta kestää yleensä 6–10 päivää päästä kohtuun ja kiinnittyä sinne: tämä on kiinnittyminen. Tämä vaihe merkitsee raskauden todellista alkua.',
+    body2:
+      'Kevyt vuoto tai kramppi voi joskus liittyä kiinnittymiseen, vaikka se ei ole järjestelmällistä eikä yksinään luotettava merkki.',
+    possibleSigns: [
+      'Hyvin kevyt vuoto, jota kutsutaan joskus “tiputteluvuodoksi”',
+      'Lievä kramppi alavatsassa',
+      'Ei mitään erityistä merkkiä, monilla naisilla',
+    ],
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Merkin puuttuminen ei tarkoita mitään: monet raskaudet alkavat ilman havaittavaa oiretta tässä vaiheessa.',
+    body3:
+      'Vasta kiinnittymisen jälkeen hCG-hormonin tuotanto alkaa ja tulee raskaustestillä havaittavaksi. Liian aikainen testaus voi antaa virheellisesti negatiivisen tuloksen.',
+    alertTitle: 'Huomaa',
+    alertText:
+      'Odottaminen oletettuun kuukautispäivään asti ennen testaamista antaa luotettavamman tuloksen kuin liian aikainen testaus.',
+    tip2Title: 'Hyvä tietää',
+    tip2Text:
+      'Kiinnittyminen tapahtuu huomaamattomasti, näkyvän merkin kanssa tai ilman. Hieman kärsivällisyyttä ennen testaamista säästää epäluotettavalta tulokselta.',
+    shareMessage: 'Kiinnittymisen ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'ΕΜΦΥΤΕΥΣΗ',
+    title: 'Κατανοώντας\nτην εμφύτευση',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaType: 'Άρθρο',
+    metaLevel: 'Μεσαίο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Τι συμβαίνει ανάμεσα στη γονιμοποίηση και ένα θετικό τεστ εγκυμοσύνης.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Από τη γονιμοποίηση στην εμφύτευση',
+      'Πιθανά σημάδια, χωρίς βεβαιότητα',
+      'Πότε ένα τεστ γίνεται αξιόπιστο',
+      'Βασικά συμπεράσματα',
+    ],
+    body1:
+      'Μετά τη γονιμοποίηση, το ωάριο χρειάζεται συνήθως 6 έως 10 ημέρες για να φτάσει στη μήτρα και να εμφυτευτεί εκεί: αυτή είναι η εμφύτευση. Αυτό το βήμα σηματοδοτεί το πραγματικό σημείο εκκίνησης της εγκυμοσύνης.',
+    body2:
+      'Μια ελαφριά αιμορραγία ή κράμπες μπορεί μερικές φορές να συνοδεύουν την εμφύτευση, αν και αυτό δεν είναι συστηματικό ούτε αξιόπιστο σημάδι από μόνο του.',
+    possibleSigns: [
+      'Πολύ ελαφριά αιμορραγία, που ονομάζεται μερικές φορές «στάξιμο» (spotting)',
+      'Ήπιες κράμπες στην κάτω κοιλιά',
+      'Κανένα ιδιαίτερο σημάδι, για πολλές γυναίκες',
+    ],
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Η απουσία σημαδιού δεν σημαίνει τίποτα: πολλές εγκυμοσύνες ξεκινούν χωρίς κανένα αισθητό σύμπτωμα σε αυτό το στάδιο.',
+    body3:
+      'Μόνο μετά την εμφύτευση αρχίζει να παράγεται η ορμόνη hCG και γίνεται ανιχνεύσιμη από ένα τεστ εγκυμοσύνης. Ένα πολύ πρόωρο τεστ μπορεί να δώσει ψευδώς αρνητικό αποτέλεσμα.',
+    alertTitle: 'Σημείωση',
+    alertText:
+      'Το να περιμένεις μέχρι την πιθανή ημέρα της περιόδου σου πριν κάνεις το τεστ δίνει πιο αξιόπιστο αποτέλεσμα από ένα πολύ πρόωρο τεστ.',
+    tip2Title: 'Καλό είναι να γνωρίζεις',
+    tip2Text:
+      'Η εμφύτευση γίνεται διακριτικά, με ή χωρίς ορατό σημάδι. Λίγη υπομονή πριν κάνεις το τεστ σε γλιτώνει από ένα αναξιόπιστο αποτέλεσμα.',
+    shareMessage: 'Κατανοώντας την εμφύτευση — AWA',
+  },
+  fil: {
+    badge: 'IMPLANTASYON',
+    title: 'Pag-unawa sa\nimplantasyon',
+    metaDuration: '5 min na babasahin',
+    metaType: 'Artikulo',
+    metaLevel: 'Katamtaman',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Ang nangyayari sa pagitan ng fertilization at positibong pregnancy test.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Mula fertilization hanggang implantasyon',
+      'Mga posibleng senyales, nang walang katiyakan',
+      'Kailan nagiging maaasahan ang test',
+      'Mahahalagang tandaan',
+    ],
+    body1:
+      'Pagkatapos ng fertilization, karaniwang inaabot ng 6 hanggang 10 araw bago makarating ang itlog sa matris at mag-implant doon: ito ang implantasyon. Minamarkahan ng hakbang na ito ang tunay na simula ng pagbubuntis.',
+    body2:
+      'Maaaring minsang samahan ng bahagyang pagdurugo o pulikat ang implantasyon, bagaman hindi ito sistematiko, at hindi rin maaasahang senyales sa sarili nito.',
+    possibleSigns: [
+      'Napakagaan na pagdurugo, minsang tinatawag na "spotting"',
+      'Banayad na pulikat sa ibabang tiyan',
+      'Walang anumang partikular na senyales, sa maraming babae',
+    ],
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Walang kahulugan ang kawalan ng senyales: maraming pagbubuntis ang nagsisimula nang walang kapansin-pansing sintomas sa yugtong ito.',
+    body3:
+      'Pagkatapos lamang ng implantasyon nagsisimulang gawin ang hormone na hCG at nagiging matutukoy ng pregnancy test. Ang masyadong maagang pag-test ay maaaring magbigay ng maling negatibong resulta.',
+    alertTitle: 'Tandaan',
+    alertText:
+      'Ang paghihintay hanggang sa inaasahang araw ng iyong regla bago mag-test ay nagbibigay ng mas maaasahang resulta kaysa sa masyadong maagang pag-test.',
+    tip2Title: 'Mabuting malaman',
+    tip2Text:
+      'Tahimik na nangyayari ang implantasyon, may nakikitang senyales man o wala. Ang kaunting pasensya bago mag-test ay nakakaiwas sa hindi maaasahang resulta.',
+    shareMessage: 'Pag-unawa sa implantasyon — AWA',
+  },
+  ta: {
+    badge: 'கரு பதிதல்',
+    title: 'கரு பதிதலைப்\nபுரிந்துகொள்ளுதல்',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaType: 'கட்டுரை',
+    metaLevel: 'இடைநிலை',
+    metaValidated: 'சரிபார்க்கப்பட்ட உள்ளடக்கம்',
+    intro:
+      'கருவுறுதலுக்கும் நேர்மறைக் கர்ப்பப் பரிசோதனைக்கும் இடையே என்ன நடக்கிறது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'கருவுறுதலிலிருந்து கரு பதிதல் வரை',
+      'சாத்தியமான அறிகுறிகள், உறுதியின்றி',
+      'ஒரு பரிசோதனை எப்போது நம்பகமாகிறது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    body1:
+      'கருவுறுதலுக்குப் பின், முட்டை கருப்பையை அடைந்து அங்கே பதிய பொதுவாக 6 முதல் 10 நாட்கள் ஆகின்றன: இதுவே கரு பதிதல். இந்தப் படி கர்ப்பத்தின் உண்மையான தொடக்கப் புள்ளியைக் குறிக்கிறது.',
+    body2:
+      'லேசான இரத்தப்போக்கு அல்லது வயிற்றுப் பிடிப்பு சில நேரங்களில் கரு பதிதலுடன் சேர்ந்து வரலாம், இருப்பினும் இது முறையானதல்ல, தனியாக நம்பகமான அறிகுறியும் அல்ல.',
+    possibleSigns: [
+      'மிக லேசான இரத்தப்போக்கு, சில நேரங்களில் "ஸ்பாட்டிங்" என அழைக்கப்படுகிறது',
+      'அடிவயிற்றில் லேசான பிடிப்புகள்',
+      'பல பெண்களுக்கு, குறிப்பிட்ட அறிகுறி எதுவும் இல்லை',
+    ],
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'அறிகுறி இல்லாமை எதையும் குறிக்காது: பல கர்ப்பங்கள் இந்த நிலையில் எந்தக் கவனிக்கத்தக்க அறிகுறியும் இல்லாமல் தொடங்குகின்றன.',
+    body3:
+      'கரு பதிந்த பின்னர்தான் hCG ஹார்மோன் உற்பத்தியாகத் தொடங்கி கர்ப்பப் பரிசோதனையால் கண்டறியக்கூடியதாகிறது. மிக விரைவாகப் பரிசோதிப்பது தவறான எதிர்மறை முடிவைத் தரலாம்.',
+    alertTitle: 'குறிப்பு',
+    alertText:
+      'பரிசோதிப்பதற்கு முன் உங்கள் மாதவிடாய் எதிர்பார்க்கப்படும் நாள் வரை காத்திருப்பது, மிக விரைவாகப் பரிசோதிப்பதை விட நம்பகமான முடிவைத் தருகிறது.',
+    tip2Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip2Text:
+      'கண்ணுக்குத் தெரியும் அறிகுறியுடனோ இல்லாமலோ, கரு பதிதல் அமைதியாக நிகழ்கிறது. பரிசோதிப்பதற்கு முன் சிறிது பொறுமை, நம்பகமற்ற முடிவிலிருந்து உங்களைக் காக்கிறது.',
+    shareMessage: 'கரு பதிதலைப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'గర్భాశయంలో పిండం అమరిక',
+    title: 'గర్భాశయంలో పిండం\nఅమరికను అర్థం చేసుకోవడం',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaType: 'వ్యాసం',
+    metaLevel: 'మధ్యస్థ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'ఫలదీకరణ, పాజిటివ్ గర్భ పరీక్ష మధ్య ఏం జరుగుతుంది.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'ఫలదీకరణ నుండి అమరిక వరకు',
+      'సాధ్యమైన సంకేతాలు, నిశ్చయం లేకుండా',
+      'పరీక్ష ఎప్పుడు నమ్మదగినదవుతుంది',
+      'ముఖ్యాంశాలు',
+    ],
+    body1:
+      'ఫలదీకరణ తర్వాత, అండం గర్భాశయానికి చేరి అక్కడ అమరడానికి సాధారణంగా 6 నుండి 10 రోజులు పడుతుంది: ఇదే అమరిక. ఈ దశ గర్భం యొక్క నిజమైన ప్రారంభ బిందువును సూచిస్తుంది.',
+    body2:
+      'తేలికపాటి రక్తస్రావం లేదా పట్టేయడం కొన్నిసార్లు అమరికతో కలిసి రావచ్చు, అయితే ఇది క్రమబద్ధం కాదు, స్వయంగా నమ్మదగిన సంకేతం కూడా కాదు.',
+    possibleSigns: [
+      'చాలా తేలికపాటి రక్తస్రావం, కొన్నిసార్లు "స్పాటింగ్" అని పిలుస్తారు',
+      'కింది పొట్టలో స్వల్ప పట్టేయడం',
+      'చాలామంది మహిళలకు ప్రత్యేక సంకేతం ఏదీ ఉండదు',
+    ],
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'సంకేతం లేకపోవడం ఏమీ సూచించదు: ఈ దశలో గమనించదగిన లక్షణం ఏదీ లేకుండానే చాలా గర్భాలు మొదలవుతాయి.',
+    body3:
+      'అమరిక తర్వాత మాత్రమే hCG హార్మోన్ ఉత్పత్తి మొదలై గర్భ పరీక్ష ద్వారా గుర్తించదగినదిగా మారుతుంది. మరీ ముందుగా పరీక్షించడం తప్పుడు నెగెటివ్ ఫలితాన్ని ఇవ్వవచ్చు.',
+    alertTitle: 'గమనిక',
+    alertText:
+      'పరీక్షించే ముందు మీ నెలసరి అనుకున్న రోజు వరకు వేచి ఉండటం మరీ ముందుగా పరీక్షించడం కంటే మరింత నమ్మదగిన ఫలితాన్ని ఇస్తుంది.',
+    tip2Title: 'తెలుసుకోవాల్సినవి',
+    tip2Text:
+      'అమరిక కనిపించే సంకేతంతో లేదా లేకుండా గోప్యంగా జరుగుతుంది. పరీక్షించే ముందు కొంచెం ఓపిక మిమ్మల్ని నమ్మదగని ఫలితం నుండి కాపాడుతుంది.',
+    shareMessage: 'గర్భాశయంలో పిండం అమరికను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'भ्रूण रुजणे',
+    title: 'गर्भाशयात भ्रूण\nरुजणे समजून घेणे',
+    metaDuration: '5 मिनिटे वाचन',
+    metaType: 'लेख',
+    metaLevel: 'मध्यम स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'फलन आणि सकारात्मक गर्भधारणा चाचणी यादरम्यान काय घडते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'फलनापासून भ्रूण रुजण्यापर्यंत',
+      'शक्य चिन्हे, खात्रीशिवाय',
+      'चाचणी विश्वासार्ह केव्हा होते',
+      'मुख्य मुद्दे',
+    ],
+    body1:
+      'फलनानंतर, बीजांडाला गर्भाशयात पोहोचून तिथे रुजण्यासाठी साधारणपणे 6 ते 10 दिवस लागतात: हेच भ्रूण रुजणे. हा टप्पा गर्भारपणाचा खरा सुरुवातीचा बिंदू दर्शवतो.',
+    body2:
+      'भ्रूण रुजताना कधी कधी हलका रक्तस्राव किंवा पोटात कळा येऊ शकतात, मात्र हे नेहमी होत नाही, तसेच एकट्याने विश्वासार्ह चिन्हही नाही.',
+    possibleSigns: [
+      'खूप हलका रक्तस्राव, ज्याला कधी कधी "स्पॉटिंग" म्हणतात',
+      'पोटाच्या खालच्या भागात सौम्य कळा',
+      'अनेक स्त्रियांसाठी कोणतेही विशिष्ट चिन्ह नसणे',
+    ],
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'चिन्ह नसणे याचा काहीही अर्थ नसतो: अनेक गर्भारपणे या टप्प्यावर कोणत्याही जाणवण्याजोग्या लक्षणाशिवाय सुरू होतात.',
+    body3:
+      'भ्रूण रुजल्यानंतरच hCG हार्मोन तयार होऊ लागतो आणि गर्भधारणा चाचणीने ओळखता येतो. खूप लवकर चाचणी केल्यास चुकीचा नकारात्मक निकाल येऊ शकतो.',
+    alertTitle: 'टीप',
+    alertText:
+      'चाचणी करण्यापूर्वी तुमच्या पाळीच्या अपेक्षित दिवसापर्यंत थांबल्याने खूप लवकर चाचणी करण्यापेक्षा अधिक विश्वासार्ह निकाल मिळतो.',
+    tip2Title: 'हे जाणून घ्या',
+    tip2Text:
+      'भ्रूण रुजणे गुपचूप घडते, दिसणाऱ्या चिन्हासह किंवा त्याशिवाय. चाचणीपूर्वी थोडा संयम ठेवल्याने तुम्हाला अविश्वसनीय निकाल टाळता येतो.',
+    shareMessage: 'गर्भाशयात भ्रूण रुजणे समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'ગર્ભનું રોપણ',
+    title: 'ગર્ભના રોપણને\nસમજવું',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaType: 'લેખ',
+    metaLevel: 'મધ્યમ સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'ફલન અને ગર્ભાવસ્થા પરીક્ષણ પોઝિટિવ આવે તે વચ્ચે શું થાય છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'ફલનથી રોપણ સુધી',
+      'શક્ય સંકેતો, નિશ્ચિતતા વિના',
+      'પરીક્ષણ ક્યારે વિશ્વસનીય બને છે',
+      'મુખ્ય મુદ્દા',
+    ],
+    body1:
+      'ફલન પછી, અંડકોષને ગર્ભાશયમાં પહોંચીને ત્યાં રોપાવામાં સામાન્ય રીતે 6 થી 10 દિવસ લાગે છે: આ ગર્ભનું રોપણ છે. આ તબક્કો ગર્ભાવસ્થાની સાચી શરૂઆત દર્શાવે છે.',
+    body2:
+      'ક્યારેક રોપણ સાથે હળવો સ્રાવ કે ખેંચાણ થઈ શકે છે, જોકે આ હંમેશાં થતું નથી, અને એકલું તે વિશ્વસનીય સંકેત પણ નથી.',
+    possibleSigns: [
+      'ખૂબ હળવો સ્રાવ, જેને ક્યારેક "ટીપાં જેવો સ્રાવ" કહેવાય છે',
+      'નીચલા પેટમાં હળવું ખેંચાણ',
+      'ઘણી સ્ત્રીઓમાં કોઈ ખાસ સંકેત જ હોતો નથી',
+    ],
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'સંકેત ન હોવાનો કોઈ અર્થ નથી: ઘણી ગર્ભાવસ્થાઓ આ તબક્કે કોઈ નોંધપાત્ર લક્ષણ વિના શરૂ થાય છે.',
+    body3:
+      'રોપણ પછી જ hCG હોર્મોન બનવાનું શરૂ થાય છે અને ગર્ભાવસ્થા પરીક્ષણથી શોધી શકાય છે. ખૂબ વહેલું પરીક્ષણ કરવાથી ખોટું નેગેટિવ પરિણામ આવી શકે છે.',
+    alertTitle: 'નોંધ',
+    alertText:
+      'પરીક્ષણ કરતાં પહેલાં તમારા માસિકના અપેક્ષિત દિવસ સુધી રાહ જોવાથી ખૂબ વહેલું પરીક્ષણ કરવા કરતાં વધુ વિશ્વસનીય પરિણામ મળે છે.',
+    tip2Title: 'જાણવા જેવું',
+    tip2Text:
+      'રોપણ શાંતિથી થાય છે, દેખાતા સંકેત સાથે અથવા વિના. પરીક્ષણ કરતાં પહેલાં થોડી ધીરજ રાખવાથી અવિશ્વસનીય પરિણામથી બચી શકાય છે.',
+    shareMessage: 'ગર્ભના રોપણને સમજવું — AWA',
+  },
+  pa: {
+    badge: 'ਭਰੂਣ ਦਾ ਟਿਕਣਾ',
+    title: 'ਭਰੂਣ ਦੇ ਟਿਕਣ ਨੂੰ\nਸਮਝੋ',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਲੇਖ',
+    metaLevel: 'ਦਰਮਿਆਨਾ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਗਰਭ ਧਾਰਨ ਅਤੇ ਗਰਭ-ਅਵਸਥਾ ਟੈਸਟ ਦੇ ਪਾਜ਼ਿਟਿਵ ਆਉਣ ਵਿਚਕਾਰ ਕੀ ਹੁੰਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਅੰਡੇ ਦੇ ਮਿਲਾਪ ਤੋਂ ਭਰੂਣ ਦੇ ਟਿਕਣ ਤੱਕ',
+      'ਸੰਭਾਵੀ ਸੰਕੇਤ, ਪੱਕੇ ਤੌਰ \'ਤੇ ਨਹੀਂ',
+      'ਟੈਸਟ ਭਰੋਸੇਯੋਗ ਕਦੋਂ ਬਣਦਾ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    body1:
+      'ਅੰਡੇ ਦੇ ਸ਼ੁਕਰਾਣੂ ਨਾਲ ਮਿਲਣ ਤੋਂ ਬਾਅਦ, ਇਸ ਨੂੰ ਬੱਚੇਦਾਨੀ ਤੱਕ ਪਹੁੰਚਣ ਅਤੇ ਉੱਥੇ ਟਿਕਣ ਵਿੱਚ ਆਮ ਤੌਰ \'ਤੇ 6 ਤੋਂ 10 ਦਿਨ ਲੱਗਦੇ ਹਨ: ਇਹੀ ਭਰੂਣ ਦਾ ਟਿਕਣਾ ਹੈ। ਇਹ ਪੜਾਅ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਅਸਲ ਸ਼ੁਰੂਆਤ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ।',
+    body2:
+      'ਭਰੂਣ ਦੇ ਟਿਕਣ ਦੇ ਨਾਲ ਕਦੇ-ਕਦੇ ਹਲਕਾ ਖ਼ੂਨ ਜਾਂ ਮਰੋੜ ਹੋ ਸਕਦਾ ਹੈ, ਹਾਲਾਂਕਿ ਇਹ ਹਮੇਸ਼ਾ ਨਹੀਂ ਹੁੰਦਾ, ਨਾ ਹੀ ਇਕੱਲਾ ਇਹ ਕੋਈ ਭਰੋਸੇਯੋਗ ਸੰਕੇਤ ਹੈ।',
+    possibleSigns: [
+      'ਬਹੁਤ ਹਲਕਾ ਖ਼ੂਨ, ਜਿਸ ਨੂੰ ਕਦੇ-ਕਦੇ "ਹਲਕੇ ਧੱਬੇ" ਕਿਹਾ ਜਾਂਦਾ ਹੈ',
+      'ਹੇਠਲੇ ਪੇਟ ਵਿੱਚ ਹਲਕੀ ਮਰੋੜ',
+      'ਬਹੁਤ ਸਾਰੀਆਂ ਔਰਤਾਂ ਵਿੱਚ ਕੋਈ ਖ਼ਾਸ ਸੰਕੇਤ ਬਿਲਕੁਲ ਨਹੀਂ',
+    ],
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਸੰਕੇਤ ਨਾ ਹੋਣ ਦਾ ਕੋਈ ਮਤਲਬ ਨਹੀਂ: ਬਹੁਤ ਸਾਰੀਆਂ ਗਰਭ-ਅਵਸਥਾਵਾਂ ਇਸ ਪੜਾਅ \'ਤੇ ਕਿਸੇ ਵੀ ਧਿਆਨ ਦੇਣ ਯੋਗ ਲੱਛਣ ਤੋਂ ਬਿਨਾਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।',
+    body3:
+      'ਭਰੂਣ ਦੇ ਟਿਕਣ ਤੋਂ ਬਾਅਦ ਹੀ hCG ਹਾਰਮੋਨ ਬਣਨਾ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ ਅਤੇ ਗਰਭ-ਅਵਸਥਾ ਟੈਸਟ ਨਾਲ ਪਛਾਣਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਬਹੁਤ ਜਲਦੀ ਟੈਸਟ ਕਰਨ ਨਾਲ ਗ਼ਲਤ ਤੌਰ \'ਤੇ ਨੈਗੇਟਿਵ ਨਤੀਜਾ ਆ ਸਕਦਾ ਹੈ।',
+    alertTitle: 'ਧਿਆਨ ਦਿਓ',
+    alertText:
+      'ਟੈਸਟ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮਾਹਵਾਰੀ ਦੇ ਅਨੁਮਾਨਿਤ ਦਿਨ ਤੱਕ ਉਡੀਕ ਕਰਨ ਨਾਲ ਬਹੁਤ ਜਲਦੀ ਟੈਸਟ ਕਰਨ ਨਾਲੋਂ ਵਧੇਰੇ ਭਰੋਸੇਯੋਗ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।',
+    tip2Title: 'ਜਾਣਨ ਯੋਗ',
+    tip2Text:
+      'ਭਰੂਣ ਦਾ ਟਿਕਣਾ ਚੁੱਪ-ਚਾਪ ਹੁੰਦਾ ਹੈ, ਚਾਹੇ ਕੋਈ ਸੰਕੇਤ ਦਿਸੇ ਜਾਂ ਨਾ ਦਿਸੇ। ਟੈਸਟ ਤੋਂ ਪਹਿਲਾਂ ਥੋੜ੍ਹਾ ਸਬਰ ਤੁਹਾਨੂੰ ਗ਼ੈਰ-ਭਰੋਸੇਯੋਗ ਨਤੀਜੇ ਤੋਂ ਬਚਾਉਂਦਾ ਹੈ।',
+    shareMessage: 'ਭਰੂਣ ਦੇ ਟਿਕਣ ਨੂੰ ਸਮਝੋ — AWA',
+  },
+  my: {
+    badge: 'သန္ဓေသား ကပ်ခြင်း',
+    title: 'သန္ဓေသား ကပ်ခြင်းကို\nနားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaType: 'ဆောင်းပါး',
+    metaLevel: 'အလယ်အလတ်အဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'သန္ဓေအောင်မြင်ခြင်းမှ ကိုယ်ဝန်စစ်ဆေးမှု အပေါင်းလက္ခဏာထွက်သည်အထိ ဖြစ်ပျက်သည့်အရာ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'သန္ဓေအောင်မြင်ခြင်းမှ ကပ်ခြင်းသို့',
+      'ဖြစ်နိုင်သော လက္ခဏာများ၊ ကျိန်းသေမှုမရှိ',
+      'စစ်ဆေးမှု ယုံကြည်စိတ်ချရသည့်အချိန်',
+      'အဓိကအချက်များ',
+    ],
+    body1:
+      'သန္ဓေအောင်မြင်ပြီးနောက် မျိုးဥသည် များသောအားဖြင့် သားအိမ်သို့ ရောက်ရန်နှင့် ထိုနေရာတွင် ကပ်ရန် 6 ရက်မှ 10 ရက်ကြာသည်- ၎င်းမှာ သန္ဓေသား ကပ်ခြင်းဖြစ်သည်။ ဤအဆင့်သည် ကိုယ်ဝန်၏ စစ်မှန်သော အစမှတ်ဖြစ်သည်။',
+    body2:
+      'သန္ဓေသား ကပ်ချိန်တွင် သွေးအနည်းငယ်ထွက်ခြင်း သို့မဟုတ် ဝမ်းဗိုက်ကြွက်သားတက်ခြင်း တခါတရံ ရှိနိုင်သော်လည်း ၎င်းသည် အမြဲတမ်းမဟုတ်ဘဲ သူ့ဘာသာ ယုံကြည်စိတ်ချရသော လက္ခဏာလည်း မဟုတ်ပါ။',
+    possibleSigns: [
+      'တခါတရံ "သွေးစက်ကလေးများထွက်ခြင်း" ဟု ခေါ်သော သွေးအနည်းငယ်ထွက်ခြင်း',
+      'အောက်ဗိုက်တွင် ပေါ့ပါးသော ကြွက်သားတက်ခြင်း',
+      'အမျိုးသမီးများစွာအတွက် ထူးခြားသော လက္ခဏာ လုံးဝမရှိခြင်း',
+    ],
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'လက္ခဏာမရှိခြင်းသည် ဘာမျှမဆိုလိုပါ- ကိုယ်ဝန်များစွာသည် ဤအဆင့်တွင် သတိထားမိနိုင်သော ရောဂါလက္ခဏာမရှိဘဲ စတင်ကြသည်။',
+    body3:
+      'သန္ဓေသား ကပ်ပြီးမှသာ hCG ဟော်မုန်း ထုတ်လုပ်လာပြီး ကိုယ်ဝန်စစ်ဆေးမှုဖြင့် တွေ့ရှိနိုင်လာသည်။ အလွန်စောစီးစွာ စစ်ဆေးခြင်းသည် မှားယွင်းသော အနုတ်လက္ခဏာရလဒ် ပေးနိုင်သည်။',
+    alertTitle: 'မှတ်ချက်',
+    alertText:
+      'စစ်ဆေးမည့်အချိန်မတိုင်မီ ရာသီလာမည်ဟု ယူဆရသည့်နေ့အထိ စောင့်ခြင်းက အလွန်စောစီးစွာ စစ်ဆေးခြင်းထက် ပိုယုံကြည်စိတ်ချရသော ရလဒ်ကို ပေးသည်။',
+    tip2Title: 'သိထားသင့်သည်',
+    tip2Text:
+      'သန္ဓေသား ကပ်ခြင်းသည် မြင်သာသောလက္ခဏာနှင့်ဖြစ်စေ မပါဘဲဖြစ်စေ တိတ်တဆိတ်ဖြစ်ပျက်သည်။ စစ်ဆေးမီ သည်းခံစောင့်ဆိုင်းခြင်းက ယုံကြည်စိတ်ချရမှုမရှိသော ရလဒ်မှ ကယ်တင်ပေးသည်။',
+    shareMessage: 'သန္ဓေသား ကပ်ခြင်းကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'ការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូន',
+    title: 'ការយល់ដឹងអំពី\nការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូន',
+    metaDuration: 'អាន 5 នាទី',
+    metaType: 'អត្ថបទ',
+    metaLevel: 'កម្រិតមធ្យម',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'អ្វីដែលកើតឡើងរវាងការបង្កកំណើត និងលទ្ធផលវិជ្ជមាននៃការធ្វើតេស្តផ្ទៃពោះ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ពីការបង្កកំណើតដល់ការជាប់ក្នុងស្បូន',
+      'សញ្ញាដែលអាចមាន ដោយគ្មានភាពប្រាកដប្រជា',
+      'ពេលដែលតេស្តអាចទុកចិត្តបាន',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    body1:
+      'បន្ទាប់ពីការបង្កកំណើត ពងជាធម្មតាត្រូវចំណាយពេល 6 ដល់ 10 ថ្ងៃដើម្បីទៅដល់ស្បូន ហើយជាប់នៅទីនោះ៖ នេះហៅថាការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូន។ ជំហាននេះគឺជាចំណុចចាប់ផ្តើមពិតប្រាកដនៃការមានផ្ទៃពោះ។',
+    body2:
+      'ការហូរឈាមតិចៗ ឬការឈឺរមួលពោះអាចកើតឡើងជាមួយការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូនម្តងម្កាល ទោះបីវាមិនកើតមានជាប្រចាំ និងមិនមែនជាសញ្ញាដែលអាចទុកចិត្តបានដោយខ្លួនឯងក៏ដោយ។',
+    possibleSigns: [
+      'ការហូរឈាមតិចណាស់ ដែលពេលខ្លះហៅថា "ដំណក់ឈាមតិចៗ"',
+      'ការឈឺរមួលស្រាលៗនៅផ្នែកខាងក្រោមពោះ',
+      'គ្មានសញ្ញាជាក់លាក់អ្វីទាំងអស់ សម្រាប់ស្ត្រីជាច្រើន',
+    ],
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'ការគ្មានសញ្ញាមិនមានន័យអ្វីទេ៖ ការមានផ្ទៃពោះជាច្រើនចាប់ផ្តើមដោយគ្មានរោគសញ្ញាអ្វីដែលអាចកត់សម្គាល់បាននៅដំណាក់កាលនេះ។',
+    body3:
+      'មានតែបន្ទាប់ពីការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូនប៉ុណ្ណោះ ដែលអរម៉ូន hCG ចាប់ផ្តើមផលិត ហើយអាចរកឃើញដោយតេស្តផ្ទៃពោះ។ ការធ្វើតេស្តលឿនពេកអាចផ្តល់លទ្ធផលអវិជ្ជមានមិនពិត។',
+    alertTitle: 'សម្គាល់',
+    alertText:
+      'ការរង់ចាំរហូតដល់ថ្ងៃដែលរំពឹងថាមានរដូវមុនធ្វើតេស្ត ផ្តល់លទ្ធផលដែលអាចទុកចិត្តបានជាងការធ្វើតេស្តលឿនពេក។',
+    tip2Title: 'គួរដឹង',
+    tip2Text:
+      'ការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូនកើតឡើងដោយស្ងៀមស្ងាត់ ទោះមានសញ្ញាដែលមើលឃើញ ឬគ្មានក៏ដោយ។ ការអត់ធ្មត់បន្តិចមុនធ្វើតេស្តជួយអ្នកឲ្យចៀសផុតពីលទ្ធផលដែលមិនអាចទុកចិត្តបាន។',
+    shareMessage: 'ការយល់ដឹងអំពីការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូន — AWA',
+  },
+  lo: {
+    badge: 'ການຝັງຕົວຂອງໄຂ່',
+    title: 'ເຂົ້າໃຈການ\nຝັງຕົວຂອງໄຂ່',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaType: 'ບົດຄວາມ',
+    metaLevel: 'ລະດັບກາງ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ສິ່ງທີ່ເກີດຂຶ້ນລະຫວ່າງການປະສົມຂອງໄຂ່ ແລະ ການທົດສອບການຖືພາທີ່ໃຫ້ຜົນບວກ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ຈາກການປະສົມຂອງໄຂ່ເຖິງການຝັງຕົວ',
+      'ສັນຍານທີ່ອາດເກີດຂຶ້ນ, ໂດຍບໍ່ແນ່ນອນ',
+      'ເມື່ອໃດການທົດສອບຈຶ່ງເຊື່ອຖືໄດ້',
+      'ຈຸດສຳຄັນ',
+    ],
+    body1:
+      'ຫຼັງຈາກການປະສົມຂອງໄຂ່, ໄຂ່ໂດຍປົກກະຕິໃຊ້ເວລາ 6 ເຖິງ 10 ວັນເພື່ອເຄື່ອນໄປເຖິງມົດລູກ ແລະ ຝັງຕົວຢູ່ບ່ອນນັ້ນ: ນີ້ຄືການຝັງຕົວ. ຂັ້ນຕອນນີ້ເປັນຈຸດເລີ່ມຕົ້ນທີ່ແທ້ຈິງຂອງການຖືພາ.',
+    body2:
+      'ເລືອດອອກເລັກນ້ອຍ ຫຼື ອາການປວດບີບອາດເກີດຂຶ້ນພ້ອມກັບການຝັງຕົວໄດ້ບາງຄັ້ງ, ແຕ່ບໍ່ໄດ້ເກີດຂຶ້ນທຸກຄັ້ງ ແລະ ບໍ່ແມ່ນສັນຍານທີ່ເຊື່ອຖືໄດ້ຢ່າງດຽວ.',
+    possibleSigns: [
+      'ເລືອດອອກເລັກນ້ອຍຫຼາຍ, ບາງຄັ້ງເອີ້ນວ່າ "ເລືອດອອກເປັນຈຸດ"',
+      'ອາການປວດບີບເບົາໆທີ່ທ້ອງນ້ອຍ',
+      'ບໍ່ມີສັນຍານໃດເປັນພິເສດເລີຍ, ໃນຜູ້ຍິງຫຼາຍຄົນ',
+    ],
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ການບໍ່ມີສັນຍານບໍ່ໄດ້ໝາຍຄວາມວ່າຫຍັງ: ການຖືພາຫຼາຍກໍລະນີເລີ່ມຕົ້ນໂດຍບໍ່ມີອາການທີ່ສັງເກດໄດ້ໃນຂັ້ນຕອນນີ້.',
+    body3:
+      'ພຽງຫຼັງຈາກການຝັງຕົວເທົ່ານັ້ນ ຮໍໂມນ hCG ຈຶ່ງເລີ່ມຖືກສ້າງຂຶ້ນ ແລະ ກວດພົບໄດ້ດ້ວຍການທົດສອບການຖືພາ. ການທົດສອບໄວເກີນໄປອາດໃຫ້ຜົນລົບທີ່ບໍ່ຖືກຕ້ອງ.',
+    alertTitle: 'ໝາຍເຫດ',
+    alertText:
+      'ການລໍຖ້າຈົນເຖິງວັນທີ່ຄາດວ່າຈະມີປະຈຳເດືອນກ່ອນທົດສອບ ໃຫ້ຜົນທີ່ເຊື່ອຖືໄດ້ຫຼາຍກວ່າການທົດສອບໄວເກີນໄປ.',
+    tip2Title: 'ຄວນຮູ້',
+    tip2Text:
+      'ການຝັງຕົວເກີດຂຶ້ນຢ່າງງຽບໆ, ບໍ່ວ່າຈະມີສັນຍານທີ່ເຫັນໄດ້ ຫຼື ບໍ່. ຄວາມອົດທົນເລັກນ້ອຍກ່ອນທົດສອບຊ່ວຍໃຫ້ທ່ານຫຼີກເວັ້ນຜົນທີ່ບໍ່ເຊື່ອຖືໄດ້.',
+    shareMessage: 'ເຂົ້າໃຈການຝັງຕົວຂອງໄຂ່ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

@@ -8111,6 +8111,3939 @@ const CONTENT = withBrazilianPortuguese('PerineumStrengthening', {
     disclaimerText:
       'Bu makala diňe maglumat maksatly we şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Agyry, dowamly alamatlar başdan geçirseňiz ýa-da dikelişiňiz barada islendik aladaňyz bolsa, saglyk hünärmeninden maslahat soraň.',
   },
+  ms: {
+    badge: 'SELEPAS BERSALIN • PEMULIHAN',
+    title: 'Mengukuhkan dasar pelvis anda\nselepas bersalin',
+    metaDuration: '8 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Selepas kehamilan dan bersalin, dasar pelvis memerlukan masa untuk pulih. Senaman yang mudah, tetap dan beransur-ansur boleh membantu anda mendapatkan semula kekuatan, kawalan dan keyakinan, tanpa cuba mempercepatkan keadaan.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami peranan perineum',
+      'Mengapa bersalin menekannya',
+      'Bila untuk memulakan pemulihan dasar pelvis',
+      'Belajar mengecutkan dengan betul',
+      'Membina rutin beransur-ansur',
+      'Kesilapan yang perlu dielakkan',
+      'Bila untuk meminta bantuan',
+      'Menyambung semula sukan secara beransur-ansur',
+      'Bersedia untuk temu janji',
+      'Perkara penting untuk diingat',
+    ],
+    shareMessage: 'Mengukuhkan dasar pelvis anda selepas bersalin — AWA',
+
+    s1Heading: 'Memahami peranan perineum',
+    s1Body1:
+      'Perineum, yang juga dipanggil dasar pelvis, ialah sekumpulan otot yang terletak di dasar pelvis. Ia berperanan dalam kawalan pundi kencing dan usus dan membantu menyokong organ pelvis.',
+    s1Body2:
+      'Semasa kehamilan, otot-otot ini terpaksa menanggung berat tambahan selama beberapa bulan. Ia juga mengalami tekanan yang besar semasa bersalin.',
+    s1HighlightTitle: 'Otot yang diskret tetapi penting',
+    s1HighlightText:
+      'Dasar pelvis terlibat dalam beberapa fungsi harian: menahan air kencing dan najis, mengawal angin, menyokong organ pelvis dan berperanan dalam fungsi seksual tertentu.',
+
+    benefitsHeading: 'Faedah dasar pelvis yang lebih kuat',
+    benefitsIntro:
+      'Pengukuhan yang beransur-ansur dan dilakukan dengan betul boleh membantu memperbaiki kawalan dan sokongan dasar pelvis.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kawalan pundi kencing yang lebih baik',
+        text: 'Dasar pelvis berperanan dalam kawalan pundi kencing. Mengukuhkannya secara beransur-ansur mungkin membantu mengurangkan sesetengah kebocoran air kencing.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Menyokong fungsi usus',
+        text: 'Otot-otot ini juga membantu mengawal angin dan najis dan menyumbang kepada sokongan organ pelvis.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Menyokong organ pelvis',
+        text: 'Dasar pelvis membentuk tapak otot yang sebenar yang membantu menyokong pundi kencing, rahim dan usus.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Mendapatkan semula deria secara beransur-ansur',
+        text: 'Pemulihan yang sesuai juga boleh membantu anda mendapatkan kesedaran dan kawalan yang lebih baik terhadap bahagian ini.',
+      },
+    ],
+
+    s2Heading: 'Mengapa kehamilan dan bersalin menekannya',
+    s2Body1:
+      'Kehamilan beransur-ansur meletakkan lebih banyak tekanan pada dasar pelvis. Bersalin secara normal kemudiannya boleh meregangkan otot dan tisu di bahagian ini dengan ketara.',
+    s2Body2:
+      'Pembedahan Caesarean juga tidak sepenuhnya menyelamatkan dasar pelvis: kehamilan itu sendiri kekal sebagai tempoh yang ketara bagi otot-otot ini.',
+    s2Body3:
+      'Selepas bersalin, oleh itu adalah normal untuk pemulihan mengambil masa. Sesetengah wanita hampir tidak berasa sebarang simptom, manakala yang lain mungkin perasan kebocoran, rasa berat atau kawalan otot yang berkurangan.',
+    s2TipTitle: 'Setiap pemulihan berbeza',
+    s2TipText:
+      'Jenis kelahiran, koyakan atau episiotomi, kehadiran sakit dan keadaan am anda selepas bersalin semuanya boleh mempengaruhi pemulihan.',
+
+    s3Heading: 'Bila untuk memulakan pemulihan dasar pelvis?',
+    s3Body1:
+      'Selepas kelahiran yang tidak rumit, kontraksi dasar pelvis yang lembut biasanya boleh disambung semula secara beransur-ansur. Ia kekal penting untuk menyesuaikan senaman dengan keadaan anda dan mendapatkan nasihat jika anda mengalami komplikasi, sakit yang ketara atau prosedur tertentu.',
+    s3Body2:
+      'Jika anda menggunakan kateter kencing, sesetengah syor mencadangkan menunggu sehingga ia dikeluarkan dan membuang air kecil secara normal telah bersambung semula sebelum memulakan senaman perineum.',
+    s3AlertTitle: 'Jangan memaksa diri walaupun sakit',
+    s3AlertText:
+      'Sakit yang ketara, simptom yang bertambah teruk, luka yang sembuh dengan kurang baik atau sebarang kebimbangan tertentu memerlukan nasihat bidan, doktor atau pengamal profesional pemulihan.',
+
+    s4Heading: 'Belajar mengecutkan dengan betul',
+    s4Body1:
+      'Untuk mengenal pasti pergerakan itu, bayangkan cuba menahan angin dan keinginan untuk membuang air kecil pada masa yang sama. Pergerakan yang anda cari ialah rasa pengecutan dan mengangkat ke dalam.',
+    s4Body2:
+      'Matlamatnya bukan untuk menegangkan seluruh badan dengan ketat. Punggung, peha dan perut anda perlu kekal sesantai mungkin, sementara pernafasan diteruskan seperti biasa.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Pernafasan'},
+      {icon: 'human-handsup', label: 'Pengecutan lembut'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Pengecutan panjang'},
+      {icon: 'gesture-tap-button', label: 'Pengecutan pantas'},
+    ],
+    s4HighlightTitle: 'Bersantai sama pentingnya',
+    s4HighlightText:
+      'Selepas setiap pengecutan, biarkan otot berehat sepenuhnya. Pemulihan yang baik tidak bermakna mengekalkan perineum dalam keadaan mengecut sepanjang hari.',
+
+    s5Heading: 'Membina rutin beransur-ansur',
+    s5Body1:
+      'Pada mulanya, perkara yang paling penting ialah belajar mengenal pasti otot dan melakukan pergerakan dengan betul. Ketetapan lebih penting daripada keamatan.',
+    s5h3a: 'Pengecutan panjang',
+    s5Body2:
+      'Kecutkan dasar pelvis dengan lembut, kemudian tahan pengecutan selama beberapa saat tanpa menahan nafas. Kemudian lepaskan sepenuhnya sebelum bermula semula.',
+    s5h3b: 'Pengecutan pendek',
+    s5Body3:
+      'Setelah pergerakan dikuasai, pengecutan kecil yang pantas boleh ditambah. Ia membantu melatih keupayaan anda untuk mengecutkan otot dengan cepat apabila tekanan perut meningkat, contohnya sejurus sebelum batuk atau bersin.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Padankan senaman dengan tabiat harian'},
+      {icon: 'human-sitting', label: 'Mulakan dalam posisi yang selesa'},
+      {icon: 'weather-windy', label: 'Bernafas seperti biasa semasa pengecutan'},
+      {icon: 'sleep', label: 'Hormati fasa relaksasi'},
+      {icon: 'chart-line', label: 'Tingkatkan kesukaran secara beransur-ansur'},
+      {icon: 'doctor', label: 'Mintalah nasihat jika anda tidak pasti'},
+    ],
+    s5TipTitle: 'Ketetapan di atas segalanya',
+    s5TipText:
+      'Memadankan senaman dengan tabiat yang sudah menjadi sebahagian daripada hari anda boleh memudahkan anda kekal konsisten: selepas menyusu, selepas memberus gigi atau pada waktu lain yang sesuai dengan anda.',
+
+    s6Heading: 'Kesilapan lazim yang perlu dielakkan',
+    s6Body1:
+      'Senaman perineum mungkin kelihatan mudah, tetapi mudah untuk menggantikannya dengan otot lain atau menolak terlalu kuat.',
+    commonMistakes: [
+      'Menegangkan punggung atau peha dan bukan dasar pelvis',
+      'Menahan nafas semasa pengecutan',
+      'Mengekalkan otot dalam keadaan mengecut secara berterusan tanpa membiarkannya berehat',
+      'Melakukan senaman hanya selama beberapa hari dan kemudian berhenti',
+      'Sengaja menghentikan aliran air kencing untuk menyemak pengecutan',
+    ],
+    s6TipTitle: 'Apa yang tidak patut dilakukan',
+    s6TipText:
+      'Tidak disyorkan untuk mengamalkan senaman dengan sengaja menghentikan aliran air kencing. Kaedah ini tidak melatih perineum dengan betul dan boleh mengganggu fungsi pundi kencing yang normal.',
+
+    s7Heading: 'Simptom apakah yang patut mendorong konsultasi?',
+    s7Body1:
+      'Kebocoran kecil atau rasa luar biasa kadangkala boleh muncul selepas bersalin. Walau bagaimanapun, ia tidak patut diabaikan jika ia berterusan, bertambah teruk atau mengganggu kehidupan seharian anda.',
+    warningSigns: [
+      'Kebocoran air kencing semasa anda batuk, bersin, ketawa atau meneran',
+      'Rasa berat atau tekanan di pelvis bawah',
+      'Rasa ada ketulan atau sesuatu yang jatuh ke dalam faraj',
+      'Kesukaran menahan angin atau najis',
+      'Sakit yang berterusan di perineum',
+      'Sakit semasa atau selepas hubungan seks',
+      'Kesukaran mengenal pasti atau mengecutkan otot perineum dengan betul',
+    ],
+    consultLabel: 'Bila anda patut meminta nasihat?',
+    s7Body2:
+      'Bidan, doktor atau ahli fisioterapi yang pakar dalam pemulihan dasar pelvis boleh menyemak fungsi otot dan mencadangkan program yang sesuai.',
+
+    s8Heading: 'Dan selepas koyakan, episiotomi atau pembedahan Caesarean?',
+    s8Body1:
+      'Koyakan atau episiotomi memerlukan penjagaan khusus semasa penyembuhan. Menyambung semula aktiviti perlu mengambil kira sakit, keadaan parut dan panduan yang diberikan selepas bersalin.',
+    s8Body2:
+      'Selepas pembedahan Caesarean, pemulihan juga melibatkan dinding perut dan parut. Walaupun kelahiran itu bukan secara normal, kehamilan itu sendiri tetap meletakkan tekanan pada dasar pelvis.',
+    s8HighlightTitle: 'Penjagaan yang diperibadikan boleh membantu',
+    s8HighlightText:
+      'Dalam kes koyakan yang ketara, sakit, simptom kencing atau usus, atau kesukaran yang berterusan, penilaian bersama pengamal penjagaan kesihatan boleh amat membantu.',
+
+    s9Heading: 'Menyambung semula sukan secara beransur-ansur',
+    s9Body1:
+      'Menyambung semula pergerakan selepas bersalin perlu dilakukan secara beransur-ansur. Berjalan dan pergerakan lembut biasanya boleh disambung semula berdasarkan perasaan anda, manakala aktiviti berimpak tinggi memerlukan lebih berhati-hati.',
+    s9Body2:
+      'Sebelum menyambung semula berlari, melompat atau latihan yang sangat intensif, lebih baik menilai pemulihan dasar pelvis dan mengambil kira sebarang simptom.',
+    s9AlertTitle: 'Jangan tergesa-gesa melangkaui peringkat',
+    s9AlertText:
+      'Kebocoran, rasa berat atau sakit semasa atau selepas bersenam ialah tanda bahawa anda perlu memperlahankan langkah dan mendapatkan nasihat sebelum meningkatkan keamatan.',
+
+    s10Heading: 'Bila untuk berjumpa pakar?',
+    s10Body1:
+      'Pemulihan dasar pelvis bersama bidan atau ahli fisioterapi boleh membantu jika anda tidak pasti sama ada anda mengecutkan dengan betul, jika simptom anda berterusan atau jika anda ingin menyambung semula aktiviti fizikal tertentu dengan yakin.',
+    questionCardTitle: 'Soalan berguna untuk ditanya',
+    appointmentQuestions: [
+      'Adakah simptom saya konsisten dengan kelemahan dasar pelvis?',
+      'Adakah saya melakukan pengecutan dengan betul?',
+      'Berapa banyak ulangan yang perlu saya lakukan setiap hari?',
+      'Bolehkah saya kembali berlari, bersukan atau bersenam berimpak tinggi?',
+      'Adakah saya memerlukan pemulihan bersama bidan atau ahli fisioterapi?',
+      'Adakah parut, koyakan atau pembedahan Caesarean saya memerlukan sebarang langkah berjaga-jaga khusus?',
+    ],
+    s10TipTitle: 'Elok diketahui',
+    s10TipText:
+      'Berjumpa pengamal profesional tidak semestinya bermakna ada sesuatu yang tidak kena. Satu sesi boleh sekadar membantu menyemak teknik anda, menilai pemulihan anda dan belajar maju dengan betul.',
+
+    s11Heading: 'Pemulihan yang mengambil masa',
+    s11Body1:
+      'Selepas bersalin, adalah normal untuk tidak serta-merta mendapatkan semula deria atau kekuatan otot yang sama seperti sebelum kehamilan.',
+    s11Body2:
+      'Matlamatnya bukan untuk melakukan sebanyak mungkin pengecutan. Ia lebih kepada mendapatkan semula penyelarasan yang baik antara pengecutan dan relaksasi secara beransur-ansur, dan kemudian dapat menggunakan otot-otot ini secara semula jadi dalam aktiviti harian.',
+    s11HighlightTitle: 'Kemajuan kecil ialah kemajuan sebenar',
+    s11HighlightText:
+      'Kesedaran yang lebih baik terhadap pergerakan, beberapa saat tambahan pengecutan atau pengurangan kebocoran sudah merupakan tanda yang menggalakkan.',
+
+    s12Heading: 'Perkara penting untuk diingat',
+    summaryTitle: 'Perkara penting',
+    summaryItems: [
+      'Kehamilan dan bersalin meletakkan tekanan yang ketara pada dasar pelvis.',
+      'Pemulihan secara beransur-ansur adalah normal selepas bersalin.',
+      'Senaman perlu mengutamakan kualiti pergerakan berbanding kekuatan.',
+      'Pernafasan dan relaksasi sama pentingnya dengan pengecutan.',
+      'Kebocoran air kencing, rasa berat atau sakit yang berterusan wajar mendapat pendapat profesional.',
+      'Pemulihan bersama bidan atau ahli fisioterapi boleh membantu anda mendapatkan semula kawalan yang lebih baik.',
+      'Kembali bersukan perlu dilakukan secara beransur-ansur, terutamanya untuk aktiviti berimpak tinggi.',
+    ],
+
+    finalTipTitle: 'Luangkan masa untuk pulih',
+    finalTipText:
+      'Selepas bersalin, tubuh anda telah melalui banyak perubahan. Perineum wajar mendapat perhatian yang sama seperti seluruh tubuh anda yang lain: secara beransur-ansur, secara tetap dan tanpa tekanan.',
+
+    disclaimerText:
+      'Artikel ini hanya untuk tujuan maklumat dan tidak menggantikan nasihat perubatan yang diperibadikan. Jika anda mengalami sakit, simptom yang berterusan atau mempunyai sebarang kebimbangan tentang pemulihan anda, dapatkan nasihat daripada pengamal penjagaan kesihatan.',
+  },
+  so: {
+    badge: 'DHALMADA KA DIB • BOGSIIN',
+    title: 'Xoojinta murqaha miskaha\ndhalmada ka dib',
+    metaDuration: '8 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Uurka iyo dhalmada ka dib, murqaha miskuhu waxay u baahan yihiin waqti si ay u bogsadaan. Layliyo fudud, joogto ah, oo tartiib ah ayaa kaa caawin kara inaad dib u hesho xoog, xakameyn, iyo kalsooni, adigoon isku dayin inaad wax degdegiso.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Fahamka doorka perineum-ka',
+      'Sababta dhalmadu u culaysiso',
+      'Goorta la bilaabo dib-u-habaynta murqaha miskaha',
+      'Barashada isku-uruurinta saxda ah',
+      'Dhisidda nidaam tartiib ah',
+      'Khaladaadka laga fogaado',
+      'Goorta caawimaad la weydiisto',
+      'Dib u bilaabista isboorti tartiib ah',
+      'U diyaargarowga ballan',
+      'Qodobbada muhiimka ah',
+    ],
+    shareMessage: 'Xoojinta murqaha miskaha dhalmada ka dib — AWA',
+
+    s1Heading: 'Fahamka doorka perineum-ka',
+    s1Body1:
+      'Perineum-ka, oo sidoo kale loo yaqaan murqaha miskaha, waa koox murqo ah oo ku yaal salka miskaha. Wuxuu leeyahay door xakameynta kaadiheysta iyo mindhicirka wuxuuna caawiyaa taageeridda xubnaha miskaha.',
+    s1Body2:
+      'Inta uurka lagu jiro, murqahan waa inay sidaan culeys dheeraad ah dhowr bilood. Waxaa sidoo kale lagu saaraa culays weyn inta dhalmada lagu jiro.',
+    s1HighlightTitle: 'Muruq qarsoon laakiin lagama maarmaan ah',
+    s1HighlightText:
+      'Murqaha miskaha waxay ku lug leeyihiin dhowr shaqo oo maalinle ah: haysashada kaadida iyo saxarada, xakameynta gaaska, taageeridda xubnaha miskaha, iyo ciyaaridda door shaqooyin galmo oo qaar.',
+
+    benefitsHeading: 'Faa’iidooyinka murqaha miskaha oo xoogaystay',
+    benefitsIntro:
+      'Xoojin tartiib ah, oo si sax ah loo sameeyey, ayaa caawin karta hagaajinta xakameynta iyo taageerada murqaha miskaha.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Xakameyn kaadi-heysto oo ka wanaagsan',
+        text: 'Murqaha miskaha waxay leeyihiin door xakameynta kaadi-haysta. Xoojintooda tartiib ah ayaa caawin karta yareynta daadadka kaadida qaarkood.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Taageeridda shaqada mindhicirka',
+        text: 'Murqahani waxay sidoo kale caawiyaan xakameynta gaaska iyo saxarada waxayna gacan ka geystaan taageeridda xubnaha miskaha.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Taageeridda xubnaha miskaha',
+        text: 'Murqaha miskaha waxay samaystaan salka murqo dhab ah oo caawiya taageeridda kaadi-haysta, ilmo-galeenka, iyo mindhicirka.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Dib u helista dareenka tartiib ah',
+        text: 'Dib-u-habayn ku habboon ayaa sidoo kale kaa caawin karta inaad dib u hesho wacyi iyo xakameyn ka wanaagsan oo meeshan ah.',
+      },
+    ],
+
+    s2Heading: 'Sababta uurka iyo dhalmadu u culaysiyaan',
+    s2Body1:
+      'Uurku wuxuu tartiib u saaraa cadaadis dheeraad ah murqaha miskaha. Dhalmada xiniinyaha ayaa markaas si weyn u fidin karta murqaha iyo unugyada aagan.',
+    s2Body2:
+      'Qalliinka cesarean sidoo kale gabi ahaanba ma badbaadiyo murqaha miskaha: uurku laftiisa wuxuu weli yahay muddo muhiim ah murqahan.',
+    s2Body3:
+      'Dhalmada ka dib, sidaa darteed waa caadi in bogsiintu qaadato waqti. Dumarka qaar kuma dareemaan wax astaamo ah, kuwo kale na waxay ogaan karaan daad, dareen culays, ama xakameyn murqo oo hoos u dhacday.',
+    s2TipTitle: 'Bogsiin kastaa waa ka duwan tahay',
+    s2TipText:
+      'Nooca dhalmada, kala-jeexid ama episiotomy, jiritaanka xanuun, iyo xaaladdaada guud dhalmada ka dib dhammaantood waxay saameyn karaan bogsiinta.',
+
+    s3Heading: 'Goorta la bilaabo dib-u-habaynta murqaha miskaha?',
+    s3Body1:
+      'Dhalmo aan murugo lahayn ka dib, isku-uruurin jilicsan oo murqaha miskaha ah inta badan waa la bilaabi karaa tartiib. Weli waa muhiim in layliyada lagu habeeyo xaaladdaada oo talo la raadsado haddii aad la kulantay dhibaato, xanuun weyn, ama habraac gaar ah.',
+    s3Body2:
+      'Haddii aad leedahay tuubo kaadi, talooyin qaar ayaa soo jeedinaya in la sugo ilaa la saaro oo kaadi caadi ah dib u bilaabato ka hor layliyada perineum-ka.',
+    s3AlertTitle: 'Ha ku riixin xanuun',
+    s3AlertText:
+      'Xanuun weyn, astaamo sii xumaanaya, nabar si xun u bogsanaya, ama walaac kasta oo gaar ah wuxuu u baahan yahay talo umulis, dhakhtar, ama xirfadle dib-u-habayn.',
+
+    s4Heading: 'Barashada isku-uruurinta saxda ah',
+    s4Body1:
+      'Si aad u aqoonsato dhaqdhaqaaqa, qiyaas inaad isku daydayso inaad haysato gaas iyo rabitaanka kaadida isku mar. Dhaqdhaqaaqa aad raadinayso waa dareen isku-uruurin iyo kor u qaadid gudaha ah.',
+    s4Body2:
+      'Ujeeddadu maaha inaad jidhkaaga oo dhan si adag u xidhidh. Dhabannadaada, bowdooyinkaaga, iyo caloosha waa inay u sii nasanayaan sida ugu macquulsan, halka neefsashadu caadi u socoto.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Neefsasho'},
+      {icon: 'human-handsup', label: 'Isku-uruurin jilicsan'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Isku-uruurin dheer'},
+      {icon: 'gesture-tap-button', label: 'Isku-uruurin degdeg ah'},
+    ],
+    s4HighlightTitle: 'Nasashadu waa muhiim sida isku-uruurintu',
+    s4HighlightText:
+      'Isku-uruurin kasta ka dib, murqaha si buuxda uga nasasii. Dib-u-habayn wanaagsan macnaheedu maaha haynta perineum-ka oo isku-uruursan maalinta oo dhan.',
+
+    s5Heading: 'Dhisidda nidaam tartiib ah',
+    s5Body1:
+      'Bilowga, waxa ugu muhiimsan waa barashada aqoonsiga murqaha iyo sameynta dhaqdhaqaaqa si sax ah. Joogtayntu way ka muhiim badan tahay xoogga.',
+    s5h3a: 'Isku-uruurin dheer',
+    s5Body2:
+      'Si jilicsan u isku uruuri murqaha miskaha, ka dibna hay isku-uruurinta dhowr ilbiriqsi adigoon neefta haynin. Kadibna si buuxda u sii daa ka hor intaadan mar kale bilaabin.',
+    s5h3b: 'Isku-uruurin gaaban',
+    s5Body3:
+      'Marka dhaqdhaqaaqa la bartay, isku-uruurin degdeg ah oo yaryar ayaa lagu dari karaa. Waxay tababaraan awoodda isku-uruurinta murqaha si degdeg ah marka cadaadiska caloosha kordho, tusaale ahaan ka hor qufaca ama hindhisada.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Layliyada ku xidh caado maalinle ah'},
+      {icon: 'human-sitting', label: 'Ku bilow jag raaxo leh'},
+      {icon: 'weather-windy', label: 'Si caadi ah u neefso inta isku-uruurinta lagu jiro'},
+      {icon: 'sleep', label: 'Ixtiraam marxaladaha nasashada'},
+      {icon: 'chart-line', label: 'Tartiib u kordhi adkaanta'},
+      {icon: 'doctor', label: 'Weydiiso talo haddii aadan hubin'},
+    ],
+    s5TipTitle: 'Joogtayn ka sarraysa wax kasta',
+    s5TipText:
+      'Isku xidhidda layliyada caado hore u jirta maalintaada waxay fududayn kartaa joogtaynta: nuujinta ka dib, ilkaha dhaqidda ka dib, ama waqti kale oo kuu habboon.',
+
+    s6Heading: 'Khaladaadka caadiga ah ee laga fogaado',
+    s6Body1:
+      'Layliyada perineum-ku waxay u muuqdaan kuwo fudud, laakiin way fududahay in lagu magdhow murqo kale ama in si xad dhaaf ah la riixo.',
+    commonMistakes: [
+      'Xidhidhidda dhabannada ama bowdooyinka halkii murqaha miskaha',
+      'Haynta neefta inta isku-uruurinta socoto',
+      'Haynta murqaha isku-uruursan si joogto ah adigoon u oggolaanin inay nasadaan',
+      'Samaynta layliyada dhowr maalmood oo keliya ka dibna joojin',
+      'Si ula kac ah u joojinta durdurka kaadida si loo hubiyo isku-uruurinta',
+    ],
+    s6TipTitle: 'Waxa aan la samayn',
+    s6TipText:
+      'Looma taliyo in layliyada lagu sameeyo si ula kac ah u joojinta durdurka kaadida. Habkani perineum-ka si sax ah uma tababaro wuxuuna carqaladayn karaa shaqada caadiga ah ee kaadi-haysta.',
+
+    s7Heading: 'Astaamaha maxay tahay inay keenaan la-talin?',
+    s7Body1:
+      'Daad yar ama dareen aan caadi ahayn ayaa mararka qaarkood soo muuqan kara dhalmada ka dib. Si kastaba, waa inaan la iska indho tirin haddii ay sii socdaan, xumaadaan, ama ay carqaladeeyaan nolol-maalmeedkaaga.',
+    warningSigns: [
+      'Daadka kaadida marka aad qufacdo, hindhisto, qoslo, ama dadaasho',
+      'Dareen culays ama cadaadis miskaha hoose',
+      'Dareen in qayb ama wax kale ay xiniinyaha ku soo dhacayaan',
+      'Dhib haynta gaaska ama saxarada',
+      'Xanuun sii socda perineum-ka',
+      'Xanuun inta galmada lagu jiro ama ka dib',
+      'Dhib aqoonsiga ama isku-uruurinta saxda ah ee murqaha perineum-ka',
+    ],
+    consultLabel: 'Goorma talo la raadsadaa?',
+    s7Body2:
+      'Umulis, dhakhtar, ama physiotherapist ku takhasusay dib-u-habaynta murqaha miskaha ayaa hubin kara shaqada murqaha oo soo jeedin kara barnaamij ku habboon.',
+
+    s8Heading: 'Iyo kala-jeexid, episiotomy, ama qalliin cesarean ka dib?',
+    s8Body1:
+      'Kala-jeexid ama episiotomy waxay u baahan tahay daryeel gaar ah inta bogsiintu socoto. Dib u bilaabista hawlaha waa inay tixgelisaa xanuunka, xaaladda nabarka, iyo hagidda la bixiyey dhalmada ka dib.',
+    s8Body2:
+      'Qalliinka cesarean ka dib, bogsiintu waxay sidoo kale ku lug leedahay darbiga caloosha iyo nabarka. Xataa haddii dhalmadu aanay ahayn mid xiniinyo, uurku laftiisa wuxuu weli culays saaray murqaha miskaha.',
+    s8HighlightTitle: 'Daryeel shakhsi ah ayaa caawin kara',
+    s8HighlightText:
+      'Xaaladda kala-jeexid weyn, xanuun, astaamo kaadi ama mindhicir, ama dhibaatooyin sii socda, qiimeyn xirfadle caafimaad ayaa si gaar ah faa’iido u yeelan karta.',
+
+    s9Heading: 'Dib u bilaabista isboorti tartiib ah',
+    s9Body1:
+      'Dib u bilaabista dhaqdhaqaaqa dhalmada ka dib waa inay noqotaa mid tartiib ah. Socodka iyo dhaqdhaqaaqyada jilicsan guud ahaan waa la bilaabi karaa iyadoo ku xiran sida aad dareemayso, halka hawlaha saameyn weyn leh ay u baahan yihiin taxadar dheeraad ah.',
+    s9Body2:
+      'Ka hor dib u bilaabista orodka, boodboodka, ama tababar aad u xoog badan, waxaa ugu wanaagsan in la qiimeeyo bogsiinta murqaha miskaha oo la tixgeliyo astaamo kasta.',
+    s9AlertTitle: 'Ha degdegin heerarka',
+    s9AlertText:
+      'Daad, dareen culays, ama xanuun inta layliga lagu jiro ama ka dib waa calaamado inaad hoos u dhigto oo aad talo raadsato ka hor intaadan kordhin xoogga.',
+
+    s10Heading: 'Goorta takhasuse la arko?',
+    s10Body1:
+      'Dib-u-habaynta murqaha miskaha oo ay la sameyso umulis ama physiotherapist ayaa faa’iido yeelan karta haddii aadan hubin inaad si sax ah isku uruurinayso, haddii astaamahaagu sii socdaan, ama haddii aad rabto inaad si kalsooni leh dib ugu bilowdo hawlo jidheed oo qaar.',
+    questionCardTitle: 'Su’aalo faa’iido leh oo la weydiiyo',
+    appointmentQuestions: [
+      'Astaamahaygu ma la jaan qaadaan daciifnimada murqaha miskaha?',
+      'Ma si sax ah baan u samaynayaa isku-uruurinta?',
+      'Imisa soo noqnoqod ayaan maalin kasta sameeyaa?',
+      'Ma ku laaban karaa orodka, isboortiga, ama layli saameyn weyn leh?',
+      'Ma u baahanahay dib-u-habayn umulis ama physiotherapist?',
+      'Nabarkayga, kala-jeexidkayga, ama qalliinkayga cesarean ma u baahan yahay taxadarro gaar ah?',
+    ],
+    s10TipTitle: 'Waxtar leh in la ogaado',
+    s10TipText:
+      'Aragga xirfadle macnaheedu maaha lagama maarmaan inay wax khalad ah jiraan. Fadhi ayaa si fudud u caawin kara hubinta farsamadaada, qiimeynta bogsiintaada, iyo barashada sida si sax ah loo horumariyo.',
+
+    s11Heading: 'Bogsiin qaadanaysa waqti',
+    s11Body1:
+      'Dhalmada ka dib, waa caadi inaadan isla markiiba dib u helin dareennada ama xoogga murqaha isku mid ah ee aad lahayd ka hor uurka.',
+    s11Body2:
+      'Ujeeddadu maaha inaad sameyso isku-uruurin intii suurtagal ah. Waxay inta badan ku saabsan tahay dib u helista tartiib ah isku-duwidda wanaagsan ee u dhexeysa isku-uruurinta iyo nasashada, ka dibna awoodda aad ku isticmaasho murqahan si dabiici ah hawlaha maalinlaha ah.',
+    s11HighlightTitle: 'Horumar yar waa horumar dhab ah',
+    s11HighlightText:
+      'Wacyi ka wanaagsan oo dhaqdhaqaaqa ah, dhowr ilbiriqsi oo dheeraad ah oo isku-uruurin ah, ama yareynta daadka waa calaamado dhiirrigelin ah.',
+
+    s12Heading: 'Qodobbada muhiimka ah',
+    summaryTitle: 'Waxa muhiimka ah',
+    summaryItems: [
+      'Uurka iyo dhalmadu waxay culays weyn saaraan murqaha miskaha.',
+      'Bogsiin tartiib ah waa caadi dhalmada ka dib.',
+      'Layliyadu waa inay mudnaan siiyaan tayada dhaqdhaqaaqa halkii xoogga.',
+      'Neefsashada iyo nasashadu waa muhiim sida isku-uruurinta.',
+      'Daadka kaadida, culayska, ama xanuunka sii socda wuxuu mudan yahay ra’yi xirfadle.',
+      'Dib-u-habayn umulis ama physiotherapist ayaa kaa caawin karta inaad dib u hesho xakameyn ka wanaagsan.',
+      'Ku laabashada isboortigu waa inay noqotaa mid tartiib ah, gaar ahaan hawlaha saameynta weyn leh.',
+    ],
+
+    finalTipTitle: 'Qaado waqtiga aad ku bogsato',
+    finalTipText:
+      'Dhalmada ka dib, jidhkaagu wuxuu maray isbeddelo badan. Perineum-ku wuxuu mudan yahay isla feejignaanta jidhkaaga inta kale: tartiib, si joogto ah, oo cadaadis la’aan.',
+
+    disclaimerText:
+      'Maqaalkan waa macluumaad oo keliya mana bedelo talo caafimaad oo shakhsi ah. Haddii aad la kulanto xanuun, astaamo sii socda, ama aad leedahay walaac kasta oo ku saabsan bogsiintaada, talo ka raadso xirfadle caafimaad.',
+  },
+  sw: {
+    badge: 'BAADA YA KUJIFUNGUA • KUPONA',
+    title: 'Kuimarisha misuli ya sakafu ya nyonga\nbaada ya kujifungua',
+    metaDuration: 'Dakika 8 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Baada ya ujauzito na kujifungua, sakafu ya nyonga inahitaji muda kupona. Mazoezi rahisi, ya mara kwa mara, na ya polepole yanaweza kukusaidia kurejesha nguvu, udhibiti, na kujiamini, bila kujaribu kuharakisha mambo.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kuelewa nafasi ya msamba',
+      'Kwa nini kujifungua kunaiweka chini ya mkazo',
+      'Wakati wa kuanza ukarabati wa sakafu ya nyonga',
+      'Kujifunza kukaza misuli ipasavyo',
+      'Kujenga utaratibu wa polepole',
+      'Makosa ya kuepuka',
+      'Wakati wa kuomba msaada',
+      'Kurejea polepole kwenye michezo',
+      'Kujiandaa kwa miadi',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    shareMessage: 'Kuimarisha misuli ya sakafu ya nyonga baada ya kujifungua — AWA',
+
+    s1Heading: 'Kuelewa nafasi ya msamba',
+    s1Body1:
+      'Msamba, unaoitwa pia sakafu ya nyonga, ni kundi la misuli iliyo chini ya nyonga. Una nafasi katika kudhibiti kibofu cha mkojo na utumbo na husaidia kushikilia viungo vya nyonga.',
+    s1Body2:
+      'Wakati wa ujauzito, misuli hii hulazimika kubeba uzito wa ziada kwa miezi kadhaa. Pia huwekwa chini ya mkazo mkubwa wakati wa kujifungua.',
+    s1HighlightTitle: 'Msuli wa siri lakini muhimu',
+    s1HighlightText:
+      'Sakafu ya nyonga inahusika katika shughuli kadhaa za kila siku: kuzuia mkojo na kinyesi, kudhibiti gesi, kushikilia viungo vya nyonga, na kuwa na nafasi katika kazi fulani za kingono.',
+
+    benefitsHeading: 'Faida za sakafu ya nyonga iliyoimarika',
+    benefitsIntro:
+      'Kuimarisha kwa polepole na kufanywa ipasavyo kunaweza kusaidia kuboresha udhibiti na usaidizi wa sakafu ya nyonga.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Udhibiti bora wa kibofu cha mkojo',
+        text: 'Sakafu ya nyonga ina nafasi katika kudhibiti kibofu cha mkojo. Kuiimarisha polepole kunaweza kusaidia kupunguza baadhi ya kuvuja kwa mkojo.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Kusaidia utendaji wa utumbo',
+        text: 'Misuli hii pia husaidia kudhibiti gesi na kinyesi na huchangia kushikilia viungo vya nyonga.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Kushikilia viungo vya nyonga',
+        text: 'Sakafu ya nyonga huunda msingi halisi wa misuli unaosaidia kushikilia kibofu cha mkojo, mji wa uzazi, na utumbo.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Kurejesha hisia polepole',
+        text: 'Ukarabati unaofaa pia unaweza kukusaidia kurejesha ufahamu na udhibiti bora wa eneo hili.',
+      },
+    ],
+
+    s2Heading: 'Kwa nini ujauzito na kujifungua vinaiweka chini ya mkazo',
+    s2Body1:
+      'Ujauzito polepole huweka shinikizo zaidi kwenye sakafu ya nyonga. Kujifungua kwa njia ya kawaida kunaweza basi kunyoosha kwa kiasi kikubwa misuli na tishu za eneo hili.',
+    s2Body2:
+      'Upasuaji wa kujifungua pia hauiepushi kabisa sakafu ya nyonga: ujauzito wenyewe unabaki kuwa kipindi muhimu kwa misuli hii.',
+    s2Body3:
+      'Baada ya kuzaliwa, kwa hiyo ni kawaida kwamba kupona kuchukue muda. Baadhi ya wanawake karibu hawahisi dalili, huku wengine wakiona kuvuja, hisia ya uzito, au udhibiti uliopungua wa misuli.',
+    s2TipTitle: 'Kila kupona ni tofauti',
+    s2TipText:
+      'Aina ya kujifungua, mpasuko au kukata msamba, uwepo wa maumivu, na hali yako ya jumla baada ya kujifungua vyote vinaweza kuathiri kupona.',
+
+    s3Heading: 'Wakati wa kuanza ukarabati wa sakafu ya nyonga?',
+    s3Body1:
+      'Baada ya kujifungua bila matatizo, mikazo myepesi ya sakafu ya nyonga kwa kawaida inaweza kuanza tena polepole. Inabaki muhimu kurekebisha mazoezi kulingana na hali yako na kutafuta ushauri ikiwa ulipata tatizo, maumivu makubwa, au utaratibu maalum.',
+    s3Body2:
+      'Ikiwa una katheta ya mkojo, baadhi ya mapendekezo yanashauri kusubiri hadi iondolewe na kukojoa kawaida kuanze tena kabla ya kuanza mazoezi ya msamba.',
+    s3AlertTitle: 'Usilazimishe kupitia maumivu',
+    s3AlertText:
+      'Maumivu makubwa, dalili zinazozidi kuwa mbaya, kidonda kinachopona vibaya, au wasiwasi wowote maalum vinahitaji ushauri wa mkunga, daktari, au mtaalamu wa ukarabati.',
+
+    s4Heading: 'Kujifunza kukaza misuli ipasavyo',
+    s4Body1:
+      'Ili kutambua mwendo, fikiria unajaribu kuzuia gesi na hamu ya kukojoa kwa wakati mmoja. Mwendo unaoutafuta ni hisia ya kukaza na kuvuta kuelekea ndani.',
+    s4Body2:
+      'Lengo si kukaza mwili wako wote kwa nguvu. Matako, mapaja, na misuli ya tumbo vinapaswa kubaki vimetulia iwezekanavyo, huku kupumua kukiendelea kawaida.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Kupumua'},
+      {icon: 'human-handsup', label: 'Kukaza kwa upole'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Kukaza kwa muda mrefu'},
+      {icon: 'gesture-tap-button', label: 'Kukaza kwa haraka'},
+    ],
+    s4HighlightTitle: 'Kutulia ni muhimu sawa',
+    s4HighlightText:
+      'Baada ya kila kukaza, acha misuli itulie kabisa. Ukarabati mzuri haumaanishi kukaza msamba siku nzima.',
+
+    s5Heading: 'Kujenga utaratibu wa polepole',
+    s5Body1:
+      'Mwanzoni, jambo muhimu zaidi ni kujifunza kutambua misuli na kufanya mwendo ipasavyo. Uthabiti ni muhimu zaidi kuliko ukali.',
+    s5h3a: 'Kukaza kwa muda mrefu',
+    s5Body2:
+      'Kaza kwa upole sakafu ya nyonga, kisha shikilia kukaza kwa sekunde chache bila kushika pumzi. Kisha achilia kabisa kabla ya kuanza tena.',
+    s5h3b: 'Kukaza kwa muda mfupi',
+    s5Body3:
+      'Mwendo ukishafahamika, kukaza kwa haraka kwa kiasi kidogo kunaweza kuongezwa. Kunasaidia kufunza uwezo wako wa kukaza misuli haraka shinikizo la tumbo linapoongezeka, kwa mfano mara kabla ya kukohoa au kupiga chafya.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Unganisha mazoezi na tabia ya kila siku'},
+      {icon: 'human-sitting', label: 'Anza katika mkao wa faraja'},
+      {icon: 'weather-windy', label: 'Pumua kawaida wakati wa kukaza'},
+      {icon: 'sleep', label: 'Heshimu awamu za kutulia'},
+      {icon: 'chart-line', label: 'Ongeza ugumu polepole'},
+      {icon: 'doctor', label: 'Omba ushauri ikiwa huna uhakika'},
+    ],
+    s5TipTitle: 'Uthabiti kwanza',
+    s5TipText:
+      'Kuunganisha mazoezi na tabia ambayo tayari ni sehemu ya siku yako kunaweza kurahisisha kuwa thabiti: baada ya kunyonyesha, baada ya kupiga mswaki, au wakati mwingine unaokufaa.',
+
+    s6Heading: 'Makosa ya kawaida ya kuepuka',
+    s6Body1:
+      'Mazoezi ya msamba yanaweza kuonekana rahisi, lakini ni rahisi kufidia kwa misuli mingine au kulazimisha sana.',
+    commonMistakes: [
+      'Kukaza matako au mapaja badala ya sakafu ya nyonga',
+      'Kushika pumzi wakati wa kukaza',
+      'Kuweka misuli ikiwa imekazwa mfululizo bila kuiacha itulie',
+      'Kufanya mazoezi kwa siku chache tu kisha kuacha',
+      'Kusimamisha mtiririko wa mkojo kwa makusudi ili kukagua kukaza',
+    ],
+    s6TipTitle: 'Cha kutofanya',
+    s6TipText:
+      'Haipendekezwi kufanya mazoezi kwa kusimamisha mtiririko wa mkojo wako kwa makusudi. Njia hii haifundishi msamba ipasavyo na inaweza kuvuruga utendaji wa kawaida wa kibofu cha mkojo.',
+
+    s7Heading: 'Dalili zipi zinapaswa kusababisha mashauriano?',
+    s7Body1:
+      'Kuvuja kidogo au hisia isiyo ya kawaida wakati mwingine kunaweza kuonekana baada ya kujifungua. Hata hivyo, hakupaswi kupuuzwa ikiwa kunaendelea, kunazidi, au kunaingilia maisha yako ya kila siku.',
+    warningSigns: [
+      'Kuvuja kwa mkojo unapokohoa, kupiga chafya, kucheka, au kujikaza',
+      'Hisia ya uzito au shinikizo kwenye sehemu ya chini ya nyonga',
+      'Hisia kwamba donge au kitu kinashuka ukeni',
+      'Ugumu wa kuzuia gesi au kinyesi',
+      'Maumivu ya kuendelea kwenye msamba',
+      'Maumivu wakati wa tendo la ndoa au baada yake',
+      'Ugumu wa kutambua au kukaza ipasavyo misuli ya msamba',
+    ],
+    consultLabel: 'Wakati gani utafute ushauri?',
+    s7Body2:
+      'Mkunga, daktari, au mtaalamu wa tiba ya viungo aliyebobea katika ukarabati wa sakafu ya nyonga anaweza kukagua utendaji wa misuli na kupendekeza programu inayofaa.',
+
+    s8Heading: 'Na baada ya mpasuko, kukatwa msamba, au upasuaji wa kujifungua?',
+    s8Body1:
+      'Mpasuko au kukatwa msamba kunahitaji uangalifu maalum wakati wa kupona. Kurejea kwenye shughuli kunapaswa kuzingatia maumivu, hali ya kovu, na mwongozo uliotolewa baada ya kujifungua.',
+    s8Body2:
+      'Baada ya upasuaji wa kujifungua, kupona pia kunahusisha ukuta wa tumbo na kovu. Hata kama kuzaliwa hakukuwa kwa njia ya kawaida, ujauzito wenyewe bado uliweka mkazo kwenye sakafu ya nyonga.',
+    s8HighlightTitle: 'Huduma iliyobinafsishwa inaweza kusaidia',
+    s8HighlightText:
+      'Katika hali ya mpasuko mkubwa, maumivu, dalili za mkojo au utumbo, au matatizo ya kuendelea, tathmini na mtaalamu wa afya inaweza kuwa ya manufaa hasa.',
+
+    s9Heading: 'Kurejea polepole kwenye michezo',
+    s9Body1:
+      'Kurejea kwenye mwendo baada ya kujifungua kunapaswa kuwa polepole. Kutembea na mienendo myepesi kwa kawaida kunaweza kuanza tena kulingana na jinsi unavyojisikia, huku shughuli zenye mshtuko mkubwa zikihitaji tahadhari zaidi.',
+    s9Body2:
+      'Kabla ya kuanza tena kukimbia, kuruka, au mazoezi makali sana, ni bora kutathmini kupona kwa sakafu ya nyonga na kuzingatia dalili zozote.',
+    s9AlertTitle: 'Usiharakishe hatua',
+    s9AlertText:
+      'Kuvuja, hisia ya uzito, au maumivu wakati wa mazoezi au baada yake ni dalili kwamba unapaswa kupunguza mwendo na kutafuta ushauri kabla ya kuongeza ukali.',
+
+    s10Heading: 'Wakati wa kumwona mtaalamu?',
+    s10Body1:
+      'Ukarabati wa sakafu ya nyonga na mkunga au mtaalamu wa tiba ya viungo unaweza kuwa wa manufaa ikiwa huna uhakika kama unakaza ipasavyo, dalili zako zinaendelea, au unataka kuanza tena shughuli fulani za mwili kwa kujiamini.',
+    questionCardTitle: 'Maswali yenye manufaa ya kuuliza',
+    appointmentQuestions: [
+      'Je, dalili zangu zinaendana na udhaifu wa sakafu ya nyonga?',
+      'Je, ninafanya mikazo ipasavyo?',
+      'Ninapaswa kurudia mara ngapi kila siku?',
+      'Je, naweza kurudi kukimbia, michezo, au mazoezi yenye mshtuko mkubwa?',
+      'Je, ninahitaji ukarabati na mkunga au mtaalamu wa tiba ya viungo?',
+      'Je, kovu langu, mpasuko, au upasuaji wangu wa kujifungua unahitaji tahadhari zozote maalum?',
+    ],
+    s10TipTitle: 'Vyema kujua',
+    s10TipText:
+      'Kumwona mtaalamu haimaanishi lazima kuna tatizo. Kipindi kimoja kinaweza kusaidia tu kukagua mbinu yako, kutathmini kupona kwako, na kujifunza kuendelea ipasavyo.',
+
+    s11Heading: 'Kupona kunakochukua muda',
+    s11Body1:
+      'Baada ya kujifungua, ni kawaida kutorejesha mara moja hisia au nguvu ile ile ya misuli uliyokuwa nayo kabla ya ujauzito.',
+    s11Body2:
+      'Lengo si kufanya mikazo mingi iwezekanavyo. Ni zaidi kurejesha polepole uratibu mzuri kati ya kukaza na kutulia, kisha kuweza kutumia misuli hii kiasili katika shughuli za kila siku.',
+    s11HighlightTitle: 'Maendeleo madogo ni maendeleo halisi',
+    s11HighlightText:
+      'Ufahamu bora wa mwendo, sekunde chache zaidi za kukaza, au kupungua kwa kuvuja tayari ni dalili za kutia moyo.',
+
+    s12Heading: 'Mambo muhimu ya kukumbuka',
+    summaryTitle: 'Mambo ya msingi',
+    summaryItems: [
+      'Ujauzito na kujifungua huweka mkazo mkubwa kwenye sakafu ya nyonga.',
+      'Kupona polepole ni jambo la kawaida baada ya kujifungua.',
+      'Mazoezi yanapaswa kupa kipaumbele ubora wa mwendo kuliko nguvu.',
+      'Kupumua na kutulia ni muhimu sawa na kukaza.',
+      'Kuvuja kwa mkojo, uzito, au maumivu ya kuendelea vinastahili maoni ya kitaalamu.',
+      'Ukarabati na mkunga au mtaalamu wa tiba ya viungo unaweza kukusaidia kurejesha udhibiti bora.',
+      'Kurudi kwenye michezo kunapaswa kuwa polepole, hasa kwa shughuli zenye mshtuko mkubwa.',
+    ],
+
+    finalTipTitle: 'Chukua muda wa kupona',
+    finalTipText:
+      'Baada ya kujifungua, mwili wako umepitia mabadiliko mengi. Msamba unastahili uangalizi sawa na sehemu nyingine ya mwili wako: polepole, mara kwa mara, na bila shinikizo.',
+
+    disclaimerText:
+      'Makala hii ni kwa madhumuni ya taarifa tu na haichukui nafasi ya ushauri wa kitabibu uliobinafsishwa. Ukipata maumivu, dalili zinazoendelea, au una wasiwasi wowote kuhusu kupona kwako, tafuta ushauri wa mtaalamu wa afya.',
+  },
+  kk: {
+    badge: 'БОСАНҒАННАН КЕЙІН • ҚАЛПЫНА КЕЛУ',
+    title: 'Босанғаннан кейін жамбас еденінің\nбұлшықеттерін нығайту',
+    metaDuration: '8 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Жүктілік пен босанудан кейін жамбас едені қалпына келуге уақыт қажет етеді. Қарапайым, тұрақты және біртіндеп жасалатын жаттығулар істі асықтырмай, күш-қуатты, бақылауды және сенімділікті қайтаруға көмектесе алады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Шап аймағының рөлін түсіну',
+      'Босану оны неге қатты жүктейді',
+      'Жамбас еденін қалпына келтіруді қашан бастау керек',
+      'Дұрыс жиырылуды үйрену',
+      'Біртіндеп тәртіп құру',
+      'Болдырмайтын қателер',
+      'Көмекті қашан сұрау керек',
+      'Спортқа біртіндеп оралу',
+      'Қабылдауға дайындалу',
+      'Негізгі қорытындылар',
+    ],
+    shareMessage: 'Босанғаннан кейін жамбас еденінің бұлшықеттерін нығайту — AWA',
+
+    s1Heading: 'Шап аймағының рөлін түсіну',
+    s1Body1:
+      'Шап аймағы, жамбас едені деп те аталады, жамбастың түбінде орналасқан бұлшықеттер тобы. Ол қуық пен ішектің бақылауында рөл атқарады және жамбас ағзаларын ұстап тұруға көмектеседі.',
+    s1Body2:
+      'Жүктілік кезінде бұл бұлшықеттер бірнеше ай бойы қосымша салмақты көтеруге мәжбүр болады. Олар босану кезінде де айтарлықтай күйзеліске ұшырайды.',
+    s1HighlightTitle: 'Көрінбейтін, бірақ маңызды бұлшықет',
+    s1HighlightText:
+      'Жамбас едені бірнеше күнделікті қызметке қатысады: зәр мен нәжісті ұстау, газдарды бақылау, жамбас ағзаларын ұстап тұру және кейбір жыныстық қызметтерде рөл атқару.',
+
+    benefitsHeading: 'Күшейтілген жамбас еденінің пайдасы',
+    benefitsIntro:
+      'Біртіндеп, дұрыс орындалған нығайту жамбас еденінің бақылауы мен қолдауын жақсартуға көмектесе алады.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Қуықты жақсырақ бақылау',
+        text: 'Жамбас едені қуықты бақылауда рөл атқарады. Оны біртіндеп нығайту кейбір зәр ағуын азайтуға көмектесуі мүмкін.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ішек қызметін қолдау',
+        text: 'Бұл бұлшықеттер газдар мен нәжісті бақылауға да көмектеседі және жамбас ағзаларын ұстап тұруға ықпал етеді.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Жамбас ағзаларын қолдау',
+        text: 'Жамбас едені қуықты, жатырды және ішекті ұстап тұруға көмектесетін нағыз бұлшықет негізін құрайды.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Сезімді біртіндеп қайтару',
+        text: 'Тиісті қалпына келтіру бұл аймақты жақсырақ сезінуге және бақылауға қайтып оралуға да көмектесе алады.',
+      },
+    ],
+
+    s2Heading: 'Жүктілік пен босану оны неге қатты жүктейді',
+    s2Body1:
+      'Жүктілік жамбас еденіне біртіндеп көбірек қысым түсіреді. Табиғи босану содан кейін осы аймақтың бұлшықеттері мен тіндерін айтарлықтай созуы мүмкін.',
+    s2Body2:
+      'Кесарь тілігі де жамбас еденін толық аямайды: жүктіліктің өзі осы бұлшықеттер үшін маңызды кезең болып қала береді.',
+    s2Body3:
+      'Сондықтан босанғаннан кейін қалпына келудің уақыт алуы қалыпты. Кейбір әйелдер дерлік белгі сезбейді, ал басқалары ағуды, ауырлық сезімін немесе бұлшықет бақылауының төмендеуін байқауы мүмкін.',
+    s2TipTitle: 'Әр қалпына келу әртүрлі',
+    s2TipText:
+      'Босану түрі, жыртылу немесе эпизиотомия, ауырудың болуы және босанғаннан кейінгі жалпы жағдайыңыз қалпына келуге әсер етуі мүмкін.',
+
+    s3Heading: 'Жамбас еденін қалпына келтіруді қашан бастау керек?',
+    s3Body1:
+      'Асқынусыз босанғаннан кейін жамбас еденінің жұмсақ жиырылуларын әдетте біртіндеп қайта бастауға болады. Жаттығуларды жағдайыңызға бейімдеу және асқыну, айтарлықтай ауыру немесе нақты процедура болса, кеңес алу маңызды болып қала береді.',
+    s3Body2:
+      'Зәр катетеріңіз болса, кейбір ұсыныстар шап аймағы жаттығуларын бастамас бұрын оны алып тастауды және қалыпты зәр шығарудың қайта басталуын күтуді ұсынады.',
+    s3AlertTitle: 'Ауыруды жеңуге мәжбүрлемеңіз',
+    s3AlertText:
+      'Айтарлықтай ауыру, нашарлайтын белгілер, нашар жазылып жатқан жара немесе кез келген ерекше алаңдаушылық акушердің, дәрігердің немесе қалпына келтіру маманының кеңесін қажет етеді.',
+
+    s4Heading: 'Дұрыс жиырылуды үйрену',
+    s4Body1:
+      'Қозғалысты анықтау үшін газ бен зәр шығару қалауын бір мезгілде ұстауға тырысып жатқаныңызды елестетіңіз. Сіз іздеп отырған қозғалыс — ішке қарай жиырылу және көтерілу сезімі.',
+    s4Body2:
+      'Мақсат — бүкіл денеңізді қатты кергіш емес. Бөксе, жамбас және құрсақ бұлшықеттері мүмкіндігінше босаң қалуы, ал тыныс алу қалыпты жалғасуы керек.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Тыныс алу'},
+      {icon: 'human-handsup', label: 'Жұмсақ жиырылу'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Ұзақ жиырылу'},
+      {icon: 'gesture-tap-button', label: 'Жылдам жиырылулар'},
+    ],
+    s4HighlightTitle: 'Босаңсу да сондай маңызды',
+    s4HighlightText:
+      'Әр жиырылудан кейін бұлшықеттердің толық босаңсуына мүмкіндік беріңіз. Жақсы қалпына келтіру шап аймағын күні бойы жиырылған күйде ұстауды білдірмейді.',
+
+    s5Heading: 'Біртіндеп тәртіп құру',
+    s5Body1:
+      'Басында ең маңыздысы — бұлшықеттерді анықтауды және қозғалысты дұрыс орындауды үйрену. Тұрақтылық қарқындылықтан маңыздырақ.',
+    s5h3a: 'Ұзақ жиырылулар',
+    s5Body2:
+      'Жамбас еденін жұмсақ жиырыңыз, содан кейін тынысты ұстамай, жиырылуды бірнеше секунд ұстап тұрыңыз. Қайта бастамас бұрын толық босатыңыз.',
+    s5h3b: 'Қысқа жиырылулар',
+    s5Body3:
+      'Қозғалыс игерілгеннен кейін шағын жылдам жиырылулар қосуға болады. Олар құрсақ қысымы артқанда, мысалы, жөтелу немесе түшкіру алдында, бұлшықеттерді тез жиыру қабілетін жаттықтыруға көмектеседі.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Жаттығуларды күнделікті әдетпен байланыстырыңыз'},
+      {icon: 'human-sitting', label: 'Ыңғайлы қалыптан бастаңыз'},
+      {icon: 'weather-windy', label: 'Жиырылу кезінде қалыпты тыныс алыңыз'},
+      {icon: 'sleep', label: 'Босаңсу фазаларын құрметтеңіз'},
+      {icon: 'chart-line', label: 'Қиындықты біртіндеп арттырыңыз'},
+      {icon: 'doctor', label: 'Сенімсіз болсаңыз, кеңес сұраңыз'},
+    ],
+    s5TipTitle: 'Ең алдымен тұрақтылық',
+    s5TipText:
+      'Жаттығуларды күніңіздің бір бөлігі болып тұрған әдетпен байланыстыру тұрақты болуды жеңілдетуі мүмкін: емізуден кейін, тіс тазалаудан кейін немесе сізге ыңғайлы басқа уақытта.',
+
+    s6Heading: 'Болдырмайтын жиі кездесетін қателер',
+    s6Body1:
+      'Шап аймағы жаттығулары қарапайым көрінуі мүмкін, бірақ басқа бұлшықеттермен өтеп кету немесе тым қатты күш салу оңай.',
+    commonMistakes: [
+      'Жамбас едені орнына бөксені немесе жамбасты кергу',
+      'Жиырылу кезінде тынысты ұстау',
+      'Бұлшықеттерді босатпай үнемі жиырылған күйде ұстау',
+      'Жаттығуларды бірнеше күн ғана жасап, содан кейін тоқтату',
+      'Жиырылуды тексеру үшін зәр ағынын әдейі тоқтату',
+    ],
+    s6TipTitle: 'Не істемеу керек',
+    s6TipText:
+      'Жаттығуларды зәр ағынын әдейі тоқтату арқылы жасау ұсынылмайды. Бұл әдіс шап аймағын дұрыс жаттықтырмайды және қуықтың қалыпты жұмысын бұзуы мүмкін.',
+
+    s7Heading: 'Қандай белгілер консультацияға себеп болуы керек?',
+    s7Body1:
+      'Босанғаннан кейін шамалы ағу немесе әдеттен тыс сезім кейде пайда болуы мүмкін. Дегенмен, олар сақталса, нашарласа немесе күнделікті өміріңізге кедергі келтірсе, елемеуге болмайды.',
+    warningSigns: [
+      'Жөтелгенде, түшкіргенде, күлгенде немесе күш салғанда зәр ағуы',
+      'Жамбастың төменгі бөлігінде ауырлық немесе қысым сезімі',
+      'Қынапқа бір түйір немесе бірдеңе түсіп бара жатқан сезім',
+      'Газды немесе нәжісті ұстаудағы қиындық',
+      'Шап аймағындағы тұрақты ауыру',
+      'Жыныстық қатынас кезінде немесе одан кейінгі ауыру',
+      'Шап бұлшықеттерін анықтаудағы немесе дұрыс жиырудағы қиындық',
+    ],
+    consultLabel: 'Кеңесті қашан сұрау керек?',
+    s7Body2:
+      'Жамбас еденін қалпына келтіруге маманданған акушер, дәрігер немесе физиотерапевт бұлшықет қызметін тексеріп, тиісті бағдарламаны ұсына алады.',
+
+    s8Heading: 'Ал жыртылудан, эпизиотомиядан немесе кесарь тілігінен кейін ше?',
+    s8Body1:
+      'Жыртылу немесе эпизиотомия жазылу кезінде ерекше күтімді қажет етеді. Белсенділікті қайта бастау ауыруды, тыртықтың жай-күйін және босанғаннан кейін берілген нұсқауды ескеруі керек.',
+    s8Body2:
+      'Кесарь тілігінен кейін қалпына келу құрсақ қабырғасы мен тыртықты да қамтиды. Босану табиғи болмаса да, жүктіліктің өзі жамбас еденіне күйзеліс түсірді.',
+    s8HighlightTitle: 'Жекелендірілген күтім көмектесе алады',
+    s8HighlightText:
+      'Айтарлықтай жыртылу, ауыру, зәр немесе ішек белгілері не тұрақты қиындықтар болғанда, медицина маманымен бағалау әсіресе пайдалы болуы мүмкін.',
+
+    s9Heading: 'Спортқа біртіндеп оралу',
+    s9Body1:
+      'Босанғаннан кейін қозғалысқа оралу біртіндеп болуы керек. Серуендеу және жұмсақ қозғалыстарды әдетте өзіңізді қалай сезінетініңізге қарай қайта бастауға болады, ал жоғары соққылы белсенділіктер көбірек сақтықты қажет етеді.',
+    s9Body2:
+      'Жүгіруді, секіруді немесе өте қарқынды жаттығуды қайта бастамас бұрын жамбас еденінің қалпына келуін бағалап, кез келген белгіні ескерген жөн.',
+    s9AlertTitle: 'Кезеңдерді асықтырмаңыз',
+    s9AlertText:
+      'Жаттығу кезінде немесе одан кейінгі ағу, ауырлық сезімі немесе ауыру — қарқындылықты арттырмас бұрын баяулау және кеңес сұрау керек екенінің белгілері.',
+
+    s10Heading: 'Маманға қашан бару керек?',
+    s10Body1:
+      'Акушермен немесе физиотерапевтпен жамбас еденін қалпына келтіру дұрыс жиырылатыныңызға сенімсіз болсаңыз, белгілеріңіз сақталса немесе белгілі бір дене белсенділігін сеніммен қайта бастағыңыз келсе, пайдалы болуы мүмкін.',
+    questionCardTitle: 'Қоюға болатын пайдалы сұрақтар',
+    appointmentQuestions: [
+      'Белгілерім жамбас еденінің әлсіздігіне сәйкес келе ме?',
+      'Мен жиырылуларды дұрыс орындап жатырмын ба?',
+      'Күн сайын қанша қайталау жасауым керек?',
+      'Жүгіруге, спортқа немесе жоғары соққылы жаттығуға қайта оралуға бола ма?',
+      'Маған акушермен немесе физиотерапевтпен қалпына келтіру керек пе?',
+      'Тыртығым, жыртылуым немесе кесарь тілігім қандай да бір ерекше сақтық шараларын қажет ете ме?',
+    ],
+    s10TipTitle: 'Білуге тиісті',
+    s10TipText:
+      'Маманға бару бірдеңе дұрыс емес дегенді міндетті түрде білдірмейді. Бір сеанс техникаңызды тексеруге, қалпына келуіңізді бағалауға және дұрыс алға жылжуды үйренуге көмектесе алады.',
+
+    s11Heading: 'Уақыт алатын қалпына келу',
+    s11Body1:
+      'Босанғаннан кейін жүктілікке дейінгі сезімдер мен бұлшықет күшіне бірден қайта оралмау қалыпты.',
+    s11Body2:
+      'Мақсат — мүмкіндігінше көп жиырылу жасау емес. Бұл көбірек жиырылу мен босаңсу арасындағы жақсы үйлесімді біртіндеп қалпына келтіру, содан кейін бұл бұлшықеттерді күнделікті әрекеттерде табиғи түрде қолдана алу.',
+    s11HighlightTitle: 'Шағын прогресс — нақты прогресс',
+    s11HighlightText:
+      'Қозғалысты жақсырақ сезіну, жиырылудың бірнеше секундқа ұзаруы немесе ағудың азаюы — қазірдің өзінде көңілге медеу беретін белгілер.',
+
+    s12Heading: 'Негізгі қорытындылар',
+    summaryTitle: 'Негізгі нәрселер',
+    summaryItems: [
+      'Жүктілік пен босану жамбас еденіне айтарлықтай күйзеліс түсіреді.',
+      'Босанғаннан кейін біртіндеп қалпына келу қалыпты.',
+      'Жаттығулар күштен гөрі қозғалыс сапасына басымдық беруі керек.',
+      'Тыныс алу мен босаңсу жиырылу сияқты маңызды.',
+      'Зәр ағуы, ауырлық немесе тұрақты ауыру кәсіби пікірге тұрарлық.',
+      'Акушермен немесе физиотерапевтпен қалпына келтіру жақсырақ бақылауды қайтаруға көмектесе алады.',
+      'Спортқа оралу, әсіресе жоғары соққылы белсенділіктер үшін, біртіндеп болуы керек.',
+    ],
+
+    finalTipTitle: 'Қалпына келуге уақыт беріңіз',
+    finalTipText:
+      'Босанғаннан кейін денеңіз көптеген өзгерістерден өтті. Шап аймағы денеңіздің қалған бөлігімен бірдей назарға лайық: біртіндеп, тұрақты түрде және қысымсыз.',
+
+    disclaimerText:
+      'Бұл мақала тек ақпараттық мақсатқа арналған және жекелендірілген медициналық кеңестің орнын баспайды. Ауыру, тұрақты белгілер болса немесе қалпына келуіңізге қатысты алаңдасаңыз, медицина маманынан кеңес сұраңыз.',
+  },
+  wo: {
+    badge: 'GINNAAW JUR • WÉR',
+    title: 'Dëgëral sa perine\nginnaaw jur',
+    metaDuration: '8 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Ginnaaw ëmb ak jur, perine bi dafay soxla jamono ngir wér. Jëf yu yomb, yu sax te yu tuuti-tuuti mën nañu dimbli nga gis doole, yoon ak kóolute, te gaaw amul.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Xam rolu perine bi',
+      'Lu tax jur di ko metti',
+      'Kañ ngay tàmbali wéralug perine',
+      'Njàng ngir tëx ci yoon',
+      'Defar benn yoon bu tuuti-tuuti',
+      'Njuumte yi nga war a moytu',
+      'Kañ ngay ñaan dimbali',
+      'Tàmbaliwaat sport ci tuuti-tuuti',
+      'Waajal ndaje',
+      'Li am solo',
+    ],
+    shareMessage: 'Dëgëral sa perine ginnaaw jur — AWA',
+
+    s1Heading: 'Xam rolu perine bi',
+    s1Body1:
+      'Perine bi, ñu koy woowe itam suufu ndey, mooy mbooloom yaram yu nekk ci suufu bérëbu ndey. Dafay yor bérëbu pis ak bu ndiggu te dimbli yaram yi ci biir.',
+    s1Body2:
+      'Ci ëmb, yaram yii war nañu yor yenn yu yokk ci ay weer. Dañu leen itam metti lool ci jur.',
+    s1HighlightTitle: 'Benn yaram bu nëbbu waaye am solo',
+    s1HighlightText:
+      'Suufu ndey dafay bokk ci ay jëf yu bari yu bés bu nekk: yor pis ak ndiggu, yor jaar-jaar, dimbli yaram yi ci biir ak bokk ci yenn jëfu jaam.',
+
+    benefitsHeading: 'Njariñu suufu ndey bu dëgër',
+    benefitsIntro:
+      'Dëgëral bu tuuti-tuuti te bu jub mën na dimbli ci yoru suufu ndey ak dimbali ko.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Yoru pis bu gëna baax',
+        text: 'Suufu ndey dafay bokk ci yoru pis. Dëgëral ko tuuti-tuuti mën na dimbli ngir wàññi yenn pis yu di daw.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Dimbli jëfu ndiggu',
+        text: 'Yaram yii dañuy dimbli itam ci yor jaar-jaar ak ndiggu te dimbli yaram yi ci biir.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Dimbali yaram yi ci biir',
+        text: 'Suufu ndey mooy benn tabax bu dëgër bu dimbli pis, bérëbu ndey ak biir.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Dellusi ci dégg tuuti-tuuti',
+        text: 'Benn wérug perine bu méngoo mën na dimbli itam nga gën a xam te yor pàrt bii.',
+      },
+    ],
+
+    s2Heading: 'Lu tax ëmb ak jur di ko metti',
+    s2Body1:
+      'Ëmb dafay yokk metit ci suufu ndey tuuti-tuuti. Jur ci yoon mën na ko yaatal lool yaram yi ak cér yi ci pàrt bii.',
+    s2Body2:
+      'Séz-aryen du aar suufu ndey ba mat itam: ëmb ci boppam des na benn jamono bu am solo ngir yaram yii.',
+    s2Body3:
+      'Ginnaaw jur, daa jub ne wér dafay jël jamono. Yenn jigéen duñu dégg dara, yeneen mën nañu gis pis yu daw, benn dégg bu diis walla wàññi yoru yaram.',
+    s2TipTitle: 'Wér bu nekk wuute na',
+    s2TipText:
+      'Xeetu jur, benn rees walla episiyotomi, metit ak sa anam bu mat ginnaaw jur mën nañu jëm ci wér.',
+
+    s3Heading: 'Kañ ngay tàmbali wéralug perine?',
+    s3Body1:
+      'Ginnaaw benn jur bu amul jafe-jafe, tëx yu lewet yu suufu ndey mën nañu tàmbaliwaat tuuti-tuuti. Am solo na nga defar jëf yi ci sa mbir te ñaan ndigal bu nga am jafe-jafe, metit bu am solo walla benn jëf bu sa bopp.',
+    s3Body2:
+      'Bu nga am benn sonda bu pis, yenn ndigal dañuy digal xaar ba ñu ko jëlal te pis bi dellusi ci yoon balaa ñu tàmbali jëfi perine.',
+    s3AlertTitle: 'Bu nga di yëngu ci metit',
+    s3AlertText:
+      'Metit bu am solo, màndarga yu di gën a bon, mbir bu wérul bu baax walla benn xel-ñaar bu sa bopp soxla nañu ndigalu ndey-jur, doktoor walla liggéeykat wér.',
+
+    s4Heading: 'Njàng ngir tëx ci yoon',
+    s4Body1:
+      'Ngir xam yëngu bi, xalaat ne nga di jéem a yor jaar-jaar ak bëgg a pis ci benn jamono. Yëngu bi nga di wut mooy benn dégg bu tëx ak bu yéeg ci biir.',
+    s4Body2:
+      'Li ñu bëgg du tëx yaram bépp. Sa tànk, sa kanam ak sa biir war nañu des ci noppalu bu mu mën a doon, ba noppiku di kontine ci yoon.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Noppiku'},
+      {icon: 'human-handsup', label: 'Tëx bu lewet'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Tëx bu gudd'},
+      {icon: 'gesture-tap-button', label: 'Tëx yu gaaw'},
+    ],
+    s4HighlightTitle: 'Noppalu am solo na lu mat',
+    s4HighlightText:
+      'Ginnaaw tëx bu nekk, bàyyil yaram yi ñu noppalu ba mat. Wér bu baax du tekki denc perine bi bu tëx bés bépp.',
+
+    s5Heading: 'Defar benn yoon bu tuuti-tuuti',
+    s5Body1:
+      'Ci njëkk, li am solo mooy njàng xam yaram yi te def yëngu bi bu jub. Sax moo gën a am solo ci kàttan.',
+    s5h3a: 'Tëx yu gudd',
+    s5Body2:
+      'Tëx suufu ndey ak lewet, ginnaaw loolu denc tëx bi ay simili te amul noppiku bu ñu tëj. Gannaaw loolu bàyyil ko ba mat balaa nga tàmbaliwaat.',
+    s5h3b: 'Tëx yu gàtt',
+    s5Body3:
+      'Bu yëngu bi mat, tëx yu gaaw yu ndaw mën nañu yokku. Dañuy dimbli ngir jàng tëx yaram yi ci gaaw bu metit ci biir di yokku, misaal balaa ngay sëgg walla bëtt.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Boole jëf yi ak benn yoon bu bés'},
+      {icon: 'human-sitting', label: 'Tàmbali ci benn anam bu neex'},
+      {icon: 'weather-windy', label: 'Noppiku ni cosaan ci tëx yi'},
+      {icon: 'sleep', label: 'Teg jamono yu noppalu'},
+      {icon: 'chart-line', label: 'Yokk jafe bi tuuti-tuuti'},
+      {icon: 'doctor', label: 'Ñaan ndigal bu am xel-ñaar'},
+    ],
+    s5TipTitle: 'Sax ci kaw lépp',
+    s5TipText:
+      'Boole jëf yi ak benn yoon bu nekk ba noppi ci sa bés mën na dimbli nga sax: ginnaaw nàmm, ginnaaw sab sa ñaañ walla ci beneen waxtu bu la neex.',
+
+    s6Heading: 'Njuumte yu bari yu war a moytu',
+    s6Body1:
+      'Jëfi perine mën nañu mel ni yu yomb, waaye yomb na a def yeneen cér walla di dugal doole lu ëpp.',
+    commonMistakes: [
+      'Tëx tànk walla kàccor wuutu suufu ndey',
+      'Tëj noppiku ci tëx bi',
+      'Denc yaram yi tëx saa su ne te bàyyi leen noppalu',
+      'Def jëf yi ay fan rekk te taxaw',
+      'Taxawal pis bi ci jëfi sa bopp ngir seet tëx bi',
+    ],
+    s6TipTitle: 'Li ñu war a def',
+    s6TipText:
+      'Du ñu ko digal ñu def jëf yi ak taxawal pis bi ci sa bopp. Anam bii du jàngal perine bi bu jub te mën na ñaawal jëfu pis.',
+
+    s7Heading: 'Ban màndarga war a tax nga seet doktoor?',
+    s7Body1:
+      'Yenn pis yu ndaw walla benn dégg bu cosaanul mën nañu feeñ ginnaaw jur. Waaye bu ñu sax, di gën a bon walla di ñaawal sa dund bu bés, bu ñu bàyyi leen.',
+    warningSigns: [
+      'Pis bu di daw bu nga di sëgg, bëtt, kuy walla coono',
+      'Benn dégg bu diis walla metit ci suufu ndey',
+      'Benn dégg ne benn lu dafay wàcc ci ndey',
+      'Jafe a yor jaar-jaar walla ndiggu',
+      'Metit bu sax ci perine bi',
+      'Metit ci jaam walla ginnaaw jaam',
+      'Jafe a xam walla tëx bu jub yaram yu perine bi',
+    ],
+    consultLabel: 'Kañ ngay ñaan ndigal?',
+    s7Body2:
+      'Benn ndey-jur, doktoor walla kinesiterapist bu jàng wér suufu ndey mën na seet jëfu yaram yi te digal benn programu bu méngoo.',
+
+    s8Heading: 'Te ginnaaw rees, episiyotomi walla séz-aryen?',
+    s8Body1:
+      'Benn rees walla episiyotomi soxla teg bu sa bopp ci jamonoy wér. Tàmbaliwaat jëf yi war na teg metit, anamu raxas bi ak ndigal yi ñu jox ginnaaw jur.',
+    s8Body2:
+      'Ginnaaw séz-aryen, wér itam dafay jëm ci tabaxu biir ak raxas bi. Lu mu mën a doon jur bi du woon ci yoon, ëmb ci boppam yor na suufu ndey.',
+    s8HighlightTitle: 'Teg bu sa bopp mën na dimbli',
+    s8HighlightText:
+      'Ci rees bu am solo, metit, màndarga yu pis walla yu ndiggu walla jafe-jafe yu sax, benn seetlu ak liggéeykatu wér mën na dimbli lool.',
+
+    s9Heading: 'Tàmbaliwaat sport ci tuuti-tuuti',
+    s9Body1:
+      'Tàmbaliwaat yëngu ginnaaw jur war na nekk ci tuuti-tuuti. Dox ak yëngu yu lewet mën nañu tàmbaliwaat ci naka nga di dégg, waaye jëf yu diis ci yoon soxla teg bu gëna bari.',
+    s9Body2:
+      'Balaa nga tàmbaliwaat daw, tëgg walla jëf bu metti lool, gën na ñu seetlu wér suufu ndey te teg màndarga yi.',
+    s9AlertTitle: 'Bu gaaw ci ñaar fuñ yi',
+    s9AlertText:
+      'Pis bu daw, benn dégg bu diis walla metit ci jamonoy jëf walla ginnaaw jëf ay màndarga lañu yu wone ne war nga yeex te ñaan ndigal balaa nga yokk dayo.',
+
+    s10Heading: 'Kañ ngay seet benn xam-xam?',
+    s10Body1:
+      'Wéralug suufu ndey ak benn ndey-jur walla kinesiterapist mën na dimbli bu nga di xel-ñaar ndax tëx nga bu jub, bu say màndarga sax walla bu nga bëgg a tàmbaliwaat yenn jëfu yaram ak kóolute.',
+    questionCardTitle: 'Laaj yu am njariñ',
+    appointmentQuestions: [
+      'Samay màndarga méngoo nañu ak yoru suufu ndey bu ndaw?',
+      'Tëx naa yaram yi bu jub?',
+      'Ñaata yoon laa war a def bés bu nekk?',
+      'Mën naa dellu ci daw, sport walla jëf yu diis?',
+      'Soxla naa wér ak benn ndey-jur walla kinesiterapist?',
+      'Sama raxas, rees walla séz-aryen soxla na teg bu sa bopp?',
+    ],
+    s10TipTitle: 'Lu baax a xam',
+    s10TipText:
+      'Seet benn liggéeykat du tekki saa su ne ne lenn du jub. Benn seet mën na dimbli rekk nga seet sa anam, natt sa wér te jàng naka ngay dem kanam bu jub.',
+
+    s11Heading: 'Benn wér bu jël jamono',
+    s11Body1:
+      'Ginnaaw jur, daa jub nga dellu ci dégg walla doole bi nga amoon balaa ëmb ci gaaw.',
+    s11Body2:
+      'Li ñu bëgg du def tëx yu bari lu mu mën a doon. Dafay gën a mel ni dellusi ci tuuti-tuuti ci jokkoo bu baax diggante tëx ak noppalu, ginnaaw loolu jëfandikoo yaram yii ci natural ci jëf yu bés.',
+    s11HighlightTitle: 'Yoon yu ndaw dañuy dem kanam dëgg',
+    s11HighlightText:
+      'Benn xam-xam bu gëna baax ci yëngu bi, ay simili yu tëx yu yokk walla wàññi pis ay màndarga yu xiirtal lañu ba noppi.',
+
+    s12Heading: 'Li am solo',
+    summaryTitle: 'Li am solo',
+    summaryItems: [
+      'Ëmb ak jur dañuy metti lool suufu ndey.',
+      'Wér bu tuuti-tuuti daa jub ginnaaw jur.',
+      'Jëf yi war nañu jëkk kàttanu yëngu ba doole.',
+      'Noppiku ak noppalu am nañu solo ni tëx.',
+      'Pis bu daw, dégg bu diis walla metit bu sax am nañu solo ndigalu liggéeykat.',
+      'Wér ak benn ndey-jur walla kinesiterapist mën na dimbli nga dellu ci yoon bu gëna baax.',
+      'Dellu ci sport war na nekk ci tuuti-tuuti, lool ci jëf yu diis.',
+    ],
+
+    finalTipTitle: 'Jël jamono ngir wér',
+    finalTipText:
+      'Ginnaaw jur, sa yaram jàll na soppi yu bari. Perine bi war na teg ni yaram bi ci des: ci tuuti-tuuti, ci yoon te coono amul.',
+
+    disclaimerText:
+      'Bind bii ngir xibaar rekk la te du wuutu ndigalu doktoor bu sa bopp. Bu nga am metit, màndarga yu sax walla xel-ñaar ci sa wér, seet ndigalu benn liggéeykatu wér.',
+  },
+  ha: {
+    badge: 'BAYAN HAIHUWA • MURMUREWA',
+    title: 'Ƙarfafa tsokar ƙugunki\nbayan haihuwa',
+    metaDuration: 'karatun minti 8',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Bayan ciki da haihuwa, tsokar ƙugu tana bukatar lokaci don murmurewa. Atisaye masu sauƙi, na yau da kullum, kuma a hankali na iya taimaka miki ki sake samun ƙarfi, sarrafawa, da kwarin gwiwa, ba tare da ƙoƙarin gaggawa ba.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Fahimtar rawar perineum',
+      'Dalilin da ya sa haihuwa ke damun ta',
+      'Yaushe za a fara gyaran tsokar ƙugu',
+      'Koyon matsewa daidai',
+      'Gina tsari a hankali',
+      'Kuskuren da za a guje wa',
+      'Lokacin neman taimako',
+      'Komawa wasanni a hankali',
+      'Shirya wa ganawa',
+      'Muhimman abubuwa',
+    ],
+    shareMessage: 'Ƙarfafa tsokar ƙugunki bayan haihuwa — AWA',
+
+    s1Heading: 'Fahimtar rawar perineum',
+    s1Body1:
+      'Perineum, wanda kuma ake kira tsokar ƙugu, rukuni ne na tsokoki da ke ƙasan ƙugu. Tana taka rawa wajen sarrafa mafitsara da hanji kuma tana taimakawa wajen tallafa wa sassan ƙugu.',
+    s1Body2:
+      'A lokacin ciki, waɗannan tsokoki dole ne su ɗauki ƙarin nauyi na watanni da dama. Hakanan ana matse su sosai yayin haihuwa.',
+    s1HighlightTitle: 'Tsoka mai sirri amma muhimmiya',
+    s1HighlightText:
+      'Tsokar ƙugu tana da hannu a ayyuka da dama na yau da kullum: riƙe fitsari da bayan gida, sarrafa iska, tallafa wa sassan ƙugu, da taka rawa a wasu ayyukan jima’i.',
+
+    benefitsHeading: 'Fa’idodin tsokar ƙugu mai ƙarfi',
+    benefitsIntro:
+      'Ƙarfafawa a hankali, da aka yi daidai, na iya taimakawa inganta sarrafawa da tallafin tsokar ƙugu.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Ingantaccen sarrafa mafitsara',
+        text: 'Tsokar ƙugu tana taka rawa wajen sarrafa mafitsara. Ƙarfafa ta a hankali na iya taimakawa rage wasu zubar fitsari.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Tallafa wa aikin hanji',
+        text: 'Waɗannan tsokoki kuma suna taimakawa wajen sarrafa iska da bayan gida kuma suna ba da gudummawa ga tallafa wa sassan ƙugu.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Tallafa wa sassan ƙugu',
+        text: 'Tsokar ƙugu tana samar da tushe na tsoka na gaske wanda ke taimakawa tallafa wa mafitsara, mahaifa, da hanji.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Sake samun ji a hankali',
+        text: 'Gyaran da ya dace kuma na iya taimaka miki ki sake samun ingantaccen sani da sarrafa wannan yanki.',
+      },
+    ],
+
+    s2Heading: 'Dalilin da ya sa ciki da haihuwa ke damun ta',
+    s2Body1:
+      'Ciki a hankali yana sanya ƙarin matsi a tsokar ƙugu. Haihuwa ta farji sai ta iya miƙa tsokoki da kyallen jiki a wannan yanki sosai.',
+    s2Body2:
+      'Tiyatar haihuwa (cesarean) ma ba ta kare tsokar ƙugu gaba ɗaya ba: ciki da kansa ya ci gaba da zama lokaci mai muhimmanci ga waɗannan tsokoki.',
+    s2Body3:
+      'Bayan haihuwa, saboda haka al’ada ne murmurewa ya ɗauki lokaci. Wasu mata ba sa jin kusan wata alama, yayin da wasu za su iya lura da zubar fitsari, jin nauyi, ko raguwar sarrafa tsoka.',
+    s2TipTitle: 'Kowane murmurewa daban ne',
+    s2TipText:
+      'Nau’in haihuwa, tsagewa ko episiotomy, kasancewar ciwo, da yanayinki gabaɗaya bayan haihuwa duk na iya shafar murmurewa.',
+
+    s3Heading: 'Yaushe za a fara gyaran tsokar ƙugu?',
+    s3Body1:
+      'Bayan haihuwa ba tare da matsala ba, yawanci ana iya komawa matsawar tsokar ƙugu mai laushi a hankali. Ya ci gaba da zama muhimmi a daidaita atisaye da yanayinki kuma a nemi shawara idan kin fuskanci matsala, ciwo mai yawa, ko wani tsari na musamman.',
+    s3Body2:
+      'Idan kina da bututun fitsari, wasu shawarwari suna ba da shawarar jira har sai an cire shi kuma fitsari ya koma yadda ya kamata kafin fara atisayen perineum.',
+    s3AlertTitle: 'Kada ki tilasta kanki ta cikin ciwo',
+    s3AlertText:
+      'Ciwo mai yawa, alamomi masu ƙara muni, rauni da ke warkewa da kyau, ko duk wata damuwa ta musamman suna bukatar shawara daga ungozoma, likita, ko ƙwararren gyaran jiki.',
+
+    s4Heading: 'Koyon matsewa daidai',
+    s4Body1:
+      'Don gano motsin, yi tunanin kina ƙoƙarin riƙe iska da sha’awar fitsari a lokaci ɗaya. Motsin da kike nema shi ne jin matsewa da ɗagawa zuwa ciki.',
+    s4Body2:
+      'Manufar ba ita ce ki matse jikinki gaba ɗaya ba. Duwawunki, cinyoyinki, da ciki ya kamata su kasance cikin annashuwa gwargwadon iko, yayin da numfashi ke ci gaba kamar yadda aka saba.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Numfashi'},
+      {icon: 'human-handsup', label: 'Matsewa mai laushi'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Matsewa mai tsawo'},
+      {icon: 'gesture-tap-button', label: 'Matsewa cikin sauri'},
+    ],
+    s4HighlightTitle: 'Annashuwa ma tana da muhimmanci daidai',
+    s4HighlightText:
+      'Bayan kowace matsewa, bari tsokoki su yi annashuwa gaba ɗaya. Kyakkyawan gyara ba ya nufin kiyaye perineum a matse duk rana.',
+
+    s5Heading: 'Gina tsari a hankali',
+    s5Body1:
+      'A farko, mafi muhimmanci shi ne koyon gano tsokoki da yin motsin daidai. Yin akai-akai ya fi muhimmanci fiye da ƙarfi.',
+    s5h3a: 'Matsewa masu tsawo',
+    s5Body2:
+      'Matse tsokar ƙugu a hankali, sannan riƙe matsewar na secondi kaɗan ba tare da riƙe numfashi ba. Sannan saki gaba ɗaya kafin ki sake farawa.',
+    s5h3b: 'Matsewa gajeru',
+    s5Body3:
+      'Da zarar an mallaki motsin, za a iya ƙara ƙananan matsewa cikin sauri. Suna taimakawa horar da iyawarki ta matse tsokoki da sauri lokacin da matsin ciki ya ƙaru, misali kafin tari ko atishawa.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Haɗa atisaye da dabi’a ta yau da kullum'},
+      {icon: 'human-sitting', label: 'Fara a matsayi mai daɗi'},
+      {icon: 'weather-windy', label: 'Yi numfashi kamar yadda aka saba yayin matsewa'},
+      {icon: 'sleep', label: 'Mutunta lokutan annashuwa'},
+      {icon: 'chart-line', label: 'Ƙara wahalar a hankali'},
+      {icon: 'doctor', label: 'Nemi shawara idan ba ki da tabbas'},
+    ],
+    s5TipTitle: 'Yin akai-akai fiye da komai',
+    s5TipText:
+      'Haɗa atisaye da dabi’a da ke cikin ranarki na iya sa ya zama da sauƙi a ci gaba: bayan shayarwa, bayan goge hakora, ko a wani lokaci da ya dace da ke.',
+
+    s6Heading: 'Kuskuren gama gari da za a guje wa',
+    s6Body1:
+      'Atisayen perineum na iya yi kama da sauƙi, amma yana da sauƙi a biya da wasu tsokoki ko a tura da ƙarfi sosai.',
+    commonMistakes: [
+      'Matse duwawu ko cinyoyi maimakon tsokar ƙugu',
+      'Riƙe numfashi yayin matsewa',
+      'Kiyaye tsokoki a matse koyaushe ba tare da barin su su huta ba',
+      'Yin atisaye na kwanaki kaɗan kawai sannan a daina',
+      'Dakatar da fitsari da gangan don duba matsewa',
+    ],
+    s6TipTitle: 'Abin da bai kamata a yi ba',
+    s6TipText:
+      'Ba a ba da shawarar yin atisaye ta hanyar dakatar da fitsari da gangan ba. Wannan hanya ba ta horar da perineum daidai ba kuma tana iya dagula aikin mafitsara na al’ada.',
+
+    s7Heading: 'Wadanne alamomi ya kamata su sa a nemi shawara?',
+    s7Body1:
+      'Ƙananan zubar fitsari ko jin ba na al’ada ba na iya bayyana wani lokaci bayan haihuwa. Duk da haka, bai kamata a yi watsi da su ba idan sun dawwama, suka ƙara muni, ko suka kawo cikas ga rayuwarki ta yau da kullum.',
+    warningSigns: [
+      'Zubar fitsari lokacin da kike tari, atishawa, dariya, ko tsananta',
+      'Jin nauyi ko matsi a ƙasan ƙugu',
+      'Jin kamar wani dunƙule ko wani abu yana sauka cikin farji',
+      'Wahalar riƙe iska ko bayan gida',
+      'Ciwo mai dawwama a perineum',
+      'Ciwo lokacin ko bayan jima’i',
+      'Wahalar gano ko matse tsokokin perineum daidai',
+    ],
+    consultLabel: 'Yaushe ya kamata ki nemi shawara?',
+    s7Body2:
+      'Ungozoma, likita, ko likitan gyaran jiki da ya ƙware a gyaran tsokar ƙugu na iya duba aikin tsoka kuma ya ba da shawarar shiri da ya dace.',
+
+    s8Heading: 'Kuma bayan tsagewa, episiotomy, ko tiyatar haihuwa?',
+    s8Body1:
+      'Tsagewa ko episiotomy yana bukatar kulawa ta musamman yayin warkewa. Komawa ayyuka ya kamata ya yi la’akari da ciwo, yanayin tabo, da jagorar da aka ba da bayan haihuwa.',
+    s8Body2:
+      'Bayan tiyatar haihuwa, murmurewa kuma ya shafi bangon ciki da tabo. Ko da haihuwar ba ta farji ba ce, ciki da kansa ya ci gaba da sanya matsi a tsokar ƙugu.',
+    s8HighlightTitle: 'Kulawa ta mutum na iya taimakawa',
+    s8HighlightText:
+      'A yanayin tsagewa mai yawa, ciwo, alamomin fitsari ko hanji, ko matsaloli masu dawwama, tantancewa da ma’aikacin lafiya na iya zama da amfani musamman.',
+
+    s9Heading: 'Komawa wasanni a hankali',
+    s9Body1:
+      'Komawa motsi bayan haihuwa ya kamata ya zama a hankali. Tafiya da motsi masu laushi yawanci za a iya ci gaba da su bisa yadda kike ji, yayin da ayyuka masu tasiri mai yawa suna bukatar ƙarin hankali.',
+    s9Body2:
+      'Kafin komawa gudu, tsalle, ko horo mai tsanani sosai, ya fi kyau a tantance murmurewar tsokar ƙugu kuma a yi la’akari da duk wata alama.',
+    s9AlertTitle: 'Kada ki gaggauta matakan',
+    s9AlertText:
+      'Zubar fitsari, jin nauyi, ko ciwo yayin ko bayan motsa jiki alamomi ne da ya kamata ki rage gudu kuma ki nemi shawara kafin ƙara ƙarfi.',
+
+    s10Heading: 'Yaushe za a ga ƙwararre?',
+    s10Body1:
+      'Gyaran tsokar ƙugu tare da ungozoma ko likitan gyaran jiki na iya zama da amfani idan ba ki da tabbas kina matsewa daidai, idan alamominki sun dawwama, ko idan kina son komawa wasu ayyukan jiki da kwarin gwiwa.',
+    questionCardTitle: 'Tambayoyi masu amfani da za ki yi',
+    appointmentQuestions: [
+      'Alamomina sun dace da raunin tsokar ƙugu?',
+      'Ina yin matsewar daidai?',
+      'Sau nawa zan maimaita kowace rana?',
+      'Zan iya komawa gudu, wasanni, ko motsa jiki mai tasiri mai yawa?',
+      'Ina bukatar gyara tare da ungozoma ko likitan gyaran jiki?',
+      'Tabona, tsagewa, ko tiyatar haihuwata na bukatar wasu matakan kariya na musamman?',
+    ],
+    s10TipTitle: 'Abin da ya dace a sani',
+    s10TipText:
+      'Ganin ƙwararre ba lallai ba ne yana nufin wani abu ba daidai ba ne. Zama ɗaya na iya taimakawa kawai duba dabararki, tantance murmurewarki, da koyon ci gaba daidai.',
+
+    s11Heading: 'Murmurewa da ke ɗaukar lokaci',
+    s11Body1:
+      'Bayan haihuwa, al’ada ne kada ki sake samun ji ko ƙarfin tsoka iri ɗaya da kika yi kafin ciki nan da nan.',
+    s11Body2:
+      'Manufar ba ita ce a yi matsewa da yawa gwargwadon iko ba. Ya fi game da sake samun kyakkyawan haɗin kai tsakanin matsewa da annashuwa a hankali, sannan a iya amfani da waɗannan tsokoki ta halitta a ayyukan yau da kullum.',
+    s11HighlightTitle: 'Ƙaramin ci gaba ci gaba ne na gaske',
+    s11HighlightText:
+      'Ingantaccen sani game da motsin, secondi kaɗan na ƙarin matsewa, ko raguwar zubar fitsari alamomi ne masu ƙarfafawa.',
+
+    s12Heading: 'Muhimman abubuwa',
+    summaryTitle: 'Muhimman abubuwa',
+    summaryItems: [
+      'Ciki da haihuwa suna sanya matsi mai yawa a tsokar ƙugu.',
+      'Murmurewa a hankali al’ada ne bayan haihuwa.',
+      'Ya kamata atisaye ya fifita ingancin motsi fiye da ƙarfi.',
+      'Numfashi da annashuwa suna da muhimmanci daidai da matsewa.',
+      'Zubar fitsari, nauyi, ko ciwo mai dawwama sun cancanci ra’ayin ƙwararre.',
+      'Gyara tare da ungozoma ko likitan gyaran jiki na iya taimaka miki ki sake samun ingantaccen sarrafawa.',
+      'Komawa wasanni ya kamata ya zama a hankali, musamman ga ayyuka masu tasiri mai yawa.',
+    ],
+
+    finalTipTitle: 'Ɗauki lokaci don murmurewa',
+    finalTipText:
+      'Bayan haihuwa, jikinki ya wuce ta sauye-sauye da yawa. Perineum ya cancanci kulawa daidai da sauran jikinki: a hankali, akai-akai, kuma ba tare da matsi ba.',
+
+    disclaimerText:
+      'An yi wannan labari don bayani ne kawai kuma ba ya maye gurbin shawarar likita ta keɓaɓɓiya. Idan kina fuskantar ciwo, alamomi masu dawwama, ko kina da wata damuwa game da murmurewarki, nemi shawara daga ma’aikacin lafiya.',
+  },
+  am: {
+    badge: 'ከወሊድ በኋላ • ማገገም',
+    title: 'ከወሊድ በኋላ የዳሌ ወለልሽን\nማጠናከር',
+    metaDuration: '8 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro:
+      'ከእርግዝናና ከወሊድ በኋላ የዳሌ ወለል ለማገገም ጊዜ ይፈልጋል። ቀላል፣ መደበኛ እና ቀስ በቀስ የሚደረጉ ልምምዶች ነገሮችን ለማፍጠን ሳትሞክሪ ጥንካሬን፣ ቁጥጥርን እና በራስ መተማመንን መልሰሽ እንድታገኚ ሊረዱሽ ይችላሉ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የፔሪኒየምን ሚና መረዳት',
+      'ወሊድ ለምን ጫና ያሳድርበታል',
+      'የዳሌ ወለል ማገገሚያ መቼ መጀመር',
+      'በትክክል መኮማተርን መማር',
+      'ቀስ በቀስ የሚሄድ ሥርዓት መገንባት',
+      'መወገድ ያለባቸው ስህተቶች',
+      'እርዳታ መቼ መጠየቅ',
+      'ስፖርትን ቀስ በቀስ መቀጠል',
+      'ለቀጠሮ መዘጋጀት',
+      'ዋና ዋና ነጥቦች',
+    ],
+    shareMessage: 'ከወሊድ በኋላ የዳሌ ወለልሽን ማጠናከር — AWA',
+
+    s1Heading: 'የፔሪኒየምን ሚና መረዳት',
+    s1Body1:
+      'ፔሪኒየም፣ የዳሌ ወለልም ተብሎ የሚጠራው፣ በዳሌ መሠረት ላይ የሚገኝ የጡንቻዎች ስብስብ ነው። በሽንት እና በአንጀት ቁጥጥር ውስጥ ሚና ይጫወታል እንዲሁም የዳሌ አካላትን ለመደገፍ ይረዳል።',
+    s1Body2:
+      'በእርግዝና ጊዜ እነዚህ ጡንቻዎች ለበርካታ ወራት ተጨማሪ ክብደት መሸከም አለባቸው። በወሊድ ጊዜም ከፍተኛ ጫና ይደርስባቸዋል።',
+    s1HighlightTitle: 'ዝምተኛ ግን አስፈላጊ ጡንቻ',
+    s1HighlightText:
+      'የዳሌ ወለል በበርካታ የዕለት ተዕለት ተግባራት ውስጥ ይሳተፋል፦ ሽንትንና ሰገራን መያዝ፣ ጋዝን መቆጣጠር፣ የዳሌ አካላትን መደገፍ እና በአንዳንድ የወሲብ ተግባራት ውስጥ ሚና መጫወት።',
+
+    benefitsHeading: 'የጠነከረ የዳሌ ወለል ጥቅሞች',
+    benefitsIntro:
+      'ቀስ በቀስ፣ በትክክል የሚደረግ ማጠናከር የዳሌ ወለል ቁጥጥርንና ድጋፍን ለማሻሻል ሊረዳ ይችላል።',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'የተሻለ የሽንት ቁጥጥር',
+        text: 'የዳሌ ወለል በሽንት ቁጥጥር ውስጥ ሚና ይጫወታል። ቀስ በቀስ ማጠናከር አንዳንድ የሽንት ማምለጥ ችግሮችን ለመቀነስ ሊረዳ ይችላል።',
+      },
+      {
+        icon: 'toilet',
+        title: 'የአንጀት ተግባርን መደገፍ',
+        text: 'እነዚህ ጡንቻዎች ጋዝንና ሰገራን ለመቆጣጠር ይረዳሉ እንዲሁም የዳሌ አካላትን ለመደገፍ አስተዋጽኦ ያደርጋሉ።',
+      },
+      {
+        icon: 'human-female',
+        title: 'የዳሌ አካላትን መደገፍ',
+        text: 'የዳሌ ወለል ፊኛን፣ ማህፀንንና አንጀትን ለመደገፍ የሚረዳ እውነተኛ የጡንቻ መሠረት ይፈጥራል።',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ቀስ በቀስ ስሜትን መመለስ',
+        text: 'ተስማሚ ማገገሚያ የዚህን አካባቢ የተሻለ ግንዛቤና ቁጥጥር መልሰሽ እንድታገኚ ሊረዳሽ ይችላል።',
+      },
+    ],
+
+    s2Heading: 'እርግዝናና ወሊድ ለምን ጫና ያሳድሩበታል',
+    s2Body1:
+      'እርግዝና ቀስ በቀስ በዳሌ ወለል ላይ ተጨማሪ ጫና ያሳድራል። በብልት የሚደረግ ወሊድ ከዚያ በዚህ አካባቢ ያሉ ጡንቻዎችንና ሕዋሳትን በከፍተኛ ሁኔታ ሊለጥጥ ይችላል።',
+    s2Body2:
+      'ቄሳሪያን ክፍልም የዳሌ ወለልን ሙሉ በሙሉ አይታደግም፦ እርግዝና ራሱ ለእነዚህ ጡንቻዎች ጉልህ ጊዜ ሆኖ ይቆያል።',
+    s2Body3:
+      'ከወሊድ በኋላ ስለዚህ ማገገም ጊዜ መውሰዱ የተለመደ ነው። አንዳንድ ሴቶች ምንም ምልክት ማለት ይቻላል አይሰማቸውም፣ ሌሎች ደግሞ ሽንት ማምለጥ፣ የክብደት ስሜት ወይም የተቀነሰ የጡንቻ ቁጥጥር ሊያስተውሉ ይችላሉ።',
+    s2TipTitle: 'እያንዳንዱ ማገገም የተለየ ነው',
+    s2TipText:
+      'የወሊድ ዓይነት፣ መቀደድ ወይም ኤፒዚዮቶሚ፣ የህመም መኖር እና ከወሊድ በኋላ አጠቃላይ ሁኔታሽ ሁሉም ማገገምን ሊነኩ ይችላሉ።',
+
+    s3Heading: 'የዳሌ ወለል ማገገሚያ መቼ መጀመር?',
+    s3Body1:
+      'ያለ ችግር ከተወለደ በኋላ ለስላሳ የዳሌ ወለል መኮማተሮች በተለምዶ ቀስ በቀስ ሊቀጥሉ ይችላሉ። ልምምዶቹን ከሁኔታሽ ጋር ማስተካከል፣ እንዲሁም ችግር፣ ከፍተኛ ህመም ወይም የተለየ ሂደት ካጋጠመሽ ምክር መጠየቅ አስፈላጊ ሆኖ ይቆያል።',
+    s3Body2:
+      'የሽንት ቱቦ ካለሽ፣ አንዳንድ ምክሮች የፔሪኒየም ልምምዶችን ከመጀመር በፊት እስኪወገድና መደበኛ ሽንት እስኪቀጥል መጠበቅን ይጠቁማሉ።',
+    s3AlertTitle: 'ህመምን ተቋቁመሽ አትግፊ',
+    s3AlertText:
+      'ከፍተኛ ህመም፣ እየከፋ የሚሄዱ ምልክቶች፣ በደንብ የማይድን ቁስል ወይም ማንኛውም የተለየ ስጋት ከሚድዋይፍ፣ ከሐኪም ወይም ከማገገሚያ ባለሙያ ምክር ይፈልጋል።',
+
+    s4Heading: 'በትክክል መኮማተርን መማር',
+    s4Body1:
+      'እንቅስቃሴውን ለመለየት ጋዝንና የመሽናት ፍላጎትን በተመሳሳይ ጊዜ ለመያዝ እንደምትሞክሪ አስቢ። የምትፈልጊው እንቅስቃሴ ወደ ውስጥ የመኮማተርና የማንሳት ስሜት ነው።',
+    s4Body2:
+      'ግቡ መላ ሰውነትሽን አጥብቆ ማወጠር አይደለም። መተንፈስ በተለምዶ እየቀጠለ መቀመጫሽ፣ ጭንሽና የሆድ ጡንቻዎችሽ በተቻለ መጠን ዘና ብለው መቆየት አለባቸው።',
+    exercises: [
+      {icon: 'weather-windy', label: 'መተንፈስ'},
+      {icon: 'human-handsup', label: 'ለስላሳ መኮማተር'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ረዥም መኮማተር'},
+      {icon: 'gesture-tap-button', label: 'ፈጣን መኮማተሮች'},
+    ],
+    s4HighlightTitle: 'ዘና ማለት እኩል አስፈላጊ ነው',
+    s4HighlightText:
+      'ከእያንዳንዱ መኮማተር በኋላ ጡንቻዎቹ ሙሉ በሙሉ ዘና እንዲሉ ፍቀጂ። ጥሩ ማገገሚያ ማለት ፔሪኒየሙን ቀኑን ሙሉ ተኮማትሮ ማቆየት ማለት አይደለም።',
+
+    s5Heading: 'ቀስ በቀስ የሚሄድ ሥርዓት መገንባት',
+    s5Body1:
+      'መጀመሪያ ላይ በጣም አስፈላጊው ጡንቻዎቹን መለየትና እንቅስቃሴውን በትክክል መፈጸም መማር ነው። ወጥነት ከጥንካሬ ይበልጣል።',
+    s5h3a: 'ረዥም መኮማተሮች',
+    s5Body2:
+      'የዳሌ ወለሉን በቀስታ አኮማትሪ፣ ከዚያ ትንፋሽሽን ሳትይዢ መኮማተሩን ለጥቂት ሰከንዶች ያዢ። ከዚያ እንደገና ከመጀመርሽ በፊት ሙሉ በሙሉ ልቀቂ።',
+    s5h3b: 'አጭር መኮማተሮች',
+    s5Body3:
+      'እንቅስቃሴው ከተቆጣጠርሽ በኋላ ትናንሽ ፈጣን መኮማተሮች ሊጨመሩ ይችላሉ። የሆድ ግፊት ሲጨምር፣ ለምሳሌ ከማሳል ወይም ከማስነጠስ ወዲያ በፊት፣ ጡንቻዎቹን በፍጥነት የማኮማተር ችሎታሽን ለማሰልጠን ይረዳሉ።',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ልምምዶቹን ከዕለታዊ ልማድ ጋር አጣምሪ'},
+      {icon: 'human-sitting', label: 'በምቹ አቀማመጥ ጀምሪ'},
+      {icon: 'weather-windy', label: 'በመኮማተሮች ጊዜ በተለምዶ ተንፍሺ'},
+      {icon: 'sleep', label: 'የዘና ማለት ደረጃዎችን አክብሪ'},
+      {icon: 'chart-line', label: 'ቀስ በቀስ ችግሩን ጨምሪ'},
+      {icon: 'doctor', label: 'እርግጠኛ ካልሆንሽ ምክር ጠይቂ'},
+    ],
+    s5TipTitle: 'ከሁሉም በላይ ወጥነት',
+    s5TipText:
+      'ልምምዶቹን ቀድሞውኑ የቀንሽ አካል ከሆነ ልማድ ጋር ማጣመር ወጥ ሆኖ መቆየትን ሊያቀልል ይችላል፦ ከጡት ማጥባት በኋላ፣ ጥርስ ከመፋቅ በኋላ ወይም ለአንቺ በሚስማማ ሌላ ጊዜ።',
+
+    s6Heading: 'መወገድ ያለባቸው የተለመዱ ስህተቶች',
+    s6Body1:
+      'የፔሪኒየም ልምምዶች ቀላል ሊመስሉ ይችላሉ፣ ነገር ግን በሌሎች ጡንቻዎች መካስ ወይም በጣም መግፋት ቀላል ነው።',
+    commonMistakes: [
+      'ከዳሌ ወለል ይልቅ መቀመጫን ወይም ጭንን ማወጠር',
+      'በመኮማተር ጊዜ ትንፋሽን መያዝ',
+      'ዘና ሳይሉ ጡንቻዎችን ሁልጊዜ ተኮማትረው ማቆየት',
+      'ልምምዶቹን ለጥቂት ቀናት ብቻ ማድረግ እና ከዚያ ማቆም',
+      'መኮማተሩን ለመፈተሽ ሆን ብሎ የሽንት ፍሰትን ማቆም',
+    ],
+    s6TipTitle: 'ማድረግ የሌለብሽ',
+    s6TipText:
+      'ልምምዶቹን ሆን ብሎ የሽንት ፍሰትን በማቆም መለማመድ አይመከርም። ይህ ዘዴ ፔሪኒየምን በትክክል አያሠለጥንም እና መደበኛ የፊኛ ተግባርን ሊያውክ ይችላል።',
+
+    s7Heading: 'ምን ምልክቶች ምክክር ሊያስከትሉ ይገባል?',
+    s7Body1:
+      'ቀላል የሽንት ማምለጥ ወይም ያልተለመደ ስሜት ከወሊድ በኋላ አንዳንድ ጊዜ ሊታይ ይችላል። ሆኖም ከቀጠሉ፣ ከተባባሱ ወይም የዕለት ሕይወትሽን ካወኩ ችላ መባል የለባቸውም።',
+    warningSigns: [
+      'ስታስሊ፣ ስታስነጥሲ፣ ስትስቂ ወይም ስትገፊ የሽንት ማምለጥ',
+      'በታችኛው ዳሌ ውስጥ የክብደት ወይም የግፊት ስሜት',
+      'አንድ እብጠት ወይም ነገር ወደ ብልት እየወረደ ያለ ስሜት',
+      'ጋዝን ወይም ሰገራን ለመያዝ መቸገር',
+      'በፔሪኒየም ውስጥ የሚቆይ ህመም',
+      'በወሲብ ግንኙነት ጊዜ ወይም በኋላ ህመም',
+      'የፔሪኒየም ጡንቻዎችን ለመለየት ወይም በትክክል ለማኮማተር መቸገር',
+    ],
+    consultLabel: 'ምክር መቼ መፈለግ አለብሽ?',
+    s7Body2:
+      'ሚድዋይፍ፣ ሐኪም ወይም በዳሌ ወለል ማገገሚያ የተካነ ፊዚዮቴራፒስት የጡንቻ ተግባርን ሊፈትሽ እና ተስማሚ ፕሮግራም ሊጠቁም ይችላል።',
+
+    s8Heading: 'ከመቀደድ፣ ከኤፒዚዮቶሚ ወይም ከቄሳሪያን ክፍል በኋላስ?',
+    s8Body1:
+      'መቀደድ ወይም ኤፒዚዮቶሚ በሚድንበት ጊዜ ልዩ እንክብካቤ ይፈልጋል። እንቅስቃሴዎችን መቀጠል ህመምን፣ የጠባሳውን ሁኔታ እና ከወሊድ በኋላ የተሰጠውን መመሪያ ከግምት ማስገባት አለበት።',
+    s8Body2:
+      'ከቄሳሪያን ክፍል በኋላ ማገገም የሆድ ግድግዳውንና ጠባሳውንም ያካትታል። ወሊዱ በብልት ባይሆንም እርግዝና ራሱ አሁንም በዳሌ ወለል ላይ ጫና አሳድሯል።',
+    s8HighlightTitle: 'ግላዊ እንክብካቤ ሊረዳ ይችላል',
+    s8HighlightText:
+      'ከፍተኛ መቀደድ፣ ህመም፣ የሽንት ወይም የአንጀት ምልክቶች ወይም የሚቀጥሉ ችግሮች ሲኖሩ ከጤና ባለሙያ ጋር የሚደረግ ግምገማ በተለይ ጠቃሚ ሊሆን ይችላል።',
+
+    s9Heading: 'ስፖርትን ቀስ በቀስ መቀጠል',
+    s9Body1:
+      'ከወሊድ በኋላ እንቅስቃሴን መቀጠል ቀስ በቀስ መሆን አለበት። የእግር ጉዞና ለስላሳ እንቅስቃሴዎች በአጠቃላይ በሚሰማሽ መሠረት ሊቀጥሉ ይችላሉ፣ ከፍተኛ ድንጋጤ ያላቸው እንቅስቃሴዎች ግን ተጨማሪ ጥንቃቄ ይፈልጋሉ።',
+    s9Body2:
+      'ሩጫን፣ መዝለልን ወይም በጣም ከባድ ስልጠናን ከመቀጠልሽ በፊት የዳሌ ወለል ማገገምን መገምገም እና ማንኛውንም ምልክት ከግምት ማስገባት ይመረጣል።',
+    s9AlertTitle: 'ደረጃዎችን አትቸኩይ',
+    s9AlertText:
+      'ሽንት ማምለጥ፣ የክብደት ስሜት ወይም በልምምድ ጊዜ ወይም በኋላ ህመም ፍጥነትሽን መቀነስ እና ጥንካሬን ከመጨመርሽ በፊት ምክር መፈለግ እንዳለብሽ ምልክቶች ናቸው።',
+
+    s10Heading: 'ስፔሻሊስት መቼ ማየት?',
+    s10Body1:
+      'በትክክል እያኮማተርሽ እንደሆነ እርግጠኛ ካልሆንሽ፣ ምልክቶችሽ ከቀጠሉ ወይም የተወሰኑ የአካል እንቅስቃሴዎችን በመተማመን መቀጠል ከፈለግሽ ከሚድዋይፍ ወይም ከፊዚዮቴራፒስት ጋር የዳሌ ወለል ማገገሚያ ጠቃሚ ሊሆን ይችላል።',
+    questionCardTitle: 'ለመጠየቅ የሚጠቅሙ ጥያቄዎች',
+    appointmentQuestions: [
+      'ምልክቶቼ ከዳሌ ወለል ድክመት ጋር ይጣጣማሉ?',
+      'መኮማተሮቹን በትክክል እያደረግሁ ነው?',
+      'በቀን ስንት ድግግሞሽ ማድረግ አለብኝ?',
+      'ወደ ሩጫ፣ ስፖርት ወይም ከፍተኛ ድንጋጤ ወዳለው እንቅስቃሴ መመለስ እችላለሁ?',
+      'ከሚድዋይፍ ወይም ከፊዚዮቴራፒስት ጋር ማገገሚያ ያስፈልገኛል?',
+      'ጠባሳዬ፣ መቀደዴ ወይም ቄሳሪያን ክፍሌ ማንኛውንም ልዩ ጥንቃቄ ይፈልጋል?',
+    ],
+    s10TipTitle: 'ማወቅ ጠቃሚ ነው',
+    s10TipText:
+      'ባለሙያ ማየት የግድ የሆነ ችግር አለ ማለት አይደለም። አንድ ክፍለ ጊዜ ዘዴሽን ለመፈተሽ፣ ማገገምሽን ለመገምገም እና በትክክል ለማደግ ለመማር ብቻ ሊረዳ ይችላል።',
+
+    s11Heading: 'ጊዜ የሚወስድ ማገገም',
+    s11Body1:
+      'ከወለድሽ በኋላ ከእርግዝና በፊት የነበረሽን ተመሳሳይ ስሜት ወይም የጡንቻ ጥንካሬ ወዲያውኑ አለማግኘት የተለመደ ነው።',
+    s11Body2:
+      'ግቡ በተቻለ መጠን ብዙ መኮማተሮችን ማድረግ አይደለም። ይልቁንም በመኮማተርና በዘና ማለት መካከል ጥሩ ቅንጅትን ቀስ በቀስ መልሶ ማግኘት፣ ከዚያ እነዚህን ጡንቻዎች በዕለት ተዕለት እንቅስቃሴዎች በተፈጥሮ መጠቀም መቻል ነው።',
+    s11HighlightTitle: 'ትናንሽ እድገቶች እውነተኛ እድገቶች ናቸው',
+    s11HighlightText:
+      'የእንቅስቃሴው የተሻለ ግንዛቤ፣ ጥቂት ተጨማሪ የመኮማተር ሰከንዶች ወይም የሽንት ማምለጥ መቀነስ አስቀድሞ የሚያበረታቱ ምልክቶች ናቸው።',
+
+    s12Heading: 'ዋና ዋና ነጥቦች',
+    summaryTitle: 'አስፈላጊዎቹ',
+    summaryItems: [
+      'እርግዝናና ወሊድ በዳሌ ወለል ላይ ከፍተኛ ጫና ያሳድራሉ።',
+      'ከወሊድ በኋላ ቀስ በቀስ ማገገም የተለመደ ነው።',
+      'ልምምዶች ከጥንካሬ ይልቅ ለእንቅስቃሴ ጥራት ቅድሚያ መስጠት አለባቸው።',
+      'መተንፈስና ዘና ማለት እንደ መኮማተር እኩል አስፈላጊ ናቸው።',
+      'የሽንት ማምለጥ፣ የክብደት ስሜት ወይም የሚቆይ ህመም የባለሙያ አስተያየት ይገባቸዋል።',
+      'ከሚድዋይፍ ወይም ከፊዚዮቴራፒስት ጋር ማገገሚያ የተሻለ ቁጥጥር እንድታገኚ ሊረዳሽ ይችላል።',
+      'ወደ ስፖርት መመለስ ቀስ በቀስ መሆን አለበት፣ በተለይ ከፍተኛ ድንጋጤ ላላቸው እንቅስቃሴዎች።',
+    ],
+
+    finalTipTitle: 'ለማገገም ጊዜ ውሰጂ',
+    finalTipText:
+      'ከወሊድ በኋላ ሰውነትሽ ብዙ ለውጦችን አልፏል። ፔሪኒየም እንደ ሌላው ሰውነትሽ ተመሳሳይ ትኩረት ይገባዋል፦ ቀስ በቀስ፣ በመደበኛነት እና ያለ ጫና።',
+
+    disclaimerText:
+      'ይህ ጽሑፍ ለመረጃ ብቻ ነው እና ግላዊ የሕክምና ምክርን አይተካም። ህመም፣ የሚቀጥሉ ምልክቶች ወይም ስለ ማገገምሽ ማንኛውም ስጋት ካለሽ የጤና ባለሙያ ምክር ጠይቂ።',
+  },
+  nl: {
+    badge: 'POSTPARTUM • HERSTEL',
+    title: 'Je bekkenbodem versterken\nna de bevalling',
+    metaDuration: '8 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Na zwangerschap en bevalling heeft de bekkenbodem tijd nodig om te herstellen. Eenvoudige, regelmatige en geleidelijke oefeningen kunnen je helpen kracht, controle en vertrouwen terug te winnen, zonder de dingen te willen forceren.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'De rol van de bekkenbodem begrijpen',
+      'Waarom de bevalling hem onder spanning zet',
+      'Wanneer starten met bekkenbodemrevalidatie',
+      'Correct leren aanspannen',
+      'Een geleidelijke routine opbouwen',
+      'Fouten die je moet vermijden',
+      'Wanneer hulp vragen',
+      'Geleidelijk weer sporten',
+      'Een afspraak voorbereiden',
+      'Belangrijkste punten',
+    ],
+    shareMessage: 'Je bekkenbodem versterken na de bevalling — AWA',
+
+    s1Heading: 'De rol van de bekkenbodem begrijpen',
+    s1Body1:
+      'De bekkenbodem is een groep spieren aan de onderkant van het bekken. Hij speelt een rol bij de controle over blaas en darmen en helpt de organen in het bekken te ondersteunen.',
+    s1Body2:
+      'Tijdens de zwangerschap moeten deze spieren maandenlang extra gewicht dragen. Ook tijdens de bevalling worden ze aanzienlijk belast.',
+    s1HighlightTitle: 'Een discrete maar essentiële spier',
+    s1HighlightText:
+      'De bekkenbodem is betrokken bij meerdere dagelijkse functies: urine en ontlasting ophouden, winden beheersen, de organen in het bekken ondersteunen en een rol spelen bij bepaalde seksuele functies.',
+
+    benefitsHeading: 'De voordelen van een sterkere bekkenbodem',
+    benefitsIntro:
+      'Geleidelijke, correct uitgevoerde versterking kan helpen de controle over en ondersteuning van de bekkenbodem te verbeteren.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Betere blaascontrole',
+        text: 'De bekkenbodem speelt een rol bij de blaascontrole. Hem geleidelijk versterken kan helpen bepaalde urineverliezen te verminderen.',
+      },
+      {
+        icon: 'toilet',
+        title: 'De darmfunctie ondersteunen',
+        text: 'Deze spieren helpen ook winden en ontlasting te beheersen en dragen bij aan de ondersteuning van de organen in het bekken.',
+      },
+      {
+        icon: 'human-female',
+        title: 'De organen in het bekken ondersteunen',
+        text: 'De bekkenbodem vormt een echte spierbasis die helpt de blaas, baarmoeder en darmen te ondersteunen.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Geleidelijk gevoel terugkrijgen',
+        text: 'Passende revalidatie kan je ook helpen dit gebied beter te voelen en te beheersen.',
+      },
+    ],
+
+    s2Heading: 'Waarom zwangerschap en bevalling hem onder spanning zetten',
+    s2Body1:
+      'De zwangerschap oefent geleidelijk steeds meer druk uit op de bekkenbodem. Een vaginale bevalling kan de spieren en weefsels in dit gebied vervolgens aanzienlijk oprekken.',
+    s2Body2:
+      'Een keizersnede spaart de bekkenbodem ook niet volledig: de zwangerschap zelf blijft een belangrijke periode voor deze spieren.',
+    s2Body3:
+      'Na de bevalling is het dus normaal dat herstel tijd kost. Sommige vrouwen voelen bijna geen klachten, terwijl anderen urineverlies, een zwaar gevoel of verminderde spiercontrole kunnen opmerken.',
+    s2TipTitle: 'Elk herstel is anders',
+    s2TipText:
+      'Het type bevalling, een scheur of knip, de aanwezigheid van pijn en je algemene toestand na de bevalling kunnen het herstel allemaal beïnvloeden.',
+
+    s3Heading: 'Wanneer starten met bekkenbodemrevalidatie?',
+    s3Body1:
+      'Na een ongecompliceerde bevalling kunnen zachte aanspanningen van de bekkenbodem meestal geleidelijk worden hervat. Het blijft belangrijk de oefeningen aan je situatie aan te passen en advies te vragen als je een complicatie, aanzienlijke pijn of een specifieke ingreep hebt gehad.',
+    s3Body2:
+      'Als je een urinekatheter hebt, adviseren sommige richtlijnen te wachten tot die is verwijderd en het normale plassen is hervat voordat je met bekkenbodemoefeningen begint.',
+    s3AlertTitle: 'Zet niet door bij pijn',
+    s3AlertText:
+      'Aanzienlijke pijn, verergerende klachten, een wond die slecht geneest of elke bijzondere zorg vraagt om advies van een verloskundige, arts of revalidatieprofessional.',
+
+    s4Heading: 'Correct leren aanspannen',
+    s4Body1:
+      'Om de beweging te herkennen, stel je voor dat je tegelijk winden en de aandrang om te plassen probeert tegen te houden. De beweging die je zoekt is een gevoel van samentrekken en naar binnen optillen.',
+    s4Body2:
+      'Het doel is niet je hele lichaam strak aan te spannen. Je billen, dijen en buikspieren moeten zo ontspannen mogelijk blijven, terwijl je normaal blijft ademen.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Ademhaling'},
+      {icon: 'human-handsup', label: 'Zachte aanspanning'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Lange aanspanning'},
+      {icon: 'gesture-tap-button', label: 'Snelle aanspanningen'},
+    ],
+    s4HighlightTitle: 'Ontspannen is net zo belangrijk',
+    s4HighlightText:
+      'Laat de spieren na elke aanspanning volledig ontspannen. Goede revalidatie betekent niet de bekkenbodem de hele dag aangespannen houden.',
+
+    s5Heading: 'Een geleidelijke routine opbouwen',
+    s5Body1:
+      'In het begin is het belangrijkste de spieren te leren herkennen en de beweging correct uit te voeren. Regelmaat is belangrijker dan intensiteit.',
+    s5h3a: 'Lange aanspanningen',
+    s5Body2:
+      'Span de bekkenbodem zacht aan en houd de aanspanning enkele seconden vast zonder je adem in te houden. Laat daarna volledig los voordat je opnieuw begint.',
+    s5h3b: 'Korte aanspanningen',
+    s5Body3:
+      'Zodra je de beweging beheerst, kunnen kleine snelle aanspanningen worden toegevoegd. Ze trainen je vermogen om de spieren snel aan te spannen wanneer de buikdruk stijgt, bijvoorbeeld net voor je hoest of niest.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Koppel de oefeningen aan een dagelijkse gewoonte'},
+      {icon: 'human-sitting', label: 'Begin in een comfortabele houding'},
+      {icon: 'weather-windy', label: 'Adem normaal tijdens de aanspanningen'},
+      {icon: 'sleep', label: 'Respecteer de ontspanningsfasen'},
+      {icon: 'chart-line', label: 'Maak het geleidelijk moeilijker'},
+      {icon: 'doctor', label: 'Vraag advies als je twijfelt'},
+    ],
+    s5TipTitle: 'Vooral regelmaat',
+    s5TipText:
+      'De oefeningen koppelen aan een gewoonte die al in je dag zit kan het makkelijker maken ze vol te houden: na een voeding, na het tandenpoetsen of op een ander moment dat je schikt.',
+
+    s6Heading: 'Veelgemaakte fouten die je moet vermijden',
+    s6Body1:
+      'Bekkenbodemoefeningen lijken misschien eenvoudig, maar het is makkelijk om met andere spieren te compenseren of te hard te duwen.',
+    commonMistakes: [
+      'De billen of dijen aanspannen in plaats van de bekkenbodem',
+      'Je adem inhouden tijdens de aanspanning',
+      'De spieren constant aangespannen houden zonder ze te laten ontspannen',
+      'De oefeningen maar een paar dagen doen en dan stoppen',
+      'Opzettelijk de urinestraal stoppen om de aanspanning te controleren',
+    ],
+    s6TipTitle: 'Wat je niet moet doen',
+    s6TipText:
+      'Het wordt afgeraden de oefeningen te doen door opzettelijk je urinestraal te stoppen. Deze methode traint de bekkenbodem niet correct en kan de normale blaasfunctie verstoren.',
+
+    s7Heading: 'Welke klachten moeten aanleiding zijn voor een consult?',
+    s7Body1:
+      'Kleine verliezen of een ongewoon gevoel kunnen soms na de bevalling optreden. Ze mogen echter niet worden genegeerd als ze aanhouden, verergeren of je dagelijks leven hinderen.',
+    warningSigns: [
+      'Urineverlies wanneer je hoest, niest, lacht of perst',
+      'Een gevoel van zwaarte of druk in het onderste deel van het bekken',
+      'Een gevoel dat er een bult of iets naar beneden zakt in de vagina',
+      'Moeite om winden of ontlasting op te houden',
+      'Aanhoudende pijn in de bekkenbodem',
+      'Pijn tijdens of na seksueel contact',
+      'Moeite om de spieren van de bekkenbodem te herkennen of correct aan te spannen',
+    ],
+    consultLabel: 'Wanneer moet je advies vragen?',
+    s7Body2:
+      'Een verloskundige, arts of fysiotherapeut gespecialiseerd in bekkenbodemrevalidatie kan de spierfunctie controleren en een passend programma voorstellen.',
+
+    s8Heading: 'En na een scheur, een knip of een keizersnede?',
+    s8Body1:
+      'Een scheur of knip vraagt bijzondere zorg tijdens de genezing. Bij het hervatten van activiteiten moet rekening worden gehouden met pijn, de toestand van het litteken en het advies dat na de bevalling is gegeven.',
+    s8Body2:
+      'Na een keizersnede betreft het herstel ook de buikwand en het litteken. Zelfs als de bevalling niet vaginaal was, heeft de zwangerschap zelf de bekkenbodem toch belast.',
+    s8HighlightTitle: 'Persoonlijke begeleiding kan helpen',
+    s8HighlightText:
+      'Bij een aanzienlijke scheur, pijn, urine- of darmklachten of aanhoudende problemen kan een beoordeling door een zorgprofessional bijzonder nuttig zijn.',
+
+    s9Heading: 'Geleidelijk weer sporten',
+    s9Body1:
+      'Het hervatten van beweging na de bevalling moet geleidelijk gebeuren. Wandelen en zachte bewegingen kunnen over het algemeen worden hervat naargelang hoe je je voelt, terwijl activiteiten met hoge impact meer voorzichtigheid vragen.',
+    s9Body2:
+      'Voordat je weer gaat hardlopen, springen of zeer intensief trainen, is het het beste het herstel van de bekkenbodem te beoordelen en rekening te houden met eventuele klachten.',
+    s9AlertTitle: 'Forceer de stappen niet',
+    s9AlertText:
+      'Urineverlies, een zwaar gevoel of pijn tijdens of na het sporten zijn tekenen dat je moet vertragen en advies moet vragen voordat je de intensiteit verhoogt.',
+
+    s10Heading: 'Wanneer een specialist raadplegen?',
+    s10Body1:
+      'Bekkenbodemrevalidatie bij een verloskundige of fysiotherapeut kan nuttig zijn als je niet zeker weet of je correct aanspant, als je klachten aanhouden of als je met vertrouwen bepaalde fysieke activiteiten wilt hervatten.',
+    questionCardTitle: 'Nuttige vragen om te stellen',
+    appointmentQuestions: [
+      'Passen mijn klachten bij een zwakke bekkenbodem?',
+      'Voer ik de aanspanningen correct uit?',
+      'Hoeveel herhalingen moet ik per dag doen?',
+      'Kan ik weer gaan hardlopen, sporten of oefeningen met hoge impact doen?',
+      'Heb ik revalidatie bij een verloskundige of fysiotherapeut nodig?',
+      'Vraagt mijn litteken, scheur of keizersnede om bijzondere voorzorgen?',
+    ],
+    s10TipTitle: 'Goed om te weten',
+    s10TipText:
+      'Een professional raadplegen betekent niet per se dat er iets mis is. Een sessie kan gewoon helpen je techniek te controleren, je herstel te beoordelen en correct vooruitgang te leren boeken.',
+
+    s11Heading: 'Een herstel dat tijd kost',
+    s11Body1:
+      'Na de bevalling is het normaal dat je niet meteen dezelfde gevoelens of spierkracht terugkrijgt als vóór de zwangerschap.',
+    s11Body2:
+      'Het doel is niet zoveel mogelijk aanspanningen te doen. Het gaat er meer om geleidelijk een goede coördinatie tussen aanspanning en ontspanning terug te vinden en deze spieren dan op natuurlijke wijze te kunnen gebruiken in dagelijkse activiteiten.',
+    s11HighlightTitle: 'Kleine vooruitgang is echte vooruitgang',
+    s11HighlightText:
+      'Een beter besef van de beweging, een paar seconden langer aanspannen of minder urineverlies zijn al bemoedigende tekenen.',
+
+    s12Heading: 'Belangrijkste punten',
+    summaryTitle: 'De essentie',
+    summaryItems: [
+      'Zwangerschap en bevalling belasten de bekkenbodem aanzienlijk.',
+      'Geleidelijk herstel is normaal na de bevalling.',
+      'Bij de oefeningen gaat de kwaliteit van de beweging boven kracht.',
+      'Ademhaling en ontspanning zijn net zo belangrijk als aanspanning.',
+      'Urineverlies, een zwaar gevoel of aanhoudende pijn verdienen het oordeel van een professional.',
+      'Revalidatie bij een verloskundige of fysiotherapeut kan je helpen betere controle terug te krijgen.',
+      'Weer gaan sporten moet geleidelijk gebeuren, vooral bij activiteiten met hoge impact.',
+    ],
+
+    finalTipTitle: 'Neem de tijd om te herstellen',
+    finalTipText:
+      'Na de bevalling heeft je lichaam veel veranderingen doorgemaakt. De bekkenbodem verdient dezelfde aandacht als de rest van je lichaam: geleidelijk, regelmatig en zonder druk.',
+
+    disclaimerText:
+      'Dit artikel is alleen ter informatie en vervangt geen persoonlijk medisch advies. Als je pijn, aanhoudende klachten of zorgen over je herstel hebt, vraag dan advies aan een zorgprofessional.',
+  },
+  fi: {
+    badge: 'SYNNYTYKSEN JÄLKEEN • TOIPUMINEN',
+    title: 'Lantionpohjan vahvistaminen\nsynnytyksen jälkeen',
+    metaDuration: '8 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Raskauden ja synnytyksen jälkeen lantionpohja tarvitsee aikaa toipua. Yksinkertaiset, säännölliset ja asteittaiset harjoitukset voivat auttaa saamaan takaisin voimaa, hallintaa ja luottamusta ilman kiirehtimistä.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Lantionpohjan roolin ymmärtäminen',
+      'Miksi synnytys rasittaa sitä',
+      'Milloin aloittaa lantionpohjan kuntoutus',
+      'Oikeaoppisen supistuksen oppiminen',
+      'Asteittaisen rutiinin rakentaminen',
+      'Vältettävät virheet',
+      'Milloin pyytää apua',
+      'Liikunnan asteittainen jatkaminen',
+      'Vastaanottoon valmistautuminen',
+      'Tärkeimmät asiat',
+    ],
+    shareMessage: 'Lantionpohjan vahvistaminen synnytyksen jälkeen — AWA',
+
+    s1Heading: 'Lantionpohjan roolin ymmärtäminen',
+    s1Body1:
+      'Lantionpohja on lantion alaosassa sijaitseva lihasryhmä. Sillä on rooli virtsarakon ja suolen hallinnassa, ja se auttaa tukemaan lantion elimiä.',
+    s1Body2:
+      'Raskauden aikana nämä lihakset joutuvat kantamaan ylimääräistä painoa useita kuukausia. Myös synnytyksen aikana niihin kohdistuu huomattavaa rasitusta.',
+    s1HighlightTitle: 'Huomaamaton mutta olennainen lihas',
+    s1HighlightText:
+      'Lantionpohja osallistuu useisiin päivittäisiin toimintoihin: virtsan ja ulosteen pidättämiseen, ilmavaivojen hallintaan, lantion elinten tukemiseen ja tiettyihin seksuaalisiin toimintoihin.',
+
+    benefitsHeading: 'Vahvemman lantionpohjan edut',
+    benefitsIntro:
+      'Asteittainen, oikein suoritettu vahvistaminen voi auttaa parantamaan lantionpohjan hallintaa ja tukea.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Parempi virtsarakon hallinta',
+        text: 'Lantionpohjalla on rooli virtsarakon hallinnassa. Sen vahvistaminen asteittain voi auttaa vähentämään tiettyä virtsanvuotoa.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Suolen toiminnan tukeminen',
+        text: 'Nämä lihakset auttavat myös hallitsemaan ilmavaivoja ja ulosteita ja osallistuvat lantion elinten tukemiseen.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Lantion elinten tukeminen',
+        text: 'Lantionpohja muodostaa todellisen lihaspohjan, joka auttaa tukemaan rakkoa, kohtua ja suolta.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Tuntemuksen palautuminen asteittain',
+        text: 'Sopiva kuntoutus voi myös auttaa saamaan paremman tietoisuuden ja hallinnan tästä alueesta.',
+      },
+    ],
+
+    s2Heading: 'Miksi raskaus ja synnytys rasittavat sitä',
+    s2Body1:
+      'Raskaus kohdistaa lantionpohjaan asteittain enemmän painetta. Alatiesynnytys voi sitten venyttää tämän alueen lihaksia ja kudoksia merkittävästi.',
+    s2Body2:
+      'Keisarinleikkauskaan ei täysin säästä lantionpohjaa: raskaus itsessään on näille lihaksille merkittävä jakso.',
+    s2Body3:
+      'Synnytyksen jälkeen on siis normaalia, että toipuminen vie aikaa. Jotkut naiset tuntevat lähes mitään oireita, kun taas toiset voivat huomata vuotoa, painon tunnetta tai heikentynyttä lihashallintaa.',
+    s2TipTitle: 'Jokainen toipuminen on erilainen',
+    s2TipText:
+      'Synnytystapa, repeämä tai episiotomia, kivun esiintyminen ja yleistilasi synnytyksen jälkeen voivat kaikki vaikuttaa toipumiseen.',
+
+    s3Heading: 'Milloin aloittaa lantionpohjan kuntoutus?',
+    s3Body1:
+      'Ongelmattoman synnytyksen jälkeen lantionpohjan lempeitä supistuksia voi yleensä jatkaa asteittain. On edelleen tärkeää mukauttaa harjoitukset tilanteeseesi ja pyytää neuvoa, jos sinulla oli komplikaatio, merkittävää kipua tai erityinen toimenpide.',
+    s3Body2:
+      'Jos sinulla on virtsakatetri, jotkin suositukset neuvovat odottamaan, kunnes se on poistettu ja normaali virtsaaminen on palannut, ennen kuin aloitat lantionpohjaharjoitukset.',
+    s3AlertTitle: 'Älä jatka kivusta huolimatta',
+    s3AlertText:
+      'Merkittävä kipu, pahenevat oireet, huonosti paraneva haava tai mikä tahansa erityinen huoli vaatii kätilön, lääkärin tai kuntoutusammattilaisen neuvoa.',
+
+    s4Heading: 'Oikeaoppisen supistuksen oppiminen',
+    s4Body1:
+      'Liikkeen tunnistamiseksi kuvittele yrittäväsi pidättää samanaikaisesti ilmavaivoja ja virtsaamisen tarvetta. Etsimäsi liike on supistumisen ja sisäänpäin nostamisen tunne.',
+    s4Body2:
+      'Tavoitteena ei ole jännittää koko kehoasi tiukasti. Pakaroiden, reisien ja vatsalihasten tulisi pysyä mahdollisimman rentoina hengityksen jatkuessa normaalisti.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Hengitys'},
+      {icon: 'human-handsup', label: 'Lempeä supistus'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Pitkä supistus'},
+      {icon: 'gesture-tap-button', label: 'Nopeat supistukset'},
+    ],
+    s4HighlightTitle: 'Rentoutuminen on yhtä tärkeää',
+    s4HighlightText:
+      'Anna lihasten rentoutua täysin jokaisen supistuksen jälkeen. Hyvä kuntoutus ei tarkoita lantionpohjan pitämistä supistuneena koko päivän.',
+
+    s5Heading: 'Asteittaisen rutiinin rakentaminen',
+    s5Body1:
+      'Aluksi tärkeintä on oppia tunnistamaan lihakset ja suorittamaan liike oikein. Säännöllisyys on tärkeämpää kuin voimakkuus.',
+    s5h3a: 'Pitkät supistukset',
+    s5Body2:
+      'Supista lantionpohja lempeästi ja pidä supistus muutaman sekunnin ajan pidättämättä hengitystä. Päästä sitten kokonaan irti ennen uutta aloitusta.',
+    s5h3b: 'Lyhyet supistukset',
+    s5Body3:
+      'Kun liike on hallinnassa, voit lisätä pieniä nopeita supistuksia. Ne harjoittavat kykyäsi supistaa lihaksia nopeasti vatsanpaineen noustessa, esimerkiksi juuri ennen yskimistä tai aivastamista.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Yhdistä harjoitukset päivittäiseen tapaan'},
+      {icon: 'human-sitting', label: 'Aloita mukavassa asennossa'},
+      {icon: 'weather-windy', label: 'Hengitä normaalisti supistusten aikana'},
+      {icon: 'sleep', label: 'Kunnioita rentoutumisvaiheita'},
+      {icon: 'chart-line', label: 'Lisää vaikeutta asteittain'},
+      {icon: 'doctor', label: 'Pyydä neuvoa, jos olet epävarma'},
+    ],
+    s5TipTitle: 'Ennen kaikkea säännöllisyys',
+    s5TipText:
+      'Harjoitusten yhdistäminen jo päivääsi kuuluvaan tapaan voi helpottaa säännöllisyyden ylläpitoa: imetyksen jälkeen, hampaiden pesun jälkeen tai muulloin, kun se sopii sinulle.',
+
+    s6Heading: 'Yleiset vältettävät virheet',
+    s6Body1:
+      'Lantionpohjaharjoitukset voivat näyttää yksinkertaisilta, mutta on helppo kompensoida muilla lihaksilla tai ponnistaa liikaa.',
+    commonMistakes: [
+      'Pakaroiden tai reisien jännittäminen lantionpohjan sijaan',
+      'Hengityksen pidättäminen supistuksen aikana',
+      'Lihasten pitäminen jatkuvasti supistettuina ilman että annat niiden rentoutua',
+      'Harjoitusten tekeminen vain muutaman päivän ja sitten lopettaminen',
+      'Virtsasuihkun tahallinen pysäyttäminen supistuksen tarkistamiseksi',
+    ],
+    s6TipTitle: 'Mitä ei pidä tehdä',
+    s6TipText:
+      'Harjoitusten tekemistä pysäyttämällä virtsasuihku tahallisesti ei suositella. Tämä menetelmä ei harjoita lantionpohjaa oikein ja voi häiritä normaalia rakon toimintaa.',
+
+    s7Heading: 'Mitkä oireet pitäisi johtaa vastaanotolle?',
+    s7Body1:
+      'Pientä vuotoa tai epätavallista tunnetta voi joskus ilmetä synnytyksen jälkeen. Niitä ei kuitenkaan pidä sivuuttaa, jos ne jatkuvat, pahenevat tai häiritsevät arkeasi.',
+    warningSigns: [
+      'Virtsanvuoto yskiessä, aivastaessa, nauraessa tai ponnistaessa',
+      'Painon tai paineen tunne alalantiossa',
+      'Tunne, että kyhmy tai jokin laskeutuu emättimeen',
+      'Vaikeus pidättää ilmavaivoja tai ulostetta',
+      'Jatkuva kipu lantionpohjassa',
+      'Kipu seksuaalisen kanssakäymisen aikana tai sen jälkeen',
+      'Vaikeus tunnistaa tai supistaa lantionpohjan lihaksia oikein',
+    ],
+    consultLabel: 'Milloin pitäisi pyytää neuvoa?',
+    s7Body2:
+      'Kätilö, lääkäri tai lantionpohjan kuntoutukseen erikoistunut fysioterapeutti voi tarkistaa lihasten toiminnan ja ehdottaa sopivaa ohjelmaa.',
+
+    s8Heading: 'Entä repeämän, episiotomian tai keisarinleikkauksen jälkeen?',
+    s8Body1:
+      'Repeämä tai episiotomia vaatii erityistä huolenpitoa paranemisen aikana. Toimintojen jatkamisessa tulee ottaa huomioon kipu, arven kunto ja synnytyksen jälkeen annetut ohjeet.',
+    s8Body2:
+      'Keisarinleikkauksen jälkeen toipuminen koskee myös vatsanseinää ja arpea. Vaikka synnytys ei olisi ollut alatiesynnytys, raskaus itsessään on silti rasittanut lantionpohjaa.',
+    s8HighlightTitle: 'Henkilökohtainen hoito voi auttaa',
+    s8HighlightText:
+      'Merkittävän repeämän, kivun, virtsa- tai suolioireiden tai pitkäkestoisten vaikeuksien tapauksessa terveydenhuollon ammattilaisen arvio voi olla erityisen hyödyllinen.',
+
+    s9Heading: 'Liikunnan asteittainen jatkaminen',
+    s9Body1:
+      'Liikkumisen jatkamisen synnytyksen jälkeen tulisi tapahtua asteittain. Kävelyä ja lempeitä liikkeitä voi yleensä jatkaa olosi mukaan, kun taas voimakasta rasitusta sisältävät toiminnot vaativat enemmän varovaisuutta.',
+    s9Body2:
+      'Ennen juoksemisen, hyppäämisen tai hyvin intensiivisen harjoittelun jatkamista on parasta arvioida lantionpohjan toipuminen ja ottaa huomioon mahdolliset oireet.',
+    s9AlertTitle: 'Älä kiirehdi vaiheita',
+    s9AlertText:
+      'Vuoto, painon tunne tai kipu liikunnan aikana tai sen jälkeen ovat merkkejä siitä, että sinun pitäisi hidastaa ja pyytää neuvoa ennen voimakkuuden lisäämistä.',
+
+    s10Heading: 'Milloin mennä erikoisammattilaisen luo?',
+    s10Body1:
+      'Lantionpohjan kuntoutus kätilön tai fysioterapeutin kanssa voi olla hyödyllistä, jos et ole varma, supistatko oikein, jos oireesi jatkuvat tai jos haluat jatkaa tiettyjä fyysisiä toimintoja luottavaisin mielin.',
+    questionCardTitle: 'Hyödyllisiä kysymyksiä',
+    appointmentQuestions: [
+      'Sopivatko oireeni lantionpohjan heikkouteen?',
+      'Suoritanko supistukset oikein?',
+      'Kuinka monta toistoa minun pitäisi tehdä päivässä?',
+      'Voinko palata juoksemiseen, urheiluun tai voimakasta rasitusta sisältävään liikuntaan?',
+      'Tarvitsenko kuntoutusta kätilön tai fysioterapeutin kanssa?',
+      'Vaatiiko arpeni, repeämäni tai keisarinleikkaukseni erityisiä varotoimia?',
+    ],
+    s10TipTitle: 'Hyvä tietää',
+    s10TipText:
+      'Ammattilaisen tapaaminen ei välttämättä tarkoita, että jokin olisi vialla. Käynti voi yksinkertaisesti auttaa tarkistamaan tekniikkasi, arvioimaan toipumistasi ja oppimaan etenemään oikein.',
+
+    s11Heading: 'Toipuminen, joka vie aikaa',
+    s11Body1:
+      'Synnytyksen jälkeen on normaalia, ettet heti saa takaisin samoja tuntemuksia tai lihasvoimaa kuin ennen raskautta.',
+    s11Body2:
+      'Tavoitteena ei ole tehdä mahdollisimman monta supistusta. Kyse on enemmän supistumisen ja rentoutumisen hyvän koordinaation vähittäisestä uudelleenlöytämisestä ja näiden lihasten luonnollisesta käytöstä arjen toiminnoissa.',
+    s11HighlightTitle: 'Pieni edistys on todellista edistystä',
+    s11HighlightText:
+      'Liikkeen parempi tiedostaminen, muutama sekunti lisää supistusta tai vuodon väheneminen ovat jo kannustavia merkkejä.',
+
+    s12Heading: 'Tärkeimmät asiat',
+    summaryTitle: 'Olennaiset asiat',
+    summaryItems: [
+      'Raskaus ja synnytys rasittavat lantionpohjaa merkittävästi.',
+      'Asteittainen toipuminen on normaalia synnytyksen jälkeen.',
+      'Harjoituksissa liikkeen laatu menee voiman edelle.',
+      'Hengitys ja rentoutuminen ovat yhtä tärkeitä kuin supistus.',
+      'Virtsanvuoto, painon tunne tai jatkuva kipu ansaitsevat ammattilaisen arvion.',
+      'Kuntoutus kätilön tai fysioterapeutin kanssa voi auttaa saamaan paremman hallinnan takaisin.',
+      'Urheilun jatkaminen tulisi tehdä asteittain, erityisesti voimakasta rasitusta sisältävissä toiminnoissa.',
+    ],
+
+    finalTipTitle: 'Ota aikaa toipumiseen',
+    finalTipText:
+      'Synnytyksen jälkeen kehosi on käynyt läpi paljon muutoksia. Lantionpohja ansaitsee saman huomion kuin muu kehosi: asteittain, säännöllisesti ja ilman painetta.',
+
+    disclaimerText:
+      'Tämä artikkeli on tarkoitettu vain tiedoksi eikä korvaa henkilökohtaista lääketieteellistä neuvontaa. Jos sinulla on kipua, pitkäkestoisia oireita tai huolia toipumisestasi, pyydä neuvoa terveydenhuollon ammattilaiselta.',
+  },
+  el: {
+    badge: 'ΛΟΧΕΙΑ • ΑΝΑΡΡΩΣΗ',
+    title: 'Ενδυνάμωση του πυελικού εδάφους\nμετά τον τοκετό',
+    metaDuration: '8 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Μετά την εγκυμοσύνη και τον τοκετό, το πυελικό έδαφος χρειάζεται χρόνο για να αναρρώσει. Απλές, τακτικές και σταδιακές ασκήσεις μπορούν να σε βοηθήσουν να ανακτήσεις δύναμη, έλεγχο και αυτοπεποίθηση, χωρίς να προσπαθείς να επιταχύνεις τα πράγματα.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Κατανοώντας τον ρόλο του περινέου',
+      'Γιατί ο τοκετός το επιβαρύνει',
+      'Πότε να ξεκινήσει η αποκατάσταση του πυελικού εδάφους',
+      'Μαθαίνοντας να συσπάς σωστά',
+      'Χτίζοντας μια σταδιακή ρουτίνα',
+      'Λάθη που πρέπει να αποφεύγεις',
+      'Πότε να ζητήσεις βοήθεια',
+      'Σταδιακή επανέναρξη της άθλησης',
+      'Προετοιμασία για ένα ραντεβού',
+      'Βασικά συμπεράσματα',
+    ],
+    shareMessage: 'Ενδυνάμωση του πυελικού εδάφους μετά τον τοκετό — AWA',
+
+    s1Heading: 'Κατανοώντας τον ρόλο του περινέου',
+    s1Body1:
+      'Το περίνεο, που ονομάζεται επίσης πυελικό έδαφος, είναι μια ομάδα μυών στη βάση της πυέλου. Παίζει ρόλο στον έλεγχο της κύστης και του εντέρου και βοηθά στη στήριξη των πυελικών οργάνων.',
+    s1Body2:
+      'Κατά την εγκυμοσύνη, αυτοί οι μύες πρέπει να σηκώνουν επιπλέον βάρος για αρκετούς μήνες. Καταπονούνται επίσης σημαντικά κατά τον τοκετό.',
+    s1HighlightTitle: 'Ένας διακριτικός αλλά ουσιαστικός μυς',
+    s1HighlightText:
+      'Το πυελικό έδαφος εμπλέκεται σε διάφορες καθημερινές λειτουργίες: κράτημα ούρων και κοπράνων, έλεγχο των αερίων, στήριξη των πυελικών οργάνων και ρόλο σε ορισμένες σεξουαλικές λειτουργίες.',
+
+    benefitsHeading: 'Τα οφέλη ενός πιο δυνατού πυελικού εδάφους',
+    benefitsIntro:
+      'Η σταδιακή, σωστά εκτελεσμένη ενδυνάμωση μπορεί να βοηθήσει στη βελτίωση του ελέγχου και της στήριξης του πυελικού εδάφους.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Καλύτερος έλεγχος της κύστης',
+        text: 'Το πυελικό έδαφος παίζει ρόλο στον έλεγχο της κύστης. Η σταδιακή ενδυνάμωσή του μπορεί να βοηθήσει να μειωθούν ορισμένες διαρροές ούρων.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Στήριξη της λειτουργίας του εντέρου',
+        text: 'Αυτοί οι μύες βοηθούν επίσης στον έλεγχο των αερίων και των κοπράνων και συμβάλλουν στη στήριξη των πυελικών οργάνων.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Στήριξη των πυελικών οργάνων',
+        text: 'Το πυελικό έδαφος αποτελεί μια πραγματική μυϊκή βάση που βοηθά στη στήριξη της κύστης, της μήτρας και του εντέρου.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Σταδιακή ανάκτηση της αίσθησης',
+        text: 'Η κατάλληλη αποκατάσταση μπορεί επίσης να σε βοηθήσει να ανακτήσεις καλύτερη επίγνωση και έλεγχο αυτής της περιοχής.',
+      },
+    ],
+
+    s2Heading: 'Γιατί η εγκυμοσύνη και ο τοκετός το επιβαρύνουν',
+    s2Body1:
+      'Η εγκυμοσύνη ασκεί σταδιακά μεγαλύτερη πίεση στο πυελικό έδαφος. Ο κολπικός τοκετός μπορεί στη συνέχεια να τεντώσει σημαντικά τους μύες και τους ιστούς αυτής της περιοχής.',
+    s2Body2:
+      'Η καισαρική τομή δεν γλιτώνει εντελώς το πυελικό έδαφος: η ίδια η εγκυμοσύνη παραμένει μια σημαντική περίοδος για αυτούς τους μύες.',
+    s2Body3:
+      'Μετά τον τοκετό, είναι επομένως φυσιολογικό η ανάρρωση να παίρνει χρόνο. Ορισμένες γυναίκες δεν νιώθουν σχεδόν κανένα σύμπτωμα, ενώ άλλες μπορεί να παρατηρήσουν διαρροές, αίσθημα βάρους ή μειωμένο μυϊκό έλεγχο.',
+    s2TipTitle: 'Κάθε ανάρρωση είναι διαφορετική',
+    s2TipText:
+      'Το είδος του τοκετού, ένας τραυματισμός ή μια επισιοτομία, η παρουσία πόνου και η γενική σου κατάσταση μετά τον τοκετό μπορούν όλα να επηρεάσουν την ανάρρωση.',
+
+    s3Heading: 'Πότε να ξεκινήσει η αποκατάσταση του πυελικού εδάφους;',
+    s3Body1:
+      'Μετά από έναν τοκετό χωρίς επιπλοκές, οι ήπιες συσπάσεις του πυελικού εδάφους μπορούν συνήθως να ξαναρχίσουν σταδιακά. Παραμένει σημαντικό να προσαρμόζεις τις ασκήσεις στην περίπτωσή σου και να ζητάς συμβουλή αν είχες επιπλοκή, σημαντικό πόνο ή κάποια συγκεκριμένη επέμβαση.',
+    s3Body2:
+      'Αν έχεις ουροκαθετήρα, ορισμένες συστάσεις προτείνουν να περιμένεις μέχρι να αφαιρεθεί και να ξαναρχίσει η κανονική ούρηση πριν ξεκινήσεις ασκήσεις περινέου.',
+    s3AlertTitle: 'Μην πιέζεις μέσα από τον πόνο',
+    s3AlertText:
+      'Ο σημαντικός πόνος, τα συμπτώματα που επιδεινώνονται, ένα τραύμα που επουλώνεται άσχημα ή οποιαδήποτε ιδιαίτερη ανησυχία απαιτούν συμβουλή από μια μαία, έναν γιατρό ή έναν επαγγελματία αποκατάστασης.',
+
+    s4Heading: 'Μαθαίνοντας να συσπάς σωστά',
+    s4Body1:
+      'Για να εντοπίσεις την κίνηση, φαντάσου ότι προσπαθείς να κρατήσεις τα αέρια και την ανάγκη για ούρηση ταυτόχρονα. Η κίνηση που αναζητάς είναι μια αίσθηση σύσπασης και ανύψωσης προς τα μέσα.',
+    s4Body2:
+      'Στόχος δεν είναι να σφίξεις ολόκληρο το σώμα σου. Οι γλουτοί, οι μηροί και οι κοιλιακοί πρέπει να παραμένουν όσο το δυνατόν πιο χαλαροί, ενώ η αναπνοή συνεχίζεται κανονικά.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Αναπνοή'},
+      {icon: 'human-handsup', label: 'Ήπια σύσπαση'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Μακρά σύσπαση'},
+      {icon: 'gesture-tap-button', label: 'Γρήγορες συσπάσεις'},
+    ],
+    s4HighlightTitle: 'Η χαλάρωση έχει την ίδια σημασία',
+    s4HighlightText:
+      'Μετά από κάθε σύσπαση, άφησε τους μύες να χαλαρώσουν πλήρως. Η καλή αποκατάσταση δεν σημαίνει να κρατάς το περίνεο συσπασμένο όλη την ημέρα.',
+
+    s5Heading: 'Χτίζοντας μια σταδιακή ρουτίνα',
+    s5Body1:
+      'Στην αρχή, το πιο σημαντικό είναι να μάθεις να εντοπίζεις τους μύες και να εκτελείς σωστά την κίνηση. Η συνέπεια έχει μεγαλύτερη σημασία από την ένταση.',
+    s5h3a: 'Μακρές συσπάσεις',
+    s5Body2:
+      'Σύσπασε απαλά το πυελικό έδαφος και στη συνέχεια κράτα τη σύσπαση για λίγα δευτερόλεπτα χωρίς να κρατάς την αναπνοή σου. Έπειτα χαλάρωσε πλήρως πριν ξεκινήσεις ξανά.',
+    s5h3b: 'Σύντομες συσπάσεις',
+    s5Body3:
+      'Μόλις κατακτηθεί η κίνηση, μπορούν να προστεθούν μικρές γρήγορες συσπάσεις. Βοηθούν στην εκπαίδευση της ικανότητάς σου να συσπάς γρήγορα τους μύες όταν αυξάνεται η κοιλιακή πίεση, για παράδειγμα λίγο πριν από βήχα ή φτέρνισμα.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Συνδύασε τις ασκήσεις με μια καθημερινή συνήθεια'},
+      {icon: 'human-sitting', label: 'Ξεκίνα σε μια άνετη θέση'},
+      {icon: 'weather-windy', label: 'Αναπνέε κανονικά κατά τις συσπάσεις'},
+      {icon: 'sleep', label: 'Σεβάσου τις φάσεις χαλάρωσης'},
+      {icon: 'chart-line', label: 'Αύξανε σταδιακά τη δυσκολία'},
+      {icon: 'doctor', label: 'Ζήτησε συμβουλή αν δεν είσαι σίγουρη'},
+    ],
+    s5TipTitle: 'Πάνω απ’ όλα συνέπεια',
+    s5TipText:
+      'Ο συνδυασμός των ασκήσεων με μια συνήθεια που ήδη υπάρχει στην ημέρα σου μπορεί να διευκολύνει τη συνέπεια: μετά από ένα γεύμα του μωρού, μετά το βούρτσισμα των δοντιών ή σε άλλη ώρα που σου ταιριάζει.',
+
+    s6Heading: 'Συχνά λάθη που πρέπει να αποφεύγεις',
+    s6Body1:
+      'Οι ασκήσεις περινέου μπορεί να φαίνονται απλές, αλλά είναι εύκολο να αντισταθμίζεις με άλλους μύες ή να πιέζεις υπερβολικά.',
+    commonMistakes: [
+      'Σφίξιμο των γλουτών ή των μηρών αντί για το πυελικό έδαφος',
+      'Κράτημα της αναπνοής κατά τη σύσπαση',
+      'Διατήρηση των μυών συνεχώς συσπασμένων χωρίς να τους αφήνεις να χαλαρώσουν',
+      'Εκτέλεση των ασκήσεων μόνο για λίγες ημέρες και στη συνέχεια διακοπή',
+      'Σκόπιμη διακοπή της ροής των ούρων για να ελέγξεις τη σύσπαση',
+    ],
+    s6TipTitle: 'Τι να μην κάνεις',
+    s6TipText:
+      'Δεν συνιστάται να εξασκείσαι σκόπιμα διακόπτοντας τη ροή των ούρων. Αυτή η μέθοδος δεν εκπαιδεύει σωστά το περίνεο και μπορεί να διαταράξει την κανονική λειτουργία της κύστης.',
+
+    s7Heading: 'Ποια συμπτώματα πρέπει να οδηγήσουν σε επίσκεψη;',
+    s7Body1:
+      'Μικρές διαρροές ή μια ασυνήθιστη αίσθηση μπορεί μερικές φορές να εμφανιστούν μετά τον τοκετό. Ωστόσο, δεν πρέπει να αγνοούνται αν επιμένουν, επιδεινώνονται ή παρεμβαίνουν στην καθημερινή σου ζωή.',
+    warningSigns: [
+      'Διαρροές ούρων όταν βήχεις, φτερνίζεσαι, γελάς ή πιέζεσαι',
+      'Αίσθημα βάρους ή πίεσης στην κάτω πύελο',
+      'Αίσθημα ότι ένας όγκος ή κάτι πέφτει στον κόλπο',
+      'Δυσκολία στο κράτημα αερίων ή κοπράνων',
+      'Επίμονος πόνος στο περίνεο',
+      'Πόνος κατά τη διάρκεια ή μετά τη σεξουαλική επαφή',
+      'Δυσκολία στον εντοπισμό ή στη σωστή σύσπαση των μυών του περινέου',
+    ],
+    consultLabel: 'Πότε πρέπει να ζητήσεις συμβουλή;',
+    s7Body2:
+      'Μια μαία, ένας γιατρός ή ένας φυσιοθεραπευτής εξειδικευμένος στην αποκατάσταση του πυελικού εδάφους μπορεί να ελέγξει τη μυϊκή λειτουργία και να προτείνει ένα κατάλληλο πρόγραμμα.',
+
+    s8Heading: 'Και μετά από τραυματισμό, επισιοτομία ή καισαρική τομή;',
+    s8Body1:
+      'Ένας τραυματισμός ή μια επισιοτομία απαιτεί ιδιαίτερη φροντίδα κατά την επούλωση. Η επανέναρξη των δραστηριοτήτων πρέπει να λαμβάνει υπόψη τον πόνο, την κατάσταση της ουλής και την καθοδήγηση που δόθηκε μετά τον τοκετό.',
+    s8Body2:
+      'Μετά από καισαρική τομή, η ανάρρωση αφορά επίσης το κοιλιακό τοίχωμα και την ουλή. Ακόμη και αν ο τοκετός δεν ήταν κολπικός, η ίδια η εγκυμοσύνη επιβάρυνε παρ’ όλα αυτά το πυελικό έδαφος.',
+    s8HighlightTitle: 'Η εξατομικευμένη φροντίδα μπορεί να βοηθήσει',
+    s8HighlightText:
+      'Σε περίπτωση σημαντικού τραυματισμού, πόνου, ουρολογικών ή εντερικών συμπτωμάτων ή επίμονων δυσκολιών, μια αξιολόγηση από έναν επαγγελματία υγείας μπορεί να είναι ιδιαίτερα χρήσιμη.',
+
+    s9Heading: 'Σταδιακή επανέναρξη της άθλησης',
+    s9Body1:
+      'Η επανέναρξη της κίνησης μετά τον τοκετό πρέπει να γίνεται σταδιακά. Το περπάτημα και οι ήπιες κινήσεις μπορούν γενικά να ξαναρχίσουν ανάλογα με το πώς νιώθεις, ενώ οι δραστηριότητες υψηλής κρούσης απαιτούν περισσότερη προσοχή.',
+    s9Body2:
+      'Πριν ξαναρχίσεις το τρέξιμο, τα άλματα ή πολύ έντονη προπόνηση, είναι καλύτερα να αξιολογήσεις την ανάρρωση του πυελικού εδάφους και να λάβεις υπόψη τυχόν συμπτώματα.',
+    s9AlertTitle: 'Μην βιάζεσαι στα στάδια',
+    s9AlertText:
+      'Οι διαρροές, το αίσθημα βάρους ή ο πόνος κατά τη διάρκεια ή μετά την άσκηση είναι σημάδια ότι πρέπει να επιβραδύνεις και να ζητήσεις συμβουλή πριν αυξήσεις την ένταση.',
+
+    s10Heading: 'Πότε να επισκεφθείς ειδικό;',
+    s10Body1:
+      'Η αποκατάσταση του πυελικού εδάφους με μια μαία ή έναν φυσιοθεραπευτή μπορεί να είναι χρήσιμη αν δεν είσαι σίγουρη ότι συσπάς σωστά, αν τα συμπτώματά σου επιμένουν ή αν θέλεις να ξαναρχίσεις ορισμένες σωματικές δραστηριότητες με αυτοπεποίθηση.',
+    questionCardTitle: 'Χρήσιμες ερωτήσεις',
+    appointmentQuestions: [
+      'Είναι τα συμπτώματά μου συμβατά με αδυναμία του πυελικού εδάφους;',
+      'Εκτελώ σωστά τις συσπάσεις;',
+      'Πόσες επαναλήψεις πρέπει να κάνω κάθε ημέρα;',
+      'Μπορώ να ξαναρχίσω το τρέξιμο, την άθληση ή την άσκηση υψηλής κρούσης;',
+      'Χρειάζομαι αποκατάσταση με μια μαία ή έναν φυσιοθεραπευτή;',
+      'Απαιτεί η ουλή, ο τραυματισμός ή η καισαρική μου κάποια ιδιαίτερη προφύλαξη;',
+    ],
+    s10TipTitle: 'Καλό είναι να γνωρίζεις',
+    s10TipText:
+      'Το να επισκεφθείς έναν επαγγελματία δεν σημαίνει αναγκαστικά ότι κάτι δεν πάει καλά. Μια συνεδρία μπορεί απλώς να βοηθήσει να ελεγχθεί η τεχνική σου, να αξιολογηθεί η ανάρρωσή σου και να μάθεις να προοδεύεις σωστά.',
+
+    s11Heading: 'Μια ανάρρωση που παίρνει χρόνο',
+    s11Body1:
+      'Μετά τον τοκετό, είναι φυσιολογικό να μην ανακτήσεις αμέσως τις ίδιες αισθήσεις ή την ίδια μυϊκή δύναμη που είχες πριν την εγκυμοσύνη.',
+    s11Body2:
+      'Στόχος δεν είναι να κάνεις όσο το δυνατόν περισσότερες συσπάσεις. Είναι περισσότερο να ανακτήσεις σταδιακά καλό συντονισμό ανάμεσα στη σύσπαση και στη χαλάρωση και στη συνέχεια να μπορείς να χρησιμοποιείς αυτούς τους μύες φυσικά στις καθημερινές δραστηριότητες.',
+    s11HighlightTitle: 'Η μικρή πρόοδος είναι πραγματική πρόοδος',
+    s11HighlightText:
+      'Η καλύτερη επίγνωση της κίνησης, μερικά επιπλέον δευτερόλεπτα σύσπασης ή μια μείωση των διαρροών είναι ήδη ενθαρρυντικά σημάδια.',
+
+    s12Heading: 'Βασικά συμπεράσματα',
+    summaryTitle: 'Τα βασικά',
+    summaryItems: [
+      'Η εγκυμοσύνη και ο τοκετός επιβαρύνουν σημαντικά το πυελικό έδαφος.',
+      'Η σταδιακή ανάρρωση είναι φυσιολογική μετά τον τοκετό.',
+      'Οι ασκήσεις πρέπει να δίνουν προτεραιότητα στην ποιότητα της κίνησης αντί για τη δύναμη.',
+      'Η αναπνοή και η χαλάρωση έχουν την ίδια σημασία με τη σύσπαση.',
+      'Οι διαρροές ούρων, το βάρος ή ο επίμονος πόνος αξίζουν επαγγελματική γνώμη.',
+      'Η αποκατάσταση με μια μαία ή έναν φυσιοθεραπευτή μπορεί να σε βοηθήσει να ανακτήσεις καλύτερο έλεγχο.',
+      'Η επιστροφή στην άθληση πρέπει να είναι σταδιακή, ιδίως για δραστηριότητες υψηλής κρούσης.',
+    ],
+
+    finalTipTitle: 'Πάρε τον χρόνο σου για να αναρρώσεις',
+    finalTipText:
+      'Μετά τον τοκετό, το σώμα σου έχει περάσει από πολλές αλλαγές. Το περίνεο αξίζει την ίδια προσοχή με το υπόλοιπο σώμα σου: σταδιακά, τακτικά και χωρίς πίεση.',
+
+    disclaimerText:
+      'Αυτό το άρθρο είναι μόνο ενημερωτικό και δεν αντικαθιστά εξατομικευμένη ιατρική συμβουλή. Αν νιώσεις πόνο, επίμονα συμπτώματα ή έχεις οποιαδήποτε ανησυχία για την ανάρρωσή σου, ζήτησε συμβουλή από έναν επαγγελματία υγείας.',
+  },
+  fil: {
+    badge: 'PAGKATAPOS MANGANAK • PAGGALING',
+    title: 'Pagpapalakas ng iyong pelvic floor\npagkatapos manganak',
+    metaDuration: '8 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Pagkatapos ng pagbubuntis at panganganak, kailangan ng oras ng pelvic floor para gumaling. Ang simple, regular, at unti-unting mga ehersisyo ay makakatulong na mabawi mo ang lakas, kontrol, at kumpiyansa, nang hindi minamadali ang mga bagay.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Pag-unawa sa papel ng perineum',
+      'Bakit nahihirapan ito dahil sa panganganak',
+      'Kailan sisimulan ang rehabilitasyon ng pelvic floor',
+      'Pag-aaral na tamang pumisil',
+      'Pagbuo ng unti-unting routine',
+      'Mga pagkakamaling dapat iwasan',
+      'Kailan hihingi ng tulong',
+      'Unti-unting pagbabalik sa isport',
+      'Paghahanda para sa appointment',
+      'Mahahalagang tandaan',
+    ],
+    shareMessage: 'Pagpapalakas ng iyong pelvic floor pagkatapos manganak — AWA',
+
+    s1Heading: 'Pag-unawa sa papel ng perineum',
+    s1Body1:
+      'Ang perineum, na tinatawag ding pelvic floor, ay grupo ng mga kalamnan sa ilalim ng pelvis. May papel ito sa kontrol ng pantog at bituka at tumutulong na suportahan ang mga organo ng pelvis.',
+    s1Body2:
+      'Sa panahon ng pagbubuntis, kailangang pasanin ng mga kalamnang ito ang dagdag na bigat sa loob ng ilang buwan. Napapailalim din ang mga ito sa malaking stress sa panganganak.',
+    s1HighlightTitle: 'Isang tahimik ngunit mahalagang kalamnan',
+    s1HighlightText:
+      'Kasangkot ang pelvic floor sa ilang pang-araw-araw na tungkulin: pagpigil ng ihi at dumi, pagkontrol ng utot, pagsuporta sa mga organo ng pelvis, at pagkakaroon ng papel sa ilang sekswal na tungkulin.',
+
+    benefitsHeading: 'Ang mga benepisyo ng mas malakas na pelvic floor',
+    benefitsIntro:
+      'Ang unti-unti at tamang pagpapalakas ay makakatulong na mapabuti ang kontrol at suporta ng pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Mas mahusay na kontrol sa pantog',
+        text: 'May papel ang pelvic floor sa kontrol ng pantog. Ang unti-unting pagpapalakas nito ay maaaring makatulong na bawasan ang ilang pagtagas ng ihi.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Pagsuporta sa paggana ng bituka',
+        text: 'Tumutulong din ang mga kalamnang ito na kontrolin ang utot at dumi at nag-aambag sa pagsuporta sa mga organo ng pelvis.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Pagsuporta sa mga organo ng pelvis',
+        text: 'Ang pelvic floor ay bumubuo ng tunay na muscular na batayan na tumutulong na suportahan ang pantog, matris, at bituka.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Unti-unting pagbawi ng pakiramdam',
+        text: 'Ang angkop na rehabilitasyon ay makakatulong din na mabawi mo ang mas mahusay na kamalayan at kontrol sa bahaging ito.',
+      },
+    ],
+
+    s2Heading: 'Bakit nahihirapan ang pelvic floor dahil sa pagbubuntis at panganganak',
+    s2Body1:
+      'Unti-unting naglalagay ng mas maraming presyon sa pelvic floor ang pagbubuntis. Ang panganganak sa pamamagitan ng ari ay maaaring lubos na magbanat sa mga kalamnan at tisyu sa bahaging ito.',
+    s2Body2:
+      'Hindi rin ganap na nakakaligtas ang pelvic floor sa cesarean section: nananatiling mahalagang panahon para sa mga kalamnang ito ang pagbubuntis mismo.',
+    s2Body3:
+      'Pagkatapos manganak, normal kaya na abutin ng oras ang paggaling. May ilang babaeng halos walang nararamdamang sintomas, habang ang iba ay maaaring makapansin ng pagtagas, pakiramdam ng bigat, o nabawasang kontrol ng kalamnan.',
+    s2TipTitle: 'Iba-iba ang bawat paggaling',
+    s2TipText:
+      'Ang uri ng panganganak, punit o episiotomy, presensya ng sakit, at ang iyong pangkalahatang kalagayan pagkatapos manganak ay maaaring lahat makaimpluwensya sa paggaling.',
+
+    s3Heading: 'Kailan sisimulan ang rehabilitasyon ng pelvic floor?',
+    s3Body1:
+      'Pagkatapos ng panganganak na walang komplikasyon, karaniwang maaaring unti-unting ipagpatuloy ang banayad na pagpisil ng pelvic floor. Nananatiling mahalagang iangkop ang mga ehersisyo sa iyong sitwasyon at humingi ng payo kung nagkaroon ka ng komplikasyon, matinding sakit, o partikular na pamamaraan.',
+    s3Body2:
+      'Kung mayroon kang urinary catheter, may ilang rekomendasyong nagmumungkahing hintaying matanggal ito at bumalik ang normal na pag-ihi bago simulan ang mga ehersisyo ng perineum.',
+    s3AlertTitle: 'Huwag pilitin kahit masakit',
+    s3AlertText:
+      'Ang matinding sakit, lumalalang mga sintomas, sugat na hindi maayos ang paggaling, o anumang partikular na alalahanin ay nangangailangan ng payo mula sa midwife, doktor, o propesyonal sa rehabilitasyon.',
+
+    s4Heading: 'Pag-aaral na tamang pumisil',
+    s4Body1:
+      'Para matukoy ang galaw, isipin na sinusubukan mong pigilan ang utot at ang pagnanais na umihi nang sabay. Ang galaw na hinahanap mo ay pakiramdam ng pagpisil at pag-angat papasok.',
+    s4Body2:
+      'Hindi layunin na pigilan nang mahigpit ang buong katawan. Ang iyong puwit, hita, at abdominals ay dapat manatiling kasing-relax hangga’t maaari, habang normal na nagpapatuloy ang paghinga.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Paghinga'},
+      {icon: 'human-handsup', label: 'Banayad na pagpisil'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Mahabang pagpisil'},
+      {icon: 'gesture-tap-button', label: 'Mabibilis na pagpisil'},
+    ],
+    s4HighlightTitle: 'Kasing-halaga ng pagpisil ang pagrerelaks',
+    s4HighlightText:
+      'Pagkatapos ng bawat pagpisil, hayaang lubos na mag-relax ang mga kalamnan. Ang mahusay na rehabilitasyon ay hindi nangangahulugang panatilihing nakapisil ang perineum buong araw.',
+
+    s5Heading: 'Pagbuo ng unti-unting routine',
+    s5Body1:
+      'Sa simula, pinakamahalaga ang matutunang tukuyin ang mga kalamnan at tamang gawin ang galaw. Mas mahalaga ang pagiging tuloy-tuloy kaysa sa tindi.',
+    s5h3a: 'Mahabang pagpisil',
+    s5Body2:
+      'Banayad na pisilin ang pelvic floor, pagkatapos ay panatilihin ang pagpisil nang ilang segundo nang hindi pinipigil ang hininga. Pagkatapos ay lubos na bitawan bago muling magsimula.',
+    s5h3b: 'Maiikling pagpisil',
+    s5Body3:
+      'Kapag natutunan na ang galaw, maaaring idagdag ang maliliit at mabibilis na pagpisil. Tumutulong ang mga ito na sanayin ang kakayahang mabilis na pisilin ang mga kalamnan kapag tumataas ang presyon sa tiyan, halimbawa bago umubo o bumahing.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Ipares ang mga ehersisyo sa pang-araw-araw na gawi'},
+      {icon: 'human-sitting', label: 'Magsimula sa komportableng posisyon'},
+      {icon: 'weather-windy', label: 'Huminga nang normal habang pumipisil'},
+      {icon: 'sleep', label: 'Igalang ang mga yugto ng pagrerelaks'},
+      {icon: 'chart-line', label: 'Unti-unting dagdagan ang hirap'},
+      {icon: 'doctor', label: 'Humingi ng payo kung hindi ka sigurado'},
+    ],
+    s5TipTitle: 'Pagiging tuloy-tuloy higit sa lahat',
+    s5TipText:
+      'Ang pagpapares ng mga ehersisyo sa gawing bahagi na ng iyong araw ay makakatulong na manatiling tuloy-tuloy: pagkatapos magpakain, pagkatapos magsipilyo, o sa ibang oras na angkop sa iyo.',
+
+    s6Heading: 'Mga karaniwang pagkakamaling dapat iwasan',
+    s6Body1:
+      'Maaaring mukhang simple ang mga ehersisyo ng perineum, ngunit madaling bumawi gamit ang ibang kalamnan o sumobra sa pagpilit.',
+    commonMistakes: [
+      'Paninigas ng puwit o hita sa halip na ng pelvic floor',
+      'Pagpigil ng hininga habang pumipisil',
+      'Patuloy na pagpapanatili ng pagpisil ng mga kalamnan nang hindi hinahayaang mag-relax',
+      'Paggawa ng mga ehersisyo sa loob lamang ng ilang araw at pagkatapos ay paghinto',
+      'Sadyang pagpigil ng daloy ng ihi upang suriin ang pagpisil',
+    ],
+    s6TipTitle: 'Ang hindi dapat gawin',
+    s6TipText:
+      'Hindi inirerekomendang magsanay ng mga ehersisyo sa pamamagitan ng sadyang pagpigil ng daloy ng ihi. Hindi nito wastong sinasanay ang perineum at maaaring makagambala sa normal na paggana ng pantog.',
+
+    s7Heading: 'Anong mga sintomas ang dapat magtulak sa konsultasyon?',
+    s7Body1:
+      'Ang maliliit na pagtagas o hindi pangkaraniwang pakiramdam ay minsang lumilitaw pagkatapos manganak. Gayunpaman, hindi dapat balewalain ang mga ito kung nagpapatuloy, lumalala, o nakakaabala sa iyong pang-araw-araw na buhay.',
+    warningSigns: [
+      'Pagtagas ng ihi kapag umuubo, bumabahing, tumatawa, o umiire',
+      'Pakiramdam ng bigat o presyon sa ibabang bahagi ng pelvis',
+      'Pakiramdam na may bukol o kung anong bumababa sa ari',
+      'Hirap pigilan ang utot o dumi',
+      'Patuloy na sakit sa perineum',
+      'Sakit habang o pagkatapos ng pakikipagtalik',
+      'Hirap tukuyin o tamang pisilin ang mga kalamnan ng perineum',
+    ],
+    consultLabel: 'Kailan dapat humingi ng payo?',
+    s7Body2:
+      'Maaaring suriin ng midwife, doktor, o physiotherapist na dalubhasa sa rehabilitasyon ng pelvic floor ang paggana ng kalamnan at magmungkahi ng angkop na programa.',
+
+    s8Heading: 'At pagkatapos ng punit, episiotomy, o cesarean section?',
+    s8Body1:
+      'Nangangailangan ng espesyal na pag-aalaga ang punit o episiotomy sa panahon ng paghilom. Dapat isaalang-alang sa pagpapatuloy ng mga gawain ang sakit, kondisyon ng peklat, at ang gabay na ibinigay pagkatapos manganak.',
+    s8Body2:
+      'Pagkatapos ng cesarean section, kasama rin sa paggaling ang dingding ng tiyan at ang peklat. Kahit hindi sa ari ang panganganak, naglagay pa rin ng stress sa pelvic floor ang pagbubuntis mismo.',
+    s8HighlightTitle: 'Makakatulong ang personalisadong pangangalaga',
+    s8HighlightText:
+      'Sa kaso ng malaking punit, sakit, sintomas sa ihi o bituka, o patuloy na mga hirap, ang pagsusuri kasama ang propesyonal sa kalusugan ay maaaring lalong makatulong.',
+
+    s9Heading: 'Unti-unting pagbabalik sa isport',
+    s9Body1:
+      'Dapat unti-unti ang pagbabalik sa paggalaw pagkatapos manganak. Ang paglalakad at banayad na mga galaw ay karaniwang maaaring ipagpatuloy batay sa pakiramdam mo, habang ang mga aktibidad na may malakas na impact ay nangangailangan ng higit na pag-iingat.',
+    s9Body2:
+      'Bago ipagpatuloy ang pagtakbo, pagtalon, o napakatinding pagsasanay, pinakamainam na tasahin ang paggaling ng pelvic floor at isaalang-alang ang anumang sintomas.',
+    s9AlertTitle: 'Huwag madaliin ang mga yugto',
+    s9AlertText:
+      'Ang pagtagas, pakiramdam ng bigat, o sakit habang o pagkatapos ng ehersisyo ay mga senyales na dapat kang magdahan-dahan at humingi ng payo bago dagdagan ang tindi.',
+
+    s10Heading: 'Kailan magpapatingin sa espesyalista?',
+    s10Body1:
+      'Ang rehabilitasyon ng pelvic floor kasama ang midwife o physiotherapist ay maaaring makatulong kung hindi ka sigurado kung tama ang iyong pagpisil, kung nagpapatuloy ang iyong mga sintomas, o kung gusto mong ipagpatuloy ang ilang pisikal na aktibidad nang may kumpiyansa.',
+    questionCardTitle: 'Mga kapaki-pakinabang na tanong na itatanong',
+    appointmentQuestions: [
+      'Tugma ba ang aking mga sintomas sa panghihina ng pelvic floor?',
+      'Tama ba ang pagsasagawa ko ng mga pagpisil?',
+      'Ilang ulit ang dapat kong gawin kada araw?',
+      'Maaari ba akong bumalik sa pagtakbo, isport, o ehersisyong may malakas na impact?',
+      'Kailangan ko ba ng rehabilitasyon kasama ang midwife o physiotherapist?',
+      'Nangangailangan ba ng anumang partikular na pag-iingat ang aking peklat, punit, o cesarean section?',
+    ],
+    s10TipTitle: 'Mabuting malaman',
+    s10TipText:
+      'Ang pagpapatingin sa propesyonal ay hindi kinakailangang nangangahulugang may mali. Ang isang sesyon ay maaaring simpleng makatulong na suriin ang iyong teknik, tasahin ang paggaling, at matutunang umusad nang tama.',
+
+    s11Heading: 'Isang paggaling na nangangailangan ng oras',
+    s11Body1:
+      'Pagkatapos manganak, normal na hindi agad mabawi ang parehong pakiramdam o lakas ng kalamnan na mayroon ka bago magbuntis.',
+    s11Body2:
+      'Hindi layunin ang gumawa ng pinakamaraming pagpisil hangga’t maaari. Mas tungkol ito sa unti-unting pagbawi ng mahusay na koordinasyon sa pagitan ng pagpisil at pagrerelaks, at pagkatapos ay natural na magamit ang mga kalamnang ito sa pang-araw-araw na gawain.',
+    s11HighlightTitle: 'Tunay na pag-usad ang maliliit na pag-usad',
+    s11HighlightText:
+      'Ang mas mahusay na kamalayan sa galaw, ilang dagdag na segundo ng pagpisil, o pagbawas ng pagtagas ay nakakapagpalakas-loob nang mga senyales.',
+
+    s12Heading: 'Mahahalagang tandaan',
+    summaryTitle: 'Ang mahalaga',
+    summaryItems: [
+      'Naglalagay ng malaking stress sa pelvic floor ang pagbubuntis at panganganak.',
+      'Normal ang unti-unting paggaling pagkatapos manganak.',
+      'Dapat unahin ng mga ehersisyo ang kalidad ng galaw kaysa sa lakas.',
+      'Kasing-halaga ng pagpisil ang paghinga at pagrerelaks.',
+      'Ang pagtagas ng ihi, pakiramdam ng bigat, o patuloy na sakit ay nararapat bigyan ng opinyon ng propesyonal.',
+      'Ang rehabilitasyon kasama ang midwife o physiotherapist ay makakatulong na mabawi ang mas mahusay na kontrol.',
+      'Dapat unti-unti ang pagbabalik sa isport, lalo na ang mga aktibidad na may malakas na impact.',
+    ],
+
+    finalTipTitle: 'Maglaan ng oras para gumaling',
+    finalTipText:
+      'Pagkatapos manganak, maraming pagbabagong pinagdaanan ang iyong katawan. Karapat-dapat sa parehong atensyon ang perineum gaya ng natitirang bahagi ng iyong katawan: unti-unti, regular, at walang pressure.',
+
+    disclaimerText:
+      'Para sa impormasyon lamang ang artikulong ito at hindi pumapalit sa personalisadong payong medikal. Kung nakararanas ka ng sakit, patuloy na mga sintomas, o may anumang alalahanin tungkol sa iyong paggaling, humingi ng payo sa propesyonal sa kalusugan.',
+  },
+  ta: {
+    badge: 'பிரசவத்திற்குப் பின் • மீட்பு',
+    title: 'பிரசவத்திற்குப் பின் உங்கள்\nஇடுப்புத் தளத்தை வலுப்படுத்துதல்',
+    metaDuration: '8 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'மதிப்பாய்வு செய்யப்பட்ட உள்ளடக்கம்',
+    intro:
+      'கர்ப்பத்துக்கும் பிரசவத்துக்கும் பிறகு, இடுப்புத் தளம் மீள நேரம் தேவை. எளிய, ஒழுங்கான, படிப்படியான பயிற்சிகள், விரைவுபடுத்த முயலாமல், வலிமையையும் கட்டுப்பாட்டையும் நம்பிக்கையையும் மீண்டும் பெற உதவலாம்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'பெரினியத்தின் பங்கைப் புரிந்துகொள்ளுதல்',
+      'பிரசவம் ஏன் அதற்கு அழுத்தம் தருகிறது',
+      'இடுப்புத் தள மறுவாழ்வை எப்போது தொடங்குவது',
+      'சரியாகச் சுருக்கக் கற்றல்',
+      'படிப்படியான வழக்கத்தை உருவாக்குதல்',
+      'தவிர்க்க வேண்டிய தவறுகள்',
+      'உதவியை எப்போது கேட்பது',
+      'விளையாட்டை மெதுவாகத் தொடங்குதல்',
+      'சந்திப்புக்குத் தயாராதல்',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    shareMessage: 'பிரசவத்திற்குப் பின் உங்கள் இடுப்புத் தளத்தை வலுப்படுத்துதல் — AWA',
+
+    s1Heading: 'பெரினியத்தின் பங்கைப் புரிந்துகொள்ளுதல்',
+    s1Body1:
+      'பெரினியம், இடுப்புத் தளம் எனவும் அழைக்கப்படுவது, இடுப்பின் அடிப்பகுதியில் அமைந்த தசைகளின் தொகுப்பு. இது சிறுநீர்ப்பை மற்றும் குடல் கட்டுப்பாட்டில் பங்கு வகிக்கிறது, இடுப்பு உறுப்புகளைத் தாங்க உதவுகிறது.',
+    s1Body2:
+      'கர்ப்ப காலத்தில், இந்தத் தசைகள் பல மாதங்கள் கூடுதல் எடையைத் தாங்க வேண்டியுள்ளது. பிரசவத்தின்போதும் அவை கணிசமான அழுத்தத்துக்கு உள்ளாகின்றன.',
+    s1HighlightTitle: 'அடக்கமான ஆனால் அத்தியாவசியமான தசை',
+    s1HighlightText:
+      'இடுப்புத் தளம் பல அன்றாடச் செயல்பாடுகளில் ஈடுபடுகிறது: சிறுநீரையும் மலத்தையும் அடக்குதல், வாயுவைக் கட்டுப்படுத்துதல், இடுப்பு உறுப்புகளைத் தாங்குதல், மேலும் சில பாலியல் செயல்பாடுகளில் பங்கு வகித்தல்.',
+
+    benefitsHeading: 'வலுவான இடுப்புத் தளத்தின் நன்மைகள்',
+    benefitsIntro:
+      'படிப்படியான, சரியாகச் செய்யப்படும் வலுப்படுத்தல் இடுப்புத் தளக் கட்டுப்பாட்டையும் தாங்குதிறனையும் மேம்படுத்த உதவலாம்.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'சிறந்த சிறுநீர்ப்பைக் கட்டுப்பாடு',
+        text: 'இடுப்புத் தளம் சிறுநீர்ப்பைக் கட்டுப்பாட்டில் பங்கு வகிக்கிறது. அதைப் படிப்படியாக வலுப்படுத்துவது சில சிறுநீர்க் கசிவுகளைக் குறைக்க உதவலாம்.',
+      },
+      {
+        icon: 'toilet',
+        title: 'குடல் செயல்பாட்டுக்கு ஆதரவு',
+        text: 'இந்தத் தசைகள் வாயுவையும் மலத்தையும் கட்டுப்படுத்தவும் இடுப்பு உறுப்புகளைத் தாங்கவும் உதவுகின்றன.',
+      },
+      {
+        icon: 'human-female',
+        title: 'இடுப்பு உறுப்புகளுக்கு ஆதரவு',
+        text: 'இடுப்புத் தளம் சிறுநீர்ப்பை, கருப்பை மற்றும் குடலைத் தாங்க உதவும் உண்மையான தசை அடித்தளத்தை உருவாக்குகிறது.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'உணர்வை மெதுவாக மீட்டல்',
+        text: 'பொருத்தமான மறுவாழ்வு இந்தப் பகுதியைப் பற்றிய சிறந்த விழிப்புணர்வையும் கட்டுப்பாட்டையும் மீண்டும் பெற உதவலாம்.',
+      },
+    ],
+
+    s2Heading: 'கர்ப்பமும் பிரசவமும் ஏன் அழுத்தம் தருகின்றன',
+    s2Body1:
+      'கர்ப்பம் படிப்படியாக இடுப்புத் தளத்தின் மீது அதிக அழுத்தத்தைச் செலுத்துகிறது. பின்னர் யோனி வழிப் பிரசவம் இந்தப் பகுதியின் தசைகளையும் திசுக்களையும் கணிசமாக நீட்டலாம்.',
+    s2Body2:
+      'சிசேரியன் அறுவைச் சிகிச்சையும் இடுப்புத் தளத்தை முழுமையாகக் காப்பதில்லை: கர்ப்பமே இந்தத் தசைகளுக்கு ஒரு முக்கியக் காலமாக இருக்கிறது.',
+    s2Body3:
+      'எனவே பிரசவத்துக்குப் பின் மீட்புக்கு நேரம் எடுப்பது இயல்பு. சில பெண்கள் கிட்டத்தட்ட எந்த அறிகுறிகளையும் உணர மாட்டார்கள், மற்றவர்கள் கசிவுகள், கனம் போன்ற உணர்வு அல்லது குறைந்த தசைக் கட்டுப்பாட்டைக் கவனிக்கலாம்.',
+    s2TipTitle: 'ஒவ்வொரு மீட்பும் வேறுபட்டது',
+    s2TipText:
+      'பிரசவத்தின் வகை, கிழிவு அல்லது எபிசியோடமி, வலியின் இருப்பு மற்றும் பிரசவத்துக்குப் பின் உங்கள் பொது நிலை அனைத்தும் மீட்பைப் பாதிக்கலாம்.',
+
+    s3Heading: 'இடுப்புத் தள மறுவாழ்வை எப்போது தொடங்குவது?',
+    s3Body1:
+      'சிக்கலில்லாத பிரசவத்துக்குப் பின், மென்மையான இடுப்புத் தளச் சுருக்கங்களைப் பொதுவாகப் படிப்படியாகத் தொடங்கலாம். பயிற்சிகளை உங்கள் சூழ்நிலைக்கு ஏற்ப மாற்றியமைப்பதும், ஒரு சிக்கல், குறிப்பிடத்தக்க வலி அல்லது குறிப்பிட்ட செயல்முறையை அனுபவித்திருந்தால் ஆலோசனை பெறுவதும் முக்கியம்.',
+    s3Body2:
+      'உங்களுக்குச் சிறுநீர்க் குழாய் (கதீட்டர்) இருந்தால், அது அகற்றப்பட்டு இயல்பான சிறுநீர் கழித்தல் மீண்டும் தொடங்கும் வரை பெரினியப் பயிற்சிகளைத் தொடங்காமல் காத்திருக்க சில பரிந்துரைகள் கூறுகின்றன.',
+    s3AlertTitle: 'வலியைப் பொருட்படுத்தாமல் தொடராதீர்கள்',
+    s3AlertText:
+      'குறிப்பிடத்தக்க வலி, மோசமடையும் அறிகுறிகள், சரியாக ஆறாத காயம் அல்லது ஏதேனும் குறிப்பிட்ட கவலைக்கு ஒரு மருத்துவச்சி, மருத்துவர் அல்லது மறுவாழ்வு நிபுணரின் ஆலோசனை தேவை.',
+
+    s4Heading: 'சரியாகச் சுருக்கக் கற்றல்',
+    s4Body1:
+      'இயக்கத்தை அடையாளம் காண, வாயுவையும் சிறுநீர் கழிக்கும் உந்துதலையும் ஒரே நேரத்தில் அடக்க முயல்வதாகக் கற்பனை செய்யுங்கள். நீங்கள் தேடும் இயக்கம் உள்நோக்கிச் சுருங்கி மேலே தூக்கும் ஓர் உணர்வு.',
+    s4Body2:
+      'நோக்கம் உங்கள் முழு உடலையும் இறுக்கமாக இறுக்குவதல்ல. சுவாசம் இயல்பாகத் தொடரும்போது, உங்கள் பிட்டம், தொடைகள் மற்றும் வயிற்றுத் தசைகள் முடிந்தவரை தளர்வாக இருக்க வேண்டும்.',
+    exercises: [
+      {icon: 'weather-windy', label: 'சுவாசம்'},
+      {icon: 'human-handsup', label: 'மென்மையான சுருக்கம்'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'நீண்ட சுருக்கம்'},
+      {icon: 'gesture-tap-button', label: 'விரைவான சுருக்கங்கள்'},
+    ],
+    s4HighlightTitle: 'தளர்வும் அதே அளவு முக்கியம்',
+    s4HighlightText:
+      'ஒவ்வொரு சுருக்கத்துக்குப் பின்னும், தசைகளை முழுமையாகத் தளர விடுங்கள். நல்ல மறுவாழ்வு என்பது நாள் முழுவதும் பெரினியத்தைச் சுருக்கியே வைத்திருப்பதல்ல.',
+
+    s5Heading: 'படிப்படியான வழக்கத்தை உருவாக்குதல்',
+    s5Body1:
+      'தொடக்கத்தில், தசைகளை அடையாளம் கண்டு இயக்கத்தைச் சரியாகச் செய்யக் கற்பதே மிக முக்கியம். தீவிரத்தை விடத் தொடர்ச்சியே முக்கியம்.',
+    s5h3a: 'நீண்ட சுருக்கங்கள்',
+    s5Body2:
+      'இடுப்புத் தளத்தை மென்மையாகச் சுருக்குங்கள், பின் மூச்சை அடக்காமல் சில விநாடிகள் சுருக்கத்தைப் பிடித்திருங்கள். மீண்டும் தொடங்கும் முன் முழுமையாக விடுவியுங்கள்.',
+    s5h3b: 'குறுகிய சுருக்கங்கள்',
+    s5Body3:
+      'இயக்கம் கைவந்த பின், சிறு விரைவான சுருக்கங்களைச் சேர்க்கலாம். வயிற்றழுத்தம் அதிகரிக்கும்போது, எடுத்துக்காட்டாக இருமுவதற்கு அல்லது தும்முவதற்குச் சற்று முன், தசைகளை விரைவாகச் சுருக்கும் திறனைப் பயிற்றுவிக்க அவை உதவுகின்றன.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'பயிற்சிகளை ஒரு தினசரிப் பழக்கத்துடன் இணையுங்கள்'},
+      {icon: 'human-sitting', label: 'வசதியான நிலையில் தொடங்குங்கள்'},
+      {icon: 'weather-windy', label: 'சுருக்கங்களின்போது இயல்பாகச் சுவாசியுங்கள்'},
+      {icon: 'sleep', label: 'தளர்வுக் கட்டங்களை மதியுங்கள்'},
+      {icon: 'chart-line', label: 'சிரமத்தைப் படிப்படியாக அதிகரியுங்கள்'},
+      {icon: 'doctor', label: 'உறுதியில்லையெனில் ஆலோசனை கேளுங்கள்'},
+    ],
+    s5TipTitle: 'எல்லாவற்றுக்கும் மேலாகத் தொடர்ச்சி',
+    s5TipText:
+      'பயிற்சிகளை ஏற்கெனவே உங்கள் நாளின் ஒரு பகுதியாக உள்ள பழக்கத்துடன் இணைப்பது தொடர்ச்சியைப் பேண எளிதாக்கலாம்: பாலூட்டிய பின், பல் துலக்கிய பின், அல்லது உங்களுக்கு ஏற்ற வேறு நேரத்தில்.',
+
+    s6Heading: 'தவிர்க்க வேண்டிய பொதுவான தவறுகள்',
+    s6Body1:
+      'பெரினியப் பயிற்சிகள் எளிமையாகத் தோன்றலாம், ஆனால் பிற தசைகளால் ஈடுசெய்வதும் அதிகமாக அழுத்துவதும் எளிது.',
+    commonMistakes: [
+      'இடுப்புத் தளத்துக்குப் பதிலாக பிட்டத்தையோ தொடைகளையோ இறுக்குதல்',
+      'சுருக்கத்தின்போது மூச்சை அடக்குதல்',
+      'தசைகளைத் தளர விடாமல் தொடர்ந்து சுருக்கியே வைத்திருத்தல்',
+      'சில நாட்கள் மட்டும் பயிற்சி செய்து பின் நிறுத்துதல்',
+      'சுருக்கத்தைச் சோதிக்க வேண்டுமென்றே சிறுநீர்ப் பாய்ச்சலை நிறுத்துதல்',
+    ],
+    s6TipTitle: 'செய்யக்கூடாதவை',
+    s6TipText:
+      'வேண்டுமென்றே சிறுநீர்ப் பாய்ச்சலை நிறுத்துவதன் மூலம் பயிற்சிகளைச் செய்வது பரிந்துரைக்கப்படுவதில்லை. இந்த முறை பெரினியத்தைச் சரியாகப் பயிற்றுவிக்காது, இயல்பான சிறுநீர்ப்பைச் செயல்பாட்டைக் குலைக்கவும் கூடும்.',
+
+    s7Heading: 'எந்த அறிகுறிகள் ஆலோசனையைத் தூண்ட வேண்டும்?',
+    s7Body1:
+      'சிறு கசிவுகள் அல்லது வழக்கத்துக்கு மாறான உணர்வு பிரசவத்துக்குப் பின் சில நேரங்களில் தோன்றலாம். இருப்பினும், அவை நீடித்தாலோ மோசமடைந்தாலோ உங்கள் அன்றாட வாழ்க்கையைப் பாதித்தாலோ புறக்கணிக்கக் கூடாது.',
+    warningSigns: [
+      'இருமும்போது, தும்மும்போது, சிரிக்கும்போது அல்லது முக்கும்போது சிறுநீர்க் கசிவு',
+      'கீழ் இடுப்பில் கனம் அல்லது அழுத்த உணர்வு',
+      'யோனியில் ஒரு கட்டி அல்லது ஏதோ ஒன்று இறங்குவது போன்ற உணர்வு',
+      'வாயுவையோ மலத்தையோ அடக்குவதில் சிரமம்',
+      'பெரினியத்தில் நீடிக்கும் வலி',
+      'உடலுறவின்போது அல்லது அதற்குப் பின் வலி',
+      'பெரினியத் தசைகளை அடையாளம் காண்பதில் அல்லது சரியாகச் சுருக்குவதில் சிரமம்',
+    ],
+    consultLabel: 'ஆலோசனையை எப்போது கேட்க வேண்டும்?',
+    s7Body2:
+      'இடுப்புத் தள மறுவாழ்வில் நிபுணத்துவம் பெற்ற ஒரு மருத்துவச்சி, மருத்துவர் அல்லது பிசியோதெரபிஸ்ட் தசைச் செயல்பாட்டைச் சரிபார்த்துப் பொருத்தமான திட்டத்தைப் பரிந்துரைக்கலாம்.',
+
+    s8Heading: 'கிழிவு, எபிசியோடமி அல்லது சிசேரியனுக்குப் பிறகு?',
+    s8Body1:
+      'கிழிவு அல்லது எபிசியோடமி ஆறும்போது தனிப்பட்ட கவனிப்பு தேவை. செயல்பாடுகளை மீண்டும் தொடங்குவது வலி, தழும்பின் நிலை மற்றும் பிரசவத்துக்குப் பின் வழங்கப்பட்ட வழிகாட்டுதலைக் கருத்தில் கொள்ள வேண்டும்.',
+    s8Body2:
+      'சிசேரியனுக்குப் பின், மீட்பில் வயிற்றுச் சுவரும் தழும்பும் அடங்கும். பிரசவம் யோனி வழியாக இல்லாவிட்டாலும், கர்ப்பமே இடுப்புத் தளத்துக்கு அழுத்தம் தந்திருக்கிறது.',
+    s8HighlightTitle: 'தனிப்பயனாக்கப்பட்ட பராமரிப்பு உதவலாம்',
+    s8HighlightText:
+      'குறிப்பிடத்தக்க கிழிவு, வலி, சிறுநீர் அல்லது குடல் அறிகுறிகள் அல்லது நீடிக்கும் சிரமங்கள் இருந்தால், ஒரு சுகாதார நிபுணருடனான மதிப்பீடு குறிப்பாக உதவியாக இருக்கும்.',
+
+    s9Heading: 'விளையாட்டை மெதுவாகத் தொடங்குதல்',
+    s9Body1:
+      'பிரசவத்துக்குப் பின் இயக்கத்தை மீண்டும் தொடங்குவது படிப்படியாக இருக்க வேண்டும். நடைப்பயிற்சியும் மென்மையான இயக்கங்களும் பொதுவாக நீங்கள் உணரும் விதத்தின் அடிப்படையில் தொடரலாம், அதிக அதிர்ச்சிச் செயல்பாடுகளுக்கு அதிக எச்சரிக்கை தேவை.',
+    s9Body2:
+      'ஓட்டம், குதித்தல் அல்லது மிகத் தீவிரப் பயிற்சியை மீண்டும் தொடங்கும் முன், இடுப்புத் தள மீட்பை மதிப்பிட்டு ஏதேனும் அறிகுறிகளைக் கருத்தில் கொள்வது நல்லது.',
+    s9AlertTitle: 'படிகளை அவசரப்படுத்தாதீர்கள்',
+    s9AlertText:
+      'பயிற்சியின்போது அல்லது அதற்குப் பின் கசிவுகள், கனம் போன்ற உணர்வு அல்லது வலி ஆகியவை நீங்கள் வேகத்தைக் குறைத்துத் தீவிரத்தை அதிகரிக்கும் முன் ஆலோசனை பெற வேண்டும் என்பதற்கான அறிகுறிகள்.',
+
+    s10Heading: 'ஒரு நிபுணரை எப்போது பார்ப்பது?',
+    s10Body1:
+      'நீங்கள் சரியாகச் சுருக்குகிறீர்களா என்று உறுதியில்லாதபோது, உங்கள் அறிகுறிகள் நீடிக்கும்போது, அல்லது சில உடல் செயல்பாடுகளை நம்பிக்கையுடன் மீண்டும் தொடங்க விரும்பும்போது, ஒரு மருத்துவச்சி அல்லது பிசியோதெரபிஸ்டுடனான இடுப்புத் தள மறுவாழ்வு உதவியாக இருக்கலாம்.',
+    questionCardTitle: 'கேட்க உதவும் கேள்விகள்',
+    appointmentQuestions: [
+      'என் அறிகுறிகள் இடுப்புத் தள பலவீனத்துடன் ஒத்துப்போகின்றனவா?',
+      'நான் சுருக்கங்களைச் சரியாகச் செய்கிறேனா?',
+      'ஒவ்வொரு நாளும் எத்தனை முறை செய்ய வேண்டும்?',
+      'நான் மீண்டும் ஓட்டம், விளையாட்டு அல்லது அதிக அதிர்ச்சிப் பயிற்சிக்குத் திரும்பலாமா?',
+      'எனக்கு ஒரு மருத்துவச்சி அல்லது பிசியோதெரபிஸ்டுடன் மறுவாழ்வு தேவையா?',
+      'என் தழும்பு, கிழிவு அல்லது சிசேரியனுக்கு ஏதேனும் குறிப்பிட்ட முன்னெச்சரிக்கைகள் தேவையா?',
+    ],
+    s10TipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    s10TipText:
+      'ஒரு நிபுணரைப் பார்ப்பது ஏதோ தவறு என்று கட்டாயம் பொருளல்ல. ஒரு அமர்வு உங்கள் நுட்பத்தைச் சரிபார்க்கவும் உங்கள் மீட்பை மதிப்பிடவும் சரியாக முன்னேறக் கற்கவும் உதவலாம்.',
+
+    s11Heading: 'நேரம் எடுக்கும் ஒரு மீட்பு',
+    s11Body1:
+      'குழந்தை பிறந்த பின், கர்ப்பத்துக்கு முன் இருந்த அதே உணர்வுகளையும் தசை வலிமையையும் உடனே மீண்டும் பெறாதது இயல்பு.',
+    s11Body2:
+      'முடிந்தவரை அதிகச் சுருக்கங்களைச் செய்வது நோக்கமல்ல. சுருக்கத்துக்கும் தளர்வுக்கும் இடையே நல்ல ஒருங்கிணைப்பை மெதுவாக மீட்டு, பின் இந்தத் தசைகளை அன்றாடச் செயல்பாடுகளில் இயல்பாகப் பயன்படுத்த முடிவதே முக்கியம்.',
+    s11HighlightTitle: 'சிறு முன்னேற்றமும் உண்மையான முன்னேற்றமே',
+    s11HighlightText:
+      'இயக்கத்தைப் பற்றிய சிறந்த விழிப்புணர்வு, சுருக்கத்தில் சில கூடுதல் விநாடிகள், அல்லது கசிவுகளில் குறைவு ஏற்கெனவே ஊக்கமளிக்கும் அறிகுறிகள்.',
+
+    s12Heading: 'முக்கியக் குறிப்புகள்',
+    summaryTitle: 'அத்தியாவசியங்கள்',
+    summaryItems: [
+      'கர்ப்பமும் பிரசவமும் இடுப்புத் தளத்துக்குக் குறிப்பிடத்தக்க அழுத்தம் தருகின்றன.',
+      'பிரசவத்துக்குப் பின் படிப்படியான மீட்பு இயல்பானது.',
+      'பயிற்சிகள் வலிமையை விட இயக்கத்தின் தரத்துக்கு முன்னுரிமை தர வேண்டும்.',
+      'சுவாசமும் தளர்வும் சுருக்கத்தைப் போலவே முக்கியம்.',
+      'சிறுநீர்க் கசிவுகள், கனம் அல்லது நீடிக்கும் வலிக்கு ஒரு நிபுணரின் கருத்து தேவை.',
+      'ஒரு மருத்துவச்சி அல்லது பிசியோதெரபிஸ்டுடனான மறுவாழ்வு சிறந்த கட்டுப்பாட்டை மீட்க உதவலாம்.',
+      'விளையாட்டுக்குத் திரும்புவது படிப்படியாக இருக்க வேண்டும், குறிப்பாக அதிக அதிர்ச்சிச் செயல்பாடுகளுக்கு.',
+    ],
+
+    finalTipTitle: 'மீள நேரம் எடுத்துக்கொள்ளுங்கள்',
+    finalTipText:
+      'பிரசவத்துக்குப் பின், உங்கள் உடல் பல மாற்றங்களைக் கடந்துள்ளது. பெரினியம் உங்கள் உடலின் மற்ற பகுதிகளுக்கு நிகரான கவனத்துக்கு உரியது: படிப்படியாக, ஒழுங்காக, அழுத்தமின்றி.',
+
+    disclaimerText:
+      'இந்தக் கட்டுரை தகவலுக்கு மட்டுமே, தனிப்பயன் மருத்துவ ஆலோசனைக்கு மாற்றல்ல. உங்களுக்கு வலி, நீடிக்கும் அறிகுறிகள் இருந்தால், அல்லது உங்கள் மீட்பு பற்றி ஏதேனும் கவலை இருந்தால், ஒரு சுகாதார நிபுணரின் ஆலோசனையைப் பெறுங்கள்.',
+  },
+  te: {
+    badge: 'ప్రసవానంతరం • కోలుకోవడం',
+    title: 'ప్రసవం తర్వాత మీ\nపెల్విక్ ఫ్లోర్‌ను బలపరచడం',
+    metaDuration: '8 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'గర్భం, ప్రసవం తర్వాత, పెల్విక్ ఫ్లోర్ కోలుకోవడానికి సమయం కావాలి. సరళమైన, క్రమమైన, క్రమంగా పెంచే వ్యాయామాలు, దేన్నీ తొందరపెట్టకుండా, బలాన్ని, నియంత్రణను, ఆత్మవిశ్వాసాన్ని తిరిగి పొందడానికి సహాయపడగలవు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'పెరినియం పాత్రను అర్థం చేసుకోవడం',
+      'ప్రసవం దానికి ఎందుకు ఒత్తిడి కలిగిస్తుంది',
+      'పెల్విక్ ఫ్లోర్ పునరావాసాన్ని ఎప్పుడు మొదలుపెట్టాలి',
+      'సరిగ్గా సంకోచించడం నేర్చుకోవడం',
+      'క్రమంగా పెంచే దినచర్యను నిర్మించుకోవడం',
+      'తప్పించుకోవాల్సిన పొరపాట్లు',
+      'సహాయాన్ని ఎప్పుడు కోరాలి',
+      'క్రీడలను మెల్లగా తిరిగి మొదలుపెట్టడం',
+      'అపాయింట్‌మెంట్‌కు సిద్ధమవ్వడం',
+      'ముఖ్యాంశాలు',
+    ],
+    shareMessage: 'ప్రసవం తర్వాత మీ పెల్విక్ ఫ్లోర్‌ను బలపరచడం — AWA',
+
+    s1Heading: 'పెరినియం పాత్రను అర్థం చేసుకోవడం',
+    s1Body1:
+      'పెరినియం, పెల్విక్ ఫ్లోర్ అని కూడా అంటారు, ఇది కటి అడుగున ఉన్న కండరాల సమూహం. ఇది మూత్రాశయ, పేగు నియంత్రణలో పాత్ర పోషిస్తుంది, కటి అవయవాలకు ఆధారంగా ఉండటానికి సహాయపడుతుంది.',
+    s1Body2:
+      'గర్భధారణ సమయంలో, ఈ కండరాలు అనేక నెలలు అదనపు బరువును మోయాల్సి ఉంటుంది. ప్రసవ సమయంలో కూడా అవి గణనీయమైన ఒత్తిడికి లోనవుతాయి.',
+    s1HighlightTitle: 'గోప్యమైన కానీ అత్యవసరమైన కండరం',
+    s1HighlightText:
+      'పెల్విక్ ఫ్లోర్ అనేక రోజువారీ పనుల్లో పాల్గొంటుంది: మూత్రాన్ని, మలాన్ని అడ్డుకోవడం, వాయువును నియంత్రించడం, కటి అవయవాలకు ఆధారంగా ఉండటం, కొన్ని లైంగిక పనుల్లో పాత్ర పోషించడం.',
+
+    benefitsHeading: 'బలమైన పెల్విక్ ఫ్లోర్ ప్రయోజనాలు',
+    benefitsIntro:
+      'క్రమంగా, సరిగ్గా చేసే బలపరచడం పెల్విక్ ఫ్లోర్ నియంత్రణను, ఆధార బలాన్ని మెరుగుపరచడానికి సహాయపడగలదు.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'మెరుగైన మూత్రాశయ నియంత్రణ',
+        text: 'పెల్విక్ ఫ్లోర్ మూత్రాశయ నియంత్రణలో పాత్ర పోషిస్తుంది. దాన్ని క్రమంగా బలపరచడం కొన్ని మూత్రం కారడాన్ని తగ్గించడానికి సహాయపడవచ్చు.',
+      },
+      {
+        icon: 'toilet',
+        title: 'పేగు పనితీరుకు తోడ్పాటు',
+        text: 'ఈ కండరాలు వాయువును, మలాన్ని నియంత్రించడానికి, కటి అవయవాలకు ఆధారంగా ఉండటానికి కూడా దోహదపడతాయి.',
+      },
+      {
+        icon: 'human-female',
+        title: 'కటి అవయవాలకు ఆధారం',
+        text: 'పెల్విక్ ఫ్లోర్ మూత్రాశయానికి, గర్భాశయానికి, పేగుకు ఆధారంగా ఉండటానికి సహాయపడే నిజమైన కండర ఆధారాన్ని ఏర్పరుస్తుంది.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'అనుభూతిని క్రమంగా తిరిగి పొందడం',
+        text: 'తగిన పునరావాసం ఈ ప్రాంతం గురించి మెరుగైన అవగాహనను, నియంత్రణను తిరిగి పొందడానికి కూడా సహాయపడగలదు.',
+      },
+    ],
+
+    s2Heading: 'గర్భం, ప్రసవం దానికి ఎందుకు ఒత్తిడి కలిగిస్తాయి',
+    s2Body1:
+      'గర్భం క్రమంగా పెల్విక్ ఫ్లోర్‌పై ఎక్కువ ఒత్తిడిని కలిగిస్తుంది. యోని ప్రసవం అప్పుడు ఈ ప్రాంతంలోని కండరాలను, కణజాలాలను గణనీయంగా సాగదీయవచ్చు.',
+    s2Body2:
+      'సిజేరియన్ కూడా పెల్విక్ ఫ్లోర్‌ను పూర్తిగా కాపాడదు: గర్భధారణే ఈ కండరాలకు ఒక ముఖ్యమైన కాలంగా ఉంటుంది.',
+    s2Body3:
+      'అందువల్ల ప్రసవం తర్వాత కోలుకోవడానికి సమయం పట్టడం సహజం. కొందరు మహిళలు దాదాపు ఏ లక్షణాలనూ అనుభవించరు, మరికొందరు కారడం, భారంగా అనిపించడం లేదా తగ్గిన కండర నియంత్రణను గమనించవచ్చు.',
+    s2TipTitle: 'ప్రతి కోలుకోవడం భిన్నమైనది',
+    s2TipText:
+      'ప్రసవం రకం, ఒక చీలిక లేదా ఎపిసియోటమీ, నొప్పి ఉనికి, ప్రసవం తర్వాత మీ సాధారణ స్థితి అన్నీ కోలుకోవడాన్ని ప్రభావితం చేయవచ్చు.',
+
+    s3Heading: 'పెల్విక్ ఫ్లోర్ పునరావాసాన్ని ఎప్పుడు మొదలుపెట్టాలి?',
+    s3Body1:
+      'సమస్య లేని ప్రసవం తర్వాత, మృదువైన పెల్విక్ ఫ్లోర్ సంకోచాలను సాధారణంగా క్రమంగా తిరిగి మొదలుపెట్టవచ్చు. వ్యాయామాలను మీ పరిస్థితికి అనుకూలంగా మార్చుకోవడం, మీరు ఒక సమస్యను, గణనీయమైన నొప్పిని లేదా ఒక నిర్దిష్ట విధానాన్ని అనుభవించి ఉంటే సలహా తీసుకోవడం ముఖ్యంగానే ఉంటుంది.',
+    s3Body2:
+      'మీకు సిజేరియన్ లేకుండా మూత్ర కాథెటర్ ఉంటే, అది తీసివేయబడి సాధారణ మూత్రవిసర్జన తిరిగి మొదలయ్యే వరకు పెరినియం వ్యాయామాలను మొదలుపెట్టకుండా ఆగమని కొన్ని సిఫార్సులు సూచిస్తాయి.',
+    s3AlertTitle: 'నొప్పిని పట్టించుకోకుండా కొనసాగకండి',
+    s3AlertText:
+      'గణనీయమైన నొప్పి, మరింత దిగజారే లక్షణాలు, సరిగ్గా ఆరని గాయం లేదా ఏదైనా ప్రత్యేక ఆందోళనకు ఒక మంత్రసాని, వైద్యులు లేదా పునరావాస నిపుణుడి సలహా అవసరం.',
+
+    s4Heading: 'సరిగ్గా సంకోచించడం నేర్చుకోవడం',
+    s4Body1:
+      'కదలికను గుర్తించడానికి, వాయువును, మూత్రం వచ్చే ఉద్దేశాన్ని ఒకే సమయంలో అడ్డుకోవడానికి ప్రయత్నిస్తున్నట్లు ఊహించుకోండి. మీరు వెతికే కదలిక లోపలికి సంకోచించి పైకి లాగే ఒక అనుభూతి.',
+    s4Body2:
+      'లక్ష్యం మీ మొత్తం శరీరాన్ని గట్టిగా బిగించడం కాదు. సాధారణంగా శ్వాస కొనసాగుతూ ఉండగా, మీ పిరుదులు, తొడలు, పొట్ట కండరాలు వీలైనంత తేలికగా ఉండాలి.',
+    exercises: [
+      {icon: 'weather-windy', label: 'శ్వాస'},
+      {icon: 'human-handsup', label: 'మృదువైన సంకోచం'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'దీర్ఘ సంకోచం'},
+      {icon: 'gesture-tap-button', label: 'వేగవంతమైన సంకోచాలు'},
+    ],
+    s4HighlightTitle: 'తేలిక పడటం కూడా అంతే ముఖ్యం',
+    s4HighlightText:
+      'ప్రతి సంకోచం తర్వాత, కండరాలను పూర్తిగా తేలికపడనివ్వండి. మంచి పునరావాసం అంటే రోజంతా పెరినియంను సంకోచించి ఉంచడం కాదు.',
+
+    s5Heading: 'క్రమంగా పెంచే దినచర్యను నిర్మించుకోవడం',
+    s5Body1:
+      'మొదట, కండరాలను గుర్తించి కదలికను సరిగ్గా చేయడం నేర్చుకోవడమే అత్యంత ముఖ్యం. తీవ్రత కంటే నిలకడే ముఖ్యం.',
+    s5h3a: 'దీర్ఘ సంకోచాలు',
+    s5Body2:
+      'పెల్విక్ ఫ్లోర్‌ను మృదువుగా సంకోచించండి, ఆపై మీ శ్వాసను ఆపకుండా కొన్ని సెకన్లు సంకోచాన్ని పట్టుకోండి. మళ్లీ మొదలుపెట్టే ముందు పూర్తిగా విడుదల చేయండి.',
+    s5h3b: 'చిన్న సంకోచాలు',
+    s5Body3:
+      'కదలిక కైవసం అయ్యాక, చిన్న వేగవంతమైన సంకోచాలను జోడించవచ్చు. ఉదాహరణకు దగ్గడానికి లేదా తుమ్మడానికి ముందు, పొట్టలో ఒత్తిడి పెరిగినప్పుడు కండరాలను త్వరగా సంకోచించే మీ సామర్థ్యాన్ని శిక్షణ ఇవ్వడానికి అవి సహాయపడతాయి.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'వ్యాయామాలను ఒక రోజువారీ అలవాటుతో జత చేయండి'},
+      {icon: 'human-sitting', label: 'సౌకర్యవంతమైన భంగిమలో మొదలుపెట్టండి'},
+      {icon: 'weather-windy', label: 'సంకోచాల సమయంలో సాధారణంగా శ్వాస తీసుకోండి'},
+      {icon: 'sleep', label: 'తేలికపడే దశలను గౌరవించండి'},
+      {icon: 'chart-line', label: 'కష్టాన్ని క్రమంగా పెంచండి'},
+      {icon: 'doctor', label: 'ఖచ్చితంగా తెలియకపోతే సలహా అడగండి'},
+    ],
+    s5TipTitle: 'అన్నిటికంటే ముఖ్యం నిలకడ',
+    s5TipText:
+      'వ్యాయామాలను ఇప్పటికే మీ రోజులో భాగమైన అలవాటుతో జత చేయడం నిలకడగా ఉండటానికి సులభం చేయవచ్చు: పాలిచ్చిన తర్వాత, పళ్లు తోమిన తర్వాత, లేదా మీకు సరిపోయే మరో సమయంలో.',
+
+    s6Heading: 'తప్పించుకోవాల్సిన సాధారణ పొరపాట్లు',
+    s6Body1:
+      'పెరినియం వ్యాయామాలు సరళంగా కనిపించవచ్చు, కానీ ఇతర కండరాలతో భర్తీ చేయడం లేదా అతిగా బిగించడం సులభం.',
+    commonMistakes: [
+      'పెల్విక్ ఫ్లోర్‌కు బదులుగా పిరుదులను లేదా తొడలను బిగించడం',
+      'సంకోచం సమయంలో శ్వాసను ఆపడం',
+      'కండరాలను తేలికపడనివ్వకుండా నిరంతరం సంకోచించి ఉంచడం',
+      'కొన్ని రోజులు మాత్రమే వ్యాయామాలు చేసి ఆపేయడం',
+      'సంకోచాన్ని సరిచూడటానికి ఉద్దేశపూర్వకంగా మూత్ర ప్రవాహాన్ని ఆపడం',
+    ],
+    s6TipTitle: 'చేయకూడనివి',
+    s6TipText:
+      'ఉద్దేశపూర్వకంగా మూత్ర ప్రవాహాన్ని ఆపడం ద్వారా వ్యాయామాలు చేయడం సిఫార్సు చేయబడదు. ఈ పద్ధతి పెరినియంను సరిగ్గా శిక్షణ ఇవ్వదు, సాధారణ మూత్రాశయ పనితీరును భంగపరచవచ్చు.',
+
+    s7Heading: 'ఏ లక్షణాలు సంప్రదింపును ప్రేరేపించాలి?',
+    s7Body1:
+      'ప్రసవం తర్వాత చిన్న కారడం లేదా అసాధారణ అనుభూతి కొన్నిసార్లు కనిపించవచ్చు. అయితే, అవి కొనసాగితే, మరింత దిగజారితే లేదా మీ రోజువారీ జీవితానికి అంతరాయం కలిగిస్తే వాటిని విస్మరించకూడదు.',
+    warningSigns: [
+      'దగ్గినప్పుడు, తుమ్మినప్పుడు, నవ్వినప్పుడు లేదా ముక్కినప్పుడు మూత్రం కారడం',
+      'కింది కటిలో భారంగా లేదా ఒత్తిడిగా అనిపించడం',
+      'యోనిలోకి ఒక గడ్డ లేదా ఏదో జారుతున్నట్లు అనిపించడం',
+      'వాయువును లేదా మలాన్ని అడ్డుకోవడంలో కష్టం',
+      'పెరినియంలో కొనసాగే నొప్పి',
+      'సంభోగ సమయంలో లేదా తర్వాత నొప్పి',
+      'పెరినియం కండరాలను గుర్తించడంలో లేదా సరిగ్గా సంకోచించడంలో కష్టం',
+    ],
+    consultLabel: 'సలహాను ఎప్పుడు కోరాలి?',
+    s7Body2:
+      'పెల్విక్ ఫ్లోర్ పునరావాసంలో నిపుణత కలిగిన ఒక మంత్రసాని, వైద్యులు లేదా ఫిజియోథెరపిస్ట్ కండర పనితీరును సరిచూసి తగిన కార్యక్రమాన్ని సూచించగలరు.',
+
+    s8Heading: 'మరి చీలిక, ఎపిసియోటమీ లేదా సిజేరియన్ తర్వాత?',
+    s8Body1:
+      'ఒక చీలిక లేదా ఎపిసియోటమీ ఆరే సమయంలో ప్రత్యేక శ్రద్ధ అవసరం. కార్యకలాపాలను తిరిగి మొదలుపెట్టడం నొప్పిని, గాయం స్థితిని, ప్రసవం తర్వాత ఇవ్వబడిన మార్గదర్శకాన్ని పరిగణనలోకి తీసుకోవాలి.',
+    s8Body2:
+      'సిజేరియన్ తర్వాత, కోలుకోవడంలో పొట్ట గోడ, గాయం కూడా ఉంటాయి. ప్రసవం యోని ద్వారా కాకపోయినా, గర్భధారణే పెల్విక్ ఫ్లోర్‌పై ఒత్తిడి కలిగించింది.',
+    s8HighlightTitle: 'వ్యక్తిగతీకరించిన సంరక్షణ సహాయపడగలదు',
+    s8HighlightText:
+      'గణనీయమైన చీలిక, నొప్పి, మూత్ర లేదా పేగు లక్షణాలు లేదా కొనసాగే ఇబ్బందులు ఉంటే, ఒక ఆరోగ్య నిపుణుడితో మదింపు ప్రత్యేకంగా సహాయపడగలదు.',
+
+    s9Heading: 'క్రీడలను మెల్లగా తిరిగి మొదలుపెట్టడం',
+    s9Body1:
+      'ప్రసవం తర్వాత కదలికను తిరిగి మొదలుపెట్టడం క్రమంగా ఉండాలి. నడక, మృదువైన కదలికలను మీకు అనిపించే తీరును బట్టి సాధారణంగా తిరిగి మొదలుపెట్టవచ్చు, అయితే ఎక్కువ అదురుపాటు ఉన్న కార్యకలాపాలకు ఎక్కువ జాగ్రత్త అవసరం.',
+    s9Body2:
+      'పరుగు, గంతులు లేదా చాలా తీవ్రమైన శిక్షణను తిరిగి మొదలుపెట్టే ముందు, పెల్విక్ ఫ్లోర్ కోలుకోవడాన్ని మదింపు చేసి ఏవైనా లక్షణాలను పరిగణనలోకి తీసుకోవడం ఉత్తమం.',
+    s9AlertTitle: 'దశలను తొందరపెట్టకండి',
+    s9AlertText:
+      'వ్యాయామం సమయంలో లేదా తర్వాత కారడం, భారంగా అనిపించడం లేదా నొప్పి మీరు వేగాన్ని తగ్గించి, తీవ్రతను పెంచే ముందు సలహా తీసుకోవాలనే సంకేతాలు.',
+
+    s10Heading: 'ఒక నిపుణుడిని ఎప్పుడు కలవాలి?',
+    s10Body1:
+      'మీరు సరిగ్గా సంకోచిస్తున్నారో లేదో ఖచ్చితంగా తెలియనప్పుడు, మీ లక్షణాలు కొనసాగుతున్నప్పుడు, లేదా మీరు కొన్ని శారీరక కార్యకలాపాలను ఆత్మవిశ్వాసంతో తిరిగి మొదలుపెట్టాలనుకున్నప్పుడు, ఒక మంత్రసాని లేదా ఫిజియోథెరపిస్ట్‌తో పెల్విక్ ఫ్లోర్ పునరావాసం సహాయపడవచ్చు.',
+    questionCardTitle: 'అడగడానికి ఉపయోగకరమైన ప్రశ్నలు',
+    appointmentQuestions: [
+      'నా లక్షణాలు పెల్విక్ ఫ్లోర్ బలహీనతకు అనుగుణంగా ఉన్నాయా?',
+      'నేను సంకోచాలను సరిగ్గా చేస్తున్నానా?',
+      'ప్రతి రోజూ నేను ఎన్నిసార్లు పునరావృతం చేయాలి?',
+      'నేను తిరిగి పరుగు, క్రీడలు లేదా అధిక అదురుపాటు వ్యాయామానికి వెళ్లవచ్చా?',
+      'నాకు ఒక మంత్రసాని లేదా ఫిజియోథెరపిస్ట్‌తో పునరావాసం అవసరమా?',
+      'నా గాయం, చీలిక లేదా సిజేరియన్‌కు ఏవైనా ప్రత్యేక ముందు జాగ్రత్తలు అవసరమా?',
+    ],
+    s10TipTitle: 'తెలుసుకోవాల్సినవి',
+    s10TipText:
+      'ఒక నిపుణుడిని కలవడం తప్పనిసరిగా ఏదో తప్పు ఉందని అర్థం కాదు. ఒక సెషన్ మీ నైపుణ్యాన్ని సరిచూడటానికి, మీ కోలుకోవడాన్ని మదింపు చేయడానికి, సరిగ్గా ఎలా పురోగమించాలో నేర్చుకోవడానికి సహాయపడగలదు.',
+
+    s11Heading: 'సమయం పట్టే ఒక కోలుకోవడం',
+    s11Body1:
+      'బిడ్డకు జన్మనిచ్చిన తర్వాత, గర్భధారణకు ముందు ఉన్న అవే అనుభూతులను, కండర బలాన్ని వెంటనే తిరిగి పొందకపోవడం సహజం.',
+    s11Body2:
+      'వీలైనన్ని ఎక్కువ సంకోచాలు చేయడం లక్ష్యం కాదు. ఇది సంకోచానికి, తేలికపడటానికి మధ్య మంచి సమన్వయాన్ని క్రమంగా తిరిగి పొందడం, ఆపై ఈ కండరాలను రోజువారీ కార్యకలాపాల్లో సహజంగా ఉపయోగించగలగడం.',
+    s11HighlightTitle: 'చిన్న పురోగతి కూడా నిజమైన పురోగతే',
+    s11HighlightText:
+      'కదలిక గురించి మెరుగైన అవగాహన, సంకోచంలో కొన్ని అదనపు సెకన్లు, లేదా కారడంలో తగ్గుదల ఇప్పటికే ప్రోత్సాహకరమైన సంకేతాలు.',
+
+    s12Heading: 'ముఖ్యాంశాలు',
+    summaryTitle: 'ముఖ్యమైనవి',
+    summaryItems: [
+      'గర్భం, ప్రసవం పెల్విక్ ఫ్లోర్‌కు గణనీయమైన ఒత్తిడిని కలిగిస్తాయి.',
+      'ప్రసవం తర్వాత క్రమంగా కోలుకోవడం సహజం.',
+      'వ్యాయామాలు బలం కంటే కదలిక నాణ్యతకు ప్రాధాన్యం ఇవ్వాలి.',
+      'శ్వాస, తేలికపడటం సంకోచం అంతే ముఖ్యం.',
+      'మూత్రం కారడం, భారంగా అనిపించడం లేదా కొనసాగే నొప్పికి ఒక నిపుణుడి అభిప్రాయం అవసరం.',
+      'ఒక మంత్రసాని లేదా ఫిజియోథెరపిస్ట్‌తో పునరావాసం మెరుగైన నియంత్రణను తిరిగి పొందడానికి సహాయపడగలదు.',
+      'క్రీడలకు తిరిగి రావడం క్రమంగా ఉండాలి, ముఖ్యంగా ఎక్కువ అదురుపాటు ఉన్న కార్యకలాపాలకు.',
+    ],
+
+    finalTipTitle: 'కోలుకోవడానికి సమయం తీసుకోండి',
+    finalTipText:
+      'ప్రసవం తర్వాత, మీ శరీరం చాలా మార్పుల గుండా వెళ్లింది. పెరినియం మీ శరీరంలోని మిగతా భాగాలకు సమానమైన శ్రద్ధకు అర్హమైనది: క్రమంగా, క్రమం తప్పకుండా, ఒత్తిడి లేకుండా.',
+
+    disclaimerText:
+      'ఈ వ్యాసం సమాచారం కోసం మాత్రమే, వ్యక్తిగతీకరించిన వైద్య సలహాకు ప్రత్యామ్నాయం కాదు. మీకు నొప్పి, కొనసాగే లక్షణాలు ఉంటే, లేదా మీ కోలుకోవడం గురించి ఏదైనా ఆందోళన ఉంటే, ఒక ఆరోగ్య నిపుణుడి సలహా పొందండి.',
+  },
+  mr: {
+    badge: 'प्रसूतीनंतर • पुनर्प्राप्ती',
+    title: 'प्रसूतीनंतर तुमचे श्रोणीतळ\nमजबूत करणे',
+    metaDuration: '8 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'गर्भारपण आणि प्रसूतीनंतर, श्रोणीतळाला बरे होण्यासाठी वेळ लागतो. साधे, नियमित आणि हळूहळू वाढवत जाणारे व्यायाम तुम्हाला घाई करण्याचा प्रयत्न न करता ताकद, नियंत्रण आणि आत्मविश्वास परत मिळवण्यास मदत करू शकतात.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'पेरिनियमची भूमिका समजून घेणे',
+      'प्रसूतीमुळे त्यावर ताण का येतो',
+      'श्रोणीतळाचे पुनर्वसन केव्हा सुरू करावे',
+      'योग्य प्रकारे आकुंचन करायला शिकणे',
+      'हळूहळू वाढवत जाणारी दिनचर्या तयार करणे',
+      'टाळायच्या चुका',
+      'मदत केव्हा मागावी',
+      'हळूहळू खेळ पुन्हा सुरू करणे',
+      'भेटीची तयारी',
+      'मुख्य मुद्दे',
+    ],
+    shareMessage: 'प्रसूतीनंतर तुमचे श्रोणीतळ मजबूत करणे — AWA',
+
+    s1Heading: 'पेरिनियमची भूमिका समजून घेणे',
+    s1Body1:
+      'पेरिनियम, ज्याला श्रोणीतळ असेही म्हणतात, हा श्रोणीच्या तळाशी असलेल्या स्नायूंचा समूह आहे. तो मूत्राशय आणि आतड्यांच्या नियंत्रणात भूमिका बजावतो आणि श्रोणीतील अवयवांना आधार देण्यास मदत करतो.',
+    s1Body2:
+      'गर्भारपणात, या स्नायूंना अनेक महिने अतिरिक्त वजन पेलावे लागते. प्रसूतीदरम्यानही त्यांच्यावर मोठा ताण येतो.',
+    s1HighlightTitle: 'एक गुप्त पण आवश्यक स्नायू',
+    s1HighlightText:
+      'श्रोणीतळ रोजच्या अनेक कार्यांत सहभागी असतो: लघवी आणि मल रोखून धरणे, वायूचे नियंत्रण, श्रोणीतील अवयवांना आधार देणे आणि काही लैंगिक कार्यांत भूमिका बजावणे.',
+
+    benefitsHeading: 'अधिक मजबूत श्रोणीतळाचे फायदे',
+    benefitsIntro:
+      'हळूहळू आणि योग्य प्रकारे केलेले मजबुतीकरण श्रोणीतळाचे नियंत्रण आणि आधार सुधारण्यास मदत करू शकते.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'मूत्राशयावर अधिक चांगले नियंत्रण',
+        text: 'श्रोणीतळ मूत्राशयाच्या नियंत्रणात भूमिका बजावतो. ते हळूहळू मजबूत केल्याने काही लघवीची गळती कमी होण्यास मदत होऊ शकते.',
+      },
+      {
+        icon: 'toilet',
+        title: 'आतड्यांच्या कार्याला आधार',
+        text: 'हे स्नायू वायू आणि मलाचे नियंत्रण करण्यास आणि श्रोणीतील अवयवांना आधार देण्यासही हातभार लावतात.',
+      },
+      {
+        icon: 'human-female',
+        title: 'श्रोणीतील अवयवांना आधार',
+        text: 'श्रोणीतळ एक खरा स्नायूंचा पाया बनवतो जो मूत्राशय, गर्भाशय आणि आतड्याला आधार देण्यास मदत करतो.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'संवेदना हळूहळू परत मिळवणे',
+        text: 'योग्य पुनर्वसन तुम्हाला या भागाची अधिक चांगली जाणीव आणि नियंत्रण परत मिळवण्यासही मदत करू शकते.',
+      },
+    ],
+
+    s2Heading: 'गर्भारपण आणि प्रसूतीमुळे त्यावर ताण का येतो',
+    s2Body1:
+      'गर्भारपण हळूहळू श्रोणीतळावर अधिक दाब टाकते. योनीमार्गे प्रसूती मग या भागातील स्नायू आणि ऊती लक्षणीयरीत्या ताणू शकते.',
+    s2Body2:
+      'सिझेरियन प्रसूतीतही श्रोणीतळाला पूर्णपणे वाचवले जात नाही: गर्भारपण स्वतःच या स्नायूंसाठी एक महत्त्वाचा काळ राहतो.',
+    s2Body3:
+      'म्हणून प्रसूतीनंतर बरे होण्यास वेळ लागणे सामान्य आहे. काही स्त्रियांना जवळजवळ कोणतीही लक्षणे जाणवत नाहीत, तर इतरांना गळती, जडपणाची भावना किंवा स्नायूंचे कमी झालेले नियंत्रण जाणवू शकते.',
+    s2TipTitle: 'प्रत्येक पुनर्प्राप्ती वेगळी असते',
+    s2TipText:
+      'प्रसूतीचा प्रकार, फाटणे किंवा एपिसिओटॉमी, वेदनेची उपस्थिती आणि प्रसूतीनंतरची तुमची सर्वसाधारण स्थिती या सर्वांचा पुनर्प्राप्तीवर परिणाम होऊ शकतो.',
+
+    s3Heading: 'श्रोणीतळाचे पुनर्वसन केव्हा सुरू करावे?',
+    s3Body1:
+      'गुंतागुंतीविना झालेल्या प्रसूतीनंतर, श्रोणीतळाचे हलके आकुंचन सहसा हळूहळू पुन्हा सुरू करता येते. तुमच्या परिस्थितीनुसार व्यायाम जुळवणे आणि तुम्हाला गुंतागुंत, लक्षणीय वेदना किंवा विशिष्ट प्रक्रिया झाली असल्यास सल्ला घेणे महत्त्वाचे राहते.',
+    s3Body2:
+      'तुम्हाला मूत्राशयात नळी (कॅथेटर) असल्यास, काही शिफारशी पेरिनियमचे व्यायाम सुरू करण्यापूर्वी ती काढली जाईपर्यंत आणि सामान्य लघवी पुन्हा सुरू होईपर्यंत थांबण्याचे सुचवतात.',
+    s3AlertTitle: 'वेदना सहन करून पुढे जाऊ नका',
+    s3AlertText:
+      'लक्षणीय वेदना, बिघडत जाणारी लक्षणे, नीट बरी न होणारी जखम किंवा कोणतीही विशेष चिंता यासाठी दाई, डॉक्टर किंवा पुनर्वसन तज्ज्ञाचा सल्ला आवश्यक आहे.',
+
+    s4Heading: 'योग्य प्रकारे आकुंचन करायला शिकणे',
+    s4Body1:
+      'ही हालचाल ओळखण्यासाठी, एकाच वेळी वायू आणि लघवीची इच्छा रोखून धरण्याचा प्रयत्न करत असल्याची कल्पना करा. तुम्ही शोधत असलेली हालचाल म्हणजे आकुंचन आणि आतल्या बाजूने वर खेचल्याची जाणीव.',
+    s4Body2:
+      'ध्येय तुमचे संपूर्ण शरीर घट्ट आवळणे नाही. श्वास सामान्यपणे सुरू असताना तुमचे नितंब, मांड्या आणि पोटाचे स्नायू शक्य तितके शिथिल राहिले पाहिजेत.',
+    exercises: [
+      {icon: 'weather-windy', label: 'श्वासोच्छ्वास'},
+      {icon: 'human-handsup', label: 'हलके आकुंचन'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'दीर्घ आकुंचन'},
+      {icon: 'gesture-tap-button', label: 'झटपट आकुंचने'},
+    ],
+    s4HighlightTitle: 'शिथिल करणेही तितकेच महत्त्वाचे आहे',
+    s4HighlightText:
+      'प्रत्येक आकुंचनानंतर, स्नायू पूर्णपणे शिथिल होऊ द्या. चांगले पुनर्वसन म्हणजे पेरिनियम दिवसभर आकुंचित ठेवणे नव्हे.',
+
+    s5Heading: 'हळूहळू वाढवत जाणारी दिनचर्या तयार करणे',
+    s5Body1:
+      'सुरुवातीला, सर्वात महत्त्वाचे म्हणजे स्नायू ओळखणे आणि हालचाल योग्य प्रकारे करायला शिकणे. तीव्रतेपेक्षा सातत्य अधिक महत्त्वाचे आहे.',
+    s5h3a: 'दीर्घ आकुंचने',
+    s5Body2:
+      'श्रोणीतळ हळुवारपणे आकुंचित करा, मग श्वास न रोखता काही सेकंद आकुंचन धरून ठेवा. मग पुन्हा सुरू करण्यापूर्वी पूर्णपणे सोडा.',
+    s5h3b: 'छोटी आकुंचने',
+    s5Body3:
+      'हालचाल जमल्यावर, लहान झटपट आकुंचने जोडता येतात. ती पोटावरील दाब वाढताना, उदाहरणार्थ खोकण्यापूर्वी किंवा शिंकण्यापूर्वी, स्नायू झपाट्याने आकुंचित करण्याची तुमची क्षमता प्रशिक्षित करण्यास मदत करतात.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'व्यायाम रोजच्या एखाद्या सवयीशी जोडा'},
+      {icon: 'human-sitting', label: 'आरामदायी स्थितीत सुरुवात करा'},
+      {icon: 'weather-windy', label: 'आकुंचनादरम्यान सामान्यपणे श्वास घ्या'},
+      {icon: 'sleep', label: 'शिथिलतेच्या टप्प्यांचा आदर करा'},
+      {icon: 'chart-line', label: 'अडचण हळूहळू वाढवा'},
+      {icon: 'doctor', label: 'खात्री नसल्यास सल्ला घ्या'},
+    ],
+    s5TipTitle: 'सर्वप्रथम सातत्य',
+    s5TipText:
+      'व्यायाम तुमच्या दिवसाचा भाग असलेल्या सवयीशी जोडल्याने सातत्य राखणे सोपे होऊ शकते: दूध पाजल्यानंतर, दात घासल्यानंतर किंवा तुम्हाला सोयीच्या दुसऱ्या वेळी.',
+
+    s6Heading: 'टाळायच्या सामान्य चुका',
+    s6Body1:
+      'पेरिनियमचे व्यायाम साधे दिसू शकतात, पण इतर स्नायूंच्या मदतीने भरपाई करणे किंवा खूप जोर लावणे सोपे असते.',
+    commonMistakes: [
+      'श्रोणीतळाऐवजी नितंब किंवा मांड्या आवळणे',
+      'आकुंचनादरम्यान श्वास रोखणे',
+      'स्नायूंना शिथिल होऊ न देता सतत आकुंचित ठेवणे',
+      'व्यायाम फक्त काही दिवस करून मग थांबवणे',
+      'आकुंचन तपासण्यासाठी मुद्दाम लघवीचा प्रवाह थांबवणे',
+    ],
+    s6TipTitle: 'काय करू नये',
+    s6TipText:
+      'मुद्दाम लघवीचा प्रवाह थांबवून व्यायाम करण्याची शिफारस केली जात नाही. ही पद्धत पेरिनियमला योग्य प्रकारे प्रशिक्षित करत नाही आणि मूत्राशयाचे सामान्य कार्य बिघडवू शकते.',
+
+    s7Heading: 'कोणत्या लक्षणांमुळे सल्लामसलत करावी?',
+    s7Body1:
+      'प्रसूतीनंतर कधी कधी लहान गळती किंवा असामान्य जाणीव दिसू शकते. तथापि, ती कायम राहिल्यास, वाढल्यास किंवा रोजच्या जीवनात अडथळा आणत असल्यास, दुर्लक्ष करू नये.',
+    warningSigns: [
+      'खोकताना, शिंकताना, हसताना किंवा जोर लावताना लघवीची गळती',
+      'खालच्या कटीभागात जडपणाची किंवा दाबाची भावना',
+      'योनीत गाठ किंवा काहीतरी खाली सरकत असल्यासारखी भावना',
+      'वायू किंवा मल रोखून धरण्यात अडचण',
+      'पेरिनियममध्ये कायम राहणारी वेदना',
+      'लैंगिक संबंधादरम्यान किंवा नंतर वेदना',
+      'पेरिनियमचे स्नायू ओळखण्यात किंवा योग्य प्रकारे आकुंचित करण्यात अडचण',
+    ],
+    consultLabel: 'सल्ला केव्हा घ्यावा?',
+    s7Body2:
+      'श्रोणीतळाच्या पुनर्वसनात तज्ज्ञ असलेली दाई, डॉक्टर किंवा फिजिओथेरपिस्ट स्नायूंचे कार्य तपासू शकते आणि योग्य कार्यक्रम सुचवू शकते.',
+
+    s8Heading: 'आणि फाटल्यानंतर, एपिसिओटॉमीनंतर किंवा सिझेरियननंतर?',
+    s8Body1:
+      'फाटणे किंवा एपिसिओटॉमी बरे होताना विशेष काळजी मागते. हालचाली पुन्हा सुरू करताना वेदना, जखमेची स्थिती आणि प्रसूतीनंतर दिलेले मार्गदर्शन विचारात घेतले पाहिजे.',
+    s8Body2:
+      'सिझेरियननंतर, पुनर्प्राप्तीत पोटाची भिंत आणि जखमही सहभागी असते. प्रसूती योनीमार्गे झाली नसली तरी, गर्भारपणाने स्वतः श्रोणीतळावर ताण टाकलेला असतो.',
+    s8HighlightTitle: 'वैयक्तिकृत काळजी मदत करू शकते',
+    s8HighlightText:
+      'लक्षणीय फाटणे, वेदना, मूत्र किंवा आतड्यांची लक्षणे किंवा कायम राहणाऱ्या अडचणींच्या बाबतीत, आरोग्य व्यावसायिकासोबतचे मूल्यांकन विशेष उपयुक्त ठरू शकते.',
+
+    s9Heading: 'हळूहळू खेळ पुन्हा सुरू करणे',
+    s9Body1:
+      'प्रसूतीनंतर हालचाल पुन्हा सुरू करणे हळूहळू व्हायला हवे. चालणे आणि हलक्या हालचाली तुम्हाला कसे वाटते त्यानुसार साधारणपणे पुन्हा सुरू करता येतात, तर जोराचा आघात होणाऱ्या हालचालींसाठी अधिक सावधगिरी लागते.',
+    s9Body2:
+      'धावणे, उड्या मारणे किंवा खूप तीव्र प्रशिक्षण पुन्हा सुरू करण्यापूर्वी, श्रोणीतळाच्या पुनर्प्राप्तीचे मूल्यांकन करणे आणि कोणतीही लक्षणे विचारात घेणे चांगले.',
+    s9AlertTitle: 'टप्प्यांमध्ये घाई करू नका',
+    s9AlertText:
+      'व्यायामादरम्यान किंवा नंतर गळती, जडपणाची भावना किंवा वेदना ही चिन्हे आहेत की तुम्ही गती कमी करावी आणि तीव्रता वाढवण्यापूर्वी सल्ला घ्यावा.',
+
+    s10Heading: 'तज्ज्ञांना केव्हा भेटावे?',
+    s10Body1:
+      'तुम्ही योग्य प्रकारे आकुंचन करत आहात की नाही याबद्दल खात्री नसल्यास, तुमची लक्षणे कायम राहिल्यास, किंवा तुम्हाला काही शारीरिक हालचाली आत्मविश्वासाने पुन्हा सुरू करायच्या असल्यास, दाई किंवा फिजिओथेरपिस्टसोबत श्रोणीतळाचे पुनर्वसन उपयुक्त ठरू शकते.',
+    questionCardTitle: 'विचारण्यासाठी उपयुक्त प्रश्न',
+    appointmentQuestions: [
+      'माझी लक्षणे श्रोणीतळाच्या कमकुवतपणाशी सुसंगत आहेत का?',
+      'मी आकुंचने योग्य प्रकारे करत आहे का?',
+      'मी रोज किती पुनरावृत्त्या कराव्यात?',
+      'मी धावणे, खेळ किंवा जोराचा आघात होणारा व्यायाम पुन्हा सुरू करू शकते का?',
+      'मला दाई किंवा फिजिओथेरपिस्टसोबत पुनर्वसनाची गरज आहे का?',
+      'माझ्या जखमेसाठी, फाटण्यासाठी किंवा सिझेरियनसाठी कोणत्याही विशेष खबरदाऱ्यांची गरज आहे का?',
+    ],
+    s10TipTitle: 'हे जाणून घ्या',
+    s10TipText:
+      'तज्ज्ञाला भेटणे म्हणजे काही चुकले आहे असे नाही. एक सत्र तुमचे तंत्र तपासण्यास, तुमच्या पुनर्प्राप्तीचे मूल्यांकन करण्यास आणि योग्य प्रकारे पुढे जायला शिकण्यास मदत करू शकते.',
+
+    s11Heading: 'वेळ घेणारी पुनर्प्राप्ती',
+    s11Body1:
+      'बाळाला जन्म दिल्यानंतर, गर्भारपणापूर्वी असलेल्या जाणिवा किंवा स्नायूंची ताकद लगेच परत न मिळणे सामान्य आहे.',
+    s11Body2:
+      'ध्येय शक्य तितकी जास्त आकुंचने करणे नाही. ते आकुंचन आणि शिथिलीकरण यातील चांगला समन्वय हळूहळू परत मिळवणे आणि मग रोजच्या कामांमध्ये हे स्नायू नैसर्गिकपणे वापरता येणे असे आहे.',
+    s11HighlightTitle: 'छोटी प्रगतीही खरी प्रगती आहे',
+    s11HighlightText:
+      'हालचालीची अधिक चांगली जाणीव, आकुंचनाचे काही अतिरिक्त सेकंद किंवा गळती कमी होणे ही आधीच उत्साहवर्धक चिन्हे आहेत.',
+
+    s12Heading: 'मुख्य मुद्दे',
+    summaryTitle: 'आवश्यक मुद्दे',
+    summaryItems: [
+      'गर्भारपण आणि प्रसूती श्रोणीतळावर मोठा ताण टाकतात.',
+      'प्रसूतीनंतर हळूहळू बरे होणे सामान्य आहे.',
+      'व्यायामात ताकदीपेक्षा हालचालीच्या गुणवत्तेला प्राधान्य दिले पाहिजे.',
+      'श्वासोच्छ्वास आणि शिथिलीकरण आकुंचनाइतकेच महत्त्वाचे आहेत.',
+      'लघवीची गळती, जडपणा किंवा कायम राहणारी वेदना तज्ज्ञाच्या मताला पात्र आहेत.',
+      'दाई किंवा फिजिओथेरपिस्टसोबतचे पुनर्वसन तुम्हाला अधिक चांगले नियंत्रण परत मिळवण्यास मदत करू शकते.',
+      'खेळाकडे परतणे हळूहळू व्हायला हवे, विशेषतः जोराचा आघात होणाऱ्या हालचालींसाठी.',
+    ],
+
+    finalTipTitle: 'बरे होण्यासाठी वेळ घ्या',
+    finalTipText:
+      'प्रसूतीनंतर, तुमचे शरीर अनेक बदलांतून गेले आहे. पेरिनियम तुमच्या शरीराच्या उर्वरित भागाइतक्याच लक्षास पात्र आहे: हळूहळू, नियमितपणे आणि दबावाशिवाय.',
+
+    disclaimerText:
+      'हा लेख फक्त माहितीसाठी आहे आणि वैयक्तिक वैद्यकीय सल्ल्याची जागा घेत नाही. तुम्हाला वेदना, कायम राहणारी लक्षणे जाणवत असल्यास किंवा तुमच्या पुनर्प्राप्तीबद्दल कोणतीही चिंता असल्यास, आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+  },
+  gu: {
+    badge: 'પ્રસૂતિ પછી • સ્વસ્થતા',
+    title: 'પ્રસૂતિ પછી તમારા પેલ્વિક ફ્લોરને\nમજબૂત બનાવવું',
+    metaDuration: '8 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'ગર્ભાવસ્થા અને પ્રસૂતિ પછી, પેલ્વિક ફ્લોરને સ્વસ્થ થવા માટે સમયની જરૂર હોય છે. સરળ, નિયમિત અને ધીમે ધીમે કરાતી કસરતો તમને ઉતાવળ કર્યા વિના શક્તિ, નિયંત્રણ અને આત્મવિશ્વાસ પાછાં મેળવવામાં મદદ કરી શકે છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'પેરિનિયમની ભૂમિકા સમજવી',
+      'પ્રસૂતિ તેના પર તાણ કેમ નાખે છે',
+      'પેલ્વિક ફ્લોરનું પુનર્વસન ક્યારે શરૂ કરવું',
+      'સાચી રીતે સંકોચન કરતાં શીખવું',
+      'ધીમે ધીમે દિનચર્યા બનાવવી',
+      'ટાળવા જેવી ભૂલો',
+      'ક્યારે મદદ માગવી',
+      'ધીમે ધીમે રમતગમત ફરી શરૂ કરવી',
+      'મુલાકાતની તૈયારી',
+      'મુખ્ય મુદ્દા',
+    ],
+    shareMessage: 'પ્રસૂતિ પછી તમારા પેલ્વિક ફ્લોરને મજબૂત બનાવવું — AWA',
+
+    s1Heading: 'પેરિનિયમની ભૂમિકા સમજવી',
+    s1Body1:
+      'પેરિનિયમ, જેને પેલ્વિક ફ્લોર પણ કહેવાય છે, એ પેલ્વિસના તળિયે આવેલા સ્નાયુઓનો સમૂહ છે. તે મૂત્રાશય અને આંતરડા પરના નિયંત્રણમાં ભૂમિકા ભજવે છે અને પેલ્વિક અવયવોને ટેકો આપવામાં મદદ કરે છે.',
+    s1Body2:
+      'ગર્ભાવસ્થા દરમિયાન, આ સ્નાયુઓએ ઘણા મહિના સુધી વધારાનું વજન ઉપાડવું પડે છે. પ્રસૂતિ દરમિયાન પણ તેમના પર ઘણો તાણ પડે છે.',
+    s1HighlightTitle: 'શાંત પણ આવશ્યક સ્નાયુ',
+    s1HighlightText:
+      'પેલ્વિક ફ્લોર રોજિંદા ઘણા કાર્યોમાં સામેલ છે: પેશાબ અને મળને રોકવા, ગેસ પર નિયંત્રણ રાખવું, પેલ્વિક અવયવોને ટેકો આપવો, અને કેટલાંક જાતીય કાર્યોમાં ભૂમિકા ભજવવી.',
+
+    benefitsHeading: 'વધુ મજબૂત પેલ્વિક ફ્લોરના ફાયદા',
+    benefitsIntro:
+      'ધીમે ધીમે અને સાચી રીતે કરેલું મજબૂતીકરણ પેલ્વિક ફ્લોરના નિયંત્રણ અને ટેકાને સુધારવામાં મદદ કરી શકે છે.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'મૂત્રાશય પર સારું નિયંત્રણ',
+        text: 'પેલ્વિક ફ્લોર મૂત્રાશયના નિયંત્રણમાં ભૂમિકા ભજવે છે. તેને ધીમે ધીમે મજબૂત કરવાથી પેશાબ લીક થવાની કેટલીક સમસ્યા ઘટાડવામાં મદદ મળી શકે છે.',
+      },
+      {
+        icon: 'toilet',
+        title: 'આંતરડાના કાર્યને ટેકો',
+        text: 'આ સ્નાયુઓ ગેસ અને મળ પર નિયંત્રણ રાખવામાં પણ મદદ કરે છે અને પેલ્વિક અવયવોને ટેકો આપવામાં ફાળો આપે છે.',
+      },
+      {
+        icon: 'human-female',
+        title: 'પેલ્વિક અવયવોને ટેકો',
+        text: 'પેલ્વિક ફ્લોર એક સાચો સ્નાયુનો આધાર બનાવે છે જે મૂત્રાશય, ગર્ભાશય અને આંતરડાને ટેકો આપવામાં મદદ કરે છે.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ધીમે ધીમે સંવેદના પાછી મેળવવી',
+        text: 'યોગ્ય પુનર્વસન આ ભાગની વધુ સારી જાગૃતિ અને નિયંત્રણ પાછાં મેળવવામાં પણ મદદ કરી શકે છે.',
+      },
+    ],
+
+    s2Heading: 'ગર્ભાવસ્થા અને પ્રસૂતિ તેના પર તાણ કેમ નાખે છે',
+    s2Body1:
+      'ગર્ભાવસ્થા ધીમે ધીમે પેલ્વિક ફ્લોર પર વધુ દબાણ નાખે છે. યોનિમાર્ગ દ્વારા પ્રસૂતિ પછી આ ભાગના સ્નાયુઓ અને પેશીઓ નોંધપાત્ર રીતે ખેંચાઈ શકે છે.',
+    s2Body2:
+      'સિઝેરિયન પણ પેલ્વિક ફ્લોરને સંપૂર્ણપણે બચાવતું નથી: ગર્ભાવસ્થા પોતે આ સ્નાયુઓ માટે એક મહત્વનો સમયગાળો છે.',
+    s2Body3:
+      'તેથી પ્રસૂતિ પછી સ્વસ્થ થવામાં સમય લાગે તે સામાન્ય છે. કેટલીક સ્ત્રીઓને લગભગ કોઈ લક્ષણ લાગતું નથી, જ્યારે બીજી સ્ત્રીઓને પેશાબ લીક થવો, ભારેપણાની લાગણી અથવા સ્નાયુઓ પરનું ઓછું નિયંત્રણ જણાઈ શકે છે.',
+    s2TipTitle: 'દરેક સ્વસ્થતા અલગ હોય છે',
+    s2TipText:
+      'પ્રસૂતિનો પ્રકાર, ચીરો કે એપિસિઓટોમી, દુખાવાની હાજરી અને પ્રસૂતિ પછીની તમારી સામાન્ય સ્થિતિ — આ બધું સ્વસ્થતાને પ્રભાવિત કરી શકે છે.',
+
+    s3Heading: 'પેલ્વિક ફ્લોરનું પુનર્વસન ક્યારે શરૂ કરવું?',
+    s3Body1:
+      'સરળ પ્રસૂતિ પછી, પેલ્વિક ફ્લોરનાં હળવાં સંકોચન સામાન્ય રીતે ધીમે ધીમે ફરી શરૂ કરી શકાય છે. કસરતોને તમારી પરિસ્થિતિ પ્રમાણે ગોઠવવી અને જો તમને કોઈ મુશ્કેલી, નોંધપાત્ર દુખાવો અથવા કોઈ ખાસ પ્રક્રિયા થઈ હોય તો સલાહ લેવી મહત્વનું છે.',
+    s3Body2:
+      'જો તમને પેશાબની નળી (કેથેટર) લગાવેલી હોય, તો કેટલીક ભલામણો પ્રમાણે પેરિનિયમની કસરતો શરૂ કરતાં પહેલાં તે કાઢી નંખાય અને સામાન્ય પેશાબ ફરી શરૂ થાય ત્યાં સુધી રાહ જોવી.',
+    s3AlertTitle: 'દુખાવો સહન કરીને આગળ ન વધો',
+    s3AlertText:
+      'નોંધપાત્ર દુખાવો, વધતાં લક્ષણો, ખરાબ રીતે રુઝાતો ઘા અથવા કોઈ ખાસ ચિંતા માટે મિડવાઇફ, ડૉક્ટર અથવા પુનર્વસન વ્યાવસાયિકની સલાહ જરૂરી છે.',
+
+    s4Heading: 'સાચી રીતે સંકોચન કરતાં શીખવું',
+    s4Body1:
+      'હલનચલન ઓળખવા માટે, કલ્પના કરો કે તમે ગેસ અને પેશાબની હાજતને એકસાથે રોકવાનો પ્રયત્ન કરી રહ્યાં છો. તમે જે હલનચલન શોધી રહ્યાં છો તે અંદરની તરફ સંકોચાવાની અને ઉપર ખેંચાવાની લાગણી છે.',
+    s4Body2:
+      'લક્ષ્ય આખા શરીરને કડક રીતે તંગ કરવાનું નથી. શ્વાસ સામાન્ય રીતે ચાલુ રહે ત્યારે તમારા નિતંબ, જાંઘ અને પેટના સ્નાયુઓ શક્ય તેટલા હળવા રહેવા જોઈએ.',
+    exercises: [
+      {icon: 'weather-windy', label: 'શ્વાસ'},
+      {icon: 'human-handsup', label: 'હળવું સંકોચન'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'લાંબું સંકોચન'},
+      {icon: 'gesture-tap-button', label: 'ઝડપી સંકોચન'},
+    ],
+    s4HighlightTitle: 'હળવા થવું પણ એટલું જ મહત્વનું છે',
+    s4HighlightText:
+      'દરેક સંકોચન પછી, સ્નાયુઓને સંપૂર્ણપણે હળવા થવા દો. સારા પુનર્વસનનો અર્થ આખો દિવસ પેરિનિયમને સંકોચેલું રાખવાનો નથી.',
+
+    s5Heading: 'ધીમે ધીમે દિનચર્યા બનાવવી',
+    s5Body1:
+      'શરૂઆતમાં સૌથી મહત્વનું એ છે કે સ્નાયુઓને ઓળખતા અને હલનચલન સાચી રીતે કરતાં શીખવું. તીવ્રતા કરતાં નિયમિતતા વધુ મહત્વની છે.',
+    s5h3a: 'લાંબાં સંકોચન',
+    s5Body2:
+      'પેલ્વિક ફ્લોરને હળવેથી સંકોચો, પછી શ્વાસ રોક્યા વિના થોડી સેકન્ડ સુધી સંકોચન જાળવી રાખો. પછી ફરી શરૂ કરતાં પહેલાં સંપૂર્ણપણે છોડી દો.',
+    s5h3b: 'ટૂંકાં સંકોચન',
+    s5Body3:
+      'એકવાર હલનચલન આવડી જાય, પછી નાનાં ઝડપી સંકોચન ઉમેરી શકાય. પેટ પર દબાણ વધે ત્યારે, દાખલા તરીકે ખાંસી કે છીંક આવતાં પહેલાં, સ્નાયુઓને ઝડપથી સંકોચવાની તમારી ક્ષમતાને તાલીમ આપવામાં તે મદદ કરે છે.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'કસરતોને રોજની કોઈ ટેવ સાથે જોડો'},
+      {icon: 'human-sitting', label: 'આરામદાયક સ્થિતિથી શરૂઆત કરો'},
+      {icon: 'weather-windy', label: 'સંકોચન દરમિયાન સામાન્ય રીતે શ્વાસ લો'},
+      {icon: 'sleep', label: 'હળવા થવાના તબક્કાઓનું પાલન કરો'},
+      {icon: 'chart-line', label: 'ધીમે ધીમે મુશ્કેલી વધારો'},
+      {icon: 'doctor', label: 'ખાતરી ન હોય તો સલાહ માગો'},
+    ],
+    s5TipTitle: 'સૌથી મહત્વની નિયમિતતા',
+    s5TipText:
+      'કસરતોને તમારા દિવસની કોઈ ટેવ સાથે જોડવાથી નિયમિત રહેવું સરળ બની શકે છે: સ્તનપાન પછી, દાંત સાફ કર્યા પછી અથવા તમને અનુકૂળ કોઈ બીજા સમયે.',
+
+    s6Heading: 'ટાળવા જેવી સામાન્ય ભૂલો',
+    s6Body1:
+      'પેરિનિયમની કસરતો સરળ લાગે, પરંતુ બીજા સ્નાયુઓથી કામ ચલાવી લેવાનું અથવા વધુ પડતું જોર લગાવી દેવાનું સહેલું છે.',
+    commonMistakes: [
+      'પેલ્વિક ફ્લોરને બદલે નિતંબ કે જાંઘને તંગ કરવી',
+      'સંકોચન દરમિયાન શ્વાસ રોકવો',
+      'સ્નાયુઓને હળવા થવા દીધા વિના સતત સંકોચેલા રાખવા',
+      'કસરતો ફક્ત થોડા દિવસ કરીને બંધ કરી દેવી',
+      'સંકોચન ચકાસવા માટે જાણીજોઈને પેશાબની ધાર અટકાવવી',
+    ],
+    s6TipTitle: 'શું ન કરવું',
+    s6TipText:
+      'જાણીજોઈને પેશાબની ધાર અટકાવીને કસરતો કરવાની ભલામણ કરાતી નથી. આ પદ્ધતિ પેરિનિયમને સાચી રીતે તાલીમ આપતી નથી અને મૂત્રાશયના સામાન્ય કાર્યમાં ખલેલ પાડી શકે છે.',
+
+    s7Heading: 'કયાં લક્ષણો હોય ત્યારે ડૉક્ટરને મળવું જોઈએ?',
+    s7Body1:
+      'પ્રસૂતિ પછી ક્યારેક થોડો પેશાબ લીક થવો અથવા કોઈ અસામાન્ય લાગણી દેખાઈ શકે છે. જોકે, જો તે ચાલુ રહે, વધે અથવા તમારા રોજિંદા જીવનમાં અડચણ કરે તો તેને અવગણવી ન જોઈએ.',
+    warningSigns: [
+      'ખાંસી, છીંક, હસવા કે જોર કરવા પર પેશાબ લીક થવો',
+      'નીચલા પેલ્વિસમાં ભારેપણું અથવા દબાણની લાગણી',
+      'યોનિમાં કોઈ ગઠ્ઠો અથવા કંઈક નીચે સરકતું હોય એવી લાગણી',
+      'ગેસ અથવા મળને રોકવામાં મુશ્કેલી',
+      'પેરિનિયમમાં સતત દુખાવો',
+      'જાતીય સંબંધ દરમિયાન અથવા પછી દુખાવો',
+      'પેરિનિયમના સ્નાયુઓને ઓળખવામાં અથવા સાચી રીતે સંકોચવામાં મુશ્કેલી',
+    ],
+    consultLabel: 'ક્યારે સલાહ લેવી જોઈએ?',
+    s7Body2:
+      'પેલ્વિક ફ્લોરના પુનર્વસનમાં નિષ્ણાત મિડવાઇફ, ડૉક્ટર અથવા ફિઝિયોથેરપિસ્ટ સ્નાયુઓના કાર્યની તપાસ કરી શકે છે અને યોગ્ય કાર્યક્રમ સૂચવી શકે છે.',
+
+    s8Heading: 'અને ચીરો, એપિસિઓટોમી અથવા સિઝેરિયન પછી?',
+    s8Body1:
+      'ચીરો અથવા એપિસિઓટોમીને રુઝાતી વખતે ખાસ કાળજીની જરૂર પડે છે. પ્રવૃત્તિઓ ફરી શરૂ કરતી વખતે દુખાવો, ઘાની સ્થિતિ અને પ્રસૂતિ પછી આપેલા માર્ગદર્શનને ધ્યાનમાં લેવાં જોઈએ.',
+    s8Body2:
+      'સિઝેરિયન પછી સ્વસ્થતામાં પેટની દીવાલ અને ઘાનો પણ સમાવેશ થાય છે. પ્રસૂતિ યોનિમાર્ગ દ્વારા ન થઈ હોય તો પણ, ગર્ભાવસ્થાએ પોતે પેલ્વિક ફ્લોર પર તાણ નાખ્યો હતો.',
+    s8HighlightTitle: 'વ્યક્તિગત સંભાળ મદદરૂપ થઈ શકે',
+    s8HighlightText:
+      'નોંધપાત્ર ચીરો, દુખાવો, પેશાબ કે આંતરડા સંબંધી લક્ષણો અથવા સતત મુશ્કેલીઓના કિસ્સામાં, આરોગ્ય વ્યાવસાયિક સાથે તપાસ ખાસ મદદરૂપ થઈ શકે છે.',
+
+    s9Heading: 'ધીમે ધીમે રમતગમત ફરી શરૂ કરવી',
+    s9Body1:
+      'પ્રસૂતિ પછી હલનચલન ફરી શરૂ કરવું ધીમે ધીમે થવું જોઈએ. ચાલવું અને હળવાં હલનચલન સામાન્ય રીતે તમને કેવું લાગે છે તેના આધારે ફરી શરૂ કરી શકાય, જ્યારે વધુ ઝટકાવાળી પ્રવૃત્તિઓ માટે વધુ સાવચેતીની જરૂર છે.',
+    s9Body2:
+      'દોડવું, કૂદવું કે ખૂબ તીવ્ર કસરત ફરી શરૂ કરતાં પહેલાં, પેલ્વિક ફ્લોરની સ્વસ્થતાનું મૂલ્યાંકન કરવું અને કોઈપણ લક્ષણોને ધ્યાનમાં લેવાં સારું છે.',
+    s9AlertTitle: 'તબક્કાઓમાં ઉતાવળ ન કરો',
+    s9AlertText:
+      'કસરત દરમિયાન અથવા પછી પેશાબ લીક થવો, ભારેપણાની લાગણી અથવા દુખાવો એ સંકેત છે કે તમારે ધીમા પડવું જોઈએ અને તીવ્રતા વધારતાં પહેલાં સલાહ લેવી જોઈએ.',
+
+    s10Heading: 'નિષ્ણાતને ક્યારે મળવું?',
+    s10Body1:
+      'જો તમને ખાતરી ન હોય કે તમે સાચી રીતે સંકોચન કરી રહ્યાં છો કે નહીં, જો તમારાં લક્ષણો ચાલુ રહે, અથવા જો તમે આત્મવિશ્વાસથી અમુક શારીરિક પ્રવૃત્તિઓ ફરી શરૂ કરવા ઇચ્છતાં હો, તો મિડવાઇફ અથવા ફિઝિયોથેરપિસ્ટ સાથે પેલ્વિક ફ્લોરનું પુનર્વસન મદદરૂપ થઈ શકે છે.',
+    questionCardTitle: 'પૂછવા જેવા ઉપયોગી પ્રશ્નો',
+    appointmentQuestions: [
+      'શું મારાં લક્ષણો પેલ્વિક ફ્લોરની નબળાઈ સાથે સુસંગત છે?',
+      'શું હું સંકોચન સાચી રીતે કરી રહી છું?',
+      'મારે રોજ કેટલી વાર પુનરાવર્તન કરવાં જોઈએ?',
+      'શું હું દોડવા, રમતગમત કે વધુ ઝટકાવાળી કસરત પર પાછી ફરી શકું?',
+      'શું મને મિડવાઇફ અથવા ફિઝિયોથેરપિસ્ટ સાથે પુનર્વસનની જરૂર છે?',
+      'શું મારા ઘા, ચીરા કે સિઝેરિયન માટે કોઈ ખાસ સાવચેતી જરૂરી છે?',
+    ],
+    s10TipTitle: 'જાણવા જેવું',
+    s10TipText:
+      'વ્યાવસાયિકને મળવાનો અર્થ એવો નથી કે કંઈક ખોટું છે. એક સત્ર તમારી પદ્ધતિ ચકાસવામાં, તમારી સ્વસ્થતાનું મૂલ્યાંકન કરવામાં અને સાચી રીતે આગળ વધતાં શીખવામાં મદદ કરી શકે છે.',
+
+    s11Heading: 'સમય લેતી સ્વસ્થતા',
+    s11Body1:
+      'પ્રસૂતિ પછી, ગર્ભાવસ્થા પહેલાં હતી તેવી સંવેદના કે સ્નાયુઓની શક્તિ તરત પાછી ન મળે તે સામાન્ય છે.',
+    s11Body2:
+      'લક્ષ્ય બને તેટલાં વધુ સંકોચન કરવાનું નથી. તે સંકોચન અને હળવા થવા વચ્ચે સારો તાલમેલ ધીમે ધીમે પાછો મેળવવાનું છે, અને પછી રોજિંદી પ્રવૃત્તિઓમાં આ સ્નાયુઓનો સહજ રીતે ઉપયોગ કરી શકવાનું છે.',
+    s11HighlightTitle: 'નાની પ્રગતિ પણ સાચી પ્રગતિ છે',
+    s11HighlightText:
+      'હલનચલનની વધુ સારી જાગૃતિ, સંકોચનમાં થોડી સેકન્ડનો વધારો, અથવા પેશાબ લીક થવામાં ઘટાડો — આ બધાં પહેલેથી જ પ્રોત્સાહક સંકેતો છે.',
+
+    s12Heading: 'મુખ્ય મુદ્દા',
+    summaryTitle: 'આવશ્યક મુદ્દા',
+    summaryItems: [
+      'ગર્ભાવસ્થા અને પ્રસૂતિ પેલ્વિક ફ્લોર પર નોંધપાત્ર તાણ નાખે છે.',
+      'પ્રસૂતિ પછી ધીમે ધીમે સ્વસ્થ થવું સામાન્ય છે.',
+      'કસરતોમાં શક્તિ કરતાં હલનચલનની ગુણવત્તાને પ્રાધાન્ય આપવું જોઈએ.',
+      'શ્વાસ અને હળવા થવું સંકોચન જેટલું જ મહત્વનું છે.',
+      'પેશાબ લીક થવો, ભારેપણું અથવા સતત દુખાવા માટે વ્યાવસાયિકનો અભિપ્રાય લેવો જોઈએ.',
+      'મિડવાઇફ અથવા ફિઝિયોથેરપિસ્ટ સાથેનું પુનર્વસન તમને વધુ સારું નિયંત્રણ પાછું મેળવવામાં મદદ કરી શકે છે.',
+      'રમતગમતમાં પાછા ફરવું ધીમે ધીમે થવું જોઈએ, ખાસ કરીને વધુ ઝટકાવાળી પ્રવૃત્તિઓ માટે.',
+    ],
+
+    finalTipTitle: 'સ્વસ્થ થવા માટે સમય લો',
+    finalTipText:
+      'પ્રસૂતિ પછી તમારા શરીરમાં ઘણા ફેરફારો થયા છે. પેરિનિયમ પણ તમારા શરીરના બાકીના ભાગ જેટલું જ ધ્યાન માગે છે: ધીમે ધીમે, નિયમિત રીતે અને કોઈ દબાણ વિના.',
+
+    disclaimerText:
+      'આ લેખ ફક્ત માહિતી માટે છે અને વ્યક્તિગત તબીબી સલાહનું સ્થાન લેતો નથી. જો તમને દુખાવો થાય, લક્ષણો ચાલુ રહે અથવા તમારી સ્વસ્થતા અંગે કોઈ ચિંતા હોય, તો આરોગ્ય વ્યાવસાયિકની સલાહ લો.',
+  },
+  pa: {
+    badge: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ • ਸਿਹਤਯਾਬੀ',
+    title: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਪਣੇ ਪੇਲਵਿਕ ਫਲੋਰ\nਨੂੰ ਮਜ਼ਬੂਤ ਕਰਨਾ',
+    metaDuration: '8 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਗਰਭ-ਅਵਸਥਾ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਪੇਲਵਿਕ ਫਲੋਰ ਨੂੰ ਠੀਕ ਹੋਣ ਲਈ ਸਮਾਂ ਚਾਹੀਦਾ ਹੈ। ਸਰਲ, ਨਿਯਮਿਤ ਅਤੇ ਹੌਲੀ-ਹੌਲੀ ਵਧਦੀਆਂ ਕਸਰਤਾਂ ਤੁਹਾਨੂੰ ਤਾਕਤ, ਕੰਟਰੋਲ ਅਤੇ ਭਰੋਸਾ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀਆਂ ਹਨ, ਚੀਜ਼ਾਂ ਨੂੰ ਜਲਦੀ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੇ ਬਿਨਾਂ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਪੇਰੀਨੀਅਮ ਦੀ ਭੂਮਿਕਾ ਨੂੰ ਸਮਝਣਾ',
+      'ਜਣੇਪਾ ਇਸ \'ਤੇ ਦਬਾਅ ਕਿਉਂ ਪਾਉਂਦਾ ਹੈ',
+      'ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਬਹਾਲੀ ਕਦੋਂ ਸ਼ੁਰੂ ਕਰਨੀ ਹੈ',
+      'ਸਹੀ ਢੰਗ ਨਾਲ ਸੁੰਗੜਨਾ ਸਿੱਖਣਾ',
+      'ਹੌਲੀ-ਹੌਲੀ ਵਧਦੀ ਰੁਟੀਨ ਬਣਾਉਣਾ',
+      'ਬਚਣ ਵਾਲੀਆਂ ਗ਼ਲਤੀਆਂ',
+      'ਮਦਦ ਕਦੋਂ ਮੰਗਣੀ ਹੈ',
+      'ਖੇਡ ਜਾਂ ਕਸਰਤ ਹੌਲੀ-ਹੌਲੀ ਮੁੜ ਸ਼ੁਰੂ ਕਰਨਾ',
+      'ਮੁਲਾਕਾਤ ਦੀ ਤਿਆਰੀ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    shareMessage: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਪਣੇ ਪੇਲਵਿਕ ਫਲੋਰ ਨੂੰ ਮਜ਼ਬੂਤ ਕਰਨਾ — AWA',
+
+    s1Heading: 'ਪੇਰੀਨੀਅਮ ਦੀ ਭੂਮਿਕਾ ਨੂੰ ਸਮਝਣਾ',
+    s1Body1:
+      'ਪੇਰੀਨੀਅਮ, ਜਿਸਨੂੰ ਪੇਲਵਿਕ ਫਲੋਰ ਵੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਪੇਡੂ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਵਿੱਚ ਸਥਿਤ ਮਾਸਪੇਸ਼ੀਆਂ ਦਾ ਇੱਕ ਸਮੂਹ ਹੈ। ਇਹ ਮੂਤਰ-ਥੈਲੀ ਅਤੇ ਆਂਦਰਾਂ ਦੇ ਕੰਟਰੋਲ ਵਿੱਚ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ ਅਤੇ ਪੇਡੂ ਦੇ ਅੰਗਾਂ ਨੂੰ ਸਹਾਰਾ ਦੇਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।',
+    s1Body2:
+      'ਗਰਭ-ਅਵਸਥਾ ਦੌਰਾਨ ਇਹਨਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਕਈ ਮਹੀਨਿਆਂ ਤੱਕ ਵਾਧੂ ਭਾਰ ਚੁੱਕਣਾ ਪੈਂਦਾ ਹੈ। ਜਣੇਪੇ ਦੌਰਾਨ ਵੀ ਇਹਨਾਂ \'ਤੇ ਕਾਫ਼ੀ ਦਬਾਅ ਪੈਂਦਾ ਹੈ।',
+    s1HighlightTitle: 'ਇੱਕ ਚੁੱਪ-ਚਾਪ ਪਰ ਜ਼ਰੂਰੀ ਮਾਸਪੇਸ਼ੀ',
+    s1HighlightText:
+      'ਪੇਲਵਿਕ ਫਲੋਰ ਕਈ ਰੋਜ਼ਾਨਾ ਕੰਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ: ਪਿਸ਼ਾਬ ਅਤੇ ਮਲ ਨੂੰ ਰੋਕਣਾ, ਗੈਸ ਨੂੰ ਕੰਟਰੋਲ ਕਰਨਾ, ਪੇਡੂ ਦੇ ਅੰਗਾਂ ਨੂੰ ਸਹਾਰਾ ਦੇਣਾ, ਅਤੇ ਕੁਝ ਜਿਨਸੀ ਕਾਰਜਾਂ ਵਿੱਚ ਭੂਮਿਕਾ ਨਿਭਾਉਣਾ।',
+
+    benefitsHeading: 'ਮਜ਼ਬੂਤ ਪੇਲਵਿਕ ਫਲੋਰ ਦੇ ਫ਼ਾਇਦੇ',
+    benefitsIntro:
+      'ਹੌਲੀ-ਹੌਲੀ ਅਤੇ ਸਹੀ ਢੰਗ ਨਾਲ ਕੀਤੀ ਮਜ਼ਬੂਤੀ ਪੇਲਵਿਕ ਫਲੋਰ ਦੇ ਕੰਟਰੋਲ ਅਤੇ ਸਹਾਰੇ ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'ਮੂਤਰ-ਥੈਲੀ ਦਾ ਬਿਹਤਰ ਕੰਟਰੋਲ',
+        text: 'ਪੇਲਵਿਕ ਫਲੋਰ ਮੂਤਰ-ਥੈਲੀ ਦੇ ਕੰਟਰੋਲ ਵਿੱਚ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ। ਇਸਨੂੰ ਹੌਲੀ-ਹੌਲੀ ਮਜ਼ਬੂਤ ਕਰਨ ਨਾਲ ਪਿਸ਼ਾਬ ਦੇ ਕੁਝ ਰਿਸਾਅ ਘਟਾਉਣ ਵਿੱਚ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।',
+      },
+      {
+        icon: 'toilet',
+        title: 'ਆਂਦਰਾਂ ਦੇ ਕੰਮ ਨੂੰ ਸਹਾਰਾ',
+        text: 'ਇਹ ਮਾਸਪੇਸ਼ੀਆਂ ਗੈਸ ਅਤੇ ਮਲ ਨੂੰ ਕੰਟਰੋਲ ਕਰਨ ਵਿੱਚ ਵੀ ਮਦਦ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਪੇਡੂ ਦੇ ਅੰਗਾਂ ਨੂੰ ਸਹਾਰਾ ਦੇਣ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਂਦੀਆਂ ਹਨ।',
+      },
+      {
+        icon: 'human-female',
+        title: 'ਪੇਡੂ ਦੇ ਅੰਗਾਂ ਨੂੰ ਸਹਾਰਾ',
+        text: 'ਪੇਲਵਿਕ ਫਲੋਰ ਮਾਸਪੇਸ਼ੀਆਂ ਦਾ ਇੱਕ ਸੱਚਾ ਆਧਾਰ ਬਣਾਉਂਦਾ ਹੈ ਜੋ ਮੂਤਰ-ਥੈਲੀ, ਬੱਚੇਦਾਨੀ ਅਤੇ ਆਂਦਰਾਂ ਨੂੰ ਸਹਾਰਾ ਦੇਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ਹੌਲੀ-ਹੌਲੀ ਅਹਿਸਾਸ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨਾ',
+        text: 'ਢੁਕਵੀਂ ਬਹਾਲੀ ਤੁਹਾਨੂੰ ਇਸ ਹਿੱਸੇ ਦੀ ਬਿਹਤਰ ਸਮਝ ਅਤੇ ਕੰਟਰੋਲ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਵੀ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।',
+      },
+    ],
+
+    s2Heading: 'ਗਰਭ-ਅਵਸਥਾ ਅਤੇ ਜਣੇਪਾ ਇਸ \'ਤੇ ਦਬਾਅ ਕਿਉਂ ਪਾਉਂਦੇ ਹਨ',
+    s2Body1:
+      'ਗਰਭ-ਅਵਸਥਾ ਹੌਲੀ-ਹੌਲੀ ਪੇਲਵਿਕ ਫਲੋਰ \'ਤੇ ਜ਼ਿਆਦਾ ਦਬਾਅ ਪਾਉਂਦੀ ਹੈ। ਯੋਨੀ ਰਾਹੀਂ ਜਣੇਪਾ ਫਿਰ ਇਸ ਹਿੱਸੇ ਦੀਆਂ ਮਾਸਪੇਸ਼ੀਆਂ ਅਤੇ ਟਿਸ਼ੂਆਂ ਨੂੰ ਕਾਫ਼ੀ ਖਿੱਚ ਸਕਦਾ ਹੈ।',
+    s2Body2:
+      'ਸੀਜ਼ੇਰੀਅਨ ਆਪ੍ਰੇਸ਼ਨ ਵੀ ਪੇਲਵਿਕ ਫਲੋਰ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਨਹੀਂ ਬਚਾਉਂਦਾ: ਗਰਭ-ਅਵਸਥਾ ਆਪਣੇ-ਆਪ ਵਿੱਚ ਇਹਨਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਲਈ ਇੱਕ ਅਹਿਮ ਦੌਰ ਰਹਿੰਦੀ ਹੈ।',
+    s2Body3:
+      'ਇਸ ਲਈ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਠੀਕ ਹੋਣ ਵਿੱਚ ਸਮਾਂ ਲੱਗਣਾ ਆਮ ਗੱਲ ਹੈ। ਕੁਝ ਔਰਤਾਂ ਨੂੰ ਲਗਭਗ ਕੋਈ ਲੱਛਣ ਮਹਿਸੂਸ ਨਹੀਂ ਹੁੰਦੇ, ਜਦਕਿ ਹੋਰਾਂ ਨੂੰ ਰਿਸਾਅ, ਭਾਰੀਪਣ ਦਾ ਅਹਿਸਾਸ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਦੇ ਕੰਟਰੋਲ ਵਿੱਚ ਕਮੀ ਮਹਿਸੂਸ ਹੋ ਸਕਦੀ ਹੈ।',
+    s2TipTitle: 'ਹਰ ਸਿਹਤਯਾਬੀ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ',
+    s2TipText:
+      'ਜਣੇਪੇ ਦੀ ਕਿਸਮ, ਚੀਰਾ ਜਾਂ ਐਪੀਸੀਓਟੋਮੀ, ਦਰਦ ਦੀ ਮੌਜੂਦਗੀ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਤੁਹਾਡੀ ਆਮ ਹਾਲਤ, ਇਹ ਸਭ ਸਿਹਤਯਾਬੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੇ ਹਨ।',
+
+    s3Heading: 'ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਬਹਾਲੀ ਕਦੋਂ ਸ਼ੁਰੂ ਕਰਨੀ ਹੈ?',
+    s3Body1:
+      'ਬਿਨਾਂ ਪੇਚੀਦਗੀ ਵਾਲੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ, ਪੇਲਵਿਕ ਫਲੋਰ ਦੇ ਹਲਕੇ ਸੁੰਗੜਾਅ ਆਮ ਤੌਰ \'ਤੇ ਹੌਲੀ-ਹੌਲੀ ਮੁੜ ਸ਼ੁਰੂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ। ਕਸਰਤਾਂ ਨੂੰ ਆਪਣੀ ਸਥਿਤੀ ਮੁਤਾਬਕ ਢਾਲਣਾ ਅਤੇ ਜੇ ਕੋਈ ਪੇਚੀਦਗੀ, ਤੇਜ਼ ਦਰਦ ਜਾਂ ਕੋਈ ਖ਼ਾਸ ਪ੍ਰਕਿਰਿਆ ਹੋਈ ਹੋਵੇ ਤਾਂ ਸਲਾਹ ਲੈਣਾ ਜ਼ਰੂਰੀ ਰਹਿੰਦਾ ਹੈ।',
+    s3Body2:
+      'ਜੇ ਤੁਹਾਡੇ ਪਿਸ਼ਾਬ ਦੀ ਨਲੀ (ਕੈਥੀਟਰ) ਲੱਗੀ ਹੋਵੇ, ਤਾਂ ਕੁਝ ਸਿਫ਼ਾਰਸ਼ਾਂ ਮੁਤਾਬਕ ਪੇਰੀਨੀਅਮ ਦੀਆਂ ਕਸਰਤਾਂ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇਸਦੇ ਹਟਣ ਅਤੇ ਆਮ ਪਿਸ਼ਾਬ ਮੁੜ ਸ਼ੁਰੂ ਹੋਣ ਦੀ ਉਡੀਕ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ।',
+    s3AlertTitle: 'ਦਰਦ ਦੇ ਬਾਵਜੂਦ ਜ਼ੋਰ ਨਾ ਲਗਾਓ',
+    s3AlertText:
+      'ਤੇਜ਼ ਦਰਦ, ਲੱਛਣਾਂ ਦਾ ਵਿਗੜਨਾ, ਟਾਂਕਿਆਂ ਦਾ ਠੀਕ ਤਰ੍ਹਾਂ ਨਾ ਭਰਨਾ, ਜਾਂ ਕੋਈ ਵੀ ਖ਼ਾਸ ਚਿੰਤਾ ਹੋਵੇ ਤਾਂ ਮਿਡਵਾਈਫ਼, ਡਾਕਟਰ ਜਾਂ ਬਹਾਲੀ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ।',
+
+    s4Heading: 'ਸਹੀ ਢੰਗ ਨਾਲ ਸੁੰਗੜਨਾ ਸਿੱਖਣਾ',
+    s4Body1:
+      'ਇਸ ਹਰਕਤ ਨੂੰ ਪਛਾਣਨ ਲਈ, ਕਲਪਨਾ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕੋ ਸਮੇਂ ਗੈਸ ਅਤੇ ਪਿਸ਼ਾਬ ਦੀ ਲੋੜ ਨੂੰ ਰੋਕ ਰਹੇ ਹੋ। ਜਿਸ ਹਰਕਤ ਦੀ ਤੁਸੀਂ ਭਾਲ ਕਰ ਰਹੇ ਹੋ, ਉਹ ਅੰਦਰ ਵੱਲ ਸੁੰਗੜਨ ਅਤੇ ਉੱਪਰ ਖਿੱਚਣ ਦਾ ਅਹਿਸਾਸ ਹੈ।',
+    s4Body2:
+      'ਟੀਚਾ ਆਪਣੇ ਸਾਰੇ ਸਰੀਰ ਨੂੰ ਕੱਸ ਕੇ ਤਣਨਾ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੇ ਚੂਲ੍ਹੇ, ਪੱਟ ਅਤੇ ਪੇਟ ਦੀਆਂ ਮਾਸਪੇਸ਼ੀਆਂ ਜਿੰਨਾ ਹੋ ਸਕੇ ਢਿੱਲੀਆਂ ਰਹਿਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ, ਜਦਕਿ ਸਾਹ ਆਮ ਵਾਂਗ ਚੱਲਦਾ ਰਹੇ।',
+    exercises: [
+      {icon: 'weather-windy', label: 'ਸਾਹ ਲੈਣਾ'},
+      {icon: 'human-handsup', label: 'ਹਲਕਾ ਸੁੰਗੜਾਅ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ਲੰਮਾ ਸੁੰਗੜਾਅ'},
+      {icon: 'gesture-tap-button', label: 'ਤੇਜ਼ ਸੁੰਗੜਾਅ'},
+    ],
+    s4HighlightTitle: 'ਢਿੱਲਾ ਛੱਡਣਾ ਵੀ ਓਨਾ ਹੀ ਜ਼ਰੂਰੀ ਹੈ',
+    s4HighlightText:
+      'ਹਰ ਸੁੰਗੜਾਅ ਤੋਂ ਬਾਅਦ ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਢਿੱਲਾ ਛੱਡ ਦਿਓ। ਚੰਗੀ ਬਹਾਲੀ ਦਾ ਮਤਲਬ ਪੇਰੀਨੀਅਮ ਨੂੰ ਸਾਰਾ ਦਿਨ ਸੁੰਗੜਿਆ ਰੱਖਣਾ ਨਹੀਂ ਹੈ।',
+
+    s5Heading: 'ਹੌਲੀ-ਹੌਲੀ ਵਧਦੀ ਰੁਟੀਨ ਬਣਾਉਣਾ',
+    s5Body1:
+      'ਸ਼ੁਰੂ ਵਿੱਚ ਸਭ ਤੋਂ ਜ਼ਰੂਰੀ ਗੱਲ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਪਛਾਣ ਕਰਨਾ ਅਤੇ ਹਰਕਤ ਸਹੀ ਢੰਗ ਨਾਲ ਕਰਨਾ ਸਿੱਖਣਾ ਹੈ। ਲਗਾਤਾਰਤਾ ਤੀਬਰਤਾ ਨਾਲੋਂ ਜ਼ਿਆਦਾ ਮਹੱਤਵਪੂਰਨ ਹੈ।',
+    s5h3a: 'ਲੰਮੇ ਸੁੰਗੜਾਅ',
+    s5Body2:
+      'ਪੇਲਵਿਕ ਫਲੋਰ ਨੂੰ ਹੌਲੀ ਜਿਹੇ ਅੰਦਰ ਵੱਲ ਖਿੱਚੋ, ਫਿਰ ਸਾਹ ਰੋਕੇ ਬਿਨਾਂ ਕੁਝ ਸਕਿੰਟਾਂ ਲਈ ਸੁੰਗੜਾਅ ਨੂੰ ਫੜੀ ਰੱਖੋ। ਫਿਰ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੀ ਤਰ੍ਹਾਂ ਢਿੱਲਾ ਛੱਡ ਦਿਓ।',
+    s5h3b: 'ਛੋਟੇ ਸੁੰਗੜਾਅ',
+    s5Body3:
+      'ਜਦੋਂ ਹਰਕਤ ਵਿੱਚ ਮੁਹਾਰਤ ਆ ਜਾਵੇ, ਤਾਂ ਛੋਟੇ ਤੇਜ਼ ਸੁੰਗੜਾਅ ਜੋੜੇ ਜਾ ਸਕਦੇ ਹਨ। ਇਹ ਪੇਟ ਦਾ ਦਬਾਅ ਵਧਣ \'ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਤੇਜ਼ੀ ਨਾਲ ਸੁੰਗੜਨ ਦੀ ਸਮਰੱਥਾ ਨੂੰ ਸਿਖਲਾਈ ਦੇਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ, ਜਿਵੇਂ ਖੰਘਣ ਜਾਂ ਛਿੱਕਣ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ।',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ਕਸਰਤਾਂ ਨੂੰ ਕਿਸੇ ਰੋਜ਼ਾਨਾ ਆਦਤ ਨਾਲ ਜੋੜੋ'},
+      {icon: 'human-sitting', label: 'ਆਰਾਮਦਾਇਕ ਸਥਿਤੀ ਵਿੱਚ ਸ਼ੁਰੂ ਕਰੋ'},
+      {icon: 'weather-windy', label: 'ਸੁੰਗੜਾਅ ਦੌਰਾਨ ਆਮ ਵਾਂਗ ਸਾਹ ਲਓ'},
+      {icon: 'sleep', label: 'ਢਿੱਲੇ ਛੱਡਣ ਦੇ ਪੜਾਵਾਂ ਦਾ ਧਿਆਨ ਰੱਖੋ'},
+      {icon: 'chart-line', label: 'ਹੌਲੀ-ਹੌਲੀ ਮੁਸ਼ਕਲ ਵਧਾਓ'},
+      {icon: 'doctor', label: 'ਯਕੀਨ ਨਾ ਹੋਵੇ ਤਾਂ ਸਲਾਹ ਲਓ'},
+    ],
+    s5TipTitle: 'ਸਭ ਤੋਂ ਵੱਧ ਲਗਾਤਾਰਤਾ',
+    s5TipText:
+      'ਕਸਰਤਾਂ ਨੂੰ ਆਪਣੇ ਦਿਨ ਦੀ ਕਿਸੇ ਮੌਜੂਦਾ ਆਦਤ ਨਾਲ ਜੋੜਨ ਨਾਲ ਲਗਾਤਾਰ ਕਰਨਾ ਆਸਾਨ ਹੋ ਸਕਦਾ ਹੈ: ਦੁੱਧ ਪਿਲਾਉਣ ਤੋਂ ਬਾਅਦ, ਦੰਦ ਸਾਫ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ, ਜਾਂ ਕਿਸੇ ਹੋਰ ਸਮੇਂ ਜੋ ਤੁਹਾਨੂੰ ਠੀਕ ਲੱਗੇ।',
+
+    s6Heading: 'ਬਚਣ ਵਾਲੀਆਂ ਆਮ ਗ਼ਲਤੀਆਂ',
+    s6Body1:
+      'ਪੇਰੀਨੀਅਮ ਦੀਆਂ ਕਸਰਤਾਂ ਸਰਲ ਲੱਗ ਸਕਦੀਆਂ ਹਨ, ਪਰ ਹੋਰ ਮਾਸਪੇਸ਼ੀਆਂ ਨਾਲ ਭਰਪਾਈ ਕਰ ਲੈਣਾ ਜਾਂ ਬਹੁਤ ਜ਼ੋਰ ਲਗਾ ਦੇਣਾ ਆਸਾਨ ਹੈ।',
+    commonMistakes: [
+      'ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਥਾਂ ਚੂਲ੍ਹਿਆਂ ਜਾਂ ਪੱਟਾਂ ਨੂੰ ਕੱਸਣਾ',
+      'ਸੁੰਗੜਾਅ ਦੌਰਾਨ ਸਾਹ ਰੋਕਣਾ',
+      'ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਢਿੱਲਾ ਛੱਡੇ ਬਿਨਾਂ ਲਗਾਤਾਰ ਸੁੰਗੜਿਆ ਰੱਖਣਾ',
+      'ਕਸਰਤਾਂ ਸਿਰਫ਼ ਕੁਝ ਦਿਨ ਕਰਕੇ ਫਿਰ ਛੱਡ ਦੇਣਾ',
+      'ਸੁੰਗੜਾਅ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਜਾਣਬੁੱਝ ਕੇ ਪਿਸ਼ਾਬ ਦੀ ਧਾਰ ਰੋਕਣਾ',
+    ],
+    s6TipTitle: 'ਕੀ ਨਹੀਂ ਕਰਨਾ ਚਾਹੀਦਾ',
+    s6TipText:
+      'ਜਾਣਬੁੱਝ ਕੇ ਪਿਸ਼ਾਬ ਦੀ ਧਾਰ ਰੋਕ ਕੇ ਕਸਰਤਾਂ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ। ਇਹ ਤਰੀਕਾ ਪੇਰੀਨੀਅਮ ਨੂੰ ਸਹੀ ਢੰਗ ਨਾਲ ਸਿਖਲਾਈ ਨਹੀਂ ਦਿੰਦਾ ਅਤੇ ਮੂਤਰ-ਥੈਲੀ ਦੇ ਆਮ ਕੰਮ ਵਿੱਚ ਗੜਬੜ ਪੈਦਾ ਕਰ ਸਕਦਾ ਹੈ।',
+
+    s7Heading: 'ਕਿਹੜੇ ਲੱਛਣਾਂ ਕਾਰਨ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ?',
+    s7Body1:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਕਈ ਵਾਰ ਹਲਕੇ ਰਿਸਾਅ ਜਾਂ ਅਸਾਧਾਰਨ ਅਹਿਸਾਸ ਹੋ ਸਕਦੇ ਹਨ। ਪਰ ਜੇ ਇਹ ਬਣੇ ਰਹਿਣ, ਵਿਗੜਨ ਜਾਂ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਜ਼ਿੰਦਗੀ ਵਿੱਚ ਰੁਕਾਵਟ ਪਾਉਣ, ਤਾਂ ਇਹਨਾਂ ਨੂੰ ਅਣਦੇਖਿਆ ਨਹੀਂ ਕਰਨਾ ਚਾਹੀਦਾ।',
+    warningSigns: [
+      'ਖੰਘਣ, ਛਿੱਕਣ, ਹੱਸਣ ਜਾਂ ਜ਼ੋਰ ਲਗਾਉਣ \'ਤੇ ਪਿਸ਼ਾਬ ਦਾ ਰਿਸਾਅ',
+      'ਹੇਠਲੇ ਪੇਡੂ ਵਿੱਚ ਭਾਰੀਪਣ ਜਾਂ ਦਬਾਅ ਦਾ ਅਹਿਸਾਸ',
+      'ਇਹ ਅਹਿਸਾਸ ਕਿ ਯੋਨੀ ਵਿੱਚ ਕੋਈ ਗੰਢ ਜਾਂ ਕੋਈ ਚੀਜ਼ ਹੇਠਾਂ ਆ ਰਹੀ ਹੈ',
+      'ਗੈਸ ਜਾਂ ਮਲ ਨੂੰ ਰੋਕਣ ਵਿੱਚ ਮੁਸ਼ਕਲ',
+      'ਪੇਰੀਨੀਅਮ ਵਿੱਚ ਲਗਾਤਾਰ ਦਰਦ',
+      'ਜਿਨਸੀ ਸੰਬੰਧ ਦੌਰਾਨ ਜਾਂ ਬਾਅਦ ਵਿੱਚ ਦਰਦ',
+      'ਪੇਰੀਨੀਅਮ ਦੀਆਂ ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਪਛਾਣਨ ਜਾਂ ਸਹੀ ਢੰਗ ਨਾਲ ਸੁੰਗੜਨ ਵਿੱਚ ਮੁਸ਼ਕਲ',
+    ],
+    consultLabel: 'ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ?',
+    s7Body2:
+      'ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਬਹਾਲੀ ਦੀ ਮਾਹਿਰ ਮਿਡਵਾਈਫ਼, ਡਾਕਟਰ ਜਾਂ ਫਿਜ਼ੀਓਥੈਰੇਪਿਸਟ ਮਾਸਪੇਸ਼ੀਆਂ ਦੇ ਕੰਮ ਦੀ ਜਾਂਚ ਕਰ ਸਕਦੇ ਹਨ ਅਤੇ ਢੁਕਵਾਂ ਪ੍ਰੋਗਰਾਮ ਸੁਝਾ ਸਕਦੇ ਹਨ।',
+
+    s8Heading: 'ਅਤੇ ਚੀਰੇ, ਐਪੀਸੀਓਟੋਮੀ ਜਾਂ ਸੀਜ਼ੇਰੀਅਨ ਤੋਂ ਬਾਅਦ?',
+    s8Body1:
+      'ਚੀਰੇ ਜਾਂ ਐਪੀਸੀਓਟੋਮੀ ਵਿੱਚ ਠੀਕ ਹੋਣ ਦੌਰਾਨ ਖ਼ਾਸ ਧਿਆਨ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ। ਸਰਗਰਮੀਆਂ ਮੁੜ ਸ਼ੁਰੂ ਕਰਦੇ ਸਮੇਂ ਦਰਦ, ਜ਼ਖ਼ਮ ਦੀ ਹਾਲਤ ਅਤੇ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਮਿਲੀਆਂ ਹਦਾਇਤਾਂ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ।',
+    s8Body2:
+      'ਸੀਜ਼ੇਰੀਅਨ ਤੋਂ ਬਾਅਦ ਸਿਹਤਯਾਬੀ ਵਿੱਚ ਪੇਟ ਦੀ ਕੰਧ ਅਤੇ ਟਾਂਕਿਆਂ ਦਾ ਨਿਸ਼ਾਨ ਵੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ। ਭਾਵੇਂ ਜਣੇਪਾ ਯੋਨੀ ਰਾਹੀਂ ਨਹੀਂ ਹੋਇਆ, ਗਰਭ-ਅਵਸਥਾ ਨੇ ਫਿਰ ਵੀ ਪੇਲਵਿਕ ਫਲੋਰ \'ਤੇ ਦਬਾਅ ਪਾਇਆ ਹੁੰਦਾ ਹੈ।',
+    s8HighlightTitle: 'ਨਿੱਜੀ ਦੇਖਭਾਲ ਮਦਦਗਾਰ ਹੋ ਸਕਦੀ ਹੈ',
+    s8HighlightText:
+      'ਵੱਡੇ ਚੀਰੇ, ਦਰਦ, ਪਿਸ਼ਾਬ ਜਾਂ ਆਂਦਰਾਂ ਦੇ ਲੱਛਣਾਂ, ਜਾਂ ਲਗਾਤਾਰ ਮੁਸ਼ਕਲਾਂ ਦੀ ਸਥਿਤੀ ਵਿੱਚ, ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਜਾਂਚ ਖ਼ਾਸ ਤੌਰ \'ਤੇ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦੀ ਹੈ।',
+
+    s9Heading: 'ਖੇਡ ਜਾਂ ਕਸਰਤ ਹੌਲੀ-ਹੌਲੀ ਮੁੜ ਸ਼ੁਰੂ ਕਰਨਾ',
+    s9Body1:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਹਿਲਜੁਲ ਹੌਲੀ-ਹੌਲੀ ਮੁੜ ਸ਼ੁਰੂ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ। ਸੈਰ ਅਤੇ ਹਲਕੀਆਂ ਹਰਕਤਾਂ ਆਮ ਤੌਰ \'ਤੇ ਤੁਹਾਡੇ ਮਹਿਸੂਸ ਕਰਨ ਮੁਤਾਬਕ ਮੁੜ ਸ਼ੁਰੂ ਹੋ ਸਕਦੀਆਂ ਹਨ, ਜਦਕਿ ਜ਼ੋਰਦਾਰ ਝਟਕੇ ਵਾਲੀਆਂ ਸਰਗਰਮੀਆਂ ਵਿੱਚ ਜ਼ਿਆਦਾ ਸਾਵਧਾਨੀ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।',
+    s9Body2:
+      'ਦੌੜਨ, ਛਾਲਾਂ ਮਾਰਨ ਜਾਂ ਬਹੁਤ ਤੀਬਰ ਕਸਰਤ ਮੁੜ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ, ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਸਿਹਤਯਾਬੀ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨਾ ਅਤੇ ਕਿਸੇ ਵੀ ਲੱਛਣ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖਣਾ ਬਿਹਤਰ ਹੈ।',
+    s9AlertTitle: 'ਪੜਾਵਾਂ ਵਿੱਚ ਜਲਦਬਾਜ਼ੀ ਨਾ ਕਰੋ',
+    s9AlertText:
+      'ਕਸਰਤ ਦੌਰਾਨ ਜਾਂ ਬਾਅਦ ਵਿੱਚ ਰਿਸਾਅ, ਭਾਰੀਪਣ ਦਾ ਅਹਿਸਾਸ ਜਾਂ ਦਰਦ ਇਸ ਗੱਲ ਦੇ ਸੰਕੇਤ ਹਨ ਕਿ ਤੁਹਾਨੂੰ ਰਫ਼ਤਾਰ ਘਟਾਉਣੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ ਤੀਬਰਤਾ ਵਧਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ।',
+
+    s10Heading: 'ਮਾਹਿਰ ਨੂੰ ਕਦੋਂ ਮਿਲਣਾ ਹੈ?',
+    s10Body1:
+      'ਮਿਡਵਾਈਫ਼ ਜਾਂ ਫਿਜ਼ੀਓਥੈਰੇਪਿਸਟ ਨਾਲ ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਬਹਾਲੀ ਮਦਦਗਾਰ ਹੋ ਸਕਦੀ ਹੈ ਜੇ ਤੁਹਾਨੂੰ ਯਕੀਨ ਨਹੀਂ ਕਿ ਤੁਸੀਂ ਸਹੀ ਢੰਗ ਨਾਲ ਸੁੰਗੜ ਰਹੇ ਹੋ, ਜੇ ਤੁਹਾਡੇ ਲੱਛਣ ਬਣੇ ਰਹਿਣ, ਜਾਂ ਜੇ ਤੁਸੀਂ ਕੁਝ ਸਰੀਰਕ ਸਰਗਰਮੀਆਂ ਭਰੋਸੇ ਨਾਲ ਮੁੜ ਸ਼ੁਰੂ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।',
+    questionCardTitle: 'ਪੁੱਛਣ ਲਈ ਮਦਦਗਾਰ ਸਵਾਲ',
+    appointmentQuestions: [
+      'ਕੀ ਮੇਰੇ ਲੱਛਣ ਪੇਲਵਿਕ ਫਲੋਰ ਦੀ ਕਮਜ਼ੋਰੀ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ?',
+      'ਕੀ ਮੈਂ ਸੁੰਗੜਾਅ ਸਹੀ ਢੰਗ ਨਾਲ ਕਰ ਰਹੀ ਹਾਂ?',
+      'ਮੈਨੂੰ ਹਰ ਰੋਜ਼ ਕਿੰਨੀ ਵਾਰ ਦੁਹਰਾਉਣਾ ਚਾਹੀਦਾ ਹੈ?',
+      'ਕੀ ਮੈਂ ਦੌੜਨ, ਖੇਡ ਜਾਂ ਝਟਕੇ ਵਾਲੀ ਕਸਰਤ ਮੁੜ ਸ਼ੁਰੂ ਕਰ ਸਕਦੀ ਹਾਂ?',
+      'ਕੀ ਮੈਨੂੰ ਮਿਡਵਾਈਫ਼ ਜਾਂ ਫਿਜ਼ੀਓਥੈਰੇਪਿਸਟ ਨਾਲ ਬਹਾਲੀ ਦੀ ਲੋੜ ਹੈ?',
+      'ਕੀ ਮੇਰੇ ਟਾਂਕਿਆਂ ਦੇ ਨਿਸ਼ਾਨ, ਚੀਰੇ ਜਾਂ ਸੀਜ਼ੇਰੀਅਨ ਲਈ ਕਿਸੇ ਖ਼ਾਸ ਸਾਵਧਾਨੀ ਦੀ ਲੋੜ ਹੈ?',
+    ],
+    s10TipTitle: 'ਜਾਣਨ ਯੋਗ',
+    s10TipText:
+      'ਮਾਹਿਰ ਨੂੰ ਮਿਲਣ ਦਾ ਮਤਲਬ ਜ਼ਰੂਰੀ ਨਹੀਂ ਕਿ ਕੁਝ ਗ਼ਲਤ ਹੈ। ਇੱਕ ਮੁਲਾਕਾਤ ਸਿਰਫ਼ ਤੁਹਾਡੇ ਤਰੀਕੇ ਦੀ ਜਾਂਚ ਕਰਨ, ਤੁਹਾਡੀ ਸਿਹਤਯਾਬੀ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਅਤੇ ਸਹੀ ਢੰਗ ਨਾਲ ਅੱਗੇ ਵਧਣਾ ਸਿੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।',
+
+    s11Heading: 'ਇੱਕ ਸਿਹਤਯਾਬੀ ਜਿਸ ਵਿੱਚ ਸਮਾਂ ਲੱਗਦਾ ਹੈ',
+    s11Body1:
+      'ਬੱਚੇ ਨੂੰ ਜਨਮ ਦੇਣ ਤੋਂ ਬਾਅਦ, ਗਰਭ-ਅਵਸਥਾ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲੇ ਅਹਿਸਾਸ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਤਾਕਤ ਦਾ ਤੁਰੰਤ ਵਾਪਸ ਨਾ ਆਉਣਾ ਆਮ ਗੱਲ ਹੈ।',
+    s11Body2:
+      'ਟੀਚਾ ਵੱਧ ਤੋਂ ਵੱਧ ਸੁੰਗੜਾਅ ਕਰਨਾ ਨਹੀਂ ਹੈ। ਇਹ ਸੁੰਗੜਾਅ ਅਤੇ ਢਿੱਲ ਵਿਚਕਾਰ ਚੰਗਾ ਤਾਲਮੇਲ ਹੌਲੀ-ਹੌਲੀ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਬਾਰੇ ਜ਼ਿਆਦਾ ਹੈ, ਅਤੇ ਫਿਰ ਇਹਨਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਨੂੰ ਰੋਜ਼ਾਨਾ ਕੰਮਾਂ ਵਿੱਚ ਕੁਦਰਤੀ ਢੰਗ ਨਾਲ ਵਰਤਣ ਦੇ ਯੋਗ ਹੋਣਾ।',
+    s11HighlightTitle: 'ਛੋਟੀ ਤਰੱਕੀ ਵੀ ਅਸਲ ਤਰੱਕੀ ਹੈ',
+    s11HighlightText:
+      'ਹਰਕਤ ਦੀ ਬਿਹਤਰ ਸਮਝ, ਸੁੰਗੜਾਅ ਵਿੱਚ ਕੁਝ ਵਾਧੂ ਸਕਿੰਟ, ਜਾਂ ਰਿਸਾਅ ਵਿੱਚ ਕਮੀ ਪਹਿਲਾਂ ਹੀ ਹੌਸਲਾ ਦੇਣ ਵਾਲੇ ਸੰਕੇਤ ਹਨ।',
+
+    s12Heading: 'ਮੁੱਖ ਨੁਕਤੇ',
+    summaryTitle: 'ਜ਼ਰੂਰੀ ਗੱਲਾਂ',
+    summaryItems: [
+      'ਗਰਭ-ਅਵਸਥਾ ਅਤੇ ਜਣੇਪਾ ਪੇਲਵਿਕ ਫਲੋਰ \'ਤੇ ਕਾਫ਼ੀ ਦਬਾਅ ਪਾਉਂਦੇ ਹਨ।',
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਹੌਲੀ-ਹੌਲੀ ਸਿਹਤਯਾਬੀ ਆਮ ਗੱਲ ਹੈ।',
+      'ਕਸਰਤਾਂ ਵਿੱਚ ਤਾਕਤ ਨਾਲੋਂ ਹਰਕਤ ਦੀ ਗੁਣਵੱਤਾ ਨੂੰ ਪਹਿਲ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ।',
+      'ਸਾਹ ਲੈਣਾ ਅਤੇ ਢਿੱਲ ਛੱਡਣਾ ਵੀ ਸੁੰਗੜਾਅ ਜਿੰਨਾ ਹੀ ਜ਼ਰੂਰੀ ਹੈ।',
+      'ਪਿਸ਼ਾਬ ਦਾ ਰਿਸਾਅ, ਭਾਰੀਪਣ ਜਾਂ ਲਗਾਤਾਰ ਦਰਦ ਮਾਹਿਰ ਦੀ ਰਾਇ ਦੇ ਹੱਕਦਾਰ ਹਨ।',
+      'ਮਿਡਵਾਈਫ਼ ਜਾਂ ਫਿਜ਼ੀਓਥੈਰੇਪਿਸਟ ਨਾਲ ਬਹਾਲੀ ਤੁਹਾਨੂੰ ਬਿਹਤਰ ਕੰਟਰੋਲ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।',
+      'ਖੇਡ ਜਾਂ ਕਸਰਤ ਵਿੱਚ ਵਾਪਸੀ ਹੌਲੀ-ਹੌਲੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਝਟਕੇ ਵਾਲੀਆਂ ਸਰਗਰਮੀਆਂ ਲਈ।',
+    ],
+
+    finalTipTitle: 'ਠੀਕ ਹੋਣ ਲਈ ਸਮਾਂ ਲਓ',
+    finalTipText:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਤੁਹਾਡਾ ਸਰੀਰ ਬਹੁਤ ਸਾਰੇ ਬਦਲਾਵਾਂ ਵਿੱਚੋਂ ਲੰਘਿਆ ਹੈ। ਪੇਰੀਨੀਅਮ ਵੀ ਤੁਹਾਡੇ ਬਾਕੀ ਸਰੀਰ ਜਿੰਨੇ ਹੀ ਧਿਆਨ ਦਾ ਹੱਕਦਾਰ ਹੈ: ਹੌਲੀ-ਹੌਲੀ, ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਅਤੇ ਬਿਨਾਂ ਦਬਾਅ ਦੇ।',
+
+    disclaimerText:
+      'ਇਹ ਲੇਖ ਸਿਰਫ਼ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦਾ। ਜੇ ਤੁਹਾਨੂੰ ਦਰਦ, ਲਗਾਤਾਰ ਲੱਛਣ ਹੋਣ, ਜਾਂ ਆਪਣੀ ਸਿਹਤਯਾਬੀ ਬਾਰੇ ਕੋਈ ਚਿੰਤਾ ਹੋਵੇ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਓ।',
+  },
+  my: {
+    badge: 'မီးဖွားပြီးနောက် • ပြန်လည်ကောင်းမွန်ခြင်း',
+    title: 'ကလေးမွေးဖွားပြီးနောက်\nတင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို ခိုင်ခံ့စေခြင်း',
+    metaDuration: 'ဖတ်ချိန် 8 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'ကိုယ်ဝန်ဆောင်ခြင်းနှင့် ကလေးမွေးဖွားပြီးနောက် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားများ ပြန်လည်ကောင်းမွန်လာရန် အချိန်လိုအပ်သည်။ ရိုးရှင်းပြီးပုံမှန်ပြုလုပ်သော အဆင့်ဆင့်လေ့ကျင့်ခန်းများသည် အရေးကြီးသည်များကို အလျင်စလို မလုပ်ဘဲ ခွန်အား၊ ထိန်းချုပ်နိုင်စွမ်းနှင့်ယုံကြည်မှုကို ပြန်လည်ရရှိစေရန် ကူညီနိုင်သည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ပေရီနီယမ်၏ အခန်းကဏ္ဍကို နားလည်ခြင်း',
+      'ကလေးမွေးဖွားခြင်းက ၎င်းကို အဘယ်ကြောင့် ဖိအားပေးသနည်း',
+      'တင်ပါးဆုံအောက်ပိုင်း ပြန်လည်ကျန်းမာစေရေးကို ဘယ်အချိန်စတင်မလဲ',
+      'မှန်ကန်စွာ ကျုံ့တတ်အောင် သင်ယူခြင်း',
+      'အဆင့်ဆင့် လေ့ကျင့်ခြင်း အစီအစဉ် တည်ဆောက်ခြင်း',
+      'ရှောင်ရှားသင့်သော အမှားများ',
+      'အကူအညီ ဘယ်အချိန်တောင်းသင့်သလဲ',
+      'အားကစားကို တဖြည်းဖြည်း ပြန်စခြင်း',
+      'ဆရာဝန်ချိန်းဆိုမှုအတွက် ပြင်ဆင်ခြင်း',
+      'အဓိကအချက်များ',
+    ],
+    shareMessage: 'ကလေးမွေးဖွားပြီးနောက် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို ခိုင်ခံ့စေခြင်း — AWA',
+
+    s1Heading: 'ပေရီနီယမ်၏ အခန်းကဏ္ဍကို နားလည်ခြင်း',
+    s1Body1:
+      'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားဟုလည်း ခေါ်သော ပေရီနီယမ်သည် တင်ပါးဆုံ၏ အောက်ခြေတွင် တည်ရှိသော ကြွက်သားအုပ်စုတစ်ခုဖြစ်သည်။ ၎င်းသည် ဆီးအိတ်နှင့် အူမကြီးကို ထိန်းချုပ်ရာတွင် အခန်းကဏ္ဍပါဝင်ပြီး တင်ပါးဆုံအတွင်းအင်္ဂါများကို ထောက်ပံ့ပေးသည်။',
+    s1Body2:
+      'ကိုယ်ဝန်ဆောင်ချိန်တွင် ဤကြွက်သားများသည် လအနည်းငယ်ကြာ အပိုအလေးချိန်ကို ထမ်းထားရသည်။ ကလေးမွေးဖွားချိန်တွင်လည်း ၎င်းတို့သည် သိသာသော ဖိအားကို ခံရသည်။',
+    s1HighlightTitle: 'သိမ်မွေ့သော်လည်း မရှိမဖြစ်သော ကြွက်သား',
+    s1HighlightText:
+      'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားသည် နေ့စဉ်လုပ်ငန်းဆောင်တာ အများအပြားတွင် ပါဝင်သည်။ ဆီးနှင့် ဝမ်းကို ထိန်းထားခြင်း၊ ဂတ်စ်ထွက်ခြင်းကို ထိန်းချုပ်ခြင်း၊ တင်ပါးဆုံအတွင်းအင်္ဂါများကို ထောက်ပံ့ခြင်းနှင့် လိင်ဆိုင်ရာ လုပ်ငန်းဆောင်တာအချို့တွင် အခန်းကဏ္ဍပါဝင်ခြင်းတို့ဖြစ်သည်။',
+
+    benefitsHeading: 'ပိုမိုခိုင်ခံ့သော တင်ပါးဆုံအောက်ပိုင်း ကြွက်သား၏ အကျိုးကျေးဇူးများ',
+    benefitsIntro:
+      'အဆင့်ဆင့်၊ မှန်ကန်စွာ လေ့ကျင့်ခြင်းသည် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သား၏ ထိန်းချုပ်နိုင်မှုနှင့် ထောက်ပံ့မှုကို တိုးတက်စေရန် ကူညီနိုင်သည်။',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'ဆီးအိတ်ကို ပိုမိုထိန်းချုပ်နိုင်ခြင်း',
+        text: 'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားသည် ဆီးအိတ်ကို ထိန်းချုပ်ရာတွင် အခန်းကဏ္ဍပါဝင်သည်။ ၎င်းကို တဖြည်းဖြည်း ခိုင်ခံ့စေခြင်းဖြင့် ဆီးယိုစိမ့်ခြင်းအချို့ လျော့နည်းစေနိုင်သည်။',
+      },
+      {
+        icon: 'toilet',
+        title: 'အူလမ်းကြောင်း လုပ်ငန်းဆောင်တာကို ထောက်ပံ့ခြင်း',
+        text: 'ဤကြွက်သားများသည် ဂတ်စ်နှင့် ဝမ်းကို ထိန်းချုပ်ရာတွင်လည်း ကူညီပြီး တင်ပါးဆုံအတွင်းအင်္ဂါများကို ထောက်ပံ့ပေးရာတွင် ပါဝင်သည်။',
+      },
+      {
+        icon: 'human-female',
+        title: 'တင်ပါးဆုံအတွင်းအင်္ဂါများကို ထောက်ပံ့ခြင်း',
+        text: 'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားသည် ဆီးအိတ်၊ သားအိမ်နှင့် အူများကို ထောက်ပံ့ပေးသည့် စစ်မှန်သော ကြွက်သားအခြေခံတစ်ခု ဖြစ်သည်။',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ခံစားမှုကို တဖြည်းဖြည်း ပြန်လည်ရရှိခြင်း',
+        text: 'သင့်လျော်သော ပြန်လည်ကျန်းမာစေရေး လေ့ကျင့်မှုသည် ဤနေရာကို ပိုမိုသတိထားမိပြီး ထိန်းချုပ်နိုင်စေရန်လည်း ကူညီနိုင်သည်။',
+      },
+    ],
+
+    s2Heading: 'ကိုယ်ဝန်ဆောင်ခြင်းနှင့် ကလေးမွေးဖွားခြင်းက ၎င်းကို အဘယ်ကြောင့် ဖိအားပေးသနည်း',
+    s2Body1:
+      'ကိုယ်ဝန်ဆောင်ခြင်းသည် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားအပေါ် ဖိအားကို တဖြည်းဖြည်း တိုးစေသည်။ မီးယပ်လမ်းကြောင်းမှ ကလေးမွေးဖွားခြင်းသည် ထို့နောက် ဤနေရာရှိ ကြွက်သားများနှင့် အသားတစ်စုများကို သိသိသာသာ ဆန့်ထွက်စေနိုင်သည်။',
+    s2Body2:
+      'ခွဲစိတ်မွေးဖွားခြင်းသည်လည်း တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို လုံးဝ ကာကွယ်မပေးပါ။ ကိုယ်ဝန်ဆောင်ခြင်းကိုယ်တိုင်သည် ဤကြွက်သားများအတွက် အရေးပါသော ကာလတစ်ခု ဖြစ်နေဆဲဖြစ်သည်။',
+    s2Body3:
+      'ထို့ကြောင့် မွေးဖွားပြီးနောက် ပြန်လည်ကောင်းမွန်ရန် အချိန်ယူရခြင်းသည် ပုံမှန်ဖြစ်သည်။ အချို့အမျိုးသမီးများတွင် ရောဂါလက္ခဏာ မခံစားရသလောက်ဖြစ်ပြီး အချို့မှာ ဆီးယိုစိမ့်ခြင်း၊ လေးလံသော ခံစားချက် သို့မဟုတ် ကြွက်သားထိန်းချုပ်မှု လျော့နည်းခြင်းကို သတိပြုမိနိုင်သည်။',
+    s2TipTitle: 'ပြန်လည်ကောင်းမွန်ခြင်းတိုင်း မတူပါ',
+    s2TipText:
+      'မွေးဖွားပုံ အမျိုးအစား၊ အရေပြားပြဲခြင်း သို့မဟုတ် ပေရီနီယမ်ခွဲစိတ်ခြင်း၊ နာကျင်မှုရှိခြင်းနှင့် မွေးဖွားပြီးနောက် သင်၏ ယေဘုယျအခြေအနေတို့သည် ပြန်လည်ကောင်းမွန်မှုကို သက်ရောက်နိုင်သည်။',
+
+    s3Heading: 'တင်ပါးဆုံအောက်ပိုင်း ပြန်လည်ကျန်းမာစေရေးကို ဘယ်အချိန်စတင်မလဲ။',
+    s3Body1:
+      'ရှုပ်ထွေးမှုမရှိသော မွေးဖွားမှုပြီးနောက် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို ညင်သာစွာ ကျုံ့ခြင်းကို များသောအားဖြင့် တဖြည်းဖြည်း ပြန်စနိုင်သည်။ လေ့ကျင့်ခန်းများကို သင့်အခြေအနေနှင့် လိုက်ဖက်အောင် ပြုလုပ်ရန်နှင့် ရှုပ်ထွေးမှု၊ သိသာသော နာကျင်မှု သို့မဟုတ် သီးသန့်ကုသမှုတစ်ခု ကြုံခဲ့လျှင် အကြံဉာဏ်တောင်းရန် အရေးကြီးနေဆဲဖြစ်သည်။',
+    s3Body2:
+      'ဆီးထုတ်ပြွန် ထည့်ထားလျှင် ပေရီနီယမ်လေ့ကျင့်ခန်း မစတင်မီ ၎င်းကို ဖယ်ရှားပြီး ပုံမှန်ဆီးသွားခြင်း ပြန်ဖြစ်သည်အထိ စောင့်ရန် အကြံပြုချက်အချို့က အကြံပေးသည်။',
+    s3AlertTitle: 'နာကျင်နေလျက် မဇွတ်လုပ်ပါနှင့်',
+    s3AlertText:
+      'သိသာသော နာကျင်မှု၊ ပိုဆိုးလာသော ရောဂါလက္ခဏာများ၊ ကောင်းစွာ မကျက်သော ဒဏ်ရာ သို့မဟုတ် စိုးရိမ်စရာတစ်ခုခုရှိလျှင် သားဖွားဆရာမ၊ ဆရာဝန် သို့မဟုတ် ပြန်လည်ကျန်းမာစေရေး ပညာရှင်၏ အကြံဉာဏ်ကို ရယူသင့်သည်။',
+
+    s4Heading: 'မှန်ကန်စွာ ကျုံ့တတ်အောင် သင်ယူခြင်း',
+    s4Body1:
+      'လှုပ်ရှားမှုကို သိရှိရန် ဂတ်စ်ကိုလည်းကောင်း၊ ဆီးသွားချင်စိတ်ကိုလည်းကောင်း တစ်ပြိုင်နက် ထိန်းထားသည်ဟု စိတ်ကူးကြည့်ပါ။ သင်ရှာနေသော လှုပ်ရှားမှုမှာ အတွင်းသို့ ကျုံ့ပြီး မြှင့်တင်လိုက်သည့် ခံစားချက်ဖြစ်သည်။',
+    s4Body2:
+      'ရည်ရွယ်ချက်မှာ ခန္ဓာကိုယ်တစ်ခုလုံးကို တင်းကျပ်စွာ ကြွက်သားတင်းခြင်း မဟုတ်ပါ။ အသက်ရှူခြင်းကို ပုံမှန်ဆက်လုပ်နေစဉ် တင်ပါးများ၊ ပေါင်များနှင့် ဝမ်းဗိုက်ကြွက်သားများကို တတ်နိုင်သမျှ ဖြေလျှော့ထားသင့်သည်။',
+    exercises: [
+      {icon: 'weather-windy', label: 'အသက်ရှူခြင်း'},
+      {icon: 'human-handsup', label: 'ညင်သာသော ကျုံ့ခြင်း'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ကြာရှည်ကျုံ့ခြင်း'},
+      {icon: 'gesture-tap-button', label: 'မြန်ဆန်သော ကျုံ့ခြင်းများ'},
+    ],
+    s4HighlightTitle: 'ဖြေလျှော့ခြင်းလည်း အရေးကြီးသည်',
+    s4HighlightText:
+      'ကျုံ့ပြီးတိုင်း ကြွက်သားများကို လုံးဝဖြေလျှော့ပါ။ ကောင်းမွန်သော ပြန်လည်ကျန်းမာစေရေးသည် ပေရီနီယမ်ကို တစ်နေ့လုံး ကျုံ့ထားခြင်း မဟုတ်ပါ။',
+
+    s5Heading: 'အဆင့်ဆင့် လေ့ကျင့်ခြင်း အစီအစဉ် တည်ဆောက်ခြင်း',
+    s5Body1:
+      'အစပိုင်းတွင် အရေးအကြီးဆုံးမှာ ကြွက်သားများကို သိရှိပြီး လှုပ်ရှားမှုကို မှန်ကန်စွာ ပြုလုပ်တတ်အောင် သင်ယူခြင်းဖြစ်သည်။ ပြင်းထန်မှုထက် ဆက်တိုက်ပြုလုပ်ခြင်းက ပိုအရေးကြီးသည်။',
+    s5h3a: 'ကြာရှည်ကျုံ့ခြင်းများ',
+    s5Body2:
+      'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို ညင်သာစွာ ကျုံ့ပြီး အသက်ရှူရပ်မထားဘဲ စက္ကန့်အနည်းငယ်ကြာ ကျုံ့ထားပါ။ ထို့နောက် ထပ်မစတင်မီ လုံးဝ လွှတ်ပေးပါ။',
+    s5h3b: 'တိုတောင်းသော ကျုံ့ခြင်းများ',
+    s5Body3:
+      'လှုပ်ရှားမှုကို ကျွမ်းကျင်လာပြီဆိုလျှင် မြန်ဆန်သော ကျုံ့ခြင်းငယ်များကို ထပ်ထည့်နိုင်သည်။ ၎င်းတို့သည် ဥပမာ ချောင်းဆိုးခြင်း သို့မဟုတ် နှာချေခြင်းမတိုင်မီကဲ့သို့ ဝမ်းဗိုက်ဖိအား တိုးလာသည့်အခါ ကြွက်သားများကို လျင်မြန်စွာ ကျုံ့နိုင်စွမ်းကို လေ့ကျင့်ပေးသည်။',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'လေ့ကျင့်ခန်းများကို နေ့စဉ်အကျင့်တစ်ခုနှင့် တွဲပါ'},
+      {icon: 'human-sitting', label: 'သက်တောင့်သက်သာရှိသော ပုံစံဖြင့် စတင်ပါ'},
+      {icon: 'weather-windy', label: 'ကျုံ့စဉ် အသက်ကို ပုံမှန်ရှူပါ'},
+      {icon: 'sleep', label: 'ဖြေလျှော့သည့် အဆင့်များကို လေးစားလိုက်နာပါ'},
+      {icon: 'chart-line', label: 'ခက်ခဲမှုကို တဖြည်းဖြည်း တိုးပါ'},
+      {icon: 'doctor', label: 'မသေချာလျှင် အကြံဉာဏ်တောင်းပါ'},
+    ],
+    s5TipTitle: 'ဆက်တိုက်ပြုလုပ်ခြင်းက အဓိက',
+    s5TipText:
+      'လေ့ကျင့်ခန်းများကို သင့်နေ့စဉ်တွင် ပါဝင်ပြီးသား အကျင့်တစ်ခုနှင့် တွဲခြင်းသည် ဆက်တိုက်ပြုလုပ်ရန် ပိုလွယ်စေနိုင်သည်။ ဥပမာ နို့တိုက်ပြီးနောက်၊ သွားတိုက်ပြီးနောက် သို့မဟုတ် သင့်အတွက် သင့်တော်သည့် အခြားအချိန်တစ်ခုတွင် ပြုလုပ်နိုင်သည်။',
+
+    s6Heading: 'ရှောင်ရှားသင့်သော အဖြစ်များသည့် အမှားများ',
+    s6Body1:
+      'ပေရီနီယမ်လေ့ကျင့်ခန်းများသည် ရိုးရှင်းသယောင်ရှိသော်လည်း အခြားကြွက်သားများဖြင့် အစားထိုးမိရန် သို့မဟုတ် အလွန်အကျွံ ဖိမိရန် လွယ်ကူသည်။',
+    commonMistakes: [
+      'တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားအစား တင်ပါးများ သို့မဟုတ် ပေါင်များကို ကြွက်သားတင်းခြင်း',
+      'ကျုံ့စဉ် အသက်ရှူရပ်ထားခြင်း',
+      'ကြွက်သားများကို ဖြေလျှော့ခွင့်မပေးဘဲ အမြဲကျုံ့ထားခြင်း',
+      'လေ့ကျင့်ခန်းများကို ရက်အနည်းငယ်သာလုပ်ပြီး ရပ်လိုက်ခြင်း',
+      'ကျုံ့မှု မှန်မမှန်စစ်ရန် ဆီးစီးဆင်းမှုကို ရည်ရွယ်ချက်ရှိရှိ ရပ်ခြင်း',
+    ],
+    s6TipTitle: 'မလုပ်သင့်သည့်အရာ',
+    s6TipText:
+      'ဆီးစီးဆင်းမှုကို ရည်ရွယ်ချက်ရှိရှိ ရပ်ခြင်းဖြင့် လေ့ကျင့်ခန်းလုပ်ရန် အကြံမပြုပါ။ ဤနည်းလမ်းသည် ပေရီနီယမ်ကို မှန်ကန်စွာ မလေ့ကျင့်ပေးသည့်အပြင် ဆီးအိတ်၏ ပုံမှန်လုပ်ငန်းဆောင်တာကို ထိခိုက်စေနိုင်သည်။',
+
+    s7Heading: 'မည်သည့် ရောဂါလက္ခဏာများက ဆရာဝန်နှင့် ပြသရန် တိုက်တွန်းသနည်း။',
+    s7Body1:
+      'ကလေးမွေးဖွားပြီးနောက် ဆီးယိုစိမ့်ခြင်းအနည်းငယ် သို့မဟုတ် ထူးဆန်းသော ခံစားချက်တစ်ခု တခါတရံ ပေါ်လာနိုင်သည်။ သို့သော် ၎င်းတို့ ဆက်ရှိနေလျှင်၊ ပိုဆိုးလာလျှင် သို့မဟုတ် နေ့စဉ်ဘဝကို အနှောင့်အယှက်ဖြစ်စေလျှင် လျစ်လျူမရှုသင့်ပါ။',
+    warningSigns: [
+      'ချောင်းဆိုးချိန်၊ နှာချေချိန်၊ ရယ်မောချိန် သို့မဟုတ် အားသုံးချိန်တွင် ဆီးယိုစိမ့်ခြင်း',
+      'တင်ပါးဆုံအောက်ပိုင်းတွင် လေးလံသော ခံစားချက် သို့မဟုတ် ဖိအားခံစားရခြင်း',
+      'ဖောင်းကားမှု သို့မဟုတ် တစ်စုံတစ်ရာသည် မီးယပ်လမ်းကြောင်းထဲသို့ ကျဆင်းနေသည့် ခံစားချက်',
+      'ဂတ်စ် သို့မဟုတ် ဝမ်းကို ထိန်းထားရန် ခက်ခဲခြင်း',
+      'ပေရီနီယမ်တွင် ဆက်လက်နာကျင်ခြင်း',
+      'လိင်ဆက်ဆံစဉ် သို့မဟုတ် ဆက်ဆံပြီးနောက် နာကျင်ခြင်း',
+      'ပေရီနီယမ်ကြွက်သားများကို သိရှိရန် သို့မဟုတ် မှန်ကန်စွာ ကျုံ့ရန် ခက်ခဲခြင်း',
+    ],
+    consultLabel: 'အကြံဉာဏ်ကို ဘယ်အချိန်တောင်းသင့်သလဲ။',
+    s7Body2:
+      'တင်ပါးဆုံအောက်ပိုင်း ပြန်လည်ကျန်းမာစေရေးတွင် အထူးပြုသော သားဖွားဆရာမ၊ ဆရာဝန် သို့မဟုတ် ကိုယ်ခန္ဓာကုထုံးပညာရှင်က ကြွက်သားလုပ်ငန်းဆောင်တာကို စစ်ဆေးပြီး သင့်လျော်သော အစီအစဉ်တစ်ခုကို အကြံပြုနိုင်သည်။',
+
+    s8Heading: 'အရေပြားပြဲခြင်း၊ ပေရီနီယမ်ခွဲစိတ်ခြင်း သို့မဟုတ် ခွဲစိတ်မွေးဖွားခြင်းပြီးနောက်ကော။',
+    s8Body1:
+      'အရေပြားပြဲခြင်း သို့မဟုတ် ပေရီနီယမ်ခွဲစိတ်ခြင်းသည် ကျက်စဉ်အတွင်း အထူးဂရုစိုက်မှု လိုအပ်သည်။ လှုပ်ရှားမှုများ ပြန်စရာတွင် နာကျင်မှု၊ အမာရွတ်၏ အခြေအနေနှင့် မွေးဖွားပြီးနောက် ပေးထားသော လမ်းညွှန်ချက်တို့ကို ထည့်သွင်းစဉ်းစားသင့်သည်။',
+    s8Body2:
+      'ခွဲစိတ်မွေးဖွားပြီးနောက် ပြန်လည်ကောင်းမွန်ခြင်းတွင် ဝမ်းဗိုက်နံရံနှင့် အမာရွတ်လည်း ပါဝင်သည်။ မီးယပ်လမ်းကြောင်းမှ မမွေးဖွားခဲ့သော်လည်း ကိုယ်ဝန်ဆောင်ခြင်းကိုယ်တိုင်က တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို ဖိအားပေးခဲ့သည်။',
+    s8HighlightTitle: 'ကိုယ်ပိုင်ဂရုစိုက်မှုက ကူညီနိုင်သည်',
+    s8HighlightText:
+      'သိသာသော အရေပြားပြဲခြင်း၊ နာကျင်ခြင်း၊ ဆီး သို့မဟုတ် အူလမ်းကြောင်းဆိုင်ရာ ရောဂါလက္ခဏာများ သို့မဟုတ် ဆက်လက်ရှိနေသော အခက်အခဲများရှိလျှင် ကျန်းမာရေးပညာရှင်နှင့် အကဲဖြတ်စစ်ဆေးခြင်းသည် အထူးအကျိုးရှိနိုင်သည်။',
+
+    s9Heading: 'အားကစားကို တဖြည်းဖြည်း ပြန်စခြင်း',
+    s9Body1:
+      'ကလေးမွေးဖွားပြီးနောက် လှုပ်ရှားမှုကို ပြန်စခြင်းသည် အဆင့်ဆင့်ဖြစ်သင့်သည်။ လမ်းလျှောက်ခြင်းနှင့် ညင်သာသော လှုပ်ရှားမှုများကို သင်၏ ခံစားချက်အပေါ်မူတည်၍ ယေဘုယျအားဖြင့် ပြန်စနိုင်ပြီး ပြင်းထန်သော ထိခိုက်မှုရှိသည့် လှုပ်ရှားမှုများတွင် ပိုသတိထားရန် လိုအပ်သည်။',
+    s9Body2:
+      'ပြေးခြင်း၊ ခုန်ခြင်း သို့မဟုတ် အလွန်ပြင်းထန်သော လေ့ကျင့်ခန်းများ မပြန်စမီ တင်ပါးဆုံအောက်ပိုင်း ကြွက်သား၏ ပြန်လည်ကောင်းမွန်မှုကို အကဲဖြတ်ပြီး ရောဂါလက္ခဏာများကို ထည့်သွင်းစဉ်းစားခြင်းက အကောင်းဆုံးဖြစ်သည်။',
+    s9AlertTitle: 'အဆင့်များကို အလျင်စလို မလုပ်ပါနှင့်',
+    s9AlertText:
+      'လေ့ကျင့်ခန်းလုပ်စဉ် သို့မဟုတ် လုပ်ပြီးနောက် ဆီးယိုစိမ့်ခြင်း၊ လေးလံသော ခံစားချက် သို့မဟုတ် နာကျင်ခြင်းတို့သည် ပြင်းထန်မှု မတိုးမီ နှေးပြီး အကြံဉာဏ်တောင်းသင့်ကြောင်း အချက်ပြချက်များ ဖြစ်သည်။',
+
+    s10Heading: 'အထူးကုနှင့် ဘယ်အချိန်ပြသင့်သလဲ။',
+    s10Body1:
+      'မှန်ကန်စွာ ကျုံ့နေသလား မသေချာလျှင်၊ ရောဂါလက္ခဏာများ ဆက်ရှိနေလျှင် သို့မဟုတ် ကိုယ်ကျိုးကျေးဇူးအတွက် ယုံကြည်စိတ်ချစွာ ကာယလှုပ်ရှားမှုအချို့ ပြန်စလိုလျှင် သားဖွားဆရာမ သို့မဟုတ် ကိုယ်ခန္ဓာကုထုံးပညာရှင်နှင့် တင်ပါးဆုံအောက်ပိုင်း ပြန်လည်ကျန်းမာစေရေး လေ့ကျင့်ခြင်းသည် အကျိုးရှိနိုင်သည်။',
+    questionCardTitle: 'မေးသင့်သော အသုံးဝင်သည့် မေးခွန်းများ',
+    appointmentQuestions: [
+      'ကျွန်မ၏ ရောဂါလက္ခဏာများသည် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားအားနည်းခြင်းနှင့် ကိုက်ညီပါသလား။',
+      'ကျွန်မ ကျုံ့ခြင်းများကို မှန်ကန်စွာ လုပ်နေပါသလား။',
+      'တစ်နေ့လျှင် အကြိမ်မည်မျှ ပြန်လုပ်သင့်ပါသလဲ။',
+      'ပြေးခြင်း၊ အားကစား သို့မဟုတ် ပြင်းထန်သော ထိခိုက်မှုရှိသည့် လေ့ကျင့်ခန်းသို့ ပြန်သွားနိုင်ပါသလား။',
+      'သားဖွားဆရာမ သို့မဟုတ် ကိုယ်ခန္ဓာကုထုံးပညာရှင်နှင့် ပြန်လည်ကျန်းမာစေရေး လေ့ကျင့်ရန် လိုအပ်ပါသလား။',
+      'ကျွန်မ၏ အမာရွတ်၊ အရေပြားပြဲခြင်း သို့မဟုတ် ခွဲစိတ်မွေးဖွားခြင်းအတွက် အထူးကြိုတင်ကာကွယ်မှု လိုအပ်ပါသလား။',
+    ],
+    s10TipTitle: 'သိထားသင့်သည်',
+    s10TipText:
+      'ပညာရှင်နှင့် ပြသခြင်းသည် တစ်စုံတစ်ရာမှားနေသည်ဟု မဆိုလိုပါ။ အစည်းအဝေးတစ်ခုသည် သင်၏ နည်းစနစ်ကို စစ်ဆေးရန်၊ ပြန်လည်ကောင်းမွန်မှုကို အကဲဖြတ်ရန်နှင့် မှန်ကန်စွာ တိုးတက်ရန် သင်ယူရန် ကူညီနိုင်သည်။',
+
+    s11Heading: 'အချိန်ယူရသော ပြန်လည်ကောင်းမွန်ခြင်း',
+    s11Body1:
+      'ကလေးမွေးပြီးနောက် ကိုယ်ဝန်မဆောင်မီက ရှိခဲ့သည့် ခံစားမှု သို့မဟုတ် ကြွက်သားခွန်အားကို ချက်ချင်း ပြန်မရခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+    s11Body2:
+      'ရည်ရွယ်ချက်မှာ တတ်နိုင်သမျှ ကျုံ့ခြင်းအကြိမ်ရေ များများလုပ်ရန် မဟုတ်ပါ။ ကျုံ့ခြင်းနှင့် ဖြေလျှော့ခြင်းကြား ကောင်းမွန်သော ညှိနှိုင်းမှုကို တဖြည်းဖြည်း ပြန်လည်ရရှိပြီး နောက်ပိုင်း နေ့စဉ်လုပ်ငန်းများတွင် ဤကြွက်သားများကို သဘာဝကျကျ အသုံးပြုနိုင်ရန် ပိုဆိုင်သည်။',
+    s11HighlightTitle: 'တိုးတက်မှုအနည်းငယ်သည်လည်း စစ်မှန်သော တိုးတက်မှုဖြစ်သည်',
+    s11HighlightText:
+      'လှုပ်ရှားမှုကို ပိုမိုသတိထားမိခြင်း၊ ကျုံ့ချိန် စက္ကန့်အနည်းငယ် ပိုကြာလာခြင်း သို့မဟုတ် ဆီးယိုစိမ့်ခြင်း လျော့နည်းလာခြင်းတို့သည် အားတက်စရာ အချက်ပြချက်များ ဖြစ်ပြီးဖြစ်သည်။',
+
+    s12Heading: 'အဓိကအချက်များ',
+    summaryTitle: 'မရှိမဖြစ်အချက်များ',
+    summaryItems: [
+      'ကိုယ်ဝန်ဆောင်ခြင်းနှင့် ကလေးမွေးဖွားခြင်းသည် တင်ပါးဆုံအောက်ပိုင်း ကြွက်သားကို သိသာစွာ ဖိအားပေးသည်။',
+      'မွေးဖွားပြီးနောက် တဖြည်းဖြည်း ပြန်လည်ကောင်းမွန်ခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+      'လေ့ကျင့်ခန်းများတွင် ခွန်အားထက် လှုပ်ရှားမှု အရည်အသွေးကို ဦးစားပေးသင့်သည်။',
+      'အသက်ရှူခြင်းနှင့် ဖြေလျှော့ခြင်းသည် ကျုံ့ခြင်းလောက်ပင် အရေးကြီးသည်။',
+      'ဆီးယိုစိမ့်ခြင်း၊ လေးလံသော ခံစားချက် သို့မဟုတ် ဆက်လက်နာကျင်ခြင်းတို့သည် ပညာရှင်၏ ထင်မြင်ချက်ကို ရထိုက်သည်။',
+      'သားဖွားဆရာမ သို့မဟုတ် ကိုယ်ခန္ဓာကုထုံးပညာရှင်နှင့် ပြန်လည်ကျန်းမာစေရေး လေ့ကျင့်ခြင်းသည် ထိန်းချုပ်နိုင်မှုကို ပိုမိုပြန်လည်ရရှိစေရန် ကူညီနိုင်သည်။',
+      'အားကစားသို့ ပြန်သွားခြင်းသည် အထူးသဖြင့် ပြင်းထန်သော ထိခိုက်မှုရှိသည့် လှုပ်ရှားမှုများတွင် အဆင့်ဆင့်ဖြစ်သင့်သည်။',
+    ],
+
+    finalTipTitle: 'ပြန်လည်ကောင်းမွန်ရန် အချိန်ယူပါ',
+    finalTipText:
+      'ကလေးမွေးဖွားပြီးနောက် သင့်ခန္ဓာကိုယ်သည် အပြောင်းအလဲများစွာ ကြုံတွေ့ခဲ့ပြီးဖြစ်သည်။ ပေရီနီယမ်သည် သင့်ခန္ဓာကိုယ်၏ အခြားအစိတ်အပိုင်းများကဲ့သို့ပင် ဂရုစိုက်မှုကို ရထိုက်သည်။ တဖြည်းဖြည်း၊ ပုံမှန်နှင့် ဖိအားမပေးဘဲ ဂရုစိုက်ပါ။',
+
+    disclaimerText:
+      'ဤဆောင်းပါးသည် အချက်အလက်ပေးရန်သာဖြစ်ပြီး ကိုယ်ပိုင်ဆေးဘက်ဆိုင်ရာ အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ နာကျင်မှု၊ ဆက်လက်ရှိနေသော ရောဂါလက္ခဏာများ သို့မဟုတ် သင်၏ ပြန်လည်ကောင်းမွန်မှုနှင့်ပတ်သက်၍ စိုးရိမ်စရာရှိလျှင် ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို ရယူပါ။',
+  },
+  km: {
+    badge: 'ក្រោយសម្រាលកូន • ការជាសះស្បើយ',
+    title: 'ការពង្រឹងសាច់ដុំជាន់អាងត្រគាក\nក្រោយសម្រាលកូន',
+    metaDuration: 'អាន 8 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'ក្រោយការមានផ្ទៃពោះ និងការសម្រាលកូន សាច់ដុំជាន់អាងត្រគាកត្រូវការពេលដើម្បីជាសះស្បើយ។ លំហាត់ងាយៗ ធ្វើឱ្យទៀងទាត់ និងបន្តិចម្តងៗ អាចជួយឱ្យអ្នកទទួលបានកម្លាំង ការគ្រប់គ្រង និងទំនុកចិត្តឡើងវិញ ដោយមិនចាំបាច់ប្រញាប់ប្រញាល់។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការយល់ដឹងអំពីតួនាទីរបស់ប៉េរីណេ',
+      'ហេតុអ្វីការសម្រាលកូនធ្វើឱ្យវាត្រូវសង្កត់សង្កិន',
+      'ពេលណាគួរចាប់ផ្តើមស្តារសាច់ដុំជាន់អាងត្រគាក',
+      'រៀនកន្ត្រាក់សាច់ដុំឱ្យបានត្រឹមត្រូវ',
+      'បង្កើតទម្លាប់ប្រចាំថ្ងៃបន្តិចម្តងៗ',
+      'កំហុសដែលគួរជៀសវាង',
+      'ពេលណាគួរស្វែងរកជំនួយ',
+      'ការត្រឡប់ទៅលេងកីឡាបន្តិចម្តងៗ',
+      'ការរៀបចំសម្រាប់ការណាត់ជួប',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    shareMessage: 'ការពង្រឹងសាច់ដុំជាន់អាងត្រគាកក្រោយសម្រាលកូន — AWA',
+
+    s1Heading: 'ការយល់ដឹងអំពីតួនាទីរបស់ប៉េរីណេ',
+    s1Body1:
+      'ប៉េរីណេ ឬហៅថាសាច់ដុំជាន់អាងត្រគាក គឺជាក្រុមសាច់ដុំដែលស្ថិតនៅមូលដ្ឋានអាងត្រគាក។ វាមានតួនាទីក្នុងការគ្រប់គ្រងប្លោកនោម និងពោះវៀន ហើយជួយទ្រសរីរាង្គក្នុងអាងត្រគាក។',
+    s1Body2:
+      'ក្នុងអំឡុងពេលមានផ្ទៃពោះ សាច់ដុំទាំងនេះត្រូវទ្រទម្ងន់បន្ថែមអស់ជាច្រើនខែ។ វាក៏ត្រូវសង្កត់សង្កិនខ្លាំងក្នុងអំឡុងពេលសម្រាលកូនផងដែរ។',
+    s1HighlightTitle: 'សាច់ដុំដែលមិនសូវលេចធ្លោ ប៉ុន្តែចាំបាច់',
+    s1HighlightText:
+      'សាច់ដុំជាន់អាងត្រគាកពាក់ព័ន្ធនឹងមុខងារប្រចាំថ្ងៃជាច្រើន៖ ការទប់ទឹកនោម និងលាមក ការគ្រប់គ្រងខ្យល់ ការទ្រសរីរាង្គក្នុងអាងត្រគាក និងមានតួនាទីក្នុងមុខងារផ្លូវភេទមួយចំនួន។',
+
+    benefitsHeading: 'អត្ថប្រយោជន៍នៃសាច់ដុំជាន់អាងត្រគាកដែលរឹងមាំជាងមុន',
+    benefitsIntro:
+      'ការពង្រឹងបន្តិចម្តងៗ និងធ្វើបានត្រឹមត្រូវ អាចជួយកែលម្អការគ្រប់គ្រង និងការទ្រសរីរាង្គក្នុងអាងត្រគាក។',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'គ្រប់គ្រងប្លោកនោមបានប្រសើរជាងមុន',
+        text: 'សាច់ដុំជាន់អាងត្រគាកមានតួនាទីក្នុងការគ្រប់គ្រងប្លោកនោម។ ការពង្រឹងវាបន្តិចម្តងៗ អាចជួយកាត់បន្ថយការហូរចេញនៃទឹកនោមមួយចំនួន។',
+      },
+      {
+        icon: 'toilet',
+        title: 'គាំទ្រដល់មុខងារពោះវៀន',
+        text: 'សាច់ដុំទាំងនេះក៏ជួយគ្រប់គ្រងខ្យល់ និងលាមក ហើយជួយទ្រសរីរាង្គក្នុងអាងត្រគាកផងដែរ។',
+      },
+      {
+        icon: 'human-female',
+        title: 'ទ្រសរីរាង្គក្នុងអាងត្រគាក',
+        text: 'សាច់ដុំជាន់អាងត្រគាកបង្កើតជាមូលដ្ឋានសាច់ដុំពិតប្រាកដ ដែលជួយទ្រប្លោកនោម ស្បូន និងពោះវៀន។',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ទទួលបានអារម្មណ៍វិញបន្តិចម្តងៗ',
+        text: 'ការស្តារដែលសមស្រប ក៏អាចជួយឱ្យអ្នកដឹងខ្លួន និងគ្រប់គ្រងតំបន់នេះបានប្រសើរឡើងវិញដែរ។',
+      },
+    ],
+
+    s2Heading: 'ហេតុអ្វីការមានផ្ទៃពោះ និងការសម្រាលកូនធ្វើឱ្យវាត្រូវសង្កត់សង្កិន',
+    s2Body1:
+      'ការមានផ្ទៃពោះបន្ថែមសម្ពាធលើសាច់ដុំជាន់អាងត្រគាកបន្តិចម្តងៗ។ បន្ទាប់មក ការសម្រាលកូនតាមទ្វារមាសអាចធ្វើឱ្យសាច់ដុំ និងជាលិកានៅតំបន់នេះលាតសន្ធឹងយ៉ាងខ្លាំង។',
+    s2Body2:
+      'ការវះកាត់សម្រាលកូនក៏មិនបានការពារសាច់ដុំជាន់អាងត្រគាកទាំងស្រុងដែរ៖ ការមានផ្ទៃពោះផ្ទាល់ គឺជាអំឡុងពេលដ៏សំខាន់សម្រាប់សាច់ដុំទាំងនេះ។',
+    s2Body3:
+      'ដូច្នេះ ក្រោយសម្រាលកូន គឺជារឿងធម្មតាដែលការជាសះស្បើយត្រូវការពេល។ ស្ត្រីខ្លះស្ទើរតែមិនមានរោគសញ្ញា ខណៈពេលដែលអ្នកផ្សេងទៀតអាចកត់សម្គាល់ឃើញការហូរចេញនៃទឹកនោម អារម្មណ៍ធ្ងន់ ឬការគ្រប់គ្រងសាច់ដុំថយចុះ។',
+    s2TipTitle: 'ការជាសះស្បើយរបស់មនុស្សម្នាក់ៗខុសគ្នា',
+    s2TipText:
+      'ប្រភេទនៃការសម្រាលកូន ការរហែក ឬការកាត់ប៉េរីណេ វត្តមាននៃការឈឺចាប់ និងស្ថានភាពទូទៅរបស់អ្នកក្រោយសម្រាល អាចជះឥទ្ធិពលដល់ការជាសះស្បើយទាំងអស់។',
+
+    s3Heading: 'ពេលណាគួរចាប់ផ្តើមស្តារសាច់ដុំជាន់អាងត្រគាក?',
+    s3Body1:
+      'ក្រោយការសម្រាលកូនដោយគ្មានផលវិបាក ជាទូទៅអាចចាប់ផ្តើមកន្ត្រាក់សាច់ដុំជាន់អាងត្រគាកថ្នមៗឡើងវិញបន្តិចម្តងៗ។ វានៅតែសំខាន់ក្នុងការកែសម្រួលលំហាត់ឱ្យសមនឹងស្ថានភាពរបស់អ្នក ហើយសូមសុំដំបូន្មាន ប្រសិនបើអ្នកមានផលវិបាក ឈឺខ្លាំង ឬបានទទួលនីតិវិធីពិសេសណាមួយ។',
+    s3Body2:
+      'ប្រសិនបើអ្នកមានបំពង់បង្ហូរទឹកនោម ការណែនាំខ្លះបង្ហាញថាគួររង់ចាំរហូតដល់ដកវាចេញ ហើយការនោមត្រឡប់មកធម្មតាវិញ មុននឹងចាប់ផ្តើមលំហាត់ប៉េរីណេ។',
+    s3AlertTitle: 'កុំបង្ខំខ្លួនពេលឈឺចាប់',
+    s3AlertText:
+      'ការឈឺខ្លាំង រោគសញ្ញាកាន់តែអាក្រក់ ដំបៅដែលជាសះស្បើយមិនល្អ ឬក្តីបារម្ភណាមួយ គួរសុំដំបូន្មានពីឆ្មប វេជ្ជបណ្ឌិត ឬអ្នកជំនាញស្តារសមត្ថភាព។',
+
+    s4Heading: 'រៀនកន្ត្រាក់សាច់ដុំឱ្យបានត្រឹមត្រូវ',
+    s4Body1:
+      'ដើម្បីស្គាល់ចលនានេះ សូមស្រមៃថាអ្នកកំពុងព្យាយាមទប់ខ្យល់ និងចង់នោមក្នុងពេលតែមួយ។ ចលនាដែលអ្នកកំពុងរកគឺជាអារម្មណ៍នៃការកន្ត្រាក់ និងការលើកឡើងទៅខាងក្នុង។',
+    s4Body2:
+      'គោលបំណងមិនមែនដើម្បីតឹងរាងកាយទាំងមូលទេ។ គួរទុកគូទ ភ្លៅ និងសាច់ដុំពោះឱ្យរលាកស្រាលតាមដែលអាចធ្វើទៅបាន ខណៈពេលដែលដកដង្ហើមដូចធម្មតា។',
+    exercises: [
+      {icon: 'weather-windy', label: 'ការដកដង្ហើម'},
+      {icon: 'human-handsup', label: 'ការកន្ត្រាក់ថ្នមៗ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ការកន្ត្រាក់យូរ'},
+      {icon: 'gesture-tap-button', label: 'ការកន្ត្រាក់លឿនៗ'},
+    ],
+    s4HighlightTitle: 'ការបន្ធូរក៏សំខាន់ដូចគ្នា',
+    s4HighlightText:
+      'បន្ទាប់ពីការកន្ត្រាក់នីមួយៗ សូមទុកឱ្យសាច់ដុំបន្ធូរទាំងស្រុង។ ការស្តារសមត្ថភាពដែលល្អ មិនមែនមានន័យថាត្រូវកន្ត្រាក់ប៉េរីណេពេញមួយថ្ងៃទេ។',
+
+    s5Heading: 'បង្កើតទម្លាប់ប្រចាំថ្ងៃបន្តិចម្តងៗ',
+    s5Body1:
+      'នៅដំបូង រឿងសំខាន់បំផុតគឺរៀនស្គាល់សាច់ដុំ និងធ្វើចលនាឱ្យបានត្រឹមត្រូវ។ ភាពទៀងទាត់សំខាន់ជាងភាពខ្លាំង។',
+    s5h3a: 'ការកន្ត្រាក់យូរ',
+    s5Body2:
+      'កន្ត្រាក់សាច់ដុំជាន់អាងត្រគាកថ្នមៗ បន្ទាប់មកទប់ការកន្ត្រាក់រយៈពេលពីរបីវិនាទី ដោយមិនទប់ដង្ហើម។ បន្ទាប់មកបន្ធូរទាំងស្រុង មុននឹងចាប់ផ្តើមម្តងទៀត។',
+    s5h3b: 'ការកន្ត្រាក់ខ្លី',
+    s5Body3:
+      'នៅពេលស្ទាត់ចលនាហើយ អាចបន្ថែមការកន្ត្រាក់តូចៗលឿនៗ។ វាជួយហ្វឹកហ្វឺនសមត្ថភាពក្នុងការកន្ត្រាក់សាច់ដុំយ៉ាងលឿននៅពេលសម្ពាធក្នុងពោះកើនឡើង ឧទាហរណ៍ មុនពេលក្អក ឬកណ្តាស់។',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ភ្ជាប់លំហាត់ជាមួយទម្លាប់ប្រចាំថ្ងៃ'},
+      {icon: 'human-sitting', label: 'ចាប់ផ្តើមក្នុងឥរិយាបថដែលស្រួល'},
+      {icon: 'weather-windy', label: 'ដកដង្ហើមធម្មតាក្នុងអំឡុងពេលកន្ត្រាក់'},
+      {icon: 'sleep', label: 'គោរពដំណាក់កាលបន្ធូរ'},
+      {icon: 'chart-line', label: 'បង្កើនកម្រិតលំបាកបន្តិចម្តងៗ'},
+      {icon: 'doctor', label: 'សុំដំបូន្មាន ប្រសិនបើអ្នកមិនច្បាស់'},
+    ],
+    s5TipTitle: 'ភាពទៀងទាត់មុនគេ',
+    s5TipText:
+      'ការភ្ជាប់លំហាត់ជាមួយទម្លាប់ដែលមានស្រាប់ក្នុងថ្ងៃរបស់អ្នក អាចជួយឱ្យធ្វើបានទៀងទាត់ងាយជាង៖ បន្ទាប់ពីបំបៅ បន្ទាប់ពីដុសធ្មេញ ឬនៅពេលផ្សេងទៀតដែលស័ក្តិសមនឹងអ្នក។',
+
+    s6Heading: 'កំហុសទូទៅដែលគួរជៀសវាង',
+    s6Body1:
+      'លំហាត់ប៉េរីណេអាចមើលទៅងាយ ប៉ុន្តែងាយនឹងជំនួសដោយសាច់ដុំផ្សេង ឬខំខ្លាំងពេក។',
+    commonMistakes: [
+      'តឹងគូទ ឬភ្លៅ ជំនួសឱ្យសាច់ដុំជាន់អាងត្រគាក',
+      'ទប់ដង្ហើមក្នុងអំឡុងពេលកន្ត្រាក់',
+      'ទុកសាច់ដុំឱ្យកន្ត្រាក់ជាប់ជានិច្ច ដោយមិនទុកឱ្យវាបន្ធូរ',
+      'ធ្វើលំហាត់តែពីរបីថ្ងៃ ហើយបន្ទាប់មកឈប់',
+      'ទប់ទឹកនោមដោយចេតនា ដើម្បីពិនិត្យការកន្ត្រាក់',
+    ],
+    s6TipTitle: 'អ្វីដែលមិនគួរធ្វើ',
+    s6TipText:
+      'មិនណែនាំឱ្យអនុវត្តលំហាត់ដោយទប់ទឹកនោមដោយចេតនាទេ។ វិធីនេះមិនហ្វឹកហ្វឺនប៉េរីណេបានត្រឹមត្រូវ ហើយអាចរំខានដល់មុខងារប្លោកនោមធម្មតា។',
+
+    s7Heading: 'រោគសញ្ញាអ្វីខ្លះដែលគួរទៅពិគ្រោះ?',
+    s7Body1:
+      'ការហូរចេញនៃទឹកនោមបន្តិចបន្តួច ឬអារម្មណ៍មិនធម្មតា ពេលខ្លះអាចកើតមានក្រោយសម្រាលកូន។ ប៉ុន្តែមិនគួរមើលរំលងទេ ប្រសិនបើវាបន្ត កាន់តែអាក្រក់ ឬរំខានដល់ជីវិតប្រចាំថ្ងៃរបស់អ្នក។',
+    warningSigns: [
+      'ទឹកនោមហូរចេញពេលអ្នកក្អក កណ្តាស់ សើច ឬខំកម្លាំង',
+      'អារម្មណ៍ធ្ងន់ ឬសម្ពាធនៅផ្នែកខាងក្រោមអាងត្រគាក',
+      'អារម្មណ៍ថាមានដុំ ឬអ្វីមួយធ្លាក់ចូលក្នុងទ្វារមាស',
+      'ពិបាកទប់ខ្យល់ ឬលាមក',
+      'ឈឺជាប់រហូតនៅប៉េរីណេ',
+      'ឈឺក្នុងអំឡុងពេល ឬក្រោយការរួមភេទ',
+      'ពិបាកស្គាល់ ឬកន្ត្រាក់សាច់ដុំប៉េរីណេឱ្យបានត្រឹមត្រូវ',
+    ],
+    consultLabel: 'ពេលណាគួរសុំដំបូន្មាន?',
+    s7Body2:
+      'ឆ្មប វេជ្ជបណ្ឌិត ឬអ្នកព្យាបាលដោយចលនាដែលមានជំនាញស្តារសាច់ដុំជាន់អាងត្រគាក អាចពិនិត្យមុខងារសាច់ដុំ ហើយណែនាំកម្មវិធីដែលសមស្រប។',
+
+    s8Heading: 'ចុះក្រោយការរហែក ការកាត់ប៉េរីណេ ឬការវះកាត់សម្រាលកូនវិញ?',
+    s8Body1:
+      'ការរហែក ឬការកាត់ប៉េរីណេ ត្រូវការការថែទាំពិសេសក្នុងអំឡុងពេលជាសះស្បើយ។ ការត្រឡប់ទៅធ្វើសកម្មភាពវិញ គួរគិតគូរពីការឈឺចាប់ ស្ថានភាពស្នាមដំបៅ និងការណែនាំដែលបានផ្តល់ក្រោយសម្រាលកូន។',
+    s8Body2:
+      'ក្រោយការវះកាត់សម្រាលកូន ការជាសះស្បើយក៏ពាក់ព័ន្ធនឹងជញ្ជាំងពោះ និងស្នាមវះដែរ។ ទោះបីជាការសម្រាលមិនមែនតាមទ្វារមាសក៏ដោយ ការមានផ្ទៃពោះផ្ទាល់ក៏នៅតែបង្កសម្ពាធលើសាច់ដុំជាន់អាងត្រគាកដែរ។',
+    s8HighlightTitle: 'ការថែទាំតាមស្ថានភាពផ្ទាល់ខ្លួនអាចជួយបាន',
+    s8HighlightText:
+      'ក្នុងករណីរហែកខ្លាំង ឈឺចាប់ រោគសញ្ញាទាក់ទងនឹងទឹកនោម ឬពោះវៀន ឬការលំបាកដែលបន្ត ការវាយតម្លៃជាមួយអ្នកជំនាញសុខាភិបាលអាចមានប្រយោជន៍ជាពិសេស។',
+
+    s9Heading: 'ការត្រឡប់ទៅលេងកីឡាបន្តិចម្តងៗ',
+    s9Body1:
+      'ការត្រឡប់ទៅធ្វើចលនាវិញក្រោយសម្រាលកូន គួរធ្វើបន្តិចម្តងៗ។ ការដើរ និងចលនាស្រាលៗ ជាទូទៅអាចត្រឡប់ទៅធ្វើវិញបានតាមអារម្មណ៍របស់អ្នក ខណៈពេលដែលសកម្មភាពដែលមានការប៉ះទង្គិចខ្លាំងត្រូវការប្រុងប្រយ័ត្នបន្ថែម។',
+    s9Body2:
+      'មុននឹងត្រឡប់ទៅរត់ លោត ឬហ្វឹកហាត់ខ្លាំងវិញ គួរវាយតម្លៃការជាសះស្បើយនៃសាច់ដុំជាន់អាងត្រគាក ហើយគិតគូរពីរោគសញ្ញាណាមួយ។',
+    s9AlertTitle: 'កុំប្រញាប់ប្រញាល់ពេកក្នុងដំណាក់កាលនីមួយៗ',
+    s9AlertText:
+      'ការហូរចេញនៃទឹកនោម អារម្មណ៍ធ្ងន់ ឬការឈឺចាប់ក្នុងអំឡុងពេល ឬក្រោយលំហាត់ប្រាណ គឺជាសញ្ញាដែលអ្នកគួរបន្ថយល្បឿន ហើយសុំដំបូន្មានមុននឹងបង្កើនកម្រិតខ្លាំង។',
+
+    s10Heading: 'ពេលណាគួរជួបអ្នកឯកទេស?',
+    s10Body1:
+      'ការស្តារសាច់ដុំជាន់អាងត្រគាកជាមួយឆ្មប ឬអ្នកព្យាបាលដោយចលនា អាចមានប្រយោជន៍ ប្រសិនបើអ្នកមិនប្រាកដថាកំពុងកន្ត្រាក់បានត្រឹមត្រូវ ប្រសិនបើរោគសញ្ញារបស់អ្នកបន្ត ឬប្រសិនបើអ្នកចង់ត្រឡប់ទៅធ្វើសកម្មភាពរាងកាយមួយចំនួនវិញដោយទំនុកចិត្ត។',
+    questionCardTitle: 'សំណួរមានប្រយោជន៍ដែលអាចសួរ',
+    appointmentQuestions: [
+      'តើរោគសញ្ញារបស់ខ្ញុំស្របនឹងភាពខ្សោយនៃសាច់ដុំជាន់អាងត្រគាកឬទេ?',
+      'តើខ្ញុំកំពុងកន្ត្រាក់បានត្រឹមត្រូវឬទេ?',
+      'តើខ្ញុំគួរធ្វើប៉ុន្មានដងរាល់ថ្ងៃ?',
+      'តើខ្ញុំអាចត្រឡប់ទៅរត់ លេងកីឡា ឬធ្វើលំហាត់ដែលមានការប៉ះទង្គិចខ្លាំងវិញបានឬទេ?',
+      'តើខ្ញុំត្រូវការស្តារសមត្ថភាពជាមួយឆ្មប ឬអ្នកព្យាបាលដោយចលនាឬទេ?',
+      'តើស្នាមដំបៅ ស្នាមរហែក ឬស្នាមវះសម្រាលកូនរបស់ខ្ញុំត្រូវការការប្រុងប្រយ័ត្នពិសេសអ្វីដែរឬទេ?',
+    ],
+    s10TipTitle: 'គួរដឹង',
+    s10TipText:
+      'ការជួបអ្នកជំនាញមិនចាំបាច់មានន័យថាមានរឿងមិនប្រក្រតីទេ។ វគ្គមួយអាចគ្រាន់តែជួយពិនិត្យបច្ចេកទេសរបស់អ្នក វាយតម្លៃការជាសះស្បើយ និងរៀនធ្វើឱ្យមានភាពប្រសើរឡើងបានត្រឹមត្រូវ។',
+
+    s11Heading: 'ការជាសះស្បើយដែលត្រូវការពេល',
+    s11Body1:
+      'ក្រោយសម្រាលកូន គឺជារឿងធម្មតាដែលមិនទទួលបានអារម្មណ៍ ឬកម្លាំងសាច់ដុំដូចមុនការមានផ្ទៃពោះភ្លាមៗ។',
+    s11Body2:
+      'គោលបំណងមិនមែនដើម្បីកន្ត្រាក់ឱ្យបានច្រើនបំផុតតាមដែលអាចទេ។ វាគឺអំពីការទទួលបានការសម្របសម្រួលល្អរវាងការកន្ត្រាក់ និងការបន្ធូរឡើងវិញបន្តិចម្តងៗ ហើយបន្ទាប់មកអាចប្រើសាច់ដុំទាំងនេះដោយធម្មជាតិក្នុងសកម្មភាពប្រចាំថ្ងៃ។',
+    s11HighlightTitle: 'វឌ្ឍនភាពតូចៗ គឺជាវឌ្ឍនភាពពិតប្រាកដ',
+    s11HighlightText:
+      'ការដឹងខ្លួនកាន់តែច្បាស់អំពីចលនា ការកន្ត្រាក់បានយូរជាងមុនពីរបីវិនាទី ឬការហូរចេញនៃទឹកនោមថយចុះ គឺជាសញ្ញាដែលលើកទឹកចិត្តរួចទៅហើយ។',
+
+    s12Heading: 'ចំណុចសំខាន់ៗ',
+    summaryTitle: 'សេចក្តីសង្ខេប',
+    summaryItems: [
+      'ការមានផ្ទៃពោះ និងការសម្រាលកូនបង្កសម្ពាធខ្លាំងលើសាច់ដុំជាន់អាងត្រគាក។',
+      'ការជាសះស្បើយបន្តិចម្តងៗគឺជារឿងធម្មតាក្រោយសម្រាលកូន។',
+      'លំហាត់គួរផ្តោតលើគុណភាពនៃចលនា ជាជាងកម្លាំង។',
+      'ការដកដង្ហើម និងការបន្ធូរមានសារៈសំខាន់ដូចការកន្ត្រាក់ដែរ។',
+      'ការហូរចេញនៃទឹកនោម អារម្មណ៍ធ្ងន់ ឬការឈឺជាប់រហូត គួរទទួលបានយោបល់ពីអ្នកជំនាញ។',
+      'ការស្តារសមត្ថភាពជាមួយឆ្មប ឬអ្នកព្យាបាលដោយចលនា អាចជួយឱ្យអ្នកគ្រប់គ្រងបានប្រសើរឡើងវិញ។',
+      'ការត្រឡប់ទៅលេងកីឡាវិញគួរធ្វើបន្តិចម្តងៗ ជាពិសេសសម្រាប់សកម្មភាពដែលមានការប៉ះទង្គិចខ្លាំង។',
+    ],
+
+    finalTipTitle: 'សូមចំណាយពេលដើម្បីជាសះស្បើយ',
+    finalTipText:
+      'ក្រោយសម្រាលកូន រាងកាយរបស់អ្នកបានឆ្លងកាត់ការផ្លាស់ប្តូរជាច្រើន។ ប៉េរីណេសមនឹងទទួលបានការយកចិត្តទុកដាក់ដូចផ្នែកផ្សេងទៀតនៃរាងកាយរបស់អ្នក៖ បន្តិចម្តងៗ ទៀងទាត់ និងដោយគ្មានសម្ពាធ។',
+
+    disclaimerText:
+      'អត្ថបទនេះមានគោលបំណងផ្តល់ព័ត៌មានតែប៉ុណ្ណោះ ហើយមិនជំនួសដំបូន្មានវេជ្ជសាស្ត្រតាមស្ថានភាពផ្ទាល់ខ្លួនទេ។ ប្រសិនបើអ្នកមានការឈឺចាប់ រោគសញ្ញាដែលបន្ត ឬមានក្តីបារម្ភអំពីការជាសះស្បើយរបស់អ្នក សូមសុំដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+  },
+  lo: {
+    badge: 'ຫຼັງຄອດ • ການຟື້ນຕົວ',
+    title: 'ການເສີມສ້າງກ້າມເນື້ອພື້ນຊານ\nຫຼັງການເກີດລູກ',
+    metaDuration: 'ອ່ານ 8 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ຫຼັງການຖືພາ ແລະ ການເກີດລູກ ກ້າມເນື້ອພື້ນຊານຕ້ອງການເວລາເພື່ອຟື້ນຕົວ. ການອອກກຳລັງກາຍແບບງ່າຍໆ ສະໝ່ຳສະເໝີ ແລະ ເທື່ອລະກ້າວ ສາມາດຊ່ວຍໃຫ້ທ່ານກັບມາມີແຮງ ມີການຄວບຄຸມ ແລະ ມີຄວາມໝັ້ນໃຈ ໂດຍບໍ່ຕ້ອງຮີບຮ້ອນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ເຂົ້າໃຈບົດບາດຂອງກ້າມເນື້ອພື້ນຊານ',
+      'ເປັນຫຍັງການເກີດລູກຈຶ່ງເຮັດໃຫ້ມັນຖືກກົດດັນ',
+      'ເວລາໃດຄວນເລີ່ມການຟື້ນຟູກ້າມເນື້ອພື້ນຊານ',
+      'ການຮຽນຮູ້ວິທີບີບຕົວໃຫ້ຖືກຕ້ອງ',
+      'ການສ້າງກິດຈະວັດແບບເທື່ອລະກ້າວ',
+      'ຂໍ້ຜິດພາດທີ່ຄວນຫຼີກເວັ້ນ',
+      'ເວລາໃດຄວນຂໍຄວາມຊ່ວຍເຫຼືອ',
+      'ການກັບມາອອກກຳລັງກາຍເທື່ອລະກ້າວ',
+      'ການກຽມຕົວສຳລັບການນັດພົບແພດ',
+      'ຈຸດສຳຄັນ',
+    ],
+    shareMessage: 'ການເສີມສ້າງກ້າມເນື້ອພື້ນຊານຫຼັງການເກີດລູກ — AWA',
+
+    s1Heading: 'ເຂົ້າໃຈບົດບາດຂອງກ້າມເນື້ອພື້ນຊານ',
+    s1Body1:
+      'ກ້າມເນື້ອພື້ນຊານ ຫຼື ເປີຣີນຽມ ແມ່ນກຸ່ມກ້າມເນື້ອທີ່ຢູ່ທາງລຸ່ມຂອງອຸ້ງເຄົ້າ. ມັນມີບົດບາດໃນການຄວບຄຸມກະເພາະປັດສະວະ ແລະ ລຳໄສ້ ແລະ ຊ່ວຍຮອງຮັບອະໄວຍະວະໃນອຸ້ງເຄົ້າ.',
+    s1Body2:
+      'ໃນໄລຍະຖືພາ ກ້າມເນື້ອເຫຼົ່ານີ້ຕ້ອງຮັບນ້ຳໜັກເພີ່ມເປັນເວລາຫຼາຍເດືອນ. ມັນຍັງຖືກກົດດັນຢ່າງຫຼາຍໃນລະຫວ່າງການເກີດລູກອີກດ້ວຍ.',
+    s1HighlightTitle: 'ກ້າມເນື້ອທີ່ງຽບສະຫງົບແຕ່ສຳຄັນຫຼາຍ',
+    s1HighlightText:
+      'ກ້າມເນື້ອພື້ນຊານມີສ່ວນກ່ຽວຂ້ອງກັບຫຼາຍໜ້າທີ່ໃນຊີວິດປະຈຳວັນ: ກັ້ນປັດສະວະ ແລະ ອາຈົມ, ຄວບຄຸມລົມ, ຮອງຮັບອະໄວຍະວະໃນອຸ້ງເຄົ້າ ແລະ ມີບົດບາດໃນບາງໜ້າທີ່ທາງເພດ.',
+
+    benefitsHeading: 'ປະໂຫຍດຂອງກ້າມເນື້ອພື້ນຊານທີ່ແຂງແຮງຂຶ້ນ',
+    benefitsIntro:
+      'ການເສີມສ້າງແບບເທື່ອລະກ້າວ ແລະ ເຮັດຖືກວິທີ ສາມາດຊ່ວຍປັບປຸງການຄວບຄຸມ ແລະ ການຮອງຮັບຂອງກ້າມເນື້ອພື້ນຊານ.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'ຄວບຄຸມກະເພາະປັດສະວະໄດ້ດີຂຶ້ນ',
+        text: 'ກ້າມເນື້ອພື້ນຊານມີບົດບາດໃນການຄວບຄຸມກະເພາະປັດສະວະ. ການເສີມສ້າງເທື່ອລະກ້າວອາດຊ່ວຍຫຼຸດການຮົ່ວຂອງປັດສະວະໄດ້ບາງກໍລະນີ.',
+      },
+      {
+        icon: 'toilet',
+        title: 'ຊ່ວຍການເຮັດວຽກຂອງລຳໄສ້',
+        text: 'ກ້າມເນື້ອເຫຼົ່ານີ້ຍັງຊ່ວຍຄວບຄຸມລົມ ແລະ ອາຈົມ ແລະ ຊ່ວຍຮອງຮັບອະໄວຍະວະໃນອຸ້ງເຄົ້າ.',
+      },
+      {
+        icon: 'human-female',
+        title: 'ຮອງຮັບອະໄວຍະວະໃນອຸ້ງເຄົ້າ',
+        text: 'ກ້າມເນື້ອພື້ນຊານເປັນຖານກ້າມເນື້ອທີ່ແທ້ຈິງ ທີ່ຊ່ວຍຮອງຮັບກະເພາະປັດສະວະ, ມົດລູກ ແລະ ລຳໄສ້.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ຄ່ອຍໆກັບມາມີຄວາມຮູ້ສຶກ',
+        text: 'ການຟື້ນຟູທີ່ເໝາະສົມຍັງຊ່ວຍໃຫ້ທ່ານຮັບຮູ້ ແລະ ຄວບຄຸມບໍລິເວນນີ້ໄດ້ດີຂຶ້ນ.',
+      },
+    ],
+
+    s2Heading: 'ເປັນຫຍັງການຖືພາ ແລະ ການເກີດລູກຈຶ່ງເຮັດໃຫ້ມັນຖືກກົດດັນ',
+    s2Body1:
+      'ການຖືພາຄ່ອຍໆເພີ່ມແຮງກົດດັນຕໍ່ກ້າມເນື້ອພື້ນຊານ. ການເກີດລູກທາງຊ່ອງຄອດອາດເຮັດໃຫ້ກ້າມເນື້ອ ແລະ ເນື້ອເຍື່ອໃນບໍລິເວນນີ້ຖືກຍືດອອກຫຼາຍ.',
+    s2Body2:
+      'ການຜ່າຕັດເອົາລູກອອກກໍບໍ່ໄດ້ຊ່ວຍປ້ອງກັນກ້າມເນື້ອພື້ນຊານໄດ້ທັງໝົດ: ການຖືພາເອງກໍເປັນໄລຍະສຳຄັນສຳລັບກ້າມເນື້ອເຫຼົ່ານີ້.',
+    s2Body3:
+      'ຫຼັງຄອດ ຈຶ່ງເປັນເລື່ອງປົກກະຕິທີ່ການຟື້ນຕົວຈະໃຊ້ເວລາ. ແມ່ຍິງບາງຄົນບໍ່ມີອາການເລີຍ ໃນຂະນະທີ່ບາງຄົນອາດສັງເກດເຫັນການຮົ່ວ, ຄວາມຮູ້ສຶກໜັກໆ ຫຼື ການຄວບຄຸມກ້າມເນື້ອທີ່ຫຼຸດລົງ.',
+    s2TipTitle: 'ການຟື້ນຕົວຂອງແຕ່ລະຄົນບໍ່ຄືກັນ',
+    s2TipText:
+      'ຮູບແບບການເກີດລູກ, ການຂາດ ຫຼື ການຕັດຝີເຍັບ, ການມີຄວາມເຈັບປວດ ແລະ ສະພາບທົ່ວໄປຂອງທ່ານຫຼັງຄອດ ລ້ວນແຕ່ມີຜົນຕໍ່ການຟື້ນຕົວ.',
+
+    s3Heading: 'ເວລາໃດຄວນເລີ່ມການຟື້ນຟູກ້າມເນື້ອພື້ນຊານ?',
+    s3Body1:
+      'ຫຼັງການເກີດລູກທີ່ບໍ່ມີອາການແຊກຊ້ອນ ໂດຍທົ່ວໄປສາມາດກັບມາບີບກ້າມເນື້ອພື້ນຊານເບົາໆໄດ້ເທື່ອລະກ້າວ. ຍັງຄົງສຳຄັນທີ່ຈະປັບການອອກກຳລັງກາຍໃຫ້ເໝາະກັບສະພາບຂອງທ່ານ ແລະ ຂໍຄຳແນະນຳຖ້າທ່ານມີອາການແຊກຊ້ອນ, ເຈັບຫຼາຍ ຫຼື ໄດ້ຮັບການຮັກສາພິເສດ.',
+    s3Body2:
+      'ຖ້າທ່ານໃສ່ສາຍສວນປັດສະວະ ບາງຄຳແນະນຳແນະນຳໃຫ້ລໍຖ້າຈົນກວ່າຈະຖອດອອກ ແລະ ຖ່າຍປັດສະວະໄດ້ຕາມປົກກະຕິກ່ອນເລີ່ມອອກກຳລັງກ້າມເນື້ອພື້ນຊານ.',
+    s3AlertTitle: 'ຢ່າຝືນເມື່ອມີຄວາມເຈັບປວດ',
+    s3AlertText:
+      'ຄວາມເຈັບປວດຫຼາຍ, ອາການທີ່ຮ້າຍແຮງຂຶ້ນ, ບາດແຜທີ່ຫາຍຍາກ ຫຼື ຄວາມກັງວົນໃດໆ ຄວນຂໍຄຳແນະນຳຈາກໝໍຕຳແຍ, ແພດ ຫຼື ຜູ້ຊ່ຽວຊານດ້ານການຟື້ນຟູ.',
+
+    s4Heading: 'ການຮຽນຮູ້ວິທີບີບຕົວໃຫ້ຖືກຕ້ອງ',
+    s4Body1:
+      'ເພື່ອຮູ້ຈັກການເຄື່ອນໄຫວນີ້ ໃຫ້ລອງຈິນຕະນາການວ່າກຳລັງກັ້ນລົມ ແລະ ກັ້ນຄວາມຢາກຍ່ຽວໃນເວລາດຽວກັນ. ການເຄື່ອນໄຫວທີ່ທ່ານຊອກຫາແມ່ນຄວາມຮູ້ສຶກຂອງການບີບ ແລະ ຍົກຂຶ້ນເຂົ້າທາງໃນ.',
+    s4Body2:
+      'ເປົ້າໝາຍບໍ່ແມ່ນການເກັງທົ່ວຮ່າງກາຍ. ກົ້ນ, ຂາອ່ອນ ແລະ ກ້າມເນື້ອທ້ອງຄວນຜ່ອນຄາຍໃຫ້ຫຼາຍທີ່ສຸດ ໃນຂະນະທີ່ຫາຍໃຈຕາມປົກກະຕິ.',
+    exercises: [
+      {icon: 'weather-windy', label: 'ການຫາຍໃຈ'},
+      {icon: 'human-handsup', label: 'ການບີບແບບເບົາ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ການບີບແບບຄ້າງນານ'},
+      {icon: 'gesture-tap-button', label: 'ການບີບແບບໄວ'},
+    ],
+    s4HighlightTitle: 'ການຜ່ອນຄາຍກໍສຳຄັນບໍ່ແພ້ກັນ',
+    s4HighlightText:
+      'ຫຼັງການບີບແຕ່ລະເທື່ອ ໃຫ້ກ້າມເນື້ອຜ່ອນຄາຍຢ່າງເຕັມທີ່. ການຟື້ນຟູທີ່ດີບໍ່ໄດ້ໝາຍເຖິງການບີບກ້າມເນື້ອພື້ນຊານຄ້າງໄວ້ຕະຫຼອດມື້.',
+
+    s5Heading: 'ການສ້າງກິດຈະວັດແບບເທື່ອລະກ້າວ',
+    s5Body1:
+      'ໃນເບື້ອງຕົ້ນ ສິ່ງສຳຄັນທີ່ສຸດແມ່ນການຮຽນຮູ້ທີ່ຈະຮູ້ຈັກກ້າມເນື້ອ ແລະ ເຮັດການເຄື່ອນໄຫວໃຫ້ຖືກຕ້ອງ. ຄວາມສະໝ່ຳສະເໝີສຳຄັນກວ່າຄວາມແຮງ.',
+    s5h3a: 'ການບີບແບບຄ້າງນານ',
+    s5Body2:
+      'ບີບກ້າມເນື້ອພື້ນຊານເບົາໆ ແລ້ວຄ້າງໄວ້ສອງສາມວິນາທີ ໂດຍບໍ່ກັ້ນຫາຍໃຈ. ຈາກນັ້ນຜ່ອນອອກຢ່າງເຕັມທີ່ກ່ອນເລີ່ມໃໝ່.',
+    s5h3b: 'ການບີບແບບສັ້ນ',
+    s5Body3:
+      'ເມື່ອເຮັດການເຄື່ອນໄຫວໄດ້ຄ່ອງແລ້ວ ສາມາດເພີ່ມການບີບສັ້ນໆແບບໄວໄດ້. ມັນຊ່ວຍຝຶກຄວາມສາມາດໃນການບີບກ້າມເນື້ອຢ່າງວ່ອງໄວເມື່ອແຮງດັນໃນທ້ອງເພີ່ມຂຶ້ນ ເຊັ່ນ ກ່ອນຈະໄອ ຫຼື ຈາມ.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ເຮັດການອອກກຳລັງກາຍຄູ່ກັບນິໄສປະຈຳວັນ'},
+      {icon: 'human-sitting', label: 'ເລີ່ມຈາກທ່າທີ່ສະບາຍ'},
+      {icon: 'weather-windy', label: 'ຫາຍໃຈຕາມປົກກະຕິໃນຂະນະບີບ'},
+      {icon: 'sleep', label: 'ເຄົາລົບຊ່ວງເວລາຜ່ອນຄາຍ'},
+      {icon: 'chart-line', label: 'ເພີ່ມຄວາມຍາກເທື່ອລະກ້າວ'},
+      {icon: 'doctor', label: 'ຂໍຄຳແນະນຳຖ້າທ່ານບໍ່ແນ່ໃຈ'},
+    ],
+    s5TipTitle: 'ຄວາມສະໝ່ຳສະເໝີສຳຄັນທີ່ສຸດ',
+    s5TipText:
+      'ການເຮັດການອອກກຳລັງກາຍຄູ່ກັບນິໄສທີ່ມີຢູ່ແລ້ວໃນມື້ຂອງທ່ານ ສາມາດຊ່ວຍໃຫ້ເຮັດຢ່າງສະໝ່ຳສະເໝີໄດ້ງ່າຍຂຶ້ນ: ຫຼັງໃຫ້ນົມລູກ, ຫຼັງແປງແຂ້ວ ຫຼື ໃນເວລາອື່ນທີ່ເໝາະກັບທ່ານ.',
+
+    s6Heading: 'ຂໍ້ຜິດພາດທີ່ພົບເລື້ອຍທີ່ຄວນຫຼີກເວັ້ນ',
+    s6Body1:
+      'ການອອກກຳລັງກ້າມເນື້ອພື້ນຊານອາດເບິ່ງຄືງ່າຍ ແຕ່ກໍງ່າຍທີ່ຈະໄປໃຊ້ກ້າມເນື້ອອື່ນແທນ ຫຼື ອອກແຮງຫຼາຍເກີນໄປ.',
+    commonMistakes: [
+      'ເກັງກົ້ນ ຫຼື ຂາອ່ອນແທນທີ່ຈະບີບກ້າມເນື້ອພື້ນຊານ',
+      'ກັ້ນຫາຍໃຈໃນຂະນະບີບ',
+      'ບີບກ້າມເນື້ອຄ້າງໄວ້ຕະຫຼອດໂດຍບໍ່ປ່ອຍໃຫ້ຜ່ອນຄາຍ',
+      'ເຮັດການອອກກຳລັງກາຍພຽງສອງສາມມື້ແລ້ວຢຸດ',
+      'ຕັ້ງໃຈຢຸດສາຍປັດສະວະເພື່ອກວດເບິ່ງການບີບ',
+    ],
+    s6TipTitle: 'ສິ່ງທີ່ບໍ່ຄວນເຮັດ',
+    s6TipText:
+      'ບໍ່ແນະນຳໃຫ້ຝຶກໂດຍການຕັ້ງໃຈຢຸດສາຍປັດສະວະ. ວິທີນີ້ບໍ່ໄດ້ຝຶກກ້າມເນື້ອພື້ນຊານຢ່າງຖືກຕ້ອງ ແລະ ອາດລົບກວນການເຮັດວຽກປົກກະຕິຂອງກະເພາະປັດສະວະ.',
+
+    s7Heading: 'ອາການໃດທີ່ຄວນໄປພົບແພດ?',
+    s7Body1:
+      'ການຮົ່ວເລັກນ້ອຍ ຫຼື ຄວາມຮູ້ສຶກທີ່ຜິດປົກກະຕິອາດເກີດຂຶ້ນໄດ້ຫຼັງຄອດ. ແຕ່ບໍ່ຄວນມອງຂ້າມຖ້າມັນຍັງເປັນຢູ່, ຮ້າຍແຮງຂຶ້ນ ຫຼື ລົບກວນຊີວິດປະຈຳວັນຂອງທ່ານ.',
+    warningSigns: [
+      'ປັດສະວະຮົ່ວເວລາໄອ, ຈາມ, ຫົວ ຫຼື ອອກແຮງ',
+      'ຄວາມຮູ້ສຶກໜັກ ຫຼື ກົດດັນໃນອຸ້ງເຄົ້າສ່ວນລຸ່ມ',
+      'ຄວາມຮູ້ສຶກວ່າມີກ້ອນ ຫຼື ມີບາງສິ່ງຕົກລົງມາໃນຊ່ອງຄອດ',
+      'ກັ້ນລົມ ຫຼື ອາຈົມໄດ້ຍາກ',
+      'ເຈັບບໍລິເວນກ້າມເນື້ອພື້ນຊານຢ່າງຕໍ່ເນື່ອງ',
+      'ເຈັບໃນຂະນະ ຫຼື ຫຼັງການມີເພດສຳພັນ',
+      'ມີຄວາມຍາກໃນການຮູ້ຈັກ ຫຼື ບີບກ້າມເນື້ອພື້ນຊານໃຫ້ຖືກຕ້ອງ',
+    ],
+    consultLabel: 'ເວລາໃດຄວນຂໍຄຳແນະນຳ?',
+    s7Body2:
+      'ໝໍຕຳແຍ, ແພດ ຫຼື ນັກກາຍະພາບບຳບັດທີ່ຊ່ຽວຊານດ້ານການຟື້ນຟູກ້າມເນື້ອພື້ນຊານ ສາມາດກວດການເຮັດວຽກຂອງກ້າມເນື້ອ ແລະ ແນະນຳໂປຣແກຣມທີ່ເໝາະສົມ.',
+
+    s8Heading: 'ແລ້ວຫຼັງຈາກຝີເຍັບຂາດ, ການຕັດຝີເຍັບ ຫຼື ການຜ່າຕັດເອົາລູກອອກເດ?',
+    s8Body1:
+      'ຝີເຍັບຂາດ ຫຼື ການຕັດຝີເຍັບຕ້ອງການການດູແລເປັນພິເສດໃນລະຫວ່າງທີ່ແຜຫາຍ. ການກັບມາເຮັດກິດຈະກຳຕ່າງໆຄວນຄຳນຶງເຖິງຄວາມເຈັບປວດ, ສະພາບຂອງແຜ ແລະ ຄຳແນະນຳທີ່ໄດ້ຮັບຫຼັງຄອດ.',
+    s8Body2:
+      'ຫຼັງການຜ່າຕັດເອົາລູກອອກ ການຟື້ນຕົວກໍກ່ຽວຂ້ອງກັບຜະໜັງທ້ອງ ແລະ ແຜຜ່າຕັດດ້ວຍ. ເຖິງແມ່ນການເກີດລູກບໍ່ແມ່ນທາງຊ່ອງຄອດ ການຖືພາເອງກໍຍັງສ້າງແຮງກົດດັນຕໍ່ກ້າມເນື້ອພື້ນຊານຢູ່.',
+    s8HighlightTitle: 'ການດູແລສະເພາະບຸກຄົນສາມາດຊ່ວຍໄດ້',
+    s8HighlightText:
+      'ໃນກໍລະນີທີ່ຝີເຍັບຂາດຫຼາຍ, ເຈັບ, ມີອາການກ່ຽວກັບປັດສະວະ ຫຼື ລຳໄສ້ ຫຼື ມີຄວາມຍາກລຳບາກຢ່າງຕໍ່ເນື່ອງ ການປະເມີນກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບຈະເປັນປະໂຫຍດເປັນພິເສດ.',
+
+    s9Heading: 'ການກັບມາອອກກຳລັງກາຍເທື່ອລະກ້າວ',
+    s9Body1:
+      'ການກັບມາເຄື່ອນໄຫວຫຼັງຄອດຄວນເປັນໄປເທື່ອລະກ້າວ. ການຍ່າງ ແລະ ການເຄື່ອນໄຫວເບົາໆ ໂດຍທົ່ວໄປສາມາດເລີ່ມໄດ້ຕາມຄວາມຮູ້ສຶກຂອງທ່ານ ສ່ວນກິດຈະກຳທີ່ມີແຮງກະທົບສູງຕ້ອງລະມັດລະວັງຫຼາຍຂຶ້ນ.',
+    s9Body2:
+      'ກ່ອນກັບມາແລ່ນ, ໂດດ ຫຼື ຝຶກຢ່າງໜັກ ຄວນປະເມີນການຟື້ນຕົວຂອງກ້າມເນື້ອພື້ນຊານ ແລະ ຄຳນຶງເຖິງອາການຕ່າງໆ.',
+    s9AlertTitle: 'ຢ່າຮີບຮ້ອນຂ້າມຂັ້ນຕອນ',
+    s9AlertText:
+      'ການຮົ່ວ, ຄວາມຮູ້ສຶກໜັກ ຫຼື ເຈັບໃນຂະນະ ຫຼື ຫຼັງອອກກຳລັງກາຍ ເປັນສັນຍານວ່າທ່ານຄວນຊ້າລົງ ແລະ ຂໍຄຳແນະນຳກ່ອນເພີ່ມຄວາມແຮງ.',
+
+    s10Heading: 'ເວລາໃດຄວນພົບຜູ້ຊ່ຽວຊານ?',
+    s10Body1:
+      'ການຟື້ນຟູກ້າມເນື້ອພື້ນຊານກັບໝໍຕຳແຍ ຫຼື ນັກກາຍະພາບບຳບັດ ສາມາດເປັນປະໂຫຍດຖ້າທ່ານບໍ່ແນ່ໃຈວ່າບີບຖືກຫຼືບໍ່, ຖ້າອາການຍັງເປັນຢູ່ ຫຼື ຖ້າທ່ານຢາກກັບມາເຮັດກິດຈະກຳທາງກາຍບາງຢ່າງຢ່າງໝັ້ນໃຈ.',
+    questionCardTitle: 'ຄຳຖາມທີ່ເປັນປະໂຫຍດທີ່ຄວນຖາມ',
+    appointmentQuestions: [
+      'ອາການຂອງຂ້ອຍສອດຄ່ອງກັບກ້າມເນື້ອພື້ນຊານອ່ອນແຮງບໍ?',
+      'ຂ້ອຍບີບຖືກວິທີບໍ?',
+      'ຂ້ອຍຄວນເຮັດຈັກເທື່ອຕໍ່ມື້?',
+      'ຂ້ອຍກັບມາແລ່ນ, ອອກກຳລັງກາຍ ຫຼື ກິດຈະກຳທີ່ມີແຮງກະທົບສູງໄດ້ບໍ?',
+      'ຂ້ອຍຕ້ອງການການຟື້ນຟູກັບໝໍຕຳແຍ ຫຼື ນັກກາຍະພາບບຳບັດບໍ?',
+      'ແຜຜ່າຕັດ, ຝີເຍັບຂາດ ຫຼື ການຜ່າຕັດເອົາລູກອອກຂອງຂ້ອຍຕ້ອງລະວັງເປັນພິເສດບໍ?',
+    ],
+    s10TipTitle: 'ຄວນຮູ້',
+    s10TipText:
+      'ການພົບຜູ້ຊ່ຽວຊານບໍ່ໄດ້ໝາຍຄວາມວ່າມີບາງຢ່າງຜິດປົກກະຕິສະເໝີໄປ. ການພົບກັນສາມາດຊ່ວຍກວດເຕັກນິກຂອງທ່ານ, ປະເມີນການຟື້ນຕົວ ແລະ ຮຽນຮູ້ວິທີກ້າວໜ້າຢ່າງຖືກຕ້ອງ.',
+
+    s11Heading: 'ການຟື້ນຕົວທີ່ຕ້ອງໃຊ້ເວລາ',
+    s11Body1:
+      'ຫຼັງຄອດ ເປັນເລື່ອງປົກກະຕິທີ່ຈະບໍ່ກັບມາມີຄວາມຮູ້ສຶກ ຫຼື ແຮງຂອງກ້າມເນື້ອຄືກັບກ່ອນຖືພາທັນທີ.',
+    s11Body2:
+      'ເປົ້າໝາຍບໍ່ແມ່ນການບີບໃຫ້ໄດ້ຫຼາຍທີ່ສຸດ. ມັນແມ່ນການຄ່ອຍໆກັບມາມີການປະສານງານທີ່ດີລະຫວ່າງການບີບ ແລະ ການຜ່ອນຄາຍ ແລ້ວສາມາດໃຊ້ກ້າມເນື້ອເຫຼົ່ານີ້ຢ່າງເປັນທຳມະຊາດໃນກິດຈະກຳປະຈຳວັນ.',
+    s11HighlightTitle: 'ຄວາມກ້າວໜ້າເລັກນ້ອຍກໍແມ່ນຄວາມກ້າວໜ້າທີ່ແທ້ຈິງ',
+    s11HighlightText:
+      'ການຮັບຮູ້ການເຄື່ອນໄຫວໄດ້ດີຂຶ້ນ, ບີບໄດ້ນານຂຶ້ນອີກສອງສາມວິນາທີ ຫຼື ການຮົ່ວທີ່ຫຼຸດລົງ ແມ່ນສັນຍານທີ່ໜ້າຊື່ນຊົມແລ້ວ.',
+
+    s12Heading: 'ຈຸດສຳຄັນ',
+    summaryTitle: 'ສິ່ງຈຳເປັນ',
+    summaryItems: [
+      'ການຖືພາ ແລະ ການເກີດລູກສ້າງແຮງກົດດັນຫຼາຍຕໍ່ກ້າມເນື້ອພື້ນຊານ.',
+      'ການຟື້ນຕົວເທື່ອລະກ້າວຫຼັງຄອດເປັນເລື່ອງປົກກະຕິ.',
+      'ການອອກກຳລັງກາຍຄວນເນັ້ນຄຸນນະພາບຂອງການເຄື່ອນໄຫວກວ່າຄວາມແຮງ.',
+      'ການຫາຍໃຈ ແລະ ການຜ່ອນຄາຍກໍສຳຄັນບໍ່ແພ້ການບີບ.',
+      'ປັດສະວະຮົ່ວ, ຄວາມຮູ້ສຶກໜັກ ຫຼື ເຈັບຕໍ່ເນື່ອງ ຄວນໄດ້ຮັບຄວາມເຫັນຈາກຜູ້ຊ່ຽວຊານ.',
+      'ການຟື້ນຟູກັບໝໍຕຳແຍ ຫຼື ນັກກາຍະພາບບຳບັດສາມາດຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້ດີຂຶ້ນ.',
+      'ການກັບມາອອກກຳລັງກາຍຄວນເປັນໄປເທື່ອລະກ້າວ ໂດຍສະເພາະກິດຈະກຳທີ່ມີແຮງກະທົບສູງ.',
+    ],
+
+    finalTipTitle: 'ໃຊ້ເວລາເພື່ອຟື້ນຕົວ',
+    finalTipText:
+      'ຫຼັງການເກີດລູກ ຮ່າງກາຍຂອງທ່ານຜ່ານການປ່ຽນແປງມາຫຼາຍ. ກ້າມເນື້ອພື້ນຊານສົມຄວນໄດ້ຮັບຄວາມເອົາໃຈໃສ່ເທົ່າກັບສ່ວນອື່ນຂອງຮ່າງກາຍ: ເທື່ອລະກ້າວ, ສະໝ່ຳສະເໝີ ແລະ ບໍ່ມີຄວາມກົດດັນ.',
+
+    disclaimerText:
+      'ບົດຄວາມນີ້ເປັນຂໍ້ມູນທົ່ວໄປເທົ່ານັ້ນ ແລະ ບໍ່ແທນຄຳແນະນຳທາງການແພດສະເພາະບຸກຄົນ. ຖ້າທ່ານມີຄວາມເຈັບປວດ, ອາການທີ່ຕໍ່ເນື່ອງ ຫຼື ມີຄວາມກັງວົນກ່ຽວກັບການຟື້ນຕົວ ກະລຸນາຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<

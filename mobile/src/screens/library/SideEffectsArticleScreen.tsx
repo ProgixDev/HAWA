@@ -4097,6 +4097,2020 @@ const CONTENT = withBrazilianPortuguese('SideEffects', {
       'Bu makala maglumat maksatly we şahsylaşdyrylan lukmançylyk maslahatyny çalyşmaýar. Möhüm ýa-da adaty däl alamatyňyz bar bolsa, saglyk hünärmeninden maslahat soraň.',
     shareMessage: 'Mümkin gaýry täsirleri tanamak — AWA',
   },
+  ms: {
+    badge: 'KESAN SAMPINGAN',
+    title: 'Mengenali kemungkinan\nkesan sampingan',
+    metaDuration: '8 min bacaan',
+    metaType: 'Artikel',
+    metaLevel: 'Pertengahan',
+    metaValidated: 'Kandungan disemak',
+    intro:
+      'Sesetengah kesan boleh lazim dan bersifat sementara. Yang lain memerlukan lebih perhatian. Belajar membezakan antara tindak balas biasa dan tanda yang perlu dinilai.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Kesan yang lazim dan ringan',
+      'Tempoh penyesuaian tubuh',
+      'Memerhati apa yang berubah',
+      'Bila untuk mendapatkan nasihat perubatan',
+      'Bila untuk mendapatkan rawatan dengan segera',
+      'Perkara penting untuk diingat',
+    ],
+    body1:
+      'Apabila seseorang mula menggunakan kaedah kontraseptif hormon yang baharu, tubuh mungkin memerlukan sedikit masa untuk menyesuaikan diri. Perubahan kecil boleh muncul pada kitaran, emosi atau keselesaan fizikal.',
+    body2:
+      'Kesan ini selalunya ringan dan mungkin beransur-ansur berkurangan. Kehadirannya tidak secara automatik bermakna kaedah itu berbahaya atau perlu dihentikan.',
+    commonEffects: [
+      {
+        title: 'Pendarahan ringan',
+        text: 'Pendarahan tidak teratur boleh berlaku, terutamanya pada permulaan kaedah baharu.',
+      },
+      {
+        title: 'Payudara sakit',
+        text: 'Rasa tegang atau sakit pada payudara mungkin dirasai buat sementara waktu.',
+      },
+      {
+        title: 'Emosi',
+        text: 'Sesetengah orang perasan perubahan emosi atau kepekaan emosi yang meningkat.',
+      },
+      {
+        title: 'Sakit kepala',
+        text: 'Sakit kepala ringan boleh berlaku semasa tempoh penyesuaian.',
+      },
+    ],
+    body3:
+      'Beberapa minggu atau kitaran pertama mungkin berbeza daripada apa yang anda biasa alami sebelum ini. Tubuh boleh menyesuaikan diri secara beransur-ansur dengan keseimbangan hormon yang baharu.',
+    tip1Title: 'Elok diketahui',
+    tip1Text:
+      'Kesan yang muncul tidak lama selepas memulakan sesuatu kaedah wajar diperhatikan dari semasa ke semasa. Jika ia menjadi mengganggu atau berterusan, berbincanglah dengan pengamal penjagaan kesihatan.',
+    body4:
+      'Ia boleh membantu untuk merekodkan simptom dalam aplikasi anda bagi menjejaki bagaimana ia berubah dari satu kitaran ke kitaran berikutnya dengan lebih baik.',
+    trackingTitle: 'Jejaki bagaimana perkara berkembang',
+    trackingSubtitle: 'Beberapa penanda boleh membantu',
+    trackingLines: [
+      'Catat tarikh simptom itu muncul.',
+      'Rekodkan keamatan dan tempohnya.',
+      'Perhatikan sama ada ia bertambah baik atau bertambah teruk.',
+    ],
+    body5:
+      'Tidak semua simptom semestinya berkaitan dengan kontraseptif. Tekanan, tidur, pemakanan, kitaran anda atau rawatan lain juga boleh mempengaruhi perasaan anda.',
+    body6:
+      'Untuk memahami keadaan, cuba lihat konteks keseluruhan dan bukan satu simptom secara terpencil.',
+    worthMentioning: [
+      'Perubahan emosi yang ketara dan berterusan',
+      'Penurunan libido yang mengganggu anda',
+      'Pendarahan tidak teratur yang berlangsung lebih daripada 3 kitaran',
+      'Loya atau sakit kepala yang kekal mengganggu',
+    ],
+    questionsTitle: 'Beberapa soalan berguna',
+    questions: [
+      'Sudah berapa lama simptom ini berlaku?',
+      'Adakah ia muncul selepas memulakan atau menukar kaedah kontraseptif?',
+      'Adakah ia ringan, mengganggu atau benar-benar luar biasa bagi anda?',
+      'Adakah ia bertambah baik dari semasa ke semasa atau menjadi lebih kerap?',
+    ],
+    body7:
+      'Walaupun simptom tidak mendesak, ia wajar dibincangkan jika ia menjadi mengganggu, berterusan atau benar-benar menjejaskan kualiti hidup anda.',
+    infoTitle: 'Mungkin wajar mendapatkan nasihat jika…',
+    infoText:
+      'simptom berterusan, menjadi lebih ketara atau menghalang anda hidup seperti biasa.',
+    body8:
+      'Doktor, bidan atau ahli farmasi boleh membantu anda menentukan sama ada simptom itu mungkin berkaitan dengan kaedah yang anda gunakan dan sama ada ia perlu dilaraskan.',
+    body9:
+      'Sesetengah tanda adalah luar biasa dan memerlukan penilaian perubatan segera. Ia tidak semestinya bermakna komplikasi hadir, tetapi ia tidak patut diabaikan.',
+    alertTitle: 'Dapatkan rawatan dengan segera',
+    alertIntro: 'Dapatkan nasihat perubatan dengan segera jika anda mengalami, terutamanya:',
+    urgentSigns: [
+      'Sakit dada yang ketara atau luar biasa',
+      'Kesukaran bernafas secara tiba-tiba',
+      'Bengkak atau sakit yang luar biasa pada kaki',
+      'Sakit kepala yang tiba-tiba, sangat kuat atau luar biasa',
+      'Masalah penglihatan, pertuturan atau kekuatan secara tiba-tiba',
+    ],
+    emergencyTitle: 'Dalam keadaan yang teruk',
+    emergencyText:
+      'Jika simptom berlaku secara tiba-tiba, sangat teruk, atau disertai kesukaran bernafas, rasa hendak pengsan atau tanda serius yang lain, dapatkan bantuan perubatan segera.',
+    summaryTitle: 'Perkara penting',
+    summaryItems: [
+      'Sesetengah kesan boleh muncul pada permulaan kaedah kontraseptif hormon yang baharu.',
+      'Banyak kesan bersifat sementara dan mungkin berkurangan dari semasa ke semasa.',
+      'Simptom yang mengganggu atau berterusan wajar dibincangkan dengan pengamal profesional.',
+      'Sesetengah tanda luar biasa memerlukan nasihat perubatan segera.',
+    ],
+    finalTipTitle: 'Perkara penting untuk diingat',
+    finalTipText:
+      'Mendengar tubuh anda tidak semestinya bermakna menghentikan sesuatu kaedah serta-merta. Catat apa yang anda rasa, perhatikan bagaimana ia berkembang, dan mintalah nasihat bila-bila masa sesuatu simptom membimbangkan anda.',
+    disclaimerText:
+      'Artikel ini bertujuan untuk maklumat dan tidak menggantikan nasihat perubatan yang diperibadikan. Jika anda mempunyai simptom yang ketara atau luar biasa, dapatkan nasihat daripada pengamal penjagaan kesihatan.',
+    shareMessage: 'Mengenali kemungkinan kesan sampingan — AWA',
+  },
+  so: {
+    badge: 'SAAMEYN DHINAC',
+    title: 'Aqoonsiga saameynta\ndhinac ee suurtagalka ah',
+    metaDuration: '8 daq akhris',
+    metaType: 'Maqaal',
+    metaLevel: 'Dhexdhexaad',
+    metaValidated: 'Macluumaad la dib-u-eegay',
+    intro:
+      'Saameyn qaar ayaa noqon karta mid caadi ah oo ku meel gaar ah. Kuwa kale waxay u baahan yihiin feejignaan dheeraad ah. Baro kala saaridda falcelinnada caadiga ah iyo calaamadaha mudan in la qiimeeyo.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Saameyn caadi ah, khafiif ah',
+      'Muddada la qabsiga jidhka',
+      'Indho-indheynta waxa isbeddelaya',
+      'Goorta talo caafimaad la raadsado',
+      'Goorta daryeel dhakhso ah la raadsado',
+      'Qodobbada muhiimka ah',
+    ],
+    body1:
+      'Marka qof bilaabo hab cusub oo ka hortag uur hormoon ah, jidhku wuxuu u baahan karaa waqti si uu isu hagaajiyo. Isbeddelo yar ayaa ka soo bixi kara wareegga, niyadda, ama raaxada jidheed.',
+    body2:
+      'Saameyntani inta badan waa khafiif wayna yaraan kartaa tartiib. Jiritaankoodu macnaheedu maaha si toos ah in habku khatar yahay ama in loo baahan yahay in la joojiyo.',
+    commonEffects: [
+      {
+        title: 'Dhiigbax yar',
+        text: 'Dhiigbax aan joogto ahayn ayaa dhici kara, gaar ahaan bilowga hab cusub.',
+      },
+      {
+        title: 'Xanuunka naasaha',
+        text: 'Cufnaan ama xanuun naasaha ah ayaa ku meel gaar lagu dareemi karaa.',
+      },
+      {
+        title: 'Niyad',
+        text: 'Dadka qaar waxay ogaadaan isbeddello niyadeed ama dareen-xanaaq kordhay.',
+      },
+      {
+        title: 'Madax-xanuun',
+        text: 'Madax-xanuun khafiif ah ayaa dhici kara inta muddada la qabsigu socoto.',
+      },
+    ],
+    body3:
+      'Dhowr toddobaad ama wareeg ee ugu horreeya waxay noqon karaan kuwo ka duwan waxa aad hore ugu qabsatay. Jidhku wuu isu hagaajin karaa tartiib dheelitirka hormoonka cusub.',
+    tip1Title: 'Waxtar leh in la ogaado',
+    tip1Text:
+      'Saameyn soo muuqata wax yar ka dib bilowga hab waa mudan in waqti ka dib la indho-indheeyo. Haddii ay noqoto mid dhib leh ama ay sii socoto, la hadal xirfadle caafimaad.',
+    body4:
+      'Waxay faa’iido yeelan kartaa in astaamaha laga diiwaangeliyo app-kaaga si aad si wanaagsan u la socoto sida ay u isbeddelaan wareeg ilaa wareeg.',
+    trackingTitle: 'La soco isbeddelka',
+    trackingSubtitle: 'Dhowr calaamadood ayaa faa’iido leh',
+    trackingLines: [
+      'Xus taariikhda astaanta soo muuqatay.',
+      'Diiwaangeli xooggeeda iyo muddadeeda.',
+      'Indho-indheeyo haddii ay hagaagayso ama xumaanayso.',
+    ],
+    body5:
+      'Astaamaha dhammaantood lagama maarmaan ahan inay la xiriiraan ka hortagga uurka. Walaac, hurdo, cunto, wareeggaaga, ama daaweynno kale ayaa sidoo kale saameyn kara sida aad dareemayso.',
+    body6:
+      'Si aad u fahanto xaaladda, isku day inaad eegto xaaladda guud halkii aad ka eegi lahayd hal astaan oo go’doon ah.',
+    worthMentioning: [
+      'Isbeddelo niyadeed oo muuqda, sii socda',
+      'Hoos u dhac rabitaanka galmada oo ku dhibaya',
+      'Dhiigbax aan joogto ahayn oo socda in ka badan 3 wareeg',
+      'Lallabo ama madax-xanuun weli dhib leh',
+    ],
+    questionsTitle: 'Dhowr su’aalood oo faa’iido leh',
+    questions: [
+      'Intee in le’eg ayay astaamahani jireen?',
+      'Ma soo muuqdeen ka dib bilowga ama beddelka hab ka hortag uur?',
+      'Ma khafiif, dhib leh, mise runtii aan caadi ahayn bay kuu yihiin?',
+      'Ma hagaagayaan waqti ka dib ama way sii soo noqnoqdaan?',
+    ],
+    body7:
+      'Xataa marka astaan aysan degdeg ahayn, waxay mudan kartaa in laga hadlo haddii ay noqoto mid dhib leh, sii socoto, ama runtii saameyso tayada nolosha.',
+    infoTitle: 'Waxay mudan kartaa in talo la raadsado haddii…',
+    infoText:
+      'astaamuhu sii socdaan, sii weynaadaan, ama ku joojiyaan inaad caadi u noolaato.',
+    body8:
+      'Dhakhtar, umulis, ama farmasiiste ayaa kaa caawin kara go’aaminta haddii astaamuhu la xiriiri karaan habka aad isticmaalayso iyo haddii loo baahan yahay in la hagaajiyo.',
+    body9:
+      'Calaamado qaar ma aha kuwo caadi ah oo waxay u baahan yihiin qiimeyn caafimaad oo degdeg ah. Lagama maarmaan ahan inay muujiyaan in dhibaato jirto, laakiin waa in aan la iska indho tirin.',
+    alertTitle: 'Raadi daryeel dhakhso ah',
+    alertIntro: 'Si dhakhso ah talo caafimaad u raadso haddii aad la kulanto, gaar ahaan:',
+    urgentSigns: [
+      'Xanuun laab oo weyn ama aan caadi ahayn',
+      'Dhib neefsasho oo lama filaan ah',
+      'Barar ama xanuun aan caadi ahayn oo hal lug ah',
+      'Madax-xanuun lama filaan ah, aad u xoog badan, ama aan caadi ahayn',
+      'Dhib lama filaan ah oo araga, hadalka, ama xoogga ah',
+    ],
+    emergencyTitle: 'Haddii xaalad daran dhacdo',
+    emergencyText:
+      'Haddii astaamuhu yihiin kuwo lama filaan ah, aad u daran, ama ay la socdaan dhib neefsasho, dareenka suuxdin, ama calaamad kale oo daran, raadso caawimaad caafimaad oo degdeg ah.',
+    summaryTitle: 'Waxa muhiimka ah',
+    summaryItems: [
+      'Saameyn qaar ayaa soo bixi kara bilowga hab cusub oo ka hortag uur hormoon ah.',
+      'Saameyn badan waa ku meel gaar wayna yaraan kartaa waqti ka dib.',
+      'Astaan dhib leh ama sii socota waxay mudan tahay in lala hadlo xirfadle.',
+      'Calaamado aan caadi ahayn qaar waxay u baahan yihiin talo caafimaad oo degdeg ah.',
+    ],
+    finalTipTitle: 'Qodob muhiim ah',
+    finalTipText:
+      'U dhegaysiga jidhkaaga macnaheedu maaha lagama maarmaan inaad isla markiiba joojiso hab. Xus waxa aad dareemayso, indho-indheeyo sida ay u isbeddelaan, oo weydiiso talo markasta oo astaan ku walaaciso.',
+    disclaimerText:
+      'Maqaalkan waxaa loogu talagalay macluumaad mana bedelo talo caafimaad oo shakhsi ah. Haddii aad leedahay astaan weyn ama aan caadi ahayn, talo ka raadso xirfadle caafimaad.',
+    shareMessage: 'Aqoonsiga saameynta dhinac ee suurtagalka ah — AWA',
+  },
+  sw: {
+    badge: 'MADHARA YA PEMBENI',
+    title: 'Kutambua madhara\nya pembeni yanayowezekana',
+    metaDuration: 'Dakika 8 za kusoma',
+    metaType: 'Makala',
+    metaLevel: 'Wastani',
+    metaValidated: 'Maudhui yaliyokaguliwa',
+    intro:
+      'Baadhi ya athari zinaweza kuwa za kawaida na za muda. Nyingine zinahitaji uangalizi zaidi. Jifunze kutofautisha kati ya miitikio ya kawaida na dalili zinazopaswa kutathminiwa.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Athari za kawaida na hafifu',
+      'Kipindi cha mwili kujirekebisha',
+      'Kuchunguza kinachobadilika',
+      'Wakati wa kutafuta ushauri wa kitabibu',
+      'Wakati wa kutafuta huduma haraka',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    body1:
+      'Mtu anapoanza njia mpya ya uzazi wa mpango wa homoni, mwili unaweza kuhitaji muda wa kujirekebisha. Mabadiliko madogo yanaweza kuonekana katika mzunguko, hali ya moyo, au faraja ya mwili.',
+    body2:
+      'Athari hizi mara nyingi ni hafifu na zinaweza kupungua polepole. Kuwepo kwake haimaanishi moja kwa moja kwamba njia ni hatari au kwamba inahitaji kuachwa.',
+    commonEffects: [
+      {
+        title: 'Kutokwa damu kidogo',
+        text: 'Kutokwa damu kusiko kwa mpangilio kunaweza kutokea, hasa mwanzoni mwa njia mpya.',
+      },
+      {
+        title: 'Maumivu ya matiti',
+        text: 'Kubana au maumivu ya matiti yanaweza kuhisiwa kwa muda.',
+      },
+      {
+        title: 'Hali ya moyo',
+        text: 'Baadhi ya watu huona mabadiliko ya hali ya moyo au unyeti ulioongezeka wa hisia.',
+      },
+      {
+        title: 'Maumivu ya kichwa',
+        text: 'Maumivu hafifu ya kichwa yanaweza kutokea wakati wa kipindi cha kujirekebisha.',
+      },
+    ],
+    body3:
+      'Wiki au mizunguko ya kwanza inaweza kuwa tofauti na uliyoizoea kabla. Mwili unaweza kujirekebisha polepole kwa usawa mpya wa homoni.',
+    tip1Title: 'Vyema kujua',
+    tip1Text:
+      'Athari inayoonekana muda mfupi baada ya kuanza njia inastahili kufuatiliwa kadiri muda unavyopita. Ikiwa inakuwa ya kusumbua au inaendelea, zungumza na mtaalamu wa afya.',
+    body4:
+      'Inaweza kusaidia kurekodi dalili kwenye programu yako ili kufuatilia vizuri jinsi zinavyobadilika kutoka mzunguko mmoja hadi unaofuata.',
+    trackingTitle: 'Fuatilia jinsi mambo yanavyobadilika',
+    trackingSubtitle: 'Alama chache zinaweza kusaidia',
+    trackingLines: [
+      'Andika tarehe dalili ilipoonekana.',
+      'Rekodi ukali wake na muda wake.',
+      'Angalia kama inaimarika au inazidi kuwa mbaya.',
+    ],
+    body5:
+      'Si dalili zote zinahusiana lazima na uzazi wa mpango. Msongo wa mawazo, usingizi, lishe, mzunguko wako, au matibabu mengine pia yanaweza kuathiri unavyojisikia.',
+    body6:
+      'Ili kuelewa hali, jaribu kuangalia muktadha wa jumla badala ya dalili moja iliyotengwa.',
+    worthMentioning: [
+      'Mabadiliko ya hali ya moyo yanayoonekana na ya kuendelea',
+      'Kushuka kwa hamu ya tendo la ndoa kunakokusumbua',
+      'Kutokwa damu kusiko kwa mpangilio kunakodumu zaidi ya mizunguko 3',
+      'Kichefuchefu au maumivu ya kichwa yanayobaki kusumbua',
+    ],
+    questionsTitle: 'Maswali machache yenye manufaa',
+    questions: [
+      'Dalili hizi zimekuwepo kwa muda gani?',
+      'Je, ziliibuka baada ya kuanza au kubadilisha njia ya uzazi wa mpango?',
+      'Je, ni hafifu, za kusumbua, au zisizo za kawaida kweli kwako?',
+      'Je, zinaimarika kadiri muda unavyopita au zinakuwa za mara kwa mara zaidi?',
+    ],
+    body7:
+      'Hata dalili isipokuwa ya dharura, inaweza kufaa kuijadili ikiwa inakuwa ya kusumbua, inaendelea, au inaathiri kweli ubora wa maisha yako.',
+    infoTitle: 'Huenda ikafaa kupata ushauri ikiwa…',
+    infoText:
+      'dalili zinaendelea, zinakuwa kubwa zaidi, au zinakuzuia kuishi kawaida.',
+    body8:
+      'Daktari, mkunga, au mfamasia anaweza kukusaidia kubaini kama dalili zinaweza kuhusiana na njia unayotumia na kama inahitaji kurekebishwa.',
+    body9:
+      'Dalili fulani si za kawaida na zinahitaji tathmini ya haraka ya kitabibu. Hazimaanishi lazima kuna tatizo, lakini hazipaswi kupuuzwa.',
+    alertTitle: 'Tafuta huduma haraka',
+    alertIntro: 'Tafuta ushauri wa kitabibu haraka ikiwa utapata, hasa:',
+    urgentSigns: [
+      'Maumivu makubwa au yasiyo ya kawaida ya kifua',
+      'Ugumu wa ghafla wa kupumua',
+      'Uvimbe au maumivu yasiyo ya kawaida kwenye mguu',
+      'Maumivu ya kichwa ya ghafla, makali sana, au yasiyo ya kawaida',
+      'Shida ya ghafla ya kuona, kuzungumza, au nguvu',
+    ],
+    emergencyTitle: 'Katika hali mbaya',
+    emergencyText:
+      'Ikiwa dalili ni za ghafla, kali sana, au zinaambatana na ugumu wa kupumua, kuhisi kuzimia, au dalili nyingine mbaya, tafuta msaada wa haraka wa kitabibu.',
+    summaryTitle: 'Mambo ya msingi',
+    summaryItems: [
+      'Athari fulani zinaweza kuonekana mwanzoni mwa njia mpya ya uzazi wa mpango wa homoni.',
+      'Athari nyingi ni za muda na zinaweza kupungua kadiri muda unavyopita.',
+      'Dalili ya kusumbua au ya kuendelea inastahili kujadiliwa na mtaalamu.',
+      'Dalili fulani zisizo za kawaida zinahitaji ushauri wa haraka wa kitabibu.',
+    ],
+    finalTipTitle: 'Jambo kuu la kukumbuka',
+    finalTipText:
+      'Kusikiliza mwili wako hakumaanishi lazima kuacha njia mara moja. Andika unachohisi, angalia jinsi kinavyobadilika, na uombe ushauri wakati wowote dalili inapokutia wasiwasi.',
+    disclaimerText:
+      'Makala hii imekusudiwa kwa madhumuni ya taarifa na haichukui nafasi ya ushauri wa kitabibu uliobinafsishwa. Ikiwa una dalili kubwa au isiyo ya kawaida, tafuta ushauri wa mtaalamu wa afya.',
+    shareMessage: 'Kutambua madhara ya pembeni yanayowezekana — AWA',
+  },
+  kk: {
+    badge: 'ЖАНАМА ӘСЕРЛЕР',
+    title: 'Мүмкін жанама\nәсерлерді тану',
+    metaDuration: '8 мин оқу',
+    metaType: 'Мақала',
+    metaLevel: 'Орташа',
+    metaValidated: 'Тексерілген мазмұн',
+    intro:
+      'Кейбір әсерлер жиі және уақытша болуы мүмкін. Басқаларына көбірек назар аудару керек. Әдеттегі реакцияларды бағалауды қажет ететін белгілерден ажыратуды үйреніңіз.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Жиі, жеңіл әсерлер',
+      'Дененің бейімделу кезеңі',
+      'Не өзгеретінін бақылау',
+      'Медициналық кеңесті қашан сұрау керек',
+      'Жедел көмекке қашан жүгіну керек',
+      'Негізгі қорытындылар',
+    ],
+    body1:
+      'Адам гормондық контрацепцияның жаңа әдісін бастағанда, денеге бейімделуге біраз уақыт қажет болуы мүмкін. Циклде, көңіл-күйде немесе дене жайлылығында шағын өзгерістер пайда болуы мүмкін.',
+    body2:
+      'Бұл әсерлер көбіне жеңіл және біртіндеп азаюы мүмкін. Олардың болуы әдістің қауіпті екенін немесе тоқтату керек екенін автоматты түрде білдірмейді.',
+    commonEffects: [
+      {
+        title: 'Шамалы қан кету',
+        text: 'Тұрақсыз қан кету, әсіресе жаңа әдістің басында, болуы мүмкін.',
+      },
+      {
+        title: 'Емшектің ауыруы',
+        text: 'Емшектің керілуі немесе ауыруы уақытша сезілуі мүмкін.',
+      },
+      {
+        title: 'Көңіл-күй',
+        text: 'Кейбір адамдар көңіл-күйдің өзгеруін немесе эмоциялық сезімталдықтың артуын байқайды.',
+      },
+      {
+        title: 'Бас ауыруы',
+        text: 'Бейімделу кезеңінде жеңіл бас ауыруы пайда болуы мүмкін.',
+      },
+    ],
+    body3:
+      'Алғашқы апталар немесе циклдер бұрын үйренген жағдайыңыздан өзгеше болуы мүмкін. Дене жаңа гормондық тепе-теңдікке біртіндеп бейімделе алады.',
+    tip1Title: 'Білуге тиісті',
+    tip1Text:
+      'Әдісті бастағаннан кейін көп ұзамай пайда болған әсер уақыт өте бақылауға тұрарлық. Ол мазаласа немесе сақталса, медицина маманымен сөйлесіңіз.',
+    body4:
+      'Белгілердің бір циклден екіншісіне қалай өзгеретінін жақсырақ бақылау үшін оларды қолданбаңызда тіркеу пайдалы болуы мүмкін.',
+    trackingTitle: 'Өзгерісті бақылаңыз',
+    trackingSubtitle: 'Бірнеше белгі пайдалы болуы мүмкін',
+    trackingLines: [
+      'Белгі пайда болған күнді жазып қойыңыз.',
+      'Оның қарқындылығы мен ұзақтығын тіркеңіз.',
+      'Жақсарып немесе нашарлап жатқанын қараңыз.',
+    ],
+    body5:
+      'Барлық белгілер міндетті түрде контрацепциямен байланысты емес. Күйзеліс, ұйқы, тамақтану, циклыңыз немесе басқа емдеулер де сезінуіңізге әсер етуі мүмкін.',
+    body6:
+      'Жағдайды түсіну үшін бір оқшау белгіге емес, жалпы контекстке қарауға тырысыңыз.',
+    worthMentioning: [
+      'Айқын, тұрақты көңіл-күй өзгерістері',
+      'Сізді мазалайтын либидоның төмендеуі',
+      '3 циклден астам созылатын тұрақсыз қан кету',
+      'Мазалауды жалғастыратын жүрек айну немесе бас ауыруы',
+    ],
+    questionsTitle: 'Бірнеше пайдалы сұрақ',
+    questions: [
+      'Бұл белгілер қанша уақыттан бері бар?',
+      'Олар контрацепция әдісін бастағаннан немесе өзгерткеннен кейін пайда болды ма?',
+      'Олар жеңіл, мазалайтын немесе сіз үшін шынымен әдеттен тыс па?',
+      'Олар уақыт өте жақсарып жатыр ма, әлде жиілеп жатыр ма?',
+    ],
+    body7:
+      'Белгі шұғыл болмаса да, ол мазаласа, сақталса немесе өмір сапасына шынымен әсер етсе, оны талқылаған жөн.',
+    infoTitle: 'Кеңес алған жөн болуы мүмкін, егер…',
+    infoText:
+      'белгілер сақталса, күшейсе немесе қалыпты өмір сүруге кедергі келтірсе.',
+    body8:
+      'Дәрігер, акушер немесе дәрігер-фармацевт белгілердің қолданып жүрген әдісіңізбен байланысты болуы мүмкін екенін және оны түзету керек пе екенін анықтауға көмектесе алады.',
+    body9:
+      'Кейбір белгілер әдеттен тыс және жедел медициналық бағалауды қажет етеді. Олар міндетті түрде асқыну бар дегенді білдірмейді, бірақ оларды елемеуге болмайды.',
+    alertTitle: 'Дереу көмекке жүгініңіз',
+    alertIntro: 'Мына жағдайларда, атап айтқанда, медициналық кеңесті тез іздеңіз:',
+    urgentSigns: [
+      'Айтарлықтай немесе әдеттен тыс кеуде ауыруы',
+      'Кенеттен тыныс алудың қиындауы',
+      'Аяқтағы әдеттен тыс ісіну немесе ауыру',
+      'Кенеттен болған, өте қатты немесе әдеттен тыс бас ауыруы',
+      'Көру, сөйлеу немесе күштегі кенеттен проблема',
+    ],
+    emergencyTitle: 'Ауыр жағдай болғанда',
+    emergencyText:
+      'Белгілер кенеттен, өте қатты болса немесе тыныс алу қиындығымен, талу сезімімен немесе басқа ауыр белгімен бірге жүрсе, шұғыл медициналық көмекке жүгініңіз.',
+    summaryTitle: 'Негізгі нәрселер',
+    summaryItems: [
+      'Гормондық контрацепцияның жаңа әдісін бастағанда кейбір әсерлер пайда болуы мүмкін.',
+      'Көптеген әсерлер уақытша және уақыт өте азаюы мүмкін.',
+      'Мазалайтын немесе тұрақты белгіні маманмен талқылаған жөн.',
+      'Кейбір әдеттен тыс белгілер жедел медициналық кеңесті қажет етеді.',
+    ],
+    finalTipTitle: 'Негізгі қорытынды',
+    finalTipText:
+      'Денеңізді тыңдау әдісті бірден тоқтатуды міндетті түрде білдірмейді. Сезінгеніңізді жазып қойыңыз, оның қалай дамитынын бақылаңыз және белгі алаңдатқан сайын кеңес сұраңыз.',
+    disclaimerText:
+      'Бұл мақала ақпараттық мақсатқа арналған және жекелендірілген медициналық кеңестің орнын баспайды. Айтарлықтай немесе әдеттен тыс белгіңіз болса, медицина маманынан кеңес сұраңыз.',
+    shareMessage: 'Мүмкін жанама әсерлерді тану — AWA',
+  },
+  wo: {
+    badge: 'LU ÑUY GIS GINNAAW',
+    title: 'Xam lu ñuy mën\na gis ginnaaw',
+    metaDuration: '8 simili jàng',
+    metaType: 'Bind',
+    metaLevel: 'Digg-dóomu',
+    metaValidated: 'Mbind bu ñu seetlu',
+    intro:
+      'Yenn njeexital mën nañu bari te gàtt. Yeneen soxla teg bu gëna bari. Jàng séddale tontu yu cosaan ak màndarga yu war a seetlu.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Njeexital yu bari, yu neex',
+      'Diirub bokk bu yaram',
+      'Teg li di soppiku',
+      'Kañ ngay seet ndigalu doktoor',
+      'Kañ ngay seet dimbali ci gaaw',
+      'Li am solo',
+    ],
+    body1:
+      'Bu ñu tàmbalee benn anamu ŋàbbal ëmb bu hormon bu bees, yaram bi mën na soxla jamono ngir bokk. Soppi yu ndaw mën nañu feeñ ci wërsëg, xol walla neex ci yaram.',
+    body2:
+      'Njeexital yii daa neex te mën nañu wàññiku tuuti-tuuti. Seen am du tekki saa su ne ne anam bi dafa bon walla war na ñu ko taxawal.',
+    commonEffects: [
+      {
+        title: 'Deret bu ndaw',
+        text: 'Deret bu jubul mën na am, lool ci tàmbalig benn anam bu bees.',
+      },
+      {
+        title: 'Metit ci nàmm',
+        text: 'Nàmm yu diis walla yu metti mën nañu feeñ ci diir bu gàtt.',
+      },
+      {
+        title: 'Xol',
+        text: 'Yenn nit dañuy gis soppi ci xol walla nooy bu yokku.',
+      },
+      {
+        title: 'Bopp bu metti',
+        text: 'Bopp bu neex mën na feeñ ci jamonoy bokk.',
+      },
+    ],
+    body3:
+      'Ayu-bés walla wërsëg yu njëkk mën nañu wuute ak li nga amoon balaa. Yaram bi mën na bokk ak jubluñu hormon bu bees tuuti-tuuti.',
+    tip1Title: 'Lu baax a xam',
+    tip1Text:
+      'Benn njeexital bu feeñ ci gaaw ginnaaw tàmbalig anam bi am solo na ñu ko teg ci jamono. Bu mu tiital walla di sax, wax ak benn liggéeykatu wér.',
+    body4:
+      'Mën na dimbli nga bind màndarga yi ci sa appli ngir gën a topp naka ñuy soppiku ci wërsëg ak wërsëg.',
+    trackingTitle: 'Teg li di soppiku',
+    trackingSubtitle: 'Yenn màndarga mën nañu am njariñ',
+    trackingLines: [
+      'Bind bési bi màndarga bi feeñ.',
+      'Bind dayoom ak diiram.',
+      'Seetlu ndax mu ngi gën a baax walla gën a bon.',
+    ],
+    body5:
+      'Màndarga yépp duñu jëm saa su ne ci ŋàbbal ëmb. Coono, nelaw, lekk, sa wërsëg walla yeneen garab mën nañu jëm itam ci naka nga di dégg.',
+    body6:
+      'Ngir xam mbir bi, jéem seet ni mu mel ci biir, du benn màndarga bu neen rekk.',
+    worthMentioning: [
+      'Soppi yu xol yu leer, yu sax',
+      'Wàññiku bëgg-bëgg bu tiis',
+      'Deret bu jubul bu yàgg ci kaw 3 wërsëg',
+      'Dundu xol walla bopp bu metti bu kontine di tiis',
+    ],
+    questionsTitle: 'Yenn laaj yu am njariñ',
+    questions: [
+      'Bu yàgg la màndarga yii am?',
+      'Dañu feeñ ginnaaw tàmbali walla soppi benn anam bu ŋàbbal ëmb?',
+      'Neex nañu, tiis nañu walla cosaanul dëgg ngir yaw?',
+      'Dañuy wér ci jamono walla di gën a bari?',
+    ],
+    body7:
+      'Lu mu mën a doon benn màndarga bu amul gaaw, baax na ñu ko waxtaan bu mu tiis, bu mu sax walla bu mu ñaawal dund bu bees.',
+    infoTitle: 'Mën na baax nga seet ndigal bu…',
+    infoText:
+      'màndarga yi sax, gën a bari walla tee nga dund ni cosaan.',
+    body8:
+      'Benn doktoor, ndey-jur walla farmasiyen mën na dimbli nga xam ndax màndarga yi mën nañu jëm ci anam bi nga di jëfandikoo te ndax war na ñu ko defar.',
+    body9:
+      'Yenn màndarga cosaanul te soxla seetlu bu gaaw bu doktoor. Duñu tekki saa su ne ne am na jafe-jafe, waaye bañ a bàyyi leen.',
+    alertTitle: 'Seet dimbali ci gaaw',
+    alertIntro: 'Seet ndigalu doktoor ci gaaw bu nga gisee, lool:',
+    urgentSigns: [
+      'Metit ci dënn bu am solo walla bu cosaanul',
+      'Jafe ci noppiku ci gaaw',
+      'Tuuru walla metit bu cosaanul ci benn tànk',
+      'Bopp bu metti lool, bu gaaw walla bu cosaanul',
+      'Jafe-jafe bu gaaw ci gis, ci wax walla ci doole',
+    ],
+    emergencyTitle: 'Bu mbir bi metti',
+    emergencyText:
+      'Bu màndarga yi gaaw, metti lool walla ànd ak jafe ci noppiku, dégg ne dinga ŋàbbu walla beneen màndarga bu metti, seet dimbali bu gaaw.',
+    summaryTitle: 'Li am solo',
+    summaryItems: [
+      'Yenn njeexital mën nañu feeñ bu ñu tàmbalee benn anamu ŋàbbal ëmb bu hormon bu bees.',
+      'Bari ci njeexital yi gàtt nañu te mën nañu wàññiku ci jamono.',
+      'Benn màndarga bu tiis walla bu sax baax na ñu ko waxtaan ak benn liggéeykat.',
+      'Yenn màndarga yu cosaanul soxla ndigalu doktoor bu gaaw.',
+    ],
+    finalTipTitle: 'Li am solo',
+    finalTipText:
+      'Déglu sa yaram du tekki taxawal anam bi ci gaaw. Bind li nga dégg, teg naka mu di dem te ñaan ndigal saa su ne benn màndarga di tiital la.',
+    disclaimerText:
+      'Bind bii ngir xibaar la te du wuutu ndigalu doktoor bu sa bopp. Bu am nga benn màndarga bu am solo walla bu cosaanul, seet ndigalu benn liggéeykatu wér.',
+    shareMessage: 'Xam lu ñuy mën a gis ginnaaw — AWA',
+  },
+  ha: {
+    badge: 'ILLOLI',
+    title: 'Gane yiwuwar\nillolin magani',
+    metaDuration: 'karatun minti 8',
+    metaType: 'Labari',
+    metaLevel: 'Matsakaici',
+    metaValidated: 'Abun da aka duba',
+    intro:
+      'Wasu tasirori na iya zama gama gari kuma na ɗan lokaci. Wasu suna bukatar ƙarin kulawa. Koyi bambanta martani na yau da kullum da alamomin da ya kamata a tantance.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Tasirori gama gari, masu sauƙi',
+      'Lokacin daidaitawar jiki',
+      'Lura da abin da ke canzawa',
+      'Lokacin neman shawarar likita',
+      'Lokacin neman kulawa da sauri',
+      'Muhimman abubuwa',
+    ],
+    body1:
+      'Idan wani ya fara sabuwar hanyar hana haihuwa ta hormone, jiki na iya bukatar ɗan lokaci don daidaitawa. Ƙananan sauye-sauye na iya bayyana a zagaye, yanayi, ko jin daɗin jiki.',
+    body2:
+      'Waɗannan tasirori galibi masu sauƙi ne kuma suna iya raguwa a hankali. Kasancewarsu ba ya nufin kai tsaye hanyar tana da haɗari ko cewa dole a daina ta.',
+    commonEffects: [
+      {
+        title: 'Ƙaramin zubar jini',
+        text: 'Zubar jini mara tsari na iya faruwa, musamman a farkon sabuwar hanya.',
+      },
+      {
+        title: 'Ciwon nono',
+        text: 'Ƙuntatawa ko ciwon nono na iya bayyana na ɗan lokaci.',
+      },
+      {
+        title: 'Yanayi',
+        text: 'Wasu mutane suna lura da sauyin yanayi ko ƙarin hankali ga ji.',
+      },
+      {
+        title: 'Ciwon kai',
+        text: 'Ciwon kai mai sauƙi na iya faruwa yayin lokacin daidaitawa.',
+      },
+    ],
+    body3:
+      'Makonni ko zagaye na farko na iya bambanta da abin da kika saba kafin. Jiki zai iya daidaitawa a hankali da sabon daidaiton hormone.',
+    tip1Title: 'Abin da ya dace a sani',
+    tip1Text:
+      'Tasirin da ya bayyana jim kaɗan bayan fara hanya ya cancanci a lura da shi a kan lokaci. Idan ya zama mai damuwa ko ya dawwama, yi magana da ma’aikacin lafiya.',
+    body4:
+      'Yana iya zama da amfani a rubuta alamomi a manhajarki don fi bin yadda suke canzawa daga zagaye zuwa zagaye.',
+    trackingTitle: 'Bi yadda abubuwa ke ci gaba',
+    trackingSubtitle: 'Wasu alamomi na iya zama masu amfani',
+    trackingLines: [
+      'Rubuta ranar da alamar ta bayyana.',
+      'Rubuta ƙarfinta da tsawonta.',
+      'Lura ko tana inganta ko tana ƙara muni.',
+    ],
+    body5:
+      'Ba duk alamomi ne ke da alaƙa da hana haihuwa ba. Damuwa, barci, abinci, zagayenki, ko wasu magunguna ma na iya shafar yadda kike ji.',
+    body6:
+      'Don fahimtar yanayin, yi ƙoƙarin duba yanayin gabaɗaya maimakon alama guda ɗaya a keɓe.',
+    worthMentioning: [
+      'Sauyin yanayi bayyananne, mai dawwama',
+      'Raguwar sha’awa da ke damun ki',
+      'Zubar jini mara tsari da ya wuce zagaye 3',
+      'Tashin zuciya ko ciwon kai da ke ci gaba da damuwa',
+    ],
+    questionsTitle: 'Wasu tambayoyi masu amfani',
+    questions: [
+      'Tun yaushe waɗannan alamomi suke?',
+      'Sun bayyana bayan fara ko canza hanyar hana haihuwa?',
+      'Suna da sauƙi, masu damuwa, ko da gaske ba na al’ada ba a gare ki?',
+      'Suna inganta a kan lokaci ko suna ƙara yawa?',
+    ],
+    body7:
+      'Ko da alama ba ta gaggawa ba, tana iya cancanci a tattauna ta idan ta zama mai damuwa, ta dawwama, ko ta shafi ingancin rayuwarki da gaske.',
+    infoTitle: 'Yana iya cancanci a nemi shawara idan…',
+    infoText:
+      'alamomi sun dawwama, sun zama masu muhimmanci, ko sun hana ki rayuwa yadda ya kamata.',
+    body8:
+      'Likita, ungozoma, ko mai magani na iya taimaka miki ki tantance ko alamomi na iya alaƙa da hanyar da kike amfani da ita kuma ko ana bukatar a daidaita ta.',
+    body9:
+      'Wasu alamomi ba na al’ada ba ne kuma suna bukatar tantancewar likita nan take. Ba lallai ba ne suna nufin akwai rikitarwa, amma bai kamata a yi watsi da su ba.',
+    alertTitle: 'Nemi kulawa da sauri',
+    alertIntro: 'Nemi shawarar likita da sauri idan kina fuskantar, musamman:',
+    urgentSigns: [
+      'Ciwon ƙirji mai yawa ko ba na al’ada ba',
+      'Wahalar numfashi kwatsam',
+      'Kumburi ko ciwo ba na al’ada ba a ƙafa',
+      'Ciwon kai kwatsam, mai tsanani sosai ko ba na al’ada ba',
+      'Matsalar gani, magana, ko ƙarfi kwatsam',
+    ],
+    emergencyTitle: 'Idan akwai yanayi mai tsanani',
+    emergencyText:
+      'Idan alamomi sun zo kwatsam, suna da tsanani sosai, ko suna zuwa tare da wahalar numfashi, jin kamar za a suma, ko wata alama mai tsanani, nemi taimakon likita na gaggawa.',
+    summaryTitle: 'Muhimman abubuwa',
+    summaryItems: [
+      'Wasu tasirori na iya bayyana a farkon sabuwar hanyar hana haihuwa ta hormone.',
+      'Tasirori da yawa na ɗan lokaci ne kuma suna iya raguwa a kan lokaci.',
+      'Alama mai damuwa ko mai dawwama ta cancanci a tattauna da ƙwararre.',
+      'Wasu alamomi ba na al’ada ba suna bukatar shawarar likita nan take.',
+    ],
+    finalTipTitle: 'Muhimmin abu',
+    finalTipText:
+      'Sauraron jikinki ba lallai ba ne yana nufin daina hanya nan da nan. Rubuta abin da kike ji, lura da yadda yake ci gaba, kuma nemi shawara duk lokacin da alama ta damu ke.',
+    disclaimerText:
+      'An yi wannan labari don bayani ne kuma ba ya maye gurbin shawarar likita ta keɓaɓɓiya. Idan kina da alama mai muhimmanci ko ba ta al’ada ba, nemi shawara daga ma’aikacin lafiya.',
+    shareMessage: 'Gane yiwuwar illolin magani — AWA',
+  },
+  am: {
+    badge: 'የጎንዮሽ ጉዳቶች',
+    title: 'ሊኖሩ የሚችሉ የጎንዮሽ ጉዳቶችን\nመለየት',
+    metaDuration: '8 ደቂቃ ንባብ',
+    metaType: 'ጽሑፍ',
+    metaLevel: 'መካከለኛ',
+    metaValidated: 'የተገመገመ ይዘት',
+    intro:
+      'አንዳንድ ተጽእኖዎች የተለመዱ እና ጊዜያዊ ሊሆኑ ይችላሉ። ሌሎች የበለጠ ትኩረት ይፈልጋሉ። በተለመዱ ምላሾች እና ግምገማ በሚፈልጉ ምልክቶች መካከል ያለውን ልዩነት ለመለየት ተማሪ።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'የተለመዱ፣ ቀላል ተጽእኖዎች',
+      'የሰውነት የመላመድ ጊዜ',
+      'የሚለወጠውን መታዘብ',
+      'የሕክምና ምክር መቼ መፈለግ',
+      'ፈጣን እንክብካቤ መቼ መፈለግ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    body1:
+      'አንድ ሰው አዲስ የሆርሞን የእርግዝና መከላከያ ዘዴ ሲጀምር ሰውነት ለመላመድ ጥቂት ጊዜ ሊፈልግ ይችላል። ትናንሽ ለውጦች በዑደቱ፣ በስሜቱ ወይም በአካላዊ ምቾቱ ላይ ሊታዩ ይችላሉ።',
+    body2:
+      'እነዚህ ተጽእኖዎች ብዙ ጊዜ ቀላል ናቸው እና ቀስ በቀስ ሊቀንሱ ይችላሉ። መኖራቸው ዘዴው አደገኛ ነው ወይም መቆም አለበት ማለት በራስ-ሰር አይደለም።',
+    commonEffects: [
+      {
+        title: 'ቀላል ደም መፍሰስ',
+        text: 'መደበኛ ያልሆነ ደም መፍሰስ ሊከሰት ይችላል፣ በተለይ በአዲስ ዘዴ መጀመሪያ።',
+      },
+      {
+        title: 'የጡት ርህራሄ',
+        text: 'የጡት መጨናነቅ ወይም ርህራሄ ለጊዜው ሊሰማ ይችላል።',
+      },
+      {
+        title: 'ስሜት',
+        text: 'አንዳንድ ሰዎች የስሜት ለውጦችን ወይም የጨመረ ስሜታዊነትን ያስተውላሉ።',
+      },
+      {
+        title: 'ራስ ምታት',
+        text: 'በመላመድ ጊዜ ቀላል ራስ ምታት ሊከሰት ይችላል።',
+      },
+    ],
+    body3:
+      'የመጀመሪያዎቹ ጥቂት ሳምንታት ወይም ዑደቶች ከለመድሽው ሊለዩ ይችላሉ። ሰውነት ከአዲሱ የሆርሞን ሚዛን ጋር ቀስ በቀስ ሊላመድ ይችላል።',
+    tip1Title: 'ማወቅ ጠቃሚ ነው',
+    tip1Text:
+      'ዘዴ ከተጀመረ ብዙም ሳይቆይ የሚታይ ተጽእኖ በጊዜ ሂደት መከታተል ተገቢ ነው። የሚያስቸግር ከሆነ ወይም ከቀጠለ ከጤና ባለሙያ ጋር ተነጋገሪ።',
+    body4:
+      'ምልክቶች ከአንዱ ዑደት ወደ ሌላው እንዴት እንደሚለወጡ በተሻለ ለመከታተል በመተግበሪያሽ ውስጥ መመዝገብ ሊረዳ ይችላል።',
+    trackingTitle: 'እንዴት እንደሚለወጥ ተከታተይ',
+    trackingSubtitle: 'ጥቂት አመልካቾች ጠቃሚ ሊሆኑ ይችላሉ',
+    trackingLines: [
+      'ምልክቱ የታየበትን ቀን ጻፊ።',
+      'ጥንካሬውንና ቆይታውን መዝግቢ።',
+      'እየተሻሻለ ወይም እየተባባሰ እንደሆነ ታዘቢ።',
+    ],
+    body5:
+      'ሁሉም ምልክቶች የግድ ከእርግዝና መከላከያ ጋር የተያያዙ አይደሉም። ጭንቀት፣ እንቅልፍ፣ አመጋገብ፣ ዑደትሽ ወይም ሌሎች ሕክምናዎች እንዴት እንደሚሰማሽም ሊነኩ ይችላሉ።',
+    body6:
+      'ሁኔታውን ለመረዳት አንድን ምልክት ብቻውን ከማየት ይልቅ አጠቃላይ አውዱን ለማየት ሞክሪ።',
+    worthMentioning: [
+      'ግልጽ፣ የሚቆዩ የስሜት ለውጦች',
+      'የሚያስቸግርሽ የፍላጎት መቀነስ',
+      'ከ3 ዑደቶች በላይ የሚቆይ መደበኛ ያልሆነ ደም መፍሰስ',
+      'የሚያስቸግሩ ሆነው የሚቆዩ ማቅለሽለሽ ወይም ራስ ምታት',
+    ],
+    questionsTitle: 'ጥቂት ጠቃሚ ጥያቄዎች',
+    questions: [
+      'እነዚህ ምልክቶች ለምን ያህል ጊዜ ቆይተዋል?',
+      'የእርግዝና መከላከያ ዘዴ ከጀመርሽ ወይም ከቀየርሽ በኋላ ታዩ?',
+      'ቀላል፣ የሚያስቸግሩ ወይም ለአንቺ በእርግጥ ያልተለመዱ ናቸው?',
+      'በጊዜ ሂደት እየተሻሻሉ ነው ወይስ እየበዙ ነው?',
+    ],
+    body7:
+      'ምልክት አስቸኳይ ባይሆንም የሚያስቸግር ከሆነ፣ ከቀጠለ ወይም የሕይወት ጥራትሽን በእውነት ከነካ ስለሱ መወያየት ተገቢ ሊሆን ይችላል።',
+    infoTitle: 'ምክር ማግኘት ተገቢ ሊሆን ይችላል…',
+    infoText:
+      'ምልክቶች ከቀጠሉ፣ ከጨመሩ ወይም በመደበኛነት እንዳትኖሪ ካደረጉሽ።',
+    body8:
+      'ሐኪም፣ ሚድዋይፍ ወይም ፋርማሲስት ምልክቶቹ ከምትጠቀሚው ዘዴ ጋር ሊያያዙ እንደሚችሉ እና ማስተካከል እንደሚያስፈልገው ለመወሰን ሊረዱሽ ይችላሉ።',
+    body9:
+      'አንዳንድ ምልክቶች ያልተለመዱ ናቸው እና ፈጣን የሕክምና ግምገማ ይፈልጋሉ። ውስብስብ ችግር እንዳለ የግድ አያመለክቱም፣ ነገር ግን ችላ ሊባሉ አይገባም።',
+    alertTitle: 'ፈጣን እንክብካቤ ፈልጊ',
+    alertIntro: 'በተለይ የሚከተሉት ካጋጠሙሽ በፍጥነት የሕክምና ምክር ፈልጊ፦',
+    urgentSigns: [
+      'ከፍተኛ ወይም ያልተለመደ የደረት ህመም',
+      'ድንገተኛ የመተንፈስ ችግር',
+      'በእግር ላይ ያልተለመደ እብጠት ወይም ህመም',
+      'ድንገተኛ፣ በጣም ኃይለኛ ወይም ያልተለመደ ራስ ምታት',
+      'ድንገተኛ የማየት፣ የመናገር ወይም የጥንካሬ ችግር',
+    ],
+    emergencyTitle: 'ከባድ ሁኔታ ሲኖር',
+    emergencyText:
+      'ምልክቶች ድንገተኛ፣ በጣም ከባድ ከሆኑ ወይም ከመተንፈስ ችግር፣ የመውደቅ ስሜት ወይም ሌላ ከባድ ምልክት ጋር ከመጡ አስቸኳይ የሕክምና እርዳታ ፈልጊ።',
+    summaryTitle: 'አስፈላጊዎቹ',
+    summaryItems: [
+      'አንዳንድ ተጽእኖዎች በአዲስ የሆርሞን የእርግዝና መከላከያ ዘዴ መጀመሪያ ሊታዩ ይችላሉ።',
+      'ብዙ ተጽእኖዎች ጊዜያዊ ናቸው እና በጊዜ ሂደት ሊቀንሱ ይችላሉ።',
+      'የሚያስቸግር ወይም የሚቆይ ምልክት ከባለሙያ ጋር መወያየት ተገቢ ነው።',
+      'አንዳንድ ያልተለመዱ ምልክቶች ፈጣን የሕክምና ምክር ይፈልጋሉ።',
+    ],
+    finalTipTitle: 'ዋና ነጥብ',
+    finalTipText:
+      'ሰውነትሽን ማዳመጥ ዘዴን ወዲያውኑ ማቆም የግድ አይደለም። የሚሰማሽን ጻፊ፣ እንዴት እንደሚለወጥ ታዘቢ፣ እና ምልክት ባሳሰበሽ ጊዜ ሁሉ ምክር ጠይቂ።',
+    disclaimerText:
+      'ይህ ጽሑፍ ለመረጃ ዓላማ የታሰበ ነው እና ግላዊ የሕክምና ምክርን አይተካም። ከፍተኛ ወይም ያልተለመደ ምልክት ካለሽ ከጤና ባለሙያ ምክር ጠይቂ።',
+    shareMessage: 'ሊኖሩ የሚችሉ የጎንዮሽ ጉዳቶችን መለየት — AWA',
+  },
+  nl: {
+    badge: 'BIJWERKINGEN',
+    title: 'Mogelijke bijwerkingen\nherkennen',
+    metaDuration: '8 min lezen',
+    metaType: 'Artikel',
+    metaLevel: 'Gemiddeld',
+    metaValidated: 'Gecontroleerde inhoud',
+    intro:
+      'Sommige effecten kunnen vaak voorkomen en tijdelijk zijn. Andere vragen meer aandacht. Leer het verschil te zien tussen gebruikelijke reacties en tekenen die moeten worden beoordeeld.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Veelvoorkomende, milde effecten',
+      'De aanpassingsperiode van het lichaam',
+      'Observeren wat verandert',
+      'Wanneer medisch advies vragen',
+      'Wanneer snel zorg zoeken',
+      'Belangrijkste punten',
+    ],
+    body1:
+      'Wanneer iemand een nieuwe hormonale anticonceptiemethode begint, kan het lichaam wat tijd nodig hebben om zich aan te passen. Er kunnen kleine veranderingen optreden in de cyclus, de stemming of het lichamelijk comfort.',
+    body2:
+      'Deze effecten zijn vaak mild en kunnen geleidelijk afnemen. Hun aanwezigheid betekent niet automatisch dat de methode gevaarlijk is of dat ze moet worden gestopt.',
+    commonEffects: [
+      {
+        title: 'Lichte bloedingen',
+        text: 'Onregelmatig bloedverlies kan optreden, vooral aan het begin van een nieuwe methode.',
+      },
+      {
+        title: 'Gevoelige borsten',
+        text: 'Een gespannen of gevoelig gevoel in de borsten kan tijdelijk optreden.',
+      },
+      {
+        title: 'Stemming',
+        text: 'Sommige mensen merken stemmingswisselingen of een grotere emotionele gevoeligheid op.',
+      },
+      {
+        title: 'Hoofdpijn',
+        text: 'Lichte hoofdpijn kan optreden tijdens de aanpassingsperiode.',
+      },
+    ],
+    body3:
+      'De eerste weken of cycli kunnen anders zijn dan wat je gewend was. Het lichaam kan zich geleidelijk aanpassen aan het nieuwe hormonale evenwicht.',
+    tip1Title: 'Goed om te weten',
+    tip1Text:
+      'Een effect dat kort na het starten van een methode verschijnt, is de moeite waard om in de loop van de tijd te volgen. Als het hinderlijk wordt of aanhoudt, praat dan met een zorgprofessional.',
+    body4:
+      'Het kan nuttig zijn symptomen in je app vast te leggen om beter te volgen hoe ze van cyclus tot cyclus veranderen.',
+    trackingTitle: 'Volg hoe het zich ontwikkelt',
+    trackingSubtitle: 'Enkele aandachtspunten kunnen nuttig zijn',
+    trackingLines: [
+      'Noteer de datum waarop het symptoom verscheen.',
+      'Leg de intensiteit en duur vast.',
+      'Kijk of het verbetert of verergert.',
+    ],
+    body5:
+      'Niet alle symptomen hangen noodzakelijk samen met anticonceptie. Stress, slaap, voeding, je cyclus of andere behandelingen kunnen ook beïnvloeden hoe je je voelt.',
+    body6:
+      'Probeer om de situatie te begrijpen naar de algemene context te kijken in plaats van naar één symptoom afzonderlijk.',
+    worthMentioning: [
+      'Duidelijke, aanhoudende stemmingswisselingen',
+      'Een afname van het libido die je hindert',
+      'Onregelmatig bloedverlies dat langer dan 3 cycli duurt',
+      'Misselijkheid of hoofdpijn die hinderlijk blijven',
+    ],
+    questionsTitle: 'Enkele nuttige vragen',
+    questions: [
+      'Hoe lang duren deze klachten al?',
+      'Zijn ze verschenen na het starten of wijzigen van een anticonceptiemethode?',
+      'Zijn ze mild, hinderlijk of echt ongewoon voor jou?',
+      'Verbeteren ze na verloop van tijd of komen ze vaker voor?',
+    ],
+    body7:
+      'Zelfs als een symptoom niet dringend is, kan het de moeite waard zijn het te bespreken als het hinderlijk wordt, aanhoudt of je levenskwaliteit echt beïnvloedt.',
+    infoTitle: 'Het kan nuttig zijn advies te vragen als…',
+    infoText:
+      'symptomen aanhouden, ernstiger worden of je beletten normaal te leven.',
+    body8:
+      'Een arts, verloskundige of apotheker kan je helpen te bepalen of de klachten samenhangen met de methode die je gebruikt en of die moet worden aangepast.',
+    body9:
+      'Sommige tekenen zijn ongewoon en vragen om snelle medische beoordeling. Ze betekenen niet per se dat er een complicatie is, maar ze mogen niet worden genegeerd.',
+    alertTitle: 'Zoek snel zorg',
+    alertIntro: 'Zoek snel medisch advies als je met name last hebt van:',
+    urgentSigns: [
+      'Aanzienlijke of ongewone pijn op de borst',
+      'Plotselinge ademhalingsmoeilijkheden',
+      'Ongewone zwelling of pijn in een been',
+      'Plotselinge, zeer hevige of ongewone hoofdpijn',
+      'Plotselinge problemen met zien, spreken of kracht',
+    ],
+    emergencyTitle: 'Bij een ernstige situatie',
+    emergencyText:
+      'Als de klachten plotseling, zeer ernstig zijn of gepaard gaan met ademhalingsmoeilijkheden, een flauw gevoel of een ander ernstig teken, zoek dan dringend medische hulp.',
+    summaryTitle: 'De essentie',
+    summaryItems: [
+      'Sommige effecten kunnen optreden aan het begin van een nieuwe hormonale anticonceptiemethode.',
+      'Veel effecten zijn tijdelijk en kunnen na verloop van tijd afnemen.',
+      'Een hinderlijk of aanhoudend symptoom is de moeite waard om met een professional te bespreken.',
+      'Sommige ongewone tekenen vragen om snel medisch advies.',
+    ],
+    finalTipTitle: 'Belangrijkste punt',
+    finalTipText:
+      'Luisteren naar je lichaam betekent niet per se meteen stoppen met een methode. Noteer wat je voelt, volg hoe het zich ontwikkelt en vraag advies zodra een symptoom je zorgen baart.',
+    disclaimerText:
+      'Dit artikel is bedoeld ter informatie en vervangt geen persoonlijk medisch advies. Als je een aanzienlijk of ongewoon symptoom hebt, vraag dan advies aan een zorgprofessional.',
+    shareMessage: 'Mogelijke bijwerkingen herkennen — AWA',
+  },
+  fi: {
+    badge: 'SIVUVAIKUTUKSET',
+    title: 'Mahdollisten sivuvaikutusten\ntunnistaminen',
+    metaDuration: '8 min lukuaika',
+    metaType: 'Artikkeli',
+    metaLevel: 'Keskitaso',
+    metaValidated: 'Tarkistettu sisältö',
+    intro:
+      'Jotkin vaikutukset voivat olla yleisiä ja tilapäisiä. Toiset vaativat enemmän huomiota. Opi erottamaan tavalliset reaktiot merkeistä, jotka tulisi arvioida.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Yleiset, lievät vaikutukset',
+      'Kehon sopeutumisjakso',
+      'Muutosten havainnointi',
+      'Milloin hakea lääketieteellistä neuvoa',
+      'Milloin hakea hoitoa nopeasti',
+      'Tärkeimmät asiat',
+    ],
+    body1:
+      'Kun joku aloittaa uuden hormonaalisen ehkäisymenetelmän, keho voi tarvita aikaa sopeutuakseen. Kiertoon, mielialaan tai fyysiseen mukavuuteen voi ilmaantua pieniä muutoksia.',
+    body2:
+      'Nämä vaikutukset ovat usein lieviä ja voivat vähitellen vähentyä. Niiden esiintyminen ei automaattisesti tarkoita, että menetelmä olisi vaarallinen tai että se pitäisi lopettaa.',
+    commonEffects: [
+      {
+        title: 'Lievä vuoto',
+        text: 'Epäsäännöllistä vuotoa voi esiintyä erityisesti uuden menetelmän alussa.',
+      },
+      {
+        title: 'Rintojen arkuus',
+        text: 'Rintojen kireyttä tai arkuutta voi tuntua tilapäisesti.',
+      },
+      {
+        title: 'Mieliala',
+        text: 'Jotkut huomaavat mielialan muutoksia tai lisääntynyttä tunneherkkyyttä.',
+      },
+      {
+        title: 'Päänsärky',
+        text: 'Lievää päänsärkyä voi esiintyä sopeutumisjakson aikana.',
+      },
+    ],
+    body3:
+      'Ensimmäiset viikot tai kierrot voivat poiketa siitä, mihin olit tottunut ennen. Keho voi vähitellen sopeutua uuteen hormonitasapainoon.',
+    tip1Title: 'Hyvä tietää',
+    tip1Text:
+      'Pian menetelmän aloittamisen jälkeen ilmaantuvaa vaikutusta kannattaa seurata ajan myötä. Jos se muuttuu haittaavaksi tai jatkuu, puhu terveydenhuollon ammattilaisen kanssa.',
+    body4:
+      'Voi olla hyödyllistä kirjata oireet sovellukseesi, jotta voit seurata paremmin niiden muutoksia kierrosta toiseen.',
+    trackingTitle: 'Seuraa kehitystä',
+    trackingSubtitle: 'Muutamat viitepisteet voivat olla hyödyllisiä',
+    trackingLines: [
+      'Kirjaa oireen ilmaantumispäivä.',
+      'Kirjaa sen voimakkuus ja kesto.',
+      'Seuraa, paraneeko vai pahenee se.',
+    ],
+    body5:
+      'Kaikki oireet eivät välttämättä liity ehkäisyyn. Stressi, uni, ruokavalio, kiertosi tai muut hoidot voivat myös vaikuttaa olosi.',
+    body6:
+      'Tilanteen ymmärtämiseksi yritä katsoa kokonaisuutta yksittäisen oireen sijaan.',
+    worthMentioning: [
+      'Selvät, pitkäkestoiset mielialan muutokset',
+      'Sukupuolivietin lasku, joka vaivaa sinua',
+      'Epäsäännöllinen vuoto, joka kestää yli 3 kiertoa',
+      'Pahoinvointi tai päänsärky, jotka pysyvät haittaavina',
+    ],
+    questionsTitle: 'Muutamia hyödyllisiä kysymyksiä',
+    questions: [
+      'Kuinka kauan nämä oireet ovat jatkuneet?',
+      'Ilmaantuivatko ne ehkäisymenetelmän aloittamisen tai vaihtamisen jälkeen?',
+      'Ovatko ne lieviä, haittaavia vai todella epätavallisia sinulle?',
+      'Paranevatko ne ajan myötä vai yleistyvätkö ne?',
+    ],
+    body7:
+      'Vaikka oire ei olisi kiireellinen, sen puheeksi ottaminen voi olla arvokasta, jos se muuttuu haittaavaksi, jatkuu tai todella vaikuttaa elämänlaatuusi.',
+    infoTitle: 'Voi olla hyödyllistä pyytää neuvoa, jos…',
+    infoText:
+      'oireet jatkuvat, muuttuvat merkittävämmiksi tai estävät sinua elämästä normaalisti.',
+    body8:
+      'Lääkäri, kätilö tai apteekkari voi auttaa selvittämään, voivatko oireet liittyä käyttämääsi menetelmään ja pitäisikö sitä säätää.',
+    body9:
+      'Jotkin merkit ovat epätavallisia ja vaativat pikaista lääketieteellistä arviota. Ne eivät välttämättä tarkoita komplikaatiota, mutta niitä ei pidä sivuuttaa.',
+    alertTitle: 'Hakeudu hoitoon pikaisesti',
+    alertIntro: 'Hae pikaisesti lääketieteellistä neuvontaa, jos sinulla on erityisesti:',
+    urgentSigns: [
+      'Merkittävä tai epätavallinen rintakipu',
+      'Äkillinen hengitysvaikeus',
+      'Epätavallinen turvotus tai kipu jalassa',
+      'Äkillinen, hyvin voimakas tai epätavallinen päänsärky',
+      'Äkillisiä ongelmia näössä, puheessa tai voimassa',
+    ],
+    emergencyTitle: 'Vakavan tilanteen sattuessa',
+    emergencyText:
+      'Jos oireet ovat äkillisiä, hyvin vaikeita tai niihin liittyy hengitysvaikeuksia, pyörtymisen tunnetta tai muu vakava merkki, hae kiireellistä lääketieteellistä apua.',
+    summaryTitle: 'Olennaiset asiat',
+    summaryItems: [
+      'Jotkin vaikutukset voivat ilmaantua uuden hormonaalisen ehkäisymenetelmän alussa.',
+      'Monet vaikutukset ovat tilapäisiä ja voivat vähentyä ajan myötä.',
+      'Haittaavasta tai jatkuvasta oireesta kannattaa puhua ammattilaisen kanssa.',
+      'Jotkin epätavalliset merkit vaativat pikaista lääketieteellistä neuvontaa.',
+    ],
+    finalTipTitle: 'Tärkein asia',
+    finalTipText:
+      'Kehosi kuunteleminen ei välttämättä tarkoita menetelmän heti lopettamista. Kirjaa, mitä tunnet, seuraa sen kehitystä ja pyydä neuvoa aina, kun oire huolestuttaa sinua.',
+    disclaimerText:
+      'Tämä artikkeli on tarkoitettu tiedoksi eikä korvaa henkilökohtaista lääketieteellistä neuvontaa. Jos sinulla on merkittävä tai epätavallinen oire, pyydä neuvoa terveydenhuollon ammattilaiselta.',
+    shareMessage: 'Mahdollisten sivuvaikutusten tunnistaminen — AWA',
+  },
+  el: {
+    badge: 'ΠΑΡΕΝΕΡΓΕΙΕΣ',
+    title: 'Αναγνωρίζοντας πιθανές\nπαρενέργειες',
+    metaDuration: '8 λεπτά ανάγνωσης',
+    metaType: 'Άρθρο',
+    metaLevel: 'Μεσαίο',
+    metaValidated: 'Ελεγμένο περιεχόμενο',
+    intro:
+      'Ορισμένες επιδράσεις μπορεί να είναι συχνές και παροδικές. Άλλες χρειάζονται περισσότερη προσοχή. Μάθε να ξεχωρίζεις τις συνηθισμένες αντιδράσεις από τα σημάδια που πρέπει να αξιολογηθούν.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Συχνές, ήπιες επιδράσεις',
+      'Η περίοδος προσαρμογής του σώματος',
+      'Παρατηρώντας τι αλλάζει',
+      'Πότε να ζητήσεις ιατρική συμβουλή',
+      'Πότε να ζητήσεις γρήγορα φροντίδα',
+      'Βασικά συμπεράσματα',
+    ],
+    body1:
+      'Όταν μια γυναίκα ξεκινά μια νέα ορμονική αντισυλληπτική μέθοδο, το σώμα μπορεί να χρειαστεί λίγο χρόνο για να προσαρμοστεί. Μικρές αλλαγές μπορεί να εμφανιστούν στον κύκλο, στη διάθεση ή στη σωματική άνεση.',
+    body2:
+      'Αυτές οι επιδράσεις είναι συχνά ήπιες και μπορεί να μειώνονται σταδιακά. Η παρουσία τους δεν σημαίνει αυτόματα ότι η μέθοδος είναι επικίνδυνη ή ότι πρέπει να διακοπεί.',
+    commonEffects: [
+      {
+        title: 'Ελαφριά αιμορραγία',
+        text: 'Μπορεί να εμφανιστεί ακανόνιστη αιμορραγία, ιδίως στην αρχή μιας νέας μεθόδου.',
+      },
+      {
+        title: 'Ευαισθησία στο στήθος',
+        text: 'Μπορεί να νιώσεις προσωρινά σφίξιμο ή ευαισθησία στο στήθος.',
+      },
+      {
+        title: 'Διάθεση',
+        text: 'Ορισμένες γυναίκες παρατηρούν αλλαγές διάθεσης ή αυξημένη συναισθηματική ευαισθησία.',
+      },
+      {
+        title: 'Πονοκέφαλοι',
+        text: 'Ήπιοι πονοκέφαλοι μπορεί να εμφανιστούν κατά την περίοδο προσαρμογής.',
+      },
+    ],
+    body3:
+      'Οι πρώτες εβδομάδες ή κύκλοι μπορεί να διαφέρουν από όσα συνήθιζες πριν. Το σώμα μπορεί να προσαρμοστεί σταδιακά στη νέα ορμονική ισορροπία.',
+    tip1Title: 'Καλό είναι να γνωρίζεις',
+    tip1Text:
+      'Μια επίδραση που εμφανίζεται λίγο μετά την έναρξη μιας μεθόδου αξίζει να παρακολουθείται με τον καιρό. Αν γίνει ενοχλητική ή επιμείνει, μίλησε με έναν επαγγελματία υγείας.',
+    body4:
+      'Μπορεί να βοηθήσει να καταγράφεις τα συμπτώματα στην εφαρμογή σου για να παρακολουθείς καλύτερα πώς αλλάζουν από τον έναν κύκλο στον άλλο.',
+    trackingTitle: 'Παρακολούθησε την εξέλιξη',
+    trackingSubtitle: 'Μερικοί δείκτες μπορεί να είναι χρήσιμοι',
+    trackingLines: [
+      'Σημείωσε την ημερομηνία που εμφανίστηκε το σύμπτωμα.',
+      'Κατάγραψε την ένταση και τη διάρκειά του.',
+      'Παρατήρησε αν βελτιώνεται ή επιδεινώνεται.',
+    ],
+    body5:
+      'Δεν συνδέονται αναγκαστικά όλα τα συμπτώματα με την αντισύλληψη. Το άγχος, ο ύπνος, η διατροφή, ο κύκλος σου ή άλλες θεραπείες μπορούν επίσης να επηρεάσουν το πώς νιώθεις.',
+    body6:
+      'Για να κατανοήσεις την κατάσταση, προσπάθησε να δεις το συνολικό πλαίσιο αντί για ένα μεμονωμένο σύμπτωμα.',
+    worthMentioning: [
+      'Έντονες, επίμονες αλλαγές διάθεσης',
+      'Μια πτώση της libido που σε ενοχλεί',
+      'Ακανόνιστη αιμορραγία που διαρκεί πάνω από 3 κύκλους',
+      'Ναυτία ή πονοκέφαλοι που παραμένουν ενοχλητικοί',
+    ],
+    questionsTitle: 'Μερικές χρήσιμες ερωτήσεις',
+    questions: [
+      'Πόσο καιρό διαρκούν αυτά τα συμπτώματα;',
+      'Εμφανίστηκαν μετά την έναρξη ή την αλλαγή μιας αντισυλληπτικής μεθόδου;',
+      'Είναι ήπια, ενοχλητικά ή πραγματικά ασυνήθιστα για σένα;',
+      'Βελτιώνονται με τον καιρό ή γίνονται πιο συχνά;',
+    ],
+    body7:
+      'Ακόμη και όταν ένα σύμπτωμα δεν είναι επείγον, μπορεί να αξίζει να συζητηθεί αν γίνει ενοχλητικό, επιμένει ή επηρεάζει πραγματικά την ποιότητα ζωής σου.',
+    infoTitle: 'Μπορεί να αξίζει να ζητήσεις συμβουλή αν…',
+    infoText:
+      'τα συμπτώματα επιμένουν, γίνονται πιο σημαντικά ή σε εμποδίζουν να ζεις κανονικά.',
+    body8:
+      'Ένας γιατρός, μια μαία ή ένας φαρμακοποιός μπορεί να σε βοηθήσει να καθορίσεις αν τα συμπτώματα μπορεί να συνδέονται με τη μέθοδο που χρησιμοποιείς και αν χρειάζεται να προσαρμοστεί.',
+    body9:
+      'Ορισμένα σημάδια είναι ασυνήθιστα και απαιτούν άμεση ιατρική αξιολόγηση. Δεν σημαίνουν αναγκαστικά ότι υπάρχει επιπλοκή, αλλά δεν πρέπει να αγνοούνται.',
+    alertTitle: 'Ζήτησε γρήγορα φροντίδα',
+    alertIntro: 'Ζήτησε γρήγορα ιατρική συμβουλή αν παρουσιάσεις, ιδίως:',
+    urgentSigns: [
+      'Σημαντικό ή ασυνήθιστο πόνο στο στήθος',
+      'Ξαφνική δυσκολία στην αναπνοή',
+      'Ασυνήθιστο πρήξιμο ή πόνο στο ένα πόδι',
+      'Έναν ξαφνικό, πολύ έντονο ή ασυνήθιστο πονοκέφαλο',
+      'Ξαφνικά προβλήματα στην όραση, στην ομιλία ή στη δύναμη',
+    ],
+    emergencyTitle: 'Σε περίπτωση σοβαρής κατάστασης',
+    emergencyText:
+      'Αν τα συμπτώματα είναι ξαφνικά, πολύ σοβαρά ή συνοδεύονται από δυσκολία στην αναπνοή, αίσθημα λιποθυμίας ή άλλο σοβαρό σημάδι, ζήτησε επείγουσα ιατρική βοήθεια.',
+    summaryTitle: 'Τα βασικά',
+    summaryItems: [
+      'Ορισμένες επιδράσεις μπορεί να εμφανιστούν στην αρχή μιας νέας ορμονικής αντισυλληπτικής μεθόδου.',
+      'Πολλές επιδράσεις είναι προσωρινές και μπορεί να μειώνονται με τον καιρό.',
+      'Ένα ενοχλητικό ή επίμονο σύμπτωμα αξίζει να συζητηθεί με έναν επαγγελματία.',
+      'Ορισμένα ασυνήθιστα σημάδια απαιτούν άμεση ιατρική συμβουλή.',
+    ],
+    finalTipTitle: 'Βασικό συμπέρασμα',
+    finalTipText:
+      'Το να ακούς το σώμα σου δεν σημαίνει αναγκαστικά ότι θα σταματήσεις αμέσως μια μέθοδο. Σημείωσε όσα νιώθεις, παρακολούθησε την εξέλιξή τους και ζήτησε συμβουλή όποτε ένα σύμπτωμα σε ανησυχεί.',
+    disclaimerText:
+      'Αυτό το άρθρο προορίζεται για ενημέρωση και δεν αντικαθιστά εξατομικευμένη ιατρική συμβουλή. Αν έχεις ένα σημαντικό ή ασυνήθιστο σύμπτωμα, ζήτησε συμβουλή από έναν επαγγελματία υγείας.',
+    shareMessage: 'Αναγνωρίζοντας πιθανές παρενέργειες — AWA',
+  },
+  fil: {
+    badge: 'MGA SIDE EFFECT',
+    title: 'Pagkilala sa mga posibleng\nside effect',
+    metaDuration: '8 min na babasahin',
+    metaType: 'Artikulo',
+    metaLevel: 'Katamtaman',
+    metaValidated: 'Sinuring nilalaman',
+    intro:
+      'Ang ilang epekto ay maaaring karaniwan at pansamantala. Ang iba ay nangangailangan ng mas maraming atensyon. Matutong ihiwalay ang karaniwang reaksyon mula sa mga senyales na dapat suriin.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Karaniwan at banayad na mga epekto',
+      'Ang panahon ng pag-angkop ng katawan',
+      'Pagmamasid sa nagbabago',
+      'Kailan hihingi ng payong medikal',
+      'Kailan hihingi agad ng pangangalaga',
+      'Mahahalagang tandaan',
+    ],
+    body1:
+      'Kapag nagsimula ang isang tao ng bagong paraan ng hormonal na kontrasepsyon, maaaring kailanganin ng katawan ng kaunting oras para umangkop. Maaaring lumitaw ang maliliit na pagbabago sa siklo, mood, o pisikal na ginhawa.',
+    body2:
+      'Madalas na banayad ang mga epektong ito at maaaring unti-unting bumaba. Hindi awtomatikong nangangahulugan ang presensya ng mga ito na mapanganib ang paraan o kailangan na itong ihinto.',
+    commonEffects: [
+      {
+        title: 'Bahagyang pagdurugo',
+        text: 'Maaaring magkaroon ng hindi regular na pagdurugo, lalo na sa simula ng bagong paraan.',
+      },
+      {
+        title: 'Pananakit ng dibdib',
+        text: 'Ang paninikip o pananakit ng dibdib ay maaaring pansamantalang maramdaman.',
+      },
+      {
+        title: 'Mood',
+        text: 'May ilang tao na nakapapansin ng pagbabago ng mood o mas mataas na pagiging sensitibo sa emosyon.',
+      },
+      {
+        title: 'Pananakit ng ulo',
+        text: 'Ang banayad na pananakit ng ulo ay maaaring mangyari sa panahon ng pag-angkop.',
+      },
+    ],
+    body3:
+      'Maaaring magkaiba ang unang ilang linggo o siklo sa nakasanayan mo dati. Maaaring unti-unting umangkop ang katawan sa bagong hormonal na balanse.',
+    tip1Title: 'Mabuting malaman',
+    tip1Text:
+      'Ang epektong lumilitaw ilang sandali matapos magsimula ng paraan ay dapat bantayan sa paglipas ng panahon. Kung nagiging nakakaabala o nagpapatuloy, makipag-usap sa propesyonal sa kalusugan.',
+    body4:
+      'Makakatulong na itala ang mga sintomas sa iyong app upang mas masubaybayan kung paano sila nagbabago mula isang siklo hanggang sa susunod.',
+    trackingTitle: 'Subaybayan ang pag-usad',
+    trackingSubtitle: 'Makakatulong ang ilang marker',
+    trackingLines: [
+      'Itala ang petsa ng paglitaw ng sintomas.',
+      'Itala ang tindi at tagal nito.',
+      'Bantayan kung gumaganda o lumalala ito.',
+    ],
+    body5:
+      'Hindi lahat ng sintomas ay kinakailangang may kaugnayan sa kontrasepsyon. Maaari ring makaapekto sa nararamdaman mo ang stress, tulog, pagkain, iyong siklo, o iba pang paggamot.',
+    body6:
+      'Upang maunawaan ang sitwasyon, subukang tingnan ang kabuuang konteksto sa halip na iisang sintomas na nag-iisa.',
+    worthMentioning: [
+      'Malinaw at patuloy na pagbabago ng mood',
+      'Pagbaba ng libido na nakakaabala sa iyo',
+      'Hindi regular na pagdurugo na tumatagal nang higit sa 3 siklo',
+      'Pagduduwal o pananakit ng ulo na nananatiling nakakaabala',
+    ],
+    questionsTitle: 'Ilang kapaki-pakinabang na tanong',
+    questions: [
+      'Gaano na katagal nagpapatuloy ang mga sintomas na ito?',
+      'Lumitaw ba ang mga ito pagkatapos magsimula o magpalit ng paraan ng kontrasepsyon?',
+      'Banayad ba, nakakaabala, o tunay na hindi pangkaraniwan para sa iyo ang mga ito?',
+      'Gumaganda ba ang mga ito sa paglipas ng panahon o dumadalas?',
+    ],
+    body7:
+      'Kahit hindi agarang usapin ang isang sintomas, maaaring sulit itong pag-usapan kung nagiging nakakaabala, nagpapatuloy, o tunay na nakakaapekto sa iyong kalidad ng buhay.',
+    infoTitle: 'Maaaring sulit humingi ng payo kung…',
+    infoText:
+      'nagpapatuloy ang mga sintomas, lumalaki ang mga ito, o pinipigilan ka ng mga ito na mamuhay nang normal.',
+    body8:
+      'Matutulungan ka ng doktor, midwife, o parmasyutiko na matukoy kung maaaring may kaugnayan ang mga sintomas sa paraang ginagamit mo at kung kailangan itong ayusin.',
+    body9:
+      'Ang ilang senyales ay hindi pangkaraniwan at nangangailangan ng agarang medikal na pagsusuri. Hindi nila kinakailangang nangangahulugang may komplikasyon, ngunit hindi dapat balewalain ang mga ito.',
+    alertTitle: 'Humingi agad ng pangangalaga',
+    alertIntro: 'Humingi agad ng payong medikal kung nakararanas ka, partikular, ng:',
+    urgentSigns: [
+      'Malaki o hindi pangkaraniwang pananakit ng dibdib',
+      'Biglaang hirap sa paghinga',
+      'Hindi pangkaraniwang pamamaga o sakit sa binti',
+      'Biglaan, napakatindi, o hindi pangkaraniwang pananakit ng ulo',
+      'Biglaang problema sa paningin, pagsasalita, o lakas',
+    ],
+    emergencyTitle: 'Sa kaso ng malubhang sitwasyon',
+    emergencyText:
+      'Kung biglaan, napakalubha ang mga sintomas, o may kasamang hirap sa paghinga, pakiramdam na mahihimatay, o iba pang malubhang senyales, humingi ng agarang medikal na tulong.',
+    summaryTitle: 'Ang mahalaga',
+    summaryItems: [
+      'Ang ilang epekto ay maaaring lumitaw sa simula ng bagong paraan ng hormonal na kontrasepsyon.',
+      'Maraming epekto ay pansamantala at maaaring bumaba sa paglipas ng panahon.',
+      'Ang nakakaabala o patuloy na sintomas ay nararapat pag-usapan sa propesyonal.',
+      'Ang ilang hindi pangkaraniwang senyales ay nangangailangan ng agarang payong medikal.',
+    ],
+    finalTipTitle: 'Mahalagang tandaan',
+    finalTipText:
+      'Ang pakikinig sa iyong katawan ay hindi kinakailangang nangangahulugang agad na ihinto ang isang paraan. Itala ang nararamdaman mo, bantayan kung paano ito nagbabago, at humingi ng payo kapag may sintomas na bumabagabag sa iyo.',
+    disclaimerText:
+      'Inilaan ang artikulong ito para sa impormasyon at hindi pumapalit sa personalisadong payong medikal. Kung may malaki o hindi pangkaraniwang sintomas ka, humingi ng payo sa propesyonal sa kalusugan.',
+    shareMessage: 'Pagkilala sa mga posibleng side effect — AWA',
+  },
+  ta: {
+    badge: 'பக்க விளைவுகள்',
+    title: 'சாத்தியமான பக்க விளைவுகளை\nஅடையாளம் காணுதல்',
+    metaDuration: '8 நிமிடம் படிக்க',
+    metaType: 'கட்டுரை',
+    metaLevel: 'இடைநிலை',
+    metaValidated: 'மதிப்பாய்வு செய்யப்பட்ட உள்ளடக்கம்',
+    intro:
+      'சில விளைவுகள் பொதுவானவையாகவும் தற்காலிகமானவையாகவும் இருக்கலாம். மற்றவற்றுக்கு அதிகக் கவனம் தேவை. வழக்கமான எதிர்வினைகளுக்கும் மதிப்பீடு செய்யப்பட வேண்டிய அறிகுறிகளுக்கும் இடையே வேறுபடுத்தக் கற்றுக்கொள்ளுங்கள்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'பொதுவான, லேசான விளைவுகள்',
+      'உடலின் சரிசெய்தல் காலம்',
+      'என்ன மாறுகிறது என்பதைக் கவனித்தல்',
+      'மருத்துவ ஆலோசனையை எப்போது நாடுவது',
+      'விரைவாகச் சிகிச்சை நாட வேண்டியபோது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    body1:
+      'ஒருவர் புதிய ஹார்மோன் கருத்தடை முறையைத் தொடங்கும்போது, உடல் பொருந்திக்கொள்ள சிறிது நேரம் தேவைப்படலாம். சுழற்சி, மனநிலை அல்லது உடல் வசதியில் சிறு மாற்றங்கள் தோன்றலாம்.',
+    body2:
+      'இந்த விளைவுகள் பெரும்பாலும் லேசானவை, படிப்படியாகக் குறையலாம். அவை இருப்பது முறை ஆபத்தானது என்றோ நிறுத்தப்பட வேண்டும் என்றோ தானாகப் பொருளல்ல.',
+    commonEffects: [
+      {
+        title: 'சிறு இரத்தப்போக்கு',
+        text: 'ஒழுங்கற்ற இரத்தப்போக்கு ஏற்படலாம், குறிப்பாக புதிய முறையின் தொடக்கத்தில்.',
+      },
+      {
+        title: 'மார்பகத் தொடு வலி',
+        text: 'மார்பகம் இறுக்கமாக அல்லது தொட்டால் வலிப்பதாகத் தற்காலிகமாக உணரப்படலாம்.',
+      },
+      {
+        title: 'மனநிலை',
+        text: 'சிலர் மனநிலை மாற்றங்களையோ அதிகரித்த உணர்வுத் திறனையோ கவனிக்கிறார்கள்.',
+      },
+      {
+        title: 'தலைவலி',
+        text: 'சரிசெய்தல் காலத்தில் லேசான தலைவலி ஏற்படலாம்.',
+      },
+    ],
+    body3:
+      'முதல் சில வாரங்கள் அல்லது சுழற்சிகள் நீங்கள் முன்பு பழகியதிலிருந்து வேறுபடலாம். புதிய ஹார்மோன் சமநிலைக்கு உடல் படிப்படியாகப் பொருந்திக்கொள்ளலாம்.',
+    tip1Title: 'தெரிந்துகொள்ளுங்கள்',
+    tip1Text:
+      'ஒரு முறையைத் தொடங்கிய சிறிது நேரத்திலேயே தோன்றும் விளைவைக் காலப்போக்கில் கவனிப்பது நல்லது. அது தொந்தரவாகவோ நீடிப்பதாகவோ மாறினால், ஒரு சுகாதார நிபுணரிடம் பேசுங்கள்.',
+    body4:
+      'ஒரு சுழற்சியிலிருந்து மற்றொன்றுக்கு அறிகுறிகள் எப்படி மாறுகின்றன என்பதை நன்கு கண்காணிக்க, அவற்றை உங்கள் செயலியில் பதிவு செய்வது உதவலாம்.',
+    trackingTitle: 'மாற்றத்தைக் கண்காணியுங்கள்',
+    trackingSubtitle: 'சில குறிகாட்டிகள் உதவலாம்',
+    trackingLines: [
+      'அறிகுறி தோன்றிய தேதியைக் குறியுங்கள்.',
+      'அதன் தீவிரத்தையும் காலத்தையும் பதிவு செய்யுங்கள்.',
+      'அது மேம்படுகிறதா மோசமடைகிறதா என்று கவனியுங்கள்.',
+    ],
+    body5:
+      'எல்லா அறிகுறிகளும் கருத்தடையுடன் தொடர்புடையவை என்று கட்டாயமில்லை. மன அழுத்தம், உறக்கம், உணவு, உங்கள் சுழற்சி அல்லது பிற சிகிச்சைகளும் நீங்கள் உணரும் விதத்தைப் பாதிக்கலாம்.',
+    body6:
+      'நிலைமையைப் புரிந்துகொள்ள, தனித்த ஓர் அறிகுறியை விட ஒட்டுமொத்தச் சூழலைப் பார்க்க முயலுங்கள்.',
+    worthMentioning: [
+      'தெளிவான, நீடிக்கும் மனநிலை மாற்றங்கள்',
+      'உங்களைத் தொந்தரவு செய்யும் ஆசை குறைவு',
+      '3 சுழற்சிகளுக்கு மேல் நீடிக்கும் ஒழுங்கற்ற இரத்தப்போக்கு',
+      'தொந்தரவாகத் தொடரும் குமட்டல் அல்லது தலைவலி',
+    ],
+    questionsTitle: 'உதவக்கூடிய சில கேள்விகள்',
+    questions: [
+      'இந்த அறிகுறிகள் எவ்வளவு காலமாக உள்ளன?',
+      'ஒரு கருத்தடை முறையைத் தொடங்கிய அல்லது மாற்றிய பின் அவை தோன்றினவா?',
+      'அவை லேசானவையா, தொந்தரவானவையா, அல்லது உங்களுக்கு உண்மையிலேயே வழக்கத்துக்கு மாறானவையா?',
+      'அவை காலப்போக்கில் மேம்படுகின்றனவா அல்லது அடிக்கடி வருகின்றனவா?',
+    ],
+    body7:
+      'ஓர் அறிகுறி அவசரமில்லாவிட்டாலும், அது தொந்தரவாக மாறினால், நீடித்தால், அல்லது உங்கள் வாழ்க்கைத் தரத்தை உண்மையிலேயே பாதித்தால் அதைப் பற்றிப் பேசுவது மதிப்புள்ளது.',
+    infoTitle: 'ஆலோசனை பெறுவது மதிப்புள்ளதாக இருக்கலாம்…',
+    infoText:
+      'அறிகுறிகள் நீடித்தால், அதிகக் குறிப்பிடத்தக்கவையாக மாறினால், அல்லது நீங்கள் இயல்பாக வாழ்வதைத் தடுத்தால்.',
+    body8:
+      'அறிகுறிகள் நீங்கள் பயன்படுத்தும் முறையுடன் தொடர்புடையவையாக இருக்கலாமா, அதை மாற்றியமைக்க வேண்டுமா என்பதைத் தீர்மானிக்க ஒரு மருத்துவர், மருத்துவச்சி அல்லது மருந்தாளர் உதவலாம்.',
+    body9:
+      'சில அறிகுறிகள் வழக்கத்துக்கு மாறானவை, உடனடி மருத்துவ மதிப்பீட்டைக் கோருகின்றன. ஒரு சிக்கல் இருக்கிறது என்று அவை கட்டாயம் பொருளல்ல, ஆனால் அவற்றைப் புறக்கணிக்கக் கூடாது.',
+    alertTitle: 'விரைவாகச் சிகிச்சை நாடுங்கள்',
+    alertIntro: 'குறிப்பாக இவற்றை அனுபவித்தால் விரைவாக மருத்துவ ஆலோசனை பெறுங்கள்:',
+    urgentSigns: [
+      'குறிப்பிடத்தக்க அல்லது வழக்கத்துக்கு மாறான மார்பு வலி',
+      'திடீர் மூச்சுத் திணறல்',
+      'காலில் வழக்கத்துக்கு மாறான வீக்கம் அல்லது வலி',
+      'திடீரென வரும், மிகத் தீவிரமான அல்லது வழக்கத்துக்கு மாறான தலைவலி',
+      'பார்வை, பேச்சு அல்லது வலிமையில் திடீர்ச் சிக்கல்',
+    ],
+    emergencyTitle: 'கடுமையான சூழ்நிலையில்',
+    emergencyText:
+      'அறிகுறிகள் திடீரென்றோ மிகக் கடுமையாகவோ இருந்தால், அல்லது மூச்சுத் திணறல், மயக்க உணர்வு அல்லது வேறு தீவிர அறிகுறியுடன் வந்தால், அவசர மருத்துவ உதவியை நாடுங்கள்.',
+    summaryTitle: 'அத்தியாவசியங்கள்',
+    summaryItems: [
+      'புதிய ஹார்மோன் கருத்தடை முறையின் தொடக்கத்தில் சில விளைவுகள் தோன்றலாம்.',
+      'பல விளைவுகள் தற்காலிகமானவை, காலப்போக்கில் குறையலாம்.',
+      'தொந்தரவான அல்லது நீடிக்கும் அறிகுறியை ஒரு நிபுணருடன் பேசுவது மதிப்புள்ளது.',
+      'சில வழக்கத்துக்கு மாறான அறிகுறிகளுக்கு உடனடி மருத்துவ ஆலோசனை தேவை.',
+    ],
+    finalTipTitle: 'முக்கியக் குறிப்பு',
+    finalTipText:
+      'உங்கள் உடலைக் கேட்பது ஒரு முறையை உடனே நிறுத்த வேண்டும் என்று கட்டாயம் பொருளல்ல. நீங்கள் உணர்வதைக் குறியுங்கள், அது எப்படி மாறுகிறது என்று கவனியுங்கள், ஓர் அறிகுறி உங்களைக் கவலைப்படுத்தும் போதெல்லாம் ஆலோசனை கேளுங்கள்.',
+    disclaimerText:
+      'இந்தக் கட்டுரை தகவல் நோக்கத்துக்காக உள்ளது, தனிப்பயன் மருத்துவ ஆலோசனைக்கு மாற்றல்ல. உங்களுக்குக் குறிப்பிடத்தக்க அல்லது வழக்கத்துக்கு மாறான அறிகுறி இருந்தால், ஒரு சுகாதார நிபுணரின் ஆலோசனையைப் பெறுங்கள்.',
+    shareMessage: 'சாத்தியமான பக்க விளைவுகளை அடையாளம் காணுதல் — AWA',
+  },
+  te: {
+    badge: 'దుష్ప్రభావాలు',
+    title: 'సాధ్యమైన దుష్ప్రభావాలను\nగుర్తించడం',
+    metaDuration: '8 నిమిషాల పఠనం',
+    metaType: 'వ్యాసం',
+    metaLevel: 'మధ్యస్థ స్థాయి',
+    metaValidated: 'మదింపు చేసిన కంటెంట్',
+    intro:
+      'కొన్ని ప్రభావాలు సాధారణమైనవి, తాత్కాలికమైనవి కావచ్చు. మరికొన్నింటికి ఎక్కువ శ్రద్ధ అవసరం. సాధారణ ప్రతిస్పందనలకు, మదింపు చేయాల్సిన సంకేతాలకు మధ్య తేడాను గుర్తించడం నేర్చుకోండి.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'సాధారణ, తేలికపాటి ప్రభావాలు',
+      'శరీరం సర్దుబాటు అయ్యే కాలం',
+      'ఏమి మారుతుందో గమనించడం',
+      'వైద్య సలహా ఎప్పుడు కోరాలి',
+      'వెంటనే వైద్య సంరక్షణ ఎప్పుడు కోరాలి',
+      'ముఖ్యాంశాలు',
+    ],
+    body1:
+      'ఒకరు కొత్త హార్మోన్ గర్భనిరోధక పద్ధతిని మొదలుపెట్టినప్పుడు, శరీరం సర్దుబాటు కావడానికి కొంత సమయం పట్టవచ్చు. చక్రంలో, మానసిక స్థితిలో లేదా శారీరక సౌకర్యంలో చిన్న మార్పులు కనిపించవచ్చు.',
+    body2:
+      'ఈ ప్రభావాలు తరచుగా తేలికపాటివి, క్రమంగా తగ్గవచ్చు. అవి ఉండటం ఆ పద్ధతి ప్రమాదకరమని లేదా దాన్ని ఆపాలని ఆటోమేటిక్‌గా అర్థం కాదు.',
+    commonEffects: [
+      {
+        title: 'స్వల్ప రక్తస్రావం',
+        text: 'అస్తవ్యస్త రక్తస్రావం, ముఖ్యంగా కొత్త పద్ధతి మొదట్లో, సంభవించవచ్చు.',
+      },
+      {
+        title: 'రొమ్ముల సున్నితత్వం',
+        text: 'రొమ్ములో బిగుతు లేదా సున్నితత్వం తాత్కాలికంగా అనిపించవచ్చు.',
+      },
+      {
+        title: 'మానసిక స్థితి',
+        text: 'కొందరు మానసిక స్థితిలో మార్పులను లేదా పెరిగిన భావోద్వేగ సున్నితత్వాన్ని గమనిస్తారు.',
+      },
+      {
+        title: 'తలనొప్పి',
+        text: 'సర్దుబాటు కాలంలో తేలికపాటి తలనొప్పి రావచ్చు.',
+      },
+    ],
+    body3:
+      'మొదటి కొన్ని వారాలు లేదా చక్రాలు మీరు ముందు అలవాటుపడిన దానికి భిన్నంగా ఉండవచ్చు. శరీరం కొత్త హార్మోన్ సమతుల్యతకు క్రమంగా సర్దుబాటు కావచ్చు.',
+    tip1Title: 'తెలుసుకోవాల్సినవి',
+    tip1Text:
+      'ఒక పద్ధతిని మొదలుపెట్టిన కొద్దిసేపటికే కనిపించే ప్రభావాన్ని కాలక్రమేణా గమనించడం విలువైనది. అది ఇబ్బందికరంగా మారితే లేదా కొనసాగితే, ఒక ఆరోగ్య నిపుణుడితో మాట్లాడండి.',
+    body4:
+      'లక్షణాలు ఒక చక్రం నుండి మరొక చక్రానికి ఎలా మారుతున్నాయో బాగా ట్రాక్ చేయడానికి, వాటిని మీ యాప్‌లో నమోదు చేయడం సహాయపడగలదు.',
+    trackingTitle: 'ఎలా మారుతుందో ట్రాక్ చేయండి',
+    trackingSubtitle: 'కొన్ని సూచికలు ఉపయోగపడవచ్చు',
+    trackingLines: [
+      'లక్షణం కనిపించిన తేదీని రాయండి.',
+      'దాని తీవ్రతను, వ్యవధిని నమోదు చేయండి.',
+      'అది మెరుగవుతోందా లేక దిగజారుతోందా గమనించండి.',
+    ],
+    body5:
+      'అన్ని లక్షణాలూ గర్భనిరోధకంతో ముడిపడి ఉండాల్సిన అవసరం లేదు. ఒత్తిడి, నిద్ర, ఆహారం, మీ చక్రం లేదా ఇతర చికిత్సలు కూడా మీకు ఎలా అనిపిస్తుందో ప్రభావితం చేయవచ్చు.',
+    body6:
+      'పరిస్థితిని అర్థం చేసుకోవడానికి, ఒక్క లక్షణాన్ని విడిగా చూడకుండా, మొత్తం సందర్భాన్ని చూడటానికి ప్రయత్నించండి.',
+    worthMentioning: [
+      'స్పష్టమైన, కొనసాగే మానసిక స్థితి మార్పులు',
+      'మిమ్మల్ని ఇబ్బంది పెట్టే లైంగిక కోరిక తగ్గుదల',
+      '3 చక్రాల కంటే ఎక్కువ కొనసాగే అస్తవ్యస్త రక్తస్రావం',
+      'ఇబ్బందికరంగా ఉండే వికారం లేదా తలనొప్పి',
+    ],
+    questionsTitle: 'కొన్ని ఉపయోగకరమైన ప్రశ్నలు',
+    questions: [
+      'ఈ లక్షణాలు ఎంతకాలంగా ఉన్నాయి?',
+      'అవి ఒక గర్భనిరోధక పద్ధతిని మొదలుపెట్టిన లేదా మార్చిన తర్వాత కనిపించాయా?',
+      'అవి తేలికపాటివా, ఇబ్బందికరమైనవా, లేదా మీకు నిజంగా అసాధారణమైనవా?',
+      'అవి కాలక్రమేణా మెరుగవుతున్నాయా లేదా మరింత తరచుగా వస్తున్నాయా?',
+    ],
+    body7:
+      'ఒక లక్షణం అత్యవసరం కాకపోయినా, అది ఇబ్బందికరంగా మారితే, కొనసాగితే లేదా మీ జీవన నాణ్యతను నిజంగా ప్రభావితం చేస్తే దాని గురించి చర్చించడం విలువైనది.',
+    infoTitle: 'ఈ సందర్భాల్లో సలహా తీసుకోవడం విలువైనది…',
+    infoText:
+      'లక్షణాలు కొనసాగినప్పుడు, మరింత గణనీయమవుతున్నప్పుడు, లేదా మిమ్మల్ని సాధారణంగా జీవించనివ్వనప్పుడు.',
+    body8:
+      'లక్షణాలు మీరు ఉపయోగిస్తున్న పద్ధతితో ముడిపడి ఉండవచ్చో లేదో, దాన్ని సర్దుబాటు చేయాలో లేదో నిర్ణయించడానికి వైద్యులు, మంత్రసాని లేదా ఫార్మసిస్ట్ సహాయపడగలరు.',
+    body9:
+      'కొన్ని సంకేతాలు అసాధారణమైనవి, తక్షణ వైద్య మదింపు కోరతాయి. అవి తప్పనిసరిగా సమస్య ఉందని అర్థం కాదు, కానీ వాటిని నిర్లక్ష్యం చేయకూడదు.',
+    alertTitle: 'వెంటనే వైద్య సంరక్షణ కోరండి',
+    alertIntro: 'మీకు ముఖ్యంగా ఇవి ఉంటే వెంటనే వైద్య సలహా కోరండి:',
+    urgentSigns: [
+      'గణనీయమైన లేదా అసాధారణ ఛాతీ నొప్పి',
+      'అకస్మాత్తుగా శ్వాస తీసుకోవడంలో ఇబ్బంది',
+      'కాలులో అసాధారణ వాపు లేదా నొప్పి',
+      'అకస్మాత్తుగా వచ్చే, చాలా తీవ్రమైన లేదా అసాధారణ తలనొప్పి',
+      'చూపు, మాట లేదా బలంలో అకస్మాత్తుగా ఇబ్బంది',
+    ],
+    emergencyTitle: 'తీవ్రమైన పరిస్థితిలో',
+    emergencyText:
+      'లక్షణాలు అకస్మాత్తుగా, చాలా తీవ్రంగా ఉంటే, లేదా శ్వాస ఇబ్బంది, తలతిరుగుడు లేదా మరొక తీవ్రమైన సంకేతంతో కలిసి వస్తే, అత్యవసర వైద్య సహాయం కోరండి.',
+    summaryTitle: 'ముఖ్యాంశాలు',
+    summaryItems: [
+      'కొత్త హార్మోన్ గర్భనిరోధక పద్ధతి మొదట్లో కొన్ని ప్రభావాలు కనిపించవచ్చు.',
+      'అనేక ప్రభావాలు తాత్కాలికమైనవి, కాలక్రమేణా తగ్గవచ్చు.',
+      'ఇబ్బందికరమైన లేదా కొనసాగే లక్షణాన్ని ఒక నిపుణుడితో చర్చించడం విలువైనది.',
+      'కొన్ని అసాధారణ సంకేతాలకు తక్షణ వైద్య సలహా అవసరం.',
+    ],
+    finalTipTitle: 'ముఖ్య సారాంశం',
+    finalTipText:
+      'మీ శరీరాన్ని వినడం అంటే తప్పనిసరిగా ఒక పద్ధతిని వెంటనే ఆపడం కాదు. మీకు అనిపించేదాన్ని నమోదు చేయండి, అది ఎలా మారుతుందో గమనించండి, ఏదైనా లక్షణం మిమ్మల్ని ఆందోళనపరిచినప్పుడల్లా సలహా కోరండి.',
+    disclaimerText:
+      'ఈ వ్యాసం సమాచారం కోసం ఉద్దేశించబడింది, వ్యక్తిగతీకరించిన వైద్య సలహాకు ప్రత్యామ్నాయం కాదు. మీకు గణనీయమైన లేదా అసాధారణ లక్షణం ఉంటే, ఒక ఆరోగ్య నిపుణుడి సలహా కోరండి.',
+    shareMessage: 'సాధ్యమైన దుష్ప్రభావాలను గుర్తించడం — AWA',
+  },
+  mr: {
+    badge: 'दुष्परिणाम',
+    title: 'संभाव्य दुष्परिणाम\nओळखणे',
+    metaDuration: '8 मिनिटे वाचन',
+    metaType: 'लेख',
+    metaLevel: 'मध्यम स्तर',
+    metaValidated: 'पुनरावलोकन केलेला मजकूर',
+    intro:
+      'काही परिणाम सामान्य आणि तात्पुरते असू शकतात. इतरांकडे अधिक लक्ष द्यावे लागते. नेहमीच्या प्रतिक्रिया आणि मूल्यांकन करावी लागणारी चिन्हे यातील फरक ओळखायला शिका.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'सामान्य, सौम्य परिणाम',
+      'शरीर जुळवून घेण्याचा काळ',
+      'काय बदलते याचे निरीक्षण',
+      'वैद्यकीय सल्ला केव्हा घ्यावा',
+      'त्वरित वैद्यकीय काळजी केव्हा घ्यावी',
+      'मुख्य मुद्दे',
+    ],
+    body1:
+      'कोणी नवीन हार्मोनल गर्भनिरोधक पद्धत सुरू करते तेव्हा, शरीराला जुळवून घेण्यासाठी थोडा वेळ लागू शकतो. पाळीत, मनःस्थितीत किंवा शारीरिक आरामात छोटे बदल दिसू शकतात.',
+    body2:
+      'हे परिणाम बहुतेकदा सौम्य असतात आणि हळूहळू कमी होऊ शकतात. त्यांच्या उपस्थितीचा आपोआप अर्थ असा नाही की पद्धत धोकादायक आहे किंवा ती थांबवणे आवश्यक आहे.',
+    commonEffects: [
+      {
+        title: 'किरकोळ रक्तस्राव',
+        text: 'अनियमित रक्तस्राव, विशेषतः नव्या पद्धतीच्या सुरुवातीला, होऊ शकतो.',
+      },
+      {
+        title: 'स्तनांची संवेदनशीलता',
+        text: 'स्तनांमध्ये घट्टपणा किंवा संवेदनशीलता तात्पुरती जाणवू शकते.',
+      },
+      {
+        title: 'मनःस्थिती',
+        text: 'काहींना मनःस्थितीत बदल किंवा वाढलेली भावनिक संवेदनशीलता जाणवते.',
+      },
+      {
+        title: 'डोकेदुखी',
+        text: 'जुळवून घेण्याच्या काळात सौम्य डोकेदुखी होऊ शकते.',
+      },
+    ],
+    body3:
+      'पहिले काही आठवडे किंवा पाळीचक्रे तुम्ही आधी ज्याला सरावलेल्या होता त्यापेक्षा वेगळी असू शकतात. शरीर नव्या हार्मोनल संतुलनाशी हळूहळू जुळवून घेऊ शकते.',
+    tip1Title: 'हे जाणून घ्या',
+    tip1Text:
+      'पद्धत सुरू केल्यानंतर लवकरच दिसणारा परिणाम कालांतराने पाहण्यासारखा आहे. तो त्रासदायक झाल्यास किंवा कायम राहिल्यास, आरोग्य व्यावसायिकाशी बोला.',
+    body4:
+      'एका पाळीपासून दुसऱ्या पाळीपर्यंत लक्षणे कशी बदलतात याचा अधिक चांगला मागोवा घेण्यासाठी, ती तुमच्या अ‍ॅपमध्ये नोंदवणे उपयुक्त ठरू शकते.',
+    trackingTitle: 'ते कसे बदलते याचा मागोवा घ्या',
+    trackingSubtitle: 'काही खुणा उपयुक्त ठरू शकतात',
+    trackingLines: [
+      'लक्षण केव्हा दिसले त्याची तारीख लिहा.',
+      'त्याची तीव्रता आणि कालावधी नोंदवा.',
+      'ते सुधारते आहे की बिघडते आहे ते पाहा.',
+    ],
+    body5:
+      'सर्व लक्षणे गर्भनिरोधनाशीच जोडलेली असतीलच असे नाही. ताण, झोप, आहार, तुमची पाळी किंवा इतर उपचारही तुम्हाला कसे वाटते यावर परिणाम करू शकतात.',
+    body6:
+      'परिस्थिती समजण्यासाठी, एका लक्षणाकडे वेगळे पाहण्याऐवजी संपूर्ण संदर्भ पाहण्याचा प्रयत्न करा.',
+    worthMentioning: [
+      'ठळक, कायम राहणारे मनःस्थितीतील बदल',
+      'तुम्हाला त्रासदायक वाटणारी लैंगिक इच्छेतील घट',
+      '3 पाळीचक्रांपेक्षा जास्त काळ टिकणारा अनियमित रक्तस्राव',
+      'त्रासदायक राहणारी मळमळ किंवा डोकेदुखी',
+    ],
+    questionsTitle: 'काही उपयुक्त प्रश्न',
+    questions: [
+      'ही लक्षणे किती काळापासून सुरू आहेत?',
+      'ती गर्भनिरोधक पद्धत सुरू केल्यानंतर किंवा बदलल्यानंतर दिसली का?',
+      'ती सौम्य, त्रासदायक आहेत की तुमच्यासाठी खरोखर असामान्य?',
+      'ती कालांतराने सुधारत आहेत की अधिक वारंवार होत आहेत?',
+    ],
+    body7:
+      'एखादे लक्षण तातडीचे नसले तरी, ते त्रासदायक झाल्यास, कायम राहिल्यास किंवा तुमच्या जीवनाच्या गुणवत्तेवर खरोखर परिणाम करत असल्यास त्यावर चर्चा करणे योग्य ठरू शकते.',
+    infoTitle: 'या प्रसंगी सल्ला घेणे योग्य ठरू शकते…',
+    infoText:
+      'लक्षणे कायम राहतात, अधिक गंभीर होतात किंवा तुम्हाला सामान्यपणे जगू देत नाहीत.',
+    body8:
+      'डॉक्टर, दाई किंवा औषधविक्रेते तुम्हाला लक्षणे तुम्ही वापरत असलेल्या पद्धतीशी जोडलेली असू शकतात का आणि ती जुळवावी लागेल का हे ठरवण्यास मदत करू शकतात.',
+    body9:
+      'काही चिन्हे असामान्य असतात आणि त्वरित वैद्यकीय मूल्यांकन मागतात. ती गुंतागुंत असल्याचे दर्शवतातच असे नाही, पण त्यांकडे दुर्लक्ष करू नये.',
+    alertTitle: 'लगेच वैद्यकीय काळजी घ्या',
+    alertIntro: 'तुम्हाला विशेषतः यांपैकी काही असल्यास त्वरित वैद्यकीय सल्ला घ्या:',
+    urgentSigns: [
+      'लक्षणीय किंवा असामान्य छातीदुखी',
+      'अचानक श्वास घेण्यात अडचण',
+      'पायात असामान्य सूज किंवा वेदना',
+      'अचानक येणारी, खूप तीव्र किंवा असामान्य डोकेदुखी',
+      'दृष्टी, बोलणे किंवा ताकदीत अचानक अडचण',
+    ],
+    emergencyTitle: 'गंभीर परिस्थितीत',
+    emergencyText:
+      'लक्षणे अचानक, खूप तीव्र असल्यास, किंवा श्वास घेण्यात अडचण, चक्कर येऊन पडल्यासारखे वाटणे किंवा इतर गंभीर चिन्हासोबत येत असल्यास, तातडीची वैद्यकीय मदत घ्या.',
+    summaryTitle: 'मुख्य मुद्दे',
+    summaryItems: [
+      'नवीन हार्मोनल गर्भनिरोधक पद्धतीच्या सुरुवातीला काही परिणाम दिसू शकतात.',
+      'अनेक परिणाम तात्पुरते असतात आणि कालांतराने कमी होऊ शकतात.',
+      'त्रासदायक किंवा कायम राहणाऱ्या लक्षणाबद्दल तज्ज्ञाशी चर्चा करणे योग्य आहे.',
+      'काही असामान्य चिन्हांसाठी त्वरित वैद्यकीय सल्ला आवश्यक आहे.',
+    ],
+    finalTipTitle: 'मुख्य मुद्दा',
+    finalTipText:
+      'तुमच्या शरीराचे ऐकणे म्हणजे पद्धत लगेच थांबवणे असे नाही. तुम्हाला जे जाणवते ते नोंदवा, ते कसे बदलते ते पाहा आणि एखादे लक्षण तुम्हाला काळजीत टाकेल तेव्हा सल्ला घ्या.',
+    disclaimerText:
+      'हा लेख माहितीसाठी आहे आणि वैयक्तिक वैद्यकीय सल्ल्याची जागा घेत नाही. तुम्हाला लक्षणीय किंवा असामान्य लक्षण असल्यास, आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+    shareMessage: 'संभाव्य दुष्परिणाम ओळखणे — AWA',
+  },
+  gu: {
+    badge: 'આડઅસરો',
+    title: 'સંભવિત આડઅસરો\nઓળખવી',
+    metaDuration: '8 મિનિટ વાંચન',
+    metaType: 'લેખ',
+    metaLevel: 'મધ્યમ સ્તર',
+    metaValidated: 'પુનરાવલોકન કરેલી સામગ્રી',
+    intro:
+      'કેટલીક અસરો સામાન્ય અને અસ્થાયી હોઈ શકે. બીજી વધુ ધ્યાન માગે છે. સામાન્ય પ્રતિક્રિયાઓ અને તપાસવા જેવાં ચિહ્નો વચ્ચેનો તફાવત ઓળખતાં શીખો.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'સામાન્ય, હળવી અસરો',
+      'શરીરનો સમાયોજન સમયગાળો',
+      'શું બદલાય છે તે જોવું',
+      'તબીબી સલાહ ક્યારે લેવી',
+      'સારવાર ક્યારે તરત લેવી',
+      'મુખ્ય મુદ્દા',
+    ],
+    body1:
+      'જ્યારે કોઈ નવી હોર્મોનલ ગર્ભનિરોધન પદ્ધતિ શરૂ કરે છે, ત્યારે શરીરને ગોઠવાવા માટે થોડો સમય જોઈએ. ચક્ર, મૂડ કે શારીરિક આરામમાં નાના ફેરફારો દેખાઈ શકે.',
+    body2:
+      'આ અસરો ઘણી વાર હળવી હોય છે અને ધીમે ધીમે ઓછી થઈ શકે. તેમની હાજરીનો અર્થ આપોઆપ એવો નથી કે પદ્ધતિ જોખમી છે કે તેને બંધ કરવી જરૂરી છે.',
+    commonEffects: [
+      {
+        title: 'હળવો રક્તસ્રાવ',
+        text: 'અનિયમિત રક્તસ્રાવ થઈ શકે, ખાસ કરીને નવી પદ્ધતિની શરૂઆતમાં.',
+      },
+      {
+        title: 'સ્તનમાં કોમળતા',
+        text: 'સ્તનમાં તણાવ કે કોમળતા અસ્થાયી રૂપે અનુભવાઈ શકે.',
+      },
+      {
+        title: 'મૂડ',
+        text: 'કેટલાક લોકોને મૂડમાં ફેરફાર કે લાગણીઓની વધુ સંવેદનશીલતા જણાય છે.',
+      },
+      {
+        title: 'માથાનો દુખાવો',
+        text: 'સમાયોજનના સમયગાળા દરમિયાન હળવો માથાનો દુખાવો થઈ શકે.',
+      },
+    ],
+    body3:
+      'પહેલાં થોડા અઠવાડિયાં કે ચક્રો તમે પહેલાં ટેવાયેલા હતા તેનાથી અલગ હોઈ શકે. શરીર નવા હોર્મોનલ સંતુલન સાથે ધીમે ધીમે ગોઠવાઈ શકે.',
+    tip1Title: 'જાણવા જેવું',
+    tip1Text:
+      'પદ્ધતિ શરૂ કર્યા પછી થોડા સમયમાં દેખાતી અસર સમય જતાં જોવી યોગ્ય છે. જો તે તકલીફ આપે કે ચાલુ રહે, તો આરોગ્ય વ્યાવસાયિક સાથે વાત કરો.',
+    body4:
+      'તમારી એપમાં લક્ષણો નોંધવાથી એક ચક્રથી બીજા ચક્રમાં તે કેવી રીતે બદલાય છે તે વધુ સારી રીતે જોઈ શકાય.',
+    trackingTitle: 'ફેરફારો પર નજર રાખો',
+    trackingSubtitle: 'કેટલાક માપદંડ ઉપયોગી થઈ શકે',
+    trackingLines: [
+      'લક્ષણ દેખાયાની તારીખ નોંધો.',
+      'તેની તીવ્રતા અને સમયગાળો નોંધો.',
+      'તે સુધરે છે કે વધુ ખરાબ થાય છે તે જુઓ.',
+    ],
+    body5:
+      'બધાં લક્ષણો ગર્ભનિરોધન સાથે જ જોડાયેલાં હોય તે જરૂરી નથી. તણાવ, ઊંઘ, આહાર, તમારું ચક્ર કે બીજી સારવારો પણ તમને કેવું લાગે છે તેના પર અસર કરી શકે.',
+    body6:
+      'પરિસ્થિતિ સમજવા માટે, એક અલગ લક્ષણને બદલે સમગ્ર સંદર્ભ જોવાનો પ્રયાસ કરો.',
+    worthMentioning: [
+      'સ્પષ્ટ, સતત મૂડમાં ફેરફાર',
+      'તમને પરેશાન કરતો કામેચ્છામાં ઘટાડો',
+      '3 ચક્રથી વધુ ચાલતો અનિયમિત રક્તસ્રાવ',
+      'ઉબકા કે માથાનો દુખાવો જે તકલીફ આપતા રહે',
+    ],
+    questionsTitle: 'કેટલાક ઉપયોગી પ્રશ્નો',
+    questions: [
+      'આ લક્ષણો કેટલા સમયથી ચાલે છે?',
+      'શું તે ગર્ભનિરોધન પદ્ધતિ શરૂ કર્યા કે બદલ્યા પછી દેખાયાં?',
+      'શું તે હળવાં છે, તકલીફ આપે છે કે તમારા માટે ખરેખર અસામાન્ય છે?',
+      'શું તે સમય સાથે સુધરી રહ્યાં છે કે વધુ વારંવાર થઈ રહ્યાં છે?',
+    ],
+    body7:
+      'લક્ષણ તાત્કાલિક ન હોય તો પણ, જો તે તકલીફ આપે, ચાલુ રહે કે તમારા જીવનની ગુણવત્તાને ખરેખર અસર કરે, તો તેના વિશે વાત કરવી યોગ્ય છે.',
+    infoTitle: 'સલાહ લેવી યોગ્ય હોઈ શકે જો…',
+    infoText:
+      'લક્ષણો ચાલુ રહે, વધુ ગંભીર બને કે તમને સામાન્ય રીતે જીવવા ન દે.',
+    body8:
+      'ડૉક્ટર, મિડવાઇફ કે ફાર્માસિસ્ટ નક્કી કરવામાં મદદ કરી શકે કે લક્ષણો તમે વાપરતા હો તે પદ્ધતિ સાથે જોડાયેલાં હોઈ શકે કે નહીં અને તેમાં ફેરફાર કરવો જરૂરી છે કે નહીં.',
+    body9:
+      'કેટલાંક ચિહ્નો અસામાન્ય હોય છે અને તાત્કાલિક તબીબી મૂલ્યાંકન માગે છે. તેમનો અર્થ જરૂરી નથી કે કોઈ જટિલતા છે, પણ તેમને અવગણવાં ન જોઈએ.',
+    alertTitle: 'તરત સારવાર લો',
+    alertIntro: 'જો તમને ખાસ કરીને આમાંનું કંઈ થાય, તો તરત તબીબી સલાહ લો:',
+    urgentSigns: [
+      'છાતીમાં નોંધપાત્ર કે અસામાન્ય દુખાવો',
+      'અચાનક શ્વાસ લેવામાં તકલીફ',
+      'પગમાં અસામાન્ય સોજો કે દુખાવો',
+      'અચાનક, ખૂબ તીવ્ર કે અસામાન્ય માથાનો દુખાવો',
+      'દૃષ્ટિ, વાણી કે શક્તિમાં અચાનક તકલીફ',
+    ],
+    emergencyTitle: 'ગંભીર પરિસ્થિતિના કિસ્સામાં',
+    emergencyText:
+      'જો લક્ષણો અચાનક હોય, ખૂબ ગંભીર હોય, અથવા શ્વાસ લેવામાં તકલીફ, બેભાન થઈ જવાની લાગણી કે બીજા ગંભીર ચિહ્ન સાથે આવે, તો તાત્કાલિક તબીબી મદદ લો.',
+    summaryTitle: 'મુખ્ય સાર',
+    summaryItems: [
+      'નવી હોર્મોનલ ગર્ભનિરોધન પદ્ધતિની શરૂઆતમાં કેટલીક અસરો દેખાઈ શકે.',
+      'ઘણી અસરો અસ્થાયી હોય છે અને સમય સાથે ઓછી થઈ શકે.',
+      'તકલીફ આપતા કે સતત લક્ષણ વિશે વ્યાવસાયિક સાથે વાત કરવી યોગ્ય છે.',
+      'કેટલાંક અસામાન્ય ચિહ્નોમાં તાત્કાલિક તબીબી સલાહ જરૂરી છે.',
+    ],
+    finalTipTitle: 'મુખ્ય મુદ્દો',
+    finalTipText:
+      'તમારા શરીરને સાંભળવાનો અર્થ જરૂરી નથી કે પદ્ધતિ તરત બંધ કરી દેવી. તમને શું લાગે છે તે નોંધો, તે કેવી રીતે બદલાય છે તે જુઓ, અને જ્યારે કોઈ લક્ષણ ચિંતા કરાવે ત્યારે સલાહ માગો.',
+    disclaimerText:
+      'આ લેખ માહિતી માટે છે અને વ્યક્તિગત તબીબી સલાહનું સ્થાન લેતો નથી. જો તમને કોઈ ગંભીર કે અસામાન્ય લક્ષણ હોય, તો આરોગ્ય વ્યાવસાયિક પાસેથી સલાહ લો.',
+    shareMessage: 'સંભવિત આડઅસરો ઓળખવી — AWA',
+  },
+  pa: {
+    badge: 'ਮਾੜੇ ਪ੍ਰਭਾਵ',
+    title: 'ਸੰਭਵ ਮਾੜੇ ਪ੍ਰਭਾਵਾਂ ਨੂੰ\nਪਛਾਣਨਾ',
+    metaDuration: '8 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਲੇਖ',
+    metaLevel: 'ਦਰਮਿਆਨਾ ਪੱਧਰ',
+    metaValidated: 'ਸਮੀਖਿਆ ਕੀਤੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਕੁਝ ਪ੍ਰਭਾਵ ਆਮ ਅਤੇ ਅਸਥਾਈ ਹੋ ਸਕਦੇ ਹਨ। ਹੋਰਾਂ ਵੱਲ ਵਧੇਰੇ ਧਿਆਨ ਦੇਣ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ। ਆਮ ਪ੍ਰਤੀਕਰਮਾਂ ਅਤੇ ਜਾਂਚ ਯੋਗ ਸੰਕੇਤਾਂ ਵਿੱਚ ਫ਼ਰਕ ਕਰਨਾ ਸਿੱਖੋ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਆਮ, ਹਲਕੇ ਪ੍ਰਭਾਵ',
+      'ਸਰੀਰ ਦੇ ਢਲਣ ਦਾ ਸਮਾਂ',
+      'ਇਹ ਵੇਖਣਾ ਕਿ ਕੀ ਬਦਲਦਾ ਹੈ',
+      'ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ',
+      'ਇਲਾਜ ਲਈ ਜਲਦੀ ਕਦੋਂ ਜਾਣਾ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    body1:
+      'ਜਦੋਂ ਕੋਈ ਔਰਤ ਹਾਰਮੋਨ ਵਾਲਾ ਨਵਾਂ ਗਰਭ ਨਿਰੋਧ ਤਰੀਕਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ, ਤਾਂ ਸਰੀਰ ਨੂੰ ਢਲਣ ਲਈ ਕੁਝ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ। ਮਾਹਵਾਰੀ ਚੱਕਰ, ਮੂਡ ਜਾਂ ਸਰੀਰਕ ਆਰਾਮ ਵਿੱਚ ਛੋਟੇ ਬਦਲਾਅ ਆ ਸਕਦੇ ਹਨ।',
+    body2:
+      'ਇਹ ਪ੍ਰਭਾਵ ਅਕਸਰ ਹਲਕੇ ਹੁੰਦੇ ਹਨ ਅਤੇ ਹੌਲੀ-ਹੌਲੀ ਘਟ ਸਕਦੇ ਹਨ। ਇਨ੍ਹਾਂ ਦੀ ਮੌਜੂਦਗੀ ਦਾ ਆਪਣੇ ਆਪ ਇਹ ਮਤਲਬ ਨਹੀਂ ਕਿ ਤਰੀਕਾ ਖ਼ਤਰਨਾਕ ਹੈ ਜਾਂ ਉਸ ਨੂੰ ਬੰਦ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।',
+    commonEffects: [
+      {
+        title: 'ਹਲਕਾ ਖ਼ੂਨ',
+        text: 'ਬੇਨਿਯਮਾ ਖ਼ੂਨ ਆ ਸਕਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਨਵੇਂ ਤਰੀਕੇ ਦੀ ਸ਼ੁਰੂਆਤ ਵਿੱਚ।',
+      },
+      {
+        title: 'ਛਾਤੀ ਵਿੱਚ ਨਾਜ਼ੁਕਪਣ',
+        text: 'ਛਾਤੀ ਵਿੱਚ ਕਸਾਅ ਜਾਂ ਨਾਜ਼ੁਕਪਣ ਅਸਥਾਈ ਤੌਰ ਉੱਤੇ ਮਹਿਸੂਸ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਮੂਡ',
+        text: 'ਕੁਝ ਔਰਤਾਂ ਮੂਡ ਵਿੱਚ ਬਦਲਾਅ ਜਾਂ ਵਧੀ ਹੋਈ ਭਾਵਨਾਤਮਕ ਸੰਵੇਦਨਸ਼ੀਲਤਾ ਮਹਿਸੂਸ ਕਰਦੀਆਂ ਹਨ।',
+      },
+      {
+        title: 'ਸਿਰ ਦਰਦ',
+        text: 'ਢਲਣ ਦੇ ਸਮੇਂ ਦੌਰਾਨ ਹਲਕਾ ਸਿਰ ਦਰਦ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+    ],
+    body3:
+      'ਪਹਿਲੇ ਕੁਝ ਹਫ਼ਤੇ ਜਾਂ ਚੱਕਰ ਉਸ ਤੋਂ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ ਜਿਸ ਦੀ ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਆਦਤ ਸੀ। ਸਰੀਰ ਨਵੇਂ ਹਾਰਮੋਨ ਸੰਤੁਲਨ ਨਾਲ ਹੌਲੀ-ਹੌਲੀ ਢਲ ਸਕਦਾ ਹੈ।',
+    tip1Title: 'ਜਾਣਨ ਯੋਗ',
+    tip1Text:
+      'ਜੋ ਪ੍ਰਭਾਵ ਤਰੀਕਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਥੋੜ੍ਹੇ ਸਮੇਂ ਬਾਅਦ ਦਿਸੇ, ਉਸ ਨੂੰ ਸਮੇਂ ਦੇ ਨਾਲ ਵੇਖਣਾ ਚਾਹੀਦਾ ਹੈ। ਜੇ ਉਹ ਪਰੇਸ਼ਾਨ ਕਰਨ ਲੱਗੇ ਜਾਂ ਬਣਿਆ ਰਹੇ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।',
+    body4:
+      'ਇੱਕ ਚੱਕਰ ਤੋਂ ਦੂਜੇ ਤੱਕ ਲੱਛਣਾਂ ਦੇ ਬਦਲਣ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਵੇਖਣ ਲਈ ਆਪਣੀ ਐਪ ਵਿੱਚ ਲੱਛਣ ਦਰਜ ਕਰਨਾ ਮਦਦਗਾਰ ਹੋ ਸਕਦਾ ਹੈ।',
+    trackingTitle: 'ਵੇਖੋ ਕਿ ਚੀਜ਼ਾਂ ਕਿਵੇਂ ਬਦਲਦੀਆਂ ਹਨ',
+    trackingSubtitle: 'ਕੁਝ ਨਿਸ਼ਾਨੀਆਂ ਮਦਦਗਾਰ ਹੋ ਸਕਦੀਆਂ ਹਨ',
+    trackingLines: [
+      'ਲੱਛਣ ਦੇ ਸ਼ੁਰੂ ਹੋਣ ਦੀ ਤਾਰੀਖ਼ ਲਿਖੋ।',
+      'ਉਸ ਦੀ ਤੀਬਰਤਾ ਅਤੇ ਮਿਆਦ ਦਰਜ ਕਰੋ।',
+      'ਵੇਖੋ ਕਿ ਉਹ ਸੁਧਰਦਾ ਹੈ ਜਾਂ ਵਿਗੜਦਾ ਹੈ।',
+    ],
+    body5:
+      'ਸਾਰੇ ਲੱਛਣ ਜ਼ਰੂਰੀ ਤੌਰ ਉੱਤੇ ਗਰਭ ਨਿਰੋਧ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੁੰਦੇ। ਤਣਾਅ, ਨੀਂਦ, ਖ਼ੁਰਾਕ, ਤੁਹਾਡਾ ਚੱਕਰ ਜਾਂ ਹੋਰ ਇਲਾਜ ਵੀ ਤੁਹਾਡੇ ਮਹਿਸੂਸ ਕਰਨ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੇ ਹਨ।',
+    body6:
+      'ਹਾਲਤ ਨੂੰ ਸਮਝਣ ਲਈ, ਕਿਸੇ ਇੱਕ ਲੱਛਣ ਨੂੰ ਇਕੱਲਾ ਵੇਖਣ ਦੀ ਬਜਾਏ ਪੂਰੇ ਸੰਦਰਭ ਨੂੰ ਵੇਖਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
+    worthMentioning: [
+      'ਮੂਡ ਵਿੱਚ ਸਾਫ਼ ਅਤੇ ਲਗਾਤਾਰ ਬਦਲਾਅ',
+      'ਜਿਨਸੀ ਇੱਛਾ ਵਿੱਚ ਕਮੀ ਜੋ ਤੁਹਾਨੂੰ ਪਰੇਸ਼ਾਨ ਕਰੇ',
+      '3 ਚੱਕਰਾਂ ਤੋਂ ਵੱਧ ਚੱਲਣ ਵਾਲਾ ਬੇਨਿਯਮਾ ਖ਼ੂਨ',
+      'ਜੀ ਕੱਚਾ ਹੋਣਾ ਜਾਂ ਸਿਰ ਦਰਦ ਜੋ ਪਰੇਸ਼ਾਨ ਕਰਦੇ ਰਹਿਣ',
+    ],
+    questionsTitle: 'ਕੁਝ ਮਦਦਗਾਰ ਸਵਾਲ',
+    questions: [
+      'ਇਹ ਲੱਛਣ ਕਿੰਨੇ ਸਮੇਂ ਤੋਂ ਚੱਲ ਰਹੇ ਹਨ?',
+      'ਕੀ ਇਹ ਗਰਭ ਨਿਰੋਧ ਤਰੀਕਾ ਸ਼ੁਰੂ ਕਰਨ ਜਾਂ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਆਏ?',
+      'ਕੀ ਇਹ ਹਲਕੇ ਹਨ, ਪਰੇਸ਼ਾਨ ਕਰਨ ਵਾਲੇ ਹਨ, ਜਾਂ ਤੁਹਾਡੇ ਲਈ ਸੱਚਮੁੱਚ ਅਸਾਧਾਰਨ ਹਨ?',
+      'ਕੀ ਇਹ ਸਮੇਂ ਨਾਲ ਸੁਧਰ ਰਹੇ ਹਨ ਜਾਂ ਵਧੇਰੇ ਵਾਰ ਆ ਰਹੇ ਹਨ?',
+    ],
+    body7:
+      'ਭਾਵੇਂ ਕੋਈ ਲੱਛਣ ਜ਼ਰੂਰੀ ਨਾ ਹੋਵੇ, ਜੇ ਉਹ ਪਰੇਸ਼ਾਨ ਕਰਨ ਲੱਗੇ, ਬਣਿਆ ਰਹੇ ਜਾਂ ਤੁਹਾਡੀ ਜ਼ਿੰਦਗੀ ਦੀ ਗੁਣਵੱਤਾ ਨੂੰ ਸੱਚਮੁੱਚ ਪ੍ਰਭਾਵਿਤ ਕਰੇ, ਤਾਂ ਉਸ ਬਾਰੇ ਗੱਲ ਕਰਨਾ ਚੰਗਾ ਹੋ ਸਕਦਾ ਹੈ।',
+    infoTitle: 'ਸਲਾਹ ਲੈਣੀ ਚੰਗੀ ਹੋ ਸਕਦੀ ਹੈ ਜੇ…',
+    infoText:
+      'ਲੱਛਣ ਬਣੇ ਰਹਿਣ, ਵਧੇਰੇ ਗੰਭੀਰ ਹੋ ਜਾਣ, ਜਾਂ ਤੁਹਾਨੂੰ ਆਮ ਜ਼ਿੰਦਗੀ ਜਿਉਣ ਤੋਂ ਰੋਕਣ।',
+    body8:
+      'ਡਾਕਟਰ, ਮਿਡਵਾਈਫ਼ ਜਾਂ ਫ਼ਾਰਮਾਸਿਸਟ ਇਹ ਤੈਅ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ ਕਿ ਕੀ ਲੱਛਣ ਤੁਹਾਡੇ ਵਰਤੇ ਜਾ ਰਹੇ ਤਰੀਕੇ ਨਾਲ ਜੁੜੇ ਹੋ ਸਕਦੇ ਹਨ ਅਤੇ ਕੀ ਉਸ ਨੂੰ ਬਦਲਣ ਦੀ ਲੋੜ ਹੈ।',
+    body9:
+      'ਕੁਝ ਸੰਕੇਤ ਅਸਾਧਾਰਨ ਹੁੰਦੇ ਹਨ ਅਤੇ ਤੁਰੰਤ ਡਾਕਟਰੀ ਜਾਂਚ ਮੰਗਦੇ ਹਨ। ਇਨ੍ਹਾਂ ਦਾ ਜ਼ਰੂਰੀ ਤੌਰ ਉੱਤੇ ਇਹ ਮਤਲਬ ਨਹੀਂ ਕਿ ਕੋਈ ਪੇਚੀਦਗੀ ਹੈ, ਪਰ ਇਨ੍ਹਾਂ ਨੂੰ ਅਣਡਿੱਠ ਨਹੀਂ ਕਰਨਾ ਚਾਹੀਦਾ।',
+    alertTitle: 'ਜਲਦੀ ਇਲਾਜ ਲਵੋ',
+    alertIntro: 'ਜੇ ਤੁਹਾਨੂੰ ਖ਼ਾਸ ਤੌਰ ਉੱਤੇ ਇਹ ਹੋਵੇ ਤਾਂ ਜਲਦੀ ਡਾਕਟਰੀ ਸਲਾਹ ਲਵੋ:',
+    urgentSigns: [
+      'ਛਾਤੀ ਵਿੱਚ ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਦਰਦ',
+      'ਅਚਾਨਕ ਸਾਹ ਲੈਣ ਵਿੱਚ ਔਖ',
+      'ਲੱਤ ਵਿੱਚ ਅਸਾਧਾਰਨ ਸੋਜ ਜਾਂ ਦਰਦ',
+      'ਅਚਾਨਕ, ਬਹੁਤ ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਸਿਰ ਦਰਦ',
+      'ਨਜ਼ਰ, ਬੋਲਣ ਜਾਂ ਤਾਕਤ ਵਿੱਚ ਅਚਾਨਕ ਦਿੱਕਤ',
+    ],
+    emergencyTitle: 'ਗੰਭੀਰ ਹਾਲਤ ਵਿੱਚ',
+    emergencyText:
+      'ਜੇ ਲੱਛਣ ਅਚਾਨਕ ਹੋਣ, ਬਹੁਤ ਗੰਭੀਰ ਹੋਣ, ਜਾਂ ਸਾਹ ਲੈਣ ਵਿੱਚ ਔਖ, ਬੇਹੋਸ਼ੀ ਮਹਿਸੂਸ ਹੋਣ ਜਾਂ ਕਿਸੇ ਹੋਰ ਗੰਭੀਰ ਸੰਕੇਤ ਨਾਲ ਆਉਣ, ਤਾਂ ਤੁਰੰਤ ਡਾਕਟਰੀ ਮਦਦ ਲਵੋ।',
+    summaryTitle: 'ਜ਼ਰੂਰੀ ਗੱਲਾਂ',
+    summaryItems: [
+      'ਹਾਰਮੋਨ ਵਾਲੇ ਨਵੇਂ ਗਰਭ ਨਿਰੋਧ ਤਰੀਕੇ ਦੀ ਸ਼ੁਰੂਆਤ ਵਿੱਚ ਕੁਝ ਪ੍ਰਭਾਵ ਦਿਖ ਸਕਦੇ ਹਨ।',
+      'ਕਈ ਪ੍ਰਭਾਵ ਅਸਥਾਈ ਹੁੰਦੇ ਹਨ ਅਤੇ ਸਮੇਂ ਨਾਲ ਘਟ ਸਕਦੇ ਹਨ।',
+      'ਪਰੇਸ਼ਾਨ ਕਰਨ ਵਾਲੇ ਜਾਂ ਲਗਾਤਾਰ ਲੱਛਣ ਬਾਰੇ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨੀ ਚੰਗੀ ਹੈ।',
+      'ਕੁਝ ਅਸਾਧਾਰਨ ਸੰਕੇਤਾਂ ਲਈ ਤੁਰੰਤ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।',
+    ],
+    finalTipTitle: 'ਮੁੱਖ ਨੁਕਤਾ',
+    finalTipText:
+      'ਆਪਣੇ ਸਰੀਰ ਦੀ ਸੁਣਨ ਦਾ ਜ਼ਰੂਰੀ ਮਤਲਬ ਕਿਸੇ ਤਰੀਕੇ ਨੂੰ ਤੁਰੰਤ ਬੰਦ ਕਰਨਾ ਨਹੀਂ ਹੈ। ਜੋ ਮਹਿਸੂਸ ਹੋ ਰਿਹਾ ਹੈ ਉਹ ਲਿਖੋ, ਵੇਖੋ ਕਿ ਉਹ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ, ਅਤੇ ਜਦੋਂ ਵੀ ਕੋਈ ਲੱਛਣ ਚਿੰਤਾ ਕਰੇ ਤਾਂ ਸਲਾਹ ਮੰਗੋ।',
+    disclaimerText:
+      'ਇਹ ਲੇਖ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦਾ। ਜੇ ਤੁਹਾਨੂੰ ਕੋਈ ਵੱਡਾ ਜਾਂ ਅਸਾਧਾਰਨ ਲੱਛਣ ਹੋਵੇ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸਲਾਹ ਲਵੋ।',
+    shareMessage: 'ਸੰਭਵ ਮਾੜੇ ਪ੍ਰਭਾਵਾਂ ਨੂੰ ਪਛਾਣਨਾ — AWA',
+  },
+  my: {
+    badge: 'ဘေးထွက်ဆိုးကျိုးများ',
+    title: 'ဖြစ်နိုင်ခြေရှိသော\nဘေးထွက်ဆိုးကျိုးများကို သိရှိခြင်း',
+    metaDuration: 'ဖတ်ချိန် 8 မိနစ်',
+    metaType: 'ဆောင်းပါး',
+    metaLevel: 'အလယ်အလတ်အဆင့်',
+    metaValidated: 'ပြန်လည်သုံးသပ်ပြီး အကြောင်းအရာ',
+    intro:
+      'အချို့သက်ရောက်မှုများသည် ဖြစ်လေ့ရှိပြီး ယာယီသာဖြစ်နိုင်သည်။ အခြားအချို့မှာ ပိုမိုဂရုစိုက်ရန် လိုအပ်သည်။ ပုံမှန်တုံ့ပြန်မှုများနှင့် အကဲဖြတ်သင့်သော လက္ခဏာများကြား ကွာခြားချက်ကို ခွဲခြားသိရှိရန် သင်ယူပါ။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'ဖြစ်လေ့ရှိသော ပေါ့ပါးသည့် သက်ရောက်မှုများ',
+      'ခန္ဓာကိုယ်၏ လိုက်လျောညီထွေဖြစ်ရာကာလ',
+      'ပြောင်းလဲသည်များကို စောင့်ကြည့်ခြင်း',
+      'ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို ဘယ်အချိန်မေးသင့်သလဲ',
+      'ဘယ်အချိန် အမြန်ကုသမှုခံယူသင့်သလဲ',
+      'အဓိကအချက်များ',
+    ],
+    body1:
+      'တစ်စုံတစ်ယောက်သည် ဟော်မုန်းသုံး ကိုယ်ဝန်တားနည်းအသစ်ကို စတင်သောအခါ ခန္ဓာကိုယ်သည် လိုက်လျောညီထွေဖြစ်ရန် အချိန်အနည်းငယ် လိုအပ်နိုင်သည်။ ရာသီစက်ဝန်း၊ စိတ်ခံစားမှု သို့မဟုတ် ကိုယ်ခန္ဓာသက်သာမှုတွင် ပြောင်းလဲမှုသေးသေးလေးများ ပေါ်လာနိုင်သည်။',
+    body2:
+      'ဤသက်ရောက်မှုများသည် မကြာခဏ ပေါ့ပါးပြီး တဖြည်းဖြည်း လျော့နည်းသွားနိုင်သည်။ ၎င်းတို့ ရှိနေခြင်းသည် နည်းလမ်းသည် အန္တရာယ်ရှိသည် သို့မဟုတ် ရပ်ရန်လိုသည်ဟု အလိုအလျောက် မဆိုလိုပါ။',
+    commonEffects: [
+      {
+        title: 'သွေးအနည်းငယ်ထွက်ခြင်း',
+        text: 'မပုံမှန်သွေးထွက်ခြင်း ဖြစ်နိုင်သည်၊ အထူးသဖြင့် နည်းလမ်းအသစ်စတင်ချိန်တွင်။',
+      },
+      {
+        title: 'ရင်သားနာခြင်း',
+        text: 'ရင်သားတင်းခြင်း သို့မဟုတ် နာခြင်းကို ယာယီခံစားရနိုင်သည်။',
+      },
+      {
+        title: 'စိတ်ခံစားမှု',
+        text: 'အချို့သူများသည် စိတ်ခံစားမှု ပြောင်းလဲခြင်း သို့မဟုတ် စိတ်ထိခိုက်လွယ်မှု တိုးလာသည်ကို သတိပြုမိကြသည်။',
+      },
+      {
+        title: 'ခေါင်းကိုက်ခြင်း',
+        text: 'လိုက်လျောညီထွေဖြစ်ရာကာလအတွင်း ပေါ့ပါးသော ခေါင်းကိုက်ခြင်း ဖြစ်နိုင်သည်။',
+      },
+    ],
+    body3:
+      'ပထမသီတင်းပတ်အနည်းငယ် သို့မဟုတ် ရာသီစက်ဝန်းအနည်းငယ်သည် သင်ယခင်ကျင့်သားရထားသည်နှင့် ကွဲပြားနိုင်သည်။ ခန္ဓာကိုယ်သည် ဟော်မုန်းမျှခြေအသစ်သို့ တဖြည်းဖြည်း လိုက်လျောညီထွေဖြစ်လာနိုင်သည်။',
+    tip1Title: 'သိထားသင့်သည်',
+    tip1Text:
+      'နည်းလမ်းတစ်ခု စတင်ပြီးမကြာမီ ပေါ်လာသော သက်ရောက်မှုကို အချိန်ကြာလာသည်နှင့်အမျှ စောင့်ကြည့်သင့်သည်။ အနှောင့်အယှက်ဖြစ်လာလျှင် သို့မဟုတ် ဆက်ရှိနေလျှင် ကျန်းမာရေးပညာရှင်နှင့် ပြောဆိုပါ။',
+    body4:
+      'ရာသီစက်ဝန်းတစ်ခုမှ နောက်တစ်ခုသို့ ပြောင်းလဲပုံကို ပိုကောင်းစွာ မှတ်သားရန် သင့်အက်ပ်တွင် ရောဂါလက္ခဏာများကို မှတ်တမ်းတင်ခြင်းက အသုံးဝင်နိုင်သည်။',
+    trackingTitle: 'ပြောင်းလဲပုံကို မှတ်သားပါ',
+    trackingSubtitle: 'အမှတ်အသားအချို့က အသုံးဝင်နိုင်သည်',
+    trackingLines: [
+      'ရောဂါလက္ခဏာ ပေါ်လာသော ရက်စွဲကို မှတ်ပါ။',
+      'ပြင်းထန်မှုနှင့် ကြာချိန်ကို မှတ်တမ်းတင်ပါ။',
+      'ကောင်းလာသလား ဆိုးလာသလားကို စောင့်ကြည့်ပါ။',
+    ],
+    body5:
+      'ရောဂါလက္ခဏာအားလုံးသည် ကိုယ်ဝန်တားခြင်းနှင့် ဆက်စပ်နေရန် မလိုပါ။ စိတ်ဖိစီးမှု၊ အိပ်စက်ခြင်း၊ အစားအသောက်၊ သင့်ရာသီစက်ဝန်း သို့မဟုတ် အခြားကုထုံးများသည်လည်း သင့်ခံစားချက်ကို ထိခိုက်နိုင်သည်။',
+    body6:
+      'အခြေအနေကို နားလည်ရန် ရောဂါလက္ခဏာတစ်ခုတည်းကို သီးခြားကြည့်မည့်အစား အလုံးစုံအခြေအနေကို ကြည့်ရန် ကြိုးစားပါ။',
+    worthMentioning: [
+      'သိသာပြီး ဆက်ရှိနေသော စိတ်ခံစားမှု ပြောင်းလဲခြင်း',
+      'သင့်ကို အနှောင့်အယှက်ဖြစ်စေသည့် လိင်ဆန္ဒ ကျဆင်းခြင်း',
+      'ရာသီစက်ဝန်း 3 ကြိမ်ထက်ပိုကြာသော မပုံမှန်သွေးထွက်ခြင်း',
+      'အနှောင့်အယှက်ဖြစ်နေဆဲ ပျို့အန်ခြင်း သို့မဟုတ် ခေါင်းကိုက်ခြင်း',
+    ],
+    questionsTitle: 'အသုံးဝင်သော မေးခွန်းအချို့',
+    questions: [
+      'ဤရောဂါလက္ခဏာများ ဘယ်လောက်ကြာပြီလဲ။',
+      'ကိုယ်ဝန်တားနည်းတစ်ခု စတင်ပြီးနောက် သို့မဟုတ် ပြောင်းပြီးနောက် ပေါ်လာခဲ့ပါသလား။',
+      'ပေါ့ပါးသလား၊ အနှောင့်အယှက်ဖြစ်သလား၊ သင့်အတွက် တကယ်ထူးဆန်းသလား။',
+      'အချိန်ကြာလာသည်နှင့်အမျှ ကောင်းလာနေသလား၊ ပိုမကြာခဏဖြစ်လာနေသလား။',
+    ],
+    body7:
+      'ရောဂါလက္ခဏာတစ်ခုသည် အရေးပေါ်မဟုတ်သော်လည်း အနှောင့်အယှက်ဖြစ်လာလျှင်၊ ဆက်ရှိနေလျှင် သို့မဟုတ် သင့်ဘဝအရည်အသွေးကို အမှန်တကယ်ထိခိုက်လျှင် ဆွေးနွေးသင့်သည်။',
+    infoTitle: 'အကြံဉာဏ်မေးသင့်နိုင်သည်မှာ…',
+    infoText:
+      'ရောဂါလက္ခဏာများ ဆက်ရှိနေလျှင်၊ ပိုသိသာလာလျှင် သို့မဟုတ် ပုံမှန်နေထိုင်ရန် အဟန့်အတားဖြစ်စေလျှင် ဖြစ်သည်။',
+    body8:
+      'ဆရာဝန်၊ သားဖွားဆရာမ သို့မဟုတ် ဆေးဆိုင်ဆရာက ရောဂါလက္ခဏာများသည် သင်သုံးနေသောနည်းလမ်းနှင့် ဆက်စပ်နိုင်မနိုင်နှင့် ညှိနှိုင်းရန်လိုမလိုကို ဆုံးဖြတ်ရန် ကူညီနိုင်သည်။',
+    body9:
+      'အချို့လက္ခဏာများသည် ထူးဆန်းပြီး ဆေးဘက်ဆိုင်ရာ အကဲဖြတ်မှုကို အမြန်လိုအပ်စေသည်။ ၎င်းတို့သည် ရှုပ်ထွေးမှုရှိသည်ဟု မဆိုလိုသော်လည်း လျစ်လျူမရှုသင့်ပါ။',
+    alertTitle: 'အမြန်ကုသမှုခံယူပါ',
+    alertIntro: 'အောက်ပါတို့ကို အထူးသဖြင့် ကြုံလာပါက ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို အမြန်မေးပါ။',
+    urgentSigns: [
+      'သိသာသော သို့မဟုတ် ထူးဆန်းသော ရင်ဘတ်နာကျင်ခြင်း',
+      'ရုတ်တရက် အသက်ရှူရခက်ခြင်း',
+      'ခြေထောက်တစ်ဖက်တွင် ထူးဆန်းသော ရောင်ခြင်း သို့မဟုတ် နာကျင်ခြင်း',
+      'ရုတ်တရက်ဖြစ်သော၊ အလွန်ပြင်းထန်သော သို့မဟုတ် ထူးဆန်းသော ခေါင်းကိုက်ခြင်း',
+      'အမြင်၊ စကားပြောခြင်း သို့မဟုတ် အားအင်တွင် ရုတ်တရက် ပြဿနာဖြစ်ခြင်း',
+    ],
+    emergencyTitle: 'ပြင်းထန်သော အခြေအနေဖြစ်ပါက',
+    emergencyText:
+      'ရောဂါလက္ခဏာများသည် ရုတ်တရက်ဖြစ်လျှင်၊ အလွန်ပြင်းထန်လျှင် သို့မဟုတ် အသက်ရှူရခက်ခြင်း၊ မူးမေ့ချင်သလိုခံစားရခြင်း သို့မဟုတ် အခြားပြင်းထန်သောလက္ခဏာနှင့်အတူ ပါလာလျှင် အရေးပေါ်ဆေးဘက်ဆိုင်ရာ အကူအညီကို ရှာပါ။',
+    summaryTitle: 'အဓိကအချက်များ',
+    summaryItems: [
+      'ဟော်မုန်းသုံး ကိုယ်ဝန်တားနည်းအသစ် စတင်ချိန်တွင် အချို့သက်ရောက်မှုများ ပေါ်လာနိုင်သည်။',
+      'သက်ရောက်မှုများစွာသည် ယာယီဖြစ်ပြီး အချိန်ကြာလာသည်နှင့်အမျှ လျော့နည်းသွားနိုင်သည်။',
+      'အနှောင့်အယှက်ဖြစ်စေသော သို့မဟုတ် ဆက်ရှိနေသော ရောဂါလက္ခဏာကို ပညာရှင်နှင့် ဆွေးနွေးသင့်သည်။',
+      'အချို့ထူးဆန်းသောလက္ခဏာများသည် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို အမြန်လိုအပ်သည်။',
+    ],
+    finalTipTitle: 'အဓိကအချက်',
+    finalTipText:
+      'သင့်ခန္ဓာကိုယ်ကို နားထောင်ခြင်းသည် နည်းလမ်းတစ်ခုကို ချက်ချင်းရပ်ရမည်ဟု မဆိုလိုပါ။ သင်ခံစားရသည်ကို မှတ်သားပါ၊ မည်သို့ပြောင်းလဲသည်ကို စောင့်ကြည့်ပါ၊ ရောဂါလက္ခဏာတစ်ခုက စိုးရိမ်စေသည့်အခါတိုင်း အကြံဉာဏ်မေးပါ။',
+    disclaimerText:
+      'ဤဆောင်းပါးသည် အချက်အလက်ပေးရန် ရည်ရွယ်ပြီး ကိုယ်ပိုင်ဆေးဘက်ဆိုင်ရာ အကြံပြုချက်ကို အစားထိုးခြင်းမရှိပါ။ သိသာသော သို့မဟုတ် ထူးဆန်းသော ရောဂါလက္ခဏာရှိပါက ကျန်းမာရေးပညာရှင်ထံ အကြံဉာဏ်မေးပါ။',
+    shareMessage: 'ဖြစ်နိုင်ခြေရှိသော ဘေးထွက်ဆိုးကျိုးများကို သိရှိခြင်း — AWA',
+  },
+  km: {
+    badge: 'ផលប៉ះពាល់',
+    title: 'ស្គាល់ផលប៉ះពាល់\nដែលអាចកើតមាន',
+    metaDuration: 'អាន 8 នាទី',
+    metaType: 'អត្ថបទ',
+    metaLevel: 'កម្រិតមធ្យម',
+    metaValidated: 'មាតិកាបានពិនិត្យ',
+    intro:
+      'ផលប៉ះពាល់មួយចំនួនអាចជារឿងធម្មតា ហើយបណ្តោះអាសន្ន។ ផលផ្សេងទៀតត្រូវការការយកចិត្តទុកដាក់ច្រើនជាង។ សូមរៀនបែងចែករវាងប្រតិកម្មធម្មតា និងសញ្ញាដែលគួរតែត្រូវបានវាយតម្លៃ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ផលប៉ះពាល់ធម្មតាស្រាលៗ',
+      'រយៈពេលនៃការសម្របខ្លួនរបស់រាងកាយ',
+      'សង្កេតមើលអ្វីដែលផ្លាស់ប្តូរ',
+      'ពេលណាត្រូវសុំដំបូន្មានផ្នែកពេទ្យ',
+      'ពេលណាត្រូវស្វែងរកការថែទាំភ្លាមៗ',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    body1:
+      'នៅពេលនរណាម្នាក់ចាប់ផ្តើមវិធីពន្យារកំណើតដោយអរម៉ូនថ្មី រាងកាយអាចត្រូវការពេលខ្លះដើម្បីសម្របខ្លួន។ ការផ្លាស់ប្តូរតិចតួចអាចលេចឡើងក្នុងវដ្តរដូវ អារម្មណ៍ ឬភាពស្រួលខ្លួន។',
+    body2:
+      'ផលប៉ះពាល់ទាំងនេះជាញឹកញាប់ស្រាល ហើយអាចថយចុះបន្តិចម្តងៗ។ វត្តមានរបស់វាមិនមែនមានន័យដោយស្វ័យប្រវត្តិថាវិធីនោះគ្រោះថ្នាក់ ឬត្រូវតែឈប់ប្រើទេ។',
+    commonEffects: [
+      {
+        title: 'ដំណក់ឈាមតិចៗ',
+        text: 'ការហូរឈាមមិនទៀងទាត់អាចកើតមាន ជាពិសេសនៅពេលចាប់ផ្តើមប្រើវិធីថ្មី។',
+      },
+      {
+        title: 'ដោះឈឺ',
+        text: 'អាចមានអារម្មណ៍តឹង ឬឈឺដោះជាបណ្តោះអាសន្ន។',
+      },
+      {
+        title: 'អារម្មណ៍',
+        text: 'មនុស្សមួយចំនួនកត់សម្គាល់ឃើញការប្រែប្រួលអារម្មណ៍ ឬភាពរសើបខាងអារម្មណ៍កើនឡើង។',
+      },
+      {
+        title: 'ឈឺក្បាល',
+        text: 'ការឈឺក្បាលស្រាលអាចកើតមានក្នុងអំឡុងពេលសម្របខ្លួន។',
+      },
+    ],
+    body3:
+      'សប្តាហ៍ ឬវដ្តរដូវដំបូងៗអាចខុសពីអ្វីដែលអ្នកធ្លាប់មានពីមុន។ រាងកាយអាចសម្របខ្លួនបន្តិចម្តងៗទៅនឹងតុល្យភាពអរម៉ូនថ្មី។',
+    tip1Title: 'គួរដឹង',
+    tip1Text:
+      'ផលដែលលេចឡើងភ្លាមៗក្រោយចាប់ផ្តើមវិធីមួយ គួរតែត្រូវបានតាមដានតាមពេលវេលា។ ប្រសិនបើវាកាន់តែរំខាន ឬនៅជាប់ សូមនិយាយជាមួយអ្នកជំនាញសុខាភិបាល។',
+    body4:
+      'វាអាចមានប្រយោជន៍ក្នុងការកត់ត្រារោគសញ្ញាក្នុងកម្មវិធីរបស់អ្នក ដើម្បីតាមដានការប្រែប្រួលពីវដ្តរដូវមួយទៅមួយទៀតបានប្រសើរជាង។',
+    trackingTitle: 'តាមដានការវិវឌ្ឍ',
+    trackingSubtitle: 'សញ្ញាសម្គាល់មួយចំនួនអាចមានប្រយោជន៍',
+    trackingLines: [
+      'កត់ត្រាកាលបរិច្ឆេទដែលរោគសញ្ញាលេចឡើង។',
+      'កត់ត្រាកម្រិត និងរយៈពេលរបស់វា។',
+      'សង្កេតមើលថាវាប្រសើរឡើង ឬកាន់តែអាក្រក់។',
+    ],
+    body5:
+      'រោគសញ្ញាទាំងអស់មិនចាំបាច់ទាក់ទងនឹងការពន្យារកំណើតទេ។ ភាពតានតឹង ដំណេក របបអាហារ វដ្តរដូវរបស់អ្នក ឬការព្យាបាលផ្សេងទៀតក៏អាចប៉ះពាល់ដល់អារម្មណ៍របស់អ្នកដែរ។',
+    body6:
+      'ដើម្បីយល់ពីស្ថានភាព សូមព្យាយាមមើលបរិបទទាំងមូល ជាជាងរោគសញ្ញាតែមួយដាច់ដោយឡែក។',
+    worthMentioning: [
+      'ការប្រែប្រួលអារម្មណ៍ច្បាស់ និងនៅជាប់',
+      'ការថយចុះនៃចំណង់ផ្លូវភេទដែលរំខានអ្នក',
+      'ការហូរឈាមមិនទៀងទាត់ដែលមានលើសពី 3 វដ្តរដូវ',
+      'ចង្អោរ ឬឈឺក្បាលដែលនៅតែរំខាន',
+    ],
+    questionsTitle: 'សំណួរមានប្រយោជន៍មួយចំនួន',
+    questions: [
+      'តើរោគសញ្ញាទាំងនេះបានកើតមានយូរប៉ុណ្ណាហើយ?',
+      'តើវាលេចឡើងក្រោយពេលចាប់ផ្តើម ឬប្តូរវិធីពន្យារកំណើតឬទេ?',
+      'តើវាស្រាល រំខាន ឬមិនធម្មតាពិតប្រាកដសម្រាប់អ្នក?',
+      'តើវាប្រសើរឡើងតាមពេលវេលា ឬកាន់តែញឹកញាប់?',
+    ],
+    body7:
+      'ទោះបីរោគសញ្ញាមិនបន្ទាន់ក៏ដោយ វាអាចគួរពិភាក្សាអំពីវា ប្រសិនបើវាកាន់តែរំខាន នៅជាប់ ឬប៉ះពាល់ដល់គុណភាពជីវិតរបស់អ្នកពិតប្រាកដ។',
+    infoTitle: 'វាអាចគួរសុំដំបូន្មាន ប្រសិនបើ…',
+    infoText:
+      'រោគសញ្ញានៅជាប់ កាន់តែធ្ងន់ធ្ងរ ឬរារាំងអ្នកពីការរស់នៅជាធម្មតា។',
+    body8:
+      'វេជ្ជបណ្ឌិត ឆ្មប ឬឱសថការី អាចជួយអ្នកកំណត់ថារោគសញ្ញាអាចទាក់ទងនឹងវិធីដែលអ្នកកំពុងប្រើឬទេ និងថាតើវាត្រូវកែសម្រួលឬអត់។',
+    body9:
+      'សញ្ញាមួយចំនួនមិនធម្មតា ហើយតម្រូវឱ្យមានការវាយតម្លៃផ្នែកពេទ្យភ្លាមៗ។ វាមិនចាំបាច់មានន័យថាមានផលវិបាកទេ ប៉ុន្តែមិនគួរមើលរំលងវាទេ។',
+    alertTitle: 'ស្វែងរកការថែទាំភ្លាមៗ',
+    alertIntro: 'សូមសុំដំបូន្មានផ្នែកពេទ្យភ្លាមៗ ប្រសិនបើអ្នកមានជាពិសេស៖',
+    urgentSigns: [
+      'ឈឺទ្រូងខ្លាំង ឬមិនធម្មតា',
+      'ពិបាកដកដង្ហើមភ្លាមៗ',
+      'ហើម ឬឈឺជើងមិនធម្មតា',
+      'ឈឺក្បាលភ្លាមៗ ខ្លាំងខ្លាំង ឬមិនធម្មតា',
+      'ពិបាកមើល និយាយ ឬមានកម្លាំងភ្លាមៗ',
+    ],
+    emergencyTitle: 'ក្នុងករណីស្ថានភាពធ្ងន់ធ្ងរ',
+    emergencyText:
+      'ប្រសិនបើរោគសញ្ញាកើតឡើងភ្លាមៗ ធ្ងន់ធ្ងរខ្លាំង ឬមានអមដោយការពិបាកដកដង្ហើម ឬមានអារម្មណ៍ងងឹតមុខ ឬសញ្ញាធ្ងន់ធ្ងរផ្សេងទៀត សូមស្វែងរកជំនួយផ្នែកពេទ្យជាបន្ទាន់។',
+    summaryTitle: 'ខ្លឹមសារសំខាន់',
+    summaryItems: [
+      'ផលប៉ះពាល់មួយចំនួនអាចលេចឡើងនៅពេលចាប់ផ្តើមវិធីពន្យារកំណើតដោយអរម៉ូនថ្មី។',
+      'ផលប៉ះពាល់ជាច្រើនគឺបណ្តោះអាសន្ន ហើយអាចថយចុះតាមពេលវេលា។',
+      'រោគសញ្ញាដែលរំខាន ឬនៅជាប់ គួរតែពិភាក្សាជាមួយអ្នកជំនាញ។',
+      'សញ្ញាមិនធម្មតាមួយចំនួនតម្រូវឱ្យមានដំបូន្មានផ្នែកពេទ្យភ្លាមៗ។',
+    ],
+    finalTipTitle: 'ចំណុចសំខាន់',
+    finalTipText:
+      'ការស្តាប់រាងកាយរបស់អ្នក មិនចាំបាច់មានន័យថាត្រូវឈប់ប្រើវិធីមួយភ្លាមៗទេ។ សូមកត់ត្រាអ្វីដែលអ្នកមានអារម្មណ៍ សង្កេតមើលការវិវឌ្ឍរបស់វា ហើយសុំដំបូន្មាននៅពេលណាក៏ដោយដែលរោគសញ្ញាមួយធ្វើឱ្យអ្នកព្រួយបារម្ភ។',
+    disclaimerText:
+      'អត្ថបទនេះមានគោលបំណងផ្តល់ព័ត៌មាន ហើយមិនជំនួសដំបូន្មានផ្នែកពេទ្យផ្ទាល់ខ្លួនទេ។ ប្រសិនបើអ្នកមានរោគសញ្ញាធ្ងន់ធ្ងរ ឬមិនធម្មតា សូមសុំដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ស្គាល់ផលប៉ះពាល់ដែលអាចកើតមាន — AWA',
+  },
+  lo: {
+    badge: 'ຜົນຂ້າງຄຽງ',
+    title: 'ຮູ້ຈັກຜົນຂ້າງຄຽງ\nທີ່ອາດເກີດຂຶ້ນ',
+    metaDuration: 'ອ່ານ 8 ນາທີ',
+    metaType: 'ບົດຄວາມ',
+    metaLevel: 'ລະດັບກາງ',
+    metaValidated: 'ເນື້ອຫາທີ່ຜ່ານການກວດສອບ',
+    intro:
+      'ບາງຜົນອາດພົບໄດ້ທົ່ວໄປ ແລະ ເປັນຊົ່ວຄາວ. ບາງຜົນຕ້ອງການຄວາມເອົາໃຈໃສ່ຫຼາຍຂຶ້ນ. ຮຽນຮູ້ທີ່ຈະແຍກແຍະລະຫວ່າງປະຕິກິລິຍາທີ່ເປັນປົກກະຕິ ແລະ ອາການທີ່ຄວນໄດ້ຮັບການປະເມີນ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ຜົນທີ່ພົບທົ່ວໄປ ແລະ ບໍ່ຮຸນແຮງ',
+      'ໄລຍະປັບຕົວຂອງຮ່າງກາຍ',
+      'ສັງເກດສິ່ງທີ່ປ່ຽນແປງ',
+      'ເມື່ອໃດຄວນຂໍຄຳແນະນຳທາງການແພດ',
+      'ເມື່ອໃດຄວນຮັບການດູແລຢ່າງວ່ອງໄວ',
+      'ຈຸດສຳຄັນ',
+    ],
+    body1:
+      'ເມື່ອເລີ່ມໃຊ້ວິທີຄຸມກຳເນີດດ້ວຍຮໍໂມນວິທີໃໝ່ ຮ່າງກາຍອາດຕ້ອງໃຊ້ເວລາເພື່ອປັບຕົວ. ການປ່ຽນແປງເລັກນ້ອຍອາດປາກົດໃນຮອບເດືອນ ອາລົມ ຫຼື ຄວາມສະບາຍທາງຮ່າງກາຍ.',
+    body2:
+      'ຜົນເຫຼົ່ານີ້ມັກບໍ່ຮຸນແຮງ ແລະ ອາດຄ່ອຍໆຫຼຸດລົງ. ການມີຜົນເຫຼົ່ານີ້ບໍ່ໄດ້ໝາຍຄວາມວ່າວິທີນັ້ນອັນຕະລາຍ ຫຼື ຕ້ອງຢຸດໃຊ້ໂດຍອັດຕະໂນມັດ.',
+    commonEffects: [
+      {
+        title: 'ເລືອດອອກເລັກນ້ອຍ',
+        text: 'ອາດມີເລືອດອອກທີ່ບໍ່ສະໝ່ຳສະເໝີ ໂດຍສະເພາະໃນຕອນເລີ່ມຕົ້ນໃຊ້ວິທີໃໝ່.',
+      },
+      {
+        title: 'ເຕົ້ານົມເຈັບຕຶງ',
+        text: 'ອາດຮູ້ສຶກເຕົ້ານົມຕຶງ ຫຼື ເຈັບຊົ່ວຄາວ.',
+      },
+      {
+        title: 'ອາລົມ',
+        text: 'ບາງຄົນສັງເກດເຫັນການປ່ຽນແປງຂອງອາລົມ ຫຼື ຄວາມອ່ອນໄຫວທາງອາລົມເພີ່ມຂຶ້ນ.',
+      },
+      {
+        title: 'ເຈັບຫົວ',
+        text: 'ອາດມີອາການເຈັບຫົວເລັກນ້ອຍໃນໄລຍະປັບຕົວ.',
+      },
+    ],
+    body3:
+      'ສອງສາມອາທິດ ຫຼື ຮອບເດືອນທຳອິດອາດແຕກຕ່າງຈາກທີ່ທ່ານເຄີຍຊິນກ່ອນໜ້ານີ້. ຮ່າງກາຍສາມາດຄ່ອຍໆປັບຕົວເຂົ້າກັບຄວາມສົມດຸນຂອງຮໍໂມນໃໝ່.',
+    tip1Title: 'ຄວນຮູ້',
+    tip1Text:
+      'ອາການທີ່ປາກົດຂຶ້ນບໍ່ດົນຫຼັງເລີ່ມໃຊ້ວິທີໃດໜຶ່ງຄວນໄດ້ຮັບການເຝົ້າສັງເກດຕາມເວລາ. ຖ້າມັນສ້າງຄວາມລຳຄານ ຫຼື ຍັງຄົງຢູ່ ໃຫ້ປຶກສາຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    body4:
+      'ການບັນທຶກອາການໃນແອັບຂອງທ່ານສາມາດຊ່ວຍໃຫ້ຕິດຕາມການປ່ຽນແປງຈາກຮອບເດືອນໜຶ່ງໄປອີກຮອບໜຶ່ງໄດ້ດີຂຶ້ນ.',
+    trackingTitle: 'ຕິດຕາມວ່າມີການປ່ຽນແປງແນວໃດ',
+    trackingSubtitle: 'ບາງຈຸດສັງເກດອາດເປັນປະໂຫຍດ',
+    trackingLines: [
+      'ຈົດວັນທີທີ່ອາການປາກົດ.',
+      'ບັນທຶກຄວາມຮຸນແຮງ ແລະ ໄລຍະເວລາຂອງມັນ.',
+      'ສັງເກດວ່າດີຂຶ້ນ ຫຼື ຮ້າຍລົງ.',
+    ],
+    body5:
+      'ບໍ່ແມ່ນທຸກອາການຈະກ່ຽວຂ້ອງກັບການຄຸມກຳເນີດ. ຄວາມຕຶງຄຽດ ການນອນ ອາຫານ ຮອບເດືອນຂອງທ່ານ ຫຼື ການຮັກສາອື່ນໆກໍອາດສົ່ງຜົນຕໍ່ຄວາມຮູ້ສຶກຂອງທ່ານໄດ້.',
+    body6:
+      'ເພື່ອເຂົ້າໃຈສະຖານະການ ໃຫ້ພະຍາຍາມເບິ່ງບໍລິບົດໂດຍລວມ ແທນທີ່ຈະເບິ່ງອາການດຽວແຍກຕ່າງຫາກ.',
+    worthMentioning: [
+      'ອາລົມປ່ຽນແປງຊັດເຈນ ແລະ ຍັງຄົງຢູ່',
+      'ຄວາມຢາກທາງເພດຫຼຸດລົງຈົນສ້າງຄວາມກັງວົນໃຫ້ທ່ານ',
+      'ເລືອດອອກທີ່ບໍ່ສະໝ່ຳສະເໝີເກີນ 3 ຮອບເດືອນ',
+      'ວິນຫົວຄື່ນໄສ້ ຫຼື ເຈັບຫົວທີ່ຍັງສ້າງຄວາມລຳຄານ',
+    ],
+    questionsTitle: 'ຄຳຖາມບາງຂໍ້ທີ່ເປັນປະໂຫຍດ',
+    questions: [
+      'ອາການເຫຼົ່ານີ້ເປັນມາດົນປານໃດແລ້ວ?',
+      'ມັນປາກົດຫຼັງຈາກເລີ່ມ ຫຼື ປ່ຽນວິທີຄຸມກຳເນີດບໍ?',
+      'ມັນບໍ່ຮຸນແຮງ ສ້າງຄວາມລຳຄານ ຫຼື ຜິດປົກກະຕິສຳລັບທ່ານແທ້ໆບໍ?',
+      'ມັນດີຂຶ້ນຕາມເວລາ ຫຼື ເກີດຖີ່ຂຶ້ນບໍ?',
+    ],
+    body7:
+      'ເຖິງແມ່ນວ່າອາການໃດໜຶ່ງບໍ່ຮີບດ່ວນ ກໍຄວນປຶກສາຖ້າມັນສ້າງຄວາມລຳຄານ ຍັງຄົງຢູ່ ຫຼື ສົ່ງຜົນຕໍ່ຄຸນນະພາບຊີວິດຂອງທ່ານແທ້ໆ.',
+    infoTitle: 'ອາດຄວນຂໍຄຳແນະນຳ ຖ້າ…',
+    infoText:
+      'ອາການຍັງຄົງຢູ່ ຮຸນແຮງຂຶ້ນ ຫຼື ເຮັດໃຫ້ທ່ານດຳລົງຊີວິດຕາມປົກກະຕິບໍ່ໄດ້.',
+    body8:
+      'ແພດ ໝໍຕຳແຍ ຫຼື ເພສັດຊະກອນສາມາດຊ່ວຍທ່ານກຳນົດວ່າອາການອາດກ່ຽວຂ້ອງກັບວິທີທີ່ທ່ານໃຊ້ຢູ່ຫຼືບໍ່ ແລະ ຄວນປັບປ່ຽນຫຼືບໍ່.',
+    body9:
+      'ບາງອາການຜິດປົກກະຕິ ແລະ ຕ້ອງໄດ້ຮັບການປະເມີນທາງການແພດຢ່າງວ່ອງໄວ. ມັນບໍ່ຈຳເປັນຕ້ອງໝາຍຄວາມວ່າມີພາວະແຊກຊ້ອນ ແຕ່ບໍ່ຄວນລະເລີຍ.',
+    alertTitle: 'ຮັບການດູແລຢ່າງວ່ອງໄວ',
+    alertIntro: 'ຂໍຄຳແນະນຳທາງການແພດຢ່າງວ່ອງໄວ ຖ້າທ່ານມີອາການດັ່ງນີ້ ໂດຍສະເພາະ:',
+    urgentSigns: [
+      'ເຈັບໜ້າເອິກຮຸນແຮງ ຫຼື ຜິດປົກກະຕິ',
+      'ຫາຍໃຈຍາກຢ່າງກະທັນຫັນ',
+      'ຂາບວມ ຫຼື ເຈັບຜິດປົກກະຕິ',
+      'ເຈັບຫົວຢ່າງກະທັນຫັນ ຮຸນແຮງຫຼາຍ ຫຼື ຜິດປົກກະຕິ',
+      'ມີບັນຫາກະທັນຫັນກັບການເບິ່ງເຫັນ ການເວົ້າ ຫຼື ກຳລັງ',
+    ],
+    emergencyTitle: 'ໃນກໍລະນີທີ່ຮຸນແຮງ',
+    emergencyText:
+      'ຖ້າອາການເກີດຂຶ້ນກະທັນຫັນ ຮຸນແຮງຫຼາຍ ຫຼື ມາພ້ອມກັບຫາຍໃຈຍາກ ຮູ້ສຶກຈະເປັນລົມ ຫຼື ອາການຮ້າຍແຮງອື່ນ ໃຫ້ຂໍຄວາມຊ່ວຍເຫຼືອທາງການແພດດ່ວນ.',
+    summaryTitle: 'ສິ່ງສຳຄັນ',
+    summaryItems: [
+      'ບາງຜົນອາດປາກົດໃນຕອນເລີ່ມໃຊ້ວິທີຄຸມກຳເນີດດ້ວຍຮໍໂມນວິທີໃໝ່.',
+      'ຫຼາຍຜົນເປັນຊົ່ວຄາວ ແລະ ອາດຫຼຸດລົງຕາມເວລາ.',
+      'ອາການທີ່ສ້າງຄວາມລຳຄານ ຫຼື ຍັງຄົງຢູ່ ຄວນປຶກສາຜູ້ຊ່ຽວຊານ.',
+      'ບາງອາການຜິດປົກກະຕິຕ້ອງການຄຳແນະນຳທາງການແພດຢ່າງວ່ອງໄວ.',
+    ],
+    finalTipTitle: 'ຈຸດສຳຄັນ',
+    finalTipText:
+      'ການຮັບຟັງຮ່າງກາຍຂອງທ່ານບໍ່ຈຳເປັນຕ້ອງໝາຍເຖິງການຢຸດໃຊ້ວິທີນັ້ນທັນທີ. ຈົດສິ່ງທີ່ທ່ານຮູ້ສຶກ ເຝົ້າສັງເກດວ່າມັນພັດທະນາແນວໃດ ແລະ ຂໍຄຳແນະນຳທຸກຄັ້ງທີ່ອາການໃດເຮັດໃຫ້ທ່ານກັງວົນ.',
+    disclaimerText:
+      'ບົດຄວາມນີ້ມີຈຸດປະສົງເພື່ອໃຫ້ຂໍ້ມູນ ແລະ ບໍ່ແທນຄຳແນະນຳທາງການແພດສະເພາະບຸກຄົນ. ຖ້າທ່ານມີອາການຮຸນແຮງ ຫຼື ຜິດປົກກະຕິ ໃຫ້ຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ຮູ້ຈັກຜົນຂ້າງຄຽງທີ່ອາດເກີດຂຶ້ນ — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

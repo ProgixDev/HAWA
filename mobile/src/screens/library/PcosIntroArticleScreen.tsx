@@ -6025,6 +6025,3008 @@ const CONTENT = withBrazilianPortuguese('PcosIntro', {
       'Bu makala umumy maglumat üçin niýetlenen we lukmançylyk maslahatlaşmagyny çalyşmaýar. Her ýagdaý dürli: şübhe bolsa ýa-da alamatlar dowam etse, saglyk hünärmeninden maslahat soraň.',
     shareMessage: 'PCOS-ny düşünmek — AWA',
   },
+  ms: {
+    badge: 'PCOS • PANDUAN PENTING',
+    title: 'Memahami\nPCOS',
+    metaDuration: '10 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan pendidikan',
+    intro:
+      'Sindrom ovari polikistik, yang sering dipanggil PCOS, ialah keadaan hormon yang lazim yang boleh menjejaskan kitaran, ovulasi, kulit, rambut, metabolisme dan kadangkala kesuburan anda.',
+    introSecondary:
+      'Bagaimana ia muncul sangat berbeza dari seorang wanita ke seorang wanita. Memahami PCOS terutamanya membantu anda mengenali simptomnya, mengetahui bila untuk mendapatkan nasihat perubatan, dan menjejaki perkembangannya tanpa menyalahkan diri sendiri.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah PCOS?',
+      'Mengapa PCOS berlaku?',
+      'Tanda utama',
+      'Bagaimana ia didiagnosis?',
+      'PCOS dan ovulasi',
+      'PCOS dan kesuburan',
+      'PCOS dan berat badan / metabolisme',
+      'Kulit, rambut dan bulu badan',
+      'Bagaimana PCOS diuruskan?',
+      'Tanggapan salah yang lazim',
+      'Bila untuk berjumpa doktor',
+      'Perkara penting untuk diingat',
+    ],
+    s1Heading: 'Apakah PCOS?',
+    s1Body1:
+      'Sindrom ovari polikistik (PCOS) ialah keadaan hormon yang lazim yang boleh mengubah fungsi biasa ovari dan keseimbangan hormon tertentu.',
+    s1Body2:
+      'Bagi sesetengah wanita, isu utamanya ialah ovulasi yang tidak teratur. Bagi yang lain, jerawat, pertumbuhan rambut yang berlebihan, keguguran rambut atau tanda metabolik yang menonjol terlebih dahulu.',
+    s1TipTitle: 'Elok diketahui',
+    s1TipText:
+      'Walaupun namanya begitu, PCOS tidak semestinya bermakna ovari mengandungi “sista.” Istilah sejarah itu boleh mengelirukan, dan ultrasound sahaja tidak mencukupi untuk membuat diagnosis.',
+    s2Heading: 'Mengapa PCOS berlaku?',
+    s2Body1:
+      'Tiada satu punca PCOS. Ia nampaknya berpunca daripada beberapa faktor yang boleh bergabung: kecenderungan keluarga, fungsi hormon, ovulasi, metabolisme dan faktor individu.',
+    s2Factors: [
+      'Kecenderungan keluarga dan faktor genetik',
+      'Gangguan pada ovulasi',
+      'Kelebihan androgen yang relatif',
+      'Rintangan insulin pada sesetengah wanita',
+      'Faktor metabolik dan persekitaran',
+    ],
+    s2NeutralText:
+      'PCOS bukan kegagalan peribadi. Ia tidak semata-mata berpunca daripada kekurangan kekuatan semangat, pemakanan yang kurang baik atau aktiviti fizikal yang tidak mencukupi.',
+    s3Heading: 'Tanda utama',
+    s3Body1:
+      'PCOS boleh muncul dengan sangat berbeza dari seorang wanita ke seorang wanita. Sesetengahnya mempunyai beberapa simptom, manakala yang lain perasan sangat sedikit.',
+    s3Signs: [
+      'Kitaran yang tidak teratur, sangat berjarak atau kadangkala tiada',
+      'Ovulasi yang tidak teratur atau sukar diramal',
+      'Jerawat yang berterusan, terutamanya pada bahagian bawah muka',
+      'Pertumbuhan rambut yang meningkat pada muka, dada atau badan',
+      'Keguguran rambut jenis hormon',
+      'Pertambahan berat badan atau kesukaran menurunkan berat badan',
+      'Kesukaran untuk hamil',
+    ],
+    s3AlertTitle: 'Penting',
+    s3AlertText:
+      'Mempunyai salah satu simptom ini tidak secara automatik bermakna anda menghidap PCOS. Beberapa keadaan lain boleh menyebabkan simptom yang serupa.',
+    s4Heading: 'Bagaimana ia didiagnosis?',
+    s4Body1:
+      'Mendiagnosis PCOS ialah proses perubatan. Penyedia penjagaan kesihatan biasanya bermula dengan membincangkan kitaran, simptom, sejarah perubatan anda dan sebarang rawatan yang anda ambil.',
+    s4Body2:
+      'Bergantung pada keadaan, ujian darah hormon dan ultrasound juga mungkin ditawarkan.',
+    s4Points: [
+      'Kitaran yang tidak teratur atau ovulasi yang jarang',
+      'Tanda kelebihan androgen: jerawat, pertumbuhan rambut berlebihan, keguguran rambut atau keputusan ujian darah',
+      'Rupa ovari yang konsisten dengan PCOS pada ultrasound, apabila pemeriksaan ini diperlukan',
+    ],
+    s4Body3:
+      'Doktor juga mesti menolak punca lain yang mungkin bagi kitaran yang tidak teratur atau kelebihan androgen sebelum mengesahkan diagnosis PCOS.',
+    s5Heading: 'PCOS dan ovulasi',
+    s5Body1:
+      'Ovulasi ialah pelepasan sel telur (oosit) daripada ovari. Dalam PCOS, ovulasi boleh menjadi kurang kerap atau lebih sukar diramal.',
+    s5Body2:
+      'Ini boleh menjelaskan mengapa kitaran kadangkala panjang, tidak teratur atau sukar dijangka.',
+    s5HighlightTitle: 'Menjejaki kitaran anda',
+    s5HighlightText:
+      'Merekodkan tarikh haid, simptom dan sebarang tanda ovulasi boleh membantu anda memahami corak anda sendiri dengan lebih baik.',
+    s6Heading: 'PCOS dan kesuburan',
+    s6Body1:
+      'Oleh kerana ovulasi boleh tidak teratur, sesetengah wanita dengan PCOS mungkin mengalami lebih banyak kesukaran untuk hamil.',
+    s6Body2:
+      'Namun ini tidak bermakna PCOS secara automatik menghalang kehamilan. Ramai wanita dengan PCOS hamil secara semula jadi atau dengan sokongan perubatan yang sesuai.',
+    s6TipTitle: 'Perlu diingat',
+    s6TipText:
+      'Kesukaran untuk hamil tidak bermakna ia mustahil. Jika anda berharap untuk hamil, doktor atau bidan boleh mencadangkan strategi yang sesuai dengan keadaan anda.',
+    s7Heading: 'PCOS dan berat badan / metabolisme',
+    s7Body1:
+      'PCOS boleh dikaitkan dengan perubahan metabolik, termasuk rintangan insulin pada sesetengah wanita.',
+    s7Body2:
+      'Namun, berat badan sahaja tidak dapat mendiagnosis atau menolak PCOS. Seorang wanita yang langsing boleh menghidap PCOS, sama seperti seorang wanita yang berlebihan berat badan mungkin tidak menghidapnya.',
+    s7NeutralText:
+      'Penjagaan susulan patut mengambil kira kesihatan keseluruhan, bukan sekadar nombor pada penimbang.',
+    s8Heading: 'Kulit, rambut dan bulu badan',
+    s8Body1:
+      'Kelebihan androgen yang relatif boleh menjejaskan kelenjar sebum dan folikel rambut.',
+    s8Body2:
+      'Bergantung pada wanita itu, ini boleh muncul sebagai jerawat yang berterusan, pertumbuhan rambut yang meningkat atau keguguran rambut.',
+    s8Items: [
+      'Jerawat hormon',
+      'Peningkatan bulu pada muka atau badan',
+      'Rambut menipis atau keguguran rambut',
+    ],
+    s9Heading: 'Bagaimana PCOS diuruskan?',
+    s9Body1:
+      'Tiada satu pendekatan untuk menguruskan PCOS yang sesuai untuk setiap wanita. Pilihan bergantung pada simptom, matlamat dan keadaan perubatan.',
+    s9Body2:
+      'Matlamatnya boleh berbeza bergantung pada peringkat kehidupan: mengawal kitaran, memperbaiki simptom tertentu, melindungi kesihatan metabolik atau menyokong rancangan kehamilan.',
+    s9MiniTitle: 'Tabiat yang menyokong kesihatan',
+    s9Lifestyle: [
+      'Makan pemakanan yang pelbagai dan tetap yang sesuai dengan keperluan anda',
+      'Melakukan aktiviti fizikal yang tetap yang boleh anda kekalkan dari semasa ke semasa',
+      'Mengekalkan tidur yang cukup tetap',
+      'Menjejaki bagaimana kitaran dan simptom anda berubah dari semasa ke semasa',
+      'Tidak menyalahkan diri sendiri atas perubahan berat badan atau simptom',
+    ],
+    s9Body3:
+      'Bergantung pada keperluan anda, penyedia penjagaan kesihatan juga mungkin menawarkan rawatan untuk simptom tertentu atau untuk menyokong rancangan kehamilan.',
+    s9AlertTitle: 'Jangan berubat sendiri',
+    s9AlertText:
+      'Rawatan hormon, ubat metabolik dan suplemen pemakanan semuanya patut dibincangkan dengan penyedia penjagaan kesihatan.',
+    s10Heading: 'Tanggapan salah yang lazim tentang PCOS',
+    s10Myths: [
+      'PCOS sentiasa bermakna mempunyai “sista”: namanya boleh mengelirukan. Diagnosis tidak semata-mata bergantung pada kehadiran sista.',
+      'Semua wanita dengan PCOS berlebihan berat badan: PCOS boleh menjejaskan wanita daripada semua jenis badan.',
+      'PCOS sentiasa menghalang kehamilan: ovulasi mungkin tidak teratur, tetapi kehamilan masih mungkin.',
+      'Satu simptom sudah cukup untuk mendiagnosis PCOS: diagnosis memerlukan penilaian yang menyeluruh.',
+      'PCOS hilang dengan sendirinya apabila umur meningkat: bagaimana ia muncul boleh berubah sepanjang hayat, tetapi susulan berterusan kekal penting.',
+    ],
+    s11Heading: 'Bila untuk berjumpa doktor',
+    s11Body1:
+      'Nasihat perubatan amat wajar apabila kitaran menjadi sangat tidak teratur, berhenti selama beberapa bulan, atau apabila simptom luar biasa muncul.',
+    s11ConsultItems: [
+      'Kitaran yang sangat tidak teratur atau tiada',
+      'Jerawat atau pertumbuhan rambut yang luar biasa',
+      'Keguguran rambut yang ketara',
+      'Kesukaran untuk hamil',
+      'Simptom yang berubah dengan pantas',
+    ],
+    s12Heading: 'Perkara penting untuk diingat',
+    s12SummaryTitle: 'Perkara utama',
+    s12SummaryItems: [
+      'PCOS ialah keadaan hormon yang lazim.',
+      'Ia boleh muncul dalam pelbagai cara.',
+      'Tidak semua wanita dengan PCOS mempunyai simptom yang sama.',
+      'Berat badan sahaja tidak mencukupi untuk mendiagnosis atau menolak PCOS.',
+      'Diagnosis memerlukan penilaian perubatan yang menyeluruh.',
+      'PCOS boleh menjejaskan ovulasi dan kadangkala kesuburan.',
+      'Pendekatan penjagaan yang diperibadikan membantu memenuhi keperluan setiap wanita.',
+    ],
+    finalNoteTitle: 'Panduan untuk memahami dengan lebih baik',
+    finalNoteText:
+      'Artikel ini bertujuan untuk maklumat am dan tidak menggantikan konsultasi perubatan. Setiap keadaan berbeza: jika ragu-ragu atau jika simptom berterusan, dapatkan nasihat daripada pengamal penjagaan kesihatan.',
+    shareMessage: 'Memahami PCOS — AWA',
+  },
+  so: {
+    badge: 'PCOS • HAGE MUHIIM AH',
+    title: 'Fahamka\nPCOS',
+    metaDuration: '10 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad waxbarasho',
+    intro:
+      'Syndrome-ka ukun-sidaha badan, inta badan loo yaqaan PCOS, waa xaalad hormoon oo caadi ah oo saameyn karta wareegyadaada, ukun-sii-deynta, maqaarkaaga, timahaaga, dheef-shiid kimiyaadkaaga, iyo mararka qaarkood bacrimintaada.',
+    introSecondary:
+      'Sida uu u muuqdo aad ayuu ugu kala duwan yahay naag ilaa naag. Fahamka PCOS wuxuu inta badan kaa caawiyaa aqoonsiga astaamihiisa, ogaanshaha goorta talo caafimaad la raadsado, iyo la socodka sida uu u isbeddelo adigoon naftaada eedayn.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay PCOS?',
+      'Maxay PCOS u dhacdaa?',
+      'Calaamadaha ugu muhiimsan',
+      'Sidee loo baaraa?',
+      'PCOS iyo ukun-sii-deyn',
+      'PCOS iyo bacrimin',
+      'PCOS iyo miisaan / dheef-shiid kimiyaad',
+      'Maqaarka, timaha, iyo timaha jidhka',
+      'Sidee loo maamulaa PCOS?',
+      'Fahamyo khaldan oo caan ah',
+      'Goorta dhakhtar la arko',
+      'Qodobbada muhiimka ah',
+    ],
+    s1Heading: 'Waa maxay PCOS?',
+    s1Body1:
+      'Syndrome-ka ukun-sidaha badan (PCOS) waa xaalad hormoon oo caadi ah oo beddeli karta shaqada caadiga ah ee ukun-sidayaasha iyo dheelitirka hormoonno qaar.',
+    s1Body2:
+      'Dumarka qaar, dhibaatada ugu weyn waa ukun-sii-deyn aan joogto ahayn. Kuwa kale, waa finan, timo-kor xad dhaaf ah, timo-dhac, ama calaamado dheef-shiid kimiyaad oo marka hore muuqda.',
+    s1TipTitle: 'Waxtar leh in la ogaado',
+    s1TipText:
+      'In kasta oo magaciisa, PCOS lagama maarmaan ahan inuu macnaheedu yahay in ukun-sidayaashu ay ka kooban yihiin “kiis.” Erayga taariikhiga ahi wuu khaldi karaa, ultrasaawn keligiis na kuma filna in lagu sameeyo baaritaanka.',
+    s2Heading: 'Maxay PCOS u dhacdaa?',
+    s2Body1:
+      'Hal sabab oo PCOS ah ma jirto. Waxay u muuqataa inay ka dhalato dhowr arrimood oo is-dhex-gali kara: u janjeerka qoyska, shaqada hormoonka, ukun-sii-deynta, dheef-shiid kimiyaadka, iyo arrimo shakhsi ah.',
+    s2Factors: [
+      'U janjeerka qoyska iyo arrimaha hidde-sidaha',
+      'Carqaladeynta ukun-sii-deynta',
+      'Androgen xad dhaaf ah oo qaraabo ah',
+      'Iska-caabbinta insulin dumarka qaarkood',
+      'Arrimaha dheef-shiid kimiyaadka iyo deegaanka',
+    ],
+    s2NeutralText:
+      'PCOS ma aha cillad shakhsi ah. Si fudud uma dhalato awood xoog la’aan, cunto xun, ama firfircooni jidheed oo ku filan la’aan.',
+    s3Heading: 'Calaamadaha ugu muhiimsan',
+    s3Body1:
+      'PCOS wuxuu ku muuqan karaa si aad u kala duwan naag ilaa naag. Qaar waxay leeyihiin dhowr astaamood, kuwo kale na waxay ogaadaan aad u yar.',
+    s3Signs: [
+      'Wareegyo aan joogto ahayn, aad u kala fog, ama mararka qaarkood maqan',
+      'Ukun-sii-deyn aan joogto ahayn ama adag in la saadaaliyo',
+      'Finan sii socda, gaar ahaan wajiga hoose',
+      'Timo-kor kordhay oo wajiga, laabta, ama jidhka ah',
+      'Timo-dhac qaabka hormoonka',
+      'Miisaan kordhay ama dhib miisaan dhimid',
+      'Dhib uur-qaadista',
+    ],
+    s3AlertTitle: 'Muhiim',
+    s3AlertText:
+      'Haysashada mid ka mid ah astaamahan macnaheedu maaha si toos ah inaad leedahay PCOS. Dhowr xaaladood oo kale ayaa keeni kara astaamo isku mid ah.',
+    s4Heading: 'Sidee loo baaraa?',
+    s4Body1:
+      'Baaritaanka PCOS waa habraac caafimaad. Bixiyaha daryeelka inta badan wuxuu ku bilaabaa inuu kala hadlo wareegyadaada, astaamahaaga, taariikhdaada caafimaad, iyo daaweynno kasta oo aad qaadanayso.',
+    s4Body2:
+      'Iyadoo ku xiran xaaladda, baaritaanno dhiig oo hormoon iyo ultrasaawn ayaa sidoo kale la soo jeedin karaa.',
+    s4Points: [
+      'Wareegyo aan joogto ahayn ama ukun-sii-deyn dhif ah',
+      'Calaamadaha androgen xad dhaaf ah: finan, timo-kor xad dhaaf ah, timo-dhac, ama natiijooyinka baaritaanka dhiigga',
+      'Muuqaalka ukun-sidayaasha oo la jaan qaadaya PCOS ultrasaawnka, marka baaritaankan la tilmaamo',
+    ],
+    s4Body3:
+      'Dhakhtarku waa inuu sidoo kale meeleeyo sababaha kale ee suurtagalka ah ee wareegyada aan joogto ahayn ama androgen xad dhaafka ah ka hor intuusan xaqiijin baaritaanka PCOS.',
+    s5Heading: 'PCOS iyo ukun-sii-deyn',
+    s5Body1:
+      'Ukun-sii-deynta waa sii deynta ukun (oocyte) ukun-sidaha. PCOS dhexdiisa, ukun-sii-deyntu waxay noqon kartaa mid ka yar ama ka adag in la saadaaliyo.',
+    s5Body2:
+      'Tani waxay sharxi kartaa sababta wareegyadu mararka qaarkood u yihiin kuwo dheer, aan joogto ahayn, ama adag in hore loo saadaaliyo.',
+    s5HighlightTitle: 'La socodka wareeggaaga',
+    s5HighlightText:
+      'Diiwaangelinta taariikhaha caadadaada, astaamahaaga, iyo calaamado kasta oo ukun-sii-deyn ah ayaa kaa caawin kara inaad si wanaagsan u fahanto qaababkaaga gaarka ah.',
+    s6Heading: 'PCOS iyo bacrimin',
+    s6Body1:
+      'Maadaama ukun-sii-deyntu aan joogto ahayn karto, dumarka PCOS qaba qaarkood waxay yeelan karaan dhib badan oo uur-qaadista ah.',
+    s6Body2:
+      'Tani macnaheedu maaha, si kastaba, in PCOS si toos ah uu uurka ka hor istaago. Dumar badan oo PCOS qaba ayaa uur qaadda si dabiici ah ama taageero caafimaad oo ku habboon.',
+    s6TipTitle: 'Maskaxda ku hay',
+    s6TipText:
+      'Dhibka uur-qaadistu macnaheedu maaha inay aan suurtagal ahayn. Haddii aad rajaynayso inaad uur yeelato, dhakhtar ama umulis ayaa soo jeedin kara istaraatiijiyad ku habboon xaaladdaada.',
+    s7Heading: 'PCOS iyo miisaan / dheef-shiid kimiyaad',
+    s7Body1:
+      'PCOS wuxuu la xiriiri karaa isbeddelo dheef-shiid kimiyaad, oo ay ku jirto iska-caabbinta insulin dumarka qaarkood.',
+    s7Body2:
+      'Si kastaba, miisaanka keligiis ma baari karo ama ma meelayn karo PCOS. Naag caatoobay waxay yeelan kartaa PCOS, sida naag miisaan badan laga yaabo inaanay lahayn.',
+    s7NeutralText:
+      'Daryeelka la socodka waa inuu tixgeliyaa caafimaadka guud, ma aha oo keliya tirada miisaanka.',
+    s8Heading: 'Maqaarka, timaha, iyo timaha jidhka',
+    s8Body1:
+      'Androgen xad dhaaf ah oo qaraabo ah wuxuu saameyn karaa qanjidhada saliidda iyo xididdada timaha.',
+    s8Body2:
+      'Iyadoo ku xiran naagta, tani waxay ku muuqan kartaa sida finan sii socda, timo-kor kordhay, ama timo-dhac.',
+    s8Items: [
+      'Finanka hormoonka',
+      'Timo wajiga ama jidhka oo kordhay',
+      'Timo khafiifaysa ama timo-dhac',
+    ],
+    s9Heading: 'Sidee loo maamulaa PCOS?',
+    s9Body1:
+      'Hal hab maamul oo PCOS ah oo u shaqeeya naag walba ma jirto. Doorashadu waxay ku xiran tahay astaamaha, hadafyada, iyo duruufaha caafimaad.',
+    s9Body2:
+      'Hadafku wuu kala duwanaan karaa iyadoo ku xiran heerka nolosha: nidaaminta wareegyada, hagaajinta astaamo qaar, ilaalinta caafimaadka dheef-shiid kimiyaadka, ama taageerida qorshaha uurka.',
+    s9MiniTitle: 'Caadooyin taageera caafimaadka',
+    s9Lifestyle: [
+      'Cunto kala duwan oo joogto ah oo ku habboon baahiyahaaga',
+      'Firfircooni jidheed joogto ah oo aad waqti ka dib sii wadi karto',
+      'Ilaalinta hurdo si ku filan joogto ah',
+      'La socodka sida wareegyadaada iyo astaamahaagu u isbeddelaan waqti ka dib',
+      'Naftaada ha eedayn isbeddelka miisaanka ama astaamaha',
+    ],
+    s9Body3:
+      'Iyadoo ku xiran baahiyahaaga, bixiyaha daryeelku wuxuu sidoo kale soo jeedin karaa daaweynno astaamo qaar ama taageerada qorshaha uurka.',
+    s9AlertTitle: 'Is-daaweyn ha samaynin',
+    s9AlertText:
+      'Daaweynnada hormoonka, daawooyinka dheef-shiid kimiyaadka, iyo kaabayaasha cuntada dhammaantood waa in lala hadlo bixiyaha daryeelka.',
+    s10Heading: 'Fahamyo khaldan oo caan ah oo ku saabsan PCOS',
+    s10Myths: [
+      'PCOS mar walba macnaheedu waa haysashada “kiis”: magacaasi wuu khaldi karaa. Baaritaanku kuma tiirsana jiritaanka kiis oo keliya.',
+      'Dhammaan dumarka PCOS qaba waa miisaan badan: PCOS wuxuu saameyn karaa dumarka dhammaan noocyada jidhka.',
+      'PCOS mar walba wuxuu ka hortagaa uurka: ukun-sii-deyntu way noqon kartaa mid aan joogto ahayn, laakiin uurku weli waa suurtagal.',
+      'Hal astaan ayaa ku filan in lagu baaro PCOS: baaritaanku wuxuu u baahan yahay qiimeyn dhammaystiran.',
+      'PCOS si fudud ayuu u libdhaa da’da: sida uu u muuqdo wuu isbeddeli karaa nolosha oo dhan, laakiin la socodka joogtada ahi weli waa muhiim.',
+    ],
+    s11Heading: 'Goorta dhakhtar la arko',
+    s11Body1:
+      'Talo caafimaad ayaa si gaar ah mudan marka wareegyadu noqdaan kuwo aad u aan joogto ahayn, dhowr bilood joogsadaan, ama marka astaamo aan caadi ahayn ay soo muuqdaan.',
+    s11ConsultItems: [
+      'Wareegyo aad u aan joogto ahayn ama maqan',
+      'Finan ama timo-kor aan caadi ahayn',
+      'Timo-dhac weyn',
+      'Dhib uur-qaadista',
+      'Astaamo si degdeg ah isbeddelaya',
+    ],
+    s12Heading: 'Qodobbada muhiimka ah',
+    s12SummaryTitle: 'Qodobbada ugu muhiimsan',
+    s12SummaryItems: [
+      'PCOS waa xaalad hormoon oo caadi ah.',
+      'Wuxuu ku muuqan karaa siyaabo badan oo kala duwan.',
+      'Dhammaan dumarka PCOS qaba ma leh astaamo isku mid ah.',
+      'Miisaanka keligiis kuma filna in lagu baaro ama lagu meelaysto PCOS.',
+      'Baaritaanku wuxuu u baahan yahay qiimeyn caafimaad oo dhammaystiran.',
+      'PCOS wuxuu saameyn karaa ukun-sii-deynta iyo mararka qaarkood bacriminta.',
+      'Hab daryeel oo shakhsi ah ayaa kaa caawiya buuxinta baahiyaha naag kasta.',
+    ],
+    finalNoteTitle: 'Hage lagu fahmo',
+    finalNoteText:
+      'Maqaalkan waxaa loogu talagalay macluumaad guud mana bedelo la-talin caafimaad. Xaalad kastaa waa ka duwan tahay: haddii aad shaki qabto ama astaamuhu sii socdaan, talo ka raadso xirfadle caafimaad.',
+    shareMessage: 'Fahamka PCOS — AWA',
+  },
+  sw: {
+    badge: 'PCOS • MWONGOZO MUHIMU',
+    title: 'Kuelewa\nPCOS',
+    metaDuration: 'Dakika 10 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui ya kielimu',
+    intro:
+      'Ugonjwa wa ovari zenye vivimbe vingi, unaoitwa mara nyingi PCOS, ni hali ya kawaida ya homoni inayoweza kuathiri mizunguko yako, utoaji wa yai, ngozi, nywele, kimetaboliki, na wakati mwingine rutuba.',
+    introSecondary:
+      'Jinsi unavyojitokeza hutofautiana sana kati ya mwanamke na mwanamke. Kuelewa PCOS kunakusaidia hasa kutambua dalili zake, kujua wakati wa kutafuta ushauri wa kitabibu, na kufuatilia jinsi unavyobadilika bila kujilaumu.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'PCOS ni nini?',
+      'Kwa nini PCOS hutokea?',
+      'Dalili kuu',
+      'Inatambuliwaje?',
+      'PCOS na utoaji wa yai',
+      'PCOS na rutuba',
+      'PCOS na uzito / kimetaboliki',
+      'Ngozi, nywele, na nywele za mwilini',
+      'PCOS inasimamiwaje?',
+      'Imani potofu za kawaida',
+      'Wakati wa kumwona daktari',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    s1Heading: 'PCOS ni nini?',
+    s1Body1:
+      'Ugonjwa wa ovari zenye vivimbe vingi (PCOS) ni hali ya kawaida ya homoni inayoweza kubadilisha utendaji wa kawaida wa ovari na usawa wa homoni fulani.',
+    s1Body2:
+      'Kwa baadhi ya wanawake, tatizo kuu ni utoaji wa yai usio wa mpangilio. Kwa wengine, ni chunusi, ukuaji wa nywele kupita kiasi, kupoteza nywele, au dalili za kimetaboliki zinazojitokeza kwanza.',
+    s1TipTitle: 'Vyema kujua',
+    s1TipText:
+      'Licha ya jina lake, PCOS haimaanishi lazima ovari zina “vivimbe”. Neno la kihistoria linaweza kupotosha, na ultrasound peke yake haitoshi kufanya utambuzi.',
+    s2Heading: 'Kwa nini PCOS hutokea?',
+    s2Body1:
+      'Hakuna sababu moja ya PCOS. Inaonekana kutokana na mambo kadhaa yanayoweza kuunganika: mwelekeo wa kifamilia, utendaji wa homoni, utoaji wa yai, kimetaboliki, na mambo ya mtu binafsi.',
+    s2Factors: [
+      'Mwelekeo wa kifamilia na mambo ya kijenetiki',
+      'Usumbufu katika utoaji wa yai',
+      'Ziada ya kiasi ya androjeni',
+      'Ukinzani wa insulini kwa baadhi ya wanawake',
+      'Mambo ya kimetaboliki na ya kimazingira',
+    ],
+    s2NeutralText:
+      'PCOS si kasoro ya kibinafsi. Haitokani tu na ukosefu wa nguvu ya utashi, lishe mbaya, au shughuli za mwili zisizotosha.',
+    s3Heading: 'Dalili kuu',
+    s3Body1:
+      'PCOS inaweza kujitokeza kwa njia tofauti sana kati ya mwanamke na mwanamke. Wengine wana dalili kadhaa, huku wengine wakiona chache sana.',
+    s3Signs: [
+      'Mizunguko isiyo ya mpangilio, iliyotengana sana, au wakati mwingine isiyokuwepo',
+      'Utoaji wa yai usio wa mpangilio au mgumu kutabiri',
+      'Chunusi zinazodumu, hasa kwenye sehemu ya chini ya uso',
+      'Ukuaji ulioongezeka wa nywele usoni, kifuani, au mwilini',
+      'Kupoteza nywele kwa mtindo wa homoni',
+      'Kuongezeka uzito au ugumu wa kupunguza uzito',
+      'Ugumu wa kupata ujauzito',
+    ],
+    s3AlertTitle: 'Muhimu',
+    s3AlertText:
+      'Kuwa na mojawapo ya dalili hizi hakumaanishi moja kwa moja una PCOS. Hali nyingine kadhaa zinaweza kusababisha dalili zinazofanana.',
+    s4Heading: 'Inatambuliwaje?',
+    s4Body1:
+      'Kutambua PCOS ni mchakato wa kitabibu. Mtoa huduma wa afya kwa kawaida huanza kwa kujadili mizunguko yako, dalili, historia ya kitabibu, na matibabu yoyote unayotumia.',
+    s4Body2:
+      'Kulingana na hali, vipimo vya damu vya homoni na ultrasound pia vinaweza kutolewa.',
+    s4Points: [
+      'Mizunguko isiyo ya mpangilio au utoaji wa yai usio wa mara kwa mara',
+      'Dalili za androjeni nyingi: chunusi, ukuaji wa nywele kupita kiasi, kupoteza nywele, au matokeo ya kipimo cha damu',
+      'Mwonekano wa ovari unaoendana na PCOS kwenye ultrasound, kipimo hiki kinapoelekezwa',
+    ],
+    s4Body3:
+      'Daktari lazima pia aondoe sababu nyingine zinazowezekana za mizunguko isiyo ya mpangilio au androjeni nyingi kabla ya kuthibitisha utambuzi wa PCOS.',
+    s5Heading: 'PCOS na utoaji wa yai',
+    s5Body1:
+      'Utoaji wa yai ni kutolewa kwa yai (oositi) kutoka kwenye ovari. Katika PCOS, utoaji wa yai unaweza kuwa wa nadra zaidi au mgumu zaidi kutabiri.',
+    s5Body2:
+      'Hili linaweza kueleza kwa nini mizunguko wakati mwingine ni mirefu, isiyo ya mpangilio, au migumu kutarajia.',
+    s5HighlightTitle: 'Kufuatilia mzunguko wako',
+    s5HighlightText:
+      'Kurekodi tarehe za hedhi yako, dalili, na dalili zozote za utoaji wa yai kunaweza kukusaidia kuelewa vizuri mitindo yako mwenyewe.',
+    s6Heading: 'PCOS na rutuba',
+    s6Body1:
+      'Kwa kuwa utoaji wa yai unaweza kuwa si wa mpangilio, baadhi ya wanawake wenye PCOS wanaweza kuwa na ugumu zaidi wa kupata ujauzito.',
+    s6Body2:
+      'Hata hivyo, hii haimaanishi kwamba PCOS huzuia ujauzito moja kwa moja. Wanawake wengi wenye PCOS hupata ujauzito kiasili au kwa msaada unaofaa wa kitabibu.',
+    s6TipTitle: 'Kumbuka',
+    s6TipText:
+      'Ugumu wa kupata ujauzito haimaanishi haiwezekani. Ikiwa unatumaini kupata ujauzito, daktari au mkunga anaweza kupendekeza mkakati unaofaa hali yako.',
+    s7Heading: 'PCOS na uzito / kimetaboliki',
+    s7Body1:
+      'PCOS inaweza kuhusishwa na mabadiliko ya kimetaboliki, ikiwemo ukinzani wa insulini kwa baadhi ya wanawake.',
+    s7Body2:
+      'Hata hivyo, uzito peke yake hauwezi kutambua wala kuondoa PCOS. Mwanamke mwembamba anaweza kuwa na PCOS, kama vile mwanamke mwenye uzito uliozidi anaweza kutokuwa nayo.',
+    s7NeutralText:
+      'Huduma za ufuatiliaji zinapaswa kuzingatia afya kwa ujumla, si tu nambari kwenye mizani.',
+    s8Heading: 'Ngozi, nywele, na nywele za mwilini',
+    s8Body1:
+      'Ziada ya kiasi ya androjeni inaweza kuathiri tezi za mafuta na vishina vya nywele.',
+    s8Body2:
+      'Kulingana na mwanamke, hili linaweza kujitokeza kama chunusi zinazodumu, ukuaji ulioongezeka wa nywele, au kupoteza nywele.',
+    s8Items: [
+      'Chunusi za homoni',
+      'Nywele nyingi zaidi usoni au mwilini',
+      'Nywele kuwa nyembamba au kupoteza nywele',
+    ],
+    s9Heading: 'PCOS inasimamiwaje?',
+    s9Body1:
+      'Hakuna mbinu moja ya kusimamia PCOS inayomfaa kila mwanamke. Uchaguzi unategemea dalili, malengo, na mazingira ya kitabibu.',
+    s9Body2:
+      'Lengo linaweza kutofautiana kulingana na hatua ya maisha: kudhibiti mizunguko, kuboresha dalili fulani, kulinda afya ya kimetaboliki, au kusaidia mpango wa ujauzito.',
+    s9MiniTitle: 'Tabia zinazosaidia afya',
+    s9Lifestyle: [
+      'Kula lishe yenye aina mbalimbali na ya mara kwa mara inayofaa mahitaji yako',
+      'Kufanya shughuli za mara kwa mara za mwili unazoweza kuzidumisha kwa muda',
+      'Kudumisha usingizi wenye mpangilio wa kutosha',
+      'Kufuatilia jinsi mizunguko na dalili zako zinavyobadilika kadiri muda unavyopita',
+      'Kutojilaumu kwa mabadiliko ya uzito au dalili',
+    ],
+    s9Body3:
+      'Kulingana na mahitaji yako, mtoa huduma wa afya anaweza pia kutoa matibabu ya dalili fulani au kusaidia mpango wa ujauzito.',
+    s9AlertTitle: 'Usijitibu mwenyewe',
+    s9AlertText:
+      'Matibabu ya homoni, dawa za kimetaboliki, na virutubisho vya lishe vyote vinapaswa kujadiliwa na mtoa huduma wa afya.',
+    s10Heading: 'Imani potofu za kawaida kuhusu PCOS',
+    s10Myths: [
+      'PCOS daima inamaanisha kuwa na “vivimbe”: jina linaweza kupotosha. Utambuzi hautegemei tu uwepo wa vivimbe.',
+      'Wanawake wote wenye PCOS wana uzito uliozidi: PCOS inaweza kuathiri wanawake wa maumbo yote ya mwili.',
+      'PCOS daima huzuia ujauzito: utoaji wa yai unaweza kuwa si wa mpangilio, lakini ujauzito bado unawezekana.',
+      'Dalili moja inatosha kutambua PCOS: utambuzi unahitaji tathmini kamili.',
+      'PCOS hutoweka tu kadiri umri unavyoongezeka: jinsi inavyojitokeza inaweza kubadilika katika maisha yote, lakini ufuatiliaji wa kuendelea unabaki kuwa muhimu.',
+    ],
+    s11Heading: 'Wakati wa kumwona daktari',
+    s11Body1:
+      'Ushauri wa kitabibu ni wa manufaa hasa mizunguko inapokuwa si ya mpangilio sana, inapokoma kwa miezi kadhaa, au dalili zisizo za kawaida zinapoonekana.',
+    s11ConsultItems: [
+      'Mizunguko isiyo ya mpangilio sana au isiyokuwepo',
+      'Chunusi au ukuaji wa nywele usio wa kawaida',
+      'Kupoteza nywele kwingi',
+      'Ugumu wa kupata ujauzito',
+      'Dalili zinazobadilika haraka',
+    ],
+    s12Heading: 'Mambo muhimu ya kukumbuka',
+    s12SummaryTitle: 'Mambo ya msingi',
+    s12SummaryItems: [
+      'PCOS ni hali ya kawaida ya homoni.',
+      'Inaweza kujitokeza kwa njia nyingi tofauti.',
+      'Si wanawake wote wenye PCOS wana dalili zile zile.',
+      'Uzito peke yake haitoshi kutambua wala kuondoa PCOS.',
+      'Utambuzi unahitaji tathmini kamili ya kitabibu.',
+      'PCOS inaweza kuathiri utoaji wa yai na wakati mwingine rutuba.',
+      'Mbinu ya huduma iliyobinafsishwa husaidia kukidhi mahitaji ya kila mwanamke.',
+    ],
+    finalNoteTitle: 'Mwongozo wa kuelewa vizuri zaidi',
+    finalNoteText:
+      'Makala hii imekusudiwa kwa taarifa za jumla na haichukui nafasi ya mashauriano ya kitabibu. Kila hali ni tofauti: ukiwa na shaka au dalili zikiendelea, tafuta ushauri wa mtaalamu wa afya.',
+    shareMessage: 'Kuelewa PCOS — AWA',
+  },
+  kk: {
+    badge: 'ПКЯС • НЕГІЗГІ НҰСҚАУЛЫҚ',
+    title: 'ПКЯС-ты\nтүсіну',
+    metaDuration: '10 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Білім беру мазмұны',
+    intro:
+      'Поликистозды аналық без синдромы, көбіне ПКЯС деп аталады, циклдеріңізге, овуляцияға, теріге, шашқа, метаболизмге және кейде құнарлылыққа әсер ете алатын жиі кездесетін гормондық жағдай.',
+    introSecondary:
+      'Оның көрінісі әйелден әйелге айтарлықтай өзгереді. ПКЯС-ты түсіну негізінен оның белгілерін тануға, медициналық кеңесті қашан іздеу керектігін білуге және оның дамуын өзіңізді кінәламай бақылауға көмектеседі.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'ПКЯС дегеніміз не?',
+      'ПКЯС неге болады?',
+      'Негізгі белгілер',
+      'Ол қалай диагноз қойылады?',
+      'ПКЯС және овуляция',
+      'ПКЯС және құнарлылық',
+      'ПКЯС және салмақ / метаболизм',
+      'Тері, шаш және дене түктері',
+      'ПКЯС қалай басқарылады?',
+      'Жиі кездесетін қате пікірлер',
+      'Дәрігерге қашан бару керек',
+      'Негізгі қорытындылар',
+    ],
+    s1Heading: 'ПКЯС дегеніміз не?',
+    s1Body1:
+      'Поликистозды аналық без синдромы (ПКЯС) — аналық бездердің әдеттегі жұмысын және кейбір гормондардың тепе-теңдігін өзгерте алатын жиі кездесетін гормондық жағдай.',
+    s1Body2:
+      'Кейбір әйелдер үшін негізгі мәселе — тұрақсыз овуляция. Басқалары үшін безеу, түктің артық өсуі, шаштың түсуі немесе метаболизмдік белгілер алдымен көзге түседі.',
+    s1TipTitle: 'Білуге тиісті',
+    s1TipText:
+      'Атына қарамастан, ПКЯС аналық бездерде “кисталар” бар дегенді міндетті түрде білдірмейді. Тарихи термин адастыруы мүмкін, ал ультрадыбыстық зерттеудің өзі диагноз қою үшін жеткіліксіз.',
+    s2Heading: 'ПКЯС неге болады?',
+    s2Body1:
+      'ПКЯС-тың жалғыз себебі жоқ. Ол біріге алатын бірнеше фактордың нәтижесі сияқты: отбасылық бейімділік, гормондық жұмыс, овуляция, метаболизм және жеке факторлар.',
+    s2Factors: [
+      'Отбасылық бейімділік және генетикалық факторлар',
+      'Овуляцияның бұзылуы',
+      'Андрогендердің салыстырмалы артықтығы',
+      'Кейбір әйелдерде инсулинге резистенттілік',
+      'Метаболизмдік және экологиялық факторлар',
+    ],
+    s2NeutralText:
+      'ПКЯС — жеке кемшілік емес. Ол жай ғана ерік күшінің жетіспеуінен, нашар тамақтанудан немесе жеткіліксіз дене белсенділігінен болмайды.',
+    s3Heading: 'Негізгі белгілер',
+    s3Body1:
+      'ПКЯС әйелден әйелге өте әртүрлі көрінуі мүмкін. Кейбірінде бірнеше белгі болады, ал басқалары өте аз байқайды.',
+    s3Signs: [
+      'Тұрақсыз, өте сирек немесе кейде болмайтын циклдар',
+      'Тұрақсыз немесе болжау қиын овуляция',
+      'Тұрақты безеу, әсіресе беттің төменгі бөлігінде',
+      'Бетте, кеудеде немесе денеде түктің көбірек өсуі',
+      'Гормондық үлгідегі шаштың түсуі',
+      'Салмақ қосу немесе салмақ тастаудағы қиындық',
+      'Жүкті болудағы қиындық',
+    ],
+    s3AlertTitle: 'Маңызды',
+    s3AlertText:
+      'Осы белгілердің біреуінің болуы сізде ПКЯС бар дегенді автоматты түрде білдірмейді. Бірнеше басқа жағдай ұқсас белгілерді тудыруы мүмкін.',
+    s4Heading: 'Ол қалай диагноз қойылады?',
+    s4Body1:
+      'ПКЯС диагностикасы — медициналық процесс. Денсаулық сақтау маманы әдетте циклдеріңізді, белгілеріңізді, медициналық тарихыңызды және қабылдап жүрген кез келген емдеулерді талқылаудан бастайды.',
+    s4Body2:
+      'Жағдайға байланысты гормондық қан тесттері мен ультрадыбыстық зерттеу де ұсынылуы мүмкін.',
+    s4Points: [
+      'Тұрақсыз циклдар немесе сирек овуляция',
+      'Андроген артықтығының белгілері: безеу, түктің артық өсуі, шаштың түсуі немесе қан тесті нәтижелері',
+      'Бұл зерттеу көрсетілген болса, ультрадыбыстық зерттеудегі ПКЯС-қа сәйкес аналық бездердің сыртқы түрі',
+    ],
+    s4Body3:
+      'Дәрігер ПКЯС диагнозын растамас бұрын тұрақсыз циклдардың немесе андроген артықтығының басқа ықтимал себептерін де жоққа шығаруы керек.',
+    s5Heading: 'ПКЯС және овуляция',
+    s5Body1:
+      'Овуляция — аналық безден жұмыртқа жасушасының (ооциттің) шығуы. ПКЯС кезінде овуляция сирегірек немесе болжау қиынырақ болуы мүмкін.',
+    s5Body2:
+      'Бұл циклдардың кейде неге ұзақ, тұрақсыз немесе күтуге қиын екенін түсіндіре алады.',
+    s5HighlightTitle: 'Циклыңызды бақылау',
+    s5HighlightText:
+      'Етеккір күндеріңізді, белгілеріңізді және овуляцияның кез келген белгісін жазып қою өз үлгілеріңізді жақсырақ түсінуге көмектесе алады.',
+    s6Heading: 'ПКЯС және құнарлылық',
+    s6Body1:
+      'Овуляция тұрақсыз болуы мүмкін болғандықтан, ПКЯС бар кейбір әйелдерге жүкті болу қиынырақ болуы мүмкін.',
+    s6Body2:
+      'Дегенмен, бұл ПКЯС жүктілікті автоматты түрде болдырмайды дегенді білдірмейді. ПКЯС бар көптеген әйелдер табиғи түрде немесе тиісті медициналық қолдаумен жүкті болады.',
+    s6TipTitle: 'Есте сақтаңыз',
+    s6TipText:
+      'Жүкті болудағы қиындық мүмкін емес дегенді білдірмейді. Жүкті болғыңыз келсе, дәрігер немесе акушер жағдайыңызға сай стратегияны ұсына алады.',
+    s7Heading: 'ПКЯС және салмақ / метаболизм',
+    s7Body1:
+      'ПКЯС метаболизмдік өзгерістермен, соның ішінде кейбір әйелдерде инсулинге резистенттілікпен байланысты болуы мүмкін.',
+    s7Body2:
+      'Дегенмен, тек салмақ ПКЯС-ты анықтай да, жоққа шығара да алмайды. Жіңішке әйелде ПКЯС болуы мүмкін, сол сияқты артық салмағы бар әйелде болмауы мүмкін.',
+    s7NeutralText:
+      'Бақылау күтімі тек таразыдағы санды емес, жалпы денсаулықты ескеруі керек.',
+    s8Heading: 'Тері, шаш және дене түктері',
+    s8Body1:
+      'Андрогендердің салыстырмалы артықтығы май бездері мен шаш фолликулдарына әсер етуі мүмкін.',
+    s8Body2:
+      'Әйелге байланысты бұл тұрақты безеу, түктің көбірек өсуі немесе шаштың түсуі ретінде көрінуі мүмкін.',
+    s8Items: [
+      'Гормондық безеу',
+      'Бетте немесе денеде түктің көбейуі',
+      'Шаштың жұқаруы немесе түсуі',
+    ],
+    s9Heading: 'ПКЯС қалай басқарылады?',
+    s9Body1:
+      'Әр әйелге сай келетін ПКЯС-ты басқарудың жалғыз тәсілі жоқ. Таңдау белгілерге, мақсаттарға және медициналық жағдайларға байланысты.',
+    s9Body2:
+      'Мақсат өмір кезеңіне қарай өзгеруі мүмкін: циклдарды реттеу, кейбір белгілерді жақсарту, метаболизмдік денсаулықты қорғау немесе жүктілік жоспарын қолдау.',
+    s9MiniTitle: 'Денсаулықты қолдайтын әдеттер',
+    s9Lifestyle: [
+      'Қажеттіліктеріңізге сай алуан түрлі, тұрақты тамақтану',
+      'Уақыт өте сақтай алатын тұрақты дене белсенділігімен айналысу',
+      'Жеткілікті тұрақты ұйқыны сақтау',
+      'Циклдеріңіз бен белгілеріңіздің уақыт өте қалай өзгеретінін бақылау',
+      'Салмақ немесе белгілердің өзгерістері үшін өзіңізді кінәламау',
+    ],
+    s9Body3:
+      'Қажеттіліктеріңізге байланысты денсаулық сақтау маманы кейбір белгілерді емдеуді немесе жүктілік жоспарын қолдауды да ұсына алады.',
+    s9AlertTitle: 'Өздігінен емделмеңіз',
+    s9AlertText:
+      'Гормондық емдеуді, метаболизмдік дәрілерді және тағамдық қоспаларды денсаулық сақтау маманымен талқылау керек.',
+    s10Heading: 'ПКЯС туралы жиі кездесетін қате пікірлер',
+    s10Myths: [
+      'ПКЯС әрқашан “кисталардың” болуын білдіреді: атауы адастыруы мүмкін. Диагноз тек кисталардың болуына негізделмейді.',
+      'ПКЯС бар барлық әйелдердің артық салмағы бар: ПКЯС кез келген дене бітіміндегі әйелдерге әсер етуі мүмкін.',
+      'ПКЯС жүктілікті әрқашан болдырмайды: овуляция тұрақсыз болуы мүмкін, бірақ жүктілік әлі де мүмкін.',
+      'Бір белгі ПКЯС диагнозын қоюға жеткілікті: диагноз жан-жақты бағалауды қажет етеді.',
+      'ПКЯС жас ұлғайған сайын жай ғана жоғалады: оның көрінісі өмір бойы өзгеруі мүмкін, бірақ үздіксіз бақылау маңызды болып қалады.',
+    ],
+    s11Heading: 'Дәрігерге қашан бару керек',
+    s11Body1:
+      'Медициналық кеңес циклдер өте тұрақсыз болғанда, бірнеше ай тоқтағанда немесе әдеттен тыс белгілер пайда болғанда әсіресе пайдалы.',
+    s11ConsultItems: [
+      'Өте тұрақсыз немесе болмайтын циклдар',
+      'Әдеттен тыс безеу немесе түктің өсуі',
+      'Шаштың айтарлықтай түсуі',
+      'Жүкті болудағы қиындық',
+      'Тез өзгеретін белгілер',
+    ],
+    s12Heading: 'Негізгі қорытындылар',
+    s12SummaryTitle: 'Негізгі нүктелер',
+    s12SummaryItems: [
+      'ПКЯС — жиі кездесетін гормондық жағдай.',
+      'Ол көптеген әртүрлі жолдармен көрінуі мүмкін.',
+      'ПКЯС бар барлық әйелдердің белгілері бірдей емес.',
+      'Тек салмақ ПКЯС-ты анықтау немесе жоққа шығару үшін жеткіліксіз.',
+      'Диагноз жан-жақты медициналық бағалауды қажет етеді.',
+      'ПКЯС овуляцияға және кейде құнарлылыққа әсер етуі мүмкін.',
+      'Жекелендірілген күтім тәсілі әр әйелдің қажеттіліктерін қанағаттандыруға көмектеседі.',
+    ],
+    finalNoteTitle: 'Жақсырақ түсінуге арналған нұсқаулық',
+    finalNoteText:
+      'Бұл мақала жалпы ақпаратқа арналған және медициналық консультацияның орнын баспайды. Әр жағдай әртүрлі: күмән туындаса немесе белгілер сақталса, медицина маманынан кеңес сұраңыз.',
+    shareMessage: 'ПКЯС-ты түсіну — AWA',
+  },
+  wo: {
+    badge: 'PCOS • NDIGAL BU AM SOLO',
+    title: 'Xam\nPCOS',
+    metaDuration: '10 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind ngir njàng',
+    intro:
+      'Sendromu ovèr yu bari, ñu koy woowe PCOS, benn feebar la bu hormon bu bari bu mën a jëm ci say wërsëg, ovilasiyoŋ, der, kawar, metabolism te yenn saa bindeef.',
+    introSecondary:
+      'Naka mu di feeñ wuute na lool ci jigéen ak jigéen. Xam PCOS dafay dimbli lool nga gis màndarga yi, xam kañ ngay seet ndigalu doktoor te topp naka mu di dem te tooñ ci sa bopp amul.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy PCOS?',
+      'Lu tax PCOS mën a am?',
+      'Màndarga yu mag yi',
+      'Naka ñuy xam ko?',
+      'PCOS ak ovilasiyoŋ',
+      'PCOS ak bindeef',
+      'PCOS ak yenn / metabolism',
+      'Der, kawar ak kawar ci yaram',
+      'Naka ñuy yor PCOS?',
+      'Gëm-gëm yu bari',
+      'Kañ ngay seet doktoor',
+      'Li am solo',
+    ],
+    s1Heading: 'Lan mooy PCOS?',
+    s1Body1:
+      'Sendromu ovèr yu bari (PCOS) benn feebar la bu hormon bu bari bu mën a soppi jëfu ovèr yi ak jubluñu yenn hormon.',
+    s1Body2:
+      'Ci yenn jigéen, jafe-jafe bu gëna bari mooy ovilasiyoŋ bu jubul. Ci yeneen, peppo, kawar bu ëpp, tuur kawar walla màndargay metabolism ñooy njëkk a feeñ.',
+    s1TipTitle: 'Lu baax a xam',
+    s1TipText:
+      'Ak turam, PCOS du tekki saa su ne ne ovèr yi am nañu “kist.” Baat bu cosaan bi mën na jaaxal, te ekografi rekk du doy ngir xam feebar bi.',
+    s2Heading: 'Lu tax PCOS mën a am?',
+    s2Body1:
+      'Amul benn sabab rekk bu PCOS. Dafay mel ni dafay jóge ci ay mbir yu bari yu mën a boole: cosaanu waa kër, jëfu hormon, ovilasiyoŋ, metabolism ak mbir yu sa bopp.',
+    s2Factors: [
+      'Cosaanu waa kër ak mbir yu jëm ci jén',
+      'Jubul ci ovilasiyoŋ',
+      'Androjen yu ëpp lu mu mën a doon',
+      'Xiñ ci insulin ci yenn jigéen',
+      'Mbir yu metabolism ak yu ngóor',
+    ],
+    s2NeutralText:
+      'PCOS du ñàkk fit bu sa bopp. Du dafay jóge ci ñàkk xam-xam, lekk bu bon walla jëfu yaram bu doyul.',
+    s3Heading: 'Màndarga yu mag yi',
+    s3Body1:
+      'PCOS mën na feeñ ci anam yu wuute lool ci jigéen ak jigéen. Yenn am nañu ay màndarga yu bari, yeneen dañuy gis yu ndaw.',
+    s3Signs: [
+      'Wërsëg yu jubul, yu tasaaru walla yu amul yenn saa',
+      'Ovilasiyoŋ bu jubul walla bu jafe a xayma',
+      'Peppo bu sax, lool ci suufu kanam',
+      'Kawar bu gën a mag ci kanam, dënn walla yaram',
+      'Tuur kawar ni hormon',
+      'Yokk ci yenn walla jafe a wàññi ko',
+      'Jafe-jafe ci ëmb',
+    ],
+    s3AlertTitle: 'Am solo',
+    s3AlertText:
+      'Am benn ci màndarga yii du wone saa su ne ne am nga PCOS. Yeneen feebar yu bari mën nañu def màndarga yu mel ni.',
+    s4Heading: 'Naka ñuy xam ko?',
+    s4Body1:
+      'Xam PCOS benn jëf la bu wér. Benn liggéeykatu wér daa tàmbali waxtaan ak yaw ci say wërsëg, say màndarga, sa tàmbalig wér ak garab yi nga di naan.',
+    s4Body2:
+      'Ci mbir bi, mën nañu digal tès yu deret yu hormon ak benn ekografi.',
+    s4Points: [
+      'Wërsëg yu jubul walla ovilasiyoŋ bu amul yoon',
+      'Màndargay androjen bu ëpp: peppo, kawar bu ëpp, tuur kawar walla njeexitalu tèsu deret',
+      'Anamu ovèr yi bu méngoo PCOS ci ekografi, bu seetlu bii war na',
+    ],
+    s4Body3:
+      'Doktoor bi war na itam dàq yeneen sabab yi mën a leeral wërsëg yu jubul walla androjen bu ëpp balaa muy dëggal xam PCOS.',
+    s5Heading: 'PCOS ak ovilasiyoŋ',
+    s5Body1:
+      'Ovilasiyoŋ mooy génnee nen bi (ovosit) ci ovèr bi. Ci PCOS, ovilasiyoŋ mën na gën a ndaw walla jafe a xayma.',
+    s5Body2:
+      'Loolu mën na leeral lu tax wërsëg yi mën a gudd, jubul walla jafe a xaar.',
+    s5HighlightTitle: 'Topp sa wërsëg',
+    s5HighlightText:
+      'Bind bési sa règle, say màndarga ak yenn màndarga yu ovilasiyoŋ mën na dimbli nga gën a xam say yoon.',
+    s6Heading: 'PCOS ak bindeef',
+    s6Body1:
+      'Ndax ovilasiyoŋ mën na jubul, yenn jigéen yu am PCOS mën nañu gis jafe-jafe bu gëna bari ci ëmb.',
+    s6Body2:
+      'Loolu du tekki, waaye, ne PCOS dafay tee ëmb saa su ne. Jigéen yu bari yu am PCOS dañuy ëmb ci natural walla ak dimbali bu wér bu méngoo.',
+    s6TipTitle: 'Fàttaliku',
+    s6TipText:
+      'Jafe-jafe ci ëmb du tekki mënul. Bu nga di yaakaar ëmb, benn doktoor walla ndey-jur mën na digal benn pexe bu méngoo sa mbir.',
+    s7Heading: 'PCOS ak yenn / metabolism',
+    s7Body1:
+      'PCOS mën na bokk ak soppi yu metabolism, boole na xiñ ci insulin ci yenn jigéen.',
+    s7Body2:
+      'Waaye, yenn rekk mënul xam walla dàq PCOS. Benn jigéen ju ndaw mën na am PCOS, ni jigéen ju yenn mën a mel ni amul ko.',
+    s7NeutralText:
+      'Topp wér war na teg wér bu mat, du lim bi ci balaas rekk.',
+    s8Heading: 'Der, kawar ak kawar ci yaram',
+    s8Body1:
+      'Androjen yu ëpp lu mu mën a doon dañuy jëm ci xël-xël yu diwlin ak ci yaxu kawar.',
+    s8Body2:
+      'Ci jigéen ju nekk, loolu mën na feeñ ni peppo bu sax, kawar bu gën a mag walla tuur kawar.',
+    s8Items: [
+      'Peppo bu hormon',
+      'Kawar bu gën a bari ci kanam walla yaram',
+      'Kawar bu gën a ndaw walla bu di tuur',
+    ],
+    s9Heading: 'Naka ñuy yor PCOS?',
+    s9Body1:
+      'Amul benn anam rekk bu yor PCOS bu méngoo jigéen yépp. Tànn bi dafay sukkandiku ci màndarga yi, ndimbal yi ak mbir yu wér.',
+    s9Body2:
+      'Ndimbal bi mën na wuute ci pàcc bu dund bi: jubal wërsëg yi, yéeg yenn màndarga, aar wérum metabolism walla dimbli benn yéene ëmb.',
+    s9MiniTitle: 'Yoon yu dimbli wér',
+    s9Lifestyle: [
+      'Lekk benn lekk bu wuute te sax bu méngoo sa soxla',
+      'Def jëfu yaram bu sax bu nga mën a sax ci jamono',
+      'Nelaw ci anam bu sax bu doy',
+      'Topp naka sa wërsëg ak sa màndarga di soppiku ci jamono',
+      'Bañ a tooñ sa bopp ci soppi yu yenn walla màndarga',
+    ],
+    s9Body3:
+      'Ci sa soxla, benn liggéeykatu wér mën na digal itam garab ngir yenn màndarga walla ngir dimbli benn yéene ëmb.',
+    s9AlertTitle: 'Bu garab sa bopp',
+    s9AlertText:
+      'Garabu hormon, garabu metabolism ak yokk-yokk yu lekk war nañu ñu waxtaan ko ak benn liggéeykatu wér.',
+    s10Heading: 'Gëm-gëm yu bari ci PCOS',
+    s10Myths: [
+      'PCOS tekki na saa su ne am “kist”: turu bi mën na jaaxal. Xam bi du sukkandiku ci kist rekk.',
+      'Jigéen yépp yu am PCOS dañuy am yenn bu bari: PCOS mën na jëm ci jigéen ci anam yépp.',
+      'PCOS daa tee ëmb saa su ne: ovilasiyoŋ mën na jubul, waaye ëmb mën na am.',
+      'Benn màndarga rekk doy na ngir xam PCOS: xam bi soxla benn seetlu bu mat.',
+      'PCOS dafay jeex ak at: naka mu di feeñ mën na soppiku ci dund bi, waaye topp bu sax des na am solo.',
+    ],
+    s11Heading: 'Kañ ngay seet doktoor',
+    s11Body1:
+      'Ndigalu doktoor am na njariñ lool bu wërsëg yi jubul lool, taxaw ay weer walla bu ay màndarga yu cosaanul feeñ.',
+    s11ConsultItems: [
+      'Wërsëg yu jubul lool walla yu amul',
+      'Peppo walla kawar bu cosaanul',
+      'Tuur kawar bu am solo',
+      'Jafe-jafe ci ëmb',
+      'Màndarga yu di soppiku ci gaaw',
+    ],
+    s12Heading: 'Li am solo',
+    s12SummaryTitle: 'Li am solo',
+    s12SummaryItems: [
+      'PCOS benn feebar la bu hormon bu bari.',
+      'Mën na feeñ ci ay anam yu bari.',
+      'Jigéen yépp yu am PCOS duñu am màndarga yu bokk.',
+      'Yenn rekk doy na ngir xam walla dàq PCOS.',
+      'Xam bi soxla benn seetlu bu wér bu mat.',
+      'PCOS mën na jëm ci ovilasiyoŋ ak yenn saa bindeef.',
+      'Benn topp bu méngoo ku nekk dafay dimbli ngir tontu soxla jigéen ju nekk.',
+    ],
+    finalNoteTitle: 'Benn ndigal ngir gën a xam',
+    finalNoteText:
+      'Bind bii ngir xibaar bu yaatu la te du wuutu benn seetlu bu doktoor. Mbir bu nekk wuute na: bu am xel-ñaar walla bu màndarga yi sax, seet ndigalu benn liggéeykatu wér.',
+    shareMessage: 'Xam PCOS — AWA',
+  },
+  ha: {
+    badge: 'PCOS • CIKAKKEN JAGORA',
+    title: 'Fahimtar\nPCOS',
+    metaDuration: 'karatun minti 10',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun ilimantarwa',
+    intro:
+      'Polycystic ovary syndrome, wanda ake kira PCOS, yanayi ne na hormone gama gari da zai iya shafar zagayenki, fitar ƙwai, fata, gashi, metabolism, kuma wani lokaci haihuwa.',
+    introSecondary:
+      'Yadda yake bayyana ya bambanta sosai daga mace zuwa mace. Fahimtar PCOS galibi tana taimaka miki ki gane alamominsa, ki san lokacin neman shawarar likita, kuma ki bi diddigin yadda yake ci gaba ba tare da zargin kai ba.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene PCOS?',
+      'Me ya sa PCOS ke faruwa?',
+      'Manyan alamomi',
+      'Yaya ake gano shi?',
+      'PCOS da fitar ƙwai',
+      'PCOS da haihuwa',
+      'PCOS da nauyi / metabolism',
+      'Fata, gashi, da gashin jiki',
+      'Yaya ake sarrafa PCOS?',
+      'Kuskuren fahimta gama gari',
+      'Yaushe za a ga likita',
+      'Muhimman abubuwa',
+    ],
+    s1Heading: 'Menene PCOS?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) yanayi ne na hormone gama gari da zai iya canza aikin ovaries na yau da kullum da daidaiton wasu hormone.',
+    s1Body2:
+      'Ga wasu mata, babban batun fitar ƙwai ce mara tsari. Ga wasu, kuraje, yawan girman gashi, zubewar gashi, ko alamomin metabolism ne ke fitowa da farko.',
+    s1TipTitle: 'Abin da ya dace a sani',
+    s1TipText:
+      'Duk da sunansa, PCOS ba lallai ba ne yana nufin ovaries suna ɗauke da “cysts.” Sunan na tarihi na iya ruɗarwa, kuma ultrasound shi kaɗai bai isa ba don yin bincike.',
+    s2Heading: 'Me ya sa PCOS ke faruwa?',
+    s2Body1:
+      'Babu dalili guda ɗaya na PCOS. Da alama yana samuwa daga abubuwa da dama da za su iya haɗuwa: halin iyali, aikin hormone, fitar ƙwai, metabolism, da abubuwan da suka shafi mutum.',
+    s2Factors: [
+      'Halin iyali da dalilan gado',
+      'Dagulewar fitar ƙwai',
+      'Yawan androgen na dangi',
+      'Juriyar insulin a wasu mata',
+      'Abubuwan metabolism da muhalli',
+    ],
+    s2NeutralText:
+      'PCOS ba kasawar mutum ba ce. Ba ya samuwa kawai daga rashin ƙarfin zuciya, abinci mara kyau, ko rashin isasshen motsa jiki.',
+    s3Heading: 'Manyan alamomi',
+    s3Body1:
+      'PCOS na iya bayyana daban sosai daga mace zuwa mace. Wasu suna da alamomi da dama, yayin da wasu ke lura da kaɗan sosai.',
+    s3Signs: [
+      'Zagaye marasa tsari, masu nisa, ko wani lokaci babu',
+      'Fitar ƙwai mara tsari ko mai wuyar hasashe',
+      'Kuraje masu dawwama, musamman a ƙasan fuska',
+      'Yawan girman gashi a fuska, ƙirji, ko jiki',
+      'Zubewar gashi irin ta hormone',
+      'Ƙarin nauyi ko wahalar rage nauyi',
+      'Wahalar samun ciki',
+    ],
+    s3AlertTitle: 'Muhimmi',
+    s3AlertText:
+      'Samun ɗaya daga cikin waɗannan alamomi ba ya nufin kai tsaye kina da PCOS. Wasu yanayi da dama na iya haifar da irin wannan alamomi.',
+    s4Heading: 'Yaya ake gano shi?',
+    s4Body1:
+      'Gano PCOS tsari ne na likita. Mai ba da kulawar lafiya yawanci yana farawa da tattauna zagayenki, alamominki, tarihin lafiyarki, da duk wani magani da kike sha.',
+    s4Body2:
+      'Bisa yanayin, ana iya ba da shawarar gwajin jinin hormone da ultrasound.',
+    s4Points: [
+      'Zagaye marasa tsari ko fitar ƙwai da ba ta yawaita',
+      'Alamomin yawan androgen: kuraje, yawan girman gashi, zubewar gashi, ko sakamakon gwajin jini',
+      'Yanayin ovaries da ya dace da PCOS a ultrasound, idan an nuna wannan gwaji',
+    ],
+    s4Body3:
+      'Dole ne likita kuma ya cire wasu yiwuwar dalilai na zagaye marasa tsari ko yawan androgen kafin tabbatar da gano PCOS.',
+    s5Heading: 'PCOS da fitar ƙwai',
+    s5Body1:
+      'Fitar ƙwai ita ce sakin ƙwai (oocyte) daga ovary. A PCOS, fitar ƙwai na iya zama ba ta yawaita ko da wuyar hasashe.',
+    s5Body2:
+      'Wannan na iya bayyana dalilin da ya sa zagaye wani lokaci suke dogaye, marasa tsari, ko da wuyar hasashe.',
+    s5HighlightTitle: 'Bin diddigin zagayenki',
+    s5HighlightText:
+      'Rubuta ranakun hailarki, alamomi, da duk alamomin fitar ƙwai na iya taimaka miki ki fi fahimtar tsarinki na kanki.',
+    s6Heading: 'PCOS da haihuwa',
+    s6Body1:
+      'Saboda fitar ƙwai na iya zama mara tsari, wasu mata masu PCOS na iya samun wahalar samun ciki.',
+    s6Body2:
+      'Duk da haka, wannan ba ya nufin PCOS yana hana ciki kai tsaye. Mata da yawa masu PCOS suna samun ciki a zahiri ko da tallafin likita mai dacewa.',
+    s6TipTitle: 'Ki tuna',
+    s6TipText:
+      'Wahalar samun ciki ba ta nufin ba zai yiwu ba. Idan kina fatan samun ciki, likita ko ungozoma na iya ba da shawarar dabarun da suka dace da yanayinki.',
+    s7Heading: 'PCOS da nauyi / metabolism',
+    s7Body1:
+      'PCOS na iya zama mai alaƙa da sauye-sauyen metabolism, har da juriyar insulin a wasu mata.',
+    s7Body2:
+      'Duk da haka, nauyi shi kaɗai ba zai iya gano ko cire PCOS ba. Mace siririya na iya samun PCOS, kamar yadda mace mai ƙarin nauyi ba lallai ne ta same shi ba.',
+    s7NeutralText:
+      'Ya kamata kulawar bibiya ta yi la’akari da lafiyar gabaɗaya, ba kawai lambar da ke kan ma’aunin nauyi ba.',
+    s8Heading: 'Fata, gashi, da gashin jiki',
+    s8Body1:
+      'Yawan androgen na dangi na iya shafar glandan sebaceous da tushen gashi.',
+    s8Body2:
+      'Bisa mace, wannan na iya bayyana a matsayin kuraje masu dawwama, yawan girman gashi, ko zubewar gashi.',
+    s8Items: [
+      'Kurajen hormone',
+      'Yawan gashin fuska ko jiki',
+      'Gashi mai raguwa ko zubewa',
+    ],
+    s9Heading: 'Yaya ake sarrafa PCOS?',
+    s9Body1:
+      'Babu hanya guda ɗaya ta sarrafa PCOS da ke aiki ga kowace mace. Zaɓin ya dogara ga alamomi, manufofi, da yanayin lafiya.',
+    s9Body2:
+      'Manufar na iya bambanta bisa matakin rayuwa: daidaita zagaye, inganta wasu alamomi, kare lafiyar metabolism, ko tallafa wa shirin ciki.',
+    s9MiniTitle: 'Dabi’u masu tallafa wa lafiya',
+    s9Lifestyle: [
+      'Cin abinci iri-iri, na yau da kullum wanda ya dace da bukatunki',
+      'Yin motsa jiki akai-akai wanda za ki iya ci gaba da shi a kan lokaci',
+      'Kiyaye barci mai isasshen tsari',
+      'Bin diddigin yadda zagayenki da alamominki ke canzawa a kan lokaci',
+      'Kada ki zargi kanki saboda sauyin nauyi ko alamomi',
+    ],
+    s9Body3:
+      'Bisa bukatunki, mai ba da kulawar lafiya na iya ba da shawarar magunguna ga wasu alamomi ko don tallafa wa shirin ciki.',
+    s9AlertTitle: 'Kada ki yi wa kanki magani',
+    s9AlertText:
+      'Ya kamata a tattauna magungunan hormone, magungunan metabolism, da kari na abinci duka da mai ba da kulawar lafiya.',
+    s10Heading: 'Kuskuren fahimta gama gari game da PCOS',
+    s10Myths: [
+      'PCOS koyaushe yana nufin samun “cysts”: sunan na iya ruɗarwa. Binciken ba ya dogara ga kasancewar cysts kaɗai ba.',
+      'Duk mata masu PCOS suna da ƙarin nauyi: PCOS na iya shafar mata masu kowace siffar jiki.',
+      'PCOS koyaushe yana hana ciki: fitar ƙwai na iya zama mara tsari, amma ciki yana yiwuwa.',
+      'Alama guda ɗaya ta isa don gano PCOS: bincike yana bukatar cikakken tantancewa.',
+      'PCOS yana ɓacewa da kansa da shekaru: yadda yake bayyana na iya canzawa a rayuwa, amma bibiya mai dorewa tana da muhimmanci.',
+    ],
+    s11Heading: 'Yaushe za a ga likita',
+    s11Body1:
+      'Shawarar likita tana da amfani musamman lokacin da zagaye suka zama marasa tsari sosai, suka tsaya na watanni da dama, ko lokacin da alamomi ba na al’ada ba suka bayyana.',
+    s11ConsultItems: [
+      'Zagaye marasa tsari sosai ko babu',
+      'Kuraje ko girman gashi ba na al’ada ba',
+      'Zubewar gashi mai yawa',
+      'Wahalar samun ciki',
+      'Alamomin da ke canzawa da sauri',
+    ],
+    s12Heading: 'Muhimman abubuwa',
+    s12SummaryTitle: 'Muhimman bayanai',
+    s12SummaryItems: [
+      'PCOS yanayi ne na hormone gama gari.',
+      'Zai iya bayyana ta hanyoyi daban-daban da yawa.',
+      'Ba duk mata masu PCOS ke da alamomi iri ɗaya ba.',
+      'Nauyi shi kaɗai bai isa ba don gano ko cire PCOS.',
+      'Bincike yana bukatar cikakken tantancewar likita.',
+      'PCOS na iya shafar fitar ƙwai kuma wani lokaci haihuwa.',
+      'Hanyar kulawa ta mutum tana taimakawa wajen biyan bukatun kowace mace.',
+    ],
+    finalNoteTitle: 'Jagora don fi fahimta',
+    finalNoteText:
+      'An yi wannan labari don bayani gabaɗaya kuma ba ya maye gurbin shawarar likita. Kowane yanayi daban ne: idan kina cikin shakka ko alamomi sun dawwama, nemi shawara daga ma’aikacin lafiya.',
+    shareMessage: 'Fahimtar PCOS — AWA',
+  },
+  am: {
+    badge: 'ፒሲኦኤስ • አስፈላጊ መመሪያ',
+    title: 'ፒሲኦኤስን\nመረዳት',
+    metaDuration: '10 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ትምህርታዊ ይዘት',
+    intro:
+      'ፖሊሲስቲክ ኦቫሪ ሲንድሮም፣ ብዙ ጊዜ ፒሲኦኤስ ተብሎ የሚጠራው፣ ዑደቶችሽን፣ እንቁላል መልቀቅን፣ ቆዳን፣ ፀጉርን፣ ሜታቦሊዝምን እና አንዳንድ ጊዜ የመውለድ ችሎታን ሊነካ የሚችል የተለመደ የሆርሞን ሁኔታ ነው።',
+    introSecondary:
+      'የሚታይበት መንገድ ከአንዲት ሴት ወደ ሌላዋ በጣም ይለያያል። ፒሲኦኤስን መረዳት በዋናነት ምልክቶቹን እንድትለዪ፣ የሕክምና ምክር መቼ እንደምትፈልጊ እንድታውቂ እና ራስሽን ሳትወቅሺ እንዴት እንደሚሄድ እንድትከታተዪ ይረዳሻል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ፒሲኦኤስ ምንድን ነው?',
+      'ፒሲኦኤስ ለምን ይከሰታል?',
+      'ዋና ዋና ምልክቶች',
+      'እንዴት ይመረመራል?',
+      'ፒሲኦኤስ እና እንቁላል መልቀቅ',
+      'ፒሲኦኤስ እና የመውለድ ችሎታ',
+      'ፒሲኦኤስ እና ክብደት / ሜታቦሊዝም',
+      'ቆዳ፣ ፀጉር እና የሰውነት ፀጉር',
+      'ፒሲኦኤስ እንዴት ይተዳደራል?',
+      'የተለመዱ የተሳሳቱ አመለካከቶች',
+      'ሐኪም መቼ ማየት',
+      'ዋና ዋና ነጥቦች',
+    ],
+    s1Heading: 'ፒሲኦኤስ ምንድን ነው?',
+    s1Body1:
+      'ፖሊሲስቲክ ኦቫሪ ሲንድሮም (ፒሲኦኤስ) የኦቫሪዎችን የተለመደ አሠራር እና የአንዳንድ ሆርሞኖችን ሚዛን ሊለውጥ የሚችል የተለመደ የሆርሞን ሁኔታ ነው።',
+    s1Body2:
+      'ለአንዳንድ ሴቶች ዋናው ችግር መደበኛ ያልሆነ እንቁላል መልቀቅ ነው። ለሌሎች ብጉር፣ ከመጠን በላይ የፀጉር እድገት፣ የፀጉር መርገፍ ወይም የሜታቦሊክ ምልክቶች ቀድመው የሚታዩ ናቸው።',
+    s1TipTitle: 'ማወቅ ጠቃሚ ነው',
+    s1TipText:
+      'ስሙ ቢልም ፒሲኦኤስ ኦቫሪዎች “ሲስቶች” ይዘዋል ማለት የግድ አይደለም። ታሪካዊው ስም ሊያሳስት ይችላል፣ እና አልትራሳውንድ ብቻውን ምርመራውን ለማድረግ በቂ አይደለም።',
+    s2Heading: 'ፒሲኦኤስ ለምን ይከሰታል?',
+    s2Body1:
+      'ለፒሲኦኤስ አንድ ብቻ መንስኤ የለም። ሊጣመሩ ከሚችሉ በርካታ ምክንያቶች የሚመጣ ይመስላል፦ የቤተሰብ ዝንባሌ፣ የሆርሞን አሠራር፣ እንቁላል መልቀቅ፣ ሜታቦሊዝም እና የግለሰብ ምክንያቶች።',
+    s2Factors: [
+      'የቤተሰብ ዝንባሌ እና የዘር ምክንያቶች',
+      'በእንቁላል መልቀቅ ላይ የሚፈጠሩ መዛባቶች',
+      'አንጻራዊ የአንድሮጅን ከፍተኛነት',
+      'በአንዳንድ ሴቶች የኢንሱሊን መቋቋም',
+      'የሜታቦሊክ እና የአካባቢ ምክንያቶች',
+    ],
+    s2NeutralText:
+      'ፒሲኦኤስ የግል ጉድለት አይደለም። በቀላሉ የፈቃደኝነት እጦት፣ ደካማ አመጋገብ ወይም በቂ ያልሆነ የአካል እንቅስቃሴ ውጤት አይደለም።',
+    s3Heading: 'ዋና ዋና ምልክቶች',
+    s3Body1:
+      'ፒሲኦኤስ ከአንዲት ሴት ወደ ሌላዋ በጣም በተለያየ መንገድ ሊታይ ይችላል። አንዳንዶቹ በርካታ ምልክቶች ሲኖሯቸው ሌሎች በጣም ጥቂት ያስተውላሉ።',
+    s3Signs: [
+      'መደበኛ ያልሆኑ፣ የተራራቁ ወይም አንዳንድ ጊዜ የሌሉ ዑደቶች',
+      'መደበኛ ያልሆነ ወይም ለመገመት የሚያስቸግር እንቁላል መልቀቅ',
+      'የሚቆይ ብጉር፣ በተለይ በፊት ታችኛው ክፍል',
+      'በፊት፣ በደረት ወይም በሰውነት ላይ የጨመረ የፀጉር እድገት',
+      'በሆርሞን ዘይቤ የሚከሰት የፀጉር መርገፍ',
+      'ክብደት መጨመር ወይም ክብደት ለመቀነስ መቸገር',
+      'ለመፀነስ መቸገር',
+    ],
+    s3AlertTitle: 'አስፈላጊ',
+    s3AlertText:
+      'ከእነዚህ ምልክቶች አንዱ መኖር በራስ-ሰር ፒሲኦኤስ አለብሽ ማለት አይደለም። ሌሎች በርካታ ሁኔታዎች ተመሳሳይ ምልክቶችን ሊያስከትሉ ይችላሉ።',
+    s4Heading: 'እንዴት ይመረመራል?',
+    s4Body1:
+      'ፒሲኦኤስን መመርመር የሕክምና ሂደት ነው። የጤና ባለሙያ ብዙውን ጊዜ ስለ ዑደቶችሽ፣ ምልክቶችሽ፣ የሕክምና ታሪክሽ እና ስለምትወስጃቸው ማንኛውም ሕክምናዎች በመወያየት ይጀምራል።',
+    s4Body2:
+      'እንደ ሁኔታው የሆርሞን የደም ምርመራዎች እና አልትራሳውንድም ሊቀርቡ ይችላሉ።',
+    s4Points: [
+      'መደበኛ ያልሆኑ ዑደቶች ወይም አልፎ አልፎ የሚሆን እንቁላል መልቀቅ',
+      'የአንድሮጅን ከፍተኛነት ምልክቶች፦ ብጉር፣ ከመጠን በላይ የፀጉር እድገት፣ የፀጉር መርገፍ ወይም የደም ምርመራ ውጤቶች',
+      'ይህ ምርመራ ሲጠቆም በአልትራሳውንድ ከፒሲኦኤስ ጋር የሚጣጣም የኦቫሪ መልክ',
+    ],
+    s4Body3:
+      'ሐኪሙ የፒሲኦኤስ ምርመራን ከማረጋገጡ በፊት መደበኛ ያልሆኑ ዑደቶችን ወይም የአንድሮጅን ከፍተኛነትን ሌሎች ሊሆኑ የሚችሉ መንስኤዎችም ማስወገድ አለበት።',
+    s5Heading: 'ፒሲኦኤስ እና እንቁላል መልቀቅ',
+    s5Body1:
+      'እንቁላል መልቀቅ ከኦቫሪ እንቁላል (ኦኦሳይት) መልቀቅ ነው። በፒሲኦኤስ እንቁላል መልቀቅ ያነሰ ወይም ለመገመት የበለጠ አስቸጋሪ ሊሆን ይችላል።',
+    s5Body2:
+      'ይህ ዑደቶች አንዳንድ ጊዜ ረዥም፣ መደበኛ ያልሆኑ ወይም ለመገመት የሚከብዱ ለምን እንደሆኑ ሊያስረዳ ይችላል።',
+    s5HighlightTitle: 'ዑደትሽን መከታተል',
+    s5HighlightText:
+      'የወር አበባ ቀኖችሽን፣ ምልክቶችሽን እና ማንኛውንም የእንቁላል መልቀቅ ምልክቶች መመዝገብ የራስሽን ዘይቤዎች በተሻለ እንድትረጂ ሊረዳ ይችላል።',
+    s6Heading: 'ፒሲኦኤስ እና የመውለድ ችሎታ',
+    s6Body1:
+      'እንቁላል መልቀቅ መደበኛ ሊሆን ስለማይችል፣ ፒሲኦኤስ ያላቸው አንዳንድ ሴቶች ለመፀነስ የበለጠ ሊቸገሩ ይችላሉ።',
+    s6Body2:
+      'ይህ ግን ፒሲኦኤስ በራስ-ሰር እርግዝናን ይከለክላል ማለት አይደለም። ፒሲኦኤስ ያላቸው ብዙ ሴቶች በተፈጥሮ ወይም በተገቢ የሕክምና ድጋፍ ይፀንሳሉ።',
+    s6TipTitle: 'አስታውሺ',
+    s6TipText:
+      'ለመፀነስ መቸገር የማይቻል ነው ማለት አይደለም። ለማርገዝ ተስፋ ካደረግሽ፣ ሐኪም ወይም ሚድዋይፍ ለሁኔታሽ የሚስማማ ስልት ሊጠቁም ይችላል።',
+    s7Heading: 'ፒሲኦኤስ እና ክብደት / ሜታቦሊዝም',
+    s7Body1:
+      'ፒሲኦኤስ ከሜታቦሊክ ለውጦች ጋር ሊያያዝ ይችላል፣ በአንዳንድ ሴቶች የኢንሱሊን መቋቋምን ጨምሮ።',
+    s7Body2:
+      'ሆኖም ክብደት ብቻውን ፒሲኦኤስን ሊመረምር ወይም ሊያስወግድ አይችልም። ቀጭን ሴት ፒሲኦኤስ ሊኖራት ይችላል፣ ልክ ክብደቷ ከፍ ያለ ሴት ላይኖራት እንደምትችለው።',
+    s7NeutralText:
+      'ክትትሉ በሚዛኑ ላይ ያለውን ቁጥር ብቻ ሳይሆን አጠቃላይ ጤናን ማገናዘብ አለበት።',
+    s8Heading: 'ቆዳ፣ ፀጉር እና የሰውነት ፀጉር',
+    s8Body1:
+      'አንጻራዊ የአንድሮጅን ከፍተኛነት የሴባሴየስ እጢዎችንና የፀጉር ከረጢቶችን ሊነካ ይችላል።',
+    s8Body2:
+      'እንደ ሴቲቱ ይህ እንደ ሚቆይ ብጉር፣ የጨመረ የፀጉር እድገት ወይም የፀጉር መርገፍ ሊታይ ይችላል።',
+    s8Items: [
+      'የሆርሞን ብጉር',
+      'የጨመረ የፊት ወይም የሰውነት ፀጉር',
+      'የፀጉር መሳሳት ወይም መርገፍ',
+    ],
+    s9Heading: 'ፒሲኦኤስ እንዴት ይተዳደራል?',
+    s9Body1:
+      'ለሁሉም ሴት የሚሠራ ፒሲኦኤስን የማስተዳደር አንድ ብቻ ዘዴ የለም። ምርጫው በምልክቶች፣ በግቦች እና በሕክምና ሁኔታዎች ላይ ይወሰናል።',
+    s9Body2:
+      'ግቡ እንደ ሕይወት ደረጃ ሊለያይ ይችላል፦ ዑደቶችን ማስተካከል፣ አንዳንድ ምልክቶችን ማሻሻል፣ የሜታቦሊክ ጤናን መጠበቅ ወይም የእርግዝና እቅድን መደገፍ።',
+    s9MiniTitle: 'ጤናን የሚደግፉ ልማዶች',
+    s9Lifestyle: [
+      'ለፍላጎትሽ የሚስማማ የተለያየ፣ መደበኛ አመጋገብ መመገብ',
+      'በጊዜ ሂደት መቀጠል የምትችዪው መደበኛ የአካል እንቅስቃሴ ማድረግ',
+      'በበቂ ሁኔታ መደበኛ እንቅልፍ መጠበቅ',
+      'ዑደቶችሽና ምልክቶችሽ በጊዜ ሂደት እንዴት እንደሚለወጡ መከታተል',
+      'ለክብደት ወይም ለምልክቶች ለውጥ ራስሽን አለመውቀስ',
+    ],
+    s9Body3:
+      'እንደ ፍላጎትሽ የጤና ባለሙያ ለአንዳንድ ምልክቶች ወይም የእርግዝና እቅድን ለመደገፍ ሕክምናዎችንም ሊያቀርብ ይችላል።',
+    s9AlertTitle: 'ራስሽን አታክሚ',
+    s9AlertText:
+      'የሆርሞን ሕክምናዎች፣ የሜታቦሊክ መድኃኒቶች እና የምግብ ማሟያዎች ሁሉም ከጤና ባለሙያ ጋር ሊወያዩ ይገባል።',
+    s10Heading: 'ስለ ፒሲኦኤስ የተለመዱ የተሳሳቱ አመለካከቶች',
+    s10Myths: [
+      'ፒሲኦኤስ ሁልጊዜ “ሲስቶች” መኖር ማለት ነው፦ ስሙ ሊያሳስት ይችላል። ምርመራው በሲስቶች መኖር ብቻ ላይ አይመሠረትም።',
+      'ፒሲኦኤስ ያላቸው ሁሉም ሴቶች ክብደታቸው ከፍ ያለ ነው፦ ፒሲኦኤስ ሁሉንም የሰውነት ዓይነት ያላቸው ሴቶች ሊነካ ይችላል።',
+      'ፒሲኦኤስ ሁልጊዜ እርግዝናን ይከለክላል፦ እንቁላል መልቀቅ መደበኛ ላይሆን ይችላል፣ ነገር ግን እርግዝና አሁንም ይቻላል።',
+      'አንድ ምልክት ብቻ ፒሲኦኤስን ለመመርመር በቂ ነው፦ ምርመራው ሁሉን አቀፍ ግምገማ ይጠይቃል።',
+      'ፒሲኦኤስ በዕድሜ በቀላሉ ይጠፋል፦ የሚታይበት መንገድ በሕይወት ዘመን ሊለወጥ ይችላል፣ ነገር ግን ቀጣይ ክትትል አሁንም አስፈላጊ ነው።',
+    ],
+    s11Heading: 'ሐኪም መቼ ማየት',
+    s11Body1:
+      'ዑደቶች በጣም መደበኛ ያልሆኑ ሲሆኑ፣ ለበርካታ ወራት ሲቆሙ ወይም ያልተለመዱ ምልክቶች ሲታዩ የሕክምና ምክር በተለይ ጠቃሚ ነው።',
+    s11ConsultItems: [
+      'በጣም መደበኛ ያልሆኑ ወይም የሌሉ ዑደቶች',
+      'ያልተለመደ ብጉር ወይም የፀጉር እድገት',
+      'ከፍተኛ የፀጉር መርገፍ',
+      'ለመፀነስ መቸገር',
+      'በፍጥነት የሚለወጡ ምልክቶች',
+    ],
+    s12Heading: 'ዋና ዋና ነጥቦች',
+    s12SummaryTitle: 'አስፈላጊዎቹ ነጥቦች',
+    s12SummaryItems: [
+      'ፒሲኦኤስ የተለመደ የሆርሞን ሁኔታ ነው።',
+      'በብዙ የተለያዩ መንገዶች ሊታይ ይችላል።',
+      'ፒሲኦኤስ ያላቸው ሁሉም ሴቶች ተመሳሳይ ምልክቶች የላቸውም።',
+      'ክብደት ብቻውን ፒሲኦኤስን ለመመርመር ወይም ለማስወገድ በቂ አይደለም።',
+      'ምርመራው ሁሉን አቀፍ የሕክምና ግምገማ ይጠይቃል።',
+      'ፒሲኦኤስ እንቁላል መልቀቅን እና አንዳንድ ጊዜ የመውለድ ችሎታን ሊነካ ይችላል።',
+      'ግላዊ የእንክብካቤ አቀራረብ የእያንዳንዷን ሴት ፍላጎት ለማሟላት ይረዳል።',
+    ],
+    finalNoteTitle: 'በተሻለ ለመረዳት መመሪያ',
+    finalNoteText:
+      'ይህ ጽሑፍ ለአጠቃላይ መረጃ የታሰበ ነው እና የሕክምና ምክክርን አይተካም። እያንዳንዱ ሁኔታ የተለየ ነው፦ ጥርጣሬ ካለሽ ወይም ምልክቶች ከቀጠሉ የጤና ባለሙያ ምክር ጠይቂ።',
+    shareMessage: 'ፒሲኦኤስን መረዳት — AWA',
+  },
+  nl: {
+    badge: 'PCOS • ESSENTIËLE GIDS',
+    title: 'PCOS\nbegrijpen',
+    metaDuration: '10 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Educatieve inhoud',
+    intro:
+      'Het polycysteus ovarium syndroom, vaak PCOS genoemd, is een veelvoorkomende hormonale aandoening die je cycli, eisprong, huid, haar, stofwisseling en soms je vruchtbaarheid kan beïnvloeden.',
+    introSecondary:
+      'Hoe het zich uit, verschilt sterk van vrouw tot vrouw. PCOS begrijpen helpt je vooral de symptomen te herkennen, te weten wanneer je medisch advies moet zoeken en de ontwikkeling bij te houden zonder jezelf de schuld te geven.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is PCOS?',
+      'Waarom ontstaat PCOS?',
+      'De belangrijkste tekenen',
+      'Hoe wordt het vastgesteld?',
+      'PCOS en eisprong',
+      'PCOS en vruchtbaarheid',
+      'PCOS en gewicht / stofwisseling',
+      'Huid, haar en lichaamsbeharing',
+      'Hoe wordt PCOS behandeld?',
+      'Veelvoorkomende misverstanden',
+      'Wanneer een arts zien',
+      'Belangrijkste punten',
+    ],
+    s1Heading: 'Wat is PCOS?',
+    s1Body1:
+      'Het polycysteus ovarium syndroom (PCOS) is een veelvoorkomende hormonale aandoening die de gebruikelijke werking van de eierstokken en het evenwicht van bepaalde hormonen kan veranderen.',
+    s1Body2:
+      'Voor sommige vrouwen is het belangrijkste probleem een onregelmatige eisprong. Bij anderen vallen acne, overmatige haargroei, haarverlies of metabole tekenen als eerste op.',
+    s1TipTitle: 'Goed om te weten',
+    s1TipText:
+      'Ondanks de naam betekent PCOS niet per se dat de eierstokken “cysten” bevatten. De historische term kan misleidend zijn en een echo alleen is niet genoeg om de diagnose te stellen.',
+    s2Heading: 'Waarom ontstaat PCOS?',
+    s2Body1:
+      'Er is niet één enkele oorzaak van PCOS. Het lijkt het gevolg te zijn van meerdere factoren die kunnen samenkomen: familiaire aanleg, hormonale werking, eisprong, stofwisseling en individuele factoren.',
+    s2Factors: [
+      'Familiaire aanleg en genetische factoren',
+      'Verstoringen van de eisprong',
+      'Relatief teveel aan androgenen',
+      'Insulineresistentie bij sommige vrouwen',
+      'Metabole en omgevingsfactoren',
+    ],
+    s2NeutralText:
+      'PCOS is geen persoonlijk falen. Het is niet simpelweg het gevolg van een gebrek aan wilskracht, een slecht dieet of onvoldoende lichaamsbeweging.',
+    s3Heading: 'De belangrijkste tekenen',
+    s3Body1:
+      'PCOS kan van vrouw tot vrouw zeer verschillend zijn. Sommigen hebben meerdere symptomen, anderen merken er heel weinig.',
+    s3Signs: [
+      'Onregelmatige, ver uit elkaar liggende of soms afwezige cycli',
+      'Onregelmatige of moeilijk te voorspellen eisprong',
+      'Aanhoudende acne, vooral op het onderste deel van het gezicht',
+      'Toegenomen haargroei op gezicht, borst of lichaam',
+      'Haarverlies volgens een hormonaal patroon',
+      'Gewichtstoename of moeite met afvallen',
+      'Moeite om zwanger te worden',
+    ],
+    s3AlertTitle: 'Belangrijk',
+    s3AlertText:
+      'Een van deze symptomen hebben betekent niet automatisch dat je PCOS hebt. Verschillende andere aandoeningen kunnen vergelijkbare symptomen veroorzaken.',
+    s4Heading: 'Hoe wordt het vastgesteld?',
+    s4Body1:
+      'PCOS vaststellen is een medisch proces. Een zorgverlener begint meestal met een gesprek over je cycli, symptomen, medische voorgeschiedenis en eventuele behandelingen die je gebruikt.',
+    s4Body2:
+      'Afhankelijk van de situatie kunnen ook hormonale bloedonderzoeken en een echo worden voorgesteld.',
+    s4Points: [
+      'Onregelmatige cycli of zeldzame eisprong',
+      'Tekenen van een teveel aan androgenen: acne, overmatige haargroei, haarverlies of bloedonderzoeksresultaten',
+      'Uiterlijk van de eierstokken dat bij PCOS past op de echo, wanneer dit onderzoek is aangewezen',
+    ],
+    s4Body3:
+      'De arts moet ook andere mogelijke oorzaken van onregelmatige cycli of een teveel aan androgenen uitsluiten voordat een PCOS-diagnose wordt bevestigd.',
+    s5Heading: 'PCOS en eisprong',
+    s5Body1:
+      'De eisprong is het vrijkomen van een eicel (oöcyt) uit de eierstok. Bij PCOS kan de eisprong minder vaak voorkomen of moeilijker te voorspellen zijn.',
+    s5Body2:
+      'Dit kan verklaren waarom cycli soms lang, onregelmatig of moeilijk te voorzien zijn.',
+    s5HighlightTitle: 'Je cyclus bijhouden',
+    s5HighlightText:
+      'Je menstruatiedata, symptomen en eventuele tekenen van de eisprong vastleggen kan je helpen je eigen patronen beter te begrijpen.',
+    s6Heading: 'PCOS en vruchtbaarheid',
+    s6Body1:
+      'Omdat de eisprong onregelmatig kan zijn, kunnen sommige vrouwen met PCOS meer moeite hebben om zwanger te worden.',
+    s6Body2:
+      'Dit betekent echter niet dat PCOS een zwangerschap automatisch verhindert. Veel vrouwen met PCOS raken op natuurlijke wijze of met passende medische ondersteuning zwanger.',
+    s6TipTitle: 'Om in gedachten te houden',
+    s6TipText:
+      'Moeite hebben om zwanger te worden betekent niet dat het onmogelijk is. Als je zwanger hoopt te worden, kan een huisarts of verloskundige een strategie voorstellen die bij je situatie past.',
+    s7Heading: 'PCOS en gewicht / stofwisseling',
+    s7Body1:
+      'PCOS kan samengaan met metabole veranderingen, waaronder insulineresistentie bij sommige vrouwen.',
+    s7Body2:
+      'Gewicht alleen kan PCOS echter niet vaststellen of uitsluiten. Een slanke vrouw kan PCOS hebben, net zoals een vrouw met overgewicht het misschien niet heeft.',
+    s7NeutralText:
+      'De opvolging moet de algehele gezondheid in aanmerking nemen, niet alleen het getal op de weegschaal.',
+    s8Heading: 'Huid, haar en lichaamsbeharing',
+    s8Body1:
+      'Een relatief teveel aan androgenen kan de talgklieren en haarfollikels beïnvloeden.',
+    s8Body2:
+      'Afhankelijk van de vrouw kan dit zich uiten als aanhoudende acne, toegenomen haargroei of haarverlies.',
+    s8Items: [
+      'Hormonale acne',
+      'Toegenomen gezichts- of lichaamsbeharing',
+      'Dunner wordend haar of haarverlies',
+    ],
+    s9Heading: 'Hoe wordt PCOS behandeld?',
+    s9Body1:
+      'Er is niet één enkele benadering van PCOS die voor elke vrouw werkt. De keuze hangt af van symptomen, doelen en medische omstandigheden.',
+    s9Body2:
+      'Het doel kan verschillen naargelang de levensfase: cycli regelen, bepaalde symptomen verbeteren, de metabole gezondheid beschermen of een kinderwens ondersteunen.',
+    s9MiniTitle: 'Gewoonten die de gezondheid ondersteunen',
+    s9Lifestyle: [
+      'Een gevarieerde, regelmatige voeding eten die bij je behoeften past',
+      'Regelmatig lichaamsbeweging doen die je op de lange termijn kunt volhouden',
+      'Voldoende regelmatige slaap behouden',
+      'Bijhouden hoe je cycli en symptomen in de loop van de tijd veranderen',
+      'Jezelf niet de schuld geven van veranderingen in gewicht of symptomen',
+    ],
+    s9Body3:
+      'Afhankelijk van je behoeften kan een zorgverlener ook behandelingen voorstellen voor bepaalde symptomen of om een kinderwens te ondersteunen.',
+    s9AlertTitle: 'Geen zelfmedicatie',
+    s9AlertText:
+      'Hormonale behandelingen, metabole medicijnen en voedingssupplementen moeten allemaal met een zorgverlener worden besproken.',
+    s10Heading: 'Veelvoorkomende misverstanden over PCOS',
+    s10Myths: [
+      'PCOS betekent altijd “cysten” hebben: de naam kan misleidend zijn. De diagnose berust niet alleen op de aanwezigheid van cysten.',
+      'Alle vrouwen met PCOS hebben overgewicht: PCOS kan vrouwen van alle lichaamstypes treffen.',
+      'PCOS verhindert altijd een zwangerschap: de eisprong kan onregelmatig zijn, maar zwangerschap blijft mogelijk.',
+      'Eén enkel symptoom is genoeg om PCOS vast te stellen: de diagnose vereist een volledig onderzoek.',
+      'PCOS verdwijnt gewoon met de leeftijd: hoe het zich uit kan in de loop van het leven veranderen, maar blijvende opvolging blijft belangrijk.',
+    ],
+    s11Heading: 'Wanneer een arts zien',
+    s11Body1:
+      'Medisch advies is vooral de moeite waard wanneer cycli zeer onregelmatig worden, enkele maanden uitblijven of wanneer ongewone symptomen verschijnen.',
+    s11ConsultItems: [
+      'Zeer onregelmatige of afwezige cycli',
+      'Ongewone acne of haargroei',
+      'Aanzienlijk haarverlies',
+      'Moeite om zwanger te worden',
+      'Snel veranderende symptomen',
+    ],
+    s12Heading: 'Belangrijkste punten',
+    s12SummaryTitle: 'De essentiële punten',
+    s12SummaryItems: [
+      'PCOS is een veelvoorkomende hormonale aandoening.',
+      'Het kan zich op veel verschillende manieren uiten.',
+      'Niet alle vrouwen met PCOS hebben dezelfde symptomen.',
+      'Gewicht alleen is niet genoeg om PCOS vast te stellen of uit te sluiten.',
+      'De diagnose vereist een volledig medisch onderzoek.',
+      'PCOS kan de eisprong en soms de vruchtbaarheid beïnvloeden.',
+      'Een gepersonaliseerde zorgbenadering helpt aan de behoeften van elke vrouw te voldoen.',
+    ],
+    finalNoteTitle: 'Een gids om beter te begrijpen',
+    finalNoteText:
+      'Dit artikel is bedoeld voor algemene informatie en vervangt geen medisch consult. Elke situatie is anders: vraag bij twijfel of als symptomen blijven bestaan advies aan een zorgverlener.',
+    shareMessage: 'PCOS begrijpen — AWA',
+  },
+  fi: {
+    badge: 'PCOS • PERUSOPAS',
+    title: 'PCOS:n\nymmärtäminen',
+    metaDuration: '10 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Opetussisältö',
+    intro:
+      'Monirakkulainen munasarjaoireyhtymä, jota usein kutsutaan PCOS:ksi, on yleinen hormonaalinen tila, joka voi vaikuttaa kiertoosi, ovulaatioon, ihoon, hiuksiin, aineenvaihduntaan ja joskus hedelmällisyyteen.',
+    introSecondary:
+      'Sen ilmenemismuoto vaihtelee paljon naisesta toiseen. PCOS:n ymmärtäminen auttaa ennen kaikkea tunnistamaan sen oireita, tietämään milloin hakea lääketieteellistä neuvoa ja seuraamaan sen kehitystä ilman itsesyytöksiä.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mikä on PCOS?',
+      'Miksi PCOS syntyy?',
+      'Tärkeimmät merkit',
+      'Miten se diagnosoidaan?',
+      'PCOS ja ovulaatio',
+      'PCOS ja hedelmällisyys',
+      'PCOS ja paino / aineenvaihdunta',
+      'Iho, hiukset ja karvoitus',
+      'Miten PCOS:ää hoidetaan?',
+      'Yleiset väärinkäsitykset',
+      'Milloin mennä lääkäriin',
+      'Tärkeimmät asiat',
+    ],
+    s1Heading: 'Mikä on PCOS?',
+    s1Body1:
+      'Monirakkulainen munasarjaoireyhtymä (PCOS) on yleinen hormonaalinen tila, joka voi muuttaa munasarjojen tavanomaista toimintaa ja tiettyjen hormonien tasapainoa.',
+    s1Body2:
+      'Joillekin naisille pääasiallinen ongelma on epäsäännöllinen ovulaatio. Toisilla akne, liiallinen karvankasvu, hiustenlähtö tai aineenvaihdunnalliset merkit nousevat esiin ensin.',
+    s1TipTitle: 'Hyvä tietää',
+    s1TipText:
+      'Nimestään huolimatta PCOS ei välttämättä tarkoita, että munasarjoissa olisi “kystia”. Historiallinen termi voi olla harhaanjohtava, eikä pelkkä ultraääni riitä diagnoosin tekemiseen.',
+    s2Heading: 'Miksi PCOS syntyy?',
+    s2Body1:
+      'PCOS:lle ei ole yhtä ainoaa syytä. Se näyttää johtuvan useista tekijöistä, jotka voivat yhdistyä: perinnöllinen alttius, hormonaalinen toiminta, ovulaatio, aineenvaihdunta ja yksilölliset tekijät.',
+    s2Factors: [
+      'Perinnöllinen alttius ja geneettiset tekijät',
+      'Ovulaation häiriöt',
+      'Suhteellinen androgeenien liika',
+      'Insuliiniresistenssi joillakin naisilla',
+      'Aineenvaihdunnalliset ja ympäristötekijät',
+    ],
+    s2NeutralText:
+      'PCOS ei ole henkilökohtainen epäonnistuminen. Se ei johdu pelkästään tahdonvoiman puutteesta, huonosta ruokavaliosta tai riittämättömästä liikunnasta.',
+    s3Heading: 'Tärkeimmät merkit',
+    s3Body1:
+      'PCOS voi ilmetä hyvin eri tavoin naisesta toiseen. Joillakin on useita oireita, toiset huomaavat hyvin vähän.',
+    s3Signs: [
+      'Epäsäännölliset, harvat tai joskus puuttuvat kierrot',
+      'Epäsäännöllinen tai vaikeasti ennustettava ovulaatio',
+      'Pitkäaikainen akne, erityisesti kasvojen alaosassa',
+      'Lisääntynyt karvankasvu kasvoilla, rinnassa tai vartalolla',
+      'Hormonaalisen kaavan mukainen hiustenlähtö',
+      'Painonnousu tai vaikeus pudottaa painoa',
+      'Vaikeudet tulla raskaaksi',
+    ],
+    s3AlertTitle: 'Tärkeää',
+    s3AlertText:
+      'Yhden näistä oireista omaaminen ei automaattisesti tarkoita, että sinulla on PCOS. Useat muut tilat voivat aiheuttaa samankaltaisia oireita.',
+    s4Heading: 'Miten se diagnosoidaan?',
+    s4Body1:
+      'PCOS:n diagnosointi on lääketieteellinen prosessi. Terveydenhuollon tarjoaja aloittaa yleensä keskustelemalla kierroistasi, oireistasi, sairaushistoriastasi ja käyttämistäsi hoidoista.',
+    s4Body2:
+      'Tilanteesta riippuen voidaan tarjota myös hormonaalisia verikokeita ja ultraääntä.',
+    s4Points: [
+      'Epäsäännölliset kierrot tai harvinainen ovulaatio',
+      'Merkit liiallisesta androgeenien määrästä: akne, liiallinen karvankasvu, hiustenlähtö tai verikoetulokset',
+      'PCOS:ään sopiva munasarjojen ulkonäkö ultraäänessä, kun tämä tutkimus on aiheellinen',
+    ],
+    s4Body3:
+      'Lääkärin on myös suljettava pois muut mahdolliset epäsäännöllisten kiertojen tai liiallisen androgeenien määrän syyt ennen PCOS-diagnoosin vahvistamista.',
+    s5Heading: 'PCOS ja ovulaatio',
+    s5Body1:
+      'Ovulaatio on munasolun (oosyytin) vapautuminen munasarjasta. PCOS:ssa ovulaatio voi olla harvinaisempaa tai vaikeammin ennustettavaa.',
+    s5Body2:
+      'Tämä voi selittää, miksi kierrot ovat joskus pitkiä, epäsäännöllisiä tai vaikeasti ennakoitavia.',
+    s5HighlightTitle: 'Kiertosi seuranta',
+    s5HighlightText:
+      'Kuukautistesi päivämäärien, oireidesi ja mahdollisten ovulaation merkkien kirjaaminen voi auttaa ymmärtämään omia kaavojasi paremmin.',
+    s6Heading: 'PCOS ja hedelmällisyys',
+    s6Body1:
+      'Koska ovulaatio voi olla epäsäännöllistä, joillakin PCOS:ää sairastavilla naisilla voi olla enemmän vaikeuksia tulla raskaaksi.',
+    s6Body2:
+      'Tämä ei kuitenkaan tarkoita, että PCOS automaattisesti estäisi raskauden. Monet PCOS:ää sairastavat naiset tulevat raskaaksi luonnollisesti tai asianmukaisella lääketieteellisellä tuella.',
+    s6TipTitle: 'Pidä mielessä',
+    s6TipText:
+      'Raskaaksi tulemisen vaikeus ei tarkoita, että se olisi mahdotonta. Jos toivot tulevasi raskaaksi, lääkäri tai kätilö voi ehdottaa tilanteeseesi sopivaa strategiaa.',
+    s7Heading: 'PCOS ja paino / aineenvaihdunta',
+    s7Body1:
+      'PCOS voi liittyä aineenvaihdunnallisiin muutoksiin, mukaan lukien insuliiniresistenssi joillakin naisilla.',
+    s7Body2:
+      'Paino yksin ei kuitenkaan voi diagnosoida tai sulkea pois PCOS:ää. Hoikalla naisella voi olla PCOS, aivan kuten ylipainoisella naisella ei välttämättä ole.',
+    s7NeutralText:
+      'Seurannassa tulisi ottaa huomioon kokonaisterveys, ei pelkkää vaa’an lukemaa.',
+    s8Heading: 'Iho, hiukset ja karvoitus',
+    s8Body1:
+      'Suhteellinen androgeenien liika voi vaikuttaa talirauhasiin ja karvatuppiin.',
+    s8Body2:
+      'Naisesta riippuen tämä voi ilmetä pitkäaikaisena aknena, lisääntyneenä karvankasvuna tai hiustenlähtönä.',
+    s8Items: [
+      'Hormonaalinen akne',
+      'Lisääntynyt kasvojen tai vartalon karvoitus',
+      'Ohentuvat hiukset tai hiustenlähtö',
+    ],
+    s9Heading: 'Miten PCOS:ää hoidetaan?',
+    s9Body1:
+      'PCOS:n hoitoon ei ole yhtä lähestymistapaa, joka toimisi jokaiselle naiselle. Valinta riippuu oireista, tavoitteista ja lääketieteellisistä olosuhteista.',
+    s9Body2:
+      'Tavoite voi vaihdella elämänvaiheen mukaan: kiertojen säännöllistäminen, tiettyjen oireiden parantaminen, aineenvaihduntaterveyden suojaaminen tai raskaussuunnitelman tukeminen.',
+    s9MiniTitle: 'Terveyttä tukevat tavat',
+    s9Lifestyle: [
+      'Monipuolisen, säännöllisen tarpeisiisi sopivan ruokavalion noudattaminen',
+      'Säännöllinen liikunta, jota voit ylläpitää pitkällä aikavälillä',
+      'Riittävän säännöllisen unen ylläpito',
+      'Kiertojesi ja oireidesi muutosten seuraaminen ajan myötä',
+      'Itsesi syyttämättä jättäminen painon tai oireiden muutoksista',
+    ],
+    s9Body3:
+      'Tarpeistasi riippuen terveydenhuollon tarjoaja voi myös tarjota hoitoja tiettyihin oireisiin tai raskaussuunnitelman tukemiseen.',
+    s9AlertTitle: 'Ei itsehoitoa',
+    s9AlertText:
+      'Hormonihoidoista, aineenvaihduntalääkkeistä ja ravintolisistä on kaikista keskusteltava terveydenhuollon tarjoajan kanssa.',
+    s10Heading: 'Yleiset väärinkäsitykset PCOS:stä',
+    s10Myths: [
+      'PCOS tarkoittaa aina “kystien” omaamista: nimi voi olla harhaanjohtava. Diagnoosi ei perustu pelkästään kystien esiintymiseen.',
+      'Kaikki PCOS:ää sairastavat naiset ovat ylipainoisia: PCOS voi koskettaa kaikkia ruumiinrakenteita.',
+      'PCOS estää aina raskauden: ovulaatio voi olla epäsäännöllistä, mutta raskaus on edelleen mahdollinen.',
+      'Yksi oire riittää PCOS:n diagnosointiin: diagnoosi vaatii kattavan arvion.',
+      'PCOS yksinkertaisesti häviää iän myötä: sen ilmenemismuoto voi muuttua elämän aikana, mutta jatkuva seuranta on edelleen tärkeää.',
+    ],
+    s11Heading: 'Milloin mennä lääkäriin',
+    s11Body1:
+      'Lääketieteellinen neuvonta on erityisen hyödyllistä, kun kierrot muuttuvat hyvin epäsäännöllisiksi, lakkaavat useiksi kuukausiksi tai kun ilmaantuu epätavallisia oireita.',
+    s11ConsultItems: [
+      'Hyvin epäsäännölliset tai puuttuvat kierrot',
+      'Epätavallinen akne tai karvankasvu',
+      'Merkittävä hiustenlähtö',
+      'Vaikeudet tulla raskaaksi',
+      'Nopeasti muuttuvat oireet',
+    ],
+    s12Heading: 'Tärkeimmät asiat',
+    s12SummaryTitle: 'Olennaiset kohdat',
+    s12SummaryItems: [
+      'PCOS on yleinen hormonaalinen tila.',
+      'Se voi ilmetä monin eri tavoin.',
+      'Kaikilla PCOS:ää sairastavilla naisilla ei ole samoja oireita.',
+      'Paino yksin ei riitä PCOS:n diagnosointiin tai poissulkemiseen.',
+      'Diagnoosi vaatii kattavan lääketieteellisen arvion.',
+      'PCOS voi vaikuttaa ovulaatioon ja joskus hedelmällisyyteen.',
+      'Henkilökohtainen hoitotapa auttaa vastaamaan jokaisen naisen tarpeisiin.',
+    ],
+    finalNoteTitle: 'Opas ymmärtämisen tueksi',
+    finalNoteText:
+      'Tämä artikkeli on tarkoitettu yleiseksi tiedoksi eikä korvaa lääkärin vastaanottoa. Jokainen tilanne on erilainen: epäselvässä tilanteessa tai oireiden jatkuessa pyydä neuvoa terveydenhuollon ammattilaiselta.',
+    shareMessage: 'PCOS:n ymmärtäminen — AWA',
+  },
+  el: {
+    badge: 'PCOS • ΒΑΣΙΚΟΣ ΟΔΗΓΟΣ',
+    title: 'Κατανοώντας\nτο PCOS',
+    metaDuration: '10 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Εκπαιδευτικό περιεχόμενο',
+    intro:
+      'Το σύνδρομο πολυκυστικών ωοθηκών, που συχνά ονομάζεται PCOS, είναι μια συχνή ορμονική πάθηση που μπορεί να επηρεάσει τους κύκλους, την ωορρηξία, το δέρμα, τα μαλλιά, τον μεταβολισμό και μερικές φορές τη γονιμότητά σου.',
+    introSecondary:
+      'Ο τρόπος που εκδηλώνεται διαφέρει πολύ από γυναίκα σε γυναίκα. Η κατανόηση του PCOS σε βοηθά κυρίως να αναγνωρίζεις τα συμπτώματά του, να ξέρεις πότε να ζητήσεις ιατρική συμβουλή και να παρακολουθείς την εξέλιξή του χωρίς αυτοκατηγορία.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι το PCOS;',
+      'Γιατί εμφανίζεται το PCOS;',
+      'Τα κύρια σημάδια',
+      'Πώς διαγιγνώσκεται;',
+      'PCOS και ωορρηξία',
+      'PCOS και γονιμότητα',
+      'PCOS και βάρος / μεταβολισμός',
+      'Δέρμα, μαλλιά και τρίχωμα',
+      'Πώς αντιμετωπίζεται το PCOS;',
+      'Συχνές παρανοήσεις',
+      'Πότε να επισκεφθείς γιατρό',
+      'Βασικά συμπεράσματα',
+    ],
+    s1Heading: 'Τι είναι το PCOS;',
+    s1Body1:
+      'Το σύνδρομο πολυκυστικών ωοθηκών (PCOS) είναι μια συχνή ορμονική πάθηση που μπορεί να αλλάξει τη συνηθισμένη λειτουργία των ωοθηκών και την ισορροπία ορισμένων ορμονών.',
+    s1Body2:
+      'Για ορισμένες γυναίκες, το κύριο πρόβλημα είναι η ακανόνιστη ωορρηξία. Για άλλες, η ακμή, η υπερβολική τριχοφυΐα, η τριχόπτωση ή τα μεταβολικά σημάδια είναι αυτά που ξεχωρίζουν πρώτα.',
+    s1TipTitle: 'Καλό είναι να γνωρίζεις',
+    s1TipText:
+      'Παρά το όνομά του, το PCOS δεν σημαίνει αναγκαστικά ότι οι ωοθήκες περιέχουν «κύστεις». Ο ιστορικός όρος μπορεί να παραπλανά και ένα υπερηχογράφημα από μόνο του δεν αρκεί για να τεθεί η διάγνωση.',
+    s2Heading: 'Γιατί εμφανίζεται το PCOS;',
+    s2Body1:
+      'Δεν υπάρχει μία μόνο αιτία του PCOS. Φαίνεται να προκύπτει από αρκετούς παράγοντες που μπορούν να συνδυάζονται: οικογενής προδιάθεση, ορμονική λειτουργία, ωορρηξία, μεταβολισμός και ατομικοί παράγοντες.',
+    s2Factors: [
+      'Οικογενής προδιάθεση και γενετικοί παράγοντες',
+      'Διαταραχές στην ωορρηξία',
+      'Σχετική περίσσεια ανδρογόνων',
+      'Αντίσταση στην ινσουλίνη σε ορισμένες γυναίκες',
+      'Μεταβολικοί και περιβαλλοντικοί παράγοντες',
+    ],
+    s2NeutralText:
+      'Το PCOS δεν είναι προσωπική αποτυχία. Δεν προκύπτει απλώς από έλλειψη θέλησης, κακή διατροφή ή ανεπαρκή σωματική δραστηριότητα.',
+    s3Heading: 'Τα κύρια σημάδια',
+    s3Body1:
+      'Το PCOS μπορεί να εκδηλώνεται πολύ διαφορετικά από γυναίκα σε γυναίκα. Ορισμένες έχουν αρκετά συμπτώματα, ενώ άλλες παρατηρούν πολύ λίγα.',
+    s3Signs: [
+      'Ακανόνιστοι, αραιοί ή μερικές φορές απόντες κύκλοι',
+      'Ακανόνιστη ή δύσκολα προβλέψιμη ωορρηξία',
+      'Επίμονη ακμή, ιδίως στο κάτω μέρος του προσώπου',
+      'Αυξημένη τριχοφυΐα στο πρόσωπο, στο στήθος ή στο σώμα',
+      'Τριχόπτωση ορμονικού τύπου',
+      'Αύξηση βάρους ή δυσκολία στην απώλεια βάρους',
+      'Δυσκολία στη σύλληψη',
+    ],
+    s3AlertTitle: 'Σημαντικό',
+    s3AlertText:
+      'Το να έχεις ένα από αυτά τα συμπτώματα δεν σημαίνει αυτόματα ότι έχεις PCOS. Αρκετές άλλες παθήσεις μπορούν να προκαλέσουν παρόμοια συμπτώματα.',
+    s4Heading: 'Πώς διαγιγνώσκεται;',
+    s4Body1:
+      'Η διάγνωση του PCOS είναι μια ιατρική διαδικασία. Ένας επαγγελματίας υγείας συνήθως ξεκινά συζητώντας για τους κύκλους, τα συμπτώματα, το ιατρικό ιστορικό και τυχόν θεραπείες που παίρνεις.',
+    s4Body2:
+      'Ανάλογα με την περίπτωση, μπορεί επίσης να προταθούν ορμονικές εξετάσεις αίματος και ένα υπερηχογράφημα.',
+    s4Points: [
+      'Ακανόνιστοι κύκλοι ή σπάνια ωορρηξία',
+      'Σημάδια περίσσειας ανδρογόνων: ακμή, υπερβολική τριχοφυΐα, τριχόπτωση ή αποτελέσματα εξετάσεων αίματος',
+      'Εμφάνιση των ωοθηκών συμβατή με PCOS στο υπερηχογράφημα, όταν αυτή η εξέταση ενδείκνυται',
+    ],
+    s4Body3:
+      'Ο γιατρός πρέπει επίσης να αποκλείσει άλλες πιθανές αιτίες ακανόνιστων κύκλων ή περίσσειας ανδρογόνων πριν επιβεβαιώσει μια διάγνωση PCOS.',
+    s5Heading: 'PCOS και ωορρηξία',
+    s5Body1:
+      'Η ωορρηξία είναι η απελευθέρωση ενός ωαρίου (ωοκυττάρου) από την ωοθήκη. Στο PCOS, η ωορρηξία μπορεί να είναι πιο σπάνια ή πιο δύσκολη στην πρόβλεψη.',
+    s5Body2:
+      'Αυτό μπορεί να εξηγήσει γιατί οι κύκλοι είναι μερικές φορές μεγάλοι, ακανόνιστοι ή δύσκολο να προβλεφθούν.',
+    s5HighlightTitle: 'Παρακολούθηση του κύκλου σου',
+    s5HighlightText:
+      'Η καταγραφή των ημερομηνιών της περιόδου σου, των συμπτωμάτων και τυχόν σημαδιών ωορρηξίας μπορεί να σε βοηθήσει να κατανοήσεις καλύτερα τα δικά σου μοτίβα.',
+    s6Heading: 'PCOS και γονιμότητα',
+    s6Body1:
+      'Επειδή η ωορρηξία μπορεί να είναι ακανόνιστη, ορισμένες γυναίκες με PCOS μπορεί να δυσκολεύονται περισσότερο να συλλάβουν.',
+    s6Body2:
+      'Αυτό δεν σημαίνει, ωστόσο, ότι το PCOS εμποδίζει αυτόματα την εγκυμοσύνη. Πολλές γυναίκες με PCOS συλλαμβάνουν φυσικά ή με κατάλληλη ιατρική στήριξη.',
+    s6TipTitle: 'Να το έχεις υπόψη',
+    s6TipText:
+      'Η δυσκολία στη σύλληψη δεν σημαίνει ότι είναι αδύνατη. Αν ελπίζεις να μείνεις έγκυος, ένας γιατρός ή μια μαία μπορεί να προτείνει μια στρατηγική προσαρμοσμένη στην κατάστασή σου.',
+    s7Heading: 'PCOS και βάρος / μεταβολισμός',
+    s7Body1:
+      'Το PCOS μπορεί να συνδέεται με μεταβολικές αλλαγές, μεταξύ των οποίων αντίσταση στην ινσουλίνη σε ορισμένες γυναίκες.',
+    s7Body2:
+      'Ωστόσο, το βάρος από μόνο του δεν μπορεί να διαγνώσει ή να αποκλείσει το PCOS. Μια λεπτή γυναίκα μπορεί να έχει PCOS, όπως ακριβώς μια γυναίκα με υπερβολικό βάρος μπορεί να μην έχει.',
+    s7NeutralText:
+      'Η παρακολούθηση πρέπει να λαμβάνει υπόψη τη γενική υγεία, όχι μόνο τον αριθμό στη ζυγαριά.',
+    s8Heading: 'Δέρμα, μαλλιά και τρίχωμα',
+    s8Body1:
+      'Η σχετική περίσσεια ανδρογόνων μπορεί να επηρεάσει τους σμηγματογόνους αδένες και τους τριχοθύλακες.',
+    s8Body2:
+      'Ανάλογα με τη γυναίκα, αυτό μπορεί να εκδηλωθεί ως επίμονη ακμή, αυξημένη τριχοφυΐα ή τριχόπτωση.',
+    s8Items: [
+      'Ορμονική ακμή',
+      'Αυξημένη τριχοφυΐα στο πρόσωπο ή στο σώμα',
+      'Αραίωση μαλλιών ή τριχόπτωση',
+    ],
+    s9Heading: 'Πώς αντιμετωπίζεται το PCOS;',
+    s9Body1:
+      'Δεν υπάρχει μία μόνο προσέγγιση για τη διαχείριση του PCOS που να λειτουργεί για κάθε γυναίκα. Η επιλογή εξαρτάται από τα συμπτώματα, τους στόχους και τις ιατρικές συνθήκες.',
+    s9Body2:
+      'Ο στόχος μπορεί να διαφέρει ανάλογα με το στάδιο της ζωής: ρύθμιση των κύκλων, βελτίωση ορισμένων συμπτωμάτων, προστασία της μεταβολικής υγείας ή στήριξη ενός σχεδίου εγκυμοσύνης.',
+    s9MiniTitle: 'Συνήθειες που στηρίζουν την υγεία',
+    s9Lifestyle: [
+      'Ποικίλη, τακτική διατροφή προσαρμοσμένη στις ανάγκες σου',
+      'Τακτική σωματική δραστηριότητα που μπορείς να διατηρήσεις με τον καιρό',
+      'Αρκετά τακτικός ύπνος',
+      'Παρακολούθηση της εξέλιξης των κύκλων και των συμπτωμάτων σου με τον καιρό',
+      'Να μην κατηγορείς τον εαυτό σου για αλλαγές στο βάρος ή στα συμπτώματα',
+    ],
+    s9Body3:
+      'Ανάλογα με τις ανάγκες σου, ένας επαγγελματίας υγείας μπορεί επίσης να προτείνει θεραπείες για ορισμένα συμπτώματα ή για τη στήριξη ενός σχεδίου εγκυμοσύνης.',
+    s9AlertTitle: 'Όχι αυτοθεραπεία',
+    s9AlertText:
+      'Οι ορμονικές θεραπείες, τα μεταβολικά φάρμακα και τα συμπληρώματα διατροφής πρέπει όλα να συζητιούνται με έναν επαγγελματία υγείας.',
+    s10Heading: 'Συχνές παρανοήσεις για το PCOS',
+    s10Myths: [
+      'Το PCOS σημαίνει πάντα ότι έχεις «κύστεις»: το όνομα μπορεί να παραπλανά. Η διάγνωση δεν βασίζεται μόνο στην παρουσία κύστεων.',
+      'Όλες οι γυναίκες με PCOS έχουν υπερβολικό βάρος: το PCOS μπορεί να επηρεάσει γυναίκες κάθε σωματότυπου.',
+      'Το PCOS εμποδίζει πάντα την εγκυμοσύνη: η ωορρηξία μπορεί να είναι ακανόνιστη, αλλά η εγκυμοσύνη παραμένει δυνατή.',
+      'Ένα μόνο σύμπτωμα αρκεί για τη διάγνωση του PCOS: η διάγνωση απαιτεί πλήρη αξιολόγηση.',
+      'Το PCOS απλώς περνά με την ηλικία: ο τρόπος εκδήλωσής του μπορεί να αλλάζει σε όλη τη ζωή, αλλά η συνεχής παρακολούθηση παραμένει σημαντική.',
+    ],
+    s11Heading: 'Πότε να επισκεφθείς γιατρό',
+    s11Body1:
+      'Η ιατρική συμβουλή αξίζει ιδιαίτερα όταν οι κύκλοι γίνονται πολύ ακανόνιστοι, σταματούν για αρκετούς μήνες ή όταν εμφανίζονται ασυνήθιστα συμπτώματα.',
+    s11ConsultItems: [
+      'Πολύ ακανόνιστοι ή απόντες κύκλοι',
+      'Ασυνήθιστη ακμή ή τριχοφυΐα',
+      'Σημαντική τριχόπτωση',
+      'Δυσκολία στη σύλληψη',
+      'Συμπτώματα που αλλάζουν γρήγορα',
+    ],
+    s12Heading: 'Βασικά συμπεράσματα',
+    s12SummaryTitle: 'Τα βασικά σημεία',
+    s12SummaryItems: [
+      'Το PCOS είναι μια συχνή ορμονική πάθηση.',
+      'Μπορεί να εκδηλώνεται με πολλούς διαφορετικούς τρόπους.',
+      'Δεν έχουν όλες οι γυναίκες με PCOS τα ίδια συμπτώματα.',
+      'Το βάρος από μόνο του δεν αρκεί για να διαγνώσει ή να αποκλείσει το PCOS.',
+      'Η διάγνωση απαιτεί πλήρη ιατρική αξιολόγηση.',
+      'Το PCOS μπορεί να επηρεάσει την ωορρηξία και μερικές φορές τη γονιμότητα.',
+      'Μια εξατομικευμένη προσέγγιση φροντίδας βοηθά να καλυφθούν οι ανάγκες κάθε γυναίκας.',
+    ],
+    finalNoteTitle: 'Ένας οδηγός για καλύτερη κατανόηση',
+    finalNoteText:
+      'Αυτό το άρθρο προορίζεται για γενική ενημέρωση και δεν αντικαθιστά μια ιατρική επίσκεψη. Κάθε περίπτωση είναι διαφορετική: αν έχεις αμφιβολίες ή αν τα συμπτώματα επιμένουν, ζήτησε συμβουλή από έναν επαγγελματία υγείας.',
+    shareMessage: 'Κατανοώντας το PCOS — AWA',
+  },
+  fil: {
+    badge: 'PCOS • PANGUNAHING GABAY',
+    title: 'Pag-unawa sa\nPCOS',
+    metaDuration: '10 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Pang-edukasyong nilalaman',
+    intro:
+      'Ang polycystic ovary syndrome, na madalas tawaging PCOS, ay karaniwang hormonal na kondisyon na maaaring makaapekto sa iyong mga siklo, obulasyon, balat, buhok, metabolismo, at minsan pagkamayabong.',
+    introSecondary:
+      'Lubhang nag-iiba ang paglitaw nito sa bawat babae. Ang pag-unawa sa PCOS ay pangunahing tumutulong na makilala ang mga sintomas nito, malaman kung kailan hihingi ng payong medikal, at subaybayan ang pag-usad nito nang walang pagsisisi sa sarili.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang PCOS?',
+      'Bakit nangyayari ang PCOS?',
+      'Ang mga pangunahing senyales',
+      'Paano ito dina-diagnose?',
+      'PCOS at obulasyon',
+      'PCOS at pagkamayabong',
+      'PCOS at timbang / metabolismo',
+      'Balat, buhok, at balahibo sa katawan',
+      'Paano pinangangasiwaan ang PCOS?',
+      'Mga karaniwang maling akala',
+      'Kailan magpapatingin sa doktor',
+      'Mahahalagang tandaan',
+    ],
+    s1Heading: 'Ano ang PCOS?',
+    s1Body1:
+      'Ang polycystic ovary syndrome (PCOS) ay karaniwang hormonal na kondisyon na maaaring magbago sa karaniwang paggana ng mga obaryo at sa balanse ng ilang hormone.',
+    s1Body2:
+      'Para sa ilang babae, ang pangunahing isyu ay ang hindi regular na obulasyon. Para sa iba, tigyawat, labis na pagtubo ng buhok, pagkalagas ng buhok, o mga metabolic na senyales ang unang namumukod-tangi.',
+    s1TipTitle: 'Mabuting malaman',
+    s1TipText:
+      'Sa kabila ng pangalan nito, hindi kinakailangang nangangahulugang may “cyst” ang mga obaryo sa PCOS. Maaaring nakalilito ang makasaysayang terminong ito, at hindi sapat ang ultrasound lamang upang gawin ang diagnosis.',
+    s2Heading: 'Bakit nangyayari ang PCOS?',
+    s2Body1:
+      'Walang iisang sanhi ang PCOS. Tila bunga ito ng ilang salik na maaaring magsama: predisposisyon sa pamilya, hormonal na paggana, obulasyon, metabolismo, at mga indibidwal na salik.',
+    s2Factors: [
+      'Predisposisyon sa pamilya at mga genetic na salik',
+      'Mga gambala sa obulasyon',
+      'Relatibong labis na androgen',
+      'Insulin resistance sa ilang babae',
+      'Mga metabolic at pangkapaligirang salik',
+    ],
+    s2NeutralText:
+      'Hindi personal na pagkukulang ang PCOS. Hindi lamang ito bunga ng kakulangan sa lakas ng loob, hindi magandang pagkain, o hindi sapat na pisikal na aktibidad.',
+    s3Heading: 'Ang mga pangunahing senyales',
+    s3Body1:
+      'Maaaring lumitaw nang napakaiba ang PCOS sa bawat babae. May ilang may maraming sintomas, habang ang iba ay may napakakaunting napapansin.',
+    s3Signs: [
+      'Hindi regular, malalayo ang pagitan, o minsan walang mga siklo',
+      'Hindi regular o mahirap hulaang obulasyon',
+      'Patuloy na tigyawat, partikular sa ibabang bahagi ng mukha',
+      'Mas maraming pagtubo ng buhok sa mukha, dibdib, o katawan',
+      'Pagkalagas ng buhok na may hormonal na pattern',
+      'Pagtaba o hirap magbawas ng timbang',
+      'Hirap magbuntis',
+    ],
+    s3AlertTitle: 'Mahalaga',
+    s3AlertText:
+      'Ang pagkakaroon ng isa sa mga sintomas na ito ay hindi awtomatikong nangangahulugang may PCOS ka. Maraming iba pang kondisyon ang maaaring magdulot ng magkakahawig na sintomas.',
+    s4Heading: 'Paano ito dina-diagnose?',
+    s4Body1:
+      'Medikal na proseso ang pag-diagnose ng PCOS. Karaniwang nagsisimula ang tagapagbigay ng pangangalagang pangkalusugan sa pakikipag-usap tungkol sa iyong mga siklo, sintomas, kasaysayang medikal, at anumang paggamot na iniinom mo.',
+    s4Body2:
+      'Depende sa sitwasyon, maaari ring ialok ang mga hormonal na pagsusuri ng dugo at ultrasound.',
+    s4Points: [
+      'Hindi regular na mga siklo o madalang na obulasyon',
+      'Mga senyales ng labis na androgen: tigyawat, labis na pagtubo ng buhok, pagkalagas ng buhok, o resulta ng pagsusuri ng dugo',
+      'Itsura ng obaryo na tugma sa PCOS sa ultrasound, kapag ipinahiwatig ang eksaminasyong ito',
+    ],
+    s4Body3:
+      'Dapat ding alisin ng doktor ang iba pang posibleng sanhi ng hindi regular na mga siklo o labis na androgen bago kumpirmahin ang diagnosis ng PCOS.',
+    s5Heading: 'PCOS at obulasyon',
+    s5Body1:
+      'Ang obulasyon ay ang paglabas ng itlog (oocyte) mula sa obaryo. Sa PCOS, maaaring mas madalang o mas mahirap hulaan ang obulasyon.',
+    s5Body2:
+      'Maaari nitong ipaliwanag kung bakit minsan mahaba, hindi regular, o mahirap asahan ang mga siklo.',
+    s5HighlightTitle: 'Pagsubaybay sa iyong siklo',
+    s5HighlightText:
+      'Ang pagtatala ng mga petsa ng regla, mga sintomas, at anumang senyales ng obulasyon ay makakatulong na mas maunawaan ang sarili mong mga pattern.',
+    s6Heading: 'PCOS at pagkamayabong',
+    s6Body1:
+      'Dahil maaaring hindi regular ang obulasyon, ang ilang babaeng may PCOS ay maaaring mas mahirapang magbuntis.',
+    s6Body2:
+      'Hindi ito nangangahulugan, gayunpaman, na awtomatikong pinipigilan ng PCOS ang pagbubuntis. Maraming babaeng may PCOS ang nagbubuntis nang natural o sa tulong ng angkop na medikal na suporta.',
+    s6TipTitle: 'Tandaan',
+    s6TipText:
+      'Ang hirap magbuntis ay hindi nangangahulugang imposible. Kung umaasa kang magbuntis, maaaring magmungkahi ang doktor o midwife ng estratehiyang angkop sa iyong sitwasyon.',
+    s7Heading: 'PCOS at timbang / metabolismo',
+    s7Body1:
+      'Maaaring iugnay ang PCOS sa mga metabolic na pagbabago, kabilang ang insulin resistance sa ilang babae.',
+    s7Body2:
+      'Gayunpaman, hindi kayang mag-diagnose o magtanggi ng PCOS ang timbang lamang. Ang payat na babae ay maaaring magkaroon ng PCOS, tulad ng babaeng sobra ang timbang na maaaring wala nito.',
+    s7NeutralText:
+      'Dapat isaalang-alang ng pagsubaybay ang pangkalahatang kalusugan, hindi lamang ang numero sa timbangan.',
+    s8Heading: 'Balat, buhok, at balahibo sa katawan',
+    s8Body1:
+      'Ang relatibong labis na androgen ay maaaring makaapekto sa mga sebaceous gland at follicle ng buhok.',
+    s8Body2:
+      'Depende sa babae, maaari itong lumitaw bilang patuloy na tigyawat, mas maraming pagtubo ng buhok, o pagkalagas ng buhok.',
+    s8Items: [
+      'Hormonal na tigyawat',
+      'Mas maraming buhok sa mukha o katawan',
+      'Pagnipis o pagkalagas ng buhok',
+    ],
+    s9Heading: 'Paano pinangangasiwaan ang PCOS?',
+    s9Body1:
+      'Walang iisang pamamaraan sa pangangasiwa ng PCOS na gumagana para sa bawat babae. Nakadepende ang pagpili sa mga sintomas, layunin, at medikal na kalagayan.',
+    s9Body2:
+      'Maaaring magkaiba ang layunin depende sa yugto ng buhay: pag-regulate ng mga siklo, pagpapabuti ng ilang sintomas, pagprotekta sa metabolic na kalusugan, o pagsuporta sa plano ng pagbubuntis.',
+    s9MiniTitle: 'Mga gawing sumusuporta sa kalusugan',
+    s9Lifestyle: [
+      'Pagkain ng iba’t ibang uri ng pagkain nang regular at angkop sa iyong pangangailangan',
+      'Pagsasagawa ng regular na pisikal na aktibidad na kaya mong ipagpatuloy sa paglipas ng panahon',
+      'Pagpapanatili ng sapat na regular na tulog',
+      'Pagsubaybay kung paano nagbabago ang iyong mga siklo at sintomas sa paglipas ng panahon',
+      'Hindi pagsisi sa sarili sa mga pagbabago sa timbang o sintomas',
+    ],
+    s9Body3:
+      'Depende sa iyong pangangailangan, maaari ring mag-alok ang tagapagbigay ng pangangalagang pangkalusugan ng mga paggamot para sa ilang sintomas o para suportahan ang plano ng pagbubuntis.',
+    s9AlertTitle: 'Huwag gumamot sa sarili',
+    s9AlertText:
+      'Ang mga hormonal na paggamot, metabolic na gamot, at dietary supplement ay dapat talakayin lahat sa tagapagbigay ng pangangalagang pangkalusugan.',
+    s10Heading: 'Mga karaniwang maling akala tungkol sa PCOS',
+    s10Myths: [
+      'Ang PCOS ay laging nangangahulugang may “cyst”: maaaring nakalilito ang pangalan. Hindi lamang sa presensya ng mga cyst nakabatay ang diagnosis.',
+      'Sobra ang timbang ng lahat ng babaeng may PCOS: maaaring makaapekto ang PCOS sa mga babaeng may anumang uri ng katawan.',
+      'Laging pinipigilan ng PCOS ang pagbubuntis: maaaring hindi regular ang obulasyon, ngunit posible pa rin ang pagbubuntis.',
+      'Sapat na ang iisang sintomas para ma-diagnose ang PCOS: nangangailangan ang diagnosis ng komprehensibong pagsusuri.',
+      'Basta nawawala ang PCOS pag-edad: maaaring magbago ang paglitaw nito sa buong buhay, ngunit nananatiling mahalaga ang patuloy na pagsubaybay.',
+    ],
+    s11Heading: 'Kailan magpapatingin sa doktor',
+    s11Body1:
+      'Lalong sulit ang medikal na payo kapag nagiging napakahindi regular ang mga siklo, huminto nang ilang buwan, o kapag lumitaw ang hindi pangkaraniwang mga sintomas.',
+    s11ConsultItems: [
+      'Napakahindi regular o walang mga siklo',
+      'Hindi pangkaraniwang tigyawat o pagtubo ng buhok',
+      'Malaking pagkalagas ng buhok',
+      'Hirap magbuntis',
+      'Mabilis na nagbabagong mga sintomas',
+    ],
+    s12Heading: 'Mahahalagang tandaan',
+    s12SummaryTitle: 'Ang mahahalagang punto',
+    s12SummaryItems: [
+      'Ang PCOS ay karaniwang hormonal na kondisyon.',
+      'Maaari itong lumitaw sa maraming iba’t ibang paraan.',
+      'Hindi pare-pareho ang sintomas ng lahat ng babaeng may PCOS.',
+      'Hindi sapat ang timbang lamang upang ma-diagnose o matanggi ang PCOS.',
+      'Nangangailangan ang diagnosis ng komprehensibong medikal na pagsusuri.',
+      'Maaaring makaapekto ang PCOS sa obulasyon at minsan sa pagkamayabong.',
+      'Ang personalisadong paraan ng pangangalaga ay tumutulong na matugunan ang pangangailangan ng bawat babae.',
+    ],
+    finalNoteTitle: 'Isang gabay para sa mas mahusay na pag-unawa',
+    finalNoteText:
+      'Inilaan ang artikulong ito para sa pangkalahatang impormasyon at hindi pumapalit sa medikal na konsultasyon. Iba-iba ang bawat sitwasyon: kung nag-aalinlangan o nagpapatuloy ang mga sintomas, humingi ng payo sa propesyonal sa kalusugan.',
+    shareMessage: 'Pag-unawa sa PCOS — AWA',
+  },
+  ta: {
+    badge: 'PCOS • அடிப்படை வழிகாட்டி',
+    title: 'PCOS-ஐப்\nபுரிந்துகொள்ளுதல்',
+    metaDuration: '10 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'கல்வி உள்ளடக்கம்',
+    intro:
+      'பாலிசிஸ்டிக் ஓவரி சிண்ட்ரோம், பொதுவாக PCOS என அழைக்கப்படுவது, உங்கள் சுழற்சிகள், அண்டவிடுப்பு, தோல், முடி, வளர்சிதை மாற்றம் மற்றும் சில நேரங்களில் கருவுறுதிறனைப் பாதிக்கக்கூடிய ஒரு பொதுவான ஹார்மோன் நிலை.',
+    introSecondary:
+      'இது வெளிப்படும் விதம் ஒரு பெண்ணிலிருந்து மற்றொருவருக்கு மிகவும் மாறுபடும். PCOS-ஐப் புரிந்துகொள்வது முக்கியமாக அதன் அறிகுறிகளை அடையாளம் காணவும், மருத்துவ ஆலோசனையை எப்போது நாடுவது என்பதை அறியவும், தன்னைக் குற்றம் சாட்டிக்கொள்ளாமல் அது எப்படி மாறுகிறது என்பதைக் கண்காணிக்கவும் உதவுகிறது.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'PCOS என்றால் என்ன?',
+      'PCOS ஏன் ஏற்படுகிறது?',
+      'முக்கிய அறிகுறிகள்',
+      'நோயறிதல் எப்படிச் செய்யப்படுகிறது?',
+      'PCOS மற்றும் அண்டவிடுப்பு',
+      'PCOS மற்றும் கருவுறுதிறன்',
+      'PCOS மற்றும் எடை / வளர்சிதை மாற்றம்',
+      'தோல், முடி மற்றும் உடல் முடி',
+      'PCOS எப்படி நிர்வகிக்கப்படுகிறது?',
+      'பொதுவான தவறான நம்பிக்கைகள்',
+      'மருத்துவரை எப்போது பார்ப்பது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    s1Heading: 'PCOS என்றால் என்ன?',
+    s1Body1:
+      'பாலிசிஸ்டிக் ஓவரி சிண்ட்ரோம் (PCOS) என்பது அண்டகங்களின் வழக்கமான செயல்பாட்டையும் சில ஹார்மோன்களின் சமநிலையையும் மாற்றக்கூடிய ஒரு பொதுவான ஹார்மோன் நிலை.',
+    s1Body2:
+      'சில பெண்களுக்கு, முக்கியச் சிக்கல் ஒழுங்கற்ற அண்டவிடுப்பு. மற்றவர்களுக்கு, முகப்பரு, அதிகப்படியான முடி வளர்ச்சி, முடி உதிர்வு அல்லது வளர்சிதை மாற்ற அறிகுறிகள் முதலில் தெரிகின்றன.',
+    s1TipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    s1TipText:
+      'பெயர் இருந்தாலும், PCOS என்றால் அண்டகங்களில் “நீர்க்கட்டிகள்” இருக்க வேண்டும் என்று கட்டாயமில்லை. வரலாற்றுப் பெயர் தவறாக வழிநடத்தலாம், மேலும் ஒரு அல்ட்ராசவுண்ட் மட்டும் நோயறிதலுக்குப் போதாது.',
+    s2Heading: 'PCOS ஏன் ஏற்படுகிறது?',
+    s2Body1:
+      'PCOS-க்கு ஒரே ஒரு காரணம் இல்லை. இது ஒன்றிணையக்கூடிய பல காரணிகளின் விளைவாகத் தோன்றுகிறது: குடும்பப் பாரம்பரிய முன்னியல்பு, ஹார்மோன் செயல்பாடு, அண்டவிடுப்பு, வளர்சிதை மாற்றம் மற்றும் தனிப்பட்ட காரணிகள்.',
+    s2Factors: [
+      'குடும்பப் பாரம்பரிய முன்னியல்பும் மரபணுக் காரணிகளும்',
+      'அண்டவிடுப்பில் சீர்குலைவுகள்',
+      'ஆண்ட்ரோஜன்களின் ஒப்பீட்டு அதிகரிப்பு',
+      'சில பெண்களில் இன்சுலின் எதிர்ப்பு',
+      'வளர்சிதை மாற்றம் மற்றும் சுற்றுச்சூழல் காரணிகள்',
+    ],
+    s2NeutralText:
+      'PCOS ஒரு தனிப்பட்ட குறை அல்ல. இது மன உறுதியின்மை, மோசமான உணவு அல்லது போதுமான உடல் செயல்பாடு இல்லாமையின் எளிய விளைவு அல்ல.',
+    s3Heading: 'முக்கிய அறிகுறிகள்',
+    s3Body1:
+      'PCOS ஒரு பெண்ணிலிருந்து மற்றொருவருக்கு மிக வேறுபட்ட விதத்தில் வெளிப்படலாம். சிலருக்குப் பல அறிகுறிகள் இருக்கும், மற்றவர்கள் மிகச் சிலவற்றையே கவனிப்பார்கள்.',
+    s3Signs: [
+      'ஒழுங்கற்ற, மிகவும் இடைவெளியுள்ள அல்லது சில நேரங்களில் இல்லாத சுழற்சிகள்',
+      'ஒழுங்கற்ற அல்லது கணிக்கக் கடினமான அண்டவிடுப்பு',
+      'நீடிக்கும் முகப்பரு, குறிப்பாக முகத்தின் கீழ்ப் பகுதியில்',
+      'முகம், மார்பு அல்லது உடலில் அதிகரித்த முடி வளர்ச்சி',
+      'ஹார்மோன் வகை முடி உதிர்வு',
+      'எடை அதிகரிப்பு அல்லது எடையைக் குறைப்பதில் சிரமம்',
+      'கருத்தரிப்பதில் சிரமம்',
+    ],
+    s3AlertTitle: 'முக்கியம்',
+    s3AlertText:
+      'இவற்றில் ஓர் அறிகுறி இருப்பது தானாகவே உங்களுக்கு PCOS இருக்கிறது என்று பொருளல்ல. பல பிற நிலைகள் ஒத்த அறிகுறிகளை ஏற்படுத்தலாம்.',
+    s4Heading: 'நோயறிதல் எப்படிச் செய்யப்படுகிறது?',
+    s4Body1:
+      'PCOS நோயறிதல் ஒரு மருத்துவச் செயல்முறை. ஒரு சுகாதார நிபுணர் பொதுவாக உங்கள் சுழற்சிகள், அறிகுறிகள், மருத்துவ வரலாறு மற்றும் நீங்கள் எடுத்துக்கொள்ளும் சிகிச்சைகளைப் பற்றிப் பேசித் தொடங்குகிறார்.',
+    s4Body2:
+      'சூழ்நிலையைப் பொறுத்து, ஹார்மோன் இரத்தப் பரிசோதனைகளும் ஓர் அல்ட்ராசவுண்டும் வழங்கப்படலாம்.',
+    s4Points: [
+      'ஒழுங்கற்ற சுழற்சிகள் அல்லது அரிதான அண்டவிடுப்பு',
+      'ஆண்ட்ரோஜன் அதிகரிப்பின் அறிகுறிகள்: முகப்பரு, அதிகப்படியான முடி வளர்ச்சி, முடி உதிர்வு அல்லது இரத்தப் பரிசோதனை முடிவுகள்',
+      'இந்தப் பரிசோதனை குறிக்கப்படும்போது, அல்ட்ராசவுண்டில் PCOS-உடன் ஒத்துப்போகும் அண்டகத் தோற்றம்',
+    ],
+    s4Body3:
+      'PCOS நோயறிதலை உறுதிப்படுத்துவதற்கு முன், ஒழுங்கற்ற சுழற்சிகள் அல்லது ஆண்ட்ரோஜன் அதிகரிப்புக்கான பிற சாத்தியமான காரணங்களையும் மருத்துவர் விலக்க வேண்டும்.',
+    s5Heading: 'PCOS மற்றும் அண்டவிடுப்பு',
+    s5Body1:
+      'அண்டவிடுப்பு என்பது அண்டகத்திலிருந்து ஒரு முட்டை (அண்டசெல்) வெளியிடப்படுவது. PCOS-இல், அண்டவிடுப்பு அரிதாக அல்லது கணிக்கக் கடினமாக இருக்கலாம்.',
+    s5Body2:
+      'சுழற்சிகள் சில நேரங்களில் ஏன் நீளமாக, ஒழுங்கற்றதாக அல்லது முன்கூட்டியே அறியக் கடினமாக இருக்கின்றன என்பதை இது விளக்கலாம்.',
+    s5HighlightTitle: 'உங்கள் சுழற்சியைக் கண்காணித்தல்',
+    s5HighlightText:
+      'உங்கள் மாதவிடாய்த் தேதிகள், அறிகுறிகள் மற்றும் அண்டவிடுப்பின் ஏதேனும் அறிகுறிகளைப் பதிவு செய்வது உங்கள் சொந்த முறைமைகளை நன்கு புரிந்துகொள்ள உதவலாம்.',
+    s6Heading: 'PCOS மற்றும் கருவுறுதிறன்',
+    s6Body1:
+      'அண்டவிடுப்பு ஒழுங்கற்றதாக இருக்கலாம் என்பதால், PCOS உள்ள சில பெண்களுக்குக் கருத்தரிப்பதில் அதிகச் சிரமம் இருக்கலாம்.',
+    s6Body2:
+      'இருப்பினும், PCOS தானாகவே கர்ப்பத்தைத் தடுக்கிறது என்று இதற்குப் பொருளல்ல. PCOS உள்ள பல பெண்கள் இயற்கையாகவோ பொருத்தமான மருத்துவ ஆதரவுடனோ கருத்தரிக்கிறார்கள்.',
+    s6TipTitle: 'நினைவில் கொள்ளுங்கள்',
+    s6TipText:
+      'கருத்தரிப்பதில் சிரமம் இருப்பது அது சாத்தியமில்லை என்று பொருளல்ல. நீங்கள் கர்ப்பமடைய விரும்பினால், ஒரு மருத்துவரோ மருத்துவச்சியோ உங்கள் சூழ்நிலைக்குப் பொருத்தமான உத்தியைப் பரிந்துரைக்கலாம்.',
+    s7Heading: 'PCOS மற்றும் எடை / வளர்சிதை மாற்றம்',
+    s7Body1:
+      'PCOS வளர்சிதை மாற்ற மாற்றங்களுடன் தொடர்புடையதாக இருக்கலாம், சில பெண்களில் இன்சுலின் எதிர்ப்பு உட்பட.',
+    s7Body2:
+      'இருப்பினும், எடை மட்டும் PCOS-ஐ நோயறிதல் செய்யவோ விலக்கவோ முடியாது. மெலிந்த பெண்ணுக்கும் PCOS இருக்கலாம், உடல் பருமனான பெண்ணுக்கு அது இல்லாமலும் இருக்கலாம்.',
+    s7NeutralText:
+      'தொடர் கவனிப்பு எடைக் கருவியின் எண்ணை மட்டுமல்ல, ஒட்டுமொத்த ஆரோக்கியத்தையும் கருத்தில் கொள்ள வேண்டும்.',
+    s8Heading: 'தோல், முடி மற்றும் உடல் முடி',
+    s8Body1:
+      'ஆண்ட்ரோஜன்களின் ஒப்பீட்டு அதிகரிப்பு செபேசியஸ் சுரப்பிகளையும் முடிக் கால்களையும் பாதிக்கலாம்.',
+    s8Body2:
+      'பெண்ணைப் பொறுத்து, இது நீடிக்கும் முகப்பரு, அதிகரித்த முடி வளர்ச்சி அல்லது முடி உதிர்வாக வெளிப்படலாம்.',
+    s8Items: [
+      'ஹார்மோன் முகப்பரு',
+      'அதிகரித்த முக அல்லது உடல் முடி',
+      'முடி மெலிதல் அல்லது முடி உதிர்வு',
+    ],
+    s9Heading: 'PCOS எப்படி நிர்வகிக்கப்படுகிறது?',
+    s9Body1:
+      'ஒவ்வொரு பெண்ணுக்கும் பொருந்தும் PCOS நிர்வாகத்துக்கு ஒரே ஒரு அணுகுமுறை இல்லை. தேர்வு அறிகுறிகள், இலக்குகள் மற்றும் மருத்துவச் சூழ்நிலைகளைப் பொறுத்தது.',
+    s9Body2:
+      'வாழ்க்கையின் கட்டத்தைப் பொறுத்து இலக்கு வேறுபடலாம்: சுழற்சிகளை ஒழுங்குபடுத்துதல், சில அறிகுறிகளை மேம்படுத்துதல், வளர்சிதை மாற்ற ஆரோக்கியத்தைப் பாதுகாத்தல் அல்லது கர்ப்பத் திட்டத்துக்கு ஆதரவளித்தல்.',
+    s9MiniTitle: 'ஆரோக்கியத்தை ஆதரிக்கும் பழக்கங்கள்',
+    s9Lifestyle: [
+      'உங்கள் தேவைகளுக்கு ஏற்ற, பல்வகையான, ஒழுங்கான உணவை உண்ணுங்கள்',
+      'காலப்போக்கில் தொடரக்கூடிய, ஒழுங்கான உடல் செயல்பாட்டில் ஈடுபடுங்கள்',
+      'போதுமான அளவு ஒழுங்கான உறக்கத்தைப் பேணுங்கள்',
+      'உங்கள் சுழற்சிகளும் அறிகுறிகளும் காலப்போக்கில் எப்படி மாறுகின்றன என்பதைக் கண்காணியுங்கள்',
+      'எடை அல்லது அறிகுறிகளின் மாற்றங்களுக்காக உங்களையே குற்றம் சாட்டாதீர்கள்',
+    ],
+    s9Body3:
+      'உங்கள் தேவைகளைப் பொறுத்து, ஒரு சுகாதார நிபுணர் சில அறிகுறிகளுக்கான அல்லது கர்ப்பத் திட்டத்தை ஆதரிக்கும் சிகிச்சைகளையும் வழங்கலாம்.',
+    s9AlertTitle: 'சுய மருத்துவம் வேண்டாம்',
+    s9AlertText:
+      'ஹார்மோன் சிகிச்சைகள், வளர்சிதை மாற்ற மருந்துகள் மற்றும் உணவுக் கூடுதல் சத்துகள் அனைத்தையும் ஒரு சுகாதார நிபுணருடன் கலந்தாலோசிக்க வேண்டும்.',
+    s10Heading: 'PCOS பற்றிய பொதுவான தவறான நம்பிக்கைகள்',
+    s10Myths: [
+      'PCOS என்றால் எப்போதும் “நீர்க்கட்டிகள்” இருக்கும்: பெயர் தவறாக வழிநடத்தலாம். நோயறிதல் நீர்க்கட்டிகளின் இருப்பை மட்டும் சார்ந்ததல்ல.',
+      'PCOS உள்ள எல்லாப் பெண்களும் உடல் பருமனானவர்கள்: PCOS எல்லா உடல் வகைகளையும் கொண்ட பெண்களையும் பாதிக்கலாம்.',
+      'PCOS எப்போதும் கர்ப்பத்தைத் தடுக்கிறது: அண்டவிடுப்பு ஒழுங்கற்றதாக இருக்கலாம், ஆனால் கர்ப்பம் இன்னும் சாத்தியம்.',
+      'ஒரே ஓர் அறிகுறி PCOS-ஐ நோயறிதல் செய்யப் போதும்: நோயறிதலுக்கு ஒரு முழுமையான மதிப்பீடு தேவை.',
+      'PCOS வயதுடன் தானாகவே மறைந்துவிடும்: அது வெளிப்படும் விதம் வாழ்நாளில் மாறலாம், ஆனால் தொடர் கவனிப்பு முக்கியமாகவே இருக்கிறது.',
+    ],
+    s11Heading: 'மருத்துவரை எப்போது பார்ப்பது',
+    s11Body1:
+      'சுழற்சிகள் மிகவும் ஒழுங்கற்றதாகும்போது, பல மாதங்கள் நின்றுவிடும்போது, அல்லது வழக்கத்துக்கு மாறான அறிகுறிகள் தோன்றும்போது மருத்துவ ஆலோசனை குறிப்பாக மதிப்புள்ளது.',
+    s11ConsultItems: [
+      'மிகவும் ஒழுங்கற்ற அல்லது இல்லாத சுழற்சிகள்',
+      'வழக்கத்துக்கு மாறான முகப்பரு அல்லது முடி வளர்ச்சி',
+      'குறிப்பிடத்தக்க முடி உதிர்வு',
+      'கருத்தரிப்பதில் சிரமம்',
+      'விரைவாக மாறும் அறிகுறிகள்',
+    ],
+    s12Heading: 'முக்கியக் குறிப்புகள்',
+    s12SummaryTitle: 'அத்தியாவசியப் புள்ளிகள்',
+    s12SummaryItems: [
+      'PCOS ஒரு பொதுவான ஹார்மோன் நிலை.',
+      'இது பல்வேறு விதங்களில் வெளிப்படலாம்.',
+      'PCOS உள்ள எல்லாப் பெண்களுக்கும் ஒரே அறிகுறிகள் இருப்பதில்லை.',
+      'எடை மட்டும் PCOS-ஐ நோயறிதல் செய்யவோ விலக்கவோ போதாது.',
+      'நோயறிதலுக்கு ஒரு முழுமையான மருத்துவ மதிப்பீடு தேவை.',
+      'PCOS அண்டவிடுப்பையும் சில நேரங்களில் கருவுறுதிறனையும் பாதிக்கலாம்.',
+      'தனிப்பயனாக்கப்பட்ட பராமரிப்பு அணுகுமுறை ஒவ்வொரு பெண்ணின் தேவைகளையும் பூர்த்தி செய்ய உதவுகிறது.',
+    ],
+    finalNoteTitle: 'நன்கு புரிந்துகொள்ள ஒரு வழிகாட்டி',
+    finalNoteText:
+      'இந்தக் கட்டுரை பொதுவான தகவலுக்காக உள்ளது, மருத்துவ ஆலோசனைக்கு மாற்றல்ல. ஒவ்வொரு சூழ்நிலையும் வேறுபட்டது: சந்தேகம் இருந்தால் அல்லது அறிகுறிகள் நீடித்தால், ஒரு சுகாதார நிபுணரின் ஆலோசனையைப் பெறுங்கள்.',
+    shareMessage: 'PCOS-ஐப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badge: 'PCOS • ప్రాథమిక గైడ్',
+    title: 'PCOSను\nఅర్థం చేసుకోవడం',
+    metaDuration: '10 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'విద్యాపరమైన కంటెంట్',
+    intro:
+      'పాలిసిస్టిక్ ఓవరీ సిండ్రోమ్, సాధారణంగా PCOS అని పిలవబడేది, మీ చక్రాలను, అండోత్సర్గాన్ని, చర్మాన్ని, జుట్టును, జీవక్రియను, కొన్నిసార్లు సారవంతతను ప్రభావితం చేయగల ఒక సాధారణ హార్మోన్ స్థితి.',
+    introSecondary:
+      'ఇది వ్యక్తమయ్యే తీరు ఒక మహిళ నుండి మరొకరికి చాలా మారుతుంది. PCOSను అర్థం చేసుకోవడం ప్రధానంగా దాని లక్షణాలను గుర్తించడానికి, వైద్య సలహాను ఎప్పుడు కోరాలో తెలుసుకోవడానికి, తనను తాను నిందించుకోకుండా అది ఎలా మారుతుందో ట్రాక్ చేయడానికి సహాయపడుతుంది.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'PCOS అంటే ఏమిటి?',
+      'PCOS ఎందుకు ఏర్పడుతుంది?',
+      'ప్రధాన సంకేతాలు',
+      'నిర్ధారణ ఎలా చేస్తారు?',
+      'PCOS మరియు అండోత్సర్గం',
+      'PCOS మరియు సారవంతత',
+      'PCOS మరియు బరువు / జీవక్రియ',
+      'చర్మం, జుట్టు మరియు శరీర రోమాలు',
+      'PCOS ఎలా నిర్వహించబడుతుంది?',
+      'సాధారణ అపోహలు',
+      'వైద్యుడిని ఎప్పుడు కలవాలి',
+      'ముఖ్యాంశాలు',
+    ],
+    s1Heading: 'PCOS అంటే ఏమిటి?',
+    s1Body1:
+      'పాలిసిస్టిక్ ఓవరీ సిండ్రోమ్ (PCOS) అండాశయాల సాధారణ పనితీరును, కొన్ని హార్మోన్ల సమతుల్యతను మార్చగల ఒక సాధారణ హార్మోన్ స్థితి.',
+    s1Body2:
+      'కొందరు మహిళలకు, ప్రధాన సమస్య అస్తవ్యస్త అండోత్సర్గం. మరికొందరికి, మొటిమలు, అధిక జుట్టు పెరుగుదల, జుట్టు రాలడం లేదా జీవక్రియ సంకేతాలు ముందుగా కనిపిస్తాయి.',
+    s1TipTitle: 'తెలుసుకోవాల్సినవి',
+    s1TipText:
+      'పేరు ఉన్నా, PCOS అంటే అండాశయాల్లో “నీటి గడ్డలు” ఉండాలని తప్పనిసరి కాదు. చారిత్రక పదం తప్పుదారి పట్టించవచ్చు, నిర్ధారణకు ఒక అల్ట్రాసౌండ్ మాత్రమే చాలదు.',
+    s2Heading: 'PCOS ఎందుకు ఏర్పడుతుంది?',
+    s2Body1:
+      'PCOSకు ఒకే కారణం లేదు. ఇది కలిసిపోగల అనేక అంశాల ఫలితంగా కనిపిస్తుంది: కుటుంబ ప్రవృత్తి, హార్మోన్ పనితీరు, అండోత్సర్గం, జీవక్రియ, వ్యక్తిగత అంశాలు.',
+    s2Factors: [
+      'కుటుంబ ప్రవృత్తి, జన్యు అంశాలు',
+      'అండోత్సర్గంలో భంగాలు',
+      'ఆండ్రోజెన్ల సాపేక్ష అధికత',
+      'కొందరు మహిళల్లో ఇన్సులిన్ నిరోధకత',
+      'జీవక్రియ, పర్యావరణ అంశాలు',
+    ],
+    s2NeutralText:
+      'PCOS ఒక వ్యక్తిగత లోపం కాదు. ఇది సంకల్ప బలం లేకపోవడం, చెడు ఆహారం లేదా తగినంత శారీరక కార్యకలాపం లేకపోవడం యొక్క సరళ ఫలితం కాదు.',
+    s3Heading: 'ప్రధాన సంకేతాలు',
+    s3Body1:
+      'PCOS ఒక మహిళ నుండి మరొకరికి చాలా భిన్నంగా వ్యక్తమవుతుంది. కొందరికి అనేక లక్షణాలు ఉంటాయి, మరికొందరు చాలా తక్కువే గమనిస్తారు.',
+    s3Signs: [
+      'అస్తవ్యస్త, చాలా ఎడంగా ఉన్న లేదా కొన్నిసార్లు లేని చక్రాలు',
+      'అస్తవ్యస్త లేదా ఊహించడం కష్టమైన అండోత్సర్గం',
+      'కొనసాగే మొటిమలు, ముఖ్యంగా ముఖం కింది భాగంలో',
+      'ముఖం, ఛాతీ లేదా శరీరంపై పెరిగిన జుట్టు',
+      'హార్మోన్ తీరులో జుట్టు రాలడం',
+      'బరువు పెరగడం లేదా బరువు తగ్గడంలో కష్టం',
+      'గర్భం దాల్చడంలో కష్టం',
+    ],
+    s3AlertTitle: 'ముఖ్యం',
+    s3AlertText:
+      'ఈ లక్షణాలలో ఒకటి ఉండటం ఆటోమేటిక్‌గా మీకు PCOS ఉందని అర్థం కాదు. అనేక ఇతర పరిస్థితులు ఒకేలాంటి లక్షణాలను కలిగించవచ్చు.',
+    s4Heading: 'నిర్ధారణ ఎలా చేస్తారు?',
+    s4Body1:
+      'PCOS నిర్ధారణ ఒక వైద్య ప్రక్రియ. ఒక ఆరోగ్య సేవాదాత సాధారణంగా మీ చక్రాలు, లక్షణాలు, వైద్య చరిత్ర, మీరు తీసుకుంటున్న చికిత్సల గురించి చర్చించి మొదలుపెడతారు.',
+    s4Body2:
+      'పరిస్థితిని బట్టి, హార్మోన్ రక్త పరీక్షలు, ఒక అల్ట్రాసౌండ్ కూడా సూచించబడవచ్చు.',
+    s4Points: [
+      'అస్తవ్యస్త చక్రాలు లేదా అరుదైన అండోత్సర్గం',
+      'ఆండ్రోజెన్ అధికత సంకేతాలు: మొటిమలు, అధిక జుట్టు పెరుగుదల, జుట్టు రాలడం లేదా రక్త పరీక్ష ఫలితాలు',
+      'ఈ పరీక్ష సూచించబడినప్పుడు, అల్ట్రాసౌండ్‌లో PCOSకు అనుగుణమైన అండాశయ రూపం',
+    ],
+    s4Body3:
+      'PCOS నిర్ధారణను ధృవీకరించే ముందు, అస్తవ్యస్త చక్రాలకు లేదా ఆండ్రోజెన్ అధికతకు ఇతర సాధ్యమైన కారణాలను కూడా వైద్యుడు విలువ చేయాలి.',
+    s5Heading: 'PCOS మరియు అండోత్సర్గం',
+    s5Body1:
+      'అండోత్సర్గం అంటే అండాశయం నుండి ఒక అండం (ఊసైట్) విడుదల కావడం. PCOSలో, అండోత్సర్గం అరుదుగా లేదా ఊహించడం కష్టంగా ఉండవచ్చు.',
+    s5Body2:
+      'చక్రాలు కొన్నిసార్లు ఎందుకు పొడవుగా, అస్తవ్యస్తంగా లేదా ముందే అంచనా వేయడం కష్టంగా ఉంటాయో ఇది వివరించవచ్చు.',
+    s5HighlightTitle: 'మీ చక్రాన్ని ట్రాక్ చేయడం',
+    s5HighlightText:
+      'మీ నెలసరి తేదీలను, లక్షణాలను, అండోత్సర్గం యొక్క ఏవైనా సంకేతాలను నమోదు చేయడం మీ సొంత తీరులను మరింత బాగా అర్థం చేసుకోవడానికి సహాయపడగలదు.',
+    s6Heading: 'PCOS మరియు సారవంతత',
+    s6Body1:
+      'అండోత్సర్గం అస్తవ్యస్తంగా ఉండవచ్చు కాబట్టి, PCOS ఉన్న కొందరు మహిళలకు గర్భం దాల్చడంలో ఎక్కువ కష్టం ఉండవచ్చు.',
+    s6Body2:
+      'అయితే, PCOS ఆటోమేటిక్‌గా గర్భాన్ని అడ్డుకుంటుందని దీని అర్థం కాదు. PCOS ఉన్న చాలామంది మహిళలు సహజంగా లేదా తగిన వైద్య తోడ్పాటుతో గర్భం దాలుస్తారు.',
+    s6TipTitle: 'గుర్తుంచుకోండి',
+    s6TipText:
+      'గర్భం దాల్చడంలో కష్టం అంటే అది అసాధ్యమని కాదు. మీరు గర్భవతి కావాలని ఆశిస్తే, ఒక వైద్యులు లేదా మంత్రసాని మీ పరిస్థితికి అనువైన వ్యూహాన్ని సూచించగలరు.',
+    s7Heading: 'PCOS మరియు బరువు / జీవక్రియ',
+    s7Body1:
+      'PCOS జీవక్రియ మార్పులతో, కొందరు మహిళల్లో ఇన్సులిన్ నిరోధకతతో సహా, ముడిపడి ఉండవచ్చు.',
+    s7Body2:
+      'అయితే, బరువు మాత్రమే PCOSను నిర్ధారించలేదు లేదా విలువ చేయలేదు. సన్నని మహిళకు PCOS ఉండవచ్చు, అదే విధంగా అధిక బరువున్న మహిళకు అది లేకపోవచ్చు.',
+    s7NeutralText:
+      'తదుపరి సంరక్షణ తూకం యంత్రం సంఖ్యను మాత్రమే కాక, మొత్తం ఆరోగ్యాన్ని పరిగణనలోకి తీసుకోవాలి.',
+    s8Heading: 'చర్మం, జుట్టు మరియు శరీర రోమాలు',
+    s8Body1:
+      'ఆండ్రోజెన్ల సాపేక్ష అధికత సెబేషియస్ గ్రంథులను, జుట్టు కుదుళ్లను ప్రభావితం చేయవచ్చు.',
+    s8Body2:
+      'మహిళను బట్టి, ఇది కొనసాగే మొటిమలు, పెరిగిన జుట్టు పెరుగుదల లేదా జుట్టు రాలడంగా వ్యక్తమవవచ్చు.',
+    s8Items: [
+      'హార్మోన్ మొటిమలు',
+      'పెరిగిన ముఖ లేదా శరీర రోమాలు',
+      'జుట్టు పలుచబడటం లేదా జుట్టు రాలడం',
+    ],
+    s9Heading: 'PCOS ఎలా నిర్వహించబడుతుంది?',
+    s9Body1:
+      'ప్రతి మహిళకూ పనిచేసే PCOS నిర్వహణకు ఒకే విధానం లేదు. ఎంపిక లక్షణాలు, లక్ష్యాలు, వైద్య పరిస్థితులపై ఆధారపడి ఉంటుంది.',
+    s9Body2:
+      'లక్ష్యం జీవిత దశను బట్టి భిన్నంగా ఉండవచ్చు: చక్రాలను క్రమబద్ధం చేయడం, కొన్ని లక్షణాలను మెరుగుపరచడం, జీవక్రియ ఆరోగ్యాన్ని కాపాడటం లేదా గర్భ ప్రణాళికకు తోడ్పడటం.',
+    s9MiniTitle: 'ఆరోగ్యానికి తోడ్పడే అలవాట్లు',
+    s9Lifestyle: [
+      'మీ అవసరాలకు తగిన వైవిధ్యమైన, క్రమమైన ఆహారం తినడం',
+      'కాలక్రమేణా మీరు కొనసాగించగల క్రమమైన శారీరక కార్యకలాపంలో పాల్గొనడం',
+      'తగినంత క్రమమైన నిద్రను పాటించడం',
+      'కాలక్రమేణా మీ చక్రాలు, లక్షణాలు ఎలా మారుతున్నాయో ట్రాక్ చేయడం',
+      'బరువు లేదా లక్షణాల మార్పులకు మిమ్మల్ని మీరు నిందించుకోకపోవడం',
+    ],
+    s9Body3:
+      'మీ అవసరాలను బట్టి, ఒక ఆరోగ్య సేవాదాత కొన్ని లక్షణాల కోసం లేదా గర్భ ప్రణాళికకు తోడ్పడే చికిత్సలను కూడా సూచించవచ్చు.',
+    s9AlertTitle: 'స్వీయ చికిత్స వద్దు',
+    s9AlertText:
+      'హార్మోన్ చికిత్సలు, జీవక్రియ మందులు, ఆహార సప్లిమెంట్లు అన్నింటినీ ఒక ఆరోగ్య సేవాదాతతో చర్చించాలి.',
+    s10Heading: 'PCOS గురించి సాధారణ అపోహలు',
+    s10Myths: [
+      'PCOS అంటే ఎల్లప్పుడూ “నీటి గడ్డలు” ఉండటం: పేరు తప్పుదారి పట్టించవచ్చు. నిర్ధారణ కేవలం నీటి గడ్డల ఉనికిపై ఆధారపడదు.',
+      'PCOS ఉన్న మహిళలందరూ అధిక బరువుతో ఉంటారు: PCOS అన్ని శరీర రకాల మహిళలనూ ప్రభావితం చేయవచ్చు.',
+      'PCOS ఎల్లప్పుడూ గర్భాన్ని అడ్డుకుంటుంది: అండోత్సర్గం అస్తవ్యస్తంగా ఉండవచ్చు, కానీ గర్భం ఇంకా సాధ్యమే.',
+      'ఒక్క లక్షణం PCOSను నిర్ధారించడానికి చాలు: నిర్ధారణకు సమగ్ర మదింపు అవసరం.',
+      'PCOS వయసుతో సరళంగా పోతుంది: అది వ్యక్తమయ్యే తీరు జీవితకాలంలో మారవచ్చు, కానీ నిరంతర తదుపరి పర్యవేక్షణ ముఖ్యంగానే ఉంటుంది.',
+    ],
+    s11Heading: 'వైద్యుడిని ఎప్పుడు కలవాలి',
+    s11Body1:
+      'చక్రాలు చాలా అస్తవ్యస్తమైనప్పుడు, అనేక నెలలు ఆగిపోయినప్పుడు, లేదా అసాధారణ లక్షణాలు కనిపించినప్పుడు వైద్య సలహా ప్రత్యేకంగా విలువైనది.',
+    s11ConsultItems: [
+      'చాలా అస్తవ్యస్త లేదా లేని చక్రాలు',
+      'అసాధారణ మొటిమలు లేదా జుట్టు పెరుగుదల',
+      'గణనీయమైన జుట్టు రాలడం',
+      'గర్భం దాల్చడంలో కష్టం',
+      'వేగంగా మారే లక్షణాలు',
+    ],
+    s12Heading: 'ముఖ్యాంశాలు',
+    s12SummaryTitle: 'ముఖ్యమైన అంశాలు',
+    s12SummaryItems: [
+      'PCOS ఒక సాధారణ హార్మోన్ స్థితి.',
+      'ఇది అనేక భిన్న రీతుల్లో వ్యక్తమవవచ్చు.',
+      'PCOS ఉన్న మహిళలందరికీ ఒకే లక్షణాలు ఉండవు.',
+      'బరువు మాత్రమే PCOSను నిర్ధారించడానికి లేదా విలువ చేయడానికి చాలదు.',
+      'నిర్ధారణకు సమగ్ర వైద్య మదింపు అవసరం.',
+      'PCOS అండోత్సర్గాన్ని, కొన్నిసార్లు సారవంతతను ప్రభావితం చేయవచ్చు.',
+      'వ్యక్తిగతీకరించిన సంరక్షణ విధానం ప్రతి మహిళ అవసరాలను తీర్చడానికి సహాయపడుతుంది.',
+    ],
+    finalNoteTitle: 'మరింత బాగా అర్థం చేసుకోవడానికి ఒక గైడ్',
+    finalNoteText:
+      'ఈ వ్యాసం సాధారణ సమాచారం కోసం ఉద్దేశించబడింది, వైద్య సంప్రదింపుకు ప్రత్యామ్నాయం కాదు. ప్రతి పరిస్థితి భిన్నమైనది: సందేహం ఉంటే లేదా లక్షణాలు కొనసాగితే, ఒక ఆరోగ్య నిపుణుడి సలహా పొందండి.',
+    shareMessage: 'PCOSను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badge: 'PCOS • आवश्यक मार्गदर्शक',
+    title: 'PCOS\nसमजून घेणे',
+    metaDuration: '10 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'शैक्षणिक मजकूर',
+    intro:
+      'पॉलिसिस्टिक ओव्हरी सिंड्रोम, ज्याला बहुतेकदा PCOS म्हणतात, ही एक सामान्य हार्मोनल स्थिती आहे जी तुमच्या पाळीवर, बीजोत्सर्जनावर, त्वचेवर, केसांवर, चयापचयावर आणि कधी कधी सुपीकतेवर परिणाम करू शकते.',
+    introSecondary:
+      'ती कशी दिसते हे एका स्त्रीपासून दुसऱ्या स्त्रीपर्यंत खूप बदलते. PCOS समजून घेतल्याने मुख्यतः तुम्हाला त्याची लक्षणे ओळखण्यास, वैद्यकीय सल्ला केव्हा घ्यावा हे जाणून घेण्यास आणि स्वतःला दोष न देता ती कशी बदलते याचा मागोवा घेण्यास मदत होते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'PCOS म्हणजे काय?',
+      'PCOS का होतो?',
+      'मुख्य चिन्हे',
+      'त्याचे निदान कसे केले जाते?',
+      'PCOS आणि बीजोत्सर्जन',
+      'PCOS आणि सुपीकता',
+      'PCOS आणि वजन / चयापचय',
+      'त्वचा, केस आणि शरीरावरचे केस',
+      'PCOS चे व्यवस्थापन कसे केले जाते?',
+      'सामान्य गैरसमज',
+      'डॉक्टरांना केव्हा भेटावे',
+      'मुख्य मुद्दे',
+    ],
+    s1Heading: 'PCOS म्हणजे काय?',
+    s1Body1:
+      'पॉलिसिस्टिक ओव्हरी सिंड्रोम (PCOS) ही एक सामान्य हार्मोनल स्थिती आहे जी अंडाशयांचे नेहमीचे कार्य आणि काही हार्मोन्सचे संतुलन बदलू शकते.',
+    s1Body2:
+      'काही स्त्रियांसाठी, मुख्य समस्या अनियमित बीजोत्सर्जन असते. इतरांसाठी, मुरूम, केसांची अतिरिक्त वाढ, केस गळणे किंवा चयापचयाशी संबंधित चिन्हे आधी ठळक दिसतात.',
+    s1TipTitle: 'हे जाणून घ्या',
+    s1TipText:
+      'नाव असूनही, PCOS मध्ये अंडाशयांत “गाठी” असतातच असे नाही. ऐतिहासिक संज्ञा दिशाभूल करणारी असू शकते आणि निदान करण्यासाठी फक्त सोनोग्राफी पुरेशी नसते.',
+    s2Heading: 'PCOS का होतो?',
+    s2Body1:
+      'PCOS चे एकच कारण नाही. तो एकत्र येऊ शकणाऱ्या अनेक घटकांचा परिणाम असल्याचे दिसते: कौटुंबिक प्रवृत्ती, हार्मोनल कार्य, बीजोत्सर्जन, चयापचय आणि वैयक्तिक घटक.',
+    s2Factors: [
+      'कौटुंबिक प्रवृत्ती आणि अनुवांशिक घटक',
+      'बीजोत्सर्जनातील अडथळे',
+      'अँड्रोजेन्सचा सापेक्ष अतिरेक',
+      'काही स्त्रियांमध्ये इन्सुलिन प्रतिरोध',
+      'चयापचयाशी आणि पर्यावरणीय घटक',
+    ],
+    s2NeutralText:
+      'PCOS हा वैयक्तिक अपयशाचा प्रश्न नाही. तो केवळ इच्छाशक्तीच्या कमतरतेमुळे, वाईट आहारामुळे किंवा अपुऱ्या शारीरिक हालचालीमुळे होत नाही.',
+    s3Heading: 'मुख्य चिन्हे',
+    s3Body1:
+      'PCOS एका स्त्रीपासून दुसऱ्या स्त्रीपर्यंत खूप वेगळ्या प्रकारे दिसू शकतो. काहींना अनेक लक्षणे असतात, तर इतरांना खूप कमी जाणवतात.',
+    s3Signs: [
+      'अनियमित, विरळ किंवा कधी कधी अनुपस्थित पाळी',
+      'अनियमित किंवा अंदाज बांधण्यास कठीण बीजोत्सर्जन',
+      'कायम राहणारे मुरूम, विशेषतः चेहऱ्याच्या खालच्या भागावर',
+      'चेहरा, छाती किंवा शरीरावर केसांची वाढलेली वाढ',
+      'हार्मोनल पद्धतीचे केस गळणे',
+      'वजन वाढणे किंवा वजन कमी करण्यात अडचण',
+      'गर्भधारणेत अडचण',
+    ],
+    s3AlertTitle: 'महत्त्वाचे',
+    s3AlertText:
+      'यांपैकी एक लक्षण असणे म्हणजे आपोआप तुम्हाला PCOS आहे असे नाही. इतर अनेक स्थितींमुळे सारखी लक्षणे निर्माण होऊ शकतात.',
+    s4Heading: 'त्याचे निदान कसे केले जाते?',
+    s4Body1:
+      'PCOS चे निदान ही वैद्यकीय प्रक्रिया आहे. आरोग्यसेवा पुरवठादार सहसा तुमची पाळी, लक्षणे, वैद्यकीय इतिहास आणि तुम्ही घेत असलेले कोणतेही उपचार यावर चर्चा करून सुरुवात करतो.',
+    s4Body2:
+      'परिस्थितीनुसार, हार्मोनल रक्त चाचण्या आणि सोनोग्राफीही सुचवली जाऊ शकते.',
+    s4Points: [
+      'अनियमित पाळी किंवा क्वचित होणारे बीजोत्सर्जन',
+      'अँड्रोजेन्सच्या अतिरेकाची चिन्हे: मुरूम, केसांची अतिरिक्त वाढ, केस गळणे किंवा रक्त चाचणीचे निकाल',
+      'ही तपासणी सुचवलेली असल्यास, सोनोग्राफीवर PCOS शी सुसंगत अंडाशयांचे स्वरूप',
+    ],
+    s4Body3:
+      'PCOS चे निदान निश्चित करण्यापूर्वी डॉक्टरांनी अनियमित पाळी किंवा अँड्रोजेन्सच्या अतिरेकाची इतर संभाव्य कारणेही वगळली पाहिजेत.',
+    s5Heading: 'PCOS आणि बीजोत्सर्जन',
+    s5Body1:
+      'बीजोत्सर्जन म्हणजे अंडाशयातून बीजांड (ओओसाइट) सोडले जाणे. PCOS मध्ये, बीजोत्सर्जन कमी वेळा होऊ शकते किंवा त्याचा अंदाज बांधणे अधिक कठीण असू शकते.',
+    s5Body2:
+      'यामुळे पाळी कधी कधी मोठी, अनियमित किंवा अंदाज बांधण्यास कठीण का असते हे स्पष्ट होऊ शकते.',
+    s5HighlightTitle: 'तुमच्या पाळीचा मागोवा',
+    s5HighlightText:
+      'तुमच्या पाळीच्या तारखा, लक्षणे आणि बीजोत्सर्जनाची कोणतीही चिन्हे नोंदवल्याने तुम्हाला तुमचे स्वतःचे नमुने अधिक चांगले समजण्यास मदत होऊ शकते.',
+    s6Heading: 'PCOS आणि सुपीकता',
+    s6Body1:
+      'बीजोत्सर्जन अनियमित असू शकत असल्याने, PCOS असलेल्या काही स्त्रियांना गर्भधारणेत अधिक अडचण येऊ शकते.',
+    s6Body2:
+      'तथापि, याचा अर्थ PCOS आपोआप गर्भारपण रोखतो असा नाही. PCOS असलेल्या अनेक स्त्रिया नैसर्गिकरीत्या किंवा योग्य वैद्यकीय साथीने गर्भधारणा करतात.',
+    s6TipTitle: 'लक्षात ठेवा',
+    s6TipText:
+      'गर्भधारणेत अडचण असणे म्हणजे ते अशक्य आहे असे नाही. तुम्हाला गर्भवती व्हायचे असल्यास, डॉक्टर किंवा दाई तुमच्या परिस्थितीला जुळणारी रणनीती सुचवू शकतात.',
+    s7Heading: 'PCOS आणि वजन / चयापचय',
+    s7Body1:
+      'PCOS चयापचयाशी संबंधित बदलांशी जोडलेला असू शकतो, ज्यात काही स्त्रियांमधील इन्सुलिन प्रतिरोधाचा समावेश आहे.',
+    s7Body2:
+      'तथापि, फक्त वजनावरून PCOS चे निदान करता येत नाही किंवा तो वगळताही येत नाही. बारीक स्त्रीलाही PCOS असू शकतो, तसेच वजन जास्त असलेल्या स्त्रीला तो नसूही शकतो.',
+    s7NeutralText:
+      'पाठपुरावा करताना फक्त वजनकाट्यावरील आकड्याचा नव्हे तर एकूण आरोग्याचा विचार केला पाहिजे.',
+    s8Heading: 'त्वचा, केस आणि शरीरावरचे केस',
+    s8Body1:
+      'अँड्रोजेन्सचा सापेक्ष अतिरेक तेलग्रंथींवर आणि केसांच्या मुळांवर परिणाम करू शकतो.',
+    s8Body2:
+      'स्त्रीनुसार, हे कायम राहणारे मुरूम, केसांची वाढलेली वाढ किंवा केस गळणे अशा स्वरूपात दिसू शकते.',
+    s8Items: [
+      'हार्मोनल मुरूम',
+      'चेहऱ्यावर किंवा शरीरावर वाढलेले केस',
+      'केस विरळ होणे किंवा केस गळणे',
+    ],
+    s9Heading: 'PCOS चे व्यवस्थापन कसे केले जाते?',
+    s9Body1:
+      'PCOS सांभाळण्याचा प्रत्येक स्त्रीसाठी काम करणारा एकच दृष्टिकोन नाही. निवड लक्षणांवर, ध्येयांवर आणि वैद्यकीय परिस्थितीवर अवलंबून असते.',
+    s9Body2:
+      'आयुष्याच्या टप्प्यानुसार ध्येय वेगळे असू शकते: पाळी नियमित करणे, काही लक्षणे सुधारणे, चयापचय आरोग्याचे रक्षण करणे किंवा गर्भारपणाच्या योजनेला आधार देणे.',
+    s9MiniTitle: 'आरोग्याला आधार देणाऱ्या सवयी',
+    s9Lifestyle: [
+      'तुमच्या गरजांना साजेसा वैविध्यपूर्ण, नियमित आहार घेणे',
+      'दीर्घकाळ टिकवता येईल अशी नियमित शारीरिक हालचाल करणे',
+      'पुरेशी नियमित झोप राखणे',
+      'तुमची पाळी आणि लक्षणे कालांतराने कशी बदलतात याचा मागोवा ठेवणे',
+      'वजनातील किंवा लक्षणांतील बदलांसाठी स्वतःला दोष न देणे',
+    ],
+    s9Body3:
+      'तुमच्या गरजांनुसार, आरोग्यसेवा पुरवठादार काही लक्षणांसाठी किंवा गर्भारपणाच्या योजनेला आधार देण्यासाठी उपचारही सुचवू शकतो.',
+    s9AlertTitle: 'स्वतःच औषध घेऊ नका',
+    s9AlertText:
+      'हार्मोनल उपचार, चयापचयाची औषधे आणि आहारातील पूरके या सर्वांवर आरोग्यसेवा पुरवठादारासोबत चर्चा केली पाहिजे.',
+    s10Heading: 'PCOS बद्दलचे सामान्य गैरसमज',
+    s10Myths: [
+      'PCOS म्हणजे नेहमी “गाठी” असतात: नाव दिशाभूल करणारे असू शकते. निदान फक्त गाठींच्या उपस्थितीवर अवलंबून नसते.',
+      'PCOS असलेल्या सर्व स्त्रियांचे वजन जास्त असते: PCOS सर्व शरीरप्रकारांच्या स्त्रियांवर परिणाम करू शकतो.',
+      'PCOS नेहमी गर्भारपण रोखतो: बीजोत्सर्जन अनियमित असू शकते, पण गर्भारपण तरीही शक्य आहे.',
+      'एक लक्षण PCOS चे निदान करण्यासाठी पुरेसे आहे: निदानासाठी सर्वसमावेशक मूल्यांकन आवश्यक आहे.',
+      'PCOS वयानुसार आपोआप जातो: तो आयुष्यभर कसा दिसतो ते बदलू शकते, पण सतत पाठपुरावा महत्त्वाचा राहतो.',
+    ],
+    s11Heading: 'डॉक्टरांना केव्हा भेटावे',
+    s11Body1:
+      'पाळी खूप अनियमित झाल्यास, अनेक महिने थांबल्यास, किंवा असामान्य लक्षणे दिसू लागल्यास वैद्यकीय सल्ला विशेष योग्य ठरतो.',
+    s11ConsultItems: [
+      'खूप अनियमित किंवा अनुपस्थित पाळी',
+      'असामान्य मुरूम किंवा केसांची वाढ',
+      'लक्षणीय केस गळणे',
+      'गर्भधारणेत अडचण',
+      'झपाट्याने बदलणारी लक्षणे',
+    ],
+    s12Heading: 'मुख्य मुद्दे',
+    s12SummaryTitle: 'आवश्यक मुद्दे',
+    s12SummaryItems: [
+      'PCOS ही एक सामान्य हार्मोनल स्थिती आहे.',
+      'ती अनेक वेगवेगळ्या प्रकारे दिसू शकते.',
+      'PCOS असलेल्या सर्व स्त्रियांना सारखी लक्षणे नसतात.',
+      'फक्त वजन PCOS चे निदान करण्यासाठी किंवा तो वगळण्यासाठी पुरेसे नाही.',
+      'निदानासाठी सर्वसमावेशक वैद्यकीय मूल्यांकन आवश्यक आहे.',
+      'PCOS बीजोत्सर्जनावर आणि कधी कधी सुपीकतेवर परिणाम करू शकतो.',
+      'वैयक्तिक काळजीचा दृष्टिकोन प्रत्येक स्त्रीच्या गरजा पूर्ण करण्यास मदत करतो.',
+    ],
+    finalNoteTitle: 'अधिक चांगले समजण्यासाठी एक मार्गदर्शक',
+    finalNoteText:
+      'हा लेख सर्वसाधारण माहितीसाठी आहे आणि वैद्यकीय सल्लामसलतीची जागा घेत नाही. प्रत्येक परिस्थिती वेगळी असते: शंका असल्यास किंवा लक्षणे कायम राहिल्यास, आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+    shareMessage: 'PCOS समजून घेणे — AWA',
+  },
+  gu: {
+    badge: 'PCOS • આવશ્યક માર્ગદર્શિકા',
+    title: 'PCOS\nસમજવું',
+    metaDuration: '10 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'શૈક્ષણિક સામગ્રી',
+    intro:
+      'પોલિસિસ્ટિક ઓવરી સિન્ડ્રોમ, જેને ઘણી વાર PCOS કહેવામાં આવે છે, એ હોર્મોન સંબંધી સામાન્ય સ્થિતિ છે જે તમારા ચક્ર, અંડોત્સર્જન, ત્વચા, વાળ, ચયાપચય અને ક્યારેક ફળદ્રુપતાને અસર કરી શકે છે.',
+    introSecondary:
+      'તે કેવી રીતે દેખાય છે એ એક સ્ત્રીથી બીજી સ્ત્રીમાં ઘણું બદલાય છે. PCOS સમજવાથી મુખ્યત્વે તેનાં લક્ષણો ઓળખવામાં, ક્યારે તબીબી સલાહ લેવી તે જાણવામાં અને પોતાને દોષ આપ્યા વિના તે કેવી રીતે બદલાય છે તેનો ક્રમ રાખવામાં મદદ મળે છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'PCOS શું છે?',
+      'PCOS કેમ થાય છે?',
+      'મુખ્ય ચિહ્નો',
+      'નિદાન કેવી રીતે થાય છે?',
+      'PCOS અને અંડોત્સર્જન',
+      'PCOS અને ફળદ્રુપતા',
+      'PCOS અને વજન / ચયાપચય',
+      'ત્વચા, વાળ અને શરીર પરના વાળ',
+      'PCOS ની સંભાળ કેવી રીતે લેવાય છે?',
+      'સામાન્ય ગેરસમજો',
+      'ક્યારે ડૉક્ટરને મળવું',
+      'મુખ્ય મુદ્દા',
+    ],
+    s1Heading: 'PCOS શું છે?',
+    s1Body1:
+      'પોલિસિસ્ટિક ઓવરી સિન્ડ્રોમ (PCOS) એ હોર્મોન સંબંધી સામાન્ય સ્થિતિ છે જે અંડાશયની સામાન્ય કામગીરી અને કેટલાક હોર્મોનના સંતુલનને બદલી શકે છે.',
+    s1Body2:
+      'કેટલીક સ્ત્રીઓમાં મુખ્ય સમસ્યા અનિયમિત અંડોત્સર્જન હોય છે. બીજી સ્ત્રીઓમાં ખીલ, વાળનો વધુ વધારો, વાળ ખરવા અથવા ચયાપચયનાં ચિહ્નો પહેલાં દેખાય છે.',
+    s1TipTitle: 'જાણવા જેવું',
+    s1TipText:
+      'નામ હોવા છતાં, PCOS નો અર્થ એ નથી કે અંડાશયમાં “ગાંઠો” હોય જ. ઐતિહાસિક નામ ભ્રમમાં નાખી શકે છે, અને ફક્ત સોનોગ્રાફીથી નિદાન થઈ શકતું નથી.',
+    s2Heading: 'PCOS કેમ થાય છે?',
+    s2Body1:
+      'PCOS નું કોઈ એક કારણ નથી. તે અનેક પરિબળોના સંયોજનથી થતું હોય એવું લાગે છે: કુટુંબમાં વલણ, હોર્મોનની કામગીરી, અંડોત્સર્જન, ચયાપચય અને વ્યક્તિગત પરિબળો.',
+    s2Factors: [
+      'કુટુંબમાં વલણ અને આનુવંશિક પરિબળો',
+      'અંડોત્સર્જનમાં ખલેલ',
+      'એન્ડ્રોજનનું પ્રમાણમાં વધુ પ્રમાણ',
+      'કેટલીક સ્ત્રીઓમાં ઇન્સ્યુલિન પ્રતિરોધ',
+      'ચયાપચય અને પર્યાવરણ સંબંધી પરિબળો',
+    ],
+    s2NeutralText:
+      'PCOS એ વ્યક્તિગત નિષ્ફળતા નથી. તે ફક્ત ઇચ્છાશક્તિની કમી, ખરાબ ખોરાક કે અપૂરતી શારીરિક પ્રવૃત્તિને કારણે થતું નથી.',
+    s3Heading: 'મુખ્ય ચિહ્નો',
+    s3Body1:
+      'PCOS એક સ્ત્રીથી બીજી સ્ત્રીમાં ઘણી અલગ રીતે દેખાઈ શકે છે. કેટલીકને ઘણાં લક્ષણો હોય છે, જ્યારે બીજી સ્ત્રીઓને બહુ ઓછાં જણાય છે.',
+    s3Signs: [
+      'અનિયમિત, લાંબા અંતરે આવતાં અથવા ક્યારેક ન આવતાં ચક્ર',
+      'અનિયમિત અથવા અનુમાન લગાવવું મુશ્કેલ હોય તેવું અંડોત્સર્જન',
+      'સતત રહેતા ખીલ, ખાસ કરીને ચહેરાના નીચેના ભાગમાં',
+      'ચહેરા, છાતી કે શરીર પર વાળનો વધુ વધારો',
+      'હોર્મોન સંબંધી પ્રકારે વાળ ખરવા',
+      'વજન વધવું અથવા વજન ઘટાડવામાં મુશ્કેલી',
+      'ગર્ભધારણમાં મુશ્કેલી',
+    ],
+    s3AlertTitle: 'મહત્વપૂર્ણ',
+    s3AlertText:
+      'આમાંથી કોઈ એક લક્ષણ હોવાનો અર્થ આપોઆપ એવો નથી કે તમને PCOS છે. બીજી ઘણી સ્થિતિઓ પણ આવાં જ લક્ષણો પેદા કરી શકે છે.',
+    s4Heading: 'નિદાન કેવી રીતે થાય છે?',
+    s4Body1:
+      'PCOS નું નિદાન એક તબીબી પ્રક્રિયા છે. આરોગ્ય વ્યાવસાયિક સામાન્ય રીતે તમારાં ચક્ર, લક્ષણો, તબીબી ઇતિહાસ અને તમે લઈ રહ્યાં હો તે સારવાર વિશે વાત કરીને શરૂઆત કરે છે.',
+    s4Body2:
+      'પરિસ્થિતિ પ્રમાણે, હોર્મોનની લોહીની તપાસ અને સોનોગ્રાફી પણ સૂચવવામાં આવી શકે છે.',
+    s4Points: [
+      'અનિયમિત ચક્ર અથવા ભાગ્યે જ થતું અંડોત્સર્જન',
+      'એન્ડ્રોજન વધુ હોવાનાં ચિહ્નો: ખીલ, વાળનો વધુ વધારો, વાળ ખરવા અથવા લોહીની તપાસનાં પરિણામો',
+      'જ્યારે આ તપાસ જરૂરી હોય ત્યારે સોનોગ્રાફીમાં PCOS સાથે સુસંગત અંડાશયનો દેખાવ',
+    ],
+    s4Body3:
+      'PCOS નું નિદાન પાકું કરતાં પહેલાં ડૉક્ટરે અનિયમિત ચક્ર અથવા વધુ એન્ડ્રોજનનાં અન્ય સંભવિત કારણોને પણ નકારવાં જોઈએ.',
+    s5Heading: 'PCOS અને અંડોત્સર્જન',
+    s5Body1:
+      'અંડોત્સર્જન એટલે અંડાશયમાંથી અંડકોષ (ઓઓસાઇટ) મુક્ત થવો. PCOS માં અંડોત્સર્જન ઓછું વારંવાર થઈ શકે છે અથવા તેનું અનુમાન લગાવવું વધુ મુશ્કેલ બની શકે છે.',
+    s5Body2:
+      'આનાથી સમજી શકાય છે કે ચક્ર ક્યારેક લાંબાં, અનિયમિત અથવા અગાઉથી જાણવા મુશ્કેલ કેમ હોય છે.',
+    s5HighlightTitle: 'તમારા ચક્ર પર નજર રાખવી',
+    s5HighlightText:
+      'તમારા માસિકની તારીખો, લક્ષણો અને અંડોત્સર્જનનાં કોઈપણ ચિહ્નો નોંધવાથી તમારી પોતાની રીત વધુ સારી રીતે સમજવામાં મદદ મળી શકે છે.',
+    s6Heading: 'PCOS અને ફળદ્રુપતા',
+    s6Body1:
+      'અંડોત્સર્જન અનિયમિત હોઈ શકે હોવાથી, PCOS ધરાવતી કેટલીક સ્ત્રીઓને ગર્ભધારણમાં વધુ મુશ્કેલી પડી શકે છે.',
+    s6Body2:
+      'જોકે, એનો અર્થ એ નથી કે PCOS આપોઆપ ગર્ભાવસ્થાને અટકાવે છે. PCOS ધરાવતી ઘણી સ્ત્રીઓ કુદરતી રીતે અથવા યોગ્ય તબીબી સહાયથી ગર્ભધારણ કરે છે.',
+    s6TipTitle: 'યાદ રાખો',
+    s6TipText:
+      'ગર્ભધારણમાં મુશ્કેલી હોવાનો અર્થ એ નથી કે તે અશક્ય છે. જો તમે ગર્ભવતી થવા ઇચ્છતાં હો, તો ડૉક્ટર અથવા મિડવાઇફ તમારી પરિસ્થિતિને અનુરૂપ યોજના સૂચવી શકે છે.',
+    s7Heading: 'PCOS અને વજન / ચયાપચય',
+    s7Body1:
+      'PCOS ચયાપચયમાં થતા ફેરફારો સાથે જોડાયેલું હોઈ શકે છે, જેમાં કેટલીક સ્ત્રીઓમાં ઇન્સ્યુલિન પ્રતિરોધનો સમાવેશ થાય છે.',
+    s7Body2:
+      'જોકે, ફક્ત વજનથી PCOS નું નિદાન થઈ શકતું નથી કે તેને નકારી શકાતું નથી. પાતળી સ્ત્રીને પણ PCOS હોઈ શકે છે, જેમ વધુ વજન ધરાવતી સ્ત્રીને તે ન પણ હોય.',
+    s7NeutralText:
+      'ફોલો-અપ સંભાળમાં ફક્ત વજનકાંટા પરના આંકડાને નહીં, પણ સમગ્ર આરોગ્યને ધ્યાનમાં લેવું જોઈએ.',
+    s8Heading: 'ત્વચા, વાળ અને શરીર પરના વાળ',
+    s8Body1:
+      'એન્ડ્રોજનનું પ્રમાણમાં વધુ પ્રમાણ તૈલી ગ્રંથિઓ અને વાળના મૂળને અસર કરી શકે છે.',
+    s8Body2:
+      'સ્ત્રી પ્રમાણે, આ સતત રહેતા ખીલ, વાળના વધુ વધારા અથવા વાળ ખરવા તરીકે દેખાઈ શકે છે.',
+    s8Items: [
+      'હોર્મોન સંબંધી ખીલ',
+      'ચહેરા કે શરીર પર વાળનો વધારો',
+      'વાળ પાતળા થવા અથવા ખરવા',
+    ],
+    s9Heading: 'PCOS ની સંભાળ કેવી રીતે લેવાય છે?',
+    s9Body1:
+      'PCOS ની સંભાળનો કોઈ એક એવો અભિગમ નથી જે દરેક સ્ત્રી માટે કામ કરે. પસંદગી લક્ષણો, લક્ષ્યો અને તબીબી સંજોગો પર આધાર રાખે છે.',
+    s9Body2:
+      'જીવનના તબક્કા પ્રમાણે લક્ષ્ય જુદું હોઈ શકે છે: ચક્ર નિયમિત કરવું, કેટલાંક લક્ષણો સુધારવાં, ચયાપચયના આરોગ્યનું રક્ષણ કરવું અથવા ગર્ભાવસ્થાની યોજનાને ટેકો આપવો.',
+    s9MiniTitle: 'આરોગ્યને ટેકો આપતી ટેવો',
+    s9Lifestyle: [
+      'તમારી જરૂરિયાત મુજબ વૈવિધ્યસભર અને નિયમિત આહાર લેવો',
+      'લાંબા સમય સુધી ચાલુ રાખી શકાય તેવી નિયમિત શારીરિક પ્રવૃત્તિ કરવી',
+      'પૂરતી નિયમિત ઊંઘ લેવી',
+      'સમય જતાં તમારાં ચક્ર અને લક્ષણો કેવી રીતે બદલાય છે તેની નોંધ રાખવી',
+      'વજન કે લક્ષણોમાં થતા ફેરફારો માટે પોતાને દોષ ન આપવો',
+    ],
+    s9Body3:
+      'તમારી જરૂરિયાત પ્રમાણે, આરોગ્ય વ્યાવસાયિક કેટલાંક લક્ષણો માટે અથવા ગર્ભાવસ્થાની યોજનાને ટેકો આપવા માટે સારવાર પણ સૂચવી શકે છે.',
+    s9AlertTitle: 'જાતે દવા ન લો',
+    s9AlertText:
+      'હોર્મોનની સારવાર, ચયાપચયની દવાઓ અને આહાર પૂરકો વિશે આરોગ્ય વ્યાવસાયિક સાથે ચર્ચા કરવી જોઈએ.',
+    s10Heading: 'PCOS વિશે સામાન્ય ગેરસમજો',
+    s10Myths: [
+      'PCOS નો અર્થ હંમેશાં “ગાંઠો” હોવી એવો થાય છે: નામ ભ્રમમાં નાખી શકે છે. નિદાન ફક્ત ગાંઠોની હાજરી પર આધારિત નથી.',
+      'PCOS ધરાવતી બધી સ્ત્રીઓનું વજન વધુ હોય છે: PCOS દરેક પ્રકારના શરીરની સ્ત્રીઓને અસર કરી શકે છે.',
+      'PCOS હંમેશાં ગર્ભાવસ્થાને અટકાવે છે: અંડોત્સર્જન અનિયમિત હોઈ શકે, પરંતુ ગર્ભાવસ્થા હજી પણ શક્ય છે.',
+      'PCOS નું નિદાન કરવા માટે એક લક્ષણ પૂરતું છે: નિદાન માટે સંપૂર્ણ તપાસ જરૂરી છે.',
+      'PCOS ઉંમર સાથે આપોઆપ મટી જાય છે: જીવનભર તે જે રીતે દેખાય છે તે બદલાઈ શકે છે, પરંતુ સતત ફોલો-અપ મહત્વનું રહે છે.',
+    ],
+    s11Heading: 'ક્યારે ડૉક્ટરને મળવું',
+    s11Body1:
+      'જ્યારે ચક્ર ખૂબ અનિયમિત થઈ જાય, ઘણા મહિના સુધી બંધ રહે અથવા અસામાન્ય લક્ષણો દેખાય ત્યારે તબીબી સલાહ ખાસ કરીને ઉપયોગી છે.',
+    s11ConsultItems: [
+      'ખૂબ અનિયમિત અથવા ગેરહાજર ચક્ર',
+      'અસામાન્ય ખીલ અથવા વાળનો વધારો',
+      'વાળનું નોંધપાત્ર ખરવું',
+      'ગર્ભધારણમાં મુશ્કેલી',
+      'ઝડપથી બદલાતાં લક્ષણો',
+    ],
+    s12Heading: 'મુખ્ય મુદ્દા',
+    s12SummaryTitle: 'આવશ્યક મુદ્દા',
+    s12SummaryItems: [
+      'PCOS એ હોર્મોન સંબંધી સામાન્ય સ્થિતિ છે.',
+      'તે ઘણી જુદી જુદી રીતે દેખાઈ શકે છે.',
+      'PCOS ધરાવતી બધી સ્ત્રીઓને એક જ લક્ષણો હોતાં નથી.',
+      'ફક્ત વજનથી PCOS નું નિદાન થઈ શકતું નથી કે તેને નકારી શકાતું નથી.',
+      'નિદાન માટે સંપૂર્ણ તબીબી તપાસ જરૂરી છે.',
+      'PCOS અંડોત્સર્જન અને ક્યારેક ફળદ્રુપતાને અસર કરી શકે છે.',
+      'વ્યક્તિગત સંભાળનો અભિગમ દરેક સ્ત્રીની જરૂરિયાત પૂરી કરવામાં મદદ કરે છે.',
+    ],
+    finalNoteTitle: 'વધુ સારી રીતે સમજવા માટેની માર્ગદર્શિકા',
+    finalNoteText:
+      'આ લેખ સામાન્ય માહિતી માટે છે અને તબીબી સલાહનું સ્થાન લેતો નથી. દરેક પરિસ્થિતિ અલગ હોય છે: શંકા હોય અથવા લક્ષણો ચાલુ રહે તો આરોગ્ય વ્યાવસાયિકની સલાહ લો.',
+    shareMessage: 'PCOS સમજવું — AWA',
+  },
+  pa: {
+    badge: 'PCOS • ਜ਼ਰੂਰੀ ਗਾਈਡ',
+    title: 'PCOS ਨੂੰ\nਸਮਝਣਾ',
+    metaDuration: '10 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਸਿੱਖਿਆਦਾਇਕ ਸਮੱਗਰੀ',
+    intro:
+      'ਪੌਲੀਸਿਸਟਿਕ ਓਵਰੀ ਸਿੰਡਰੋਮ, ਜਿਸਨੂੰ ਅਕਸਰ PCOS ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਇੱਕ ਆਮ ਹਾਰਮੋਨ ਸੰਬੰਧੀ ਸਥਿਤੀ ਹੈ ਜੋ ਤੁਹਾਡੇ ਚੱਕਰ, ਓਵੂਲੇਸ਼ਨ, ਚਮੜੀ, ਵਾਲਾਂ, ਮੈਟਾਬੋਲਿਜ਼ਮ ਅਤੇ ਕਈ ਵਾਰ ਉਪਜਾਊ ਸ਼ਕਤੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੀ ਹੈ।',
+    introSecondary:
+      'ਇਹ ਕਿਵੇਂ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ, ਇਹ ਇੱਕ ਔਰਤ ਤੋਂ ਦੂਜੀ ਵਿੱਚ ਬਹੁਤ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ। PCOS ਨੂੰ ਸਮਝਣ ਨਾਲ ਮੁੱਖ ਤੌਰ \'ਤੇ ਤੁਸੀਂ ਇਸਦੇ ਲੱਛਣ ਪਛਾਣ ਸਕਦੇ ਹੋ, ਜਾਣ ਸਕਦੇ ਹੋ ਕਿ ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ, ਅਤੇ ਆਪਣੇ ਆਪ ਨੂੰ ਦੋਸ਼ ਦਿੱਤੇ ਬਿਨਾਂ ਇਸਦੇ ਬਦਲਾਅ ਦਾ ਰਿਕਾਰਡ ਰੱਖ ਸਕਦੇ ਹੋ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'PCOS ਕੀ ਹੈ?',
+      'PCOS ਕਿਉਂ ਹੁੰਦਾ ਹੈ?',
+      'ਮੁੱਖ ਲੱਛਣ',
+      'ਇਸਦੀ ਪਛਾਣ ਕਿਵੇਂ ਹੁੰਦੀ ਹੈ?',
+      'PCOS ਅਤੇ ਓਵੂਲੇਸ਼ਨ',
+      'PCOS ਅਤੇ ਉਪਜਾਊ ਸ਼ਕਤੀ',
+      'PCOS ਅਤੇ ਭਾਰ / ਮੈਟਾਬੋਲਿਜ਼ਮ',
+      'ਚਮੜੀ, ਵਾਲ ਅਤੇ ਸਰੀਰ ਦੇ ਵਾਲ',
+      'PCOS ਦੀ ਸੰਭਾਲ ਕਿਵੇਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?',
+      'ਆਮ ਗ਼ਲਤਫ਼ਹਿਮੀਆਂ',
+      'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲਣਾ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    s1Heading: 'PCOS ਕੀ ਹੈ?',
+    s1Body1:
+      'ਪੌਲੀਸਿਸਟਿਕ ਓਵਰੀ ਸਿੰਡਰੋਮ (PCOS) ਇੱਕ ਆਮ ਹਾਰਮੋਨ ਸੰਬੰਧੀ ਸਥਿਤੀ ਹੈ ਜੋ ਅੰਡਕੋਸ਼ਾਂ ਦੇ ਆਮ ਕੰਮ ਅਤੇ ਕੁਝ ਹਾਰਮੋਨਾਂ ਦੇ ਸੰਤੁਲਨ ਨੂੰ ਬਦਲ ਸਕਦੀ ਹੈ।',
+    s1Body2:
+      'ਕੁਝ ਔਰਤਾਂ ਲਈ ਮੁੱਖ ਸਮੱਸਿਆ ਅਨਿਯਮਿਤ ਓਵੂਲੇਸ਼ਨ ਹੁੰਦੀ ਹੈ। ਹੋਰਾਂ ਲਈ ਮੁਹਾਸੇ, ਵਾਲਾਂ ਦਾ ਜ਼ਿਆਦਾ ਵਧਣਾ, ਵਾਲ ਝੜਨਾ ਜਾਂ ਮੈਟਾਬੋਲਿਜ਼ਮ ਸੰਬੰਧੀ ਸੰਕੇਤ ਪਹਿਲਾਂ ਨਜ਼ਰ ਆਉਂਦੇ ਹਨ।',
+    s1TipTitle: 'ਜਾਣਨ ਯੋਗ',
+    s1TipText:
+      'ਨਾਮ ਦੇ ਬਾਵਜੂਦ, PCOS ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਅੰਡਕੋਸ਼ਾਂ ਵਿੱਚ ਜ਼ਰੂਰ “ਗੰਢਾਂ” ਹੋਣ। ਇਹ ਪੁਰਾਣਾ ਨਾਮ ਗੁੰਮਰਾਹ ਕਰ ਸਕਦਾ ਹੈ, ਅਤੇ ਸਿਰਫ਼ ਅਲਟਰਾਸਾਊਂਡ ਨਾਲ ਪਛਾਣ ਨਹੀਂ ਹੋ ਸਕਦੀ।',
+    s2Heading: 'PCOS ਕਿਉਂ ਹੁੰਦਾ ਹੈ?',
+    s2Body1:
+      'PCOS ਦਾ ਕੋਈ ਇੱਕ ਕਾਰਨ ਨਹੀਂ ਹੈ। ਲੱਗਦਾ ਹੈ ਕਿ ਇਹ ਕਈ ਕਾਰਕਾਂ ਦੇ ਮਿਲਣ ਨਾਲ ਹੁੰਦਾ ਹੈ: ਪਰਿਵਾਰਕ ਰੁਝਾਨ, ਹਾਰਮੋਨਾਂ ਦਾ ਕੰਮ, ਓਵੂਲੇਸ਼ਨ, ਮੈਟਾਬੋਲਿਜ਼ਮ ਅਤੇ ਨਿੱਜੀ ਕਾਰਕ।',
+    s2Factors: [
+      'ਪਰਿਵਾਰਕ ਰੁਝਾਨ ਅਤੇ ਜੈਨੇਟਿਕ ਕਾਰਕ',
+      'ਓਵੂਲੇਸ਼ਨ ਵਿੱਚ ਗੜਬੜੀ',
+      'ਐਂਡਰੋਜਨ ਦੀ ਸਾਪੇਖਿਕ ਵਾਧੂ ਮਾਤਰਾ',
+      'ਕੁਝ ਔਰਤਾਂ ਵਿੱਚ ਇਨਸੁਲਿਨ ਪ੍ਰਤੀਰੋਧ',
+      'ਮੈਟਾਬੋਲਿਜ਼ਮ ਅਤੇ ਵਾਤਾਵਰਨ ਸੰਬੰਧੀ ਕਾਰਕ',
+    ],
+    s2NeutralText:
+      'PCOS ਕੋਈ ਨਿੱਜੀ ਕਮੀ ਨਹੀਂ ਹੈ। ਇਹ ਸਿਰਫ਼ ਇੱਛਾ-ਸ਼ਕਤੀ ਦੀ ਕਮੀ, ਮਾੜੀ ਖ਼ੁਰਾਕ ਜਾਂ ਸਰੀਰਕ ਸਰਗਰਮੀ ਦੀ ਘਾਟ ਦਾ ਨਤੀਜਾ ਨਹੀਂ ਹੈ।',
+    s3Heading: 'ਮੁੱਖ ਲੱਛਣ',
+    s3Body1:
+      'PCOS ਇੱਕ ਔਰਤ ਤੋਂ ਦੂਜੀ ਵਿੱਚ ਬਹੁਤ ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਦਿਖਾਈ ਦੇ ਸਕਦਾ ਹੈ। ਕੁਝ ਵਿੱਚ ਕਈ ਲੱਛਣ ਹੁੰਦੇ ਹਨ, ਜਦਕਿ ਹੋਰ ਬਹੁਤ ਘੱਟ ਲੱਛਣ ਮਹਿਸੂਸ ਕਰਦੀਆਂ ਹਨ।',
+    s3Signs: [
+      'ਅਨਿਯਮਿਤ, ਬਹੁਤ ਦੂਰ-ਦੂਰ ਜਾਂ ਕਈ ਵਾਰ ਗ਼ੈਰਹਾਜ਼ਰ ਚੱਕਰ',
+      'ਅਨਿਯਮਿਤ ਜਾਂ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣ ਵਿੱਚ ਔਖਾ ਓਵੂਲੇਸ਼ਨ',
+      'ਲਗਾਤਾਰ ਮੁਹਾਸੇ, ਖ਼ਾਸ ਕਰਕੇ ਚਿਹਰੇ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਵਿੱਚ',
+      'ਚਿਹਰੇ, ਛਾਤੀ ਜਾਂ ਸਰੀਰ \'ਤੇ ਵਾਲਾਂ ਦਾ ਵਧਣਾ',
+      'ਹਾਰਮੋਨ ਕਾਰਨ ਵਾਲ ਝੜਨਾ',
+      'ਭਾਰ ਵਧਣਾ ਜਾਂ ਭਾਰ ਘਟਾਉਣ ਵਿੱਚ ਮੁਸ਼ਕਲ',
+      'ਗਰਭ ਧਾਰਨ ਵਿੱਚ ਮੁਸ਼ਕਲ',
+    ],
+    s3AlertTitle: 'ਜ਼ਰੂਰੀ',
+    s3AlertText:
+      'ਇਹਨਾਂ ਵਿੱਚੋਂ ਕੋਈ ਇੱਕ ਲੱਛਣ ਹੋਣ ਦਾ ਮਤਲਬ ਆਪਣੇ-ਆਪ ਇਹ ਨਹੀਂ ਕਿ ਤੁਹਾਨੂੰ PCOS ਹੈ। ਹੋਰ ਕਈ ਸਥਿਤੀਆਂ ਵੀ ਇਹੋ ਜਿਹੇ ਲੱਛਣ ਪੈਦਾ ਕਰ ਸਕਦੀਆਂ ਹਨ।',
+    s4Heading: 'ਇਸਦੀ ਪਛਾਣ ਕਿਵੇਂ ਹੁੰਦੀ ਹੈ?',
+    s4Body1:
+      'PCOS ਦੀ ਪਛਾਣ ਇੱਕ ਡਾਕਟਰੀ ਪ੍ਰਕਿਰਿਆ ਹੈ। ਸਿਹਤ ਮਾਹਿਰ ਆਮ ਤੌਰ \'ਤੇ ਤੁਹਾਡੇ ਚੱਕਰਾਂ, ਲੱਛਣਾਂ, ਸਿਹਤ ਇਤਿਹਾਸ ਅਤੇ ਤੁਸੀਂ ਜੋ ਇਲਾਜ ਲੈ ਰਹੇ ਹੋ, ਉਹਨਾਂ ਬਾਰੇ ਗੱਲ ਕਰਕੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ।',
+    s4Body2:
+      'ਸਥਿਤੀ ਮੁਤਾਬਕ ਹਾਰਮੋਨਾਂ ਦੇ ਖ਼ੂਨ ਦੇ ਟੈਸਟ ਅਤੇ ਅਲਟਰਾਸਾਊਂਡ ਵੀ ਸੁਝਾਏ ਜਾ ਸਕਦੇ ਹਨ।',
+    s4Points: [
+      'ਅਨਿਯਮਿਤ ਚੱਕਰ ਜਾਂ ਕਦੇ-ਕਦਾਈਂ ਹੋਣ ਵਾਲਾ ਓਵੂਲੇਸ਼ਨ',
+      'ਐਂਡਰੋਜਨ ਦੀ ਵਾਧੂ ਮਾਤਰਾ ਦੇ ਸੰਕੇਤ: ਮੁਹਾਸੇ, ਵਾਲਾਂ ਦਾ ਜ਼ਿਆਦਾ ਵਧਣਾ, ਵਾਲ ਝੜਨਾ ਜਾਂ ਖ਼ੂਨ ਦੇ ਟੈਸਟ ਦੇ ਨਤੀਜੇ',
+      'ਅਲਟਰਾਸਾਊਂਡ \'ਤੇ PCOS ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਅੰਡਕੋਸ਼ਾਂ ਦੀ ਬਣਤਰ, ਜਦੋਂ ਇਹ ਜਾਂਚ ਜ਼ਰੂਰੀ ਸਮਝੀ ਜਾਵੇ',
+    ],
+    s4Body3:
+      'PCOS ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡਾਕਟਰ ਨੂੰ ਅਨਿਯਮਿਤ ਚੱਕਰਾਂ ਜਾਂ ਐਂਡਰੋਜਨ ਦੀ ਵਾਧੂ ਮਾਤਰਾ ਦੇ ਹੋਰ ਸੰਭਾਵੀ ਕਾਰਨਾਂ ਨੂੰ ਵੀ ਰੱਦ ਕਰਨਾ ਪੈਂਦਾ ਹੈ।',
+    s5Heading: 'PCOS ਅਤੇ ਓਵੂਲੇਸ਼ਨ',
+    s5Body1:
+      'ਓਵੂਲੇਸ਼ਨ ਦਾ ਮਤਲਬ ਹੈ ਅੰਡਕੋਸ਼ ਵਿੱਚੋਂ ਅੰਡੇ (ਓਵਮ) ਦਾ ਨਿਕਲਣਾ। PCOS ਵਿੱਚ ਓਵੂਲੇਸ਼ਨ ਘੱਟ ਵਾਰ ਹੋ ਸਕਦਾ ਹੈ ਜਾਂ ਇਸਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣਾ ਔਖਾ ਹੋ ਸਕਦਾ ਹੈ।',
+    s5Body2:
+      'ਇਸ ਨਾਲ ਸਮਝ ਆ ਸਕਦਾ ਹੈ ਕਿ ਚੱਕਰ ਕਈ ਵਾਰ ਲੰਬੇ, ਅਨਿਯਮਿਤ ਜਾਂ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣ ਵਿੱਚ ਔਖੇ ਕਿਉਂ ਹੁੰਦੇ ਹਨ।',
+    s5HighlightTitle: 'ਆਪਣੇ ਚੱਕਰ ਦਾ ਰਿਕਾਰਡ',
+    s5HighlightText:
+      'ਮਾਹਵਾਰੀ ਦੀਆਂ ਤਾਰੀਖ਼ਾਂ, ਲੱਛਣ ਅਤੇ ਓਵੂਲੇਸ਼ਨ ਦੇ ਕਿਸੇ ਵੀ ਸੰਕੇਤ ਨੂੰ ਲਿਖਣ ਨਾਲ ਤੁਸੀਂ ਆਪਣੇ ਪੈਟਰਨ ਨੂੰ ਬਿਹਤਰ ਸਮਝ ਸਕਦੇ ਹੋ।',
+    s6Heading: 'PCOS ਅਤੇ ਉਪਜਾਊ ਸ਼ਕਤੀ',
+    s6Body1:
+      'ਕਿਉਂਕਿ ਓਵੂਲੇਸ਼ਨ ਅਨਿਯਮਿਤ ਹੋ ਸਕਦਾ ਹੈ, PCOS ਵਾਲੀਆਂ ਕੁਝ ਔਰਤਾਂ ਨੂੰ ਗਰਭ ਧਾਰਨ ਵਿੱਚ ਜ਼ਿਆਦਾ ਮੁਸ਼ਕਲ ਹੋ ਸਕਦੀ ਹੈ।',
+    s6Body2:
+      'ਪਰ ਇਸਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ PCOS ਆਪਣੇ-ਆਪ ਗਰਭ-ਅਵਸਥਾ ਨੂੰ ਰੋਕ ਦਿੰਦਾ ਹੈ। PCOS ਵਾਲੀਆਂ ਬਹੁਤ ਸਾਰੀਆਂ ਔਰਤਾਂ ਕੁਦਰਤੀ ਤੌਰ \'ਤੇ ਜਾਂ ਢੁਕਵੀਂ ਡਾਕਟਰੀ ਮਦਦ ਨਾਲ ਗਰਭ ਧਾਰਨ ਕਰਦੀਆਂ ਹਨ।',
+    s6TipTitle: 'ਯਾਦ ਰੱਖੋ',
+    s6TipText:
+      'ਗਰਭ ਧਾਰਨ ਵਿੱਚ ਮੁਸ਼ਕਲ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਇਹ ਅਸੰਭਵ ਹੈ। ਜੇ ਤੁਸੀਂ ਗਰਭਵਤੀ ਹੋਣ ਦੀ ਆਸ ਰੱਖਦੇ ਹੋ, ਤਾਂ ਡਾਕਟਰ ਜਾਂ ਮਿਡਵਾਈਫ਼ ਤੁਹਾਡੀ ਸਥਿਤੀ ਮੁਤਾਬਕ ਯੋਜਨਾ ਸੁਝਾ ਸਕਦੇ ਹਨ।',
+    s7Heading: 'PCOS ਅਤੇ ਭਾਰ / ਮੈਟਾਬੋਲਿਜ਼ਮ',
+    s7Body1:
+      'PCOS ਦਾ ਸੰਬੰਧ ਮੈਟਾਬੋਲਿਜ਼ਮ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਨਾਲ ਹੋ ਸਕਦਾ ਹੈ, ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਕੁਝ ਔਰਤਾਂ ਵਿੱਚ ਇਨਸੁਲਿਨ ਪ੍ਰਤੀਰੋਧ ਵੀ ਸ਼ਾਮਲ ਹੈ।',
+    s7Body2:
+      'ਪਰ ਸਿਰਫ਼ ਭਾਰ ਨਾਲ PCOS ਦੀ ਪਛਾਣ ਨਹੀਂ ਹੋ ਸਕਦੀ ਅਤੇ ਨਾ ਹੀ ਇਸਨੂੰ ਰੱਦ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ। ਪਤਲੀ ਔਰਤ ਨੂੰ ਵੀ PCOS ਹੋ ਸਕਦਾ ਹੈ, ਅਤੇ ਜ਼ਿਆਦਾ ਭਾਰ ਵਾਲੀ ਔਰਤ ਨੂੰ ਨਹੀਂ ਵੀ ਹੋ ਸਕਦਾ।',
+    s7NeutralText:
+      'ਦੇਖਭਾਲ ਵਿੱਚ ਸਮੁੱਚੀ ਸਿਹਤ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ, ਸਿਰਫ਼ ਤੋਲ ਵਾਲੀ ਮਸ਼ੀਨ \'ਤੇ ਆਉਣ ਵਾਲੇ ਅੰਕੜੇ ਨੂੰ ਨਹੀਂ।',
+    s8Heading: 'ਚਮੜੀ, ਵਾਲ ਅਤੇ ਸਰੀਰ ਦੇ ਵਾਲ',
+    s8Body1:
+      'ਐਂਡਰੋਜਨ ਦੀ ਸਾਪੇਖਿਕ ਵਾਧੂ ਮਾਤਰਾ ਤੇਲ ਪੈਦਾ ਕਰਨ ਵਾਲੀਆਂ ਗ੍ਰੰਥੀਆਂ ਅਤੇ ਵਾਲਾਂ ਦੀਆਂ ਜੜ੍ਹਾਂ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੀ ਹੈ।',
+    s8Body2:
+      'ਹਰ ਔਰਤ ਮੁਤਾਬਕ ਇਹ ਲਗਾਤਾਰ ਮੁਹਾਸਿਆਂ, ਵਾਲਾਂ ਦੇ ਜ਼ਿਆਦਾ ਵਧਣ ਜਾਂ ਵਾਲ ਝੜਨ ਦੇ ਰੂਪ ਵਿੱਚ ਦਿਖਾਈ ਦੇ ਸਕਦਾ ਹੈ।',
+    s8Items: [
+      'ਹਾਰਮੋਨ ਕਾਰਨ ਮੁਹਾਸੇ',
+      'ਚਿਹਰੇ ਜਾਂ ਸਰੀਰ \'ਤੇ ਵਾਲਾਂ ਦਾ ਵਧਣਾ',
+      'ਵਾਲਾਂ ਦਾ ਪਤਲਾ ਹੋਣਾ ਜਾਂ ਝੜਨਾ',
+    ],
+    s9Heading: 'PCOS ਦੀ ਸੰਭਾਲ ਕਿਵੇਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?',
+    s9Body1:
+      'PCOS ਦੀ ਸੰਭਾਲ ਦਾ ਕੋਈ ਇੱਕ ਤਰੀਕਾ ਨਹੀਂ ਹੈ ਜੋ ਹਰ ਔਰਤ ਲਈ ਕੰਮ ਕਰੇ। ਚੋਣ ਲੱਛਣਾਂ, ਟੀਚਿਆਂ ਅਤੇ ਡਾਕਟਰੀ ਹਾਲਾਤ \'ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।',
+    s9Body2:
+      'ਜ਼ਿੰਦਗੀ ਦੇ ਪੜਾਅ ਮੁਤਾਬਕ ਟੀਚਾ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ: ਚੱਕਰਾਂ ਨੂੰ ਨਿਯਮਿਤ ਕਰਨਾ, ਕੁਝ ਲੱਛਣਾਂ ਵਿੱਚ ਸੁਧਾਰ ਕਰਨਾ, ਮੈਟਾਬੋਲਿਜ਼ਮ ਦੀ ਸਿਹਤ ਦੀ ਰੱਖਿਆ ਕਰਨਾ, ਜਾਂ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਯੋਜਨਾ ਵਿੱਚ ਮਦਦ ਕਰਨਾ।',
+    s9MiniTitle: 'ਸਿਹਤ ਨੂੰ ਸਹਾਰਾ ਦੇਣ ਵਾਲੀਆਂ ਆਦਤਾਂ',
+    s9Lifestyle: [
+      'ਆਪਣੀਆਂ ਲੋੜਾਂ ਮੁਤਾਬਕ ਵੰਨ-ਸੁਵੰਨੀ ਅਤੇ ਨਿਯਮਿਤ ਖ਼ੁਰਾਕ ਲੈਣਾ',
+      'ਨਿਯਮਿਤ ਸਰੀਰਕ ਸਰਗਰਮੀ ਕਰਨਾ ਜੋ ਤੁਸੀਂ ਲੰਮੇ ਸਮੇਂ ਤੱਕ ਜਾਰੀ ਰੱਖ ਸਕੋ',
+      'ਕਾਫ਼ੀ ਨਿਯਮਿਤ ਨੀਂਦ ਲੈਣਾ',
+      'ਸਮੇਂ ਦੇ ਨਾਲ ਆਪਣੇ ਚੱਕਰਾਂ ਅਤੇ ਲੱਛਣਾਂ ਦੇ ਬਦਲਾਅ ਦਾ ਰਿਕਾਰਡ ਰੱਖਣਾ',
+      'ਭਾਰ ਜਾਂ ਲੱਛਣਾਂ ਵਿੱਚ ਬਦਲਾਅ ਲਈ ਆਪਣੇ ਆਪ ਨੂੰ ਦੋਸ਼ ਨਾ ਦੇਣਾ',
+    ],
+    s9Body3:
+      'ਤੁਹਾਡੀਆਂ ਲੋੜਾਂ ਮੁਤਾਬਕ, ਸਿਹਤ ਮਾਹਿਰ ਕੁਝ ਲੱਛਣਾਂ ਲਈ ਜਾਂ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਯੋਜਨਾ ਵਿੱਚ ਮਦਦ ਲਈ ਇਲਾਜ ਵੀ ਸੁਝਾ ਸਕਦੇ ਹਨ।',
+    s9AlertTitle: 'ਆਪਣੇ ਆਪ ਦਵਾਈ ਨਾ ਲਓ',
+    s9AlertText:
+      'ਹਾਰਮੋਨ ਸੰਬੰਧੀ ਇਲਾਜ, ਮੈਟਾਬੋਲਿਜ਼ਮ ਦੀਆਂ ਦਵਾਈਆਂ ਅਤੇ ਖ਼ੁਰਾਕੀ ਪੂਰਕਾਂ ਬਾਰੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ।',
+    s10Heading: 'PCOS ਬਾਰੇ ਆਮ ਗ਼ਲਤਫ਼ਹਿਮੀਆਂ',
+    s10Myths: [
+      'PCOS ਦਾ ਮਤਲਬ ਹਮੇਸ਼ਾ “ਗੰਢਾਂ” ਹੋਣਾ ਹੈ: ਇਹ ਨਾਮ ਗੁੰਮਰਾਹ ਕਰ ਸਕਦਾ ਹੈ। ਪਛਾਣ ਸਿਰਫ਼ ਗੰਢਾਂ ਦੀ ਮੌਜੂਦਗੀ \'ਤੇ ਨਿਰਭਰ ਨਹੀਂ ਕਰਦੀ।',
+      'PCOS ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਔਰਤਾਂ ਦਾ ਭਾਰ ਜ਼ਿਆਦਾ ਹੁੰਦਾ ਹੈ: PCOS ਹਰ ਤਰ੍ਹਾਂ ਦੇ ਸਰੀਰ ਵਾਲੀਆਂ ਔਰਤਾਂ ਨੂੰ ਹੋ ਸਕਦਾ ਹੈ।',
+      'PCOS ਹਮੇਸ਼ਾ ਗਰਭ-ਅਵਸਥਾ ਨੂੰ ਰੋਕਦਾ ਹੈ: ਓਵੂਲੇਸ਼ਨ ਅਨਿਯਮਿਤ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਗਰਭ-ਅਵਸਥਾ ਫਿਰ ਵੀ ਸੰਭਵ ਹੈ।',
+      'ਸਿਰਫ਼ ਇੱਕ ਲੱਛਣ ਨਾਲ PCOS ਦੀ ਪਛਾਣ ਹੋ ਜਾਂਦੀ ਹੈ: ਪਛਾਣ ਲਈ ਪੂਰੀ ਜਾਂਚ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।',
+      'ਉਮਰ ਦੇ ਨਾਲ PCOS ਆਪਣੇ-ਆਪ ਖ਼ਤਮ ਹੋ ਜਾਂਦਾ ਹੈ: ਜ਼ਿੰਦਗੀ ਭਰ ਇਸਦਾ ਰੂਪ ਬਦਲ ਸਕਦਾ ਹੈ, ਪਰ ਲਗਾਤਾਰ ਨਿਗਰਾਨੀ ਫਿਰ ਵੀ ਜ਼ਰੂਰੀ ਰਹਿੰਦੀ ਹੈ।',
+    ],
+    s11Heading: 'ਡਾਕਟਰ ਨੂੰ ਕਦੋਂ ਮਿਲਣਾ ਹੈ',
+    s11Body1:
+      'ਡਾਕਟਰੀ ਸਲਾਹ ਖ਼ਾਸ ਤੌਰ \'ਤੇ ਉਦੋਂ ਫ਼ਾਇਦੇਮੰਦ ਹੁੰਦੀ ਹੈ ਜਦੋਂ ਚੱਕਰ ਬਹੁਤ ਅਨਿਯਮਿਤ ਹੋ ਜਾਣ, ਕਈ ਮਹੀਨਿਆਂ ਲਈ ਬੰਦ ਹੋ ਜਾਣ, ਜਾਂ ਕੋਈ ਅਸਾਧਾਰਨ ਲੱਛਣ ਦਿਖਾਈ ਦੇਣ।',
+    s11ConsultItems: [
+      'ਬਹੁਤ ਅਨਿਯਮਿਤ ਜਾਂ ਗ਼ੈਰਹਾਜ਼ਰ ਚੱਕਰ',
+      'ਅਸਾਧਾਰਨ ਮੁਹਾਸੇ ਜਾਂ ਵਾਲਾਂ ਦਾ ਵਧਣਾ',
+      'ਵਾਲਾਂ ਦਾ ਬਹੁਤ ਜ਼ਿਆਦਾ ਝੜਨਾ',
+      'ਗਰਭ ਧਾਰਨ ਵਿੱਚ ਮੁਸ਼ਕਲ',
+      'ਤੇਜ਼ੀ ਨਾਲ ਬਦਲਦੇ ਲੱਛਣ',
+    ],
+    s12Heading: 'ਮੁੱਖ ਨੁਕਤੇ',
+    s12SummaryTitle: 'ਜ਼ਰੂਰੀ ਗੱਲਾਂ',
+    s12SummaryItems: [
+      'PCOS ਇੱਕ ਆਮ ਹਾਰਮੋਨ ਸੰਬੰਧੀ ਸਥਿਤੀ ਹੈ।',
+      'ਇਹ ਕਈ ਵੱਖ-ਵੱਖ ਢੰਗਾਂ ਨਾਲ ਦਿਖਾਈ ਦੇ ਸਕਦੀ ਹੈ।',
+      'PCOS ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਔਰਤਾਂ ਵਿੱਚ ਇੱਕੋ ਜਿਹੇ ਲੱਛਣ ਨਹੀਂ ਹੁੰਦੇ।',
+      'ਸਿਰਫ਼ ਭਾਰ ਨਾਲ PCOS ਦੀ ਪਛਾਣ ਨਹੀਂ ਹੋ ਸਕਦੀ ਅਤੇ ਨਾ ਹੀ ਇਸਨੂੰ ਰੱਦ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।',
+      'ਪਛਾਣ ਲਈ ਪੂਰੀ ਡਾਕਟਰੀ ਜਾਂਚ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।',
+      'PCOS ਓਵੂਲੇਸ਼ਨ ਅਤੇ ਕਈ ਵਾਰ ਉਪਜਾਊ ਸ਼ਕਤੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦਾ ਹੈ।',
+      'ਨਿੱਜੀ ਲੋੜਾਂ ਮੁਤਾਬਕ ਦੇਖਭਾਲ ਹਰ ਔਰਤ ਦੀਆਂ ਲੋੜਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।',
+    ],
+    finalNoteTitle: 'ਬਿਹਤਰ ਸਮਝ ਲਈ ਇੱਕ ਗਾਈਡ',
+    finalNoteText:
+      'ਇਹ ਲੇਖ ਆਮ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦਾ। ਹਰ ਸਥਿਤੀ ਵੱਖਰੀ ਹੁੰਦੀ ਹੈ: ਸ਼ੱਕ ਹੋਵੇ ਜਾਂ ਲੱਛਣ ਬਣੇ ਰਹਿਣ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਓ।',
+    shareMessage: 'PCOS ਨੂੰ ਸਮਝਣਾ — AWA',
+  },
+  my: {
+    badge: 'PCOS • အခြေခံလမ်းညွှန်',
+    title: 'PCOS ကို\nနားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 10 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'ပညာပေးအကြောင်းအရာ',
+    intro:
+      'သားဥအိမ်တွင် ရေအိတ်များဖြစ်စေသောရောဂါလက္ခဏာစု (PCOS) သည် ရာသီစက်ဝန်း၊ မျိုးဥကြွေခြင်း၊ အသားအရေ၊ ဆံပင်၊ ဇီဝဖြစ်စဉ်နှင့် တစ်ခါတစ်ရံ သန္ဓေတည်နိုင်စွမ်းကို သက်ရောက်နိုင်သော အဖြစ်များသည့် ဟော်မုန်းဆိုင်ရာ အခြေအနေတစ်ခု ဖြစ်သည်။',
+    introSecondary:
+      'ပေါ်လွင်ပုံမှာ အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦး များစွာကွာခြားသည်။ PCOS ကို နားလည်ခြင်းသည် လက္ခဏာများကို ဖော်ထုတ်သိရှိရန်၊ ဆေးကုသမှုအကြံဉာဏ်ကို ဘယ်အချိန်တောင်းခံရမည်ကို သိရန်နှင့် မိမိကိုယ်ကို အပြစ်မတင်ဘဲ အခြေအနေပြောင်းလဲပုံကို မှတ်တမ်းတင်ရန် အဓိကအကူအညီပေးသည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'PCOS ဆိုတာ ဘာလဲ။',
+      'PCOS ဘာကြောင့် ဖြစ်ပေါ်သလဲ။',
+      'အဓိကလက္ခဏာများ',
+      'ရောဂါရှာဖွေခြင်းကို ဘယ်လိုလုပ်သလဲ။',
+      'PCOS နှင့် မျိုးဥကြွေခြင်း',
+      'PCOS နှင့် သန္ဓေတည်နိုင်စွမ်း',
+      'PCOS နှင့် ကိုယ်အလေးချိန် / ဇီဝဖြစ်စဉ်',
+      'အသားအရေ၊ ဆံပင်နှင့် ကိုယ်ပေါ်ရှိ အမွေးများ',
+      'PCOS ကို ဘယ်လိုစီမံသလဲ။',
+      'မှားယွင်းသော ယူဆချက်များ',
+      'ဆရာဝန်နှင့် ဘယ်အချိန်ပြသင့်သလဲ',
+      'အဓိကအချက်များ',
+    ],
+    s1Heading: 'PCOS ဆိုတာ ဘာလဲ။',
+    s1Body1:
+      'သားဥအိမ်တွင် ရေအိတ်များဖြစ်စေသောရောဂါလက္ခဏာစု (PCOS) သည် သားဥအိမ်၏ ပုံမှန်လုပ်ဆောင်မှုနှင့် အချို့ဟော်မုန်းများ၏ ညီမျှမှုကို ပြောင်းလဲစေနိုင်သော အဖြစ်များသည့် ဟော်မုန်းဆိုင်ရာ အခြေအနေတစ်ခု ဖြစ်သည်။',
+    s1Body2:
+      'အချို့အမျိုးသမီးများတွင် အဓိကပြဿနာမှာ မျိုးဥကြွေခြင်း မမှန်ခြင်း ဖြစ်သည်။ အခြားသူများတွင် ဝက်ခြံ၊ ဆံပင်အမွေးပိုပေါက်ခြင်း၊ ဆံပင်ကျွတ်ခြင်း သို့မဟုတ် ဇီဝဖြစ်စဉ်ဆိုင်ရာ လက္ခဏာများက ဦးစွာ ထင်ရှားလာတတ်သည်။',
+    s1TipTitle: 'သိထားသင့်သည်',
+    s1TipText:
+      'အမည်အရ ထင်ရသော်လည်း PCOS ဆိုသည်မှာ သားဥအိမ်တွင် “ရေအိတ်များ” ရှိရမည်ဟု မဆိုလိုပါ။ ယခင်ကခေါ်သောအမည်သည် လမ်းလွဲစေနိုင်ပြီး အယ်ထရာဆောင်းတစ်ခုတည်းဖြင့် ရောဂါအတည်ပြုရန် မလုံလောက်ပါ။',
+    s2Heading: 'PCOS ဘာကြောင့် ဖြစ်ပေါ်သလဲ။',
+    s2Body1:
+      'PCOS ၏ အကြောင်းရင်းတစ်ခုတည်း မရှိပါ။ မိသားစုအရ ဖြစ်လွယ်မှု၊ ဟော်မုန်းလုပ်ဆောင်မှု၊ မျိုးဥကြွေခြင်း၊ ဇီဝဖြစ်စဉ်နှင့် တစ်ဦးချင်းအချက်များ ပေါင်းစပ်ခြင်းကြောင့် ဖြစ်ပေါ်သည်ဟု ယူဆရသည်။',
+    s2Factors: [
+      'မိသားစုအရ ဖြစ်လွယ်မှုနှင့် မျိုးရိုးဗီဇအချက်များ',
+      'မျိုးဥကြွေခြင်း ပျက်ယွင်းမှုများ',
+      'အန်ဒရိုဂျင် အနည်းငယ်ပိုနေခြင်း',
+      'အချို့အမျိုးသမီးများတွင် အင်ဆူလင် ခုခံမှု',
+      'ဇီဝဖြစ်စဉ်နှင့် ပတ်ဝန်းကျင်ဆိုင်ရာ အချက်များ',
+    ],
+    s2NeutralText:
+      'PCOS သည် ကိုယ်ရေးကိုယ်တာ ချို့ယွင်းချက် မဟုတ်ပါ။ စိတ်ဓာတ်ခွန်အားမရှိခြင်း၊ အစားအသောက်မကောင်းခြင်း သို့မဟုတ် ကိုယ်လက်လှုပ်ရှားမှု မလုံလောက်ခြင်းကြောင့် ရိုးရိုးဖြစ်လာသည်မဟုတ်ပါ။',
+    s3Heading: 'အဓိကလက္ခဏာများ',
+    s3Body1:
+      'PCOS သည် အမျိုးသမီးတစ်ဦးနှင့်တစ်ဦး အလွန်ကွဲပြားစွာ ပေါ်လွင်နိုင်သည်။ အချို့တွင် လက္ခဏာများစွာရှိပြီး အချို့တွင် အနည်းငယ်သာ သတိထားမိတတ်သည်။',
+    s3Signs: [
+      'မမှန်သော၊ ကြားကွာသော သို့မဟုတ် တစ်ခါတစ်ရံ မလာသော ရာသီစက်ဝန်းများ',
+      'မမှန်သော သို့မဟုတ် ခန့်မှန်းရခက်သော မျိုးဥကြွေခြင်း',
+      'အထူးသဖြင့် မျက်နှာအောက်ပိုင်းတွင် ဆက်လက်ဖြစ်နေသော ဝက်ခြံ',
+      'မျက်နှာ၊ ရင်ဘတ် သို့မဟုတ် ကိုယ်ပေါ်တွင် အမွေးပိုပေါက်ခြင်း',
+      'ဟော်မုန်းပုံစံအရ ဆံပင်ကျွတ်ခြင်း',
+      'ကိုယ်အလေးချိန် တက်ခြင်း သို့မဟုတ် လျှော့ရန်ခက်ခြင်း',
+      'သန္ဓေတည်ရန် ခက်ခဲခြင်း',
+    ],
+    s3AlertTitle: 'အရေးကြီးသည်',
+    s3AlertText:
+      'ဤလက္ခဏာများအနက် တစ်ခုရှိခြင်းသည် PCOS ရှိသည်ဟု အလိုအလျောက် မဆိုလိုပါ။ အခြားအခြေအနေများစွာကလည်း ဆင်တူသောလက္ခဏာများကို ဖြစ်စေနိုင်သည်။',
+    s4Heading: 'ရောဂါရှာဖွေခြင်းကို ဘယ်လိုလုပ်သလဲ။',
+    s4Body1:
+      'PCOS ကို ရောဂါရှာဖွေခြင်းသည် ဆေးဘက်ဆိုင်ရာ လုပ်ငန်းစဉ်တစ်ခုဖြစ်သည်။ ကျန်းမာရေးပညာရှင်က များသောအားဖြင့် သင့်ရာသီစက်ဝန်း၊ လက္ခဏာများ၊ ဆေးမှတ်တမ်းနှင့် သောက်နေသော ဆေးများအကြောင်း စကားပြောခြင်းဖြင့် စတင်သည်။',
+    s4Body2:
+      'အခြေအနေပေါ်မူတည်၍ ဟော်မုန်းသွေးစစ်ဆေးမှုများနှင့် အယ်ထရာဆောင်းကိုလည်း အကြံပြုနိုင်သည်။',
+    s4Points: [
+      'ရာသီစက်ဝန်း မမှန်ခြင်း သို့မဟုတ် မျိုးဥကြွေခြင်း နည်းပါးခြင်း',
+      'အန်ဒရိုဂျင်ပိုနေသော လက္ခဏာများ - ဝက်ခြံ၊ အမွေးပိုပေါက်ခြင်း၊ ဆံပင်ကျွတ်ခြင်း သို့မဟုတ် သွေးစစ်ဆေးမှုရလဒ်များ',
+      'ဤစစ်ဆေးမှုကို လိုအပ်သည်ဟု သတ်မှတ်ပါက အယ်ထရာဆောင်းတွင် PCOS နှင့် ကိုက်ညီသော သားဥအိမ်ပုံပေါ်ခြင်း',
+    ],
+    s4Body3:
+      'PCOS ရောဂါကို အတည်မပြုမီ ရာသီစက်ဝန်း မမှန်ခြင်း သို့မဟုတ် အန်ဒရိုဂျင်ပိုနေခြင်းအတွက် အခြားဖြစ်နိုင်ချေရှိသော အကြောင်းရင်းများကိုလည်း ဆရာဝန်က ဖယ်ရှားစစ်ဆေးရမည်။',
+    s5Heading: 'PCOS နှင့် မျိုးဥကြွေခြင်း',
+    s5Body1:
+      'မျိုးဥကြွေခြင်းဆိုသည်မှာ သားဥအိမ်မှ မျိုးဥ (oocyte) ထွက်လာခြင်း ဖြစ်သည်။ PCOS တွင် မျိုးဥကြွေခြင်း မကြာခဏမဖြစ်ခြင်း သို့မဟုတ် ခန့်မှန်းရခက်ခြင်း ဖြစ်နိုင်သည်။',
+    s5Body2:
+      'ထို့ကြောင့် ရာသီစက်ဝန်းများသည် တစ်ခါတစ်ရံ ရှည်လျားခြင်း၊ မမှန်ခြင်း သို့မဟုတ် ကြိုတင်ခန့်မှန်းရခက်ခြင်း ဖြစ်ရခြင်းကို ရှင်းပြနိုင်သည်။',
+    s5HighlightTitle: 'သင့်ရာသီစက်ဝန်းကို မှတ်တမ်းတင်ခြင်း',
+    s5HighlightText:
+      'ရာသီလာသည့်ရက်စွဲများ၊ လက္ခဏာများနှင့် မျိုးဥကြွေခြင်း၏ လက္ခဏာတစ်စုံတစ်ရာကို မှတ်တမ်းတင်ခြင်းသည် မိမိ၏ပုံစံများကို ပိုမိုနားလည်ရန် ကူညီနိုင်သည်။',
+    s6Heading: 'PCOS နှင့် သန္ဓေတည်နိုင်စွမ်း',
+    s6Body1:
+      'မျိုးဥကြွေခြင်း မမှန်နိုင်သောကြောင့် PCOS ရှိသော အချို့အမျိုးသမီးများသည် သန္ဓေတည်ရန် ပိုခက်ခဲနိုင်သည်။',
+    s6Body2:
+      'သို့သော် PCOS ရှိလျှင် ကိုယ်ဝန်ဆောင်ခြင်းကို အလိုအလျောက် တားဆီးသည်ဟု မဆိုလိုပါ။ PCOS ရှိသော အမျိုးသမီးများစွာသည် သဘာဝအတိုင်း သို့မဟုတ် သင့်လျော်သော ဆေးကုသမှုအကူအညီဖြင့် သန္ဓေတည်ကြသည်။',
+    s6TipTitle: 'ကိုယ်တိုင်သတိရပါ',
+    s6TipText:
+      'သန္ဓေတည်ရန် ခက်ခဲခြင်းသည် မဖြစ်နိုင်ဟု မဆိုလိုပါ။ ကိုယ်ဝန်ဆောင်လိုပါက ဆရာဝန် သို့မဟုတ် သားဖွားဆရာမက သင့်အခြေအနေနှင့် ကိုက်ညီသော နည်းလမ်းကို အကြံပေးနိုင်သည်။',
+    s7Heading: 'PCOS နှင့် ကိုယ်အလေးချိန် / ဇီဝဖြစ်စဉ်',
+    s7Body1:
+      'PCOS သည် ဇီဝဖြစ်စဉ်ဆိုင်ရာ ပြောင်းလဲမှုများနှင့် ဆက်စပ်နိုင်ပြီး အချို့အမျိုးသမီးများတွင် အင်ဆူလင် ခုခံမှုလည်း ပါဝင်သည်။',
+    s7Body2:
+      'သို့သော် ကိုယ်အလေးချိန်တစ်ခုတည်းဖြင့် PCOS ကို ရောဂါရှာဖွေရန် သို့မဟုတ် ဖယ်ရှားရန် မဖြစ်နိုင်ပါ။ ပိန်သော အမျိုးသမီးတွင်လည်း PCOS ရှိနိုင်ပြီး ကိုယ်အလေးချိန်များသော အမျိုးသမီးတွင် မရှိနိုင်ပါ။',
+    s7NeutralText:
+      'ဆက်လက်စောင့်ကြည့်မှုတွင် ချိန်ခွင်ပေါ်ရှိ ဂဏန်းတစ်ခုတည်းမဟုတ်ဘဲ ကျန်းမာရေးအလုံးစုံကို ထည့်သွင်းစဉ်းစားသင့်သည်။',
+    s8Heading: 'အသားအရေ၊ ဆံပင်နှင့် ကိုယ်ပေါ်ရှိ အမွေးများ',
+    s8Body1:
+      'အန်ဒရိုဂျင် အနည်းငယ်ပိုနေခြင်းသည် အရေပြားဆီထုတ်ဂလင်းများနှင့် အမွေးအမှင်အရင်းများကို သက်ရောက်နိုင်သည်။',
+    s8Body2:
+      'အမျိုးသမီးအလိုက် ဤအခြေအနေသည် ဆက်လက်ဖြစ်နေသော ဝက်ခြံ၊ အမွေးပိုပေါက်ခြင်း သို့မဟုတ် ဆံပင်ကျွတ်ခြင်းအဖြစ် ပေါ်လွင်နိုင်သည်။',
+    s8Items: [
+      'ဟော်မုန်းကြောင့် ဝက်ခြံ',
+      'မျက်နှာ သို့မဟုတ် ကိုယ်ပေါ်တွင် အမွေးပိုပေါက်ခြင်း',
+      'ဆံပင်ပါးလာခြင်း သို့မဟုတ် ဆံပင်ကျွတ်ခြင်း',
+    ],
+    s9Heading: 'PCOS ကို ဘယ်လိုစီမံသလဲ။',
+    s9Body1:
+      'အမျိုးသမီးတိုင်းနှင့် ကိုက်ညီသော PCOS စီမံရန် နည်းလမ်းတစ်ခုတည်း မရှိပါ။ ရွေးချယ်မှုသည် လက္ခဏာများ၊ ရည်မှန်းချက်များနှင့် ဆေးဘက်ဆိုင်ရာ အခြေအနေများပေါ်တွင် မူတည်သည်။',
+    s9Body2:
+      'ရည်မှန်းချက်သည် ဘဝအဆင့်ပေါ်မူတည်၍ ကွဲပြားနိုင်သည် - ရာသီစက်ဝန်းကို ပုံမှန်ဖြစ်စေရန်၊ အချို့လက္ခဏာများကို သက်သာစေရန်၊ ဇီဝဖြစ်စဉ်ကျန်းမာရေးကို ကာကွယ်ရန် သို့မဟုတ် ကိုယ်ဝန်ဆောင်ရန်အစီအစဉ်ကို ပံ့ပိုးရန် ဖြစ်နိုင်သည်။',
+    s9MiniTitle: 'ကျန်းမာရေးကို ပံ့ပိုးသော အလေ့အကျင့်များ',
+    s9Lifestyle: [
+      'သင့်လိုအပ်ချက်နှင့် ကိုက်ညီသော ကွဲပြားစုံလင်ပြီး ပုံမှန်အစားအသောက်စားခြင်း',
+      'အချိန်ကြာကြာ ဆက်လုပ်နိုင်သော ပုံမှန်ကိုယ်လက်လှုပ်ရှားမှု လုပ်ခြင်း',
+      'အိပ်စက်ချိန်ကို လုံလောက်စွာ ပုံမှန်ထိန်းခြင်း',
+      'ရာသီစက်ဝန်းနှင့် လက္ခဏာများ အချိန်ကြာလာသည်နှင့်အမျှ ပြောင်းလဲပုံကို မှတ်တမ်းတင်ခြင်း',
+      'ကိုယ်အလေးချိန် သို့မဟုတ် လက္ခဏာများ ပြောင်းလဲမှုအတွက် မိမိကိုယ်ကို အပြစ်မတင်ခြင်း',
+    ],
+    s9Body3:
+      'သင့်လိုအပ်ချက်အရ ကျန်းမာရေးပညာရှင်က အချို့လက္ခဏာများအတွက် သို့မဟုတ် ကိုယ်ဝန်ဆောင်ရန်အစီအစဉ်ကို ပံ့ပိုးရန် ကုသမှုများကိုလည်း အကြံပြုနိုင်သည်။',
+    s9AlertTitle: 'ကိုယ့်ဘာသာ ဆေးမသောက်ပါနှင့်',
+    s9AlertText:
+      'ဟော်မုန်းကုသမှုများ၊ ဇီဝဖြစ်စဉ်ဆိုင်ရာ ဆေးများနှင့် အားဖြည့်စာသောက်ဆေးများအားလုံးကို ကျန်းမာရေးပညာရှင်နှင့် ဆွေးနွေးသင့်သည်။',
+    s10Heading: 'PCOS အကြောင်း မှားယွင်းသော ယူဆချက်များ',
+    s10Myths: [
+      'PCOS ဆိုသည်မှာ “ရေအိတ်များ” ရှိခြင်းဟု အမြဲဆိုလိုသည် - အမည်သည် လမ်းလွဲစေနိုင်သည်။ ရောဂါရှာဖွေခြင်းသည် ရေအိတ်ရှိမှုတစ်ခုတည်းပေါ်တွင် မမူတည်ပါ။',
+      'PCOS ရှိသော အမျိုးသမီးအားလုံး ကိုယ်အလေးချိန်များသည် - PCOS သည် ကိုယ်ခန္ဓာပုံစံအမျိုးမျိုးရှိသော အမျိုးသမီးများကို သက်ရောက်နိုင်သည်။',
+      'PCOS သည် ကိုယ်ဝန်ဆောင်ခြင်းကို အမြဲတားဆီးသည် - မျိုးဥကြွေခြင်း မမှန်နိုင်သော်လည်း ကိုယ်ဝန်ဆောင်ခြင်းမှာ ဖြစ်နိုင်သေးသည်။',
+      'လက္ခဏာတစ်ခုတည်းဖြင့် PCOS ကို ရောဂါရှာဖွေနိုင်သည် - ရောဂါရှာဖွေရန် ပြည့်စုံသော အကဲဖြတ်မှု လိုအပ်သည်။',
+      'PCOS သည် အသက်ကြီးလာလျှင် ရိုးရိုးပျောက်သွားသည် - ပေါ်လွင်ပုံသည် တစ်သက်တာအတွင်း ပြောင်းလဲနိုင်သော်လည်း ဆက်လက်စောင့်ကြည့်ခြင်းမှာ အရေးကြီးနေဆဲဖြစ်သည်။',
+    ],
+    s11Heading: 'ဆရာဝန်နှင့် ဘယ်အချိန်ပြသင့်သလဲ',
+    s11Body1:
+      'ရာသီစက်ဝန်းများ အလွန်မမှန်လာသောအခါ၊ လပေါင်းများစွာ ရပ်တန့်သွားသောအခါ သို့မဟုတ် ပုံမှန်မဟုတ်သော လက္ခဏာများ ပေါ်လာသောအခါ ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ရယူခြင်းသည် အထူးတန်ဖိုးရှိသည်။',
+    s11ConsultItems: [
+      'အလွန်မမှန်သော သို့မဟုတ် မလာသော ရာသီစက်ဝန်းများ',
+      'ပုံမှန်မဟုတ်သော ဝက်ခြံ သို့မဟုတ် အမွေးပေါက်ခြင်း',
+      'ဆံပင်အများအပြား ကျွတ်ခြင်း',
+      'သန္ဓေတည်ရန် ခက်ခဲခြင်း',
+      'လျင်မြန်စွာ ပြောင်းလဲနေသော လက္ခဏာများ',
+    ],
+    s12Heading: 'အဓိကအချက်များ',
+    s12SummaryTitle: 'မရှိမဖြစ်အချက်များ',
+    s12SummaryItems: [
+      'PCOS သည် အဖြစ်များသော ဟော်မုန်းဆိုင်ရာ အခြေအနေတစ်ခု ဖြစ်သည်။',
+      'ပုံစံအမျိုးမျိုးဖြင့် ပေါ်လွင်နိုင်သည်။',
+      'PCOS ရှိသော အမျိုးသမီးအားလုံး လက္ခဏာတူညီမှု မရှိပါ။',
+      'ကိုယ်အလေးချိန်တစ်ခုတည်းဖြင့် PCOS ကို ရောဂါရှာဖွေရန် သို့မဟုတ် ဖယ်ရှားရန် မလုံလောက်ပါ။',
+      'ရောဂါရှာဖွေရန် ပြည့်စုံသော ဆေးဘက်ဆိုင်ရာ အကဲဖြတ်မှု လိုအပ်သည်။',
+      'PCOS သည် မျိုးဥကြွေခြင်းနှင့် တစ်ခါတစ်ရံ သန္ဓေတည်နိုင်စွမ်းကို သက်ရောက်နိုင်သည်။',
+      'ကိုယ်ပိုင်ပြုစုစောင့်ရှောက်မှုနည်းလမ်းသည် အမျိုးသမီးတစ်ဦးချင်းစီ၏ လိုအပ်ချက်များကို ဖြည့်ဆည်းရန် ကူညီသည်။',
+    ],
+    finalNoteTitle: 'ပိုမိုနားလည်စေရန် လမ်းညွှန်',
+    finalNoteText:
+      'ဤဆောင်းပါးသည် အထွေထွေအချက်အလက်ပေးရန်ဖြစ်ပြီး ဆေးဘက်ဆိုင်ရာ ပြသမှုကို အစားထိုးခြင်းမရှိပါ။ အခြေအနေတိုင်း ကွဲပြားသည် - သံသယရှိပါက သို့မဟုတ် လက္ခဏာများ ဆက်လက်ရှိနေပါက ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို ရယူပါ။',
+    shareMessage: 'PCOS ကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badge: 'PCOS • មគ្គុទ្ទេសក៍សំខាន់',
+    title: 'ស្វែងយល់អំពី\nPCOS',
+    metaDuration: 'អាន 10 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាអប់រំ',
+    intro:
+      'រោគសញ្ញាអូវែមានអង្កាម ដែលច្រើនហៅថា PCOS គឺជាស្ថានភាពអរម៉ូនទូទៅមួយ ដែលអាចប៉ះពាល់ដល់វដ្តរដូវ ការបញ្ចេញពងអូវុល ស្បែក សក់ ការរំលាយអាហារ និងពេលខ្លះភាពមានកូន។',
+    introSecondary:
+      'រោគសញ្ញាបង្ហាញខុសគ្នាច្រើនពីស្ត្រីម្នាក់ទៅម្នាក់ទៀត។ ការយល់ដឹងអំពី PCOS ជួយអ្នកជាចម្បងឱ្យស្គាល់រោគសញ្ញា ដឹងថាពេលណាគួរស្វែងរកដំបូន្មានពេទ្យ និងតាមដានការវិវត្តដោយមិនត្រូវបន្ទោសខ្លួនឯង។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'PCOS ជាអ្វី?',
+      'ហេតុអ្វីបានជា PCOS កើតឡើង?',
+      'សញ្ញាសំខាន់ៗ',
+      'តើធ្វើរោគវិនិច្ឆ័យដោយរបៀបណា?',
+      'PCOS និងការបញ្ចេញពងអូវុល',
+      'PCOS និងភាពមានកូន',
+      'PCOS និងទម្ងន់ / ការរំលាយអាហារ',
+      'ស្បែក សក់ និងរោមលើរាងកាយ',
+      'តើគ្រប់គ្រង PCOS ដោយរបៀបណា?',
+      'ការយល់ច្រឡំទូទៅ',
+      'ពេលណាគួរជួបវេជ្ជបណ្ឌិត',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    s1Heading: 'PCOS ជាអ្វី?',
+    s1Body1:
+      'រោគសញ្ញាអូវែមានអង្កាម (PCOS) គឺជាស្ថានភាពអរម៉ូនទូទៅមួយ ដែលអាចផ្លាស់ប្តូរដំណើរការធម្មតារបស់ពងអូវែ និងលំនឹងនៃអរម៉ូនមួយចំនួន។',
+    s1Body2:
+      'ចំពោះស្ត្រីខ្លះ បញ្ហាចម្បងគឺការបញ្ចេញពងអូវុលមិនទៀងទាត់។ ចំពោះស្ត្រីខ្លះទៀត មុន ការដុះរោមច្រើនហួសកម្រិត ការជ្រុះសក់ ឬសញ្ញាទាក់ទងនឹងការរំលាយអាហារ ជាអ្វីដែលលេចធ្លោមុនគេ។',
+    s1TipTitle: 'គួរដឹង',
+    s1TipText:
+      'ទោះបីជាឈ្មោះបែបនេះក៏ដោយ PCOS មិនចាំបាច់មានន័យថាពងអូវែមាន “ពងបែក” នោះទេ។ ពាក្យប្រវត្តិសាស្ត្រនេះអាចធ្វើឱ្យយល់ច្រឡំ ហើយអ៊ុលត្រាសោនតែម្នាក់ឯងមិនគ្រប់គ្រាន់ដើម្បីធ្វើរោគវិនិច្ឆ័យឡើយ។',
+    s2Heading: 'ហេតុអ្វីបានជា PCOS កើតឡើង?',
+    s2Body1:
+      'PCOS មិនមានមូលហេតុតែមួយទេ។ វាហាក់ដូចជាកើតចេញពីកត្តាជាច្រើនដែលអាចរួមបញ្ចូលគ្នា៖ ភាពងាយកើតតាមគ្រួសារ ដំណើរការអរម៉ូន ការបញ្ចេញពងអូវុល ការរំលាយអាហារ និងកត្តារបស់បុគ្គល។',
+    s2Factors: [
+      'ភាពងាយកើតតាមគ្រួសារ និងកត្តាហ្សែន',
+      'ការរំខានដល់ការបញ្ចេញពងអូវុល',
+      'អង់ដ្រូហ្សែនលើសកម្រិតដោយប្រៀបធៀប',
+      'ភាពទប់ទល់នឹងអ៊ីនស៊ុយលីនចំពោះស្ត្រីខ្លះ',
+      'កត្តាទាក់ទងនឹងការរំលាយអាហារ និងបរិស្ថាន',
+    ],
+    s2NeutralText:
+      'PCOS មិនមែនជាកំហុសផ្ទាល់ខ្លួនទេ។ វាមិនមែនកើតឡើងដោយសារតែខ្វះឆន្ទៈ អាហារមិនល្អ ឬធ្វើសកម្មភាពរាងកាយមិនគ្រប់គ្រាន់ប៉ុណ្ណោះទេ។',
+    s3Heading: 'សញ្ញាសំខាន់ៗ',
+    s3Body1:
+      'PCOS អាចបង្ហាញខុសគ្នាខ្លាំងពីស្ត្រីម្នាក់ទៅម្នាក់ទៀត។ ស្ត្រីខ្លះមានរោគសញ្ញាច្រើន ខណៈពេលដែលអ្នកខ្លះទៀតកត់សម្គាល់បានតិចតួចបំផុត។',
+    s3Signs: [
+      'វដ្តរដូវមិនទៀងទាត់ ឃ្លាតឆ្ងាយពីគ្នា ឬពេលខ្លះអវត្តមាន',
+      'ការបញ្ចេញពងអូវុលមិនទៀងទាត់ ឬពិបាកទស្សន៍ទាយ',
+      'មុនជាប់រហូត ជាពិសេសនៅផ្នែកខាងក្រោមនៃមុខ',
+      'រោមដុះច្រើនឡើងនៅលើមុខ ទ្រូង ឬរាងកាយ',
+      'ការជ្រុះសក់តាមលំនាំអរម៉ូន',
+      'ឡើងទម្ងន់ ឬពិបាកស្រកទម្ងន់',
+      'ពិបាកមានផ្ទៃពោះ',
+    ],
+    s3AlertTitle: 'សំខាន់',
+    s3AlertText:
+      'ការមានរោគសញ្ញាមួយក្នុងចំណោមទាំងនេះ មិនមានន័យថាអ្នកមាន PCOS ដោយស្វ័យប្រវត្តិទេ។ ស្ថានភាពផ្សេងទៀតជាច្រើនអាចបង្កឱ្យមានរោគសញ្ញាស្រដៀងគ្នា។',
+    s4Heading: 'តើធ្វើរោគវិនិច្ឆ័យដោយរបៀបណា?',
+    s4Body1:
+      'ការធ្វើរោគវិនិច្ឆ័យ PCOS គឺជាដំណើរការផ្នែកវេជ្ជសាស្ត្រ។ អ្នកជំនាញសុខាភិបាលជាធម្មតាចាប់ផ្តើមដោយពិភាក្សាអំពីវដ្តរដូវ រោគសញ្ញា ប្រវត្តិសុខភាព និងការព្យាបាលណាមួយដែលអ្នកកំពុងប្រើ។',
+    s4Body2:
+      'ទៅតាមស្ថានភាព ក៏អាចត្រូវបានផ្តល់យោបល់ឱ្យធ្វើតេស្តឈាមអរម៉ូន និងអ៊ុលត្រាសោនផងដែរ។',
+    s4Points: [
+      'វដ្តរដូវមិនទៀងទាត់ ឬការបញ្ចេញពងអូវុលមិនញឹកញាប់',
+      'សញ្ញានៃអង់ដ្រូហ្សែនលើសកម្រិត៖ មុន ការដុះរោមច្រើនហួសកម្រិត ការជ្រុះសក់ ឬលទ្ធផលតេស្តឈាម',
+      'រូបរាងពងអូវែស្របនឹង PCOS លើអ៊ុលត្រាសោន នៅពេលដែលការពិនិត្យនេះត្រូវបានចង្អុលបង្ហាញ',
+    ],
+    s4Body3:
+      'វេជ្ជបណ្ឌិតក៏ត្រូវច្រានចោលមូលហេតុផ្សេងទៀតដែលអាចកើតមាន នៃវដ្តរដូវមិនទៀងទាត់ ឬអង់ដ្រូហ្សែនលើសកម្រិត មុននឹងបញ្ជាក់រោគវិនិច្ឆ័យ PCOS។',
+    s5Heading: 'PCOS និងការបញ្ចេញពងអូវុល',
+    s5Body1:
+      'ការបញ្ចេញពងអូវុលគឺការដែលពង (អូវុល) ចេញពីពងអូវែ។ ក្នុង PCOS ការបញ្ចេញពងអូវុលអាចកើតឡើងតិចជាងមុន ឬពិបាកទស្សន៍ទាយជាង។',
+    s5Body2:
+      'នេះអាចពន្យល់ហេតុអ្វីបានជាវដ្តរដូវពេលខ្លះវែង មិនទៀងទាត់ ឬពិបាកព្យាករណ៍។',
+    s5HighlightTitle: 'ការតាមដានវដ្តរដូវរបស់អ្នក',
+    s5HighlightText:
+      'ការកត់ត្រាកាលបរិច្ឆេទរដូវ រោគសញ្ញា និងសញ្ញាណាមួយនៃការបញ្ចេញពងអូវុល អាចជួយឱ្យអ្នកយល់កាន់តែច្បាស់អំពីលំនាំរបស់ខ្លួនអ្នក។',
+    s6Heading: 'PCOS និងភាពមានកូន',
+    s6Body1:
+      'ដោយសារការបញ្ចេញពងអូវុលអាចមិនទៀងទាត់ ស្ត្រីមួយចំនួនដែលមាន PCOS អាចពិបាកមានផ្ទៃពោះជាង។',
+    s6Body2:
+      'ទោះជាយ៉ាងណា នេះមិនមានន័យថា PCOS រារាំងការមានផ្ទៃពោះដោយស្វ័យប្រវត្តិទេ។ ស្ត្រីជាច្រើនដែលមាន PCOS មានផ្ទៃពោះតាមធម្មជាតិ ឬដោយមានការគាំទ្រផ្នែកវេជ្ជសាស្ត្រដែលសមស្រប។',
+    s6TipTitle: 'សូមចងចាំ',
+    s6TipText:
+      'ការពិបាកមានផ្ទៃពោះមិនមានន័យថាមិនអាចទៅរួចទេ។ ប្រសិនបើអ្នកសង្ឃឹមថានឹងមានផ្ទៃពោះ វេជ្ជបណ្ឌិត ឬឆ្មបអាចណែនាំយុទ្ធសាស្ត្រដែលសមស្របនឹងស្ថានភាពរបស់អ្នក។',
+    s7Heading: 'PCOS និងទម្ងន់ / ការរំលាយអាហារ',
+    s7Body1:
+      'PCOS អាចទាក់ទងនឹងការផ្លាស់ប្តូរនៃការរំលាយអាហារ រួមទាំងភាពទប់ទល់នឹងអ៊ីនស៊ុយលីនចំពោះស្ត្រីខ្លះ។',
+    s7Body2:
+      'ទោះជាយ៉ាងណា ទម្ងន់តែម្នាក់ឯងមិនអាចធ្វើរោគវិនិច្ឆ័យ ឬច្រានចោល PCOS បានទេ។ ស្ត្រីស្គមអាចមាន PCOS ដូចគ្នានឹងស្ត្រីដែលមានទម្ងន់លើសអាចមិនមានដែរ។',
+    s7NeutralText:
+      'ការតាមដានថែទាំគួរគិតដល់សុខភាពទាំងមូល មិនមែនត្រឹមតែលេខលើជញ្ជីងប៉ុណ្ណោះទេ។',
+    s8Heading: 'ស្បែក សក់ និងរោមលើរាងកាយ',
+    s8Body1:
+      'អង់ដ្រូហ្សែនលើសកម្រិតដោយប្រៀបធៀប អាចប៉ះពាល់ដល់ក្រពេញខ្លាញ់ និងរន្ធរោម។',
+    s8Body2:
+      'ទៅតាមស្ត្រីម្នាក់ៗ នេះអាចបង្ហាញជាមុនជាប់រហូត ការដុះរោមកាន់តែច្រើន ឬការជ្រុះសក់។',
+    s8Items: [
+      'មុនដោយសារអរម៉ូន',
+      'រោមនៅលើមុខ ឬរាងកាយកាន់តែច្រើន',
+      'សក់ស្តើង ឬការជ្រុះសក់',
+    ],
+    s9Heading: 'តើគ្រប់គ្រង PCOS ដោយរបៀបណា?',
+    s9Body1:
+      'មិនមានវិធីគ្រប់គ្រង PCOS តែមួយដែលសមស្របសម្រាប់ស្ត្រីគ្រប់រូបទេ។ ជម្រើសអាស្រ័យលើរោគសញ្ញា គោលដៅ និងកាលៈទេសៈផ្នែកវេជ្ជសាស្ត្រ។',
+    s9Body2:
+      'គោលដៅអាចខុសគ្នាទៅតាមដំណាក់កាលនៃជីវិត៖ ធ្វើឱ្យវដ្តរដូវទៀងទាត់ កែលម្អរោគសញ្ញាមួយចំនួន ការពារសុខភាពនៃការរំលាយអាហារ ឬគាំទ្រគម្រោងមានផ្ទៃពោះ។',
+    s9MiniTitle: 'ទម្លាប់ដែលគាំទ្រសុខភាព',
+    s9Lifestyle: [
+      'បរិភោគអាហារចម្រុះ និងទៀងទាត់ ស្របតាមតម្រូវការរបស់អ្នក',
+      'ធ្វើសកម្មភាពរាងកាយទៀងទាត់ ដែលអ្នកអាចបន្តបានយូរអង្វែង',
+      'រក្សាដំណេកឱ្យទៀងទាត់គ្រប់គ្រាន់',
+      'តាមដានការផ្លាស់ប្តូរនៃវដ្តរដូវ និងរោគសញ្ញារបស់អ្នកតាមពេលវេលា',
+      'កុំបន្ទោសខ្លួនឯងចំពោះការផ្លាស់ប្តូរទម្ងន់ ឬរោគសញ្ញា',
+    ],
+    s9Body3:
+      'ទៅតាមតម្រូវការរបស់អ្នក អ្នកជំនាញសុខាភិបាលក៏អាចផ្តល់ជូនការព្យាបាលសម្រាប់រោគសញ្ញាមួយចំនួន ឬដើម្បីគាំទ្រគម្រោងមានផ្ទៃពោះ។',
+    s9AlertTitle: 'កុំប្រើថ្នាំដោយខ្លួនឯង',
+    s9AlertText:
+      'ការព្យាបាលដោយអរម៉ូន ថ្នាំសម្រាប់ការរំលាយអាហារ និងអាហារបំប៉នទាំងអស់ គួរតែត្រូវបានពិភាក្សាជាមួយអ្នកជំនាញសុខាភិបាល។',
+    s10Heading: 'ការយល់ច្រឡំទូទៅអំពី PCOS',
+    s10Myths: [
+      'PCOS តែងតែមានន័យថាមាន “ពងបែក”៖ ឈ្មោះនេះអាចធ្វើឱ្យយល់ច្រឡំ។ រោគវិនិច្ឆ័យមិនពឹងផ្អែកតែលើវត្តមាននៃពងបែកប៉ុណ្ណោះទេ។',
+      'ស្ត្រីទាំងអស់ដែលមាន PCOS មានទម្ងន់លើស៖ PCOS អាចប៉ះពាល់ស្ត្រីគ្រប់រូបរាងកាយ។',
+      'PCOS តែងតែរារាំងការមានផ្ទៃពោះ៖ ការបញ្ចេញពងអូវុលអាចមិនទៀងទាត់ ប៉ុន្តែការមានផ្ទៃពោះនៅតែអាចទៅរួច។',
+      'រោគសញ្ញាតែមួយគ្រប់គ្រាន់ដើម្បីធ្វើរោគវិនិច្ឆ័យ PCOS៖ រោគវិនិច្ឆ័យត្រូវការការវាយតម្លៃដ៏ទូលំទូលាយ។',
+      'PCOS បាត់ទៅវិញដោយខ្លួនឯងតាមអាយុ៖ របៀបដែលវាបង្ហាញអាចផ្លាស់ប្តូរពេញមួយជីវិត ប៉ុន្តែការតាមដានជាបន្តបន្ទាប់នៅតែសំខាន់។',
+    ],
+    s11Heading: 'ពេលណាគួរជួបវេជ្ជបណ្ឌិត',
+    s11Body1:
+      'ដំបូន្មានពេទ្យមានតម្លៃជាពិសេស នៅពេលវដ្តរដូវមិនទៀងទាត់ខ្លាំង ឈប់ជាច្រើនខែ ឬនៅពេលមានរោគសញ្ញាមិនធម្មតាកើតឡើង។',
+    s11ConsultItems: [
+      'វដ្តរដូវមិនទៀងទាត់ខ្លាំង ឬអវត្តមាន',
+      'មុន ឬការដុះរោមមិនធម្មតា',
+      'ការជ្រុះសក់ច្រើន',
+      'ពិបាកមានផ្ទៃពោះ',
+      'រោគសញ្ញាផ្លាស់ប្តូរយ៉ាងឆាប់រហ័ស',
+    ],
+    s12Heading: 'ចំណុចសំខាន់ៗ',
+    s12SummaryTitle: 'ចំណុចចាំបាច់',
+    s12SummaryItems: [
+      'PCOS គឺជាស្ថានភាពអរម៉ូនទូទៅមួយ។',
+      'វាអាចបង្ហាញតាមរបៀបជាច្រើនផ្សេងគ្នា។',
+      'ស្ត្រីទាំងអស់ដែលមាន PCOS មិនមានរោគសញ្ញាដូចគ្នាទេ។',
+      'ទម្ងន់តែម្នាក់ឯងមិនគ្រប់គ្រាន់ដើម្បីធ្វើរោគវិនិច្ឆ័យ ឬច្រានចោល PCOS ទេ។',
+      'រោគវិនិច្ឆ័យត្រូវការការវាយតម្លៃផ្នែកវេជ្ជសាស្ត្រដ៏ទូលំទូលាយ។',
+      'PCOS អាចប៉ះពាល់ដល់ការបញ្ចេញពងអូវុល និងពេលខ្លះភាពមានកូន។',
+      'វិធីសាស្ត្រថែទាំតាមបុគ្គលជួយឆ្លើយតបនឹងតម្រូវការរបស់ស្ត្រីម្នាក់ៗ។',
+    ],
+    finalNoteTitle: 'មគ្គុទ្ទេសក៍ដើម្បីយល់កាន់តែច្បាស់',
+    finalNoteText:
+      'អត្ថបទនេះមានគោលបំណងផ្តល់ព័ត៌មានទូទៅ ហើយមិនជំនួសការពិគ្រោះជាមួយវេជ្ជបណ្ឌិតទេ។ ស្ថានភាពនីមួយៗខុសគ្នា៖ ប្រសិនបើមានការសង្ស័យ ឬរោគសញ្ញានៅបន្ត សូមស្វែងរកដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ស្វែងយល់អំពី PCOS — AWA',
+  },
+  lo: {
+    badge: 'PCOS • ຄູ່ມືສຳຄັນ',
+    title: 'ເຂົ້າໃຈ\nPCOS',
+    metaDuration: 'ອ່ານ 10 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາເພື່ອການສຶກສາ',
+    intro:
+      'ກຸ່ມອາການຮັງໄຂ່ຫຼາຍຖົງນ້ຳ ຫຼື PCOS ເປັນພາວະຮໍໂມນທີ່ພົບໄດ້ທົ່ວໄປ ທີ່ອາດສົ່ງຜົນຕໍ່ຮອບເດືອນ ການຕົກໄຂ່ ຜິວໜັງ ເສັ້ນຜົມ ການເຜົາຜານພະລັງງານ ແລະ ບາງຄັ້ງຄວາມສາມາດໃນການຕັ້ງຄັນ.',
+    introSecondary:
+      'ອາການທີ່ປາກົດແຕກຕ່າງກັນຫຼາຍໃນແຕ່ລະຄົນ. ການເຂົ້າໃຈ PCOS ຊ່ວຍໃຫ້ທ່ານຮັບຮູ້ອາການ ຮູ້ວ່າເມື່ອໃດຄວນຂໍຄຳແນະນຳຈາກແພດ ແລະ ຕິດຕາມການປ່ຽນແປງໂດຍບໍ່ໂທດຕົນເອງ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'PCOS ແມ່ນຫຍັງ?',
+      'ເປັນຫຍັງຈຶ່ງເກີດ PCOS?',
+      'ອາການຫຼັກ',
+      'ວິນິດໄສໄດ້ແນວໃດ?',
+      'PCOS ແລະ ການຕົກໄຂ່',
+      'PCOS ແລະ ຄວາມສາມາດໃນການຕັ້ງຄັນ',
+      'PCOS ແລະ ນ້ຳໜັກ / ການເຜົາຜານພະລັງງານ',
+      'ຜິວໜັງ ເສັ້ນຜົມ ແລະ ຂົນຕາມຮ່າງກາຍ',
+      'ດູແລ PCOS ໄດ້ແນວໃດ?',
+      'ຄວາມເຂົ້າໃຈຜິດທີ່ພົບເລື້ອຍ',
+      'ເມື່ອໃດຄວນພົບແພດ',
+      'ຈຸດສຳຄັນ',
+    ],
+    s1Heading: 'PCOS ແມ່ນຫຍັງ?',
+    s1Body1:
+      'ກຸ່ມອາການຮັງໄຂ່ຫຼາຍຖົງນ້ຳ (PCOS) ເປັນພາວະຮໍໂມນທີ່ພົບໄດ້ທົ່ວໄປ ທີ່ອາດປ່ຽນການທຳງານປົກກະຕິຂອງຮັງໄຂ່ ແລະ ຄວາມສົມດຸນຂອງຮໍໂມນບາງຊະນິດ.',
+    s1Body2:
+      'ສຳລັບບາງຄົນ ບັນຫາຫຼັກແມ່ນການຕົກໄຂ່ບໍ່ສະໝ່ຳສະເໝີ. ສຳລັບບາງຄົນ ອາການທີ່ເດັ່ນກ່ອນແມ່ນສິວ ຂົນຂຶ້ນຫຼາຍ ຜົມຫຼົ່ນ ຫຼື ສັນຍານດ້ານການເຜົາຜານພະລັງງານ.',
+    s1TipTitle: 'ຄວນຮູ້',
+    s1TipText:
+      'ເຖິງຊື່ຈະເປັນແນວນັ້ນ PCOS ບໍ່ໄດ້ໝາຍຄວາມວ່າຮັງໄຂ່ມີ “ຖົງນ້ຳ” ສະເໝີໄປ. ຄຳເອີ້ນເດີມອາດເຮັດໃຫ້ເຂົ້າໃຈຜິດ ແລະ ການກວດດ້ວຍອັນຕຣາຊາວພຽງຢ່າງດຽວບໍ່ພຽງພໍທີ່ຈະວິນິດໄສ.',
+    s2Heading: 'ເປັນຫຍັງຈຶ່ງເກີດ PCOS?',
+    s2Body1:
+      'PCOS ບໍ່ມີສາເຫດດຽວ. ມັນເບິ່ງຄືວ່າເກີດຈາກຫຼາຍປັດໄຈທີ່ອາດລວມກັນ: ພັນທຸກຳໃນຄອບຄົວ ການທຳງານຂອງຮໍໂມນ ການຕົກໄຂ່ ການເຜົາຜານພະລັງງານ ແລະ ປັດໄຈສ່ວນບຸກຄົນ.',
+    s2Factors: [
+      'ພັນທຸກຳ ແລະ ປັດໄຈທາງພັນທຸກຳໃນຄອບຄົວ',
+      'ຄວາມຜິດປົກກະຕິຂອງການຕົກໄຂ່',
+      'ແອນໂດຣເຈັນຫຼາຍເກີນໄປແບບສຳພັດ',
+      'ພາວະດື້ອິນຊູລິນໃນບາງຄົນ',
+      'ປັດໄຈດ້ານການເຜົາຜານພະລັງງານ ແລະ ສິ່ງແວດລ້ອມ',
+    ],
+    s2NeutralText:
+      'PCOS ບໍ່ແມ່ນຄວາມຜິດຂອງຕົວທ່ານເອງ. ມັນບໍ່ໄດ້ເກີດຈາກການຂາດຄວາມຕັ້ງໃຈ ການກິນອາຫານບໍ່ດີ ຫຼື ການອອກກຳລັງກາຍບໍ່ພຽງພໍເທົ່ານັ້ນ.',
+    s3Heading: 'ອາການຫຼັກ',
+    s3Body1:
+      'PCOS ອາດປາກົດແຕກຕ່າງກັນຫຼາຍໃນແຕ່ລະຄົນ. ບາງຄົນມີຫຼາຍອາການ ໃນຂະນະທີ່ບາງຄົນສັງເກດເຫັນໜ້ອຍຫຼາຍ.',
+    s3Signs: [
+      'ຮອບເດືອນບໍ່ສະໝ່ຳສະເໝີ ຫ່າງກັນຫຼາຍ ຫຼື ບາງຄັ້ງຂາດໄປ',
+      'ການຕົກໄຂ່ບໍ່ສະໝ່ຳສະເໝີ ຫຼື ຄາດເດົາຍາກ',
+      'ສິວທີ່ເປັນເຮື້ອຮັງ ໂດຍສະເພາະບໍລິເວນໃບໜ້າສ່ວນລຸ່ມ',
+      'ຂົນຂຶ້ນຫຼາຍຂຶ້ນທີ່ໃບໜ້າ ໜ້າເອິກ ຫຼື ຮ່າງກາຍ',
+      'ຜົມຫຼົ່ນແບບທີ່ກ່ຽວຂ້ອງກັບຮໍໂມນ',
+      'ນ້ຳໜັກເພີ່ມຂຶ້ນ ຫຼື ລົດນ້ຳໜັກຍາກ',
+      'ຕັ້ງຄັນຍາກ',
+    ],
+    s3AlertTitle: 'ສຳຄັນ',
+    s3AlertText:
+      'ການມີອາການໃດອາການໜຶ່ງເຫຼົ່ານີ້ບໍ່ໄດ້ໝາຍຄວາມວ່າທ່ານເປັນ PCOS ໂດຍອັດຕະໂນມັດ. ພາວະອື່ນໆຫຼາຍຢ່າງກໍອາດເຮັດໃຫ້ມີອາການຄ້າຍຄືກັນ.',
+    s4Heading: 'ວິນິດໄສໄດ້ແນວໃດ?',
+    s4Body1:
+      'ການວິນິດໄສ PCOS ເປັນຂະບວນການທາງການແພດ. ຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບມັກເລີ່ມຕົ້ນດ້ວຍການສອບຖາມກ່ຽວກັບຮອບເດືອນ ອາການ ປະຫວັດສຸຂະພາບ ແລະ ການຮັກສາທີ່ທ່ານກຳລັງໃຊ້ຢູ່.',
+    s4Body2:
+      'ຂຶ້ນກັບສະຖານະການ ອາດມີການກວດເລືອດເບິ່ງຮໍໂມນ ແລະ ກວດດ້ວຍອັນຕຣາຊາວນຳ.',
+    s4Points: [
+      'ຮອບເດືອນບໍ່ສະໝ່ຳສະເໝີ ຫຼື ການຕົກໄຂ່ບໍ່ເລື້ອຍ',
+      'ສັນຍານຂອງແອນໂດຣເຈັນຫຼາຍເກີນໄປ: ສິວ ຂົນຂຶ້ນຫຼາຍ ຜົມຫຼົ່ນ ຫຼື ຜົນກວດເລືອດ',
+      'ລັກສະນະຂອງຮັງໄຂ່ທີ່ສອດຄ່ອງກັບ PCOS ໃນການກວດດ້ວຍອັນຕຣາຊາວ ເມື່ອມີການສັ່ງກວດ',
+    ],
+    s4Body3:
+      'ແພດຕ້ອງຕັດສາເຫດອື່ນໆທີ່ເປັນໄປໄດ້ຂອງຮອບເດືອນບໍ່ສະໝ່ຳສະເໝີ ຫຼື ແອນໂດຣເຈັນເກີນອອກກ່ອນ ຈຶ່ງຢືນຢັນການວິນິດໄສ PCOS.',
+    s5Heading: 'PCOS ແລະ ການຕົກໄຂ່',
+    s5Body1:
+      'ການຕົກໄຂ່ແມ່ນການປ່ອຍໄຂ່ (ເຊວໄຂ່) ອອກຈາກຮັງໄຂ່. ໃນ PCOS ການຕົກໄຂ່ອາດເກີດຂຶ້ນບໍ່ເລື້ອຍ ຫຼື ຄາດເດົາຍາກຂຶ້ນ.',
+    s5Body2:
+      'ນີ້ອາດອະທິບາຍວ່າເປັນຫຍັງຮອບເດືອນບາງຄັ້ງຈຶ່ງຍາວ ບໍ່ສະໝ່ຳສະເໝີ ຫຼື ຄາດການລ່ວງໜ້າຍາກ.',
+    s5HighlightTitle: 'ຕິດຕາມຮອບເດືອນຂອງທ່ານ',
+    s5HighlightText:
+      'ການບັນທຶກວັນທີ່ມີປະຈຳເດືອນ ອາການ ແລະ ສັນຍານຂອງການຕົກໄຂ່ ສາມາດຊ່ວຍໃຫ້ທ່ານເຂົ້າໃຈແບບແຜນຂອງຕົນເອງດີຂຶ້ນ.',
+    s6Heading: 'PCOS ແລະ ຄວາມສາມາດໃນການຕັ້ງຄັນ',
+    s6Body1:
+      'ເນື່ອງຈາກການຕົກໄຂ່ອາດບໍ່ສະໝ່ຳສະເໝີ ຜູ້ຍິງທີ່ເປັນ PCOS ບາງຄົນອາດຕັ້ງຄັນຍາກຂຶ້ນ.',
+    s6Body2:
+      'ແຕ່ນີ້ບໍ່ໄດ້ໝາຍຄວາມວ່າ PCOS ຈະຂັດຂວາງການຖືພາໂດຍອັດຕະໂນມັດ. ຜູ້ຍິງທີ່ເປັນ PCOS ຫຼາຍຄົນຕັ້ງຄັນໄດ້ຕາມທຳມະຊາດ ຫຼື ດ້ວຍການຊ່ວຍເຫຼືອທາງການແພດທີ່ເໝາະສົມ.',
+    s6TipTitle: 'ຄວນຈື່ໄວ້',
+    s6TipText:
+      'ການຕັ້ງຄັນຍາກບໍ່ໄດ້ໝາຍຄວາມວ່າເປັນໄປບໍ່ໄດ້. ຖ້າທ່ານຫວັງຈະຖືພາ ແພດ ຫຼື ໝໍຕຳແຍສາມາດແນະນຳແນວທາງທີ່ເໝາະກັບສະຖານະການຂອງທ່ານ.',
+    s7Heading: 'PCOS ແລະ ນ້ຳໜັກ / ການເຜົາຜານພະລັງງານ',
+    s7Body1:
+      'PCOS ອາດກ່ຽວຂ້ອງກັບການປ່ຽນແປງດ້ານການເຜົາຜານພະລັງງານ ລວມທັງພາວະດື້ອິນຊູລິນໃນບາງຄົນ.',
+    s7Body2:
+      'ຢ່າງໃດກໍຕາມ ນ້ຳໜັກພຽງຢ່າງດຽວບໍ່ສາມາດວິນິດໄສ ຫຼື ຕັດ PCOS ອອກໄດ້. ຜູ້ຍິງຮູບຮ່າງເພຍວກໍເປັນ PCOS ໄດ້ ເຊັ່ນດຽວກັບທີ່ຜູ້ຍິງນ້ຳໜັກເກີນອາດບໍ່ໄດ້ເປັນ.',
+    s7NeutralText:
+      'ການຕິດຕາມດູແລຄວນພິຈາລະນາສຸຂະພາບໂດຍລວມ ບໍ່ແມ່ນພຽງຕົວເລກເທິງເຄື່ອງຊັ່ງນ້ຳໜັກ.',
+    s8Heading: 'ຜິວໜັງ ເສັ້ນຜົມ ແລະ ຂົນຕາມຮ່າງກາຍ',
+    s8Body1:
+      'ແອນໂດຣເຈັນທີ່ຫຼາຍເກີນແບບສຳພັດ ອາດສົ່ງຜົນຕໍ່ຕ່ອມໄຂມັນ ແລະ ຮາກຂົນ.',
+    s8Body2:
+      'ຂຶ້ນກັບແຕ່ລະຄົນ ອາດປາກົດເປັນສິວເຮື້ອຮັງ ຂົນຂຶ້ນຫຼາຍຂຶ້ນ ຫຼື ຜົມຫຼົ່ນ.',
+    s8Items: [
+      'ສິວຈາກຮໍໂມນ',
+      'ຂົນທີ່ໃບໜ້າ ຫຼື ຮ່າງກາຍຫຼາຍຂຶ້ນ',
+      'ຜົມບາງລົງ ຫຼື ຜົມຫຼົ່ນ',
+    ],
+    s9Heading: 'ດູແລ PCOS ໄດ້ແນວໃດ?',
+    s9Body1:
+      'ບໍ່ມີແນວທາງດຽວໃນການດູແລ PCOS ທີ່ໃຊ້ໄດ້ຜົນກັບຜູ້ຍິງທຸກຄົນ. ການເລືອກຂຶ້ນກັບອາການ ເປົ້າໝາຍ ແລະ ສະພາບທາງການແພດ.',
+    s9Body2:
+      'ເປົ້າໝາຍອາດແຕກຕ່າງກັນຕາມໄລຍະຂອງຊີວິດ: ເຮັດໃຫ້ຮອບເດືອນສະໝ່ຳສະເໝີ ບັນເທົາບາງອາການ ປົກປ້ອງສຸຂະພາບດ້ານການເຜົາຜານພະລັງງານ ຫຼື ສະໜັບສະໜູນແຜນການຖືພາ.',
+    s9MiniTitle: 'ນິໄສທີ່ຊ່ວຍດູແລສຸຂະພາບ',
+    s9Lifestyle: [
+      'ກິນອາຫານຫຼາກຫຼາຍ ເປັນເວລາ ແລະ ເໝາະກັບຄວາມຕ້ອງການຂອງທ່ານ',
+      'ອອກກຳລັງກາຍເປັນປະຈຳໃນລະດັບທີ່ທ່ານເຮັດຕໍ່ເນື່ອງໄດ້',
+      'ນອນໃຫ້ເປັນເວລາພໍສົມຄວນ',
+      'ຕິດຕາມການປ່ຽນແປງຂອງຮອບເດືອນ ແລະ ອາການຕາມເວລາ',
+      'ບໍ່ໂທດຕົນເອງສຳລັບການປ່ຽນແປງຂອງນ້ຳໜັກ ຫຼື ອາການ',
+    ],
+    s9Body3:
+      'ຂຶ້ນກັບຄວາມຕ້ອງການຂອງທ່ານ ຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບອາດສະເໜີການຮັກສາບາງອາການ ຫຼື ສະໜັບສະໜູນແຜນການຖືພາ.',
+    s9AlertTitle: 'ຢ່າຮັກສາຕົນເອງ',
+    s9AlertText:
+      'ການຮັກສາດ້ວຍຮໍໂມນ ຢາກ່ຽວກັບການເຜົາຜານພະລັງງານ ແລະ ອາຫານເສີມທັງໝົດ ຄວນປຶກສາຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບກ່ອນ.',
+    s10Heading: 'ຄວາມເຂົ້າໃຈຜິດທີ່ພົບເລື້ອຍກ່ຽວກັບ PCOS',
+    s10Myths: [
+      'PCOS ໝາຍເຖິງການມີ “ຖົງນ້ຳ” ສະເໝີ: ຊື່ອາດເຮັດໃຫ້ເຂົ້າໃຈຜິດ. ການວິນິດໄສບໍ່ໄດ້ອີງໃສ່ການມີຖົງນ້ຳພຽງຢ່າງດຽວ.',
+      'ຜູ້ຍິງທີ່ເປັນ PCOS ທຸກຄົນນ້ຳໜັກເກີນ: PCOS ສາມາດເກີດກັບຜູ້ຍິງທຸກຮູບຮ່າງ.',
+      'PCOS ຂັດຂວາງການຖືພາສະເໝີ: ການຕົກໄຂ່ອາດບໍ່ສະໝ່ຳສະເໝີ ແຕ່ການຖືພາຍັງເປັນໄປໄດ້.',
+      'ມີອາການດຽວກໍພໍທີ່ຈະວິນິດໄສ PCOS: ການວິນິດໄສຕ້ອງມີການປະເມີນຢ່າງຄົບຖ້ວນ.',
+      'PCOS ຫາຍໄປເອງເມື່ອອາຍຸເພີ່ມຂຶ້ນ: ລັກສະນະອາການອາດປ່ຽນໄປຕະຫຼອດຊີວິດ ແຕ່ການຕິດຕາມດູແລຕໍ່ເນື່ອງຍັງສຳຄັນ.',
+    ],
+    s11Heading: 'ເມື່ອໃດຄວນພົບແພດ',
+    s11Body1:
+      'ການຂໍຄຳແນະນຳທາງການແພດມີປະໂຫຍດໂດຍສະເພາະເມື່ອຮອບເດືອນບໍ່ສະໝ່ຳສະເໝີຫຼາຍ ຂາດໄປຫຼາຍເດືອນ ຫຼື ມີອາການຜິດປົກກະຕິເກີດຂຶ້ນ.',
+    s11ConsultItems: [
+      'ຮອບເດືອນບໍ່ສະໝ່ຳສະເໝີຫຼາຍ ຫຼື ບໍ່ມາ',
+      'ສິວ ຫຼື ຂົນຂຶ້ນຜິດປົກກະຕິ',
+      'ຜົມຫຼົ່ນຫຼາຍ',
+      'ຕັ້ງຄັນຍາກ',
+      'ອາການປ່ຽນແປງຢ່າງວ່ອງໄວ',
+    ],
+    s12Heading: 'ຈຸດສຳຄັນ',
+    s12SummaryTitle: 'ຈຸດທີ່ຕ້ອງຮູ້',
+    s12SummaryItems: [
+      'PCOS ເປັນພາວະຮໍໂມນທີ່ພົບໄດ້ທົ່ວໄປ.',
+      'ມັນອາດປາກົດໄດ້ຫຼາຍຮູບແບບ.',
+      'ຜູ້ຍິງທີ່ເປັນ PCOS ບໍ່ໄດ້ມີອາການຄືກັນທັງໝົດ.',
+      'ນ້ຳໜັກພຽງຢ່າງດຽວບໍ່ພຽງພໍທີ່ຈະວິນິດໄສ ຫຼື ຕັດ PCOS ອອກ.',
+      'ການວິນິດໄສຕ້ອງມີການປະເມີນທາງການແພດຢ່າງຄົບຖ້ວນ.',
+      'PCOS ອາດສົ່ງຜົນຕໍ່ການຕົກໄຂ່ ແລະ ບາງຄັ້ງຄວາມສາມາດໃນການຕັ້ງຄັນ.',
+      'ການດູແລທີ່ປັບຕາມບຸກຄົນຊ່ວຍຕອບສະໜອງຄວາມຕ້ອງການຂອງຜູ້ຍິງແຕ່ລະຄົນ.',
+    ],
+    finalNoteTitle: 'ຄູ່ມືເພື່ອຄວາມເຂົ້າໃຈທີ່ດີຂຶ້ນ',
+    finalNoteText:
+      'ບົດຄວາມນີ້ມີຈຸດປະສົງເພື່ອໃຫ້ຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນການປຶກສາແພດ. ແຕ່ລະສະຖານະການແຕກຕ່າງກັນ: ຖ້າມີຂໍ້ສົງໄສ ຫຼື ອາການຍັງຄົງຢູ່ ກະລຸນາຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ເຂົ້າໃຈ PCOS — AWA',
+  },
 } as const);
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;

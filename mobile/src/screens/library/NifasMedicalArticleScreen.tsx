@@ -4699,6 +4699,2191 @@ const CONTENT = withBrazilianPortuguese('NifasMedical', {
       'Maglumat berýän mazmun. Bu ýerde berlen lukmançylyk maglumaty umumy we saglyk hünärmeniniň maslahatyny çalyşmaýar. Aýratyn dini soraglar üçin bilimli dini çeşmä ýüz tutmak maslahat berilýär.',
     shareMessage: 'Nifas: lukmançylyk taraplary — AWA',
   },
+  ms: {
+    badge: 'SELEPAS BERSALIN • NIFAS',
+    title: 'Nifas:\naspek perubatan',
+    metaDuration: '5 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan maklumat',
+    intro:
+      'Selepas bersalin, tubuh melalui tempoh pemulihan yang beransur-ansur. Memahami pendarahan selepas bersalin, bagaimana ia berkembang dan tanda yang memerlukan perhatian boleh membantu anda berasa lebih berpengetahuan pada masa ini.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Memahami istilah Nifas',
+      'Corak perubatan selepas bersalin',
+      'Bagaimana lokia berkembang',
+      'Menjaga diri anda',
+      'Bila untuk meminta nasihat',
+      'Perkara penting untuk diingat',
+    ],
+    h2Section1: '1. Memahami istilah "Nifas"',
+    body1a:
+      'Istilah "Nifas" tergolong dalam perbendaharaan kata agama dan merujuk kepada tempoh yang dikaitkan dengan pendarahan yang mengikuti bersalin dalam peraturan fiqh Islam.',
+    body1b:
+      'Dari segi perubatan, pendarahan yang diperhatikan selepas bersalin dipanggil "lokia." Kedua-dua konsep ini boleh dipertimbangkan secara berasingan: satu tergolong dalam kerangka agama, satu lagi menerangkan fenomena fisiologi.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Konsep yang tergolong dalam kerangka agama selepas bersalin.',
+      lochiaTitle: 'Lokia',
+      lochiaText: 'Istilah perubatan yang digunakan untuk pendarahan selepas bersalin.',
+    },
+    h2Section2: '2. Corak perubatan selepas bersalin',
+    body2:
+      'Pemulihan selepas bersalin berlaku secara beransur-ansur. Pendarahan selepas bersalin biasanya berubah dari semasa ke semasa apabila rahim terus kembali kepada keadaan biasa.',
+    schemaTitle: 'Perkembangan selepas bersalin',
+    schemaSubtitle: 'Rujukan perubatan yang dipermudahkan',
+    stages: [
+      {
+        title: 'Selepas bersalin',
+        subtitle: 'Permulaan tempoh selepas bersalin',
+        text: 'Tubuh beransur-ansur memulakan pemulihannya selepas bersalin.',
+      },
+      {
+        title: 'Lokia',
+        subtitle: 'Pendarahan selepas bersalin',
+        text: 'Pendarahan beransur-ansur berubah dari segi jumlah dan warna.',
+      },
+      {
+        title: 'Pengurangan beransur-ansur',
+        subtitle: 'Sepanjang beberapa minggu',
+        text: 'Pendarahan biasanya berkurangan dari semasa ke semasa.',
+      },
+      {
+        title: 'Kembali secara beransur-ansur',
+        subtitle: 'Ke arah kitaran biasa',
+        text: 'Kitaran haid kemudiannya boleh bersambung semula secara beransur-ansur.',
+      },
+    ],
+    h2Section3: '3. Bagaimana lokia berkembang',
+    body3:
+      'Lokia biasanya berubah warna secara beransur-ansur dan berkurangan jumlahnya. Walau bagaimanapun, perkembangan ini boleh berbeza dari seorang ke seorang.',
+    lochiaEvolution: [
+      {
+        title: 'Lokia merah',
+        period: 'Hari-hari pertama',
+        text: 'Pendarahan biasanya berwarna merah dan boleh lebih banyak pada permulaan.',
+      },
+      {
+        title: 'Lokia merah jambu / keperangan',
+        period: 'Selepas beberapa hari',
+        text: 'Warnanya boleh menjadi lebih cerah atau keperangan apabila aliran berkurangan.',
+      },
+      {
+        title: 'Lokia keputihan',
+        period: 'Minggu-minggu berikutnya',
+        text: 'Pendarahan beransur-ansur menjadi lebih ringan dan kurang banyak.',
+      },
+    ],
+    infoTitle: 'Perkara penting untuk diingat',
+    infoText:
+      'Warna dan jumlah lokia boleh berubah secara beransur-ansur. Perkembangan yang tepat tidak sama bagi semua orang.',
+    h2Section4: '4. Menjaga diri anda',
+    body4:
+      'Dalam tempoh ini, beberapa tabiat yang mudah boleh membantu keselesaan dan menyokong pemulihan tubuh.',
+    careTips: [
+      {title: 'Kebersihan yang lembut', text: 'Kekalkan rutin kebersihan harian yang mudah dan selesa.'},
+      {title: 'Rehat', text: 'Beri masa kepada tubuh anda untuk pulih.'},
+      {title: 'Hidrasi', text: 'Ingat untuk minum secara tetap mengikut keperluan anda.'},
+      {title: 'Pemakanan', text: 'Pemakanan yang pelbagai menyokong pemulihan.'},
+    ],
+    h2Section5: '5. Bila untuk meminta nasihat',
+    body5:
+      'Keadaan tertentu memerlukan nasihat segera daripada pengamal penjagaan kesihatan, terutamanya apabila sesuatu perubahan nampak ketara, tiba-tiba atau luar biasa.',
+    warningTitle: 'Tanda yang tidak boleh diabaikan',
+    warningSubtitle: 'Dapatkan nasihat profesional jika perlu',
+    warningSigns: [
+      'Bau yang kuat atau luar biasa pada pendarahan',
+      'Demam atau keadaan am yang semakin teruk',
+      'Pendarahan yang tiba-tiba menjadi sangat banyak',
+      'Sakit yang ketara, berterusan atau luar biasa',
+      'Simptom baharu yang membimbangkan anda',
+    ],
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Setiap pemulihan selepas bersalin berbeza. Maklumat dalam artikel ini bertujuan memberikan panduan umum dan tidak menggantikan konsultasi perubatan.',
+    summaryHeading: 'Perkara penting untuk diingat',
+    summary: [
+      'Nifas ialah istilah yang digunakan dalam konteks agama selepas bersalin.',
+      'Dari segi perubatan, pendarahan selepas bersalin dipanggil lokia.',
+      'Lokia beransur-ansur berubah warna dan jumlah.',
+      'Rehat, kebersihan yang lembut dan hidrasi yang baik menyokong pemulihan.',
+      'Perubahan yang luar biasa atau membimbangkan wajar mendapat nasihat profesional.',
+    ],
+    disclaimerText:
+      'Kandungan bersifat maklumat. Maklumat perubatan yang dikemukakan di sini adalah umum dan tidak menggantikan nasihat pengamal penjagaan kesihatan. Untuk persoalan agama yang khusus, adalah disyorkan untuk merujuk kepada sumber agama yang layak.',
+    shareMessage: 'Nifas: aspek perubatan — AWA',
+  },
+  so: {
+    badge: 'DHALMADA KA DIB • NIFAAS',
+    title: 'Nifaas:\ndhinacyada caafimaadka',
+    metaDuration: '5 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad',
+    intro:
+      'Dhalmada ka dib, jidhku wuxuu maraa muddo bogsiin oo tartiib ah. Fahamka dhiigbaxa dhalmada ka dib, sida uu isu beddelo, iyo calaamadaha u baahan feejignaan ayaa kaa caawin kara inaad dareento macluumaad badan wakhtigan.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Fahamka erayga Nifaas',
+      'Qaabka caafimaad ee dhalmada ka dib',
+      'Sida lochia u isbeddelo',
+      'Naftaada daryeel',
+      'Goorta talo la raadsado',
+      'Qodobbada muhiimka ah',
+    ],
+    h2Section1: '1. Fahamka erayga “Nifaas”',
+    body1a:
+      'Erayga “Nifaas” wuxuu ka tirsan yahay erayada diineed wuxuuna tilmaamaa muddada la xiriirta dhiigbaxa ka dambeeya dhalmada, xeerarka fiqhiga Islaamka gudahooda.',
+    body1b:
+      'Caafimaad ahaan, dhiigbaxa la arko dhalmada ka dib waxaa loo yaqaan “lochia.” Labadan fikradood waa la kala eegi karaa: mid wuxuu ka tirsan yahay qaab diineed, kan kalena wuxuu sharxayaa dhacdo jidh-dhis ah.',
+    distinction: {
+      nifasTitle: 'Nifaas',
+      nifasText: 'Fikrad ka tirsan qaabka diineed ee dhalmada ka dib.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Erayga caafimaad ee loo isticmaalo dhiigbaxa dhalmada ka dib.',
+    },
+    h2Section2: '2. Qaabka caafimaad ee dhalmada ka dib',
+    body2:
+      'Bogsiinta dhalmada ka dib way dhacdaa tartiib. Dhiigbaxa dhalmada ka dib guud ahaan wuu isbeddelaa waqti ka dib marka ilmo-galeenku sii wado ku laabashada xaaladdiisa caadiga ah.',
+    schemaTitle: 'Horumarka dhalmada ka dib',
+    schemaSubtitle: 'Tixraac caafimaad oo la fududeeyey',
+    stages: [
+      {
+        title: 'Dhalmada ka dib',
+        subtitle: 'Bilowga muddada dhalmada ka dib',
+        text: 'Jidhku wuxuu bilaabaa bogsiintiisa tartiib dhalmada ka dib.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Dhiigbaxa dhalmada ka dib',
+        text: 'Dhiigbaxu tartiib ayuu xaddiga iyo midabka u beddelaa.',
+      },
+      {
+        title: 'Hoos u dhac tartiib ah',
+        subtitle: 'Dhowr toddobaad gudahood',
+        text: 'Dhiigbaxu guud ahaan wuu yaraadaa waqti ka dib.',
+      },
+      {
+        title: 'Soo noqosho tartiib ah',
+        subtitle: 'Xagga wareegga caadiga ah',
+        text: 'Wareegga caadadu markaas wuxuu bilaabi karaa inuu soo noqdo tartiib.',
+      },
+    ],
+    h2Section3: '3. Sida lochia u isbeddelo',
+    body3:
+      'Lochia guud ahaan wuxuu midabka u beddelaa tartiib oo xaddigiisu wuu yaraadaa. Si kastaba, horumarkani wuu ku kala duwanaan karaa qof ilaa qof.',
+    lochiaEvolution: [
+      {
+        title: 'Lochia casaan ah',
+        period: 'Maalmaha ugu horreeya',
+        text: 'Dhiigbaxu inta badan waa casaan wuxuuna ka culus noqon karaa bilowga.',
+      },
+      {
+        title: 'Lochia ruuxdhalaal / bunni ah',
+        period: 'Dhowr maalmood ka dib',
+        text: 'Midabku wuu khafiifi karaa ama bunni noqon karaa marka socodku yaraado.',
+      },
+      {
+        title: 'Lochia cadcad ah',
+        period: 'Toddobaadyada xiga',
+        text: 'Dhiigbaxu tartiib ayuu u noqdaa mid khafiif ah oo ka yar.',
+      },
+    ],
+    infoTitle: 'Qodobbada muhiimka ah',
+    infoText:
+      'Midabka iyo xaddiga lochia way isbeddeli karaan tartiib. Horumarka saxda ahi qof walba isku mid ma aha.',
+    h2Section4: '4. Naftaada daryeel',
+    body4:
+      'Muddadan, dhowr caado oo fudud ayaa caawin kara raaxada oo taageeri kara bogsiinta jidhka.',
+    careTips: [
+      {title: 'Nadaafad jilicsan', text: 'Hay nidaam nadaafad maalinle ah oo fudud, raaxo leh.'},
+      {title: 'Nasasho', text: 'Jidhkaaga sii waqti uu ku bogsado.'},
+      {title: 'Biyo-cabbid', text: 'Xasuuso inaad si joogto ah u cabto iyadoo loo eegayo baahidaada.'},
+      {title: 'Nafaqo', text: 'Cunto kala duwan ayaa taageerta bogsiinta.'},
+    ],
+    h2Section5: '5. Goorta talo la raadsado',
+    body5:
+      'Xaalado qaar waxay u baahan yihiin talo degdeg ah oo xirfadle caafimaad, gaar ahaan marka isbeddel uu u muuqdo mid weyn, lama filaan ah, ama aan caadi ahayn.',
+    warningTitle: 'Calaamado aan la iska indho tirin',
+    warningSubtitle: 'Talo xirfadle raadso haddii loo baahdo',
+    warningSigns: [
+      'Ur xoog badan ama aan caadi ahayn oo dhiigbaxa ku jirta',
+      'Qandho ama xaalad guud oo sii xumaanaysa',
+      'Dhiigbax si lama filaan ah u noqda mid aad u culus',
+      'Xanuun weyn, sii socda, ama aan caadi ahayn',
+      'Astaan cusub oo ku walaaciya',
+    ],
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Bogsiin dhalmada ka dib kasta waa ka duwan yahay. Macluumaadka maqaalkani waa in uu bixiyo hagid guud mana bedelo la-talin caafimaad.',
+    summaryHeading: 'Qodobbada muhiimka ah',
+    summary: [
+      'Nifaas waa eray lagu isticmaalo qaabka diineed dhalmada ka dib.',
+      'Caafimaad ahaan, dhiigbaxa dhalmada ka dib waxaa loo yaqaan lochia.',
+      'Lochia tartiib ayay midabka iyo xaddiga u beddeshaa.',
+      'Nasasho, nadaafad jilicsan, iyo biyo-cabbid wanaagsan ayaa taageera bogsiinta.',
+      'Isbeddel aan caadi ahayn ama walaac leh wuxuu mudan yahay talo xirfadle.',
+    ],
+    disclaimerText:
+      'Macluumaad. Macluumaadka caafimaad ee halkan lagu soo bandhigay waa guud mana bedelo talada xirfadle caafimaad. Su’aalaha diineed ee gaarka ah, waxaa lagula talinayaa in loo tixraaco il diineed oo xirfad leh.',
+    shareMessage: 'Nifaas: dhinacyada caafimaadka — AWA',
+  },
+  sw: {
+    badge: 'BAADA YA KUJIFUNGUA • NIFASI',
+    title: 'Nifasi:\nmambo ya kitabibu',
+    metaDuration: 'Dakika 5 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui ya taarifa',
+    intro:
+      'Baada ya kujifungua, mwili hupitia kipindi cha kupona polepole. Kuelewa kutokwa damu baada ya kujifungua, jinsi kunavyobadilika, na dalili zinazohitaji uangalizi kunaweza kukusaidia kujisikia umepata taarifa zaidi katika kipindi hiki.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Kuelewa neno Nifasi',
+      'Mwenendo wa kitabibu baada ya kujifungua',
+      'Jinsi lochia inavyobadilika',
+      'Kujitunza',
+      'Wakati wa kutafuta ushauri',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    h2Section1: '1. Kuelewa neno "Nifasi"',
+    body1a:
+      'Neno "Nifasi" ni la msamiati wa kidini na linarejelea kipindi kinachohusiana na kutokwa damu kunakofuata kujifungua ndani ya kanuni za fiqhi ya Kiislamu.',
+    body1b:
+      'Kitabibu, kutokwa damu kunakoonekana baada ya kujifungua kunaitwa "lochia." Dhana hizi mbili zinaweza kuzingatiwa kando: moja ni ya mfumo wa kidini, nyingine inaelezea tukio la kifiziolojia.',
+    distinction: {
+      nifasTitle: 'Nifasi',
+      nifasText: 'Dhana ya mfumo wa kidini baada ya kujifungua.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Neno la kitabibu linalotumika kwa kutokwa damu baada ya kujifungua.',
+    },
+    h2Section2: '2. Mwenendo wa kitabibu baada ya kujifungua',
+    body2:
+      'Kupona baada ya kujifungua hutokea polepole. Kutokwa damu baada ya kujifungua kwa kawaida hubadilika kadiri muda unavyopita huku mji wa uzazi ukiendelea kurejea hali yake ya kawaida.',
+    schemaTitle: 'Maendeleo ya baada ya kujifungua',
+    schemaSubtitle: 'Rejeo la kitabibu lililorahisishwa',
+    stages: [
+      {
+        title: 'Baada ya kujifungua',
+        subtitle: 'Mwanzo wa kipindi cha baada ya kujifungua',
+        text: 'Mwili polepole huanza kupona baada ya kuzaliwa.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Kutokwa damu baada ya kujifungua',
+        text: 'Kutokwa damu polepole hubadilika kwa kiasi na rangi.',
+      },
+      {
+        title: 'Kupungua polepole',
+        subtitle: 'Kwa wiki kadhaa',
+        text: 'Kutokwa damu kwa kawaida hupungua kadiri muda unavyopita.',
+      },
+      {
+        title: 'Kurejea polepole',
+        subtitle: 'Kuelekea mzunguko wa kawaida',
+        text: 'Mzunguko wa hedhi unaweza basi kuanza tena polepole.',
+      },
+    ],
+    h2Section3: '3. Jinsi lochia inavyobadilika',
+    body3:
+      'Lochia kwa kawaida hubadilisha rangi polepole na kupungua kwa kiasi. Hata hivyo, maendeleo haya yanaweza kutofautiana kati ya mtu na mtu.',
+    lochiaEvolution: [
+      {
+        title: 'Lochia nyekundu',
+        period: 'Siku za kwanza',
+        text: 'Kutokwa damu kwa kawaida ni nyekundu na kunaweza kuwa kwingi zaidi mwanzoni.',
+      },
+      {
+        title: 'Lochia ya waridi / kahawia kiasi',
+        period: 'Baada ya siku chache',
+        text: 'Rangi inaweza kuwa nyepesi au ya kahawia kadiri mtiririko unavyopungua.',
+      },
+      {
+        title: 'Lochia nyeupe',
+        period: 'Wiki zinazofuata',
+        text: 'Kutokwa damu polepole kunakuwa kwepesi na kwa kiasi kidogo.',
+      },
+    ],
+    infoTitle: 'Mambo muhimu ya kukumbuka',
+    infoText:
+      'Rangi na kiasi cha lochia vinaweza kubadilika polepole. Maendeleo kamili si sawa kwa kila mtu.',
+    h2Section4: '4. Kujitunza',
+    body4:
+      'Katika kipindi hiki, tabia chache rahisi zinaweza kusaidia faraja na kuunga mkono kupona kwa mwili.',
+    careTips: [
+      {title: 'Usafi wa upole', text: 'Dumisha utaratibu rahisi na wa faraja wa usafi wa kila siku.'},
+      {title: 'Kupumzika', text: 'Mpe mwili wako muda wa kupona.'},
+      {title: 'Kunywa maji', text: 'Kumbuka kunywa mara kwa mara kulingana na mahitaji yako.'},
+      {title: 'Lishe', text: 'Lishe yenye aina mbalimbali inasaidia kupona.'},
+    ],
+    h2Section5: '5. Wakati wa kutafuta ushauri',
+    body5:
+      'Hali fulani zinahitaji ushauri wa haraka wa mtaalamu wa afya, hasa wakati badiliko linapoonekana kuwa kubwa, la ghafla, au lisilo la kawaida.',
+    warningTitle: 'Dalili zisizopaswa kupuuzwa',
+    warningSubtitle: 'Tafuta ushauri wa kitaalamu ikiwa inahitajika',
+    warningSigns: [
+      'Harufu kali au isiyo ya kawaida kwenye kutokwa damu',
+      'Homa au hali ya jumla inayozidi kuwa mbaya',
+      'Kutokwa damu kunakokuwa kwingi sana ghafla',
+      'Maumivu makubwa, ya kuendelea, au yasiyo ya kawaida',
+      'Dalili mpya inayokutia wasiwasi',
+    ],
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Kila kupona baada ya kujifungua ni tofauti. Taarifa katika makala hii zimekusudiwa kutoa mwongozo wa jumla na hazichukui nafasi ya mashauriano ya kitabibu.',
+    summaryHeading: 'Mambo muhimu ya kukumbuka',
+    summary: [
+      'Nifasi ni neno linalotumika katika muktadha wa kidini baada ya kujifungua.',
+      'Kitabibu, kutokwa damu baada ya kujifungua kunaitwa lochia.',
+      'Lochia polepole hubadilika rangi na kiasi.',
+      'Kupumzika, usafi wa upole, na kunywa maji ya kutosha vinasaidia kupona.',
+      'Badiliko lisilo la kawaida au la kutia wasiwasi linastahili ushauri wa kitaalamu.',
+    ],
+    disclaimerText:
+      'Maudhui ya taarifa. Taarifa za kitabibu zilizowasilishwa hapa ni za jumla na hazichukui nafasi ya ushauri wa mtaalamu wa afya. Kwa maswali mahususi ya kidini, inapendekezwa kurejea chanzo cha kidini kilichohitimu.',
+    shareMessage: 'Nifasi: mambo ya kitabibu — AWA',
+  },
+  kk: {
+    badge: 'БОСАНҒАННАН КЕЙІН • НИФАС',
+    title: 'Нифас:\nмедициналық жағы',
+    metaDuration: '5 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Ақпараттық мазмұн',
+    intro:
+      'Босанғаннан кейін дене біртіндеп қалпына келу кезеңінен өтеді. Босанғаннан кейінгі қан кетуді, оның қалай өзгеретінін және назар аударуды қажет ететін белгілерді түсіну бұл уақытта өзіңізді жақсырақ хабардар сезінуге көмектесе алады.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Нифас терминін түсіну',
+      'Босанғаннан кейінгі медициналық үлгі',
+      'Лохия қалай өзгереді',
+      'Өзіңізге қамқор болу',
+      'Кеңесті қашан сұрау керек',
+      'Негізгі қорытындылар',
+    ],
+    h2Section1: '1. "Нифас" терминін түсіну',
+    body1a:
+      '"Нифас" термині діни лексиконға жатады және ислам фиқһы ережелері шеңберінде босанғаннан кейінгі қан кетумен байланысты кезеңді білдіреді.',
+    body1b:
+      'Медициналық тұрғыдан босанғаннан кейін байқалатын қан кету "лохия" деп аталады. Бұл екі ұғымды бөлек қарастыруға болады: бірі діни шеңберге жатады, екіншісі физиологиялық құбылысты сипаттайды.',
+    distinction: {
+      nifasTitle: 'Нифас',
+      nifasText: 'Босанғаннан кейінгі діни шеңберге жататын ұғым.',
+      lochiaTitle: 'Лохия',
+      lochiaText: 'Босанғаннан кейінгі қан кету үшін қолданылатын медициналық термин.',
+    },
+    h2Section2: '2. Босанғаннан кейінгі медициналық үлгі',
+    body2:
+      'Босанғаннан кейінгі қалпына келу біртіндеп жүреді. Босанғаннан кейінгі қан кету жатыр әдеттегі күйіне қайта оралуын жалғастырған сайын уақыт өте өзгереді.',
+    schemaTitle: 'Босанғаннан кейінгі даму',
+    schemaSubtitle: 'Жеңілдетілген медициналық анықтама',
+    stages: [
+      {
+        title: 'Босанғаннан кейін',
+        subtitle: 'Босанғаннан кейінгі кезеңнің басы',
+        text: 'Дене босанғаннан кейін біртіндеп қалпына келе бастайды.',
+      },
+      {
+        title: 'Лохия',
+        subtitle: 'Босанғаннан кейінгі қан кету',
+        text: 'Қан кету біртіндеп мөлшері мен түсін өзгертеді.',
+      },
+      {
+        title: 'Біртіндеп азаю',
+        subtitle: 'Бірнеше апта бойы',
+        text: 'Қан кету әдетте уақыт өте азаяды.',
+      },
+      {
+        title: 'Біртіндеп қайта оралу',
+        subtitle: 'Әдеттегі циклге қарай',
+        text: 'Етеккір циклі содан кейін біртіндеп қайта басталуы мүмкін.',
+      },
+    ],
+    h2Section3: '3. Лохия қалай өзгереді',
+    body3:
+      'Лохия әдетте түсін біртіндеп өзгертеді және мөлшері азаяды. Дегенмен бұл даму әр адамда әртүрлі болуы мүмкін.',
+    lochiaEvolution: [
+      {
+        title: 'Қызыл лохия',
+        period: 'Алғашқы күндер',
+        text: 'Қан кету әдетте қызыл болады және басында мол болуы мүмкін.',
+      },
+      {
+        title: 'Қызғылт / қоңырлау лохия',
+        period: 'Бірнеше күннен кейін',
+        text: 'Ағу азайған сайын түсі ашылуы немесе қоңырлануы мүмкін.',
+      },
+      {
+        title: 'Ақшыл лохия',
+        period: 'Келесі апталар',
+        text: 'Қан кету біртіндеп жеңілдеп, азая түседі.',
+      },
+    ],
+    infoTitle: 'Негізгі қорытындылар',
+    infoText:
+      'Лохияның түсі мен мөлшері біртіндеп өзгеруі мүмкін. Нақты даму барлығында бірдей емес.',
+    h2Section4: '4. Өзіңізге қамқор болу',
+    body4:
+      'Бұл кезеңде бірнеше қарапайым әдет жайлылыққа көмектесіп, дененің қалпына келуін қолдай алады.',
+    careTips: [
+      {title: 'Жұмсақ гигиена', text: 'Қарапайым, ыңғайлы күнделікті гигиена тәртібін сақтаңыз.'},
+      {title: 'Демалыс', text: 'Денеңізге қалпына келуге уақыт беріңіз.'},
+      {title: 'Су ішу', text: 'Қажеттіліктеріңізге сай үнемі ішуді ұмытпаңыз.'},
+      {title: 'Тамақтану', text: 'Алуан түрлі тамақтану қалпына келуді қолдайды.'},
+    ],
+    h2Section5: '5. Кеңесті қашан сұрау керек',
+    body5:
+      'Кейбір жағдайлар медицина маманынан жедел кеңесті қажет етеді, әсіресе өзгеріс айтарлықтай, кенеттен немесе әдеттен тыс болып көрінгенде.',
+    warningTitle: 'Елемеуге болмайтын белгілер',
+    warningSubtitle: 'Қажет болса, кәсіби кеңес іздеңіз',
+    warningSigns: [
+      'Қан кетуде күшті немесе әдеттен тыс иіс',
+      'Қызба немесе нашарлап бара жатқан жалпы жағдай',
+      'Кенеттен өте мол болған қан кету',
+      'Айтарлықтай, тұрақты немесе әдеттен тыс ауыру',
+      'Сізді алаңдататын жаңа белгі',
+    ],
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Әр босанғаннан кейінгі қалпына келу әртүрлі. Бұл мақаладағы ақпарат жалпы бағыт беруге арналған және медициналық консультацияның орнын баспайды.',
+    summaryHeading: 'Негізгі қорытындылар',
+    summary: [
+      'Нифас — босанғаннан кейінгі діни контексте қолданылатын термин.',
+      'Медициналық тұрғыдан босанғаннан кейінгі қан кету лохия деп аталады.',
+      'Лохия біртіндеп түсі мен мөлшерін өзгертеді.',
+      'Демалыс, жұмсақ гигиена және жақсы су ішу қалпына келуді қолдайды.',
+      'Әдеттен тыс немесе алаңдатарлық өзгеріс кәсіби кеңеске тұрарлық.',
+    ],
+    disclaimerText:
+      'Ақпараттық мазмұн. Мұнда ұсынылған медициналық ақпарат жалпы сипатта және медицина маманының кеңесінің орнын баспайды. Нақты діни сұрақтар үшін білікті діни көзге жүгіну ұсынылады.',
+    shareMessage: 'Нифас: медициналық жағы — AWA',
+  },
+  wo: {
+    badge: 'GINNAAW JUR • NIFAS',
+    title: 'Nifas:\npàrtu wér',
+    metaDuration: '5 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind ngir xibaar',
+    intro:
+      'Ginnaaw jur, yaram bi dafay jàll benn jamonoy wér bu tuuti-tuuti. Xam deret ginnaaw jur, naka mu di soppiku ak màndarga yi soxla teg mën na dimbli nga gën a xam ci jamono jii.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Xam baat bii Nifas',
+      'Yoonu wér ginnaaw jur',
+      'Naka lochia di soppiku',
+      'Yër sa bopp',
+      'Kañ ngay seet ndigal',
+      'Li am solo',
+    ],
+    h2Section1: '1. Xam baat bii "Nifas"',
+    body1a:
+      'Baat bii "Nifas" bokk na ci baatu diine te dafay wone jamono bu jëm ci deret bi topp jur ci yoon yu fiqhu islaam.',
+    body1b:
+      'Ci wér, deret bi ñuy gis ginnaaw jur dañu ko woowe "lochia." Ñaari xalaat yii mën nañu ñu leen séddale: benn bokk na ci benn tëralin bu diine, bi ci des dafay wone benn jëf bu fisiyoloji.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Benn xalaat bu bokk ci tëralinu diine ginnaaw jur.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Baat bu wér bu ñuy jëfandikoo ngir deret ginnaaw jur.',
+    },
+    h2Section2: '2. Yoonu wér ginnaaw jur',
+    body2:
+      'Wér ginnaaw jur dafay am tuuti-tuuti. Deret ginnaaw jur daa soppiku ci jamono ba bérëbu ndey di kontine dellu ci anamam bu cosaan.',
+    schemaTitle: 'Dem-kanam ginnaaw jur',
+    schemaSubtitle: 'Màndarga bu wér bu yomb',
+    stages: [
+      {
+        title: 'Ginnaaw jur',
+        subtitle: 'Tàmbalig jamonoy ginnaaw jur',
+        text: 'Yaram bi dafay tàmbali wér tuuti-tuuti ginnaaw jur.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Deret ginnaaw jur',
+        text: 'Deret bi dafay soppiku tuuti-tuuti ci bariwaay ak kuloor.',
+      },
+      {
+        title: 'Wàññiku bu tuuti-tuuti',
+        subtitle: 'Ci ay ayu-bés',
+        text: 'Deret bi daa wàññiku ci jamono.',
+      },
+      {
+        title: 'Dellusi bu tuuti-tuuti',
+        subtitle: 'Jëm ci wërsëg bu cosaan',
+        text: 'Wërsëgu weer mën na tàmbaliwaat tuuti-tuuti.',
+      },
+    ],
+    h2Section3: '3. Naka lochia di soppiku',
+    body3:
+      'Lochia daa soppi kuloor tuuti-tuuti te wàññiku ci bariwaay. Waaye dem-kanam bii mën na wuute ci nit ak nit.',
+    lochiaEvolution: [
+      {
+        title: 'Lochia bu xonq',
+        period: 'Fan yu njëkk',
+        text: 'Deret bi daa nekk xonq te mën na gën a bari ci tàmbali.',
+      },
+      {
+        title: 'Lochia bu roos / ñuul-xonq',
+        period: 'Ginnaaw ay fan',
+        text: 'Kuloor bi mën na gën a leer walla ñuul-xonq ba deret bi di wàññiku.',
+      },
+      {
+        title: 'Lochia bu weex',
+        period: 'Ayu-bés yu toftal',
+        text: 'Deret bi dafay gën a neex te gën a ndaw tuuti-tuuti.',
+      },
+    ],
+    infoTitle: 'Li am solo',
+    infoText:
+      'Kuloor ak bariwaayu lochia mën nañu soppiku tuuti-tuuti. Dem-kanam bu leer du bokk ci ñépp.',
+    h2Section4: '4. Yër sa bopp',
+    body4:
+      'Ci jamono jii, yenn yoon yu yomb mën nañu dimbli ci neex te dimbli wéru yaram bi.',
+    careTips: [
+      {title: 'Set bu lewet', text: 'Denc benn yoonu set bu bés bu yomb te neex.'},
+      {title: 'Noppalu', text: 'Joxe sa yaram jamono ngir wér.'},
+      {title: 'Naan ndox', text: 'Fàttaliku naan ndox ci yoon ci sa soxla.'},
+      {title: 'Lekk', text: 'Benn lekk bu wuute dafay dimbli wér.'},
+    ],
+    h2Section5: '5. Kañ ngay seet ndigal',
+    body5:
+      'Yenn mbir soxla ndigal bu gaaw bu benn liggéeykatu wér, lool bu soppi bi mel ni am solo, ci gaaw walla cosaanul.',
+    warningTitle: 'Màndarga yu bañ a bàyyi',
+    warningSubtitle: 'Seet ndigalu liggéeykat bu soxlaa',
+    warningSigns: [
+      'Xeeñ bu metti walla bu cosaanul ci deret bi',
+      'Tàngoor walla anam bu mat bu di ñaaw',
+      'Deret bu bari lool ci gaaw',
+      'Metit bu am solo, bu sax walla bu cosaanul',
+      'Benn màndarga bu bees bu tiital la',
+    ],
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Wér ginnaaw jur bu nekk wuute na. Xibaar yi ci bind bii ay ndigal yu yaatu lañu te duñu wuutu benn seetlu bu doktoor.',
+    summaryHeading: 'Li am solo',
+    summary: [
+      'Nifas baat la bu ñuy jëfandikoo ci tëralinu diine ginnaaw jur.',
+      'Ci wér, deret ginnaaw jur dañu ko woowe lochia.',
+      'Lochia daa soppiku tuuti-tuuti ci kuloor ak bariwaay.',
+      'Noppalu, set bu lewet ak naan ndox bu baax dañuy dimbli wér.',
+      'Benn soppi bu cosaanul walla bu tiital war na ndigal bu liggéeykat.',
+    ],
+    disclaimerText:
+      'Mbind ngir xibaar. Xibaar yu wér yi ñu wone fii yu yaatu lañu te duñu wuutu ndigalu benn liggéeykatu wér. Ngir laaj yu diine yu sa bopp, gën na ñu jëm ci benn cosaanu diine bu am kàttan.',
+    shareMessage: 'Nifas: pàrtu wér — AWA',
+  },
+  ha: {
+    badge: 'BAYAN HAIHUWA • NIFASI',
+    title: 'Nifasi:\nɓangaren likita',
+    metaDuration: 'karatun minti 5',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun bayani',
+    intro:
+      'Bayan haihuwa, jiki yana wucewa ta lokacin murmurewa a hankali. Fahimtar zubar jinin bayan haihuwa, yadda yake ci gaba, da alamomin da ke bukatar kulawa na iya taimaka miki ki ji ƙarin sani a wannan lokaci.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Fahimtar kalmar Nifasi',
+      'Tsarin likita bayan haihuwa',
+      'Yadda lochia ke ci gaba',
+      'Kula da kanki',
+      'Lokacin neman shawara',
+      'Muhimman abubuwa',
+    ],
+    h2Section1: '1. Fahimtar kalmar "Nifasi"',
+    body1a:
+      'Kalmar "Nifasi" ta shafi kalmomin addini kuma tana nufin lokacin da ke da alaƙa da zubar jinin da ke biyo bayan haihuwa a cikin ƙa’idodin fiqhun Musulunci.',
+    body1b:
+      'A likitance, ana kiran zubar jinin da ake gani bayan haihuwa "lochia." Ana iya la’akari da waɗannan ra’ayoyi biyu daban: ɗaya na tsarin addini ne, ɗayan yana bayyana wani al’amari na jiki.',
+    distinction: {
+      nifasTitle: 'Nifasi',
+      nifasText: 'Ra’ayi na tsarin addini bayan haihuwa.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Kalmar likita da ake amfani da ita ga zubar jinin bayan haihuwa.',
+    },
+    h2Section2: '2. Tsarin likita bayan haihuwa',
+    body2:
+      'Murmurewa bayan haihuwa yana faruwa a hankali. Zubar jinin bayan haihuwa yawanci yana canzawa a kan lokaci yayin da mahaifa ke ci gaba da komawa yanayinta na yau da kullum.',
+    schemaTitle: 'Ci gaban bayan haihuwa',
+    schemaSubtitle: 'Nassin likita mai sauƙi',
+    stages: [
+      {
+        title: 'Bayan haihuwa',
+        subtitle: 'Farkon lokacin bayan haihuwa',
+        text: 'Jiki yana fara murmurewa a hankali bayan haihuwa.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Zubar jinin bayan haihuwa',
+        text: 'Zubar jinin yana canzawa a hankali a yawa da launi.',
+      },
+      {
+        title: 'Raguwa a hankali',
+        subtitle: 'A makonni da dama',
+        text: 'Zubar jinin yawanci yana raguwa a kan lokaci.',
+      },
+      {
+        title: 'Komawa a hankali',
+        subtitle: 'Zuwa zagayen al’ada',
+        text: 'Zagayen haila sai ya iya komawa a hankali.',
+      },
+    ],
+    h2Section3: '3. Yadda lochia ke ci gaba',
+    body3:
+      'Lochia yawanci tana canza launi a hankali kuma yawanta yana raguwa. Duk da haka, wannan ci gaba na iya bambanta daga mutum zuwa mutum.',
+    lochiaEvolution: [
+      {
+        title: 'Lochia ja',
+        period: 'Kwanakin farko',
+        text: 'Zubar jinin yawanci ja ne kuma yana iya yawaita a farko.',
+      },
+      {
+        title: 'Lochia ruwan hoda / launin ruwan ƙasa',
+        period: 'Bayan ’yan kwanaki',
+        text: 'Launin zai iya ƙara haske ko komawa ruwan ƙasa yayin da jinin ke raguwa.',
+      },
+      {
+        title: 'Lochia fari-fari',
+        period: 'Makonni masu zuwa',
+        text: 'Zubar jinin yana ƙara haske kuma yana raguwa a hankali.',
+      },
+    ],
+    infoTitle: 'Muhimman abubuwa',
+    infoText:
+      'Launin da yawan lochia na iya canzawa a hankali. Ainihin ci gaban ba iri ɗaya ba ne ga kowa.',
+    h2Section4: '4. Kula da kanki',
+    body4:
+      'A wannan lokaci, wasu dabi’u masu sauƙi na iya taimakawa wajen jin daɗi da tallafa wa murmurewar jiki.',
+    careTips: [
+      {title: 'Tsabta mai laushi', text: 'Rike tsarin tsabta mai sauƙi, mai daɗi kullum.'},
+      {title: 'Hutu', text: 'Ba jikinki lokaci don murmurewa.'},
+      {title: 'Shan ruwa', text: 'Ki tuna shan ruwa akai-akai bisa bukatunki.'},
+      {title: 'Abinci mai gina jiki', text: 'Abinci iri-iri yana tallafa wa murmurewa.'},
+    ],
+    h2Section5: '5. Lokacin neman shawara',
+    body5:
+      'Wasu yanayi suna bukatar shawarar ma’aikacin lafiya da sauri, musamman idan wani sauyi ya yi kama da mai muhimmanci, kwatsam, ko ba na al’ada ba.',
+    warningTitle: 'Alamomin da bai kamata a yi watsi da su ba',
+    warningSubtitle: 'Nemi shawarar ƙwararre idan ya zama dole',
+    warningSigns: [
+      'Ƙamshi mai ƙarfi ko ba na al’ada ba a cikin zubar jinin',
+      'Zazzabi ko yanayi na gabaɗaya da ke ƙara muni',
+      'Zubar jini da ya yawaita sosai kwatsam',
+      'Ciwo mai yawa, mai dawwama, ko ba na al’ada ba',
+      'Sabuwar alama da ke damun ki',
+    ],
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Kowane murmurewa bayan haihuwa daban ne. An yi bayanin da ke cikin wannan labari don ba da jagora gabaɗaya kuma ba ya maye gurbin shawarar likita.',
+    summaryHeading: 'Muhimman abubuwa',
+    summary: [
+      'Nifasi kalma ce da ake amfani da ita a yanayin addini bayan haihuwa.',
+      'A likitance, ana kiran zubar jinin bayan haihuwa lochia.',
+      'Lochia tana canza launi da yawa a hankali.',
+      'Hutu, tsabta mai laushi, da shan ruwa sosai suna tallafa wa murmurewa.',
+      'Sauyi ba na al’ada ba ko mai damuwa ya cancanci shawarar ƙwararre.',
+    ],
+    disclaimerText:
+      'Abun bayani. Bayanin likitan da aka gabatar a nan na gaba ɗaya ne kuma ba ya maye gurbin shawarar ma’aikacin lafiya. Ga takamaiman tambayoyin addini, ana ba da shawarar komawa ga ingantaccen tushen addini.',
+    shareMessage: 'Nifasi: ɓangaren likita — AWA',
+  },
+  am: {
+    badge: 'ከወሊድ በኋላ • ኒፋስ',
+    title: 'ኒፋስ፦\nየሕክምና ገጽታዎች',
+    metaDuration: '5 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የመረጃ ይዘት',
+    intro:
+      'ከወሊድ በኋላ ሰውነት ቀስ በቀስ የማገገም ጊዜ ያልፋል። ከወሊድ በኋላ ያለውን ደም መፍሰስ፣ እንዴት እንደሚለወጥ፣ እና ትኩረት የሚያስፈልጋቸውን ምልክቶች መረዳት በዚህ ጊዜ የበለጠ እንድትረጂ ሊረዳሽ ይችላል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ኒፋስ የሚለውን ቃል መረዳት',
+      'ከወሊድ በኋላ ያለው የሕክምና ዘይቤ',
+      'ሎኪያ እንዴት እንደሚለወጥ',
+      'ራስሽን መንከባከብ',
+      'ምክር መቼ መፈለግ',
+      'ዋና ዋና ነጥቦች',
+    ],
+    h2Section1: '1. “ኒፋስ” የሚለውን ቃል መረዳት',
+    body1a:
+      '“ኒፋስ” የሚለው ቃል የሃይማኖት መዝገበ ቃላት ነው እና በእስላማዊ ፊቅህ ደንቦች ውስጥ ከወሊድ በኋላ ከሚከተለው ደም መፍሰስ ጋር የተያያዘውን ጊዜ ያመለክታል።',
+    body1b:
+      'በሕክምና፣ ከወሊድ በኋላ የሚታየው ደም መፍሰስ “ሎኪያ” ይባላል። እነዚህ ሁለት ጽንሰ ሐሳቦች ለየብቻ ሊታዩ ይችላሉ፦ አንደኛው የሃይማኖት ማዕቀፍ ነው፣ ሌላኛው የፊዚዮሎጂ ክስተትን ይገልጻል።',
+    distinction: {
+      nifasTitle: 'ኒፋስ',
+      nifasText: 'ከወሊድ በኋላ ባለው የሃይማኖት ማዕቀፍ ውስጥ ያለ ጽንሰ ሐሳብ።',
+      lochiaTitle: 'ሎኪያ',
+      lochiaText: 'ለከወሊድ በኋላ ደም መፍሰስ የሚያገለግል የሕክምና ቃል።',
+    },
+    h2Section2: '2. ከወሊድ በኋላ ያለው የሕክምና ዘይቤ',
+    body2:
+      'ከወሊድ በኋላ ማገገም ቀስ በቀስ ይከሰታል። ማህፀን ወደ ተለመደው ሁኔታው መመለሱን ሲቀጥል ከወሊድ በኋላ ያለው ደም መፍሰስ በአጠቃላይ በጊዜ ሂደት ይለወጣል።',
+    schemaTitle: 'ከወሊድ በኋላ ሂደት',
+    schemaSubtitle: 'ቀለል ያለ የሕክምና ማመሳከሪያ',
+    stages: [
+      {
+        title: 'ከወሊድ በኋላ',
+        subtitle: 'የከወሊድ በኋላ ጊዜ መጀመሪያ',
+        text: 'ሰውነት ከወሊድ በኋላ ቀስ በቀስ ማገገም ይጀምራል።',
+      },
+      {
+        title: 'ሎኪያ',
+        subtitle: 'ከወሊድ በኋላ ደም መፍሰስ',
+        text: 'ደም መፍሰሱ በመጠንና በቀለም ቀስ በቀስ ይለወጣል።',
+      },
+      {
+        title: 'ቀስ በቀስ መቀነስ',
+        subtitle: 'በበርካታ ሳምንታት',
+        text: 'ደም መፍሰሱ በአጠቃላይ በጊዜ ሂደት ይቀንሳል።',
+      },
+      {
+        title: 'ቀስ በቀስ መመለስ',
+        subtitle: 'ወደ ተለመደው ዑደት',
+        text: 'የወር አበባ ዑደት ከዚያ ቀስ በቀስ ሊቀጥል ይችላል።',
+      },
+    ],
+    h2Section3: '3. ሎኪያ እንዴት እንደሚለወጥ',
+    body3:
+      'ሎኪያ በአጠቃላይ ቀለሙን ቀስ በቀስ ይለውጣል እና መጠኑ ይቀንሳል። ሆኖም፣ ይህ ሂደት ከሰው ወደ ሰው ሊለያይ ይችላል።',
+    lochiaEvolution: [
+      {
+        title: 'ቀይ ሎኪያ',
+        period: 'የመጀመሪያዎቹ ቀናት',
+        text: 'ደም መፍሰሱ ብዙውን ጊዜ ቀይ ሲሆን በጅማሬ ሊበዛ ይችላል።',
+      },
+      {
+        title: 'ሮዝ / ቡናማ-ቡናማ ሎኪያ',
+        period: 'ከጥቂት ቀናት በኋላ',
+        text: 'ፍሰቱ ሲቀንስ ቀለሙ ሊቀልል ወይም ወደ ቡናማ ሊሄድ ይችላል።',
+      },
+      {
+        title: 'ነጭ-ነጭ ሎኪያ',
+        period: 'በሚቀጥሉት ሳምንታት',
+        text: 'ደም መፍሰሱ ቀስ በቀስ ይቀላል እና ያነሰ ይሆናል።',
+      },
+    ],
+    infoTitle: 'ዋና ዋና ነጥቦች',
+    infoText:
+      'የሎኪያ ቀለምና መጠን ቀስ በቀስ ሊለወጥ ይችላል። ትክክለኛው ሂደት ለሁሉም ተመሳሳይ አይደለም።',
+    h2Section4: '4. ራስሽን መንከባከብ',
+    body4:
+      'በዚህ ጊዜ ጥቂት ቀላል ልማዶች ለምቾት ሊረዱና የሰውነትን ማገገም ሊደግፉ ይችላሉ።',
+    careTips: [
+      {title: 'ለስላሳ ንጽሕና', text: 'ቀላል፣ ምቹ የዕለት ንጽሕና ሥርዓት ጠብቂ።'},
+      {title: 'እረፍት', text: 'ለሰውነትሽ ለማገገም ጊዜ ስጪ።'},
+      {title: 'ውሃ መጠጣት', text: 'እንደ ፍላጎትሽ በየጊዜው መጠጣት አስታውሺ።'},
+      {title: 'አመጋገብ', text: 'የተለያየ አመጋገብ ማገገምን ይደግፋል።'},
+    ],
+    h2Section5: '5. ምክር መቼ መፈለግ',
+    body5:
+      'አንዳንድ ሁኔታዎች ከጤና ባለሙያ ፈጣን ምክር ይፈልጋሉ፣ በተለይ ለውጡ ከፍተኛ፣ ድንገተኛ ወይም ያልተለመደ ሲመስል።',
+    warningTitle: 'ችላ ሊባሉ የማይገቡ ምልክቶች',
+    warningSubtitle: 'ካስፈለገ የባለሙያ ምክር ፈልጊ',
+    warningSigns: [
+      'በደም መፍሰሱ ውስጥ ጠንካራ ወይም ያልተለመደ ሽታ',
+      'ትኩሳት ወይም እየከፋ የሚሄድ አጠቃላይ ሁኔታ',
+      'ድንገት በጣም የሚበዛ ደም መፍሰስ',
+      'ከፍተኛ፣ የሚቀጥል ወይም ያልተለመደ ህመም',
+      'የሚያሳስብሽ አዲስ ምልክት',
+    ],
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'እያንዳንዱ ከወሊድ በኋላ ማገገም የተለየ ነው። በዚህ ጽሑፍ ውስጥ ያለው መረጃ አጠቃላይ መመሪያ ለመስጠት የታሰበ ነው እና የሕክምና ምክክርን አይተካም።',
+    summaryHeading: 'ዋና ዋና ነጥቦች',
+    summary: [
+      'ኒፋስ ከወሊድ በኋላ በሃይማኖታዊ አውድ ውስጥ የሚጠቀም ቃል ነው።',
+      'በሕክምና፣ ከወሊድ በኋላ ያለው ደም መፍሰስ ሎኪያ ይባላል።',
+      'ሎኪያ ቀለሙንና መጠኑን ቀስ በቀስ ይለውጣል።',
+      'እረፍት፣ ለስላሳ ንጽሕና እና በደንብ ውሃ መጠጣት ማገገምን ይደግፋሉ።',
+      'ያልተለመደ ወይም የሚያሳስብ ለውጥ የባለሙያ ምክር ይገባዋል።',
+    ],
+    disclaimerText:
+      'የመረጃ ይዘት። እዚህ የቀረበው የሕክምና መረጃ አጠቃላይ ነው እና የጤና ባለሙያን ምክር አይተካም። ለተወሰኑ ሃይማኖታዊ ጥያቄዎች ብቁ የሃይማኖት ምንጭን ማመሳከር ይመከራል።',
+    shareMessage: 'ኒፋስ፦ የሕክምና ገጽታዎች — AWA',
+  },
+  nl: {
+    badge: 'NA DE BEVALLING • NIFAS',
+    title: 'Nifas:\nmedische aspecten',
+    metaDuration: '5 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informatieve inhoud',
+    intro:
+      'Na de bevalling doorloopt het lichaam een periode van geleidelijk herstel. Het bloedverlies na de bevalling, hoe het zich ontwikkelt en de tekenen die aandacht vragen begrijpen kan je helpen je in deze tijd beter geïnformeerd te voelen.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'De term Nifas begrijpen',
+      'Het medische verloop na de bevalling',
+      'Hoe lochia zich ontwikkelt',
+      'Voor jezelf zorgen',
+      'Wanneer advies zoeken',
+      'Belangrijkste punten',
+    ],
+    h2Section1: '1. De term "Nifas" begrijpen',
+    body1a:
+      'De term "Nifas" behoort tot het religieuze vocabulaire en verwijst naar de periode die samenhangt met het bloedverlies na de bevalling binnen de regels van de islamitische jurisprudentie.',
+    body1b:
+      'Medisch wordt het bloedverlies na de bevalling "lochia" genoemd. Deze twee begrippen kunnen afzonderlijk worden beschouwd: het ene behoort tot een religieus kader, het andere beschrijft een fysiologisch verschijnsel.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Een begrip dat tot het religieuze kader na de bevalling behoort.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Medische term voor bloedverlies na de bevalling.',
+    },
+    h2Section2: '2. Het medische verloop na de bevalling',
+    body2:
+      'Herstel na de bevalling verloopt geleidelijk. Het bloedverlies na de bevalling verandert over het algemeen in de loop van de tijd terwijl de baarmoeder terugkeert naar de gebruikelijke toestand.',
+    schemaTitle: 'Verloop na de bevalling',
+    schemaSubtitle: 'Vereenvoudigde medische referentie',
+    stages: [
+      {
+        title: 'Na de bevalling',
+        subtitle: 'Begin van de periode na de bevalling',
+        text: 'Het lichaam begint geleidelijk aan zijn herstel na de bevalling.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Bloedverlies na de bevalling',
+        text: 'Het bloedverlies verandert geleidelijk in hoeveelheid en kleur.',
+      },
+      {
+        title: 'Geleidelijke afname',
+        subtitle: 'Over meerdere weken',
+        text: 'Het bloedverlies neemt over het algemeen in de loop van de tijd af.',
+      },
+      {
+        title: 'Geleidelijke terugkeer',
+        subtitle: 'Naar de gebruikelijke cyclus',
+        text: 'De menstruatiecyclus kan daarna geleidelijk hervatten.',
+      },
+    ],
+    h2Section3: '3. Hoe lochia zich ontwikkelt',
+    body3:
+      'Lochia verandert over het algemeen geleidelijk van kleur en neemt af in hoeveelheid. Deze ontwikkeling kan echter van persoon tot persoon verschillen.',
+    lochiaEvolution: [
+      {
+        title: 'Rode lochia',
+        period: 'Eerste dagen',
+        text: 'Het bloedverlies is meestal rood en kan in het begin heviger zijn.',
+      },
+      {
+        title: 'Roze / bruinachtige lochia',
+        period: 'Na enkele dagen',
+        text: 'De kleur kan lichter of bruinachtig worden naarmate de bloeding afneemt.',
+      },
+      {
+        title: 'Witachtige lochia',
+        period: 'Volgende weken',
+        text: 'Het bloedverlies wordt geleidelijk lichter en minder overvloedig.',
+      },
+    ],
+    infoTitle: 'Belangrijkste punten',
+    infoText:
+      'De kleur en hoeveelheid van lochia kunnen geleidelijk veranderen. De exacte ontwikkeling is niet voor iedereen hetzelfde.',
+    h2Section4: '4. Voor jezelf zorgen',
+    body4:
+      'In deze periode kunnen enkele eenvoudige gewoonten bijdragen aan het comfort en het herstel van het lichaam ondersteunen.',
+    careTips: [
+      {title: 'Zachte hygiëne', text: 'Houd een eenvoudige, comfortabele dagelijkse hygiëneroutine aan.'},
+      {title: 'Rust', text: 'Geef je lichaam de tijd om te herstellen.'},
+      {title: 'Vochtinname', text: 'Denk eraan regelmatig te drinken naar je behoefte.'},
+      {title: 'Voeding', text: 'Een gevarieerde voeding ondersteunt het herstel.'},
+    ],
+    h2Section5: '5. Wanneer advies zoeken',
+    body5:
+      'Bepaalde situaties vragen om snel advies van een zorgverlener, vooral wanneer een verandering aanzienlijk, plotseling of ongewoon lijkt.',
+    warningTitle: 'Tekenen die je niet moet negeren',
+    warningSubtitle: 'Zoek zo nodig professioneel advies',
+    warningSigns: [
+      'Een sterke of ongewone geur in het bloedverlies',
+      'Koorts of een verslechterende algemene toestand',
+      'Bloedverlies dat plotseling zeer hevig wordt',
+      'Aanzienlijke, aanhoudende of ongewone pijn',
+      'Een nieuw symptoom dat je zorgen baart',
+    ],
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Elk herstel na de bevalling is anders. De informatie in dit artikel is bedoeld om algemene richtlijnen te geven en vervangt geen medische consultatie.',
+    summaryHeading: 'Belangrijkste punten',
+    summary: [
+      'Nifas is een term die in de religieuze context na de bevalling wordt gebruikt.',
+      'Medisch wordt het bloedverlies na de bevalling lochia genoemd.',
+      'Lochia verandert geleidelijk van kleur en hoeveelheid.',
+      'Rust, zachte hygiëne en goede vochtinname ondersteunen het herstel.',
+      'Een ongewone of zorgwekkende verandering verdient professioneel advies.',
+    ],
+    disclaimerText:
+      'Informatieve inhoud. De hier gepresenteerde medische informatie is algemeen en vervangt niet het advies van een zorgverlener. Voor specifieke religieuze vragen wordt aanbevolen een bevoegde religieuze bron te raadplegen.',
+    shareMessage: 'Nifas: medische aspecten — AWA',
+  },
+  fi: {
+    badge: 'SYNNYTYKSEN JÄLKEEN • NIFAS',
+    title: 'Nifas:\nlääketieteelliset näkökohdat',
+    metaDuration: '5 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tiedoksi tarkoitettua sisältöä',
+    intro:
+      'Synnytyksen jälkeen keho käy läpi asteittaisen toipumisjakson. Synnytyksen jälkeisen vuodon, sen kehityksen ja huomiota vaativien merkkien ymmärtäminen voi auttaa tuntemaan olosi paremmin perillä olevaksi tänä aikana.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Termin nifas ymmärtäminen',
+      'Lääketieteellinen kaava synnytyksen jälkeen',
+      'Miten lochia kehittyy',
+      'Itsestäsi huolehtiminen',
+      'Milloin hakea neuvoa',
+      'Tärkeimmät asiat',
+    ],
+    h2Section1: '1. Termin “nifas” ymmärtäminen',
+    body1a:
+      'Termi “nifas” kuuluu uskonnolliseen sanastoon ja viittaa synnytystä seuraavaan vuotoon liittyvään ajanjaksoon islamilaisen oikeustieteen sääntöjen puitteissa.',
+    body1b:
+      'Lääketieteellisesti synnytyksen jälkeen havaittua vuotoa kutsutaan “lochiaksi”. Näitä kahta käsitettä voidaan tarkastella erikseen: toinen kuuluu uskonnolliseen kehykseen, toinen kuvaa fysiologista ilmiötä.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Synnytyksen jälkeiseen uskonnolliseen kehykseen kuuluva käsite.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Synnytyksen jälkeisestä vuodosta käytetty lääketieteellinen termi.',
+    },
+    h2Section2: '2. Lääketieteellinen kaava synnytyksen jälkeen',
+    body2:
+      'Synnytyksen jälkeinen toipuminen tapahtuu vähitellen. Synnytyksen jälkeinen vuoto muuttuu yleensä ajan myötä, kun kohtu palaa edelleen tavalliseen tilaansa.',
+    schemaTitle: 'Synnytyksen jälkeinen eteneminen',
+    schemaSubtitle: 'Yksinkertaistettu lääketieteellinen viite',
+    stages: [
+      {
+        title: 'Synnytyksen jälkeen',
+        subtitle: 'Synnytyksen jälkeisen ajan alku',
+        text: 'Keho aloittaa vähitellen toipumisensa synnytyksen jälkeen.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Synnytyksen jälkeinen vuoto',
+        text: 'Vuodon määrä ja väri muuttuvat vähitellen.',
+      },
+      {
+        title: 'Asteittainen väheneminen',
+        subtitle: 'Useiden viikkojen aikana',
+        text: 'Vuoto yleensä vähenee ajan myötä.',
+      },
+      {
+        title: 'Asteittainen paluu',
+        subtitle: 'Kohti tavallista kiertoa',
+        text: 'Kuukautiskierto voi sitten vähitellen jatkua.',
+      },
+    ],
+    h2Section3: '3. Miten lochia kehittyy',
+    body3:
+      'Lochia vaihtaa yleensä väriä vähitellen ja vähenee määrältään. Tämä eteneminen voi kuitenkin vaihdella ihmisestä toiseen.',
+    lochiaEvolution: [
+      {
+        title: 'Punainen lochia',
+        period: 'Ensimmäiset päivät',
+        text: 'Vuoto on yleensä punaista ja voi olla alussa runsaampaa.',
+      },
+      {
+        title: 'Vaaleanpunainen / ruskehtava lochia',
+        period: 'Muutaman päivän kuluttua',
+        text: 'Väri voi vaaleta tai muuttua ruskehtavaksi vuodon vähentyessä.',
+      },
+      {
+        title: 'Valkeahko lochia',
+        period: 'Seuraavat viikot',
+        text: 'Vuoto muuttuu vähitellen vaaleammaksi ja niukemmaksi.',
+      },
+    ],
+    infoTitle: 'Tärkeimmät asiat',
+    infoText:
+      'Lochian väri ja määrä voivat muuttua vähitellen. Tarkka eteneminen ei ole sama kaikilla.',
+    h2Section4: '4. Itsestäsi huolehtiminen',
+    body4:
+      'Tänä aikana muutama yksinkertainen tapa voi auttaa mukavuudessa ja tukea kehon toipumista.',
+    careTips: [
+      {title: 'Lempeä hygienia', text: 'Pidä yllä yksinkertainen, mukava päivittäinen hygieniarutiini.'},
+      {title: 'Lepo', text: 'Anna keholle aikaa toipua.'},
+      {title: 'Nesteytys', text: 'Muista juoda säännöllisesti tarpeesi mukaan.'},
+      {title: 'Ravitsemus', text: 'Monipuolinen ruokavalio tukee toipumista.'},
+    ],
+    h2Section5: '5. Milloin hakea neuvoa',
+    body5:
+      'Tietyt tilanteet vaativat pikaista terveydenhuollon ammattilaisen neuvoa, erityisesti kun muutos vaikuttaa merkittävältä, äkilliseltä tai epätavalliselta.',
+    warningTitle: 'Merkit, joita ei pidä sivuuttaa',
+    warningSubtitle: 'Hae tarvittaessa ammattilaisen neuvoa',
+    warningSigns: [
+      'Voimakas tai epätavallinen haju vuodossa',
+      'Kuume tai yleistilan huononeminen',
+      'Vuoto, joka muuttuu äkillisesti hyvin runsaaksi',
+      'Merkittävä, pitkäkestoinen tai epätavallinen kipu',
+      'Uusi oire, joka huolestuttaa sinua',
+    ],
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Jokainen synnytyksen jälkeinen toipuminen on erilainen. Tämän artikkelin tiedot on tarkoitettu yleiseksi ohjeeksi, eivätkä ne korvaa lääkärin vastaanottoa.',
+    summaryHeading: 'Tärkeimmät asiat',
+    summary: [
+      'Nifas on synnytyksen jälkeisessä uskonnollisessa yhteydessä käytetty termi.',
+      'Lääketieteellisesti synnytyksen jälkeistä vuotoa kutsutaan lochiaksi.',
+      'Lochian väri ja määrä muuttuvat vähitellen.',
+      'Lepo, lempeä hygienia ja hyvä nesteytys tukevat toipumista.',
+      'Epätavallinen tai huolestuttava muutos ansaitsee ammattilaisen neuvon.',
+    ],
+    disclaimerText:
+      'Tiedoksi tarkoitettua sisältöä. Tässä esitetyt lääketieteelliset tiedot ovat yleisiä, eivätkä ne korvaa terveydenhuollon ammattilaisen neuvoa. Erityisissä uskonnollisissa kysymyksissä suositellaan turvautumista pätevään uskonnolliseen lähteeseen.',
+    shareMessage: 'Nifas: lääketieteelliset näkökohdat — AWA',
+  },
+  el: {
+    badge: 'ΛΟΧΕΙΑ • ΝΙΦΑΣ',
+    title: 'Νιφάς:\nοι ιατρικές πτυχές',
+    metaDuration: '5 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ενημερωτικό περιεχόμενο',
+    intro:
+      'Μετά τον τοκετό, το σώμα περνά από μια σταδιακή περίοδο ανάρρωσης. Η κατανόηση της αιμορραγίας της λοχείας, του πώς εξελίσσεται και των σημαδιών που απαιτούν προσοχή μπορεί να σε βοηθήσει να νιώθεις πιο ενημερωμένη σε αυτή την περίοδο.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Κατανοώντας τον όρο νιφάς',
+      'Το ιατρικό μοτίβο μετά τον τοκετό',
+      'Πώς εξελίσσονται τα λοχιακά υγρά',
+      'Φροντίζοντας τον εαυτό σου',
+      'Πότε να ζητήσεις συμβουλή',
+      'Βασικά συμπεράσματα',
+    ],
+    h2Section1: '1. Κατανοώντας τον όρο «νιφάς»',
+    body1a:
+      'Ο όρος «νιφάς» ανήκει στο θρησκευτικό λεξιλόγιο και αναφέρεται στην περίοδο που συνδέεται με την αιμορραγία μετά τον τοκετό στο πλαίσιο των κανόνων της ισλαμικής νομολογίας.',
+    body1b:
+      'Ιατρικά, η αιμορραγία που παρατηρείται μετά τον τοκετό ονομάζεται «λοχιακά υγρά». Αυτές οι δύο έννοιες μπορούν να εξεταστούν ξεχωριστά: η μία ανήκει σε θρησκευτικό πλαίσιο, η άλλη περιγράφει ένα φυσιολογικό φαινόμενο.',
+    distinction: {
+      nifasTitle: 'Νιφάς',
+      nifasText: 'Μια έννοια που ανήκει στο θρησκευτικό πλαίσιο μετά τον τοκετό.',
+      lochiaTitle: 'Λοχιακά υγρά',
+      lochiaText: 'Ιατρικός όρος που χρησιμοποιείται για την αιμορραγία της λοχείας.',
+    },
+    h2Section2: '2. Το ιατρικό μοτίβο μετά τον τοκετό',
+    body2:
+      'Η ανάρρωση στη λοχεία γίνεται σταδιακά. Η αιμορραγία της λοχείας αλλάζει γενικά με τον καιρό καθώς η μήτρα συνεχίζει να επιστρέφει στη συνηθισμένη της κατάσταση.',
+    schemaTitle: 'Εξέλιξη της λοχείας',
+    schemaSubtitle: 'Απλοποιημένη ιατρική αναφορά',
+    stages: [
+      {
+        title: 'Μετά τον τοκετό',
+        subtitle: 'Έναρξη της λοχείας',
+        text: 'Το σώμα αρχίζει σταδιακά την ανάρρωσή του μετά τον τοκετό.',
+      },
+      {
+        title: 'Λοχιακά υγρά',
+        subtitle: 'Αιμορραγία της λοχείας',
+        text: 'Η αιμορραγία αλλάζει σταδιακά σε ποσότητα και χρώμα.',
+      },
+      {
+        title: 'Σταδιακή μείωση',
+        subtitle: 'Σε αρκετές εβδομάδες',
+        text: 'Η αιμορραγία μειώνεται γενικά με τον καιρό.',
+      },
+      {
+        title: 'Σταδιακή επιστροφή',
+        subtitle: 'Προς τον συνηθισμένο κύκλο',
+        text: 'Ο έμμηνος κύκλος μπορεί τότε να επανέλθει σταδιακά.',
+      },
+    ],
+    h2Section3: '3. Πώς εξελίσσονται τα λοχιακά υγρά',
+    body3:
+      'Τα λοχιακά υγρά αλλάζουν γενικά χρώμα σταδιακά και μειώνονται σε ποσότητα. Ωστόσο, αυτή η εξέλιξη μπορεί να διαφέρει από γυναίκα σε γυναίκα.',
+    lochiaEvolution: [
+      {
+        title: 'Κόκκινα λοχιακά υγρά',
+        period: 'Οι πρώτες ημέρες',
+        text: 'Η αιμορραγία είναι συνήθως κόκκινη και μπορεί να είναι πιο έντονη στην αρχή.',
+      },
+      {
+        title: 'Ροζ / καφέ λοχιακά υγρά',
+        period: 'Μετά από λίγες ημέρες',
+        text: 'Το χρώμα μπορεί να γίνει πιο ανοιχτό ή καφέ καθώς μειώνεται η ροή.',
+      },
+      {
+        title: 'Υπόλευκα λοχιακά υγρά',
+        period: 'Τις επόμενες εβδομάδες',
+        text: 'Η αιμορραγία γίνεται σταδιακά πιο ελαφριά και λιγότερο άφθονη.',
+      },
+    ],
+    infoTitle: 'Βασικά συμπεράσματα',
+    infoText:
+      'Το χρώμα και η ποσότητα των λοχιακών υγρών μπορεί να αλλάζουν σταδιακά. Η ακριβής εξέλιξη δεν είναι η ίδια για όλες.',
+    h2Section4: '4. Φροντίζοντας τον εαυτό σου',
+    body4:
+      'Σε αυτή την περίοδο, μερικές απλές συνήθειες μπορούν να βοηθήσουν στην άνεση και να στηρίξουν την ανάρρωση του σώματος.',
+    careTips: [
+      {title: 'Ήπια υγιεινή', text: 'Κράτα μια απλή, άνετη καθημερινή ρουτίνα υγιεινής.'},
+      {title: 'Ξεκούραση', text: 'Δώσε χρόνο στο σώμα σου να αναρρώσει.'},
+      {title: 'Ενυδάτωση', text: 'Θυμήσου να πίνεις τακτικά ανάλογα με τις ανάγκες σου.'},
+      {title: 'Διατροφή', text: 'Μια ποικίλη διατροφή στηρίζει την ανάρρωση.'},
+    ],
+    h2Section5: '5. Πότε να ζητήσεις συμβουλή',
+    body5:
+      'Ορισμένες καταστάσεις απαιτούν άμεση συμβουλή από έναν επαγγελματία υγείας, ιδίως όταν μια αλλαγή φαίνεται σημαντική, ξαφνική ή ασυνήθιστη.',
+    warningTitle: 'Σημάδια που δεν πρέπει να αγνοείς',
+    warningSubtitle: 'Ζήτησε επαγγελματική συμβουλή αν χρειάζεται',
+    warningSigns: [
+      'Έντονη ή ασυνήθιστη μυρωδιά στην αιμορραγία',
+      'Πυρετός ή επιδείνωση της γενικής κατάστασης',
+      'Αιμορραγία που ξαφνικά γίνεται πολύ έντονη',
+      'Σημαντικός, επίμονος ή ασυνήθιστος πόνος',
+      'Ένα νέο σύμπτωμα που σε ανησυχεί',
+    ],
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Κάθε ανάρρωση στη λοχεία είναι διαφορετική. Οι πληροφορίες αυτού του άρθρου προορίζονται να δώσουν γενική καθοδήγηση και δεν αντικαθιστούν μια ιατρική επίσκεψη.',
+    summaryHeading: 'Βασικά συμπεράσματα',
+    summary: [
+      'Το νιφάς είναι ένας όρος που χρησιμοποιείται στο θρησκευτικό πλαίσιο μετά τον τοκετό.',
+      'Ιατρικά, η αιμορραγία της λοχείας ονομάζεται λοχιακά υγρά.',
+      'Τα λοχιακά υγρά αλλάζουν σταδιακά χρώμα και ποσότητα.',
+      'Η ξεκούραση, η ήπια υγιεινή και η καλή ενυδάτωση στηρίζουν την ανάρρωση.',
+      'Μια ασυνήθιστη ή ανησυχητική αλλαγή αξίζει επαγγελματική συμβουλή.',
+    ],
+    disclaimerText:
+      'Ενημερωτικό περιεχόμενο. Οι ιατρικές πληροφορίες που παρουσιάζονται εδώ είναι γενικές και δεν αντικαθιστούν τη συμβουλή ενός επαγγελματία υγείας. Για συγκεκριμένα θρησκευτικά ζητήματα, συνιστάται η ανάτρεξη σε αρμόδια θρησκευτική πηγή.',
+    shareMessage: 'Νιφάς: οι ιατρικές πτυχές — AWA',
+  },
+  fil: {
+    badge: 'PAGKATAPOS MANGANAK • NIFAS',
+    title: 'Nifas:\nmga medikal na aspeto',
+    metaDuration: '5 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Impormatibong nilalaman',
+    intro:
+      'Pagkatapos manganak, dumaraan ang katawan sa unti-unting panahon ng paggaling. Ang pag-unawa sa pagdurugo pagkatapos manganak, kung paano ito nagbabago, at ang mga senyales na nangangailangan ng atensyon ay makakatulong na maging mas may kaalaman ka sa panahong ito.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Pag-unawa sa terminong Nifas',
+      'Ang medikal na pattern pagkatapos manganak',
+      'Paano nagbabago ang lochia',
+      'Pag-aalaga sa sarili',
+      'Kailan hihingi ng payo',
+      'Mahahalagang tandaan',
+    ],
+    h2Section1: '1. Pag-unawa sa terminong "Nifas"',
+    body1a:
+      'Ang terminong "Nifas" ay bahagi ng bokabularyong panrelihiyon at tumutukoy sa panahong kaugnay ng pagdurugo pagkatapos manganak sa loob ng mga tuntunin ng jurisprudensyang Islamiko.',
+    body1b:
+      'Sa medikal na aspeto, ang pagdurugong naoobserbahan pagkatapos manganak ay tinatawag na "lochia." Maaaring ituring nang hiwalay ang dalawang konseptong ito: ang isa ay kabilang sa balangkas na panrelihiyon, ang isa ay naglalarawan ng pisyolohikal na penomena.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Isang konseptong kabilang sa balangkas na panrelihiyon pagkatapos manganak.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Medikal na terminong ginagamit para sa pagdurugo pagkatapos manganak.',
+    },
+    h2Section2: '2. Ang medikal na pattern pagkatapos manganak',
+    body2:
+      'Unti-unting nangyayari ang paggaling pagkatapos manganak. Karaniwang nagbabago sa paglipas ng panahon ang pagdurugo pagkatapos manganak habang patuloy na bumabalik ang matris sa karaniwan nitong kalagayan.',
+    schemaTitle: 'Pag-usad pagkatapos manganak',
+    schemaSubtitle: 'Pinasimpleng medikal na sanggunian',
+    stages: [
+      {
+        title: 'Pagkatapos manganak',
+        subtitle: 'Simula ng panahon pagkatapos manganak',
+        text: 'Unti-unting sinisimulan ng katawan ang paggaling pagkatapos manganak.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Pagdurugo pagkatapos manganak',
+        text: 'Unti-unting nagbabago ang dami at kulay ng pagdurugo.',
+      },
+      {
+        title: 'Unti-unting pagbaba',
+        subtitle: 'Sa loob ng ilang linggo',
+        text: 'Karaniwang bumababa ang pagdurugo sa paglipas ng panahon.',
+      },
+      {
+        title: 'Unti-unting pagbabalik',
+        subtitle: 'Patungo sa karaniwang siklo',
+        text: 'Maaaring unti-unting magpatuloy pagkatapos ang siklo ng regla.',
+      },
+    ],
+    h2Section3: '3. Paano nagbabago ang lochia',
+    body3:
+      'Karaniwang unti-unting nagbabago ng kulay ang lochia at bumababa ang dami. Gayunpaman, maaaring mag-iba ang pag-usad na ito sa bawat tao.',
+    lochiaEvolution: [
+      {
+        title: 'Pulang lochia',
+        period: 'Unang mga araw',
+        text: 'Karaniwang pula ang pagdurugo at maaaring mas marami sa simula.',
+      },
+      {
+        title: 'Rosas / kayumangging lochia',
+        period: 'Pagkalipas ng ilang araw',
+        text: 'Maaaring lumiwanag o maging kayumanggi ang kulay habang bumababa ang daloy.',
+      },
+      {
+        title: 'Maputing lochia',
+        period: 'Mga sumunod na linggo',
+        text: 'Unti-unting gumagaan at nababawasan ang dami ng pagdurugo.',
+      },
+    ],
+    infoTitle: 'Mahahalagang tandaan',
+    infoText:
+      'Maaaring unti-unting magbago ang kulay at dami ng lochia. Hindi pareho para sa lahat ang eksaktong pag-usad.',
+    h2Section4: '4. Pag-aalaga sa sarili',
+    body4:
+      'Sa panahong ito, ang ilang simpleng gawi ay makakatulong sa ginhawa at sa paggaling ng katawan.',
+    careTips: [
+      {title: 'Banayad na kalinisan', text: 'Panatilihin ang simple at komportableng pang-araw-araw na gawi sa kalinisan.'},
+      {title: 'Pahinga', text: 'Bigyan ang katawan mo ng oras para gumaling.'},
+      {title: 'Hydration', text: 'Tandaang uminom nang regular ayon sa pangangailangan mo.'},
+      {title: 'Nutrisyon', text: 'Ang iba’t ibang uri ng pagkain ay sumusuporta sa paggaling.'},
+    ],
+    h2Section5: '5. Kailan hihingi ng payo',
+    body5:
+      'Ang ilang sitwasyon ay nangangailangan ng agarang payo mula sa propesyonal sa kalusugan, partikular kapag tila malaki, biglaan, o hindi pangkaraniwan ang pagbabago.',
+    warningTitle: 'Mga senyales na hindi dapat balewalain',
+    warningSubtitle: 'Humingi ng propesyonal na payo kung kinakailangan',
+    warningSigns: [
+      'Matapang o hindi pangkaraniwang amoy sa pagdurugo',
+      'Lagnat o lumalalang pangkalahatang kalagayan',
+      'Pagdurugong biglang nagiging napakarami',
+      'Matindi, patuloy, o hindi pangkaraniwang sakit',
+      'Bagong sintomas na bumabagabag sa iyo',
+    ],
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Iba-iba ang bawat paggaling pagkatapos manganak. Ang impormasyon sa artikulong ito ay inilaan upang magbigay ng pangkalahatang gabay at hindi pumapalit sa medikal na konsultasyon.',
+    summaryHeading: 'Mahahalagang tandaan',
+    summary: [
+      'Ang Nifas ay terminong ginagamit sa panrelihiyong konteksto pagkatapos manganak.',
+      'Sa medikal na aspeto, ang pagdurugo pagkatapos manganak ay tinatawag na lochia.',
+      'Unti-unting nagbabago ang kulay at dami ng lochia.',
+      'Ang pahinga, banayad na kalinisan, at mahusay na hydration ay sumusuporta sa paggaling.',
+      'Ang hindi pangkaraniwan o nakababahalang pagbabago ay nararapat bigyan ng propesyonal na payo.',
+    ],
+    disclaimerText:
+      'Impormatibong nilalaman. Pangkalahatan ang medikal na impormasyong ipinakita rito at hindi pumapalit sa payo ng propesyonal sa kalusugan. Para sa mga partikular na usaping panrelihiyon, inirerekomendang sumangguni sa kuwalipikadong sangguniang panrelihiyon.',
+    shareMessage: 'Nifas: mga medikal na aspeto — AWA',
+  },
+  ta: {
+    badge: 'பிரசவத்திற்குப் பின் • நிஃபாஸ்',
+    title: 'நிஃபாஸ்:\nமருத்துவ அம்சங்கள்',
+    metaDuration: '5 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'தகவல் உள்ளடக்கம்',
+    intro:
+      'பிரசவத்துக்குப் பின், உடல் படிப்படியான மீட்சிக் காலத்தைக் கடந்து செல்கிறது. பிரசவத்துக்குப் பிந்தைய இரத்தப்போக்கு, அது எப்படி மாறுகிறது, கவனம் தேவைப்படும் அறிகுறிகளைப் புரிந்துகொள்வது, இந்தக் காலத்தில் நீங்கள் நன்கு தெரிந்தவராக உணர உதவலாம்.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'நிஃபாஸ் என்ற சொல்லைப் புரிந்துகொள்ளுதல்',
+      'பிரசவத்துக்குப் பின் மருத்துவ முறை',
+      'லோகியா எப்படி மாறுகிறது',
+      'உங்களைக் கவனித்துக்கொள்ளுதல்',
+      'ஆலோசனையை எப்போது கேட்பது',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    h2Section1: '1. "நிஃபாஸ்" என்ற சொல்லைப் புரிந்துகொள்ளுதல்',
+    body1a:
+      '"நிஃபாஸ்" என்ற சொல் மார்க்கச் சொற்றொடரைச் சேர்ந்தது, இஸ்லாமிய மார்க்கச் சட்ட விதிகளுக்குள் பிரசவத்தைத் தொடர்ந்து வரும் இரத்தப்போக்குடன் தொடர்புடைய காலத்தைக் குறிக்கிறது.',
+    body1b:
+      'மருத்துவ ரீதியாக, பிரசவத்துக்குப் பின் காணப்படும் இரத்தப்போக்கு "லோகியா" என அழைக்கப்படுகிறது. இந்த இரண்டு கருத்துகளையும் தனித்தனியாகக் கருதலாம்: ஒன்று மார்க்கக் கட்டமைப்பைச் சேர்ந்தது, மற்றொன்று ஓர் உடலியல் நிகழ்வை விவரிக்கிறது.',
+    distinction: {
+      nifasTitle: 'நிஃபாஸ்',
+      nifasText: 'பிரசவத்துக்குப் பிந்தைய மார்க்கக் கட்டமைப்பைச் சேர்ந்த ஒரு கருத்து.',
+      lochiaTitle: 'லோகியா',
+      lochiaText: 'பிரசவத்துக்குப் பிந்தைய இரத்தப்போக்குக்குப் பயன்படுத்தப்படும் மருத்துவச் சொல்.',
+    },
+    h2Section2: '2. பிரசவத்துக்குப் பின் மருத்துவ முறை',
+    body2:
+      'பிரசவத்துக்குப் பிந்தைய மீட்சி படிப்படியாக நிகழ்கிறது. கருப்பை தன் வழக்கமான நிலைக்குத் தொடர்ந்து திரும்பும்போது, பிரசவத்துக்குப் பிந்தைய இரத்தப்போக்கு பொதுவாகக் காலப்போக்கில் மாறுகிறது.',
+    schemaTitle: 'பிரசவத்துக்குப் பின் முன்னேற்றம்',
+    schemaSubtitle: 'எளிமைப்படுத்தப்பட்ட மருத்துவக் குறிப்பு',
+    stages: [
+      {
+        title: 'பிரசவத்துக்குப் பின்',
+        subtitle: 'பிரசவத்துக்குப் பிந்தைய காலத்தின் தொடக்கம்',
+        text: 'பிரசவத்துக்குப் பின் உடல் படிப்படியாகத் தன் மீட்சியைத் தொடங்குகிறது.',
+      },
+      {
+        title: 'லோகியா',
+        subtitle: 'பிரசவத்துக்குப் பிந்தைய இரத்தப்போக்கு',
+        text: 'இரத்தப்போக்கு அளவிலும் நிறத்திலும் படிப்படியாக மாறுகிறது.',
+      },
+      {
+        title: 'படிப்படியான குறைவு',
+        subtitle: 'பல வாரங்களில்',
+        text: 'இரத்தப்போக்கு பொதுவாகக் காலப்போக்கில் குறைகிறது.',
+      },
+      {
+        title: 'படிப்படியான திரும்புதல்',
+        subtitle: 'வழக்கமான சுழற்சியை நோக்கி',
+        text: 'மாதவிடாய்ச் சுழற்சி பின்னர் படிப்படியாக மீண்டும் தொடங்கலாம்.',
+      },
+    ],
+    h2Section3: '3. லோகியா எப்படி மாறுகிறது',
+    body3:
+      'லோகியா பொதுவாகப் படிப்படியாக நிறத்தை மாற்றி அளவில் குறைகிறது. இருப்பினும், இந்த முன்னேற்றம் ஒருவருக்கு ஒருவர் மாறுபடலாம்.',
+    lochiaEvolution: [
+      {
+        title: 'சிவப்பு லோகியா',
+        period: 'முதல் நாட்கள்',
+        text: 'இரத்தப்போக்கு பொதுவாகச் சிவப்பாக இருக்கும், தொடக்கத்தில் அதிகமாக இருக்கலாம்.',
+      },
+      {
+        title: 'இளஞ்சிவப்பு / பழுப்பு லோகியா',
+        period: 'சில நாட்களுக்குப் பின்',
+        text: 'ஓட்டம் குறையும்போது நிறம் இலேசாகலாம் அல்லது பழுப்பாகலாம்.',
+      },
+      {
+        title: 'வெண்மையான லோகியா',
+        period: 'அடுத்த வாரங்கள்',
+        text: 'இரத்தப்போக்கு படிப்படியாக இலேசாகி, குறைவாகிறது.',
+      },
+    ],
+    infoTitle: 'முக்கியக் குறிப்புகள்',
+    infoText:
+      'லோகியாவின் நிறமும் அளவும் படிப்படியாக மாறலாம். சரியான முன்னேற்றம் அனைவருக்கும் ஒரே மாதிரி இருப்பதில்லை.',
+    h2Section4: '4. உங்களைக் கவனித்துக்கொள்ளுதல்',
+    body4:
+      'இந்தக் காலத்தில், சில எளிய பழக்கங்கள் வசதிக்கு உதவலாம், உடலின் மீட்சிக்குத் துணையாக இருக்கலாம்.',
+    careTips: [
+      {title: 'மென்மையான சுகாதாரம்', text: 'எளிய, வசதியான தினசரிச் சுகாதார வழக்கத்தைப் பேணுங்கள்.'},
+      {title: 'ஓய்வு', text: 'உங்கள் உடல் குணமடைய நேரம் கொடுங்கள்.'},
+      {title: 'நீர்ச்சத்து', text: 'உங்கள் தேவைக்கேற்பத் தொடர்ந்து அருந்த நினைவில் கொள்ளுங்கள்.'},
+      {title: 'ஊட்டச்சத்து', text: 'பல்வகை உணவு மீட்சிக்குத் துணையாக இருக்கிறது.'},
+    ],
+    h2Section5: '5. ஆலோசனையை எப்போது கேட்பது',
+    body5:
+      'சில சூழ்நிலைகளுக்கு, குறிப்பாக ஒரு மாற்றம் குறிப்பிடத்தக்கதாக, திடீரென்று அல்லது வழக்கத்துக்கு மாறானதாகத் தோன்றும்போது, ஒரு சுகாதார நிபுணரின் உடனடி ஆலோசனை தேவை.',
+    warningTitle: 'புறக்கணிக்கக் கூடாத அறிகுறிகள்',
+    warningSubtitle: 'தேவைப்பட்டால் தொழில்முறை ஆலோசனை கேளுங்கள்',
+    warningSigns: [
+      'இரத்தப்போக்கில் வலுவான அல்லது வழக்கத்துக்கு மாறான மணம்',
+      'காய்ச்சல் அல்லது மோசமடையும் ஒட்டுமொத்த நிலை',
+      'திடீரென மிக அதிகமாகும் இரத்தப்போக்கு',
+      'குறிப்பிடத்தக்க, தொடர்ந்த அல்லது வழக்கத்துக்கு மாறான வலி',
+      'உங்களைக் கவலைப்படுத்தும் ஒரு புதிய அறிகுறி',
+    ],
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'ஒவ்வொரு பிரசவத்துக்குப் பிந்தைய மீட்சியும் வேறுபட்டது. இந்தக் கட்டுரையில் உள்ள தகவல் பொதுவான வழிகாட்டலை வழங்கவே, மருத்துவ ஆலோசனைக்கு மாற்றல்ல.',
+    summaryHeading: 'முக்கியக் குறிப்புகள்',
+    summary: [
+      'நிஃபாஸ் என்பது பிரசவத்துக்குப் பிந்தைய மார்க்கச் சூழலில் பயன்படுத்தப்படும் ஒரு சொல்.',
+      'மருத்துவ ரீதியாக, பிரசவத்துக்குப் பிந்தைய இரத்தப்போக்கு லோகியா என அழைக்கப்படுகிறது.',
+      'லோகியா படிப்படியாக நிறத்திலும் அளவிலும் மாறுகிறது.',
+      'ஓய்வு, மென்மையான சுகாதாரம் மற்றும் நல்ல நீர்ச்சத்து மீட்சிக்குத் துணையாக இருக்கின்றன.',
+      'வழக்கத்துக்கு மாறான அல்லது கவலையளிக்கும் மாற்றம் தொழில்முறை ஆலோசனைக்கு உரியது.',
+    ],
+    disclaimerText:
+      'தகவல் உள்ளடக்கம். இங்கே வழங்கப்பட்ட மருத்துவத் தகவல் பொதுவானது, ஒரு சுகாதார நிபுணரின் ஆலோசனைக்கு மாற்றல்ல. குறிப்பிட்ட மார்க்கக் கேள்விகளுக்கு, ஒரு தகுதிவாய்ந்த மார்க்க ஆதாரத்தைப் பார்ப்பது பரிந்துரைக்கப்படுகிறது.',
+    shareMessage: 'நிஃபாஸ்: மருத்துவ அம்சங்கள் — AWA',
+  },
+  te: {
+    badge: 'ప్రసవానంతరం • నిఫాస్',
+    title: 'నిఫాస్:\nవైద్యపరమైన కోణాలు',
+    metaDuration: '5 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'సమాచార కంటెంట్',
+    intro:
+      'ప్రసవం తర్వాత, శరీరం క్రమమైన కోలుకునే కాలం గుండా వెళ్తుంది. ప్రసవానంతర రక్తస్రావాన్ని, అది ఎలా మారుతుందో, శ్రద్ధ అవసరమయ్యే సంకేతాలను అర్థం చేసుకోవడం ఈ సమయంలో మీకు మరింత తెలిసినట్లు అనిపించడానికి సహాయపడగలదు.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'నిఫాస్ అనే పదాన్ని అర్థం చేసుకోవడం',
+      'ప్రసవం తర్వాత వైద్య తీరు',
+      'లోచియా ఎలా మారుతుంది',
+      'మిమ్మల్ని మీరు చూసుకోవడం',
+      'సలహాను ఎప్పుడు కోరాలి',
+      'ముఖ్యాంశాలు',
+    ],
+    h2Section1: '1. "నిఫాస్" అనే పదాన్ని అర్థం చేసుకోవడం',
+    body1a:
+      '"నిఫాస్" అనే పదం మార్గదర్శక పదజాలానికి చెందినది, ఇస్లామిక్ న్యాయశాస్త్ర నియమాల చట్రంలో ప్రసవం తర్వాత వచ్చే రక్తస్రావంతో ముడిపడిన కాలాన్ని సూచిస్తుంది.',
+    body1b:
+      'వైద్యపరంగా, ప్రసవం తర్వాత గమనించే రక్తస్రావాన్ని "లోచియా" అంటారు. ఈ రెండు భావనలను విడివిడిగా పరిగణించవచ్చు: ఒకటి మార్గదర్శక చట్రానికి చెందినది, మరొకటి ఒక శారీరక దృగ్విషయాన్ని వివరిస్తుంది.',
+    distinction: {
+      nifasTitle: 'నిఫాస్',
+      nifasText: 'ప్రసవం తర్వాత మార్గదర్శక చట్రానికి చెందిన ఒక భావన.',
+      lochiaTitle: 'లోచియా',
+      lochiaText: 'ప్రసవానంతర రక్తస్రావానికి ఉపయోగించే వైద్య పదం.',
+    },
+    h2Section2: '2. ప్రసవం తర్వాత వైద్య తీరు',
+    body2:
+      'ప్రసవానంతర కోలుకోవడం క్రమంగా జరుగుతుంది. గర్భాశయం తన సాధారణ స్థితికి తిరిగి వస్తున్న కొద్దీ ప్రసవానంతర రక్తస్రావం సాధారణంగా కాలక్రమేణా మారుతుంది.',
+    schemaTitle: 'ప్రసవానంతర పురోగతి',
+    schemaSubtitle: 'సరళీకృత వైద్య సూచన',
+    stages: [
+      {
+        title: 'ప్రసవం తర్వాత',
+        subtitle: 'ప్రసవానంతర కాలం ప్రారంభం',
+        text: 'ప్రసవం తర్వాత శరీరం క్రమంగా కోలుకోవడం మొదలుపెడుతుంది.',
+      },
+      {
+        title: 'లోచియా',
+        subtitle: 'ప్రసవానంతర రక్తస్రావం',
+        text: 'రక్తస్రావం పరిమాణంలో, రంగులో క్రమంగా మారుతుంది.',
+      },
+      {
+        title: 'క్రమంగా తగ్గడం',
+        subtitle: 'అనేక వారాల్లో',
+        text: 'రక్తస్రావం సాధారణంగా కాలక్రమేణా తగ్గుతుంది.',
+      },
+      {
+        title: 'క్రమంగా తిరిగి రావడం',
+        subtitle: 'సాధారణ చక్రం వైపు',
+        text: 'నెలసరి చక్రం అప్పుడు క్రమంగా తిరిగి మొదలవవచ్చు.',
+      },
+    ],
+    h2Section3: '3. లోచియా ఎలా మారుతుంది',
+    body3:
+      'లోచియా సాధారణంగా క్రమంగా రంగు మారి పరిమాణంలో తగ్గుతుంది. అయితే, ఈ పురోగతి ఒకరి నుండి మరొకరికి మారవచ్చు.',
+    lochiaEvolution: [
+      {
+        title: 'ఎరుపు లోచియా',
+        period: 'మొదటి రోజులు',
+        text: 'రక్తస్రావం సాధారణంగా ఎరుపుగా ఉంటుంది, ఆరంభంలో ఎక్కువగా ఉండవచ్చు.',
+      },
+      {
+        title: 'గులాబీ / గోధుమ రంగు లోచియా',
+        period: 'కొన్ని రోజుల తర్వాత',
+        text: 'రక్తస్రావం తగ్గే కొద్దీ రంగు తేలికపడవచ్చు లేదా గోధుమగా మారవచ్చు.',
+      },
+      {
+        title: 'తెల్లని లోచియా',
+        period: 'తర్వాతి వారాలు',
+        text: 'రక్తస్రావం క్రమంగా తేలికపడి తక్కువ అవుతుంది.',
+      },
+    ],
+    infoTitle: 'ముఖ్యాంశాలు',
+    infoText:
+      'లోచియా రంగు, పరిమాణం క్రమంగా మారవచ్చు. ఖచ్చితమైన పురోగతి అందరికీ ఒకేలా ఉండదు.',
+    h2Section4: '4. మిమ్మల్ని మీరు చూసుకోవడం',
+    body4:
+      'ఈ కాలంలో, కొన్ని సరళమైన అలవాట్లు సౌకర్యానికి సహాయపడి శరీరం కోలుకోవడానికి తోడ్పడగలవు.',
+    careTips: [
+      {title: 'మృదువైన పరిశుభ్రత', text: 'ఒక సరళమైన, సౌకర్యవంతమైన రోజువారీ పరిశుభ్రత దినచర్యను పాటించండి.'},
+      {title: 'విశ్రాంతి', text: 'మీ శరీరం కోలుకోవడానికి సమయం ఇవ్వండి.'},
+      {title: 'నీరు తీసుకోవడం', text: 'మీ అవసరాలకు అనుగుణంగా క్రమం తప్పకుండా తాగడం గుర్తుంచుకోండి.'},
+      {title: 'పోషణ', text: 'వైవిధ్యమైన ఆహారం కోలుకోవడానికి తోడ్పడుతుంది.'},
+    ],
+    h2Section5: '5. సలహాను ఎప్పుడు కోరాలి',
+    body5:
+      'కొన్ని పరిస్థితులకు ఒక ఆరోగ్య నిపుణుడి త్వరిత సలహా అవసరం, ముఖ్యంగా ఒక మార్పు గణనీయంగా, అకస్మాత్తుగా లేదా అసాధారణంగా అనిపించినప్పుడు.',
+    warningTitle: 'విస్మరించకూడని సంకేతాలు',
+    warningSubtitle: 'అవసరమైతే నిపుణుల సలహా కోరండి',
+    warningSigns: [
+      'రక్తస్రావంలో బలమైన లేదా అసాధారణ వాసన',
+      'జ్వరం లేదా మరింత దిగజారుతున్న సాధారణ స్థితి',
+      'అకస్మాత్తుగా చాలా ఎక్కువయ్యే రక్తస్రావం',
+      'గణనీయమైన, కొనసాగే లేదా అసాధారణ నొప్పి',
+      'మిమ్మల్ని ఆందోళనపెట్టే కొత్త లక్షణం',
+    ],
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'ప్రతి ప్రసవానంతర కోలుకోవడం భిన్నమైనది. ఈ వ్యాసంలోని సమాచారం సాధారణ మార్గదర్శకత్వాన్ని అందించడానికి ఉద్దేశించబడింది, వైద్య సంప్రదింపును భర్తీ చేయదు.',
+    summaryHeading: 'ముఖ్యాంశాలు',
+    summary: [
+      'నిఫాస్ ప్రసవం తర్వాత మార్గదర్శక సందర్భంలో ఉపయోగించే పదం.',
+      'వైద్యపరంగా, ప్రసవానంతర రక్తస్రావాన్ని లోచియా అంటారు.',
+      'లోచియా రంగులో, పరిమాణంలో క్రమంగా మారుతుంది.',
+      'విశ్రాంతి, మృదువైన పరిశుభ్రత, మంచి నీటి శాతం కోలుకోవడానికి తోడ్పడతాయి.',
+      'అసాధారణ లేదా ఆందోళన కలిగించే మార్పుకు నిపుణుల సలహా అవసరం.',
+    ],
+    disclaimerText:
+      'సమాచార కంటెంట్. ఇక్కడ అందించిన వైద్య సమాచారం సాధారణమైనది, ఒక ఆరోగ్య నిపుణుడి సలహాకు ప్రత్యామ్నాయం కాదు. నిర్దిష్ట మార్గదర్శక ప్రశ్నల కోసం, అర్హత కలిగిన మార్గదర్శక మూలాన్ని చూడాలని సిఫార్సు చేయబడుతుంది.',
+    shareMessage: 'నిఫాస్: వైద్యపరమైన కోణాలు — AWA',
+  },
+  mr: {
+    badge: 'प्रसूतीनंतर • निफास',
+    title: 'निफास:\nवैद्यकीय बाजू',
+    metaDuration: '5 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'माहितीपर मजकूर',
+    intro:
+      'बाळाला जन्म दिल्यानंतर शरीर हळूहळू बरे होण्याच्या काळातून जाते. प्रसूतीनंतरचा रक्तस्राव, तो कसा बदलतो आणि लक्ष द्यावे लागणारी चिन्हे समजून घेतल्याने या काळात तुम्हाला अधिक माहितगार वाटू शकते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'निफास या संज्ञेला समजून घेणे',
+      'प्रसूतीनंतरचे वैद्यकीय स्वरूप',
+      'लोकिया कसा बदलतो',
+      'स्वतःची काळजी घेणे',
+      'सल्ला केव्हा घ्यावा',
+      'मुख्य मुद्दे',
+    ],
+    h2Section1: '1. "निफास" या संज्ञेला समजून घेणे',
+    body1a:
+      '"निफास" ही संज्ञा धार्मिक शब्दसंग्रहातील आहे आणि इस्लामी न्यायशास्त्राच्या नियमांमध्ये प्रसूतीनंतरच्या रक्तस्रावाशी संबंधित काळाला दर्शवते.',
+    body1b:
+      'वैद्यकीयदृष्ट्या, बाळंतपणानंतर दिसणाऱ्या रक्तस्रावाला "लोकिया" म्हणतात. या दोन संकल्पना स्वतंत्रपणे विचारात घेता येतात: एक धार्मिक चौकटीतील आहे, दुसरी शारीरिक घटनेचे वर्णन करते.',
+    distinction: {
+      nifasTitle: 'निफास',
+      nifasText: 'प्रसूतीनंतरच्या धार्मिक चौकटीतील एक संकल्पना.',
+      lochiaTitle: 'लोकिया',
+      lochiaText: 'प्रसूतीनंतरच्या रक्तस्रावासाठी वापरली जाणारी वैद्यकीय संज्ञा.',
+    },
+    h2Section2: '2. प्रसूतीनंतरचे वैद्यकीय स्वरूप',
+    body2:
+      'प्रसूतीनंतरची पुनर्प्राप्ती हळूहळू होते. गर्भाशय आपल्या नेहमीच्या स्थितीत परत येत राहिल्यामुळे प्रसूतीनंतरचा रक्तस्राव साधारणपणे कालांतराने बदलतो.',
+    schemaTitle: 'प्रसूतीनंतरची प्रगती',
+    schemaSubtitle: 'सोपा वैद्यकीय संदर्भ',
+    stages: [
+      {
+        title: 'प्रसूतीनंतर',
+        subtitle: 'प्रसूतीनंतरच्या काळाची सुरुवात',
+        text: 'शरीर प्रसूतीनंतर हळूहळू बरे होण्यास सुरुवात करते.',
+      },
+      {
+        title: 'लोकिया',
+        subtitle: 'प्रसूतीनंतरचा रक्तस्राव',
+        text: 'रक्तस्राव प्रमाणात आणि रंगात हळूहळू बदलतो.',
+      },
+      {
+        title: 'हळूहळू घट',
+        subtitle: 'अनेक आठवड्यांत',
+        text: 'रक्तस्राव साधारणपणे कालांतराने कमी होतो.',
+      },
+      {
+        title: 'हळूहळू परत येणे',
+        subtitle: 'नेहमीच्या पाळीकडे',
+        text: 'मासिक पाळी मग हळूहळू पुन्हा सुरू होऊ शकते.',
+      },
+    ],
+    h2Section3: '3. लोकिया कसा बदलतो',
+    body3:
+      'लोकिया साधारणपणे हळूहळू रंग बदलतो आणि प्रमाणात कमी होतो. तथापि, ही प्रगती एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत वेगळी असू शकते.',
+    lochiaEvolution: [
+      {
+        title: 'लाल लोकिया',
+        period: 'पहिले दिवस',
+        text: 'रक्तस्राव सहसा लाल असतो आणि सुरुवातीला जास्त असू शकतो.',
+      },
+      {
+        title: 'गुलाबी / तपकिरी लोकिया',
+        period: 'काही दिवसांनंतर',
+        text: 'स्राव कमी होताना रंग हलका किंवा तपकिरी होऊ शकतो.',
+      },
+      {
+        title: 'पांढरट लोकिया',
+        period: 'पुढील आठवडे',
+        text: 'रक्तस्राव हळूहळू हलका आणि कमी प्रमाणात होतो.',
+      },
+    ],
+    infoTitle: 'मुख्य मुद्दे',
+    infoText:
+      'लोकियाचा रंग आणि प्रमाण हळूहळू बदलू शकते. नेमकी प्रगती प्रत्येकासाठी सारखी नसते.',
+    h2Section4: '4. स्वतःची काळजी घेणे',
+    body4:
+      'या काळात, काही साध्या सवयी आरामासाठी मदत करू शकतात आणि शरीराच्या पुनर्प्राप्तीला आधार देऊ शकतात.',
+    careTips: [
+      {title: 'हळुवार स्वच्छता', text: 'रोजची साधी, आरामदायी स्वच्छतेची दिनचर्या ठेवा.'},
+      {title: 'विश्रांती', text: 'तुमच्या शरीराला बरे होण्यासाठी वेळ द्या.'},
+      {title: 'पाण्याचे सेवन', text: 'तुमच्या गरजेनुसार नियमितपणे पाणी पिण्याचे लक्षात ठेवा.'},
+      {title: 'आहार', text: 'वैविध्यपूर्ण आहार पुनर्प्राप्तीला आधार देतो.'},
+    ],
+    h2Section5: '5. सल्ला केव्हा घ्यावा',
+    body5:
+      'काही परिस्थितींत आरोग्य व्यावसायिकाचा तातडीचा सल्ला आवश्यक असतो, विशेषतः जेव्हा बदल लक्षणीय, अचानक किंवा असामान्य वाटतो.',
+    warningTitle: 'दुर्लक्ष करू नयेत अशी चिन्हे',
+    warningSubtitle: 'गरज असल्यास तज्ज्ञाचा सल्ला घ्या',
+    warningSigns: [
+      'रक्तस्रावात तीव्र किंवा असामान्य वास',
+      'ताप किंवा बिघडत जाणारी सर्वसाधारण स्थिती',
+      'अचानक खूप जास्त होणारा रक्तस्राव',
+      'लक्षणीय, कायम किंवा असामान्य वेदना',
+      'तुम्हाला काळजीत टाकणारे नवीन लक्षण',
+    ],
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'प्रत्येक प्रसूतीनंतरची पुनर्प्राप्ती वेगळी असते. या लेखातील माहिती सर्वसाधारण मार्गदर्शन देण्यासाठी आहे आणि वैद्यकीय सल्लामसलतीची जागा घेत नाही.',
+    summaryHeading: 'मुख्य मुद्दे',
+    summary: [
+      'निफास ही प्रसूतीनंतरच्या धार्मिक संदर्भात वापरली जाणारी संज्ञा आहे.',
+      'वैद्यकीयदृष्ट्या, प्रसूतीनंतरच्या रक्तस्रावाला लोकिया म्हणतात.',
+      'लोकिया रंगात आणि प्रमाणात हळूहळू बदलतो.',
+      'विश्रांती, हळुवार स्वच्छता आणि चांगले पाण्याचे सेवन पुनर्प्राप्तीला आधार देतात.',
+      'असामान्य किंवा चिंताजनक बदलासाठी तज्ज्ञाचा सल्ला घ्यावा.',
+    ],
+    disclaimerText:
+      'माहितीपर मजकूर. इथे मांडलेली वैद्यकीय माहिती सर्वसाधारण आहे आणि आरोग्य व्यावसायिकाच्या सल्ल्याची जागा घेत नाही. विशिष्ट धार्मिक प्रश्नांसाठी, पात्र धार्मिक स्रोताचा संदर्भ घेण्याची शिफारस केली जाते.',
+    shareMessage: 'निफास: वैद्यकीय बाजू — AWA',
+  },
+  gu: {
+    badge: 'પ્રસૂતિ પછી • નિફાસ',
+    title: 'નિફાસ:\nતબીબી પાસાં',
+    metaDuration: '5 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'માહિતી માટેની સામગ્રી',
+    intro:
+      'બાળકને જન્મ આપ્યા પછી શરીર ધીમે ધીમે સ્વસ્થ થવાના સમયગાળામાંથી પસાર થાય છે. પ્રસૂતિ પછીનો રક્તસ્રાવ, તે કેવી રીતે બદલાય છે અને કયા સંકેતો પર ધ્યાન આપવું જોઈએ તે સમજવાથી તમને આ સમય દરમિયાન વધુ માહિતગાર લાગી શકે છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'નિફાસ શબ્દને સમજવો',
+      'પ્રસૂતિ પછીની તબીબી પેટર્ન',
+      'લોચિયા કેવી રીતે બદલાય છે',
+      'પોતાની કાળજી લેવી',
+      'સલાહ ક્યારે લેવી',
+      'મુખ્ય મુદ્દા',
+    ],
+    h2Section1: '1. "નિફાસ" શબ્દને સમજવો',
+    body1a:
+      '"નિફાસ" શબ્દ ધાર્મિક શબ્દભંડોળનો ભાગ છે અને ઇસ્લામી ફિક્હના નિયમોમાં પ્રસૂતિ પછીના રક્તસ્રાવ સાથે જોડાયેલા સમયગાળાને દર્શાવે છે.',
+    body1b:
+      'તબીબી રીતે, પ્રસૂતિ પછી જોવા મળતા રક્તસ્રાવને "લોચિયા" કહેવાય છે. આ બે બાબતોને અલગ ગણી શકાય: એક ધાર્મિક માળખાની છે, બીજી શારીરિક પ્રક્રિયાનું વર્ણન કરે છે.',
+    distinction: {
+      nifasTitle: 'નિફાસ',
+      nifasText: 'પ્રસૂતિ પછી ધાર્મિક માળખાની એક બાબત.',
+      lochiaTitle: 'લોચિયા',
+      lochiaText: 'પ્રસૂતિ પછીના રક્તસ્રાવ માટે વપરાતો તબીબી શબ્દ.',
+    },
+    h2Section2: '2. પ્રસૂતિ પછીની તબીબી પેટર્ન',
+    body2:
+      'પ્રસૂતિ પછીની રિકવરી ધીમે ધીમે થાય છે. ગર્ભાશય તેની સામાન્ય સ્થિતિમાં પાછું ફરતું રહે તેમ પ્રસૂતિ પછીનો રક્તસ્રાવ સામાન્ય રીતે સમય સાથે બદલાય છે.',
+    schemaTitle: 'પ્રસૂતિ પછીની પ્રગતિ',
+    schemaSubtitle: 'સરળ કરેલો તબીબી સંદર્ભ',
+    stages: [
+      {
+        title: 'પ્રસૂતિ પછી',
+        subtitle: 'પ્રસૂતિ પછીના સમયગાળાની શરૂઆત',
+        text: 'શરીર પ્રસૂતિ પછી ધીમે ધીમે સ્વસ્થ થવાનું શરૂ કરે છે.',
+      },
+      {
+        title: 'લોચિયા',
+        subtitle: 'પ્રસૂતિ પછીનો રક્તસ્રાવ',
+        text: 'રક્તસ્રાવનું પ્રમાણ અને રંગ ધીમે ધીમે બદલાય છે.',
+      },
+      {
+        title: 'ધીમે ધીમે ઘટાડો',
+        subtitle: 'કેટલાક અઠવાડિયામાં',
+        text: 'રક્તસ્રાવ સામાન્ય રીતે સમય સાથે ઘટે છે.',
+      },
+      {
+        title: 'ધીમે ધીમે પાછા ફરવું',
+        subtitle: 'સામાન્ય ચક્ર તરફ',
+        text: 'ત્યારબાદ માસિક ચક્ર ધીમે ધીમે ફરી શરૂ થઈ શકે છે.',
+      },
+    ],
+    h2Section3: '3. લોચિયા કેવી રીતે બદલાય છે',
+    body3:
+      'લોચિયાનો રંગ સામાન્ય રીતે ધીમે ધીમે બદલાય છે અને પ્રમાણ ઘટે છે. જોકે, આ પ્રગતિ વ્યક્તિએ વ્યક્તિએ અલગ હોઈ શકે છે.',
+    lochiaEvolution: [
+      {
+        title: 'લાલ લોચિયા',
+        period: 'પ્રથમ દિવસો',
+        text: 'રક્તસ્રાવ સામાન્ય રીતે લાલ હોય છે અને શરૂઆતમાં વધુ હોઈ શકે છે.',
+      },
+      {
+        title: 'ગુલાબી / ભૂરાશ પડતા લોચિયા',
+        period: 'થોડા દિવસ પછી',
+        text: 'સ્રાવ ઘટતાં રંગ હળવો અથવા ભૂરાશ પડતો થઈ શકે છે.',
+      },
+      {
+        title: 'સફેદાશ પડતા લોચિયા',
+        period: 'આગળના અઠવાડિયાં',
+        text: 'રક્તસ્રાવ ધીમે ધીમે હળવો અને ઓછો થતો જાય છે.',
+      },
+    ],
+    infoTitle: 'મુખ્ય મુદ્દા',
+    infoText:
+      'લોચિયાનો રંગ અને પ્રમાણ ધીમે ધીમે બદલાઈ શકે છે. ચોક્કસ પ્રગતિ બધા માટે એકસરખી હોતી નથી.',
+    h2Section4: '4. પોતાની કાળજી લેવી',
+    body4:
+      'આ સમયગાળા દરમિયાન કેટલીક સરળ ટેવો આરામ આપવામાં અને શરીરને સ્વસ્થ થવામાં મદદ કરી શકે છે.',
+    careTips: [
+      {title: 'હળવી સ્વચ્છતા', text: 'રોજિંદી સ્વચ્છતાની સરળ અને આરામદાયક ટેવ જાળવો.'},
+      {title: 'આરામ', text: 'તમારા શરીરને સ્વસ્થ થવા માટે સમય આપો.'},
+      {title: 'પાણીનું પ્રમાણ', text: 'તમારી જરૂરિયાત મુજબ નિયમિત પાણી પીવાનું યાદ રાખો.'},
+      {title: 'પોષણ', text: 'વૈવિધ્યસભર આહાર સ્વસ્થ થવામાં મદદ કરે છે.'},
+    ],
+    h2Section5: '5. સલાહ ક્યારે લેવી',
+    body5:
+      'કેટલીક પરિસ્થિતિઓમાં આરોગ્ય વ્યાવસાયિક પાસેથી ઝડપી સલાહ જરૂરી છે, ખાસ કરીને જ્યારે કોઈ ફેરફાર નોંધપાત્ર, અચાનક અથવા અસામાન્ય લાગે.',
+    warningTitle: 'અવગણવા ન જોઈએ તેવા સંકેતો',
+    warningSubtitle: 'જરૂર હોય તો નિષ્ણાતની સલાહ લો',
+    warningSigns: [
+      'રક્તસ્રાવમાં તીવ્ર અથવા અસામાન્ય ગંધ',
+      'તાવ અથવા સામાન્ય સ્થિતિ બગડવી',
+      'રક્તસ્રાવ અચાનક ખૂબ વધી જવો',
+      'તીવ્ર, સતત અથવા અસામાન્ય દુખાવો',
+      'કોઈ નવું લક્ષણ જે તમને ચિંતા કરાવે',
+    ],
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'પ્રસૂતિ પછીની દરેક રિકવરી અલગ હોય છે. આ લેખની માહિતી સામાન્ય માર્ગદર્શન આપવા માટે છે અને તબીબી સલાહનું સ્થાન લેતી નથી.',
+    summaryHeading: 'મુખ્ય મુદ્દા',
+    summary: [
+      'નિફાસ પ્રસૂતિ પછીના ધાર્મિક સંદર્ભમાં વપરાતો શબ્દ છે.',
+      'તબીબી રીતે, પ્રસૂતિ પછીના રક્તસ્રાવને લોચિયા કહેવાય છે.',
+      'લોચિયાનો રંગ અને પ્રમાણ ધીમે ધીમે બદલાય છે.',
+      'આરામ, હળવી સ્વચ્છતા અને પૂરતું પાણી સ્વસ્થ થવામાં મદદ કરે છે.',
+      'અસામાન્ય અથવા ચિંતાજનક ફેરફાર માટે નિષ્ણાતની સલાહ લેવી જોઈએ.',
+    ],
+    disclaimerText:
+      'માહિતી માટેની સામગ્રી. અહીં આપેલી તબીબી માહિતી સામાન્ય છે અને આરોગ્ય વ્યાવસાયિકની સલાહનું સ્થાન લેતી નથી. ચોક્કસ ધાર્મિક પ્રશ્નો માટે લાયક ધાર્મિક સ્રોતનો સંદર્ભ લેવાની ભલામણ છે.',
+    shareMessage: 'નિફાસ: તબીબી પાસાં — AWA',
+  },
+  pa: {
+    badge: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ • ਨਿਫ਼ਾਸ',
+    title: 'ਨਿਫ਼ਾਸ:\nਡਾਕਟਰੀ ਪੱਖ',
+    metaDuration: '5 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਜਾਣਕਾਰੀ ਵਾਲੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਬੱਚੇ ਨੂੰ ਜਨਮ ਦੇਣ ਤੋਂ ਬਾਅਦ, ਸਰੀਰ ਹੌਲੀ-ਹੌਲੀ ਠੀਕ ਹੋਣ ਦੇ ਦੌਰ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ। ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਖ਼ੂਨ, ਉਸ ਦੇ ਬਦਲਣ ਦੇ ਢੰਗ ਅਤੇ ਧਿਆਨ ਮੰਗਣ ਵਾਲੇ ਸੰਕੇਤਾਂ ਨੂੰ ਸਮਝਣਾ ਇਸ ਸਮੇਂ ਵਿੱਚ ਤੁਹਾਨੂੰ ਵਧੇਰੇ ਜਾਣੂ ਮਹਿਸੂਸ ਕਰਵਾ ਸਕਦਾ ਹੈ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਨਿਫ਼ਾਸ ਸ਼ਬਦ ਨੂੰ ਸਮਝਣਾ',
+      'ਜਨਮ ਤੋਂ ਬਾਅਦ ਦਾ ਡਾਕਟਰੀ ਰੂਪ',
+      'ਲੋਕੀਆ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ',
+      'ਆਪਣਾ ਖ਼ਿਆਲ ਰੱਖਣਾ',
+      'ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    h2Section1: '1. "ਨਿਫ਼ਾਸ" ਸ਼ਬਦ ਨੂੰ ਸਮਝਣਾ',
+    body1a:
+      '"ਨਿਫ਼ਾਸ" ਸ਼ਬਦ ਧਾਰਮਿਕ ਸ਼ਬਦਾਵਲੀ ਦਾ ਹਿੱਸਾ ਹੈ ਅਤੇ ਇਸਲਾਮੀ ਫ਼ਿਕਹ ਦੇ ਨਿਯਮਾਂ ਅੰਦਰ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਹੋਣ ਵਾਲੇ ਖ਼ੂਨ ਨਾਲ ਜੁੜੇ ਸਮੇਂ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ।',
+    body1b:
+      'ਡਾਕਟਰੀ ਤੌਰ \'ਤੇ, ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਹੋਣ ਵਾਲੇ ਖ਼ੂਨ ਨੂੰ "ਲੋਕੀਆ" ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਇਨ੍ਹਾਂ ਦੋਵਾਂ ਧਾਰਨਾਵਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਸਮਝਿਆ ਜਾ ਸਕਦਾ ਹੈ: ਇੱਕ ਧਾਰਮਿਕ ਢਾਂਚੇ ਨਾਲ ਸਬੰਧਤ ਹੈ, ਦੂਜਾ ਇੱਕ ਸਰੀਰਕ ਪ੍ਰਕਿਰਿਆ ਦੱਸਦਾ ਹੈ।',
+    distinction: {
+      nifasTitle: 'ਨਿਫ਼ਾਸ',
+      nifasText: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਧਾਰਮਿਕ ਢਾਂਚੇ ਨਾਲ ਸਬੰਧਤ ਇੱਕ ਧਾਰਨਾ।',
+      lochiaTitle: 'ਲੋਕੀਆ',
+      lochiaText: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਖ਼ੂਨ ਲਈ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਡਾਕਟਰੀ ਸ਼ਬਦ।',
+    },
+    h2Section2: '2. ਜਨਮ ਤੋਂ ਬਾਅਦ ਦਾ ਡਾਕਟਰੀ ਰੂਪ',
+    body2:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਠੀਕ ਹੋਣਾ ਹੌਲੀ-ਹੌਲੀ ਹੁੰਦਾ ਹੈ। ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦਾ ਖ਼ੂਨ ਆਮ ਤੌਰ \'ਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਬਦਲਦਾ ਹੈ ਕਿਉਂਕਿ ਬੱਚੇਦਾਨੀ ਆਪਣੀ ਆਮ ਹਾਲਤ ਵਿੱਚ ਵਾਪਸ ਆਉਂਦੀ ਰਹਿੰਦੀ ਹੈ।',
+    schemaTitle: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੀ ਪ੍ਰਗਤੀ',
+    schemaSubtitle: 'ਸਰਲ ਡਾਕਟਰੀ ਹਵਾਲਾ',
+    stages: [
+      {
+        title: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ',
+        subtitle: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਦੌਰ ਦੀ ਸ਼ੁਰੂਆਤ',
+        text: 'ਜਨਮ ਤੋਂ ਬਾਅਦ ਸਰੀਰ ਹੌਲੀ-ਹੌਲੀ ਠੀਕ ਹੋਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਲੋਕੀਆ',
+        subtitle: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦਾ ਖ਼ੂਨ',
+        text: 'ਖ਼ੂਨ ਦੀ ਮਾਤਰਾ ਅਤੇ ਰੰਗ ਹੌਲੀ-ਹੌਲੀ ਬਦਲਦੇ ਹਨ।',
+      },
+      {
+        title: 'ਹੌਲੀ-ਹੌਲੀ ਘਟਣਾ',
+        subtitle: 'ਕਈ ਹਫ਼ਤਿਆਂ ਦੌਰਾਨ',
+        text: 'ਖ਼ੂਨ ਆਮ ਤੌਰ \'ਤੇ ਸਮੇਂ ਦੇ ਨਾਲ ਘਟਦਾ ਜਾਂਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਹੌਲੀ-ਹੌਲੀ ਵਾਪਸੀ',
+        subtitle: 'ਆਮ ਚੱਕਰ ਵੱਲ',
+        text: 'ਮਾਹਵਾਰੀ ਚੱਕਰ ਫਿਰ ਹੌਲੀ-ਹੌਲੀ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+    ],
+    h2Section3: '3. ਲੋਕੀਆ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ',
+    body3:
+      'ਲੋਕੀਆ ਆਮ ਤੌਰ \'ਤੇ ਹੌਲੀ-ਹੌਲੀ ਰੰਗ ਬਦਲਦਾ ਹੈ ਅਤੇ ਮਾਤਰਾ ਵਿੱਚ ਘਟਦਾ ਹੈ। ਫਿਰ ਵੀ, ਇਹ ਤਰੱਕੀ ਹਰ ਵਿਅਕਤੀ ਵਿੱਚ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ।',
+    lochiaEvolution: [
+      {
+        title: 'ਲਾਲ ਲੋਕੀਆ',
+        period: 'ਪਹਿਲੇ ਦਿਨ',
+        text: 'ਖ਼ੂਨ ਆਮ ਤੌਰ \'ਤੇ ਲਾਲ ਹੁੰਦਾ ਹੈ ਅਤੇ ਸ਼ੁਰੂ ਵਿੱਚ ਵਧੇਰੇ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਗੁਲਾਬੀ / ਭੂਰਾ ਜਿਹਾ ਲੋਕੀਆ',
+        period: 'ਕੁਝ ਦਿਨਾਂ ਬਾਅਦ',
+        text: 'ਵਹਾਅ ਘਟਣ ਨਾਲ ਰੰਗ ਹਲਕਾ ਜਾਂ ਭੂਰਾ ਜਿਹਾ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਚਿੱਟਾ ਜਿਹਾ ਲੋਕੀਆ',
+        period: 'ਅਗਲੇ ਹਫ਼ਤੇ',
+        text: 'ਖ਼ੂਨ ਹੌਲੀ-ਹੌਲੀ ਹਲਕਾ ਅਤੇ ਘੱਟ ਮਾਤਰਾ ਵਾਲਾ ਹੋ ਜਾਂਦਾ ਹੈ।',
+      },
+    ],
+    infoTitle: 'ਮੁੱਖ ਨੁਕਤੇ',
+    infoText:
+      'ਲੋਕੀਆ ਦਾ ਰੰਗ ਅਤੇ ਮਾਤਰਾ ਹੌਲੀ-ਹੌਲੀ ਬਦਲ ਸਕਦੇ ਹਨ। ਸਹੀ ਤਰੱਕੀ ਹਰ ਕਿਸੇ ਲਈ ਇੱਕੋ ਜਿਹੀ ਨਹੀਂ ਹੁੰਦੀ।',
+    h2Section4: '4. ਆਪਣਾ ਖ਼ਿਆਲ ਰੱਖਣਾ',
+    body4:
+      'ਇਸ ਦੌਰ ਵਿੱਚ, ਕੁਝ ਸਰਲ ਆਦਤਾਂ ਆਰਾਮ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀਆਂ ਹਨ ਅਤੇ ਸਰੀਰ ਦੇ ਠੀਕ ਹੋਣ ਵਿੱਚ ਸਹਾਇਕ ਹੋ ਸਕਦੀਆਂ ਹਨ।',
+    careTips: [
+      {title: 'ਕੋਮਲ ਸਫ਼ਾਈ', text: 'ਰੋਜ਼ਾਨਾ ਸਫ਼ਾਈ ਦੀ ਇੱਕ ਸਰਲ, ਆਰਾਮਦਾਇਕ ਆਦਤ ਰੱਖੋ।'},
+      {title: 'ਆਰਾਮ', text: 'ਆਪਣੇ ਸਰੀਰ ਨੂੰ ਠੀਕ ਹੋਣ ਲਈ ਸਮਾਂ ਦਿਓ।'},
+      {title: 'ਪਾਣੀ ਦੀ ਮਾਤਰਾ', text: 'ਆਪਣੀ ਲੋੜ ਮੁਤਾਬਕ ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਪਾਣੀ ਪੀਣਾ ਯਾਦ ਰੱਖੋ।'},
+      {title: 'ਖ਼ੁਰਾਕ', text: 'ਵੰਨ-ਸੁਵੰਨੀ ਖ਼ੁਰਾਕ ਠੀਕ ਹੋਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।'},
+    ],
+    h2Section5: '5. ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ',
+    body5:
+      'ਕੁਝ ਸਥਿਤੀਆਂ ਵਿੱਚ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਜਲਦੀ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਜਦੋਂ ਕੋਈ ਬਦਲਾਅ ਵੱਡਾ, ਅਚਾਨਕ ਜਾਂ ਅਸਾਧਾਰਨ ਲੱਗੇ।',
+    warningTitle: 'ਅਣਗੌਲੇ ਨਾ ਕਰਨ ਵਾਲੇ ਸੰਕੇਤ',
+    warningSubtitle: 'ਲੋੜ ਪੈਣ \'ਤੇ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਓ',
+    warningSigns: [
+      'ਖ਼ੂਨ ਵਿੱਚ ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਬਦਬੂ',
+      'ਬੁਖ਼ਾਰ ਜਾਂ ਆਮ ਹਾਲਤ ਦਾ ਵਿਗੜਨਾ',
+      'ਖ਼ੂਨ ਦਾ ਅਚਾਨਕ ਬਹੁਤ ਜ਼ਿਆਦਾ ਹੋ ਜਾਣਾ',
+      'ਤੇਜ਼, ਲਗਾਤਾਰ ਜਾਂ ਅਸਾਧਾਰਨ ਦਰਦ',
+      'ਕੋਈ ਨਵਾਂ ਲੱਛਣ ਜੋ ਤੁਹਾਨੂੰ ਚਿੰਤਤ ਕਰੇ',
+    ],
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਹਰ ਕਿਸੇ ਦਾ ਠੀਕ ਹੋਣਾ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ। ਇਸ ਲੇਖ ਦੀ ਜਾਣਕਾਰੀ ਆਮ ਮਾਰਗਦਰਸ਼ਨ ਦੇਣ ਲਈ ਹੈ ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ-ਮਸ਼ਵਰੇ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ।',
+    summaryHeading: 'ਮੁੱਖ ਨੁਕਤੇ',
+    summary: [
+      'ਨਿਫ਼ਾਸ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਧਾਰਮਿਕ ਸੰਦਰਭ ਵਿੱਚ ਵਰਤਿਆ ਜਾਣ ਵਾਲਾ ਸ਼ਬਦ ਹੈ।',
+      'ਡਾਕਟਰੀ ਤੌਰ \'ਤੇ, ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਖ਼ੂਨ ਨੂੰ ਲੋਕੀਆ ਕਿਹਾ ਜਾਂਦਾ ਹੈ।',
+      'ਲੋਕੀਆ ਦਾ ਰੰਗ ਅਤੇ ਮਾਤਰਾ ਹੌਲੀ-ਹੌਲੀ ਬਦਲਦੇ ਹਨ।',
+      'ਆਰਾਮ, ਕੋਮਲ ਸਫ਼ਾਈ ਅਤੇ ਪਾਣੀ ਦੀ ਚੰਗੀ ਮਾਤਰਾ ਠੀਕ ਹੋਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।',
+      'ਕੋਈ ਅਸਾਧਾਰਨ ਜਾਂ ਚਿੰਤਾਜਨਕ ਬਦਲਾਅ ਹੋਵੇ ਤਾਂ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਜਾਣਕਾਰੀ ਲਈ ਹੈ। ਇੱਥੇ ਦਿੱਤੀ ਡਾਕਟਰੀ ਜਾਣਕਾਰੀ ਆਮ ਹੈ ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ। ਖ਼ਾਸ ਧਾਰਮਿਕ ਸਵਾਲਾਂ ਲਈ ਕਿਸੇ ਯੋਗ ਧਾਰਮਿਕ ਸਰੋਤ ਵੱਲ ਰੁਜੂ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+    shareMessage: 'ਨਿਫ਼ਾਸ: ਡਾਕਟਰੀ ਪੱਖ — AWA',
+  },
+  my: {
+    badge: 'ကလေးမွေးပြီးနောက် • နီဖာစ်',
+    title: 'နီဖာစ်-\nဆေးဘက်ဆိုင်ရာ ရှုထောင့်များ',
+    metaDuration: 'ဖတ်ချိန် 5 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'အချက်အလက်ပေးသော အကြောင်းအရာ',
+    intro:
+      'ကလေးမွေးဖွားပြီးနောက် ခန္ဓာကိုယ်သည် တဖြည်းဖြည်း ပြန်လည်ကောင်းမွန်လာသည့် ကာလကို ဖြတ်သန်းသည်။ မီးဖွားပြီးနောက် သွေးထွက်ခြင်း၊ ၎င်း ပြောင်းလဲပုံနှင့် ဂရုစိုက်ရန် လိုအပ်သော လက္ခဏာများကို နားလည်ခြင်းက ဤကာလတွင် သင့်ကို ပိုမိုသိရှိစေနိုင်သည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'နီဖာစ်ဟူသော စကားလုံးကို နားလည်ခြင်း',
+      'မီးဖွားပြီးနောက် ဆေးဘက်ဆိုင်ရာပုံစံ',
+      'မီးဖွားပြီးနောက်သွေး ပြောင်းလဲပုံ',
+      'ကိုယ့်ကိုယ်ကို ဂရုစိုက်ခြင်း',
+      'အကြံဉာဏ်မည်သည့်အခါ ရယူသင့်သလဲ',
+      'အဓိကအချက်များ',
+    ],
+    h2Section1: '1. "နီဖာစ်" ဟူသော စကားလုံးကို နားလည်ခြင်း',
+    body1a:
+      '"နီဖာစ်" ဟူသော စကားလုံးသည် ဘာသာရေးဝေါဟာရဖြစ်ပြီး အစ်စလာမ်ဖစ်ခ်ဟ်စည်းမျဉ်းများအတွင်း ကလေးမွေးဖွားပြီးနောက် သွေးထွက်ခြင်းနှင့် ဆက်စပ်သော ကာလကို ရည်ညွှန်းသည်။',
+    body1b:
+      'ဆေးပညာအရ ကလေးမွေးပြီးနောက် တွေ့ရသော သွေးထွက်ခြင်းကို "မီးဖွားပြီးနောက်သွေး" ဟု ခေါ်သည်။ ဤအယူအဆနှစ်ခုကို သီးခြားစီ ယူဆနိုင်သည်- တစ်ခုသည် ဘာသာရေးမူဘောင်နှင့်သက်ဆိုင်ပြီး နောက်တစ်ခုသည် ဇီဝဗေဒဆိုင်ရာ ဖြစ်စဉ်ကို ဖော်ပြသည်။',
+    distinction: {
+      nifasTitle: 'နီဖာစ်',
+      nifasText: 'ကလေးမွေးပြီးနောက် ဘာသာရေးမူဘောင်နှင့် သက်ဆိုင်သော အယူအဆ။',
+      lochiaTitle: 'မီးဖွားပြီးနောက်သွေး',
+      lochiaText: 'မီးဖွားပြီးနောက် သွေးထွက်ခြင်းအတွက် သုံးသော ဆေးဘက်ဆိုင်ရာ ဝေါဟာရ။',
+    },
+    h2Section2: '2. မီးဖွားပြီးနောက် ဆေးဘက်ဆိုင်ရာပုံစံ',
+    body2:
+      'မီးဖွားပြီးနောက် ပြန်လည်ကောင်းမွန်မှုသည် တဖြည်းဖြည်း ဖြစ်ပေါ်သည်။ သားအိမ်သည် ပုံမှန်အခြေအနေသို့ ဆက်လက်ပြန်သွားသည်နှင့်အမျှ မီးဖွားပြီးနောက် သွေးထွက်ခြင်းသည် ယေဘုယျအားဖြင့် အချိန်ကြာလာသည်နှင့်အမျှ ပြောင်းလဲသည်။',
+    schemaTitle: 'မီးဖွားပြီးနောက် တိုးတက်မှု',
+    schemaSubtitle: 'ရိုးရှင်းစေထားသော ဆေးဘက်ဆိုင်ရာ ကိုးကားချက်',
+    stages: [
+      {
+        title: 'ကလေးမွေးဖွားပြီးနောက်',
+        subtitle: 'မီးဖွားပြီးနောက်ကာလ အစ',
+        text: 'မွေးဖွားပြီးနောက် ခန္ဓာကိုယ်သည် တဖြည်းဖြည်း ပြန်လည်ကောင်းမွန်မှု စတင်သည်။',
+      },
+      {
+        title: 'မီးဖွားပြီးနောက်သွေး',
+        subtitle: 'မီးဖွားပြီးနောက် သွေးထွက်ခြင်း',
+        text: 'သွေးထွက်ခြင်းသည် ပမာဏနှင့် အရောင်တွင် တဖြည်းဖြည်း ပြောင်းလဲသည်။',
+      },
+      {
+        title: 'တဖြည်းဖြည်း လျော့နည်းခြင်း',
+        subtitle: 'သီတင်းပတ်များစွာအတွင်း',
+        text: 'သွေးထွက်ခြင်းသည် ယေဘုယျအားဖြင့် အချိန်ကြာလာသည်နှင့်အမျှ လျော့နည်းသည်။',
+      },
+      {
+        title: 'တဖြည်းဖြည်း ပြန်လည်ကောင်းမွန်ခြင်း',
+        subtitle: 'ပုံမှန်ရာသီစက်ဝန်းဆီသို့',
+        text: 'ထို့နောက် ရာသီစက်ဝန်းသည် တဖြည်းဖြည်း ပြန်လည်စတင်နိုင်သည်။',
+      },
+    ],
+    h2Section3: '3. မီးဖွားပြီးနောက်သွေး ပြောင်းလဲပုံ',
+    body3:
+      'မီးဖွားပြီးနောက်သွေးသည် ယေဘုယျအားဖြင့် အရောင်တဖြည်းဖြည်း ပြောင်းလဲပြီး ပမာဏ လျော့နည်းသွားသည်။ သို့သော် ဤတိုးတက်မှုသည် လူတစ်ဦးနှင့်တစ်ဦး ကွဲပြားနိုင်သည်။',
+    lochiaEvolution: [
+      {
+        title: 'အနီရောင် မီးဖွားပြီးနောက်သွေး',
+        period: 'ပထမရက်များ',
+        text: 'သွေးထွက်ခြင်းသည် များသောအားဖြင့် အနီရောင်ဖြစ်ပြီး အစပိုင်းတွင် ပိုများနိုင်သည်။',
+      },
+      {
+        title: 'ပန်းရောင် / ညိုမည်းသော မီးဖွားပြီးနောက်သွေး',
+        period: 'ရက်အနည်းငယ်ကြာပြီးနောက်',
+        text: 'သွေးထွက်ပမာဏ လျော့နည်းလာသည်နှင့်အမျှ အရောင်သည် ပိုဖျော့လာနိုင်သည် သို့မဟုတ် ညိုမည်းလာနိုင်သည်။',
+      },
+      {
+        title: 'ဖြူဖွေးသော မီးဖွားပြီးနောက်သွေး',
+        period: 'နောက်ဆက်တွဲ သီတင်းပတ်များ',
+        text: 'သွေးထွက်ခြင်းသည် တဖြည်းဖြည်း ပိုပါးလာပြီး ပမာဏလျော့နည်းလာသည်။',
+      },
+    ],
+    infoTitle: 'အဓိကအချက်များ',
+    infoText:
+      'မီးဖွားပြီးနောက်သွေး၏ အရောင်နှင့် ပမာဏသည် တဖြည်းဖြည်း ပြောင်းလဲနိုင်သည်။ တိကျသော တိုးတက်မှုသည် လူတိုင်းအတွက် မတူပါ။',
+    h2Section4: '4. ကိုယ့်ကိုယ်ကို ဂရုစိုက်ခြင်း',
+    body4:
+      'ဤကာလအတွင်း ရိုးရှင်းသော အလေ့အထအနည်းငယ်က သက်သောင့်သက်သာရှိစေရန်နှင့် ခန္ဓာကိုယ်၏ ပြန်လည်ကောင်းမွန်မှုကို ပံ့ပိုးရန် ကူညီနိုင်သည်။',
+    careTips: [
+      {title: 'နူးညံ့သော သန့်ရှင်းမှု', text: 'ရိုးရှင်းပြီး သက်သောင့်သက်သာရှိသော နေ့စဉ်သန့်ရှင်းမှုအလေ့အထကို ထိန်းသိမ်းပါ။'},
+      {title: 'အနားယူခြင်း', text: 'သင့်ခန္ဓာကိုယ်အား ပြန်လည်ကောင်းမွန်ရန် အချိန်ပေးပါ။'},
+      {title: 'ရေသောက်မှု', text: 'သင့်လိုအပ်ချက်အလိုက် ပုံမှန်ရေသောက်ရန် သတိရပါ။'},
+      {title: 'အာဟာရ', text: 'ကွဲပြားစုံလင်သော အစားအစာသည် ပြန်လည်ကောင်းမွန်မှုကို ပံ့ပိုးသည်။'},
+    ],
+    h2Section5: '5. အကြံဉာဏ်မည်သည့်အခါ ရယူသင့်သလဲ',
+    body5:
+      'အချို့အခြေအနေများသည် ကျန်းမာရေးပညာရှင်၏ ချက်ချင်းအကြံဉာဏ်ကို လိုအပ်သည်၊ အထူးသဖြင့် ပြောင်းလဲမှုတစ်ခုသည် သိသာထင်ရှားခြင်း၊ ရုတ်တရက်ဖြစ်ခြင်း သို့မဟုတ် ပုံမှန်မဟုတ်ဟု ထင်ရသည့်အခါ။',
+    warningTitle: 'လျစ်လျူမရှုသင့်သော လက္ခဏာများ',
+    warningSubtitle: 'လိုအပ်လျှင် ပညာရှင်၏ အကြံဉာဏ်ကို ရယူပါ',
+    warningSigns: [
+      'သွေးထွက်ခြင်းတွင် ပြင်းထန်သော သို့မဟုတ် ပုံမှန်မဟုတ်သော အနံ့',
+      'ဖျားနာခြင်း သို့မဟုတ် အလုံးစုံအခြေအနေ ဆိုးလာခြင်း',
+      'သွေးထွက်ခြင်း ရုတ်တရက် အလွန်များလာခြင်း',
+      'သိသာထင်ရှားသော၊ ဆက်လက်ရှိနေသော သို့မဟုတ် ပုံမှန်မဟုတ်သော နာကျင်မှု',
+      'သင့်ကို စိုးရိမ်စေသော လက္ခဏာအသစ်',
+    ],
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'မီးဖွားပြီးနောက် ပြန်လည်ကောင်းမွန်မှုတိုင်း ကွဲပြားသည်။ ဤဆောင်းပါးရှိ အချက်အလက်သည် ယေဘုယျလမ်းညွှန်ချက်ပေးရန် ရည်ရွယ်ပြီး ဆေးဘက်ဆိုင်ရာ ပြသမှုကို အစားထိုးခြင်း မရှိပါ။',
+    summaryHeading: 'အဓိကအချက်များ',
+    summary: [
+      'နီဖာစ်သည် ကလေးမွေးပြီးနောက် ဘာသာရေးအကြောင်းအရာတွင် သုံးသော စကားလုံးဖြစ်သည်။',
+      'ဆေးပညာအရ မီးဖွားပြီးနောက် သွေးထွက်ခြင်းကို မီးဖွားပြီးနောက်သွေးဟု ခေါ်သည်။',
+      'မီးဖွားပြီးနောက်သွေးသည် အရောင်နှင့် ပမာဏ တဖြည်းဖြည်း ပြောင်းလဲသည်။',
+      'အနားယူခြင်း၊ နူးညံ့သော သန့်ရှင်းမှုနှင့် ရေကောင်းစွာသောက်ခြင်းတို့သည် ပြန်လည်ကောင်းမွန်မှုကို ပံ့ပိုးသည်။',
+      'ပုံမှန်မဟုတ်သော သို့မဟုတ် စိုးရိမ်ဖွယ်ပြောင်းလဲမှုသည် ပညာရှင်၏ အကြံဉာဏ်ကို လိုအပ်သည်။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ဤနေရာတွင် တင်ပြထားသော ဆေးဘက်ဆိုင်ရာ အချက်အလက်သည် ယေဘုယျဖြစ်ကာ ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို အစားထိုးခြင်းမရှိပါ။ သီးခြားဘာသာရေးမေးခွန်းများအတွက် အရည်အချင်းပြည့်မီသော ဘာသာရေးရင်းမြစ်ကို ကိုးကားရန် အကြံပြုသည်။',
+    shareMessage: 'နီဖာစ်- ဆေးဘက်ဆိုင်ရာ ရှုထောင့်များ — AWA',
+  },
+  km: {
+    badge: 'ក្រោយសម្រាលកូន • និហ្វាស់',
+    title: 'និហ្វាស់៖\nទិដ្ឋភាពវេជ្ជសាស្ត្រ',
+    metaDuration: 'អាន 5 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'ព័ត៌មានទូទៅ',
+    intro:
+      'បន្ទាប់ពីសម្រាលកូន រាងកាយឆ្លងកាត់រយៈពេលនៃការជាសះស្បើយបន្តិចម្តងៗ។ ការយល់ដឹងអំពីការហូរឈាមក្រោយសម្រាល របៀបដែលវាវិវត្ត និងសញ្ញាដែលត្រូវការយកចិត្តទុកដាក់ អាចជួយឲ្យអ្នកមានព័ត៌មានគ្រប់គ្រាន់ក្នុងអំឡុងពេលនេះ។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ការយល់ដឹងអំពីពាក្យនិហ្វាស់',
+      'លំនាំវេជ្ជសាស្ត្រក្រោយសម្រាល',
+      'របៀបដែលឈាមក្រោយសម្រាលវិវត្ត',
+      'ការថែរក្សាខ្លួនឯង',
+      'ពេលណាត្រូវសុំដំបូន្មាន',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    h2Section1: '1. ការយល់ដឹងអំពីពាក្យ "និហ្វាស់"',
+    body1a:
+      'ពាក្យ "និហ្វាស់" ជាកម្មសិទ្ធិនៃវាក្យសព្ទសាសនា ហើយសំដៅលើរយៈពេលដែលទាក់ទងនឹងការហូរឈាមបន្ទាប់ពីការសម្រាលកូន ក្នុងក្របខណ្ឌនៃនីតិសាស្ត្រអ៊ីស្លាម។',
+    body1b:
+      'តាមវេជ្ជសាស្ត្រ ការហូរឈាមដែលសង្កេតឃើញបន្ទាប់ពីការសម្រាលកូនត្រូវបានហៅថា "ឈាមក្រោយសម្រាល"។ គំនិតទាំងពីរនេះអាចត្រូវបានពិចារណាដោយឡែកពីគ្នា៖ មួយជាកម្មសិទ្ធិនៃក្របខណ្ឌសាសនា មួយទៀតពិពណ៌នាអំពីបាតុភូតសរីរវិទ្យា។',
+    distinction: {
+      nifasTitle: 'និហ្វាស់',
+      nifasText: 'គំនិតមួយដែលជាកម្មសិទ្ធិនៃក្របខណ្ឌសាសនាក្រោយការសម្រាលកូន។',
+      lochiaTitle: 'ឈាមក្រោយសម្រាល',
+      lochiaText: 'ពាក្យវេជ្ជសាស្ត្រដែលប្រើសម្រាប់ការហូរឈាមក្រោយសម្រាល។',
+    },
+    h2Section2: '2. លំនាំវេជ្ជសាស្ត្រក្រោយសម្រាល',
+    body2:
+      'ការជាសះស្បើយក្រោយសម្រាលកើតឡើងបន្តិចម្តងៗ។ ការហូរឈាមក្រោយសម្រាលជាទូទៅផ្លាស់ប្តូរតាមពេលវេលា ខណៈពេលដែលស្បូនបន្តត្រឡប់ទៅរកស្ថានភាពធម្មតារបស់វា។',
+    schemaTitle: 'ដំណើរវិវត្តក្រោយសម្រាល',
+    schemaSubtitle: 'ឯកសារយោងវេជ្ជសាស្ត្រដែលសម្រួល',
+    stages: [
+      {
+        title: 'ក្រោយការសម្រាលកូន',
+        subtitle: 'ការចាប់ផ្តើមនៃរយៈពេលក្រោយសម្រាល',
+        text: 'រាងកាយចាប់ផ្តើមជាសះស្បើយបន្តិចម្តងៗបន្ទាប់ពីការសម្រាល។',
+      },
+      {
+        title: 'ឈាមក្រោយសម្រាល',
+        subtitle: 'ការហូរឈាមក្រោយសម្រាល',
+        text: 'ការហូរឈាមផ្លាស់ប្តូរបន្តិចម្តងៗទាំងបរិមាណ និងពណ៌។',
+      },
+      {
+        title: 'ការថយចុះបន្តិចម្តងៗ',
+        subtitle: 'ក្នុងរយៈពេលជាច្រើនសប្តាហ៍',
+        text: 'ការហូរឈាមជាទូទៅថយចុះតាមពេលវេលា។',
+      },
+      {
+        title: 'ការត្រឡប់មកវិញបន្តិចម្តងៗ',
+        subtitle: 'ឆ្ពោះទៅវដ្តធម្មតា',
+        text: 'បន្ទាប់មក វដ្តរដូវអាចចាប់ផ្តើមឡើងវិញបន្តិចម្តងៗ។',
+      },
+    ],
+    h2Section3: '3. របៀបដែលឈាមក្រោយសម្រាលវិវត្ត',
+    body3:
+      'ឈាមក្រោយសម្រាលជាទូទៅផ្លាស់ប្តូរពណ៌បន្តិចម្តងៗ ហើយថយចុះបរិមាណ។ ទោះយ៉ាងណា ដំណើរវិវត្តនេះអាចខុសគ្នាពីម្នាក់ទៅម្នាក់។',
+    lochiaEvolution: [
+      {
+        title: 'ឈាមក្រោយសម្រាលពណ៌ក្រហម',
+        period: 'ពីរបីថ្ងៃដំបូង',
+        text: 'ការហូរឈាមជាធម្មតាមានពណ៌ក្រហម ហើយអាចមានច្រើនជាងនៅដើមដំបូង។',
+      },
+      {
+        title: 'ឈាមក្រោយសម្រាលពណ៌ផ្កាឈូក / ត្នោតៗ',
+        period: 'បន្ទាប់ពីប៉ុន្មានថ្ងៃ',
+        text: 'ពណ៌អាចក្លាយជាស្រាលជាងមុន ឬត្នោតៗ នៅពេលបរិមាណថយចុះ។',
+      },
+      {
+        title: 'ឈាមក្រោយសម្រាលពណ៌សៗ',
+        period: 'សប្តាហ៍បន្ទាប់',
+        text: 'ការហូរឈាមកាន់តែស្រាល និងមានបរិមាណតិចទៅៗ។',
+      },
+    ],
+    infoTitle: 'ចំណុចសំខាន់ៗ',
+    infoText:
+      'ពណ៌ និងបរិមាណនៃឈាមក្រោយសម្រាលអាចផ្លាស់ប្តូរបន្តិចម្តងៗ។ ដំណើរវិវត្តពិតប្រាកដមិនដូចគ្នាសម្រាប់មនុស្សគ្រប់គ្នាទេ។',
+    h2Section4: '4. ការថែរក្សាខ្លួនឯង',
+    body4:
+      'ក្នុងអំឡុងពេលនេះ ទម្លាប់សាមញ្ញៗមួយចំនួនអាចជួយឲ្យមានភាពស្រួលខ្លួន និងគាំទ្រការជាសះស្បើយរបស់រាងកាយ។',
+    careTips: [
+      {title: 'អនាម័យទន់ភ្លន់', text: 'រក្សាទម្លាប់អនាម័យប្រចាំថ្ងៃដ៏សាមញ្ញ និងស្រួលខ្លួន។'},
+      {title: 'ការសម្រាក', text: 'ផ្តល់ពេលវេលាឲ្យរាងកាយរបស់អ្នកជាសះស្បើយ។'},
+      {title: 'ការផឹកទឹក', text: 'ចងចាំផឹកទឹកជាប្រចាំតាមតម្រូវការរបស់អ្នក។'},
+      {title: 'អាហារូបត្ថម្ភ', text: 'របបអាហារចម្រុះជួយគាំទ្រការជាសះស្បើយ។'},
+    ],
+    h2Section5: '5. ពេលណាត្រូវសុំដំបូន្មាន',
+    body5:
+      'ស្ថានភាពមួយចំនួនត្រូវការដំបូន្មានភ្លាមៗពីអ្នកជំនាញសុខាភិបាល ជាពិសេសនៅពេលដែលការផ្លាស់ប្តូរមើលទៅសំខាន់ ភ្លាមៗ ឬមិនធម្មតា។',
+    warningTitle: 'សញ្ញាដែលមិនត្រូវមើលរំលង',
+    warningSubtitle: 'សុំដំបូន្មានពីអ្នកជំនាញ ប្រសិនបើចាំបាច់',
+    warningSigns: [
+      'ក្លិនខ្លាំង ឬមិនធម្មតាក្នុងការហូរឈាម',
+      'គ្រុនក្តៅ ឬស្ថានភាពទូទៅកាន់តែអាក្រក់',
+      'ការហូរឈាមដែលស្រាប់តែច្រើនខ្លាំង',
+      'ការឈឺចាប់ខ្លាំង បន្តយូរ ឬមិនធម្មតា',
+      'រោគសញ្ញាថ្មីដែលធ្វើឲ្យអ្នកព្រួយបារម្ភ',
+    ],
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ការជាសះស្បើយក្រោយសម្រាលរបស់មនុស្សម្នាក់ៗខុសគ្នា។ ព័ត៌មានក្នុងអត្ថបទនេះមានគោលបំណងផ្តល់ការណែនាំទូទៅ ហើយមិនជំនួសការពិគ្រោះជាមួយវេជ្ជបណ្ឌិតឡើយ។',
+    summaryHeading: 'ចំណុចសំខាន់ៗ',
+    summary: [
+      'និហ្វាស់ជាពាក្យដែលប្រើក្នុងបរិបទសាសនាក្រោយការសម្រាលកូន។',
+      'តាមវេជ្ជសាស្ត្រ ការហូរឈាមក្រោយសម្រាលត្រូវបានហៅថាឈាមក្រោយសម្រាល។',
+      'ឈាមក្រោយសម្រាលផ្លាស់ប្តូរពណ៌ និងបរិមាណបន្តិចម្តងៗ។',
+      'ការសម្រាក អនាម័យទន់ភ្លន់ និងការផឹកទឹកឲ្យបានល្អ ជួយគាំទ្រការជាសះស្បើយ។',
+      'ការផ្លាស់ប្តូរមិនធម្មតា ឬគួរឲ្យព្រួយបារម្ភ សមនឹងទទួលបានដំបូន្មានពីអ្នកជំនាញ។',
+    ],
+    disclaimerText:
+      'នេះជាព័ត៌មានទូទៅ ហើយមិនជំនួសដំបូន្មានពីវេជ្ជបណ្ឌិតទេ។ ព័ត៌មានវេជ្ជសាស្ត្រដែលបង្ហាញនៅទីនេះមានលក្ខណៈទូទៅ ហើយមិនជំនួសដំបូន្មានរបស់អ្នកជំនាញសុខាភិបាលឡើយ។ សម្រាប់សំណួរខាងសាសនាជាក់លាក់ ត្រូវបានណែនាំឲ្យយោងទៅប្រភពសាសនាដែលមានសមត្ថភាព។',
+    shareMessage: 'និហ្វាស់៖ ទិដ្ឋភាពវេជ្ជសាស្ត្រ — AWA',
+  },
+  lo: {
+    badge: 'ຫຼັງຄອດ • ນີຟາດ',
+    title: 'ນີຟາດ:\nດ້ານການແພດ',
+    metaDuration: 'ອ່ານ 5 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳຂອງແພດ.',
+    intro:
+      'ຫຼັງຈາກເກີດລູກ, ຮ່າງກາຍຈະຜ່ານໄລຍະການຟື້ນຕົວຢ່າງຄ່ອຍເປັນຄ່ອຍໄປ. ການເຂົ້າໃຈເລືອດຫຼັງຄອດ, ວິວັດທະນາການຂອງມັນ ແລະ ສັນຍານທີ່ຕ້ອງເອົາໃຈໃສ່ ສາມາດຊ່ວຍໃຫ້ທ່ານຮູ້ສຶກມີຂໍ້ມູນຫຼາຍຂຶ້ນໃນໄລຍະນີ້.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ເຂົ້າໃຈຄຳວ່າ ນີຟາດ',
+      'ແບບແຜນທາງການແພດຫຼັງການເກີດລູກ',
+      'ເລືອດຫຼັງຄອດປ່ຽນແປງແນວໃດ',
+      'ການດູແລຕົນເອງ',
+      'ເມື່ອໃດຄວນຂໍຄຳແນະນຳ',
+      'ຈຸດສຳຄັນ',
+    ],
+    h2Section1: '1. ເຂົ້າໃຈຄຳວ່າ "ນີຟາດ"',
+    body1a:
+      'ຄຳວ່າ "ນີຟາດ" ເປັນສັບທາງສາສະໜາ ແລະ ໝາຍເຖິງໄລຍະທີ່ກ່ຽວຂ້ອງກັບເລືອດທີ່ອອກຫຼັງການເກີດລູກ ພາຍໃຕ້ກົດຂອງນິຕິສາດອິດສະລາມ.',
+    body1b:
+      'ທາງການແພດ, ເລືອດທີ່ອອກຫຼັງການເກີດລູກເອີ້ນວ່າ "ເລືອດຫຼັງຄອດ." ສອງແນວຄິດນີ້ສາມາດພິຈາລະນາແຍກກັນໄດ້: ອັນໜຶ່ງຢູ່ໃນກອບທາງສາສະໜາ, ອີກອັນໜຶ່ງອະທິບາຍປະກົດການທາງສະລີລະວິທະຍາ.',
+    distinction: {
+      nifasTitle: 'ນີຟາດ',
+      nifasText: 'ແນວຄິດທີ່ຢູ່ໃນກອບທາງສາສະໜາຫຼັງການເກີດລູກ.',
+      lochiaTitle: 'ເລືອດຫຼັງຄອດ',
+      lochiaText: 'ສັບທາງການແພດທີ່ໃຊ້ສຳລັບເລືອດທີ່ອອກຫຼັງຄອດ.',
+    },
+    h2Section2: '2. ແບບແຜນທາງການແພດຫຼັງການເກີດລູກ',
+    body2:
+      'ການຟື້ນຕົວຫຼັງຄອດເກີດຂຶ້ນຢ່າງຄ່ອຍເປັນຄ່ອຍໄປ. ເລືອດຫຼັງຄອດໂດຍທົ່ວໄປປ່ຽນແປງຕາມເວລາ ຂະນະທີ່ມົດລູກສືບຕໍ່ກັບຄືນສູ່ສະພາບປົກກະຕິ.',
+    schemaTitle: 'ວິວັດທະນາການຫຼັງຄອດ',
+    schemaSubtitle: 'ຂໍ້ມູນອ້າງອີງທາງການແພດແບບງ່າຍ',
+    stages: [
+      {
+        title: 'ຫຼັງການເກີດລູກ',
+        subtitle: 'ການເລີ່ມຕົ້ນຂອງໄລຍະຫຼັງຄອດ',
+        text: 'ຮ່າງກາຍຄ່ອຍໆເລີ່ມການຟື້ນຕົວຫຼັງການເກີດລູກ.',
+      },
+      {
+        title: 'ເລືອດຫຼັງຄອດ',
+        subtitle: 'ເລືອດທີ່ອອກຫຼັງຄອດ',
+        text: 'ເລືອດຄ່ອຍໆປ່ຽນແປງທັງປະລິມານ ແລະ ສີ.',
+      },
+      {
+        title: 'ຄ່ອຍໆຫຼຸດລົງ',
+        subtitle: 'ໃນຫຼາຍອາທິດ',
+        text: 'ເລືອດໂດຍທົ່ວໄປຫຼຸດລົງຕາມເວລາ.',
+      },
+      {
+        title: 'ຄ່ອຍໆກັບຄືນ',
+        subtitle: 'ສູ່ຮອບເດືອນປົກກະຕິ',
+        text: 'ຈາກນັ້ນຮອບເດືອນອາດຄ່ອຍໆກັບມາ.',
+      },
+    ],
+    h2Section3: '3. ເລືອດຫຼັງຄອດປ່ຽນແປງແນວໃດ',
+    body3:
+      'ເລືອດຫຼັງຄອດໂດຍທົ່ວໄປຄ່ອຍໆປ່ຽນສີ ແລະ ປະລິມານຫຼຸດລົງ. ຢ່າງໃດກໍຕາມ, ວິວັດທະນາການນີ້ອາດແຕກຕ່າງກັນໃນແຕ່ລະຄົນ.',
+    lochiaEvolution: [
+      {
+        title: 'ເລືອດຫຼັງຄອດສີແດງ',
+        period: 'ສອງສາມມື້ທຳອິດ',
+        text: 'ເລືອດໂດຍປົກກະຕິເປັນສີແດງ ແລະ ອາດອອກຫຼາຍກວ່າໃນຕອນເລີ່ມຕົ້ນ.',
+      },
+      {
+        title: 'ເລືອດຫຼັງຄອດສີບົວ / ສີນ້ຳຕານ',
+        period: 'ຫຼັງຈາກສອງສາມມື້',
+        text: 'ສີອາດຈາງລົງ ຫຼື ເປັນສີນ້ຳຕານເມື່ອປະລິມານຫຼຸດລົງ.',
+      },
+      {
+        title: 'ເລືອດຫຼັງຄອດສີຂາວອົມເຫຼືອງ',
+        period: 'ສອງສາມອາທິດຕໍ່ມາ',
+        text: 'ເລືອດຄ່ອຍໆຈາງລົງ ແລະ ອອກໜ້ອຍລົງ.',
+      },
+    ],
+    infoTitle: 'ຈຸດສຳຄັນ',
+    infoText:
+      'ສີ ແລະ ປະລິມານຂອງເລືອດຫຼັງຄອດສາມາດປ່ຽນແປງຢ່າງຄ່ອຍເປັນຄ່ອຍໄປ. ວິວັດທະນາການທີ່ແນ່ນອນບໍ່ຄືກັນໃນທຸກຄົນ.',
+    h2Section4: '4. ການດູແລຕົນເອງ',
+    body4:
+      'ໃນໄລຍະນີ້, ນິໄສງ່າຍໆສອງສາມຢ່າງສາມາດຊ່ວຍໃຫ້ຮູ້ສຶກສະບາຍ ແລະ ສະໜັບສະໜູນການຟື້ນຕົວຂອງຮ່າງກາຍ.',
+    careTips: [
+      {title: 'ອະນາໄມແບບອ່ອນໂຍນ', text: 'ຮັກສາການອະນາໄມປະຈຳວັນໃຫ້ງ່າຍ ແລະ ສະບາຍ.'},
+      {title: 'ການພັກຜ່ອນ', text: 'ໃຫ້ເວລາຮ່າງກາຍໄດ້ຟື້ນຕົວ.'},
+      {title: 'ການດື່ມນ້ຳ', text: 'ຢ່າລືມດື່ມນ້ຳເປັນປະຈຳຕາມຄວາມຕ້ອງການຂອງທ່ານ.'},
+      {title: 'ໂພຊະນາການ', text: 'ອາຫານທີ່ຫຼາກຫຼາຍຊ່ວຍສະໜັບສະໜູນການຟື້ນຕົວ.'},
+    ],
+    h2Section5: '5. ເມື່ອໃດຄວນຂໍຄຳແນະນຳ',
+    body5:
+      'ບາງສະຖານະການຕ້ອງການຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບໂດຍໄວ, ໂດຍສະເພາະເມື່ອການປ່ຽນແປງເບິ່ງຄືວ່າຮຸນແຮງ, ກະທັນຫັນ ຫຼື ຜິດປົກກະຕິ.',
+    warningTitle: 'ສັນຍານທີ່ບໍ່ຄວນເມີນເສີຍ',
+    warningSubtitle: 'ຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານຖ້າຈຳເປັນ',
+    warningSigns: [
+      'ກິ່ນແຮງ ຫຼື ຜິດປົກກະຕິຈາກເລືອດທີ່ອອກ',
+      'ມີໄຂ້ ຫຼື ອາການທົ່ວໄປຮ້າຍແຮງຂຶ້ນ',
+      'ເລືອດອອກຫຼາຍຂຶ້ນຢ່າງກະທັນຫັນ',
+      'ອາການເຈັບທີ່ຮຸນແຮງ, ຕໍ່ເນື່ອງ ຫຼື ຜິດປົກກະຕິ',
+      'ອາການໃໝ່ທີ່ເຮັດໃຫ້ທ່ານກັງວົນ',
+    ],
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ການຟື້ນຕົວຫຼັງຄອດຂອງແຕ່ລະຄົນແຕກຕ່າງກັນ. ຂໍ້ມູນໃນບົດຄວາມນີ້ມີຈຸດປະສົງເພື່ອໃຫ້ແນວທາງທົ່ວໄປ ແລະ ບໍ່ແທນການປຶກສາແພດ.',
+    summaryHeading: 'ຈຸດສຳຄັນ',
+    summary: [
+      'ນີຟາດເປັນຄຳທີ່ໃຊ້ໃນບໍລິບົດທາງສາສະໜາຫຼັງການເກີດລູກ.',
+      'ທາງການແພດ, ເລືອດທີ່ອອກຫຼັງຄອດເອີ້ນວ່າເລືອດຫຼັງຄອດ.',
+      'ເລືອດຫຼັງຄອດຄ່ອຍໆປ່ຽນສີ ແລະ ປະລິມານ.',
+      'ການພັກຜ່ອນ, ການອະນາໄມແບບອ່ອນໂຍນ ແລະ ການດື່ມນ້ຳທີ່ດີຊ່ວຍສະໜັບສະໜູນການຟື້ນຕົວ.',
+      'ການປ່ຽນແປງທີ່ຜິດປົກກະຕິ ຫຼື ໜ້າກັງວົນຄວນໄດ້ຮັບຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານ.',
+    ],
+    disclaimerText:
+      'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳຂອງແພດ. ຂໍ້ມູນທາງການແພດທີ່ນຳສະເໜີທີ່ນີ້ເປັນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳຂອງຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ. ສຳລັບຄຳຖາມທາງສາສະໜາສະເພາະ, ແນະນຳໃຫ້ອ້າງອີງແຫຼ່ງທາງສາສະໜາທີ່ມີຄຸນວຸດທິ.',
+    shareMessage: 'ນີຟາດ: ດ້ານການແພດ — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */

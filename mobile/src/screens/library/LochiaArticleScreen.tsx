@@ -4530,6 +4530,2191 @@ const CONTENT = withBrazilianPortuguese('Lochia', {
       'Maglumat berýän mazmun. Bu makala lukmançylyk maslahatyny ýa-da barlagy çalyşmaýar. Şübhe bolsa ýa-da alada goýýan alamat görseňiz, saglyk hünärmeninden maslahat soraň.',
     shareMessage: 'Dograndan soňky lohiýany düşünmek — AWA',
   },
+  ms: {
+    badgeText: 'SELEPAS BERSALIN • LOKIA',
+    title: 'Memahami lokia\nselepas bersalin',
+    metaDuration: '6 min bacaan',
+    metaType: 'Panduan',
+    metaLevel: 'Permulaan',
+    metaValidated: 'Kandungan maklumat',
+    intro:
+      'Selepas bersalin, lokia merujuk kepada lelehan faraj yang berkaitan dengan proses semula jadi pemulihan rahim. Warna dan jumlahnya beransur-ansur berubah pada hari dan minggu berikutnya.',
+    contentsTitle: 'Dalam artikel ini',
+    topics: [
+      'Apakah lokia?',
+      'Bagaimana ia berubah dari semasa ke semasa?',
+      'Apa yang boleh dianggap normal',
+      'Petua keselesaan',
+      'Bila untuk mendapatkan nasihat perubatan?',
+      'Perkara penting untuk diingat',
+    ],
+    section1Heading: '1. Apakah lokia?',
+    section1Body1:
+      'Lokia ialah lelehan faraj yang muncul selepas bersalin. Ia terutamanya terdiri daripada pengeluaran darah, rembesan dan tisu secara beransur-ansur dari rahim semasa ia pulih.',
+    section1Body2:
+      'Ia berbeza daripada haid biasa. Ia dijangka berlaku semasa tempoh selepas bersalin dan biasanya berkurangan secara beransur-ansur.',
+    infoTitle: 'Perkara penting untuk diingat',
+    infoText:
+      'Lokia tidak bermakna haid anda telah kembali. Kembalinya haid ialah peristiwa berasingan yang berlaku kemudian.',
+    section2Heading: '2. Bagaimana lokia berubah dari semasa ke semasa?',
+    section2Body:
+      'Rupanya biasanya berubah dalam beberapa minggu pertama. Warnanya beransur-ansur menjadi lebih cerah dan jumlahnya cenderung berkurangan.',
+    evolutionTitle: 'Perkembangan beransur-ansur',
+    evolutionSubtitle: 'Peringkatnya boleh berbeza dari seorang ke seorang',
+    evolution: [
+      {
+        label: 'Merah terang',
+        period: 'Hari-hari pertama',
+        text: 'Lelehan biasanya berwarna merah dan boleh lebih banyak pada permulaan.',
+      },
+      {
+        label: 'Merah jambu / keperangan',
+        period: 'Selepas beberapa hari',
+        text: 'Warnanya beransur-ansur menjadi lebih cerah dan mungkin beralih ke arah merah jambu atau perang.',
+      },
+      {
+        label: 'Putih-kekuningan',
+        period: 'Sepanjang minggu-minggu berikutnya',
+        text: 'Lelehan biasanya menjadi lebih ringan, kekuningan atau keputihan, sebelum beransur hilang.',
+      },
+    ],
+    section3Heading: '3. Apa yang boleh dianggap normal',
+    section3Body:
+      'Bagaimana lokia berkembang tidak tepat sama bagi semua orang. Perubahan tertentu boleh menyertai pemulihan selepas bersalin secara semula jadi.',
+    normalPoints: [
+      {
+        title: 'Jumlah yang berubah-ubah',
+        text: 'Jumlahnya boleh berubah dalam beberapa hari pertama dan kemudian berkurangan secara beransur-ansur.',
+      },
+      {
+        title: 'Warna yang berubah',
+        text: 'Lokia biasanya beralih daripada merah kepada warna yang lebih cerah dari semasa ke semasa.',
+      },
+      {
+        title: 'Tempoh yang berbeza-beza',
+        text: 'Ia boleh berterusan selama beberapa minggu, dan perkembangannya berbeza dari seorang ke seorang.',
+      },
+    ],
+    section4Heading: '4. Petua keselesaan dan penjejakan',
+    section4Body:
+      'Dalam tempoh ini, penjejakan yang mudah boleh membantu anda memerhati bagaimana tubuh anda berubah tanpa membandingkan pengalaman anda dengan orang lain.',
+    comfortTips: [
+      {
+        title: 'Kebersihan yang lembut',
+        text: 'Utamakan basuhan yang lembut dan tetap tanpa produk yang merengsa.',
+      },
+      {
+        title: 'Perhatikan perkembangannya',
+        text: 'Anda boleh mencatat warna, jumlah dan perkembangan lelehan jika itu membantu anda menjejaki pemulihan anda.',
+      },
+      {
+        title: 'Izinkan diri anda berehat',
+        text: 'Tempoh selepas bersalin memerlukan masa. Dengarlah tubuh anda dan hormati keperluan anda untuk pulih.',
+      },
+    ],
+    section5Heading: '5. Lokia atau kembalinya haid anda?',
+    section5Body:
+      'Lokia muncul pada hari-hari selepas bersalin dan beransur-ansur berkurangan. Kembalinya haid anda pula sepadan dengan bersambungnya semula kitaran haid anda selepas tempoh ini.',
+    compareLochiaTitle: 'Lokia',
+    compareLochiaText: 'Lelehan yang berkaitan dengan pemulihan rahim selepas bersalin.',
+    compareReturnTitle: 'Kembalinya haid anda',
+    compareReturnText:
+      'Bersambungnya semula kitaran haid, pada masa yang berbeza dari seorang ke seorang.',
+    section6Heading: '6. Bila untuk mendapatkan nasihat perubatan?',
+    section6Body:
+      'Jika perkembangannya nampak luar biasa kepada anda, atau jika keadaan keseluruhan anda semakin teruk, adalah penting untuk mendapatkan nasihat daripada pengamal penjagaan kesihatan.',
+    warningTitle: 'Tanda yang memerlukan nasihat perubatan',
+    warningSigns: [
+      'Bau yang kuat atau luar biasa',
+      'Demam atau keadaan am yang semakin teruk',
+      'Aliran yang tiba-tiba menjadi jauh lebih banyak',
+      'Sakit yang ketara, berterusan atau luar biasa',
+      'Simptom baharu yang membimbangkan anda',
+    ],
+    tipTitle: 'Elok diketahui',
+    tipText:
+      'Lokia biasanya berkembang secara beransur-ansur: ia boleh berwarna merah pada mulanya, kemudian menjadi lebih cerah sebelum beransur hilang. Walau bagaimanapun, setiap pemulihan bersifat individu.',
+    summaryHeading: 'Perkara penting untuk diingat',
+    summaryPoints: [
+      'Lokia ialah lelehan normal selepas bersalin.',
+      'Ia biasanya berubah warna dan jumlah sepanjang beberapa minggu.',
+      'Tempoh dan perkembangannya boleh berbeza dari seorang ke seorang.',
+      'Bau yang luar biasa, demam, sakit yang ketara atau pendarahan yang tiba-tiba sangat banyak memerlukan nasihat perubatan.',
+    ],
+    disclaimerText:
+      'Kandungan bersifat maklumat. Artikel ini tidak menggantikan nasihat perubatan atau pemeriksaan. Jika ragu-ragu atau jika anda perasan simptom yang membimbangkan, dapatkan nasihat daripada pengamal penjagaan kesihatan.',
+    shareMessage: 'Memahami lokia selepas bersalin — AWA',
+  },
+  so: {
+    badgeText: 'DHALMADA KA DIB • DHIIGGA DHALMADA KA DIB',
+    title: 'Fahamka dhiigga dhalmada ka dib\n(lochia)',
+    metaDuration: '6 daq akhris',
+    metaType: 'Hage',
+    metaLevel: 'Bilow',
+    metaValidated: 'Macluumaad',
+    intro:
+      'Dhalmada ka dib, lochia waxay tilmaamaysaa dheecaanka xiniinyaha ee la xiriira habraaca dabiiciga ah ee bogsiinta ilmo-galeenka. Midabkiisa iyo xaddigiisu waxay tartiib isu beddelaan maalmaha iyo toddobaadyada xiga.',
+    contentsTitle: 'Maqaalkan dhexdiisa',
+    topics: [
+      'Waa maxay lochia?',
+      'Sidee waqti ka dib u isbeddelaa?',
+      'Waxa caadi noqon kara',
+      'Talooyin raaxo',
+      'Goorma talo caafimaad la raadsadaa?',
+      'Qodobbada muhiimka ah',
+    ],
+    section1Heading: '1. Waa maxay lochia?',
+    section1Body1:
+      'Lochia waa dheecaan xiniinyaha ah oo soo muuqda dhalmada ka dib. Inta badan wuxuu ka kooban yahay tartiib tartiib ka saaridda dhiig, dheecaan, iyo unugyo ilmo-galeenka marka uu bogsanayo.',
+    section1Body2:
+      'Way ka duwan tahay caado joogto ah. Waa la filayaa inta lagu jiro muddada dhalmada ka dib guud ahaan wuxuuna si tartiib ah u yaraadaa.',
+    infoTitle: 'Qodobbada muhiimka ah',
+    infoText:
+      'Lochia macnaheedu maaha in caadadaadu horey u soo noqotay. Soo noqoshada caadadaadu waa dhacdo gooni ah oo dambe dhacda.',
+    section2Heading: '2. Sidee lochia waqti ka dib u isbeddelaa?',
+    section2Body:
+      'Muuqaalkeedu inta badan wuu isbeddelaa dhowr toddobaad ee ugu horreeya. Midabku tartiib ayuu u noqdaa mid khafiif ah xaddiguna wuu u janjeeraa inuu yaraado.',
+    evolutionTitle: 'Horumar tartiib ah',
+    evolutionSubtitle: 'Heerarku way ku kala duwanaan karaan qof ilaa qof',
+    evolution: [
+      {
+        label: 'Casaan dhalaalaya',
+        period: 'Maalmaha ugu horreeya',
+        text: 'Dheecaanku inta badan waa casaan wuxuuna ka culus noqon karaa bilowga.',
+      },
+      {
+        label: 'Ruuxdhalaal / bunni',
+        period: 'Dhowr maalmood ka dib',
+        text: 'Midabku tartiib ayuu u noqdaa mid khafiif ah wuxuuna u janjeeri karaa ruuxdhalaal ama bunni.',
+      },
+      {
+        label: 'Cadcad-jaalle',
+        period: 'Toddobaadyada xiga',
+        text: 'Dheecaanku inta badan wuu sii khafiifaa, jaalle ama cadcad, ka hor intuusan yaraan.',
+      },
+    ],
+    section3Heading: '3. Waxa caadi noqon kara',
+    section3Body:
+      'Sida lochia u isbeddelaa ma aha isku mid qof walba. Isbeddelo qaar ayaa si dabiici ah ula socon kara bogsiinta dhalmada ka dib.',
+    normalPoints: [
+      {
+        title: 'Xaddi kala duwan',
+        text: 'Xaddigu wuu isbeddeli karaa maalmaha ugu horreeya ka dibna tartiib ayuu u yaraadaa.',
+      },
+      {
+        title: 'Midab isbeddelaya',
+        text: 'Lochia inta badan waxay ka beddelmaan casaan ilaa midabbo khafiif ah waqti ka dib.',
+      },
+      {
+        title: 'Muddo kala duwan',
+        text: 'Wuxuu sii socon karaa dhowr toddobaad, sida uu u isbeddelana wuu ku kala duwan yahay qof ilaa qof.',
+      },
+    ],
+    section4Heading: '4. Talooyin raaxo iyo la socod',
+    section4Body:
+      'Inta lagu jiro muddadan, la socod fudud ayaa kaa caawin kara inaad indho-indheyso sida jidhkaagu u isbeddelayo adigoon barbar dhigin khibraddaada tan qof kale.',
+    comfortTips: [
+      {
+        title: 'Nadaafad jilicsan',
+        text: 'Door bid dhaqid jilicsan oo joogto ah oo aan lahayn alaab kicin leh.',
+      },
+      {
+        title: 'Indho-indheeyo sida u isbeddelo',
+        text: 'Waxaad xusi kartaa midabka, xaddiga, iyo horumarka dheecaanka haddii ay kaa caawinayso la socodka bogsiintaada.',
+      },
+      {
+        title: 'Naftaada nasasho sii',
+        text: 'Muddada dhalmada ka dib waxay qaadataa waqti. U dhegeyso jidhkaaga oo ixtiraam baahida aad u leedahay bogsiinta.',
+      },
+    ],
+    section5Heading: '5. Lochia mise soo noqoshada caadadaada?',
+    section5Body:
+      'Lochia waxay soo muuqataa maalmaha dhalmada ka dib oo tartiib ayay u yaraataa. Soo noqoshada caadadaadu, dhanka kale, waxay u dhigantaa dib u bilaabashada wareegga caadada muddadan ka dib.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Dheecaan la xiriira bogsiinta ilmo-galeenka dhalmada ka dib.',
+    compareReturnTitle: 'Soo noqoshada caadadaada',
+    compareReturnText:
+      'Dib u bilaabashada wareegga caadada, waqti ku kala duwan qof ilaa qof.',
+    section6Heading: '6. Goorma talo caafimaad la raadsadaa?',
+    section6Body:
+      'Haddii horumarku kuu muuqdo mid aan caadi ahayn, ama haddii xaaladdaada guud ay sii xumaanayso, waa muhiim inaad talo ka raadsato xirfadle caafimaad.',
+    warningTitle: 'Calaamadaha u baahan talo caafimaad',
+    warningSigns: [
+      'Ur xoog badan ama aan caadi ahayn',
+      'Qandho ama xaalad guud oo sii xumaanaysa',
+      'Socod lama filaan si weyn u culusaada',
+      'Xanuun weyn, sii socda, ama aan caadi ahayn',
+      'Astaan cusub oo ku walaaciya',
+    ],
+    tipTitle: 'Waxtar leh in la ogaado',
+    tipText:
+      'Lochia inta badan si tartiib ah ayay u isbeddelaan: bilowga way noqon kartaa casaan, ka dibna way khafiifaan ka hor intaysan yaraan. Si kastaba, bogsiin kasta waa shakhsi.',
+    summaryHeading: 'Qodobbada muhiimka ah',
+    summaryPoints: [
+      'Lochia waa dheecaan caadi ah dhalmada ka dib.',
+      'Inta badan midabkeeda iyo xaddigeedu way isbeddelaan toddobaadyada gudahood.',
+      'Muddadeeda iyo horumarkeedu wuu ku kala duwanaan karaa qof ilaa qof.',
+      'Ur aan caadi ahayn, qandho, xanuun weyn, ama dhiigbax lama filaan ah oo aad u culus ayaa u baahan talo caafimaad.',
+    ],
+    disclaimerText:
+      'Macluumaad. Maqaalkan ma beddelo talo caafimaad ama baaritaan. Haddii aad shaki qabto ama aad ogaato astaan walaac leh, talo ka raadso xirfadle caafimaad.',
+    shareMessage: 'Fahamka dhiigga dhalmada ka dib — AWA',
+  },
+  sw: {
+    badgeText: 'BAADA YA KUJIFUNGUA • DAMU YA BAADA YA KUJIFUNGUA',
+    title: 'Kuelewa damu ya baada ya\nkujifungua (lochia)',
+    metaDuration: 'Dakika 6 za kusoma',
+    metaType: 'Mwongozo',
+    metaLevel: 'Mwanzo',
+    metaValidated: 'Maudhui ya taarifa',
+    intro:
+      'Baada ya kujifungua, lochia inarejelea majimaji ya ukeni yanayohusiana na mchakato wa asili wa kupona kwa mji wa uzazi. Rangi na kiasi chake hubadilika polepole katika siku na wiki zinazofuata.',
+    contentsTitle: 'Katika makala hii',
+    topics: [
+      'Lochia ni nini?',
+      'Inabadilikaje kadiri muda unavyopita?',
+      'Kinachoweza kuwa cha kawaida',
+      'Vidokezo vya faraja',
+      'Wakati wa kutafuta ushauri wa kitabibu?',
+      'Mambo muhimu ya kukumbuka',
+    ],
+    section1Heading: '1. Lochia ni nini?',
+    section1Body1:
+      'Lochia ni majimaji ya ukeni yanayoonekana baada ya kujifungua. Yanajumuisha hasa kuondolewa polepole kwa damu, majimaji, na tishu kutoka kwenye mji wa uzazi unapopona.',
+    section1Body2:
+      'Ni tofauti na hedhi ya kawaida. Inatarajiwa katika kipindi cha baada ya kujifungua na kwa kawaida hupungua polepole.',
+    infoTitle: 'Mambo muhimu ya kukumbuka',
+    infoText:
+      'Lochia haimaanishi hedhi yako tayari imerejea. Kurejea kwa hedhi yako ni tukio tofauti linalotokea baadaye.',
+    section2Heading: '2. Lochia inabadilikaje kadiri muda unavyopita?',
+    section2Body:
+      'Mwonekano wake kwa kawaida hubadilika katika wiki chache za kwanza. Rangi polepole inakuwa nyepesi na kiasi huelekea kupungua.',
+    evolutionTitle: 'Maendeleo ya polepole',
+    evolutionSubtitle: 'Hatua zinaweza kutofautiana kati ya mtu na mtu',
+    evolution: [
+      {
+        label: 'Nyekundu angavu',
+        period: 'Siku za kwanza',
+        text: 'Majimaji kwa kawaida ni mekundu na yanaweza kuwa mengi zaidi mwanzoni.',
+      },
+      {
+        label: 'Waridi / kahawia kiasi',
+        period: 'Baada ya siku chache',
+        text: 'Rangi polepole inakuwa nyepesi na inaweza kuelekea waridi au kahawia.',
+      },
+      {
+        label: 'Nyeupe-njano',
+        period: 'Katika wiki zinazofuata',
+        text: 'Majimaji kwa kawaida yanakuwa mepesi, ya manjano au meupe, kabla ya kupungua kabisa.',
+      },
+    ],
+    section3Heading: '3. Kinachoweza kuwa cha kawaida',
+    section3Body:
+      'Jinsi lochia inavyoendelea si sawa kabisa kwa kila mtu. Mabadiliko fulani yanaweza kuandamana kiasili na kupona baada ya kujifungua.',
+    normalPoints: [
+      {
+        title: 'Kiasi kinachobadilika',
+        text: 'Kiasi kinaweza kubadilika katika siku chache za kwanza kisha kupungua polepole.',
+      },
+      {
+        title: 'Rangi inayobadilika',
+        text: 'Lochia kwa kawaida hutoka nyekundu kuelekea rangi nyepesi zaidi kadiri muda unavyopita.',
+      },
+      {
+        title: 'Muda unaotofautiana',
+        text: 'Inaweza kudumu kwa wiki kadhaa, na jinsi inavyoendelea hutofautiana kati ya mtu na mtu.',
+      },
+    ],
+    section4Heading: '4. Vidokezo vya faraja na ufuatiliaji',
+    section4Body:
+      'Katika kipindi hiki, ufuatiliaji rahisi unaweza kukusaidia kuchunguza jinsi mwili wako unavyobadilika bila kulinganisha uzoefu wako na wa mtu mwingine.',
+    comfortTips: [
+      {
+        title: 'Usafi wa upole',
+        text: 'Pendelea kuosha kwa upole na mara kwa mara bila bidhaa zinazowasha.',
+      },
+      {
+        title: 'Zingatia jinsi inavyoendelea',
+        text: 'Unaweza kuandika rangi, kiasi, na maendeleo ya majimaji ikiwa hilo linakusaidia kufuatilia kupona kwako.',
+      },
+      {
+        title: 'Jipe kupumzika',
+        text: 'Kipindi cha baada ya kujifungua kinahitaji muda. Sikiliza mwili wako na uheshimu hitaji lako la kupona.',
+      },
+    ],
+    section5Heading: '5. Lochia au kurejea kwa hedhi yako?',
+    section5Body:
+      'Lochia inaonekana katika siku zinazofuata kujifungua na polepole hupungua. Kurejea kwa hedhi yako, kwa upande mwingine, kunalingana na kuanza tena kwa mzunguko wako wa hedhi baada ya kipindi hiki.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Majimaji yanayohusiana na kupona kwa mji wa uzazi baada ya kujifungua.',
+    compareReturnTitle: 'Kurejea kwa hedhi yako',
+    compareReturnText:
+      'Kuanza tena kwa mzunguko wa hedhi, kwa wakati unaotofautiana kati ya mtu na mtu.',
+    section6Heading: '6. Wakati wa kutafuta ushauri wa kitabibu?',
+    section6Body:
+      'Ikiwa maendeleo yanaonekana si ya kawaida kwako, au ikiwa hali yako ya jumla inazidi kuwa mbaya, ni muhimu kutafuta ushauri wa mtaalamu wa afya.',
+    warningTitle: 'Dalili zinazohitaji ushauri wa kitabibu',
+    warningSigns: [
+      'Harufu kali au isiyo ya kawaida',
+      'Homa au hali ya jumla inayozidi kuwa mbaya',
+      'Mtiririko unaoongezeka ghafla kwa kiasi kikubwa',
+      'Maumivu makubwa, ya kuendelea, au yasiyo ya kawaida',
+      'Dalili mpya inayokutia wasiwasi',
+    ],
+    tipTitle: 'Vyema kujua',
+    tipText:
+      'Lochia kwa kawaida hubadilika polepole: inaweza kuwa nyekundu mwanzoni, kisha kuwa nyepesi kabla ya kupungua kabisa. Hata hivyo, kila kupona ni kwa mtu binafsi.',
+    summaryHeading: 'Mambo muhimu ya kukumbuka',
+    summaryPoints: [
+      'Lochia ni majimaji ya kawaida baada ya kujifungua.',
+      'Kwa kawaida hubadilika rangi na kiasi katika wiki.',
+      'Muda wake na maendeleo yake yanaweza kutofautiana kati ya mtu na mtu.',
+      'Harufu isiyo ya kawaida, homa, maumivu makubwa, au kutokwa damu nyingi ghafla kunahitaji ushauri wa kitabibu.',
+    ],
+    disclaimerText:
+      'Maudhui ya taarifa. Makala hii haichukui nafasi ya ushauri wa kitabibu au uchunguzi. Ukiwa na shaka au ukiona dalili inayotia wasiwasi, tafuta ushauri wa mtaalamu wa afya.',
+    shareMessage: 'Kuelewa damu ya baada ya kujifungua (lochia) — AWA',
+  },
+  kk: {
+    badgeText: 'БОСАНҒАННАН КЕЙІН • ЛОХИЯ',
+    title: 'Босанғаннан кейінгі лохияны\nтүсіну',
+    metaDuration: '6 мин оқу',
+    metaType: 'Нұсқаулық',
+    metaLevel: 'Бастауыш',
+    metaValidated: 'Ақпараттық мазмұн',
+    intro:
+      'Босанғаннан кейін лохия жатырдың табиғи қалпына келу процесімен байланысты қынаптан бөлінділерді білдіреді. Оның түсі мен мөлшері келесі күндер мен апталар бойы біртіндеп өзгереді.',
+    contentsTitle: 'Осы мақалада',
+    topics: [
+      'Лохия дегеніміз не?',
+      'Ол уақыт өте қалай өзгереді?',
+      'Не қалыпты болуы мүмкін',
+      'Жайлылық кеңестері',
+      'Медициналық кеңесті қашан іздеу керек?',
+      'Негізгі қорытындылар',
+    ],
+    section1Heading: '1. Лохия дегеніміз не?',
+    section1Body1:
+      'Лохия — босанғаннан кейін пайда болатын қынаптан бөлінділер. Ол негізінен жатыр қалпына келген кезде одан қан, сұйықтықтар мен тіннің біртіндеп шығарылуынан тұрады.',
+    section1Body2:
+      'Ол кәдімгі етеккірден өзгеше. Ол босанғаннан кейінгі кезеңде күтіледі және әдетте біртіндеп азаяды.',
+    infoTitle: 'Негізгі қорытындылар',
+    infoText:
+      'Лохия етеккіріңіздің қазірдің өзінде қайта келгенін білдірмейді. Етеккірдің қайта келуі — кейінірек болатын бөлек оқиға.',
+    section2Heading: '2. Лохия уақыт өте қалай өзгереді?',
+    section2Body:
+      'Оның сыртқы түрі әдетте алғашқы бірнеше апта ішінде өзгереді. Түсі біртіндеп ашылады, ал мөлшері азая түседі.',
+    evolutionTitle: 'Біртіндеп даму',
+    evolutionSubtitle: 'Кезеңдер әр адамда әртүрлі болуы мүмкін',
+    evolution: [
+      {
+        label: 'Ашық қызыл',
+        period: 'Алғашқы күндер',
+        text: 'Бөлінділер әдетте қызыл болады және басында мол болуы мүмкін.',
+      },
+      {
+        label: 'Қызғылт / қоңырлау',
+        period: 'Бірнеше күннен кейін',
+        text: 'Түсі біртіндеп ашылады және қызғылтқа немесе қоңырға ауысуы мүмкін.',
+      },
+      {
+        label: 'Ақшыл-сары',
+        period: 'Келесі апталар бойы',
+        text: 'Бөлінділер әдетте жеңіл, сарғыш немесе ақшыл болады да, содан кейін тоқтайды.',
+      },
+    ],
+    section3Heading: '3. Не қалыпты болуы мүмкін',
+    section3Body:
+      'Лохияның дамуы барлығында бірдей емес. Кейбір өзгерістер босанғаннан кейінгі қалпына келумен табиғи түрде қатар жүруі мүмкін.',
+    normalPoints: [
+      {
+        title: 'Өзгеретін мөлшер',
+        text: 'Мөлшері алғашқы күндері өзгеріп, содан кейін біртіндеп азаюы мүмкін.',
+      },
+      {
+        title: 'Өзгеретін түс',
+        text: 'Лохия әдетте уақыт өте қызылдан ашығырақ реңктерге ауысады.',
+      },
+      {
+        title: 'Әртүрлі ұзақтық',
+        text: 'Ол бірнеше апта бойы сақталуы мүмкін және оның дамуы әр адамда әртүрлі.',
+      },
+    ],
+    section4Heading: '4. Жайлылық және бақылау кеңестері',
+    section4Body:
+      'Бұл кезеңде қарапайым бақылау тәжірибеңізді басқа біреудікімен салыстырмай, денеңіздің қалай өзгеріп жатқанын бақылауға көмектесе алады.',
+    comfortTips: [
+      {
+        title: 'Жұмсақ гигиена',
+        text: 'Тітіркендіретін өнімдерсіз жұмсақ, тұрақты жууды жөн көріңіз.',
+      },
+      {
+        title: 'Дамуын бақылаңыз',
+        text: 'Қалпына келуіңізді бақылауға көмектессе, бөлінділердің түсін, мөлшерін және дамуын жазып қоюға болады.',
+      },
+      {
+        title: 'Өзіңізге демалуға рұқсат беріңіз',
+        text: 'Босанғаннан кейінгі кезең уақыт алады. Денеңізді тыңдап, қалпына келу қажеттілігіңізді құрметтеңіз.',
+      },
+    ],
+    section5Heading: '5. Лохия ма, әлде етеккірдің қайта келуі ме?',
+    section5Body:
+      'Лохия босанғаннан кейінгі күндерде пайда болады және біртіндеп азаяды. Етеккірдің қайта келуі, керісінше, осы кезеңнен кейін етеккір циклыңыздың қайта басталуына сәйкес келеді.',
+    compareLochiaTitle: 'Лохия',
+    compareLochiaText: 'Босанғаннан кейінгі жатырдың қалпына келуімен байланысты бөлінділер.',
+    compareReturnTitle: 'Етеккірдің қайта келуі',
+    compareReturnText:
+      'Етеккір циклының қайта басталуы, уақыты әр адамда әртүрлі.',
+    section6Heading: '6. Медициналық кеңесті қашан іздеу керек?',
+    section6Body:
+      'Даму сізге әдеттен тыс көрінсе немесе жалпы жағдайыңыз нашарлап бара жатса, медицина маманынан кеңес алу маңызды.',
+    warningTitle: 'Медициналық кеңесті қажет ететін белгілер',
+    warningSigns: [
+      'Күшті немесе әдеттен тыс иіс',
+      'Қызба немесе нашарлап бара жатқан жалпы жағдай',
+      'Кенеттен әлдеқайда молайған ағу',
+      'Айтарлықтай, тұрақты немесе әдеттен тыс ауыру',
+      'Сізді алаңдататын жаңа белгі',
+    ],
+    tipTitle: 'Білуге тиісті',
+    tipText:
+      'Лохия әдетте біртіндеп дамиды: басында қызыл болып, содан кейін ашылып, тоқтауы мүмкін. Дегенмен, әр қалпына келу жеке.',
+    summaryHeading: 'Негізгі қорытындылар',
+    summaryPoints: [
+      'Лохия — босанғаннан кейінгі қалыпты бөлінді.',
+      'Ол әдетте апталар бойы түсі мен мөлшерін өзгертеді.',
+      'Оның ұзақтығы мен дамуы әр адамда әртүрлі болуы мүмкін.',
+      'Әдеттен тыс иіс, қызба, қатты ауыру немесе кенеттен өте мол қан кету медициналық кеңесті қажет етеді.',
+    ],
+    disclaimerText:
+      'Ақпараттық мазмұн. Бұл мақала медициналық кеңестің немесе тексерудің орнын баспайды. Күмән туындаса немесе алаңдататын белгі байқасаңыз, медицина маманынан кеңес сұраңыз.',
+    shareMessage: 'Босанғаннан кейінгі лохияны түсіну — AWA',
+  },
+  wo: {
+    badgeText: 'GINNAAW JUR • LOCHIA',
+    title: 'Xam lochia\nginnaaw jur',
+    metaDuration: '6 simili jàng',
+    metaType: 'Ndigal',
+    metaLevel: 'Tàmbali',
+    metaValidated: 'Mbind ngir xibaar',
+    intro:
+      'Ginnaaw jur, lochia mooy ndox bu ndey bu jëm ci wér bu natural bu bérëbu ndey. Kuloor ak bariwaayam dañuy soppiku tuuti-tuuti ci fan ak ayu-bés yu toftal.',
+    contentsTitle: 'Ci bind bii',
+    topics: [
+      'Lan mooy lochia?',
+      'Naka mu di soppiku ci jamono?',
+      'Li mën a nekk lu cosaan',
+      'Ndigal yu neex',
+      'Kañ ngay seet ndigalu doktoor?',
+      'Li am solo',
+    ],
+    section1Heading: '1. Lan mooy lochia?',
+    section1Body1:
+      'Lochia mooy ndox bu ndey bu feeñ ginnaaw jur. Dafay boole jëlal tuuti-tuuti deret, ndox ak yaram yu bérëbu ndey ba muy wér.',
+    section1Body2:
+      'Wuute na ak benn règle bu yoon. Dañuy ko xaar ci jamonoy ginnaaw jur te daa wàññiku tuuti-tuuti.',
+    infoTitle: 'Li am solo',
+    infoText:
+      'Lochia du wone ne sa règle dellusi na ba noppi. Dellusig sa règle benn mbir bu wuute la bu am ginnaaw.',
+    section2Heading: '2. Naka lochia di soppiku ci jamono?',
+    section2Body:
+      'Anamam daa soppiku ci ayu-bés yu njëkk. Kuloor bi dafay gën a leer tuuti-tuuti te bariwaay bi di wàññiku.',
+    evolutionTitle: 'Benn dem-kanam bu tuuti-tuuti',
+    evolutionSubtitle: 'Ñaar fuñ yi mën nañu wuute ci nit ak nit',
+    evolution: [
+      {
+        label: 'Xonq bu leer',
+        period: 'Fan yu njëkk',
+        text: 'Ndox bi daa nekk xonq te mën na gën a bari ci tàmbali.',
+      },
+      {
+        label: 'Roos / ñuul-xonq',
+        period: 'Ginnaaw ay fan',
+        text: 'Kuloor bi dafay gën a leer tuuti-tuuti te mën na jëm ci roos walla ñuul-xonq.',
+      },
+      {
+        label: 'Weex-melax',
+        period: 'Ci ayu-bés yu toftal',
+        text: 'Ndox bi daa gën a neex, melax walla weex, balaa muy sàggan.',
+      },
+    ],
+    section3Heading: '3. Li mën a nekk lu cosaan',
+    section3Body:
+      'Naka lochia di soppiku du bokk ci ñépp. Yenn soppi mën nañu ànd ak wér ginnaaw jur ci natural.',
+    normalPoints: [
+      {
+        title: 'Bariwaay bu soppiku',
+        text: 'Bariwaay bi mën na soppiku ci fan yu njëkk te wàññiku tuuti-tuuti.',
+      },
+      {
+        title: 'Kuloor bu soppiku',
+        text: 'Lochia daa jóge ci xonq jëm ci kuloor yu gën a leer ci jamono.',
+      },
+      {
+        title: 'Diir bu wuute',
+        text: 'Mën na yàgg ay ayu-bés, te naka mu di soppiku wuute na ci nit ak nit.',
+      },
+    ],
+    section4Heading: '4. Ndigal yu neex ak topp',
+    section4Body:
+      'Ci jamono jii, benn topp bu yomb mën na dimbli nga seetlu naka sa yaram di soppiku te bañ a méngale sa dund ak bu keneen.',
+    comfortTips: [
+      {
+        title: 'Set bu lewet',
+        text: 'Jëkk sab bu lewet te bu sax te amul jumtukaay yu tiis.',
+      },
+      {
+        title: 'Teg naka mu di soppiku',
+        text: 'Mën nga bind kuloor, bariwaay ak dem-kanamu ndox bi bu loolu dimbli nga topp sa wér.',
+      },
+      {
+        title: 'Joxe sa bopp noppalu',
+        text: 'Jamonoy ginnaaw jur dafay soxla jamono. Déglul sa yaram te teg sa soxla ngir wér.',
+      },
+    ],
+    section5Heading: '5. Lochia walla dellusig sa règle?',
+    section5Body:
+      'Lochia daa feeñ ci fan yi toftal jur te wàññiku tuuti-tuuti. Dellusig sa règle, moom, dafay tekki tàmbaliwaat sa wërsëgu weer ginnaaw jamono jii.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Ndox bu jëm ci wér bu bérëbu ndey ginnaaw jur.',
+    compareReturnTitle: 'Dellusig sa règle',
+    compareReturnText:
+      'Tàmbaliwaat wërsëgu weer, ci jamono bu wuute ci nit ak nit.',
+    section6Heading: '6. Kañ ngay seet ndigalu doktoor?',
+    section6Body:
+      'Bu dem-kanam bi mel ni cosaanul ci yaw, walla bu sa anam bu mat di ñaaw, am solo na nga seet ndigalu benn liggéeykatu wér.',
+    warningTitle: 'Màndarga yu soxla ndigalu doktoor',
+    warningSigns: [
+      'Xeeñ bu metti walla bu cosaanul',
+      'Tàngoor walla anam bu mat bu di ñaaw',
+      'Deret bu gëna bari ci gaaw',
+      'Metit bu am solo, bu sax walla bu cosaanul',
+      'Benn màndarga bu bees bu tiital la',
+    ],
+    tipTitle: 'Lu baax a xam',
+    tipText:
+      'Lochia daa soppiku tuuti-tuuti: mën na nekk xonq ci njëkk, bu gëna leer balaa muy sàggan. Waaye wér bu nekk wuute na.',
+    summaryHeading: 'Li am solo',
+    summaryPoints: [
+      'Lochia ndox bu cosaan la ginnaaw jur.',
+      'Daa soppiku ci kuloor ak bariwaay ci ayu-bés yi.',
+      'Diiram ak dem-kanamam mën nañu wuute ci nit ak nit.',
+      'Xeeñ bu cosaanul, tàngoor, metit bu am solo walla deret bu bari lool ci gaaw soxla nañu ndigalu doktoor.',
+    ],
+    disclaimerText:
+      'Mbind ngir xibaar. Bind bii du wuutu ndigalu doktoor walla seetlu. Bu am nga xel-ñaar walla bu nga gisee benn màndarga bu tiital, seet ndigalu benn liggéeykatu wér.',
+    shareMessage: 'Xam lochia ginnaaw jur — AWA',
+  },
+  ha: {
+    badgeText: 'BAYAN HAIHUWA • LOCHIA',
+    title: 'Fahimtar lochia\nbayan haihuwa',
+    metaDuration: 'karatun minti 6',
+    metaType: 'Jagora',
+    metaLevel: 'Mafari',
+    metaValidated: 'Abun bayani',
+    intro:
+      'Bayan haihuwa, lochia tana nufin ruwan al’aura mai alaƙa da tsarin murmurewar mahaifa na halitta. Launinsa da yawansa suna canzawa a hankali cikin kwanaki da makonni masu zuwa.',
+    contentsTitle: 'A cikin wannan labari',
+    topics: [
+      'Menene lochia?',
+      'Yaya take canzawa a kan lokaci?',
+      'Abin da zai iya zama na al’ada',
+      'Shawarwarin jin daɗi',
+      'Yaushe za a nemi shawarar likita?',
+      'Muhimman abubuwa',
+    ],
+    section1Heading: '1. Menene lochia?',
+    section1Body1:
+      'Lochia ruwan al’aura ne da ke bayyana bayan haihuwa. Galibi ya ƙunshi fitar jini, ruwaye, da nama a hankali daga mahaifa yayin da take murmurewa.',
+    section1Body2:
+      'Ya bambanta da haila ta yau da kullum. Ana tsammanin sa a lokacin bayan haihuwa kuma yawanci yana raguwa a hankali.',
+    infoTitle: 'Muhimman abubuwa',
+    infoText:
+      'Lochia ba ta nufin hailarki ta riga ta dawo ba. Dawowar hailarki wani lamari ne daban da yake faruwa daga baya.',
+    section2Heading: '2. Yaya lochia take canzawa a kan lokaci?',
+    section2Body:
+      'Yawanci yanayinta yana canzawa a makonni na farko. Launin yana ƙara haske a hankali kuma yawan yana ragewa.',
+    evolutionTitle: 'Ci gaba a hankali',
+    evolutionSubtitle: 'Matakan na iya bambanta daga mutum zuwa mutum',
+    evolution: [
+      {
+        label: 'Ja mai haske',
+        period: 'Kwanakin farko',
+        text: 'Ruwan yawanci ja ne kuma yana iya yawaita a farko.',
+      },
+      {
+        label: 'Ruwan hoda / launin ruwan ƙasa',
+        period: 'Bayan ’yan kwanaki',
+        text: 'Launin yana ƙara haske a hankali kuma yana iya komawa ruwan hoda ko launin ruwan ƙasa.',
+      },
+      {
+        label: 'Fari-rawaya',
+        period: 'A makonni masu zuwa',
+        text: 'Ruwan yawanci yana zama mai sauƙi, rawaya ko fari, kafin ya ragu gaba ɗaya.',
+      },
+    ],
+    section3Heading: '3. Abin da zai iya zama na al’ada',
+    section3Body:
+      'Yadda lochia ke ci gaba ba iri ɗaya ba ne ga kowa. Wasu sauye-sauye na iya biyo bayan murmurewa bayan haihuwa ta halitta.',
+    normalPoints: [
+      {
+        title: 'Yawa mai canzawa',
+        text: 'Yawan na iya canzawa a kwanakin farko sannan ya ragu a hankali.',
+      },
+      {
+        title: 'Launi mai canzawa',
+        text: 'Lochia yawanci tana tafiya daga ja zuwa launuka masu haske a kan lokaci.',
+      },
+      {
+        title: 'Tsawon lokaci mai bambanta',
+        text: 'Za ta iya dawwama na makonni da dama, kuma yadda take ci gaba ya bambanta daga mutum zuwa mutum.',
+      },
+    ],
+    section4Heading: '4. Shawarwarin jin daɗi da bin diddigi',
+    section4Body:
+      'A wannan lokaci, bin diddigi mai sauƙi na iya taimaka miki ki lura da yadda jikinki ke canzawa ba tare da kwatanta abin da kike ciki da na wani ba.',
+    comfortTips: [
+      {
+        title: 'Tsabta mai laushi',
+        text: 'Fifita wanka mai laushi, na yau da kullum ba tare da kayayyaki masu haifar da ƙaiƙayi ba.',
+      },
+      {
+        title: 'Lura da yadda take ci gaba',
+        text: 'Za ki iya rubuta launi, yawa, da ci gaban ruwan idan hakan na taimaka miki ki bi diddigin murmurewarki.',
+      },
+      {
+        title: 'Ba kanki hutu',
+        text: 'Lokacin bayan haihuwa yana bukatar lokaci. Saurari jikinki kuma ki mutunta bukatarki ta murmurewa.',
+      },
+    ],
+    section5Heading: '5. Lochia ko dawowar hailarki?',
+    section5Body:
+      'Lochia tana bayyana a kwanakin da suka biyo bayan haihuwa kuma tana raguwa a hankali. Dawowar hailarki kuwa, tana nufin komawar zagayen hailarki bayan wannan lokaci.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Ruwan da ke da alaƙa da murmurewar mahaifa bayan haihuwa.',
+    compareReturnTitle: 'Dawowar hailarki',
+    compareReturnText:
+      'Komawar zagayen haila, a lokacin da ya bambanta daga mutum zuwa mutum.',
+    section6Heading: '6. Yaushe za a nemi shawarar likita?',
+    section6Body:
+      'Idan ci gaban ya yi miki kamar ba na al’ada ba, ko idan yanayinki gabaɗaya yana ƙara muni, yana da muhimmanci ki nemi shawara daga ma’aikacin lafiya.',
+    warningTitle: 'Alamomin da ke bukatar shawarar likita',
+    warningSigns: [
+      'Ƙamshi mai ƙarfi ko ba na al’ada ba',
+      'Zazzabi ko yanayi na gabaɗaya da ke ƙara muni',
+      'Jini da ya yawaita kwatsam sosai',
+      'Ciwo mai yawa, mai dawwama, ko ba na al’ada ba',
+      'Sabuwar alama da ke damun ki',
+    ],
+    tipTitle: 'Abin da ya dace a sani',
+    tipText:
+      'Lochia yawanci tana ci gaba a hankali: tana iya zama ja da farko, sannan ta ƙara haske kafin ta ragu gaba ɗaya. Duk da haka, kowane murmurewa na mutum ne.',
+    summaryHeading: 'Muhimman abubuwa',
+    summaryPoints: [
+      'Lochia ruwan al’aura ne na al’ada bayan haihuwa.',
+      'Yawanci launinta da yawanta suna canzawa cikin makonni.',
+      'Tsawonta da ci gabanta na iya bambanta daga mutum zuwa mutum.',
+      'Ƙamshi ba na al’ada ba, zazzabi, ciwo mai yawa, ko zubar jini mai yawa kwatsam suna bukatar shawarar likita.',
+    ],
+    disclaimerText:
+      'Abun bayani. Wannan labari ba ya maye gurbin shawarar likita ko bincike. Idan kina cikin shakka ko kin lura da alamar da ke damun ki, nemi shawara daga ma’aikacin lafiya.',
+    shareMessage: 'Fahimtar lochia bayan haihuwa — AWA',
+  },
+  am: {
+    badgeText: 'ከወሊድ በኋላ • ሎኪያ',
+    title: 'ከወሊድ በኋላ ሎኪያን\nመረዳት',
+    metaDuration: '6 ደቂቃ ንባብ',
+    metaType: 'መመሪያ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'የመረጃ ይዘት',
+    intro:
+      'ከወሊድ በኋላ ሎኪያ ከማህፀን ተፈጥሯዊ የማገገም ሂደት ጋር የተያያዘ የማህፀን ፈሳሽን ያመለክታል። ቀለሙና መጠኑ በሚቀጥሉት ቀናትና ሳምንታት ቀስ በቀስ ይለወጣል።',
+    contentsTitle: 'በዚህ ጽሑፍ ውስጥ',
+    topics: [
+      'ሎኪያ ምንድን ነው?',
+      'በጊዜ ሂደት እንዴት ይለወጣል?',
+      'የተለመደው ምን ሊሆን ይችላል',
+      'የምቾት ምክሮች',
+      'የሕክምና ምክር መቼ መፈለግ?',
+      'ዋና ዋና ነጥቦች',
+    ],
+    section1Heading: '1. ሎኪያ ምንድን ነው?',
+    section1Body1:
+      'ሎኪያ ከወሊድ በኋላ የሚታይ የማህፀን ፈሳሽ ነው። በዋናነት ማህፀን ሲያገግም የደም፣ የፈሳሾችና የሕብረ ሕዋስ ቀስ በቀስ መውጣትን ያካትታል።',
+    section1Body2:
+      'ከመደበኛ የወር አበባ ይለያል። ከወሊድ በኋላ ባለው ጊዜ የሚጠበቅ ሲሆን በአጠቃላይ ቀስ በቀስ ይቀንሳል።',
+    infoTitle: 'ዋና ዋና ነጥቦች',
+    infoText:
+      'ሎኪያ የወር አበባሽ ቀድሞ ተመልሷል ማለት አይደለም። የወር አበባሽ መመለስ በኋላ የሚከሰት የተለየ ክስተት ነው።',
+    section2Heading: '2. ሎኪያ በጊዜ ሂደት እንዴት ይለወጣል?',
+    section2Body:
+      'መልኩ ብዙውን ጊዜ በመጀመሪያዎቹ ሳምንታት ይለወጣል። ቀለሙ ቀስ በቀስ ይቀላል እና መጠኑ የመቀነስ ዝንባሌ አለው።',
+    evolutionTitle: 'ቀስ በቀስ ሂደት',
+    evolutionSubtitle: 'ደረጃዎቹ ከሰው ወደ ሰው ሊለያዩ ይችላሉ',
+    evolution: [
+      {
+        label: 'ደማቅ ቀይ',
+        period: 'የመጀመሪያዎቹ ቀናት',
+        text: 'ፈሳሹ ብዙውን ጊዜ ቀይ ሲሆን በጅማሬ ሊበዛ ይችላል።',
+      },
+      {
+        label: 'ሮዝ / ቡናማ-ቡናማ',
+        period: 'ከጥቂት ቀናት በኋላ',
+        text: 'ቀለሙ ቀስ በቀስ ይቀላል እና ወደ ሮዝ ወይም ቡናማ ሊለወጥ ይችላል።',
+      },
+      {
+        label: 'ነጭ-ቢጫ',
+        period: 'በሚቀጥሉት ሳምንታት',
+        text: 'ፈሳሹ ከመጥፋቱ በፊት ብዙውን ጊዜ ይቀላል፣ ቢጫ ወይም ነጭ-ነጭ ይሆናል።',
+      },
+    ],
+    section3Heading: '3. የተለመደው ምን ሊሆን ይችላል',
+    section3Body:
+      'ሎኪያ የሚለወጥበት መንገድ ለሁሉም ትክክል ተመሳሳይ አይደለም። አንዳንድ ለውጦች ከወሊድ በኋላ ማገገም ጋር በተፈጥሮ ሊመጡ ይችላሉ።',
+    normalPoints: [
+      {
+        title: 'የሚለዋወጥ መጠን',
+        text: 'መጠኑ በመጀመሪያዎቹ ጥቂት ቀናት ሊለወጥ እና ከዚያ ቀስ በቀስ ሊቀንስ ይችላል።',
+      },
+      {
+        title: 'የሚለወጥ ቀለም',
+        text: 'ሎኪያ ብዙውን ጊዜ ከቀይ ወደ ቀለል ያሉ ጥላዎች በጊዜ ሂደት ይሄዳል።',
+      },
+      {
+        title: 'የሚለያይ ቆይታ',
+        text: 'ለበርካታ ሳምንታት ሊቆይ ይችላል፣ አካሄዱም ከሰው ወደ ሰው ይለያያል።',
+      },
+    ],
+    section4Heading: '4. የምቾትና የክትትል ምክሮች',
+    section4Body:
+      'በዚህ ጊዜ ቀላል ክትትል ተሞክሮሽን ከሌላ ሰው ጋር ሳታነጻጽሪ ሰውነትሽ እንዴት እንደሚለወጥ እንድትታዘቢ ሊረዳሽ ይችላል።',
+    comfortTips: [
+      {
+        title: 'ለስላሳ ንጽሕና',
+        text: 'ብስጭት የሚያስከትሉ ምርቶች ሳይኖሩ ለስላሳ፣ መደበኛ ማጠብን ምረጪ።',
+      },
+      {
+        title: 'እንዴት እንደሚለወጥ ተመልከቺ',
+        text: 'ማገገምሽን ለመከታተል የሚረዳ ከሆነ የፈሳሹን ቀለም፣ መጠንና ሂደት መጻፍ ትችያለሽ።',
+      },
+      {
+        title: 'ለራስሽ እረፍት ፍቀጂ',
+        text: 'ከወሊድ በኋላ ያለው ጊዜ ጊዜ ይወስዳል። ሰውነትሽን አዳምጪ እና የማገገም ፍላጎትሽን አክብሪ።',
+      },
+    ],
+    section5Heading: '5. ሎኪያ ወይስ የወር አበባሽ መመለስ?',
+    section5Body:
+      'ሎኪያ ከወሊድ በኋላ ባሉት ቀናት ይታያል እና ቀስ በቀስ ይቀንሳል። የወር አበባሽ መመለስ ግን ከዚህ ጊዜ በኋላ የወር አበባ ዑደትሽ መቀጠልን ያመለክታል።',
+    compareLochiaTitle: 'ሎኪያ',
+    compareLochiaText: 'ከወሊድ በኋላ ከማህፀን ማገገም ጋር የተያያዘ ፈሳሽ።',
+    compareReturnTitle: 'የወር አበባሽ መመለስ',
+    compareReturnText:
+      'የወር አበባ ዑደት መቀጠል፣ ከሰው ወደ ሰው በሚለያይ ጊዜ።',
+    section6Heading: '6. የሕክምና ምክር መቼ መፈለግ?',
+    section6Body:
+      'አካሄዱ ያልተለመደ ከመሰለሽ፣ ወይም አጠቃላይ ሁኔታሽ እየከፋ ከሄደ፣ ከጤና ባለሙያ ምክር መጠየቅ አስፈላጊ ነው።',
+    warningTitle: 'የሕክምና ምክር የሚያስፈልጋቸው ምልክቶች',
+    warningSigns: [
+      'ጠንካራ ወይም ያልተለመደ ሽታ',
+      'ትኩሳት ወይም እየከፋ የሚሄድ አጠቃላይ ሁኔታ',
+      'ድንገት በጣም የሚበዛ ፍሰት',
+      'ከፍተኛ፣ የሚቀጥል ወይም ያልተለመደ ህመም',
+      'የሚያሳስብሽ አዲስ ምልክት',
+    ],
+    tipTitle: 'ማወቅ ጠቃሚ ነው',
+    tipText:
+      'ሎኪያ ብዙውን ጊዜ ቀስ በቀስ ይለወጣል፦ በመጀመሪያ ቀይ ሊሆን፣ ከዚያ ከመጥፋቱ በፊት ሊቀል ይችላል። ያም ሆኖ፣ እያንዳንዱ ማገገም የግል ነው።',
+    summaryHeading: 'ዋና ዋና ነጥቦች',
+    summaryPoints: [
+      'ሎኪያ ከወሊድ በኋላ የተለመደ ፈሳሽ ነው።',
+      'ብዙውን ጊዜ በሳምንታት ውስጥ ቀለሙና መጠኑ ይለወጣል።',
+      'ቆይታውና አካሄዱ ከሰው ወደ ሰው ሊለያይ ይችላል።',
+      'ያልተለመደ ሽታ፣ ትኩሳት፣ ከፍተኛ ህመም፣ ወይም ድንገተኛ በጣም ብዙ ደም መፍሰስ የሕክምና ምክር ይፈልጋሉ።',
+    ],
+    disclaimerText:
+      'የመረጃ ይዘት። ይህ ጽሑፍ የሕክምና ምክርን ወይም ምርመራን አይተካም። ጥርጣሬ ካለሽ ወይም የሚያሳስብ ምልክት ካስተዋልሽ ከጤና ባለሙያ ምክር ጠይቂ።',
+    shareMessage: 'ከወሊድ በኋላ ሎኪያን መረዳት — AWA',
+  },
+  nl: {
+    badgeText: 'NA DE BEVALLING • LOCHIA',
+    title: 'Lochia na de bevalling\nbegrijpen',
+    metaDuration: '6 min lezen',
+    metaType: 'Gids',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informatieve inhoud',
+    intro:
+      'Na de bevalling verwijst lochia naar de vaginale afscheiding die samenhangt met het natuurlijke herstelproces van de baarmoeder. De kleur en hoeveelheid veranderen geleidelijk in de dagen en weken daarna.',
+    contentsTitle: 'In dit artikel',
+    topics: [
+      'Wat is lochia?',
+      'Hoe verandert het in de loop van de tijd?',
+      'Wat normaal kan zijn',
+      'Comforttips',
+      'Wanneer medisch advies zoeken?',
+      'Belangrijkste punten',
+    ],
+    section1Heading: '1. Wat is lochia?',
+    section1Body1:
+      'Lochia is vaginale afscheiding die na de bevalling optreedt. Ze bestaat voornamelijk uit het geleidelijk afvoeren van bloed, afscheidingen en weefsel uit de baarmoeder terwijl die herstelt.',
+    section1Body2:
+      'Het is anders dan een gewone menstruatie. Het wordt verwacht in de periode na de bevalling en neemt over het algemeen geleidelijk af.',
+    infoTitle: 'Belangrijkste punten',
+    infoText:
+      'Lochia betekent niet dat je menstruatie al is teruggekeerd. De terugkeer van je menstruatie is een apart gebeuren dat later plaatsvindt.',
+    section2Heading: '2. Hoe verandert lochia in de loop van de tijd?',
+    section2Body:
+      'Het uiterlijk verandert meestal in de eerste weken. De kleur wordt geleidelijk lichter en de hoeveelheid neemt meestal af.',
+    evolutionTitle: 'Een geleidelijke ontwikkeling',
+    evolutionSubtitle: 'De fasen kunnen van persoon tot persoon verschillen',
+    evolution: [
+      {
+        label: 'Helderrood',
+        period: 'De eerste dagen',
+        text: 'De afscheiding is meestal rood en kan in het begin heviger zijn.',
+      },
+      {
+        label: 'Roze / bruinachtig',
+        period: 'Na enkele dagen',
+        text: 'De kleur wordt geleidelijk lichter en kan verschuiven naar roze of bruin.',
+      },
+      {
+        label: 'Witachtig-geel',
+        period: 'In de volgende weken',
+        text: 'De afscheiding wordt meestal lichter, geelachtig of witachtig, voordat ze afneemt.',
+      },
+    ],
+    section3Heading: '3. Wat normaal kan zijn',
+    section3Body:
+      'Hoe lochia zich ontwikkelt is niet voor iedereen precies hetzelfde. Bepaalde veranderingen kunnen het herstel na de bevalling van nature vergezellen.',
+    normalPoints: [
+      {
+        title: 'Een wisselende hoeveelheid',
+        text: 'De hoeveelheid kan in de eerste dagen veranderen en daarna geleidelijk afnemen.',
+      },
+      {
+        title: 'Een kleur die verandert',
+        text: 'Lochia verschuift in de loop van de tijd meestal van rood naar lichtere tinten.',
+      },
+      {
+        title: 'Een wisselende duur',
+        text: 'Het kan enkele weken aanhouden en de ontwikkeling verschilt van persoon tot persoon.',
+      },
+    ],
+    section4Heading: '4. Comfort- en trackingtips',
+    section4Body:
+      'In deze periode kan eenvoudige tracking je helpen te observeren hoe je lichaam verandert zonder je ervaring met die van een ander te vergelijken.',
+    comfortTips: [
+      {
+        title: 'Zachte hygiëne',
+        text: 'Geef de voorkeur aan zacht, regelmatig wassen zonder irriterende producten.',
+      },
+      {
+        title: 'Volg de ontwikkeling',
+        text: 'Je kunt de kleur, hoeveelheid en ontwikkeling van de afscheiding noteren als dat helpt je herstel te volgen.',
+      },
+      {
+        title: 'Gun jezelf rust',
+        text: 'De periode na de bevalling kost tijd. Luister naar je lichaam en respecteer je behoefte om te herstellen.',
+      },
+    ],
+    section5Heading: '5. Lochia of de terugkeer van je menstruatie?',
+    section5Body:
+      'Lochia verschijnt in de dagen na de bevalling en neemt geleidelijk af. De terugkeer van je menstruatie komt daarentegen overeen met het hervatten van je menstruatiecyclus na deze periode.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Afscheiding die samenhangt met het herstel van de baarmoeder na de bevalling.',
+    compareReturnTitle: 'Terugkeer van je menstruatie',
+    compareReturnText:
+      'Hervatting van de menstruatiecyclus, op een moment dat van persoon tot persoon verschilt.',
+    section6Heading: '6. Wanneer medisch advies zoeken?',
+    section6Body:
+      'Als de ontwikkeling je ongewoon voorkomt of als je algemene toestand verslechtert, is het belangrijk advies te zoeken bij een zorgverlener.',
+    warningTitle: 'Tekenen die medisch advies vereisen',
+    warningSigns: [
+      'Een sterke of ongewone geur',
+      'Koorts of een verslechterende algemene toestand',
+      'Een bloeding die plotseling veel heviger wordt',
+      'Aanzienlijke, aanhoudende of ongewone pijn',
+      'Een nieuw symptoom dat je zorgen baart',
+    ],
+    tipTitle: 'Goed om te weten',
+    tipText:
+      'Lochia ontwikkelt zich meestal geleidelijk: in het begin kan het rood zijn en daarna lichter worden voordat het afneemt. Elk herstel is echter individueel.',
+    summaryHeading: 'Belangrijkste punten',
+    summaryPoints: [
+      'Lochia is normale afscheiding na de bevalling.',
+      'Het verandert in de loop van de weken meestal van kleur en hoeveelheid.',
+      'De duur en ontwikkeling kunnen van persoon tot persoon verschillen.',
+      'Een ongewone geur, koorts, aanzienlijke pijn of een plotselinge, zeer hevige bloeding vereisen medisch advies.',
+    ],
+    disclaimerText:
+      'Informatieve inhoud. Dit artikel vervangt geen medisch advies of onderzoek. Bij twijfel of als je een zorgwekkend symptoom opmerkt, vraag dan advies aan een zorgverlener.',
+    shareMessage: 'Lochia na de bevalling begrijpen — AWA',
+  },
+  fi: {
+    badgeText: 'SYNNYTYKSEN JÄLKEEN • LOCHIA',
+    title: 'Lochian ymmärtäminen\nsynnytyksen jälkeen',
+    metaDuration: '6 min lukuaika',
+    metaType: 'Opas',
+    metaLevel: 'Aloittelija',
+    metaValidated: 'Tiedoksi tarkoitettua sisältöä',
+    intro:
+      'Synnytyksen jälkeen lochia tarkoittaa emättimen eritettä, joka liittyy kohdun luonnolliseen toipumisprosessiin. Sen väri ja määrä muuttuvat vähitellen seuraavien päivien ja viikkojen aikana.',
+    contentsTitle: 'Tässä artikkelissa',
+    topics: [
+      'Mitä lochia on?',
+      'Miten se muuttuu ajan myötä?',
+      'Mikä voi olla normaalia',
+      'Mukavuusvinkit',
+      'Milloin hakea lääketieteellistä neuvoa?',
+      'Tärkeimmät asiat',
+    ],
+    section1Heading: '1. Mitä lochia on?',
+    section1Body1:
+      'Lochia on emättimen erite, joka ilmaantuu synnytyksen jälkeen. Se koostuu pääasiassa veren, eritteiden ja kudoksen vähittäisestä poistumisesta kohdusta sen toipuessa.',
+    section1Body2:
+      'Se eroaa tavallisista kuukautisista. Se on odotettavissa synnytyksen jälkeisenä aikana ja vähenee yleensä asteittain.',
+    infoTitle: 'Tärkeimmät asiat',
+    infoText:
+      'Lochia ei tarkoita, että kuukautisesi olisivat jo palanneet. Kuukautisten paluu on erillinen tapahtuma, joka tapahtuu myöhemmin.',
+    section2Heading: '2. Miten lochia muuttuu ajan myötä?',
+    section2Body:
+      'Sen ulkonäkö muuttuu yleensä ensimmäisten viikkojen aikana. Väri vaalenee vähitellen ja määrä yleensä vähenee.',
+    evolutionTitle: 'Asteittainen eteneminen',
+    evolutionSubtitle: 'Vaiheet voivat vaihdella ihmisestä toiseen',
+    evolution: [
+      {
+        label: 'Kirkkaanpunainen',
+        period: 'Ensimmäiset päivät',
+        text: 'Erite on yleensä punaista ja voi olla alussa runsaampaa.',
+      },
+      {
+        label: 'Vaaleanpunainen / ruskehtava',
+        period: 'Muutaman päivän kuluttua',
+        text: 'Väri vaalenee vähitellen ja voi siirtyä kohti vaaleanpunaista tai ruskeaa.',
+      },
+      {
+        label: 'Valkokeltainen',
+        period: 'Seuraavien viikkojen aikana',
+        text: 'Erite muuttuu yleensä vaaleammaksi, keltaiseksi tai valkeahkoksi ennen vähenemistä.',
+      },
+    ],
+    section3Heading: '3. Mikä voi olla normaalia',
+    section3Body:
+      'Lochian kehitys ei ole täsmälleen sama kaikilla. Tietyt muutokset voivat luonnollisesti kuulua synnytyksen jälkeiseen toipumiseen.',
+    normalPoints: [
+      {
+        title: 'Vaihteleva määrä',
+        text: 'Määrä voi muuttua ensimmäisten päivien aikana ja sitten vähentyä asteittain.',
+      },
+      {
+        title: 'Muuttuva väri',
+        text: 'Lochia siirtyy yleensä punaisesta kohti vaaleampia sävyjä ajan myötä.',
+      },
+      {
+        title: 'Vaihteleva kesto',
+        text: 'Se voi jatkua useita viikkoja, ja sen kehitys vaihtelee ihmisestä toiseen.',
+      },
+    ],
+    section4Heading: '4. Mukavuus- ja seurantavinkit',
+    section4Body:
+      'Tänä aikana yksinkertainen seuranta voi auttaa havainnoimaan kehosi muutoksia vertaamatta kokemustasi toisen kokemukseen.',
+    comfortTips: [
+      {
+        title: 'Lempeä hygienia',
+        text: 'Suosi lempeää, säännöllistä pesua ilman ärsyttäviä tuotteita.',
+      },
+      {
+        title: 'Seuraa kehitystä',
+        text: 'Voit kirjata eritteen värin, määrän ja etenemisen, jos se auttaa seuraamaan toipumistasi.',
+      },
+      {
+        title: 'Salli itsellesi lepo',
+        text: 'Synnytyksen jälkeinen aika vie aikaa. Kuuntele kehoasi ja kunnioita toipumisen tarvetta.',
+      },
+    ],
+    section5Heading: '5. Lochia vai kuukautisten paluu?',
+    section5Body:
+      'Lochia ilmaantuu synnytystä seuraavina päivinä ja vähenee vähitellen. Kuukautisten paluu puolestaan vastaa kuukautiskiertosi jatkumista tämän jakson jälkeen.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Synnytyksen jälkeiseen kohdun toipumiseen liittyvä erite.',
+    compareReturnTitle: 'Kuukautisten paluu',
+    compareReturnText:
+      'Kuukautiskierron jatkuminen ajankohtana, joka vaihtelee ihmisestä toiseen.',
+    section6Heading: '6. Milloin hakea lääketieteellistä neuvoa?',
+    section6Body:
+      'Jos eteneminen vaikuttaa sinusta epätavalliselta tai jos yleistilasi huononee, on tärkeää kysyä neuvoa terveydenhuollon ammattilaiselta.',
+    warningTitle: 'Merkit, jotka vaativat lääketieteellistä neuvontaa',
+    warningSigns: [
+      'Voimakas tai epätavallinen haju',
+      'Kuume tai yleistilan huononeminen',
+      'Vuoto, joka muuttuu äkillisesti paljon runsaammaksi',
+      'Merkittävä, pitkäkestoinen tai epätavallinen kipu',
+      'Uusi oire, joka huolestuttaa sinua',
+    ],
+    tipTitle: 'Hyvä tietää',
+    tipText:
+      'Lochia kehittyy yleensä asteittain: se voi olla ensin punaista ja sitten vaaleta ennen vähenemistä. Jokainen toipuminen on kuitenkin yksilöllinen.',
+    summaryHeading: 'Tärkeimmät asiat',
+    summaryPoints: [
+      'Lochia on normaalia eritettä synnytyksen jälkeen.',
+      'Sen väri ja määrä muuttuvat yleensä viikkojen kuluessa.',
+      'Sen kesto ja kehitys voivat vaihdella ihmisestä toiseen.',
+      'Epätavallinen haju, kuume, merkittävä kipu tai äkillinen, hyvin runsas vuoto vaativat lääketieteellistä neuvontaa.',
+    ],
+    disclaimerText:
+      'Tiedoksi tarkoitettua sisältöä. Tämä artikkeli ei korvaa lääketieteellistä neuvontaa tai tutkimusta. Epäselvässä tilanteessa tai jos huomaat huolestuttavan oireen, pyydä neuvoa terveydenhuollon ammattilaiselta.',
+    shareMessage: 'Lochian ymmärtäminen synnytyksen jälkeen — AWA',
+  },
+  el: {
+    badgeText: 'ΛΟΧΕΙΑ • ΛΟΧΙΑΚΑ ΥΓΡΑ',
+    title: 'Κατανοώντας τα λοχιακά υγρά\nμετά τον τοκετό',
+    metaDuration: '6 λεπτά ανάγνωσης',
+    metaType: 'Οδηγός',
+    metaLevel: 'Αρχάριο',
+    metaValidated: 'Ενημερωτικό περιεχόμενο',
+    intro:
+      'Μετά τον τοκετό, τα λοχιακά υγρά είναι οι κολπικές εκκρίσεις που συνδέονται με τη φυσική διαδικασία ανάρρωσης της μήτρας. Το χρώμα και η ποσότητά τους αλλάζουν σταδιακά τις επόμενες ημέρες και εβδομάδες.',
+    contentsTitle: 'Σε αυτό το άρθρο',
+    topics: [
+      'Τι είναι τα λοχιακά υγρά;',
+      'Πώς αλλάζουν με τον καιρό;',
+      'Τι μπορεί να είναι φυσιολογικό',
+      'Συμβουλές άνεσης',
+      'Πότε να ζητήσεις ιατρική συμβουλή;',
+      'Βασικά συμπεράσματα',
+    ],
+    section1Heading: '1. Τι είναι τα λοχιακά υγρά;',
+    section1Body1:
+      'Τα λοχιακά υγρά είναι κολπικές εκκρίσεις που εμφανίζονται μετά τον τοκετό. Αποτελούνται κυρίως από τη σταδιακή αποβολή αίματος, εκκρίσεων και ιστού από τη μήτρα καθώς αναρρώνει.',
+    section1Body2:
+      'Διαφέρουν από μια τακτική περίοδο. Αναμένονται κατά τη διάρκεια της λοχείας και γενικά μειώνονται προοδευτικά.',
+    infoTitle: 'Βασικά συμπεράσματα',
+    infoText:
+      'Τα λοχιακά υγρά δεν σημαίνουν ότι η περίοδός σου έχει ήδη επιστρέψει. Η επιστροφή της περιόδου είναι ξεχωριστό γεγονός που συμβαίνει αργότερα.',
+    section2Heading: '2. Πώς αλλάζουν τα λοχιακά υγρά με τον καιρό;',
+    section2Body:
+      'Η εμφάνισή τους αλλάζει συνήθως τις πρώτες εβδομάδες. Το χρώμα γίνεται σταδιακά πιο ανοιχτό και η ποσότητα τείνει να μειώνεται.',
+    evolutionTitle: 'Μια σταδιακή εξέλιξη',
+    evolutionSubtitle: 'Τα στάδια μπορεί να διαφέρουν από γυναίκα σε γυναίκα',
+    evolution: [
+      {
+        label: 'Έντονο κόκκινο',
+        period: 'Οι πρώτες ημέρες',
+        text: 'Οι εκκρίσεις είναι συνήθως κόκκινες και μπορεί να είναι πιο άφθονες στην αρχή.',
+      },
+      {
+        label: 'Ροζ / καφέ',
+        period: 'Μετά από λίγες ημέρες',
+        text: 'Το χρώμα γίνεται σταδιακά πιο ανοιχτό και μπορεί να στραφεί προς το ροζ ή το καφέ.',
+      },
+      {
+        label: 'Υπόλευκο-κίτρινο',
+        period: 'Τις επόμενες εβδομάδες',
+        text: 'Οι εκκρίσεις γίνονται συνήθως πιο ελαφριές, κιτρινωπές ή υπόλευκες, πριν σβήσουν.',
+      },
+    ],
+    section3Heading: '3. Τι μπορεί να είναι φυσιολογικό',
+    section3Body:
+      'Η εξέλιξη των λοχιακών υγρών δεν είναι ακριβώς η ίδια για όλες. Ορισμένες αλλαγές μπορούν να συνοδεύουν φυσιολογικά την ανάρρωση μετά τον τοκετό.',
+    normalPoints: [
+      {
+        title: 'Μεταβαλλόμενη ποσότητα',
+        text: 'Η ποσότητα μπορεί να αλλάζει τις πρώτες ημέρες και στη συνέχεια να μειώνεται σταδιακά.',
+      },
+      {
+        title: 'Χρώμα που αλλάζει',
+        text: 'Τα λοχιακά υγρά περνούν συνήθως από το κόκκινο σε πιο ανοιχτές αποχρώσεις με τον καιρό.',
+      },
+      {
+        title: 'Μεταβαλλόμενη διάρκεια',
+        text: 'Μπορεί να διαρκέσουν αρκετές εβδομάδες και η εξέλιξή τους διαφέρει από γυναίκα σε γυναίκα.',
+      },
+    ],
+    section4Heading: '4. Συμβουλές άνεσης και παρακολούθησης',
+    section4Body:
+      'Σε αυτή την περίοδο, μια απλή παρακολούθηση μπορεί να σε βοηθήσει να παρατηρείς πώς αλλάζει το σώμα σου χωρίς να συγκρίνεις την εμπειρία σου με της άλλης.',
+    comfortTips: [
+      {
+        title: 'Ήπια υγιεινή',
+        text: 'Προτίμησε απαλό, τακτικό πλύσιμο χωρίς ερεθιστικά προϊόντα.',
+      },
+      {
+        title: 'Παρακολούθησε την εξέλιξη',
+        text: 'Μπορείς να σημειώνεις το χρώμα, την ποσότητα και την εξέλιξη των εκκρίσεων αν σε βοηθά να παρακολουθείς την ανάρρωσή σου.',
+      },
+      {
+        title: 'Επίτρεψε στον εαυτό σου ξεκούραση',
+        text: 'Η λοχεία παίρνει χρόνο. Άκουσε το σώμα σου και σεβάσου την ανάγκη σου να αναρρώσεις.',
+      },
+    ],
+    section5Heading: '5. Λοχιακά υγρά ή επιστροφή της περιόδου;',
+    section5Body:
+      'Τα λοχιακά υγρά εμφανίζονται τις ημέρες μετά τον τοκετό και μειώνονται σταδιακά. Η επιστροφή της περιόδου, αντίθετα, αντιστοιχεί στην επανέναρξη του έμμηνου κύκλου σου μετά από αυτή την περίοδο.',
+    compareLochiaTitle: 'Λοχιακά υγρά',
+    compareLochiaText: 'Εκκρίσεις που συνδέονται με την ανάρρωση της μήτρας μετά τον τοκετό.',
+    compareReturnTitle: 'Επιστροφή της περιόδου',
+    compareReturnText:
+      'Επανέναρξη του έμμηνου κύκλου, σε χρόνο που διαφέρει από γυναίκα σε γυναίκα.',
+    section6Heading: '6. Πότε να ζητήσεις ιατρική συμβουλή;',
+    section6Body:
+      'Αν η εξέλιξη σου φαίνεται ασυνήθιστη ή αν η γενική σου κατάσταση επιδεινώνεται, είναι σημαντικό να ζητήσεις συμβουλή από έναν επαγγελματία υγείας.',
+    warningTitle: 'Σημάδια που απαιτούν ιατρική συμβουλή',
+    warningSigns: [
+      'Έντονη ή ασυνήθιστη μυρωδιά',
+      'Πυρετός ή επιδείνωση της γενικής κατάστασης',
+      'Ροή που ξαφνικά γίνεται πολύ πιο έντονη',
+      'Σημαντικός, επίμονος ή ασυνήθιστος πόνος',
+      'Ένα νέο σύμπτωμα που σε ανησυχεί',
+    ],
+    tipTitle: 'Καλό είναι να γνωρίζεις',
+    tipText:
+      'Τα λοχιακά υγρά εξελίσσονται συνήθως σταδιακά: μπορεί να είναι κόκκινα στην αρχή και στη συνέχεια να γίνονται πιο ανοιχτά πριν σβήσουν. Ωστόσο, κάθε ανάρρωση είναι ατομική.',
+    summaryHeading: 'Βασικά συμπεράσματα',
+    summaryPoints: [
+      'Τα λοχιακά υγρά είναι φυσιολογικές εκκρίσεις μετά τον τοκετό.',
+      'Αλλάζουν συνήθως χρώμα και ποσότητα στη διάρκεια των εβδομάδων.',
+      'Η διάρκεια και η εξέλιξή τους μπορεί να διαφέρουν από γυναίκα σε γυναίκα.',
+      'Μια ασυνήθιστη μυρωδιά, πυρετός, σημαντικός πόνος ή μια ξαφνική, πολύ έντονη αιμορραγία απαιτούν ιατρική συμβουλή.',
+    ],
+    disclaimerText:
+      'Ενημερωτικό περιεχόμενο. Αυτό το άρθρο δεν αντικαθιστά την ιατρική συμβουλή ή εξέταση. Αν έχεις αμφιβολίες ή παρατηρήσεις ένα ανησυχητικό σύμπτωμα, ζήτησε συμβουλή από έναν επαγγελματία υγείας.',
+    shareMessage: 'Κατανοώντας τα λοχιακά υγρά μετά τον τοκετό — AWA',
+  },
+  fil: {
+    badgeText: 'PAGKATAPOS MANGANAK • LOCHIA',
+    title: 'Pag-unawa sa lochia\npagkatapos manganak',
+    metaDuration: '6 min na babasahin',
+    metaType: 'Gabay',
+    metaLevel: 'Baguhan',
+    metaValidated: 'Impormatibong nilalaman',
+    intro:
+      'Pagkatapos manganak, ang lochia ay tumutukoy sa pagtagas sa ari na kaugnay ng natural na proseso ng paggaling ng matris. Unti-unting nagbabago ang kulay at dami nito sa mga sumunod na araw at linggo.',
+    contentsTitle: 'Sa artikulong ito',
+    topics: [
+      'Ano ang lochia?',
+      'Paano ito nagbabago sa paglipas ng panahon?',
+      'Ano ang maaaring normal',
+      'Payo para sa ginhawa',
+      'Kailan hihingi ng payong medikal?',
+      'Mahahalagang tandaan',
+    ],
+    section1Heading: '1. Ano ang lochia?',
+    section1Body1:
+      'Ang lochia ay pagtagas sa ari na lumilitaw pagkatapos manganak. Pangunahin itong binubuo ng unti-unting paglabas ng dugo, mga sekresyon, at tisyu mula sa matris habang gumagaling ito.',
+    section1Body2:
+      'Iba ito sa karaniwang regla. Inaasahan ito sa panahon pagkatapos manganak at karaniwang unti-unting bumababa.',
+    infoTitle: 'Mahahalagang tandaan',
+    infoText:
+      'Hindi nangangahulugan ang lochia na bumalik na ang iyong regla. Magkahiwalay na pangyayari ang pagbabalik ng regla na nangyayari sa mas huling panahon.',
+    section2Heading: '2. Paano nagbabago ang lochia sa paglipas ng panahon?',
+    section2Body:
+      'Karaniwang nagbabago ang itsura nito sa unang ilang linggo. Unti-unting lumiliwanag ang kulay at may tendensiyang bumaba ang dami.',
+    evolutionTitle: 'Isang unti-unting pag-usad',
+    evolutionSubtitle: 'Maaaring mag-iba ang mga yugto sa bawat tao',
+    evolution: [
+      {
+        label: 'Matingkad na pula',
+        period: 'Ang unang mga araw',
+        text: 'Karaniwang pula ang pagtagas at maaaring mas marami sa simula.',
+      },
+      {
+        label: 'Rosas / kayumanggi',
+        period: 'Pagkalipas ng ilang araw',
+        text: 'Unti-unting lumiliwanag ang kulay at maaaring lumipat sa rosas o kayumanggi.',
+      },
+      {
+        label: 'Maputi-dilaw',
+        period: 'Sa mga sumunod na linggo',
+        text: 'Karaniwang gumagaan ang pagtagas, nagiging madilaw o maputi, bago tuluyang humupa.',
+      },
+    ],
+    section3Heading: '3. Ano ang maaaring normal',
+    section3Body:
+      'Hindi eksaktong pareho para sa lahat ang pag-usad ng lochia. Ang ilang pagbabago ay natural na kasama ng paggaling pagkatapos manganak.',
+    normalPoints: [
+      {
+        title: 'Nag-iiba-ibang dami',
+        text: 'Maaaring magbago ang dami sa unang ilang araw at pagkatapos ay unti-unting bumaba.',
+      },
+      {
+        title: 'Kulay na nagbabago',
+        text: 'Karaniwang lumilipat ang lochia mula pula patungo sa mas matingkad na kulay sa paglipas ng panahon.',
+      },
+      {
+        title: 'Nag-iiba-ibang tagal',
+        text: 'Maaari itong magtagal nang ilang linggo, at nag-iiba ang pag-usad nito sa bawat tao.',
+      },
+    ],
+    section4Heading: '4. Payo para sa ginhawa at pagsubaybay',
+    section4Body:
+      'Sa panahong ito, makakatulong ang simpleng pagsubaybay para obserbahan kung paano nagbabago ang iyong katawan nang hindi inihahambing ang karanasan mo sa iba.',
+    comfortTips: [
+      {
+        title: 'Banayad na kalinisan',
+        text: 'Piliin ang banayad at regular na paghuhugas nang walang nakakairitang produkto.',
+      },
+      {
+        title: 'Bantayan ang pag-usad nito',
+        text: 'Maaari mong itala ang kulay, dami, at pag-usad ng pagtagas kung nakakatulong ito sa pagsubaybay sa iyong paggaling.',
+      },
+      {
+        title: 'Hayaan ang sarili mong magpahinga',
+        text: 'Kailangan ng oras ang panahon pagkatapos manganak. Pakinggan ang iyong katawan at igalang ang pangangailangan mong gumaling.',
+      },
+    ],
+    section5Heading: '5. Lochia ba o pagbabalik ng iyong regla?',
+    section5Body:
+      'Lumilitaw ang lochia sa mga araw pagkatapos manganak at unti-unting bumababa. Ang pagbabalik ng iyong regla, sa kabilang banda, ay tumutugma sa pagpapatuloy ng iyong siklo ng regla pagkatapos ng panahong ito.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Pagtagas na kaugnay ng paggaling ng matris pagkatapos manganak.',
+    compareReturnTitle: 'Pagbabalik ng iyong regla',
+    compareReturnText:
+      'Pagpapatuloy ng siklo ng regla, sa panahong nag-iiba sa bawat tao.',
+    section6Heading: '6. Kailan hihingi ng payong medikal?',
+    section6Body:
+      'Kung tila hindi pangkaraniwan sa iyo ang pag-usad, o kung lumalala ang pangkalahatan mong kalagayan, mahalagang humingi ng payo sa propesyonal sa kalusugan.',
+    warningTitle: 'Mga senyales na nangangailangan ng payong medikal',
+    warningSigns: [
+      'Matapang o hindi pangkaraniwang amoy',
+      'Lagnat o lumalalang pangkalahatang kalagayan',
+      'Daloy na biglang nagiging mas marami',
+      'Matindi, patuloy, o hindi pangkaraniwang sakit',
+      'Bagong sintomas na bumabagabag sa iyo',
+    ],
+    tipTitle: 'Mabuting malaman',
+    tipText:
+      'Karaniwang unti-unting nagbabago ang lochia: maaaring pula sa simula, pagkatapos ay gumagaan bago humupa. Gayunpaman, indibidwal ang bawat paggaling.',
+    summaryHeading: 'Mahahalagang tandaan',
+    summaryPoints: [
+      'Normal na pagtagas ang lochia pagkatapos manganak.',
+      'Karaniwang nagbabago ang kulay at dami nito sa paglipas ng mga linggo.',
+      'Maaaring mag-iba sa bawat tao ang tagal at pag-usad nito.',
+      'Ang hindi pangkaraniwang amoy, lagnat, matinding sakit, o biglaang napakaraming pagdurugo ay nangangailangan ng payong medikal.',
+    ],
+    disclaimerText:
+      'Impormatibong nilalaman. Hindi pumapalit ang artikulong ito sa payong medikal o pagsusuri. Kung nag-aalinlangan o kung may napansin kang nakababahalang sintomas, humingi ng payo sa propesyonal sa kalusugan.',
+    shareMessage: 'Pag-unawa sa lochia pagkatapos manganak — AWA',
+  },
+  ta: {
+    badgeText: 'பிரசவத்திற்குப் பின் • லோகியா',
+    title: 'பிரசவத்துக்குப் பின் லோகியாவைப்\nபுரிந்துகொள்ளுதல்',
+    metaDuration: '6 நிமிடம் படிக்க',
+    metaType: 'வழிகாட்டி',
+    metaLevel: 'தொடக்க நிலை',
+    metaValidated: 'தகவல் உள்ளடக்கம்',
+    intro:
+      'பிரசவத்துக்குப் பின், லோகியா என்பது கருப்பை குணமடையும் இயற்கையான செயல்முறையுடன் தொடர்புடைய யோனி வெளியேற்றத்தைக் குறிக்கிறது. அதன் நிறமும் அளவும் அடுத்த நாட்களிலும் வாரங்களிலும் படிப்படியாக மாறுகின்றன.',
+    contentsTitle: 'இந்தக் கட்டுரையில்',
+    topics: [
+      'லோகியா என்றால் என்ன?',
+      'காலப்போக்கில் அது எப்படி மாறுகிறது?',
+      'எது இயல்பாக இருக்கலாம்',
+      'வசதிக் குறிப்புகள்',
+      'மருத்துவ ஆலோசனையை எப்போது கேட்பது?',
+      'முக்கியக் குறிப்புகள்',
+    ],
+    section1Heading: '1. லோகியா என்றால் என்ன?',
+    section1Body1:
+      'லோகியா என்பது பிரசவத்துக்குப் பின் தோன்றும் யோனி வெளியேற்றம். கருப்பை குணமடையும்போது அதிலிருந்து இரத்தம், சுரப்புகள் மற்றும் திசு படிப்படியாக வெளியேறுவதை இது முக்கியமாகக் கொண்டுள்ளது.',
+    section1Body2:
+      'இது வழக்கமான மாதவிடாயிலிருந்து வேறுபட்டது. பிரசவத்துக்குப் பிந்தைய காலத்தில் இது எதிர்பார்க்கப்படுகிறது, பொதுவாகப் படிப்படியாகக் குறைகிறது.',
+    infoTitle: 'முக்கியக் குறிப்புகள்',
+    infoText:
+      'லோகியா உங்கள் மாதவிடாய் ஏற்கனவே திரும்பிவிட்டது என்று பொருளல்ல. உங்கள் மாதவிடாய் திரும்புவது பின்னர் நிகழும் ஒரு தனி நிகழ்வு.',
+    section2Heading: '2. காலப்போக்கில் லோகியா எப்படி மாறுகிறது?',
+    section2Body:
+      'அதன் தோற்றம் பொதுவாக முதல் சில வாரங்களில் மாறுகிறது. நிறம் படிப்படியாக இலேசாகிறது, அளவு குறைய முனைகிறது.',
+    evolutionTitle: 'ஒரு படிப்படியான முன்னேற்றம்',
+    evolutionSubtitle: 'கட்டங்கள் ஒருவருக்கு ஒருவர் மாறுபடலாம்',
+    evolution: [
+      {
+        label: 'பிரகாசமான சிவப்பு',
+        period: 'முதல் நாட்கள்',
+        text: 'வெளியேற்றம் பொதுவாகச் சிவப்பாக இருக்கும், தொடக்கத்தில் அதிகமாக இருக்கலாம்.',
+      },
+      {
+        label: 'இளஞ்சிவப்பு / பழுப்பு',
+        period: 'சில நாட்களுக்குப் பின்',
+        text: 'நிறம் படிப்படியாக இலேசாகி இளஞ்சிவப்பு அல்லது பழுப்பு நிறத்துக்கு மாறலாம்.',
+      },
+      {
+        label: 'வெண்மை-மஞ்சள்',
+        period: 'அடுத்த வாரங்களில்',
+        text: 'வெளியேற்றம் பொதுவாக இலேசாகி, மஞ்சளாகவோ வெண்மையாகவோ மாறி, பின்னர் குறைந்து போகிறது.',
+      },
+    ],
+    section3Heading: '3. எது இயல்பாக இருக்கலாம்',
+    section3Body:
+      'லோகியா மாறும் விதம் அனைவருக்கும் சரியாக ஒரே மாதிரி இருப்பதில்லை. சில மாற்றங்கள் பிரசவத்துக்குப் பின் குணமடைதலுடன் இயல்பாகவே சேர்ந்து வரலாம்.',
+    normalPoints: [
+      {
+        title: 'மாறுபடும் அளவு',
+        text: 'முதல் சில நாட்களில் அளவு மாறலாம், பின்னர் படிப்படியாகக் குறையலாம்.',
+      },
+      {
+        title: 'மாறும் நிறம்',
+        text: 'லோகியா பொதுவாகக் காலப்போக்கில் சிவப்பிலிருந்து இலேசான நிழல்களுக்கு நகர்கிறது.',
+      },
+      {
+        title: 'மாறுபடும் கால அளவு',
+        text: 'இது பல வாரங்கள் நீடிக்கலாம், அது எப்படி மாறுகிறது என்பது ஒருவருக்கு ஒருவர் வேறுபடும்.',
+      },
+    ],
+    section4Heading: '4. வசதி மற்றும் கண்காணிப்புக் குறிப்புகள்',
+    section4Body:
+      'இந்தக் காலத்தில், உங்கள் அனுபவத்தை வேறொருவருடையதுடன் ஒப்பிடாமல், உங்கள் உடல் எப்படி மாறுகிறது என்பதைக் கவனிக்க எளிய கண்காணிப்பு உதவலாம்.',
+    comfortTips: [
+      {
+        title: 'மென்மையான சுகாதாரம்',
+        text: 'எரிச்சல் ஏற்படுத்தும் பொருட்கள் இல்லாத மென்மையான, தொடர்ந்த கழுவலுக்கு முன்னுரிமை கொடுங்கள்.',
+      },
+      {
+        title: 'அது எப்படி மாறுகிறது என்பதைக் கவனியுங்கள்',
+        text: 'உங்கள் மீட்சியைக் கண்காணிக்க உதவினால், வெளியேற்றத்தின் நிறம், அளவு மற்றும் முன்னேற்றத்தைக் குறிக்கலாம்.',
+      },
+      {
+        title: 'ஓய்வெடுக்க அனுமதியுங்கள்',
+        text: 'பிரசவத்துக்குப் பிந்தைய காலத்துக்கு நேரம் தேவை. உங்கள் உடலுக்குச் செவிகொடுத்து, குணமடைவதற்கான உங்கள் தேவையை மதியுங்கள்.',
+      },
+    ],
+    section5Heading: '5. லோகியாவா அல்லது உங்கள் மாதவிடாய் திரும்புதலா?',
+    section5Body:
+      'லோகியா பிரசவத்துக்குப் பின் வரும் நாட்களில் தோன்றி படிப்படியாகக் குறைகிறது. உங்கள் மாதவிடாய் திரும்புதல், மறுபுறம், இந்தக் காலத்துக்குப் பின் உங்கள் மாதவிடாய்ச் சுழற்சி மீண்டும் தொடங்குவதைக் குறிக்கிறது.',
+    compareLochiaTitle: 'லோகியா',
+    compareLochiaText: 'பிரசவத்துக்குப் பின் கருப்பை குணமடைவதுடன் தொடர்புடைய வெளியேற்றம்.',
+    compareReturnTitle: 'உங்கள் மாதவிடாய் திரும்புதல்',
+    compareReturnText:
+      'மாதவிடாய்ச் சுழற்சி மீண்டும் தொடங்குதல், ஒருவருக்கு ஒருவர் மாறுபடும் நேரத்தில்.',
+    section6Heading: '6. மருத்துவ ஆலோசனையை எப்போது கேட்பது?',
+    section6Body:
+      'முன்னேற்றம் உங்களுக்கு வழக்கத்துக்கு மாறாகத் தோன்றினால், அல்லது உங்கள் ஒட்டுமொத்த நிலை மோசமடைந்தால், ஒரு சுகாதார நிபுணரிடம் ஆலோசனை கேட்பது முக்கியம்.',
+    warningTitle: 'மருத்துவ ஆலோசனை தேவைப்படும் அறிகுறிகள்',
+    warningSigns: [
+      'வலுவான அல்லது வழக்கத்துக்கு மாறான மணம்',
+      'காய்ச்சல் அல்லது மோசமடையும் ஒட்டுமொத்த நிலை',
+      'திடீரென மிக அதிகமாகும் ஓட்டம்',
+      'குறிப்பிடத்தக்க, தொடர்ந்த அல்லது வழக்கத்துக்கு மாறான வலி',
+      'உங்களைக் கவலைப்படுத்தும் ஒரு புதிய அறிகுறி',
+    ],
+    tipTitle: 'தெரிந்துகொள்ளுங்கள்',
+    tipText:
+      'லோகியா பொதுவாகப் படிப்படியாக மாறுகிறது: முதலில் சிவப்பாக இருக்கலாம், பின்னர் இலேசாகி, குறைந்துபோகலாம். இருப்பினும், ஒவ்வொரு மீட்சியும் தனிப்பட்டது.',
+    summaryHeading: 'முக்கியக் குறிப்புகள்',
+    summaryPoints: [
+      'லோகியா பிரசவத்துக்குப் பின் இயல்பான வெளியேற்றம்.',
+      'இது பொதுவாக வாரங்கள் செல்லச் செல்ல நிறத்திலும் அளவிலும் மாறுகிறது.',
+      'அதன் கால அளவும் முன்னேற்றமும் ஒருவருக்கு ஒருவர் மாறுபடலாம்.',
+      'வழக்கத்துக்கு மாறான மணம், காய்ச்சல், குறிப்பிடத்தக்க வலி அல்லது திடீர், மிக அதிகமான இரத்தப்போக்குக்கு மருத்துவ ஆலோசனை தேவை.',
+    ],
+    disclaimerText:
+      'தகவல் உள்ளடக்கம். இந்தக் கட்டுரை மருத்துவ ஆலோசனைக்கோ பரிசோதனைக்கோ மாற்றல்ல. சந்தேகம் இருந்தால் அல்லது கவலையளிக்கும் அறிகுறியைக் கவனித்தால், ஒரு சுகாதார நிபுணரிடம் ஆலோசனை கேளுங்கள்.',
+    shareMessage: 'பிரசவத்துக்குப் பின் லோகியாவைப் புரிந்துகொள்ளுதல் — AWA',
+  },
+  te: {
+    badgeText: 'ప్రసవానంతరం • లోచియా',
+    title: 'ప్రసవం తర్వాత\nలోచియాను అర్థం చేసుకోవడం',
+    metaDuration: '6 నిమిషాల పఠనం',
+    metaType: 'గైడ్',
+    metaLevel: 'ప్రారంభ స్థాయి',
+    metaValidated: 'సమాచార కంటెంట్',
+    intro:
+      'ప్రసవం తర్వాత, లోచియా అనేది గర్భాశయం కోలుకునే సహజ ప్రక్రియతో ముడిపడిన యోని స్రావాన్ని సూచిస్తుంది. దాని రంగు, పరిమాణం తర్వాతి రోజుల్లో, వారాల్లో క్రమంగా మారుతాయి.',
+    contentsTitle: 'ఈ వ్యాసంలో',
+    topics: [
+      'లోచియా అంటే ఏమిటి?',
+      'కాలక్రమేణా అది ఎలా మారుతుంది?',
+      'ఏది సహజం కావచ్చు',
+      'సౌకర్య చిట్కాలు',
+      'వైద్య సలహాను ఎప్పుడు కోరాలి?',
+      'ముఖ్యాంశాలు',
+    ],
+    section1Heading: '1. లోచియా అంటే ఏమిటి?',
+    section1Body1:
+      'లోచియా అనేది ప్రసవం తర్వాత కనిపించే యోని స్రావం. ఇది ప్రధానంగా గర్భాశయం కోలుకుంటున్నప్పుడు అందులోని రక్తం, స్రావాలు, కణజాలం క్రమంగా బయటకు వెళ్లడం.',
+    section1Body2:
+      'ఇది క్రమమైన నెలసరికి భిన్నమైనది. ప్రసవానంతర కాలంలో ఇది ఆశించదగినది, సాధారణంగా క్రమంగా తగ్గుతుంది.',
+    infoTitle: 'ముఖ్యాంశాలు',
+    infoText:
+      'లోచియా అంటే మీ నెలసరి ఇప్పటికే తిరిగి వచ్చిందని కాదు. మీ నెలసరి తిరిగి రావడం తర్వాత జరిగే ఒక ప్రత్యేక సంఘటన.',
+    section2Heading: '2. కాలక్రమేణా లోచియా ఎలా మారుతుంది?',
+    section2Body:
+      'దాని రూపం సాధారణంగా మొదటి కొన్ని వారాల్లో మారుతుంది. రంగు క్రమంగా తేలికపడుతుంది, పరిమాణం తగ్గే ధోరణి ఉంటుంది.',
+    evolutionTitle: 'ఒక క్రమమైన పురోగతి',
+    evolutionSubtitle: 'దశలు ఒకరి నుండి మరొకరికి మారవచ్చు',
+    evolution: [
+      {
+        label: 'ప్రకాశవంతమైన ఎరుపు',
+        period: 'మొదటి రోజులు',
+        text: 'స్రావం సాధారణంగా ఎరుపు రంగులో ఉంటుంది, ఆరంభంలో ఎక్కువగా ఉండవచ్చు.',
+      },
+      {
+        label: 'గులాబీ / గోధుమ రంగు',
+        period: 'కొన్ని రోజుల తర్వాత',
+        text: 'రంగు క్రమంగా తేలికపడి గులాబీ లేదా గోధుమ వైపు మారవచ్చు.',
+      },
+      {
+        label: 'తెల్లని-పసుపు',
+        period: 'తర్వాతి వారాల్లో',
+        text: 'స్రావం సాధారణంగా తేలికపడి, పసుపు లేదా తెల్లగా మారి, ఆపై తగ్గిపోతుంది.',
+      },
+    ],
+    section3Heading: '3. ఏది సహజం కావచ్చు',
+    section3Body:
+      'లోచియా మారే తీరు అందరికీ సరిగ్గా ఒకేలా ఉండదు. ప్రసవం తర్వాత కోలుకునే క్రమంతో కొన్ని మార్పులు సహజంగా కలిసి రావచ్చు.',
+    normalPoints: [
+      {
+        title: 'మారుతూ ఉండే పరిమాణం',
+        text: 'పరిమాణం మొదటి కొన్ని రోజుల్లో మారి, ఆపై క్రమంగా తగ్గవచ్చు.',
+      },
+      {
+        title: 'మారే రంగు',
+        text: 'లోచియా సాధారణంగా కాలక్రమేణా ఎరుపు నుండి తేలికైన ఛాయల వైపు మారుతుంది.',
+      },
+      {
+        title: 'మారుతూ ఉండే వ్యవధి',
+        text: 'ఇది అనేక వారాలు కొనసాగవచ్చు, ఇది ఎలా మారుతుందనేది ఒకరి నుండి మరొకరికి భిన్నంగా ఉంటుంది.',
+      },
+    ],
+    section4Heading: '4. సౌకర్యం & ట్రాకింగ్ చిట్కాలు',
+    section4Body:
+      'ఈ కాలంలో, మీ అనుభవాన్ని మరొకరి అనుభవంతో పోల్చకుండా మీ శరీరం ఎలా మారుతోందో గమనించడానికి సరళమైన ట్రాకింగ్ సహాయపడుతుంది.',
+    comfortTips: [
+      {
+        title: 'మృదువైన పరిశుభ్రత',
+        text: 'చికాకు కలిగించే ఉత్పత్తులు లేకుండా మృదువుగా, క్రమం తప్పకుండా కడుక్కోవడానికి ప్రాధాన్యం ఇవ్వండి.',
+      },
+      {
+        title: 'అది ఎలా మారుతుందో గమనించండి',
+        text: 'మీ కోలుకోవడాన్ని ట్రాక్ చేయడానికి సహాయపడితే, స్రావం రంగును, పరిమాణాన్ని, పురోగతిని మీరు రాసుకోవచ్చు.',
+      },
+      {
+        title: 'మీకు విశ్రాంతి ఇచ్చుకోండి',
+        text: 'ప్రసవానంతర కాలానికి సమయం పడుతుంది. మీ శరీరం మాట వినండి, కోలుకోవాల్సిన మీ అవసరాన్ని గౌరవించండి.',
+      },
+    ],
+    section5Heading: '5. లోచియా లేదా మీ నెలసరి తిరిగి రావడమా?',
+    section5Body:
+      'లోచియా ప్రసవం తర్వాతి రోజుల్లో కనిపించి క్రమంగా తగ్గుతుంది. మీ నెలసరి తిరిగి రావడం, మరోవైపు, ఈ కాలం తర్వాత మీ నెలసరి చక్రం మళ్లీ మొదలవడాన్ని సూచిస్తుంది.',
+    compareLochiaTitle: 'లోచియా',
+    compareLochiaText: 'ప్రసవం తర్వాత గర్భాశయం కోలుకోవడంతో ముడిపడిన స్రావం.',
+    compareReturnTitle: 'మీ నెలసరి తిరిగి రావడం',
+    compareReturnText:
+      'నెలసరి చక్రం మళ్లీ మొదలవడం, ఒకరి నుండి మరొకరికి మారే సమయంలో.',
+    section6Heading: '6. వైద్య సలహాను ఎప్పుడు కోరాలి?',
+    section6Body:
+      'పురోగతి మీకు అసాధారణంగా అనిపిస్తే, లేదా మీ మొత్తం పరిస్థితి మరింత దిగజారుతుంటే, ఒక ఆరోగ్య నిపుణుడి సలహా పొందడం ముఖ్యం.',
+    warningTitle: 'వైద్య సలహా అవసరమయ్యే సంకేతాలు',
+    warningSigns: [
+      'బలమైన లేదా అసాధారణ వాసన',
+      'జ్వరం లేదా మరింత దిగజారుతున్న సాధారణ స్థితి',
+      'అకస్మాత్తుగా చాలా ఎక్కువయ్యే రక్తస్రావం',
+      'గణనీయమైన, కొనసాగే లేదా అసాధారణ నొప్పి',
+      'మిమ్మల్ని ఆందోళనపెట్టే కొత్త లక్షణం',
+    ],
+    tipTitle: 'తెలుసుకోవాల్సినవి',
+    tipText:
+      'లోచియా సాధారణంగా క్రమంగా మారుతుంది: మొదట ఎరుపుగా ఉండి, తర్వాత తేలికపడి, ఆపై తగ్గిపోవచ్చు. అయినా, ప్రతి కోలుకోవడం వ్యక్తిగతమైనది.',
+    summaryHeading: 'ముఖ్యాంశాలు',
+    summaryPoints: [
+      'లోచియా ప్రసవం తర్వాత సహజ స్రావం.',
+      'ఇది సాధారణంగా వారాల్లో రంగులో, పరిమాణంలో మారుతుంది.',
+      'దాని వ్యవధి, పురోగతి ఒకరి నుండి మరొకరికి మారవచ్చు.',
+      'అసాధారణ వాసన, జ్వరం, గణనీయమైన నొప్పి లేదా అకస్మాత్తు, చాలా ఎక్కువ రక్తస్రావానికి వైద్య సలహా అవసరం.',
+    ],
+    disclaimerText:
+      'సమాచార కంటెంట్. ఈ వ్యాసం వైద్య సలహాకు లేదా పరీక్షకు ప్రత్యామ్నాయం కాదు. సందేహం ఉంటే లేదా ఆందోళన కలిగించే లక్షణాన్ని గమనిస్తే, ఒక ఆరోగ్య నిపుణుడి సలహా పొందండి.',
+    shareMessage: 'ప్రసవం తర్వాత లోచియాను అర్థం చేసుకోవడం — AWA',
+  },
+  mr: {
+    badgeText: 'प्रसूतीनंतर • लोकिया',
+    title: 'प्रसूतीनंतरचा\nलोकिया समजून घेणे',
+    metaDuration: '6 मिनिटे वाचन',
+    metaType: 'मार्गदर्शक',
+    metaLevel: 'प्रारंभ स्तर',
+    metaValidated: 'माहितीपर मजकूर',
+    intro:
+      'बाळाला जन्म दिल्यानंतर, लोकिया म्हणजे गर्भाशय बरे होण्याच्या नैसर्गिक प्रक्रियेशी जोडलेला योनीतील स्राव. त्याचा रंग आणि प्रमाण पुढील दिवसांत आणि आठवड्यांत हळूहळू बदलते.',
+    contentsTitle: 'या लेखात',
+    topics: [
+      'लोकिया म्हणजे काय?',
+      'तो कालांतराने कसा बदलतो?',
+      'काय सामान्य असू शकते',
+      'आरामासाठी टिपा',
+      'वैद्यकीय सल्ला केव्हा घ्यावा?',
+      'मुख्य मुद्दे',
+    ],
+    section1Heading: '1. लोकिया म्हणजे काय?',
+    section1Body1:
+      'लोकिया म्हणजे बाळाला जन्म दिल्यानंतर दिसणारा योनीतील स्राव. त्यात प्रामुख्याने गर्भाशय बरे होत असताना त्यातून रक्त, स्राव आणि ऊतींचे हळूहळू बाहेर पडणे असते.',
+    section1Body2:
+      'तो नेहमीच्या पाळीपेक्षा वेगळा असतो. प्रसूतीनंतरच्या काळात तो अपेक्षित असतो आणि सामान्यतः हळूहळू कमी होतो.',
+    infoTitle: 'मुख्य मुद्दे',
+    infoText:
+      'लोकिया म्हणजे तुमची पाळी आधीच परत आली आहे असे नाही. पाळी परत येणे ही वेगळी घटना आहे जी नंतर घडते.',
+    section2Heading: '2. लोकिया कालांतराने कसा बदलतो?',
+    section2Body:
+      'पहिल्या काही आठवड्यांत त्याचे स्वरूप सहसा बदलते. रंग हळूहळू हलका होतो आणि प्रमाण कमी होण्याकडे कल असतो.',
+    evolutionTitle: 'हळूहळू होणारी प्रगती',
+    evolutionSubtitle: 'टप्पे एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत वेगळे असू शकतात',
+    evolution: [
+      {
+        label: 'चमकदार लाल',
+        period: 'पहिले दिवस',
+        text: 'स्राव सहसा लाल असतो आणि सुरुवातीला जास्त असू शकतो.',
+      },
+      {
+        label: 'गुलाबी / तपकिरी',
+        period: 'काही दिवसांनंतर',
+        text: 'रंग हळूहळू हलका होतो आणि गुलाबी किंवा तपकिरीकडे झुकू शकतो.',
+      },
+      {
+        label: 'पांढरट-पिवळा',
+        period: 'पुढील आठवड्यांत',
+        text: 'स्राव सहसा हलका, पिवळसर किंवा पांढरट होतो, आणि मग कमी कमी होत थांबतो.',
+      },
+    ],
+    section3Heading: '3. काय सामान्य असू शकते',
+    section3Body:
+      'लोकियातील बदल प्रत्येकासाठी अगदी सारखा नसतो. प्रसूतीनंतर बरे होताना काही बदल नैसर्गिकपणे येऊ शकतात.',
+    normalPoints: [
+      {
+        title: 'बदलते प्रमाण',
+        text: 'पहिल्या काही दिवसांत प्रमाण बदलू शकते आणि मग हळूहळू कमी होते.',
+      },
+      {
+        title: 'बदलणारा रंग',
+        text: 'लोकिया कालांतराने सहसा लालपासून हलक्या छटांकडे जातो.',
+      },
+      {
+        title: 'बदलता कालावधी',
+        text: 'तो अनेक आठवडे टिकू शकतो, आणि त्यातील बदल एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत वेगळा असतो.',
+      },
+    ],
+    section4Heading: '4. आराम आणि मागोव्यासाठी टिपा',
+    section4Body:
+      'या काळात, साधा मागोवा तुम्हाला तुमच्या अनुभवाची दुसऱ्याच्या अनुभवाशी तुलना न करता तुमचे शरीर कसे बदलत आहे ते पाहण्यास मदत करू शकतो.',
+    comfortTips: [
+      {
+        title: 'हळुवार स्वच्छता',
+        text: 'जळजळ करणाऱ्या उत्पादनांशिवाय हळुवार, नियमित धुण्याला प्राधान्य द्या.',
+      },
+      {
+        title: 'बदलावर लक्ष ठेवा',
+        text: 'तुमची पुनर्प्राप्ती पाहण्यास मदत होत असल्यास तुम्ही स्रावाचा रंग, प्रमाण आणि प्रगती नोंदवू शकता.',
+      },
+      {
+        title: 'स्वतःला विश्रांती द्या',
+        text: 'प्रसूतीनंतरच्या काळाला वेळ लागतो. तुमच्या शरीराचे ऐका आणि बरे होण्याच्या तुमच्या गरजेचा आदर करा.',
+      },
+    ],
+    section5Heading: '5. लोकिया की पाळी परत येणे?',
+    section5Body:
+      'लोकिया प्रसूतीनंतरच्या दिवसांत दिसतो आणि हळूहळू कमी होतो. याउलट, पाळी परत येणे म्हणजे या कालावधीनंतर तुमची मासिक पाळी पुन्हा सुरू होणे.',
+    compareLochiaTitle: 'लोकिया',
+    compareLochiaText: 'प्रसूतीनंतर गर्भाशय बरे होण्याशी जोडलेला स्राव.',
+    compareReturnTitle: 'पाळी परत येणे',
+    compareReturnText:
+      'मासिक पाळी पुन्हा सुरू होणे, एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत वेगळ्या वेळी.',
+    section6Heading: '6. वैद्यकीय सल्ला केव्हा घ्यावा?',
+    section6Body:
+      'तुम्हाला प्रगती असामान्य वाटत असल्यास, किंवा तुमची एकूण स्थिती बिघडत असल्यास, आरोग्य व्यावसायिकाचा सल्ला घेणे महत्त्वाचे आहे.',
+    warningTitle: 'वैद्यकीय सल्ला आवश्यक असल्याची चिन्हे',
+    warningSigns: [
+      'तीव्र किंवा असामान्य वास',
+      'ताप किंवा बिघडत जाणारी सर्वसाधारण स्थिती',
+      'अचानक खूप जास्त होणारा स्राव',
+      'लक्षणीय, कायम किंवा असामान्य वेदना',
+      'तुम्हाला काळजीत टाकणारे नवीन लक्षण',
+    ],
+    tipTitle: 'हे जाणून घ्या',
+    tipText:
+      'लोकिया सहसा हळूहळू बदलतो: तो आधी लाल असू शकतो, मग हलका होऊन कमी कमी होत थांबतो. तथापि, प्रत्येक पुनर्प्राप्ती वैयक्तिक असते.',
+    summaryHeading: 'मुख्य मुद्दे',
+    summaryPoints: [
+      'लोकिया हा बाळंतपणानंतरचा सामान्य स्राव आहे.',
+      'तो सहसा आठवड्यांत रंगात आणि प्रमाणात बदलतो.',
+      'त्याचा कालावधी आणि त्यातील प्रगती एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत वेगळी असू शकते.',
+      'असामान्य वास, ताप, लक्षणीय वेदना किंवा अचानक खूप जास्त रक्तस्राव यासाठी वैद्यकीय सल्ला आवश्यक आहे.',
+    ],
+    disclaimerText:
+      'माहितीपर मजकूर. हा लेख वैद्यकीय सल्ल्याची किंवा तपासणीची जागा घेत नाही. शंका असल्यास किंवा तुम्हाला काळजीत टाकणारे लक्षण दिसल्यास, आरोग्य व्यावसायिकाचा सल्ला घ्या.',
+    shareMessage: 'प्रसूतीनंतरचा लोकिया समजून घेणे — AWA',
+  },
+  gu: {
+    badgeText: 'પ્રસૂતિ પછી • લોચિયા',
+    title: 'પ્રસૂતિ પછીના\nલોચિયાને સમજો',
+    metaDuration: '6 મિનિટ વાંચન',
+    metaType: 'માર્ગદર્શિકા',
+    metaLevel: 'પ્રારંભિક સ્તર',
+    metaValidated: 'માહિતી માટેની સામગ્રી',
+    intro:
+      'બાળકના જન્મ પછી, લોચિયા એટલે ગર્ભાશય સ્વસ્થ થવાની કુદરતી પ્રક્રિયા સાથે જોડાયેલો યોનિમાર્ગનો સ્રાવ. તેનો રંગ અને પ્રમાણ આગામી દિવસો અને અઠવાડિયાંમાં ધીમે ધીમે બદલાય છે.',
+    contentsTitle: 'આ લેખમાં',
+    topics: [
+      'લોચિયા એટલે શું?',
+      'સમય સાથે તે કેવી રીતે બદલાય છે?',
+      'શું સામાન્ય હોઈ શકે',
+      'આરામ માટેના સૂચનો',
+      'તબીબી સલાહ ક્યારે લેવી?',
+      'મુખ્ય મુદ્દા',
+    ],
+    section1Heading: '1. લોચિયા એટલે શું?',
+    section1Body1:
+      'લોચિયા એ પ્રસૂતિ પછી દેખાતો યોનિમાર્ગનો સ્રાવ છે. તેમાં મુખ્યત્વે ગર્ભાશય સ્વસ્થ થતાં તેમાંથી લોહી, સ્રાવ અને પેશીઓ ધીમે ધીમે બહાર નીકળે છે.',
+    section1Body2:
+      'તે નિયમિત માસિકથી અલગ છે. પ્રસૂતિ પછીના સમયગાળામાં તે અપેક્ષિત છે અને સામાન્ય રીતે ધીમે ધીમે ઘટે છે.',
+    infoTitle: 'મુખ્ય મુદ્દા',
+    infoText:
+      'લોચિયાનો અર્થ એ નથી કે તમારું માસિક પાછું આવી ગયું છે. માસિકનું પાછું આવવું એ અલગ ઘટના છે, જે પછીથી થાય છે.',
+    section2Heading: '2. સમય સાથે લોચિયા કેવી રીતે બદલાય છે?',
+    section2Body:
+      'તેનો દેખાવ સામાન્ય રીતે પ્રથમ થોડા અઠવાડિયામાં બદલાય છે. રંગ ધીમે ધીમે હળવો થાય છે અને પ્રમાણ ઘટતું જાય છે.',
+    evolutionTitle: 'ધીમે ધીમે થતો બદલાવ',
+    evolutionSubtitle: 'તબક્કાઓ દરેક વ્યક્તિમાં અલગ હોઈ શકે છે',
+    evolution: [
+      {
+        label: 'ચમકદાર લાલ',
+        period: 'શરૂઆતના દિવસો',
+        text: 'સ્રાવ સામાન્ય રીતે લાલ હોય છે અને શરૂઆતમાં વધુ હોઈ શકે છે.',
+      },
+      {
+        label: 'ગુલાબી / કથ્થઈ',
+        period: 'થોડા દિવસ પછી',
+        text: 'રંગ ધીમે ધીમે હળવો થાય છે અને ગુલાબી કે કથ્થઈ તરફ જઈ શકે છે.',
+      },
+      {
+        label: 'સફેદ-પીળો',
+        period: 'ત્યારપછીના અઠવાડિયાંમાં',
+        text: 'સ્રાવ સામાન્ય રીતે હળવો, પીળાશ પડતો કે સફેદ થાય છે, અને પછી ઓછો થતો જાય છે.',
+      },
+    ],
+    section3Heading: '3. શું સામાન્ય હોઈ શકે',
+    section3Body:
+      'લોચિયા કેવી રીતે બદલાય છે તે દરેક માટે બરાબર સરખું હોતું નથી. પ્રસૂતિ પછી સ્વસ્થ થવાની સાથે કેટલાક બદલાવ કુદરતી રીતે થઈ શકે છે.',
+    normalPoints: [
+      {
+        title: 'બદલાતું પ્રમાણ',
+        text: 'પ્રથમ થોડા દિવસોમાં પ્રમાણ બદલાઈ શકે છે અને પછી ધીમે ધીમે ઘટે છે.',
+      },
+      {
+        title: 'બદલાતો રંગ',
+        text: 'લોચિયા સામાન્ય રીતે સમય સાથે લાલ રંગમાંથી હળવા રંગો તરફ જાય છે.',
+      },
+      {
+        title: 'બદલાતો સમયગાળો',
+        text: 'તે કેટલાક અઠવાડિયા સુધી રહી શકે છે, અને તેનો બદલાવ દરેક વ્યક્તિમાં અલગ હોય છે.',
+      },
+    ],
+    section4Heading: '4. આરામ અને નોંધ રાખવા માટેના સૂચનો',
+    section4Body:
+      'આ સમય દરમિયાન, સરળ નોંધ રાખવાથી તમે તમારા અનુભવને બીજા કોઈના અનુભવ સાથે સરખાવ્યા વિના તમારું શરીર કેવી રીતે બદલાઈ રહ્યું છે તે જોઈ શકો છો.',
+    comfortTips: [
+      {
+        title: 'હળવી સ્વચ્છતા',
+        text: 'બળતરા કરે તેવા ઉત્પાદનો વિના હળવું, નિયમિત ધોવાનું પસંદ કરો.',
+      },
+      {
+        title: 'બદલાવ પર નજર રાખો',
+        text: 'જો તે તમને સ્વસ્થ થવામાં મદદ કરતું હોય, તો તમે સ્રાવનો રંગ, પ્રમાણ અને બદલાવ નોંધી શકો છો.',
+      },
+      {
+        title: 'પોતાને આરામ કરવા દો',
+        text: 'પ્રસૂતિ પછીના સમયગાળાને સમય લાગે છે. તમારા શરીરને સાંભળો અને સ્વસ્થ થવાની તમારી જરૂરિયાતને માન આપો.',
+      },
+    ],
+    section5Heading: '5. લોચિયા કે માસિકનું પાછું આવવું?',
+    section5Body:
+      'લોચિયા પ્રસૂતિ પછીના દિવસોમાં દેખાય છે અને ધીમે ધીમે ઘટે છે. બીજી બાજુ, માસિકનું પાછું આવવું એટલે આ સમયગાળા પછી તમારા માસિક ચક્રનું ફરી શરૂ થવું.',
+    compareLochiaTitle: 'લોચિયા',
+    compareLochiaText: 'પ્રસૂતિ પછી ગર્ભાશય સ્વસ્થ થવા સાથે જોડાયેલો સ્રાવ.',
+    compareReturnTitle: 'માસિકનું પાછું આવવું',
+    compareReturnText:
+      'માસિક ચક્રનું ફરી શરૂ થવું, જે સમય દરેક વ્યક્તિમાં અલગ હોય છે.',
+    section6Heading: '6. તબીબી સલાહ ક્યારે લેવી?',
+    section6Body:
+      'જો બદલાવ તમને અસામાન્ય લાગે, અથવા તમારી સામાન્ય સ્થિતિ બગડતી હોય, તો આરોગ્ય વ્યાવસાયિકની સલાહ લેવી મહત્વનું છે.',
+    warningTitle: 'તબીબી સલાહ લેવાની જરૂર દર્શાવતા સંકેતો',
+    warningSigns: [
+      'તીવ્ર અથવા અસામાન્ય દુર્ગંધ',
+      'તાવ અથવા સામાન્ય સ્થિતિ બગડવી',
+      'સ્રાવ અચાનક ઘણો વધી જવો',
+      'નોંધપાત્ર, સતત અથવા અસામાન્ય દુખાવો',
+      'કોઈ નવું લક્ષણ જે તમને ચિંતા કરાવે',
+    ],
+    tipTitle: 'જાણવા જેવું',
+    tipText:
+      'લોચિયા સામાન્ય રીતે ધીમે ધીમે બદલાય છે: શરૂઆતમાં લાલ હોઈ શકે, પછી હળવા થાય અને ઓછા થતા જાય. જોકે, દરેક વ્યક્તિનું સ્વસ્થ થવું અલગ હોય છે.',
+    summaryHeading: 'મુખ્ય મુદ્દા',
+    summaryPoints: [
+      'લોચિયા પ્રસૂતિ પછીનો સામાન્ય સ્રાવ છે.',
+      'અઠવાડિયાં દરમિયાન તેનો રંગ અને પ્રમાણ સામાન્ય રીતે બદલાય છે.',
+      'તેનો સમયગાળો અને બદલાવ દરેક વ્યક્તિમાં અલગ હોઈ શકે છે.',
+      'અસામાન્ય દુર્ગંધ, તાવ, નોંધપાત્ર દુખાવો, અથવા અચાનક ખૂબ વધુ રક્તસ્રાવ માટે તબીબી સલાહ જરૂરી છે.',
+    ],
+    disclaimerText:
+      'માહિતી માટેની સામગ્રી. આ લેખ તબીબી સલાહ કે તપાસનું સ્થાન લેતો નથી. શંકા હોય અથવા ચિંતાજનક લક્ષણ દેખાય તો આરોગ્ય વ્યાવસાયિકની સલાહ લો.',
+    shareMessage: 'પ્રસૂતિ પછીના લોચિયાને સમજો — AWA',
+  },
+  pa: {
+    badgeText: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ • ਲੋਕੀਆ',
+    title: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਲੋਕੀਆ\nਨੂੰ ਸਮਝਣਾ',
+    metaDuration: '6 ਮਿੰਟ ਪੜ੍ਹਨ',
+    metaType: 'ਗਾਈਡ',
+    metaLevel: 'ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ',
+    metaValidated: 'ਜਾਣਕਾਰੀ ਵਾਲੀ ਸਮੱਗਰੀ',
+    intro:
+      'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ, ਲੋਕੀਆ ਉਸ ਯੋਨੀ ਰਿਸਾਅ ਨੂੰ ਕਹਿੰਦੇ ਹਨ ਜੋ ਬੱਚੇਦਾਨੀ ਦੇ ਕੁਦਰਤੀ ਤੌਰ ਤੇ ਠੀਕ ਹੋਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ। ਇਸ ਦਾ ਰੰਗ ਅਤੇ ਮਾਤਰਾ ਅਗਲੇ ਦਿਨਾਂ ਅਤੇ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਹੌਲੀ-ਹੌਲੀ ਬਦਲਦੇ ਹਨ।',
+    contentsTitle: 'ਇਸ ਲੇਖ ਵਿੱਚ',
+    topics: [
+      'ਲੋਕੀਆ ਕੀ ਹੈ?',
+      'ਇਹ ਸਮੇਂ ਨਾਲ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ?',
+      'ਕੀ ਆਮ ਹੋ ਸਕਦਾ ਹੈ',
+      'ਆਰਾਮ ਲਈ ਨੁਕਤੇ',
+      'ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ?',
+      'ਮੁੱਖ ਨੁਕਤੇ',
+    ],
+    section1Heading: '1. ਲੋਕੀਆ ਕੀ ਹੈ?',
+    section1Body1:
+      'ਲੋਕੀਆ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਉਣ ਵਾਲਾ ਯੋਨੀ ਰਿਸਾਅ ਹੈ। ਇਸ ਵਿੱਚ ਮੁੱਖ ਤੌਰ ਤੇ ਬੱਚੇਦਾਨੀ ਦੇ ਠੀਕ ਹੋਣ ਦੌਰਾਨ ਖ਼ੂਨ, ਰਿਸਾਅ ਅਤੇ ਟਿਸ਼ੂ ਦਾ ਹੌਲੀ-ਹੌਲੀ ਬਾਹਰ ਨਿਕਲਣਾ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ।',
+    section1Body2:
+      'ਇਹ ਆਮ ਮਾਹਵਾਰੀ ਤੋਂ ਵੱਖਰਾ ਹੈ। ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਸਮੇਂ ਵਿੱਚ ਇਸ ਦੀ ਆਸ ਕੀਤੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ਇਹ ਆਮ ਤੌਰ ਤੇ ਹੌਲੀ-ਹੌਲੀ ਘਟਦਾ ਜਾਂਦਾ ਹੈ।',
+    infoTitle: 'ਮੁੱਖ ਨੁਕਤੇ',
+    infoText:
+      'ਲੋਕੀਆ ਦਾ ਮਤਲਬ ਇਹ ਨਹੀਂ ਕਿ ਤੁਹਾਡੀ ਮਾਹਵਾਰੀ ਪਹਿਲਾਂ ਹੀ ਮੁੜ ਆ ਗਈ ਹੈ। ਮਾਹਵਾਰੀ ਦਾ ਮੁੜ ਆਉਣਾ ਇੱਕ ਵੱਖਰੀ ਘਟਨਾ ਹੈ ਜੋ ਬਾਅਦ ਵਿੱਚ ਵਾਪਰਦੀ ਹੈ।',
+    section2Heading: '2. ਲੋਕੀਆ ਸਮੇਂ ਨਾਲ ਕਿਵੇਂ ਬਦਲਦਾ ਹੈ?',
+    section2Body:
+      'ਇਸ ਦੀ ਦਿੱਖ ਆਮ ਤੌਰ ਤੇ ਪਹਿਲੇ ਕੁਝ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਬਦਲਦੀ ਹੈ। ਰੰਗ ਹੌਲੀ-ਹੌਲੀ ਹਲਕਾ ਹੁੰਦਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਮਾਤਰਾ ਘਟਦੀ ਜਾਂਦੀ ਹੈ।',
+    evolutionTitle: 'ਹੌਲੀ-ਹੌਲੀ ਹੁੰਦਾ ਬਦਲਾਅ',
+    evolutionSubtitle: 'ਪੜਾਅ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ',
+    evolution: [
+      {
+        label: 'ਗੂੜ੍ਹਾ ਲਾਲ',
+        period: 'ਪਹਿਲੇ ਦਿਨ',
+        text: 'ਰਿਸਾਅ ਆਮ ਤੌਰ ਤੇ ਲਾਲ ਹੁੰਦਾ ਹੈ ਅਤੇ ਸ਼ੁਰੂ ਵਿੱਚ ਵੱਧ ਹੋ ਸਕਦਾ ਹੈ।',
+      },
+      {
+        label: 'ਗੁਲਾਬੀ / ਭੂਰਾ',
+        period: 'ਕੁਝ ਦਿਨਾਂ ਬਾਅਦ',
+        text: 'ਰੰਗ ਹੌਲੀ-ਹੌਲੀ ਹਲਕਾ ਹੁੰਦਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਗੁਲਾਬੀ ਜਾਂ ਭੂਰੇ ਵੱਲ ਜਾ ਸਕਦਾ ਹੈ।',
+      },
+      {
+        label: 'ਚਿੱਟਾ-ਪੀਲਾ',
+        period: 'ਅਗਲੇ ਹਫ਼ਤਿਆਂ ਵਿੱਚ',
+        text: 'ਰਿਸਾਅ ਆਮ ਤੌਰ ਤੇ ਹਲਕਾ, ਪੀਲਾ ਜਾਂ ਚਿੱਟਾ ਹੋ ਜਾਂਦਾ ਹੈ, ਫਿਰ ਹੌਲੀ-ਹੌਲੀ ਬੰਦ ਹੋ ਜਾਂਦਾ ਹੈ।',
+      },
+    ],
+    section3Heading: '3. ਕੀ ਆਮ ਹੋ ਸਕਦਾ ਹੈ',
+    section3Body:
+      'ਲੋਕੀਆ ਦਾ ਬਦਲਾਅ ਸਾਰਿਆਂ ਵਿੱਚ ਬਿਲਕੁਲ ਇੱਕੋ ਜਿਹਾ ਨਹੀਂ ਹੁੰਦਾ। ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਠੀਕ ਹੋਣ ਦੌਰਾਨ ਕੁਝ ਬਦਲਾਅ ਕੁਦਰਤੀ ਤੌਰ ਤੇ ਨਾਲ ਹੋ ਸਕਦੇ ਹਨ।',
+    normalPoints: [
+      {
+        title: 'ਬਦਲਦੀ ਮਾਤਰਾ',
+        text: 'ਮਾਤਰਾ ਪਹਿਲੇ ਕੁਝ ਦਿਨਾਂ ਵਿੱਚ ਬਦਲ ਸਕਦੀ ਹੈ ਅਤੇ ਫਿਰ ਹੌਲੀ-ਹੌਲੀ ਘਟਦੀ ਹੈ।',
+      },
+      {
+        title: 'ਬਦਲਦਾ ਰੰਗ',
+        text: 'ਲੋਕੀਆ ਆਮ ਤੌਰ ਤੇ ਸਮੇਂ ਨਾਲ ਲਾਲ ਤੋਂ ਹਲਕੇ ਰੰਗਾਂ ਵੱਲ ਜਾਂਦਾ ਹੈ।',
+      },
+      {
+        title: 'ਵੱਖ-ਵੱਖ ਮਿਆਦ',
+        text: 'ਇਹ ਕਈ ਹਫ਼ਤੇ ਜਾਰੀ ਰਹਿ ਸਕਦਾ ਹੈ, ਅਤੇ ਇਸ ਦਾ ਬਦਲਣਾ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ।',
+      },
+    ],
+    section4Heading: '4. ਆਰਾਮ ਅਤੇ ਰਿਕਾਰਡ ਲਈ ਨੁਕਤੇ',
+    section4Body:
+      'ਇਸ ਸਮੇਂ ਦੌਰਾਨ, ਸਾਦਾ ਰਿਕਾਰਡ ਤੁਹਾਨੂੰ ਇਹ ਵੇਖਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਸਰੀਰ ਕਿਵੇਂ ਬਦਲ ਰਿਹਾ ਹੈ, ਆਪਣੇ ਤਜਰਬੇ ਦੀ ਕਿਸੇ ਹੋਰ ਨਾਲ ਤੁਲਨਾ ਕੀਤੇ ਬਿਨਾਂ।',
+    comfortTips: [
+      {
+        title: 'ਨਰਮ ਸਫ਼ਾਈ',
+        text: 'ਜਲਣ ਕਰਨ ਵਾਲੇ ਉਤਪਾਦਾਂ ਤੋਂ ਬਿਨਾਂ ਨਰਮ ਅਤੇ ਨਿਯਮਿਤ ਧੋਣ ਨੂੰ ਤਰਜੀਹ ਦਿਓ।',
+      },
+      {
+        title: 'ਬਦਲਾਅ ਤੇ ਨਜ਼ਰ ਰੱਖੋ',
+        text: 'ਜੇ ਇਸ ਨਾਲ ਤੁਹਾਨੂੰ ਆਪਣੇ ਠੀਕ ਹੋਣ ਦਾ ਹਾਲ ਪਤਾ ਲੱਗਦਾ ਹੈ ਤਾਂ ਤੁਸੀਂ ਰਿਸਾਅ ਦਾ ਰੰਗ, ਮਾਤਰਾ ਅਤੇ ਬਦਲਾਅ ਨੋਟ ਕਰ ਸਕਦੇ ਹੋ।',
+      },
+      {
+        title: 'ਆਪਣੇ ਆਪ ਨੂੰ ਆਰਾਮ ਦਿਓ',
+        text: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦਾ ਸਮਾਂ ਲੈਂਦਾ ਹੈ। ਆਪਣੇ ਸਰੀਰ ਦੀ ਸੁਣੋ ਅਤੇ ਠੀਕ ਹੋਣ ਦੀ ਲੋੜ ਦਾ ਆਦਰ ਕਰੋ।',
+      },
+    ],
+    section5Heading: '5. ਲੋਕੀਆ ਜਾਂ ਮਾਹਵਾਰੀ ਦਾ ਮੁੜ ਆਉਣਾ?',
+    section5Body:
+      'ਲੋਕੀਆ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਦੇ ਦਿਨਾਂ ਵਿੱਚ ਆਉਂਦਾ ਹੈ ਅਤੇ ਹੌਲੀ-ਹੌਲੀ ਘਟਦਾ ਹੈ। ਦੂਜੇ ਪਾਸੇ, ਮਾਹਵਾਰੀ ਦਾ ਮੁੜ ਆਉਣਾ ਇਸ ਸਮੇਂ ਤੋਂ ਬਾਅਦ ਤੁਹਾਡੇ ਮਾਹਵਾਰੀ ਚੱਕਰ ਦੇ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਹੋਣ ਨੂੰ ਕਹਿੰਦੇ ਹਨ।',
+    compareLochiaTitle: 'ਲੋਕੀਆ',
+    compareLochiaText: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਬੱਚੇਦਾਨੀ ਦੇ ਠੀਕ ਹੋਣ ਨਾਲ ਜੁੜਿਆ ਰਿਸਾਅ।',
+    compareReturnTitle: 'ਮਾਹਵਾਰੀ ਦਾ ਮੁੜ ਆਉਣਾ',
+    compareReturnText:
+      'ਮਾਹਵਾਰੀ ਚੱਕਰ ਦਾ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਹੋਣਾ, ਜਿਸ ਦਾ ਸਮਾਂ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ।',
+    section6Heading: '6. ਡਾਕਟਰੀ ਸਲਾਹ ਕਦੋਂ ਲੈਣੀ ਹੈ?',
+    section6Body:
+      'ਜੇ ਤੁਹਾਨੂੰ ਇਹ ਬਦਲਾਅ ਅਸਾਧਾਰਨ ਲੱਗੇ, ਜਾਂ ਤੁਹਾਡੀ ਸਮੁੱਚੀ ਹਾਲਤ ਵਿਗੜ ਰਹੀ ਹੋਵੇ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸਲਾਹ ਲੈਣੀ ਜ਼ਰੂਰੀ ਹੈ।',
+    warningTitle: 'ਉਹ ਸੰਕੇਤ ਜਿਨ੍ਹਾਂ ਵਿੱਚ ਡਾਕਟਰੀ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ',
+    warningSigns: [
+      'ਤੇਜ਼ ਜਾਂ ਅਸਾਧਾਰਨ ਬਦਬੂ',
+      'ਬੁਖ਼ਾਰ ਜਾਂ ਸਮੁੱਚੀ ਹਾਲਤ ਦਾ ਵਿਗੜਨਾ',
+      'ਅਚਾਨਕ ਬਹੁਤ ਵੱਧ ਹੋ ਜਾਣ ਵਾਲਾ ਵਹਾਅ',
+      'ਤੇਜ਼, ਲਗਾਤਾਰ ਜਾਂ ਅਸਾਧਾਰਨ ਦਰਦ',
+      'ਕੋਈ ਨਵਾਂ ਲੱਛਣ ਜੋ ਤੁਹਾਨੂੰ ਚਿੰਤਾ ਵਿੱਚ ਪਾਵੇ',
+    ],
+    tipTitle: 'ਜਾਣਨ ਯੋਗ',
+    tipText:
+      'ਲੋਕੀਆ ਆਮ ਤੌਰ ਤੇ ਹੌਲੀ-ਹੌਲੀ ਬਦਲਦਾ ਹੈ: ਪਹਿਲਾਂ ਇਹ ਲਾਲ ਹੋ ਸਕਦਾ ਹੈ, ਫਿਰ ਹਲਕਾ ਹੋ ਕੇ ਬੰਦ ਹੋ ਜਾਂਦਾ ਹੈ। ਫਿਰ ਵੀ, ਠੀਕ ਹੋਣ ਦਾ ਹਰ ਸਫ਼ਰ ਵਿਅਕਤੀਗਤ ਹੁੰਦਾ ਹੈ।',
+    summaryHeading: 'ਮੁੱਖ ਨੁਕਤੇ',
+    summaryPoints: [
+      'ਲੋਕੀਆ ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਆਉਣ ਵਾਲਾ ਆਮ ਰਿਸਾਅ ਹੈ।',
+      'ਇਸ ਦਾ ਰੰਗ ਅਤੇ ਮਾਤਰਾ ਆਮ ਤੌਰ ਤੇ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।',
+      'ਇਸ ਦੀ ਮਿਆਦ ਅਤੇ ਬਦਲਾਅ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ।',
+      'ਅਸਾਧਾਰਨ ਬਦਬੂ, ਬੁਖ਼ਾਰ, ਤੇਜ਼ ਦਰਦ ਜਾਂ ਅਚਾਨਕ ਬਹੁਤ ਜ਼ਿਆਦਾ ਖ਼ੂਨ ਵਹਿਣ ਵਿੱਚ ਡਾਕਟਰੀ ਸਲਾਹ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ।',
+    ],
+    disclaimerText:
+      'ਇਹ ਜਾਣਕਾਰੀ ਲਈ ਹੈ ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਜਾਂ ਜਾਂਚ ਦੀ ਥਾਂ ਨਹੀਂ ਲੈਂਦੀ। ਸ਼ੱਕ ਹੋਣ ਤੇ ਜਾਂ ਕੋਈ ਚਿੰਤਾਜਨਕ ਲੱਛਣ ਵੇਖਣ ਤੇ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਸਲਾਹ ਲਓ।',
+    shareMessage: 'ਜਣੇਪੇ ਤੋਂ ਬਾਅਦ ਲੋਕੀਆ ਨੂੰ ਸਮਝਣਾ — AWA',
+  },
+  my: {
+    badgeText: 'ကလေးမွေးပြီးနောက် • မီးဖွားပြီးနောက်သွေး',
+    title: 'ကလေးမွေးပြီးနောက် မီးဖွားပြီးနောက်သွေး\nကို နားလည်ခြင်း',
+    metaDuration: 'ဖတ်ချိန် 6 မိနစ်',
+    metaType: 'လမ်းညွှန်',
+    metaLevel: 'အခြေခံအဆင့်',
+    metaValidated: 'အချက်အလက်ပေးသော အကြောင်းအရာ',
+    intro:
+      'ကလေးမွေးပြီးနောက် မီးဖွားပြီးနောက်သွေးဆိုသည်မှာ သားအိမ် သဘာဝအတိုင်း ပြန်လည်ကောင်းမွန်လာသည့် လုပ်ငန်းစဉ်နှင့် ဆက်စပ်သော မီးယပ်လမ်းကြောင်းမှ ထွက်သည့် အရည်ကို ဆိုလိုသည်။ ၎င်း၏ အရောင်နှင့် ပမာဏသည် နောက်လာမည့် ရက်များနှင့် ရက်သတ္တပတ်များအတွင်း တဖြည်းဖြည်း ပြောင်းလဲသွားသည်။',
+    contentsTitle: 'ဤဆောင်းပါးတွင်',
+    topics: [
+      'မီးဖွားပြီးနောက်သွေး ဆိုတာ ဘာလဲ။',
+      'အချိန်ကြာလာသည်နှင့်အမျှ မည်သို့ ပြောင်းလဲသနည်း။',
+      'ပုံမှန်ဖြစ်နိုင်သည်များ',
+      'သက်သာစေရန် အကြံပြုချက်များ',
+      'ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို မည်သည့်အချိန်တွင် ရယူသင့်သနည်း။',
+      'အဓိကအချက်များ',
+    ],
+    section1Heading: '1. မီးဖွားပြီးနောက်သွေး ဆိုတာ ဘာလဲ။',
+    section1Body1:
+      'မီးဖွားပြီးနောက်သွေးသည် ကလေးမွေးပြီးနောက် ပေါ်လာသော မီးယပ်လမ်းကြောင်းမှ ထွက်သည့် အရည်ဖြစ်သည်။ ၎င်းသည် သားအိမ် ပြန်လည်ကောင်းမွန်လာစဉ် သွေး၊ ထွက်ရည်များနှင့် တစ်ရှူးများ တဖြည်းဖြည်း ထွက်သွားခြင်းဖြင့် အဓိကဖွဲ့စည်းထားသည်။',
+    section1Body2:
+      'ဤသည်မှာ ပုံမှန်ရာသီသွေးနှင့် မတူပါ။ ကလေးမွေးပြီးနောက်ကာလတွင် ဖြစ်လေ့ရှိပြီး ယေဘုယျအားဖြင့် တဖြည်းဖြည်း လျော့နည်းသွားသည်။',
+    infoTitle: 'အဓိကအချက်များ',
+    infoText:
+      'မီးဖွားပြီးနောက်သွေးသည် သင်၏ ရာသီသွေး ပြန်လာပြီဟု မဆိုလိုပါ။ ရာသီသွေး ပြန်လာခြင်းသည် နောက်ပိုင်းတွင် ဖြစ်ပေါ်သော သီးခြားဖြစ်ရပ် ဖြစ်သည်။',
+    section2Heading: '2. မီးဖွားပြီးနောက်သွေးသည် အချိန်ကြာလာသည်နှင့်အမျှ မည်သို့ ပြောင်းလဲသနည်း။',
+    section2Body:
+      'ပထမရက်သတ္တပတ်အနည်းငယ်အတွင်း ၎င်း၏ ပုံပန်းသဏ္ဍာန်သည် ပုံမှန်အားဖြင့် ပြောင်းလဲသွားသည်။ အရောင်သည် တဖြည်းဖြည်း ပိုဖျော့လာပြီး ပမာဏလည်း လျော့နည်းလာတတ်သည်။',
+    evolutionTitle: 'တဖြည်းဖြည်း တိုးတက်ပြောင်းလဲမှု',
+    evolutionSubtitle: 'အဆင့်များသည် လူတစ်ဦးနှင့်တစ်ဦး ကွဲပြားနိုင်သည်',
+    evolution: [
+      {
+        label: 'ရဲရဲနီ',
+        period: 'ပထမရက်များ',
+        text: 'ထွက်ရည်သည် ပုံမှန်အားဖြင့် နီပြီး အစပိုင်းတွင် ပိုများနိုင်သည်။',
+      },
+      {
+        label: 'ပန်းရောင် / အညိုရောင်ဆန်',
+        period: 'ရက်အနည်းငယ်ကြာပြီးနောက်',
+        text: 'အရောင်သည် တဖြည်းဖြည်း ပိုဖျော့လာပြီး ပန်းရောင် သို့မဟုတ် အညိုရောင်သို့ ပြောင်းနိုင်သည်။',
+      },
+      {
+        label: 'ဖြူဝါရောင်',
+        period: 'နောက်လာမည့် ရက်သတ္တပတ်များအတွင်း',
+        text: 'ထွက်ရည်သည် ပုံမှန်အားဖြင့် ပိုပါးလာပြီး ဝါဝါ သို့မဟုတ် ဖြူဖြူဖြစ်လာကာ နောက်ဆုံး ရပ်သွားသည်။',
+      },
+    ],
+    section3Heading: '3. ပုံမှန်ဖြစ်နိုင်သည်များ',
+    section3Body:
+      'မီးဖွားပြီးနောက်သွေး ပြောင်းလဲပုံသည် လူတိုင်းအတွက် အတိအကျ မတူပါ။ အချို့သော ပြောင်းလဲမှုများသည် ကလေးမွေးပြီးနောက် ပြန်လည်ကောင်းမွန်လာခြင်းနှင့်အတူ သဘာဝအတိုင်း ဖြစ်ပေါ်နိုင်သည်။',
+    normalPoints: [
+      {
+        title: 'ပြောင်းလဲနိုင်သော ပမာဏ',
+        text: 'ပမာဏသည် ပထမရက်အနည်းငယ်အတွင်း ပြောင်းလဲနိုင်ပြီး နောက်တဖြည်းဖြည်း လျော့နည်းသွားနိုင်သည်။',
+      },
+      {
+        title: 'ပြောင်းလဲနေသော အရောင်',
+        text: 'မီးဖွားပြီးနောက်သွေးသည် အချိန်ကြာလာသည်နှင့်အမျှ နီသည်မှ ပိုဖျော့သော အရောင်များသို့ ပြောင်းလေ့ရှိသည်။',
+      },
+      {
+        title: 'ကွဲပြားနိုင်သော ကြာချိန်',
+        text: 'ရက်သတ္တပတ်များစွာ ကြာနိုင်ပြီး ပြောင်းလဲပုံသည် လူတစ်ဦးနှင့်တစ်ဦး ကွာခြားသည်။',
+      },
+    ],
+    section4Heading: '4. သက်သာစေရန်နှင့် မှတ်တမ်းတင်ရန် အကြံပြုချက်များ',
+    section4Body:
+      'ဤကာလအတွင်း ရိုးရှင်းသော မှတ်တမ်းတင်ခြင်းသည် သင့်အတွေ့အကြုံကို အခြားသူနှင့် နှိုင်းယှဉ်စရာမလိုဘဲ သင့်ခန္ဓာကိုယ် မည်သို့ပြောင်းလဲနေသည်ကို စောင့်ကြည့်ရန် ကူညီပေးနိုင်သည်။',
+    comfortTips: [
+      {
+        title: 'ပျော့ပျောင်းသော သန့်ရှင်းမှု',
+        text: 'နာကျင်စေသော ပစ္စည်းများ မသုံးဘဲ ပျော့ပျောင်းစွာ ပုံမှန်ဆေးကြောပါ။',
+      },
+      {
+        title: 'ပြောင်းလဲပုံကို စောင့်ကြည့်ပါ',
+        text: 'သင်၏ ပြန်လည်ကောင်းမွန်မှုကို မှတ်တမ်းတင်ရာတွင် အထောက်အကူဖြစ်ပါက ထွက်ရည်၏ အရောင်၊ ပမာဏနှင့် တိုးတက်မှုကို မှတ်ထားနိုင်သည်။',
+      },
+      {
+        title: 'ကိုယ့်ကိုယ်ကို အနားပေးပါ',
+        text: 'ကလေးမွေးပြီးနောက်ကာလသည် အချိန်ယူရသည်။ သင့်ခန္ဓာကိုယ်ကို နားထောင်ပြီး ပြန်လည်ကောင်းမွန်ရန် လိုအပ်ချက်ကို လေးစားပါ။',
+      },
+    ],
+    section5Heading: '5. မီးဖွားပြီးနောက်သွေးလား၊ ရာသီသွေး ပြန်လာခြင်းလား။',
+    section5Body:
+      'မီးဖွားပြီးနောက်သွေးသည် ကလေးမွေးပြီးနောက် ရက်များတွင် ပေါ်လာပြီး တဖြည်းဖြည်း လျော့နည်းသွားသည်။ ရာသီသွေး ပြန်လာခြင်းမှာမူ ဤကာလပြီးနောက် သင်၏ ရာသီစက်ဝန်း ပြန်စခြင်းနှင့် ကိုက်ညီသည်။',
+    compareLochiaTitle: 'မီးဖွားပြီးနောက်သွေး',
+    compareLochiaText: 'ကလေးမွေးပြီးနောက် သားအိမ် ပြန်လည်ကောင်းမွန်ခြင်းနှင့် ဆက်စပ်သော ထွက်ရည်။',
+    compareReturnTitle: 'ရာသီသွေး ပြန်လာခြင်း',
+    compareReturnText:
+      'လူတစ်ဦးနှင့်တစ်ဦး အချိန်ကွဲပြားစွာ ရာသီစက်ဝန်း ပြန်စခြင်း။',
+    section6Heading: '6. ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ်ကို မည်သည့်အချိန်တွင် ရယူသင့်သနည်း။',
+    section6Body:
+      'တိုးတက်ပုံသည် ပုံမှန်မဟုတ်ဟု ခံစားရပါက သို့မဟုတ် သင်၏ အခြေအနေ ပိုဆိုးလာပါက ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို ရယူရန် အရေးကြီးသည်။',
+    warningTitle: 'ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ် လိုအပ်သော လက္ခဏာများ',
+    warningSigns: [
+      'ပြင်းထန်သော သို့မဟုတ် ပုံမှန်မဟုတ်သော အနံ့',
+      'ဖျားနာခြင်း သို့မဟုတ် ယေဘုယျအခြေအနေ ဆိုးလာခြင်း',
+      'သွေးထွက်ပမာဏ ရုတ်တရက် အများအပြား တိုးလာခြင်း',
+      'သိသာထင်ရှားသော၊ ဆက်လက်ဖြစ်နေသော သို့မဟုတ် ပုံမှန်မဟုတ်သော နာကျင်မှု',
+      'သင့်ကို စိတ်ပူစေသော လက္ခဏာအသစ်',
+    ],
+    tipTitle: 'သိထားသင့်သည်',
+    tipText:
+      'မီးဖွားပြီးနောက်သွေးသည် ပုံမှန်အားဖြင့် တဖြည်းဖြည်း ပြောင်းလဲသည်။ အစပိုင်းတွင် နီပြီး နောက်ပိုင်း ပိုဖျော့လာကာ နောက်ဆုံးတွင် ရပ်သွားနိုင်သည်။ သို့သော် ပြန်လည်ကောင်းမွန်မှုတိုင်းသည် တစ်ဦးချင်းစီ ကွဲပြားသည်။',
+    summaryHeading: 'အဓိကအချက်များ',
+    summaryPoints: [
+      'မီးဖွားပြီးနောက်သွေးသည် ကလေးမွေးပြီးနောက် ပုံမှန်ထွက်သော ထွက်ရည်ဖြစ်သည်။',
+      'ရက်သတ္တပတ်များအတွင်း အရောင်နှင့် ပမာဏ ပြောင်းလဲလေ့ရှိသည်။',
+      'ကြာချိန်နှင့် တိုးတက်ပုံသည် လူတစ်ဦးနှင့်တစ်ဦး ကွဲပြားနိုင်သည်။',
+      'ပုံမှန်မဟုတ်သော အနံ့၊ ဖျားနာခြင်း၊ သိသာထင်ရှားသော နာကျင်မှု သို့မဟုတ် ရုတ်တရက် အလွန်များပြားသော သွေးထွက်ခြင်းတို့အတွက် ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ် လိုအပ်သည်။',
+    ],
+    disclaimerText:
+      '၎င်းသည် အချက်အလက်ပေးရန်ဖြစ်ပြီး ဆေးဘက်ဆိုင်ရာ အကြံပြုချက် သို့မဟုတ် စစ်ဆေးမှုကို အစားထိုးခြင်းမရှိပါ။ သံသယရှိပါက သို့မဟုတ် စိုးရိမ်စရာ လက္ခဏာတစ်ခုခု တွေ့ရှိပါက ကျန်းမာရေးပညာရှင်၏ အကြံဉာဏ်ကို ရယူပါ။',
+    shareMessage: 'ကလေးမွေးပြီးနောက် မီးဖွားပြီးနောက်သွေးကို နားလည်ခြင်း — AWA',
+  },
+  km: {
+    badgeText: 'ក្រោយសម្រាលកូន • ឈាមក្រោយសម្រាល',
+    title: 'ស្វែងយល់អំពីឈាមក្រោយសម្រាល\nបន្ទាប់ពីសម្រាលកូន',
+    metaDuration: 'អាន 6 នាទី',
+    metaType: 'មគ្គុទ្ទេសក៍',
+    metaLevel: 'កម្រិតដំបូង',
+    metaValidated: 'មាតិកាព័ត៌មាន',
+    intro:
+      'បន្ទាប់ពីសម្រាលកូន ឈាមក្រោយសម្រាលសំដៅលើទឹករំអិលចេញពីទ្វារមាស ដែលទាក់ទងនឹងដំណើរការធម្មជាតិនៃការស្តារស្បូនឡើងវិញ។ ពណ៌ និងបរិមាណរបស់វាប្រែប្រួលបន្តិចម្តងៗក្នុងអំឡុងថ្ងៃ និងសប្តាហ៍បន្ទាប់។',
+    contentsTitle: 'ក្នុងអត្ថបទនេះ',
+    topics: [
+      'ឈាមក្រោយសម្រាលគឺជាអ្វី?',
+      'តើវាប្រែប្រួលតាមពេលវេលាយ៉ាងដូចម្តេច?',
+      'អ្វីដែលអាចជារឿងធម្មតា',
+      'គន្លឹះសម្រាប់ភាពស្រួលខ្លួន',
+      'ពេលណាគួរស្វែងរកដំបូន្មានវេជ្ជសាស្ត្រ?',
+      'ចំណុចសំខាន់ៗ',
+    ],
+    section1Heading: '1. ឈាមក្រោយសម្រាលគឺជាអ្វី?',
+    section1Body1:
+      'ឈាមក្រោយសម្រាលគឺជាទឹករំអិលចេញពីទ្វារមាសដែលលេចឡើងបន្ទាប់ពីសម្រាលកូន។ វាភាគច្រើនមានការបញ្ចេញចេញបន្តិចម្តងៗនូវឈាម សារធាតុរំអិល និងជាលិកាពីស្បូន នៅពេលដែលស្បូនកំពុងស្តារឡើងវិញ។',
+    section1Body2:
+      'វាខុសពីរដូវធម្មតា។ វាត្រូវបានរំពឹងទុកក្នុងអំឡុងពេលក្រោយសម្រាលកូន ហើយជាទូទៅថយចុះបន្តិចម្តងៗ។',
+    infoTitle: 'ចំណុចសំខាន់ៗ',
+    infoText:
+      'ឈាមក្រោយសម្រាលមិនមានន័យថារដូវរបស់អ្នកបានត្រឡប់មកវិញរួចហើយនោះទេ។ ការត្រឡប់មកវិញនៃរដូវរបស់អ្នកគឺជាព្រឹត្តិការណ៍ដាច់ដោយឡែកដែលកើតឡើងនៅពេលក្រោយ។',
+    section2Heading: '2. តើឈាមក្រោយសម្រាលប្រែប្រួលតាមពេលវេលាយ៉ាងដូចម្តេច?',
+    section2Body:
+      'រូបរាងរបស់វាជាធម្មតាប្រែប្រួលក្នុងអំឡុងប៉ុន្មានសប្តាហ៍ដំបូង។ ពណ៌ក្លាយជាស្រាលបន្តិចម្តងៗ ហើយបរិមាណមានទំនោរថយចុះ។',
+    evolutionTitle: 'ការវិវត្តបន្តិចម្តងៗ',
+    evolutionSubtitle: 'ដំណាក់កាលអាចប្រែប្រួលពីម្នាក់ទៅម្នាក់',
+    evolution: [
+      {
+        label: 'ក្រហមភ្លឺ',
+        period: 'ប៉ុន្មានថ្ងៃដំបូង',
+        text: 'ទឹករំអិលជាធម្មតាមានពណ៌ក្រហម ហើយអាចចេញច្រើនជាងនៅពេលចាប់ផ្តើម។',
+      },
+      {
+        label: 'ពណ៌ផ្កាឈូក / ត្នោតៗ',
+        period: 'បន្ទាប់ពីប៉ុន្មានថ្ងៃ',
+        text: 'ពណ៌ក្លាយជាស្រាលបន្តិចម្តងៗ ហើយអាចប្តូរទៅជាពណ៌ផ្កាឈូក ឬត្នោត។',
+      },
+      {
+        label: 'សលឿង',
+        period: 'ក្នុងអំឡុងប៉ុន្មានសប្តាហ៍បន្ទាប់',
+        text: 'ទឹករំអិលជាធម្មតាក្លាយជាស្រាលជាងមុន ពណ៌លឿង ឬសៗ មុនពេលថយចុះបន្តិចម្តងៗ។',
+      },
+    ],
+    section3Heading: '3. អ្វីដែលអាចជារឿងធម្មតា',
+    section3Body:
+      'របៀបដែលឈាមក្រោយសម្រាលវិវត្តមិនដូចគ្នាបេះបិទសម្រាប់មនុស្សគ្រប់គ្នាទេ។ ការផ្លាស់ប្តូរមួយចំនួនអាចកើតមានតាមធម្មជាតិជាមួយនឹងការស្តារឡើងវិញក្រោយសម្រាលកូន។',
+    normalPoints: [
+      {
+        title: 'បរិមាណប្រែប្រួល',
+        text: 'បរិមាណអាចប្រែប្រួលក្នុងអំឡុងប៉ុន្មានថ្ងៃដំបូង រួចថយចុះបន្តិចម្តងៗ។',
+      },
+      {
+        title: 'ពណ៌ដែលផ្លាស់ប្តូរ',
+        text: 'ឈាមក្រោយសម្រាលជាធម្មតាផ្លាស់ពីពណ៌ក្រហមទៅជាស្រមោលស្រាលជាងតាមពេលវេលា។',
+      },
+      {
+        title: 'រយៈពេលប្រែប្រួល',
+        text: 'វាអាចនៅបន្តជាច្រើនសប្តាហ៍ ហើយរបៀបដែលវាវិវត្តខុសគ្នាពីម្នាក់ទៅម្នាក់។',
+      },
+    ],
+    section4Heading: '4. គន្លឹះសម្រាប់ភាពស្រួលខ្លួន និងការតាមដាន',
+    section4Body:
+      'ក្នុងអំឡុងពេលនេះ ការតាមដានដោយសាមញ្ញអាចជួយអ្នកឱ្យសង្កេតមើលរបៀបដែលរាងកាយរបស់អ្នកកំពុងផ្លាស់ប្តូរ ដោយមិនប្រៀបធៀបបទពិសោធន៍របស់អ្នកទៅនឹងរបស់អ្នកដទៃ។',
+    comfortTips: [
+      {
+        title: 'អនាម័យទន់ភ្លន់',
+        text: 'ផ្តល់អាទិភាពដល់ការលាងសម្អាតដោយទន់ភ្លន់ និងទៀងទាត់ ដោយមិនប្រើផលិតផលដែលធ្វើឱ្យរមាស់។',
+      },
+      {
+        title: 'ឃ្លាំមើលការវិវត្ត',
+        text: 'អ្នកអាចកត់ត្រាពណ៌ បរិមាណ និងការវិវត្តនៃទឹករំអិល ប្រសិនបើវាជួយអ្នកតាមដានការស្តារឡើងវិញរបស់អ្នក។',
+      },
+      {
+        title: 'អនុញ្ញាតឱ្យខ្លួនឯងសម្រាក',
+        text: 'អំឡុងពេលក្រោយសម្រាលកូនត្រូវការពេលវេលា។ ស្តាប់រាងកាយរបស់អ្នក ហើយគោរពតម្រូវការស្តារខ្លួនរបស់អ្នក។',
+      },
+    ],
+    section5Heading: '5. ឈាមក្រោយសម្រាល ឬការត្រឡប់មកវិញនៃរដូវរបស់អ្នក?',
+    section5Body:
+      'ឈាមក្រោយសម្រាលលេចឡើងក្នុងអំឡុងប៉ុន្មានថ្ងៃបន្ទាប់ពីសម្រាលកូន ហើយថយចុះបន្តិចម្តងៗ។ ផ្ទុយទៅវិញ ការត្រឡប់មកវិញនៃរដូវរបស់អ្នក ត្រូវនឹងការចាប់ផ្តើមឡើងវិញនៃវដ្តរដូវរបស់អ្នកក្រោយរយៈពេលនេះ។',
+    compareLochiaTitle: 'ឈាមក្រោយសម្រាល',
+    compareLochiaText: 'ទឹករំអិលដែលទាក់ទងនឹងការស្តារស្បូនឡើងវិញក្រោយសម្រាលកូន។',
+    compareReturnTitle: 'ការត្រឡប់មកវិញនៃរដូវរបស់អ្នក',
+    compareReturnText:
+      'ការចាប់ផ្តើមឡើងវិញនៃវដ្តរដូវ នៅពេលដែលប្រែប្រួលពីម្នាក់ទៅម្នាក់។',
+    section6Heading: '6. ពេលណាគួរស្វែងរកដំបូន្មានវេជ្ជសាស្ត្រ?',
+    section6Body:
+      'ប្រសិនបើការវិវត្តហាក់ដូចជាមិនធម្មតាសម្រាប់អ្នក ឬប្រសិនបើស្ថានភាពទូទៅរបស់អ្នកកាន់តែអាក្រក់ នោះវាសំខាន់ណាស់ក្នុងការស្វែងរកដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+    warningTitle: 'សញ្ញាដែលត្រូវការដំបូន្មានវេជ្ជសាស្ត្រ',
+    warningSigns: [
+      'ក្លិនខ្លាំង ឬមិនធម្មតា',
+      'គ្រុនក្តៅ ឬស្ថានភាពទូទៅកាន់តែអាក្រក់',
+      'បរិមាណឈាមដែលចេញច្រើនខ្លាំងភ្លាមៗ',
+      'ការឈឺចាប់ខ្លាំង ជាប់លាប់ ឬមិនធម្មតា',
+      'រោគសញ្ញាថ្មីដែលធ្វើឱ្យអ្នកព្រួយបារម្ភ',
+    ],
+    tipTitle: 'គួរដឹង',
+    tipText:
+      'ឈាមក្រោយសម្រាលជាធម្មតាវិវត្តបន្តិចម្តងៗ៖ វាអាចមានពណ៌ក្រហមនៅដំបូង រួចក្លាយជាស្រាលជាងមុន មុនពេលថយចុះបន្តិចម្តងៗ។ ប៉ុន្តែ ការស្តារឡើងវិញរបស់មនុស្សម្នាក់ៗគឺមិនដូចគ្នាទេ។',
+    summaryHeading: 'ចំណុចសំខាន់ៗ',
+    summaryPoints: [
+      'ឈាមក្រោយសម្រាលគឺជាទឹករំអិលធម្មតាបន្ទាប់ពីការសម្រាលកូន។',
+      'ជាធម្មតាវាប្រែប្រួលពណ៌ និងបរិមាណក្នុងអំឡុងប៉ុន្មានសប្តាហ៍។',
+      'រយៈពេល និងការវិវត្តរបស់វាអាចប្រែប្រួលពីម្នាក់ទៅម្នាក់។',
+      'ក្លិនមិនធម្មតា គ្រុនក្តៅ ការឈឺចាប់ខ្លាំង ឬការចេញឈាមច្រើនខ្លាំងភ្លាមៗ ត្រូវការដំបូន្មានវេជ្ជសាស្ត្រ។',
+    ],
+    disclaimerText:
+      'នេះជាព័ត៌មានទូទៅ ហើយមិនជំនួសដំបូន្មានពីវេជ្ជបណ្ឌិតទេ។ អត្ថបទនេះមិនជំនួសដំបូន្មានវេជ្ជសាស្ត្រ ឬការពិនិត្យទេ។ ប្រសិនបើមានការសង្ស័យ ឬប្រសិនបើអ្នកសង្កេតឃើញរោគសញ្ញាដែលគួរឱ្យព្រួយបារម្ភ សូមស្វែងរកដំបូន្មានពីអ្នកជំនាញសុខាភិបាល។',
+    shareMessage: 'ស្វែងយល់អំពីឈាមក្រោយសម្រាលបន្ទាប់ពីសម្រាលកូន — AWA',
+  },
+  lo: {
+    badgeText: 'ຫຼັງຄອດ • ເລືອດຫຼັງຄອດ',
+    title: 'ເຂົ້າໃຈເລືອດຫຼັງຄອດ\nຫຼັງການເກີດລູກ',
+    metaDuration: 'ອ່ານ 6 ນາທີ',
+    metaType: 'ຄູ່ມື',
+    metaLevel: 'ລະດັບເລີ່ມຕົ້ນ',
+    metaValidated: 'ເນື້ອຫາທົ່ວໄປ',
+    intro:
+      'ຫຼັງການເກີດລູກ ເລືອດຫຼັງຄອດໝາຍເຖິງສິ່ງທີ່ໄຫຼອອກທາງຊ່ອງຄອດທີ່ກ່ຽວຂ້ອງກັບຂະບວນການຟື້ນຕົວຕາມທຳມະຊາດຂອງມົດລູກ. ສີ ແລະ ປະລິມານຂອງມັນຈະປ່ຽນແປງຄ່ອຍໆຕະຫຼອດຫຼາຍມື້ ແລະ ຫຼາຍອາທິດຕໍ່ມາ.',
+    contentsTitle: 'ໃນບົດຄວາມນີ້',
+    topics: [
+      'ເລືອດຫຼັງຄອດແມ່ນຫຍັງ?',
+      'ມັນປ່ຽນແປງຕາມເວລາແນວໃດ?',
+      'ສິ່ງທີ່ອາດເປັນເລື່ອງປົກກະຕິ',
+      'ເຄັດລັບເພື່ອຄວາມສະບາຍ',
+      'ເວລາໃດຄວນຂໍຄຳແນະນຳທາງການແພດ?',
+      'ຈຸດສຳຄັນ',
+    ],
+    section1Heading: '1. ເລືອດຫຼັງຄອດແມ່ນຫຍັງ?',
+    section1Body1:
+      'ເລືອດຫຼັງຄອດແມ່ນສິ່ງທີ່ໄຫຼອອກທາງຊ່ອງຄອດຫຼັງການເກີດລູກ. ສ່ວນໃຫຍ່ປະກອບດ້ວຍເລືອດ, ສານຄັດຫຼັ່ງ ແລະ ເນື້ອເຍື່ອຈາກມົດລູກທີ່ຖືກກຳຈັດອອກຄ່ອຍໆໃນຂະນະທີ່ມັນຟື້ນຕົວ.',
+    section1Body2:
+      'ມັນແຕກຕ່າງຈາກປະຈຳເດືອນປົກກະຕິ. ເປັນສິ່ງທີ່ຄາດໄວ້ໃນໄລຍະຫຼັງຄອດ ແລະ ໂດຍທົ່ວໄປຈະຄ່ອຍໆຫຼຸດລົງ.',
+    infoTitle: 'ຈຸດສຳຄັນ',
+    infoText:
+      'ເລືອດຫຼັງຄອດບໍ່ໄດ້ໝາຍຄວາມວ່າປະຈຳເດືອນຂອງທ່ານກັບມາແລ້ວ. ການກັບມາຂອງປະຈຳເດືອນເປັນເຫດການແຍກຕ່າງຫາກທີ່ເກີດຂຶ້ນໃນພາຍຫຼັງ.',
+    section2Heading: '2. ເລືອດຫຼັງຄອດປ່ຽນແປງຕາມເວລາແນວໃດ?',
+    section2Body:
+      'ລັກສະນະຂອງມັນມັກປ່ຽນແປງໃນໄລຍະສອງສາມອາທິດທຳອິດ. ສີຄ່ອຍໆຈາງລົງ ແລະ ປະລິມານມັກຫຼຸດລົງ.',
+    evolutionTitle: 'ການຄ່ອຍໆປ່ຽນແປງ',
+    evolutionSubtitle: 'ຂັ້ນຕອນຕ່າງໆອາດແຕກຕ່າງກັນໄປຕາມແຕ່ລະຄົນ',
+    evolution: [
+      {
+        label: 'ສີແດງສົດ',
+        period: 'ສອງສາມມື້ທຳອິດ',
+        text: 'ສິ່ງທີ່ໄຫຼອອກມັກເປັນສີແດງ ແລະ ອາດມີຫຼາຍກວ່າໃນຕອນເລີ່ມຕົ້ນ.',
+      },
+      {
+        label: 'ສີບົວ / ສີນ້ຳຕານ',
+        period: 'ຫຼັງຈາກສອງສາມມື້',
+        text: 'ສີຄ່ອຍໆຈາງລົງ ແລະ ອາດປ່ຽນໄປເປັນສີບົວ ຫຼື ສີນ້ຳຕານ.',
+      },
+      {
+        label: 'ສີເຫຼືອງຂາວ',
+        period: 'ໃນໄລຍະຫຼາຍອາທິດຕໍ່ມາ',
+        text: 'ສິ່ງທີ່ໄຫຼອອກມັກຈະເບົາບາງລົງ ເປັນສີເຫຼືອງ ຫຼື ສີຂາວ ກ່ອນຈະຄ່ອຍໆຫາຍໄປ.',
+      },
+    ],
+    section3Heading: '3. ສິ່ງທີ່ອາດເປັນເລື່ອງປົກກະຕິ',
+    section3Body:
+      'ການປ່ຽນແປງຂອງເລືອດຫຼັງຄອດບໍ່ຄືກັນທັງໝົດໃນທຸກຄົນ. ການປ່ຽນແປງບາງຢ່າງອາດເກີດຂຶ້ນຕາມທຳມະຊາດຮ່ວມກັບການຟື້ນຕົວຫຼັງການເກີດລູກ.',
+    normalPoints: [
+      {
+        title: 'ປະລິມານທີ່ແຕກຕ່າງກັນ',
+        text: 'ປະລິມານອາດປ່ຽນແປງໃນສອງສາມມື້ທຳອິດ ແລະ ຈາກນັ້ນຄ່ອຍໆຫຼຸດລົງ.',
+      },
+      {
+        title: 'ສີທີ່ປ່ຽນໄປ',
+        text: 'ເລືອດຫຼັງຄອດມັກປ່ຽນຈາກສີແດງໄປສູ່ສີທີ່ຈາງລົງຕາມເວລາ.',
+      },
+      {
+        title: 'ໄລຍະເວລາທີ່ແຕກຕ່າງກັນ',
+        text: 'ມັນອາດຍັງມີຢູ່ເປັນເວລາຫຼາຍອາທິດ ແລະ ການປ່ຽນແປງແຕກຕ່າງກັນໄປຕາມແຕ່ລະຄົນ.',
+      },
+    ],
+    section4Heading: '4. ເຄັດລັບເພື່ອຄວາມສະບາຍ ແລະ ການຕິດຕາມ',
+    section4Body:
+      'ໃນໄລຍະນີ້ ການຕິດຕາມແບບງ່າຍໆສາມາດຊ່ວຍໃຫ້ທ່ານສັງເກດວ່າຮ່າງກາຍຂອງທ່ານປ່ຽນແປງແນວໃດ ໂດຍບໍ່ຕ້ອງທຽບປະສົບການຂອງທ່ານກັບຂອງຄົນອື່ນ.',
+    comfortTips: [
+      {
+        title: 'ຮັກສາຄວາມສະອາດຢ່າງອ່ອນໂຍນ',
+        text: 'ເນັ້ນການລ້າງຢ່າງອ່ອນໂຍນເປັນປະຈຳ ໂດຍບໍ່ໃຊ້ຜະລິດຕະພັນທີ່ກະຕຸ້ນການລະຄາຍເຄືອງ.',
+      },
+      {
+        title: 'ສັງເກດການປ່ຽນແປງ',
+        text: 'ທ່ານສາມາດຈົດສີ, ປະລິມານ ແລະ ຄວາມຄືບໜ້າຂອງສິ່ງທີ່ໄຫຼອອກ ຖ້າມັນຊ່ວຍໃຫ້ທ່ານຕິດຕາມການຟື້ນຕົວຂອງທ່ານ.',
+      },
+      {
+        title: 'ໃຫ້ເວລາພັກຜ່ອນແກ່ຕົນເອງ',
+        text: 'ໄລຍະຫຼັງຄອດໃຊ້ເວລາ. ຟັງສຽງຮ່າງກາຍຂອງທ່ານ ແລະ ເຄົາລົບຄວາມຕ້ອງການໃນການຟື້ນຕົວ.',
+      },
+    ],
+    section5Heading: '5. ເລືອດຫຼັງຄອດ ຫຼື ປະຈຳເດືອນກັບມາ?',
+    section5Body:
+      'ເລືອດຫຼັງຄອດປາກົດໃນສອງສາມມື້ຫຼັງການເກີດລູກ ແລະ ຄ່ອຍໆຫຼຸດລົງ. ສ່ວນການກັບມາຂອງປະຈຳເດືອນ ແມ່ນການກັບມາເລີ່ມຕົ້ນຂອງຮອບເດືອນຫຼັງຈາກໄລຍະນີ້.',
+    compareLochiaTitle: 'ເລືອດຫຼັງຄອດ',
+    compareLochiaText: 'ສິ່ງທີ່ໄຫຼອອກທີ່ກ່ຽວຂ້ອງກັບການຟື້ນຕົວຂອງມົດລູກຫຼັງການເກີດລູກ.',
+    compareReturnTitle: 'ການກັບມາຂອງປະຈຳເດືອນ',
+    compareReturnText:
+      'ການກັບມາເລີ່ມຕົ້ນຂອງຮອບເດືອນ ໃນເວລາທີ່ແຕກຕ່າງກັນໄປຕາມແຕ່ລະຄົນ.',
+    section6Heading: '6. ເວລາໃດຄວນຂໍຄຳແນະນຳທາງການແພດ?',
+    section6Body:
+      'ຖ້າທ່ານເຫັນວ່າການປ່ຽນແປງຜິດປົກກະຕິ ຫຼື ສະພາບໂດຍລວມຂອງທ່ານຮ້າຍແຮງຂຶ້ນ ສຳຄັນທີ່ຈະຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    warningTitle: 'ອາການທີ່ຄວນຂໍຄຳແນະນຳທາງການແພດ',
+    warningSigns: [
+      'ມີກິ່ນແຮງ ຫຼື ກິ່ນຜິດປົກກະຕິ',
+      'ມີໄຂ້ ຫຼື ສະພາບໂດຍລວມຮ້າຍແຮງຂຶ້ນ',
+      'ປະລິມານເລືອດທີ່ອອກຫຼາຍຂຶ້ນຢ່າງກະທັນຫັນ',
+      'ເຈັບຫຼາຍ, ເຈັບຕໍ່ເນື່ອງ ຫຼື ເຈັບຜິດປົກກະຕິ',
+      'ອາການໃໝ່ທີ່ເຮັດໃຫ້ທ່ານກັງວົນ',
+    ],
+    tipTitle: 'ຄວນຮູ້',
+    tipText:
+      'ເລືອດຫຼັງຄອດມັກປ່ຽນແປງຄ່ອຍໆ: ອາດເປັນສີແດງໃນຕອນຕົ້ນ ແລ້ວຈາງລົງກ່ອນຈະຄ່ອຍໆຫາຍໄປ. ແນວໃດກໍຕາມ ການຟື້ນຕົວຂອງແຕ່ລະຄົນແຕກຕ່າງກັນ.',
+    summaryHeading: 'ຈຸດສຳຄັນ',
+    summaryPoints: [
+      'ເລືອດຫຼັງຄອດແມ່ນສິ່ງທີ່ໄຫຼອອກຕາມປົກກະຕິຫຼັງການເກີດລູກ.',
+      'ມັນມັກປ່ຽນສີ ແລະ ປະລິມານຕະຫຼອດຫຼາຍອາທິດ.',
+      'ໄລຍະເວລາ ແລະ ການປ່ຽນແປງຂອງມັນອາດແຕກຕ່າງກັນໄປຕາມແຕ່ລະຄົນ.',
+      'ກິ່ນຜິດປົກກະຕິ, ໄຂ້, ເຈັບຫຼາຍ ຫຼື ເລືອດອອກຫຼາຍຢ່າງກະທັນຫັນ ຕ້ອງຂໍຄຳແນະນຳທາງການແພດ.',
+    ],
+    disclaimerText:
+      'ນີ້ແມ່ນຂໍ້ມູນທົ່ວໄປ ແລະ ບໍ່ແທນຄຳແນະນຳຂອງແພດ. ບົດຄວາມນີ້ບໍ່ແທນຄຳແນະນຳທາງການແພດ ຫຼື ການກວດຮ່າງກາຍ. ຖ້າມີຂໍ້ສົງໄສ ຫຼື ສັງເກດເຫັນອາການທີ່ໜ້າກັງວົນ ໃຫ້ຂໍຄຳແນະນຳຈາກຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ.',
+    shareMessage: 'ເຂົ້າໃຈເລືອດຫຼັງຄອດຫຼັງການເກີດລູກ — AWA',
+  },
 } as const);
 
 /* -------------------------------------------------------------------------- */
