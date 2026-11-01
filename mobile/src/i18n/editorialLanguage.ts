@@ -3,7 +3,7 @@
 // Explicit opt-ins for the languages that have real editorial text; anything
 // else — an unrecognized or not-yet-loaded value included — resolves to
 // English, never to French or Spanish.
-export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk';
+export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo';
 
 export function resolveEditorialLanguage(language: string | null | undefined): EditorialLanguage {
   // Simplified Chinese aliases (zh-CN, zh-Hans …) resolve to the canonical 'zh' block.
@@ -134,6 +134,82 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   if (typeof language === 'string' && /^tk([-_]latn)?([-_]tm)?$/i.test(language.trim())) {
     return 'tk';
   }
+  // Malay (ms, ms-MY) resolves to the canonical 'ms' block.
+  if (typeof language === 'string' && /^ms([-_]latn)?([-_]my)?$/i.test(language.trim())) {
+    return 'ms';
+  }
+  // Somali (so, so-SO) resolves to the canonical 'so' block.
+  if (typeof language === 'string' && /^so([-_]latn)?([-_](so|et|ke|dj))?$/i.test(language.trim())) {
+    return 'so';
+  }
+  // Swahili (sw, sw-KE, sw-TZ, sw-UG, sw-CD) resolves to the canonical 'sw' block.
+  if (typeof language === 'string' && /^sw([-_]latn)?([-_](ke|tz|ug|cd))?$/i.test(language.trim())) {
+    return 'sw';
+  }
+  // Kazakh (kk, kk-KZ, Cyrillic) resolves to the canonical 'kk' block.
+  if (typeof language === 'string' && /^kk([-_]cyrl)?([-_](kz|cn|mn))?$/i.test(language.trim())) {
+    return 'kk';
+  }
+  // Wolof (wo, wo-SN, wo-GM, wo-MR) resolves to the canonical 'wo' block.
+  if (typeof language === 'string' && /^wo([-_]latn)?([-_](sn|gm|mr))?$/i.test(language.trim())) {
+    return 'wo';
+  }
+  // Hausa (ha, ha-NG, ha-NE, ha-GH, ha-CM) resolves to the canonical 'ha' block.
+  if (typeof language === 'string' && /^ha([-_]latn)?([-_](ng|ne|gh|cm))?$/i.test(language.trim())) {
+    return 'ha';
+  }
+  // Amharic (am, am-ET, am-Ethi) resolves to the canonical 'am' block.
+  if (typeof language === 'string' && /^am([-_]ethi)?([-_]et)?$/i.test(language.trim())) {
+    return 'am';
+  }
+  // Dutch (nl, nl-NL, nl-BE) resolves to the canonical 'nl' block.
+  if (typeof language === 'string' && /^nl([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'nl';
+  }
+  // Finnish (fi, fi-FI) resolves to the canonical 'fi' block.
+  if (typeof language === 'string' && /^fi([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'fi';
+  }
+  // Greek (el, el-GR) resolves to the canonical 'el' block.
+  if (typeof language === 'string' && /^el([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'el';
+  }
+  // Filipino (fil, fil-PH) and the legacy Tagalog code (tl) resolve to the canonical 'fil' block.
+  if (typeof language === 'string' && /^(fil|tl)([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'fil';
+  }
+  // Tamil (ta, ta-IN, ta-LK, ta-SG, ta-MY) resolves to the canonical 'ta' block.
+  if (typeof language === 'string' && /^ta([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'ta';
+  }
+  // Telugu (te, te-IN) resolves to the canonical 'te' block.
+  if (typeof language === 'string' && /^te([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'te';
+  }
+  // Marathi (mr, mr-IN) resolves to the canonical 'mr' block.
+  if (typeof language === 'string' && /^mr([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'mr';
+  }
+  // Gujarati (gu, gu-IN) resolves to the canonical 'gu' block.
+  if (typeof language === 'string' && /^gu([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'gu';
+  }
+  // Punjabi (pa, pa-IN) resolves to the canonical 'pa' block.
+  if (typeof language === 'string' && /^pa([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'pa';
+  }
+  // Burmese (my, my-MM) resolves to the canonical 'my' block.
+  if (typeof language === 'string' && /^my([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'my';
+  }
+  // Khmer (km, km-KH) resolves to the canonical 'km' block.
+  if (typeof language === 'string' && /^km([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'km';
+  }
+  // Lao (lo, lo-LA) resolves to the canonical 'lo' block.
+  if (typeof language === 'string' && /^lo([-_][a-z]{2})?$/i.test(language.trim())) {
+    return 'lo';
+  }
   // Portuguese: Brazil ('pt-BR', 'pt_BR', 'pt-Latn-BR') has its own variant over the Portugal text; Portugal, the bare 'pt' and the other
   // Portuguese-speaking countries resolve to 'pt-PT'.
   if (typeof language === 'string' && /^pt([-_]latn)?[-_]br(?:[-_].*)?$/i.test(language.trim())) {
@@ -142,6 +218,6 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   if (typeof language === 'string' && /^pt([-_][a-z]{2,4})*$/i.test(language.trim())) {
     return 'pt-PT';
   }
-  if (language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' || language === 'id' || language === 'da' || language === 'sv' || language === 'nb' || language === 'pl' || language === 'uk' || language === 'cs' || language === 'sk' || language === 'hu' || language === 'ro' || language === 'bg' || language === 'sr' || language === 'hr' || language === 'bs' || language === 'sl' || language === 'ne' || language === 'si' || language === 'th' || language === 'vi' || language === 'uz' || language === 'az' || language === 'ka' || language === 'hy' || language === 'tg' || language === 'ky' || language === 'tk') {return language;}
+  if (language === 'fr' || language === 'es' || language === 'it' || language === 'tr' || language === 'ru' || language === 'de' || language === 'zh' || language === 'id' || language === 'da' || language === 'sv' || language === 'nb' || language === 'pl' || language === 'uk' || language === 'cs' || language === 'sk' || language === 'hu' || language === 'ro' || language === 'bg' || language === 'sr' || language === 'hr' || language === 'bs' || language === 'sl' || language === 'ne' || language === 'si' || language === 'th' || language === 'vi' || language === 'uz' || language === 'az' || language === 'ka' || language === 'hy' || language === 'tg' || language === 'ky' || language === 'tk' || language === 'ms' || language === 'so' || language === 'sw' || language === 'kk' || language === 'wo' || language === 'ha' || language === 'am' || language === 'nl' || language === 'fi' || language === 'el' || language === 'fil' || language === 'ta' || language === 'te' || language === 'mr' || language === 'gu' || language === 'pa' || language === 'my' || language === 'km' || language === 'lo') {return language;}
   return 'en';
 }

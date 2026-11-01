@@ -86,6 +86,44 @@ import {resolveEditorialLanguage, type EditorialLanguage} from './editorialLangu
 // (EDITORIAL_IMAGES_MISSING_KYRGYZ lists them).
 // TURKMEN ('tk'): same rule — no Turkmen artwork exists; the English variant is returned and the spoken description says that the lettering is English
 // (EDITORIAL_IMAGES_MISSING_TURKMEN lists them).
+// MALAY ('ms'): same rule — no Malay artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_MALAY lists them).
+// SOMALI ('so'): same rule — no Somali artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_SOMALI lists them).
+// SWAHILI ('sw'): same rule — no Swahili artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_SWAHILI lists them).
+// KAZAKH ('kk'): same rule — no Kazakh artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_KAZAKH lists them).
+// WOLOF ('wo'): same rule — no Wolof artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_WOLOF lists them).
+// HAUSA ('ha'): same rule — no Hausa artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_HAUSA lists them).
+// AMHARIC ('am'): same rule — no Amharic artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_AMHARIC lists them).
+// DUTCH ('nl'): same rule — no Dutch artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_DUTCH lists them).
+// FINNISH ('fi'): same rule — no Finnish artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_FINNISH lists them).
+// GREEK ('el'): same rule — no Greek artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_GREEK lists them).
+// FILIPINO ('fil'): same rule — no Filipino artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_FILIPINO lists them).
+// TAMIL ('ta'): same rule — no Tamil artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_TAMIL lists them).
+// TELUGU ('te'): same rule — no Telugu artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_TELUGU lists them).
+// MARATHI ('mr'): same rule — no Marathi artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_MARATHI lists them).
+// GUJARATI ('gu'): same rule — no Gujarati artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_GUJARATI lists them).
+// PUNJABI ('pa'): same rule — no Punjabi artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_PUNJABI lists them).
+// BURMESE ('my'): same rule — no Burmese artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_BURMESE lists them).
+// KHMER ('km'): same rule — no Khmer artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_KHMER lists them).
+// LAO ('lo'): same rule — no Lao artwork exists; the English variant is returned and the spoken description says that the lettering is English
+// (EDITORIAL_IMAGES_MISSING_LAO lists them).
 export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', ImageSourcePropType>> & {
   readonly tr?: ImageSourcePropType;
   readonly ru?: ImageSourcePropType;
@@ -124,6 +162,25 @@ export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', Image
   readonly tg?: ImageSourcePropType;
   readonly ky?: ImageSourcePropType;
   readonly tk?: ImageSourcePropType;
+  readonly ms?: ImageSourcePropType;
+  readonly so?: ImageSourcePropType;
+  readonly sw?: ImageSourcePropType;
+  readonly kk?: ImageSourcePropType;
+  readonly wo?: ImageSourcePropType;
+  readonly ha?: ImageSourcePropType;
+  readonly am?: ImageSourcePropType;
+  readonly nl?: ImageSourcePropType;
+  readonly fi?: ImageSourcePropType;
+  readonly el?: ImageSourcePropType;
+  readonly fil?: ImageSourcePropType;
+  readonly ta?: ImageSourcePropType;
+  readonly te?: ImageSourcePropType;
+  readonly mr?: ImageSourcePropType;
+  readonly gu?: ImageSourcePropType;
+  readonly pa?: ImageSourcePropType;
+  readonly my?: ImageSourcePropType;
+  readonly km?: ImageSourcePropType;
+  readonly lo?: ImageSourcePropType;
 };
 
 export const CYCLE_PHASES_HERO: LocalizedImageSet = {
@@ -521,6 +578,196 @@ export const EDITORIAL_IMAGES_MISSING_TURKMEN: readonly string[] = [
   .filter(([, set]) => (set as LocalizedImageSet).tk === undefined)
   .map(([name]) => name as string);
 
+/** The text-in-image illustrations that still have NO Malay variant (their lettering is English in Malay). */
+export const EDITORIAL_IMAGES_MISSING_MALAY: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).ms === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Somali variant (their lettering is English in Somali). */
+export const EDITORIAL_IMAGES_MISSING_SOMALI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).so === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Swahili variant (their lettering is English in Swahili). */
+export const EDITORIAL_IMAGES_MISSING_SWAHILI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).sw === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Kazakh variant (their lettering is English in Kazakh). */
+export const EDITORIAL_IMAGES_MISSING_KAZAKH: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).kk === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Wolof variant (their lettering is English in Wolof). */
+export const EDITORIAL_IMAGES_MISSING_WOLOF: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).wo === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Hausa variant (their lettering is English in Hausa). */
+export const EDITORIAL_IMAGES_MISSING_HAUSA: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).ha === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Amharic variant (their lettering is English in Amharic). */
+export const EDITORIAL_IMAGES_MISSING_AMHARIC: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).am === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Dutch variant (their lettering is English in Dutch). */
+export const EDITORIAL_IMAGES_MISSING_DUTCH: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).nl === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Finnish variant (their lettering is English in Finnish). */
+export const EDITORIAL_IMAGES_MISSING_FINNISH: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).fi === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Greek variant (their lettering is English in Greek). */
+export const EDITORIAL_IMAGES_MISSING_GREEK: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).el === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Filipino variant (their lettering is English in Filipino). */
+export const EDITORIAL_IMAGES_MISSING_FILIPINO: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).fil === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Tamil variant (their lettering is English in Tamil). */
+export const EDITORIAL_IMAGES_MISSING_TAMIL: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).ta === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Telugu variant (their lettering is English in Telugu). */
+export const EDITORIAL_IMAGES_MISSING_TELUGU: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).te === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Marathi variant (their lettering is English in Marathi). */
+export const EDITORIAL_IMAGES_MISSING_MARATHI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).mr === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Gujarati variant (their lettering is English in Gujarati). */
+export const EDITORIAL_IMAGES_MISSING_GUJARATI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).gu === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Punjabi variant (their lettering is English in Punjabi). */
+export const EDITORIAL_IMAGES_MISSING_PUNJABI: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).pa === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Burmese variant (their lettering is English in Burmese). */
+export const EDITORIAL_IMAGES_MISSING_BURMESE: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).my === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Khmer variant (their lettering is English in Khmer). */
+export const EDITORIAL_IMAGES_MISSING_KHMER: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).km === undefined)
+  .map(([name]) => name as string);
+
+/** The text-in-image illustrations that still have NO Lao variant (their lettering is English in Lao). */
+export const EDITORIAL_IMAGES_MISSING_LAO: readonly string[] = [
+  ['cycle-phases-hero', CYCLE_PHASES_HERO],
+  ['grossesse_semiane', PREGNANCY_FOLLOW_UP_HERO],
+  ['activité_grossesse', PREGNANCY_EXERCISE_HERO],
+  ['activité', EXERCISE_HERO],
+]
+  .filter(([, set]) => (set as LocalizedImageSet).lo === undefined)
+  .map(([name]) => name as string);
+
 /** The text-in-image illustrations that still have NO Hindi variant (their lettering is English in Hindi). */
 export const EDITORIAL_IMAGES_MISSING_HINDI: readonly string[] = [
   ['cycle-phases-hero', CYCLE_PHASES_HERO],
@@ -588,6 +835,25 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     tg: 'Тасвир. Табиб ва зани ҳомила ҳангоми муоинаи ултрасадо. Навиштаи рӯи тасвир ба забони англисӣ аст: «Medical care during pregnancy, for mom\'s health and baby\'s well-being».',
     ky: 'Сүрөт. Дарыгер жана кош бойлуу аял УЗИ текшерүүсү учурунда. Сүрөттөгү жазуу англис тилинде: «Medical care during pregnancy, for mom\'s health and baby\'s well-being».',
     tk: 'Surat: lukman we göwreli aýal UZI barlagy wagtynda. Suratdaky ýazgy iňlisçe: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    ms: 'Gambar: doktor dan wanita hamil semasa pemeriksaan ultrasound. Tulisan pada gambar dalam bahasa Inggeris: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    so: 'Sawir: dhakhtar iyo naag uur leh inta ultrasaawn la sameynayo. Qoraalka sawirka ku jira waa Ingiriis: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    sw: 'Picha: daktari na mwanamke mjamzito wakati wa uchunguzi wa ultrasound. Maandishi kwenye picha ni ya Kiingereza: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    kk: 'Сурет. Дәрігер мен жүкті әйел УДЗ тексеруі кезінде. Суреттегі жазу ағылшын тілінде: «Medical care during pregnancy, for mom\'s health and baby\'s well-being».',
+    wo: 'Nataal. Doktoor ak jigéen ju ëmb ci jamonoy ekografi. Bind bi ci nataal bi ci angale la: «Medical care during pregnancy, for mom\'s health and baby\'s well-being».',
+    ha: 'Hoto. Likita da mace mai ciki a lokacin ultrasound. Rubutun da ke cikin hoton da Turanci ne: «Medical care during pregnancy, for mom\'s health and baby\'s well-being».',
+    am: 'ምስል፦ ሐኪም እና እርጉዝ ሴት በአልትራሳውንድ ምርመራ ወቅት። በምስሉ ውስጥ ያለው ጽሑፍ እንግሊዝኛ ነው፦ “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    nl: 'Afbeelding. Een arts en een zwangere vrouw tijdens een echo-onderzoek. De tekst in de afbeelding is Engels: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    fi: 'Kuva. Lääkäri ja raskaana oleva nainen ultraäänitutkimuksessa. Kuvan teksti on englantia: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    el: 'Εικόνα. Ένας γιατρός και μια έγκυος γυναίκα σε υπερηχογράφημα. Το κείμενο της εικόνας είναι στα αγγλικά: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    fil: 'Larawan. Isang doktor at isang buntis na babae sa isang ultrasound. Nasa Ingles ang teksto sa larawan: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    ta: 'படம். ஒரு மருத்துவரும் ஒரு கர்ப்பிணிப் பெண்ணும் அல்ட்ராசவுண்டில். படத்தில் உள்ள எழுத்து ஆங்கிலத்தில் உள்ளது: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    te: 'చిత్రం. అల్ట్రాసౌండ్‌లో ఒక వైద్యురాలు, ఒక గర్భిణి. చిత్రంలోని అక్షరాలు ఆంగ్లంలో ఉన్నాయి: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    mr: 'चित्र. सोनोग्राफीमध्ये एक डॉक्टर आणि एक गर्भवती स्त्री. चित्रातील अक्षरे इंग्रजीत आहेत: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    gu: 'ચિત્ર. સોનોગ્રાફીમાં એક ડૉક્ટર અને એક ગર્ભવતી સ્ત્રી. ચિત્રમાંના અક્ષરો અંગ્રેજીમાં છે: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    pa: 'ਤਸਵੀਰ। ਅਲਟਰਾਸਾਊਂਡ ਦੌਰਾਨ ਇੱਕ ਡਾਕਟਰ ਅਤੇ ਇੱਕ ਗਰਭਵਤੀ ਔਰਤ। ਤਸਵੀਰ ਵਿਚਲੇ ਅੱਖਰ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹਨ: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    my: 'ပုံ။ အယ်ထရာဆောင်းလုပ်နေစဉ် ဆရာဝန်တစ်ဦးနှင့် ကိုယ်ဝန်ဆောင်အမျိုးသမီးတစ်ဦး။ ပုံထဲရှိစာသားများသည် အင်္ဂလိပ်ဘာသာဖြစ်သည် - “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    km: 'រូបភាព៖ វេជ្ជបណ្ឌិតម្នាក់ និងស្ត្រីមានផ្ទៃពោះម្នាក់ កំពុងពិនិត្យដោយអ៊ុលត្រាសោន។ អត្ថបទក្នុងរូបភាពជាភាសាអង់គ្លេស៖ “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    lo: 'ຮູບປະກອບ: ແພດ ແລະ ຍິງຖືພາຄົນໜຶ່ງ ກຳລັງກວດຮ່າງກາຍດ້ວຍອັນຕຣາຊາວ. ຂໍ້ຄວາມໃນຮູບເປັນພາສາອັງກິດ: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
   },
   pregnancyExercise: {
     fr: 'Illustration : une femme enceinte en fente avant sur un tapis de yoga. Texte : Bouger pour une grossesse en santé. Affiche : une maman en bonne santé pour un bébé épanoui.',
@@ -631,6 +897,25 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     tg: 'Тасвир. Зани ҳомила дар болои гилемчаи йога машқ мекунад. Навиштаи рӯи тасвир ба забони англисӣ аст: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby».',
     ky: 'Сүрөт. Кош бойлуу аял йога килемчесинде көнүгүү жасап жатат. Сүрөттөгү жазуу англис тилинде: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby».',
     tk: 'Surat: göwreli aýal ýoga düşeginiň üstünde maşk edýär. Suratdaky ýazgy iňlisçe: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    ms: 'Gambar: wanita hamil bersenam di atas tilam yoga. Tulisan pada gambar dalam bahasa Inggeris: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    so: 'Sawir: naag uur leh oo layli ku samaynaysa gogosha yoga. Qoraalka sawirka ku jira waa Ingiriis: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    sw: 'Picha: mwanamke mjamzito akifanya mazoezi kwenye mkeka wa yoga. Maandishi kwenye picha ni ya Kiingereza: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    kk: 'Сурет. Жүкті әйел йога кілемшесінде жаттығу жасап жатыр. Суреттегі жазу ағылшын тілінде: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby».',
+    wo: 'Nataal. Jigéen ju ëmb di yëngu ci benn tapi yoga. Bind bi ci nataal bi ci angale la: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby».',
+    ha: 'Hoto. Mace mai ciki tana motsa jiki a kan tabarmar yoga. Rubutun da ke cikin hoton da Turanci ne: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby».',
+    am: 'ምስል፦ እርጉዝ ሴት በዮጋ ምንጣፍ ላይ እየተለማመደች። በምስሉ ውስጥ ያለው ጽሑፍ እንግሊዝኛ ነው፦ “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    nl: 'Afbeelding. Een zwangere vrouw die oefeningen doet op een yogamat. De tekst in de afbeelding is Engels: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    fi: 'Kuva. Raskaana oleva nainen tekemässä harjoituksia joogamatolla. Kuvan teksti on englantia: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    el: 'Εικόνα. Μια έγκυος γυναίκα που κάνει ασκήσεις σε στρώμα γιόγκα. Το κείμενο της εικόνας είναι στα αγγλικά: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    fil: 'Larawan. Isang buntis na babaeng nag-eehersisyo sa yoga mat. Nasa Ingles ang teksto sa larawan: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    ta: 'படம். யோகா மேட்டில் உடற்பயிற்சி செய்யும் ஒரு கர்ப்பிணிப் பெண். படத்தில் உள்ள எழுத்து ஆங்கிலத்தில் உள்ளது: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    te: 'చిత్రం. యోగా మ్యాట్‌పై వ్యాయామం చేస్తున్న ఒక గర్భిణి. చిత్రంలోని అక్షరాలు ఆంగ్లంలో ఉన్నాయి: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    mr: 'चित्र. योगा मॅटवर व्यायाम करणारी एक गर्भवती स्त्री. चित्रातील अक्षरे इंग्रजीत आहेत: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    gu: 'ચિત્ર. યોગા મેટ પર કસરત કરતી એક ગર્ભવતી સ્ત્રી. ચિત્રમાંના અક્ષરો અંગ્રેજીમાં છે: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    pa: 'ਤਸਵੀਰ। ਯੋਗਾ ਮੈਟ ’ਤੇ ਕਸਰਤ ਕਰਦੀ ਇੱਕ ਗਰਭਵਤੀ ਔਰਤ। ਤਸਵੀਰ ਵਿਚਲੇ ਅੱਖਰ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹਨ: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    my: 'ပုံ။ ယိုဂါအခင်းပေါ်တွင် လေ့ကျင့်ခန်းလုပ်နေသော ကိုယ်ဝန်ဆောင်အမျိုးသမီးတစ်ဦး။ ပုံထဲရှိစာသားများသည် အင်္ဂလိပ်ဘာသာဖြစ်သည် - “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    km: 'រូបភាព៖ ស្ត្រីមានផ្ទៃពោះម្នាក់ កំពុងលាតសន្ធឹងរាងកាយលើកន្ទេលយ៉ូហ្គា។ អត្ថបទក្នុងរូបភាពជាភាសាអង់គ្លេស៖ “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    lo: 'ຮູບປະກອບ: ຍິງຖືພາຄົນໜຶ່ງ ກຳລັງຍືດຮ່າງກາຍທ່າກ້າວຍາວເທິງເສື່ອໂຢຄະ. ຂໍ້ຄວາມໃນຮູບເປັນພາສາອັງກິດ: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
   },
   exercise: {
     fr: 'Illustration : une femme en fente avant sur un tapis de yoga. Texte : Bouger pour se sentir bien. Affiche : corps, équilibre, énergie.',
@@ -674,5 +959,24 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
     tg: 'Тасвир. Зан дар болои гилемчаи йога машқ мекунад. Навиштаи рӯи тасвир ба забони англисӣ аст: «Move to feel good. Poster: body, balance, energy».',
     ky: 'Сүрөт. Аял йога килемчесинде көнүгүү жасап жатат. Сүрөттөгү жазуу англис тилинде: «Move to feel good. Poster: body, balance, energy».',
     tk: 'Surat: aýal ýoga düşeginiň üstünde maşk edýär. Suratdaky ýazgy iňlisçe: “Move to feel good. Poster: body, balance, energy.”',
+    ms: 'Gambar: wanita bersenam di atas tilam yoga. Tulisan pada gambar dalam bahasa Inggeris: “Move to feel good. Poster: body, balance, energy.”',
+    so: 'Sawir: naag layli ku samaynaysa gogosha yoga. Qoraalka sawirka ku jira waa Ingiriis: “Move to feel good. Poster: body, balance, energy.”',
+    sw: 'Picha: mwanamke akifanya mazoezi kwenye mkeka wa yoga. Maandishi kwenye picha ni ya Kiingereza: “Move to feel good. Poster: body, balance, energy.”',
+    kk: 'Сурет. Әйел йога кілемшесінде жаттығу жасап жатыр. Суреттегі жазу ағылшын тілінде: «Move to feel good. Poster: body, balance, energy».',
+    wo: 'Nataal. Jigéen di yëngu ci benn tapi yoga. Bind bi ci nataal bi ci angale la: «Move to feel good. Poster: body, balance, energy».',
+    ha: 'Hoto. Mace tana motsa jiki a kan tabarmar yoga. Rubutun da ke cikin hoton da Turanci ne: «Move to feel good. Poster: body, balance, energy».',
+    am: 'ምስል፦ ሴት በዮጋ ምንጣፍ ላይ እየተለማመደች። በምስሉ ውስጥ ያለው ጽሑፍ እንግሊዝኛ ነው፦ “Move to feel good. Poster: body, balance, energy.”',
+    nl: 'Afbeelding. Een vrouw die oefeningen doet op een yogamat. De tekst in de afbeelding is Engels: “Move to feel good. Poster: body, balance, energy.”',
+    fi: 'Kuva. Nainen tekemässä harjoituksia joogamatolla. Kuvan teksti on englantia: “Move to feel good. Poster: body, balance, energy.”',
+    el: 'Εικόνα. Μια γυναίκα που κάνει ασκήσεις σε στρώμα γιόγκα. Το κείμενο της εικόνας είναι στα αγγλικά: “Move to feel good. Poster: body, balance, energy.”',
+    fil: 'Larawan. Isang babaeng nag-eehersisyo sa yoga mat. Nasa Ingles ang teksto sa larawan: “Move to feel good. Poster: body, balance, energy.”',
+    ta: 'படம். யோகா மேட்டில் உடற்பயிற்சி செய்யும் ஒரு பெண். படத்தில் உள்ள எழுத்து ஆங்கிலத்தில் உள்ளது: “Move to feel good. Poster: body, balance, energy.”',
+    te: 'చిత్రం. యోగా మ్యాట్‌పై వ్యాయామం చేస్తున్న ఒక మహిళ. చిత్రంలోని అక్షరాలు ఆంగ్లంలో ఉన్నాయి: “Move to feel good. Poster: body, balance, energy.”',
+    mr: 'चित्र. योगा मॅटवर व्यायाम करणारी एक स्त्री. चित्रातील अक्षरे इंग्रजीत आहेत: “Move to feel good. Poster: body, balance, energy.”',
+    gu: 'ચિત્ર. યોગા મેટ પર કસરત કરતી એક સ્ત્રી. ચિત્રમાંના અક્ષરો અંગ્રેજીમાં છે: “Move to feel good. Poster: body, balance, energy.”',
+    pa: 'ਤਸਵੀਰ। ਯੋਗਾ ਮੈਟ ’ਤੇ ਕਸਰਤ ਕਰਦੀ ਇੱਕ ਔਰਤ। ਤਸਵੀਰ ਵਿਚਲੇ ਅੱਖਰ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹਨ: “Move to feel good. Poster: body, balance, energy.”',
+    my: 'ပုံ။ ယိုဂါအခင်းပေါ်တွင် လေ့ကျင့်ခန်းလုပ်နေသော အမျိုးသမီးတစ်ဦး။ ပုံထဲရှိစာသားများသည် အင်္ဂလိပ်ဘာသာဖြစ်သည် - “Move to feel good. Poster: body, balance, energy.”',
+    km: 'រូបភាព៖ ស្ត្រីម្នាក់ កំពុងលាតសន្ធឹងរាងកាយលើកន្ទេលយ៉ូហ្គា។ អត្ថបទក្នុងរូបភាពជាភាសាអង់គ្លេស៖ “Move to feel good. Poster: body, balance, energy.”',
+    lo: 'ຮູບປະກອບ: ຍິງຄົນໜຶ່ງ ກຳລັງຍືດຮ່າງກາຍທ່າກ້າວຍາວເທິງເສື່ອໂຢຄະ. ຂໍ້ຄວາມໃນຮູບເປັນພາສາອັງກິດ: “Move to feel good. Poster: body, balance, energy.”',
   },
 };
