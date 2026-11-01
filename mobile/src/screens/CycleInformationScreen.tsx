@@ -84,6 +84,25 @@ const WEEK_DAYS_HY = ['Երկ', 'Երք', 'Չրք', 'Հնգ', 'Ուր', 'Շբթ'
 const WEEK_DAYS_TG = ['Душ', 'Сеш', 'Чор', 'Пан', 'Ҷум', 'Шан', 'Яқш'];
 const WEEK_DAYS_KY = ['Дүй', 'Шей', 'Шар', 'Бей', 'Жум', 'Ишм', 'Жек'];
 const WEEK_DAYS_TK = ['Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen', 'Ýek'];
+const WEEK_DAYS_MS = ['Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab', 'Ahd'];
+const WEEK_DAYS_SO = ['Isn', 'Tal', 'Arb', 'Kha', 'Jim', 'Sab', 'Axd'];
+const WEEK_DAYS_SW = ['Jtt', 'Jnn', 'Jtn', 'Alh', 'Ijm', 'Jms', 'Jpl'];
+const WEEK_DAYS_KK = ['Дс', 'Сс', 'Ср', 'Бс', 'Жм', 'Сб', 'Жс'];
+const WEEK_DAYS_WO = ['Alt', 'Tal', 'Àll', 'Alx', 'Àjj', 'Gaa', 'Dib'];
+const WEEK_DAYS_HA = ['Lit', 'Tal', 'Lar', 'Alh', 'Jum', 'Asa', 'Lah'];
+const WEEK_DAYS_LO = ['ອາ', 'ຈ', 'ອ', 'ພ', 'ພຫ', 'ສຸ', 'ສ'];
+const WEEK_DAYS_KM = ['អា', 'ច', 'អ', 'ពុ', 'ព្រ', 'សុ', 'ស'];
+const WEEK_DAYS_MY = ['နွေ', 'လာ', 'ဂါ', 'ဟူး', 'ကြာ', 'သော', 'စနေ'];
+const WEEK_DAYS_PA = ['ਐਤ', 'ਸੋਮ', 'ਮੰਗਲ', 'ਬੁੱਧ', 'ਵੀਰ', 'ਸ਼ੁੱਕ', 'ਸ਼ਨੀ'];
+const WEEK_DAYS_GU = ['રવિ', 'સોમ', 'મંગળ', 'બુધ', 'ગુરુ', 'શુક્ર', 'શનિ'];
+const WEEK_DAYS_MR = ['रवि', 'सोम', 'मंगळ', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
+const WEEK_DAYS_TE = ['ఆ', 'సో', 'మం', 'బు', 'గు', 'శు', 'శ'];
+const WEEK_DAYS_TA = ['தி', 'செ', 'பு', 'வி', 'வெ', 'ச', 'ஞா'];
+const WEEK_DAYS_FIL = ['Lu', 'Ma', 'Mi', 'Hu', 'Bi', 'Sa', 'Li'];
+const WEEK_DAYS_EL = ['Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα', 'Κυ'];
+const WEEK_DAYS_FI = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
+const WEEK_DAYS_NL = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+const WEEK_DAYS_AM = ['ሰኞ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ', 'እሑድ'];
 const localizedSingleLetterWeekDays = (): string[] => {
   const language = getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -125,6 +144,25 @@ const localizedSingleLetterWeekDays = (): string[] => {
   if (language === 'tg') {return WEEK_DAYS_TG;}
   if (language === 'ky') {return WEEK_DAYS_KY;}
   if (language === 'tk') {return WEEK_DAYS_TK;}
+  if (language === 'ms') {return WEEK_DAYS_MS;}
+  if (language === 'so') {return WEEK_DAYS_SO;}
+  if (language === 'sw') {return WEEK_DAYS_SW;}
+  if (language === 'kk') {return WEEK_DAYS_KK;}
+  if (language === 'wo') {return WEEK_DAYS_WO;}
+  if (language === 'ha') {return WEEK_DAYS_HA;}
+  if (language === 'am') {return WEEK_DAYS_AM;}
+  if (language === 'nl') {return WEEK_DAYS_NL;}
+  if (language === 'fi') {return WEEK_DAYS_FI;}
+  if (language === 'el') {return WEEK_DAYS_EL;}
+  if (language === 'fil') {return WEEK_DAYS_FIL;}
+  if (language === 'ta') {return WEEK_DAYS_TA;}
+  if (language === 'te') {return WEEK_DAYS_TE;}
+  if (language === 'mr') {return WEEK_DAYS_MR;}
+  if (language === 'gu') {return WEEK_DAYS_GU;}
+  if (language === 'pa') {return WEEK_DAYS_PA;}
+  if (language === 'my') {return WEEK_DAYS_MY;}
+  if (language === 'km') {return WEEK_DAYS_KM;}
+  if (language === 'lo') {return WEEK_DAYS_LO;}
   return WEEK_DAYS_FR;
 };
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);

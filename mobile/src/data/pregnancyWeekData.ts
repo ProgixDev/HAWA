@@ -144,6 +144,25 @@ type PregnancyWeekEntry = {
     tg: PregnancyWeekEditorialContent;
     ky: PregnancyWeekEditorialContent;
     tk: PregnancyWeekEditorialContent;
+    lo: PregnancyWeekEditorialContent;
+    km: PregnancyWeekEditorialContent;
+    my: PregnancyWeekEditorialContent;
+    pa: PregnancyWeekEditorialContent;
+    gu: PregnancyWeekEditorialContent;
+    mr: PregnancyWeekEditorialContent;
+    te: PregnancyWeekEditorialContent;
+    ta: PregnancyWeekEditorialContent;
+    fil: PregnancyWeekEditorialContent;
+    el: PregnancyWeekEditorialContent;
+    fi: PregnancyWeekEditorialContent;
+    nl: PregnancyWeekEditorialContent;
+    am: PregnancyWeekEditorialContent;
+    ha: PregnancyWeekEditorialContent;
+    wo: PregnancyWeekEditorialContent;
+    kk: PregnancyWeekEditorialContent;
+    sw: PregnancyWeekEditorialContent;
+    so: PregnancyWeekEditorialContent;
+    ms: PregnancyWeekEditorialContent;
   };
 };
 
@@ -584,6 +603,215 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Kehamilan dikira bermula dari hari pertama haid terakhir anda, mengikut konvensyen perubatan. Pada peringkat ini, persenyawaan biasanya belum berlaku.',
+        bodyChanges: [
+          'Tempoh ini biasanya mendahului konsepsi; lazimnya belum ada perubahan fizikal yang berkaitan dengan kehamilan.',
+        ],
+        toKnow: [
+          'Mengira kehamilan dari haid terakhir memberikan cara yang piawai untuk menganggar tarikh jangka lahir, walaupun konsepsi sebenarnya berlaku sedikit lebih lewat.',
+          'Adalah lazim untuk tidak perasan sebarang perubahan pada peringkat ini.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Uurka waxaa lagu tirinayaa maalinta koowaad ee caadadaadii ugu dambeysay, sida ay caadada caafimaadku u dhigayso. Heerkan, bacrimintu guud ahaan weli ma dhicin.',
+        bodyChanges: [
+          'Muddadani guud ahaan waxay ka horreysaa uur-qaadista; caadi ahaan weli isbeddel jidheed oo la xiriira uurka ma jiro.',
+        ],
+        toKnow: [
+          'Tirinta uurka laga bilaabo caadadii ugu dambeysay waxay bixisaa hab caadi ah oo lagu qiyaaso taariikhda dhalmada, in kasta oo uur-qaadistu dhab ahaan wax yar ka dib dhacdo.',
+          'Waa caadi in aadan dareemin wax isbeddel ah heerkan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Ujauzito hupimwa kuanzia siku ya kwanza ya hedhi yako ya mwisho, kwa utaratibu wa kitabibu. Katika hatua hii, kwa kawaida utungisho bado haujatokea.',
+        bodyChanges: [
+          'Kipindi hiki kwa kawaida huja kabla ya kutungwa mimba; kwa kawaida bado hakuna mabadiliko ya mwili yanayohusiana na ujauzito.',
+        ],
+        toKnow: [
+          'Kuhesabu ujauzito kuanzia hedhi ya mwisho hutoa njia ya kawaida ya kukadiria tarehe ya kujifungua, ingawa kutungwa mimba hutokea baadaye kidogo.',
+          'Ni kawaida kutohisi mabadiliko yoyote katika hatua hii.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Жүктілік медициналық келісім бойынша соңғы етеккіріңіздің бірінші күнінен есептеледі. Бұл кезеңде ұрықтану әдетте әлі болмайды.',
+        bodyChanges: [
+          'Бұл кезең әдетте ұрықтанудан бұрын келеді; әдетте жүктілікке байланысты дене өзгерістері әлі болмайды.',
+        ],
+        toKnow: [
+          'Жүктілікті соңғы етеккірден бастап санау, ұрықтану шын мәнінде сәл кейінірек болса да, босану күнін болжаудың стандартты тәсілін береді.',
+          'Бұл кезеңде ешқандай өзгерісті байқамау қалыпты жағдай.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Dañu tàmbali lim ëmb ci bu njëkk fanu sa règle bu mujj, ci cosaanu wér. Ci jamono jii, bindeef du am ci yoon.',
+        bodyChanges: [
+          'Jamono jii daa jiitu bindeef; ci yoon amul benn soppi ci yaram bu jëm ci ëmb.',
+        ],
+        toKnow: [
+          'Lim ëmb ci sa règle bu mujj dafay joxe benn anam bu yaatu ngir xayma bésu jur, lu mu mën a doon bindeef dafa am tuuti ginnaaw.',
+          'Daa jub nga gisul benn soppi ci jamono jii.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ana ƙirga ciki daga ranar farko ta hailarki ta ƙarshe, bisa ƙa’idar likita. A wannan mataki, hadi yawanci bai riga ya faru ba.',
+        bodyChanges: [
+          'Wannan lokaci yawanci yana gabaci samun ciki; yawanci babu wani sauyin jiki da ke da alaƙa da ciki tukuna.',
+        ],
+        toKnow: [
+          'Ƙirga ciki daga hailar ƙarshe yana ba da hanya ta bai-ɗaya don ƙiyasta ranar haihuwa, ko da yake samun ciki a zahiri yana faruwa kaɗan daga baya.',
+          'Abu ne gama gari kada a lura da wani sauyi a wannan mataki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'እርግዝና በሕክምና ደንብ መሠረት ከመጨረሻው የወር አበባሽ የመጀመሪያ ቀን ጀምሮ ይቆጠራል። በዚህ ደረጃ ፅንሰት በአጠቃላይ ገና አልተከሰተም።',
+        bodyChanges: [
+          'ይህ ጊዜ በአጠቃላይ ከፅንሰት በፊት ይመጣል፤ ብዙውን ጊዜ ከእርግዝና ጋር የተያያዘ የአካል ለውጥ ገና የለም።',
+        ],
+        toKnow: [
+          'እርግዝናን ከመጨረሻው የወር አበባ መቁጠር የመውለጃ ቀንን ለመገመት መደበኛ መንገድ ይሰጣል፤ ምንም እንኳን ፅንሰት በእውነቱ ትንሽ ቆይቶ ቢከሰትም።',
+          'በዚህ ደረጃ ምንም ለውጥ አለማስተዋል የተለመደ ነው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De zwangerschap wordt volgens medische conventie gerekend vanaf de eerste dag van je laatste menstruatie. In deze fase heeft de bevruchting over het algemeen nog niet plaatsgevonden.',
+        bodyChanges: [
+          'Deze periode komt over het algemeen vóór de conceptie; er is meestal nog geen lichamelijke verandering die met de zwangerschap samenhangt.',
+        ],
+        toKnow: [
+          'De zwangerschap tellen vanaf de laatste menstruatie geeft een gestandaardiseerde manier om een uitgerekende datum te schatten, ook al vindt de conceptie in werkelijkheid iets later plaats.',
+          'Het is normaal dat je in deze fase niets merkt.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Raskaus lasketaan lääketieteellisen käytännön mukaan viimeisten kuukautistesi ensimmäisestä päivästä. Tässä vaiheessa hedelmöittyminen ei yleensä ole vielä tapahtunut.',
+        bodyChanges: [
+          'Tämä ajanjakso edeltää yleensä hedelmöittymistä; raskauteen liittyviä fyysisiä muutoksia ei yleensä vielä ole.',
+        ],
+        toKnow: [
+          'Raskauden laskeminen viimeisistä kuukautisista antaa standardoidun tavan arvioida laskettua aikaa, vaikka hedelmöittyminen tapahtuukin todellisuudessa hieman myöhemmin.',
+          'On tavallista, ettei tässä vaiheessa huomaa mitään muutosta.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Η εγκυμοσύνη χρονολογείται, κατά ιατρική σύμβαση, από την πρώτη ημέρα της τελευταίας περιόδου σου. Σε αυτό το στάδιο, η γονιμοποίηση συνήθως δεν έχει ακόμη γίνει.',
+        bodyChanges: [
+          'Αυτή η περίοδος προηγείται γενικά της σύλληψης· συνήθως δεν υπάρχει ακόμη καμία σωματική αλλαγή που να σχετίζεται με την εγκυμοσύνη.',
+        ],
+        toKnow: [
+          'Η καταμέτρηση της εγκυμοσύνης από την τελευταία περίοδο δίνει έναν τυποποιημένο τρόπο εκτίμησης της πιθανής ημερομηνίας τοκετού, παρόλο που η σύλληψη γίνεται στην πραγματικότητα λίγο αργότερα.',
+          'Είναι συνηθισμένο να μην παρατηρείς καμία αλλαγή σε αυτό το στάδιο.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang pagbubuntis ay binibilang, ayon sa medikal na kumbensyon, mula sa unang araw ng huli mong regla. Sa yugtong ito, karaniwang hindi pa nangyayari ang fertilization.',
+        bodyChanges: [
+          'Karaniwang nauuna ang panahong ito sa paglilihi; kadalasang wala pang pisikal na pagbabagong kaugnay ng pagbubuntis.',
+        ],
+        toKnow: [
+          'Ang pagbibilang ng pagbubuntis mula sa huling regla ay nagbibigay ng pamantayang paraan ng pagtantiya ng takdang petsa ng panganganak, kahit na ang paglilihi ay talagang nangyayari nang medyo huli.',
+          'Karaniwan na walang mapansing pagbabago sa yugtong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'மருத்துவ வழக்கப்படி, கர்ப்பம் உங்கள் கடைசி மாதவிடாயின் முதல் நாளிலிருந்து கணக்கிடப்படுகிறது. இந்தக் கட்டத்தில், கருக்கட்டல் பொதுவாக இன்னும் நிகழ்ந்திருக்காது.',
+        bodyChanges: [
+          'இந்தக் காலம் பொதுவாகக் கருத்தரிப்புக்கு முந்தையது; கர்ப்பம் தொடர்பான உடல் மாற்றம் பொதுவாக இன்னும் இருக்காது.',
+        ],
+        toKnow: [
+          'கடைசி மாதவிடாயிலிருந்து கர்ப்பத்தைக் கணக்கிடுவது, கருத்தரிப்பு உண்மையில் சற்றுத் தாமதமாக நிகழ்ந்தாலும், பிரசவ தேதியை மதிப்பிட ஒரு தரப்படுத்தப்பட்ட வழியைத் தருகிறது.',
+          'இந்தக் கட்டத்தில் எந்த மாற்றத்தையும் கவனிக்காதது பொதுவானது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'వైద్య సంప్రదాయం ప్రకారం, గర్భం మీ చివరి నెలసరి మొదటి రోజు నుండి లెక్కించబడుతుంది. ఈ దశలో ఫలదీకరణం సాధారణంగా ఇంకా జరిగి ఉండదు.',
+        bodyChanges: [
+          'ఈ కాలం సాధారణంగా గర్భధారణకు ముందు వస్తుంది; గర్భానికి సంబంధించిన శారీరక మార్పు సాధారణంగా ఇంకా ఉండదు.',
+        ],
+        toKnow: [
+          'గర్భధారణ వాస్తవానికి కొంచెం తర్వాత జరిగినా, చివరి నెలసరి నుండి గర్భాన్ని లెక్కించడం ప్రసవ తేదీని అంచనా వేయడానికి ఒక ప్రామాణిక పద్ధతిని ఇస్తుంది.',
+          'ఈ దశలో ఎలాంటి మార్పునూ గమనించకపోవడం సాధారణం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'वैद्यकीय संकेतानुसार, गर्भारपण तुमच्या शेवटच्या पाळीच्या पहिल्या दिवसापासून मोजले जाते. या टप्प्यावर फलन सहसा अजून झालेले नसते.',
+        bodyChanges: [
+          'हा काळ सहसा गर्भधारणेपूर्वीचा असतो; गर्भारपणाशी संबंधित शारीरिक बदल सहसा अजून नसतो.',
+        ],
+        toKnow: [
+          'गर्भधारणा प्रत्यक्षात थोडी नंतर होत असली तरी, शेवटच्या पाळीपासून गर्भारपण मोजल्याने प्रसूतीच्या अपेक्षित तारखेचा अंदाज बांधण्याचा एक प्रमाणित मार्ग मिळतो.',
+          'या टप्प्यावर कोणताही बदल न जाणवणे सामान्य आहे.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'તબીબી પરંપરા મુજબ, ગર્ભાવસ્થાની ગણતરી તમારા છેલ્લા માસિકના પહેલા દિવસથી થાય છે. આ તબક્કે ફળદ્રુપીકરણ સામાન્ય રીતે હજુ થયું હોતું નથી.',
+        bodyChanges: [
+          'આ સમયગાળો સામાન્ય રીતે ગર્ભધારણ પહેલાંનો હોય છે; ગર્ભાવસ્થા સંબંધિત કોઈ શારીરિક ફેરફાર સામાન્ય રીતે હજુ હોતો નથી.',
+        ],
+        toKnow: [
+          'ગર્ભધારણ ખરેખર થોડું પછી થતું હોવા છતાં, છેલ્લા માસિકથી ગર્ભાવસ્થા ગણવાથી પ્રસૂતિની તારીખનો અંદાજ લગાવવાની એક પ્રમાણિત રીત મળે છે.',
+          'આ તબક્કે કોઈ ફેરફાર ન જણાય તે સામાન્ય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਡਾਕਟਰੀ ਰਿਵਾਜ ਅਨੁਸਾਰ, ਗਰਭ-ਅਵਸਥਾ ਦੀ ਗਿਣਤੀ ਤੁਹਾਡੀ ਪਿਛਲੀ ਮਾਹਵਾਰੀ ਦੇ ਪਹਿਲੇ ਦਿਨ ਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਇਸ ਪੜਾਅ ’ਤੇ ਆਮ ਤੌਰ ’ਤੇ ਅਜੇ ਗਰਭ ਧਾਰਨ ਨਹੀਂ ਹੋਇਆ ਹੁੰਦਾ।',
+        bodyChanges: [
+          'ਇਹ ਮਾਹਵਾਰੀ ਆਮ ਤੌਰ ’ਤੇ ਗਰਭ ਧਾਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਉਂਦੀ ਹੈ; ਗਰਭ-ਅਵਸਥਾ ਨਾਲ ਜੁੜੀ ਕੋਈ ਸਰੀਰਕ ਤਬਦੀਲੀ ਆਮ ਤੌਰ ’ਤੇ ਅਜੇ ਨਹੀਂ ਹੁੰਦੀ।',
+        ],
+        toKnow: [
+          'ਭਾਵੇਂ ਗਰਭ ਧਾਰਨ ਅਸਲ ਵਿੱਚ ਥੋੜ੍ਹਾ ਬਾਅਦ ਹੁੰਦਾ ਹੈ, ਪਿਛਲੀ ਮਾਹਵਾਰੀ ਤੋਂ ਗਰਭ-ਅਵਸਥਾ ਗਿਣਨ ਨਾਲ ਜਣੇਪੇ ਦੀ ਤਾਰੀਖ਼ ਦਾ ਅੰਦਾਜ਼ਾ ਲਾਉਣ ਦਾ ਇੱਕ ਮਿਆਰੀ ਤਰੀਕਾ ਮਿਲਦਾ ਹੈ।',
+          'ਇਸ ਪੜਾਅ ’ਤੇ ਕੋਈ ਤਬਦੀਲੀ ਨਾ ਮਹਿਸੂਸ ਹੋਣਾ ਆਮ ਗੱਲ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ဆေးပညာဆိုင်ရာ အစဉ်အလာအရ ကိုယ်ဝန်ကို သင်၏ နောက်ဆုံးရာသီလာသည့် ပထမနေ့မှ စတင်တွက်ချက်သည်။ ဤအဆင့်တွင် သန္ဓေအောင်ခြင်းသည် များသောအားဖြင့် မဖြစ်သေးပါ။',
+        bodyChanges: [
+          'ဤရာသီသည် များသောအားဖြင့် သန္ဓေတည်ခြင်းမတိုင်မီ ဖြစ်သည်။ ကိုယ်ဝန်နှင့်ဆိုင်သော ခန္ဓာကိုယ်ပြောင်းလဲမှု များသောအားဖြင့် မရှိသေးပါ။',
+        ],
+        toKnow: [
+          'သန္ဓေတည်ခြင်းသည် အမှန်တကယ်တွင် အနည်းငယ်နောက်မှ ဖြစ်သော်လည်း နောက်ဆုံးရာသီမှ ကိုယ်ဝန်ကို ရေတွက်ခြင်းဖြင့် မီးဖွားမည့်ရက်ကို ခန့်မှန်းရန် စံနည်းလမ်းတစ်ခု ရရှိသည်။',
+          'ဤအဆင့်တွင် ပြောင်းလဲမှုတစ်စုံတစ်ရာ မသိသာခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'តាមការកំណត់ខាងវេជ្ជសាស្ត្រ ការមានផ្ទៃពោះត្រូវរាប់ចាប់ពីថ្ងៃដំបូងនៃរដូវចុងក្រោយរបស់អ្នក។ នៅដំណាក់កាលនេះ ការបង្កកំណើតជាទូទៅមិនទាន់កើតឡើងនៅឡើយទេ។',
+        bodyChanges: [
+          'រដូវនេះជាទូទៅកើតមានមុនការមានផ្ទៃពោះ ហើយជាធម្មតាមិនទាន់មានការប្រែប្រួលរាងកាយទាក់ទងនឹងការមានផ្ទៃពោះនៅឡើយទេ។',
+        ],
+        toKnow: [
+          'ការរាប់ការមានផ្ទៃពោះចាប់ពីរដូវចុងក្រោយ ផ្តល់វិធីស្តង់ដារសម្រាប់ប៉ាន់ស្មានថ្ងៃកំណត់សម្រាល ទោះបីជាការបង្កកំណើតពិតប្រាកដកើតឡើងយឺតជាងនេះបន្តិចក៏ដោយ។',
+          'ជារឿងធម្មតាដែលមិនមានអារម្មណ៍ពីការប្រែប្រួលអ្វីនៅដំណាក់កាលនេះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕາມຫຼັກການທາງການແພດ ການຖືພານັບຈາກມື້ທຳອິດຂອງປະຈຳເດືອນຄັ້ງສຸດທ້າຍ. ໃນໄລຍະນີ້ ໂດຍທົ່ວໄປການປະສົມຂອງໄຂ່ຍັງບໍ່ທັນເກີດຂຶ້ນ.',
+        bodyChanges: [
+          'ປະຈຳເດືອນຮອບນີ້ມັກມາກ່ອນການຕັ້ງຄັນ ແລະ ໂດຍປົກກະຕິຍັງບໍ່ມີການປ່ຽນແປງທາງຮ່າງກາຍທີ່ກ່ຽວຂ້ອງກັບການຖືພາ.',
+        ],
+        toKnow: [
+          'ການນັບການຖືພາຈາກປະຈຳເດືອນຄັ້ງສຸດທ້າຍເປັນວິທີມາດຕະຖານໃນການຄາດຄະເນວັນກຳນົດຄອດ ເຖິງແມ່ນວ່າການຕັ້ງຄັນຈິງຈະເກີດຂຶ້ນຊ້າກວ່ານັ້ນເລັກນ້ອຍ.',
+          'ເປັນເລື່ອງທຳມະດາທີ່ຈະບໍ່ສັງເກດເຫັນການປ່ຽນແປງໃດໆໃນໄລຍະນີ້.',
+        ],
+      },
     },
   },
   {
@@ -1006,6 +1234,215 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Ovulasi dan kemungkinan persenyawaan biasanya berlaku sekitar masa ini, bergantung pada tempoh kitaran setiap orang.',
+        bodyChanges: [
+          'Masa ovulasi boleh berbeza bergantung pada tempoh kitaran, yang menjejaskan tarikh sebenar kemungkinan konsepsi.',
+          'Lazimnya belum ada perubahan fizikal khusus kehamilan pada peringkat ini.',
+        ],
+        toKnow: [
+          'Masa tepat ovulasi berbeza dari seorang ke seorang, itulah sebabnya tempoh ini kekal sebagai anggaran.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ukun-sii-deynta iyo bacrimin suurtagal ah guud ahaan waxay dhacaan waqtigan, iyadoo ku xiran dhererka wareegga qof kasta.',
+        bodyChanges: [
+          'Waqtiga ukun-sii-deynta wuu kala duwanaan karaa iyadoo ku xiran dhererka wareegga, taasoo saameysa taariikhda dhabta ah ee uur-qaadista.',
+          'Guud ahaan isbeddel jidheed oo gaar u ah uurka weli ma jiro heerkan.',
+        ],
+        toKnow: [
+          'Waqtiga saxda ah ee ukun-sii-deynta wuu ku kala duwan yahay qof ilaa qof, sidaa darteed muddadani waa qiyaas.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Utoaji wa yai na utungisho unaowezekana kwa kawaida hutokea karibu na wakati huu, kulingana na urefu wa mzunguko wa kila mtu.',
+        bodyChanges: [
+          'Wakati wa utoaji wa yai unaweza kutofautiana kulingana na urefu wa mzunguko, jambo linaloathiri tarehe halisi inayowezekana ya kutungwa mimba.',
+          'Kwa kawaida bado hakuna mabadiliko ya mwili mahususi ya ujauzito katika hatua hii.',
+        ],
+        toKnow: [
+          'Wakati kamili wa utoaji wa yai hutofautiana kati ya mtu na mtu, ndiyo maana kipindi hiki hubaki kuwa kadirio.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Овуляция және мүмкін ұрықтану әдетте осы уақытта болады, бұл әр адамның цикл ұзақтығына байланысты.',
+        bodyChanges: [
+          'Овуляция уақыты цикл ұзақтығына қарай өзгеруі мүмкін, бұл ұрықтанудың нақты мүмкін күніне әсер етеді.',
+          'Бұл кезеңде әдетте жүктілікке тән дене өзгерістері әлі болмайды.',
+        ],
+        toKnow: [
+          'Овуляцияның нақты уақыты әр адамда әртүрлі, сондықтан бұл кезең болжам болып қала береді.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Ovilasiyoŋ ak bindeef bu mën a am daa am ci jamono jii, ci diiru wërsëg bu nit ku nekk.',
+        bodyChanges: [
+          'Jamonoy ovilasiyoŋ mën na wuute ci diiru wërsëg, mu jëm ci bésu bindeef bu mën a am.',
+          'Ci yoon amul benn soppi ci yaram bu jëm ci ëmb ci jamono jii.',
+        ],
+        toKnow: [
+          'Jamono bu leer bu ovilasiyoŋ wuute na ci nit ak nit, loolu mooy tax jamono jii des xayma.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Fitar ƙwai da yiwuwar hadi yawanci suna faruwa a kusa da wannan lokaci, bisa tsawon zagayen kowane mutum.',
+        bodyChanges: [
+          'Lokacin fitar ƙwai na iya bambanta bisa tsawon zagaye, wanda ke shafar ainihin yiwuwar ranar samun ciki.',
+          'Yawanci babu wani sauyin jiki na musamman na ciki tukuna a wannan mataki.',
+        ],
+        toKnow: [
+          'Ainihin lokacin fitar ƙwai yana bambanta daga mutum zuwa mutum, shi ya sa wannan lokaci ya ci gaba da zama ƙiyasi.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'እንቁላል መልቀቅ እና ሊኖር የሚችል ፅንሰት በአጠቃላይ በዚህ ጊዜ አካባቢ ይከሰታሉ፣ በእያንዳንዱ ሰው የዑደት ርዝመት መሠረት።',
+        bodyChanges: [
+          'የእንቁላል መልቀቅ ጊዜ በዑደት ርዝመት መሠረት ሊለያይ ይችላል፤ ይህም ሊሆን የሚችለውን የፅንሰት ቀን ይነካል።',
+          'በዚህ ደረጃ ከእርግዝና ጋር የተያያዘ የተለየ የአካል ለውጥ በአጠቃላይ ገና የለም።',
+        ],
+        toKnow: [
+          'የእንቁላል መልቀቅ ትክክለኛ ጊዜ ከሰው ወደ ሰው ይለያያል፤ ለዚህ ነው ይህ ጊዜ ግምት ሆኖ የሚቀረው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De eisprong en een mogelijke bevruchting vinden over het algemeen rond deze tijd plaats, afhankelijk van de cycluslengte van elke vrouw.',
+        bodyChanges: [
+          'Het tijdstip van de eisprong kan variëren naargelang de cycluslengte, wat de werkelijke mogelijke datum van de conceptie beïnvloedt.',
+          'In deze fase is er over het algemeen nog geen zwangerschapsspecifieke lichamelijke verandering.',
+        ],
+        toKnow: [
+          'Het exacte tijdstip van de eisprong verschilt van persoon tot persoon, daarom blijft deze periode een schatting.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Ovulaatio ja mahdollinen hedelmöittyminen tapahtuvat yleensä noin tähän aikaan kunkin kiertopituuden mukaan.',
+        bodyChanges: [
+          'Ovulaation ajankohta voi vaihdella kiertopituuden mukaan, mikä vaikuttaa hedelmöittymisen todelliseen mahdolliseen ajankohtaan.',
+          'Raskauteen liittyviä fyysisiä muutoksia ei yleensä vielä ole tässä vaiheessa.',
+        ],
+        toKnow: [
+          'Ovulaation tarkka ajankohta vaihtelee ihmisestä toiseen, minkä vuoksi tämä ajanjakso on edelleen arvio.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Η ωορρηξία και η πιθανή γονιμοποίηση συμβαίνουν γενικά γύρω σε αυτή την περίοδο, ανάλογα με τη διάρκεια του κύκλου κάθε γυναίκας.',
+        bodyChanges: [
+          'Ο χρόνος της ωορρηξίας μπορεί να διαφέρει ανάλογα με τη διάρκεια του κύκλου, κάτι που επηρεάζει την πραγματική πιθανή ημερομηνία σύλληψης.',
+          'Γενικά δεν υπάρχει ακόμη καμία ειδική σωματική αλλαγή της εγκυμοσύνης σε αυτό το στάδιο.',
+        ],
+        toKnow: [
+          'Ο ακριβής χρόνος της ωορρηξίας διαφέρει από γυναίκα σε γυναίκα, γι’ αυτό αυτή η περίοδος παραμένει εκτίμηση.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Karaniwang nangyayari sa paligid ng panahong ito ang obulasyon at posibleng fertilization, depende sa haba ng siklo ng bawat tao.',
+        bodyChanges: [
+          'Maaaring mag-iba ang tiyempo ng obulasyon depende sa haba ng siklo, na nakakaapekto sa aktwal na posibleng petsa ng paglilihi.',
+          'Karaniwang wala pang pisikal na pagbabagong partikular sa pagbubuntis sa yugtong ito.',
+        ],
+        toKnow: [
+          'Nag-iiba sa bawat tao ang eksaktong tiyempo ng obulasyon, kaya nananatiling tantiya ang panahong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'அண்டவிடுப்பும் சாத்தியமான கருக்கட்டலும் ஒவ்வொருவரின் சுழற்சி நீளத்தைப் பொறுத்து, பொதுவாக இந்த நேரத்தைச் சுற்றி நிகழ்கின்றன.',
+        bodyChanges: [
+          'அண்டவிடுப்பின் நேரம் சுழற்சி நீளத்தைப் பொறுத்து மாறுபடலாம், இது கருத்தரிப்பின் உண்மையான சாத்தியத் தேதியைப் பாதிக்கிறது.',
+          'இந்தக் கட்டத்தில் கர்ப்பத்துக்கே உரிய உடல் மாற்றம் பொதுவாக இன்னும் இல்லை.',
+        ],
+        toKnow: [
+          'அண்டவிடுப்பின் சரியான நேரம் ஒருவருக்கு ஒருவர் மாறுபடும், அதனால்தான் இந்தக் காலம் ஒரு மதிப்பீடாகவே இருக்கிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'మీ చక్రం నిడివిని బట్టి, అండోత్సర్గం, సాధ్యమైన ఫలదీకరణం సాధారణంగా ఈ సమయంలో జరుగుతాయి.',
+        bodyChanges: [
+          'అండోత్సర్గం సమయం చక్రం నిడివిని బట్టి మారవచ్చు, ఇది గర్భధారణ వాస్తవ సాధ్యమైన తేదీని ప్రభావితం చేస్తుంది.',
+          'ఈ దశలో గర్భానికి ప్రత్యేకమైన శారీరక మార్పు సాధారణంగా ఇంకా ఉండదు.',
+        ],
+        toKnow: [
+          'అండోత్సర్గం ఖచ్చితమైన సమయం ఒకరి నుండి మరొకరికి మారుతుంది, అందుకే ఈ కాలం ఒక అంచనాగానే ఉంటుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'तुमच्या पाळीच्या कालावधीनुसार, बीजोत्सर्जन आणि संभाव्य फलन साधारणपणे याच सुमारास होते.',
+        bodyChanges: [
+          'बीजोत्सर्जनाची वेळ पाळीच्या कालावधीनुसार बदलू शकते, ज्याचा गर्भधारणेच्या प्रत्यक्ष संभाव्य तारखेवर परिणाम होतो.',
+          'या टप्प्यावर गर्भारपणासाठी विशिष्ट असा शारीरिक बदल सहसा अजून नसतो.',
+        ],
+        toKnow: [
+          'बीजोत्सर्जनाची अचूक वेळ एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत बदलते, म्हणूनच हा काळ एक अंदाजच राहतो.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'દરેક વ્યક્તિના માસિક ચક્રની લંબાઈ મુજબ, અંડોત્સર્જન અને સંભવિત ફળદ્રુપીકરણ સામાન્ય રીતે લગભગ આ સમયે થાય છે.',
+        bodyChanges: [
+          'અંડોત્સર્જનનો સમય માસિક ચક્રની લંબાઈ મુજબ બદલાઈ શકે છે, જે ગર્ભધારણની ખરેખરી સંભવિત તારીખને અસર કરે છે.',
+          'આ તબક્કે ગર્ભાવસ્થા માટેનો ખાસ શારીરિક ફેરફાર સામાન્ય રીતે હજુ હોતો નથી.',
+        ],
+        toKnow: [
+          'અંડોત્સર્જનનો ચોક્કસ સમય વ્યક્તિએ વ્યક્તિએ બદલાય છે, તેથી આ સમયગાળો અંદાજ જ રહે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਹਰ ਔਰਤ ਦੇ ਮਾਹਵਾਰੀ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਅਨੁਸਾਰ, ਓਵੂਲੇਸ਼ਨ (ਅੰਡਾ ਨਿਕਲਣਾ) ਅਤੇ ਸੰਭਾਵੀ ਗਰਭ ਧਾਰਨ ਆਮ ਤੌਰ ’ਤੇ ਲਗਭਗ ਇਸੇ ਸਮੇਂ ਹੁੰਦੇ ਹਨ।',
+        bodyChanges: [
+          'ਓਵੂਲੇਸ਼ਨ ਦਾ ਸਮਾਂ ਮਾਹਵਾਰੀ ਚੱਕਰ ਦੀ ਲੰਬਾਈ ਅਨੁਸਾਰ ਬਦਲ ਸਕਦਾ ਹੈ, ਜਿਸ ਦਾ ਅਸਰ ਗਰਭ ਧਾਰਨ ਦੀ ਅਸਲ ਸੰਭਾਵੀ ਤਾਰੀਖ਼ ’ਤੇ ਪੈਂਦਾ ਹੈ।',
+          'ਇਸ ਪੜਾਅ ’ਤੇ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਕੋਈ ਖ਼ਾਸ ਸਰੀਰਕ ਤਬਦੀਲੀ ਆਮ ਤੌਰ ’ਤੇ ਅਜੇ ਨਹੀਂ ਹੁੰਦੀ।',
+        ],
+        toKnow: [
+          'ਓਵੂਲੇਸ਼ਨ ਦਾ ਸਹੀ ਸਮਾਂ ਹਰ ਔਰਤ ਵਿੱਚ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ, ਇਸੇ ਲਈ ਇਹ ਸਮਾਂ ਇੱਕ ਅੰਦਾਜ਼ਾ ਹੀ ਰਹਿੰਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မျိုးဥကြွေခြင်းနှင့် ဖြစ်နိုင်ချေရှိသော သန္ဓေအောင်ခြင်းတို့သည် တစ်ဦးချင်း၏ ရာသီစက်ဝန်းအရှည်ပေါ်မူတည်၍ များသောအားဖြင့် ဤအချိန်ဝန်းကျင်တွင် ဖြစ်ပေါ်သည်။',
+        bodyChanges: [
+          'မျိုးဥကြွေချိန်သည် ရာသီစက်ဝန်းအရှည်ပေါ်မူတည်၍ ကွဲပြားနိုင်ပြီး သန္ဓေတည်နိုင်သည့် အမှန်တကယ်ရက်စွဲကို သက်ရောက်သည်။',
+          'ဤအဆင့်တွင် ကိုယ်ဝန်အတွက် သီးသန့်ခန္ဓာကိုယ်ပြောင်းလဲမှု များသောအားဖြင့် မရှိသေးပါ။',
+        ],
+        toKnow: [
+          'မျိုးဥကြွေချိန် အတိအကျသည် လူတစ်ဦးနှင့်တစ်ဦး ကွဲပြားသောကြောင့် ဤကာလသည် ခန့်မှန်းချက်သာ ဖြစ်နေသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ការបញ្ចេញពងអូវុល និងការបង្កកំណើតដែលអាចកើតមាន ជាទូទៅកើតឡើងនៅជុំវិញពេលនេះ អាស្រ័យលើរយៈពេលវដ្តរបស់មនុស្សម្នាក់ៗ។',
+        bodyChanges: [
+          'ពេលវេលានៃការបញ្ចេញពងអូវុលអាចប្រែប្រួលតាមរយៈពេលវដ្ត ដែលប៉ះពាល់ដល់កាលបរិច្ឆេទពិតនៃការមានផ្ទៃពោះដែលអាចកើតមាន។',
+          'ជាទូទៅ មិនទាន់មានការប្រែប្រួលរាងកាយជាក់លាក់ចំពោះការមានផ្ទៃពោះនៅដំណាក់កាលនេះទេ។',
+        ],
+        toKnow: [
+          'ពេលវេលាច្បាស់លាស់នៃការបញ្ចេញពងអូវុលខុសគ្នាពីមនុស្សម្នាក់ទៅម្នាក់ ដូច្នេះរយៈពេលនេះនៅតែជាការប៉ាន់ស្មាន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ການຕົກໄຂ່ ແລະ ການປະສົມຂອງໄຂ່ທີ່ອາດເກີດຂຶ້ນ ມັກເກີດຂຶ້ນໃນຊ່ວງນີ້ ຂຶ້ນກັບຄວາມຍາວຂອງຮອບເດືອນຂອງແຕ່ລະຄົນ.',
+        bodyChanges: [
+          'ເວລາຂອງການຕົກໄຂ່ອາດແຕກຕ່າງກັນຕາມຄວາມຍາວຂອງຮອບເດືອນ ເຊິ່ງມີຜົນຕໍ່ວັນທີ່ອາດຕັ້ງຄັນໄດ້ຈິງ.',
+          'ໂດຍທົ່ວໄປໃນໄລຍະນີ້ຍັງບໍ່ມີການປ່ຽນແປງທາງຮ່າງກາຍສະເພາະຂອງການຖືພາ.',
+        ],
+        toKnow: [
+          'ເວລາທີ່ແນ່ນອນຂອງການຕົກໄຂ່ແຕກຕ່າງກັນໄປໃນແຕ່ລະຄົນ ຈຶ່ງເປັນເຫດຜົນທີ່ໄລຍະນີ້ຍັງເປັນພຽງການຄາດຄະເນ.',
+        ],
+      },
     },
   },
   {
@@ -1388,6 +1825,196 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Jika persenyawaan telah berlaku, sel telur mula membahagi dan bergerak ke arah rahim, tetapi belum ada apa-apa yang dapat dikesan oleh ujian kehamilan.',
+        bodyChanges: [
+          'Minggu ini masih termasuk dalam tempoh penentuan tarikh perubatan sekitar konsepsi; lazimnya tiada tanda fizikal yang dapat dirasai pada peringkat ini.',
+        ],
+        toKnow: [
+          'Kebanyakan ujian kehamilan air kencing menjadi boleh dipercayai bermula sekitar minggu berikutnya, setelah implantasi bermula.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Haddii bacrimin dhacday, ukunta way kala qaybsamaysaa oo ilmo-galeenka ayay u socotaa, laakiin baaritaanka uurka weli waxba ma muujin karo.',
+        bodyChanges: [
+          'Toddobaadkan weli wuxuu ku jiraa muddada taariikhaynta caafimaadka ee ku wareegsan uur-qaadista; guud ahaan calaamad jidheed oo la dareemi karo heerkan ma jirto.',
+        ],
+        toKnow: [
+          'Inta badan baaritaannada uurka ee kaadida waxay noqdaan kuwo la isku halleyn karo laga bilaabo toddobaadka xiga, marka ku dhegiddu bilaabato.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Ikiwa utungisho umetokea, yai huanza kugawanyika na kuelekea kwenye mji wa uzazi, lakini kipimo cha ujauzito bado hakiwezi kugundua chochote.',
+        bodyChanges: [
+          'Wiki hii bado iko ndani ya kipindi cha kupanga tarehe za kitabibu kinachozunguka kutungwa mimba; kwa kawaida hakuna dalili ya mwili inayoonekana katika hatua hii.',
+        ],
+        toKnow: [
+          'Vipimo vingi vya ujauzito vya mkojo huwa vya kuaminika kuanzia wiki inayofuata, baada ya kujipandikiza kuanza.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Ұрықтану болса, жұмыртқа жасушасы бөліне бастайды және жатырға қарай жылжиды, бірақ жүктілік тесті әлі ештеңе анықтай алмайды.',
+        bodyChanges: [
+          'Бұл апта әлі ұрықтануды қоршайтын медициналық мерзімдеу кезеңінде; бұл кезеңде әдетте ешқандай дене белгісі байқалмайды.',
+        ],
+        toKnow: [
+          'Зәр жүктілік тесттерінің көпшілігі имплантация басталғаннан кейін, келесі аптадан бастап сенімді болады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Bu bindeef am na, nen bi dafay tàmbali séddu te jëm ci bérëbu ndey, waaye tèsu ëmb gisul dara ba tey.',
+        bodyChanges: [
+          'Ayu-bés bii ñu ngi ci jamonoy lim bu wér bu wër bindeef; ci yoon amul benn màndarga bu yaram bu gis.',
+        ],
+        toKnow: [
+          'Bari ci tèsu ëmb ci pis dañuy wóor ci ayu-bés bu toftal, bu nidasiyoŋ tàmbalee.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Idan hadi ya faru, ƙwai ya fara rarrabuwa kuma yana tafiya zuwa mahaifa, amma gwajin ciki bai gano komai ba tukuna.',
+        bodyChanges: [
+          'Wannan mako har yanzu yana cikin lokacin kididdigar likita a kusa da samun ciki; yawanci babu wata alamar jiki da ake lura da ita a wannan mataki.',
+        ],
+        toKnow: [
+          'Yawancin gwajin ciki na fitsari suna zama abin dogaro daga kusan makon da ya biyo baya, da zarar mannewa ta fara.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ፅንሰት ከተከሰተ እንቁላሉ መከፋፈልና ወደ ማህፀን መጓዝ ይጀምራል፣ ነገር ግን የእርግዝና ምርመራ ገና ምንም አይለይም።',
+        bodyChanges: [
+          'ይህ ሳምንት አሁንም በፅንሰት ዙሪያ ባለው የሕክምና የቀን አቆጣጠር ጊዜ ውስጥ ነው፤ በዚህ ደረጃ ምንም የአካል ምልክት በአጠቃላይ አይታይም።',
+        ],
+        toKnow: [
+          'አብዛኞቹ የሽንት እርግዝና ምርመራዎች መቀመጡ ከጀመረ በኋላ ከሚቀጥለው ሳምንት አካባቢ አስተማማኝ ይሆናሉ።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Als de bevruchting heeft plaatsgevonden, begint de eicel zich te delen en naar de baarmoeder te bewegen, maar met een zwangerschapstest is nog niets aantoonbaar.',
+        bodyChanges: [
+          'Deze week valt nog binnen de medische datering rond de conceptie; er is in deze fase over het algemeen geen lichamelijk teken merkbaar.',
+        ],
+        toKnow: [
+          'De meeste urinetesten voor zwangerschap worden betrouwbaar vanaf ongeveer de volgende week, zodra de innesteling is begonnen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Jos hedelmöittyminen on tapahtunut, munasolu alkaa jakautua ja liikkua kohti kohtua, mutta raskaustestillä ei ole vielä mitään havaittavissa.',
+        bodyChanges: [
+          'Tämä viikko kuuluu vielä hedelmöittymistä ympäröivään lääketieteelliseen ajoitukseen; fyysistä merkkiä ei yleensä ole huomattavissa tässä vaiheessa.',
+        ],
+        toKnow: [
+          'Useimmat virtsatestit raskauden toteamiseksi tulevat luotettaviksi noin seuraavalla viikolla, kun kiinnittyminen on alkanut.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Αν έχει γίνει γονιμοποίηση, το ωάριο αρχίζει να διαιρείται και να κινείται προς τη μήτρα, αλλά τίποτα δεν ανιχνεύεται ακόμη από ένα τεστ εγκυμοσύνης.',
+        bodyChanges: [
+          'Αυτή η εβδομάδα εξακολουθεί να εντάσσεται στην ιατρική χρονολόγηση γύρω από τη σύλληψη· γενικά δεν είναι αισθητό κανένα σωματικό σημάδι σε αυτό το στάδιο.',
+        ],
+        toKnow: [
+          'Τα περισσότερα τεστ εγκυμοσύνης ούρων γίνονται αξιόπιστα από την επόμενη εβδομάδα περίπου, μόλις έχει αρχίσει η εμφύτευση.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Kung naganap ang fertilization, nagsisimulang maghati ang itlog at gumalaw patungo sa matris, ngunit wala pang matutukoy sa pregnancy test.',
+        bodyChanges: [
+          'Kabilang pa rin ang linggong ito sa medikal na panahon ng pagbibilang sa paligid ng paglilihi; karaniwang walang kapansin-pansing pisikal na senyales sa yugtong ito.',
+        ],
+        toKnow: [
+          'Karamihan sa mga urine pregnancy test ay nagiging maaasahan mula sa susunod na linggo, kapag nagsimula na ang implantasyon.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கருக்கட்டல் நிகழ்ந்திருந்தால், முட்டை பிரியத் தொடங்கி கருப்பையை நோக்கி நகர்கிறது, ஆனால் கர்ப்பப் பரிசோதனையால் இன்னும் எதுவும் கண்டறிய முடியாது.',
+        bodyChanges: [
+          'இந்த வாரம் இன்னும் கருத்தரிப்பைச் சூழ்ந்த மருத்துவக் கணக்கீட்டுக் காலத்துக்குள் வருகிறது; இந்தக் கட்டத்தில் எந்த உடல் அறிகுறியும் பொதுவாகக் கவனிக்கப்படுவதில்லை.',
+        ],
+        toKnow: [
+          'பெரும்பாலான சிறுநீர்க் கர்ப்பப் பரிசோதனைகள், கருப்பதிவு தொடங்கிய பின், அடுத்த வாரத்திலிருந்து நம்பகமாகின்றன.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఫలదీకరణం జరిగి ఉంటే, అండం విభజన చెందుతూ గర్భాశయం వైపు కదలడం మొదలవుతుంది, కానీ గర్భ పరీక్షలో ఇంకా ఏదీ గుర్తించబడదు.',
+        bodyChanges: [
+          'ఈ వారం ఇంకా గర్భధారణ చుట్టూ ఉన్న వైద్య కాలగణన కాలంలోనే ఉంది; ఈ దశలో శారీరక సంకేతం సాధారణంగా కనిపించదు.',
+        ],
+        toKnow: [
+          'చాలా మూత్ర గర్భ పరీక్షలు, పిండం గర్భాశయంలో అతుక్కోవడం మొదలైన తర్వాత, సుమారు తరువాతి వారం నుండి నమ్మదగినవిగా మారతాయి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'फलन झाले असल्यास, बीजांड विभाजन पावू लागते आणि गर्भाशयाच्या दिशेने सरकू लागते, पण गर्भधारणा चाचणीत अजून काहीही ओळखता येत नाही.',
+        bodyChanges: [
+          'हा आठवडा अजूनही गर्भधारणेच्या आसपासच्या वैद्यकीय कालगणनेच्या काळातच येतो; या टप्प्यावर कोणतेही शारीरिक चिन्ह सहसा जाणवत नाही.',
+        ],
+        toKnow: [
+          'बहुतेक लघवीच्या गर्भधारणा चाचण्या, भ्रूण रुजायला सुरुवात झाल्यानंतर, साधारणपणे पुढच्या आठवड्यापासून विश्वासार्ह होतात.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ફળદ્રુપીકરણ થયું હોય તો, અંડકોષ વિભાજિત થવા લાગે છે અને ગર્ભાશય તરફ આગળ વધે છે, પરંતુ ગર્ભાવસ્થા ટેસ્ટમાં હજુ કંઈ દેખાતું નથી.',
+        bodyChanges: [
+          'આ અઠવાડિયું હજુ ગર્ભધારણની આસપાસના તબીબી ગણતરીના સમયગાળામાં આવે છે; આ તબક્કે સામાન્ય રીતે કોઈ શારીરિક ચિહ્ન જણાતું નથી.',
+        ],
+        toKnow: [
+          'મોટા ભાગના પેશાબ દ્વારા થતા ગર્ભાવસ્થા ટેસ્ટ, ગર્ભનું રોપણ શરૂ થયા પછી, લગભગ આવતા અઠવાડિયાથી વિશ્વસનીય બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਜੇ ਗਰਭ ਧਾਰਨ ਹੋ ਗਿਆ ਹੋਵੇ, ਤਾਂ ਅੰਡਾ ਵੰਡਣਾ ਸ਼ੁਰੂ ਕਰ ਦਿੰਦਾ ਹੈ ਅਤੇ ਬੱਚੇਦਾਨੀ ਵੱਲ ਵਧਦਾ ਹੈ, ਪਰ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਜਾਂਚ ਵਿੱਚ ਅਜੇ ਕੁਝ ਵੀ ਪਤਾ ਨਹੀਂ ਲੱਗਦਾ।',
+        bodyChanges: [
+          'ਇਹ ਹਫ਼ਤਾ ਅਜੇ ਵੀ ਗਰਭ ਧਾਰਨ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਡਾਕਟਰੀ ਗਿਣਤੀ ਦੇ ਸਮੇਂ ਵਿੱਚ ਆਉਂਦਾ ਹੈ; ਇਸ ਪੜਾਅ ’ਤੇ ਆਮ ਤੌਰ ’ਤੇ ਕੋਈ ਸਰੀਰਕ ਨਿਸ਼ਾਨੀ ਮਹਿਸੂਸ ਨਹੀਂ ਹੁੰਦੀ।',
+        ],
+        toKnow: [
+          'ਪਿਸ਼ਾਬ ਰਾਹੀਂ ਹੋਣ ਵਾਲੀਆਂ ਜ਼ਿਆਦਾਤਰ ਗਰਭ-ਅਵਸਥਾ ਜਾਂਚਾਂ, ਭਰੂਣ ਦੇ ਟਿਕਣਾ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਬਾਅਦ, ਲਗਭਗ ਅਗਲੇ ਹਫ਼ਤੇ ਤੋਂ ਭਰੋਸੇਯੋਗ ਬਣ ਜਾਂਦੀਆਂ ਹਨ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'သန္ဓေအောင်ပြီးဖြစ်ပါက မျိုးဥသည် ပိုင်းခြားခွဲထွက်ကာ သားအိမ်ဆီသို့ ရွေ့လျားစပြုသည်။ သို့သော် ကိုယ်ဝန်စစ်ဆေးမှုတွင် မည်သည့်အရာမျှ မတွေ့ရသေးပါ။',
+        bodyChanges: [
+          'ဤအပတ်သည် သန္ဓေတည်ခြင်းဝန်းကျင် ဆေးပညာအရ ရက်တွက်ချက်သည့်ကာလ အတွင်း ကျရောက်နေဆဲဖြစ်သည်။ ဤအဆင့်တွင် ခန္ဓာကိုယ်လက္ခဏာ များသောအားဖြင့် မသိသာပါ။',
+        ],
+        toKnow: [
+          'ဆီးဖြင့်စစ်သည့် ကိုယ်ဝန်စစ်ဆေးမှု အများစုသည် သန္ဓေသားသားအိမ်နံရံတွင် ကပ်ခြင်းစတင်ပြီးနောက် လာမည့်အပတ်ခန့်မှ ယုံကြည်စိတ်ချရလာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ប្រសិនបើការបង្កកំណើតបានកើតឡើង ពងចាប់ផ្តើមបែងចែកកោសិកា ហើយធ្វើដំណើរឆ្ពោះទៅស្បូន ប៉ុន្តែតេស្តមានផ្ទៃពោះមិនទាន់អាចរកឃើញអ្វីនៅឡើយទេ។',
+        bodyChanges: [
+          'សប្តាហ៍នេះនៅតែស្ថិតក្នុងរយៈពេលកំណត់ខាងវេជ្ជសាស្ត្រជុំវិញការបង្កកំណើត ហើយជាទូទៅមិនមានសញ្ញារាងកាយដែលអាចកត់សម្គាល់បាននៅដំណាក់កាលនេះទេ។',
+        ],
+        toKnow: [
+          'តេស្តមានផ្ទៃពោះតាមទឹកនោមភាគច្រើនអាចជឿជាក់បានចាប់ពីប្រហែលសប្តាហ៍បន្ទាប់ នៅពេលដែលការជាប់នៃអំប្រ៊ីយ៉ុងក្នុងស្បូនបានចាប់ផ្តើម។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຖ້າການປະສົມຂອງໄຂ່ເກີດຂຶ້ນແລ້ວ ໄຂ່ຈະເລີ່ມແບ່ງຕົວ ແລະ ເຄື່ອນໄປຫາມົດລູກ ແຕ່ການກວດການຖືພາຍັງບໍ່ສາມາດກວດພົບໄດ້.',
+        bodyChanges: [
+          'ອາທິດນີ້ຍັງຢູ່ໃນໄລຍະການນັບອາຍຸການຖືພາທາງການແພດທີ່ອ້ອມຮອບການຕັ້ງຄັນ ໂດຍທົ່ວໄປຍັງບໍ່ມີອາການທາງຮ່າງກາຍທີ່ສັງເກດເຫັນໄດ້ໃນໄລຍະນີ້.',
+        ],
+        toKnow: [
+          'ການກວດການຖືພາດ້ວຍນ້ຳຍ່ຽວສ່ວນໃຫຍ່ຈະເຊື່ອຖືໄດ້ຕັ້ງແຕ່ປະມານອາທິດຕໍ່ໄປ ເມື່ອການຝັງຕົວຂອງໄຂ່ທີ່ຖືກປະສົມໃນມົດລູກໄດ້ເລີ່ມຂຶ້ນແລ້ວ.',
+        ],
+      },
     },
   },
 
@@ -1896,6 +2523,253 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Embrio baru sahaja melekat pada dinding rahim. Kantung amnion dan kantung kuning telur, yang akan memberi nutrien kepadanya pada hari-hari pertama, sedang terbentuk.',
+        length: 'Kira-kira 2 mm',
+        comparison: 'Biji popi',
+        bodyChanges: [
+          'Sesetengah orang belum perasan sebarang tanda pada peringkat yang sangat awal ini.',
+          'Ujian kehamilan air kencing biasanya boleh mengesan kehamilan mulai minggu ini.',
+        ],
+        toKnow: [
+          'Ini ialah masa lazim apabila ujian kehamilan boleh mula memberikan keputusan positif.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Embriyuhu hadda ayuu ku dhegay darbiga ilmo-galeenka. Jaakadda biyaha (amniotic sac) iyo kiishka jaallaha (yolk sac), kuwaas oo quudin doona maalmaha ugu horreeya, ayaa samaysmaya.',
+        length: 'Qiyaastii 2 mm',
+        comparison: 'Abuurka poppy',
+        bodyChanges: [
+          'Dadka qaar weli calaamad kama dareemaan heerkan aad u hore.',
+          'Baaritaanka uurka ee kaadida guud ahaan wuxuu ogaan karaa uurka laga bilaabo toddobaadkan.',
+        ],
+        toKnow: [
+          'Tani waa waqtiga caadiga ah ee baaritaanka uurku bilaabi karo inuu natiijo togan bixiyo.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Kiinitete kimejipandikiza hivi punde kwenye ukuta wa mji wa uzazi. Kifuko cha maji (amniotic sac) na kifuko cha kiini cha yai (yolk sac), ambavyo vitakilisha katika siku za kwanza kabisa, vinaundwa.',
+        length: 'Takriban mm 2',
+        comparison: 'Mbegu ya poppy',
+        bodyChanges: [
+          'Baadhi ya watu bado hawahisi dalili yoyote katika hatua hii ya mapema sana.',
+          'Kipimo cha ujauzito cha mkojo kwa kawaida kinaweza kugundua ujauzito kuanzia wiki hii.',
+        ],
+        toKnow: [
+          'Huu ndio wakati wa kawaida ambapo kipimo cha ujauzito kinaweza kuanza kutoa matokeo chanya.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Эмбрион жатыр қабырғасына жаңа ғана имплантацияланды. Алғашқы күндерде оны қоректендіретін амниотикалық қапшық пен сарыуыз қапшығы қалыптасуда.',
+        length: 'Шамамен 2 мм',
+        comparison: 'Көкнәр дәні',
+        bodyChanges: [
+          'Кейбір адамдар осы өте ерте кезеңде әлі ешқандай белгіні байқамайды.',
+          'Зәр жүктілік тесті әдетте осы аптадан бастап жүктілікті анықтай алады.',
+        ],
+        toKnow: [
+          'Бұл жүктілік тестінің оң нәтиже бере бастауы мүмкін әдеттегі уақыт.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Embriyo bi tàmbali nidasiyoŋ ci tabaxu bérëbu ndey. Xaaj bu ndox bu embriyo ak xaaj bu melax, yi di ko dundal ci fan yu njëkk, ñu ngi defaru.',
+        length: 'Ci wetu 2 mm',
+        comparison: 'Pepp bu pavo',
+        bodyChanges: [
+          'Yenn nit dañuy gisul benn màndarga ba tey ci jamono bu bees jii.',
+          'Tèsu ëmb ci pis mën na gis ëmb ci yoon ba ci ayu-bés bii.',
+        ],
+        toKnow: [
+          'Jamono bu cosaan la bu tèsu ëmb mën a tàmbali joxe njeexital bu positif.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ƙwai ya manne a bangon mahaifa a yanzu. Jakar ruwan ciki da jakar yolk, waɗanda za su ciyar da shi a kwanakin farko, suna samuwa.',
+        length: 'Kusan 2 mm',
+        comparison: 'Ƙwayar poppy',
+        bodyChanges: [
+          'Wasu mutane ba sa lura da wata alama tukuna a wannan farkon mataki.',
+          'Gwajin ciki na fitsari yawanci yana iya gano ciki daga wannan mako zuwa gaba.',
+        ],
+        toKnow: [
+          'Wannan shi ne lokacin da aka saba da gwajin ciki ya fara ba da sakamako mai kyau.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ፅንሱ አሁን በማህፀን ግድግዳ ላይ ተቀምጧል። በመጀመሪያዎቹ ቀናት የሚመግበው አምኒዮቲክ ከረጢት እና የእንቁላል አስኳል ከረጢት እየተፈጠሩ ነው።',
+        length: 'ወደ 2 ሚሜ',
+        comparison: 'የፓፒ ዘር',
+        bodyChanges: [
+          'አንዳንድ ሰዎች በዚህ በጣም ቀደምት ደረጃ ገና ምንም ምልክት አያስተውሉም።',
+          'የሽንት እርግዝና ምርመራ ከዚህ ሳምንት ጀምሮ እርግዝናን በአጠቃላይ ሊለይ ይችላል።',
+        ],
+        toKnow: [
+          'የእርግዝና ምርመራ አዎንታዊ ውጤት መስጠት የሚጀምርበት የተለመደ ጊዜ ይህ ነው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het embryo is zojuist ingenesteld in de baarmoederwand. De vruchtzak en de dooierzak, die het in de allereerste dagen zullen voeden, vormen zich.',
+        length: 'Ongeveer 2 mm',
+        comparison: 'Maanzaadje',
+        bodyChanges: [
+          'Sommige vrouwen merken in dit zeer vroege stadium nog niets.',
+          'Een urinetest voor zwangerschap kan de zwangerschap over het algemeen vanaf deze week aantonen.',
+        ],
+        toKnow: [
+          'Dit is het gebruikelijke moment waarop een zwangerschapstest een positieve uitslag kan beginnen te geven.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Alkio on juuri kiinnittynyt kohdun seinämään. Lapsivesikalvo ja keltuaispussi, jotka ruokkivat sitä aivan ensimmäisinä päivinä, ovat muodostumassa.',
+        length: 'Noin 2 mm',
+        comparison: 'Unikonsiemen',
+        bodyChanges: [
+          'Jotkut eivät huomaa vielä mitään merkkiä tässä hyvin varhaisessa vaiheessa.',
+          'Virtsatesti voi yleensä havaita raskauden tältä viikolta lähtien.',
+        ],
+        toKnow: [
+          'Tämä on tavallinen ajankohta, jolloin raskaustesti voi alkaa antaa positiivisen tuloksen.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το έμβρυο μόλις εμφυτεύθηκε στο τοίχωμα της μήτρας. Ο αμνιακός σάκος και ο λεκιθικός σάκος, που θα το θρέψουν τις πρώτες ημέρες, σχηματίζονται.',
+        length: 'Περίπου 2 χιλ.',
+        comparison: 'Σπόρος παπαρούνας',
+        bodyChanges: [
+          'Ορισμένες γυναίκες δεν παρατηρούν ακόμη κανένα σημάδι σε αυτό το πολύ πρώιμο στάδιο.',
+          'Ένα τεστ εγκυμοσύνης ούρων μπορεί γενικά να ανιχνεύσει την εγκυμοσύνη από αυτή την εβδομάδα και μετά.',
+        ],
+        toKnow: [
+          'Αυτή είναι η συνηθισμένη χρονική στιγμή που ένα τεστ εγκυμοσύνης μπορεί να αρχίσει να δίνει θετικό αποτέλεσμα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Kakaimplant pa lang ng embryo sa dingding ng matris. Nabubuo ang amniotic sac at ang yolk sac, na magpapakain dito sa pinakaunang mga araw.',
+        length: 'Mga 2 mm',
+        comparison: 'Buto ng poppy',
+        bodyChanges: [
+          'Ang ilang tao ay wala pang napapansing senyales sa napakaagang yugtong ito.',
+          'Karaniwang matutukoy ng urine pregnancy test ang pagbubuntis mula sa linggong ito.',
+        ],
+        toKnow: [
+          'Ito ang karaniwang panahon kung kailan maaaring magsimulang magbigay ng positibong resulta ang pregnancy test.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கரு இப்போதுதான் கருப்பைச் சுவரில் பதிந்துள்ளது. முதல் சில நாட்களில் அதற்கு ஊட்டமளிக்கும் பனிக்குடப் பையும் மஞ்சள் கருப் பையும் உருவாகின்றன.',
+        length: 'சுமார் 2 மி.மீ',
+        comparison: 'கசகசா விதை',
+        bodyChanges: [
+          'இந்த மிகத் தொடக்கக் கட்டத்தில் சிலர் இன்னும் எந்த அறிகுறியையும் கவனிப்பதில்லை.',
+          'ஒரு சிறுநீர்க் கர்ப்பப் பரிசோதனை பொதுவாக இந்த வாரத்திலிருந்து கர்ப்பத்தைக் கண்டறிய முடியும்.',
+        ],
+        toKnow: [
+          'கர்ப்பப் பரிசோதனை நேர்மறை முடிவைத் தரத் தொடங்கக்கூடிய வழக்கமான நேரம் இதுவே.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'పిండం ఇప్పుడే గర్భాశయ గోడలో అతుక్కుంది. మొదటి కొన్ని రోజుల్లో దానికి పోషణ ఇచ్చే ఉమ్మనీటి సంచి, పచ్చసొన సంచి ఏర్పడుతున్నాయి.',
+        length: 'సుమారు 2 మి.మీ',
+        comparison: 'గసగసాల గింజ',
+        bodyChanges: [
+          'కొందరు ఈ అతి తొలి దశలో ఇంకా ఏ సంకేతాన్నీ గమనించరు.',
+          'మూత్ర గర్భ పరీక్ష సాధారణంగా ఈ వారం నుండి గర్భాన్ని గుర్తించగలదు.',
+        ],
+        toKnow: [
+          'ఇది గర్భ పరీక్ష పాజిటివ్ ఫలితాన్ని ఇవ్వడం మొదలుపెట్టగల సాధారణ సమయం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'भ्रूण नुकतेच गर्भाशयाच्या भिंतीत रुजले आहे. अगदी पहिल्या दिवसांत त्याचे पोषण करणारी उल्बपिशवी आणि पीतकोष पिशवी तयार होत आहेत.',
+        length: 'सुमारे 2 मि.मी.',
+        comparison: 'खसखशीचा दाणा',
+        bodyChanges: [
+          'काहींना या अगदी सुरुवातीच्या टप्प्यावर अजून कोणतेही चिन्ह जाणवत नाही.',
+          'लघवीची गर्भधारणा चाचणी साधारणपणे या आठवड्यापासून गर्भारपण ओळखू शकते.',
+        ],
+        toKnow: [
+          'हीच ती सामान्य वेळ आहे जेव्हा गर्भधारणा चाचणी सकारात्मक निकाल देऊ लागू शकते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ભ્રૂણ હમણાં જ ગર્ભાશયની દીવાલમાં રોપાયું છે. ઉલ્બ કોથળી અને પીતકોથળી, જે શરૂઆતના દિવસોમાં તેનું પોષણ કરશે, તે બની રહી છે.',
+        length: 'લગભગ 2 મિમી',
+        comparison: 'ખસખસનો દાણો',
+        bodyChanges: [
+          'કેટલાક લોકોને આ બહુ શરૂઆતના તબક્કે હજુ કોઈ ચિહ્ન જણાતું નથી.',
+          'પેશાબ દ્વારા થતો ગર્ભાવસ્થા ટેસ્ટ સામાન્ય રીતે આ અઠવાડિયાથી ગર્ભાવસ્થા શોધી શકે છે.',
+        ],
+        toKnow: [
+          'સામાન્ય રીતે આ સમયથી ગર્ભાવસ્થા ટેસ્ટ સકારાત્મક પરિણામ આપવાનું શરૂ કરી શકે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਭਰੂਣ ਹੁਣੇ ਬੱਚੇਦਾਨੀ ਦੀ ਕੰਧ ਵਿੱਚ ਟਿਕਿਆ ਹੈ। ਉਲਬ ਦੀ ਥੈਲੀ ਅਤੇ ਜ਼ਰਦੀ ਦੀ ਥੈਲੀ, ਜੋ ਸ਼ੁਰੂ ਦੇ ਦਿਨਾਂ ਵਿੱਚ ਇਸ ਨੂੰ ਪੋਸ਼ਣ ਦੇਣਗੀਆਂ, ਬਣ ਰਹੀਆਂ ਹਨ।',
+        length: 'ਲਗਭਗ 2 ਮਿਮੀ',
+        comparison: 'ਪੋਸਤ ਦਾ ਦਾਣਾ',
+        bodyChanges: [
+          'ਕੁਝ ਔਰਤਾਂ ਨੂੰ ਇਸ ਬਹੁਤ ਸ਼ੁਰੂਆਤੀ ਪੜਾਅ ’ਤੇ ਅਜੇ ਕੋਈ ਨਿਸ਼ਾਨੀ ਮਹਿਸੂਸ ਨਹੀਂ ਹੁੰਦੀ।',
+          'ਪਿਸ਼ਾਬ ਰਾਹੀਂ ਹੋਣ ਵਾਲੀ ਗਰਭ-ਅਵਸਥਾ ਜਾਂਚ ਆਮ ਤੌਰ ’ਤੇ ਇਸ ਹਫ਼ਤੇ ਤੋਂ ਗਰਭ-ਅਵਸਥਾ ਦਾ ਪਤਾ ਲਗਾ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਆਮ ਤੌਰ ’ਤੇ ਇਸੇ ਸਮੇਂ ਤੋਂ ਗਰਭ-ਅਵਸਥਾ ਜਾਂਚ ਦਾ ਨਤੀਜਾ ਪਾਜ਼ੇਟਿਵ ਆਉਣਾ ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'သန္ဓေသည် သားအိမ်နံရံတွင် ကပ်ပြီးစဖြစ်သည်။ ပထမဆုံးရက်များတွင် အာဟာရပေးမည့် ရေမြှုပ်အိတ်နှင့် အဝါဥအိတ်တို့ ဖြစ်ပေါ်လာနေသည်။',
+        length: 'ခန့်မှန်းခြေ 2 မီလီမီတာ',
+        comparison: 'ဘိန်းစေ့',
+        bodyChanges: [
+          'အချို့သူများသည် ဤအလွန်အစောပိုင်းအဆင့်တွင် လက္ခဏာတစ်စုံတစ်ရာ မသိသေးပါ။',
+          'ဆီးဖြင့်စစ်သည့် ကိုယ်ဝန်စစ်ဆေးမှုသည် များသောအားဖြင့် ဤအပတ်မှစ၍ ကိုယ်ဝန်ကို ရှာဖွေတွေ့ရှိနိုင်သည်။',
+        ],
+        toKnow: [
+          'ဤအချိန်သည် ကိုယ်ဝန်စစ်ဆေးမှုတွင် အပြုသဘောရလဒ် စတင်ပြနိုင်သည့် ပုံမှန်အချိန်ဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'អំប្រ៊ីយ៉ុងទើបតែជាប់នឹងជញ្ជាំងស្បូន។ ថង់ទឹកភ្លោះ និងថង់ពងក្រហម ដែលនឹងផ្តល់អាហារដល់វាក្នុងរយៈពេលពីរបីថ្ងៃដំបូង កំពុងចាប់ផ្តើមបង្កើតឡើង។',
+        length: 'ប្រហែល 2 មីលីម៉ែត្រ',
+        comparison: 'គ្រាប់ផ្កាអាភៀន',
+        bodyChanges: [
+          'មនុស្សមួយចំនួនមិនទាន់កត់សម្គាល់សញ្ញាអ្វីទេនៅដំណាក់កាលដំបូងបំផុតនេះ។',
+          'តេស្តមានផ្ទៃពោះតាមទឹកនោមជាទូទៅអាចរកឃើញការមានផ្ទៃពោះចាប់ពីសប្តាហ៍នេះតទៅ។',
+        ],
+        toKnow: [
+          'នេះជាពេលធម្មតាដែលតេស្តមានផ្ទៃពោះអាចចាប់ផ្តើមឱ្យលទ្ធផលវិជ្ជមាន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕົວອ່ອນຫາກໍຝັງຕົວຢູ່ໃນຜະໜັງມົດລູກ. ຖົງນ້ຳຄັ່ງ ແລະ ຖົງໄຂ່ແດງ ເຊິ່ງຈະລ້ຽງຕົວອ່ອນໃນສອງສາມມື້ທຳອິດ ກຳລັງກໍ່ຕົວຂຶ້ນ.',
+        length: 'ປະມານ 2 ມິນລີແມັດ',
+        comparison: 'ເມັດຝິ່ນ',
+        bodyChanges: [
+          'ບາງຄົນຍັງບໍ່ສັງເກດເຫັນອາການໃດໆໃນໄລຍະເລີ່ມຕົ້ນນີ້.',
+          'ການກວດການຖືພາດ້ວຍນ້ຳຍ່ຽວໂດຍທົ່ວໄປສາມາດກວດພົບການຖືພາໄດ້ຕັ້ງແຕ່ອາທິດນີ້ເປັນຕົ້ນໄປ.',
+        ],
+        toKnow: [
+          'ນີ້ແມ່ນເວລາທົ່ວໄປທີ່ການກວດການຖືພາເລີ່ມໃຫ້ຜົນບວກໄດ້.',
+        ],
+      },
     },
   },
   {
@@ -2348,6 +3222,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Sistem saraf mula terbentuk, dan jantung, yang masih sangat kecil, hampir berdenyut buat kali pertama.',
+        length: 'Kira-kira 2 mm',
+        comparison: 'Biji bijan',
+        bodyChanges: [
+          'Keletihan luar biasa, loya ringan atau payudara sakit mungkin timbul.',
+        ],
+        toKnow: [
+          'Ini ialah masa yang disyorkan untuk membuat temu janji dengan pengamal penjagaan kesihatan bagi memulakan penjagaan kehamilan.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Nidaamka dareemaha ayaa bilaabmaya in uu samaysmo, wadnahuna, weli yar, wuxuu ku dhowyahay inuu markii ugu horreysay garaaco.',
+        length: 'Qiyaastii 2 mm',
+        comparison: 'Abuurka sisinka',
+        bodyChanges: [
+          'Daal aan caadi ahayn, lallabo khafiif ah, ama xanuun naasaha ah ayaa soo bixi kara.',
+        ],
+        toKnow: [
+          'Tani waa waqtiga lagula talinayo inaad ballan ka qaadato xirfadle caafimaad si aad u bilowdo daryeelka uurka.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mfumo wa neva unaanza kuundwa, na moyo, ingawa bado ni mdogo sana, uko karibu kupiga kwa mara ya kwanza.',
+        length: 'Takriban mm 2',
+        comparison: 'Mbegu ya ufuta',
+        bodyChanges: [
+          'Uchovu usio wa kawaida, kichefuchefu kidogo, au maumivu ya matiti vinaweza kuonekana.',
+        ],
+        toKnow: [
+          'Huu ndio wakati unaopendekezwa wa kupanga miadi na mtaalamu wa afya ili kuanza huduma za ujauzito.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Жүйке жүйесі қалыптаса бастайды, ал жүрек, әлі өте кішкентай болса да, алғаш рет соғуға дайындалып жатыр.',
+        length: 'Шамамен 2 мм',
+        comparison: 'Күнжіт дәні',
+        bodyChanges: [
+          'Әдеттен тыс шаршау, жеңіл жүрек айну немесе емшектің ауыруы пайда болуы мүмкін.',
+        ],
+        toKnow: [
+          'Бұл жүктілік кезіндегі күтімді бастау үшін медицина маманына жазылудың ұсынылатын уақыты.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Jëmmu xel bi tàmbali defaru, te xol bi, bu ndaw ba tey, dafay jege dóon ci benn yoon bu njëkk.',
+        length: 'Ci wetu 2 mm',
+        comparison: 'Pepp bu sesam',
+        bodyChanges: [
+          'Sonn bu cosaanul, dundu xol bu neex walla metit ci nàmm mën nañu feeñ.',
+        ],
+        toKnow: [
+          'Jamono bu ñu digal la ngir jël ndaje ak benn liggéeykatu wér ngir tàmbali topp ëmb.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Tsarin jijiyoyi ya fara samuwa, kuma zuciya, har yanzu ƙarama, tana gab da bugawa a karon farko.',
+        length: 'Kusan 2 mm',
+        comparison: 'Ƙwayar ridi',
+        bodyChanges: [
+          'Gajiya ba ta al’ada ba, ɗan tashin zuciya, ko ciwon nono na iya bayyana.',
+        ],
+        toKnow: [
+          'Wannan lokaci ne da aka ba da shawarar yin alƙawari da ma’aikacin lafiya don fara kulawar ciki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የነርቭ ሥርዓት መፈጠር ይጀምራል፣ እና ገና ትንሽ የሆነው ልብ ለመጀመሪያ ጊዜ ሊመታ ነው።',
+        length: 'ወደ 2 ሚሜ',
+        comparison: 'የሰሊጥ ዘር',
+        bodyChanges: [
+          'ያልተለመደ ድካም፣ ቀላል ማቅለሽለሽ ወይም የጡት ርህራሄ ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'የእርግዝና እንክብካቤን ለመጀመር ከጤና ባለሙያ ጋር ቀጠሮ ለመያዝ የሚመከር ጊዜ ይህ ነው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het zenuwstelsel begint zich te vormen en het hart, nog piepklein, staat op het punt voor het eerst te kloppen.',
+        length: 'Ongeveer 2 mm',
+        comparison: 'Sesamzaadje',
+        bodyChanges: [
+          'Ongewone vermoeidheid, lichte misselijkheid of gevoelige borsten kunnen optreden.',
+        ],
+        toKnow: [
+          'Dit is het aanbevolen moment om een afspraak te maken met een zorgprofessional om de zwangerschapszorg te starten.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Hermosto alkaa muodostua, ja sydän, vielä pieni, on aikeissa lyödä ensimmäisen kerran.',
+        length: 'Noin 2 mm',
+        comparison: 'Seesaminsiemen',
+        bodyChanges: [
+          'Epätavallista väsymystä, lievää pahoinvointia tai rintojen arkuutta voi ilmaantua.',
+        ],
+        toKnow: [
+          'Tämä on suositeltu ajankohta varata aika terveydenhuollon ammattilaiselle raskaudenhoidon aloittamiseksi.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το νευρικό σύστημα αρχίζει να σχηματίζεται και η καρδιά, ακόμη μικροσκοπική, πρόκειται να χτυπήσει για πρώτη φορά.',
+        length: 'Περίπου 2 χιλ.',
+        comparison: 'Σπόρος σησαμιού',
+        bodyChanges: [
+          'Μπορεί να εμφανιστούν ασυνήθιστη κόπωση, ήπια ναυτία ή ευαισθησία στο στήθος.',
+        ],
+        toKnow: [
+          'Αυτή είναι η συνιστώμενη χρονική στιγμή για να κλείσεις ραντεβού με έναν επαγγελματία υγείας ώστε να ξεκινήσει η παρακολούθηση της εγκυμοσύνης.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nagsisimulang mabuo ang nervous system, at ang puso, na napakaliit pa, ay malapit nang tumibok sa unang pagkakataon.',
+        length: 'Mga 2 mm',
+        comparison: 'Buto ng linga',
+        bodyChanges: [
+          'Maaaring lumitaw ang hindi pangkaraniwang pagod, banayad na pagduduwal, o pananakit ng dibdib.',
+        ],
+        toKnow: [
+          'Ito ang inirerekomendang panahon para magpa-appointment sa propesyonal sa kalusugan upang simulan ang pangangalaga sa pagbubuntis.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'நரம்பு மண்டலம் உருவாகத் தொடங்குகிறது, இன்னும் மிகச் சிறிய இதயம் முதல் முறையாகத் துடிக்கவிருக்கிறது.',
+        length: 'சுமார் 2 மி.மீ',
+        comparison: 'எள் விதை',
+        bodyChanges: [
+          'வழக்கத்துக்கு மாறான சோர்வு, லேசான குமட்டல் அல்லது மார்பகத் தொடு வலி தோன்றலாம்.',
+        ],
+        toKnow: [
+          'கர்ப்பப் பராமரிப்பைத் தொடங்க ஒரு சுகாதார நிபுணருடன் சந்திப்பு எடுக்க இதுவே பரிந்துரைக்கப்படும் நேரம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'నాడీ వ్యవస్థ ఏర్పడటం మొదలవుతుంది, ఇంకా చిన్నదిగా ఉన్న గుండె మొదటిసారి కొట్టుకోబోతోంది.',
+        length: 'సుమారు 2 మి.మీ',
+        comparison: 'నువ్వు గింజ',
+        bodyChanges: [
+          'అసాధారణ అలసట, తేలికపాటి వికారం లేదా రొమ్ముల సున్నితత్వం కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'గర్భ సంరక్షణను మొదలుపెట్టడానికి ఒక ఆరోగ్య నిపుణుడితో అపాయింట్‌మెంట్ తీసుకోవడానికి ఇది సిఫార్సు చేయబడిన సమయం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'मज्जासंस्था तयार होऊ लागते आणि अजून लहानसे असलेले हृदय पहिल्यांदा धडधडणार आहे.',
+        length: 'सुमारे 2 मि.मी.',
+        comparison: 'तिळाचा दाणा',
+        bodyChanges: [
+          'असामान्य थकवा, सौम्य मळमळ किंवा स्तनांची संवेदनशीलता दिसू शकते.',
+        ],
+        toKnow: [
+          'गर्भारपणाची काळजी सुरू करण्यासाठी आरोग्य व्यावसायिकासोबत भेट ठरवण्याची ही शिफारस केलेली वेळ आहे.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'નર્વસ સિસ્ટમ બનવા લાગે છે, અને હૃદય, હજુ ખૂબ નાનું, પહેલી વાર ધબકવાની તૈયારીમાં છે.',
+        length: 'લગભગ 2 મિમી',
+        comparison: 'તલનો દાણો',
+        bodyChanges: [
+          'અસામાન્ય થાક, હળવા ઉબકા કે સ્તનમાં કોમળતા દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'ગર્ભાવસ્થાની સંભાળ શરૂ કરવા આરોગ્ય વ્યાવસાયિક સાથે મુલાકાત નક્કી કરવાનો આ ભલામણ કરેલો સમય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਨਾੜੀ ਪ੍ਰਣਾਲੀ ਬਣਨ ਲੱਗਦੀ ਹੈ, ਅਤੇ ਦਿਲ, ਅਜੇ ਬਹੁਤ ਛੋਟਾ, ਪਹਿਲੀ ਵਾਰ ਧੜਕਣ ਵਾਲਾ ਹੈ।',
+        length: 'ਲਗਭਗ 2 ਮਿਮੀ',
+        comparison: 'ਤਿਲ',
+        bodyChanges: [
+          'ਅਸਧਾਰਨ ਥਕਾਵਟ, ਹਲਕਾ ਜੀ ਕੱਚਾ ਹੋਣਾ ਜਾਂ ਛਾਤੀਆਂ ਵਿੱਚ ਨਾਜ਼ੁਕਪਣ ਮਹਿਸੂਸ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਗਰਭ-ਅਵਸਥਾ ਦੀ ਦੇਖਭਾਲ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਮੁਲਾਕਾਤ ਤੈਅ ਕਰਨ ਦਾ ਇਹ ਸਿਫ਼ਾਰਸ਼ ਕੀਤਾ ਸਮਾਂ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အာရုံကြောစနစ် စတင်ဖွဲ့စည်းလာပြီး အလွန်သေးငယ်သေးသော နှလုံးသည် ပထမဆုံးအကြိမ် ခုန်ရန် ပြင်ဆင်နေသည်။',
+        length: 'ခန့်မှန်းခြေ 2 မီလီမီတာ',
+        comparison: 'နှမ်းစေ့',
+        bodyChanges: [
+          'ပုံမှန်မဟုတ်သော ပင်ပန်းနွမ်းနယ်ခြင်း၊ အပျော့စား ပျို့အန်ခြင်း သို့မဟုတ် ရင်သားနာကျင်ခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်စောင့်ရှောက်မှု စတင်ရန် ကျန်းမာရေးပညာရှင်နှင့် ချိန်းဆိုရန် အကြံပြုထားသော အချိန်ဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ប្រព័ន្ធប្រសាទចាប់ផ្តើមបង្កើតឡើង ហើយបេះដូងដែលនៅតូចនៅឡើយ ជិតនឹងលោតជាលើកដំបូង។',
+        length: 'ប្រហែល 2 មីលីម៉ែត្រ',
+        comparison: 'គ្រាប់ល្ង',
+        bodyChanges: [
+          'អាចមានអារម្មណ៍អស់កម្លាំងមិនធម្មតា ចង្អោរស្រាលៗ ឬឈឺទ្រូងពេលប៉ះ។',
+        ],
+        toKnow: [
+          'នេះជាពេលដែលគួរណាត់ជួបជាមួយអ្នកជំនាញសុខាភិបាល ដើម្បីចាប់ផ្តើមការថែទាំការមានផ្ទៃពោះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລະບົບປະສາດເລີ່ມກໍ່ຕົວ ແລະ ຫົວໃຈທີ່ຍັງນ້ອຍຫຼາຍກຳລັງຈະເຕັ້ນເປັນຄັ້ງທຳອິດ.',
+        length: 'ປະມານ 2 ມິນລີແມັດ',
+        comparison: 'ເມັດງາ',
+        bodyChanges: [
+          'ອາດມີອາການອ່ອນເພຍຜິດປົກກະຕິ ວິນຫົວຄື່ນໄສ້ເລັກນ້ອຍ ຫຼື ເຕົ້ານົມເຈັບແສບ.',
+        ],
+        toKnow: [
+          'ນີ້ແມ່ນເວລາທີ່ແນະນຳໃຫ້ນັດພົບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບ ເພື່ອເລີ່ມການດູແລການຖືພາ.',
+        ],
+      },
     },
   },
   {
@@ -2800,6 +3902,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Tunas lengan dan kaki muncul, bersama lekukan kecil tempat telinga akan terbentuk. Denyutan jantung kadangkala sudah dapat dikesan pada ultrasound.',
+        length: 'Kira-kira 6 mm',
+        comparison: 'Kacang pis',
+        bodyChanges: [
+          'Loya dan keletihan mungkin bertambah bagi sesetengah orang semasa tempoh ini.',
+        ],
+        toKnow: [
+          'Aktiviti jantung kadangkala boleh dilihat seawal minggu ini pada ultrasound awal.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Xubno yaryar oo gacmaha iyo lugaha ah ayaa soo muuqda, iyo godad yaryar meesha dhegaha ay ka samaysmi doonaan. Wadnaha mararka qaarkood hore ayaa loogu ogaan karaa ultrasaawnka.',
+        length: 'Qiyaastii 6 mm',
+        comparison: 'Digir',
+        bodyChanges: [
+          'Lallabada iyo daalku way xoogaysan karaan dadka qaar muddadan.',
+        ],
+        toKnow: [
+          'Shaqada wadnaha mararka qaarkood waxaa laga arki karaa laga bilaabo toddobaadkan ultrasaawn hore.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Machipukizi ya mikono na miguu yanaonekana, pamoja na mashimo madogo ambapo masikio yataundwa. Moyo wakati mwingine tayari unaweza kugunduliwa kwenye ultrasound.',
+        length: 'Takriban mm 6',
+        comparison: 'Njegere',
+        bodyChanges: [
+          'Kichefuchefu na uchovu vinaweza kuongezeka kwa baadhi ya watu katika kipindi hiki.',
+        ],
+        toKnow: [
+          'Shughuli ya moyo wakati mwingine inaweza kuonekana mapema kuanzia wiki hii kwenye ultrasound ya mapema.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Қол мен аяқтың бүршіктері пайда болады, сондай-ақ құлақтар қалыптасатын жерде шағын ойықтар көрінеді. Жүректі кейде ультрадыбыстық зерттеуде бұрыннан анықтауға болады.',
+        length: 'Шамамен 6 мм',
+        comparison: 'Асбұршақ',
+        bodyChanges: [
+          'Бұл кезеңде кейбір адамдарда жүрек айну мен шаршау күшеюі мүмкін.',
+        ],
+        toKnow: [
+          'Жүрек белсенділігі кейде осы аптадан бастап ерте ультрадыбыстық зерттеуде көрінуі мүмкін.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Bërëb yu loxo ak tànk dañuy feeñ, ak yenn xoolu yu ndaw yu nopp yi di defaru. Xol bi mën na gisu ci ekografi yenn saa.',
+        length: 'Ci wetu 6 mm',
+        comparison: 'Pwa',
+        bodyChanges: [
+          'Dundu xol ak sonn mën nañu gën a yokku ci yenn nit ci jamono jii.',
+        ],
+        toKnow: [
+          'Jëfu xol bi mën na gisu yenn saa ba ci ayu-bés bii ci benn ekografi bu jëkk.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ƙwayoyin hannuwa da ƙafafuwa suna bayyana, tare da ƙananan ramuka inda kunnuwa za su samu. Zuciya wani lokaci na iya riga ta zama abin da ake gani a ultrasound.',
+        length: 'Kusan 6 mm',
+        comparison: 'Ƙwayar fis',
+        bodyChanges: [
+          'Tashin zuciya da gajiya na iya ƙaruwa ga wasu mutane a wannan lokaci.',
+        ],
+        toKnow: [
+          'Aikin zuciya wani lokaci na iya zama abin gani tun daga wannan mako a ultrasound na farko.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የእጆችና የእግሮች ቡቃያዎች ይታያሉ፣ ጆሮዎች የሚፈጠሩባቸው ትናንሽ ጉድጓዶችም። ልቡ አንዳንድ ጊዜ አስቀድሞ በአልትራሳውንድ ሊታወቅ ይችላል።',
+        length: 'ወደ 6 ሚሜ',
+        comparison: 'አተር',
+        bodyChanges: [
+          'ማቅለሽለሽና ድካም በዚህ ጊዜ ለአንዳንድ ሰዎች ሊጠናከሩ ይችላሉ።',
+        ],
+        toKnow: [
+          'የልብ እንቅስቃሴ አንዳንድ ጊዜ ቀደም ባለ አልትራሳውንድ ከዚህ ሳምንት ጀምሮ ሊታይ ይችላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De knopjes van de armen en benen verschijnen, samen met kleine inkepingen waar de oren zich zullen vormen. Het hart kan soms al op de echo worden waargenomen.',
+        length: 'Ongeveer 6 mm',
+        comparison: 'Erwt',
+        bodyChanges: [
+          'Misselijkheid en vermoeidheid kunnen in deze periode bij sommige vrouwen toenemen.',
+        ],
+        toKnow: [
+          'De hartactiviteit kan bij een vroege echo soms al vanaf deze week zichtbaar zijn.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Käsivarsien ja jalkojen aiheet ilmestyvät sekä pienet kuopat, joihin korvat muodostuvat. Sydän voidaan joskus jo havaita ultraäänessä.',
+        length: 'Noin 6 mm',
+        comparison: 'Herne',
+        bodyChanges: [
+          'Pahoinvointi ja väsymys voivat voimistua joillakin tänä aikana.',
+        ],
+        toKnow: [
+          'Sydämen toiminta voi joskus näkyä jo tältä viikolta varhaisessa ultraäänessä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Εμφανίζονται οι οφθαλμοί των χεριών και των ποδιών, μαζί με μικρές εσοχές όπου θα σχηματιστούν τα αυτιά. Η καρδιά μπορεί μερικές φορές να ανιχνευθεί ήδη στο υπερηχογράφημα.',
+        length: 'Περίπου 6 χιλ.',
+        comparison: 'Αρακάς',
+        bodyChanges: [
+          'Η ναυτία και η κόπωση μπορεί να εντείνονται σε ορισμένες γυναίκες κατά την περίοδο αυτή.',
+        ],
+        toKnow: [
+          'Η καρδιακή δραστηριότητα μπορεί μερικές φορές να είναι ορατή ήδη από αυτή την εβδομάδα σε ένα πρώιμο υπερηχογράφημα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Lumilitaw ang mga usbong ng braso at binti, kasama ng maliliit na lukong kung saan mabubuo ang mga tainga. Minsan ay natutukoy na ang puso sa ultrasound.',
+        length: 'Mga 6 mm',
+        comparison: 'Gisantes',
+        bodyChanges: [
+          'Maaaring tumindi ang pagduduwal at pagod para sa ilang tao sa panahong ito.',
+        ],
+        toKnow: [
+          'Minsan ay nakikita na ang tibok ng puso sa maagang ultrasound mula sa linggong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கைகள், கால்களின் அரும்புகள் தோன்றுகின்றன, காதுகள் உருவாகவிருக்கும் இடங்களில் சிறு பள்ளங்களும் தோன்றுகின்றன. இதயத்தை சில நேரங்களில் ஏற்கெனவே அல்ட்ராசவுண்டில் கண்டறியலாம்.',
+        length: 'சுமார் 6 மி.மீ',
+        comparison: 'பட்டாணி',
+        bodyChanges: [
+          'இந்தக் காலத்தில் சிலருக்குக் குமட்டலும் சோர்வும் தீவிரமடையலாம்.',
+        ],
+        toKnow: [
+          'ஆரம்ப அல்ட்ராசவுண்டில் இதயத் துடிப்பு சில நேரங்களில் இந்த வாரத்திலேயே தெரியலாம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'చేతులు, కాళ్ల మొగ్గలు కనిపిస్తాయి, చెవులు ఏర్పడే చోట చిన్న గుంతలు కూడా. గుండెను కొన్నిసార్లు అప్పటికే అల్ట్రాసౌండ్‌లో గుర్తించవచ్చు.',
+        length: 'సుమారు 6 మి.మీ',
+        comparison: 'బఠాణీ',
+        bodyChanges: [
+          'ఈ కాలంలో కొందరికి వికారం, అలసట తీవ్రమవ్వచ్చు.',
+        ],
+        toKnow: [
+          'గుండె కార్యకలాపం కొన్నిసార్లు తొలి అల్ట్రాసౌండ్‌లో ఈ వారంలోనే కనిపించవచ్చు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'हात आणि पायांच्या कळ्या दिसतात, तसेच कान तयार होणार असलेल्या जागी लहान खोलगट भाग. हृदय कधी कधी सोनोग्राफीवर आधीच ओळखता येते.',
+        length: 'सुमारे 6 मि.मी.',
+        comparison: 'वाटाणा',
+        bodyChanges: [
+          'या काळात काहींसाठी मळमळ आणि थकवा तीव्र होऊ शकतो.',
+        ],
+        toKnow: [
+          'हृदयाची क्रिया कधी कधी लवकरच्या सोनोग्राफीवर या आठवड्यापासूनच दिसू शकते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'હાથ અને પગની કળીઓ દેખાય છે, સાથે કાન બનશે ત્યાં નાના ખાડા પણ. હૃદયના ધબકાર ક્યારેક સોનોગ્રાફીમાં પહેલેથી જોઈ શકાય છે.',
+        length: 'લગભગ 6 મિમી',
+        comparison: 'વટાણો',
+        bodyChanges: [
+          'કેટલાક લોકોમાં આ સમયગાળા દરમિયાન ઉબકા અને થાક વધી શકે છે.',
+        ],
+        toKnow: [
+          'વહેલી સોનોગ્રાફીમાં હૃદયની પ્રવૃત્તિ ક્યારેક આ અઠવાડિયાથી જ દેખાઈ શકે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬਾਹਾਂ ਅਤੇ ਲੱਤਾਂ ਦੀਆਂ ਕਲੀਆਂ ਦਿਖਾਈ ਦਿੰਦੀਆਂ ਹਨ, ਨਾਲ ਹੀ ਉਹ ਛੋਟੇ ਟੋਏ ਵੀ ਜਿੱਥੇ ਕੰਨ ਬਣਨਗੇ। ਦਿਲ ਦੀ ਧੜਕਣ ਕਈ ਵਾਰ ਅਲਟਰਾਸਾਊਂਡ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਵੇਖੀ ਜਾ ਸਕਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 6 ਮਿਮੀ',
+        comparison: 'ਮਟਰ',
+        bodyChanges: [
+          'ਕੁਝ ਔਰਤਾਂ ਵਿੱਚ ਇਸ ਸਮੇਂ ਦੌਰਾਨ ਜੀ ਕੱਚਾ ਹੋਣਾ ਅਤੇ ਥਕਾਵਟ ਵਧ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਸ਼ੁਰੂਆਤੀ ਅਲਟਰਾਸਾਊਂਡ ਵਿੱਚ ਦਿਲ ਦੀ ਹਰਕਤ ਕਈ ਵਾਰ ਇਸੇ ਹਫ਼ਤੇ ਤੋਂ ਦਿਖਾਈ ਦੇ ਸਕਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လက်ဖက်လက်ခြေ အဖူးများ ပေါ်လာပြီး နားဖွဲ့စည်းမည့်နေရာတွင် သေးငယ်သော ချိုင့်ကလေးများလည်း ပေါ်လာသည်။ နှလုံးခုန်သံကို တစ်ခါတစ်ရံ အယ်ထရာဆောင်းတွင် စောစောစီးစီး တွေ့နိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 6 မီလီမီတာ',
+        comparison: 'ပဲစေ့',
+        bodyChanges: [
+          'အချို့သူများတွင် ဤကာလအတွင်း ပျို့အန်ခြင်းနှင့် ပင်ပန်းနွမ်းနယ်ခြင်း ပိုမိုပြင်းထန်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'စောစီးသော အယ်ထရာဆောင်းတွင် နှလုံးလှုပ်ရှားမှုကို တစ်ခါတစ်ရံ ဤအပတ်ကတည်းက မြင်နိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ដុំដែលនឹងក្លាយជាដៃនិងជើងលេចឡើង ព្រមទាំងមានស្នាមតូចៗដែលជាកន្លែងត្រចៀកនឹងបង្កើតឡើង។ ពេលខ្លះបេះដូងអាចត្រូវបានរកឃើញរួចហើយនៅលើអ៊ុលត្រាសោន។',
+        length: 'ប្រហែល 6 មីលីម៉ែត្រ',
+        comparison: 'គ្រាប់សណ្តែកបារាំង',
+        bodyChanges: [
+          'ចង្អោរនិងអស់កម្លាំងអាចកាន់តែខ្លាំងចំពោះមនុស្សមួយចំនួនក្នុងរយៈពេលនេះ។',
+        ],
+        toKnow: [
+          'ពេលខ្លះសកម្មភាពបេះដូងអាចមើលឃើញនៅលើអ៊ុលត្រាសោនដំបូងចាប់ពីសប្តាហ៍នេះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕຸ່ມແຂນ ແລະ ຂາເລີ່ມປາກົດ ພ້ອມກັບຮອຍບຸ້ມນ້ອຍໆບ່ອນທີ່ຫູຈະກໍ່ຕົວ. ບາງຄັ້ງສາມາດກວດພົບຫົວໃຈໄດ້ແລ້ວດ້ວຍອັນຕຣາຊາວ.',
+        length: 'ປະມານ 6 ມິນລີແມັດ',
+        comparison: 'ຖົ່ວ',
+        bodyChanges: [
+          'ອາການວິນຫົວຄື່ນໄສ້ ແລະ ອ່ອນເພຍອາດເຂັ້ມຂຶ້ນສຳລັບບາງຄົນໃນໄລຍະນີ້.',
+        ],
+        toKnow: [
+          'ບາງຄັ້ງສາມາດເຫັນການເຕັ້ນຂອງຫົວໃຈໄດ້ຕັ້ງແຕ່ອາທິດນີ້ດ້ວຍອັນຕຣາຊາວໃນໄລຍະຕົ້ນ.',
+        ],
+      },
     },
   },
   {
@@ -3252,6 +4582,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Otak berkembang lebih pantas daripada bahagian badan yang lain, menjadikan dahi kelihatan menonjol. Tunas tangan yang kecil mula muncul di hujung lengan.',
+        length: 'Kira-kira 10 mm',
+        comparison: 'Anggur',
+        bodyChanges: [
+          'Mengidam makanan tertentu, atau sebaliknya rasa meluat terhadap makanan tertentu, adalah mungkin.',
+        ],
+        toKnow: [
+          'Tiub saraf, yang melahirkan otak dan saraf tunjang, terus menutup sepanjang minggu-minggu ini.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Maskaxdu waxay u korta si ka dhaqso badan jidhka inta kale, taasoo siinaysa foodda ka soo baxsan. Dhegaha gacmaha yaryar ayaa bilaabaya inay ka soo baxaan dhammaadka gacmaha.',
+        length: 'Qiyaastii 10 mm',
+        comparison: 'Canab',
+        bodyChanges: [
+          'Rabitaan cunto gaar ah, ama dhinaca kale nacayb cunto qaar, ayaa suurtagal ah.',
+        ],
+        toKnow: [
+          'Tuubada dareemaha, oo ka dhasha maskaxda iyo xuubka dhabarka, way sii xidhmaysaa toddobaadyadan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Ubongo hukua kwa kasi zaidi kuliko sehemu nyingine za mwili, na kuufanya paji la uso kujitokeza. Machipukizi madogo ya mikono huanza kuonekana kwenye ncha za mikono.',
+        length: 'Takriban mm 10',
+        comparison: 'Zabibu',
+        bodyChanges: [
+          'Hamu ya vyakula fulani, au kinyume chake chuki ya vyakula fulani, inawezekana.',
+        ],
+        toKnow: [
+          'Mrija wa neva, ambao hutoa ubongo na uti wa mgongo, unaendelea kufungwa katika wiki hizi.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Ми дененің қалған бөлігінен жылдамырақ дамиды, нәтижесінде маңдай айқын көрінеді. Қолдардың ұштарында шағын қол бүршіктері пайда бола бастайды.',
+        length: 'Шамамен 10 мм',
+        comparison: 'Жүзім',
+        bodyChanges: [
+          'Белгілі бір тағамдарға деген құштарлық немесе, керісінше, кейбір тағамдардан жиіркену мүмкін.',
+        ],
+        toKnow: [
+          'Ми мен жұлынды тудыратын нейрондық түтік осы апталарда жабылуын жалғастырады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Xel bi dafay màgg gën a gaaw ni yaram bi ci des, mu def ndigg bu mag. Bërëb yu loxo yu ndaw tàmbali feeñ ci jeexu loxo yi.',
+        length: 'Ci wetu 10 mm',
+        comparison: 'Résin',
+        bodyChanges: [
+          'Bëgg lekk yu sa bopp, walla, ci kaw, ñàkk bëgg yenn lekk, mën nañu am.',
+        ],
+        toKnow: [
+          'Tuyaw bu neural, bi jëm ci xel ak ndiggu, dafay kontine tëj ci ayu-bés yii.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Kwakwalwa tana girma da sauri fiye da sauran jiki, wanda ke ba da goshi mai fitowa. Ƙananan ƙwayoyin hannu suna fara bayyana a ƙarshen hannuwa.',
+        length: 'Kusan 10 mm',
+        comparison: 'Inabi',
+        bodyChanges: [
+          'Sha’awar wasu abinci, ko akasin haka ƙin wasu abinci, na iya bayyana.',
+        ],
+        toKnow: [
+          'Wannan lokaci ne da jariri yake girma da sauri, ko da yake ba a gani daga waje tukuna.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'አንጎል ከቀሪው አካል በበለጠ ፍጥነት ያድጋል፣ ይህም ጎልቶ የሚወጣ ግንባር ይሰጣል። ትናንሽ የእጅ ቡቃያዎች በእጆቹ ጫፎች ላይ መታየት ይጀምራሉ።',
+        length: 'ወደ 10 ሚሜ',
+        comparison: 'ወይን',
+        bodyChanges: [
+          'የተወሰኑ የምግብ ፍላጎቶች፣ ወይም በተቃራኒው ለአንዳንድ ምግቦች ጥላቻ ሊኖር ይችላል።',
+        ],
+        toKnow: [
+          'አንጎልንና የአከርካሪ ገመድን የሚፈጥረው የነርቭ ቱቦ በእነዚህ ሳምንታት መዘጋቱን ይቀጥላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De hersenen ontwikkelen zich sneller dan de rest van het lichaam, wat een duidelijk voorhoofd geeft. Aan de uiteinden van de armen beginnen kleine handknopjes te verschijnen.',
+        length: 'Ongeveer 10 mm',
+        comparison: 'Druif',
+        bodyChanges: [
+          'Bepaalde etenstrek, of juist afkeer van bepaalde voedingsmiddelen, is mogelijk.',
+        ],
+        toKnow: [
+          'De neurale buis, waaruit hersenen en ruggenmerg ontstaan, blijft zich in deze weken sluiten.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Aivot kehittyvät nopeammin kuin muu keho, mikä antaa pullistuneen otsan. Käsivarsien päihin alkaa ilmestyä pieniä kädenaiheita.',
+        length: 'Noin 10 mm',
+        comparison: 'Viinirypäle',
+        bodyChanges: [
+          'Erityiset ruokahalut tai päinvastoin tiettyjen ruokien vastenmielisyys ovat mahdollisia.',
+        ],
+        toKnow: [
+          'Hermostoputki, josta aivot ja selkäydin kehittyvät, jatkaa sulkeutumistaan näiden viikkojen aikana.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Ο εγκέφαλος αναπτύσσεται ταχύτερα από το υπόλοιπο σώμα, δίνοντας ένα προεξέχον μέτωπο. Μικροί οφθαλμοί χεριών αρχίζουν να εμφανίζονται στα άκρα των βραχιόνων.',
+        length: 'Περίπου 10 χιλ.',
+        comparison: 'Σταφύλι',
+        bodyChanges: [
+          'Είναι πιθανές ιδιαίτερες λιγούρες για ορισμένα τρόφιμα ή, αντίθετα, αποστροφή για ορισμένα φαγητά.',
+        ],
+        toKnow: [
+          'Ο νευρικός σωλήνας, από τον οποίο προκύπτουν ο εγκέφαλος και ο νωτιαίος μυελός, συνεχίζει να κλείνει σε αυτές τις εβδομάδες.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Mas mabilis na umuunlad ang utak kaysa sa natitirang bahagi ng katawan, na nagbibigay ng kitang-kitang noo. Nagsisimulang lumitaw ang maliliit na usbong ng kamay sa dulo ng mga braso.',
+        length: 'Mga 10 mm',
+        comparison: 'Ubas',
+        bodyChanges: [
+          'Posible ang partikular na pagnanasa sa pagkain, o sa kabaligtaran ay pag-ayaw sa ilang pagkain.',
+        ],
+        toKnow: [
+          'Ang neural tube, na pinagmumulan ng utak at spinal cord, ay patuloy na nagsasara sa mga linggong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'மூளை உடலின் மற்ற பகுதிகளை விட வேகமாக வளர்கிறது, இதனால் நெற்றி முன்னோக்கித் தெரிகிறது. கைகளின் நுனிகளில் சிறு கை அரும்புகள் தோன்றத் தொடங்குகின்றன.',
+        length: 'சுமார் 10 மி.மீ',
+        comparison: 'திராட்சை',
+        bodyChanges: [
+          'குறிப்பிட்ட உணவு ஆசைகள் அல்லது மாறாக சில உணவுகள் மீது வெறுப்பு சாத்தியம்.',
+        ],
+        toKnow: [
+          'மூளையும் முதுகுத் தண்டும் உருவாகும் நரம்புக் குழாய் இந்த வாரங்களில் தொடர்ந்து மூடுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'మెదడు మిగతా శరీరం కంటే వేగంగా అభివృద్ధి చెందుతుంది, దీనివల్ల నుదురు ఎత్తుగా కనిపిస్తుంది. చేతుల చివర్లలో చిన్న చేతి మొగ్గలు కనిపించడం మొదలవుతుంది.',
+        length: 'సుమారు 10 మి.మీ',
+        comparison: 'ద్రాక్ష',
+        bodyChanges: [
+          'కొన్ని ఆహారాల పట్ల ప్రత్యేక కోరికలు, లేదా దీనికి విరుద్ధంగా అసహ్యం కలగడం సాధ్యమే.',
+        ],
+        toKnow: [
+          'మెదడు, వెన్నుపామును ఏర్పరిచే నాడీ నాళిక ఈ వారాల్లో మూసుకోవడం కొనసాగిస్తుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'मेंदू शरीराच्या उर्वरित भागापेक्षा वेगाने विकसित होतो, ज्यामुळे कपाळ ठळक दिसते. हातांच्या टोकांवर हातांच्या लहान कळ्या दिसू लागतात.',
+        length: 'सुमारे 10 मि.मी.',
+        comparison: 'द्राक्ष',
+        bodyChanges: [
+          'विशिष्ट पदार्थांची खास इच्छा, किंवा उलट काही पदार्थांबद्दल अप्रियता वाटणे शक्य आहे.',
+        ],
+        toKnow: [
+          'मेंदू आणि पाठीचा कणा तयार करणारी मज्जानलिका या आठवड्यांत बंद होणे सुरू ठेवते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'મગજ શરીરના બાકીના ભાગ કરતાં ઝડપથી વિકસે છે, જેથી કપાળ ઊપસેલું લાગે છે. હાથના છેડે હાથની નાની કળીઓ દેખાવા લાગે છે.',
+        length: 'લગભગ 10 મિમી',
+        comparison: 'દ્રાક્ષ',
+        bodyChanges: [
+          'ખાવાની ખાસ ઇચ્છાઓ, અથવા ઊલટું અમુક ખોરાક પ્રત્યે અણગમો શક્ય છે.',
+        ],
+        toKnow: [
+          'ન્યુરલ ટ્યુબ, જેમાંથી મગજ અને કરોડરજ્જુ બને છે, તે આ અઠવાડિયાં દરમિયાન બંધ થવાનું ચાલુ રાખે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਦਿਮਾਗ਼ ਸਰੀਰ ਦੇ ਬਾਕੀ ਹਿੱਸੇ ਨਾਲੋਂ ਤੇਜ਼ੀ ਨਾਲ ਵਿਕਸਿਤ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਕਰਕੇ ਮੱਥਾ ਉੱਭਰਿਆ ਹੋਇਆ ਲੱਗਦਾ ਹੈ। ਬਾਹਾਂ ਦੇ ਸਿਰਿਆਂ ’ਤੇ ਹੱਥਾਂ ਦੀਆਂ ਛੋਟੀਆਂ ਕਲੀਆਂ ਦਿਖਾਈ ਦੇਣ ਲੱਗਦੀਆਂ ਹਨ।',
+        length: 'ਲਗਭਗ 10 ਮਿਮੀ',
+        comparison: 'ਅੰਗੂਰ',
+        bodyChanges: [
+          'ਖਾਣ ਦੀਆਂ ਖ਼ਾਸ ਇੱਛਾਵਾਂ, ਜਾਂ ਇਸ ਦੇ ਉਲਟ ਕੁਝ ਖਾਣਿਆਂ ਤੋਂ ਨਫ਼ਰਤ ਹੋ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਨਿਊਰਲ ਟਿਊਬ, ਜਿਸ ਤੋਂ ਦਿਮਾਗ਼ ਅਤੇ ਰੀੜ੍ਹ ਦੀ ਹੱਡੀ ਬਣਦੇ ਹਨ, ਇਨ੍ਹਾਂ ਹਫ਼ਤਿਆਂ ਦੌਰਾਨ ਬੰਦ ਹੁੰਦੀ ਰਹਿੰਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ဦးနှောက်သည် ခန္ဓာကိုယ်၏ ကျန်အစိတ်အပိုင်းများထက် ပိုမိုမြန်ဆန်စွာ ကြီးထွားသောကြောင့် နဖူးကျယ်ကျယ်ဖြစ်လာသည်။ လက်မောင်းအဆုံးတွင် လက်၏ အဖူးသေးသေးကလေးများ စတင်ပေါ်လာသည်။',
+        length: 'ခန့်မှန်းခြေ 10 မီလီမီတာ',
+        comparison: 'စပျစ်သီး',
+        bodyChanges: [
+          'အစားအစာကို အထူးလိုချင်ခြင်း သို့မဟုတ် ပြောင်းပြန်အားဖြင့် အချို့အစားအစာကို မနှစ်သက်ခြင်းများ ဖြစ်နိုင်သည်။',
+        ],
+        toKnow: [
+          'ဦးနှောက်နှင့် ကျောရိုးကို ဖြစ်ပေါ်စေသည့် အာရုံကြောပြွန်သည် ဤအပတ်များအတွင်း ဆက်လက်ပိတ်သွားနေသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ខួរក្បាលលូតលាស់លឿនជាងផ្នែកផ្សេងទៀតនៃរាងកាយ ធ្វើឱ្យថ្ងាសលៀនចេញ។ ដុំដៃតូចៗចាប់ផ្តើមលេចឡើងនៅចុងដៃ។',
+        length: 'ប្រហែល 10 មីលីម៉ែត្រ',
+        comparison: 'ទំពាំងបាយជូរ',
+        bodyChanges: [
+          'អាចមានចំណង់ស្រេកឃ្លានអាហារជាក់លាក់ ឬផ្ទុយទៅវិញ មានការស្អប់អាហារមួយចំនួន។',
+        ],
+        toKnow: [
+          'បំពង់ប្រសាទ ដែលបង្កើតជាខួរក្បាលនិងឆ្អឹងខ្នង បន្តបិទក្នុងអំឡុងសប្តាហ៍ទាំងនេះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ສະໝອງພັດທະນາໄວກວ່າສ່ວນອື່ນຂອງຮ່າງກາຍ ເຮັດໃຫ້ໜ້າຜາກເດັ່ນອອກມາ. ຕຸ່ມມືນ້ອຍໆເລີ່ມປາກົດຢູ່ປາຍແຂນ.',
+        length: 'ປະມານ 10 ມິນລີແມັດ',
+        comparison: 'ໝາກອະງຸ່ນ',
+        bodyChanges: [
+          'ອາດມີຄວາມຢາກອາຫານບາງຢ່າງເປັນພິເສດ ຫຼື ກົງກັນຂ້າມ ອາດຮູ້ສຶກບໍ່ມັກອາຫານບາງຊະນິດ.',
+        ],
+        toKnow: [
+          'ທໍ່ປະສາດ ເຊິ່ງເປັນຕົ້ນກຳເນີດຂອງສະໝອງ ແລະ ໄຂສັນຫຼັງ ຍັງສືບຕໍ່ປິດຕົວໃນໄລຍະອາທິດເຫຼົ່ານີ້.',
+        ],
+      },
     },
   },
 
@@ -3706,6 +5264,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Embrio kini dipanggil janin. Lengan semakin panjang, kepala mula sedikit menegak dan uri terus terbentuk.',
+        length: 'Kira-kira 16 mm',
+        comparison: 'Raspberi',
+        bodyChanges: [
+          'Kepekaan terhadap bau dan alahan pagi adalah lazim pada peringkat ini, walaupun tidak dialami semua orang.',
+        ],
+        toKnow: [
+          'Ultrasound penentuan tarikh yang pertama biasanya dijadualkan antara minggu ke-8 dan minggu ke-14.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Embriyuhu hadda waxaa loogu yeeraa uur (fetus). Gacmuhu way sii dheeraanayaan, madaxu wuxuu bilaabayaa inuu xoogaa toosmo, mandheeruhuna wuu sii samaysmayaa.',
+        length: 'Qiyaastii 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: [
+          'Dareen xooggan oo ay u leeyihiin ur iyo lallabo subaxdii waa caadi heerkan, in kasta oo aanay guud ahayn.',
+        ],
+        toKnow: [
+          'Ultrasaawnka ugu horreeya ee taariikhaynta guud ahaan waxaa la qorsheeyaa u dhexeeya toddobaadka 8 iyo toddobaadka 14.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Kiinitete sasa kinaitwa kijusi. Mikono inarefuka, kichwa kinaanza kunyooka kidogo, na kondo la nyuma linaendelea kuundwa.',
+        length: 'Takriban mm 16',
+        comparison: 'Rasiberi',
+        bodyChanges: [
+          'Hisia kali kwa harufu na kichefuchefu cha asubuhi ni vya kawaida katika hatua hii, ingawa si kwa kila mtu.',
+        ],
+        toKnow: [
+          'Ultrasound ya kwanza ya kupanga tarehe kwa kawaida hupangwa kati ya wiki ya 8 na wiki ya 14.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Эмбрион енді ұрық деп аталады. Қолдар ұзарып жатыр, бас сәл түзеле бастайды, ал плацента қалыптасуын жалғастыруда.',
+        length: 'Шамамен 16 мм',
+        comparison: 'Таңқурай',
+        bodyChanges: [
+          'Иістерге сезімталдық және таңертеңгі жүрек айну бұл кезеңде жиі кездеседі, бірақ барлығында емес.',
+        ],
+        toKnow: [
+          'Мерзімді анықтайтын алғашқы ультрадыбыстық зерттеу әдетте 8-ші мен 14-ші апта аралығында жоспарланады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Embriyo bi tudd na fetus léegi. Loxo yi dañuy gudd, bopp bi tàmbali ñor tuuti, te plasenta bi kontine defaru.',
+        length: 'Ci wetu 16 mm',
+        comparison: 'Frambwaas',
+        bodyChanges: [
+          'Gis xeeñ ak dundu xol ci suba daa bari ci jamono jii, waaye duñu bokk ci ñépp.',
+        ],
+        toKnow: [
+          'Ekografi bu jëkk bu bind bés daa digal ci diggante ayu-bés 8 ak ayu-bés 14.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ana kiran ƙwai a yanzu tayi (fetus). Hannuwa suna tsawaita, kai ya fara miƙewa kaɗan, kuma mahaifa (placenta) tana ci gaba da samuwa.',
+        length: 'Kusan 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: [
+          'Hankali ga ƙamshi da tashin zuciya na safe sun zama ruwan dare a wannan mataki, ko da yake ba ga kowa ba.',
+        ],
+        toKnow: [
+          'Ana yawan shirya ultrasound na farko na kididdiga tsakanin makon 8 da makon 14.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ፅንሱ አሁን ፌተስ (ጽንስ) ይባላል። እጆቹ እየረዘሙ ነው፣ ራሱ በትንሹ ቀና ማለት ይጀምራል፣ እና ሽሉ (ፕላሴንታ) መፈጠሩን ይቀጥላል።',
+        length: 'ወደ 16 ሚሜ',
+        comparison: 'ራስቤሪ',
+        bodyChanges: [
+          'ለሽታዎች ስሜታዊነትና የጠዋት ህመም በዚህ ደረጃ የተለመዱ ናቸው፣ ምንም እንኳን ለሁሉም ባይሆንም።',
+        ],
+        toKnow: [
+          'የመጀመሪያው የቀን አቆጣጠር አልትራሳውንድ በአጠቃላይ በሳምንት 8 እና በሳምንት 14 መካከል ይቀጠራል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het embryo wordt nu foetus genoemd. De armen worden langer, het hoofd begint zich licht op te richten en de placenta blijft zich vormen.',
+        length: 'Ongeveer 16 mm',
+        comparison: 'Framboos',
+        bodyChanges: [
+          'Gevoeligheid voor geuren en ochtendmisselijkheid komen in deze fase vaak voor, maar niet bij iedereen.',
+        ],
+        toKnow: [
+          'De eerste datumecho wordt over het algemeen gepland tussen week 8 en week 14.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Alkiota kutsutaan nyt sikiöksi. Käsivarret pitenevät, pää alkaa hieman oikaistua ja istukka jatkaa muodostumistaan.',
+        length: 'Noin 16 mm',
+        comparison: 'Vadelma',
+        bodyChanges: [
+          'Hajuherkkyys ja aamupahoinvointi ovat tässä vaiheessa yleisiä, vaikkakaan eivät yleismaailmallisia.',
+        ],
+        toKnow: [
+          'Ensimmäinen ajoitusultraääni sovitaan yleensä viikkojen 8 ja 14 välille.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το έμβρυο ονομάζεται πλέον κύημα. Οι βραχίονες επιμηκύνονται, το κεφάλι αρχίζει να ισιώνει ελαφρά και ο πλακούντας συνεχίζει να σχηματίζεται.',
+        length: 'Περίπου 16 χιλ.',
+        comparison: 'Βατόμουρο',
+        bodyChanges: [
+          'Η ευαισθησία στις μυρωδιές και η πρωινή ναυτία είναι συχνές σε αυτό το στάδιο, αν και όχι καθολικές.',
+        ],
+        toKnow: [
+          'Το πρώτο υπερηχογράφημα χρονολόγησης προγραμματίζεται γενικά ανάμεσα στην 8η και στην 14η εβδομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Tinatawag na ngayong fetus ang embryo. Humahaba ang mga braso, bahagyang nagsisimulang tumuwid ang ulo, at patuloy na nabubuo ang inunan.',
+        length: 'Mga 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: [
+          'Karaniwan ang pagiging sensitibo sa amoy at morning sickness sa yugtong ito, bagaman hindi pangkalahatan.',
+        ],
+        toKnow: [
+          'Karaniwang nakaiskedyul sa pagitan ng ika-8 at ika-14 na linggo ang unang ultrasound para sa pagtatakda ng petsa.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கரு இப்போது சிசு என்று அழைக்கப்படுகிறது. கைகள் நீள்கின்றன, தலை சற்று நிமிரத் தொடங்குகிறது, நஞ்சுக்கொடி தொடர்ந்து உருவாகிறது.',
+        length: 'சுமார் 16 மி.மீ',
+        comparison: 'ராஸ்பெரி',
+        bodyChanges: [
+          'வாசனைகளுக்கு உணர்திறனும் காலைநேரக் குமட்டலும் இந்தக் கட்டத்தில் பொதுவானவை, ஆனால் அனைவருக்கும் அல்ல.',
+        ],
+        toKnow: [
+          'முதல் தேதி நிர்ணய அல்ட்ராசவுண்ட் பொதுவாக 8வது வாரத்துக்கும் 14வது வாரத்துக்கும் இடையே திட்டமிடப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'పిండాన్ని ఇప్పుడు శిశువు (ఫీటస్) అంటారు. చేతులు పొడవవుతున్నాయి, తల కొంచెం నిటారుగా మారడం మొదలవుతుంది, మాయ ఏర్పడటం కొనసాగుతోంది.',
+        length: 'సుమారు 16 మి.మీ',
+        comparison: 'రాస్ప్‌బెర్రీ',
+        bodyChanges: [
+          'వాసనల పట్ల సున్నితత్వం, ఉదయపు వికారం ఈ దశలో సాధారణం, కానీ అందరికీ కాదు.',
+        ],
+        toKnow: [
+          'తేదీని నిర్ధారించే మొదటి అల్ట్రాసౌండ్ సాధారణంగా 8వ వారం, 14వ వారం మధ్య షెడ్యూల్ చేయబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'भ्रूणाला आता गर्भ (फीटस) म्हणतात. हात लांब होत आहेत, डोके थोडे सरळ होऊ लागते आणि गर्भनाळ (प्लॅसेंटा) तयार होणे सुरू आहे.',
+        length: 'सुमारे 16 मि.मी.',
+        comparison: 'रास्पबेरी',
+        bodyChanges: [
+          'वासांबद्दल संवेदनशीलता आणि सकाळची मळमळ या टप्प्यावर सामान्य आहेत, पण सर्वांसाठी नाहीत.',
+        ],
+        toKnow: [
+          'तारीख निश्चित करणारी पहिली सोनोग्राफी साधारणपणे 8व्या ते 14व्या आठवड्यादरम्यान ठरवली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ભ્રૂણને હવે ગર્ભસ્થ શિશુ (ફીટસ) કહેવામાં આવે છે. હાથ લાંબા થઈ રહ્યા છે, માથું થોડું સીધું થવા લાગે છે, અને પ્લેસેન્ટા બનવાનું ચાલુ છે.',
+        length: 'લગભગ 16 મિમી',
+        comparison: 'રાસબેરી',
+        bodyChanges: [
+          'ગંધ પ્રત્યે સંવેદનશીલતા અને સવારના ઉબકા આ તબક્કે સામાન્ય છે, જોકે બધાને નથી હોતા.',
+        ],
+        toKnow: [
+          'પહેલી સોનોગ્રાફી, જે ગર્ભાવસ્થાની તારીખ નક્કી કરે છે, સામાન્ય રીતે અઠવાડિયું 8 અને અઠવાડિયું 14 વચ્ચે ગોઠવાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਭਰੂਣ ਨੂੰ ਹੁਣ ਗਰਭ ਦਾ ਬੱਚਾ (ਫੀਟਸ) ਕਿਹਾ ਜਾਂਦਾ ਹੈ। ਬਾਹਾਂ ਲੰਬੀਆਂ ਹੋ ਰਹੀਆਂ ਹਨ, ਸਿਰ ਥੋੜ੍ਹਾ ਸਿੱਧਾ ਹੋਣ ਲੱਗਦਾ ਹੈ, ਅਤੇ ਨਾੜ (ਪਲੈਸੈਂਟਾ) ਬਣਨਾ ਜਾਰੀ ਹੈ।',
+        length: 'ਲਗਭਗ 16 ਮਿਮੀ',
+        comparison: 'ਰਸਬੇਰੀ',
+        bodyChanges: [
+          'ਖ਼ੁਸ਼ਬੂਆਂ-ਬਦਬੂਆਂ ਪ੍ਰਤੀ ਸੰਵੇਦਨਸ਼ੀਲਤਾ ਅਤੇ ਸਵੇਰ ਦਾ ਜੀ ਕੱਚਾ ਹੋਣਾ ਇਸ ਪੜਾਅ ’ਤੇ ਆਮ ਹਨ, ਭਾਵੇਂ ਹਰ ਕਿਸੇ ਨੂੰ ਨਹੀਂ ਹੁੰਦੇ।',
+        ],
+        toKnow: [
+          'ਪਹਿਲਾ ਅਲਟਰਾਸਾਊਂਡ, ਜੋ ਗਰਭ-ਅਵਸਥਾ ਦੀ ਤਾਰੀਖ਼ ਤੈਅ ਕਰਦਾ ਹੈ, ਆਮ ਤੌਰ ’ਤੇ ਹਫ਼ਤਾ 8 ਅਤੇ ਹਫ਼ਤਾ 14 ਦੇ ਵਿਚਕਾਰ ਕਰਵਾਇਆ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'သန္ဓေသည် ယခုအခါ သန္ဓေသားဟု ခေါ်ဆိုသည်။ လက်မောင်းများ ရှည်လာနေပြီး ဦးခေါင်းသည် အနည်းငယ် ဖြောင့်လာစပြုကာ အချင်းကလေး ဆက်လက်ဖွဲ့စည်းနေသည်။',
+        length: 'ခန့်မှန်းခြေ 16 မီလီမီတာ',
+        comparison: 'ရက်စ်ဘယ်ရီသီး',
+        bodyChanges: [
+          'အနံ့များကို အထိမခံဖြစ်ခြင်းနှင့် မနက်ပိုင်း ပျို့အန်ခြင်းတို့သည် ဤအဆင့်တွင် ပုံမှန်ဖြစ်သော်လည်း လူတိုင်းတွင်တော့ မဖြစ်ပါ။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်ရက်စွဲကို တိုင်းတာသည့် ပထမအယ်ထရာဆောင်းကို များသောအားဖြင့် အပတ် 8 နှင့် အပတ် 14 ကြားတွင် ချိန်းဆိုသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ឥឡូវនេះអំប្រ៊ីយ៉ុងត្រូវបានហៅថាទារកក្នុងផ្ទៃ។ ដៃកំពុងវែងឡើង ក្បាលចាប់ផ្តើមត្រង់បន្តិច ហើយសុក (placenta) បន្តបង្កើតឡើង។',
+        length: 'ប្រហែល 16 មីលីម៉ែត្រ',
+        comparison: 'ផ្លែរ៉ាស្ប៊ឺរី',
+        bodyChanges: [
+          'ភាពរសើបចំពោះក្លិន និងចង្អោរពេលព្រឹក ជារឿងធម្មតានៅដំណាក់កាលនេះ ទោះបីមិនមែនគ្រប់គ្នាក៏ដោយ។',
+        ],
+        toKnow: [
+          'អ៊ុលត្រាសោនដំបូងសម្រាប់កំណត់អាយុផ្ទៃពោះ ជាទូទៅត្រូវបានគ្រោងទុកនៅចន្លោះសប្តាហ៍ទី 8 ដល់សប្តាហ៍ទី 14។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕອນນີ້ຕົວອ່ອນຖືກເອີ້ນວ່າທາລົກ. ແຂນຍາວຂຶ້ນ ຫົວເລີ່ມຢຽດຊື່ຂຶ້ນເລັກນ້ອຍ ແລະ ຮົກຍັງສືບຕໍ່ກໍ່ຕົວ.',
+        length: 'ປະມານ 16 ມິນລີແມັດ',
+        comparison: 'ໝາກແຣສເບີຣີ',
+        bodyChanges: [
+          'ຄວາມໄວຕໍ່ກິ່ນ ແລະ ອາການແພ້ທ້ອງເປັນເລື່ອງທົ່ວໄປໃນໄລຍະນີ້ ເຖິງແມ່ນວ່າບໍ່ແມ່ນທຸກຄົນຈະເປັນ.',
+        ],
+        toKnow: [
+          'ການກວດອັນຕຣາຊາວເພື່ອກຳນົດອາຍຸຄັ້ງທຳອິດ ໂດຍທົ່ວໄປຈະນັດລະຫວ່າງອາທິດທີ 8 ຫາ ອາທິດທີ 14.',
+        ],
+      },
     },
   },
   {
@@ -4158,6 +5944,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Ciri muka menjadi lebih jelas, kelopak mata melindungi mata, dan tangan serta kaki mula terbentuk bersama bakal jari tangan dan jari kaki.',
+        length: 'Kira-kira 22 mm',
+        comparison: 'Strawberi',
+        bodyChanges: [
+          'Keletihan dan loya yang ketara mungkin masih ada; ia sering cenderung reda menjelang akhir trimester pertama.',
+        ],
+        toKnow: [
+          'Organ kelamin baru mula berbeza, tetapi jantina biasanya tidak dapat dikenal pasti sehingga jauh lebih lewat, semasa ultrasound anatomi.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Sifooyinka wajiga waxay noqonayaan kuwo cad, rinjiyadu indhaha way ilaaliyaan, gacmaha iyo lugahana way samaysmayaan iyadoo farta iyo suulasha mustaqbalka la sameynayo.',
+        length: 'Qiyaastii 22 mm',
+        comparison: 'Istarooberi',
+        bodyChanges: [
+          'Daal xooggan iyo lallabo ayaa weli jiri kara; inta badan waxay u muuqdaan kuwo yaraada dhammaadka saddex-billaha koowaad.',
+        ],
+        toKnow: [
+          'Xubnaha taranka way bilaabmayaan inay kala duwanaadaan, laakiin jinsiga guud ahaan lagama garan karo ilaa waqti dambe, ultrasaawnka qaab-dhismeedka.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Sura za uso zinakuwa wazi zaidi, kope hulinda macho, na mikono na miguu inachukua umbo pamoja na vidole vya baadaye.',
+        length: 'Takriban mm 22',
+        comparison: 'Stroberi',
+        bodyChanges: [
+          'Uchovu mkubwa na kichefuchefu vinaweza kuendelea; mara nyingi huwa vinapungua kufikia mwisho wa trimesta ya kwanza.',
+        ],
+        toKnow: [
+          'Viungo vya uzazi vinaanza tu kujitofautisha, lakini jinsia kwa kawaida haitambuliki hadi baadaye sana, kwenye ultrasound ya kuchunguza viungo.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Бет сипаттары анығырақ бола түседі, қабақтар көзді қорғайды, ал қолдар мен аяқтар болашақ саусақтарымен қалыптасуда.',
+        length: 'Шамамен 22 мм',
+        comparison: 'Құлпынай',
+        bodyChanges: [
+          'Айқын шаршау мен жүрек айну әлі болуы мүмкін; олар әдетте бірінші триместрдің аяғына қарай басылады.',
+        ],
+        toKnow: [
+          'Жыныс мүшелері енді ғана ажыраса бастайды, бірақ жыныс әдетте тек ағзаларды зерттейтін ультрадыбыстық зерттеуде, әлдеқайда кейінірек анықталады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Say melokaan kanam di gën a leer, kawu bët yi dañuy aar bët yi, te loxo ak tànk yi ñu ngi jël anam ak baaraam ak tànk yu mën a am.',
+        length: 'Ci wetu 22 mm',
+        comparison: 'Fraaz',
+        bodyChanges: [
+          'Sonn bu am solo ak dundu xol mën nañu des; daa bari ñu di wàññiku ci jeexu trimestr bu njëkk.',
+        ],
+        toKnow: [
+          'Yaramu jaam ak jigéen yi tàmbali séddu, waaye xeet bi mënul a xam ba mu yàgg, ci ekografi bu anam.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Siffofin fuska suna ƙara bayyana, fatar ido tana kare idanu, kuma hannuwa da ƙafafuwa suna samun siffa tare da yatsun nan gaba.',
+        length: 'Kusan 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: [
+          'Gajiya da tashin zuciya masu bayyana na iya ci gaba da kasancewa; galibi suna kan sauƙaƙa a ƙarshen kashi na farko.',
+        ],
+        toKnow: [
+          'Sassan haihuwa suna fara bambanta ne kawai, amma yawanci ba za a iya gane jinsi ba sai daga baya, a ultrasound na siffar jiki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የፊት ገጽታዎች ይበልጥ ይገለጻሉ፣ የዐይን ሽፋኖች ዐይኖችን ይጠብቃሉ፣ እና እጆችና እግሮች ከወደፊት ጣቶች ጋር ቅርጽ እየያዙ ነው።',
+        length: 'ወደ 22 ሚሜ',
+        comparison: 'እንጆሪ',
+        bodyChanges: [
+          'ከፍተኛ ድካምና ማቅለሽለሽ አሁንም ሊኖሩ ይችላሉ፤ በመጀመሪያው ሦስት ወር መጨረሻ ላይ ብዙ ጊዜ ይቀላሉ።',
+        ],
+        toKnow: [
+          'የብልት አካላት መለየት ገና እየጀመሩ ነው፣ ነገር ግን ጾታው በአጠቃላይ እስከ ብዙ ቆይቶ፣ በአናቶሚ አልትራሳውንድ ድረስ አይታወቅም።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De gelaatstrekken worden scherper, de oogleden beschermen de ogen en de handen en voeten krijgen vorm met de toekomstige vingers en tenen.',
+        length: 'Ongeveer 22 mm',
+        comparison: 'Aardbei',
+        bodyChanges: [
+          'Duidelijke vermoeidheid en misselijkheid kunnen nog aanwezig zijn; ze nemen vaak af tegen het einde van het eerste trimester.',
+        ],
+        toKnow: [
+          'De geslachtsorganen beginnen zich net te onderscheiden, maar het geslacht is over het algemeen pas veel later herkenbaar, bij de structurele echo.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Kasvonpiirteet tarkentuvat, silmäluomet suojaavat silmiä ja kädet ja jalat ottavat muotoa tulevine sormineen ja varpaineen.',
+        length: 'Noin 22 mm',
+        comparison: 'Mansikka',
+        bodyChanges: [
+          'Merkittävä väsymys ja pahoinvointi voivat vielä jatkua; ne yleensä helpottavat ensimmäisen kolmanneksen loppuun mennessä.',
+        ],
+        toKnow: [
+          'Sukuelimet alkavat juuri erilaistua, mutta sukupuoli on yleensä tunnistettavissa vasta paljon myöhemmin, rakenneultraäänessä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα χαρακτηριστικά του προσώπου γίνονται πιο καθορισμένα, τα βλέφαρα προστατεύουν τα μάτια και τα χέρια και τα πόδια παίρνουν μορφή με τα μελλοντικά δάχτυλα.',
+        length: 'Περίπου 22 χιλ.',
+        comparison: 'Φράουλα',
+        bodyChanges: [
+          'Η έντονη κόπωση και η ναυτία μπορεί να είναι ακόμη παρούσες· συχνά τείνουν να υποχωρούν προς το τέλος του πρώτου τριμήνου.',
+        ],
+        toKnow: [
+          'Τα γεννητικά όργανα μόλις αρχίζουν να διαφοροποιούνται, αλλά το φύλο γενικά δεν είναι αναγνωρίσιμο παρά πολύ αργότερα, στο υπερηχογράφημα μορφολογίας.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Mas nagiging malinaw ang mga katangian ng mukha, pinoprotektahan ng mga talukap ang mga mata, at nabubuo ang mga kamay at paa kasama ang mga magiging daliri.',
+        length: 'Mga 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: [
+          'Maaaring naroroon pa rin ang matinding pagod at pagduduwal; madalas silang may tendensiyang humupa pagsapit ng katapusan ng unang trimester.',
+        ],
+        toKnow: [
+          'Nagsisimula pa lamang magkaiba ang mga ari, ngunit karaniwang hindi pa matutukoy ang kasarian hanggang sa mas huli, sa anatomy ultrasound.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'முகத் தோற்றம் மேலும் தெளிவாகிறது, இமைகள் கண்களைப் பாதுகாக்கின்றன, கைகளும் கால்களும் எதிர்கால விரல்களுடன் வடிவம் பெறுகின்றன.',
+        length: 'சுமார் 22 மி.மீ',
+        comparison: 'ஸ்ட்ராபெரி',
+        bodyChanges: [
+          'குறிப்பிடத்தக்க சோர்வும் குமட்டலும் இன்னும் இருக்கலாம்; முதல் மூன்று மாத இறுதிக்குள் அவை பெரும்பாலும் தணிகின்றன.',
+        ],
+        toKnow: [
+          'பாலுறுப்புகள் இப்போதுதான் வேறுபடத் தொடங்குகின்றன, ஆனால் பாலினம் பொதுவாக மிகவும் பின்னர், உடற்கூறு அல்ட்ராசவுண்டில்தான் அடையாளம் காணப்படும்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ముఖ లక్షణాలు మరింత స్పష్టమవుతాయి, కనురెప్పలు కళ్లను కాపాడతాయి, చేతులు, కాళ్లు భవిష్యత్ వేళ్లతో రూపు దిద్దుకుంటున్నాయి.',
+        length: 'సుమారు 22 మి.మీ',
+        comparison: 'స్ట్రాబెర్రీ',
+        bodyChanges: [
+          'గణనీయమైన అలసట, వికారం ఇంకా ఉండవచ్చు; అవి తరచుగా మొదటి త్రైమాసికం చివరికి తగ్గుతాయి.',
+        ],
+        toKnow: [
+          'జననేంద్రియాలు ఇప్పుడిప్పుడే వేరుపడటం మొదలవుతున్నాయి, కానీ లింగాన్ని సాధారణంగా చాలా తర్వాత, అనాటమీ అల్ట్రాసౌండ్‌లోనే గుర్తించగలం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'चेहऱ्याची वैशिष्ट्ये अधिक स्पष्ट होतात, पापण्या डोळ्यांचे रक्षण करतात आणि हात-पाय भविष्यातील बोटांसह आकार घेत आहेत.',
+        length: 'सुमारे 22 मि.मी.',
+        comparison: 'स्ट्रॉबेरी',
+        bodyChanges: [
+          'ठळक थकवा आणि मळमळ अजूनही असू शकते; ती बहुतेकदा पहिल्या तिमाहीच्या शेवटी कमी होण्याकडे झुकतात.',
+        ],
+        toKnow: [
+          'जननेंद्रिये आता भिन्न होऊ लागली आहेत, पण लिंग सहसा खूप नंतर, रचना सोनोग्राफीवरच ओळखता येते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ચહેરાના લક્ષણો વધુ સ્પષ્ટ બને છે, પોપચાં આંખોનું રક્ષણ કરે છે, અને હાથ-પગ ભવિષ્યની આંગળીઓ સાથે આકાર લઈ રહ્યા છે.',
+        length: 'લગભગ 22 મિમી',
+        comparison: 'સ્ટ્રોબેરી',
+        bodyChanges: [
+          'નોંધપાત્ર થાક અને ઉબકા હજુ હોઈ શકે છે; તે ઘણી વાર પહેલા ત્રિમાસિકના અંત સુધીમાં હળવા થતા જાય છે.',
+        ],
+        toKnow: [
+          'જનનેન્દ્રિયો હમણાં જ અલગ પડવા લાગે છે, પણ જાતિ સામાન્ય રીતે ઘણા પછી, એનાટોમી સોનોગ્રાફીમાં જ ઓળખાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਚਿਹਰੇ ਦੇ ਨਕਸ਼ ਹੋਰ ਸਪੱਸ਼ਟ ਹੋ ਜਾਂਦੇ ਹਨ, ਪਲਕਾਂ ਅੱਖਾਂ ਦੀ ਰਾਖੀ ਕਰਦੀਆਂ ਹਨ, ਅਤੇ ਹੱਥ-ਪੈਰ ਭਵਿੱਖ ਦੀਆਂ ਉਂਗਲਾਂ ਸਮੇਤ ਸ਼ਕਲ ਲੈ ਰਹੇ ਹਨ।',
+        length: 'ਲਗਭਗ 22 ਮਿਮੀ',
+        comparison: 'ਸਟ੍ਰਾਬੇਰੀ',
+        bodyChanges: [
+          'ਕਾਫ਼ੀ ਥਕਾਵਟ ਅਤੇ ਜੀ ਕੱਚਾ ਹੋਣਾ ਅਜੇ ਵੀ ਹੋ ਸਕਦਾ ਹੈ; ਇਹ ਅਕਸਰ ਪਹਿਲੀ ਤਿਮਾਹੀ ਦੇ ਅੰਤ ਤੱਕ ਹੌਲੀ-ਹੌਲੀ ਘਟ ਜਾਂਦੇ ਹਨ।',
+        ],
+        toKnow: [
+          'ਜਣਨ ਅੰਗ ਹੁਣੇ ਵੱਖਰੇ ਹੋਣੇ ਸ਼ੁਰੂ ਹੋਏ ਹਨ, ਪਰ ਬੱਚੇ ਦਾ ਲਿੰਗ ਆਮ ਤੌਰ ’ਤੇ ਬਹੁਤ ਬਾਅਦ ਵਿੱਚ, ਸਰੀਰ ਦੀ ਬਣਤਰ ਵਾਲੇ ਅਲਟਰਾਸਾਊਂਡ ਵਿੱਚ ਹੀ ਪਛਾਣਿਆ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မျက်နှာအင်္ဂါရပ်များ ပိုမိုပြတ်သားလာပြီး မျက်ခွံများက မျက်လုံးကို ကာကွယ်ပေးသည်။ လက်များနှင့် ခြေများသည် အနာဂတ်လက်ချောင်းခြေချောင်းများနှင့်အတူ ပုံသဏ္ဍာန်ပေါ်လာနေသည်။',
+        length: 'ခန့်မှန်းခြေ 22 မီလီမီတာ',
+        comparison: 'စတော်ဘယ်ရီသီး',
+        bodyChanges: [
+          'သိသာသော ပင်ပန်းနွမ်းနယ်ခြင်းနှင့် ပျို့အန်ခြင်းတို့ ရှိနေဆဲဖြစ်နိုင်သည်။ ၎င်းတို့သည် ပထမသုံးလပတ်အဆုံးတွင် မကြာခဏ လျော့ပါးလာတတ်သည်။',
+        ],
+        toKnow: [
+          'လိင်အင်္ဂါများ ခွဲခြားပေါ်လာစပြုသော်လည်း ကလေး၏လိင်ကို များသောအားဖြင့် နောက်ပိုင်းတွင်မှ ခန္ဓာဗေဒအယ်ထရာဆောင်းဖြင့် သိနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទម្រង់មុខកាន់តែច្បាស់ ត្របកភ្នែកការពារភ្នែក ហើយដៃនិងជើងកំពុងមានរាង ជាមួយនឹងម្រាមដៃម្រាមជើងនាពេលអនាគត។',
+        length: 'ប្រហែល 22 មីលីម៉ែត្រ',
+        comparison: 'ផ្លែស្ត្របឺរី',
+        bodyChanges: [
+          'អស់កម្លាំងខ្លាំង និងចង្អោរអាចនៅតែមាន ហើយជាញឹកញាប់វាមានទំនោរធូរស្រាលនៅចុងត្រីមាសទីមួយ។',
+        ],
+        toKnow: [
+          'សរីរាង្គភេទទើបតែចាប់ផ្តើមមានភាពខុសគ្នា ប៉ុន្តែជាទូទៅភេទមិនអាចកំណត់បានទេរហូតដល់ពេលក្រោយទៀតនៅអ៊ុលត្រាសោនពិនិត្យរចនាសម្ព័ន្ធ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ໃບໜ້າເລີ່ມຊັດເຈນຂຶ້ນ ເປືອກຕາປົກປ້ອງດວງຕາ ແລະ ມືກັບຕີນກຳລັງເປັນຮູບຮ່າງ ພ້ອມກັບນິ້ວມື ແລະ ນິ້ວຕີນໃນອະນາຄົດ.',
+        length: 'ປະມານ 22 ມິນລີແມັດ',
+        comparison: 'ໝາກສະຕໍເບີຣີ',
+        bodyChanges: [
+          'ອາການອ່ອນເພຍ ແລະ ວິນຫົວຄື່ນໄສ້ຢ່າງຊັດເຈນອາດຍັງມີຢູ່ ແລະ ມັກຈະບັນເທົາລົງໃນທ້າຍໄຕມາດທຳອິດ.',
+        ],
+        toKnow: [
+          'ອະໄວຍະວະເພດເລີ່ມແຍກຄວາມແຕກຕ່າງກັນ ແຕ່ໂດຍທົ່ວໄປຍັງບໍ່ສາມາດບອກເພດໄດ້ຈົນກວ່າຈະຮອດຊ່ວງຫຼັງ ໃນການກວດອັນຕຣາຊາວເບິ່ງໂຄງສ້າງຮ່າງກາຍ.',
+        ],
+      },
     },
   },
   {
@@ -4610,6 +6624,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Wajah menjadi lebih mudah dikenali, kelopak mata bertindak balas terhadap cahaya, dan jantung berdenyut dengan kadar yang pantas, kira-kira tiga kali lebih pantas daripada jantung orang dewasa.',
+        length: 'Kira-kira 30 mm',
+        comparison: 'Aprikot kecil',
+        bodyChanges: [
+          'Pinggang anda mungkin mula berubah sedikit, walaupun perut biasanya belum kelihatan.',
+        ],
+        toKnow: [
+          'Saringan gabungan trimester pertama, apabila ditawarkan, biasanya dilakukan antara minggu ke-11 dan minggu ke-14.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Wajigu wuu sii garan karaa, rinjiyada indhuhu iftiinka way ka falceliyaan, wadnuhuna wuxuu garaacaa heer degdeg ah, qiyaastii seddex jeer ka dhaqso badan kan qofka weyn.',
+        length: 'Qiyaastii 30 mm',
+        comparison: 'Khuux yar',
+        bodyChanges: [
+          'Dhexdaadu wuxuu bilaabi karaa inuu xoogaa isbeddelo, in kasta oo calooshu guud ahaan weli aysan muuqan.',
+        ],
+        toKnow: [
+          'Baaritaanka isku-dhafka ah ee saddex-billaha koowaad, marka la bixiyo, guud ahaan waxaa la sameeyaa u dhexeeya toddobaadka 11 iyo toddobaadka 14.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Uso unakuwa rahisi zaidi kutambulika, kope huitikia mwanga, na moyo unapiga kwa kasi, takriban mara tatu zaidi ya moyo wa mtu mzima.',
+        length: 'Takriban mm 30',
+        comparison: 'Apricot ndogo',
+        bodyChanges: [
+          'Kiuno chako kinaweza kuanza kubadilika kidogo, ingawa tumbo kwa kawaida bado halionekani.',
+        ],
+        toKnow: [
+          'Uchunguzi wa pamoja wa trimesta ya kwanza, unapotolewa, kwa kawaida hufanyika kati ya wiki ya 11 na wiki ya 14.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Бет танымалырақ бола түседі, қабақтар жарыққа жауап береді, ал жүрек жылдам, ересек адамның жүрегінен шамамен үш есе жылдам соғады.',
+        length: 'Шамамен 30 мм',
+        comparison: 'Кішкентай өрік',
+        bodyChanges: [
+          'Белдеміңіз сәл өзгере бастауы мүмкін, дегенмен іш әдетте әлі көрінбейді.',
+        ],
+        toKnow: [
+          'Бірінші триместрдің біріктірілген скринингі, ұсынылса, әдетте 11-ші мен 14-ші апта аралығында жасалады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Kanam bi di gën a xam, kawu bët yi dañuy tontu ci leer, te xol bi dafay dóon gaaw, ci wetu ñetti yoon ni bu mag.',
+        length: 'Ci wetu 30 mm',
+        comparison: 'Abrikó bu ndaw',
+        bodyChanges: [
+          'Sa ndiggu mën na tàmbali soppiku tuuti, lu mu mën a doon biir bi gisul ba tey.',
+        ],
+        toKnow: [
+          'Seetlu bu boole bu trimestr bu njëkk, bu ñu ko joxe, daa def ko ci diggante ayu-bés 11 ak ayu-bés 14.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Fuska tana ƙara zama a bayyane, fatar ido tana amsa haske, kuma zuciya tana bugawa da sauri, kusan sau uku fiye da na babba.',
+        length: 'Kusan 30 mm',
+        comparison: 'Ƙaramin apricot',
+        bodyChanges: [
+          'Kewayen kuguwarki na iya fara canzawa kaɗan, ko da yake ciki yawanci ba a gani tukuna.',
+        ],
+        toKnow: [
+          'Ana yawan yin gwajin haɗin kashi na farko, idan an ba da shi, tsakanin makon 11 da makon 14.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ፊቱ ይበልጥ የሚታወቅ ይሆናል፣ የዐይን ሽፋኖች ለብርሃን ምላሽ ይሰጣሉ፣ እና ልብ በፈጣን ፍጥነት ይመታል፣ ከአዋቂ ሰው ወደ ሦስት እጥፍ ፈጣን።',
+        length: 'ወደ 30 ሚሜ',
+        comparison: 'ትንሽ አፕሪኮት',
+        bodyChanges: [
+          'ሆድ በአጠቃላይ ገና ባይታይም ወገብሽ በትንሹ መለወጥ ሊጀምር ይችላል።',
+        ],
+        toKnow: [
+          'የተዋሃደ የመጀመሪያ ሦስት ወር ምርመራ፣ ሲቀርብ፣ በአጠቃላይ በሳምንት 11 እና በሳምንት 14 መካከል ይደረጋል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het gezicht wordt herkenbaarder, de oogleden reageren op licht en het hart klopt in een hoog tempo, ongeveer drie keer sneller dan dat van een volwassene.',
+        length: 'Ongeveer 30 mm',
+        comparison: 'Kleine abrikoos',
+        bodyChanges: [
+          'Je taille kan licht beginnen te veranderen, ook al is de buik over het algemeen nog niet zichtbaar.',
+        ],
+        toKnow: [
+          'De combinatietest van het eerste trimester, wanneer die wordt aangeboden, gebeurt over het algemeen tussen week 11 en week 14.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Kasvot muuttuvat tunnistettavammiksi, silmäluomet reagoivat valoon ja sydän lyö nopeaan tahtiin, noin kolme kertaa nopeammin kuin aikuisella.',
+        length: 'Noin 30 mm',
+        comparison: 'Pieni aprikoosi',
+        bodyChanges: [
+          'Vyötäröäsi voi alkaa muuttua hieman, vaikka vatsa ei yleensä vielä näy.',
+        ],
+        toKnow: [
+          'Ensimmäisen kolmanneksen yhdistelmäseulonta, kun sitä tarjotaan, tehdään yleensä viikkojen 11 ja 14 välillä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το πρόσωπο γίνεται πιο αναγνωρίσιμο, τα βλέφαρα αντιδρούν στο φως και η καρδιά χτυπά με γρήγορο ρυθμό, περίπου τρεις φορές ταχύτερα από ενός ενήλικα.',
+        length: 'Περίπου 30 χιλ.',
+        comparison: 'Μικρό βερίκοκο',
+        bodyChanges: [
+          'Η μέση σου μπορεί να αρχίσει να αλλάζει ελαφρά, παρόλο που η κοιλιά γενικά δεν είναι ακόμη ορατή.',
+        ],
+        toKnow: [
+          'Ο συνδυασμένος έλεγχος πρώτου τριμήνου, όταν προτείνεται, γίνεται γενικά ανάμεσα στην 11η και στην 14η εβδομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Mas nagiging makilala ang mukha, tumutugon sa liwanag ang mga talukap, at mabilis ang tibok ng puso, mga tatlong beses na mas mabilis kaysa sa nasa hustong gulang.',
+        length: 'Mga 30 mm',
+        comparison: 'Maliit na aprikot',
+        bodyChanges: [
+          'Maaaring bahagyang magsimulang magbago ang iyong baywang, kahit karaniwang hindi pa nakikita ang tiyan.',
+        ],
+        toKnow: [
+          'Ang combined first-trimester screening, kapag inaalok, ay karaniwang ginagawa sa pagitan ng ika-11 at ika-14 na linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'முகம் மேலும் அடையாளம் காணக்கூடியதாகிறது, இமைகள் ஒளிக்கு எதிர்வினையாற்றுகின்றன, இதயம் வேகமாகத் துடிக்கிறது, வயது வந்தவரின் இதயத்தை விட மூன்று மடங்கு வேகத்தில்.',
+        length: 'சுமார் 30 மி.மீ',
+        comparison: 'சிறிய ஏப்ரிகாட்',
+        bodyChanges: [
+          'வயிறு பொதுவாக இன்னும் தெரியாவிட்டாலும், உங்கள் இடுப்பளவு சற்று மாறத் தொடங்கலாம்.',
+        ],
+        toKnow: [
+          'வழங்கப்படும்போது, முதல் மூன்று மாதத்தின் ஒருங்கிணைந்த திரையிடல் பொதுவாக 11வது வாரத்துக்கும் 14வது வாரத்துக்கும் இடையே செய்யப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ముఖం మరింత గుర్తుపట్టదగినదిగా మారుతుంది, కనురెప్పలు కాంతికి ప్రతిస్పందిస్తాయి, గుండె వేగంగా కొట్టుకుంటుంది, పెద్దవారి కంటే సుమారు మూడు రెట్లు వేగంగా.',
+        length: 'సుమారు 30 మి.మీ',
+        comparison: 'చిన్న ఆప్రికాట్',
+        bodyChanges: [
+          'పొట్ట ఇంకా సాధారణంగా కనిపించకపోయినా, మీ నడుము కొద్దిగా మారడం మొదలవ్వచ్చు.',
+        ],
+        toKnow: [
+          'మొదటి త్రైమాసిక సంయుక్త స్క్రీనింగ్, అందించినప్పుడు, సాధారణంగా 11వ వారం, 14వ వారం మధ్య చేయబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'चेहरा अधिक ओळखण्याजोगा होतो, पापण्या प्रकाशाला प्रतिसाद देतात आणि हृदय जलद गतीने धडधडते, प्रौढाच्या हृदयापेक्षा सुमारे तिप्पट वेगाने.',
+        length: 'सुमारे 30 मि.मी.',
+        comparison: 'लहान जर्दाळू',
+        bodyChanges: [
+          'पोट सहसा अजून दिसत नसले तरी तुमची कंबर थोडी बदलू लागू शकते.',
+        ],
+        toKnow: [
+          'पहिल्या तिमाहीची संयुक्त तपासणी, सुचवली असल्यास, साधारणपणे 11व्या ते 14व्या आठवड्यादरम्यान केली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ચહેરો વધુ ઓળખાય તેવો બને છે, પોપચાં પ્રકાશ પ્રત્યે પ્રતિભાવ આપે છે, અને હૃદય ઝડપી ગતિએ ધબકે છે, પુખ્ત વયના કરતાં લગભગ ત્રણ ગણું ઝડપી.',
+        length: 'લગભગ 30 મિમી',
+        comparison: 'નાની જરદાળુ',
+        bodyChanges: [
+          'તમારી કમરના માપમાં થોડો ફેરફાર થવા લાગી શકે છે, જોકે પેટ સામાન્ય રીતે હજુ દેખાતું નથી.',
+        ],
+        toKnow: [
+          'પહેલા ત્રિમાસિકની સંયુક્ત તપાસ, જ્યારે ઓફર થાય ત્યારે, સામાન્ય રીતે અઠવાડિયું 11 અને અઠવાડિયું 14 વચ્ચે થાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਚਿਹਰਾ ਹੋਰ ਪਛਾਣਨਯੋਗ ਬਣ ਜਾਂਦਾ ਹੈ, ਪਲਕਾਂ ਰੌਸ਼ਨੀ ਪ੍ਰਤੀ ਪ੍ਰਤੀਕਿਰਿਆ ਕਰਦੀਆਂ ਹਨ, ਅਤੇ ਦਿਲ ਤੇਜ਼ ਰਫ਼ਤਾਰ ਨਾਲ ਧੜਕਦਾ ਹੈ, ਬਾਲਗ ਨਾਲੋਂ ਲਗਭਗ ਤਿੰਨ ਗੁਣਾ ਤੇਜ਼।',
+        length: 'ਲਗਭਗ 30 ਮਿਮੀ',
+        comparison: 'ਛੋਟੀ ਖੁਰਮਾਨੀ',
+        bodyChanges: [
+          'ਤੁਹਾਡੀ ਕਮਰ ਦੇ ਮਾਪ ਵਿੱਚ ਥੋੜ੍ਹੀ ਤਬਦੀਲੀ ਆਉਣੀ ਸ਼ੁਰੂ ਹੋ ਸਕਦੀ ਹੈ, ਭਾਵੇਂ ਢਿੱਡ ਆਮ ਤੌਰ ’ਤੇ ਅਜੇ ਦਿਖਾਈ ਨਹੀਂ ਦਿੰਦਾ।',
+        ],
+        toKnow: [
+          'ਪਹਿਲੀ ਤਿਮਾਹੀ ਦੀ ਸੰਯੁਕਤ ਜਾਂਚ, ਜਦੋਂ ਪੇਸ਼ ਕੀਤੀ ਜਾਵੇ, ਆਮ ਤੌਰ ’ਤੇ ਹਫ਼ਤਾ 11 ਅਤੇ ਹਫ਼ਤਾ 14 ਦੇ ਵਿਚਕਾਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မျက်နှာသည် ပိုမိုသိသာလာပြီး မျက်ခွံများသည် အလင်းကို တုံ့ပြန်သည်။ နှလုံးသည် လူကြီးထက် သုံးဆခန့် မြန်သော နှုန်းဖြင့် ခုန်သည်။',
+        length: 'ခန့်မှန်းခြေ 30 မီလီမီတာ',
+        comparison: 'သေးငယ်သော ဖရိုင်းသီး (အက်ပရီကော့)',
+        bodyChanges: [
+          'ဝမ်းဗိုက်မပေါ်လာသေးသော်လည်း သင်၏ခါးလုံးပတ် အနည်းငယ် ပြောင်းလဲစပြုနိုင်သည်။',
+        ],
+        toKnow: [
+          'ပထမသုံးလပတ် ပေါင်းစပ်စစ်ဆေးမှုကို ပေးလျှင် များသောအားဖြင့် အပတ် 11 နှင့် အပတ် 14 ကြားတွင် ပြုလုပ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'មុខកាន់តែអាចសម្គាល់បាន ត្របកភ្នែកមានប្រតិកម្មនឹងពន្លឺ ហើយបេះដូងលោតលឿន ប្រហែលបីដងលឿនជាងមនុស្សពេញវ័យ។',
+        length: 'ប្រហែល 30 មីលីម៉ែត្រ',
+        comparison: 'ផ្លែអាប់ទីកូតតូច',
+        bodyChanges: [
+          'ចង្កេះរបស់អ្នកអាចចាប់ផ្តើមប្រែប្រួលបន្តិចបន្តួច ទោះបីជាទូទៅពោះមិនទាន់មើលឃើញក៏ដោយ។',
+        ],
+        toKnow: [
+          'ការត្រួតពិនិត្យរួមបញ្ចូលគ្នាក្នុងត្រីមាសទីមួយ ប្រសិនបើមានផ្តល់ជូន ជាទូទៅត្រូវធ្វើនៅចន្លោះសប្តាហ៍ទី 11 ដល់សប្តាហ៍ទី 14។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ໃບໜ້າເລີ່ມເຫັນເປັນຮູບຮ່າງຊັດເຈນຂຶ້ນ ເປືອກຕາຕອບສະໜອງຕໍ່ແສງ ແລະ ຫົວໃຈເຕັ້ນໄວ ປະມານໄວກວ່າຜູ້ໃຫຍ່ສາມເທົ່າ.',
+        length: 'ປະມານ 30 ມິນລີແມັດ',
+        comparison: 'ໝາກແອັບຣິຄອດນ້ອຍ',
+        bodyChanges: [
+          'ເອວຂອງທ່ານອາດເລີ່ມປ່ຽນແປງເລັກນ້ອຍ ເຖິງແມ່ນວ່າໂດຍທົ່ວໄປທ້ອງຍັງບໍ່ເຫັນຊັດເຈນ.',
+        ],
+        toKnow: [
+          'ການກວດຄັດກອງແບບປະສົມໃນໄຕມາດທຳອິດ ເມື່ອມີໃຫ້ ໂດຍທົ່ວໄປຈະເຮັດລະຫວ່າງອາທິດທີ 11 ຫາ ອາທິດທີ 14.',
+        ],
+      },
     },
   },
   {
@@ -5062,6 +7304,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Jari tangan dan jari kaki terpisah, kuku kecil muncul, dan uri beransur-ansur mengambil alih daripada kantung kuning telur dalam memberi nutrien kepada janin.',
+        length: 'Kira-kira 41 mm',
+        comparison: 'Buah ara',
+        bodyChanges: [
+          'Anda mungkin perasan emosi yang berubah-ubah, yang berkaitan terutamanya dengan perubahan hormon.',
+        ],
+        toKnow: [
+          'Pergerakan bayi sudah bermula, tetapi biasanya belum dapat dirasai pada peringkat ini.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Farta iyo suulashu way kala go\'aan, ciddiyo yaryar ayaa soo muuqda, mandheerahuna tartiib ayuu kaga qaadanayaa kiishka jaallaha quudinta uurka.',
+        length: 'Qiyaastii 41 mm',
+        comparison: 'Tiin',
+        bodyChanges: [
+          'Waxaad dareemi kartaa isbeddelo dareen ah, oo si gaar ah ula xiriira isbeddelada hormoonka.',
+        ],
+        toKnow: [
+          'Dhaqdhaqaaqa ilmuhu wuu bilaabmayaa, laakiin guud ahaan weli lama dareemi heerkan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Vidole vya mikono na miguu vinatengana, kucha ndogo zinaonekana, na kondo la nyuma polepole linachukua nafasi ya kifuko cha kiini cha yai katika kulisha kijusi.',
+        length: 'Takriban mm 41',
+        comparison: 'Mtini',
+        bodyChanges: [
+          'Unaweza kuhisi mabadiliko ya hali ya moyo, yanayohusiana hasa na mabadiliko ya homoni.',
+        ],
+        toKnow: [
+          'Mienendo ya mtoto inaanza, lakini kwa kawaida bado haihisiwi katika hatua hii.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Қол мен аяқ саусақтары бөлінеді, ұсақ тырнақтар пайда болады, ал плацента біртіндеп ұрықты қоректендіруде сарыуыз қапшығының орнын басады.',
+        length: 'Шамамен 41 мм',
+        comparison: 'Інжір',
+        bodyChanges: [
+          'Көңіл-күйдің ауытқуын байқауыңыз мүмкін, бұл әсіресе гормондық өзгерістерге байланысты.',
+        ],
+        toKnow: [
+          'Нәрестенің қозғалыстары басталып жатыр, бірақ бұл кезеңде олар әдетте әлі сезілмейді.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Baaraam ak tànk yi dañuy séddu, yaxu baaraam yu ndaw feeñ, te plasenta bi dafay wuutu tuuti-tuuti xaaj bu melax ci dundal fetus bi.',
+        length: 'Ci wetu 41 mm',
+        comparison: 'Fiig',
+        bodyChanges: [
+          'Mën nga gis soppi ci xol, yu jëm lool ci yëngu yu hormon.',
+        ],
+        toKnow: [
+          'Yëngu yu doom bi dañuy tàmbali, waaye daa jub ñu dégg leen ba tey ci jamono jii.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Yatsun hannu da ƙafa suna rabuwa, ƙananan ƙusoshi suna bayyana, kuma mahaifa (placenta) a hankali tana karɓar aikin ciyar da tayi daga jakar yolk.',
+        length: 'Kusan 41 mm',
+        comparison: 'Ɓaure',
+        bodyChanges: [
+          'Za ki iya lura da sauyin yanayi, musamman mai alaƙa da sauye-sauyen hormone.',
+        ],
+        toKnow: [
+          'Motsin jariri yana farawa, amma yawanci ba a jin su tukuna a wannan mataki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ጣቶቹ ይለያያሉ፣ ትናንሽ ጥፍሮች ይታያሉ፣ እና ሽሉ (ፕላሴንታ) ፌተሱን በመመገብ ከእንቁላል አስኳል ከረጢት ቀስ በቀስ ይረከባል።',
+        length: 'ወደ 41 ሚሜ',
+        comparison: 'በለስ',
+        bodyChanges: [
+          'በተለይ ከሆርሞን ለውጦች ጋር የተያያዘ የስሜት መለዋወጥ ልታስተውዪ ትችያለሽ።',
+        ],
+        toKnow: [
+          'የሕፃኑ እንቅስቃሴዎች እየጀመሩ ነው፣ ነገር ግን በዚህ ደረጃ በአጠቃላይ ገና አይሰሙም።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De vingers en tenen scheiden zich, kleine nageltjes verschijnen en de placenta neemt geleidelijk de voeding van de foetus over van de dooierzak.',
+        length: 'Ongeveer 41 mm',
+        comparison: 'Vijg',
+        bodyChanges: [
+          'Je kunt stemmingswisselingen opmerken, met name door hormonale veranderingen.',
+        ],
+        toKnow: [
+          'De bewegingen van de baby beginnen, maar worden in deze fase over het algemeen nog niet gevoeld.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Sormet ja varpaat erkanevat, pienet kynnet ilmestyvät ja istukka ottaa vähitellen keltuaispussilta sikiön ravitsemuksen.',
+        length: 'Noin 41 mm',
+        comparison: 'Viikuna',
+        bodyChanges: [
+          'Voit huomata mielialan vaihteluita, jotka liittyvät erityisesti hormonaalisiin muutoksiin.',
+        ],
+        toKnow: [
+          'Vauvan liikkeet ovat alkamassa, mutta niitä ei yleensä vielä tunneta tässä vaiheessa.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα δάχτυλα των χεριών και των ποδιών διαχωρίζονται, εμφανίζονται μικροσκοπικά νύχια και ο πλακούντας αναλαμβάνει σταδιακά από τον λεκιθικό σάκο τη θρέψη του εμβρύου.',
+        length: 'Περίπου 41 χιλ.',
+        comparison: 'Σύκο',
+        bodyChanges: [
+          'Μπορεί να παρατηρήσεις εναλλαγές διάθεσης, που συνδέονται ιδίως με τις ορμονικές αλλαγές.',
+        ],
+        toKnow: [
+          'Οι κινήσεις του μωρού αρχίζουν, αλλά γενικά δεν νιώθονται ακόμη σε αυτό το στάδιο.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Naghihiwalay ang mga daliri sa kamay at paa, lumilitaw ang maliliit na kuko, at unti-unting pumapalit ang inunan sa yolk sac sa pagpapakain sa fetus.',
+        length: 'Mga 41 mm',
+        comparison: 'Igos',
+        bodyChanges: [
+          'Maaari mong mapansin ang pabago-bagong mood, na kaugnay partikular ng mga hormonal na pagbabago.',
+        ],
+        toKnow: [
+          'Nagsisimula na ang mga galaw ng sanggol, ngunit karaniwang hindi pa ito nararamdaman sa yugtong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'விரல்களும் கால் விரல்களும் பிரிகின்றன, சிறு நகங்கள் தோன்றுகின்றன, சிசுவுக்கு ஊட்டமளிப்பதில் நஞ்சுக்கொடி படிப்படியாக மஞ்சள் கருப் பையிடமிருந்து பொறுப்பை ஏற்கிறது.',
+        length: 'சுமார் 41 மி.மீ',
+        comparison: 'அத்தி',
+        bodyChanges: [
+          'குறிப்பாக ஹார்மோன் மாற்றங்களுடன் தொடர்புடைய மனநிலை மாற்றங்களை நீங்கள் கவனிக்கலாம்.',
+        ],
+        toKnow: [
+          'குழந்தையின் அசைவுகள் தொடங்குகின்றன, ஆனால் இந்தக் கட்டத்தில் அவை பொதுவாக இன்னும் உணரப்படுவதில்லை.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'చేతి, కాలి వేళ్లు వేరుపడతాయి, చిన్న గోర్లు కనిపిస్తాయి, శిశువుకు పోషణ ఇవ్వడంలో మాయ క్రమంగా పచ్చసొన సంచి నుండి బాధ్యతను తీసుకుంటుంది.',
+        length: 'సుమారు 41 మి.మీ',
+        comparison: 'అంజీరం',
+        bodyChanges: [
+          'ముఖ్యంగా హార్మోన్ మార్పులతో ముడిపడిన మానసిక స్థితి ఊగిసలాటలను మీరు గమనించవచ్చు.',
+        ],
+        toKnow: [
+          'శిశువు కదలికలు మొదలవుతున్నాయి, కానీ ఈ దశలో అవి సాధారణంగా ఇంకా అనుభూతి చెందవు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'हातापायांची बोटे वेगळी होतात, लहान नखे दिसतात आणि गर्भाचे पोषण करण्यात गर्भनाळ हळूहळू पीतकोष पिशवीकडून जबाबदारी घेते.',
+        length: 'सुमारे 41 मि.मी.',
+        comparison: 'अंजीर',
+        bodyChanges: [
+          'विशेषतः हार्मोनल बदलांशी जोडलेले मनःस्थितीतील चढ-उतार तुम्हाला जाणवू शकतात.',
+        ],
+        toKnow: [
+          'बाळाच्या हालचाली सुरू होत आहेत, पण या टप्प्यावर त्या सहसा अजून जाणवत नाहीत.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'હાથ-પગની આંગળીઓ અલગ પડે છે, નાના નખ દેખાય છે, અને ગર્ભના પોષણમાં પ્લેસેન્ટા ધીમે ધીમે પીતકોથળીનું સ્થાન લે છે.',
+        length: 'લગભગ 41 મિમી',
+        comparison: 'અંજીર',
+        bodyChanges: [
+          'તમને મૂડમાં ઉતાર-ચડાવ જણાઈ શકે છે, જે ખાસ કરીને હોર્મોનલ ફેરફારો સાથે જોડાયેલા છે.',
+        ],
+        toKnow: [
+          'બાળકની હલનચલન શરૂ થઈ રહી છે, પરંતુ આ તબક્કે તે સામાન્ય રીતે હજુ અનુભવાતી નથી.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਹੱਥਾਂ-ਪੈਰਾਂ ਦੀਆਂ ਉਂਗਲਾਂ ਵੱਖ ਹੋ ਜਾਂਦੀਆਂ ਹਨ, ਨਿੱਕੇ ਨਹੁੰ ਦਿਖਾਈ ਦਿੰਦੇ ਹਨ, ਅਤੇ ਭਰੂਣ ਦੇ ਪੋਸ਼ਣ ਵਿੱਚ ਨਾੜ (ਪਲੈਸੈਂਟਾ) ਹੌਲੀ-ਹੌਲੀ ਜ਼ਰਦੀ ਦੀ ਥੈਲੀ ਦੀ ਥਾਂ ਲੈ ਲੈਂਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 41 ਮਿਮੀ',
+        comparison: 'ਅੰਜੀਰ',
+        bodyChanges: [
+          'ਤੁਹਾਨੂੰ ਮੂਡ ਵਿੱਚ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ ਮਹਿਸੂਸ ਹੋ ਸਕਦੇ ਹਨ, ਜੋ ਖ਼ਾਸ ਕਰਕੇ ਹਾਰਮੋਨ ਦੀਆਂ ਤਬਦੀਲੀਆਂ ਨਾਲ ਜੁੜੇ ਹੁੰਦੇ ਹਨ।',
+        ],
+        toKnow: [
+          'ਬੱਚੇ ਦੀਆਂ ਹਰਕਤਾਂ ਸ਼ੁਰੂ ਹੋ ਰਹੀਆਂ ਹਨ, ਪਰ ਇਸ ਪੜਾਅ ’ਤੇ ਉਹ ਆਮ ਤੌਰ ’ਤੇ ਅਜੇ ਮਹਿਸੂਸ ਨਹੀਂ ਹੁੰਦੀਆਂ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လက်ချောင်းများနှင့် ခြေချောင်းများ ခွဲထွက်လာပြီး အသေးစား လက်သည်းများ ပေါ်လာသည်။ သန္ဓေသားကို အာဟာရပေးရာတွင် အချင်းက အဝါဥအိတ်ထံမှ တဖြည်းဖြည်း တာဝန်ယူလာသည်။',
+        length: 'ခန့်မှန်းခြေ 41 မီလီမီတာ',
+        comparison: 'သဖန်းသီး',
+        bodyChanges: [
+          'အထူးသဖြင့် ဟော်မုန်းပြောင်းလဲမှုများနှင့် ဆက်စပ်သော စိတ်ခံစားမှု အတက်အကျများကို သတိပြုမိနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကလေး၏ လှုပ်ရှားမှုများ စတင်နေသော်လည်း ဤအဆင့်တွင် များသောအားဖြင့် မခံစားရသေးပါ။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ម្រាមដៃម្រាមជើងញែកចេញពីគ្នា ក្រចកតូចៗលេចឡើង ហើយសុកបន្តិចម្តងៗជំនួសថង់ពងក្រហមក្នុងការផ្តល់អាហារដល់ទារកក្នុងផ្ទៃ។',
+        length: 'ប្រហែល 41 មីលីម៉ែត្រ',
+        comparison: 'ផ្លែល្វា',
+        bodyChanges: [
+          'អ្នកអាចកត់សម្គាល់ឃើញអារម្មណ៍ប្រែប្រួលញឹកញាប់ ដែលទាក់ទងជាពិសេសនឹងការប្រែប្រួលអរម៉ូន។',
+        ],
+        toKnow: [
+          'ចលនារបស់ទារកកំពុងចាប់ផ្តើម ប៉ុន្តែជាទូទៅមិនទាន់មានអារម្មណ៍ទេនៅដំណាក់កាលនេះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ນິ້ວມື ແລະ ນິ້ວຕີນແຍກອອກຈາກກັນ ເລັບນ້ອຍໆເລີ່ມປາກົດ ແລະ ຮົກຄ່ອຍໆເຂົ້າມາແທນທີ່ຖົງໄຂ່ແດງໃນການລ້ຽງທາລົກ.',
+        length: 'ປະມານ 41 ມິນລີແມັດ',
+        comparison: 'ໝາກເດື່ອ',
+        bodyChanges: [
+          'ທ່ານອາດສັງເກດເຫັນອາລົມປ່ຽນແປງງ່າຍ ເຊິ່ງກ່ຽວຂ້ອງກັບການປ່ຽນແປງຂອງຮໍໂມນໂດຍສະເພາະ.',
+        ],
+        toKnow: [
+          'ລູກນ້ອຍເລີ່ມເຄື່ອນໄຫວແລ້ວ ແຕ່ໂດຍທົ່ວໄປຍັງບໍ່ຮູ້ສຶກໄດ້ໃນໄລຍະນີ້.',
+        ],
+      },
     },
   },
   {
@@ -5514,6 +7984,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Organ dalaman dan otot telah membesar dengan baik, dan rangka mula mengeras. Organ pembiakan telah terbentuk, walaupun belum kelihatan pada ultrasound.',
+        length: 'Kira-kira 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: [
+          'Loya sering cenderung reda secara beransur-ansur sekitar masa ini, walaupun ini sangat berbeza dari seorang ke seorang.',
+        ],
+        toKnow: [
+          'Penghujung trimester pertama sering dikaitkan dengan risiko keguguran yang lebih rendah berbanding minggu-minggu sebelumnya.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Xubnaha gudaha iyo murqaha si wanaagsan ayay u koreen, lafaha qalfoofkuna wuu bilaabmayaa inuu adkaado. Xubnaha taranka way samaysmeen, in kasta oo weli aan ultrasaawnka lagu arki karin.',
+        length: 'Qiyaastii 5.4 cm',
+        comparison: 'Pilaam',
+        bodyChanges: [
+          'Lallabadu inta badan waxay bilaabaan inay tartiib u yaraadaan waqtigan, in kasta oo tani aad ugu kala duwan tahay qof ilaa qof.',
+        ],
+        toKnow: [
+          'Dhammaadka saddex-billaha koowaad inta badan waxaa lala xiriiriyaa khatar uur-lumis oo hooseysa marka lala barbardhigo toddobaadyadii hore.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Viungo vya ndani na misuli vimekua vizuri, na mifupa inaanza kuwa migumu. Viungo vya uzazi vimeundwa, ingawa bado haviwezi kuonekana kwenye ultrasound.',
+        length: 'Takriban sm 5.4',
+        comparison: 'Plamu',
+        bodyChanges: [
+          'Kichefuchefu mara nyingi huanza kupungua polepole karibu na wakati huu, ingawa hii hutofautiana sana kati ya mtu na mtu.',
+        ],
+        toKnow: [
+          'Mwisho wa trimesta ya kwanza mara nyingi huhusishwa na hatari ndogo ya kuharibika kwa mimba ikilinganishwa na wiki zilizotangulia.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Ішкі ағзалар мен бұлшықеттер жақсы өсті, ал қаңқа сүйектене бастады. Жыныс мүшелері қалыптасты, бірақ ультрадыбыстық зерттеуде әлі көрінбейді.',
+        length: 'Шамамен 5.4 см',
+        comparison: 'Алхоры',
+        bodyChanges: [
+          'Жүрек айну осы уақытқа қарай біртіндеп басылатыны жиі, дегенмен бұл әр адамда әртүрлі.',
+        ],
+        toKnow: [
+          'Бірінші триместрдің аяқталуы көбіне алдыңғы апталармен салыстырғанда түсік қаупінің төмендеуімен байланысты.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Yaxu biir ak yaramu yaram yi màgg na baax, te yax yi tàmbali dëgër. Yaxu bindeef yi defaru nañu, waaye gisuñu ci ekografi ba tey.',
+        length: 'Ci wetu 5.4 cm',
+        comparison: 'Pruun',
+        bodyChanges: [
+          'Dundu xol daa tàmbali wàññiku tuuti-tuuti ci jamono jii, waaye loolu wuute na lool ci nit ak nit.',
+        ],
+        toKnow: [
+          'Jeexu trimestr bu njëkk daa bokk ak ndiggalu ëmb bu rees bu gën a ndaw ci méngale ak ayu-bés yi jiitu.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Sassan ciki da tsokoki sun girma sosai, kuma kwarangwal ya fara taurare. Sassan haihuwa sun samu, ko da yake ba a gani a ultrasound tukuna.',
+        length: 'Kusan 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: [
+          'Tashin zuciya galibi yana kan sauƙaƙa a hankali a kusa da wannan lokaci, ko da yake wannan yana bambanta sosai daga mutum zuwa mutum.',
+        ],
+        toKnow: [
+          'Ƙarshen kashi na farko galibi yana da alaƙa da ƙananan haɗarin zubar da ciki idan aka kwatanta da makonnin da suka gabata.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የውስጥ አካላትና ጡንቻዎች በደንብ አድገዋል፣ እና አጽም ማጠንከር ጀምሯል። የመራቢያ አካላት ተፈጥረዋል፣ ምንም እንኳን በአልትራሳውንድ ገና የማይታዩ ቢሆኑም።',
+        length: 'ወደ 5.4 ሴሜ',
+        comparison: 'ፕሪም',
+        bodyChanges: [
+          'ማቅለሽለሽ በዚህ ጊዜ አካባቢ ቀስ በቀስ ይቀላል፣ ምንም እንኳን ከሰው ወደ ሰው በጣም ቢለያይም።',
+        ],
+        toKnow: [
+          'የመጀመሪያው ሦስት ወር መጨረሻ ከቀደሙት ሳምንታት ጋር ሲነጻጸር ዝቅተኛ የፅንስ መጨንገፍ አደጋ ጋር ብዙ ጊዜ ይያያዛል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De inwendige organen en spieren zijn goed gegroeid en het skelet begint te verbenen. De voortplantingsorganen zijn gevormd, al zijn ze nog niet zichtbaar op de echo.',
+        length: 'Ongeveer 5,4 cm',
+        comparison: 'Pruim',
+        bodyChanges: [
+          'De misselijkheid neemt rond deze tijd vaak geleidelijk af, al verschilt dat sterk van persoon tot persoon.',
+        ],
+        toKnow: [
+          'Het einde van het eerste trimester wordt vaak geassocieerd met een lager risico op een miskraam dan in de voorgaande weken.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Sisäelimet ja lihakset ovat kasvaneet hyvin, ja luusto alkaa luutua. Lisääntymiselimet ovat muodostuneet, vaikka ne eivät vielä näy ultraäänessä.',
+        length: 'Noin 5,4 cm',
+        comparison: 'Luumu',
+        bodyChanges: [
+          'Pahoinvointi yleensä helpottaa vähitellen tähän aikaan, vaikka tämä vaihtelee paljon ihmisestä toiseen.',
+        ],
+        toKnow: [
+          'Ensimmäisen kolmanneksen loppuun liitetään usein pienempi keskenmenon riski verrattuna edeltäviin viikkoihin.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα εσωτερικά όργανα και οι μύες έχουν αναπτυχθεί καλά και ο σκελετός αρχίζει να οστεοποιείται. Τα αναπαραγωγικά όργανα έχουν σχηματιστεί, αν και δεν είναι ακόμη ορατά στο υπερηχογράφημα.',
+        length: 'Περίπου 5,4 εκ.',
+        comparison: 'Δαμάσκηνο',
+        bodyChanges: [
+          'Η ναυτία τείνει συχνά να υποχωρεί σταδιακά περίπου αυτή την περίοδο, αν και αυτό διαφέρει πολύ από γυναίκα σε γυναίκα.',
+        ],
+        toKnow: [
+          'Το τέλος του πρώτου τριμήνου συνδέεται συχνά με χαμηλότερο κίνδυνο αποβολής σε σύγκριση με τις προηγούμενες εβδομάδες.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Malaki na ang paglaki ng mga panloob na organo at kalamnan, at nagsisimulang tumigas ang kalansay. Nabuo na ang mga reproductive organ, bagaman hindi pa nakikita sa ultrasound.',
+        length: 'Mga 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: [
+          'Madalas na may tendensiyang unti-unting humupa ang pagduduwal sa panahong ito, bagaman lubhang nag-iiba ito sa bawat tao.',
+        ],
+        toKnow: [
+          'Ang katapusan ng unang trimester ay madalas na iniuugnay sa mas mababang panganib ng pagkalaglag kumpara sa mga naunang linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'உள் உறுப்புகளும் தசைகளும் நன்கு வளர்ந்துள்ளன, எலும்புக்கூடு கடினமடையத் தொடங்குகிறது. இனப்பெருக்க உறுப்புகள் உருவாகிவிட்டன, ஆனால் அல்ட்ராசவுண்டில் இன்னும் தெரிவதில்லை.',
+        length: 'சுமார் 5.4 செ.மீ',
+        comparison: 'பிளம்',
+        bodyChanges: [
+          'குமட்டல் இந்த நேரத்தைச் சுற்றிப் படிப்படியாகத் தணிவது வழக்கம், இது ஒருவருக்கு ஒருவர் மிகவும் மாறுபடும்.',
+        ],
+        toKnow: [
+          'முந்தைய வாரங்களுடன் ஒப்பிடும்போது, முதல் மூன்று மாத இறுதி பெரும்பாலும் குறைந்த கருச்சிதைவு அபாயத்துடன் தொடர்புடையது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'అంతర్గత అవయవాలు, కండరాలు బాగా పెరిగాయి, అస్థిపంజరం గట్టిపడటం మొదలవుతోంది. పునరుత్పత్తి అవయవాలు ఏర్పడ్డాయి, అయినా ఇంకా అల్ట్రాసౌండ్‌లో కనిపించవు.',
+        length: 'సుమారు 5.4 సెం.మీ',
+        comparison: 'ప్లమ్',
+        bodyChanges: [
+          'వికారం తరచుగా ఈ సమయంలో క్రమంగా తగ్గడం మొదలవుతుంది, అయితే ఇది ఒకరి నుండి మరొకరికి చాలా మారుతుంది.',
+        ],
+        toKnow: [
+          'మొదటి త్రైమాసికం ముగింపు తరచుగా ముందున్న వారాలతో పోలిస్తే తక్కువ గర్భస్రావ ప్రమాదంతో ముడిపడి ఉంటుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'अंतर्गत अवयव आणि स्नायू चांगले वाढले आहेत आणि सांगाडा कठीण होऊ लागला आहे. प्रजनन अवयव तयार झाले आहेत, तरी सोनोग्राफीवर ते अजून दिसत नाहीत.',
+        length: 'सुमारे 5.4 सेमी',
+        comparison: 'आलुबुखार',
+        bodyChanges: [
+          'मळमळ बहुतेकदा या सुमारास हळूहळू कमी होऊ लागते, मात्र हे एका व्यक्तीपासून दुसऱ्या व्यक्तीपर्यंत खूप बदलते.',
+        ],
+        toKnow: [
+          'पहिल्या तिमाहीचा शेवट बहुतेकदा आधीच्या आठवड्यांच्या तुलनेत गर्भपाताच्या कमी धोक्याशी जोडला जातो.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'આંતરિક અવયવો અને સ્નાયુઓ સારી રીતે વિકસ્યા છે, અને હાડપિંજર સખત થવા લાગ્યું છે. પ્રજનન અંગો બની ગયા છે, જોકે સોનોગ્રાફીમાં હજુ દેખાતા નથી.',
+        length: 'લગભગ 5.4 સેમી',
+        comparison: 'આલુ',
+        bodyChanges: [
+          'ઉબકા ઘણી વાર આ સમયની આસપાસ ધીમે ધીમે હળવા થાય છે, જોકે વ્યક્તિએ વ્યક્તિએ તે ઘણું બદલાય છે.',
+        ],
+        toKnow: [
+          'પહેલા ત્રિમાસિકનો અંત ઘણી વાર અગાઉના અઠવાડિયાંની સરખામણીમાં ગર્ભપાતના ઓછા જોખમ સાથે જોડાયેલો હોય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਅੰਦਰੂਨੀ ਅੰਗ ਅਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਚੰਗੀ ਤਰ੍ਹਾਂ ਵਧ ਚੁੱਕੇ ਹਨ, ਅਤੇ ਪਿੰਜਰ ਸਖ਼ਤ ਹੋਣ ਲੱਗਾ ਹੈ। ਪ੍ਰਜਨਨ ਅੰਗ ਬਣ ਗਏ ਹਨ, ਭਾਵੇਂ ਉਹ ਅਲਟਰਾਸਾਊਂਡ ਵਿੱਚ ਅਜੇ ਦਿਖਾਈ ਨਹੀਂ ਦਿੰਦੇ।',
+        length: 'ਲਗਭਗ 5.4 ਸੈਮੀ',
+        comparison: 'ਆਲੂ ਬੁਖ਼ਾਰਾ',
+        bodyChanges: [
+          'ਜੀ ਕੱਚਾ ਹੋਣਾ ਅਕਸਰ ਇਸ ਸਮੇਂ ਦੇ ਆਸ-ਪਾਸ ਹੌਲੀ-ਹੌਲੀ ਘਟਣ ਲੱਗਦਾ ਹੈ, ਹਾਲਾਂਕਿ ਇਹ ਹਰ ਔਰਤ ਵਿੱਚ ਕਾਫ਼ੀ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਪਹਿਲੀ ਤਿਮਾਹੀ ਦਾ ਅੰਤ ਅਕਸਰ ਪਿਛਲੇ ਹਫ਼ਤਿਆਂ ਦੇ ਮੁਕਾਬਲੇ ਗਰਭਪਾਤ ਦੇ ਘੱਟ ਖ਼ਤਰੇ ਨਾਲ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကိုယ်တွင်းအင်္ဂါများနှင့် ကြွက်သားများ ကောင်းမွန်စွာ ကြီးထွားလာပြီး အရိုးစုသည် မာလာစပြုသည်။ မျိုးပွားအင်္ဂါများ ဖွဲ့စည်းပြီးဖြစ်သော်လည်း အယ်ထရာဆောင်းတွင် မမြင်ရသေးပါ။',
+        length: 'ခန့်မှန်းခြေ 5.4 စင်တီမီတာ',
+        comparison: 'မက်မွန်ဆီးသီး (ပလမ်သီး)',
+        bodyChanges: [
+          'ပျို့အန်ခြင်းသည် ဤအချိန်ဝန်းကျင်တွင် မကြာခဏ တဖြည်းဖြည်း လျော့ပါးလာတတ်သော်လည်း လူတစ်ဦးနှင့်တစ်ဦး အလွန်ကွဲပြားသည်။',
+        ],
+        toKnow: [
+          'ပထမသုံးလပတ်၏ အဆုံးသည် ယခင်အပတ်များနှင့် နှိုင်းယှဉ်လျှင် ကိုယ်ဝန်ပျက်ကျနိုင်ခြေ နည်းပါးခြင်းနှင့် မကြာခဏ ဆက်စပ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'សរីរាង្គខាងក្នុងនិងសាច់ដុំលូតលាស់បានល្អ ហើយគ្រោងឆ្អឹងចាប់ផ្តើមរឹងឡើង។ សរីរាង្គបន្តពូជបានបង្កើតរួចហើយ ទោះបីមិនទាន់អាចមើលឃើញនៅលើអ៊ុលត្រាសោនក៏ដោយ។',
+        length: 'ប្រហែល 5.4 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែព្រូន',
+        bodyChanges: [
+          'ចង្អោរជាញឹកញាប់មានទំនោរបន្ធូរបន្ថយបន្តិចម្តងៗនៅជុំវិញពេលនេះ ទោះបីវាខុសគ្នាច្រើនពីមនុស្សម្នាក់ទៅម្នាក់ក៏ដោយ។',
+        ],
+        toKnow: [
+          'ចុងបញ្ចប់នៃត្រីមាសទីមួយជាញឹកញាប់ត្រូវបានទាក់ទងនឹងហានិភ័យនៃការរលូតកូនទាបជាងសប្តាហ៍មុនៗ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ອະໄວຍະວະພາຍໃນ ແລະ ກ້າມເນື້ອເຕີບໃຫຍ່ດີຂຶ້ນ ແລະ ໂຄງກະດູກເລີ່ມແຂງຕົວ. ອະໄວຍະວະສືບພັນກໍ່ຕົວແລ້ວ ເຖິງແມ່ນວ່າຍັງບໍ່ເຫັນໃນອັນຕຣາຊາວ.',
+        length: 'ປະມານ 5.4 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກພລັມ',
+        bodyChanges: [
+          'ອາການວິນຫົວຄື່ນໄສ້ມັກຈະຄ່ອຍໆບັນເທົາລົງໃນຊ່ວງນີ້ ເຖິງແມ່ນວ່າແຕກຕ່າງກັນຫຼາຍໃນແຕ່ລະຄົນ.',
+        ],
+        toKnow: [
+          'ທ້າຍໄຕມາດທຳອິດມັກຖືກເຊື່ອມໂຍງກັບຄວາມສ່ຽງຂອງການແທ້ງລູກທີ່ຕ່ຳລົງເມື່ອທຽບກັບອາທິດກ່ອນໜ້ານີ້.',
+        ],
+      },
     },
   },
   {
@@ -5966,6 +8664,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Pergerakan, yang masih tersentak-sentak, menjadi lebih terkoordinasi. Sesetengah bayi sudah menunjukkan refleks menghisap ibu jari.',
+        length: 'Kira-kira 7.4 cm',
+        comparison: 'Pic',
+        bodyChanges: [
+          'Ramai orang beransur-ansur mendapat kembali sedikit lebih tenaga apabila trimester kedua menghampiri.',
+        ],
+        toKnow: [
+          'Trimester pertama biasanya berakhir sekitar minggu ini; penjagaan diteruskan dengan temu janji yang lebih jarang.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Dhaqdhaqaaqyada, oo weli kala go\'an, waxay noqonayaan kuwo xoogaa isku-duwan. Ilmaha qaar horey ayay u muujiyaan reflex-ka salaaxidda suulka.',
+        length: 'Qiyaastii 7.4 cm',
+        comparison: 'Barsiko (Peach)',
+        bodyChanges: [
+          'Dad badan ayaa tartiib u helaya tamar yar oo dheeraad ah marka saddex-billaha labaad soo dhowaado.',
+        ],
+        toKnow: [
+          'Saddex-billaha koowaad guud ahaan wuxuu dhammaadaa toddobaadkan; daryeelku wuu sii socdaa iyadoo ballammadu aad u kala fogaanayaan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mienendo, ingawa bado ya kutetemeka, inakuwa na mpangilio zaidi kidogo. Baadhi ya watoto tayari huonyesha kitendo cha kunyonya kidole gumba.',
+        length: 'Takriban sm 7.4',
+        comparison: 'Pichi',
+        bodyChanges: [
+          'Watu wengi hurejesha nguvu zaidi kidogo polepole kadiri trimesta ya pili inavyokaribia.',
+        ],
+        toKnow: [
+          'Trimesta ya kwanza kwa kawaida huisha karibu na wiki hii; huduma huendelea na miadi iliyotengana zaidi.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Әлі селкеу болса да, қозғалыстар сәл үйлесімді бола түседі. Кейбір нәрестелер бас бармағын сорудың рефлексін көрсетеді.',
+        length: 'Шамамен 7.4 см',
+        comparison: 'Шабдалы',
+        bodyChanges: [
+          'Көптеген адамдар екінші триместр жақындаған сайын сәл көбірек қуатқа біртіндеп қол жеткізеді.',
+        ],
+        toKnow: [
+          'Бірінші триместр әдетте осы аптаның айналасында аяқталады; күтім сирек қабылдаулармен жалғасады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Yëngu yi, yu ñor ba tey, dañuy gën a nekk yu méngoo. Yenn doom dañu ñuy gis ba noppi reflex bu lekk baaraam bu mag.',
+        length: 'Ci wetu 7.4 cm',
+        comparison: 'Pees',
+        bodyChanges: [
+          'Nit ñu bari dañuy dellu ci doole tuuti-tuuti ba trimestr bu ñaareel di jege.',
+        ],
+        toKnow: [
+          'Trimestr bu njëkk daa jeex ci wetu ayu-bés bii; topp bi kontine ak ndaje yu gën a tasaare.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Motsi, har yanzu masu tsalle-tsalle, suna zama ɗan haɗin kai. Wasu jarirai sun riga sun nuna dabi’ar tsotsar babban yatsa.',
+        length: 'Kusan 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: [
+          'Mutane da yawa a hankali suna sake samun ɗan ƙarin kuzari yayin da kashi na biyu ke gabatowa.',
+        ],
+        toKnow: [
+          'Kashi na farko yawanci yana ƙarewa a kusa da wannan mako; kulawa tana ci gaba da ganawa masu nisa.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'አሁንም የተቆራረጡ እንቅስቃሴዎች ትንሽ ይበልጥ የተቀናጁ ይሆናሉ። አንዳንድ ሕፃናት አስቀድመው የአውራ ጣት መጥባት ሪፍሌክስ ያሳያሉ።',
+        length: 'ወደ 7.4 ሴሜ',
+        comparison: 'ኮክ',
+        bodyChanges: [
+          'ብዙ ሰዎች ሁለተኛው ሦስት ወር ሲቃረብ ትንሽ ተጨማሪ ጉልበት ቀስ በቀስ መልሰው ያገኛሉ።',
+        ],
+        toKnow: [
+          'የመጀመሪያው ሦስት ወር በአጠቃላይ በዚህ ሳምንት አካባቢ ያበቃል፤ እንክብካቤው ይበልጥ በተራራቁ ቀጠሮዎች ይቀጥላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De bewegingen, nog schokkerig, worden iets beter gecoördineerd. Sommige baby’s vertonen al een duimzuigreflex.',
+        length: 'Ongeveer 7,4 cm',
+        comparison: 'Perzik',
+        bodyChanges: [
+          'Veel vrouwen krijgen geleidelijk wat meer energie naarmate het tweede trimester nadert.',
+        ],
+        toKnow: [
+          'Het eerste trimester eindigt over het algemeen rond deze week; de zorg gaat verder met afspraken die verder uit elkaar liggen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Liikkeet, vielä nykiviä, muuttuvat hieman koordinoidummiksi. Joillakin vauvoilla on jo peukalonimemisrefleksi.',
+        length: 'Noin 7,4 cm',
+        comparison: 'Persikka',
+        bodyChanges: [
+          'Monet saavat vähitellen hieman lisää energiaa toisen kolmanneksen lähestyessä.',
+        ],
+        toKnow: [
+          'Ensimmäinen kolmannes päättyy yleensä tämän viikon tienoilla; hoito jatkuu harvemmin toistuvilla käynneillä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Οι κινήσεις, ακόμη απότομες, γίνονται λίγο πιο συντονισμένες. Ορισμένα μωρά παρουσιάζουν ήδη το αντανακλαστικό της θήλασης του αντίχειρα.',
+        length: 'Περίπου 7,4 εκ.',
+        comparison: 'Ροδάκινο',
+        bodyChanges: [
+          'Πολλές γυναίκες ανακτούν σταδιακά λίγη περισσότερη ενέργεια καθώς πλησιάζει το δεύτερο τρίμηνο.',
+        ],
+        toKnow: [
+          'Το πρώτο τρίμηνο τελειώνει γενικά γύρω σε αυτή την εβδομάδα· η παρακολούθηση συνεχίζεται με πιο αραιά ραντεβού.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang mga galaw, na putol-putol pa, ay nagiging bahagyang mas magkakaugnay. Ang ilang sanggol ay nagpapakita na ng reflex ng pagsuso ng hinlalaki.',
+        length: 'Mga 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: [
+          'Maraming tao ang unti-unting nakababawi ng kaunting dagdag na enerhiya habang papalapit ang ikalawang trimester.',
+        ],
+        toKnow: [
+          'Karaniwang nagtatapos ang unang trimester sa paligid ng linggong ito; nagpapatuloy ang pangangalaga na may mas magkakalayong mga appointment.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'இன்னும் துடிப்பான அசைவுகள் சற்று அதிக ஒருங்கிணைப்புடன் மாறுகின்றன. சில குழந்தைகள் ஏற்கெனவே கட்டைவிரல் சூப்பும் அனிச்சைச் செயலைக் காட்டுகின்றன.',
+        length: 'சுமார் 7.4 செ.மீ',
+        comparison: 'பீச்',
+        bodyChanges: [
+          'இரண்டாவது மூன்று மாதம் நெருங்கும்போது பலர் படிப்படியாகச் சற்று அதிக ஆற்றலை மீண்டும் பெறுகிறார்கள்.',
+        ],
+        toKnow: [
+          'முதல் மூன்று மாதம் பொதுவாக இந்த வாரத்தைச் சுற்றி முடிகிறது; பராமரிப்பு அதிக இடைவெளியுள்ள சந்திப்புகளுடன் தொடர்கிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఇంకా కుదుపులతో ఉన్న కదలికలు కొంచెం ఎక్కువ సమన్వయంతో మారతాయి. కొందరు శిశువులు అప్పటికే బొటనవేలు చప్పరించే సహజ ప్రతిచర్యను చూపిస్తారు.',
+        length: 'సుమారు 7.4 సెం.మీ',
+        comparison: 'పీచ్',
+        bodyChanges: [
+          'రెండవ త్రైమాసికం సమీపిస్తున్న కొద్దీ చాలా మంది క్రమంగా కొంచెం ఎక్కువ శక్తిని తిరిగి పొందుతారు.',
+        ],
+        toKnow: [
+          'మొదటి త్రైమాసికం సాధారణంగా ఈ వారం చుట్టూ ముగుస్తుంది; సంరక్షణ మరింత ఎడం ఉన్న అపాయింట్‌మెంట్లతో కొనసాగుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'अजून झटक्यांसारख्या असलेल्या हालचाली थोड्या अधिक समन्वित होतात. काही बाळे आधीच अंगठा चोखण्याची सहज प्रतिक्रिया दाखवतात.',
+        length: 'सुमारे 7.4 सेमी',
+        comparison: 'पीच',
+        bodyChanges: [
+          'दुसरी तिमाही जवळ येत असताना अनेकजणी हळूहळू थोडी अधिक ऊर्जा परत मिळवतात.',
+        ],
+        toKnow: [
+          'पहिली तिमाही साधारणपणे या आठवड्याच्या आसपास संपते; काळजी अधिक अंतराने होणाऱ्या भेटींसह सुरू राहते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'હલનચલન, હજુ આંચકા જેવી, થોડી વધુ સંકલિત બને છે. કેટલાંક બાળકો પહેલેથી અંગૂઠો ચૂસવાની પ્રતિક્રિયા દર્શાવે છે.',
+        length: 'લગભગ 7.4 સેમી',
+        comparison: 'પીચ',
+        bodyChanges: [
+          'બીજા ત્રિમાસિક નજીક આવતાં ઘણા લોકો ધીમે ધીમે થોડી વધુ શક્તિ પાછી મેળવે છે.',
+        ],
+        toKnow: [
+          'પહેલું ત્રિમાસિક સામાન્ય રીતે આ અઠવાડિયાની આસપાસ પૂરું થાય છે; સંભાળ વધુ અંતરે થતી મુલાકાતો સાથે ચાલુ રહે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਹਰਕਤਾਂ, ਜੋ ਅਜੇ ਝਟਕਿਆਂ ਵਰਗੀਆਂ ਹਨ, ਥੋੜ੍ਹੀਆਂ ਹੋਰ ਤਾਲਮੇਲ ਵਾਲੀਆਂ ਬਣ ਜਾਂਦੀਆਂ ਹਨ। ਕੁਝ ਬੱਚੇ ਪਹਿਲਾਂ ਹੀ ਅੰਗੂਠਾ ਚੂਸਣ ਦੀ ਪ੍ਰਤੀਕਿਰਿਆ ਵਿਖਾਉਂਦੇ ਹਨ।',
+        length: 'ਲਗਭਗ 7.4 ਸੈਮੀ',
+        comparison: 'ਆੜੂ',
+        bodyChanges: [
+          'ਦੂਜੀ ਤਿਮਾਹੀ ਨੇੜੇ ਆਉਣ ਨਾਲ ਕਈ ਔਰਤਾਂ ਹੌਲੀ-ਹੌਲੀ ਥੋੜ੍ਹੀ ਹੋਰ ਤਾਕਤ ਮੁੜ ਹਾਸਲ ਕਰ ਲੈਂਦੀਆਂ ਹਨ।',
+        ],
+        toKnow: [
+          'ਪਹਿਲੀ ਤਿਮਾਹੀ ਆਮ ਤੌਰ ’ਤੇ ਇਸੇ ਹਫ਼ਤੇ ਦੇ ਆਸ-ਪਾਸ ਖ਼ਤਮ ਹੁੰਦੀ ਹੈ; ਦੇਖਭਾਲ ਹੋਰ ਵਕਫ਼ੇ ਵਾਲੀਆਂ ਮੁਲਾਕਾਤਾਂ ਨਾਲ ਜਾਰੀ ਰਹਿੰਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လှုပ်ရှားမှုများသည် ဆတ်ဆတ်ခါနေဆဲဖြစ်သော်လည်း အနည်းငယ် ပိုမိုညှိနှိုင်းလာသည်။ ကလေးအချို့သည် လက်မစုပ်သည့် တုံ့ပြန်မှုကို ပြသနေပြီဖြစ်သည်။',
+        length: 'ခန့်မှန်းခြေ 7.4 စင်တီမီတာ',
+        comparison: 'မက်မွန်သီး',
+        bodyChanges: [
+          'ဒုတိယသုံးလပတ် နီးလာသည်နှင့်အမျှ လူအများစုသည် အားအနည်းငယ် ပြန်ရလာကြသည်။',
+        ],
+        toKnow: [
+          'ပထမသုံးလပတ်သည် များသောအားဖြင့် ဤအပတ်ဝန်းကျင်တွင် ပြီးဆုံးပြီး ပိုမိုကွာဝေးသော ချိန်းဆိုမှုများဖြင့် စောင့်ရှောက်မှု ဆက်လက်ပြုလုပ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ចលនាដែលនៅរហ័សរហួនឡើយ កាន់តែមានការសម្របសម្រួលបន្តិច។ ទារកខ្លះបង្ហាញប្រតិកម្មជញ្ជក់មេដៃរួចហើយ។',
+        length: 'ប្រហែល 7.4 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែប៉េស',
+        bodyChanges: [
+          'មនុស្សជាច្រើនបន្តិចម្តងៗមានថាមពលកើនឡើងវិញបន្តិច នៅពេលត្រីមាសទីពីរជិតមកដល់។',
+        ],
+        toKnow: [
+          'ត្រីមាសទីមួយជាទូទៅបញ្ចប់នៅជុំវិញសប្តាហ៍នេះ ហើយការថែទាំបន្តជាមួយការណាត់ជួបដែលមានគម្លាតឆ្ងាយជាងមុន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ການເຄື່ອນໄຫວທີ່ຍັງກະຕຸກກະຕັກ ເລີ່ມປະສານງານກັນດີຂຶ້ນເລັກນ້ອຍ. ລູກນ້ອຍບາງຄົນສະແດງປະຕິກິລິຍາດູດນິ້ວໂປ້ແລ້ວ.',
+        length: 'ປະມານ 7.4 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກພີ້',
+        bodyChanges: [
+          'ຫຼາຍຄົນຄ່ອຍໆມີແຮງຂຶ້ນອີກເລັກນ້ອຍເມື່ອໃກ້ເຂົ້າໄຕມາດທີສອງ.',
+        ],
+        toKnow: [
+          'ໂດຍທົ່ວໄປໄຕມາດທຳອິດສິ້ນສຸດລົງປະມານອາທິດນີ້ ການດູແລຈະສືບຕໍ່ໄປດ້ວຍການນັດພົບທີ່ຫ່າງກັນຫຼາຍຂຶ້ນ.',
+        ],
+      },
     },
   },
 
@@ -6420,6 +9346,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Kepala menjadi lebih bulat dan lebih seimbang dengan bahagian badan yang lain. Janin menelan sedikit cecair amnion, yang melalui perut dan buah pinggang.',
+        length: 'Kira-kira 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Perut mula membulat dengan lebih ketara bagi sesetengah orang.',
+        ],
+        toKnow: [
+          'Pengamal penjagaan kesihatan kadangkala boleh mula mendengar degupan jantung dengan alat ultrasound yang diletakkan pada perut.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Madaxu wuu sii wareegsanaadaa oo wuxuu noqdaa mid ku habboon jidhka inta kale. Uurku wuxuu liqayaa biyo yar oo amniotic ah, kuwaas oo maraya calooshiisa iyo kelyahiisa.',
+        length: 'Qiyaastii 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Calooshu waxay bilaabaysaa inay si muuqata u wareegsanaato dadka qaar.',
+        ],
+        toKnow: [
+          'Xirfadle caafimaad mararka qaarkood wuxuu bilaabi karaa inuu maqlo garaaca wadnaha qalab ultrasaawn ah oo calooshiisa lagu dhigo.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Kichwa kinakuwa cha mviringo zaidi na chenye uwiano zaidi na sehemu nyingine za mwili. Kijusi humeza maji kidogo ya amniotiki, ambayo hupita kwenye tumbo na figo.',
+        length: 'Takriban sm 8.5',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Tumbo linaanza kuwa la mviringo zaidi kwa njia inayoonekana kwa baadhi ya watu.',
+        ],
+        toKnow: [
+          'Mtaalamu wa afya wakati mwingine anaweza kuanza kusikia mapigo ya moyo kwa kifaa cha ultrasound kilichowekwa tumboni.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Бас дөңгелектене түседі және дененің қалған бөлігімен сәйкестеніп келеді. Ұрық аздап амниотикалық сұйықтықты жұтады, ол асқазан мен бүйректер арқылы өтеді.',
+        length: 'Шамамен 8.5 см',
+        comparison: 'Киви',
+        bodyChanges: [
+          'Кейбір адамдарда іш көрінетіндей дөңгелене бастайды.',
+        ],
+        toKnow: [
+          'Медицина маманы кейде іштің үстіне қойылған ультрадыбыстық құралмен жүрек соғысын ести бастауы мүмкін.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Bopp bi di gën a wëndël te méngoo ak yaram bi ci des. Fetus bi dafay naan tuuti ndox bu biir, bu di jaar ci biir ak ci tiir.',
+        length: 'Ci wetu 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Biir bi tàmbali wëndël gën a gis ci yenn nit.',
+        ],
+        toKnow: [
+          'Benn liggéeykatu wér mën na tàmbali dégg dóonug xol ak benn jumtukaay ekografi bu ñu teg ci biir.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Kai yana zama zagaye kuma ya fi dacewa da sauran jiki. Tayi tana hadiye ɗan ruwan ciki, wanda ke wucewa ta ciki da koda.',
+        length: 'Kusan 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Ciki yana fara zagaye a bayyane ga wasu mutane.',
+        ],
+        toKnow: [
+          'Ma’aikacin lafiya wani lokaci na iya fara jin bugun zuciya da na’urar ultrasound da aka sanya a ciki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ራሱ ይበልጥ ክብ እና ከቀሪው አካል ጋር ይበልጥ ተመጣጣኝ ይሆናል። ፌተሱ ጥቂት አምኒዮቲክ ፈሳሽ ይውጣል፣ ይህም በሆድና በኩላሊቶች ያልፋል።',
+        length: 'ወደ 8.5 ሴሜ',
+        comparison: 'ኪዊ',
+        bodyChanges: [
+          'ለአንዳንድ ሰዎች ሆድ በበለጠ በሚታይ ሁኔታ መጠጋጋት ይጀምራል።',
+        ],
+        toKnow: [
+          'የጤና ባለሙያ አንዳንድ ጊዜ በሆድ ላይ በሚቀመጥ የአልትራሳውንድ መሣሪያ የልብ ምትን መስማት ሊጀምር ይችላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het hoofd wordt ronder en past beter bij de rest van het lichaam. De foetus slikt wat vruchtwater, dat door de maag en de nieren gaat.',
+        length: 'Ongeveer 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'De buik begint bij sommige vrouwen zichtbaarder rond te worden.',
+        ],
+        toKnow: [
+          'Een zorgprofessional kan soms de hartslag beginnen te horen met een echoapparaat op de buik.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Pää muuttuu pyöreämmäksi ja suhteellisemmaksi muuhun kehoon nähden. Sikiö nielee vähän lapsivettä, joka kulkee mahan ja munuaisten läpi.',
+        length: 'Noin 8,5 cm',
+        comparison: 'Kiivi',
+        bodyChanges: [
+          'Vatsa alkaa pyöristyä näkyvämmin joillakin.',
+        ],
+        toKnow: [
+          'Terveydenhuollon ammattilainen voi joskus alkaa kuulla sydämenlyönnit vatsalle asetetulla ultraäänilaitteella.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το κεφάλι γίνεται πιο στρογγυλό και πιο αναλογικό με το υπόλοιπο σώμα. Το έμβρυο καταπίνει λίγο αμνιακό υγρό, που περνά από το στομάχι και τα νεφρά.',
+        length: 'Περίπου 8,5 εκ.',
+        comparison: 'Ακτινίδιο',
+        bodyChanges: [
+          'Η κοιλιά αρχίζει να στρογγυλεύει πιο ορατά σε ορισμένες γυναίκες.',
+        ],
+        toKnow: [
+          'Ένας επαγγελματίας υγείας μπορεί μερικές φορές να αρχίσει να ακούει τον καρδιακό παλμό με μια συσκευή υπερήχων που τοποθετείται στην κοιλιά.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nagiging mas bilog ang ulo at mas proporsyonado sa natitirang bahagi ng katawan. Lumulunok ng kaunting amniotic fluid ang fetus, na dumadaan sa tiyan at mga bato.',
+        length: 'Mga 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: [
+          'Nagsisimulang mas kapansin-pansing bumilog ang tiyan para sa ilang tao.',
+        ],
+        toKnow: [
+          'Minsan ay maaaring magsimulang marinig ng propesyonal sa kalusugan ang tibok ng puso gamit ang ultrasound device na inilalagay sa tiyan.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'தலை மேலும் உருண்டு, உடலின் மற்ற பகுதிகளுடன் அதிக விகிதாசாரமாகிறது. சிசு சிறிது பனிக்குட நீரை விழுங்குகிறது, அது வயிறு மற்றும் சிறுநீரகங்கள் வழியாகச் செல்கிறது.',
+        length: 'சுமார் 8.5 செ.மீ',
+        comparison: 'கிவி',
+        bodyChanges: [
+          'சிலருக்கு வயிறு மேலும் தெளிவாக உருண்டு தெரியத் தொடங்குகிறது.',
+        ],
+        toKnow: [
+          'வயிற்றில் வைக்கப்படும் அல்ட்ராசவுண்டுக் கருவியால் ஒரு சுகாதார நிபுணர் சில நேரங்களில் இதயத் துடிப்பைக் கேட்கத் தொடங்கலாம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'తల మరింత గుండ్రంగా మారి, మిగతా శరీరంతో మరింత అనుపాతంగా ఉంటుంది. శిశువు కొద్దిగా ఉమ్మనీరు మింగుతుంది, అది కడుపు, మూత్రపిండాల ద్వారా వెళ్తుంది.',
+        length: 'సుమారు 8.5 సెం.మీ',
+        comparison: 'కివి',
+        bodyChanges: [
+          'కొందరికి పొట్ట మరింత స్పష్టంగా గుండ్రంగా మారడం మొదలవుతుంది.',
+        ],
+        toKnow: [
+          'పొట్టపై ఉంచిన అల్ట్రాసౌండ్ పరికరంతో ఒక ఆరోగ్య నిపుణుడు కొన్నిసార్లు గుండె చప్పుడును వినడం మొదలుపెట్టవచ్చు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'डोके अधिक गोल होते आणि शरीराच्या उर्वरित भागाशी अधिक प्रमाणबद्ध होते. गर्भ थोडे उल्बद्रव गिळतो, जे पोटातून आणि मूत्रपिंडांतून जाते.',
+        length: 'सुमारे 8.5 सेमी',
+        comparison: 'किवी',
+        bodyChanges: [
+          'काहींसाठी पोट अधिक स्पष्टपणे गोलाकार होऊ लागते.',
+        ],
+        toKnow: [
+          'पोटावर ठेवलेल्या सोनोग्राफी उपकरणाने आरोग्य व्यावसायिक कधी कधी हृदयाचे ठोके ऐकू शकतो.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'માથું વધુ ગોળ બને છે અને શરીરના બાકીના ભાગ સાથે વધુ પ્રમાણસર બને છે. ગર્ભ થોડું ઉલ્બદ્રવ ગળે છે, જે પેટ અને કિડનીમાંથી પસાર થાય છે.',
+        length: 'લગભગ 8.5 સેમી',
+        comparison: 'કીવી',
+        bodyChanges: [
+          'કેટલાક લોકોમાં પેટ વધુ સ્પષ્ટ રીતે ગોળ થવા લાગે છે.',
+        ],
+        toKnow: [
+          'આરોગ્ય વ્યાવસાયિક પેટ પર મૂકેલા સોનોગ્રાફી ઉપકરણથી ક્યારેક ધબકાર સાંભળવાનું શરૂ કરી શકે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਸਿਰ ਹੋਰ ਗੋਲ ਹੋ ਜਾਂਦਾ ਹੈ ਅਤੇ ਸਰੀਰ ਦੇ ਬਾਕੀ ਹਿੱਸੇ ਨਾਲ ਵਧੇਰੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋ ਜਾਂਦਾ ਹੈ। ਭਰੂਣ ਥੋੜ੍ਹਾ ਉਲਬ ਦਾ ਪਾਣੀ ਨਿਗਲਦਾ ਹੈ, ਜੋ ਢਿੱਡ ਅਤੇ ਗੁਰਦਿਆਂ ਵਿੱਚੋਂ ਲੰਘਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 8.5 ਸੈਮੀ',
+        comparison: 'ਕੀਵੀ',
+        bodyChanges: [
+          'ਕੁਝ ਔਰਤਾਂ ਵਿੱਚ ਢਿੱਡ ਹੋਰ ਸਪੱਸ਼ਟ ਤੌਰ ’ਤੇ ਗੋਲ ਹੋਣ ਲੱਗਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਸਿਹਤ ਮਾਹਿਰ ਢਿੱਡ ’ਤੇ ਰੱਖੇ ਅਲਟਰਾਸਾਊਂਡ ਯੰਤਰ ਨਾਲ ਕਈ ਵਾਰ ਧੜਕਣ ਸੁਣਨੀ ਸ਼ੁਰੂ ਕਰ ਸਕਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ဦးခေါင်းသည် ပိုမိုလုံးဝိုင်းလာပြီး ခန္ဓာကိုယ်၏ ကျန်အစိတ်အပိုင်းများနှင့် ပိုမိုအချိုးကျလာသည်။ သန္ဓေသားသည် ရေမြှုပ်အရည်အနည်းငယ်ကို မျိုချပြီး ၎င်းသည် အစာအိမ်နှင့်ကျောက်ကပ်များမှ ဖြတ်သန်းသွားသည်။',
+        length: 'ခန့်မှန်းခြေ 8.5 စင်တီမီတာ',
+        comparison: 'ကီဝီသီး',
+        bodyChanges: [
+          'အချို့သူများတွင် ဝမ်းဗိုက်သည် ပိုမိုသိသာစွာ ဝိုင်းလာစပြုသည်။',
+        ],
+        toKnow: [
+          'ကျန်းမာရေးပညာရှင်သည် ဝမ်းဗိုက်ပေါ်တွင် တင်ထားသော အယ်ထရာဆောင်းကိရိယာဖြင့် နှလုံးခုန်သံကို တစ်ခါတစ်ရံ စတင်ကြားနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ក្បាលកាន់តែមូល និងមានសមាមាត្រល្អជាមួយផ្នែកផ្សេងទៀតនៃរាងកាយ។ ទារកក្នុងផ្ទៃលេបទឹកភ្លោះបន្តិច ដែលឆ្លងកាត់ក្រពះនិងតម្រងនោម។',
+        length: 'ប្រហែល 8.5 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែគីវី',
+        bodyChanges: [
+          'ពោះចាប់ផ្តើមរាងមូលកាន់តែច្បាស់សម្រាប់មនុស្សមួយចំនួន។',
+        ],
+        toKnow: [
+          'ពេលខ្លះអ្នកជំនាញសុខាភិបាលអាចចាប់ផ្តើមស្តាប់សំឡេងបេះដូងទារកដោយប្រើឧបករណ៍អ៊ុលត្រាសោនដាក់លើពោះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຫົວມົນຂຶ້ນ ແລະ ມີສັດສ່ວນສົມດຸນກັບສ່ວນອື່ນຂອງຮ່າງກາຍຫຼາຍຂຶ້ນ. ທາລົກກືນນ້ຳຄັ່ງເລັກນ້ອຍ ເຊິ່ງຜ່ານກະເພາະອາຫານ ແລະ ໄຕ.',
+        length: 'ປະມານ 8.5 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກກີວີ',
+        bodyChanges: [
+          'ທ້ອງເລີ່ມນູນມົນຂຶ້ນຢ່າງເຫັນໄດ້ຊັດເຈນຂຶ້ນສຳລັບບາງຄົນ.',
+        ],
+        toKnow: [
+          'ບາງຄັ້ງຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບສາມາດເລີ່ມໄດ້ຍິນສຽງຫົວໃຈເຕັ້ນດ້ວຍເຄື່ອງອັນຕຣາຊາວທີ່ວາງໄວ້ເທິງທ້ອງ.',
+        ],
+      },
     },
   },
   {
@@ -6872,6 +10026,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bulu halus yang dipanggil lanugo beransur-ansur menutupi kulit, dan kening serta bulu mata mula muncul. Mata menjadi peka terhadap cahaya.',
+        length: 'Kira-kira 10.1 cm',
+        comparison: 'Epal',
+        bodyChanges: [
+          'Selera makan anda mungkin berubah, kadangkala dengan idaman atau rasa meluat terhadap makanan baharu.',
+        ],
+        toKnow: [
+          'Pendengaran mula berkembang sekitar masa ini: suara anda dan bunyi dalaman tubuh beransur-ansur dapat dikesan.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Timo fiiqan oo la yiraahdo lanugo ayaa tartiib u daboolaya maqaarka, sidoo kale baalasha indhaha iyo timaha indhaha ayaa bilaabmaya inay soo muuqdaan. Indhuhu waxay noqonayaan kuwo iftiinka dareemaya.',
+        length: 'Qiyaastii 10.1 cm',
+        comparison: 'Tufaax',
+        bodyChanges: [
+          'Rabitaankaaga cuntadu wuu isbeddeli karaa, mararka qaarkood isagoo wata rabitaan cusub ama nacayb cunto.',
+        ],
+        toKnow: [
+          'Maqalku wuxuu bilaabmayaa inuu koro waqtigan: codkaaga iyo dhawaaqyada gudaha jidhku tartiib ayay u dareemi karaan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Nywele laini zinazoitwa lanugo polepole zinafunika ngozi, na nyusi na kope huanza kuonekana. Macho yanakuwa nyeti kwa mwanga.',
+        length: 'Takriban sm 10.1',
+        comparison: 'Tufaha',
+        bodyChanges: [
+          'Hamu yako ya kula inaweza kubadilika, wakati mwingine ikiambatana na hamu mpya au chuki ya vyakula.',
+        ],
+        toKnow: [
+          'Kusikia kunaanza kukua karibu na wakati huu: sauti yako na sauti za ndani za mwili polepole zinaanza kusikika.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Тері лануго деп аталатын жұқа түктермен біртіндеп жабылады, қас пен кірпіктер пайда бола бастайды. Көздер жарыққа сезімтал бола түседі.',
+        length: 'Шамамен 10.1 см',
+        comparison: 'Алма',
+        bodyChanges: [
+          'Тәбетіңіз өзгеруі мүмкін, кейде жаңа тағам құштарлығы немесе жиіркенішімен қатар.',
+        ],
+        toKnow: [
+          'Есту осы уақытта дами бастайды: дауысыңыз бен дененің ішкі дыбыстары біртіндеп қабылданады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Benn kawar bu ndaw bu ñuy woowe lanugo dafay sàkku der bi tuuti-tuuti, te lemiis bi ak kawu bët yi tàmbali feeñ. Bët yi dañuy gën a dégg leer.',
+        length: 'Ci wetu 10.1 cm',
+        comparison: 'Pom',
+        bodyChanges: [
+          'Sa bëgg lekk mën na soppiku, yenn saa ak ay bëgg lekk yu bees walla ñàkk bëgg.',
+        ],
+        toKnow: [
+          'Dégg tàmbali màgg ci jamono jii: sa baat ak baat yu biir yaram dañuy dégg tuuti-tuuti.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Gashi mai laushi da ake kira lanugo a hankali yana rufe fata, kuma gira da gashin ido suna fara bayyana. Idanu suna zama masu kula da haske.',
+        length: 'Kusan 10.1 cm',
+        comparison: 'Tuffa',
+        bodyChanges: [
+          'Sha’awar abincinki na iya canzawa, wani lokaci tare da sababbin sha’awar abinci ko ƙin wasu.',
+        ],
+        toKnow: [
+          'Ji yana fara girma a kusa da wannan lokaci: muryarki da sautunan cikin jiki a hankali suna zama abin ji.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ላኑጎ የሚባል ቀጭን ለስላሳ ፀጉር ቆዳውን ቀስ በቀስ ይሸፍናል፣ እና ቅንድቦችና ሽፋሽፍቶች መታየት ይጀምራሉ። ዐይኖች ለብርሃን ስሜታዊ ይሆናሉ።',
+        length: 'ወደ 10.1 ሴሜ',
+        comparison: 'ፖም',
+        bodyChanges: [
+          'የምግብ ፍላጎትሽ ሊለወጥ ይችላል፣ አንዳንድ ጊዜ በአዲስ የምግብ ፍላጎቶች ወይም ጥላቻዎች።',
+        ],
+        toKnow: [
+          'መስማት በዚህ ጊዜ አካባቢ ማደግ ይጀምራል፦ ድምጽሽ እና የሰውነት ውስጣዊ ድምጾች ቀስ በቀስ ይሰማሉ።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Een fijn dons, lanugo genoemd, bedekt geleidelijk de huid en wenkbrauwen en wimpers beginnen te verschijnen. De ogen worden gevoelig voor licht.',
+        length: 'Ongeveer 10,1 cm',
+        comparison: 'Appel',
+        bodyChanges: [
+          'Je eetlust kan veranderen, soms met nieuwe etenstrek of afkeer.',
+        ],
+        toKnow: [
+          'Het gehoor begint zich rond deze tijd te ontwikkelen: je stem en de geluiden van het lichaam worden geleidelijk waarneembaar.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Hieno untuvamainen karvoitus, jota kutsutaan lanugoksi, peittää vähitellen ihon, ja kulmakarvat ja silmäripset alkavat ilmestyä. Silmät tulevat herkiksi valolle.',
+        length: 'Noin 10,1 cm',
+        comparison: 'Omena',
+        bodyChanges: [
+          'Ruokahalusi voi muuttua, joskus uusin ruokahaluin tai vastenmielisyyksin.',
+        ],
+        toKnow: [
+          'Kuulo alkaa kehittyä tähän aikaan: äänesi ja kehon sisäiset äänet muuttuvat vähitellen havaittaviksi.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Ένα λεπτό χνούδι που ονομάζεται λανούγκο καλύπτει σταδιακά το δέρμα και αρχίζουν να εμφανίζονται φρύδια και βλεφαρίδες. Τα μάτια γίνονται ευαίσθητα στο φως.',
+        length: 'Περίπου 10,1 εκ.',
+        comparison: 'Μήλο',
+        bodyChanges: [
+          'Η όρεξή σου μπορεί να αλλάξει, μερικές φορές με νέες λιγούρες ή αποστροφές για φαγητά.',
+        ],
+        toKnow: [
+          'Η ακοή αρχίζει να αναπτύσσεται περίπου αυτή την περίοδο: η φωνή σου και οι εσωτερικοί ήχοι του σώματος γίνονται σταδιακά αντιληπτοί.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Unti-unting tinatakpan ang balat ng pinong balahibo na tinatawag na lanugo, at nagsisimulang lumitaw ang kilay at pilikmata. Nagiging sensitibo sa liwanag ang mga mata.',
+        length: 'Mga 10.1 cm',
+        comparison: 'Mansanas',
+        bodyChanges: [
+          'Maaaring magbago ang iyong gana, minsan may bagong pagnanasa o pag-ayaw sa pagkain.',
+        ],
+        toKnow: [
+          'Nagsisimulang umunlad ang pandinig sa paligid ng panahong ito: unti-unting nagiging maririnig ang iyong boses at ang mga panloob na tunog ng katawan.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'லனுகோ எனப்படும் மெல்லிய மென்மயிர் தோலை படிப்படியாக மூடுகிறது, புருவங்களும் கண் இமை முடிகளும் தோன்றத் தொடங்குகின்றன. கண்கள் ஒளிக்கு உணர்திறன் பெறுகின்றன.',
+        length: 'சுமார் 10.1 செ.மீ',
+        comparison: 'ஆப்பிள்',
+        bodyChanges: [
+          'உங்கள் பசி மாறலாம், சில நேரங்களில் புதிய உணவு ஆசைகள் அல்லது வெறுப்புகளுடன்.',
+        ],
+        toKnow: [
+          'செவித்திறன் இந்த நேரத்தைச் சுற்றி வளரத் தொடங்குகிறது: உங்கள் குரலும் உடலின் உள் ஒலிகளும் படிப்படியாக உணரப்படுகின்றன.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'లానుగో అనే సన్నని మెత్తని రోమాలు క్రమంగా చర్మాన్ని కప్పుతాయి, కనుబొమ్మలు, కనురెప్పల వెంట్రుకలు కనిపించడం మొదలవుతుంది. కళ్లు కాంతికి సున్నితంగా మారతాయి.',
+        length: 'సుమారు 10.1 సెం.మీ',
+        comparison: 'యాపిల్',
+        bodyChanges: [
+          'మీ ఆకలి మారవచ్చు, కొన్నిసార్లు కొత్త ఆహార కోరికలు లేదా అసహ్యాలతో.',
+        ],
+        toKnow: [
+          'వినికిడి ఈ సమయంలో అభివృద్ధి చెందడం మొదలవుతుంది: మీ స్వరం, శరీర అంతర్గత శబ్దాలు క్రమంగా వినిపిస్తాయి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'लॅनुगो नावाचे बारीक मऊ केस हळूहळू त्वचा झाकतात आणि भुवया व पापण्यांचे केस दिसू लागतात. डोळे प्रकाशाला संवेदनशील होतात.',
+        length: 'सुमारे 10.1 सेमी',
+        comparison: 'सफरचंद',
+        bodyChanges: [
+          'तुमची भूक बदलू शकते, कधी कधी नवीन पदार्थांची इच्छा किंवा अप्रियता वाटू शकते.',
+        ],
+        toKnow: [
+          'श्रवणशक्ती याच सुमारास विकसित होऊ लागते: तुमचा आवाज आणि शरीराचे अंतर्गत आवाज हळूहळू ऐकू येऊ लागतात.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'લેનુગો નામનું બારીક રુવાંટું ધીમે ધીમે ત્વચાને ઢાંકે છે, અને ભમર તથા પાંપણો દેખાવા લાગે છે. આંખો પ્રકાશ પ્રત્યે સંવેદનશીલ બને છે.',
+        length: 'લગભગ 10.1 સેમી',
+        comparison: 'સફરજન',
+        bodyChanges: [
+          'તમારી ભૂખમાં ફેરફાર થઈ શકે છે, ક્યારેક નવી ખાવાની ઇચ્છાઓ કે અણગમા સાથે.',
+        ],
+        toKnow: [
+          'સાંભળવાનો વિકાસ આ સમયની આસપાસ શરૂ થાય છે: તમારો અવાજ અને શરીરના આંતરિક અવાજો ધીમે ધીમે અનુભવાવા લાગે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਲੈਨੂਗੋ ਨਾਂ ਦੇ ਬਰੀਕ ਰੂੰਏਂ ਚਮੜੀ ਨੂੰ ਹੌਲੀ-ਹੌਲੀ ਢੱਕ ਲੈਂਦੇ ਹਨ, ਅਤੇ ਭਰਵੱਟੇ ਤੇ ਪਲਕਾਂ ਦੇ ਵਾਲ ਦਿਖਾਈ ਦੇਣ ਲੱਗਦੇ ਹਨ। ਅੱਖਾਂ ਰੌਸ਼ਨੀ ਪ੍ਰਤੀ ਸੰਵੇਦਨਸ਼ੀਲ ਬਣ ਜਾਂਦੀਆਂ ਹਨ।',
+        length: 'ਲਗਭਗ 10.1 ਸੈਮੀ',
+        comparison: 'ਸੇਬ',
+        bodyChanges: [
+          'ਤੁਹਾਡੀ ਭੁੱਖ ਬਦਲ ਸਕਦੀ ਹੈ, ਕਦੇ-ਕਦੇ ਖਾਣ ਦੀਆਂ ਨਵੀਆਂ ਇੱਛਾਵਾਂ ਜਾਂ ਨਫ਼ਰਤ ਦੇ ਨਾਲ।',
+        ],
+        toKnow: [
+          'ਸੁਣਨ ਦੀ ਸ਼ਕਤੀ ਦਾ ਵਿਕਾਸ ਇਸ ਸਮੇਂ ਦੇ ਆਸ-ਪਾਸ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ: ਤੁਹਾਡੀ ਆਵਾਜ਼ ਅਤੇ ਸਰੀਰ ਦੀਆਂ ਅੰਦਰੂਨੀ ਆਵਾਜ਼ਾਂ ਹੌਲੀ-ਹੌਲੀ ਮਹਿਸੂਸ ਹੋਣ ਲੱਗਦੀਆਂ ਹਨ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လာနူဂိုဟုခေါ်သော ဖွဲ့ဖွဲ့ညှင်းမွေးညင်းများသည် အရေပြားကို တဖြည်းဖြည်း ဖုံးလွှမ်းလာပြီး မျက်ခုံးမွေးနှင့် မျက်တောင်မွေးများ စတင်ပေါ်လာသည်။ မျက်လုံးများသည် အလင်းကို အထိမခံဖြစ်လာသည်။',
+        length: 'ခန့်မှန်းခြေ 10.1 စင်တီမီတာ',
+        comparison: 'ပန်းသီး',
+        bodyChanges: [
+          'သင်၏ အစားအသောက်ဆန္ဒ ပြောင်းလဲနိုင်ပြီး တစ်ခါတစ်ရံ အစားအစာအသစ်များကို လိုချင်ခြင်း သို့မဟုတ် မနှစ်သက်ခြင်းများ ရှိနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကြားသိစွမ်းသည် ဤအချိန်ဝန်းကျင်တွင် ဖွံ့ဖြိုးလာစပြုသည်။ သင်၏အသံနှင့် ခန္ဓာကိုယ်အတွင်းမှ အသံများကို တဖြည်းဖြည်း ကြားလာနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'រោមទន់ល្អិតហៅថា ឡានូហ្គោ (lanugo) បន្តិចម្តងៗគ្របលើស្បែក ហើយចិញ្ចើមនិងរោមភ្នែកចាប់ផ្តើមលេចឡើង។ ភ្នែកចាប់ផ្តើមរសើបចំពោះពន្លឺ។',
+        length: 'ប្រហែល 10.1 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែប៉ោម',
+        bodyChanges: [
+          'ចំណង់អាហាររបស់អ្នកអាចប្រែប្រួល ពេលខ្លះមានចំណង់ស្រេកឃ្លានអាហារថ្មី ឬស្អប់អាហារខ្លះ។',
+        ],
+        toKnow: [
+          'ការស្តាប់ចាប់ផ្តើមលូតលាស់នៅជុំវិញពេលនេះ៖ សំឡេងរបស់អ្នក និងសំឡេងខាងក្នុងរាងកាយ បន្តិចម្តងៗអាចស្តាប់ឮបាន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຂົນອ່ອນລະອຽດທີ່ເອີ້ນວ່າລານູໂກ ຄ່ອຍໆປົກຄຸມຜິວໜັງ ແລະ ຄິ້ວກັບຂົນຕາເລີ່ມປາກົດ. ດວງຕາເລີ່ມໄວຕໍ່ແສງ.',
+        length: 'ປະມານ 10.1 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກແອັບເປິ້ນ',
+        bodyChanges: [
+          'ຄວາມຢາກອາຫານຂອງທ່ານອາດປ່ຽນແປງ ບາງຄັ້ງມີຄວາມຢາກ ຫຼື ຄວາມບໍ່ມັກອາຫານໃໝ່ໆ.',
+        ],
+        toKnow: [
+          'ການໄດ້ຍິນເລີ່ມພັດທະນາໃນຊ່ວງນີ້ ສຽງຂອງທ່ານ ແລະ ສຽງພາຍໃນຮ່າງກາຍຄ່ອຍໆຮັບຮູ້ໄດ້.',
+        ],
+      },
     },
   },
   {
@@ -7317,6 +10699,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Sistem saraf membolehkan pergerakan lengan dan kaki. Tangan boleh menggenggam menjadi penumbuk kecil.',
+        length: 'Kira-kira 11.6 cm',
+        comparison: 'Avokado',
+        bodyChanges: [
+          'Sesetengah orang mula merasai pergerakan yang sangat ringan mulai sekitar masa ini, yang sering digambarkan sebagai rasa berdebar-debar.',
+        ],
+        toKnow: [
+          'Merasai pergerakan pertama sangat berbeza dari satu kehamilan ke kehamilan yang lain, terutamanya bergantung pada sama ada ini kehamilan pertama.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Nidaamka dareemuhu wuxuu oggolaanayaa dhaqdhaqaaqa gacmaha iyo lugaha. Gacmuhu waxay isku xidhi karaan feedho yaryar.',
+        length: 'Qiyaastii 11.6 cm',
+        comparison: 'Avokaado',
+        bodyChanges: [
+          'Dadka qaar waxay bilaabaan inay dareemaan dhaqdhaqaaq aad u fudud laga bilaabo waqtigan, inta badan loo sifeeyo sida gariir yar.',
+        ],
+        toKnow: [
+          'Dareenka dhaqdhaqaaqyada ugu horreeya wuu ku kala duwan yahay uur ilaa uur, gaar ahaan iyadoo ku xiran in uu yahay uurkii ugu horreeyay.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mfumo wa neva unaruhusu mienendo ya mikono na miguu. Mikono inaweza kufunga kuwa ngumi ndogo.',
+        length: 'Takriban sm 11.6',
+        comparison: 'Parachichi (avokado)',
+        bodyChanges: [
+          'Baadhi ya watu huanza kuhisi mienendo myepesi sana kuanzia wakati huu, mara nyingi inaelezwa kama kupepea.',
+        ],
+        toKnow: [
+          'Kuhisi mienendo ya kwanza hutofautiana sana kati ya ujauzito mmoja na mwingine, hasa kulingana na kama ni ujauzito wa kwanza.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Жүйке жүйесі қол мен аяқ қозғалыстарына мүмкіндік береді. Қолдар шағын жұдырыққа түйіле алады.',
+        length: 'Шамамен 11.6 см',
+        comparison: 'Авокадо',
+        bodyChanges: [
+          'Кейбір адамдар осы уақыттан бастап өте жеңіл қозғалыстарды сеза бастайды, олар жиі желпінді сезім ретінде сипатталады.',
+        ],
+        toKnow: [
+          'Алғашқы қозғалыстарды сезу бір жүктіліктен екіншісіне, әсіресе бұл бірінші жүктілік пе, жоқ па соған байланысты, өте әртүрлі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Jëmmu xel bi mën na yëngu loxo ak tànk. Loxo yi mën nañu tëj ni ay ngóor yu ndaw.',
+        length: 'Ci wetu 11.6 cm',
+        comparison: 'Avoka',
+        bodyChanges: [
+          'Yenn nit dañuy tàmbali dégg yëngu yu lewet lool ci jamono jii, yu ñuy wax ni xëtt.',
+        ],
+        toKnow: [
+          'Dégg yëngu yu njëkk wuute na lool ci ëmb ak ëmb, lool ci bu ñu ko njëkkoon am.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Tsarin jijiyoyi yana ba da damar motsin hannuwa da ƙafafuwa. Hannuwa za su iya rufewa zuwa ƙananan dunƙulen hannu.',
+        length: 'Kusan 11.6 cm',
+        comparison: 'Abokado',
+        bodyChanges: [
+          'Wasu mutane suna fara jin motsi masu laushi sosai daga kusa da wannan lokaci, wanda galibi ake kwatantawa da fiffike.',
+        ],
+        toKnow: [
+          'Jin motsin farko yana bambanta sosai daga ciki zuwa ciki, musamman bisa ko cikin farko ne.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የነርቭ ሥርዓቱ የእጅና የእግር እንቅስቃሴዎችን ይፈቅዳል። እጆቹ ወደ ትናንሽ ቡጢዎች ሊዘጉ ይችላሉ።',
+        length: 'ወደ 11.6 ሴሜ',
+        comparison: 'አቮካዶ',
+        bodyChanges: [
+          'አንዳንድ ሰዎች ከዚህ ጊዜ አካባቢ ጀምሮ በጣም ቀላል እንቅስቃሴዎችን መስማት ይጀምራሉ፣ ብዙ ጊዜ እንደ ርግብግቢት ይገለጻሉ።',
+        ],
+        toKnow: [
+          'የመጀመሪያዎቹን እንቅስቃሴዎች መስማት ከአንዱ እርግዝና ወደ ሌላው በጣም ይለያያል፣ በተለይ የመጀመሪያ እርግዝና መሆን አለመሆኑ ላይ በመመሥረት።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het zenuwstelsel maakt bewegingen van armen en benen mogelijk. De handjes kunnen zich tot kleine vuistjes sluiten.',
+        length: 'Ongeveer 11,6 cm',
+        comparison: 'Avocado',
+        bodyChanges: [
+          'Sommige vrouwen beginnen vanaf deze tijd zeer lichte bewegingen te voelen, vaak beschreven als gefladder.',
+        ],
+        toKnow: [
+          'Het voelen van de eerste bewegingen verschilt sterk van zwangerschap tot zwangerschap, met name naargelang het een eerste zwangerschap is.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Hermosto mahdollistaa käsivarsien ja jalkojen liikkeet. Kädet voivat sulkeutua pieniksi nyrkeiksi.',
+        length: 'Noin 11,6 cm',
+        comparison: 'Avokado',
+        bodyChanges: [
+          'Jotkut alkavat tuntea hyvin kevyitä liikkeitä tästä ajasta lähtien, usein kuvattuina lepatukseksi.',
+        ],
+        toKnow: [
+          'Ensimmäisten liikkeiden tunteminen vaihtelee paljon raskaudesta toiseen, erityisesti sen mukaan, onko kyseessä ensimmäinen raskaus.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το νευρικό σύστημα επιτρέπει κινήσεις των χεριών και των ποδιών. Τα χέρια μπορούν να κλείνουν σε μικρές γροθιές.',
+        length: 'Περίπου 11,6 εκ.',
+        comparison: 'Αβοκάντο',
+        bodyChanges: [
+          'Ορισμένες γυναίκες αρχίζουν να νιώθουν πολύ ελαφρές κινήσεις από αυτή την περίοδο, που περιγράφονται συχνά ως πεταλούδισμα.',
+        ],
+        toKnow: [
+          'Το να νιώσεις τις πρώτες κινήσεις διαφέρει πολύ από εγκυμοσύνη σε εγκυμοσύνη, ιδίως ανάλογα με το αν πρόκειται για την πρώτη εγκυμοσύνη.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Pinahihintulutan ng nervous system ang mga galaw ng braso at binti. Maaaring magsara ang mga kamay bilang maliliit na kamao.',
+        length: 'Mga 11.6 cm',
+        comparison: 'Abokado',
+        bodyChanges: [
+          'Ang ilang tao ay nagsisimulang makaramdam ng napakagaan na mga galaw mula sa paligid ng panahong ito, madalas inilalarawan bilang pagaspas.',
+        ],
+        toKnow: [
+          'Lubhang nag-iiba sa bawat pagbubuntis ang pagdama sa mga unang galaw, partikular depende kung unang pagbubuntis ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'நரம்பு மண்டலம் கை, கால் அசைவுகளை அனுமதிக்கிறது. கைகள் சிறு முஷ்டிகளாக மூடலாம்.',
+        length: 'சுமார் 11.6 செ.மீ',
+        comparison: 'அவகாடோ',
+        bodyChanges: [
+          'சிலர் இந்த நேரத்திலிருந்து மிக லேசான அசைவுகளை உணரத் தொடங்குகிறார்கள், அவை பெரும்பாலும் படபடப்பு என விவரிக்கப்படுகின்றன.',
+        ],
+        toKnow: [
+          'முதல் அசைவுகளை உணர்வது ஒரு கர்ப்பத்திலிருந்து மற்றொன்றுக்கு, குறிப்பாக அது முதல் கர்ப்பமா என்பதைப் பொறுத்து, மிகவும் மாறுபடும்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'నాడీ వ్యవస్థ చేతులు, కాళ్ల కదలికలను సాధ్యం చేస్తుంది. చేతులు చిన్న పిడికిళ్లుగా మూసుకోగలవు.',
+        length: 'సుమారు 11.6 సెం.మీ',
+        comparison: 'అవకాడో',
+        bodyChanges: [
+          'కొందరు ఈ సమయం నుండి చాలా తేలికపాటి కదలికలను అనుభవించడం మొదలుపెడతారు, తరచుగా రెక్కల టపటపలా వర్ణించబడతాయి.',
+        ],
+        toKnow: [
+          'మొదటి కదలికలను అనుభవించడం ఒక గర్భం నుండి మరొక గర్భానికి, ముఖ్యంగా అది మొదటి గర్భమా కాదా అనేదాన్ని బట్టి, చాలా మారుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'मज्जासंस्था हात आणि पायांच्या हालचाली शक्य करते. हात लहान मुठीत बंद होऊ शकतात.',
+        length: 'सुमारे 11.6 सेमी',
+        comparison: 'अ‍ॅव्होकॅडो',
+        bodyChanges: [
+          'काहींना या सुमारास अगदी हलक्या हालचाली जाणवू लागतात, ज्याचे वर्णन बहुतेकदा पंखांच्या फडफडीसारखे केले जाते.',
+        ],
+        toKnow: [
+          'पहिल्या हालचाली जाणवणे एका गर्भारपणापासून दुसऱ्या गर्भारपणापर्यंत, विशेषतः ते पहिले गर्भारपण आहे की नाही यावर, खूप बदलते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'નર્વસ સિસ્ટમ હાથ-પગની હલનચલન શક્ય બનાવે છે. હાથ નાની મુઠ્ઠીમાં બંધ થઈ શકે છે.',
+        length: 'લગભગ 11.6 સેમી',
+        comparison: 'એવોકાડો',
+        bodyChanges: [
+          'કેટલાક લોકોને આ સમયથી ખૂબ હળવી હલનચલન અનુભવાવા લાગે છે, જેને ઘણી વાર ફડફડાટ તરીકે વર્ણવાય છે.',
+        ],
+        toKnow: [
+          'પહેલી હલનચલન અનુભવવી એક ગર્ભાવસ્થાથી બીજી ગર્ભાવસ્થામાં ઘણી બદલાય છે, ખાસ કરીને તે પહેલી ગર્ભાવસ્થા છે કે નહીં તેના આધારે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਨਾੜੀ ਪ੍ਰਣਾਲੀ ਬਾਹਾਂ ਅਤੇ ਲੱਤਾਂ ਦੀਆਂ ਹਰਕਤਾਂ ਨੂੰ ਸੰਭਵ ਬਣਾਉਂਦੀ ਹੈ। ਹੱਥ ਨਿੱਕੀਆਂ ਮੁੱਠੀਆਂ ਵਿੱਚ ਬੰਦ ਹੋ ਸਕਦੇ ਹਨ।',
+        length: 'ਲਗਭਗ 11.6 ਸੈਮੀ',
+        comparison: 'ਐਵੋਕਾਡੋ',
+        bodyChanges: [
+          'ਕੁਝ ਔਰਤਾਂ ਨੂੰ ਇਸ ਸਮੇਂ ਤੋਂ ਬਹੁਤ ਹਲਕੀਆਂ ਹਰਕਤਾਂ ਮਹਿਸੂਸ ਹੋਣ ਲੱਗਦੀਆਂ ਹਨ, ਜਿਨ੍ਹਾਂ ਨੂੰ ਅਕਸਰ ਫੜਫੜਾਹਟ ਵਜੋਂ ਦੱਸਿਆ ਜਾਂਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਪਹਿਲੀਆਂ ਹਰਕਤਾਂ ਮਹਿਸੂਸ ਕਰਨਾ ਇੱਕ ਗਰਭ-ਅਵਸਥਾ ਤੋਂ ਦੂਜੀ ਵਿੱਚ ਕਾਫ਼ੀ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਇਸ ਗੱਲ ’ਤੇ ਨਿਰਭਰ ਕਰਦਿਆਂ ਕਿ ਇਹ ਪਹਿਲੀ ਗਰਭ-ਅਵਸਥਾ ਹੈ ਜਾਂ ਨਹੀਂ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အာရုံကြောစနစ်ကြောင့် လက်ခြေလှုပ်ရှားမှုများ ဖြစ်နိုင်လာသည်။ လက်များသည် လက်သီးသေးသေးကလေးများအဖြစ် ဆုပ်နိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 11.6 စင်တီမီတာ',
+        comparison: 'ထောပတ်သီး',
+        bodyChanges: [
+          'အချို့သူများသည် ဤအချိန်မှစ၍ အလွန်ပေါ့ပါးသော လှုပ်ရှားမှုများကို စတင်ခံစားရပြီး မကြာခဏ တောက်ပုံစံ လှုပ်ခတ်ခြင်းဟု ဖော်ပြကြသည်။',
+        ],
+        toKnow: [
+          'ပထမဆုံး လှုပ်ရှားမှုများကို ခံစားရခြင်းသည် ကိုယ်ဝန်တစ်ခုနှင့်တစ်ခု အလွန်ကွဲပြားပြီး အထူးသဖြင့် ပထမကိုယ်ဝန်ဟုတ်မဟုတ်ပေါ် မူတည်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ប្រព័ន្ធប្រសាទអនុញ្ញាតឱ្យមានចលនាដៃនិងជើង។ ដៃអាចចាប់ក្តាប់ជាកណ្តាប់តូចៗបាន។',
+        length: 'ប្រហែល 11.6 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែអាវ៉ូកាដូ',
+        bodyChanges: [
+          'មនុស្សមួយចំនួនចាប់ផ្តើមមានអារម្មណ៍ពីចលនាស្រាលខ្លាំងចាប់ពីជុំវិញពេលនេះ ដែលតែងត្រូវបានពិពណ៌នាថាដូចស្លាបរើបៗ។',
+        ],
+        toKnow: [
+          'ការមានអារម្មណ៍ពីចលនាដំបូងខុសគ្នាច្រើនពីការមានផ្ទៃពោះមួយទៅមួយទៀត ជាពិសេសអាស្រ័យលើថាតើជាការមានផ្ទៃពោះលើកដំបូងឬអត់។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລະບົບປະສາດເຮັດໃຫ້ເຄື່ອນໄຫວແຂນ ແລະ ຂາໄດ້. ມືສາມາດກຳເປັນກຳປັ້ນນ້ອຍໆໄດ້.',
+        length: 'ປະມານ 11.6 ເຊັນຕີແມັດ',
+        comparison: 'ອາໂວກາໂດ',
+        bodyChanges: [
+          'ບາງຄົນເລີ່ມຮູ້ສຶກເຖິງການເຄື່ອນໄຫວເບົາໆຕັ້ງແຕ່ຊ່ວງນີ້ ເຊິ່ງມັກຖືກອະທິບາຍວ່າຄືກັບປີກກະພືບ.',
+        ],
+        toKnow: [
+          'ການຮູ້ສຶກເຖິງການເຄື່ອນໄຫວຄັ້ງທຳອິດແຕກຕ່າງກັນຫຼາຍໃນແຕ່ລະການຖືພາ ໂດຍສະເພາະຂຶ້ນກັບວ່າເປັນການຖືພາຄັ້ງທຳອິດຫຼືບໍ່.',
+        ],
+      },
     },
   },
   {
@@ -7769,6 +11379,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Mata, yang masih tertutup, boleh bergerak, dan bayi kini bertindak balas terhadap bunyi yang kuat. Cap jari mula terbentuk.',
+        length: 'Kira-kira 12 cm',
+        comparison: 'Delima',
+        bodyChanges: [
+          'Sakit belakang ringan mungkin timbul apabila pusat graviti anda berubah.',
+        ],
+        toKnow: [
+          'Bunyi dari luar mula dikesan, dalam bentuk yang kabur, melalui cecair amnion.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Indhaha, oo weli xidhan, way dhaqaaqi karaan, ilmuhuna hadda wuxuu ka falceliyaa codad xoog leh. Faraha calaamadaha ayaa bilaabmaya inay samaysmaan.',
+        length: 'Qiyaastii 12 cm',
+        comparison: 'Rummaan',
+        bodyChanges: [
+          'Xanuun dhabar oo khafiif ah ayaa soo bixi kara marka xudunta culeyskaagu is beddelo.',
+        ],
+        toKnow: [
+          'Codadka dibadda ayaa bilaabmaya in lagu dareemo, si aan cad ahayn, biyaha amniotic-ka dhexdiisa.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Macho, ingawa bado yamefungwa, yanaweza kusonga, na mtoto sasa huitikia sauti kubwa. Alama za vidole zinaanza kuundwa.',
+        length: 'Takriban sm 12',
+        comparison: 'Komamanga',
+        bodyChanges: [
+          'Maumivu madogo ya mgongo yanaweza kuonekana kadiri kitovu chako cha uzito kinavyohama.',
+        ],
+        toKnow: [
+          'Sauti za nje zinaanza kusikika, kwa njia hafifu, kupitia maji ya amniotiki.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Әлі жабық болса да, көздер қозғала алады және нәресте енді қатты дыбыстарға жауап береді. Саусақ іздері қалыптаса бастайды.',
+        length: 'Шамамен 12 см',
+        comparison: 'Анар',
+        bodyChanges: [
+          'Ауырлық орталығыңыз ауысқан сайын жеңіл бел ауыруы пайда болуы мүмкін.',
+        ],
+        toKnow: [
+          'Сыртқы дыбыстар амниотикалық сұйықтық арқылы тұншыққан түрде қабылдана бастайды.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Bët yi, yu tëj ba tey, mën nañu yëngu, te doom bi di tontu ci baat yu mag. Ŋàll yi tàmbali defaru.',
+        length: 'Ci wetu 12 cm',
+        comparison: 'Garnaad',
+        bodyChanges: [
+          'Metit bu ndaw ci ndiggu mën na feeñ ndax sa digg-gëj di soppiku.',
+        ],
+        toKnow: [
+          'Baat yu biti yu tàmbali dégg leen, ci anam bu lëndëm, jaar ci ndox bu biir.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Idanu, har yanzu a rufe, na iya motsawa, kuma jariri yanzu yana amsa sautuka masu ƙarfi. Hannun yatsu suna fara samuwa.',
+        length: 'Kusan 12 cm',
+        comparison: 'Rumman',
+        bodyChanges: [
+          'Ƙaramin ciwon baya na iya bayyana yayin da tsakiyar nauyinki ke canzawa.',
+        ],
+        toKnow: [
+          'Sautunan waje suna fara ji, a cikin yanayin da aka rage, ta cikin ruwan ciki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'አሁንም የተዘጉት ዐይኖች ሊንቀሳቀሱ ይችላሉ፣ እና ሕፃኑ አሁን ለከፍተኛ ድምጾች ምላሽ ይሰጣል። የጣት አሻራዎች መፈጠር ጀምረዋል።',
+        length: 'ወደ 12 ሴሜ',
+        comparison: 'ሮማን',
+        bodyChanges: [
+          'የስበት ማዕከልሽ ሲለወጥ ቀላል የጀርባ ህመም ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'የውጭ ድምጾች በአምኒዮቲክ ፈሳሽ በኩል፣ በደበዘዘ መልኩ መሰማት ጀምረዋል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De ogen, nog gesloten, kunnen bewegen en de baby reageert nu op harde geluiden. Er beginnen vingerafdrukken te ontstaan.',
+        length: 'Ongeveer 12 cm',
+        comparison: 'Granaatappel',
+        bodyChanges: [
+          'Lichte rugpijn kan optreden doordat je zwaartepunt verschuift.',
+        ],
+        toKnow: [
+          'Geluiden van buiten worden gedempt waargenomen via het vruchtwater.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Silmät, yhä suljettuina, voivat liikkua, ja vauva reagoi nyt voimakkaisiin ääniin. Sormenjäljet alkavat muodostua.',
+        length: 'Noin 12 cm',
+        comparison: 'Granaattiomena',
+        bodyChanges: [
+          'Lievää selkäkipua voi ilmaantua painopisteen siirtyessä.',
+        ],
+        toKnow: [
+          'Ulkopuoliset äänet alkavat tavoittaa vauvan vaimennettuina lapsiveden kautta.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα μάτια, ακόμη κλειστά, μπορούν να κινούνται και το μωρό αντιδρά πλέον σε δυνατούς ήχους. Τα δακτυλικά αποτυπώματα αρχίζουν να σχηματίζονται.',
+        length: 'Περίπου 12 εκ.',
+        comparison: 'Ρόδι',
+        bodyChanges: [
+          'Μπορεί να εμφανιστεί ήπιος πόνος στη μέση καθώς μετατοπίζεται το κέντρο βάρους σου.',
+        ],
+        toKnow: [
+          'Οι εξωτερικοί ήχοι αρχίζουν να γίνονται αντιληπτοί, πνιχτά, μέσα από το αμνιακό υγρό.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang mga mata, na nakapikit pa, ay maaaring gumalaw, at tumutugon na ngayon ang sanggol sa malalakas na tunog. Nagsisimulang mabuo ang mga fingerprint.',
+        length: 'Mga 12 cm',
+        comparison: 'Granada',
+        bodyChanges: [
+          'Maaaring lumitaw ang banayad na pananakit ng likod habang lumilipat ang sentro ng grabidad mo.',
+        ],
+        toKnow: [
+          'Nagsisimulang mapansin ang mga tunog sa labas, sa mahinang anyo, sa pamamagitan ng amniotic fluid.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'இன்னும் மூடியிருக்கும் கண்கள் அசையக்கூடும், குழந்தை இப்போது உரத்த ஒலிகளுக்கு எதிர்வினையாற்றுகிறது. கைரேகைகள் உருவாகத் தொடங்குகின்றன.',
+        length: 'சுமார் 12 செ.மீ',
+        comparison: 'மாதுளை',
+        bodyChanges: [
+          'உங்கள் ஈர்ப்பு மையம் மாறும்போது லேசான முதுகு வலி தோன்றலாம்.',
+        ],
+        toKnow: [
+          'வெளிப்புற ஒலிகள் பனிக்குட நீர் வழியாக, மங்கிய வடிவில், உணரப்படத் தொடங்குகின்றன.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఇంకా మూసి ఉన్న కళ్లు కదలగలవు, శిశువు ఇప్పుడు పెద్ద శబ్దాలకు ప్రతిస్పందిస్తుంది. వేలిముద్రలు ఏర్పడటం మొదలవుతోంది.',
+        length: 'సుమారు 12 సెం.మీ',
+        comparison: 'దానిమ్మ',
+        bodyChanges: [
+          'మీ గురుత్వాకర్షణ కేంద్రం మారుతున్న కొద్దీ తేలికపాటి వెన్నునొప్పి కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'బయటి శబ్దాలు ఉమ్మనీరు గుండా, అస్పష్టంగా వినిపించడం మొదలవుతోంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'अजून मिटलेले डोळे हलू शकतात आणि बाळ आता मोठ्या आवाजांना प्रतिसाद देते. बोटांचे ठसे तयार होऊ लागले आहेत.',
+        length: 'सुमारे 12 सेमी',
+        comparison: 'डाळिंब',
+        bodyChanges: [
+          'तुमचा गुरुत्वमध्य बदलत असताना सौम्य पाठदुखी दिसू शकते.',
+        ],
+        toKnow: [
+          'बाहेरचे आवाज उल्बद्रवातून, अस्पष्टपणे, ऐकू येऊ लागले आहेत.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'આંખો, હજુ બંધ, હલી શકે છે, અને બાળક હવે મોટા અવાજો પ્રત્યે પ્રતિભાવ આપે છે. આંગળીઓની છાપ બનવા લાગી છે.',
+        length: 'લગભગ 12 સેમી',
+        comparison: 'દાડમ',
+        bodyChanges: [
+          'તમારું ગુરુત્વાકર્ષણ કેન્દ્ર બદલાતાં હળવો કમરનો દુખાવો દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'બહારના અવાજો ઉલ્બદ્રવમાંથી ધીમા સ્વરૂપે અનુભવાવા લાગ્યા છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਅੱਖਾਂ, ਜੋ ਅਜੇ ਬੰਦ ਹਨ, ਹਿੱਲ ਸਕਦੀਆਂ ਹਨ, ਅਤੇ ਬੱਚਾ ਹੁਣ ਉੱਚੀਆਂ ਆਵਾਜ਼ਾਂ ਪ੍ਰਤੀ ਪ੍ਰਤੀਕਿਰਿਆ ਕਰਦਾ ਹੈ। ਉਂਗਲਾਂ ਦੇ ਨਿਸ਼ਾਨ ਬਣਨੇ ਸ਼ੁਰੂ ਹੋ ਗਏ ਹਨ।',
+        length: 'ਲਗਭਗ 12 ਸੈਮੀ',
+        comparison: 'ਅਨਾਰ',
+        bodyChanges: [
+          'ਤੁਹਾਡਾ ਗੁਰੂਤਾ ਕੇਂਦਰ ਬਦਲਣ ਨਾਲ ਹਲਕਾ ਕਮਰ ਦਰਦ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਬਾਹਰ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਉਲਬ ਦੇ ਪਾਣੀ ਵਿੱਚੋਂ ਧੀਮੇ ਰੂਪ ਵਿੱਚ ਮਹਿਸੂਸ ਹੋਣ ਲੱਗੀਆਂ ਹਨ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မျက်လုံးများသည် မှိတ်ထားဆဲဖြစ်သော်လည်း လှုပ်ရှားနိုင်ပြီး ကလေးသည် ယခုအခါ ကျယ်လောင်သော အသံများကို တုံ့ပြန်သည်။ လက်ဗွေရာများ စတင်ဖွဲ့စည်းလာသည်။',
+        length: 'ခန့်မှန်းခြေ 12 စင်တီမီတာ',
+        comparison: 'သလဲသီး',
+        bodyChanges: [
+          'သင်၏ ဆွဲအားဗဟိုပြောင်းလဲသည်နှင့်အမျှ အပျော့စား ကျောနာခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'အပြင်မှ အသံများကို ရေမြှုပ်အရည်ကတစ်ဆင့် မှိန်မှိန်ကလေး ကြားလာစပြုသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ភ្នែកដែលនៅបិទ អាចចល័តបាន ហើយឥឡូវនេះទារកមានប្រតិកម្មនឹងសំឡេងខ្លាំងៗ។ ស្នាមម្រាមដៃកំពុងចាប់ផ្តើមបង្កើតឡើង។',
+        length: 'ប្រហែល 12 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែទទឹម',
+        bodyChanges: [
+          'អាចមានឈឺខ្នងស្រាលៗ ដោយសារចំណុចទម្ងន់កណ្តាលរបស់អ្នកផ្លាស់ប្តូរ។',
+        ],
+        toKnow: [
+          'សំឡេងពីខាងក្រៅកំពុងចាប់ផ្តើមត្រូវបានស្តាប់ឮ ក្នុងទម្រង់មិនច្បាស់ តាមរយៈទឹកភ្លោះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ດວງຕາທີ່ຍັງປິດຢູ່ສາມາດເຄື່ອນໄຫວໄດ້ ແລະ ຕອນນີ້ລູກນ້ອຍຕອບສະໜອງຕໍ່ສຽງດັງ. ລາຍນິ້ວມືເລີ່ມກໍ່ຕົວ.',
+        length: 'ປະມານ 12 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກທັບທິມ',
+        bodyChanges: [
+          'ອາດມີອາການເຈັບຫຼັງເລັກນ້ອຍເມື່ອຈຸດສູນຖ່ວງຂອງຮ່າງກາຍປ່ຽນໄປ.',
+        ],
+        toKnow: [
+          'ສຽງຈາກພາຍນອກເລີ່ມຖືກຮັບຮູ້ໃນຮູບແບບທີ່ອູ້ອີ້ ຜ່ານນ້ຳຄັ່ງ.',
+        ],
+      },
     },
   },
   {
@@ -8221,6 +12059,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Pendengaran, sentuhan, menelan dan refleks menghisap terus berkembang. Bayi menjadi semakin aktif, dengan lebih banyak pergerakan lengan dan kaki.',
+        length: 'Kira-kira 14.2 cm',
+        comparison: 'Lada benggala',
+        bodyChanges: [
+          'Perut sering kelihatan jelas pada peringkat ini, dan pusat graviti anda terus berubah.',
+        ],
+        toKnow: [
+          'Ultrasound anatomi, yang memeriksa perkembangan keseluruhan bayi, biasanya ditawarkan antara minggu ke-18 dan minggu ke-21.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Maqalka, taabashada, liqidda, iyo reflex-ka nuugidda way sii kortaan. Ilmuhu wuxuu noqonayaa mid sii firfircoon, isagoo sameeya dhaqdhaqaaqyo badan oo gacmaha iyo lugaha ah.',
+        length: 'Qiyaastii 14.2 cm',
+        comparison: 'Basbaas weyn oo macaan',
+        bodyChanges: [
+          'Calooshu inta badan si cad ayay u muuqataa heerkan, xudunta culeyskaaguna way sii beddelaysaa.',
+        ],
+        toKnow: [
+          'Ultrasaawnka qaab-dhismeedka, oo hubiya koritaanka guud ee ilmaha, guud ahaan waxaa la bixiyaa u dhexeeya toddobaadka 18 iyo toddobaadka 21.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Kusikia, kugusa, kumeza, na kitendo cha kunyonya vinaendelea kukua. Mtoto anazidi kuwa mchangamfu, akiwa na mienendo mingi zaidi ya mikono na miguu.',
+        length: 'Takriban sm 14.2',
+        comparison: 'Pilipili hoho',
+        bodyChanges: [
+          'Tumbo mara nyingi huonekana wazi katika hatua hii, na kitovu chako cha uzito kinaendelea kuhama.',
+        ],
+        toKnow: [
+          'Ultrasound ya kuchunguza viungo, inayochunguza ukuaji wa jumla wa mtoto, kwa kawaida hutolewa kati ya wiki ya 18 na wiki ya 21.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Есту, сезу, жұту және сору рефлексі дамуын жалғастырады. Нәресте барған сайын белсенді бола түседі, қол мен аяқ қозғалыстары көбейеді.',
+        length: 'Шамамен 14.2 см',
+        comparison: 'Тәттілі бұрыш',
+        bodyChanges: [
+          'Іш бұл кезеңде жиі анық көрінеді, ал ауырлық орталығыңыз ауысуын жалғастырады.',
+        ],
+        toKnow: [
+          'Нәрестенің жалпы дамуын тексеретін ағзалар ультрадыбыстық зерттеуі әдетте 18-ші мен 21-ші апта аралығында ұсынылады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Dégg, laal, naan ak reflex bu lekk dañuy kontine màgg. Doom bi di gën a yëngu, ak yëngu yu loxo ak tànk yu bari.',
+        length: 'Ci wetu 14.2 cm',
+        comparison: 'Pwaavron',
+        bodyChanges: [
+          'Biir bi daa gisu bu leer ci jamono jii, te sa digg-gëj kontine soppiku.',
+        ],
+        toKnow: [
+          'Ekografi bu anam, bu di seetlu màggug doom bi bu mat, daa digal ci diggante ayu-bés 18 ak ayu-bés 21.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ji, taɓawa, hadiya, da dabi’ar tsotsa suna ci gaba da girma. Jariri yana ƙara aiki, tare da ƙarin motsin hannuwa da ƙafafuwa.',
+        length: 'Kusan 14.2 cm',
+        comparison: 'Tattasai',
+        bodyChanges: [
+          'Ciki galibi yana bayyana a fili a wannan mataki, kuma tsakiyar nauyinki yana ci gaba da canzawa.',
+        ],
+        toKnow: [
+          'Ana yawan ba da ultrasound na siffar jiki, wanda ke duba girman jariri gaba ɗaya, tsakanin makon 18 da makon 21.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'መስማት፣ መንካት፣ መዋጥ እና የመጥባት ሪፍሌክስ ማደጋቸውን ይቀጥላሉ። ሕፃኑ ይበልጥ ንቁ እየሆነ ነው፣ ብዙ የእጅና የእግር እንቅስቃሴዎች አሉት።',
+        length: 'ወደ 14.2 ሴሜ',
+        comparison: 'ደወል በርበሬ',
+        bodyChanges: [
+          'ሆድ በዚህ ደረጃ ብዙ ጊዜ በግልጽ ይታያል፣ እና የስበት ማዕከልሽ መለወጡን ይቀጥላል።',
+        ],
+        toKnow: [
+          'የሕፃኑን አጠቃላይ እድገት የሚመረምረው የአናቶሚ አልትራሳውንድ በአጠቃላይ በሳምንት 18 እና በሳምንት 21 መካከል ይቀርባል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Gehoor, tastzin, slikken en de zuigreflex ontwikkelen zich verder. De baby wordt steeds actiever, met meer bewegingen van armen en benen.',
+        length: 'Ongeveer 14,2 cm',
+        comparison: 'Paprika',
+        bodyChanges: [
+          'De buik is in deze fase vaak duidelijk zichtbaar en je zwaartepunt blijft verschuiven.',
+        ],
+        toKnow: [
+          'De structurele echo, die de algehele ontwikkeling van de baby onderzoekt, wordt over het algemeen aangeboden tussen week 18 en week 21.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Kuulo, tuntoaisti, nieleminen ja imemisrefleksi kehittyvät edelleen. Vauva muuttuu yhä aktiivisemmaksi, ja käsivarsien ja jalkojen liikkeitä on enemmän.',
+        length: 'Noin 14,2 cm',
+        comparison: 'Paprika',
+        bodyChanges: [
+          'Vatsa on tässä vaiheessa usein selvästi näkyvissä, ja painopisteesi jatkaa siirtymistä.',
+        ],
+        toKnow: [
+          'Rakenneultraääni, joka tutkii vauvan yleistä kehitystä, tarjotaan yleensä viikkojen 18 ja 21 välillä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Η ακοή, η αφή, η κατάποση και το αντανακλαστικό της θήλασης συνεχίζουν να αναπτύσσονται. Το μωρό γίνεται όλο και πιο δραστήριο, με περισσότερες κινήσεις χεριών και ποδιών.',
+        length: 'Περίπου 14,2 εκ.',
+        comparison: 'Πιπεριά',
+        bodyChanges: [
+          'Η κοιλιά είναι συχνά σαφώς ορατή σε αυτό το στάδιο και το κέντρο βάρους σου συνεχίζει να μετατοπίζεται.',
+        ],
+        toKnow: [
+          'Το υπερηχογράφημα μορφολογίας, που εξετάζει τη συνολική ανάπτυξη του μωρού, προτείνεται γενικά ανάμεσα στην 18η και στην 21η εβδομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Patuloy na umuunlad ang pandinig, pandama, paglunok, at reflex ng pagsuso. Nagiging mas aktibo ang sanggol, na may mas maraming galaw ng braso at binti.',
+        length: 'Mga 14.2 cm',
+        comparison: 'Bell pepper',
+        bodyChanges: [
+          'Madalas na malinaw nang nakikita ang tiyan sa yugtong ito, at patuloy na lumilipat ang iyong sentro ng grabidad.',
+        ],
+        toKnow: [
+          'Ang anatomy ultrasound, na sumusuri sa pangkalahatang pag-unlad ng sanggol, ay karaniwang inaalok sa pagitan ng ika-18 at ika-21 linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'செவித்திறன், தொடு உணர்வு, விழுங்குதல் மற்றும் உறிஞ்சும் அனிச்சைச் செயல் தொடர்ந்து வளர்கின்றன. குழந்தை மேலும் மேலும் சுறுசுறுப்பாகி, கை, கால் அசைவுகள் அதிகரிக்கின்றன.',
+        length: 'சுமார் 14.2 செ.மீ',
+        comparison: 'குடமிளகாய்',
+        bodyChanges: [
+          'இந்தக் கட்டத்தில் வயிறு பெரும்பாலும் தெளிவாகத் தெரியும், உங்கள் ஈர்ப்பு மையம் தொடர்ந்து மாறுகிறது.',
+        ],
+        toKnow: [
+          'குழந்தையின் ஒட்டுமொத்த வளர்ச்சியைப் பரிசோதிக்கும் உடற்கூறு அல்ட்ராசவுண்ட் பொதுவாக 18வது வாரத்துக்கும் 21வது வாரத்துக்கும் இடையே வழங்கப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'వినికిడి, స్పర్శ, మింగడం, చప్పరించే సహజ ప్రతిచర్య అభివృద్ధి చెందడం కొనసాగుతుంది. శిశువు చేతులు, కాళ్ల కదలికలతో మరింత చురుకుగా మారుతోంది.',
+        length: 'సుమారు 14.2 సెం.మీ',
+        comparison: 'క్యాప్సికం',
+        bodyChanges: [
+          'ఈ దశలో పొట్ట తరచుగా స్పష్టంగా కనిపిస్తుంది, మీ గురుత్వాకర్షణ కేంద్రం మారుతూనే ఉంటుంది.',
+        ],
+        toKnow: [
+          'శిశువు మొత్తం అభివృద్ధిని పరిశీలించే అనాటమీ అల్ట్రాసౌండ్ సాధారణంగా 18వ వారం, 21వ వారం మధ్య అందించబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'श्रवण, स्पर्श, गिळणे आणि चोखण्याची सहज प्रतिक्रिया विकसित होत राहते. बाळ हात आणि पायांच्या अधिक हालचालींसह अधिकाधिक सक्रिय होत आहे.',
+        length: 'सुमारे 14.2 सेमी',
+        comparison: 'ढोबळी मिरची',
+        bodyChanges: [
+          'या टप्प्यावर पोट बहुतेकदा स्पष्ट दिसते आणि तुमचा गुरुत्वमध्य बदलत राहतो.',
+        ],
+        toKnow: [
+          'बाळाच्या एकूण विकासाची तपासणी करणारी रचना सोनोग्राफी साधारणपणे 18व्या ते 21व्या आठवड्यादरम्यान सुचवली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'સાંભળવાની, સ્પર્શની, ગળવાની અને ચૂસવાની ક્ષમતા વિકસતી રહે છે. બાળક વધુ ને વધુ સક્રિય બની રહ્યું છે, હાથ-પગની વધુ હલનચલન સાથે.',
+        length: 'લગભગ 14.2 સેમી',
+        comparison: 'શિમલા મરચું',
+        bodyChanges: [
+          'આ તબક્કે પેટ ઘણી વાર સ્પષ્ટ દેખાય છે, અને તમારું ગુરુત્વાકર્ષણ કેન્દ્ર બદલાતું રહે છે.',
+        ],
+        toKnow: [
+          'એનાટોમી સોનોગ્રાફી, જે બાળકના એકંદર વિકાસની તપાસ કરે છે, સામાન્ય રીતે અઠવાડિયું 18 અને અઠવાડિયું 21 વચ્ચે ઓફર થાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਸੁਣਨ, ਛੂਹਣ, ਨਿਗਲਣ ਅਤੇ ਚੂਸਣ ਦੀ ਸਮਰੱਥਾ ਵਿਕਸਿਤ ਹੁੰਦੀ ਰਹਿੰਦੀ ਹੈ। ਬੱਚਾ ਹੋਰ ਵੱਧ ਸਰਗਰਮ ਹੋ ਰਿਹਾ ਹੈ, ਬਾਹਾਂ ਅਤੇ ਲੱਤਾਂ ਦੀਆਂ ਹੋਰ ਹਰਕਤਾਂ ਨਾਲ।',
+        length: 'ਲਗਭਗ 14.2 ਸੈਮੀ',
+        comparison: 'ਸ਼ਿਮਲਾ ਮਿਰਚ',
+        bodyChanges: [
+          'ਇਸ ਪੜਾਅ ’ਤੇ ਢਿੱਡ ਅਕਸਰ ਸਾਫ਼ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ, ਅਤੇ ਤੁਹਾਡਾ ਗੁਰੂਤਾ ਕੇਂਦਰ ਬਦਲਦਾ ਰਹਿੰਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਸਰੀਰ ਦੀ ਬਣਤਰ ਵਾਲਾ ਅਲਟਰਾਸਾਊਂਡ, ਜੋ ਬੱਚੇ ਦੇ ਸਮੁੱਚੇ ਵਿਕਾਸ ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ, ਆਮ ਤੌਰ ’ਤੇ ਹਫ਼ਤਾ 18 ਅਤੇ ਹਫ਼ਤਾ 21 ਦੇ ਵਿਚਕਾਰ ਪੇਸ਼ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကြားခြင်း၊ ထိတွေ့ခြင်း၊ မျိုချခြင်းနှင့် စုပ်ခြင်းတုံ့ပြန်မှုတို့ ဆက်လက်ဖွံ့ဖြိုးနေသည်။ ကလေးသည် လက်ခြေလှုပ်ရှားမှု ပိုများလာကာ ပိုမိုလှုပ်ရှားတက်ကြွလာသည်။',
+        length: 'ခန့်မှန်းခြေ 14.2 စင်တီမီတာ',
+        comparison: 'ငရုတ်ကောင်းဆိတ်',
+        bodyChanges: [
+          'ဤအဆင့်တွင် ဝမ်းဗိုက်သည် မကြာခဏ ပီပြင်စွာ မြင်ရပြီး သင်၏ ဆွဲအားဗဟိုသည် ဆက်လက်ပြောင်းလဲနေသည်။',
+        ],
+        toKnow: [
+          'ကလေး၏ အလုံးစုံဖွံ့ဖြိုးမှုကို စစ်ဆေးသည့် ခန္ဓာဗေဒအယ်ထရာဆောင်းကို များသောအားဖြင့် အပတ် 18 နှင့် အပတ် 21 ကြားတွင် ပေးသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ការស្តាប់ ការប៉ះ ការលេប និងប្រតិកម្មជញ្ជក់ បន្តលូតលាស់។ ទារកកាន់តែសកម្មឡើងៗ ជាមួយចលនាដៃនិងជើងកាន់តែច្រើន។',
+        length: 'ប្រហែល 14.2 សង់ទីម៉ែត្រ',
+        comparison: 'ម្ទេសបៃតងធំ',
+        bodyChanges: [
+          'ពោះជាញឹកញាប់មើលឃើញច្បាស់នៅដំណាក់កាលនេះ ហើយចំណុចទម្ងន់កណ្តាលរបស់អ្នកបន្តផ្លាស់ប្តូរ។',
+        ],
+        toKnow: [
+          'អ៊ុលត្រាសោនពិនិត្យរចនាសម្ព័ន្ធ ដែលពិនិត្យការលូតលាស់ទូទៅរបស់ទារក ជាទូទៅត្រូវបានផ្តល់ជូននៅចន្លោះសប្តាហ៍ទី 18 ដល់សប្តាហ៍ទី 21។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ການໄດ້ຍິນ ການສຳຜັດ ການກືນ ແລະ ປະຕິກິລິຍາດູດສືບຕໍ່ພັດທະນາ. ລູກນ້ອຍມີການເຄື່ອນໄຫວຫຼາຍຂຶ້ນເລື້ອຍໆ ດ້ວຍການເຄື່ອນໄຫວແຂນ ແລະ ຂາຫຼາຍຂຶ້ນ.',
+        length: 'ປະມານ 14.2 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກເຜັດຫວານ',
+        bodyChanges: [
+          'ໃນໄລຍະນີ້ມັກເຫັນທ້ອງຊັດເຈນ ແລະ ຈຸດສູນຖ່ວງຂອງຮ່າງກາຍກໍ່ຍັງສືບຕໍ່ປ່ຽນແປງ.',
+        ],
+        toKnow: [
+          'ການກວດອັນຕຣາຊາວເບິ່ງໂຄງສ້າງຮ່າງກາຍ ເຊິ່ງກວດການພັດທະນາໂດຍລວມຂອງລູກນ້ອຍ ໂດຍທົ່ວໄປຈະມີໃຫ້ລະຫວ່າງອາທິດທີ 18 ຫາ ອາທິດທີ 21.',
+        ],
+      },
     },
   },
   {
@@ -8673,6 +12739,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bakal gigi tetap mula terbentuk di belakang gigi susu yang sedang disediakan, dan bayi terus bertambah berat secara beransur-ansur.',
+        length: 'Kira-kira 15.3 cm',
+        comparison: 'Tomato besar',
+        bodyChanges: [
+          'Rasa tarikan pada sisi perut (sakit ligamen bulat) mungkin berlaku apabila rahim membesar.',
+        ],
+        toKnow: [
+          'Ini ialah masa lazim untuk mula merasai pergerakan bayi dengan lebih jelas.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilkaha joogtada ah ee mustaqbalka ayaa bilaabmaya inay samaysmaan gadaasha ilkaha caruurnimada ee la diyaarinayo, ilmuhuna wuu sii wadaa inuu tartiib miisaan ku dhaafo.',
+        length: 'Qiyaastii 15.3 cm',
+        comparison: 'Yaanyo weyn',
+        bodyChanges: [
+          'Dareen jiidid ah oo dhinacyada calooshaada ah (xanuunka xiriirka wareegsan) ayaa dhici kara marka ilmo-galeenku koro.',
+        ],
+        toKnow: [
+          'Tani waa waqti caadi ah oo la bilaabo dareenka dhaqdhaqaaqa ilmaha si cad.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Meno ya kudumu ya baadaye yanaanza kuundwa nyuma ya meno ya utotoni yanayoandaliwa, na mtoto anaendelea kuongezeka uzito polepole.',
+        length: 'Takriban sm 15.3',
+        comparison: 'Nyanya kubwa',
+        bodyChanges: [
+          'Hisia ya kuvutwa pembeni mwa tumbo (maumivu ya mishipa ya mviringo) inaweza kutokea kadiri mji wa uzazi unavyokua.',
+        ],
+        toKnow: [
+          'Huu ni wakati wa kawaida wa kuanza kuhisi mienendo ya mtoto kwa uwazi zaidi.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Болашақ тұрақты тістер дайындалып жатқан сүт тістерінің артында қалыптаса бастайды, ал нәресте біртіндеп салмақ қосуын жалғастырады.',
+        length: 'Шамамен 15.3 см',
+        comparison: 'Үлкен қызанақ',
+        bodyChanges: [
+          'Жатыр өскен сайын іштің бүйірлеріндегі тартылу сезімі (дөңгелек байлам ауыруы) пайда болуы мүмкін.',
+        ],
+        toKnow: [
+          'Бұл нәрестенің қозғалыстарын айқынырақ сезе бастаудың әдеттегі уақыты.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Ŋiñ yu dëgër yu bees tàmbali defaru ginnaaw yu doom bi, te doom bi kontine yokku yenn tuuti-tuuti.',
+        length: 'Ci wetu 15.3 cm',
+        comparison: 'Tomaat bu mag',
+        bodyChanges: [
+          'Dégg ne benn dafay xëtt ci wetu biir (metit bu tuyaw bu wër) mën na am ndax bérëbu ndey di màgg.',
+        ],
+        toKnow: [
+          'Jamono bu daa jub la ngir tàmbali dégg yëngu yu doom bi bu gën a leer.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Hakora na dindindin na gaba suna fara samuwa a bayan hakoran jariri da ake shiryawa, kuma jariri yana ci gaba da ƙara nauyi a hankali.',
+        length: 'Kusan 15.3 cm',
+        comparison: 'Babban tumatir',
+        bodyChanges: [
+          'Jin ja a gefen ciki (ciwon jijiyar zagaye) na iya faruwa yayin da mahaifa ke girma.',
+        ],
+        toKnow: [
+          'Wannan lokaci ne gama gari na fara jin motsin jariri a fili.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'የወደፊት ቋሚ ጥርሶች ከሚዘጋጁት የወተት ጥርሶች ጀርባ መፈጠር ይጀምራሉ፣ እና ሕፃኑ ቀስ በቀስ ክብደት መጨመሩን ይቀጥላል።',
+        length: 'ወደ 15.3 ሴሜ',
+        comparison: 'ትልቅ ቲማቲም',
+        bodyChanges: [
+          'ማህፀን ሲያድግ በሆድ ጎኖች ላይ የመሳብ ስሜት (የክብ ጅማት ህመም) ሊከሰት ይችላል።',
+        ],
+        toKnow: [
+          'የሕፃኑን እንቅስቃሴዎች ይበልጥ በግልጽ መስማት ለመጀመር የተለመደ ጊዜ ይህ ነው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De toekomstige blijvende tanden beginnen zich te vormen achter de melktanden die worden voorbereid, en de baby blijft geleidelijk aankomen.',
+        length: 'Ongeveer 15,3 cm',
+        comparison: 'Grote tomaat',
+        bodyChanges: [
+          'Een trekkend gevoel aan de zijkanten van de buik (pijn van de ronde ligamenten) kan optreden naarmate de baarmoeder groeit.',
+        ],
+        toKnow: [
+          'Dit is een gebruikelijk moment om de bewegingen van de baby duidelijker te gaan voelen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Tulevat pysyvät hampaat alkavat muodostua valmisteilla olevien maitohampaiden taakse, ja vauva jatkaa painon vähittäistä lisäämistä.',
+        length: 'Noin 15,3 cm',
+        comparison: 'Iso tomaatti',
+        bodyChanges: [
+          'Vetävä tunne vatsan sivuilla (pyöreän ligamentin kipu) voi ilmetä kohdun kasvaessa.',
+        ],
+        toKnow: [
+          'Tämä on tavallinen ajankohta alkaa tuntea vauvan liikkeet selvemmin.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα μελλοντικά μόνιμα δόντια αρχίζουν να σχηματίζονται πίσω από τα νεογιλά που προετοιμάζονται και το μωρό συνεχίζει να παίρνει σταδιακά βάρος.',
+        length: 'Περίπου 15,3 εκ.',
+        comparison: 'Μεγάλη ντομάτα',
+        bodyChanges: [
+          'Μπορεί να εμφανιστεί αίσθημα τραβήγματος στα πλάγια της κοιλιάς (πόνος του στρογγυλού συνδέσμου) καθώς μεγαλώνει η μήτρα.',
+        ],
+        toKnow: [
+          'Αυτή είναι μια συνηθισμένη χρονική στιγμή για να αρχίσεις να νιώθεις πιο καθαρά τις κινήσεις του μωρού.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nagsisimulang mabuo ang mga magiging permanenteng ngipin sa likod ng mga ngiping gatas na inihahanda, at patuloy na unti-unting bumibigat ang sanggol.',
+        length: 'Mga 15.3 cm',
+        comparison: 'Malaking kamatis',
+        bodyChanges: [
+          'Maaaring magkaroon ng pakiramdam ng paghila sa mga gilid ng tiyan (round ligament pain) habang lumalaki ang matris.',
+        ],
+        toKnow: [
+          'Karaniwang panahon ito para magsimulang mas malinaw na maramdaman ang mga galaw ng sanggol.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'தயாராகும் பால் பற்களுக்குப் பின்னால் எதிர்காலத் நிரந்தரப் பற்கள் உருவாகத் தொடங்குகின்றன, குழந்தை படிப்படியாக எடை கூடிக்கொண்டே இருக்கிறது.',
+        length: 'சுமார் 15.3 செ.மீ',
+        comparison: 'பெரிய தக்காளி',
+        bodyChanges: [
+          'கருப்பை வளரும்போது வயிற்றின் பக்கங்களில் இழுப்பு உணர்வு (வட்டத் தசைநார் வலி) ஏற்படலாம்.',
+        ],
+        toKnow: [
+          'குழந்தையின் அசைவுகளை மேலும் தெளிவாக உணரத் தொடங்க இது ஒரு பொதுவான நேரம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'తయారవుతున్న పాల పళ్ల వెనుక భవిష్యత్ శాశ్వత పళ్లు ఏర్పడటం మొదలవుతుంది, శిశువు క్రమంగా బరువు పెరగడం కొనసాగిస్తుంది.',
+        length: 'సుమారు 15.3 సెం.మీ',
+        comparison: 'పెద్ద టొమాటో',
+        bodyChanges: [
+          'గర్భాశయం పెరుగుతున్న కొద్దీ పొట్ట పక్కల్లో లాగే భావన (గుండ్రటి లిగమెంట్ నొప్పి) రావచ్చు.',
+        ],
+        toKnow: [
+          'శిశువు కదలికలను మరింత స్పష్టంగా అనుభవించడం మొదలుపెట్టడానికి ఇది సాధారణ సమయం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'तयार होत असलेल्या दुधाच्या दातांमागे भविष्यातील कायमचे दात तयार होऊ लागतात आणि बाळ हळूहळू वजन वाढवत राहते.',
+        length: 'सुमारे 15.3 सेमी',
+        comparison: 'मोठा टोमॅटो',
+        bodyChanges: [
+          'गर्भाशय वाढत असताना पोटाच्या बाजूंना ओढल्यासारखी जाणीव (गोलाकार अस्थिबंधाची वेदना) होऊ शकते.',
+        ],
+        toKnow: [
+          'बाळाच्या हालचाली अधिक स्पष्टपणे जाणवू लागण्यासाठी ही सामान्य वेळ आहे.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'તૈયાર થઈ રહેલા દૂધના દાંતની પાછળ ભવિષ્યના કાયમી દાંત બનવા લાગે છે, અને બાળકનું વજન ધીમે ધીમે વધતું રહે છે.',
+        length: 'લગભગ 15.3 સેમી',
+        comparison: 'મોટું ટામેટું',
+        bodyChanges: [
+          'ગર્ભાશય વધતાં પેટની બાજુઓ પર ખેંચાણ જેવી સંવેદના (રાઉન્ડ લિગામેન્ટનો દુખાવો) થઈ શકે છે.',
+        ],
+        toKnow: [
+          'બાળકની હલનચલન વધુ સ્પષ્ટ અનુભવાવાનું શરૂ થવાનો આ સામાન્ય સમય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਤਿਆਰ ਹੋ ਰਹੇ ਦੁੱਧ ਦੇ ਦੰਦਾਂ ਦੇ ਪਿੱਛੇ ਭਵਿੱਖ ਦੇ ਪੱਕੇ ਦੰਦ ਬਣਨੇ ਸ਼ੁਰੂ ਹੋ ਜਾਂਦੇ ਹਨ, ਅਤੇ ਬੱਚੇ ਦਾ ਭਾਰ ਹੌਲੀ-ਹੌਲੀ ਵਧਦਾ ਰਹਿੰਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 15.3 ਸੈਮੀ',
+        comparison: 'ਵੱਡਾ ਟਮਾਟਰ',
+        bodyChanges: [
+          'ਬੱਚੇਦਾਨੀ ਦੇ ਵਧਣ ਨਾਲ ਢਿੱਡ ਦੇ ਪਾਸਿਆਂ ’ਤੇ ਖਿੱਚ ਵਰਗਾ ਅਹਿਸਾਸ (ਗੋਲ ਲਿਗਾਮੈਂਟ ਦਾ ਦਰਦ) ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਬੱਚੇ ਦੀਆਂ ਹਰਕਤਾਂ ਹੋਰ ਸਪੱਸ਼ਟ ਮਹਿਸੂਸ ਹੋਣੀਆਂ ਸ਼ੁਰੂ ਹੋਣ ਦਾ ਇਹ ਆਮ ਸਮਾਂ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ပြင်ဆင်နေသော နို့သွားများနောက်တွင် အနာဂတ်အမြဲတမ်းသွားများ စတင်ဖွဲ့စည်းလာပြီး ကလေး၏ကိုယ်အလေးချိန် တဖြည်းဖြည်း ဆက်လက်တိုးလာသည်။',
+        length: 'ခန့်မှန်းခြေ 15.3 စင်တီမီတာ',
+        comparison: 'ခရမ်းချဉ်သီးကြီး',
+        bodyChanges: [
+          'သားအိမ်ကြီးထွားလာသည်နှင့်အမျှ ဝမ်းဗိုက်နှစ်ဖက်ခြမ်းတွင် ဆွဲညှစ်သလို ခံစားရခြင်း (အဆစ်အချည်ကြိုးနာကျင်ခြင်း) ဖြစ်ပေါ်နိုင်သည်။',
+        ],
+        toKnow: [
+          'ကလေး၏ လှုပ်ရှားမှုများကို ပိုမိုပီပြင်စွာ စတင်ခံစားရလေ့ရှိသော အချိန်ဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ធ្មេញអចិន្ត្រៃយ៍នាពេលអនាគតចាប់ផ្តើមបង្កើតនៅពីក្រោយធ្មេញទឹកដោះដែលកំពុងត្រូវបានរៀបចំ ហើយទារកបន្តបង្កើនទម្ងន់បន្តិចម្តងៗ។',
+        length: 'ប្រហែល 15.3 សង់ទីម៉ែត្រ',
+        comparison: 'ប៉េងប៉ោះធំ',
+        bodyChanges: [
+          'អាចមានអារម្មណ៍ទាញនៅសងខាងពោះ (ឈឺសរសៃពួរមូល) នៅពេលស្បូនរីកធំឡើង។',
+        ],
+        toKnow: [
+          'នេះជាពេលធម្មតាដែលចាប់ផ្តើមមានអារម្មណ៍ពីចលនារបស់ទារកកាន់តែច្បាស់។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ແຂ້ວຖາວອນໃນອະນາຄົດເລີ່ມກໍ່ຕົວຢູ່ຫຼັງແຂ້ວນ້ຳນົມທີ່ກຳລັງກຽມຕົວ ແລະ ລູກນ້ອຍສືບຕໍ່ເພີ່ມນ້ຳໜັກຄ່ອຍໆ.',
+        length: 'ປະມານ 15.3 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກເລັ່ນໃຫຍ່',
+        bodyChanges: [
+          'ອາດມີຄວາມຮູ້ສຶກຖືກດຶງຢູ່ຂ້າງທ້ອງ (ອາການເຈັບເອັນຮອບມົດລູກ) ເມື່ອມົດລູກຂະຫຍາຍໃຫຍ່ຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ນີ້ແມ່ນເວລາທົ່ວໄປທີ່ຈະເລີ່ມຮູ້ສຶກເຖິງການເຄື່ອນໄຫວຂອງລູກນ້ອຍໄດ້ຊັດເຈນຂຶ້ນ.',
+        ],
+      },
     },
   },
 
@@ -9127,6 +13421,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Mulai minggu ini, panjang diukur dari kepala ke tumit dan bukan dari kepala ke punggung, kerana kaki kini boleh dilurus dan diukur — ini menjelaskan lonjakan saiz rujukan yang ketara berbanding minggu-minggu sebelumnya.',
+        length: 'Kira-kira 25.6 cm',
+        comparison: 'Pisang',
+        bodyChanges: [
+          'Perut anda yang membulat cantik mungkin mula menjejaskan keseimbangan dan postur anda.',
+        ],
+        toKnow: [
+          'Pertengahan kehamilan sering ditandai dengan pemeriksaan penuh oleh pengamal penjagaan kesihatan yang mengikuti penjagaan anda.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Laga bilaabo toddobaadkan, dhererka waxaa laga cabbiraa madaxa ilaa curcurka halkii laga cabbiri lahaa madaxa ilaa jaadka, maadaama lugaha hadda la fidin karo oo la cabbiri karo — tani waxay sharaxaysaa bar-bar-socod muuqda oo ku jira cabbirka tixraaca marka loo eego toddobaadyadii hore.',
+        length: 'Qiyaastii 25.6 cm',
+        comparison: 'Muus',
+        bodyChanges: [
+          'Calooshaada qurxoon ee wareegsan ayaa bilaabi karta inay saameyso dheelitirkaaga iyo jiifsiga jidhkaaga.',
+        ],
+        toKnow: [
+          'Bartamaha uurka inta badan waxaa lagu calaamadeeyaa hubin buuxda oo uu sameeyo xirfadlaha caafimaadka ee daryeelkaaga maamulaya.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Kuanzia wiki hii, urefu hupimwa kutoka kichwani hadi kisigino badala ya kichwani hadi matakoni, kwa kuwa miguu sasa inaweza kunyooshwa na kupimwa — hii inaeleza ongezeko linaloonekana la ukubwa wa marejeo ikilinganishwa na wiki zilizotangulia.',
+        length: 'Takriban sm 25.6',
+        comparison: 'Ndizi',
+        bodyChanges: [
+          'Tumbo lako zuri la mviringo linaweza kuanza kuathiri urari na mkao wako.',
+        ],
+        toKnow: [
+          'Katikati ya ujauzito mara nyingi huadhimishwa na uchunguzi kamili na mtaalamu wa afya anayefuatilia huduma yako.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Осы аптадан бастап ұзындық бас пен құйымшақ арасы емес, бас пен өкше арасы өлшенеді, себебі аяқтарды енді түзетіп өлшеуге болады — бұл алдыңғы апталармен салыстырғанда анықтама өлшемінің көрінетін секірісін түсіндіреді.',
+        length: 'Шамамен 25.6 см',
+        comparison: 'Банан',
+        bodyChanges: [
+          'Әдемі дөңгеленген іш тепе-теңдігіңіз бен қалпыңызға әсер ете бастауы мүмкін.',
+        ],
+        toKnow: [
+          'Жүктіліктің ортасы жиі күтіміңізді жүргізіп жатқан медицина маманымен толық тексерумен атап өтіледі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Jóge ci ayu-bés bii, gudd bi dañu koy natt ci bopp ba ci tànk ba ci ndiggu, ndax tànk yi mën nañu gudd te ñu natt leen — loolu mooy leeral wuute bu gis ci natt bi ci méngale ak ayu-bés yi jiitu.',
+        length: 'Ci wetu 25.6 cm',
+        comparison: 'Banaan',
+        bodyChanges: [
+          'Sa biir bu wëndël mën na tàmbali jëm ci sa jubluñ ak sa anam.',
+        ],
+        toKnow: [
+          'Digg ëmb daa bari ñu ko màndarga ak benn seetlu bu mat ak liggéeykatu wér bi di la topp.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Daga wannan mako zuwa gaba, ana auna tsawo daga kai zuwa diddige maimakon kai zuwa duwawu, saboda ƙafafuwa yanzu za a iya miƙa su a auna — wannan yana bayyana tsallen da ake gani a girman nassi idan aka kwatanta da makonnin da suka gabata.',
+        length: 'Kusan 25.6 cm',
+        comparison: 'Ayaba',
+        bodyChanges: [
+          'Cikinki mai zagaye da kyau na iya fara shafar daidaitonki da yanayin tsayuwarki.',
+        ],
+        toKnow: [
+          'Tsakiyar ciki galibi ana alamanta shi da cikakken bincike tare da ma’aikacin lafiya da ke bibiyar kulawarki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ከዚህ ሳምንት ጀምሮ እግሮቹ አሁን ተዘርግተው ሊለኩ ስለሚችሉ ርዝመቱ ከራስ እስከ መቀመጫ ሳይሆን ከራስ እስከ ተረከዝ ይለካል — ይህ ከቀደሙት ሳምንታት ጋር ሲነጻጸር በማመሳከሪያ መጠኑ ላይ የሚታየውን ዝላይ ያብራራል።',
+        length: 'ወደ 25.6 ሴሜ',
+        comparison: 'ሙዝ',
+        bodyChanges: [
+          'በደንብ የተጠጋጋ ሆድሽ ሚዛንሽንና አቋምሽን መነካት ሊጀምር ይችላል።',
+        ],
+        toKnow: [
+          'የእርግዝና መካከለኛ ነጥብ እንክብካቤሽን ከሚከታተለው የጤና ባለሙያ ጋር በሙሉ ምርመራ ብዙ ጊዜ ይታወቃል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Vanaf deze week wordt de lengte gemeten van kop tot hiel in plaats van van kop tot bil, omdat de benen nu gestrekt en gemeten kunnen worden — dit verklaart een zichtbare sprong in de referentiemaat ten opzichte van de voorgaande weken.',
+        length: 'Ongeveer 25,6 cm',
+        comparison: 'Banaan',
+        bodyChanges: [
+          'Je mooi afgeronde buik kan je evenwicht en houding beginnen te beïnvloeden.',
+        ],
+        toKnow: [
+          'Het midden van de zwangerschap wordt vaak gemarkeerd door een volledige controle bij de zorgprofessional die je begeleidt.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Tästä viikosta alkaen pituus mitataan päästä kantapäähän päästä pakaroihin sijaan, koska jalat voidaan nyt ojentaa ja mitata — tämä selittää näkyvän hypyn viitekoossa edellisiin viikkoihin verrattuna.',
+        length: 'Noin 25,6 cm',
+        comparison: 'Banaani',
+        bodyChanges: [
+          'Kauniisti pyöristynyt vatsasi voi alkaa vaikuttaa tasapainoosi ja asentoosi.',
+        ],
+        toKnow: [
+          'Raskauden puoliväli on usein merkitty täydellisellä tarkastuksella hoidostasi vastaavan terveydenhuollon ammattilaisen kanssa.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Από αυτή την εβδομάδα και μετά, το μήκος μετριέται από το κεφάλι ως τη φτέρνα αντί για το κεφάλι ως τους γλουτούς, αφού τα πόδια μπορούν πλέον να εκταθούν και να μετρηθούν — αυτό εξηγεί ένα ορατό άλμα στο μέγεθος αναφοράς σε σύγκριση με τις προηγούμενες εβδομάδες.',
+        length: 'Περίπου 25,6 εκ.',
+        comparison: 'Μπανάνα',
+        bodyChanges: [
+          'Η όμορφα στρογγυλεμένη κοιλιά σου μπορεί να αρχίσει να επηρεάζει την ισορροπία και τη στάση σου.',
+        ],
+        toKnow: [
+          'Το μέσο της εγκυμοσύνης σηματοδοτείται συχνά από έναν πλήρη έλεγχο με τον επαγγελματία υγείας που παρακολουθεί την εγκυμοσύνη σου.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Mula sa linggong ito, sinusukat ang haba mula ulo hanggang sakong sa halip na ulo hanggang puwitan, dahil maaari na ngayong ituwid at sukatin ang mga binti — ipinapaliwanag nito ang kitang-kitang pagtalon sa sukat ng sanggunian kumpara sa mga naunang linggo.',
+        length: 'Mga 25.6 cm',
+        comparison: 'Saging',
+        bodyChanges: [
+          'Maaaring magsimulang makaapekto sa iyong balanse at postura ang maganda mong bilog na tiyan.',
+        ],
+        toKnow: [
+          'Ang kalagitnaan ng pagbubuntis ay madalas na minamarkahan ng kumpletong check-up sa propesyonal sa kalusugan na sumusubaybay sa iyo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'இந்த வாரத்திலிருந்து, கால்களை இப்போது நீட்டி அளவிட முடிவதால், நீளம் தலையிலிருந்து பிட்டம் வரை அல்ல, தலையிலிருந்து குதிகால் வரை அளக்கப்படுகிறது — இது முந்தைய வாரங்களுடன் ஒப்பிடும்போது குறிப்பு அளவில் தெரியும் தாவலை விளக்குகிறது.',
+        length: 'சுமார் 25.6 செ.மீ',
+        comparison: 'வாழைப்பழம்',
+        bodyChanges: [
+          'அழகாக உருண்ட உங்கள் வயிறு உங்கள் சமநிலையையும் உடல் தோரணையையும் பாதிக்கத் தொடங்கலாம்.',
+        ],
+        toKnow: [
+          'கர்ப்பத்தின் நடுப்புள்ளி பெரும்பாலும் உங்கள் பராமரிப்பைக் கவனிக்கும் சுகாதார நிபுணருடன் ஒரு முழு பரிசோதனையால் குறிக்கப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఈ వారం నుండి, కాళ్లను ఇప్పుడు చాచి కొలవగలగడం వల్ల, పొడవును తల నుండి పిరుదుల వరకు కాకుండా తల నుండి మడమ వరకు కొలుస్తారు — ఇది మునుపటి వారాలతో పోలిస్తే సూచన పరిమాణంలో కనిపించే ఎగుడును వివరిస్తుంది.',
+        length: 'సుమారు 25.6 సెం.మీ',
+        comparison: 'అరటిపండు',
+        bodyChanges: [
+          'చక్కగా గుండ్రంగా ఉన్న మీ పొట్ట మీ సమతుల్యతను, భంగిమను ప్రభావితం చేయడం మొదలుపెట్టవచ్చు.',
+        ],
+        toKnow: [
+          'గర్భం మధ్య బిందువు తరచుగా మీ సంరక్షణను చూసుకునే ఆరోగ్య నిపుణుడి చేత పూర్తి పరీక్షతో గుర్తించబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'या आठवड्यापासून, पाय आता सरळ करून मोजता येत असल्याने, लांबी डोके ते नितंब ऐवजी डोके ते टाच अशी मोजली जाते — हे मागील आठवड्यांच्या तुलनेत संदर्भ आकारात दिसणारी उडी स्पष्ट करते.',
+        length: 'सुमारे 25.6 सेमी',
+        comparison: 'केळे',
+        bodyChanges: [
+          'तुमचे सुबक गोलाकार पोट तुमच्या तोल आणि पवित्र्यावर परिणाम करू लागू शकते.',
+        ],
+        toKnow: [
+          'गर्भारपणाचा मध्यबिंदू बहुतेकदा तुमची काळजी घेणाऱ्या आरोग्य व्यावसायिकासोबतच्या पूर्ण तपासणीने चिन्हांकित केला जातो.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'આ અઠવાડિયાથી, લંબાઈ માથાથી નિતંબ સુધીને બદલે માથાથી એડી સુધી માપવામાં આવે છે, કારણ કે હવે પગ લંબાવીને માપી શકાય છે — આથી પાછલા અઠવાડિયાંની સરખામણીમાં સંદર્ભ કદમાં દેખાતો કૂદકો સમજાય છે.',
+        length: 'લગભગ 25.6 સેમી',
+        comparison: 'કેળું',
+        bodyChanges: [
+          'તમારું સરસ ગોળ થયેલું પેટ તમારા સંતુલન અને મુદ્રાને અસર કરવા લાગી શકે છે.',
+        ],
+        toKnow: [
+          'ગર્ભાવસ્થાનો મધ્યબિંદુ ઘણી વાર તમારી સંભાળ રાખતા આરોગ્ય વ્યાવસાયિક સાથે સંપૂર્ણ તપાસથી ચિહ્નિત થાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਇਸ ਹਫ਼ਤੇ ਤੋਂ, ਲੰਬਾਈ ਸਿਰ ਤੋਂ ਚੂਲ਼ੇ ਤੱਕ ਮਾਪਣ ਦੀ ਬਜਾਏ ਸਿਰ ਤੋਂ ਅੱਡੀ ਤੱਕ ਮਾਪੀ ਜਾਂਦੀ ਹੈ, ਕਿਉਂਕਿ ਹੁਣ ਲੱਤਾਂ ਸਿੱਧੀਆਂ ਕਰਕੇ ਮਾਪੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ — ਇਸੇ ਕਰਕੇ ਪਿਛਲੇ ਹਫ਼ਤਿਆਂ ਦੇ ਮੁਕਾਬਲੇ ਹਵਾਲਾ ਆਕਾਰ ਵਿੱਚ ਵੱਡਾ ਛਾਲ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 25.6 ਸੈਮੀ',
+        comparison: 'ਕੇਲਾ',
+        bodyChanges: [
+          'ਤੁਹਾਡਾ ਚੰਗੀ ਤਰ੍ਹਾਂ ਗੋਲ ਹੋਇਆ ਢਿੱਡ ਤੁਹਾਡੇ ਸੰਤੁਲਨ ਅਤੇ ਬੈਠਣ-ਖੜ੍ਹਨ ਦੇ ਢੰਗ ’ਤੇ ਅਸਰ ਪਾਉਣ ਲੱਗ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਗਰਭ-ਅਵਸਥਾ ਦੇ ਅੱਧ ਨੂੰ ਅਕਸਰ ਤੁਹਾਡੀ ਦੇਖਭਾਲ ਕਰ ਰਹੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਪੂਰੀ ਜਾਂਚ ਦੁਆਰਾ ਚਿੰਨ੍ਹਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ဤအပတ်မှစ၍ ယခုအခါ ခြေထောက်များကို ဆန့်၍ တိုင်းနိုင်သောကြောင့် အရှည်ကို ဦးခေါင်းမှ တင်ပါးအထိ မဟုတ်တော့ဘဲ ဦးခေါင်းမှ ဖနောင့်အထိ တိုင်းတာသည်။ ထို့ကြောင့် ယခင်အပတ်များနှင့် နှိုင်းယှဉ်လျှင် ရည်ညွှန်းအရွယ်အစား သိသိသာသာ ခုန်တက်သွားခြင်းကို ရှင်းပြနိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 25.6 စင်တီမီတာ',
+        comparison: 'ငှက်ပျောသီး',
+        bodyChanges: [
+          'လှပစွာ ဝိုင်းလာသော သင်၏ဝမ်းဗိုက်သည် သင်၏ ဟန်ချက်နှင့် ကိုယ်ဟန်အနေအထားကို သက်ရောက်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်၏ အလယ်မှတ်ကို သင့်ကို စောင့်ရှောက်သော ကျန်းမာရေးပညာရှင်နှင့် စုံလင်စွာ စစ်ဆေးမှုဖြင့် မကြာခဏ အမှတ်အသားပြုသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ចាប់ពីសប្តាហ៍នេះតទៅ ប្រវែងត្រូវបានវាស់ពីក្បាលដល់កែងជើង ជំនួសឱ្យពីក្បាលដល់គូទ ព្រោះឥឡូវនេះជើងអាចលាតត្រង់ហើយវាស់បាន ដែលពន្យល់ពីការលោតកើនឡើងដែលមើលឃើញនៃទំហំយោងបើប្រៀបធៀបនឹងសប្តាហ៍មុនៗ។',
+        length: 'ប្រហែល 25.6 សង់ទីម៉ែត្រ',
+        comparison: 'ចេក',
+        bodyChanges: [
+          'ពោះដែលមូលស្អាតរបស់អ្នកអាចចាប់ផ្តើមប៉ះពាល់ដល់តុល្យភាព និងឥរិយាបថរបស់អ្នក។',
+        ],
+        toKnow: [
+          'ពាក់កណ្តាលនៃការមានផ្ទៃពោះជាញឹកញាប់ត្រូវបានកត់សម្គាល់ដោយការពិនិត្យសុខភាពពេញលេញជាមួយអ្នកជំនាញសុខាភិបាលដែលតាមដានការថែទាំរបស់អ្នក។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕັ້ງແຕ່ອາທິດນີ້ເປັນຕົ້ນໄປ ຄວາມຍາວຖືກວັດຈາກຫົວຮອດສົ້ນຕີນ ແທນທີ່ຈະວັດຈາກຫົວຮອດກົ້ນ ເພາະຂາສາມາດຢຽດອອກ ແລະ ວັດໄດ້ແລ້ວ — ນີ້ອະທິບາຍເຖິງຂະໜາດອ້າງອີງທີ່ເພີ່ມຂຶ້ນຢ່າງເຫັນໄດ້ຊັດເມື່ອທຽບກັບອາທິດກ່ອນໜ້າ.',
+        length: 'ປະມານ 25.6 ເຊັນຕີແມັດ',
+        comparison: 'ກ້ວຍ',
+        bodyChanges: [
+          'ທ້ອງທີ່ນູນມົນສວຍງາມຂອງທ່ານອາດເລີ່ມມີຜົນຕໍ່ການທຽງຕົວ ແລະ ທ່າທາງ.',
+        ],
+        toKnow: [
+          'ກາງການຖືພາມັກຖືກໝາຍດ້ວຍການກວດສຸຂະພາບຢ່າງຄົບຖ້ວນກັບຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບທີ່ດູແລທ່ານ.',
+        ],
+      },
     },
   },
   {
@@ -9572,6 +14094,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Pergerakan menjadi lebih jelas dan lebih terkoordinasi, dan adalah lazim untuk mula merasainya dengan jelas dalam tempoh ini.',
+        length: 'Kira-kira 26.7 cm',
+        comparison: 'Lobak merah',
+        bodyChanges: [
+          'Sesak nafas ringan semasa bergerak mungkin timbul apabila rahim mengambil lebih banyak ruang.',
+        ],
+        toKnow: [
+          'Mengenali corak pergerakan biasa bayi anda memudahkan anda perasan jika ada perubahan yang luar biasa.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Dhaqdhaqaaqyadu waxay noqonayaan kuwo ka cad oo ka isku-duwan, waana caadi in la bilaabo in si cad loo dareemo muddadan.',
+        length: 'Qiyaastii 26.7 cm',
+        comparison: 'Karooto',
+        bodyChanges: [
+          'Neef-qabasho khafiif ah marka la dadaalo ayaa soo bixi karta marka ilmo-galeenku boos badan qaato.',
+        ],
+        toKnow: [
+          'Ogaanshaha qaabka caadiga ah ee dhaqdhaqaaqa ilmahaaga wuxuu fududeeyaa in la dareemo isbeddel aan caadi ahayn.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mienendo inakuwa wazi zaidi na yenye mpangilio zaidi, na ni kawaida kuanza kuihisi waziwazi katika kipindi hiki.',
+        length: 'Takriban sm 26.7',
+        comparison: 'Karoti',
+        bodyChanges: [
+          'Upungufu mdogo wa pumzi wakati wa juhudi unaweza kuonekana kadiri mji wa uzazi unavyochukua nafasi zaidi.',
+        ],
+        toKnow: [
+          'Kuzoea mtindo wa kawaida wa mienendo ya mtoto wako hurahisisha kugundua mabadiliko yasiyo ya kawaida.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Қозғалыстар анығырақ және үйлесімдірек бола түседі, ал осы кезеңде оларды айқын сеза бастау жиі кездеседі.',
+        length: 'Шамамен 26.7 см',
+        comparison: 'Сәбіз',
+        bodyChanges: [
+          'Жатыр көбірек орын алған сайын күш салу кезінде жеңіл тыныс жетіспеушілігі пайда болуы мүмкін.',
+        ],
+        toKnow: [
+          'Нәрестеңіздің әдеттегі қозғалыс үлгісіне үйрену әдеттен тыс өзгерісті байқауды жеңілдетеді.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Yëngu yi di gën a leer te gën a méngoo, te daa jub nga tàmbali dégg leen bu leer ci jamono jii.',
+        length: 'Ci wetu 26.7 cm',
+        comparison: 'Karoot',
+        bodyChanges: [
+          'Noppiku bu jafe tuuti ci coono mën na feeñ ndax bérëbu ndey di jël bérëb.',
+        ],
+        toKnow: [
+          'Xam yoonu yëngu bu doom bi bu cosaan dafay yombal gis benn soppi bu cosaanul.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Motsi suna zama a bayyane da haɗin kai, kuma abu ne gama gari a fara jin su a fili a wannan lokaci.',
+        length: 'Kusan 26.7 cm',
+        comparison: 'Karas',
+        bodyChanges: [
+          'Ƙarancin numfashi mai sauƙi lokacin ƙoƙari na iya bayyana yayin da mahaifa ke ɗaukar sarari mai yawa.',
+        ],
+        toKnow: [
+          'Saba da tsarin motsin jariri na yau da kullum yana sauƙaƙa lura da sauyi ba na al’ada ba.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'እንቅስቃሴዎች ይበልጥ ግልጽና የተቀናጁ ይሆናሉ፣ እና በዚህ ጊዜ በግልጽ መስማት መጀመር የተለመደ ነው።',
+        length: 'ወደ 26.7 ሴሜ',
+        comparison: 'ካሮት',
+        bodyChanges: [
+          'ማህፀን ብዙ ቦታ ሲይዝ በጥረት ጊዜ ቀላል የትንፋሽ ማጠር ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'የሕፃንሽን የተለመደ የእንቅስቃሴ ዘይቤ መለማመድ ያልተለመደ ለውጥን ለማስተዋል ቀላል ያደርገዋል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De bewegingen worden duidelijker en beter gecoördineerd, en het is gebruikelijk ze in deze periode duidelijk te gaan voelen.',
+        length: 'Ongeveer 26,7 cm',
+        comparison: 'Wortel',
+        bodyChanges: [
+          'Lichte kortademigheid bij inspanning kan optreden doordat de baarmoeder meer ruimte inneemt.',
+        ],
+        toKnow: [
+          'Vertrouwd raken met het gebruikelijke bewegingspatroon van je baby maakt het makkelijker een ongewone verandering op te merken.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Liikkeet muuttuvat selvemmiksi ja koordinoidummiksi, ja on tavallista alkaa tuntea ne selvästi tänä aikana.',
+        length: 'Noin 26,7 cm',
+        comparison: 'Porkkana',
+        bodyChanges: [
+          'Lievää hengenahdistusta rasituksessa voi ilmaantua kohdun viedessä enemmän tilaa.',
+        ],
+        toKnow: [
+          'Vauvan tavanomaiseen liikekaavaan tutustuminen helpottaa epätavallisen muutoksen huomaamista.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Οι κινήσεις γίνονται πιο καθαρές και πιο συντονισμένες και είναι συνηθισμένο να αρχίσεις να τις νιώθεις καθαρά σε αυτή την περίοδο.',
+        length: 'Περίπου 26,7 εκ.',
+        comparison: 'Καρότο',
+        bodyChanges: [
+          'Μπορεί να εμφανιστεί ήπια δύσπνοια κατά την προσπάθεια καθώς η μήτρα καταλαμβάνει περισσότερο χώρο.',
+        ],
+        toKnow: [
+          'Το να εξοικειωθείς με το συνηθισμένο μοτίβο κινήσεων του μωρού σου διευκολύνει να παρατηρήσεις μια ασυνήθιστη αλλαγή.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nagiging mas malinaw at magkakaugnay ang mga galaw, at karaniwang magsimula itong malinaw na maramdaman sa panahong ito.',
+        length: 'Mga 26.7 cm',
+        comparison: 'Karot',
+        bodyChanges: [
+          'Maaaring lumitaw ang banayad na hirap sa paghinga kapag nag-eehersisyo habang kumukuha ng mas maraming espasyo ang matris.',
+        ],
+        toKnow: [
+          'Ang pagiging pamilyar sa karaniwang pattern ng galaw ng iyong sanggol ay nagpapadali na mapansin ang hindi pangkaraniwang pagbabago.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'அசைவுகள் தெளிவாகவும் மேலும் ஒருங்கிணைந்ததாகவும் ஆகின்றன, இந்தக் காலத்தில் அவற்றைத் தெளிவாக உணரத் தொடங்குவது பொதுவானது.',
+        length: 'சுமார் 26.7 செ.மீ',
+        comparison: 'கேரட்',
+        bodyChanges: [
+          'கருப்பை அதிக இடத்தை எடுத்துக்கொள்வதால் உழைக்கும்போது லேசான மூச்சுத் திணறல் தோன்றலாம்.',
+        ],
+        toKnow: [
+          'உங்கள் குழந்தையின் வழக்கமான அசைவு முறையுடன் பழகுவது வழக்கத்துக்கு மாறான மாற்றத்தைக் கவனிக்க எளிதாக்குகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'కదలికలు మరింత స్పష్టంగా, మరింత సమన్వయంతో మారతాయి, ఈ కాలంలో వాటిని స్పష్టంగా అనుభవించడం మొదలవ్వడం సాధారణం.',
+        length: 'సుమారు 26.7 సెం.మీ',
+        comparison: 'క్యారెట్',
+        bodyChanges: [
+          'గర్భాశయం ఎక్కువ స్థలం ఆక్రమిస్తున్న కొద్దీ శ్రమ చేసినప్పుడు తేలికపాటి శ్వాస ఇబ్బంది కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'మీ శిశువు సాధారణ కదలికల తీరుతో పరిచయం పెంచుకోవడం అసాధారణ మార్పును గమనించడాన్ని సులభతరం చేస్తుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'हालचाली अधिक स्पष्ट आणि अधिक समन्वित होतात, आणि या काळात त्या स्पष्टपणे जाणवू लागणे सामान्य आहे.',
+        length: 'सुमारे 26.7 सेमी',
+        comparison: 'गाजर',
+        bodyChanges: [
+          'गर्भाशय अधिक जागा व्यापत असताना श्रमांवर सौम्य धाप लागणे दिसू शकते.',
+        ],
+        toKnow: [
+          'तुमच्या बाळाची नेहमीची हालचाल ओळखल्याने असामान्य बदल लक्षात येणे सोपे होते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'હલનચલન વધુ સ્પષ્ટ અને વધુ સંકલિત બને છે, અને આ સમયગાળામાં તે સ્પષ્ટ રીતે અનુભવાવા લાગે તે સામાન્ય છે.',
+        length: 'લગભગ 26.7 સેમી',
+        comparison: 'ગાજર',
+        bodyChanges: [
+          'ગર્ભાશય વધુ જગ્યા રોકતાં મહેનત કરતી વખતે હળવો શ્વાસ ચડવો દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'તમારા બાળકની સામાન્ય હલનચલનની રીતથી પરિચિત થવાથી કોઈ અસામાન્ય ફેરફાર નોંધવો સરળ બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਹਰਕਤਾਂ ਹੋਰ ਸਾਫ਼ ਅਤੇ ਵਧੇਰੇ ਤਾਲਮੇਲ ਵਾਲੀਆਂ ਬਣ ਜਾਂਦੀਆਂ ਹਨ, ਅਤੇ ਇਸ ਸਮੇਂ ਦੌਰਾਨ ਉਨ੍ਹਾਂ ਦਾ ਸਾਫ਼ ਮਹਿਸੂਸ ਹੋਣਾ ਸ਼ੁਰੂ ਹੋਣਾ ਆਮ ਗੱਲ ਹੈ।',
+        length: 'ਲਗਭਗ 26.7 ਸੈਮੀ',
+        comparison: 'ਗਾਜਰ',
+        bodyChanges: [
+          'ਬੱਚੇਦਾਨੀ ਦੇ ਵੱਧ ਥਾਂ ਘੇਰਨ ਨਾਲ ਮਿਹਨਤ ਕਰਨ ’ਤੇ ਹਲਕਾ ਸਾਹ ਚੜ੍ਹਨਾ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਆਪਣੇ ਬੱਚੇ ਦੀਆਂ ਹਰਕਤਾਂ ਦੇ ਆਮ ਢੰਗ ਤੋਂ ਜਾਣੂ ਹੋਣ ਨਾਲ ਕਿਸੇ ਅਸਧਾਰਨ ਤਬਦੀਲੀ ਨੂੰ ਪਛਾਣਨਾ ਸੌਖਾ ਹੋ ਜਾਂਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လှုပ်ရှားမှုများ ပိုမိုပီပြင်ပြီး ပိုမိုညှိနှိုင်းလာသည်။ ဤကာလအတွင်း ၎င်းတို့ကို ပီပြင်စွာ စတင်ခံစားရခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        length: 'ခန့်မှန်းခြေ 26.7 စင်တီမီတာ',
+        comparison: 'မုန်လာဥနီ',
+        bodyChanges: [
+          'သားအိမ်သည် နေရာပိုယူလာသည်နှင့်အမျှ ကြိုးစားလှုပ်ရှားချိန်တွင် အပျော့စား အသက်ရှူကျပ်ခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'သင့်ကလေး၏ ပုံမှန်လှုပ်ရှားပုံနှင့် ရင်းနှီးလာခြင်းဖြင့် ပုံမှန်မဟုတ်သော ပြောင်းလဲမှုကို သတိပြုမိရန် ပိုမိုလွယ်ကူလာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ចលនាកាន់តែច្បាស់ និងមានការសម្របសម្រួលកាន់តែប្រសើរ ហើយជារឿងធម្មតាដែលចាប់ផ្តើមមានអារម្មណ៍ពីវាយ៉ាងច្បាស់ក្នុងអំឡុងពេលនេះ។',
+        length: 'ប្រហែល 26.7 សង់ទីម៉ែត្រ',
+        comparison: 'ការ៉ុត',
+        bodyChanges: [
+          'អាចមានដង្ហើមខ្លីស្រាលៗពេលធ្វើសកម្មភាព នៅពេលស្បូនកាន់កាប់ទីតាំងកាន់តែច្រើន។',
+        ],
+        toKnow: [
+          'ការស្គាល់លំនាំចលនាធម្មតារបស់ទារក ធ្វើឱ្យងាយស្រួលកត់សម្គាល់ការប្រែប្រួលមិនធម្មតា។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ການເຄື່ອນໄຫວຊັດເຈນ ແລະ ປະສານງານກັນດີຂຶ້ນ ແລະ ເປັນເລື່ອງທຳມະດາທີ່ຈະເລີ່ມຮູ້ສຶກໄດ້ຢ່າງຊັດເຈນໃນຊ່ວງນີ້.',
+        length: 'ປະມານ 26.7 ເຊັນຕີແມັດ',
+        comparison: 'ແຄຣອດ',
+        bodyChanges: [
+          'ອາດມີອາການຫາຍໃຈສັ້ນເລັກນ້ອຍເມື່ອອອກແຮງ ເມື່ອມົດລູກກິນພື້ນທີ່ຫຼາຍຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ການຄຸ້ນເຄີຍກັບຮູບແບບການເຄື່ອນໄຫວປົກກະຕິຂອງລູກນ້ອຍ ຊ່ວຍໃຫ້ສັງເກດເຫັນການປ່ຽນແປງທີ່ຜິດປົກກະຕິໄດ້ງ່າຍຂຶ້ນ.',
+        ],
+      },
     },
   },
   {
@@ -10024,6 +14774,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Paru-paru terus berkembang, dan bayi berlatih pergerakan pernafasan yang kecil. Tunas rasa juga sedang terbentuk.',
+        length: 'Kira-kira 27.8 cm',
+        comparison: 'Keledek',
+        bodyChanges: [
+          'Kekejangan kaki, terutamanya pada waktu malam, adalah mungkin bagi sesetengah orang.',
+        ],
+        toKnow: [
+          'Apa yang anda makan boleh mempengaruhi cecair amnion, yang kerap ditelan oleh bayi.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Sambabbadu way sii kortaan, ilmuhuna wuxuu ku tababaraa dhaqdhaqaaqyo yaryar oo neefsasho ah. Dhadhan-dareenka ayaa sidoo kale samaysmaya.',
+        length: 'Qiyaastii 27.8 cm',
+        comparison: 'Baradho macaan',
+        bodyChanges: [
+          'Qallal lugaha ah, gaar ahaan habeenkii, ayaa suurtagal ah dadka qaar.',
+        ],
+        toKnow: [
+          'Waxa aad cuntid waxay saameyn kartaa biyaha amniotic-ka, kuwaas oo ilmuhu si joogto ah u liqo.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mapafu yanaendelea kukua, na mtoto hufanya mazoezi ya mienendo midogo ya kupumua. Vionjo vya ladha pia vinaundwa.',
+        length: 'Takriban sm 27.8',
+        comparison: 'Kiazi kitamu',
+        bodyChanges: [
+          'Mkakamao wa misuli ya miguu, hasa usiku, unawezekana kwa baadhi ya watu.',
+        ],
+        toKnow: [
+          'Unachokula kinaweza kuathiri maji ya amniotiki, ambayo mtoto huyameza mara kwa mara.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Өкпелер дамуын жалғастырады, ал нәресте шағын тыныс алу қозғалыстарын жаттықтырады. Дәм бүршіктері де қалыптасуда.',
+        length: 'Шамамен 27.8 см',
+        comparison: 'Тәтті картоп',
+        bodyChanges: [
+          'Аяқ құрысулары, әсіресе түнде, кейбір адамдарда мүмкін.',
+        ],
+        toKnow: [
+          'Не жейтініңіз нәресте жиі жұтатын амниотикалық сұйықтыққа әсер етуі мүмкін.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Mbàmb yi kontine màgg, te doom bi dafay jéem ay yëngu yu noppiku yu ndaw. Ndoxu gémmiñ yi itam ñu ngi defaru.',
+        length: 'Ci wetu 27.8 cm',
+        comparison: 'Patas',
+        bodyChanges: [
+          'Metit ci tànk, lool ci guddi, mën na am ci yenn nit.',
+        ],
+        toKnow: [
+          'Li nga lekk mën na jëm ci ndox bu biir, bi doom bi di naan ci yoon.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Huhu yana ci gaba da girma, kuma jariri yana yin ƙananan motsin numfashi. Ɗanɗano ma yana samuwa.',
+        length: 'Kusan 27.8 cm',
+        comparison: 'Dankalin Hausa',
+        bodyChanges: [
+          'Murɗawar ƙafa, musamman da dare, tana yiwuwa ga wasu mutane.',
+        ],
+        toKnow: [
+          'Abin da kike ci na iya shafar ruwan ciki, wanda jariri yake hadiya akai-akai.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሳንባዎች ማደጋቸውን ይቀጥላሉ፣ እና ሕፃኑ ትናንሽ የአተነፋፈስ እንቅስቃሴዎችን ይለማመዳል። የጣዕም ቡቃያዎችም እየተፈጠሩ ነው።',
+        length: 'ወደ 27.8 ሴሜ',
+        comparison: 'ስኳር ድንች',
+        bodyChanges: [
+          'የእግር ቁርጠት፣ በተለይ በሌሊት፣ ለአንዳንድ ሰዎች ሊኖር ይችላል።',
+        ],
+        toKnow: [
+          'የምትበይው ነገር ሕፃኑ በየጊዜው የሚውጠውን አምኒዮቲክ ፈሳሽ ሊነካ ይችላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De longen blijven zich ontwikkelen en de baby oefent kleine ademhalingsbewegingen. Ook de smaakpapillen vormen zich.',
+        length: 'Ongeveer 27,8 cm',
+        comparison: 'Zoete aardappel',
+        bodyChanges: [
+          'Kramp in de benen, vooral ’s nachts, is bij sommige vrouwen mogelijk.',
+        ],
+        toKnow: [
+          'Wat je eet kan het vruchtwater beïnvloeden, dat de baby regelmatig inslikt.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Keuhkot kehittyvät edelleen, ja vauva harjoittelee pieniä hengitysliikkeitä. Myös makuaistin solut muodostuvat.',
+        length: 'Noin 27,8 cm',
+        comparison: 'Bataatti',
+        bodyChanges: [
+          'Pohjekrampit, erityisesti öisin, ovat mahdollisia joillakin.',
+        ],
+        toKnow: [
+          'Se, mitä syöt, voi vaikuttaa lapsiveteen, jota vauva nielee säännöllisesti.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Οι πνεύμονες συνεχίζουν να αναπτύσσονται και το μωρό εξασκείται σε μικρές κινήσεις αναπνοής. Σχηματίζονται επίσης οι γευστικοί κάλυκες.',
+        length: 'Περίπου 27,8 εκ.',
+        comparison: 'Γλυκοπατάτα',
+        bodyChanges: [
+          'Οι κράμπες στα πόδια, ιδίως τη νύχτα, είναι πιθανές σε ορισμένες γυναίκες.',
+        ],
+        toKnow: [
+          'Όσα τρως μπορούν να επηρεάσουν το αμνιακό υγρό, το οποίο το μωρό καταπίνει τακτικά.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Patuloy na umuunlad ang mga baga, at nagsasanay ang sanggol ng maliliit na galaw ng paghinga. Nabubuo rin ang mga taste bud.',
+        length: 'Mga 27.8 cm',
+        comparison: 'Kamote',
+        bodyChanges: [
+          'Posible sa ilang tao ang pulikat sa binti, partikular sa gabi.',
+        ],
+        toKnow: [
+          'Ang kinakain mo ay maaaring makaimpluwensya sa amniotic fluid, na regular na nilulunok ng sanggol.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'நுரையீரல்கள் தொடர்ந்து வளர்கின்றன, குழந்தை சிறு சுவாச அசைவுகளைப் பயிற்சி செய்கிறது. சுவை மொட்டுகளும் உருவாகின்றன.',
+        length: 'சுமார் 27.8 செ.மீ',
+        comparison: 'சக்கரவள்ளிக்கிழங்கு',
+        bodyChanges: [
+          'சிலருக்குக் கால் பிடிப்புகள், குறிப்பாக இரவில், சாத்தியம்.',
+        ],
+        toKnow: [
+          'நீங்கள் உண்பது, குழந்தை தொடர்ந்து விழுங்கும் பனிக்குட நீரைப் பாதிக்கலாம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఊపిరితిత్తులు అభివృద్ధి చెందడం కొనసాగుతుంది, శిశువు చిన్న శ్వాస కదలికలను సాధన చేస్తుంది. రుచి మొగ్గలు కూడా ఏర్పడుతున్నాయి.',
+        length: 'సుమారు 27.8 సెం.మీ',
+        comparison: 'చిలగడదుంప',
+        bodyChanges: [
+          'కొందరికి కాళ్ల కండరాల నొప్పి (క్రాంప్స్), ముఖ్యంగా రాత్రిపూట, వచ్చే అవకాశం ఉంది.',
+        ],
+        toKnow: [
+          'మీరు తినేది, శిశువు క్రమం తప్పకుండా మింగే ఉమ్మనీటిని ప్రభావితం చేయవచ్చు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'फुफ्फुसे विकसित होत राहतात आणि बाळ श्वासाच्या छोट्या हालचालींचा सराव करते. चवीच्या कळ्याही तयार होत आहेत.',
+        length: 'सुमारे 27.8 सेमी',
+        comparison: 'रताळे',
+        bodyChanges: [
+          'काहींसाठी पायांमध्ये पेटके, विशेषतः रात्री, येण्याची शक्यता आहे.',
+        ],
+        toKnow: [
+          'तुम्ही काय खाता ते उल्बद्रवावर परिणाम करू शकते, जे बाळ नियमितपणे गिळते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ફેફસાં વિકસતાં રહે છે, અને બાળક શ્વાસની નાની હલનચલનનો અભ્યાસ કરે છે. સ્વાદકળીઓ પણ બની રહી છે.',
+        length: 'લગભગ 27.8 સેમી',
+        comparison: 'શક્કરિયું',
+        bodyChanges: [
+          'પગમાં ખેંચ, ખાસ કરીને રાત્રે, કેટલાક લોકો માટે શક્ય છે.',
+        ],
+        toKnow: [
+          'તમે જે ખાઓ છો તે ઉલ્બદ્રવને અસર કરી શકે છે, જે બાળક નિયમિત ગળે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਫੇਫੜੇ ਵਿਕਸਿਤ ਹੁੰਦੇ ਰਹਿੰਦੇ ਹਨ, ਅਤੇ ਬੱਚਾ ਸਾਹ ਲੈਣ ਦੀਆਂ ਨਿੱਕੀਆਂ ਹਰਕਤਾਂ ਦਾ ਅਭਿਆਸ ਕਰਦਾ ਹੈ। ਸੁਆਦ ਦੀਆਂ ਕਲੀਆਂ ਵੀ ਬਣ ਰਹੀਆਂ ਹਨ।',
+        length: 'ਲਗਭਗ 27.8 ਸੈਮੀ',
+        comparison: 'ਸ਼ਕਰਕੰਦੀ',
+        bodyChanges: [
+          'ਲੱਤਾਂ ਵਿੱਚ ਮਰੋੜ, ਖ਼ਾਸ ਕਰਕੇ ਰਾਤ ਨੂੰ, ਕੁਝ ਔਰਤਾਂ ਲਈ ਸੰਭਵ ਹਨ।',
+        ],
+        toKnow: [
+          'ਤੁਸੀਂ ਜੋ ਖਾਂਦੇ ਹੋ ਉਹ ਉਲਬ ਦੇ ਪਾਣੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦਾ ਹੈ, ਜਿਸ ਨੂੰ ਬੱਚਾ ਨਿਯਮਿਤ ਤੌਰ ’ਤੇ ਨਿਗਲਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အဆုတ်များ ဆက်လက်ဖွံ့ဖြိုးနေပြီး ကလေးသည် အသက်ရှူလှုပ်ရှားမှုအသေးစားများကို လေ့ကျင့်သည်။ အရသာခံအကျိတ်များလည်း ဖွဲ့စည်းနေသည်။',
+        length: 'ခန့်မှန်းခြေ 27.8 စင်တီမီတာ',
+        comparison: 'ကိုက်ဆင်ဥ (ကန်စွန်းဥ)',
+        bodyChanges: [
+          'အချို့သူများတွင် အထူးသဖြင့် ညဘက်၌ ခြေထောက်ကြွက်သားတက်ခြင်း ဖြစ်နိုင်သည်။',
+        ],
+        toKnow: [
+          'သင်စားသောအရာသည် ကလေးပုံမှန်မျိုချနေသော ရေမြှုပ်အရည်ကို သက်ရောက်နိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'សួតបន្តលូតលាស់ ហើយទារកហាត់ធ្វើចលនាដកដង្ហើមតិចៗ។ ក្រពេញរសជាតិក៏កំពុងបង្កើតឡើងដែរ។',
+        length: 'ប្រហែល 27.8 សង់ទីម៉ែត្រ',
+        comparison: 'ដំឡូងជ្វា',
+        bodyChanges: [
+          'ការក្រពើជើង ជាពិសេសពេលយប់ អាចកើតមានចំពោះមនុស្សមួយចំនួន។',
+        ],
+        toKnow: [
+          'អ្វីដែលអ្នកញ៉ាំអាចមានឥទ្ធិពលលើទឹកភ្លោះ ដែលទារកលេបជាប្រចាំ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ປອດສືບຕໍ່ພັດທະນາ ແລະ ລູກນ້ອຍຝຶກການເຄື່ອນໄຫວຂອງການຫາຍໃຈເລັກນ້ອຍ. ຕຸ່ມຮັບລົດຊາດກໍ່ກຳລັງກໍ່ຕົວຂຶ້ນເຊັ່ນກັນ.',
+        length: 'ປະມານ 27.8 ເຊັນຕີແມັດ',
+        comparison: 'ມັນຫວານ',
+        bodyChanges: [
+          'ບາງຄົນອາດມີອາການເປັນຕະຄິວຢູ່ຂາ ໂດຍສະເພາະໃນຕອນກາງຄືນ.',
+        ],
+        toKnow: [
+          'ສິ່ງທີ່ທ່ານກິນສາມາດມີອິດທິພົນຕໍ່ນ້ຳຄັ່ງ ເຊິ່ງລູກນ້ອຍກືນເປັນປະຈຳ.',
+        ],
+      },
     },
   },
   {
@@ -10476,6 +15454,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Anggota badan kini berkadar baik. Bayi berlatih bernafas dan mula bergilir antara fasa tidur dan jaga.',
+        length: 'Kira-kira 28.9 cm',
+        comparison: 'Mangga besar',
+        bodyChanges: [
+          'Sakit belakang yang lebih ketara mungkin timbul dengan pertambahan berat badan secara beransur-ansur.',
+        ],
+        toKnow: [
+          'Memerhati tempoh aktif dan tenang bayi membantu anda mengenali rentaknya sendiri.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Addimada hadda si wanaagsan ayay u isu-dheelitiran yihiin. Ilmuhu wuxuu ku tababaraa neefsasho wuxuuna bilaabayaa inuu beddelo marxaladaha hurdada iyo soo-toosidda.',
+        length: 'Qiyaastii 28.9 cm',
+        comparison: 'Cambe weyn',
+        bodyChanges: [
+          'Xanuun dhabar oo ka xooggan ayaa soo bixi kara marka miisaanku tartiib u kordho.',
+        ],
+        toKnow: [
+          'Indho-indheynta wakhtiyada firfircoonida iyo xasilloonida ilmaha waxay kaa caawisaa inaad barato xawaarihiisa gaarka ah.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Viungo sasa vina uwiano mzuri. Mtoto hufanya mazoezi ya kupumua na kuanza kubadilishana vipindi vya kulala na kuamka.',
+        length: 'Takriban sm 28.9',
+        comparison: 'Embe kubwa',
+        bodyChanges: [
+          'Maumivu makali zaidi ya mgongo yanaweza kuonekana kadiri uzito unavyoongezeka polepole.',
+        ],
+        toKnow: [
+          'Kuchunguza vipindi vya mtoto vya kuwa mchangamfu na tulivu hukusaidia kujifunza mdundo wake mwenyewe.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Қол-аяқтар енді жақсы пропорциялы. Нәресте тыныс алуды жаттықтырады және ұйқы мен ояу кезеңдерін кезектестіре бастайды.',
+        length: 'Шамамен 28.9 см',
+        comparison: 'Үлкен манго',
+        bodyChanges: [
+          'Салмақ біртіндеп қосылған сайын бел ауыруы анығырақ болуы мүмкін.',
+        ],
+        toKnow: [
+          'Нәрестенің белсенді және тыныш кезеңдерін бақылау оның өз ырғағын үйренуге көмектеседі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Loxo ak tànk yi méngoo na baax léegi. Doom bi dafay jéem noppiku te tàmbali séddale jamonoy nelaw ak yewu.',
+        length: 'Ci wetu 28.9 cm',
+        comparison: 'Mango bu mag',
+        bodyChanges: [
+          'Metit ci ndiggu bu gën a feeñ mën na am ak yenn bu di yokku tuuti-tuuti.',
+        ],
+        toKnow: [
+          'Seetlu jamonoy jëf ak noppalu bu doom bi dafay dimbli nga xam ritmam.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Gabobi yanzu suna da daidaitaccen girma. Jariri yana yin numfashi kuma ya fara musanya matakan barci da farkawa.',
+        length: 'Kusan 28.9 cm',
+        comparison: 'Babban mangwaro',
+        bodyChanges: [
+          'Ciwon baya mai bayyana sosai na iya bayyana tare da ƙarin nauyi a hankali.',
+        ],
+        toKnow: [
+          'Lura da lokutan jariri na aiki da na natsuwa yana taimaka miki ki koyi tsarinsa na kansa.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'እጅና እግሮች አሁን በደንብ ተመጣጣኝ ናቸው። ሕፃኑ መተንፈስን ይለማመዳል እና የእንቅልፍና የንቃት ደረጃዎችን መቀያየር ይጀምራል።',
+        length: 'ወደ 28.9 ሴሜ',
+        comparison: 'ትልቅ ማንጎ',
+        bodyChanges: [
+          'ክብደት ቀስ በቀስ ሲጨምር ይበልጥ የጎላ የጀርባ ህመም ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'የሕፃኑን ንቁና ጸጥ ያሉ ጊዜያት መታዘብ የራሱን ሪትም እንድትማሪ ይረዳሻል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De ledematen zijn nu goed geproportioneerd. De baby oefent ademhalen en begint slaap- en waakfasen af te wisselen.',
+        length: 'Ongeveer 28,9 cm',
+        comparison: 'Grote mango',
+        bodyChanges: [
+          'Meer uitgesproken rugpijn kan optreden bij geleidelijke gewichtstoename.',
+        ],
+        toKnow: [
+          'De actieve en rustige periodes van de baby observeren helpt je zijn of haar eigen ritme te leren kennen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Raajat ovat nyt hyvin suhteutettuja. Vauva harjoittelee hengittämistä ja alkaa vuorotella uni- ja valveillaolovaiheita.',
+        length: 'Noin 28,9 cm',
+        comparison: 'Iso mango',
+        bodyChanges: [
+          'Voimakkaampaa selkäkipua voi ilmaantua asteittaisen painonnousun myötä.',
+        ],
+        toKnow: [
+          'Vauvan aktiivisten ja rauhallisten jaksojen havainnointi auttaa oppimaan hänen oman rytminsä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα άκρα είναι πλέον καλά αναλογικά. Το μωρό εξασκείται στην αναπνοή και αρχίζει να εναλλάσσει φάσεις ύπνου και εγρήγορσης.',
+        length: 'Περίπου 28,9 εκ.',
+        comparison: 'Μεγάλο μάνγκο',
+        bodyChanges: [
+          'Πιο έντονος πόνος στη μέση μπορεί να εμφανιστεί με τη σταδιακή αύξηση βάρους.',
+        ],
+        toKnow: [
+          'Η παρατήρηση των δραστήριων και ήσυχων περιόδων του μωρού σε βοηθά να μάθεις τον δικό του ρυθμό.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Maayos na ang proporsyon ng mga bisig at binti. Nagsasanay huminga ang sanggol at nagsisimulang magpalit-palit ang mga yugto ng tulog at gising.',
+        length: 'Mga 28.9 cm',
+        comparison: 'Malaking mangga',
+        bodyChanges: [
+          'Maaaring lumitaw ang mas matinding pananakit ng likod kasabay ng unti-unting pagtaba.',
+        ],
+        toKnow: [
+          'Ang pagmamasid sa mga aktibo at tahimik na panahon ng sanggol ay tumutulong na malaman ang sarili nitong ritmo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கைகால்கள் இப்போது நன்கு விகிதாசாரமாக உள்ளன. குழந்தை சுவாசத்தைப் பயிற்சி செய்கிறது, உறக்க மற்றும் விழிப்புக் கட்டங்களை மாறி மாறி அனுபவிக்கத் தொடங்குகிறது.',
+        length: 'சுமார் 28.9 செ.மீ',
+        comparison: 'பெரிய மாம்பழம்',
+        bodyChanges: [
+          'படிப்படியான எடை அதிகரிப்புடன் அதிகத் தெளிவான முதுகு வலி தோன்றலாம்.',
+        ],
+        toKnow: [
+          'குழந்தையின் சுறுசுறுப்பான மற்றும் அமைதியான காலங்களைக் கவனிப்பது அவர்களின் சொந்தத் தாளத்தைக் கற்க உதவுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'అవయవాలు ఇప్పుడు చక్కగా అనుపాతంగా ఉన్నాయి. శిశువు శ్వాసను సాధన చేస్తుంది, నిద్ర, మెలకువ దశలను మార్చి మార్చి అనుభవించడం మొదలుపెడుతుంది.',
+        length: 'సుమారు 28.9 సెం.మీ',
+        comparison: 'పెద్ద మామిడి పండు',
+        bodyChanges: [
+          'క్రమంగా బరువు పెరగడంతో మరింత ఎక్కువ వెన్నునొప్పి కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'శిశువు చురుకుగా, ప్రశాంతంగా ఉండే సమయాలను గమనించడం వారి సొంత లయను తెలుసుకోవడానికి సహాయపడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'हातपाय आता चांगले प्रमाणबद्ध आहेत. बाळ श्वासाचा सराव करते आणि झोप व जागेपणाचे टप्पे आलटून पालटून अनुभवू लागते.',
+        length: 'सुमारे 28.9 सेमी',
+        comparison: 'मोठा आंबा',
+        bodyChanges: [
+          'वजन हळूहळू वाढत असताना अधिक ठळक पाठदुखी दिसू शकते.',
+        ],
+        toKnow: [
+          'बाळाचे सक्रिय आणि शांत काळ पाहिल्याने त्याची स्वतःची लय जाणून घेण्यास मदत होते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'હાથ-પગ હવે સારી રીતે પ્રમાણસર છે. બાળક શ્વાસનો અભ્યાસ કરે છે અને ઊંઘ અને જાગવાના તબક્કા વારાફરતી શરૂ કરે છે.',
+        length: 'લગભગ 28.9 સેમી',
+        comparison: 'મોટી કેરી',
+        bodyChanges: [
+          'ધીમે ધીમે વજન વધતાં વધુ નોંધપાત્ર કમરનો દુખાવો દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'બાળકના સક્રિય અને શાંત સમયગાળાનું નિરીક્ષણ કરવાથી તમે તેની પોતાની લય શીખી શકો છો.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬਾਹਾਂ-ਲੱਤਾਂ ਹੁਣ ਚੰਗੀ ਤਰ੍ਹਾਂ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਬੱਚਾ ਸਾਹ ਲੈਣ ਦਾ ਅਭਿਆਸ ਕਰਦਾ ਹੈ ਅਤੇ ਨੀਂਦ ਤੇ ਜਾਗਣ ਦੇ ਪੜਾਅ ਵਾਰੀ-ਵਾਰੀ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 28.9 ਸੈਮੀ',
+        comparison: 'ਵੱਡਾ ਅੰਬ',
+        bodyChanges: [
+          'ਹੌਲੀ-ਹੌਲੀ ਭਾਰ ਵਧਣ ਨਾਲ ਵਧੇਰੇ ਤੀਬਰ ਕਮਰ ਦਰਦ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਬੱਚੇ ਦੇ ਸਰਗਰਮ ਅਤੇ ਸ਼ਾਂਤ ਸਮਿਆਂ ਨੂੰ ਵੇਖਣ ਨਾਲ ਤੁਸੀਂ ਉਸ ਦੀ ਆਪਣੀ ਲੈਅ ਸਿੱਖ ਸਕਦੇ ਹੋ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'လက်ခြေများသည် ယခုအခါ ကောင်းမွန်စွာ အချိုးကျနေသည်။ ကလေးသည် အသက်ရှူခြင်းကို လေ့ကျင့်ပြီး အိပ်ချိန်နှင့် နိုးချိန်များ အလှည့်ကျ စတင်ဖြစ်ပေါ်သည်။',
+        length: 'ခန့်မှန်းခြေ 28.9 စင်တီမီတာ',
+        comparison: 'သရက်သီးကြီး',
+        bodyChanges: [
+          'ကိုယ်အလေးချိန် တဖြည်းဖြည်းတိုးလာသည်နှင့်အမျှ ပိုမိုသိသာသော ကျောနာခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကလေး၏ လှုပ်ရှားချိန်နှင့် အေးချမ်းချိန်များကို လေ့လာခြင်းဖြင့် ၎င်း၏ကိုယ်ပိုင်စည်းချက်ကို သင်ယူနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ដៃជើងឥឡូវមានសមាមាត្រល្អ។ ទារកហាត់ដកដង្ហើម និងចាប់ផ្តើមឆ្លាស់គ្នារវាងដំណាក់កាលដេកនិងភ្ញាក់។',
+        length: 'ប្រហែល 28.9 សង់ទីម៉ែត្រ',
+        comparison: 'ស្វាយធំ',
+        bodyChanges: [
+          'ឈឺខ្នងកាន់តែច្បាស់អាចលេចឡើងជាមួយនឹងការកើនទម្ងន់បន្តិចម្តងៗ។',
+        ],
+        toKnow: [
+          'ការសង្កេតរយៈពេលដែលទារកសកម្មនិងស្ងប់ ជួយឱ្យអ្នករៀនស្គាល់ចង្វាក់ផ្ទាល់ខ្លួនរបស់ទារក។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕອນນີ້ແຂນຂາມີສັດສ່ວນດີແລ້ວ. ລູກນ້ອຍຝຶກການຫາຍໃຈ ແລະ ເລີ່ມສະຫຼັບລະຫວ່າງໄລຍະນອນ ແລະ ໄລຍະຕື່ນ.',
+        length: 'ປະມານ 28.9 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກມ່ວງໃຫຍ່',
+        bodyChanges: [
+          'ອາການເຈັບຫຼັງທີ່ເດັ່ນຊັດຂຶ້ນອາດປາກົດພ້ອມກັບນ້ຳໜັກທີ່ເພີ່ມຂຶ້ນຄ່ອຍໆ.',
+        ],
+        toKnow: [
+          'ການສັງເກດໄລຍະທີ່ລູກນ້ອຍມີການເຄື່ອນໄຫວ ແລະ ໄລຍະທີ່ສະຫງົບ ຊ່ວຍໃຫ້ທ່ານຮຽນຮູ້ຈັງຫວະສະເພາະຂອງລູກ.',
+        ],
+      },
     },
   },
   {
@@ -10928,6 +16134,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi mencapai ambang daya hidup: sekiranya berlaku kelahiran pramatang yang sangat awal pada peringkat ini, penjagaan perubatan neonatal khusus boleh membolehkan kelangsungan hidup, dengan sokongan yang sesuai.',
+        length: 'Kira-kira 30 cm',
+        comparison: 'Tongkol jagung',
+        bodyChanges: [
+          'Tekanan yang meningkat pada pundi kencing dan kerap rasa ingin membuang air kecil mungkin timbul.',
+        ],
+        toKnow: [
+          'Saringan diabetes semasa hamil biasanya ditawarkan sekitar masa ini.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu wuxuu gaaraa xadka noolaanshaha: haddii dhalmo aad u hore ay dhacdo heerkan, daryeelka caafimaadka dhallaanka ee gaarka ahi wuxuu oggolaan karaa badbaadin, iyadoo la leh taageero ku habboon.',
+        length: 'Qiyaastii 30 cm',
+        comparison: 'Gallay',
+        bodyChanges: [
+          'Cadaadis kordhay oo kaadi-haysta ah iyo rabitaan kaadi oo soo noqnoqda ayaa soo bixi kara.',
+        ],
+        toKnow: [
+          'Baaritaanka sonkorowga uurka guud ahaan waxaa la bixiyaa waqtigan hareerihiisa.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto anafikia kiwango cha kuweza kuishi: endapo atazaliwa kabla ya wakati kabisa katika hatua hii, huduma maalum za kitabibu za watoto wachanga zinaweza kumwezesha kuishi, kwa usaidizi unaofaa.',
+        length: 'Takriban sm 30',
+        comparison: 'Gunzi la muhindi',
+        bodyChanges: [
+          'Shinikizo kubwa kwenye kibofu cha mkojo na hamu ya mara kwa mara ya kukojoa vinaweza kuonekana.',
+        ],
+        toKnow: [
+          'Uchunguzi wa kisukari cha ujauzito kwa kawaida hutolewa karibu na wakati huu.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте өмір сүре алу шегіне жетеді: осы кезеңде өте ерте босану болса, мамандандырылған неонаталдық медициналық күтім тиісті қолдаумен өмір сүруге мүмкіндік бере алады.',
+        length: 'Шамамен 30 см',
+        comparison: 'Жүгері собығы',
+        bodyChanges: [
+          'Қуыққа қысым артуы және жиі зәр шығарғысы келуі мүмкін.',
+        ],
+        toKnow: [
+          'Жүктілік диабетіне скрининг әдетте осы уақыттың айналасында ұсынылады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi agsi na ci kaw dayo bu mën a dund: ci benn jur bu jëkk lool ci jamono jii, dimbali bu wér bu yaramu doom yu bees mën na dimbli ngir mu dund, ak dimbali bu méngoo.',
+        length: 'Ci wetu 30 cm',
+        comparison: 'Mbaq',
+        bodyChanges: [
+          'Metit bu yokku ci pis ak bëgg a pis ci yoon mën nañu feeñ.',
+        ],
+        toKnow: [
+          'Seetlu diyabet bu ëmb daa digal ci wetu jamono jii.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri ya kai iyakar rayuwa: idan an haife shi da wuri sosai a wannan mataki, kulawar likita ta musamman ga jarirai na iya ba da damar rayuwa, tare da tallafi mai dacewa.',
+        length: 'Kusan 30 cm',
+        comparison: 'Kan masara',
+        bodyChanges: [
+          'Ƙarin matsi a mafitsara da sha’awar fitsari akai-akai na iya bayyana.',
+        ],
+        toKnow: [
+          'Ana yawan ba da gwajin ciwon sukari na ciki a kusa da wannan lokaci.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ የመኖር አቅም ደፍ ላይ ይደርሳል፦ በዚህ ደረጃ በጣም ያለጊዜው ልደት ቢከሰት፣ ልዩ የአራስ ሕክምና እንክብካቤ በተገቢ ድጋፍ ለመኖር ሊያስችል ይችላል።',
+        length: 'ወደ 30 ሴሜ',
+        comparison: 'የበቆሎ ዛላ',
+        bodyChanges: [
+          'በፊኛ ላይ የጨመረ ግፊት እና በተደጋጋሚ የመሽናት ፍላጎት ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'የእርግዝና የስኳር በሽታ ምርመራ በአጠቃላይ በዚህ ጊዜ አካባቢ ይቀርባል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby bereikt de grens van levensvatbaarheid: bij een zeer vroeggeboorte in deze fase kan gespecialiseerde neonatale medische zorg overleving mogelijk maken, met passende ondersteuning.',
+        length: 'Ongeveer 30 cm',
+        comparison: 'Maïskolf',
+        bodyChanges: [
+          'Meer druk op de blaas en vaak aandrang om te plassen kunnen optreden.',
+        ],
+        toKnow: [
+          'Screening op zwangerschapsdiabetes wordt over het algemeen rond deze tijd aangeboden.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva saavuttaa elinkelpoisuuden rajan: hyvin ennenaikaisen syntymän tapauksessa tässä vaiheessa erikoistunut vastasyntyneiden lääketieteellinen hoito voi mahdollistaa selviytymisen asianmukaisella tuella.',
+        length: 'Noin 30 cm',
+        comparison: 'Maissintähkä',
+        bodyChanges: [
+          'Lisääntynyttä painetta rakkoon ja tiheää virtsaamisen tarvetta voi ilmaantua.',
+        ],
+        toKnow: [
+          'Raskausdiabeteksen seulontaa tarjotaan yleensä tähän aikaan.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό φτάνει στο όριο βιωσιμότητας: σε περίπτωση πολύ πρόωρου τοκετού σε αυτό το στάδιο, η εξειδικευμένη νεογνολογική ιατρική φροντίδα μπορεί να επιτρέψει την επιβίωση, με κατάλληλη υποστήριξη.',
+        length: 'Περίπου 30 εκ.',
+        comparison: 'Στάχυ καλαμποκιού',
+        bodyChanges: [
+          'Μπορεί να εμφανιστούν αυξημένη πίεση στην κύστη και συχνή ανάγκη για ούρηση.',
+        ],
+        toKnow: [
+          'Ο έλεγχος για διαβήτη κύησης προτείνεται γενικά περίπου αυτή την περίοδο.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Naaabot ng sanggol ang hangganan ng viability: sa kaso ng napakaagang panganganak sa yugtong ito, ang espesyalisadong medikal na pangangalaga sa bagong silang ay maaaring magpahintulot ng pagkakaligtas, na may angkop na suporta.',
+        length: 'Mga 30 cm',
+        comparison: 'Mais',
+        bodyChanges: [
+          'Maaaring lumitaw ang mas mataas na presyon sa pantog at madalas na pagnanais na umihi.',
+        ],
+        toKnow: [
+          'Karaniwang inaalok sa paligid ng panahong ito ang pag-screen para sa gestational diabetes.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை உயிர்வாழும் திறனின் எல்லையை எட்டுகிறது: இந்தக் கட்டத்தில் மிக முன்கூட்டிய பிரசவம் ஏற்பட்டால், சிறப்பு நவஜாத சிசு மருத்துவப் பராமரிப்பு, பொருத்தமான ஆதரவுடன், உயிர்வாழ்வை சாத்தியமாக்கலாம்.',
+        length: 'சுமார் 30 செ.மீ',
+        comparison: 'சோளக்கதிர்',
+        bodyChanges: [
+          'சிறுநீர்ப்பையின் மீது அதிகரித்த அழுத்தமும் அடிக்கடி சிறுநீர் கழிக்கும் உந்துதலும் தோன்றலாம்.',
+        ],
+        toKnow: [
+          'கர்ப்பகால நீரிழிவுத் திரையிடல் பொதுவாக இந்த நேரத்தைச் சுற்றி வழங்கப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు జీవించగలిగే స్థాయికి చేరుతుంది: ఈ దశలో చాలా నెలలు ముందే ప్రసవం జరిగితే, ప్రత్యేక నవజాత వైద్య సంరక్షణ, తగిన తోడ్పాటుతో బతికి ఉండటానికి వీలు కల్పించగలదు.',
+        length: 'సుమారు 30 సెం.మీ',
+        comparison: 'మొక్కజొన్న కంకి',
+        bodyChanges: [
+          'మూత్రాశయంపై ఒత్తిడి పెరగడం, తరచుగా మూత్ర విసర్జన చేయాలనే కోరిక కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'గర్భకాల మధుమేహ స్క్రీనింగ్ సాధారణంగా ఈ సమయంలో అందించబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ जगण्याच्या मर्यादेपर्यंत पोहोचते: या टप्प्यावर खूप अकाली प्रसूती झाल्यास, विशेष नवजात वैद्यकीय काळजी, योग्य आधारासह, जगण्यास मदत करू शकते.',
+        length: 'सुमारे 30 सेमी',
+        comparison: 'मक्याचे कणीस',
+        bodyChanges: [
+          'मूत्राशयावर वाढलेला दाब आणि वारंवार लघवीला जाण्याची इच्छा दिसू शकते.',
+        ],
+        toKnow: [
+          'गर्भकालीन मधुमेहाची तपासणी साधारणपणे याच सुमारास सुचवली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક જીવિત રહેવાની સીમા સુધી પહોંચે છે: આ તબક્કે ખૂબ વહેલી પ્રસૂતિ થાય તો, વિશેષ નવજાત તબીબી સંભાળ યોગ્ય ટેકા સાથે જીવિત રહેવાની શક્યતા આપી શકે છે.',
+        length: 'લગભગ 30 સેમી',
+        comparison: 'મકાઈનું ડોડું',
+        bodyChanges: [
+          'મૂત્રાશય પર વધુ દબાણ અને વારંવાર પેશાબ લાગવાનું દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'ગર્ભાવસ્થાની ડાયાબિટીસની તપાસ સામાન્ય રીતે આ સમયની આસપાસ ઓફર થાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਜਿਊਂਦੇ ਰਹਿਣ ਦੀ ਹੱਦ ਤੱਕ ਪਹੁੰਚ ਜਾਂਦਾ ਹੈ: ਇਸ ਪੜਾਅ ’ਤੇ ਬਹੁਤ ਜਲਦੀ ਜਣੇਪਾ ਹੋਣ ਦੀ ਸੂਰਤ ਵਿੱਚ, ਨਵਜੰਮੇ ਬੱਚਿਆਂ ਦੀ ਵਿਸ਼ੇਸ਼ ਡਾਕਟਰੀ ਦੇਖਭਾਲ ਢੁੱਕਵੀਂ ਮਦਦ ਨਾਲ ਬੱਚੇ ਦੇ ਬਚਣ ਦੀ ਸੰਭਾਵਨਾ ਦੇ ਸਕਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 30 ਸੈਮੀ',
+        comparison: 'ਮੱਕੀ ਦਾ ਭੁੱਟਾ',
+        bodyChanges: [
+          'ਮਸਾਨੇ ’ਤੇ ਵਧੇਰੇ ਦਬਾਅ ਅਤੇ ਵਾਰ-ਵਾਰ ਪਿਸ਼ਾਬ ਆਉਣ ਦੀ ਇੱਛਾ ਹੋ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਗਰਭ-ਅਵਸਥਾ ਦੀ ਸ਼ੂਗਰ ਦੀ ਜਾਂਚ ਆਮ ਤੌਰ ’ਤੇ ਇਸੇ ਸਮੇਂ ਦੇ ਆਸ-ਪਾਸ ਪੇਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် အသက်ရှင်နိုင်သည့် အဆင့်သို့ ရောက်ရှိသည်။ ဤအဆင့်တွင် အလွန်စောစီးစွာ မွေးဖွားပါက သင့်လျော်သောပံ့ပိုးမှုနှင့်အတူ အထူးပြုမွေးကင်းစကလေးဆေးကုသမှုဖြင့် အသက်ရှင်နိုင်ခွင့် ရှိနိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 30 စင်တီမီတာ',
+        comparison: 'ပြောင်းဖူး',
+        bodyChanges: [
+          'ဆီးအိမ်ပေါ်တွင် ဖိအားပိုများလာပြီး ဆီးမကြာခဏသွားချင်ခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်ကာလ ဆီးချိုရောဂါ စစ်ဆေးမှုကို များသောအားဖြင့် ဤအချိန်ဝန်းကျင်တွင် ပေးသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកឈានដល់កម្រិតអាចរស់បាន៖ ក្នុងករណីសម្រាលមុនកំណត់ខ្លាំងនៅដំណាក់កាលនេះ ការថែទាំវេជ្ជសាស្ត្រឯកទេសសម្រាប់ទារកទើបនឹងកើត អាចធ្វើឱ្យរស់រានមានជីវិតបាន ជាមួយនឹងការគាំទ្រសមស្រប។',
+        length: 'ប្រហែល 30 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្លែពោត',
+        bodyChanges: [
+          'អាចមានសម្ពាធលើប្លោកនោមកើនឡើង និងចង់នោមញឹកញាប់។',
+        ],
+        toKnow: [
+          'ការពិនិត្យរកទឹកនោមផ្អែមពេលមានផ្ទៃពោះ ជាទូទៅត្រូវបានផ្តល់ជូននៅជុំវិញពេលនេះ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍຮອດຂີດຈຳກັດຂອງການມີຊີວິດລອດ: ໃນກໍລະນີທີ່ເກີດກ່ອນກຳນົດຫຼາຍໃນໄລຍະນີ້ ການດູແລທາງການແພດສະເພາະສຳລັບເດັກເກີດໃໝ່ ສາມາດຊ່ວຍໃຫ້ລອດຊີວິດໄດ້ ດ້ວຍການຊ່ວຍເຫຼືອທີ່ເໝາະສົມ.',
+        length: 'ປະມານ 30 ເຊັນຕີແມັດ',
+        comparison: 'ຮວງເຂົ້າສາລີ',
+        bodyChanges: [
+          'ອາດມີຄວາມກົດດັນຕໍ່ກະເພາະປັດສະວະເພີ່ມຂຶ້ນ ແລະ ຢາກຍ່ຽວບໍ່ເລື້ອຍໆ.',
+        ],
+        toKnow: [
+          'ໂດຍທົ່ວໄປການກວດຄັດກອງເບົາຫວານໃນຂະນະຖືພາຈະມີໃຫ້ປະມານຊ່ວງນີ້.',
+        ],
+      },
     },
   },
   {
@@ -11380,6 +16814,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi kini bertindak balas terhadap bunyi yang kuat dengan tersentak atau menendang, dan sesekali sendawa boleh dirasai. Bayi membuang air kecil secara tetap ke dalam cecair amnion.',
+        length: 'Kira-kira 34.6 cm',
+        comparison: 'Zukini',
+        bodyChanges: [
+          'Pedih ulu hati atau refluks asid mungkin menjadi lebih kerap.',
+        ],
+        toKnow: [
+          'Sendawa janin yang dirasai dari semasa ke semasa biasanya dianggap normal.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu hadda wuxuu ka falceliyaa dhawaaqyo xoog leh isagoo ka kala yaacaya ama laaban, hiccup-na mararka qaarkood ayaa la dareemi karaa. Wuxuu si joogto ah ugu kaadiyaa biyaha amniotic-ka.',
+        length: 'Qiyaastii 34.6 cm',
+        comparison: 'Zukiini',
+        bodyChanges: [
+          'Gubasho laabta ama dib-u-socodka aashitada ayaa noqon kara kuwo soo noqnoqda.',
+        ],
+        toKnow: [
+          'Hiccup-ka ilmaha ee mararka qaarkood la dareemo guud ahaan waxaa loo tixgeliyaa mid caadi ah.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto sasa huitikia kelele kubwa kwa kushtuka au kupiga teke, na kwikwi za mara kwa mara zinaweza kuhisiwa. Hukojoa mara kwa mara ndani ya maji ya amniotiki.',
+        length: 'Takriban sm 34.6',
+        comparison: 'Zukini',
+        bodyChanges: [
+          'Kiungulia au asidi kupanda kunaweza kuwa mara kwa mara zaidi.',
+        ],
+        toKnow: [
+          'Kwikwi za kijusi zinazohisiwa mara kwa mara kwa kawaida huchukuliwa kuwa za kawaida.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте енді қатты шуларға селк етумен немесе тепкілеумен жауап береді, сондай-ақ анда-санда ықылық сезілуі мүмкін. Ол амниотикалық сұйықтыққа үнемі зәр шығарады.',
+        length: 'Шамамен 34.6 см',
+        comparison: 'Кабачок',
+        bodyChanges: [
+          'Жүрек қыжылы немесе қышқыл рефлюксі жиірек болуы мүмкін.',
+        ],
+        toKnow: [
+          'Анда-санда сезілетін ұрық ықылығы әдетте қалыпты деп саналады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi dafay tontu léegi ci baat yu metti ak xóot walla wëtt, te xëtt-xëtt bu ndaw mën na am. Dafay pis ci yoon ci ndox bu biir.',
+        length: 'Ci wetu 34.6 cm',
+        comparison: 'Kuurjet',
+        bodyChanges: [
+          'Tàngoor ci dënn walla asid mën nañu gën a bari.',
+        ],
+        toKnow: [
+          'Xëtt-xëtt yu doom bi yu ñuy dégg yenn saa daa jàppe ko ni lu cosaan.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri yanzu yana amsa ƙarar sauti da firgita ko bugu, kuma ana iya jin shaƙewa daga lokaci zuwa lokaci. Yana fitsari akai-akai a cikin ruwan ciki.',
+        length: 'Kusan 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: [
+          'Ƙwannafi ko komawar acid na iya zama akai-akai.',
+        ],
+        toKnow: [
+          'Shaƙewar tayi da ake ji lokaci zuwa lokaci gabaɗaya ana ɗaukarta a matsayin al’ada.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ አሁን ለከፍተኛ ድምጾች በመደንገጥ ወይም በመምታት ምላሽ ይሰጣል፣ እና አልፎ አልፎ ሂክኮፕ ሊሰማ ይችላል። በአምኒዮቲክ ፈሳሽ ውስጥ በመደበኛነት ይሸናል።',
+        length: 'ወደ 34.6 ሴሜ',
+        comparison: 'ዙኪኒ',
+        bodyChanges: [
+          'የልብ ቃጠሎ ወይም የአሲድ ሪፍላክስ ይበልጥ ተደጋጋሚ ሊሆን ይችላል።',
+        ],
+        toKnow: [
+          'አልፎ አልፎ የሚሰማ የፌተስ ሂክኮፕ በአጠቃላይ የተለመደ ተደርጎ ይቆጠራል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby reageert nu op harde geluiden met een schrikreactie of een schop, en af en toe kan een hikje worden gevoeld. De baby plast regelmatig in het vruchtwater.',
+        length: 'Ongeveer 34,6 cm',
+        comparison: 'Courgette',
+        bodyChanges: [
+          'Brandend maagzuur of zure reflux kan vaker voorkomen.',
+        ],
+        toKnow: [
+          'Af en toe gevoelde hikjes van de foetus worden over het algemeen als normaal beschouwd.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva reagoi nyt kovaan ääneen säpsähtämällä tai potkaisemalla, ja satunnaisia hikkoja voi tuntua. Vauva virtsaa säännöllisesti lapsiveteen.',
+        length: 'Noin 34,6 cm',
+        comparison: 'Kesäkurpitsa',
+        bodyChanges: [
+          'Närästys tai hapan refluksi voi yleistyä.',
+        ],
+        toKnow: [
+          'Aika ajoin tunnettuja sikiön hikkoja pidetään yleensä normaaleina.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό αντιδρά πλέον σε δυνατούς θορύβους με ένα ξάφνιασμα ή μια κλωτσιά και μπορεί περιστασιακά να νιώθονται λόξυγκες. Ουρεί τακτικά μέσα στο αμνιακό υγρό.',
+        length: 'Περίπου 34,6 εκ.',
+        comparison: 'Κολοκυθάκι',
+        bodyChanges: [
+          'Η καούρα ή η παλινδρόμηση οξέος μπορεί να γίνουν συχνότερες.',
+        ],
+        toKnow: [
+          'Οι λόξυγκες του εμβρύου που νιώθονται κάθε τόσο θεωρούνται γενικά φυσιολογικοί.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Tumutugon na ngayon ang sanggol sa malalakas na ingay sa pamamagitan ng pagkagulat o pagsipa, at maaaring maramdaman ang paminsan-minsang sinok. Regular silang umiihi sa amniotic fluid.',
+        length: 'Mga 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: [
+          'Maaaring dumalas ang heartburn o acid reflux.',
+        ],
+        toKnow: [
+          'Ang sinok ng fetus na nararamdaman paminsan-minsan ay karaniwang itinuturing na normal.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை இப்போது உரத்த சத்தங்களுக்குத் திடுக்கிடுவதன் மூலமோ உதைப்பதன் மூலமோ எதிர்வினையாற்றுகிறது, அவ்வப்போது விக்கலும் உணரப்படலாம். அவர்கள் பனிக்குட நீரில் ஒழுங்காகச் சிறுநீர் கழிக்கிறார்கள்.',
+        length: 'சுமார் 34.6 செ.மீ',
+        comparison: 'சுரைக்காய் (சுக்கினி)',
+        bodyChanges: [
+          'நெஞ்செரிச்சல் அல்லது அமில எதிர்ப்பு அடிக்கடி ஏற்படலாம்.',
+        ],
+        toKnow: [
+          'அவ்வப்போது உணரப்படும் சிசு விக்கல் பொதுவாக இயல்பானதாகக் கருதப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు ఇప్పుడు పెద్ద శబ్దాలకు ఉలిక్కిపడటం లేదా తన్నడంతో ప్రతిస్పందిస్తుంది, అప్పుడప్పుడు ఎక్కిళ్లు అనుభూతి చెందవచ్చు. వారు ఉమ్మనీటిలోకి క్రమం తప్పకుండా మూత్రం విసర్జిస్తారు.',
+        length: 'సుమారు 34.6 సెం.మీ',
+        comparison: 'సొరకాయ',
+        bodyChanges: [
+          'గుండెల్లో మంట లేదా ఆమ్ల రిఫ్లక్స్ మరింత తరచుగా రావచ్చు.',
+        ],
+        toKnow: [
+          'అప్పుడప్పుడు అనుభూతి చెందే శిశువు ఎక్కిళ్లు సాధారణంగా సహజమైనవిగా పరిగణించబడతాయి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ आता मोठ्या आवाजांना दचकून किंवा लाथ मारून प्रतिसाद देते, आणि अधूनमधून उचकी जाणवू शकते. ते उल्बद्रवात नियमितपणे लघवी करते.',
+        length: 'सुमारे 34.6 सेमी',
+        comparison: 'दुधी भोपळा',
+        bodyChanges: [
+          'छातीत जळजळ किंवा आम्ल रिफ्लक्स अधिक वारंवार होऊ शकते.',
+        ],
+        toKnow: [
+          'अधूनमधून जाणवणारी गर्भाची उचकी साधारणपणे सामान्य मानली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક હવે મોટા અવાજો પર ચમકીને કે લાત મારીને પ્રતિભાવ આપે છે, અને ક્યારેક હેડકી અનુભવાઈ શકે છે. તે નિયમિત રીતે ઉલ્બદ્રવમાં પેશાબ કરે છે.',
+        length: 'લગભગ 34.6 સેમી',
+        comparison: 'ઝુકીની',
+        bodyChanges: [
+          'છાતીમાં બળતરા કે એસિડ રિફ્લક્સ વધુ વારંવાર થઈ શકે છે.',
+        ],
+        toKnow: [
+          'ક્યારેક અનુભવાતી ગર્ભની હેડકી સામાન્ય રીતે સામાન્ય ગણાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਹੁਣ ਉੱਚੀਆਂ ਆਵਾਜ਼ਾਂ ’ਤੇ ਚੌਂਕ ਕੇ ਜਾਂ ਲੱਤ ਮਾਰ ਕੇ ਪ੍ਰਤੀਕਿਰਿਆ ਕਰਦਾ ਹੈ, ਅਤੇ ਕਦੇ-ਕਦੇ ਹਿਚਕੀ ਮਹਿਸੂਸ ਹੋ ਸਕਦੀ ਹੈ। ਉਹ ਨਿਯਮਿਤ ਤੌਰ ’ਤੇ ਉਲਬ ਦੇ ਪਾਣੀ ਵਿੱਚ ਪਿਸ਼ਾਬ ਕਰਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 34.6 ਸੈਮੀ',
+        comparison: 'ਜ਼ੁਕੀਨੀ',
+        bodyChanges: [
+          'ਸੀਨੇ ਵਿੱਚ ਜਲਨ ਜਾਂ ਐਸਿਡ ਰਿਫਲਕਸ ਵਧੇਰੇ ਵਾਰ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਕਦੇ-ਕਦੇ ਮਹਿਸੂਸ ਹੋਣ ਵਾਲੀ ਭਰੂਣ ਦੀ ਹਿਚਕੀ ਆਮ ਤੌਰ ’ਤੇ ਸਧਾਰਨ ਮੰਨੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် ယခုအခါ ကျယ်လောင်သောအသံများကို လန့်ဖြတ်ခြင်း သို့မဟုတ် ကန်ခြင်းဖြင့် တုံ့ပြန်ပြီး တစ်ခါတစ်ရံ ဆိုးလေခြင်းကို ခံစားရနိုင်သည်။ ကလေးသည် ရေမြှုပ်အရည်ထဲသို့ ပုံမှန်ဆီးသွားသည်။',
+        length: 'ခန့်မှန်းခြေ 34.6 စင်တီမီတာ',
+        comparison: 'ဇူကီးနီး',
+        bodyChanges: [
+          'ရင်ပူခြင်း သို့မဟုတ် အက်ဆစ်ပြန်တက်ခြင်း ပိုမိုမကြာခဏ ဖြစ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'တစ်ခါတစ်ရံ ခံစားရသော သန္ဓေသား၏ ဆိုးလေခြင်းကို များသောအားဖြင့် ပုံမှန်ဟု ယူဆသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ឥឡូវនេះទារកមានប្រតិកម្មនឹងសំឡេងខ្លាំងៗដោយតក់ស្លុត ឬទាត់ ហើយអាចមានអារម្មណ៍ពីការកន្ត្រាក់ក្អឹកម្តងម្កាល។ ទារកនោមជាប្រចាំចូលក្នុងទឹកភ្លោះ។',
+        length: 'ប្រហែល 34.6 សង់ទីម៉ែត្រ',
+        comparison: 'ត្រឡាចហ្សូគីនី',
+        bodyChanges: [
+          'ឈឺទ្រូងក្តៅ ឬទឹកអាស៊ីតហូរឡើងវិញអាចកើតមានញឹកញាប់ជាងមុន។',
+        ],
+        toKnow: [
+          'ការកន្ត្រាក់ក្អឹករបស់ទារកដែលមានអារម្មណ៍ម្តងម្កាល ជាទូទៅត្រូវបានចាត់ទុកថាធម្មតា។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຕອນນີ້ລູກນ້ອຍຕອບສະໜອງຕໍ່ສຽງດັງດ້ວຍການສະດຸ້ງ ຫຼື ເຕະ ແລະ ອາດຮູ້ສຶກເຖິງການສະອຶກເປັນບາງຄັ້ງ. ລູກຍ່ຽວລົງໃນນ້ຳຄັ່ງເປັນປະຈຳ.',
+        length: 'ປະມານ 34.6 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກນ້ຳອ່ອນຝຣັ່ງ',
+        bodyChanges: [
+          'ອາການເຈັບເຍື່ອງ ຫຼື ກົດຣີຟລັກອາດເກີດຂຶ້ນເລື້ອຍຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ການສະອຶກຂອງທາລົກທີ່ຮູ້ສຶກໄດ້ເປັນບາງຄັ້ງ ໂດຍທົ່ວໄປຖືວ່າເປັນເລື່ອງປົກກະຕິ.',
+        ],
+      },
     },
   },
   {
@@ -11826,6 +17488,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Mata terbuka buat kali pertama. Warna akhirnya biasanya tidak akan diketahui sehingga beberapa bulan selepas kelahiran.',
+        length: 'Kira-kira 35.6 cm',
+        comparison: 'Timun',
+        bodyChanges: [
+          'Bengkak ringan pada buku lali atau kaki mungkin timbul, terutamanya menjelang penghujung hari.',
+        ],
+        toKnow: [
+          'Trimester ketiga semakin hampir, dengan susulan perubatan biasanya menjadi lebih kerap.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Indhuhu markii ugu horreysay ayay furmaan. Midabkooda ugu dambeeya guud ahaan lama ogaan doono ilaa dhowr bilood dhalmada ka dib.',
+        length: 'Qiyaastii 35.6 cm',
+        comparison: 'Qamandi',
+        bodyChanges: [
+          'Barar khafiif ah oo canqowda ama cagaha ah ayaa soo bixi kara, gaar ahaan dhammaadka maalinta.',
+        ],
+        toKnow: [
+          'Saddex-billaha saddexaad ayaa soo dhowaanaya, la socodka caafimaadkuna guud ahaan wuxuu noqonayaa mid soo noqnoqda.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Macho yanafunguka kwa mara ya kwanza. Rangi yao ya mwisho kwa kawaida haitajulikana hadi miezi kadhaa baada ya kuzaliwa.',
+        length: 'Takriban sm 35.6',
+        comparison: 'Tango',
+        bodyChanges: [
+          'Uvimbe mdogo wa vifundo vya miguu au miguu unaweza kuonekana, hasa kufikia mwisho wa siku.',
+        ],
+        toKnow: [
+          'Trimesta ya tatu inakaribia, na ufuatiliaji wa kitabibu kwa kawaida unakuwa wa mara kwa mara zaidi.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Көздер алғаш рет ашылады. Олардың соңғы түсі әдетте туғаннан кейін бірнеше айдан кейін ғана белгілі болады.',
+        length: 'Шамамен 35.6 см',
+        comparison: 'Қияр',
+        bodyChanges: [
+          'Тобықтың немесе аяқтың жеңіл ісінуі, әсіресе күннің соңына қарай, пайда болуы мүмкін.',
+        ],
+        toKnow: [
+          'Үшінші триместр жақындап келеді, медициналық бақылау әдетте жиілейді.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Bët yi dañuy ubbiku ci benn yoon bu njëkk. Kuloor bu mujj mënul a xam ba ginnaaw ay weer ginnaaw jur.',
+        length: 'Ci wetu 35.6 cm',
+        comparison: 'Konkombar',
+        bodyChanges: [
+          'Tuuru bu ndaw ci tànk walla ci tànk mën na feeñ, lool ci jeexu bés bi.',
+        ],
+        toKnow: [
+          'Trimestr bu ñetteel dafay jege, te topp bu wér daa gën a bari.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Idanu suna buɗewa a karon farko. Gabaɗaya ba za a san launinsu na ƙarshe ba sai watanni da dama bayan haihuwa.',
+        length: 'Kusan 35.6 cm',
+        comparison: 'Kokwamba',
+        bodyChanges: [
+          'Ɗan kumburin idon sawu ko ƙafafuwa na iya bayyana, musamman a ƙarshen rana.',
+        ],
+        toKnow: [
+          'Kashi na uku yana gabatowa, tare da bibiyar likita yawanci tana ƙara yawaita.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ዐይኖች ለመጀመሪያ ጊዜ ይከፈታሉ። የመጨረሻው ቀለማቸው በአጠቃላይ ከልደት በኋላ እስከ ብዙ ወራት ድረስ አይታወቅም።',
+        length: 'ወደ 35.6 ሴሜ',
+        comparison: 'ኪያር',
+        bodyChanges: [
+          'በተለይ ቀኑ መጨረሻ ላይ የቁርጭምጭሚት ወይም የእግር ቀላል እብጠት ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'ሦስተኛው ሦስት ወር እየተቃረበ ነው፣ የሕክምና ክትትልም በአጠቃላይ ይበልጥ ተደጋጋሚ ይሆናል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De ogen gaan voor het eerst open. De uiteindelijke kleur is over het algemeen pas enkele maanden na de geboorte bekend.',
+        length: 'Ongeveer 35,6 cm',
+        comparison: 'Komkommer',
+        bodyChanges: [
+          'Lichte zwelling van de enkels of voeten kan optreden, vooral aan het eind van de dag.',
+        ],
+        toKnow: [
+          'Het derde trimester nadert, met een medische opvolging die over het algemeen frequenter wordt.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Silmät avautuvat ensimmäistä kertaa. Niiden lopullinen väri tiedetään yleensä vasta useita kuukausia syntymän jälkeen.',
+        length: 'Noin 35,6 cm',
+        comparison: 'Kurkku',
+        bodyChanges: [
+          'Nilkkojen tai jalkojen lievää turvotusta voi ilmaantua erityisesti päivän lopussa.',
+        ],
+        toKnow: [
+          'Kolmas kolmannes lähestyy, ja lääketieteellinen seuranta tihenee yleensä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Τα μάτια ανοίγουν για πρώτη φορά. Το τελικό τους χρώμα γενικά δεν θα είναι γνωστό παρά αρκετούς μήνες μετά τη γέννηση.',
+        length: 'Περίπου 35,6 εκ.',
+        comparison: 'Αγγούρι',
+        bodyChanges: [
+          'Ήπιο πρήξιμο στους αστραγάλους ή στα πόδια μπορεί να εμφανιστεί, ιδίως προς το τέλος της ημέρας.',
+        ],
+        toKnow: [
+          'Το τρίτο τρίμηνο πλησιάζει, με την ιατρική παρακολούθηση να γίνεται γενικά συχνότερη.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Unang beses na bumubukas ang mga mata. Karaniwang hindi pa malalaman ang huling kulay ng mga ito hanggang pagkalipas ng ilang buwan pagkapanganak.',
+        length: 'Mga 35.6 cm',
+        comparison: 'Pipino',
+        bodyChanges: [
+          'Maaaring lumitaw ang banayad na pamamaga ng bukung-bukong o paa, partikular sa katapusan ng araw.',
+        ],
+        toKnow: [
+          'Papalapit na ang ikatlong trimester, kung kailan karaniwang dumadalas ang medikal na pagsubaybay.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'கண்கள் முதல் முறையாகத் திறக்கின்றன. அவற்றின் இறுதி நிறம் பொதுவாகப் பிறந்து பல மாதங்களுக்குப் பிறகுதான் தெரியும்.',
+        length: 'சுமார் 35.6 செ.மீ',
+        comparison: 'வெள்ளரிக்காய்',
+        bodyChanges: [
+          'கணுக்கால் அல்லது பாதங்களில் லேசான வீக்கம் தோன்றலாம், குறிப்பாக நாள் முடிவில்.',
+        ],
+        toKnow: [
+          'மூன்றாவது மூன்று மாதம் நெருங்குகிறது, மருத்துவத் தொடர் கவனிப்பு பொதுவாக அடிக்கடி ஆகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'కళ్లు మొదటిసారి తెరుచుకుంటాయి. వాటి తుది రంగు సాధారణంగా పుట్టిన కొన్ని నెలల వరకు తెలియదు.',
+        length: 'సుమారు 35.6 సెం.మీ',
+        comparison: 'దోసకాయ',
+        bodyChanges: [
+          'ముఖ్యంగా రోజు చివరికి, చీలమండల లేదా పాదాల తేలికపాటి వాపు కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'మూడవ త్రైమాసికం సమీపిస్తోంది, వైద్య తదుపరి పర్యవేక్షణ సాధారణంగా మరింత తరచుగా మారుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'डोळे पहिल्यांदा उघडतात. त्यांचा अंतिम रंग साधारणपणे जन्मानंतर काही महिन्यांपर्यंत कळत नाही.',
+        length: 'सुमारे 35.6 सेमी',
+        comparison: 'काकडी',
+        bodyChanges: [
+          'विशेषतः दिवसाच्या शेवटी, घोट्यांना किंवा पायांना सौम्य सूज दिसू शकते.',
+        ],
+        toKnow: [
+          'तिसरी तिमाही जवळ येत आहे, वैद्यकीय पाठपुरावा साधारणपणे अधिक वारंवार होतो.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'આંખો પહેલી વાર ખૂલે છે. તેનો અંતિમ રંગ સામાન્ય રીતે જન્મ પછી ઘણા મહિના સુધી ખબર પડતી નથી.',
+        length: 'લગભગ 35.6 સેમી',
+        comparison: 'કાકડી',
+        bodyChanges: [
+          'ખાસ કરીને દિવસના અંતે પગની ઘૂંટી કે પગમાં હળવો સોજો દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'ત્રીજું ત્રિમાસિક નજીક આવી રહ્યું છે, અને તબીબી તપાસ સામાન્ય રીતે વધુ વારંવાર બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਅੱਖਾਂ ਪਹਿਲੀ ਵਾਰ ਖੁੱਲ੍ਹਦੀਆਂ ਹਨ। ਉਨ੍ਹਾਂ ਦਾ ਅਸਲੀ ਰੰਗ ਆਮ ਤੌਰ ’ਤੇ ਜਨਮ ਤੋਂ ਕਈ ਮਹੀਨਿਆਂ ਬਾਅਦ ਹੀ ਪਤਾ ਲੱਗਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 35.6 ਸੈਮੀ',
+        comparison: 'ਖੀਰਾ',
+        bodyChanges: [
+          'ਖ਼ਾਸ ਕਰਕੇ ਦਿਨ ਦੇ ਅੰਤ ਤੱਕ ਗਿੱਟਿਆਂ ਜਾਂ ਪੈਰਾਂ ਵਿੱਚ ਹਲਕੀ ਸੋਜ ਦਿਖਾਈ ਦੇ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਤੀਜੀ ਤਿਮਾਹੀ ਨੇੜੇ ਆ ਰਹੀ ਹੈ, ਅਤੇ ਡਾਕਟਰੀ ਜਾਂਚ-ਪੜਤਾਲ ਆਮ ਤੌਰ ’ਤੇ ਵਧੇਰੇ ਵਾਰ-ਵਾਰ ਹੋਣ ਲੱਗਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မျက်လုံးများ ပထမဆုံးအကြိမ် ပွင့်လာသည်။ ၎င်း၏ နောက်ဆုံးအရောင်ကို များသောအားဖြင့် မွေးဖွားပြီး လအတော်ကြာမှသာ သိရှိနိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 35.6 စင်တီမီတာ',
+        comparison: 'သခွားသီး',
+        bodyChanges: [
+          'အထူးသဖြင့် နေ့ကုန်ချိန်တွင် ခြေကျင်းဝတ် သို့မဟုတ် ခြေထောက် အပျော့စားရောင်ခြင်း ဖြစ်ပေါ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'တတိယသုံးလပတ် နီးလာနေပြီး ဆေးဘက်ဆိုင်ရာ စောင့်ကြည့်မှုသည် များသောအားဖြင့် ပိုမိုမကြာခဏဖြစ်လာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ភ្នែកបើកជាលើកដំបូង។ ជាទូទៅពណ៌ចុងក្រោយរបស់ភ្នែកនឹងមិនត្រូវបានដឹងទេ រហូតដល់ច្រើនខែក្រោយកំណើត។',
+        length: 'ប្រហែល 35.6 សង់ទីម៉ែត្រ',
+        comparison: 'ត្រសក់',
+        bodyChanges: [
+          'អាចមានហើមស្រាលៗនៅកជើង ឬជើង ជាពិសេសនៅចុងថ្ងៃ។',
+        ],
+        toKnow: [
+          'ត្រីមាសទីបីជិតមកដល់ ហើយការតាមដានខាងវេជ្ជសាស្ត្រជាទូទៅកាន់តែញឹកញាប់។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ດວງຕາເປີດເປັນຄັ້ງທຳອິດ. ໂດຍທົ່ວໄປຈະຍັງບໍ່ຮູ້ສີທີ່ແທ້ຈິງຂອງດວງຕາຈົນກວ່າຈະຜ່ານໄປຫຼາຍເດືອນຫຼັງເກີດ.',
+        length: 'ປະມານ 35.6 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກແຕງ',
+        bodyChanges: [
+          'ຂໍ້ຕີນ ຫຼື ຕີນອາດບວມເລັກນ້ອຍ ໂດຍສະເພາະໃນຕອນທ້າຍຂອງມື້.',
+        ],
+        toKnow: [
+          'ໄຕມາດທີສາມກຳລັງໃກ້ເຂົ້າມາ ແລະ ການຕິດຕາມທາງການແພດໂດຍທົ່ວໄປຈະເລື້ອຍຂຶ້ນ.',
+        ],
+      },
     },
   },
   {
@@ -12278,6 +18168,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Paru-paru menjadi mampu memulakan pernafasan, dan bayi terus berisi apabila lemak terkumpul di bawah kulit.',
+        length: 'Kira-kira 36.6 cm',
+        comparison: 'Kobis bunga',
+        bodyChanges: [
+          'Keletihan mungkin kembali apabila tubuh anda menanggung berat yang semakin bertambah.',
+        ],
+        toKnow: [
+          'Permulaan trimester ketiga sering menjadi masa yang baik untuk mula memikirkan pelan kelahiran anda.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Sambabbadu waxay awooddaan inay bilaabaan neefsasho, ilmuhuna wuu sii buuxsamaa marka dufanku ka dhex ururo maqaarka hoostiisa.',
+        length: 'Qiyaastii 36.6 cm',
+        comparison: 'Kaalifloor',
+        bodyChanges: [
+          'Daal ayaa soo noqon kara marka jidhkaagu sido miisaan sii kordhaya.',
+        ],
+        toKnow: [
+          'Bilowga saddex-billaha saddexaad inta badan waa waqti wanaagsan oo la bilaabo la fikirka qorshaha dhalmadaada.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mapafu yanakuwa na uwezo wa kuanzisha kupumua, na mtoto anaendelea kunenepa kadiri mafuta yanavyojikusanya chini ya ngozi.',
+        length: 'Takriban sm 36.6',
+        comparison: 'Kolifulawa',
+        bodyChanges: [
+          'Uchovu unaweza kurejea kwa kuwa mwili wako unabeba uzito unaoongezeka.',
+        ],
+        toKnow: [
+          'Mwanzo wa trimesta ya tatu mara nyingi ni wakati mzuri wa kuanza kufikiria mpango wako wa kujifungua.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Өкпелер тыныс алуды бастауға қабілетті бола бастайды, ал нәресте тері астына май жиналған сайын толыса түседі.',
+        length: 'Шамамен 36.6 см',
+        comparison: 'Түсті қырыққабат',
+        bodyChanges: [
+          'Денеңіз өсіп келе жатқан салмақты көтерген сайын шаршау қайта оралуы мүмкін.',
+        ],
+        toKnow: [
+          'Үшінші триместрдің басы жиі босану жоспарыңыз туралы ойлана бастауға жақсы уақыт.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Mbàmb yi mën nañu tàmbali noppiku, te doom bi kontine fees ndax diwlin bu denc ci kaw der.',
+        length: 'Ci wetu 36.6 cm',
+        comparison: 'Suu-fleer',
+        bodyChanges: [
+          'Sonn mën na dellusi ndax yaram bi di yor yenn bu di yokku.',
+        ],
+        toKnow: [
+          'Tàmbalig trimestr bu ñetteel daa jub la ngir tàmbali xalaat sa pexe jur.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Huhu yana zama mai iya fara numfashi, kuma jariri yana ci gaba da cika yayin da kitse ke taruwa a ƙarƙashin fata.',
+        length: 'Kusan 36.6 cm',
+        comparison: 'Farin kabeji',
+        bodyChanges: [
+          'Gajiya na iya dawowa yayin da jikinki ke ɗaukar nauyi mai ƙaruwa.',
+        ],
+        toKnow: [
+          'Farkon kashi na uku galibi lokaci ne mai kyau na fara tunani game da shirin haihuwarki.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሳንባዎች መተንፈስን የመጀመር አቅም ያገኛሉ፣ እና ሕፃኑ ከቆዳ በታች ስብ ሲከማች መሞላቱን ይቀጥላል።',
+        length: 'ወደ 36.6 ሴሜ',
+        comparison: 'አበባ ጎመን',
+        bodyChanges: [
+          'ሰውነትሽ እየጨመረ የሚሄድ ክብደት ሲሸከም ድካም ሊመለስ ይችላል።',
+        ],
+        toKnow: [
+          'የሦስተኛው ሦስት ወር መጀመሪያ የወሊድ እቅድሽን ለማሰብ ለመጀመር ብዙ ጊዜ ጥሩ ጊዜ ነው።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De longen worden in staat de ademhaling op gang te brengen en de baby wordt voller doordat zich vet onder de huid opbouwt.',
+        length: 'Ongeveer 36,6 cm',
+        comparison: 'Bloemkool',
+        bodyChanges: [
+          'Vermoeidheid kan terugkeren doordat je lichaam een groeiend gewicht draagt.',
+        ],
+        toKnow: [
+          'Het begin van het derde trimester is vaak een goed moment om na te denken over je bevalplan.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Keuhkot kykenevät käynnistämään hengityksen, ja vauva jatkaa täyteläistymistä ihon alle kertyvän rasvan myötä.',
+        length: 'Noin 36,6 cm',
+        comparison: 'Kukkakaali',
+        bodyChanges: [
+          'Väsymys voi palata, kun kehosi kantaa kasvavaa painoa.',
+        ],
+        toKnow: [
+          'Kolmannen kolmanneksen alku on usein hyvä aika alkaa miettiä synnytyssuunnitelmaasi.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Οι πνεύμονες γίνονται ικανοί να ξεκινήσουν την αναπνοή και το μωρό συνεχίζει να γεμίζει καθώς το λίπος συσσωρεύεται κάτω από το δέρμα.',
+        length: 'Περίπου 36,6 εκ.',
+        comparison: 'Κουνουπίδι',
+        bodyChanges: [
+          'Η κόπωση μπορεί να επιστρέψει καθώς το σώμα σου σηκώνει ένα αυξανόμενο βάρος.',
+        ],
+        toKnow: [
+          'Η έναρξη του τρίτου τριμήνου είναι συχνά μια καλή στιγμή για να αρχίσεις να σκέφτεσαι το σχέδιο τοκετού σου.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nagiging may kakayahan ang mga baga na simulan ang paghinga, at patuloy na tumataba ang sanggol habang nag-iipon ng taba sa ilalim ng balat.',
+        length: 'Mga 36.6 cm',
+        comparison: 'Cauliflower',
+        bodyChanges: [
+          'Maaaring bumalik ang pagod habang pinapasan ng iyong katawan ang lumalaking bigat.',
+        ],
+        toKnow: [
+          'Ang simula ng ikatlong trimester ay madalas na mabuting panahon para magsimulang pag-isipan ang iyong birth plan.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'நுரையீரல்கள் சுவாசத்தைத் தொடங்கும் திறனைப் பெறுகின்றன, தோலுக்குக் கீழ் கொழுப்புப் படிவதால் குழந்தை தொடர்ந்து புஷ்டியாகிறது.',
+        length: 'சுமார் 36.6 செ.மீ',
+        comparison: 'காலிஃபிளவர்',
+        bodyChanges: [
+          'உங்கள் உடல் வளரும் எடையைச் சுமப்பதால் சோர்வு மீண்டும் வரலாம்.',
+        ],
+        toKnow: [
+          'மூன்றாவது மூன்று மாதத்தின் தொடக்கம் உங்கள் பிரசவத் திட்டத்தைப் பற்றிச் சிந்திக்கத் தொடங்க பெரும்பாலும் நல்ல நேரம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఊపిరితిత్తులు శ్వాసను మొదలుపెట్టగల స్థితికి చేరతాయి, చర్మం కింద కొవ్వు పేరుకుంటూ శిశువు నిండుగా మారడం కొనసాగుతుంది.',
+        length: 'సుమారు 36.6 సెం.మీ',
+        comparison: 'కాలీఫ్లవర్',
+        bodyChanges: [
+          'మీ శరీరం పెరుగుతున్న బరువును మోస్తున్న కొద్దీ అలసట తిరిగి రావచ్చు.',
+        ],
+        toKnow: [
+          'మూడవ త్రైమాసికం ఆరంభం తరచుగా మీ ప్రసవ ప్రణాళిక గురించి ఆలోచించడం మొదలుపెట్టడానికి మంచి సమయం.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'फुफ्फुसे श्वास सुरू करण्यास सक्षम होतात, आणि त्वचेखाली चरबी साठत असल्याने बाळ भरदार होत राहते.',
+        length: 'सुमारे 36.6 सेमी',
+        comparison: 'फुलकोबी',
+        bodyChanges: [
+          'तुमचे शरीर वाढते वजन वाहत असताना थकवा परत येऊ शकतो.',
+        ],
+        toKnow: [
+          'तिसऱ्या तिमाहीची सुरुवात बहुतेकदा तुमच्या प्रसूती योजनेबद्दल विचार सुरू करण्यासाठी चांगली वेळ असते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ફેફસાં શ્વાસ શરૂ કરવા સક્ષમ બને છે, અને ત્વચા નીચે ચરબી જમા થતાં બાળક વધુ ભરાવદાર થતું રહે છે.',
+        length: 'લગભગ 36.6 સેમી',
+        comparison: 'ફૂલકોબી',
+        bodyChanges: [
+          'તમારું શરીર વધતા વજનનો ભાર ઉપાડતું હોવાથી થાક પાછો આવી શકે છે.',
+        ],
+        toKnow: [
+          'ત્રીજા ત્રિમાસિકની શરૂઆત ઘણી વાર તમારી પ્રસૂતિની યોજના વિશે વિચારવા માટેનો સારો સમય હોય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਫੇਫੜੇ ਸਾਹ ਸ਼ੁਰੂ ਕਰਨ ਦੇ ਯੋਗ ਹੋ ਜਾਂਦੇ ਹਨ, ਅਤੇ ਚਮੜੀ ਹੇਠ ਚਰਬੀ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ ਬੱਚਾ ਹੋਰ ਭਰਿਆ-ਭਰਿਆ ਹੁੰਦਾ ਜਾਂਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 36.6 ਸੈਮੀ',
+        comparison: 'ਗੋਭੀ',
+        bodyChanges: [
+          'ਤੁਹਾਡਾ ਸਰੀਰ ਵਧਦੇ ਭਾਰ ਨੂੰ ਚੁੱਕ ਰਿਹਾ ਹੋਣ ਕਰਕੇ ਥਕਾਵਟ ਮੁੜ ਆ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਤੀਜੀ ਤਿਮਾਹੀ ਦੀ ਸ਼ੁਰੂਆਤ ਅਕਸਰ ਤੁਹਾਡੀ ਜਣੇਪੇ ਦੀ ਯੋਜਨਾ ਬਾਰੇ ਸੋਚਣ ਸ਼ੁਰੂ ਕਰਨ ਦਾ ਚੰਗਾ ਸਮਾਂ ਹੁੰਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အဆုတ်များသည် အသက်ရှူခြင်း စတင်နိုင်စွမ်း ရရှိလာပြီး အရေပြားအောက်တွင် အဆီစုလာသည်နှင့်အမျှ ကလေးသည် ဆက်လက်ဝဖြိုးလာသည်။',
+        length: 'ခန့်မှန်းခြေ 36.6 စင်တီမီတာ',
+        comparison: 'ပန်းမုံညှင်း',
+        bodyChanges: [
+          'သင်၏ခန္ဓာကိုယ်သည် တိုးလာသော ကိုယ်အလေးချိန်ကို သယ်ဆောင်နေသောကြောင့် ပင်ပန်းနွမ်းနယ်ခြင်း ပြန်ဖြစ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'တတိယသုံးလပတ်၏ အစသည် သင်၏ ကလေးမွေးဖွားရေးစီမံချက်ကို စတင်စဉ်းစားရန် မကြာခဏ ကောင်းမွန်သော အချိန်ဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'សួតអាចចាប់ផ្តើមដកដង្ហើមបាន ហើយទារកបន្តមានរាងពេញឡើង នៅពេលខ្លាញ់កកកុញនៅក្រោមស្បែក។',
+        length: 'ប្រហែល 36.6 សង់ទីម៉ែត្រ',
+        comparison: 'ផ្កាខាត់ណា',
+        bodyChanges: [
+          'ភាពអស់កម្លាំងអាចត្រឡប់មកវិញ ដោយសាររាងកាយរបស់អ្នកទ្រទម្ងន់កាន់តែច្រើន។',
+        ],
+        toKnow: [
+          'ដើមត្រីមាសទីបីជាញឹកញាប់ជាពេលល្អក្នុងការចាប់ផ្តើមគិតអំពីផែនការសម្រាលកូនរបស់អ្នក។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ປອດເລີ່ມສາມາດເລີ່ມການຫາຍໃຈໄດ້ ແລະ ລູກນ້ອຍສືບຕໍ່ເຕັມຕົວຂຶ້ນເມື່ອໄຂມັນສະສົມຢູ່ໃຕ້ຜິວໜັງ.',
+        length: 'ປະມານ 36.6 ເຊັນຕີແມັດ',
+        comparison: 'ດອກກະລຳ',
+        bodyChanges: [
+          'ອາການອ່ອນເພຍອາດກັບມາອີກ ເພາະຮ່າງກາຍຂອງທ່ານແບກນ້ຳໜັກທີ່ເພີ່ມຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ການເລີ່ມຕົ້ນໄຕມາດທີສາມມັກເປັນເວລາທີ່ດີທີ່ຈະເລີ່ມຄິດເຖິງແຜນການເກີດລູກຂອງທ່ານ.',
+        ],
+      },
     },
   },
 
@@ -12732,6 +18850,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Kadar denyutan jantung, yang lebih pantas pada awal kehamilan, telah stabil sekitar 130 hingga 140 denyutan seminit dan kini boleh didengar dengan stetoskop.',
+        length: 'Kira-kira 37.6 cm',
+        comparison: 'Terung',
+        bodyChanges: [
+          'Sesak nafas atau pedih ulu hati mungkin menjadi lebih kerap apabila rahim mengambil lebih banyak ruang.',
+        ],
+        toKnow: [
+          'Trimester ketiga biasanya bermula sekitar minggu ini, dengan temu janji menjadi lebih kerap.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Heerka garaaca wadnaha, oo ka dhaqso badnaa bilowga uurka, wuxuu degay qiyaastii 130 ilaa 140 garaac daqiiqadii wuxuuna hadda lagu maqli karaa istitoskoob.',
+        length: 'Qiyaastii 37.6 cm',
+        comparison: 'Bilaajaan',
+        bodyChanges: [
+          'Neef-qabasho ama gubasho laabta ayaa noqon kara kuwo soo noqnoqda marka ilmo-galeenku boos badan qaato.',
+        ],
+        toKnow: [
+          'Saddex-billaha saddexaad guud ahaan wuxuu bilaabmaa toddobaadkan hareerihiisa, ballammaduna waxay noqonayaan kuwo soo noqnoqda.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mapigo ya moyo, yaliyokuwa ya kasi zaidi mwanzoni mwa ujauzito, yametulia kuwa takriban mapigo 130 hadi 140 kwa dakika na sasa yanaweza kusikika kwa stethoskopu.',
+        length: 'Takriban sm 37.6',
+        comparison: 'Biringanya',
+        bodyChanges: [
+          'Upungufu wa pumzi au kiungulia vinaweza kuwa vya mara kwa mara zaidi kadiri mji wa uzazi unavyochukua nafasi zaidi.',
+        ],
+        toKnow: [
+          'Trimesta ya tatu kwa kawaida huanza karibu na wiki hii, huku miadi ikiwa ya mara kwa mara zaidi.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Жүктіліктің өте ерте кезінде жылдам болған жүрек соғысы минутына шамамен 130-дан 140-қа дейін тұрақталды және енді стетоскоппен естілуі мүмкін.',
+        length: 'Шамамен 37.6 см',
+        comparison: 'Баклажан',
+        bodyChanges: [
+          'Жатыр көбірек орын алған сайын тыныс жетіспеушілігі немесе жүрек қыжылы жиірек болуы мүмкін.',
+        ],
+        toKnow: [
+          'Үшінші триместр әдетте осы аптаның айналасында басталады, қабылдаулар жиілей түседі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Dóonug xol bi, bu gaaw lool ci tàmbalig ëmb, dafa sax ci wetu 130 ba 140 dóon ci simili te mën nañu ko dégg léegi ak stetoskop.',
+        length: 'Ci wetu 37.6 cm',
+        comparison: 'Aubergin',
+        bodyChanges: [
+          'Noppiku bu jafe walla tàngoor ci dënn mën nañu gën a bari ndax bérëbu ndey di jël bérëb.',
+        ],
+        toKnow: [
+          'Trimestr bu ñetteel daa tàmbali ci wetu ayu-bés bii, ak ndaje yu di gën a bari.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Bugun zuciya, wanda ya fi sauri a farkon ciki, ya tsaya a kusan bugu 130 zuwa 140 a minti ɗaya kuma yanzu ana iya jin shi da stethoscope.',
+        length: 'Kusan 37.6 cm',
+        comparison: 'Yalo',
+        bodyChanges: [
+          'Ƙarancin numfashi ko ƙwannafi na iya zama akai-akai yayin da mahaifa ke ɗaukar sarari mai yawa.',
+        ],
+        toKnow: [
+          'Kashi na uku yawanci yana farawa a kusa da wannan mako, tare da ganawa suna ƙara yawaita.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'በጣም ቀደምት እርግዝና ላይ ፈጣን የነበረው የልብ ምት በደቂቃ ከ130 እስከ 140 ምቶች አካባቢ ተረጋግቷል እና አሁን በስቴቶስኮፕ ሊሰማ ይችላል።',
+        length: 'ወደ 37.6 ሴሜ',
+        comparison: 'ኤግፕላንት',
+        bodyChanges: [
+          'ማህፀን ብዙ ቦታ ሲይዝ የትንፋሽ ማጠር ወይም የልብ ቃጠሎ ይበልጥ ተደጋጋሚ ሊሆን ይችላል።',
+        ],
+        toKnow: [
+          'ሦስተኛው ሦስት ወር በአጠቃላይ በዚህ ሳምንት አካባቢ ይጀምራል፣ ቀጠሮዎችም ይበልጥ ተደጋጋሚ ይሆናሉ።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De hartslag, in het begin van de zwangerschap sneller, is gestabiliseerd rond 130 tot 140 slagen per minuut en kan nu met een stethoscoop worden gehoord.',
+        length: 'Ongeveer 37,6 cm',
+        comparison: 'Aubergine',
+        bodyChanges: [
+          'Kortademigheid of brandend maagzuur kan vaker voorkomen doordat de baarmoeder meer ruimte inneemt.',
+        ],
+        toKnow: [
+          'Het derde trimester begint over het algemeen rond deze week, met afspraken die frequenter worden.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Sydämen syke, joka oli aivan raskauden alussa nopeampi, on vakiintunut noin 130–140 lyöntiin minuutissa ja kuuluu nyt stetoskoopilla.',
+        length: 'Noin 37,6 cm',
+        comparison: 'Munakoiso',
+        bodyChanges: [
+          'Hengenahdistus tai närästys voi yleistyä kohdun viedessä enemmän tilaa.',
+        ],
+        toKnow: [
+          'Kolmas kolmannes alkaa yleensä tämän viikon tienoilla, ja käynnit tihenevät.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Ο καρδιακός ρυθμός, πιο γρήγορος στην πολύ πρώιμη εγκυμοσύνη, έχει σταθεροποιηθεί γύρω στους 130 έως 140 παλμούς το λεπτό και μπορεί πλέον να ακουστεί με στηθοσκόπιο.',
+        length: 'Περίπου 37,6 εκ.',
+        comparison: 'Μελιτζάνα',
+        bodyChanges: [
+          'Η δύσπνοια ή η καούρα μπορεί να γίνουν συχνότερες καθώς η μήτρα καταλαμβάνει περισσότερο χώρο.',
+        ],
+        toKnow: [
+          'Το τρίτο τρίμηνο ξεκινά γενικά γύρω σε αυτή την εβδομάδα, με τα ραντεβού να γίνονται συχνότερα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang tibok ng puso, na mas mabilis sa napakaagang pagbubuntis, ay naging matatag sa humigit-kumulang 130 hanggang 140 tibok kada minuto at maaari na ngayong marinig gamit ang stethoscope.',
+        length: 'Mga 37.6 cm',
+        comparison: 'Talong',
+        bodyChanges: [
+          'Maaaring dumalas ang hirap sa paghinga o heartburn habang kumukuha ng mas maraming espasyo ang matris.',
+        ],
+        toKnow: [
+          'Karaniwang nagsisimula ang ikatlong trimester sa paligid ng linggong ito, na dumadalas ang mga appointment.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'மிகத் தொடக்கக் கர்ப்பத்தில் வேகமாக இருந்த இதயத் துடிப்பு நிமிடத்துக்கு சுமார் 130 முதல் 140 வரை நிலைபெற்றுள்ளது, இப்போது ஸ்டெதாஸ்கோப் மூலம் கேட்கலாம்.',
+        length: 'சுமார் 37.6 செ.மீ',
+        comparison: 'கத்தரிக்காய்',
+        bodyChanges: [
+          'கருப்பை அதிக இடத்தை எடுத்துக்கொள்வதால் மூச்சுத் திணறல் அல்லது நெஞ்செரிச்சல் அடிக்கடி ஏற்படலாம்.',
+        ],
+        toKnow: [
+          'மூன்றாவது மூன்று மாதம் பொதுவாக இந்த வாரத்தைச் சுற்றித் தொடங்குகிறது, சந்திப்புகள் அடிக்கடி ஆகின்றன.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'అతి తొలి గర్భంలో వేగంగా ఉన్న గుండె వేగం నిమిషానికి సుమారు 130 నుండి 140 చప్పుళ్ల వద్ద స్థిరపడింది, ఇప్పుడు స్టెతస్కోప్‌తో వినవచ్చు.',
+        length: 'సుమారు 37.6 సెం.మీ',
+        comparison: 'వంకాయ',
+        bodyChanges: [
+          'గర్భాశయం ఎక్కువ స్థలం ఆక్రమిస్తున్న కొద్దీ శ్వాస ఇబ్బంది లేదా గుండెల్లో మంట మరింత తరచుగా రావచ్చు.',
+        ],
+        toKnow: [
+          'మూడవ త్రైమాసికం సాధారణంగా ఈ వారం చుట్టూ మొదలవుతుంది, అపాయింట్‌మెంట్లు మరింత తరచుగా మారతాయి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'अगदी सुरुवातीच्या गर्भारपणात वेगवान असलेला हृदयगती आता सुमारे 130 ते 140 ठोके प्रति मिनिटावर स्थिर झाला आहे आणि आता स्टेथोस्कोपने ऐकता येतो.',
+        length: 'सुमारे 37.6 सेमी',
+        comparison: 'वांगे',
+        bodyChanges: [
+          'गर्भाशय अधिक जागा व्यापत असताना धाप लागणे किंवा छातीत जळजळ अधिक वारंवार होऊ शकते.',
+        ],
+        toKnow: [
+          'तिसरी तिमाही साधारणपणे या आठवड्याच्या सुमारास सुरू होते, भेटी अधिक वारंवार होतात.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ધબકારનો દર, શરૂઆતની ગર્ભાવસ્થામાં ઝડપી, મિનિટે લગભગ 130 થી 140 ધબકાર પર સ્થિર થયો છે અને હવે સ્ટેથોસ્કોપથી સાંભળી શકાય છે.',
+        length: 'લગભગ 37.6 સેમી',
+        comparison: 'રીંગણ',
+        bodyChanges: [
+          'ગર્ભાશય વધુ જગ્યા રોકતાં શ્વાસ ચડવો કે છાતીમાં બળતરા વધુ વારંવાર થઈ શકે છે.',
+        ],
+        toKnow: [
+          'ત્રીજું ત્રિમાસિક સામાન્ય રીતે આ અઠવાડિયાની આસપાસ શરૂ થાય છે, અને મુલાકાતો વધુ વારંવાર બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਧੜਕਣ ਦੀ ਰਫ਼ਤਾਰ, ਜੋ ਗਰਭ-ਅਵਸਥਾ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਤੇਜ਼ ਸੀ, ਪ੍ਰਤੀ ਮਿੰਟ ਲਗਭਗ 130 ਤੋਂ 140 ਧੜਕਣਾਂ ’ਤੇ ਸਥਿਰ ਹੋ ਗਈ ਹੈ ਅਤੇ ਹੁਣ ਸਟੈਥੋਸਕੋਪ ਨਾਲ ਸੁਣੀ ਜਾ ਸਕਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 37.6 ਸੈਮੀ',
+        comparison: 'ਬੈਂਗਣ',
+        bodyChanges: [
+          'ਬੱਚੇਦਾਨੀ ਦੇ ਵੱਧ ਥਾਂ ਘੇਰਨ ਨਾਲ ਸਾਹ ਚੜ੍ਹਨਾ ਜਾਂ ਸੀਨੇ ਵਿੱਚ ਜਲਨ ਵਧੇਰੇ ਵਾਰ ਹੋ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਤੀਜੀ ਤਿਮਾਹੀ ਆਮ ਤੌਰ ’ਤੇ ਇਸੇ ਹਫ਼ਤੇ ਦੇ ਆਸ-ਪਾਸ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ, ਅਤੇ ਮੁਲਾਕਾਤਾਂ ਵਧੇਰੇ ਵਾਰ-ਵਾਰ ਹੋਣ ਲੱਗਦੀਆਂ ਹਨ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကိုယ်ဝန်အစောပိုင်းတွင် မြန်ဆန်ခဲ့သော နှလုံးခုန်နှုန်းသည် တစ်မိနစ်လျှင် ၁၃၀ မှ ၁၄၀ ခန့်တွင် တည်ငြိမ်လာပြီး ယခုအခါ စတက်သိုစကုပ်ဖြင့် ကြားနိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 37.6 စင်တီမီတာ',
+        comparison: 'ခရမ်းသီး',
+        bodyChanges: [
+          'သားအိမ်သည် နေရာပိုယူလာသည်နှင့်အမျှ အသက်ရှူကျပ်ခြင်း သို့မဟုတ် ရင်ပူခြင်း ပိုမိုမကြာခဏ ဖြစ်လာနိုင်သည်။',
+        ],
+        toKnow: [
+          'တတိယသုံးလပတ်သည် များသောအားဖြင့် ဤအပတ်ဝန်းကျင်တွင် စတင်ပြီး ချိန်းဆိုမှုများ ပိုမိုမကြာခဏဖြစ်လာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ចង្វាក់បេះដូង ដែលលឿនជាងនៅដើមការមានផ្ទៃពោះ ឥឡូវនេះបានស្ថិរភាពនៅប្រហែល 130 ទៅ 140 ដងក្នុងមួយនាទី ហើយអាចស្តាប់ឮដោយប្រើឧបករណ៍ស្តាប់សួតបេះដូង។',
+        length: 'ប្រហែល 37.6 សង់ទីម៉ែត្រ',
+        comparison: 'ត្រប់',
+        bodyChanges: [
+          'ដង្ហើមខ្លី ឬឈឺទ្រូងក្តៅអាចកើតមានញឹកញាប់ជាងមុន នៅពេលស្បូនកាន់កាប់ទីតាំងកាន់តែច្រើន។',
+        ],
+        toKnow: [
+          'ត្រីមាសទីបីជាទូទៅចាប់ផ្តើមនៅជុំវិញសប្តាហ៍នេះ ជាមួយនឹងការណាត់ជួបកាន់តែញឹកញាប់។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ອັດຕາການເຕັ້ນຂອງຫົວໃຈ ເຊິ່ງໄວກວ່າໃນຕົ້ນການຖືພາ ໄດ້ຄົງທີ່ຢູ່ປະມານ 130 ຫາ 140 ເທື່ອຕໍ່ນາທີ ແລະ ຕອນນີ້ສາມາດໄດ້ຍິນດ້ວຍເຄື່ອງຟັງຫົວໃຈ.',
+        length: 'ປະມານ 37.6 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກເຂືອ',
+        bodyChanges: [
+          'ອາການຫາຍໃຈສັ້ນ ຫຼື ເຈັບເຍື່ອງອາດເກີດຂຶ້ນເລື້ອຍຂຶ້ນ ເມື່ອມົດລູກກິນພື້ນທີ່ຫຼາຍຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ໂດຍທົ່ວໄປໄຕມາດທີສາມເລີ່ມຕົ້ນປະມານອາທິດນີ້ ແລະ ການນັດພົບຈະເລື້ອຍຂຶ້ນ.',
+        ],
+      },
     },
   },
   {
@@ -13184,6 +19530,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi sudah terbentuk dengan baik; minggu-minggu yang akan datang terutamanya ditumpukan kepada pematangan organ dan pertambahan berat badan. Lapisan pelindung nipis yang menutupi kulitnya mula diserap semula.',
+        length: 'Kira-kira 38.6 cm',
+        comparison: 'Labu butternut',
+        bodyChanges: [
+          'Tidur mungkin menjadi lebih sukar kerana perut anda yang semakin membesar.',
+        ],
+        toKnow: [
+          'Berehat pada sebelah kiri sering disyorkan pada akhir kehamilan untuk menyokong peredaran darah.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu horey ayuu si wanaagsan u samaysmay; toddobaadyada soo socda inta badan waxaa loo huraa bislaanshaha xubnaha iyo kororka miisaanka. Daboolka ilaalinta khafiifka ah ee maqaarka ku jira ayaa bilaabmaya in dib loo nuugo.',
+        length: 'Qiyaastii 38.6 cm',
+        comparison: 'Qaraha butternut',
+        bodyChanges: [
+          'Hurdo helid ayaa noqon karta mid ka adag sababtoo ah calooshaada sii weynaanaysa.',
+        ],
+        toKnow: [
+          'Nasashada dhinaca bidix inta badan waxaa lagu taliyaa uurka dambe si loo taageero wareegga dhiigga.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto tayari ameumbika vizuri; wiki zijazo zitatumika hasa kwa kukomaa kwa viungo na kuongezeka uzito. Safu nyembamba ya kinga inayofunika ngozi yake inaanza kufyonzwa tena.',
+        length: 'Takriban sm 38.6',
+        comparison: 'Boga la butternut',
+        bodyChanges: [
+          'Usingizi unaweza kuwa mgumu kupatikana kwa sababu ya tumbo lako linalokua.',
+        ],
+        toKnow: [
+          'Kupumzika ukiegemea upande wa kushoto mara nyingi hupendekezwa mwishoni mwa ujauzito ili kusaidia mzunguko wa damu.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте қазірдің өзінде жақсы қалыптасқан; алдағы апталар негізінен ағзалардың жетілуіне және салмақ қосуға арналады. Терісін жауып тұрған жұқа қорғаныс қабаты қайта сіңіле бастайды.',
+        length: 'Шамамен 38.6 см',
+        comparison: 'Бутернат асқабағы',
+        bodyChanges: [
+          'Өсіп келе жатқан ішіңізге байланысты ұйықтау қиындауы мүмкін.',
+        ],
+        toKnow: [
+          'Жүктіліктің соңында қан айналымын қолдау үшін сол жақ бүйірге жатып демалу жиі ұсынылады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi defaru na baax ba noppi; ayu-bés yi toftal dañuy jëm lool ci mat yaxu yi ak yokku. Benn aar bu lewet bi di sàkku der bi tàmbali sooxu.',
+        length: 'Ci wetu 38.6 cm',
+        comparison: 'Butternat',
+        bodyChanges: [
+          'Nelaw mën na gën a jafe ndax sa biir bi di màgg.',
+        ],
+        toKnow: [
+          'Noppalu ci wet bu càmmiñ daa digal ci jeexu ëmb ngir dimbli yëngu deret.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri ya riga ya samu sosai; makonnin da ke zuwa galibi za a keɓe su ne ga balagar sassan jiki da ƙara nauyi. Siririn rufin kariya da ke rufe fatarsa yana fara sake sha.',
+        length: 'Kusan 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: [
+          'Barci na iya zama da wuyar samu saboda girman cikinki.',
+        ],
+        toKnow: [
+          'Ana yawan ba da shawarar hutawa a gefen hagu a ƙarshen ciki don tallafa wa jini.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ አስቀድሞ በደንብ ተፈጥሯል፤ የሚቀጥሉት ሳምንታት በዋናነት ለአካላት ብስለትና ክብደት መጨመር ይውላሉ። ቆዳውን የሚሸፍነው ቀጭን መከላከያ ሽፋን እንደገና መምጠጥ ይጀምራል።',
+        length: 'ወደ 38.6 ሴሜ',
+        comparison: 'የቅቤ ዱባ',
+        bodyChanges: [
+          'በሚያድገው ሆድሽ ምክንያት እንቅልፍ ለማግኘት ሊከብድ ይችላል።',
+        ],
+        toKnow: [
+          'ዘግይቶ በእርግዝና ደም ዝውውርን ለመደገፍ በግራ ጎን ማረፍ ብዙ ጊዜ ይመከራል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby is al goed gevormd; de komende weken staan vooral in het teken van rijping van de organen en gewichtstoename. De dunne beschermende laag op de huid begint te worden opgenomen.',
+        length: 'Ongeveer 38,6 cm',
+        comparison: 'Butternutpompoen',
+        bodyChanges: [
+          'Slapen kan moeilijker worden door je groeiende buik.',
+        ],
+        toKnow: [
+          'Op je linkerzij rusten wordt laat in de zwangerschap vaak aanbevolen om de bloedsomloop te ondersteunen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva on jo hyvin muotoutunut; tulevat viikot omistetaan pääasiassa elinten kypsymiselle ja painonnousulle. Ihoa peittävä ohut suojakerros alkaa imeytyä uudelleen.',
+        length: 'Noin 38,6 cm',
+        comparison: 'Myskikurpitsa',
+        bodyChanges: [
+          'Unen löytäminen voi käydä vaikeammaksi kasvavan vatsasi vuoksi.',
+        ],
+        toKnow: [
+          'Vasemmalla kyljellä lepäämistä suositellaan usein raskauden loppuvaiheessa verenkierron tukemiseksi.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό είναι ήδη καλά σχηματισμένο· οι επόμενες εβδομάδες θα αφιερωθούν κυρίως στην ωρίμανση των οργάνων και στην αύξηση βάρους. Το λεπτό προστατευτικό επίστρωμα που καλύπτει το δέρμα του αρχίζει να επαναρροφάται.',
+        length: 'Περίπου 38,6 εκ.',
+        comparison: 'Κολοκύθα μπάτερναντ',
+        bodyChanges: [
+          'Ο ύπνος μπορεί να γίνει πιο δύσκολος λόγω της αυξανόμενης κοιλιάς σου.',
+        ],
+        toKnow: [
+          'Η ξεκούραση στην αριστερή πλευρά συνιστάται συχνά στο τέλος της εγκυμοσύνης για να στηρίζεται η κυκλοφορία.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Maayos nang nabuo ang sanggol; ang mga susunod na linggo ay pangunahing ilalaan sa pagkahinog ng mga organo at pagtaba. Nagsisimulang muling masipsip ang manipis na proteksyong patong na tumatakip sa kanyang balat.',
+        length: 'Mga 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: [
+          'Maaaring maging mas mahirap makahanap ng tulog dahil sa lumalaking tiyan.',
+        ],
+        toKnow: [
+          'Madalas na inirerekomenda ang pagpapahinga sa iyong kaliwang tagiliran sa huling bahagi ng pagbubuntis upang suportahan ang sirkulasyon.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை ஏற்கெனவே நன்கு உருவாகிவிட்டது; வரும் வாரங்கள் முக்கியமாக உறுப்பு முதிர்ச்சிக்கும் எடை அதிகரிப்புக்கும் அர்ப்பணிக்கப்படும். அவர்களின் தோலை மூடியிருக்கும் மெல்லிய பாதுகாப்புப் பூச்சு மீண்டும் உறிஞ்சப்படத் தொடங்குகிறது.',
+        length: 'சுமார் 38.6 செ.மீ',
+        comparison: 'பட்டர்நட் பூசணி',
+        bodyChanges: [
+          'வளரும் வயிற்றால் உறக்கம் கிடைப்பது கடினமாகலாம்.',
+        ],
+        toKnow: [
+          'இரத்த ஓட்டத்தை ஆதரிக்க, கர்ப்பத்தின் பிற்பகுதியில் இடது பக்கமாக ஓய்வெடுப்பது பெரும்பாலும் பரிந்துரைக்கப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు అప్పటికే చక్కగా ఏర్పడింది; రాబోయే వారాలు ప్రధానంగా అవయవాల పరిపక్వత, బరువు పెరుగుదలకు అంకితమవుతాయి. చర్మాన్ని కప్పి ఉన్న సన్నని రక్షణ పొర తిరిగి శరీరంలోకి ఇంకడం మొదలవుతుంది.',
+        length: 'సుమారు 38.6 సెం.మీ',
+        comparison: 'గుమ్మడికాయ (బటర్‌నట్)',
+        bodyChanges: [
+          'మీ పెరుగుతున్న పొట్ట కారణంగా నిద్రపట్టడం మరింత కష్టం కావచ్చు.',
+        ],
+        toKnow: [
+          'రక్త ప్రసరణకు తోడ్పడేందుకు, గర్భం చివరి దశలో ఎడమ పక్కన విశ్రాంతి తీసుకోవడం తరచుగా సిఫార్సు చేయబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ आधीच चांगले तयार झाले आहे; येणारे आठवडे प्रामुख्याने अवयवांच्या परिपक्वतेसाठी आणि वजन वाढवण्यासाठी असतील. त्याची त्वचा झाकणारा पातळ संरक्षक थर पुन्हा शोषला जाऊ लागतो.',
+        length: 'सुमारे 38.6 सेमी',
+        comparison: 'लाल भोपळा (बटरनट)',
+        bodyChanges: [
+          'तुमच्या वाढत्या पोटामुळे झोप लागणे कठीण होऊ शकते.',
+        ],
+        toKnow: [
+          'रक्ताभिसरणाला आधार देण्यासाठी, गर्भारपणाच्या शेवटच्या काळात डाव्या कुशीवर विश्रांती घेण्याची अनेकदा शिफारस केली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક પહેલેથી સારી રીતે બની ચૂક્યું છે; આવનારાં અઠવાડિયાં મુખ્યત્વે અવયવોની પરિપક્વતા અને વજન વધારવા માટે છે. તેની ત્વચાને ઢાંકતું પાતળું રક્ષણાત્મક આવરણ ફરી શોષાવા લાગે છે.',
+        length: 'લગભગ 38.6 સેમી',
+        comparison: 'બટરનટ કોળું',
+        bodyChanges: [
+          'તમારા વધતા પેટને કારણે ઊંઘ આવવી વધુ મુશ્કેલ બની શકે છે.',
+        ],
+        toKnow: [
+          'ગર્ભાવસ્થાના અંતિમ તબક્કામાં રક્ત પરિભ્રમણને ટેકો આપવા ડાબા પડખે આરામ કરવાની ઘણી વાર ભલામણ કરવામાં આવે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਪਹਿਲਾਂ ਹੀ ਚੰਗੀ ਤਰ੍ਹਾਂ ਬਣ ਚੁੱਕਾ ਹੈ; ਆਉਣ ਵਾਲੇ ਹਫ਼ਤੇ ਮੁੱਖ ਤੌਰ ’ਤੇ ਅੰਗਾਂ ਦੇ ਪੱਕਣ ਅਤੇ ਭਾਰ ਵਧਣ ਲਈ ਹਨ। ਉਸ ਦੀ ਚਮੜੀ ਨੂੰ ਢੱਕਣ ਵਾਲੀ ਪਤਲੀ ਸੁਰੱਖਿਆ ਪਰਤ ਮੁੜ ਜਜ਼ਬ ਹੋਣ ਲੱਗਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 38.6 ਸੈਮੀ',
+        comparison: 'ਬਟਰਨਟ ਕੱਦੂ',
+        bodyChanges: [
+          'ਤੁਹਾਡੇ ਵਧਦੇ ਢਿੱਡ ਕਰਕੇ ਨੀਂਦ ਆਉਣੀ ਹੋਰ ਔਖੀ ਹੋ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਗਰਭ-ਅਵਸਥਾ ਦੇ ਅੰਤਲੇ ਪੜਾਅ ਵਿੱਚ ਖ਼ੂਨ ਦੇ ਦੌਰੇ ਨੂੰ ਸਹਾਰਾ ਦੇਣ ਲਈ ਖੱਬੇ ਪਾਸੇ ਆਰਾਮ ਕਰਨ ਦੀ ਅਕਸਰ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် ကောင်းမွန်စွာ ဖွဲ့စည်းပြီးဖြစ်သည်။ လာမည့်အပတ်များသည် အဓိကအားဖြင့် အင်္ဂါများ ရင့်ကျက်ရန်နှင့် ကိုယ်အလေးချိန်တိုးရန် ဖြစ်သည်။ အရေပြားကို ဖုံးလွှမ်းထားသော ကာကွယ်ရေးအလွှာပါးသည် ပြန်လည်စုပ်ယူခံရစပြုသည်။',
+        length: 'ခန့်မှန်းခြေ 38.6 စင်တီမီတာ',
+        comparison: 'ရွှေဖရုံသီး',
+        bodyChanges: [
+          'ကြီးထွားလာသော ဝမ်းဗိုက်ကြောင့် အိပ်စက်ရန် ပိုမိုခက်ခဲလာနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်နောက်ပိုင်းတွင် သွေးလည်ပတ်မှုကို ပံ့ပိုးရန် ဘယ်ဘက်စောင်းအိပ်ခြင်းကို မကြာခဏ အကြံပြုသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកមានរូបរាងល្អរួចហើយ ហើយសប្តាហ៍ខាងមុខនឹងផ្តោតជាចម្បងលើការពេញវ័យនៃសរីរាង្គ និងការបង្កើនទម្ងន់។ ស្រទាប់ការពារស្តើងដែលគ្របលើស្បែករបស់ទារកចាប់ផ្តើមស្រូបចូលវិញ។',
+        length: 'ប្រហែល 38.6 សង់ទីម៉ែត្រ',
+        comparison: 'ឃ្មុកប៊ឹតធើណាត់',
+        bodyChanges: [
+          'ដំណេកអាចកាន់តែពិបាករក ដោយសារពោះរបស់អ្នកកាន់តែធំ។',
+        ],
+        toKnow: [
+          'ការសម្រាកនៅផ្នែកខាងឆ្វេងជាញឹកញាប់ត្រូវបានណែនាំនៅចុងការមានផ្ទៃពោះ ដើម្បីជួយដល់ការចរាចរឈាម។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍກໍ່ຕົວດີແລ້ວ; ອາທິດຕໍ່ໄປຈະເນັ້ນໃສ່ການພັດທະນາຂອງອະໄວຍະວະ ແລະ ການເພີ່ມນ້ຳໜັກເປັນຫຼັກ. ຊັ້ນປົກປ້ອງບາງໆທີ່ປົກຄຸມຜິວໜັງເລີ່ມຖືກດູດຊຶມກັບຄືນ.',
+        length: 'ປະມານ 38.6 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກອຶ',
+        bodyChanges: [
+          'ອາດຫາການນອນຫຼັບໄດ້ຍາກຂຶ້ນ ເພາະທ້ອງທີ່ໃຫຍ່ຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ການພັກຜ່ອນໂດຍນອນຂ້າງຊ້າຍມັກຖືກແນະນຳໃນໄລຍະທ້າຍການຖືພາ ເພື່ອຊ່ວຍການໄຫຼວຽນຂອງເລືອດ.',
+        ],
+      },
     },
   },
   {
@@ -13636,6 +20210,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Penglihatan terus berkembang; semasa lahir, bayi akan dapat mengenali wajah yang berdekatan, sebelum beransur-ansur belajar mengikuti objek yang bergerak.',
+        length: 'Kira-kira 39.9 cm',
+        comparison: 'Kubis',
+        bodyChanges: [
+          'Rasa berat pada bahagian belakang bawah atau pelvis mungkin bertambah.',
+        ],
+        toKnow: [
+          'Temu janji pranatal biasanya menjadi lebih kerap mulai peringkat ini.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Aragga ayaa sii koraya; dhalmada, ilmuhu wuxuu awoodi doonaa inuu kala saaro wajiyada ku dhow, ka hor intaanu tartiib u baran raacidda walxaha dhaqdhaqaaqaya.',
+        length: 'Qiyaastii 39.9 cm',
+        comparison: 'Kabbaaj',
+        bodyChanges: [
+          'Dareen culays ah oo dhabarka hoose ama miskaha ayaa kordhi kara.',
+        ],
+        toKnow: [
+          'Ballammada uur-hortagga guud ahaan waxay noqdaan kuwo soo noqnoqda laga bilaabo heerkan.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Uwezo wa kuona unaendelea kukua; wakati wa kuzaliwa, mtoto ataweza kutambua nyuso zilizo karibu, kabla ya kujifunza polepole kufuatilia vitu vinavyosonga.',
+        length: 'Takriban sm 39.9',
+        comparison: 'Kabichi',
+        bodyChanges: [
+          'Hisia ya uzito sehemu ya chini ya mgongo au kwenye nyonga inaweza kuongezeka.',
+        ],
+        toKnow: [
+          'Miadi ya kabla ya kujifungua kwa kawaida inakuwa ya mara kwa mara zaidi kuanzia hatua hii.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Көру дамуын жалғастырады; туған кезде нәресте жақын жүздерді ажырата алады, содан кейін қозғалатын заттарды біртіндеп қадағалауды үйренеді.',
+        length: 'Шамамен 39.9 см',
+        comparison: 'Қырыққабат',
+        bodyChanges: [
+          'Бел немесе жамбастағы ауырлық сезімі күшейуі мүмкін.',
+        ],
+        toKnow: [
+          'Босанғанға дейінгі қабылдаулар әдетте осы кезеңнен бастап жиілейді.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Gis bi kontine màgg; ci jur, doom bi dina mën a gis kanam yu jege, balaa muy jàng topp yëf yu yëngu tuuti-tuuti.',
+        length: 'Ci wetu 39.9 cm',
+        comparison: 'Suu',
+        bodyChanges: [
+          'Dégg bu diis ci ndiggu bu suuf walla ci suufu ndey mën na yokku.',
+        ],
+        toKnow: [
+          'Ndaje yi balaa jur daa gën a bari jóge ci jamono jii.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Gani yana ci gaba da girma; lokacin haihuwa, jariri zai iya gane fuskokin da ke kusa, kafin a hankali ya koyi bin abubuwa masu motsi.',
+        length: 'Kusan 39.9 cm',
+        comparison: 'Kabeji',
+        bodyChanges: [
+          'Jin nauyi a ƙasan baya ko ƙugu na iya ƙaruwa.',
+        ],
+        toKnow: [
+          'Ganawar kafin haihuwa yawanci suna ƙara yawaita daga wannan mataki zuwa gaba.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ማየት ማደጉን ይቀጥላል፤ ሲወለድ ሕፃኑ የቀረቡ ፊቶችን መለየት ይችላል፣ ከዚያ ቀስ በቀስ የሚንቀሳቀሱ ነገሮችን መከታተል ይማራል።',
+        length: 'ወደ 39.9 ሴሜ',
+        comparison: 'ጎመን',
+        bodyChanges: [
+          'በታችኛው ጀርባ ወይም ዳሌ ላይ የክብደት ስሜት ሊጨምር ይችላል።',
+        ],
+        toKnow: [
+          'ከወሊድ በፊት ቀጠሮዎች ከዚህ ደረጃ ጀምሮ በአጠቃላይ ይበልጥ ተደጋጋሚ ይሆናሉ።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het zicht blijft zich ontwikkelen; bij de geboorte kan de baby gezichten dichtbij onderscheiden, voordat hij of zij geleidelijk leert bewegende voorwerpen te volgen.',
+        length: 'Ongeveer 39,9 cm',
+        comparison: 'Kool',
+        bodyChanges: [
+          'Een zwaar gevoel in de onderrug of het bekken kan toenemen.',
+        ],
+        toKnow: [
+          'Prenatale afspraken worden vanaf deze fase over het algemeen frequenter.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Näkö kehittyy edelleen; syntyessään vauva erottaa lähellä olevia kasvoja, ennen kuin oppii vähitellen seuraamaan liikkuvia esineitä.',
+        length: 'Noin 39,9 cm',
+        comparison: 'Kaali',
+        bodyChanges: [
+          'Raskauden tunne alaselässä tai lantiossa voi lisääntyä.',
+        ],
+        toKnow: [
+          'Äitiysneuvolakäynnit tihenevät yleensä tästä vaiheesta lähtien.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Η όραση συνεχίζει να αναπτύσσεται· κατά τη γέννηση, το μωρό θα μπορεί να διακρίνει κοντινά πρόσωπα, πριν μάθει σταδιακά να παρακολουθεί κινούμενα αντικείμενα.',
+        length: 'Περίπου 39,9 εκ.',
+        comparison: 'Λάχανο',
+        bodyChanges: [
+          'Το αίσθημα βάρους στη μέση ή στην πύελο μπορεί να αυξηθεί.',
+        ],
+        toKnow: [
+          'Τα προγεννητικά ραντεβού γίνονται γενικά συχνότερα από αυτό το στάδιο και μετά.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Patuloy na umuunlad ang paningin; pagsilang, makikilala ng sanggol ang mga mukhang malapit, bago unti-unting matutong sundan ang mga gumagalaw na bagay.',
+        length: 'Mga 39.9 cm',
+        comparison: 'Repolyo',
+        bodyChanges: [
+          'Maaaring tumaas ang pakiramdam ng bigat sa ibabang likod o pelvis.',
+        ],
+        toKnow: [
+          'Karaniwang dumadalas ang mga prenatal appointment mula sa yugtong ito.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'பார்வை தொடர்ந்து வளர்கிறது; பிறக்கும்போது, குழந்தை அருகிலுள்ள முகங்களை அடையாளம் காண முடியும், பின்னர் நகரும் பொருட்களைப் பின்தொடரக் கற்கும்.',
+        length: 'சுமார் 39.9 செ.மீ',
+        comparison: 'முட்டைக்கோஸ்',
+        bodyChanges: [
+          'கீழ் முதுகு அல்லது இடுப்பில் கனம் போன்ற உணர்வு அதிகரிக்கலாம்.',
+        ],
+        toKnow: [
+          'இந்தக் கட்டத்திலிருந்து பிரசவத்துக்கு முந்தைய சந்திப்புகள் பொதுவாக அடிக்கடி ஆகின்றன.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'చూపు అభివృద్ధి చెందడం కొనసాగుతుంది; పుట్టినప్పుడు, శిశువు దగ్గరి ముఖాలను గుర్తుపట్టగలదు, తర్వాత కదిలే వస్తువులను అనుసరించడం క్రమంగా నేర్చుకుంటుంది.',
+        length: 'సుమారు 39.9 సెం.మీ',
+        comparison: 'క్యాబేజీ',
+        bodyChanges: [
+          'కింది నడుములో లేదా కటి ప్రాంతంలో బరువుగా ఉన్న భావన పెరగవచ్చు.',
+        ],
+        toKnow: [
+          'ప్రసవ పూర్వ అపాయింట్‌మెంట్లు సాధారణంగా ఈ దశ నుండి మరింత తరచుగా మారతాయి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'दृष्टी विकसित होत राहते; जन्माच्या वेळी, बाळाला जवळचे चेहरे ओळखता येतील, आणि मग हळूहळू हलणाऱ्या वस्तूंचा मागोवा घ्यायला शिकेल.',
+        length: 'सुमारे 39.9 सेमी',
+        comparison: 'कोबी',
+        bodyChanges: [
+          'कंबरेत किंवा कटीभागात जडपणाची भावना वाढू शकते.',
+        ],
+        toKnow: [
+          'प्रसूतीपूर्व भेटी साधारणपणे या टप्प्यापासून अधिक वारंवार होतात.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'દૃષ્ટિ વિકસતી રહે છે; જન્મ સમયે, બાળક નજીકના ચહેરા ઓળખી શકશે, અને પછી ધીમે ધીમે હલતી વસ્તુઓને અનુસરતાં શીખશે.',
+        length: 'લગભગ 39.9 સેમી',
+        comparison: 'કોબી',
+        bodyChanges: [
+          'કમર કે પેલ્વિસના નીચલા ભાગમાં ભારેપણાની લાગણી વધી શકે છે.',
+        ],
+        toKnow: [
+          'પ્રસૂતિ પૂર્વેની મુલાકાતો સામાન્ય રીતે આ તબક્કાથી વધુ વારંવાર બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਨਜ਼ਰ ਵਿਕਸਿਤ ਹੁੰਦੀ ਰਹਿੰਦੀ ਹੈ; ਜਨਮ ਵੇਲੇ, ਬੱਚਾ ਨੇੜੇ ਦੇ ਚਿਹਰੇ ਪਛਾਣ ਸਕੇਗਾ, ਅਤੇ ਫਿਰ ਹੌਲੀ-ਹੌਲੀ ਹਿਲਦੀਆਂ ਚੀਜ਼ਾਂ ਨੂੰ ਨਜ਼ਰ ਨਾਲ ਫੜਨਾ ਸਿੱਖੇਗਾ।',
+        length: 'ਲਗਭਗ 39.9 ਸੈਮੀ',
+        comparison: 'ਬੰਦ ਗੋਭੀ',
+        bodyChanges: [
+          'ਕਮਰ ਦੇ ਹੇਠਲੇ ਹਿੱਸੇ ਜਾਂ ਪੇਡੂ ਵਿੱਚ ਭਾਰੀਪਣ ਦਾ ਅਹਿਸਾਸ ਵਧ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਜਣੇਪੇ ਤੋਂ ਪਹਿਲਾਂ ਦੀਆਂ ਮੁਲਾਕਾਤਾਂ ਆਮ ਤੌਰ ’ਤੇ ਇਸ ਪੜਾਅ ਤੋਂ ਵਧੇਰੇ ਵਾਰ-ਵਾਰ ਹੋ ਜਾਂਦੀਆਂ ਹਨ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'မြင်ကွင်းစွမ်းရည် ဆက်လက်ဖွံ့ဖြိုးနေသည်။ မွေးဖွားချိန်တွင် ကလေးသည် အနီးရှိ မျက်နှာများကို မြင်နိုင်ပြီး နောက်မှ လှုပ်ရှားနေသော အရာများကို လိုက်ကြည့်ရန် တဖြည်းဖြည်း သင်ယူလိမ့်မည်။',
+        length: 'ခန့်မှန်းခြေ 39.9 စင်တီမီတာ',
+        comparison: 'ဂေါ်ဖီထုပ်',
+        bodyChanges: [
+          'ခါးအောက်ပိုင်း သို့မဟုတ် တင်ပါးဆုံတွင် လေးလံသလို ခံစားရမှု တိုးလာနိုင်သည်။',
+        ],
+        toKnow: [
+          'မွေးဖွားမီ ချိန်းဆိုမှုများသည် ဤအဆင့်မှစ၍ များသောအားဖြင့် ပိုမိုမကြာခဏဖြစ်လာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ការមើលឃើញបន្តលូតលាស់៖ នៅពេលកើត ទារកនឹងអាចសម្គាល់មុខដែលនៅជិត មុនពេលរៀនតាមដានវត្ថុដែលកំពុងធ្វើចលនាបន្តិចម្តងៗ។',
+        length: 'ប្រហែល 39.9 សង់ទីម៉ែត្រ',
+        comparison: 'ស្ពៃក្តោប',
+        bodyChanges: [
+          'អារម្មណ៍ធ្ងន់នៅខ្នងក្រោម ឬអាងត្រគាកអាចកើនឡើង។',
+        ],
+        toKnow: [
+          'ការណាត់ជួបមុនសម្រាលជាទូទៅកាន់តែញឹកញាប់ចាប់ពីដំណាក់កាលនេះតទៅ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ການເບິ່ງເຫັນສືບຕໍ່ພັດທະນາ; ເມື່ອເກີດມາ ລູກນ້ອຍຈະສາມາດເບິ່ງເຫັນໃບໜ້າທີ່ຢູ່ໃກ້ໆ ກ່ອນທີ່ຈະຄ່ອຍໆຮຽນຮູ້ທີ່ຈະຕິດຕາມວັດຖຸທີ່ເຄື່ອນທີ່.',
+        length: 'ປະມານ 39.9 ເຊັນຕີແມັດ',
+        comparison: 'ກະລຳປີ',
+        bodyChanges: [
+          'ຄວາມຮູ້ສຶກໜັກຢູ່ບໍລິເວນຫຼັງສ່ວນລຸ່ມ ຫຼື ຊານອາດເພີ່ມຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ໂດຍທົ່ວໄປການນັດພົບກ່ອນເກີດຈະເລື້ອຍຂຶ້ນຕັ້ງແຕ່ໄລຍະນີ້ເປັນຕົ້ນໄປ.',
+        ],
+      },
     },
   },
   {
@@ -14088,6 +20890,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi bergerak secara aktif, kadangkala menghisap jarinya, dan boleh membuat pergerakan yang luas. Kulitnya menjadi kurang berkedut apabila lemak terkumpul.',
+        length: 'Kira-kira 41.1 cm',
+        comparison: 'Kelapa',
+        bodyChanges: [
+          'Kontraksi latihan, yang dikenali sebagai Braxton Hicks, mungkin mula dirasai sesekali.',
+        ],
+        toKnow: [
+          'Bayi mula mengenali suara-suara biasa tertentu yang kerap didengar dari luar.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu si firfircoon ayuu u dhaqaaqaa, mararka qaarkood farihiisa ayuu nuugaa, wuxuuna sameyn karaa dhaqdhaqaaqyo ballaaran. Maqaarkiisu wuxuu noqonayaa mid ka jilicsan inta uu dufan ururo.',
+        length: 'Qiyaastii 41.1 cm',
+        comparison: 'Qumbe',
+        bodyChanges: [
+          'Isku-uruurin tababar ah, oo loo yaqaan Braxton Hicks, ayaa bilaabmi kara in mararka qaarkood la dareemo.',
+        ],
+        toKnow: [
+          'Ilmuhu wuxuu bilaabayaa inuu aqoonsado codadka qaarkood ee la og oo si joogto ah looga maqlo dibadda.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto anasonga kwa nguvu, wakati mwingine anyonya vidole vyake, na anaweza kufanya mienendo mipana. Ngozi yake inakuwa na mikunjo michache kadiri mafuta yanavyojikusanya.',
+        length: 'Takriban sm 41.1',
+        comparison: 'Nazi',
+        bodyChanges: [
+          'Mikazo ya mazoezi, inayojulikana kama Braxton Hicks, inaweza kuanza kuhisiwa mara kwa mara.',
+        ],
+        toKnow: [
+          'Mtoto anaanza kutambua sauti fulani anazozifahamu zinazosikika mara kwa mara kutoka nje.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте белсенді қозғалады, кейде саусақтарын сорады және кең қозғалыстар жасай алады. Май жиналған сайын терісінің әжімдері азаяды.',
+        length: 'Шамамен 41.1 см',
+        comparison: 'Кокос',
+        bodyChanges: [
+          'Брэкстон-Хикс деп аталатын жаттығу толғақтары анда-санда сезіле бастауы мүмкін.',
+        ],
+        toKnow: [
+          'Нәресте сырттан үнемі естілетін кейбір таныс дауыстарды тани бастайды.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi dafay yëngu bu bari, yenn saa naan baaraamam, te mën na def yëngu yu mag. Derem di gën a nooy ndax diwlin bi di bari.',
+        length: 'Ci wetu 41.1 cm',
+        comparison: 'Koko',
+        bodyChanges: [
+          'Tëx yu jàng, yi ñuy woowe Braxton Hicks, mën nañu tàmbali dégg leen yenn saa.',
+        ],
+        toKnow: [
+          'Doom bi tàmbali xam yenn baat yu xam ci yoon yu muy dégg ci biti.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri yana motsawa sosai, wani lokaci yana tsotsar yatsunsa, kuma yana iya yin manyan motsi. Fatarsa tana zama ƙasa da naɗewa yayin da kitse ke taruwa.',
+        length: 'Kusan 41.1 cm',
+        comparison: 'Kwakwa',
+        bodyChanges: [
+          'Matsewar horo, wanda ake kira Braxton Hicks, na iya fara bayyana lokaci zuwa lokaci.',
+        ],
+        toKnow: [
+          'Jariri yana fara gane wasu muryoyi sanannu da ake ji akai-akai daga waje.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ በንቃት ይንቀሳቀሳል፣ አንዳንድ ጊዜ ጣቶቹን ይጠባል፣ እና ሰፊ እንቅስቃሴዎችን ማድረግ ይችላል። ስብ ሲከማች ቆዳው ያነሰ የተሸበሸበ ይሆናል።',
+        length: 'ወደ 41.1 ሴሜ',
+        comparison: 'ኮኮናት',
+        bodyChanges: [
+          'ብራክስተን ሂክስ በመባል የሚታወቁ የልምምድ መኮማተሮች አልፎ አልፎ መሰማት ሊጀምሩ ይችላሉ።',
+        ],
+        toKnow: [
+          'ሕፃኑ ከውጭ በመደበኛነት የሚሰሙ አንዳንድ የታወቁ ድምጾችን መለየት ጀምሯል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby beweegt actief, zuigt soms op zijn of haar vingers en kan grote bewegingen maken. De huid wordt minder gerimpeld naarmate zich vet opbouwt.',
+        length: 'Ongeveer 41,1 cm',
+        comparison: 'Kokosnoot',
+        bodyChanges: [
+          'Oefenweeën, bekend als Braxton Hicks, kunnen af en toe gevoeld gaan worden.',
+        ],
+        toKnow: [
+          'De baby begint bepaalde vertrouwde stemmen te herkennen die regelmatig van buiten te horen zijn.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva liikkuu aktiivisesti, imee joskus sormiaan ja voi tehdä suuria liikkeitä. Hänen ihonsa muuttuu vähemmän ryppyiseksi rasvan kertyessä.',
+        length: 'Noin 41,1 cm',
+        comparison: 'Kookospähkinä',
+        bodyChanges: [
+          'Harjoitussupistukset, tunnettuja nimellä Braxton Hicks, voivat alkaa tuntua satunnaisesti.',
+        ],
+        toKnow: [
+          'Vauva alkaa tunnistaa tiettyjä tuttuja ääniä, joita kuuluu säännöllisesti ulkopuolelta.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό κινείται ενεργά, μερικές φορές θηλάζει τα δάχτυλά του και μπορεί να κάνει πλατιές κινήσεις. Το δέρμα του γίνεται λιγότερο ρυτιδωμένο καθώς συσσωρεύεται λίπος.',
+        length: 'Περίπου 41,1 εκ.',
+        comparison: 'Καρύδα',
+        bodyChanges: [
+          'Οι προπαρασκευαστικές συσπάσεις, γνωστές ως Braxton Hicks, μπορεί να αρχίσουν να νιώθονται περιστασιακά.',
+        ],
+        toKnow: [
+          'Το μωρό αρχίζει να αναγνωρίζει ορισμένες οικείες φωνές που ακούει τακτικά απ’ έξω.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Aktibong gumagalaw ang sanggol, minsan sumususo ng daliri, at nakakagawa ng malalawak na galaw. Nagiging hindi gaanong kulubot ang balat habang naiipon ang taba.',
+        length: 'Mga 41.1 cm',
+        comparison: 'Niyog',
+        bodyChanges: [
+          'Maaaring magsimulang paminsan-minsang maramdaman ang mga pagsasanay na pagkontrata, kilala bilang Braxton Hicks.',
+        ],
+        toKnow: [
+          'Nagsisimulang makilala ng sanggol ang ilang pamilyar na boses na regular na naririnig mula sa labas.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை சுறுசுறுப்பாக அசைகிறது, சில நேரங்களில் விரல்களை உறிஞ்சுகிறது, பரந்த அசைவுகளைச் செய்ய முடியும். கொழுப்பு சேர்வதால் அவர்களின் தோல் குறைவாகச் சுருங்குகிறது.',
+        length: 'சுமார் 41.1 செ.மீ',
+        comparison: 'தேங்காய்',
+        bodyChanges: [
+          'பிராக்ஸ்டன் ஹிக்ஸ் எனப்படும் பயிற்சிச் சுருக்கங்கள் அவ்வப்போது உணரப்படத் தொடங்கலாம்.',
+        ],
+        toKnow: [
+          'வெளியிலிருந்து ஒழுங்காகக் கேட்கும் சில பழக்கமான குரல்களை குழந்தை அடையாளம் காணத் தொடங்குகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు చురుకుగా కదులుతుంది, కొన్నిసార్లు వేళ్లు చప్పరిస్తుంది, పెద్ద కదలికలు చేయగలదు. కొవ్వు పేరుకుంటున్న కొద్దీ వారి చర్మం తక్కువ ముడతలుగా మారుతుంది.',
+        length: 'సుమారు 41.1 సెం.మీ',
+        comparison: 'కొబ్బరికాయ',
+        bodyChanges: [
+          'బ్రాక్స్‌టన్ హిక్స్ అని పిలవబడే అభ్యాస సంకోచాలు అప్పుడప్పుడు అనుభూతి చెందడం మొదలవ్వచ్చు.',
+        ],
+        toKnow: [
+          'బయట నుండి క్రమం తప్పకుండా వినే కొన్ని పరిచిత స్వరాలను శిశువు గుర్తుపట్టడం మొదలుపెడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ सक्रियपणे हालचाल करते, कधी कधी बोटे चोखते आणि मोठ्या हालचाली करू शकते. चरबी साठत असल्याने त्याची त्वचा कमी सुरकुतलेली होते.',
+        length: 'सुमारे 41.1 सेमी',
+        comparison: 'नारळ',
+        bodyChanges: [
+          'ब्रॅक्स्टन हिक्स म्हणून ओळखली जाणारी सराव आकुंचने अधूनमधून जाणवू लागू शकतात.',
+        ],
+        toKnow: [
+          'बाहेरून नियमितपणे ऐकू येणारे काही परिचित आवाज बाळ ओळखू लागते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક સક્રિય રીતે હલે છે, ક્યારેક આંગળીઓ ચૂસે છે, અને મોટી હલનચલન કરી શકે છે. ચરબી જમા થતાં તેની ત્વચા ઓછી કરચલીવાળી બને છે.',
+        length: 'લગભગ 41.1 સેમી',
+        comparison: 'નારિયેળ',
+        bodyChanges: [
+          'બ્રેક્સટન હિક્સ તરીકે ઓળખાતાં અભ્યાસ સંકોચન ક્યારેક અનુભવાવા લાગી શકે છે.',
+        ],
+        toKnow: [
+          'બાળક બહારથી નિયમિત સંભળાતા અમુક જાણીતા અવાજો ઓળખવા લાગ્યું છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਸਰਗਰਮੀ ਨਾਲ ਹਿੱਲਦਾ ਹੈ, ਕਦੇ-ਕਦੇ ਉਂਗਲਾਂ ਚੂਸਦਾ ਹੈ, ਅਤੇ ਵੱਡੀਆਂ ਹਰਕਤਾਂ ਕਰ ਸਕਦਾ ਹੈ। ਚਰਬੀ ਜਮ੍ਹਾਂ ਹੋਣ ਨਾਲ ਉਸ ਦੀ ਚਮੜੀ ਘੱਟ ਝੁਰੜੀਆਂ ਵਾਲੀ ਬਣ ਜਾਂਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 41.1 ਸੈਮੀ',
+        comparison: 'ਨਾਰੀਅਲ',
+        bodyChanges: [
+          'ਬ੍ਰੈਕਸਟਨ ਹਿਕਸ ਵਜੋਂ ਜਾਣੇ ਜਾਂਦੇ ਅਭਿਆਸ ਸੁੰਗੜਨ ਕਦੇ-ਕਦੇ ਮਹਿਸੂਸ ਹੋਣੇ ਸ਼ੁਰੂ ਹੋ ਸਕਦੇ ਹਨ।',
+        ],
+        toKnow: [
+          'ਬੱਚਾ ਬਾਹਰੋਂ ਨਿਯਮਿਤ ਤੌਰ ’ਤੇ ਸੁਣਾਈ ਦੇਣ ਵਾਲੀਆਂ ਕੁਝ ਜਾਣੀਆਂ-ਪਛਾਣੀਆਂ ਆਵਾਜ਼ਾਂ ਨੂੰ ਪਛਾਣਨ ਲੱਗਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် တက်ကြွစွာလှုပ်ရှားပြီး တစ်ခါတစ်ရံ လက်ချောင်းများကို စုပ်ကာ ကျယ်ပြန့်သော လှုပ်ရှားမှုများ ပြုလုပ်နိုင်သည်။ အဆီစုလာသည်နှင့်အမျှ အရေပြားအကြေအလိပ် လျော့နည်းလာသည်။',
+        length: 'ခန့်မှန်းခြေ 41.1 စင်တီမီတာ',
+        comparison: 'အုန်းသီး',
+        bodyChanges: [
+          'ဘရက်စ်တန်ဟစ်ခ်ဟုခေါ်သော လေ့ကျင့်ကျုံ့ခြင်းများကို တစ်ခါတစ်ရံ စတင်ခံစားရနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကလေးသည် အပြင်မှ ပုံမှန်ကြားနေရသော သိကျွမ်းသည့် အသံအချို့ကို သိမှတ်လာစပြုသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកធ្វើចលនាយ៉ាងសកម្ម ពេលខ្លះជញ្ជក់ម្រាមដៃ ហើយអាចធ្វើចលនាធំៗ។ ស្បែករបស់ទារកមានស្នាមជ្រួញតិចទៅៗ នៅពេលខ្លាញ់កកកុញ។',
+        length: 'ប្រហែល 41.1 សង់ទីម៉ែត្រ',
+        comparison: 'ដូង',
+        bodyChanges: [
+          'ការកន្ត្រាក់ហាត់ ដែលហៅថា ប្រាក់ស្តុន ហ៊ិច (Braxton Hicks) អាចចាប់ផ្តើមមានអារម្មណ៍ម្តងម្កាល។',
+        ],
+        toKnow: [
+          'ទារកកំពុងចាប់ផ្តើមស្គាល់សំឡេងធ្លាប់ស្គាល់មួយចំនួនដែលឮជាប្រចាំពីខាងក្រៅ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍເຄື່ອນໄຫວຢ່າງຫ້າວຫັນ ບາງຄັ້ງດູດນິ້ວມື ແລະ ສາມາດເຄື່ອນໄຫວກວ້າງໆໄດ້. ຜິວໜັງເຫຍີ້ນໜ້ອຍລົງເມື່ອໄຂມັນສະສົມ.',
+        length: 'ປະມານ 41.1 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກພ້າວ',
+        bodyChanges: [
+          'ການບີບຕົວຂອງມົດລູກແບບຝຶກຊ້ອມ ທີ່ເອີ້ນວ່າ ບຣັກສຕັນ ຮິກສ໌ ອາດເລີ່ມຮູ້ສຶກໄດ້ເປັນບາງຄັ້ງ.',
+        ],
+        toKnow: [
+          'ລູກນ້ອຍເລີ່ມຈື່ສຽງຄຸ້ນເຄີຍບາງຢ່າງທີ່ໄດ້ຍິນເປັນປະຈຳຈາກພາຍນອກ.',
+        ],
+      },
     },
   },
   {
@@ -14540,6 +21570,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi sudah terbentuk dengan baik dan beransur-ansur mengambil posisi kepala ke bawah sebagai persediaan untuk kelahiran. Bayi terutamanya terus bertambah berat dalam minggu-minggu yang berbaki.',
+        length: 'Kira-kira 42.4 cm',
+        comparison: 'Seikat saderi',
+        bodyChanges: [
+          'Pertambahan berat badan yang lebih ketara adalah lazim dalam tempoh ini, berkaitan dengan pertumbuhan bayi.',
+        ],
+        toKnow: [
+          'Posisi kepala ke bawah (persembahan sefalik) menjadi lebih lazim apabila tarikh jangka lahir menghampiri.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu horey ayuu si wanaagsan u samaysmay wuxuuna tartiib u dejinayaa madaxa hoos u jeeda isagoo u diyaargarowaya dhalmada. Inta ugu badan wuxuu sii wadaa inuu miisaan ku dhaafo toddobaadyada harsan.',
+        length: 'Qiyaastii 42.4 cm',
+        comparison: 'Xidhmo salariy ah',
+        bodyChanges: [
+          'Kororka miisaanka oo aad u muuqda waa caadi muddadan, wuxuuna la xiriiraa kororka ilmaha.',
+        ],
+        toKnow: [
+          'Isla\'egta madaxa hoos u jeeda (cephalic) ayaa noqonaysa mid caadi ah marka wakhtigu soo dhowaado.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto tayari ameumbika vizuri na polepole anajiweka kichwa chini kujiandaa kwa kuzaliwa. Katika wiki zilizobaki ataendelea hasa kuongezeka uzito.',
+        length: 'Takriban sm 42.4',
+        comparison: 'Fungu la seleri',
+        bodyChanges: [
+          'Kuongezeka uzito kunakoonekana zaidi ni kawaida katika kipindi hiki, kunakohusiana na ukuaji wa mtoto.',
+        ],
+        toKnow: [
+          'Kujiweka kichwa chini (cephalic presentation) kunakuwa kwa kawaida zaidi kadiri muda wa kujifungua unavyokaribia.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте қазірдің өзінде жақсы қалыптасқан және босануға дайындық ретінде біртіндеп басымен төмен орналасып жатыр. Қалған апталарда ол негізінен салмақ қосуын жалғастырады.',
+        length: 'Шамамен 42.4 см',
+        comparison: 'Балдыркөк бумасы',
+        bodyChanges: [
+          'Нәрестенің өсуіне байланысты бұл кезеңде байқалатын салмақ қосу жиі кездеседі.',
+        ],
+        toKnow: [
+          'Басымен төмен орналасу (бас жатырлық жатыс) мерзім жақындаған сайын жиірек кездеседі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi defaru na baax te dafay dellu tuuti-tuuti ci anam bu bopp ci suuf ngir jur. Dafay kontine yokku ci ayu-bés yi des.',
+        length: 'Ci wetu 42.4 cm',
+        comparison: 'Benn gaar seleri',
+        bodyChanges: [
+          'Yokkute bu gën a gis daa bari ci jamono jii, ndax màggug doom bi.',
+        ],
+        toKnow: [
+          'Anam bu bopp ci suuf (cephalic) daa gën a bari ba mat jege.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri ya riga ya samu sosai kuma a hankali yana zama da kai ƙasa don shirin haihuwa. Galibi yana ci gaba da ƙara nauyi a makonnin da suka rage.',
+        length: 'Kusan 42.4 cm',
+        comparison: 'Dami na seleri',
+        bodyChanges: [
+          'Ƙarin nauyi mai bayyana sosai ya zama ruwan dare a wannan lokaci, mai alaƙa da girman jariri.',
+        ],
+        toKnow: [
+          'Matsayin kai ƙasa (cephalic presentation) yana zama gama gari yayin da lokaci ke gabatowa.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ አስቀድሞ በደንብ ተፈጥሯል እና ለልደት ዝግጅት ቀስ በቀስ ራስ ወደ ታች እየተቀመጠ ነው። በቀሩት ሳምንታት በዋናነት ክብደት መጨመሩን ይቀጥላል።',
+        length: 'ወደ 42.4 ሴሜ',
+        comparison: 'የሰሊሪ ስብስብ',
+        bodyChanges: [
+          'ከሕፃኑ እድገት ጋር በተያያዘ በዚህ ጊዜ ይበልጥ የሚታይ የክብደት መጨመር የተለመደ ነው።',
+        ],
+        toKnow: [
+          'ራስ ወደ ታች መሆን (ሴፋሊክ አቀማመጥ) የመውለጃ ጊዜ ሲቃረብ ይበልጥ የተለመደ ይሆናል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby is al goed gevormd en nestelt zich geleidelijk met het hoofd naar beneden ter voorbereiding op de geboorte. In de resterende weken komt de baby vooral nog aan.',
+        length: 'Ongeveer 42,4 cm',
+        comparison: 'Bos bleekselderij',
+        bodyChanges: [
+          'Meer merkbare gewichtstoename is in deze periode gebruikelijk, door de groei van de baby.',
+        ],
+        toKnow: [
+          'Een ligging met het hoofd naar beneden (hoofdligging) komt vaker voor naarmate de uitgerekende datum nadert.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva on jo hyvin muotoutunut ja asettuu vähitellen pää alaspäin valmistautuakseen syntymään. Jäljellä olevien viikkojen aikana hän lähinnä jatkaa painonnousua.',
+        length: 'Noin 42,4 cm',
+        comparison: 'Kimppu lehtiselleriä',
+        bodyChanges: [
+          'Selvempi painonnousu on tänä aikana yleinen ja liittyy vauvan kasvuun.',
+        ],
+        toKnow: [
+          'Pää alaspäin -asento (kefaalinen esiintyminen) yleistyy lasketun ajan lähestyessä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό είναι ήδη καλά σχηματισμένο και παίρνει σταδιακά θέση με το κεφάλι προς τα κάτω σε προετοιμασία για τον τοκετό. Συνεχίζει κυρίως να παίρνει βάρος τις εναπομείνασες εβδομάδες.',
+        length: 'Περίπου 42,4 εκ.',
+        comparison: 'Ματσάκι σέλινο',
+        bodyChanges: [
+          'Η πιο αισθητή αύξηση βάρους είναι συχνή σε αυτή την περίοδο, και συνδέεται με την ανάπτυξη του μωρού.',
+        ],
+        toKnow: [
+          'Η θέση με το κεφάλι προς τα κάτω (κεφαλική προβολή) γίνεται πιο συχνή καθώς πλησιάζει ο τοκετός.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Maayos nang nabuo ang sanggol at unti-unting pumuposisyon nang nakababa ang ulo bilang paghahanda sa panganganak. Pangunahin silang patuloy na tataba sa natitirang mga linggo.',
+        length: 'Mga 42.4 cm',
+        comparison: 'Isang tangkay ng celery',
+        bodyChanges: [
+          'Karaniwan sa panahong ito ang mas kapansin-pansing pagtaba, na kaugnay ng paglaki ng sanggol.',
+        ],
+        toKnow: [
+          'Mas nagiging karaniwan ang posisyong nakababa ang ulo (cephalic presentation) habang papalapit ang takdang panahon.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை ஏற்கெனவே நன்கு உருவாகிவிட்டது, பிரசவத்துக்குத் தயாராகப் படிப்படியாகத் தலை கீழாகத் திரும்பி அமர்கிறது. மீதமுள்ள வாரங்களில் அவர்கள் முக்கியமாக எடை கூடிக்கொண்டே இருக்கிறார்கள்.',
+        length: 'சுமார் 42.4 செ.மீ',
+        comparison: 'செலரிக் கட்டு',
+        bodyChanges: [
+          'குழந்தையின் வளர்ச்சியுடன் தொடர்புடைய, அதிகக் கவனிக்கத்தக்க எடை அதிகரிப்பு இந்தக் காலத்தில் பொதுவானது.',
+        ],
+        toKnow: [
+          'முழு காலம் நெருங்கும்போது தலை கீழான நிலை (தலை முன்னோக்கிய அமைப்பு) மேலும் பொதுவாகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు అప్పటికే చక్కగా ఏర్పడింది, ప్రసవానికి సిద్ధంగా క్రమంగా తల కిందకు వచ్చి స్థిరపడుతోంది. మిగిలిన వారాల్లో వారు ప్రధానంగా బరువు పెరగడం కొనసాగిస్తారు.',
+        length: 'సుమారు 42.4 సెం.మీ',
+        comparison: 'సెలెరీ కట్ట',
+        bodyChanges: [
+          'ఈ కాలంలో శిశువు పెరుగుదలతో ముడిపడిన, మరింత గమనించదగిన బరువు పెరుగుదల సాధారణం.',
+        ],
+        toKnow: [
+          'నెలలు నిండే కొద్దీ తల కిందకు ఉండే స్థితి (సెఫాలిక్ ప్రెజెంటేషన్) మరింత సాధారణమవుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ आधीच चांगले तयार झाले आहे आणि प्रसूतीच्या तयारीसाठी हळूहळू डोके खाली करून स्थिर होत आहे. उरलेल्या आठवड्यांत ते प्रामुख्याने वजन वाढवत राहते.',
+        length: 'सुमारे 42.4 सेमी',
+        comparison: 'सेलरीची जुडी',
+        bodyChanges: [
+          'या काळात बाळाच्या वाढीशी जोडलेली अधिक ठळक वजन वाढ सामान्य आहे.',
+        ],
+        toKnow: [
+          'नैसर्गिक मुदत जवळ येत असताना डोके खाली असलेली स्थिती (सेफॅलिक प्रेझेंटेशन) अधिक सामान्य होते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક પહેલેથી સારી રીતે બની ચૂક્યું છે અને પ્રસૂતિની તૈયારીમાં ધીમે ધીમે માથું નીચે રાખીને ગોઠવાઈ રહ્યું છે. બાકીનાં અઠવાડિયાંમાં તે મુખ્યત્વે વજન વધારતું રહે છે.',
+        length: 'લગભગ 42.4 સેમી',
+        comparison: 'સેલરીનો ઝૂડો',
+        bodyChanges: [
+          'આ સમયગાળામાં બાળકની વૃદ્ધિ સાથે જોડાયેલો, વધુ નોંધપાત્ર વજનનો વધારો સામાન્ય છે.',
+        ],
+        toKnow: [
+          'માથું નીચે રાખવાની સ્થિતિ (સેફાલિક પ્રેઝન્ટેશન) પૂરા મહિના નજીક આવતાં વધુ સામાન્ય બને છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਪਹਿਲਾਂ ਹੀ ਚੰਗੀ ਤਰ੍ਹਾਂ ਬਣ ਚੁੱਕਾ ਹੈ ਅਤੇ ਜਣੇਪੇ ਦੀ ਤਿਆਰੀ ਵਿੱਚ ਹੌਲੀ-ਹੌਲੀ ਸਿਰ ਹੇਠਾਂ ਵੱਲ ਕਰਕੇ ਟਿਕ ਰਿਹਾ ਹੈ। ਬਾਕੀ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਉਹ ਮੁੱਖ ਤੌਰ ’ਤੇ ਭਾਰ ਵਧਾਉਂਦਾ ਰਹਿੰਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 42.4 ਸੈਮੀ',
+        comparison: 'ਸੈਲਰੀ ਦਾ ਗੁੱਛਾ',
+        bodyChanges: [
+          'ਇਸ ਸਮੇਂ ਦੌਰਾਨ ਬੱਚੇ ਦੇ ਵਾਧੇ ਨਾਲ ਜੁੜਿਆ ਵਧੇਰੇ ਧਿਆਨ ਦੇਣ ਯੋਗ ਭਾਰ ਵਧਣਾ ਆਮ ਹੈ।',
+        ],
+        toKnow: [
+          'ਸਿਰ ਹੇਠਾਂ ਵੱਲ ਹੋਣ ਦੀ ਸਥਿਤੀ (ਸੇਫੈਲਿਕ ਪੋਜ਼ੀਸ਼ਨ) ਪੂਰੇ ਮਹੀਨੇ ਨੇੜੇ ਆਉਣ ਨਾਲ ਵਧੇਰੇ ਆਮ ਹੋ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် ကောင်းမွန်စွာ ဖွဲ့စည်းပြီးဖြစ်ပြီး မွေးဖွားရန်ပြင်ဆင်ကာ ဦးခေါင်းအောက်သို့ တဖြည်းဖြည်း နေရာယူနေသည်။ ကျန်အပတ်များတွင် အဓိကအားဖြင့် ကိုယ်အလေးချိန် ဆက်တိုးသည်။',
+        length: 'ခန့်မှန်းခြေ 42.4 စင်တီမီတာ',
+        comparison: 'တရုတ်နံနံပင်ကြီး (ဂျုံးခါး) တစ်စည်း',
+        bodyChanges: [
+          'ကလေး၏ကြီးထွားမှုနှင့် ဆက်စပ်၍ ဤကာလအတွင်း ကိုယ်အလေးချိန် ပိုမိုသိသာစွာ တိုးလာခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        ],
+        toKnow: [
+          'ဦးခေါင်းအောက်ထားခြင်း (ဦးခေါင်းဆင်းအနေအထား) သည် မွေးဖွားချိန်နီးလာသည်နှင့်အမျှ ပိုမိုအဖြစ်များလာသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកមានរូបរាងល្អរួចហើយ ហើយបន្តិចម្តងៗត្រឡប់ក្បាលចុះក្រោមដើម្បីត្រៀមសម្រាល។ ក្នុងសប្តាហ៍ដែលនៅសល់ ទារកបន្តបង្កើនទម្ងន់ជាចម្បង។',
+        length: 'ប្រហែល 42.4 សង់ទីម៉ែត្រ',
+        comparison: 'ក្តាប់ជីវ៉ាន់',
+        bodyChanges: [
+          'ការកើនទម្ងន់ដែលកាន់តែកត់សម្គាល់ឃើញ ជារឿងធម្មតាក្នុងអំឡុងពេលនេះ ដែលទាក់ទងនឹងការលូតលាស់របស់ទារក។',
+        ],
+        toKnow: [
+          'ទីតាំងក្បាលចុះក្រោម (ទីតាំងក្បាល) កាន់តែជារឿងធម្មតា នៅពេលជិតដល់ពេលកំណត់។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍກໍ່ຕົວດີແລ້ວ ແລະ ຄ່ອຍໆກັບຫົວລົງເພື່ອກຽມພ້ອມສຳລັບການເກີດ. ລູກສືບຕໍ່ເພີ່ມນ້ຳໜັກເປັນຫຼັກໃນອາທິດທີ່ເຫຼືອ.',
+        length: 'ປະມານ 42.4 ເຊັນຕີແມັດ',
+        comparison: 'ຜັກສະເລີຣີຫນຶ່ງຫໍ່',
+        bodyChanges: [
+          'ນ້ຳໜັກເພີ່ມຂຶ້ນຊັດເຈນຂຶ້ນເປັນເລື່ອງທົ່ວໄປໃນຊ່ວງນີ້ ເຊິ່ງກ່ຽວຂ້ອງກັບການເຕີບໃຫຍ່ຂອງລູກນ້ອຍ.',
+        ],
+        toKnow: [
+          'ທ່າຫົວລົງ (ທ່າຫົວນຳ) ພົບໄດ້ເລື້ອຍຂຶ້ນເມື່ອໃກ້ຮອດກຳນົດຄອດ.',
+        ],
+      },
     },
   },
   {
@@ -14992,6 +22250,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Otak dan sistem saraf kini berkembang dengan baik. Tulang terus mengeras, kecuali tulang tengkorak, yang kekal fleksibel untuk memudahkan laluan semasa kelahiran.',
+        length: 'Kira-kira 43.7 cm',
+        comparison: 'Nanas',
+        bodyChanges: [
+          'Kesukaran mencari posisi tidur yang selesa adalah lazim pada peringkat ini.',
+        ],
+        toKnow: [
+          'Kefleksibelan tulang tengkorak semasa lahir bersifat sementara dan beransur-ansur menutup sepanjang tahun pertama.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Maskaxda iyo nidaamka dareemuhu hadda si wanaagsan ayay u koreen. Lafaha way sii adkaanayaan, marka laga reebo kuwa madaxa, kuwaas oo jilicsan ahaanaya si loo fududeeyo gudubka dhalmada.',
+        length: 'Qiyaastii 43.7 cm',
+        comparison: 'Cananaas',
+        bodyChanges: [
+          'Helidda jiif raaxo leh ayaa adag heerkan, waana caadi.',
+        ],
+        toKnow: [
+          'Jilicsanaanta lafaha madaxa markii la dhalo waa ku meel gaar, wuuna xidhmaa tartiib sanadka koowaad gudahiisa.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Ubongo na mfumo wa neva sasa vimekua vizuri. Mifupa inaendelea kuwa migumu, isipokuwa ya fuvu, ambayo hubaki laini ili kurahisisha kupita wakati wa kuzaliwa.',
+        length: 'Takriban sm 43.7',
+        comparison: 'Nanasi',
+        bodyChanges: [
+          'Ugumu wa kupata mkao mzuri wa kulala ni wa kawaida katika hatua hii.',
+        ],
+        toKnow: [
+          'Ulaini wa mifupa ya fuvu wakati wa kuzaliwa ni wa muda na hufungana polepole katika mwaka wa kwanza.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Ми мен жүйке жүйесі енді жақсы дамыған. Сүйектер қатая береді, босану кезінде өтуді жеңілдету үшін икемді қалатын бас сүйектерінен басқа.',
+        length: 'Шамамен 43.7 см',
+        comparison: 'Ананас',
+        bodyChanges: [
+          'Бұл кезеңде ұйықтауға ыңғайлы қалыпты табу қиындығы жиі кездеседі.',
+        ],
+        toKnow: [
+          'Туған кезде бас сүйек сүйектерінің икемділігі уақытша және бірінші жыл ішінде біртіндеп жабылады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Xel bi ak jëmmu xel bi defaru nañu baax léegi. Yax yi kontine dëgër, lu dul yu bopp, yi des yu nooy ngir yombal jaar bi ci jur.',
+        length: 'Ci wetu 43.7 cm',
+        comparison: 'Ananaas',
+        bodyChanges: [
+          'Jafe a gis anam bu neex ngir nelaw daa bari ci jamono jii.',
+        ],
+        toKnow: [
+          'Nooy bu yaxu bopp ci jur daa gàtt te dafay tëj tuuti-tuuti ci at bu njëkk.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Kwakwalwa da tsarin jijiyoyi yanzu sun girma sosai. Ƙasusuwa suna ci gaba da taurara, ban da na kwanyar, waɗanda suke ci gaba da kasancewa masu sassauƙa don sauƙaƙa wucewa yayin haihuwa.',
+        length: 'Kusan 43.7 cm',
+        comparison: 'Abarba',
+        bodyChanges: [
+          'Wahalar samun matsayin barci mai daɗi ta zama ruwan dare a wannan mataki.',
+        ],
+        toKnow: [
+          'Sassaucin ƙasusuwan kwanyar lokacin haihuwa na ɗan lokaci ne kuma a hankali yana rufewa a shekarar farko.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'አንጎልና የነርቭ ሥርዓት አሁን በደንብ አድገዋል። አጥንቶች ማጠንከራቸውን ይቀጥላሉ፣ ከራስ ቅል በስተቀር፤ የራስ ቅሉ በወሊድ ጊዜ ለማለፍ እንዲያመች ተለዋዋጭ ሆኖ ይቆያል።',
+        length: 'ወደ 43.7 ሴሜ',
+        comparison: 'አናናስ',
+        bodyChanges: [
+          'በዚህ ደረጃ ምቹ የመተኛት አቀማመጥ ለማግኘት መቸገር የተለመደ ነው።',
+        ],
+        toKnow: [
+          'በወሊድ ጊዜ የራስ ቅል አጥንቶች ተለዋዋጭነት ጊዜያዊ ነው እና በመጀመሪያው ዓመት ቀስ በቀስ ይዘጋል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De hersenen en het zenuwstelsel zijn nu goed ontwikkeld. De botten blijven verharden, behalve die van de schedel, die soepel blijven om de doorgang tijdens de bevalling te vergemakkelijken.',
+        length: 'Ongeveer 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Moeite om een comfortabele slaaphouding te vinden is in deze fase gebruikelijk.',
+        ],
+        toKnow: [
+          'De soepelheid van de schedelbotten bij de geboorte is tijdelijk en sluit zich geleidelijk in het eerste levensjaar.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Aivot ja hermosto ovat nyt hyvin kehittyneet. Luut jatkavat kovettumistaan kallon luita lukuun ottamatta, jotka pysyvät joustavina helpottamaan läpikulkua synnytyksen aikana.',
+        length: 'Noin 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: [
+          'Mukavan nukkuma-asennon löytämisen vaikeus on tässä vaiheessa yleistä.',
+        ],
+        toKnow: [
+          'Kallon luiden joustavuus syntyessä on tilapäinen ja sulkeutuu vähitellen ensimmäisen vuoden aikana.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Ο εγκέφαλος και το νευρικό σύστημα είναι πλέον καλά αναπτυγμένα. Τα οστά συνεχίζουν να σκληραίνουν, εκτός από αυτά του κρανίου, που παραμένουν εύκαμπτα για να διευκολύνουν τη διέλευση κατά τον τοκετό.',
+        length: 'Περίπου 43,7 εκ.',
+        comparison: 'Ανανάς',
+        bodyChanges: [
+          'Η δυσκολία εύρεσης άνετης θέσης ύπνου είναι συχνή σε αυτό το στάδιο.',
+        ],
+        toKnow: [
+          'Η ευκαμψία των οστών του κρανίου κατά τη γέννηση είναι προσωρινή και κλείνει σταδιακά τον πρώτο χρόνο.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Maayos nang nabuo ang utak at nervous system. Patuloy na tumitigas ang mga buto, maliban sa mga buto ng bungo, na nananatiling nababaluktot upang mapadali ang pagdaan nito sa panganganak.',
+        length: 'Mga 43.7 cm',
+        comparison: 'Pinya',
+        bodyChanges: [
+          'Karaniwan sa yugtong ito ang hirap makahanap ng komportableng posisyon sa pagtulog.',
+        ],
+        toKnow: [
+          'Pansamantala ang kakayahang umbok ng mga buto ng bungo sa pagsilang at unti-unting sumasara sa unang taon.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'மூளையும் நரம்பு மண்டலமும் இப்போது நன்கு வளர்ந்துவிட்டன. எலும்புகள் தொடர்ந்து கடினமடைகின்றன, பிறப்பின்போது கடந்து செல்வதை எளிதாக்க, மண்டையோட்டு எலும்புகள் மட்டும் நெகிழ்வாகவே இருக்கும்.',
+        length: 'சுமார் 43.7 செ.மீ',
+        comparison: 'அன்னாசி',
+        bodyChanges: [
+          'இந்தக் கட்டத்தில் வசதியான உறங்கும் நிலையைக் கண்டறிவதில் சிரமம் பொதுவானது.',
+        ],
+        toKnow: [
+          'பிறப்பின்போது மண்டையோட்டு எலும்புகளின் நெகிழ்வுத்தன்மை தற்காலிகமானது, முதல் ஆண்டில் படிப்படியாக மூடிக்கொள்கிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'మెదడు, నాడీ వ్యవస్థ ఇప్పుడు బాగా అభివృద్ధి చెందాయి. ఎముకలు గట్టిపడటం కొనసాగుతుంది, పుర్రె ఎముకలు తప్ప; అవి ప్రసవ సమయంలో దాటడం సులభమయ్యేందుకు సరళంగానే ఉంటాయి.',
+        length: 'సుమారు 43.7 సెం.మీ',
+        comparison: 'అనాస పండు',
+        bodyChanges: [
+          'ఈ దశలో సౌకర్యవంతమైన నిద్ర భంగిమను కనుగొనడంలో ఇబ్బంది సాధారణం.',
+        ],
+        toKnow: [
+          'పుట్టినప్పుడు పుర్రె ఎముకల సరళత తాత్కాలికం, మొదటి సంవత్సరంలో క్రమంగా మూసుకుపోతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'मेंदू आणि मज्जासंस्था आता चांगली विकसित झाली आहेत. हाडे कठीण होत राहतात, पण कवटीची हाडे वगळता, जी प्रसूतीदरम्यान जाणे सोपे व्हावे म्हणून लवचिक राहतात.',
+        length: 'सुमारे 43.7 सेमी',
+        comparison: 'अननस',
+        bodyChanges: [
+          'या टप्प्यावर झोपण्याची आरामदायी स्थिती शोधण्यात अडचण सामान्य आहे.',
+        ],
+        toKnow: [
+          'जन्माच्या वेळी कवटीच्या हाडांची लवचिकता तात्पुरती असते आणि पहिल्या वर्षात हळूहळू मिटते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'મગજ અને નર્વસ સિસ્ટમ હવે સારી રીતે વિકસ્યાં છે. હાડકાં સખત થતાં રહે છે, ખોપરીના હાડકાં સિવાય, જે પ્રસૂતિ દરમિયાન પસાર થવું સરળ બને તે માટે લવચીક રહે છે.',
+        length: 'લગભગ 43.7 સેમી',
+        comparison: 'અનાનસ',
+        bodyChanges: [
+          'આ તબક્કે ઊંઘવાની આરામદાયક સ્થિતિ શોધવામાં મુશ્કેલી સામાન્ય છે.',
+        ],
+        toKnow: [
+          'જન્મ સમયે ખોપરીના હાડકાંની લવચીકતા અસ્થાયી છે અને પહેલા વર્ષ દરમિયાન ધીમે ધીમે બંધ થઈ જાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਦਿਮਾਗ਼ ਅਤੇ ਨਾੜੀ ਪ੍ਰਣਾਲੀ ਹੁਣ ਚੰਗੀ ਤਰ੍ਹਾਂ ਵਿਕਸਿਤ ਹਨ। ਹੱਡੀਆਂ ਸਖ਼ਤ ਹੁੰਦੀਆਂ ਰਹਿੰਦੀਆਂ ਹਨ, ਸਿਵਾਏ ਖੋਪੜੀ ਦੀਆਂ ਹੱਡੀਆਂ ਦੇ, ਜੋ ਜਣੇਪੇ ਦੌਰਾਨ ਲੰਘਣਾ ਸੌਖਾ ਬਣਾਉਣ ਲਈ ਲਚਕੀਲੀਆਂ ਰਹਿੰਦੀਆਂ ਹਨ।',
+        length: 'ਲਗਭਗ 43.7 ਸੈਮੀ',
+        comparison: 'ਅਨਾਨਾਸ',
+        bodyChanges: [
+          'ਇਸ ਪੜਾਅ ’ਤੇ ਸੌਣ ਲਈ ਆਰਾਮਦਾਇਕ ਸਥਿਤੀ ਲੱਭਣ ਵਿੱਚ ਮੁਸ਼ਕਲ ਆਮ ਹੈ।',
+        ],
+        toKnow: [
+          'ਜਨਮ ਵੇਲੇ ਖੋਪੜੀ ਦੀਆਂ ਹੱਡੀਆਂ ਦੀ ਲਚਕ ਅਸਥਾਈ ਹੁੰਦੀ ਹੈ ਅਤੇ ਪਹਿਲੇ ਸਾਲ ਦੌਰਾਨ ਹੌਲੀ-ਹੌਲੀ ਬੰਦ ਹੋ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ဦးနှောက်နှင့် အာရုံကြောစနစ်သည် ယခုအခါ ကောင်းမွန်စွာ ဖွံ့ဖြိုးနေသည်။ အရိုးများ ဆက်လက်မာလာသော်လည်း မွေးဖွားချိန်တွင် ဖြတ်သန်းရန် လွယ်ကူစေရန် ဦးခေါင်းခွံအရိုးများမှာ ပျော့ပျောင်းနေဆဲဖြစ်သည်။',
+        length: 'ခန့်မှန်းခြေ 43.7 စင်တီမီတာ',
+        comparison: 'နာနတ်သီး',
+        bodyChanges: [
+          'အိပ်စက်ရန် သက်တောင့်သက်သာရှိသော ပုံစံကို ရှာရန်ခက်ခဲခြင်းသည် ဤအဆင့်တွင် ပုံမှန်ဖြစ်သည်။',
+        ],
+        toKnow: [
+          'မွေးဖွားချိန်တွင် ဦးခေါင်းခွံအရိုးများ၏ ပျော့ပျောင်းမှုသည် ယာယီဖြစ်ပြီး ပထမနှစ်အတွင်း တဖြည်းဖြည်း ပိတ်သွားသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ខួរក្បាលនិងប្រព័ន្ធប្រសាទឥឡូវលូតលាស់បានល្អ។ ឆ្អឹងបន្តរឹងឡើង លើកលែងតែឆ្អឹងលលាដ៍ក្បាល ដែលនៅតែបត់បែនបាន ដើម្បីងាយស្រួលឆ្លងកាត់ពេលសម្រាល។',
+        length: 'ប្រហែល 43.7 សង់ទីម៉ែត្រ',
+        comparison: 'ម្នាស់',
+        bodyChanges: [
+          'ការពិបាករកទីតាំងដេកដែលស្រួល ជារឿងធម្មតានៅដំណាក់កាលនេះ។',
+        ],
+        toKnow: [
+          'ភាពបត់បែនរបស់ឆ្អឹងលលាដ៍ក្បាលនៅពេលកើតគ្រាន់តែជាបណ្តោះអាសន្ន ហើយបន្តិចម្តងៗនឹងបិទជិតក្នុងអំឡុងឆ្នាំដំបូង។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ສະໝອງ ແລະ ລະບົບປະສາດພັດທະນາດີແລ້ວ. ກະດູກສືບຕໍ່ແຂງຕົວ ຍົກເວັ້ນກະດູກກະໂຫຼກຫົວ ເຊິ່ງຍັງຢືດຫຍຸ່ນເພື່ອໃຫ້ຜ່ານອອກມາໄດ້ງ່າຍຂຶ້ນໃນລະຫວ່າງການເກີດ.',
+        length: 'ປະມານ 43.7 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກນັດ',
+        bodyChanges: [
+          'ການຫາທ່ານອນທີ່ສະບາຍຍາກເປັນເລື່ອງທົ່ວໄປໃນໄລຍະນີ້.',
+        ],
+        toKnow: [
+          'ຄວາມຢືດຫຍຸ່ນຂອງກະດູກກະໂຫຼກຫົວຕອນເກີດເປັນພຽງຊົ່ວຄາວ ແລະ ຄ່ອຍໆປິດລົງໃນປີທຳອິດ.',
+        ],
+      },
     },
   },
 
@@ -15439,6 +22925,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi, yang meringkuk kerana kekurangan ruang, biasanya mengekalkan kakinya terlipat ke arah dada sambil terus bergerak dengan tetap.',
+        length: 'Kira-kira 45 cm',
+        comparison: 'Tembikai cantaloupe',
+        bodyChanges: [
+          'Walaupun ruang berkurangan, pergerakan bayi dan bentuk perut anda yang berubah biasanya kekal dapat dirasai.',
+        ],
+        toKnow: [
+          'Terus memberi perhatian kepada pergerakan biasa bayi kekal relevan sehingga kelahiran.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu, isagoo isku laabnaaday sababtoo ah booska yar, guud ahaan wuxuu lugihiisa u laabaa xagga laabta isagoo sii wada dhaqdhaqaaq joogto ah.',
+        length: 'Qiyaastii 45 cm',
+        comparison: 'Cantaloupe',
+        bodyChanges: [
+          'In kasta oo booska la yareeyey, dhaqdhaqaaqyada ilmaha iyo qaabka isbeddelaya ee calooshaadu inta badan way sii muuqdaan.',
+        ],
+        toKnow: [
+          'Sii wadidda feejignaanta dhaqdhaqaaqyada caadiga ah ee ilmuhu wuu sii khuseeyaa ilaa dhalmada.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto, aliyejikunja kwa ukosefu wa nafasi, kwa kawaida huweka miguu yake imekunjwa kuelekea kifuani huku akiendelea kusonga mara kwa mara.',
+        length: 'Takriban sm 45',
+        comparison: 'Tikiti la cantaloupe',
+        bodyChanges: [
+          'Licha ya nafasi iliyopungua, mienendo ya mtoto na umbo linalobadilika la tumbo lako kwa kawaida hubaki kuonekana.',
+        ],
+        toKnow: [
+          'Kuendelea kuzingatia mienendo ya kawaida ya mtoto kunabaki kuwa muhimu hadi wakati wa kuzaliwa.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Орын жетіспегендіктен бүгжиген нәресте әдетте аяқтарын кеудеге қарай бүктеп ұстайды, бірақ тұрақты қозғалысын жалғастырады.',
+        length: 'Шамамен 45 см',
+        comparison: 'Канталупа қауыны',
+        bodyChanges: [
+          'Орынның азаюына қарамастан, нәрестенің қозғалыстары мен іштің өзгеретін пішіні әдетте байқалады.',
+        ],
+        toKnow: [
+          'Нәрестенің әдеттегі қозғалыстарына назар аударуды жалғастыру босанғанға дейін өзекті болып қалады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi, bu ñor ndax bérëb bi gën a ndaw, daa denc tànk yi ci kanam dënn te kontine yëngu ci yoon.',
+        length: 'Ci wetu 45 cm',
+        comparison: 'Melon cantaloup',
+        bodyChanges: [
+          'Lu mu mën a doon bérëb bi suuf, yëngu yu doom bi ak wëndëlu biir bi daa des yu gis.',
+        ],
+        toKnow: [
+          'Kontine teg yëngu yu doom bi yu cosaan des na am njariñ ba jur.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri, wanda ya naɗe saboda rashin sarari, yawanci yana riƙe ƙafafuwansa naɗe zuwa ƙirji yayin da yake ci gaba da motsawa akai-akai.',
+        length: 'Kusan 45 cm',
+        comparison: 'Gunar cantaloupe',
+        bodyChanges: [
+          'Duk da rage sarari, motsin jariri da canjin siffar cikinki yawanci suna ci gaba da zama abin lura.',
+        ],
+        toKnow: [
+          'Ci gaba da lura da motsin jariri na yau da kullum yana ci gaba da zama mai muhimmanci har zuwa haihuwa.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ቦታ ባለመኖሩ የተጠቀለለው ሕፃን በአጠቃላይ እግሮቹን ወደ ደረቱ ታጥፎ ይይዛል፣ ሆኖም በመደበኛነት መንቀሳቀሱን ይቀጥላል።',
+        length: 'ወደ 45 ሴሜ',
+        comparison: 'ካንታሎፕ ሜሎን',
+        bodyChanges: [
+          'ቦታው ቢቀንስም የሕፃኑ እንቅስቃሴዎች እና የሆድሽ የሚለዋወጥ ቅርጽ በአጠቃላይ የሚታዩ ሆነው ይቆያሉ።',
+        ],
+        toKnow: [
+          'የሕፃኑን የተለመዱ እንቅስቃሴዎች ትኩረት መስጠትን መቀጠል እስከ ልደት ድረስ ጠቃሚ ሆኖ ይቆያል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby, opgerold door gebrek aan ruimte, houdt de benen over het algemeen naar de borst gevouwen terwijl hij of zij regelmatig blijft bewegen.',
+        length: 'Ongeveer 45 cm',
+        comparison: 'Cantaloupemeloen',
+        bodyChanges: [
+          'Ondanks de verminderde ruimte blijven de bewegingen van de baby en de veranderende vorm van je buik meestal merkbaar.',
+        ],
+        toKnow: [
+          'Blijven letten op de gebruikelijke bewegingen van de baby blijft relevant tot aan de geboorte.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Tilanpuutteen vuoksi kippurassa oleva vauva pitää yleensä jalkansa rintaa kohti taitettuina jatkaen kuitenkin säännöllistä liikkumista.',
+        length: 'Noin 45 cm',
+        comparison: 'Cantaloupe-meloni',
+        bodyChanges: [
+          'Vähentyneestä tilasta huolimatta vauvan liikkeet ja vatsasi muuttuva muoto pysyvät yleensä havaittavina.',
+        ],
+        toKnow: [
+          'Vauvan tavanomaisten liikkeiden seuraaminen on edelleen aiheellista aina syntymään asti.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό, κουλουριασμένο λόγω έλλειψης χώρου, κρατά γενικά τα πόδια του διπλωμένα προς το στήθος ενώ συνεχίζει να κινείται τακτικά.',
+        length: 'Περίπου 45 εκ.',
+        comparison: 'Πεπόνι κανταλούπ',
+        bodyChanges: [
+          'Παρά τον μειωμένο χώρο, οι κινήσεις του μωρού και το μεταβαλλόμενο σχήμα της κοιλιάς σου συνήθως παραμένουν αισθητά.',
+        ],
+        toKnow: [
+          'Η συνεχής προσοχή στις συνηθισμένες κινήσεις του μωρού παραμένει σημαντική μέχρι τη γέννηση.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang sanggol, na nakakulong dahil sa kakulangan ng espasyo, ay karaniwang nakatiklop ang mga binti patungo sa dibdib habang patuloy na regular na gumagalaw.',
+        length: 'Mga 45 cm',
+        comparison: 'Cantaloupe',
+        bodyChanges: [
+          'Sa kabila ng nabawasang espasyo, karaniwang nananatiling kapansin-pansin ang mga galaw ng sanggol at ang nagbabagong hugis ng iyong tiyan.',
+        ],
+        toKnow: [
+          'Nananatiling may kaugnayan ang patuloy na pagbibigay-pansin sa karaniwang mga galaw ng sanggol hanggang sa pagsilang.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'இடமின்மையால் சுருண்டிருக்கும் குழந்தை, தொடர்ந்து ஒழுங்காக அசையும்போது, பொதுவாகத் தன் கால்களை மார்பை நோக்கி மடித்து வைத்திருக்கிறது.',
+        length: 'சுமார் 45 செ.மீ',
+        comparison: 'கேண்டலூப் முலாம்பழம்',
+        bodyChanges: [
+          'குறைந்த இடமிருந்தாலும், குழந்தையின் அசைவுகளும் உங்கள் வயிற்றின் மாறும் வடிவமும் பொதுவாகக் கவனிக்கத்தக்கவையாகவே இருக்கும்.',
+        ],
+        toKnow: [
+          'குழந்தையின் வழக்கமான அசைவுகளில் தொடர்ந்து கவனம் செலுத்துவது பிறப்பு வரை பொருத்தமாகவே இருக்கும்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'స్థలం చాలక ముడుచుకొని ఉన్న శిశువు, క్రమం తప్పకుండా కదులుతూనే, సాధారణంగా కాళ్లను ఛాతీ వైపు మడిచి ఉంచుతుంది.',
+        length: 'సుమారు 45 సెం.మీ',
+        comparison: 'కర్బూజా',
+        bodyChanges: [
+          'స్థలం తగ్గినా, శిశువు కదలికలు, మీ పొట్ట మారుతున్న ఆకారం సాధారణంగా గమనించదగినవిగానే ఉంటాయి.',
+        ],
+        toKnow: [
+          'శిశువు సాధారణ కదలికలపై శ్రద్ధ పెట్టడం కొనసాగించడం ప్రసవం వరకూ ముఖ్యమే.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'जागेअभावी गुरफटलेले बाळ, नियमितपणे हालचाल करत असतानाच, सहसा आपले पाय छातीकडे मुडपून ठेवते.',
+        length: 'सुमारे 45 सेमी',
+        comparison: 'खरबूज (कँटलूप)',
+        bodyChanges: [
+          'कमी जागा असूनही, बाळाच्या हालचाली आणि तुमच्या पोटाचा बदलता आकार सहसा लक्षात येण्याजोगाच राहतो.',
+        ],
+        toKnow: [
+          'बाळाच्या नेहमीच्या हालचालींकडे लक्ष देत राहणे प्रसूतीपर्यंत महत्त्वाचे राहते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'જગ્યાના અભાવે વળેલું બાળક સામાન્ય રીતે નિયમિત હલનચલન ચાલુ રાખતાં તેના પગ છાતી તરફ વાળેલા રાખે છે.',
+        length: 'લગભગ 45 સેમી',
+        comparison: 'ખરબૂજું',
+        bodyChanges: [
+          'ઓછી જગ્યા હોવા છતાં, બાળકની હલનચલન અને તમારા પેટનો બદલાતો આકાર સામાન્ય રીતે નોંધનીય રહે છે.',
+        ],
+        toKnow: [
+          'બાળકની સામાન્ય હલનચલન પર ધ્યાન રાખવાનું પ્રસૂતિ સુધી પ્રસ્તુત રહે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਥਾਂ ਦੀ ਘਾਟ ਕਰਕੇ ਮੁੜਿਆ ਹੋਇਆ ਬੱਚਾ ਆਮ ਤੌਰ ’ਤੇ ਨਿਯਮਿਤ ਹਰਕਤ ਕਰਦਿਆਂ ਆਪਣੀਆਂ ਲੱਤਾਂ ਛਾਤੀ ਵੱਲ ਮੋੜ ਕੇ ਰੱਖਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 45 ਸੈਮੀ',
+        comparison: 'ਖ਼ਰਬੂਜ਼ਾ',
+        bodyChanges: [
+          'ਘੱਟ ਥਾਂ ਹੋਣ ਦੇ ਬਾਵਜੂਦ, ਬੱਚੇ ਦੀਆਂ ਹਰਕਤਾਂ ਅਤੇ ਤੁਹਾਡੇ ਢਿੱਡ ਦੀ ਬਦਲਦੀ ਸ਼ਕਲ ਆਮ ਤੌਰ ’ਤੇ ਨਜ਼ਰ ਆਉਂਦੀ ਰਹਿੰਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਬੱਚੇ ਦੀਆਂ ਆਮ ਹਰਕਤਾਂ ਵੱਲ ਧਿਆਨ ਦਿੰਦੇ ਰਹਿਣਾ ਜਣੇਪੇ ਤੱਕ ਮਹੱਤਵਪੂਰਨ ਰਹਿੰਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'နေရာမလုံလောက်သောကြောင့် ခွေလိုက်ဖြစ်နေသော ကလေးသည် ပုံမှန်လှုပ်ရှားနေစဉ် ခြေထောက်များကို ရင်ဘတ်ဘက်သို့ ခေါက်ထားလေ့ရှိသည်။',
+        length: 'ခန့်မှန်းခြေ 45 စင်တီမီတာ',
+        comparison: 'သခွားမွှေးသီး',
+        bodyChanges: [
+          'နေရာကျဉ်းလာသော်လည်း ကလေး၏ လှုပ်ရှားမှုများနှင့် သင့်ဝမ်းဗိုက်၏ ပြောင်းလဲနေသော ပုံသဏ္ဍာန်သည် များသောအားဖြင့် သိသာနေဆဲဖြစ်သည်။',
+        ],
+        toKnow: [
+          'ကလေး၏ ပုံမှန်လှုပ်ရှားမှုများကို ဆက်လက်အာရုံစိုက်ခြင်းသည် မွေးဖွားချိန်အထိ သင့်လျော်နေဆဲဖြစ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកដែលរមួលខ្លួនដោយសារខ្វះកន្លែង ជាទូទៅរក្សាជើងបត់ឆ្ពោះទៅទ្រូង ខណៈដែលបន្តធ្វើចលនាជាប្រចាំ។',
+        length: 'ប្រហែល 45 សង់ទីម៉ែត្រ',
+        comparison: 'ឪឡឹកកង់តាឡូប',
+        bodyChanges: [
+          'ទោះបីមានកន្លែងតិចក៏ដោយ ចលនារបស់ទារក និងរូបរាងពោះដែលកំពុងប្រែប្រួលរបស់អ្នក ជាធម្មតានៅតែអាចកត់សម្គាល់បាន។',
+        ],
+        toKnow: [
+          'ការបន្តយកចិត្តទុកដាក់ចំពោះចលនាធម្មតារបស់ទារក នៅតែសំខាន់រហូតដល់ពេលសម្រាល។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍທີ່ຕົວງໍເພາະຂາດພື້ນທີ່ ໂດຍທົ່ວໄປຈະພັບຂາເຂົ້າຫາໜ້າເອິກ ໃນຂະນະທີ່ຍັງເຄື່ອນໄຫວເປັນປະຈຳ.',
+        length: 'ປະມານ 45 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກໂມຄັນຕາລູບ',
+        bodyChanges: [
+          'ເຖິງແມ່ນພື້ນທີ່ຈະຫຼຸດລົງ ແຕ່ການເຄື່ອນໄຫວຂອງລູກນ້ອຍ ແລະ ຮູບຮ່າງທ້ອງທີ່ປ່ຽນໄປ ໂດຍປົກກະຕິຍັງສັງເກດເຫັນໄດ້.',
+        ],
+        toKnow: [
+          'ການສືບຕໍ່ເອົາໃຈໃສ່ການເຄື່ອນໄຫວປົກກະຕິຂອງລູກນ້ອຍຍັງມີຄວາມສຳຄັນຈົນຮອດເວລາເກີດ.',
+        ],
+      },
     },
   },
   {
@@ -15884,6 +23598,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi terus berisi, yang akan membantunya mengawal suhu selepas dilahirkan. Ruang yang ada dalam rahim menjadi lebih terhad.',
+        length: 'Kira-kira 46.2 cm',
+        comparison: 'Tembikai honeydew',
+        bodyChanges: [
+          'Tekanan pelvis yang lebih ketara mungkin timbul apabila bayi beransur-ansur turun.',
+        ],
+        toKnow: [
+          'Walaupun ruang terhad, bayi sepatutnya terus bergerak dengan ketetapan yang serupa dengan minggu-minggu sebelumnya.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu wuu sii buuxsamaa, taasoo kaa caawin doonta inuu nidaamiyo heerkulkiisa marka la dhalo. Booska ku jira ilmo-galeenku wuu sii yaraanayaa.',
+        length: 'Qiyaastii 46.2 cm',
+        comparison: 'Melon honeydew',
+        bodyChanges: [
+          'Cadaadis miskaha ah oo ka xooggan ayaa soo bixi kara marka ilmuhu tartiib hoos u dego.',
+        ],
+        toKnow: [
+          'In kasta oo booska xaddidan yahay, ilmuhu waa inuu sii wado dhaqdhaqaaq joogto la mid ah toddobaadyadii hore.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto anaendelea kunenepa, jambo litakalomsaidia kudhibiti joto la mwili baada ya kuzaliwa. Nafasi iliyopo kwenye mji wa uzazi inakuwa ndogo zaidi.',
+        length: 'Takriban sm 46.2',
+        comparison: 'Tikiti la honeydew',
+        bodyChanges: [
+          'Shinikizo kubwa zaidi kwenye nyonga linaweza kuonekana kadiri mtoto anavyoshuka polepole.',
+        ],
+        toKnow: [
+          'Licha ya nafasi ndogo, mtoto anapaswa kuendelea kusonga kwa mpangilio unaofanana na wiki zilizotangulia.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте толыса түседі, бұл оған туғаннан кейін температурасын реттеуге көмектеседі. Жатырдағы бос орын шектеулі бола түседі.',
+        length: 'Шамамен 46.2 см',
+        comparison: 'Хани-дью қауыны',
+        bodyChanges: [
+          'Нәресте біртіндеп төмен түскен сайын жамбасқа қысым күшейуі мүмкін.',
+        ],
+        toKnow: [
+          'Орынның шектеулі болуына қарамастан, нәресте алдыңғы апталарға ұқсас жиілікпен қозғалуын жалғастыруы тиіс.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi di kontine fees, loolu dina dimbli ko mu yor tàngoor boppam bu mu juddoo. Bérëb bi ci bérëbu ndey di gën a ndaw.',
+        length: 'Ci wetu 46.2 cm',
+        comparison: 'Melon bu weex',
+        bodyChanges: [
+          'Dégg bu diis lool ci suufu ndey mën na feeñ bu doom bi di wàcc tuuti-tuuti.',
+        ],
+        toKnow: [
+          'Lu mu mën a doon bérëb bu ndaw, doom bi war na kontine yëngu ni ayu-bés yi jiitu.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri yana ci gaba da cikawa, wanda zai taimaka masa ya daidaita zafin jikinsa bayan haihuwa. Sarari da ke akwai a cikin mahaifa yana zama mai iyaka.',
+        length: 'Kusan 46.2 cm',
+        comparison: 'Gunar honeydew',
+        bodyChanges: [
+          'Matsi mai bayyana sosai a ƙugu na iya bayyana yayin da jariri ke sauka a hankali.',
+        ],
+        toKnow: [
+          'Duk da iyakacin sarari, jariri ya kamata ya ci gaba da motsawa da tsari irin na makonnin da suka gabata.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ መሞላቱን ይቀጥላል፣ ይህም ከተወለደ በኋላ የሰውነት ሙቀቱን ለመቆጣጠር ይረዳዋል። በማህፀን ውስጥ ያለው ቦታ ይበልጥ ውስን ይሆናል።',
+        length: 'ወደ 46.2 ሴሜ',
+        comparison: 'ሃኒዲው ሜሎን',
+        bodyChanges: [
+          'ሕፃኑ ቀስ በቀስ ሲወርድ ይበልጥ የጎላ የዳሌ ግፊት ሊታይ ይችላል።',
+        ],
+        toKnow: [
+          'ቦታው ውስን ቢሆንም ሕፃኑ ከቀደሙት ሳምንታት ጋር ተመሳሳይ መደበኛነት መንቀሳቀሱን መቀጠል አለበት።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby wordt steeds voller, wat helpt de lichaamstemperatuur te regelen na de geboorte. De beschikbare ruimte in de baarmoeder wordt beperkter.',
+        length: 'Ongeveer 46,2 cm',
+        comparison: 'Honingmeloen',
+        bodyChanges: [
+          'Meer uitgesproken druk op het bekken kan optreden naarmate de baby geleidelijk daalt.',
+        ],
+        toKnow: [
+          'Ondanks de beperkte ruimte moet de baby blijven bewegen met een regelmaat die vergelijkbaar is met voorgaande weken.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva jatkaa täyteläistymistä, mikä auttaa häntä säätelemään lämpötilaansa syntymän jälkeen. Kohdussa käytettävissä oleva tila käy rajallisemmaksi.',
+        length: 'Noin 46,2 cm',
+        comparison: 'Hunajameloni',
+        bodyChanges: [
+          'Voimakkaampaa lantion painetta voi ilmaantua vauvan laskeutuessa vähitellen.',
+        ],
+        toKnow: [
+          'Rajallisesta tilasta huolimatta vauvan tulisi jatkaa liikkumista edellisiin viikkoihin verrattavalla säännöllisyydellä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό συνεχίζει να γεμίζει, κάτι που θα το βοηθήσει να ρυθμίζει τη θερμοκρασία του μόλις γεννηθεί. Ο διαθέσιμος χώρος στη μήτρα γίνεται πιο περιορισμένος.',
+        length: 'Περίπου 46,2 εκ.',
+        comparison: 'Πεπόνι honeydew',
+        bodyChanges: [
+          'Πιο έντονη πίεση στην πύελο μπορεί να εμφανιστεί καθώς το μωρό κατεβαίνει σταδιακά.',
+        ],
+        toKnow: [
+          'Παρά τον περιορισμένο χώρο, το μωρό πρέπει να συνεχίζει να κινείται με κανονικότητα παρόμοια με τις προηγούμενες εβδομάδες.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Patuloy na tumataba ang sanggol, na tutulong sa kanyang i-regulate ang temperatura pagsilang. Nagiging mas limitado ang magagamit na espasyo sa matris.',
+        length: 'Mga 46.2 cm',
+        comparison: 'Honeydew melon',
+        bodyChanges: [
+          'Maaaring lumitaw ang mas matinding presyon sa balakang habang unti-unting bumababa ang sanggol.',
+        ],
+        toKnow: [
+          'Sa kabila ng limitadong espasyo, dapat patuloy na gumalaw ang sanggol sa regularidad na katulad ng mga naunang linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை தொடர்ந்து புஷ்டியாகிறது, இது பிறந்த பின் தன் உடல் வெப்பநிலையை ஒழுங்குபடுத்த உதவும். கருப்பையில் கிடைக்கும் இடம் மேலும் குறைகிறது.',
+        length: 'சுமார் 46.2 செ.மீ',
+        comparison: 'ஹனிட்யூ முலாம்பழம்',
+        bodyChanges: [
+          'குழந்தை படிப்படியாகக் கீழிறங்கும்போது இடுப்பில் அதிகத் தெளிவான அழுத்தம் தோன்றலாம்.',
+        ],
+        toKnow: [
+          'குறைந்த இடமிருந்தாலும், குழந்தை முந்தைய வாரங்களுக்கு ஒத்த ஒழுங்குடன் தொடர்ந்து அசைய வேண்டும்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు నిండుగా మారుతూనే ఉంటుంది, ఇది పుట్టిన తర్వాత వారి ఉష్ణోగ్రతను నియంత్రించుకోవడానికి సహాయపడుతుంది. గర్భాశయంలో అందుబాటులో ఉన్న స్థలం మరింత పరిమితమవుతుంది.',
+        length: 'సుమారు 46.2 సెం.మీ',
+        comparison: 'హనీడ్యూ కర్బూజా',
+        bodyChanges: [
+          'శిశువు క్రమంగా కిందకు దిగుతున్న కొద్దీ కటి ప్రాంతంలో మరింత ఎక్కువ ఒత్తిడి కనిపించవచ్చు.',
+        ],
+        toKnow: [
+          'స్థలం పరిమితంగా ఉన్నా, శిశువు మునుపటి వారాలకు సమానమైన క్రమబద్ధతతో కదులుతూనే ఉండాలి.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ भरदार होत राहते, ज्यामुळे जन्मानंतर त्याला स्वतःचे तापमान नियंत्रित करण्यास मदत होईल. गर्भाशयातील उपलब्ध जागा अधिक मर्यादित होते.',
+        length: 'सुमारे 46.2 सेमी',
+        comparison: 'हनीड्यू खरबूज',
+        bodyChanges: [
+          'बाळ हळूहळू खाली सरकत असताना कटीभागात अधिक ठळक दाब दिसू शकतो.',
+        ],
+        toKnow: [
+          'मर्यादित जागा असूनही, बाळाने मागील आठवड्यांसारख्याच नियमिततेने हालचाल करत राहिले पाहिजे.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક વધુ ભરાવદાર થતું રહે છે, જે જન્મ પછી તેને તેના તાપમાનનું નિયમન કરવામાં મદદ કરશે. ગર્ભાશયમાં ઉપલબ્ધ જગ્યા વધુ મર્યાદિત બને છે.',
+        length: 'લગભગ 46.2 સેમી',
+        comparison: 'સક્કરટેટી',
+        bodyChanges: [
+          'બાળક ધીમે ધીમે નીચે ઉતરતાં વધુ નોંધપાત્ર પેલ્વિક દબાણ દેખાઈ શકે છે.',
+        ],
+        toKnow: [
+          'મર્યાદિત જગ્યા હોવા છતાં, બાળકે પાછલાં અઠવાડિયાં જેવી જ નિયમિતતાથી હલનચલન ચાલુ રાખવી જોઈએ.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਭਰਿਆ-ਭਰਿਆ ਹੁੰਦਾ ਜਾਂਦਾ ਹੈ, ਜੋ ਜਨਮ ਤੋਂ ਬਾਅਦ ਉਸ ਨੂੰ ਆਪਣਾ ਤਾਪਮਾਨ ਸੰਭਾਲਣ ਵਿੱਚ ਮਦਦ ਕਰੇਗਾ। ਬੱਚੇਦਾਨੀ ਵਿੱਚ ਉਪਲਬਧ ਥਾਂ ਹੋਰ ਸੀਮਤ ਹੋ ਜਾਂਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 46.2 ਸੈਮੀ',
+        comparison: 'ਸਰਦਾ',
+        bodyChanges: [
+          'ਬੱਚੇ ਦੇ ਹੌਲੀ-ਹੌਲੀ ਹੇਠਾਂ ਆਉਣ ਨਾਲ ਪੇਡੂ ’ਤੇ ਵਧੇਰੇ ਦਬਾਅ ਮਹਿਸੂਸ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਸੀਮਤ ਥਾਂ ਹੋਣ ਦੇ ਬਾਵਜੂਦ, ਬੱਚੇ ਨੂੰ ਪਿਛਲੇ ਹਫ਼ਤਿਆਂ ਵਰਗੀ ਨਿਯਮਿਤਤਾ ਨਾਲ ਹਿੱਲਣਾ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် ဆက်လက်ဝဖြိုးလာပြီး ၎င်းသည် မွေးဖွားပြီးနောက် ကိုယ်အပူချိန်ကို ထိန်းညှိရာတွင် အထောက်အကူဖြစ်လိမ့်မည်။ သားအိမ်အတွင်း ရရှိနိုင်သော နေရာသည် ပိုမိုကန့်သတ်လာသည်။',
+        length: 'ခန့်မှန်းခြေ 46.2 စင်တီမီတာ',
+        comparison: 'သခွားမွှေး',
+        bodyChanges: [
+          'ကလေး တဖြည်းဖြည်း ဆင်းလာသည်နှင့်အမျှ တင်ပါးဆုံဖိအား ပိုမိုသိသာလာနိုင်သည်။',
+        ],
+        toKnow: [
+          'နေရာကန့်သတ်ချက်ရှိသော်လည်း ကလေးသည် ယခင်အပတ်များနှင့် ဆင်တူသော ပုံမှန်အတိုင်း ဆက်လက်လှုပ်ရှားသင့်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកបន្តមានរាងពេញឡើង ដែលនឹងជួយឱ្យគាត់គ្រប់គ្រងសីតុណ្ហភាពរាងកាយនៅពេលកើត។ ទំហំដែលមាននៅក្នុងស្បូនកាន់តែមានកម្រិត។',
+        length: 'ប្រហែល 46.2 សង់ទីម៉ែត្រ',
+        comparison: 'ឪឡឹកហ៊ានីឌ្យូ',
+        bodyChanges: [
+          'អាចមានសម្ពាធនៅអាងត្រគាកកាន់តែច្បាស់ នៅពេលទារកចុះទាបបន្តិចម្តងៗ។',
+        ],
+        toKnow: [
+          'ទោះបីមានកន្លែងមានកម្រិតក៏ដោយ ទារកគួរតែបន្តធ្វើចលនាជាមួយភាពទៀងទាត់ស្រដៀងនឹងសប្តាហ៍មុនៗ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍສືບຕໍ່ເຕັມຕົວຂຶ້ນ ເຊິ່ງຈະຊ່ວຍໃຫ້ຄວບຄຸມອຸນຫະພູມຂອງຮ່າງກາຍໄດ້ເມື່ອເກີດມາ. ພື້ນທີ່ໃນມົດລູກຈຳກັດຫຼາຍຂຶ້ນ.',
+        length: 'ປະມານ 46.2 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກໂມຮອນຫວານ',
+        bodyChanges: [
+          'ອາດມີຄວາມກົດດັນຢູ່ບໍລິເວນຊານເດັ່ນຊັດຂຶ້ນ ເມື່ອລູກນ້ອຍຄ່ອຍໆເລື່ອນລົງ.',
+        ],
+        toKnow: [
+          'ເຖິງແມ່ນພື້ນທີ່ຈະຈຳກັດ ລູກນ້ອຍຄວນສືບຕໍ່ເຄື່ອນໄຫວດ້ວຍຄວາມສະໝ່ຳສະເໝີຄ້າຍຄືກັບອາທິດກ່ອນໜ້າ.',
+        ],
+      },
     },
   },
   {
@@ -16336,6 +24278,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Paru-paru biasanya telah matang cukup untuk membolehkan pernafasan sendiri, dan bayi mampu menyusu dan mencerna.',
+        length: 'Kira-kira 47.4 cm',
+        comparison: 'Salad romaine',
+        bodyChanges: [
+          'Anda mungkin kadangkala berasa lebih sesak nafas, kerana rahim mengambil banyak ruang di bawah tulang rusuk.',
+        ],
+        toKnow: [
+          'Kehamilan dianggap cukup bulan antara minggu ke-37 dan minggu ke-42.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Sambabbadu guud ahaan waa bislaadeen si ay u oggolaadaan neefsasho madaxbannaan, ilmuhuna wuu awoodaa inuu nuugo oo dheefshiido.',
+        length: 'Qiyaastii 47.4 cm',
+        comparison: 'Salaad romaine',
+        bodyChanges: [
+          'Mararka qaarkood waxaad dareemi kartaa neef-qabasho badan, maadaama ilmo-galeenku boos badan qaadanayo hoosta feedhaha.',
+        ],
+        toKnow: [
+          'Uurka waxaa loo tixgeliyaa muddo buuxda u dhexeeya toddobaadka 37 iyo toddobaadka 42.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mapafu kwa kawaida yamekomaa vya kutosha kuruhusu kupumua kwa kujitegemea, na mtoto anaweza kunyonya na kusaga chakula.',
+        length: 'Takriban sm 47.4',
+        comparison: 'Lettuce ya romaine',
+        bodyChanges: [
+          'Wakati mwingine unaweza kuhisi kupungukiwa pumzi zaidi, kwa kuwa mji wa uzazi unachukua nafasi kubwa chini ya mbavu.',
+        ],
+        toKnow: [
+          'Ujauzito huchukuliwa kuwa umekamilika kati ya wiki ya 37 na wiki ya 42.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Өкпелер әдетте дербес тыныс алуға жететіндей жетілді, ал нәресте сора және қорыта алады.',
+        length: 'Шамамен 47.4 см',
+        comparison: 'Ромэн салаты',
+        bodyChanges: [
+          'Жатыр қабырғалардың астында көп орын алатындықтан, кейде тыныс жетіспейтінін сезінуіңіз мүмкін.',
+        ],
+        toKnow: [
+          'Жүктілік 37-ші мен 42-ші апта аралығында мерзімі толған деп саналады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Mbàmb yi daa mat ba noppi ngir noppiku ci sa bopp, te doom bi mën na naan te yaxu.',
+        length: 'Ci wetu 47.4 cm',
+        comparison: 'Salaad',
+        bodyChanges: [
+          'Mën nga yenn saa dégg noppiku bu gën a jafe, ndax bérëbu ndey di jël bérëb lool ci suufu ndëgg yi.',
+        ],
+        toKnow: [
+          'Ëmb bi daa jàppe ko ni mat ci diggante ayu-bés 37 ak ayu-bés 42.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Huhu yawanci ya balaga isashe don ba da damar numfashi da kansa, kuma jariri yana iya tsotsa da narkar da abinci.',
+        length: 'Kusan 47.4 cm',
+        comparison: 'Latas na romaine',
+        bodyChanges: [
+          'Za ki iya jin ƙarancin numfashi wani lokaci, yayin da mahaifa ke ɗaukar sarari mai yawa a ƙarƙashin haƙarƙari.',
+        ],
+        toKnow: [
+          'Ana ɗaukar ciki a matsayin cikakken lokaci tsakanin makon 37 da makon 42.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሳንባዎች በአጠቃላይ ራሳቸውን ችሎ ለመተንፈስ በቂ ደርሰዋል፣ እና ሕፃኑ መጥባትና መፍጨት ይችላል።',
+        length: 'ወደ 47.4 ሴሜ',
+        comparison: 'ሰላጣ',
+        bodyChanges: [
+          'ማህፀን ከጎድን አጥንቶች በታች ብዙ ቦታ ስለሚይዝ አንዳንድ ጊዜ የትንፋሽ ማጠር ሊሰማሽ ይችላል።',
+        ],
+        toKnow: [
+          'እርግዝና በሳምንት 37 እና በሳምንት 42 መካከል ሙሉ ጊዜ እንደደረሰ ይቆጠራል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De longen zijn over het algemeen voldoende gerijpt om zelfstandig te ademen, en de baby kan zuigen en verteren.',
+        length: 'Ongeveer 47,4 cm',
+        comparison: 'Romeinse sla',
+        bodyChanges: [
+          'Je kunt je soms kortademiger voelen, doordat de baarmoeder veel ruimte onder de ribben inneemt.',
+        ],
+        toKnow: [
+          'De zwangerschap wordt als voldragen beschouwd tussen week 37 en week 42.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Keuhkot ovat yleensä kypsyneet riittävästi mahdollistamaan itsenäisen hengityksen, ja vauva osaa imeä ja sulattaa.',
+        length: 'Noin 47,4 cm',
+        comparison: 'Romainesalaatti',
+        bodyChanges: [
+          'Voit joskus tuntea itsesi hengästyneemmäksi, koska kohtu vie paljon tilaa kylkiluiden alla.',
+        ],
+        toKnow: [
+          'Raskautta pidetään täysiaikaisena viikkojen 37 ja 42 välillä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Οι πνεύμονες έχουν γενικά ωριμάσει αρκετά ώστε να επιτρέπουν την ανεξάρτητη αναπνοή και το μωρό είναι σε θέση να θηλάζει και να χωνεύει.',
+        length: 'Περίπου 47,4 εκ.',
+        comparison: 'Μαρούλι ρομέν',
+        bodyChanges: [
+          'Μπορεί μερικές φορές να νιώθεις πιο λαχανιασμένη, αφού η μήτρα καταλαμβάνει πολύ χώρο κάτω από τα πλευρά.',
+        ],
+        toKnow: [
+          'Η εγκυμοσύνη θεωρείται τελειόμηνη ανάμεσα στην 37η και στην 42η εβδομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Karaniwang sapat nang hinog ang mga baga upang magpahintulot ng malayang paghinga, at nakakasuso at nakakatunaw na ang sanggol.',
+        length: 'Mga 47.4 cm',
+        comparison: 'Romaine lettuce',
+        bodyChanges: [
+          'Maaari kang minsang makaramdam ng mas hirap sa paghinga, dahil kumukuha ng malaking espasyo ang matris sa ilalim ng mga tadyang.',
+        ],
+        toKnow: [
+          'Ang pagbubuntis ay itinuturing na full term sa pagitan ng ika-37 at ika-42 linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'நுரையீரல்கள் பொதுவாக சுயமாகச் சுவாசிக்கப் போதுமான அளவு முதிர்ச்சி அடைந்துவிட்டன, குழந்தை உறிஞ்சவும் செரிக்கவும் முடிகிறது.',
+        length: 'சுமார் 47.4 செ.மீ',
+        comparison: 'ரோமெய்ன் கீரை',
+        bodyChanges: [
+          'கருப்பை விலா எலும்புகளுக்குக் கீழ் அதிக இடத்தை எடுத்துக்கொள்வதால் சில நேரங்களில் மூச்சுத் திணறல் அதிகமாக உணரலாம்.',
+        ],
+        toKnow: [
+          '37வது வாரத்துக்கும் 42வது வாரத்துக்கும் இடையே கர்ப்பம் முழு காலமாகக் கருதப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఊపిరితిత్తులు సాధారణంగా స్వతంత్రంగా శ్వాస తీసుకోవడానికి సరిపడేంతగా పరిపక్వత చెందాయి, శిశువు చప్పరించగలదు, జీర్ణం చేసుకోగలదు.',
+        length: 'సుమారు 47.4 సెం.మీ',
+        comparison: 'రోమైన్ లెట్యూస్',
+        bodyChanges: [
+          'గర్భాశయం పక్కటెముకల కింద చాలా స్థలం ఆక్రమించడం వల్ల మీకు కొన్నిసార్లు శ్వాస మరింత ఇబ్బందిగా అనిపించవచ్చు.',
+        ],
+        toKnow: [
+          '37వ వారం, 42వ వారం మధ్య గర్భం పూర్తి కాలంగా పరిగణించబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'फुफ्फुसे साधारणपणे स्वतंत्र श्वासोच्छ्वास करण्यासाठी पुरेशी परिपक्व झाली आहेत आणि बाळ चोखू व पचवू शकते.',
+        length: 'सुमारे 47.4 सेमी',
+        comparison: 'रोमेन लेट्यूस',
+        bodyChanges: [
+          'गर्भाशय बरगड्यांखाली खूप जागा व्यापत असल्यामुळे तुम्हाला कधी कधी धाप अधिक लागू शकते.',
+        ],
+        toKnow: [
+          '37व्या ते 42व्या आठवड्यादरम्यान गर्भारपण पूर्ण मुदतीचे मानले जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ફેફસાં સામાન્ય રીતે સ્વતંત્ર શ્વાસ લેવા માટે પૂરતાં પરિપક્વ થઈ ગયાં છે, અને બાળક ચૂસી અને પચાવી શકે છે.',
+        length: 'લગભગ 47.4 સેમી',
+        comparison: 'રોમેઈન લેટ્યુસ',
+        bodyChanges: [
+          'ગર્ભાશય પાંસળીઓ નીચે ઘણી જગ્યા રોકતું હોવાથી ક્યારેક તમને વધુ શ્વાસ ચડતો લાગી શકે છે.',
+        ],
+        toKnow: [
+          'ગર્ભાવસ્થા અઠવાડિયું 37 અને અઠવાડિયું 42 વચ્ચે પૂરા મહિનાની ગણાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਫੇਫੜੇ ਆਮ ਤੌਰ ’ਤੇ ਆਪਣੇ ਆਪ ਸਾਹ ਲੈਣ ਲਈ ਕਾਫ਼ੀ ਪੱਕ ਚੁੱਕੇ ਹੁੰਦੇ ਹਨ, ਅਤੇ ਬੱਚਾ ਚੂਸ ਅਤੇ ਹਜ਼ਮ ਕਰ ਸਕਦਾ ਹੈ।',
+        length: 'ਲਗਭਗ 47.4 ਸੈਮੀ',
+        comparison: 'ਸਲਾਦ ਦਾ ਪੱਤਾ',
+        bodyChanges: [
+          'ਬੱਚੇਦਾਨੀ ਪਸਲੀਆਂ ਹੇਠ ਬਹੁਤ ਥਾਂ ਘੇਰ ਲੈਂਦੀ ਹੈ, ਇਸ ਲਈ ਕਦੇ-ਕਦੇ ਤੁਹਾਨੂੰ ਸਾਹ ਹੋਰ ਚੜ੍ਹਿਆ ਮਹਿਸੂਸ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਗਰਭ-ਅਵਸਥਾ ਹਫ਼ਤਾ 37 ਅਤੇ ਹਫ਼ਤਾ 42 ਦੇ ਵਿਚਕਾਰ ਪੂਰੇ ਮਹੀਨਿਆਂ ਦੀ ਮੰਨੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အဆုတ်များသည် များသောအားဖြင့် ကိုယ်တိုင်အသက်ရှူနိုင်ရန် လုံလောက်စွာ ရင့်ကျက်ပြီးဖြစ်ပြီး ကလေးသည် စုပ်ခြင်းနှင့် အစာကြေခြင်း ပြုလုပ်နိုင်သည်။',
+        length: 'ခန့်မှန်းခြေ 47.4 စင်တီမီတာ',
+        comparison: 'ဆလပ်ရွက်',
+        bodyChanges: [
+          'သားအိမ်သည် နံရိုးအောက်တွင် နေရာအများအပြားယူထားသောကြောင့် တစ်ခါတစ်ရံ အသက်ပိုမိုရှူကျပ်သလို ခံစားရနိုင်သည်။',
+        ],
+        toKnow: [
+          'ကိုယ်ဝန်သည် အပတ် 37 နှင့် အပတ် 42 ကြားတွင် လပြည့်ဟု သတ်မှတ်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ជាទូទៅសួតបានពេញវ័យល្មមដើម្បីអនុញ្ញាតឱ្យដកដង្ហើមដោយខ្លួនឯង ហើយទារកអាចជញ្ជក់ និងរំលាយអាហារបាន។',
+        length: 'ប្រហែល 47.4 សង់ទីម៉ែត្រ',
+        comparison: 'សាឡាត់រ៉ូម៉ែន',
+        bodyChanges: [
+          'ពេលខ្លះអ្នកអាចមានអារម្មណ៍ដង្ហើមខ្លីជាងមុន ដោយសារស្បូនកាន់កាប់ទីតាំងច្រើននៅក្រោមឆ្អឹងជំនីរ។',
+        ],
+        toKnow: [
+          'ការមានផ្ទៃពោះត្រូវបានចាត់ទុកថាគ្រប់ខែ នៅចន្លោះសប្តាហ៍ទី 37 ដល់សប្តាហ៍ទី 42។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ໂດຍທົ່ວໄປປອດພັດທະນາເຕັມທີ່ພໍທີ່ຈະຫາຍໃຈດ້ວຍຕົນເອງໄດ້ ແລະ ລູກນ້ອຍສາມາດດູດ ແລະ ຍ່ອຍອາຫານໄດ້.',
+        length: 'ປະມານ 47.4 ເຊັນຕີແມັດ',
+        comparison: 'ຜັກກາດໂຣເມນ',
+        bodyChanges: [
+          'ບາງຄັ້ງທ່ານອາດຮູ້ສຶກຫາຍໃຈສັ້ນລົງ ເພາະມົດລູກກິນພື້ນທີ່ຫຼາຍຢູ່ໃຕ້ຊີ່ໂຄງ.',
+        ],
+        toKnow: [
+          'ການຖືພາຖືວ່າຄົບກຳນົດລະຫວ່າງອາທິດທີ 37 ຫາ ອາທິດທີ 42.',
+        ],
+      },
     },
   },
   {
@@ -16781,6 +24951,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi dianggap cukup matang untuk dilahirkan. Sebahagian besar bayi kini berada dalam posisi kepala ke bawah.',
+        length: 'Kira-kira 48.6 cm',
+        comparison: 'Daun bawang besar',
+        bodyChanges: [
+          'Rasa tekanan pelvis yang semakin bertambah adalah lazim apabila bayi masuk ke dalam pelvis.',
+        ],
+        toKnow: [
+          'Mulai minggu ini, kehamilan dianggap telah cukup bulan dan kelahiran boleh berlaku pada bila-bila masa.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmaha waxaa loo tixgeliyaa mid bislaaday oo u habboon in la dhaliyo. Inta badan ilmaha waxay hadda ku jiraan jagada madaxa hoos u jeeda.',
+        length: 'Qiyaastii 48.6 cm',
+        comparison: 'Basal leek',
+        bodyChanges: [
+          'Dareen cadaadis miskaha oo sii kordhaya waa caadi marka ilmuhu miskaha ku hoos galo.',
+        ],
+        toKnow: [
+          'Laga bilaabo toddobaadkan, wakhtiga buuxa ayaa la gaaray, dhalmaduna waxay dhici kartaa wakhti kasta.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto anachukuliwa kuwa amekomaa vya kutosha kuzaliwa. Wengi sana wa watoto sasa wako katika mkao wa kichwa chini.',
+        length: 'Takriban sm 48.6',
+        comparison: 'Kitunguu saumu cha majani (leek)',
+        bodyChanges: [
+          'Hisia ya shinikizo linaloongezeka kwenye nyonga ni ya kawaida kadiri mtoto anavyoingia kwenye nyonga.',
+        ],
+        toKnow: [
+          'Kuanzia wiki hii, muda kamili wa ujauzito unachukuliwa kuwa umefikiwa na kuzaliwa kunaweza kutokea wakati wowote.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте туылуға жеткілікті жетілген деп саналады. Нәрестелердің басым көпшілігі енді басымен төмен орналасқан.',
+        length: 'Шамамен 48.6 см',
+        comparison: 'Пияз-порей',
+        bodyChanges: [
+          'Нәресте жамбасқа түскен сайын өсіп келе жатқан жамбас қысымының сезімі жиі кездеседі.',
+        ],
+        toKnow: [
+          'Осы аптадан бастап мерзім толған деп саналады және босану кез келген уақытта болуы мүмкін.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi dañu ko jàppe ni mat ngir juddu. Doom yu bari yépp ñu ngi nekk ci anam bu bopp ci suuf.',
+        length: 'Ci wetu 48.6 cm',
+        comparison: 'Poroo',
+        bodyChanges: [
+          'Dégg bu diis ci suufu ndey bu di yokku daa bari ndax doom bi dafay dugg ci bérëbu ndey.',
+        ],
+        toKnow: [
+          'Jóge ci ayu-bés bii, ñu jàppe ko ni jot na te jur mën na am saa su ne.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Ana ɗaukar jariri a matsayin wanda ya balaga isashe don a haife shi. Mafi yawan jarirai yanzu suna kwance da kai ƙasa.',
+        length: 'Kusan 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: [
+          'Jin matsi mai ƙaruwa a ƙugu ya zama ruwan dare yayin da jariri ke shiga cikin ƙugu.',
+        ],
+        toKnow: [
+          'Daga wannan mako zuwa gaba, ana ɗaukar lokaci a matsayin wanda aka kai kuma haihuwa na iya faruwa a kowane lokaci.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ ለመወለድ በቂ እንደደረሰ ይቆጠራል። አብዛኞቹ ሕፃናት አሁን ራስ ወደ ታች ተቀምጠዋል።',
+        length: 'ወደ 48.6 ሴሜ',
+        comparison: 'ሊክ',
+        bodyChanges: [
+          'ሕፃኑ በዳሌ ውስጥ ሲገባ እየጨመረ የሚሄድ የዳሌ ግፊት ስሜት የተለመደ ነው።',
+        ],
+        toKnow: [
+          'ከዚህ ሳምንት ጀምሮ ሙሉ ጊዜ እንደደረሰ ይቆጠራል እና ልደት በማንኛውም ጊዜ ሊከሰት ይችላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby wordt als rijp genoeg beschouwd om geboren te worden. De overgrote meerderheid van de baby’s ligt nu met het hoofd naar beneden.',
+        length: 'Ongeveer 48,6 cm',
+        comparison: 'Prei',
+        bodyChanges: [
+          'Een groeiend gevoel van druk op het bekken is gebruikelijk wanneer de baby indaalt in het bekken.',
+        ],
+        toKnow: [
+          'Vanaf deze week wordt de voldragen termijn bereikt geacht en kan de bevalling op elk moment beginnen.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauvaa pidetään riittävän kypsänä syntyäkseen. Valtaosa vauvoista on nyt pää alaspäin.',
+        length: 'Noin 48,6 cm',
+        comparison: 'Purjo',
+        bodyChanges: [
+          'Kasvavan lantion paineen tunne on yleinen vauvan laskeutuessa lantioon.',
+        ],
+        toKnow: [
+          'Tästä viikosta alkaen lasketun ajan katsotaan olevan saavutettu ja synnytys voi alkaa milloin tahansa.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό θεωρείται αρκετά ώριμο για να γεννηθεί. Η μεγάλη πλειονότητα των μωρών είναι πλέον τοποθετημένη με το κεφάλι προς τα κάτω.',
+        length: 'Περίπου 48,6 εκ.',
+        comparison: 'Πράσο',
+        bodyChanges: [
+          'Ένα αίσθημα αυξανόμενης πίεσης στην πύελο είναι συχνό καθώς το μωρό εμπλέκεται στην πύελο.',
+        ],
+        toKnow: [
+          'Από αυτή την εβδομάδα και μετά, θεωρείται ότι έχει φτάσει ο τελειόμηνος και ο τοκετός μπορεί να γίνει οποιαδήποτε στιγμή.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Itinuturing na sapat nang hinog ang sanggol upang isilang. Ang napakalaking karamihan ng mga sanggol ay nakaposisyon na nang nakababa ang ulo.',
+        length: 'Mga 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: [
+          'Karaniwan ang lumalaking pakiramdam ng presyon sa balakang habang pumapasok ang sanggol sa pelvis.',
+        ],
+        toKnow: [
+          'Mula sa linggong ito, itinuturing na naabot na ang takdang panahon at maaaring mangyari ang panganganak anumang oras.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை பிறக்கப் போதுமான முதிர்ச்சி அடைந்ததாகக் கருதப்படுகிறது. பெரும்பாலான குழந்தைகள் இப்போது தலை கீழாக நிலைபெற்றுள்ளனர்.',
+        length: 'சுமார் 48.6 செ.மீ',
+        comparison: 'லீக் (நீண்ட வெங்காயத்தாள்)',
+        bodyChanges: [
+          'குழந்தை இடுப்பில் பொருந்தும்போது அதிகரிக்கும் இடுப்பு அழுத்த உணர்வு பொதுவானது.',
+        ],
+        toKnow: [
+          'இந்த வாரத்திலிருந்து முழு காலம் எட்டப்பட்டதாகக் கருதப்படுகிறது, பிறப்பு எந்த நேரத்திலும் நிகழலாம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు పుట్టడానికి తగినంత పరిపక్వత చెందినట్లుగా పరిగణించబడుతుంది. అత్యధిక శిశువులు ఇప్పుడు తల కిందకు ఉండే స్థితిలో ఉంటారు.',
+        length: 'సుమారు 48.6 సెం.మీ',
+        comparison: 'లీక్',
+        bodyChanges: [
+          'శిశువు కటిలోకి దిగుతున్న కొద్దీ కటి ప్రాంతంలో పెరుగుతున్న ఒత్తిడి భావన సాధారణం.',
+        ],
+        toKnow: [
+          'ఈ వారం నుండి, పూర్తి కాలం చేరినట్లుగా పరిగణించబడుతుంది, ప్రసవం ఎప్పుడైనా జరగవచ్చు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ जन्माला येण्यासाठी पुरेसे परिपक्व मानले जाते. बहुतेक बाळे आता डोके खाली असलेल्या स्थितीत असतात.',
+        length: 'सुमारे 48.6 सेमी',
+        comparison: 'लीक',
+        bodyChanges: [
+          'बाळ श्रोणीत स्थिरावत असताना कटीभागातील वाढत्या दाबाची भावना सामान्य आहे.',
+        ],
+        toKnow: [
+          'या आठवड्यापासून, पूर्ण मुदत गाठली असे मानले जाते आणि प्रसूती कोणत्याही वेळी होऊ शकते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક જન્મ લેવા માટે પૂરતું પરિપક્વ ગણાય છે. મોટા ભાગનાં બાળકો હવે માથું નીચે રાખીને ગોઠવાયેલાં હોય છે.',
+        length: 'લગભગ 48.6 સેમી',
+        comparison: 'લીક',
+        bodyChanges: [
+          'બાળક પેલ્વિસમાં ઊતરે ત્યારે પેલ્વિક દબાણ વધવાની લાગણી સામાન્ય છે.',
+        ],
+        toKnow: [
+          'આ અઠવાડિયાથી, પૂરો મહિનો થયેલો ગણાય છે અને પ્રસૂતિ ગમે ત્યારે થઈ શકે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਜਨਮ ਲੈਣ ਲਈ ਕਾਫ਼ੀ ਪੱਕਿਆ ਹੋਇਆ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਜ਼ਿਆਦਾਤਰ ਬੱਚੇ ਹੁਣ ਸਿਰ ਹੇਠਾਂ ਵੱਲ ਕਰਕੇ ਟਿਕੇ ਹੁੰਦੇ ਹਨ।',
+        length: 'ਲਗਭਗ 48.6 ਸੈਮੀ',
+        comparison: 'ਲੀਕ',
+        bodyChanges: [
+          'ਬੱਚੇ ਦੇ ਪੇਡੂ ਵਿੱਚ ਉਤਰਨ ਨਾਲ ਪੇਡੂ ’ਤੇ ਵਧਦੇ ਦਬਾਅ ਦਾ ਅਹਿਸਾਸ ਆਮ ਹੈ।',
+        ],
+        toKnow: [
+          'ਇਸ ਹਫ਼ਤੇ ਤੋਂ, ਪੂਰਾ ਸਮਾਂ ਹੋ ਗਿਆ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਜਣੇਪਾ ਕਿਸੇ ਵੀ ਵੇਲੇ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် မွေးဖွားနိုင်လောက်အောင် ရင့်ကျက်ပြီဟု ယူဆသည်။ ကလေးအများစုသည် ယခုအခါ ဦးခေါင်းအောက်သို့ ဆင်းနေကြသည်။',
+        length: 'ခန့်မှန်းခြေ 48.6 စင်တီမီတာ',
+        comparison: 'ကြက်သွန်မြိတ်',
+        bodyChanges: [
+          'ကလေး တင်ပါးဆုံထဲသို့ ဝင်လာသည်နှင့်အမျှ တင်ပါးဆုံဖိအား တိုးလာသည်ဟု ခံစားရခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        ],
+        toKnow: [
+          'ဤအပတ်မှစ၍ လပြည့်ပြီဟု ယူဆပြီး မည်သည့်အချိန်တွင်မဆို မွေးဖွားနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកត្រូវបានចាត់ទុកថាពេញវ័យល្មមដើម្បីកើត។ ទារកភាគច្រើនឥឡូវនេះស្ថិតក្នុងទីតាំងក្បាលចុះក្រោម។',
+        length: 'ប្រហែល 48.6 សង់ទីម៉ែត្រ',
+        comparison: 'ខ្ទឹមប្រាង',
+        bodyChanges: [
+          'អារម្មណ៍សម្ពាធអាងត្រគាកកើនឡើង ជារឿងធម្មតា នៅពេលទារកចុះមកក្នុងអាងត្រគាក។',
+        ],
+        toKnow: [
+          'ចាប់ពីសប្តាហ៍នេះតទៅ ត្រូវបានចាត់ទុកថាដល់កំណត់ហើយ ហើយការសម្រាលអាចកើតឡើងនៅពេលណាក៏បាន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍຖືວ່າເຕີບໃຫຍ່ພໍທີ່ຈະເກີດໄດ້ແລ້ວ. ລູກນ້ອຍສ່ວນໃຫຍ່ຕອນນີ້ຢູ່ໃນທ່າຫົວລົງ.',
+        length: 'ປະມານ 48.6 ເຊັນຕີແມັດ',
+        comparison: 'ຜັກບົ່ວປ່ອງ',
+        bodyChanges: [
+          'ຄວາມຮູ້ສຶກກົດດັນຢູ່ບໍລິເວນຊານເພີ່ມຂຶ້ນເປັນເລື່ອງທົ່ວໄປ ເມື່ອລູກນ້ອຍເຂົ້າສູ່ບໍລິເວນຊານ.',
+        ],
+        toKnow: [
+          'ຕັ້ງແຕ່ອາທິດນີ້ເປັນຕົ້ນໄປ ຖືວ່າຄົບກຳນົດແລ້ວ ແລະ ການເກີດລູກສາມາດເກີດຂຶ້ນໄດ້ທຸກເວລາ.',
+        ],
+      },
     },
   },
   {
@@ -17227,6 +25625,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bulu halus yang menutupi kulit sebahagian besarnya telah hilang, dan usus mengumpul mekonium, najis pertama bayi baru lahir.',
+        length: 'Kira-kira 49.8 cm',
+        comparison: 'Batang rubarb',
+        bodyChanges: [
+          'Mengenali tanda-tanda bersalin boleh berguna apabila kelahiran menghampiri.',
+        ],
+        toKnow: [
+          'Kelahiran yang dijadualkan, apabila dipertimbangkan tanpa petunjuk perubatan, biasanya tidak disyorkan sebelum minggu ke-39.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Timihii fiiqnaa ee maqaarka daboolayay inta badan way baxeen, mindhicirradana waxaa ku ururaya meconium, saxarada ugu horreysa ee dhallaanka.',
+        length: 'Qiyaastii 49.8 cm',
+        comparison: 'Dubka rhubarb',
+        bodyChanges: [
+          'Aqoonsiga calaamadaha foosha waxay noqon kartaa mid faa\'iido leh marka dhalmadu soo dhowaato.',
+        ],
+        toKnow: [
+          'Dhalmo la qorsheeyey, marka aan loo tixgelin sabab caafimaad, guud ahaan lama taliyo ka hor toddobaadka 39.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Nywele laini zilizofunika ngozi zimetoweka kwa kiasi kikubwa, na matumbo yanakusanya meconium, kinyesi cha kwanza cha mtoto mchanga.',
+        length: 'Takriban sm 49.8',
+        comparison: 'Shina la rhubarb',
+        bodyChanges: [
+          'Kuzoea dalili za uchungu wa kujifungua kunaweza kuwa na manufaa kadiri kuzaliwa kunavyokaribia.',
+        ],
+        toKnow: [
+          'Kujifungua kwa kupangwa, kunapozingatiwa bila sababu ya kitabibu, kwa kawaida hakupendekezwi kabla ya wiki ya 39.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Терісін жауып тұрған жұқа түктер негізінен жоғалды, ал ішектер жаңа туған нәрестенің алғашқы нәжісі — мекониймен толуда.',
+        length: 'Шамамен 49.8 см',
+        comparison: 'Ревень сабағы',
+        bodyChanges: [
+          'Босану жақындаған сайын толғақ белгілерімен танысу пайдалы болуы мүмкін.',
+        ],
+        toKnow: [
+          'Медициналық көрсеткішсіз жоспарланған босану әдетте 39-шы аптаға дейін ұсынылмайды.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Kawar bu ndaw bu daa sàkku der bi dem na bu mag, te biir yi dañuy dajale mekoniyom, bu njëkk pis bu doom bu bees.',
+        length: 'Ci wetu 49.8 cm',
+        comparison: 'Ribarb',
+        bodyChanges: [
+          'Xam màndargay jur mën na am njariñ ba jur di jege.',
+        ],
+        toKnow: [
+          'Jur bu ñu tëral, bu amul ndigal bu wér, daa digal ko moytu balaa ayu-bés 39.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Gashi mai laushi da ya rufe fata ya ɓace gabaɗaya, kuma hanji suna tara meconium, bayan gidan jariri na farko.',
+        length: 'Kusan 49.8 cm',
+        comparison: 'Gindin rhubarb',
+        bodyChanges: [
+          'Sanin alamomin nakuda na iya zama da amfani yayin da haihuwa ke gabatowa.',
+        ],
+        toKnow: [
+          'Haihuwa da aka tsara, idan aka yi la’akari da ita ba tare da dalilin likita ba, gabaɗaya ba a ba da shawararta kafin makon 39.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ቆዳውን ይሸፍን የነበረው ቀጭን ለስላሳ ፀጉር በአብዛኛው ጠፍቷል፣ እና አንጀቶች ሜኮኒየም፣ የአራስ የመጀመሪያ ሰገራ፣ እያከማቹ ነው።',
+        length: 'ወደ 49.8 ሴሜ',
+        comparison: 'ሩባርብ',
+        bodyChanges: [
+          'ልደት ሲቃረብ የምጥ ምልክቶችን መለማመድ ጠቃሚ ሊሆን ይችላል።',
+        ],
+        toKnow: [
+          'ያለ የሕክምና ምክንያት የታሰበ ልደት በአጠቃላይ ከሳምንት 39 በፊት አይመከርም።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'Het fijne dons dat de huid bedekte is grotendeels verdwenen en in de darmen hoopt zich meconium op, de eerste ontlasting van de pasgeborene.',
+        length: 'Ongeveer 49,8 cm',
+        comparison: 'Rabarberstengel',
+        bodyChanges: [
+          'Vertrouwd raken met de tekenen van de bevalling kan nuttig zijn naarmate de geboorte nadert.',
+        ],
+        toKnow: [
+          'Een geplande bevalling zonder medische indicatie wordt over het algemeen niet aanbevolen vóór week 39.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Ihoa peittänyt hieno untuvakarvoitus on suurelta osin kadonnut, ja suolistoon kertyy mekoniumia, vastasyntyneen ensimmäistä ulostetta.',
+        length: 'Noin 49,8 cm',
+        comparison: 'Raparperinvarsi',
+        bodyChanges: [
+          'Synnytyksen merkkeihin tutustuminen voi olla hyödyllistä syntymän lähestyessä.',
+        ],
+        toKnow: [
+          'Suunniteltua synnytystä ilman lääketieteellistä aihetta ei yleensä suositella ennen viikkoa 39.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το λεπτό χνούδι που κάλυπτε το δέρμα έχει σε μεγάλο βαθμό εξαφανιστεί και τα έντερα συσσωρεύουν μηκώνιο, τα πρώτα κόπρανα του νεογέννητου.',
+        length: 'Περίπου 49,8 εκ.',
+        comparison: 'Κοτσάνι ραβέντι',
+        bodyChanges: [
+          'Το να εξοικειωθείς με τα σημάδια του τοκετού μπορεί να είναι χρήσιμο καθώς πλησιάζει ο τοκετός.',
+        ],
+        toKnow: [
+          'Ένας προγραμματισμένος τοκετός, όταν εξετάζεται χωρίς ιατρική ένδειξη, γενικά δεν συνιστάται πριν την 39η εβδομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Halos nawala na ang pinong balahibong tumakip sa balat, at naiipon sa bituka ang meconium, ang unang dumi ng bagong silang.',
+        length: 'Mga 49.8 cm',
+        comparison: 'Tangkay ng rhubarb',
+        bodyChanges: [
+          'Maaaring maging kapaki-pakinabang ang pagiging pamilyar sa mga senyales ng panganganak habang papalapit ang pagsilang.',
+        ],
+        toKnow: [
+          'Ang nakaiskedyul na panganganak, kapag itinuturing nang walang medikal na indikasyon, ay karaniwang hindi inirerekomenda bago ang ika-39 na linggo.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'தோலை மூடியிருந்த மெல்லிய மென்மயிர் பெருமளவு மறைந்துவிட்டது, குடல்களில் பிறந்த குழந்தையின் முதல் மலமான மெகோனியம் சேர்ந்து வருகிறது.',
+        length: 'சுமார் 49.8 செ.மீ',
+        comparison: 'ருபார்ப் தண்டு',
+        bodyChanges: [
+          'பிரசவம் நெருங்கும்போது பிரசவ வலியின் அறிகுறிகளைப் பழகிக்கொள்வது பயனுள்ளதாக இருக்கலாம்.',
+        ],
+        toKnow: [
+          'மருத்துவக் குறிப்பு இல்லாமல் திட்டமிடப்படும் பிரசவம் பொதுவாக 39வது வாரத்துக்கு முன் பரிந்துரைக்கப்படுவதில்லை.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'చర్మాన్ని కప్పి ఉన్న సన్నని మెత్తని రోమాలు చాలావరకు పోయాయి, పేగుల్లో మెకోనియం, నవజాత శిశువు మొదటి మలం, పేరుకుంటోంది.',
+        length: 'సుమారు 49.8 సెం.మీ',
+        comparison: 'రబర్బ్ కాడ',
+        bodyChanges: [
+          'ప్రసవం సమీపిస్తున్న కొద్దీ ప్రసవ వేదన సంకేతాలను తెలుసుకోవడం ఉపయోగకరం కావచ్చు.',
+        ],
+        toKnow: [
+          'వైద్య సూచన లేకుండా పరిగణించినప్పుడు, ముందే నిర్ణయించిన ప్రసవం సాధారణంగా 39వ వారానికి ముందు సిఫార్సు చేయబడదు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'त्वचा झाकणारे बारीक मऊ केस बहुतांशी नाहीसे झाले आहेत, आणि आतड्यांमध्ये मेकोनियम, नवजात बाळाची पहिली विष्ठा, साठत आहे.',
+        length: 'सुमारे 49.8 सेमी',
+        comparison: 'रुबार्बचा देठ',
+        bodyChanges: [
+          'प्रसूती जवळ येत असताना प्रसववेदनांची चिन्हे जाणून घेणे उपयुक्त ठरू शकते.',
+        ],
+        toKnow: [
+          'वैद्यकीय सूचनेशिवाय विचारात घेतलेली ठरवून केलेली प्रसूती सामान्यतः 39व्या आठवड्यापूर्वी शिफारस केली जात नाही.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ત્વચાને ઢાંકતું બારીક રુવાંટું મોટા ભાગે જતું રહ્યું છે, અને આંતરડામાં મેકોનિયમ જમા થઈ રહ્યું છે, જે નવજાતનો પહેલો મળ છે.',
+        length: 'લગભગ 49.8 સેમી',
+        comparison: 'રેવંચીનો દાંડો',
+        bodyChanges: [
+          'પ્રસૂતિ નજીક આવતાં પ્રસૂતિનાં ચિહ્નોથી પરિચિત થવું ઉપયોગી થઈ શકે છે.',
+        ],
+        toKnow: [
+          'તબીબી કારણ વિના નક્કી કરેલી પ્રસૂતિ સામાન્ય રીતે અઠવાડિયું 39 પહેલાં ભલામણ કરવામાં આવતી નથી.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਚਮੜੀ ਨੂੰ ਢੱਕਣ ਵਾਲੇ ਬਰੀਕ ਰੂੰਏਂ ਜ਼ਿਆਦਾਤਰ ਗਾਇਬ ਹੋ ਚੁੱਕੇ ਹਨ, ਅਤੇ ਆਂਦਰਾਂ ਵਿੱਚ ਮੈਕੋਨੀਅਮ ਜਮ੍ਹਾਂ ਹੋ ਰਿਹਾ ਹੈ, ਜੋ ਨਵਜੰਮੇ ਬੱਚੇ ਦਾ ਪਹਿਲਾ ਮਲ ਹੈ।',
+        length: 'ਲਗਭਗ 49.8 ਸੈਮੀ',
+        comparison: 'ਰੇਵੰਦ ਚੀਨੀ ਦੀ ਡੰਡੀ',
+        bodyChanges: [
+          'ਜਣੇਪਾ ਨੇੜੇ ਆਉਣ ’ਤੇ ਦਰਦਾਂ ਦੀਆਂ ਨਿਸ਼ਾਨੀਆਂ ਤੋਂ ਜਾਣੂ ਹੋਣਾ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+        toKnow: [
+          'ਡਾਕਟਰੀ ਕਾਰਨ ਤੋਂ ਬਿਨਾਂ ਪਹਿਲਾਂ ਤੋਂ ਤੈਅ ਕੀਤਾ ਜਣੇਪਾ ਆਮ ਤੌਰ ’ਤੇ ਹਫ਼ਤਾ 39 ਤੋਂ ਪਹਿਲਾਂ ਕਰਨ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਨਹੀਂ ਕੀਤੀ ਜਾਂਦੀ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'အရေပြားကို ဖုံးလွှမ်းထားသော ဖွဲ့ဖွဲ့ညှင်းမွေးညင်းများ အများစုပျောက်သွားပြီး အူများတွင် မွေးကင်းစကလေး၏ ပထမဆုံးဝမ်းဖြစ်သော မီကိုနီယမ် စုပုံနေသည်။',
+        length: 'ခန့်မှန်းခြေ 49.8 စင်တီမီတာ',
+        comparison: 'ရူဘတ်ရွက်ပင်',
+        bodyChanges: [
+          'မွေးဖွားချိန်နီးလာသည်နှင့်အမျှ ဗိုက်နာလာခြင်း လက္ခဏာများနှင့် ရင်းနှီးထားခြင်းသည် အသုံးဝင်နိုင်သည်။',
+        ],
+        toKnow: [
+          'ဆေးဘက်ဆိုင်ရာ ညွှန်ပြချက်မရှိဘဲ စီစဉ်ထားသော မွေးဖွားမှုကို များသောအားဖြင့် အပတ် 39 မတိုင်မီ အကြံမပြုပါ။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'រោមទន់ល្អិតដែលធ្លាប់គ្របលើស្បែកបានបាត់ទៅភាគច្រើន ហើយពោះវៀនកំពុងកកកុញមីកូញ៉ូម (meconium) ដែលជាលាមកដំបូងរបស់ទារកទើបនឹងកើត។',
+        length: 'ប្រហែល 49.8 សង់ទីម៉ែត្រ',
+        comparison: 'ដើមរ៉ូបាប',
+        bodyChanges: [
+          'ការស្គាល់សញ្ញានៃការឈឺពោះសម្រាលអាចមានប្រយោជន៍ នៅពេលជិតដល់ពេលសម្រាល។',
+        ],
+        toKnow: [
+          'ការសម្រាលតាមកាលវិភាគ នៅពេលពិចារណាដោយគ្មានការចង្អុលបង្ហាញខាងវេជ្ជសាស្ត្រ ជាទូទៅមិនត្រូវបានណែនាំមុនសប្តាហ៍ទី 39 ទេ។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຂົນອ່ອນລະອຽດທີ່ເຄີຍປົກຄຸມຜິວໜັງສ່ວນໃຫຍ່ຫາຍໄປແລ້ວ ແລະ ລຳໄສ້ກຳລັງສະສົມຂີ້ເທົ່າ ເຊິ່ງເປັນອາຈົມຄັ້ງທຳອິດຂອງເດັກເກີດໃໝ່.',
+        length: 'ປະມານ 49.8 ເຊັນຕີແມັດ',
+        comparison: 'ກ້ານຜັກຣູບາບ',
+        bodyChanges: [
+          'ການຄຸ້ນເຄີຍກັບອາການຂອງການເຈັບທ້ອງຄອດອາດເປັນປະໂຫຍດເມື່ອໃກ້ເວລາເກີດ.',
+        ],
+        toKnow: [
+          'ການກຳນົດເວລາເກີດລູກລ່ວງໜ້າ ເມື່ອພິຈາລະນາໂດຍບໍ່ມີຂໍ້ບົ່ງຊີ້ທາງການແພດ ໂດຍທົ່ວໄປບໍ່ແນະນຳກ່ອນອາທິດທີ 39.',
+        ],
+      },
     },
   },
   {
@@ -17679,6 +26305,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Kulit, yang sebelum ini lebih nipis, telah menebal dan kini melindungi bayi dengan lebih baik. Lapisan pelindung, vernix, juga memudahkan laluannya semasa kelahiran.',
+        length: 'Kira-kira 50.7 cm',
+        comparison: 'Tembikai',
+        bodyChanges: [
+          'Tidak sabar dan sedikit keletihan adalah lazim apabila tarikh jangka lahir menghampiri.',
+        ],
+        toKnow: [
+          'Peredaran darah bayi baru lahir terus menyesuaikan diri sejurus selepas kelahiran, yang boleh memberikan tangan atau kaki warna kebiruan sedikit buat sementara waktu.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Maqaarka, oo hore u khafiifnaa, hadda wuu qaro weyn yahay wuxuuna ilmaha si fiican u ilaaliyaa. Daboolka ilaalinta (vernix) ayaa sidoo kale fududeeya gudubkiisa dhalmada.',
+        length: 'Qiyaastii 50.7 cm',
+        comparison: 'Xabxab',
+        bodyChanges: [
+          'Dulqaad la\'aan iyo xoogaa daal ah waa caadi marka taariikhda la filayo soo dhowaato.',
+        ],
+        toKnow: [
+          'Wareegga dhiigga ee dhallaanka cusub wuu sii hagaajiyaa isaga oo dhalmada ka dib, taasoo ku meel gaar ahaan siin karta gacmaha ama cagaha midab buluug ah oo khafiif ah.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Ngozi, iliyokuwa nyembamba awali, imeongezeka unene na sasa inamlinda mtoto vizuri zaidi. Safu ya kinga, vernix, pia hurahisisha kupita kwake wakati wa kuzaliwa.',
+        length: 'Takriban sm 50.7',
+        comparison: 'Tikiti maji',
+        bodyChanges: [
+          'Kukosa subira na kiwango fulani cha uchovu ni vya kawaida kadiri tarehe ya kujifungua inavyokaribia.',
+        ],
+        toKnow: [
+          'Mzunguko wa damu wa mtoto mchanga unaendelea kujirekebisha mara baada ya kuzaliwa, jambo ambalo linaweza kwa muda kuipa mikono au miguu rangi ya samawati kidogo.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Бұрын жұқа болған тері қалыңдады және енді нәрестені жақсырақ қорғайды. Қорғаныс қабаты — вернис — босану кезінде оның өтуін де жеңілдетеді.',
+        length: 'Шамамен 50.7 см',
+        comparison: 'Қарбыз',
+        bodyChanges: [
+          'Болжамды босану күні жақындаған сайын шыдамсыздық пен белгілі бір шаршау жиі кездеседі.',
+        ],
+        toKnow: [
+          'Жаңа туған нәрестенің қан айналымы босанғаннан кейін бірден реттеле береді, бұл қолдары мен аяқтарына уақытша сәл көкшіл реңк беруі мүмкін.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Der bi, bu daa ndaw balaa, deñ na te dafay aar doom bi gën a baax. Benn aar, vernix, dafay yombal itam jaar bi ci jur.',
+        length: 'Ci wetu 50.7 cm',
+        comparison: 'Pastek',
+        bodyChanges: [
+          'Dégg bu amul muñ ak tuuti sonn daa bari ba bésu jur di jege.',
+        ],
+        toKnow: [
+          'Dundu deret bu doom bu bees dafay kontine defar boppam ginnaaw jur, mu mën a def loxo walla tànk yi nekk bu bleu tuuti ci diir bu gàtt.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Fata, wacce ta fi sirara a baya, ta yi kauri kuma yanzu tana kare jariri da kyau. Rufin kariya, wato vernix, shi ma yana sauƙaƙa wucewarsa yayin haihuwa.',
+        length: 'Kusan 50.7 cm',
+        comparison: 'Kankana',
+        bodyChanges: [
+          'Rashin haƙuri da wani adadin gajiya sun zama ruwan dare yayin da ranar haihuwa ke gabatowa.',
+        ],
+        toKnow: [
+          'Zagayawar jinin jariri yana ci gaba da daidaitawa nan da nan bayan haihuwa, wanda wani lokaci zai iya ba hannuwa ko ƙafafuwa ɗan launin shuɗi na ɗan lokaci.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ቀደም ሲል ቀጭን የነበረው ቆዳ ወፍሯል እና አሁን ሕፃኑን በተሻለ ይጠብቀዋል። ቨርኒክስ የሚባል መከላከያ ሽፋንም በወሊድ ጊዜ መንሸራተቱን ያቀልላል።',
+        length: 'ወደ 50.7 ሴሜ',
+        comparison: 'ሐብሐብ',
+        bodyChanges: [
+          'የመውለጃ ቀን ሲቃረብ ትዕግሥት ማጣት እና የተወሰነ ድካም የተለመደ ነው።',
+        ],
+        toKnow: [
+          'የአራስ ደም ዝውውር ከልደት በኋላ ወዲያው ማስተካከሉን ይቀጥላል፣ ይህም ለጊዜው እጆችን ወይም እግሮችን ትንሽ ሰማያዊ ቀለም ሊሰጥ ይችላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De huid, eerder dunner, is dikker geworden en beschermt de baby nu beter. Een beschermende laag, de vernix, vergemakkelijkt ook de doorgang tijdens de geboorte.',
+        length: 'Ongeveer 50,7 cm',
+        comparison: 'Watermeloen',
+        bodyChanges: [
+          'Ongeduld en een zekere vermoeidheid zijn gebruikelijk naarmate de uitgerekende datum nadert.',
+        ],
+        toKnow: [
+          'De bloedsomloop van de pasgeborene past zich net na de geboorte nog aan, wat de handen of voeten tijdelijk een lichtblauwe tint kan geven.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Aiemmin ohuempi iho on paksuuntunut ja suojaa nyt vauvaa paremmin. Suojaava peite, vernix, helpottaa myös hänen läpikulkuaan syntymän aikana.',
+        length: 'Noin 50,7 cm',
+        comparison: 'Vesimeloni',
+        bodyChanges: [
+          'Kärsimättömyys ja tietty väsymys ovat yleisiä lasketun ajan lähestyessä.',
+        ],
+        toKnow: [
+          'Vastasyntyneen verenkierto jatkaa mukautumistaan heti syntymän jälkeen, mikä voi tilapäisesti antaa käsille tai jaloille hieman sinertävän sävyn.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το δέρμα, που πριν ήταν πιο λεπτό, έχει παχύνει και προστατεύει πλέον καλύτερα το μωρό. Ένα προστατευτικό επίστρωμα, η λευκή αλοιφή (vernix), διευκολύνει επίσης τη διέλευσή του κατά τον τοκετό.',
+        length: 'Περίπου 50,7 εκ.',
+        comparison: 'Καρπούζι',
+        bodyChanges: [
+          'Η ανυπομονησία και μια κάποια κόπωση είναι συχνές καθώς πλησιάζει η πιθανή ημερομηνία τοκετού.',
+        ],
+        toKnow: [
+          'Η κυκλοφορία του αίματος του νεογέννητου συνεχίζει να προσαρμόζεται αμέσως μετά τη γέννηση, κάτι που μπορεί προσωρινά να δώσει ελαφρώς μπλε απόχρωση στα χέρια ή στα πόδια.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ang balat, na dating mas manipis, ay kumapal na at mas pinoprotektahan na ngayon ang sanggol. Pinapadali rin ng proteksyong patong, ang vernix, ang kanilang pagdaan sa panganganak.',
+        length: 'Mga 50.7 cm',
+        comparison: 'Pakwan',
+        bodyChanges: [
+          'Karaniwan ang pagiging atat at tiyak na antas ng pagod habang papalapit ang takdang petsa.',
+        ],
+        toKnow: [
+          'Patuloy na nag-aayos ang sirkulasyon ng dugo ng bagong silang pagkatapos mismo ng pagsilang, na maaaring pansamantalang magbigay ng bahagyang mala-bughaw na kulay sa mga kamay o paa.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'முன்பு மெலிதாக இருந்த தோல் தடிமனாகி, இப்போது குழந்தையை நன்கு பாதுகாக்கிறது. வெர்னிக்ஸ் எனும் பாதுகாப்புப் பூச்சு பிறப்பின்போது அவர்கள் வெளிவருவதையும் எளிதாக்குகிறது.',
+        length: 'சுமார் 50.7 செ.மீ',
+        comparison: 'தர்பூசணி',
+        bodyChanges: [
+          'எதிர்பார்க்கப்படும் தேதி நெருங்கும்போது பொறுமையின்மையும் ஓரளவு சோர்வும் பொதுவானவை.',
+        ],
+        toKnow: [
+          'பிறந்த குழந்தையின் இரத்த ஓட்டம் பிறந்த உடனே தொடர்ந்து சரிசெய்துகொள்கிறது, இது கைகளுக்கோ கால்களுக்கோ தற்காலிகமாகச் சற்று நீலநிறத்தைத் தரலாம்.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'ఇంతకుముందు సన్నగా ఉన్న చర్మం మందంగా మారి ఇప్పుడు శిశువును మెరుగ్గా కాపాడుతుంది. వెర్నిక్స్ అనే రక్షణ పొర కూడా ప్రసవ సమయంలో వారి ప్రయాణాన్ని సులభతరం చేస్తుంది.',
+        length: 'సుమారు 50.7 సెం.మీ',
+        comparison: 'పుచ్చకాయ',
+        bodyChanges: [
+          'ప్రసవ తేదీ సమీపిస్తున్న కొద్దీ అసహనం, కొంత అలసట సాధారణం.',
+        ],
+        toKnow: [
+          'పుట్టిన వెంటనే నవజాత శిశువు రక్త ప్రసరణ సర్దుబాటు అవుతూనే ఉంటుంది, ఇది తాత్కాలికంగా చేతులు లేదా పాదాలకు కొద్దిగా నీలి రంగును ఇవ్వవచ్చు.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'आधी पातळ असलेली त्वचा जाड झाली आहे आणि आता बाळाचे अधिक चांगले रक्षण करते. वर्निक्स नावाचा संरक्षक थर प्रसूतीदरम्यान त्याचा प्रवास सोपा करतो.',
+        length: 'सुमारे 50.7 सेमी',
+        comparison: 'कलिंगड',
+        bodyChanges: [
+          'अपेक्षित तारीख जवळ येत असताना अधीरता आणि काही प्रमाणात थकवा सामान्य आहे.',
+        ],
+        toKnow: [
+          'जन्मानंतर लगेच नवजात बाळाचे रक्ताभिसरण जुळवून घेत राहते, ज्यामुळे तात्पुरते हात किंवा पायांना किंचित निळसर छटा येऊ शकते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'ત્વચા, અગાઉ પાતળી, જાડી થઈ ગઈ છે અને હવે બાળકનું વધુ સારું રક્ષણ કરે છે. વર્નિક્સ નામનું રક્ષણાત્મક આવરણ પ્રસૂતિ દરમિયાન તેના પસાર થવાને પણ સરળ બનાવે છે.',
+        length: 'લગભગ 50.7 સેમી',
+        comparison: 'તરબૂચ',
+        bodyChanges: [
+          'પ્રસૂતિની તારીખ નજીક આવતાં અધીરાઈ અને થોડો થાક સામાન્ય છે.',
+        ],
+        toKnow: [
+          'જન્મ પછી તરત નવજાતનું રક્ત પરિભ્રમણ ગોઠવાતું રહે છે, જે હાથ કે પગને હંગામી રીતે થોડો ભૂરાશ પડતો રંગ આપી શકે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਚਮੜੀ, ਜੋ ਪਹਿਲਾਂ ਪਤਲੀ ਸੀ, ਮੋਟੀ ਹੋ ਗਈ ਹੈ ਅਤੇ ਹੁਣ ਬੱਚੇ ਦੀ ਬਿਹਤਰ ਰਾਖੀ ਕਰਦੀ ਹੈ। ਵਰਨਿਕਸ ਨਾਂ ਦੀ ਸੁਰੱਖਿਆ ਪਰਤ ਜਣੇਪੇ ਦੌਰਾਨ ਉਸ ਦੇ ਲੰਘਣ ਨੂੰ ਵੀ ਸੌਖਾ ਬਣਾਉਂਦੀ ਹੈ।',
+        length: 'ਲਗਭਗ 50.7 ਸੈਮੀ',
+        comparison: 'ਤਰਬੂਜ਼',
+        bodyChanges: [
+          'ਜਣੇਪੇ ਦੀ ਤਾਰੀਖ਼ ਨੇੜੇ ਆਉਣ ’ਤੇ ਬੇਸਬਰੀ ਅਤੇ ਕੁਝ ਥਕਾਵਟ ਆਮ ਹੈ।',
+        ],
+        toKnow: [
+          'ਜਨਮ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਨਵਜੰਮੇ ਬੱਚੇ ਦਾ ਖ਼ੂਨ ਦਾ ਦੌਰਾ ਆਪਣੇ ਆਪ ਨੂੰ ਢਾਲਦਾ ਰਹਿੰਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਹੱਥਾਂ ਜਾਂ ਪੈਰਾਂ ਦਾ ਰੰਗ ਕੁਝ ਸਮੇਂ ਲਈ ਥੋੜ੍ਹਾ ਨੀਲਾਹਟ ਵਾਲਾ ਹੋ ਸਕਦਾ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ယခင်က ပိုပါးသော အရေပြားသည် ထူလာပြီး ယခုအခါ ကလေးကို ပိုမိုကောင်းစွာ ကာကွယ်ပေးသည်။ ဗာနစ်ဟုခေါ်သော ကာကွယ်ရေးအလွှာသည်လည်း မွေးဖွားချိန်တွင် ဖြတ်သန်းရန် လွယ်ကူစေသည်။',
+        length: 'ခန့်မှန်းခြေ 50.7 စင်တီမီတာ',
+        comparison: 'ဖရဲသီး',
+        bodyChanges: [
+          'မီးဖွားမည့်ရက် နီးလာသည်နှင့်အမျှ စိတ်မရှည်ခြင်းနှင့် ပင်ပန်းနွမ်းနယ်ခြင်း အချို့ရှိခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        ],
+        toKnow: [
+          'မွေးကင်းစကလေး၏ သွေးလည်ပတ်မှုသည် မွေးဖွားပြီးချက်ချင်း ဆက်လက်ညှိနေသောကြောင့် လက်များ သို့မဟုတ် ခြေများတွင် ယာယီ အပြာရောင်သန်းနေနိုင်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ស្បែកដែលពីមុនស្តើងជាង ឥឡូវក្រាស់ឡើង ហើយការពារទារកបានប្រសើរជាង។ ស្រទាប់ការពារ គឺវើនីក (vernix) ក៏ជួយសម្រួលដល់ការឆ្លងកាត់របស់ទារកពេលសម្រាលដែរ។',
+        length: 'ប្រហែល 50.7 សង់ទីម៉ែត្រ',
+        comparison: 'ឪឡឹក',
+        bodyChanges: [
+          'ភាពអត់ធ្មត់មិនបាន និងភាពអស់កម្លាំងមួយកម្រិត ជារឿងធម្មតា នៅពេលជិតដល់ថ្ងៃកំណត់សម្រាល។',
+        ],
+        toKnow: [
+          'ការចរាចរឈាមរបស់ទារកទើបនឹងកើតបន្តសម្របខ្លួនភ្លាមៗក្រោយកំណើត ដែលអាចធ្វើឱ្យដៃឬជើងមានពណ៌ប្រផេះខៀវបន្តិចជាបណ្តោះអាសន្ន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ຜິວໜັງທີ່ເຄີຍບາງກວ່າໄດ້ໜາຂຶ້ນ ແລະ ຕອນນີ້ປົກປ້ອງລູກນ້ອຍໄດ້ດີຂຶ້ນ. ຊັ້ນປົກປ້ອງທີ່ເອີ້ນວ່າ ເວີນິກຊ໌ ກໍ່ຊ່ວຍໃຫ້ລູກຜ່ານອອກມາໄດ້ງ່າຍຂຶ້ນໃນລະຫວ່າງການເກີດ.',
+        length: 'ປະມານ 50.7 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກແຕງໂມ',
+        bodyChanges: [
+          'ຄວາມບໍ່ອົດທົນລໍຖ້າ ແລະ ຄວາມອ່ອນເພຍໃນລະດັບໜຶ່ງເປັນເລື່ອງທົ່ວໄປເມື່ອໃກ້ວັນກຳນົດຄອດ.',
+        ],
+        toKnow: [
+          'ການໄຫຼວຽນຂອງເລືອດຂອງເດັກເກີດໃໝ່ສືບຕໍ່ປັບຕົວຫຼັງເກີດທັນທີ ເຊິ່ງອາດເຮັດໃຫ້ມືຫຼືຕີນມີສີຟ້າອ່ອນໆຊົ່ວຄາວ.',
+        ],
+      },
     },
   },
   {
@@ -18131,6 +26985,234 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
       },
 
+      ms: {
+        babyDescription:
+          'Bayi telah berkembang sepenuhnya dan bersedia untuk dilahirkan. Tarikh jangka lahir ialah anggaran: banyak kelahiran berlaku pada hari-hari sekitarnya, sebelum atau selepas.',
+        length: 'Kira-kira 51.2 cm',
+        comparison: 'Labu',
+        bodyChanges: [
+          'Menunggu tanda-tanda bersalin (kontraksi tetap, air ketuban pecah) adalah lazim dalam tempoh ini.',
+        ],
+        toKnow: [
+          'Melepasi tarikh jangka lahir sedikit kekal lazim dan tidak semestinya bermakna ada masalah; pemantauan yang lebih rapat biasanya ditawarkan.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu si buuxda ayuu u koray wuxuuna diyaar u yahay in la dhalo. Taariikhda la filayo waa qiyaas: dhalmooyin badan ayaa dhaca maalmaha ku wareegsan, ka hor ama ka dib.',
+        length: 'Qiyaastii 51.2 cm',
+        comparison: 'Qaraha (pumpkin)',
+        bodyChanges: [
+          'Sugidda calaamadaha foosha (isku-uruurin joogto ah, biyaha oo jabaya) waa caadi muddadan.',
+        ],
+        toKnow: [
+          'Ka gudbidda taariikhda la filayo wax yar wali waa caadi mana macnaheedu ahan inay dhibaato jirto; la socod aad u dhow guud ahaan waa la bixiyaa.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto ameumbika kikamilifu na yuko tayari kuzaliwa. Tarehe ya kujifungua ni kadirio: kuzaliwa kwingi hutokea katika siku zinazoizunguka, kabla au baada.',
+        length: 'Takriban sm 51.2',
+        comparison: 'Boga',
+        bodyChanges: [
+          'Kusubiri dalili za uchungu wa kujifungua (mikazo ya mara kwa mara, maji kuvunjika) ni jambo la kawaida katika kipindi hiki.',
+        ],
+        toKnow: [
+          'Kupitiliza kidogo tarehe ya kujifungua bado ni jambo la kawaida na haimaanishi lazima kuna tatizo; ufuatiliaji wa karibu zaidi kwa kawaida hutolewa.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте толық дамыған және туылуға дайын. Болжамды босану күні — болжам: көптеген босанулар оның айналасындағы күндерде, бұрын немесе кейін болады.',
+        length: 'Шамамен 51.2 см',
+        comparison: 'Асқабақ',
+        bodyChanges: [
+          'Толғақ белгілерін (тұрақты толғақтар, су кетуі) күту бұл кезеңде жиі кездеседі.',
+        ],
+        toKnow: [
+          'Болжамды күннен сәл асып кету жиі кездеседі және міндетті түрде мәселе бар дегенді білдірмейді; әдетте неғұрлым мұқият бақылау ұсынылады.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi defaru na ba mat te waajal ngir juddu. Bésu jur xayma la: jur yu bari dañuy am ci fan yi ci wetam, balaa walla ginnaaw.',
+        length: 'Ci wetu 51.2 cm',
+        comparison: 'Sitruy',
+        bodyChanges: [
+          'Xaar màndargay jur (tëx yu jub, ndox bu dog) daa bari ci jamono jii.',
+        ],
+        toKnow: [
+          'Weesu tuuti bésu jur daa bari te du wone saa su ne ne am na jafe-jafe; topp bu gën a leer daa digal.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri ya samu gabaɗaya kuma a shirye yake a haife shi. Ranar haihuwa ƙiyasi ne: haihuwa da yawa suna faruwa a kwanakin da suka kewaye ta, kafin ko bayan.',
+        length: 'Kusan 51.2 cm',
+        comparison: 'Kabewa',
+        bodyChanges: [
+          'Jiran alamomin nakuda (matsewa masu tsari, fashewar ruwa) ya zama ruwan dare a wannan lokaci.',
+        ],
+        toKnow: [
+          'Wuce ranar haihuwa kaɗan ya ci gaba da zama ruwan dare kuma ba lallai ba ne yana nufin akwai matsala; yawanci ana ba da kulawa mafi kusa.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ ሙሉ በሙሉ አድጓል እና ለመወለድ ዝግጁ ነው። የመውለጃ ቀን ግምት ነው፦ ብዙ ልደቶች ከዚያ በፊት ወይም በኋላ ባሉ ቀናት ይከሰታሉ።',
+        length: 'ወደ 51.2 ሴሜ',
+        comparison: 'ዱባ',
+        bodyChanges: [
+          'በዚህ ጊዜ የምጥ ምልክቶችን (መደበኛ መኮማተሮች፣ ውሃ መፍሰስ) መጠበቅ የተለመደ ነው።',
+        ],
+        toKnow: [
+          'የመውለጃ ቀንን በትንሹ ማለፍ የተለመደ ሆኖ ይቆያል እና የግድ ችግር አለ ማለት አይደለም፤ ይበልጥ የቀረበ ክትትል በአጠቃላይ ይቀርባል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby is volledig ontwikkeld en klaar om geboren te worden. De uitgerekende datum is een schatting: veel bevallingen vinden plaats in de dagen eromheen, ervoor of erna.',
+        length: 'Ongeveer 51,2 cm',
+        comparison: 'Pompoen',
+        bodyChanges: [
+          'Wachten op tekenen van de bevalling (regelmatige weeën, breken van de vliezen) is in deze periode gebruikelijk.',
+        ],
+        toKnow: [
+          'Iets over de uitgerekende datum gaan komt vaak voor en betekent niet per se dat er een probleem is; er wordt over het algemeen nauwere controle aangeboden.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva on täysin kehittynyt ja valmis syntymään. Laskettu aika on arvio: monet synnytykset tapahtuvat sen ympärillä olevina päivinä, ennen tai jälkeen.',
+        length: 'Noin 51,2 cm',
+        comparison: 'Kurpitsa',
+        bodyChanges: [
+          'Synnytyksen merkkien (säännölliset supistukset, lapsiveden meno) odottaminen on tänä aikana yleistä.',
+        ],
+        toKnow: [
+          'Hieman lasketun ajan yli meneminen on edelleen yleistä, eikä se välttämättä tarkoita ongelmaa; tiiviimpää seurantaa tarjotaan yleensä.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό είναι πλήρως ανεπτυγμένο και έτοιμο να γεννηθεί. Η πιθανή ημερομηνία τοκετού είναι εκτίμηση: πολλοί τοκετοί γίνονται τις ημέρες γύρω από αυτήν, πριν ή μετά.',
+        length: 'Περίπου 51,2 εκ.',
+        comparison: 'Κολοκύθα',
+        bodyChanges: [
+          'Η αναμονή σημαδιών τοκετού (τακτικές συσπάσεις, ρήξη των υμένων) είναι συχνή σε αυτή την περίοδο.',
+        ],
+        toKnow: [
+          'Το να περάσεις ελαφρά την πιθανή ημερομηνία τοκετού παραμένει συχνό και δεν σημαίνει αναγκαστικά ότι υπάρχει πρόβλημα· προτείνεται γενικά στενότερη παρακολούθηση.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Ganap nang nabuo ang sanggol at handa nang isilang. Tantiya lamang ang takdang petsa: maraming panganganak ang nangyayari sa mga araw sa paligid nito, bago o pagkatapos.',
+        length: 'Mga 51.2 cm',
+        comparison: 'Kalabasa',
+        bodyChanges: [
+          'Karaniwan sa panahong ito ang paghihintay ng mga senyales ng panganganak (regular na pagkontrata, pagputok ng panubigan).',
+        ],
+        toKnow: [
+          'Nananatiling karaniwan ang bahagyang paglampas sa takdang petsa at hindi kinakailangang nangangahulugang may problema; karaniwang inaalok ang mas masusing pagsubaybay.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை முழுமையாக வளர்ந்து பிறக்கத் தயாராக உள்ளது. எதிர்பார்க்கப்படும் தேதி ஒரு மதிப்பீடு: பல பிறப்புகள் அதைச் சுற்றிய நாட்களில், முன்போ பின்போ, நிகழ்கின்றன.',
+        length: 'சுமார் 51.2 செ.மீ',
+        comparison: 'பூசணிக்காய்',
+        bodyChanges: [
+          'பிரசவ வலியின் அறிகுறிகளுக்காக (ஒழுங்கான சுருக்கங்கள், பனிக்குடம் உடைதல்) காத்திருப்பது இந்தக் காலத்தில் பொதுவானது.',
+        ],
+        toKnow: [
+          'எதிர்பார்க்கப்படும் தேதியை சற்றுத் தாண்டுவது இன்னும் பொதுவானது, ஒரு பிரச்சினை இருக்கிறது என்று கட்டாயம் பொருளல்ல; பொதுவாக நெருக்கமான கண்காணிப்பு வழங்கப்படுகிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు పూర్తిగా అభివృద్ధి చెంది పుట్టడానికి సిద్ధంగా ఉంది. ప్రసవ తేదీ ఒక అంచనా: చాలా ప్రసవాలు దానికి ముందు లేదా తర్వాత, చుట్టుపక్కల రోజుల్లో జరుగుతాయి.',
+        length: 'సుమారు 51.2 సెం.మీ',
+        comparison: 'గుమ్మడికాయ',
+        bodyChanges: [
+          'ఈ కాలంలో ప్రసవ వేదన సంకేతాల కోసం (క్రమమైన సంకోచాలు, ఉమ్మనీరు పగలడం) ఎదురుచూడటం సాధారణం.',
+        ],
+        toKnow: [
+          'ప్రసవ తేదీని కొద్దిగా దాటడం ఇంకా సాధారణమే, తప్పనిసరిగా సమస్య ఉందని అర్థం కాదు; సాధారణంగా మరింత దగ్గరి పర్యవేక్షణ అందించబడుతుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ पूर्णपणे विकसित झाले आहे आणि जन्माला येण्यासाठी तयार आहे. अपेक्षित तारीख हा एक अंदाज आहे: अनेक प्रसूती तिच्या आसपासच्या दिवसांत, आधी किंवा नंतर, होतात.',
+        length: 'सुमारे 51.2 सेमी',
+        comparison: 'भोपळा',
+        bodyChanges: [
+          'या काळात प्रसववेदनांच्या चिन्हांची (नियमित आकुंचने, पाणी जाणे) वाट पाहणे सामान्य आहे.',
+        ],
+        toKnow: [
+          'अपेक्षित तारखेपेक्षा थोडे पुढे जाणे अजूनही सामान्य आहे आणि काही समस्या असल्याचा अर्थ आवश्यक नाही; साधारणपणे अधिक जवळून देखरेख सुचवली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક સંપૂર્ણ વિકસેલું છે અને જન્મ માટે તૈયાર છે. પ્રસૂતિની તારીખ એક અંદાજ છે: ઘણી પ્રસૂતિઓ તેની આસપાસના દિવસોમાં, પહેલાં કે પછી, થાય છે.',
+        length: 'લગભગ 51.2 સેમી',
+        comparison: 'કોળું',
+        bodyChanges: [
+          'આ સમયગાળા દરમિયાન પ્રસૂતિની પીડાના ચિહ્નોની રાહ જોવી (નિયમિત સંકોચન, પાણીની કોથળી ફાટવી) સામાન્ય છે.',
+        ],
+        toKnow: [
+          'પ્રસૂતિની તારીખથી થોડું આગળ નીકળી જવું સામાન્ય રહે છે અને તેનો અર્થ જરૂરી રીતે સમસ્યા નથી; સામાન્ય રીતે વધુ નજીકની દેખરેખ ઓફર થાય છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵਿਕਸਿਤ ਹੈ ਅਤੇ ਜਨਮ ਲੈਣ ਲਈ ਤਿਆਰ ਹੈ। ਜਣੇਪੇ ਦੀ ਤਾਰੀਖ਼ ਇੱਕ ਅੰਦਾਜ਼ਾ ਹੈ: ਕਈ ਜਣੇਪੇ ਇਸ ਦੇ ਆਸ-ਪਾਸ ਦੇ ਦਿਨਾਂ ਵਿੱਚ, ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਵਿੱਚ, ਹੁੰਦੇ ਹਨ।',
+        length: 'ਲਗਭਗ 51.2 ਸੈਮੀ',
+        comparison: 'ਕੱਦੂ',
+        bodyChanges: [
+          'ਇਸ ਸਮੇਂ ਦੌਰਾਨ ਦਰਦਾਂ ਦੀਆਂ ਨਿਸ਼ਾਨੀਆਂ (ਨਿਯਮਿਤ ਸੁੰਗੜਨ, ਪਾਣੀ ਦਾ ਟੁੱਟਣਾ) ਦੀ ਉਡੀਕ ਕਰਨਾ ਆਮ ਹੈ।',
+        ],
+        toKnow: [
+          'ਜਣੇਪੇ ਦੀ ਤਾਰੀਖ਼ ਤੋਂ ਥੋੜ੍ਹਾ ਲੰਘ ਜਾਣਾ ਆਮ ਗੱਲ ਹੈ ਅਤੇ ਇਸ ਦਾ ਇਹ ਮਤਲਬ ਨਹੀਂ ਕਿ ਕੋਈ ਸਮੱਸਿਆ ਹੈ; ਆਮ ਤੌਰ ’ਤੇ ਨੇੜਿਓਂ ਨਿਗਰਾਨੀ ਪੇਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် အပြည့်အဝ ဖွံ့ဖြိုးပြီး မွေးဖွားရန် အဆင်သင့်ဖြစ်နေသည်။ မီးဖွားမည့်ရက်သည် ခန့်မှန်းချက်သာဖြစ်သည်။ မွေးဖွားမှုများစွာသည် ထိုရက်ဝန်းကျင် ရက်အနည်းငယ် ရှေ့ သို့မဟုတ် နောက်တွင် ဖြစ်ပေါ်လေ့ရှိသည်။',
+        length: 'ခန့်မှန်းခြေ 51.2 စင်တီမီတာ',
+        comparison: 'ဖရုံသီး',
+        bodyChanges: [
+          'ဤကာလအတွင်း မီးဖွားလက္ခဏာများ (ပုံမှန်ကျုံ့ခြင်း၊ ရေမြှုပ်အိတ်ပေါက်ခြင်း) ကို စောင့်ဆိုင်းနေခြင်းသည် ပုံမှန်ဖြစ်သည်။',
+        ],
+        toKnow: [
+          'မီးဖွားမည့်ရက်ကို အနည်းငယ်ကျော်လွန်ခြင်းသည် အဖြစ်များနေဆဲဖြစ်ပြီး ပြဿနာရှိသည်ဟု မဆိုလိုပါ။ ပိုမိုနီးကပ်စွာ စောင့်ကြည့်မှုကို များသောအားဖြင့် ပေးသည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកលូតលាស់ពេញលេញ ហើយត្រៀមខ្លួនកើត។ ថ្ងៃកំណត់សម្រាលគ្រាន់តែជាការប៉ាន់ស្មាន៖ ការសម្រាលជាច្រើនកើតឡើងក្នុងថ្ងៃជុំវិញនោះ មុនឬក្រោយ។',
+        length: 'ប្រហែល 51.2 សង់ទីម៉ែត្រ',
+        comparison: 'ល្ពៅ',
+        bodyChanges: [
+          'ការរង់ចាំសញ្ញាឈឺពោះសម្រាល (ការកន្ត្រាក់ទៀងទាត់ ទឹកភ្លោះដាច់) ជារឿងធម្មតាក្នុងអំឡុងពេលនេះ។',
+        ],
+        toKnow: [
+          'ការហួសថ្ងៃកំណត់សម្រាលបន្តិចនៅតែជារឿងធម្មតា ហើយមិនចាំបាច់មានន័យថាមានបញ្ហាទេ ជាទូទៅមានការតាមដានជិតស្និទ្ធជាងមុនត្រូវបានផ្តល់ជូន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍພັດທະນາຢ່າງເຕັມທີ່ ແລະ ພ້ອມທີ່ຈະເກີດແລ້ວ. ວັນກຳນົດຄອດເປັນພຽງການຄາດຄະເນ: ການເກີດຫຼາຍຄັ້ງເກີດຂຶ້ນໃນສອງສາມມື້ອ້ອມຮອບວັນນັ້ນ ທັງກ່ອນ ຫຼື ຫຼັງ.',
+        length: 'ປະມານ 51.2 ເຊັນຕີແມັດ',
+        comparison: 'ໝາກອຶ',
+        bodyChanges: [
+          'ການລໍຖ້າອາການຂອງການເຈັບທ້ອງຄອດ (ການບີບຕົວຂອງມົດລູກເປັນປົກກະຕິ ນ້ຳຄັ່ງແຕກ) ເປັນເລື່ອງທົ່ວໄປໃນໄລຍະນີ້.',
+        ],
+        toKnow: [
+          'ການເລີຍວັນກຳນົດຄອດໄປເລັກນ້ອຍຍັງເປັນເລື່ອງທົ່ວໄປ ແລະ ບໍ່ໄດ້ໝາຍຄວາມວ່າມີບັນຫາເສມອໄປ; ໂດຍທົ່ວໄປຈະມີການຕິດຕາມຢ່າງໃກ້ຊິດຂຶ້ນ.',
+        ],
+      },
     },
   },
 
@@ -18500,6 +27582,196 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: [
           'At gå over termin förer generelt till öget overvågning fran det medicinske team.',
+        ],
+      },
+      ms: {
+        babyDescription:
+          'Bayi kekal berkembang sepenuhnya. Melepasi tarikh jangka lahir, pemantauan yang lebih rapat biasanya ditawarkan untuk menyemak kesejahteraan bayi.',
+        bodyChanges: [
+          'Penantian yang berpanjangan mungkin disertai keletihan dan rasa tidak sabar yang meningkat.',
+        ],
+        toKnow: [
+          'Melepasi tempoh cukup bulan biasanya membawa kepada pemantauan yang lebih rapat oleh pasukan perubatan.',
+        ],
+      },
+      so: {
+        babyDescription:
+          'Ilmuhu wuu sii wadaa inuu si buuxda u koray. Taariikhda la filayo ka dib, la socod aad u dhow guud ahaan waa la bixiyaa si loo hubiyo fayoobaanta ilmaha.',
+        bodyChanges: [
+          'Sugidda dheeraadka ah waxay la socon kartaa daal kordhay iyo dulqaad la\'aan.',
+        ],
+        toKnow: [
+          'Ka gudbidda wakhtiga buuxa guud ahaan waxay horseedaa la socod sii kordhay oo ay sameyso kooxda caafimaadka.',
+        ],
+      },
+      sw: {
+        babyDescription:
+          'Mtoto anabaki ameumbika kikamilifu. Baada ya tarehe ya kujifungua, ufuatiliaji wa karibu zaidi kwa kawaida hutolewa ili kukagua hali njema ya mtoto.',
+        bodyChanges: [
+          'Kusubiri kwa muda mrefu kunaweza kuambatana na uchovu na kukosa subira kuliongezeka.',
+        ],
+        toKnow: [
+          'Kupitiliza muda kamili wa ujauzito kwa kawaida husababisha ufuatiliaji zaidi na timu ya madaktari.',
+        ],
+      },
+      kk: {
+        babyDescription:
+          'Нәресте толық дамыған күйінде қалады. Болжамды күннен кейін нәрестенің әл-ауқатын тексеру үшін әдетте неғұрлым мұқият бақылау ұсынылады.',
+        bodyChanges: [
+          'Ұзаққа созылған күту шаршау мен шыдамсыздықтың артуымен қатар жүруі мүмкін.',
+        ],
+        toKnow: [
+          'Мерзімнен асып кету әдетте медициналық топтың бақылауын күшейтуге әкеледі.',
+        ],
+      },
+      wo: {
+        babyDescription:
+          'Doom bi des na defaru ba mat. Ginnaaw bésu jur, topp bu gën a leer daa digal ngir seet wér doom bi.',
+        bodyChanges: [
+          'Xaar bu yàgg mën na ànd ak sonn bu gën a bari ak muñ bu tuuti.',
+        ],
+        toKnow: [
+          'Weesu ëmb bu mat daa jëm ci topp bu gën a bari bu ekipu doktoor bi.',
+        ],
+      },
+      ha: {
+        babyDescription:
+          'Jariri ya ci gaba da kasancewa gabaɗaya. Bayan ranar haihuwa, yawanci ana ba da kulawa mafi kusa don duba lafiyar jariri.',
+        bodyChanges: [
+          'Dogon jira na iya zuwa tare da ƙarin gajiya da rashin haƙuri.',
+        ],
+        toKnow: [
+          'Wuce lokaci yawanci yana kai wa ga ƙarin bibiya daga ƙungiyar likitoci.',
+        ],
+      },
+      am: {
+        babyDescription:
+          'ሕፃኑ ሙሉ በሙሉ እንደ አደገ ይቆያል። ከመውለጃ ቀን በኋላ የሕፃኑን ደህንነት ለመፈተሽ ይበልጥ የቀረበ ክትትል በአጠቃላይ ይቀርባል።',
+        bodyChanges: [
+          'ረዥሙ መጠበቅ ከጨመረ ድካም እና ትዕግሥት ማጣት ጋር ሊመጣ ይችላል።',
+        ],
+        toKnow: [
+          'ከሙሉ ጊዜ ማለፍ በአጠቃላይ በሕክምና ቡድኑ የጨመረ ክትትል ያስከትላል።',
+        ],
+      },
+      nl: {
+        babyDescription:
+          'De baby blijft volledig ontwikkeld. Na de uitgerekende datum wordt over het algemeen nauwere controle aangeboden om het welzijn van de baby te controleren.',
+        bodyChanges: [
+          'Het langere wachten kan gepaard gaan met meer vermoeidheid en ongeduld.',
+        ],
+        toKnow: [
+          'Over de voldragen termijn heen gaan leidt over het algemeen tot meer controle door het medisch team.',
+        ],
+      },
+      fi: {
+        babyDescription:
+          'Vauva pysyy täysin kehittyneenä. Lasketun ajan jälkeen tiiviimpää seurantaa tarjotaan yleensä vauvan hyvinvoinnin tarkistamiseksi.',
+        bodyChanges: [
+          'Pidentynyt odotus voi tuoda mukanaan lisääntynyttä väsymystä ja kärsimättömyyttä.',
+        ],
+        toKnow: [
+          'Täysiaikaisuuden yli meneminen johtaa yleensä lisääntyneeseen seurantaan hoitotiimin toimesta.',
+        ],
+      },
+      el: {
+        babyDescription:
+          'Το μωρό παραμένει πλήρως ανεπτυγμένο. Πέρα από την πιθανή ημερομηνία τοκετού, προτείνεται γενικά στενότερη παρακολούθηση για τον έλεγχο της ευεξίας του μωρού.',
+        bodyChanges: [
+          'Η παρατεταμένη αναμονή μπορεί να συνοδεύεται από αυξημένη κόπωση και ανυπομονησία.',
+        ],
+        toKnow: [
+          'Η υπέρβαση του τελειόμηνου οδηγεί γενικά σε αυξημένη παρακολούθηση από την ιατρική ομάδα.',
+        ],
+      },
+      fil: {
+        babyDescription:
+          'Nananatiling ganap na nabuo ang sanggol. Lampas sa takdang petsa, karaniwang inaalok ang mas masusing pagsubaybay upang suriin ang kapakanan ng sanggol.',
+        bodyChanges: [
+          'Ang matagal na paghihintay ay maaaring may kasamang mas mataas na pagod at pagiging atat.',
+        ],
+        toKnow: [
+          'Ang paglampas sa takdang panahon ay karaniwang humahantong sa mas masusing pagsubaybay ng pangkat medikal.',
+        ],
+      },
+      ta: {
+        babyDescription:
+          'குழந்தை முழுமையாக வளர்ந்த நிலையிலேயே இருக்கிறது. எதிர்பார்க்கப்படும் தேதியைத் தாண்டிய பின், குழந்தையின் நலனைச் சரிபார்க்க நெருக்கமான கண்காணிப்பு பொதுவாக வழங்கப்படுகிறது.',
+        bodyChanges: [
+          'நீண்ட காத்திருப்பு அதிகரித்த சோர்வுடனும் பொறுமையின்மையுடனும் வரலாம்.',
+        ],
+        toKnow: [
+          'முழு காலத்தைத் தாண்டுவது பொதுவாக மருத்துவக் குழுவின் அதிகரித்த கண்காணிப்புக்கு வழிவகுக்கிறது.',
+        ],
+      },
+      te: {
+        babyDescription:
+          'శిశువు పూర్తిగా అభివృద్ధి చెందే ఉంది. ప్రసవ తేదీని దాటిన తర్వాత, శిశువు క్షేమాన్ని తనిఖీ చేయడానికి సాధారణంగా మరింత దగ్గరి పర్యవేక్షణ అందించబడుతుంది.',
+        bodyChanges: [
+          'సుదీర్ఘ నిరీక్షణ పెరిగిన అలసట, అసహనంతో కలిసి రావచ్చు.',
+        ],
+        toKnow: [
+          'పూర్తి కాలాన్ని దాటడం సాధారణంగా వైద్య బృందం పర్యవేక్షణను పెంచడానికి దారితీస్తుంది.',
+        ],
+      },
+      mr: {
+        babyDescription:
+          'बाळ पूर्णपणे विकसित राहते. अपेक्षित तारखेनंतर, बाळाच्या सुदृढतेची तपासणी करण्यासाठी साधारणपणे अधिक जवळून देखरेख सुचवली जाते.',
+        bodyChanges: [
+          'दीर्घ प्रतीक्षेसोबत वाढलेला थकवा आणि अधीरता येऊ शकते.',
+        ],
+        toKnow: [
+          'पूर्ण मुदत ओलांडल्यास साधारणपणे वैद्यकीय पथकाकडून देखरेख वाढवली जाते.',
+        ],
+      },
+      gu: {
+        babyDescription:
+          'બાળક સંપૂર્ણ વિકસેલું રહે છે. પ્રસૂતિની તારીખ પછી, બાળકની સુખાકારી તપાસવા સામાન્ય રીતે વધુ નજીકની દેખરેખ ઓફર થાય છે.',
+        bodyChanges: [
+          'લાંબી રાહ સાથે થાક અને અધીરાઈ વધી શકે છે.',
+        ],
+        toKnow: [
+          'પૂરો મહિનો પસાર થઈ જવાથી સામાન્ય રીતે તબીબી ટીમ દ્વારા દેખરેખ વધે છે.',
+        ],
+      },
+      pa: {
+        babyDescription:
+          'ਬੱਚਾ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵਿਕਸਿਤ ਰਹਿੰਦਾ ਹੈ। ਜਣੇਪੇ ਦੀ ਤਾਰੀਖ਼ ਤੋਂ ਬਾਅਦ, ਬੱਚੇ ਦੀ ਸਿਹਤ ਦੀ ਜਾਂਚ ਲਈ ਆਮ ਤੌਰ ’ਤੇ ਨੇੜਿਓਂ ਨਿਗਰਾਨੀ ਪੇਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।',
+        bodyChanges: [
+          'ਲੰਮੀ ਉਡੀਕ ਦੇ ਨਾਲ ਥਕਾਵਟ ਅਤੇ ਬੇਸਬਰੀ ਵਧ ਸਕਦੀ ਹੈ।',
+        ],
+        toKnow: [
+          'ਪੂਰੇ ਸਮੇਂ ਤੋਂ ਲੰਘ ਜਾਣ ’ਤੇ ਆਮ ਤੌਰ ’ਤੇ ਡਾਕਟਰੀ ਟੀਮ ਵੱਲੋਂ ਨਿਗਰਾਨੀ ਵਧਾ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।',
+        ],
+      },
+      my: {
+        babyDescription:
+          'ကလေးသည် အပြည့်အဝ ဖွံ့ဖြိုးနေဆဲဖြစ်သည်။ မီးဖွားမည့်ရက်ကျော်လွန်ပါက ကလေး၏ ကျန်းမာရေးကို စစ်ဆေးရန် ပိုမိုနီးကပ်စွာ စောင့်ကြည့်မှုကို များသောအားဖြင့် ပေးသည်။',
+        bodyChanges: [
+          'ကြာရှည်စွာ စောင့်ဆိုင်းရခြင်းနှင့်အတူ ပင်ပန်းနွမ်းနယ်ခြင်းနှင့် စိတ်မရှည်ခြင်း တိုးလာနိုင်သည်။',
+        ],
+        toKnow: [
+          'လပြည့်ကျော်လွန်ခြင်းသည် များသောအားဖြင့် ဆေးဘက်ဆိုင်ရာအဖွဲ့၏ စောင့်ကြည့်မှု တိုးမြှင့်ခြင်းသို့ ဦးတည်သည်။',
+        ],
+      },
+      km: {
+        babyDescription:
+          'ទារកនៅតែលូតលាស់ពេញលេញ។ ក្រោយថ្ងៃកំណត់សម្រាល ជាទូទៅមានការតាមដានជិតស្និទ្ធជាងមុនត្រូវបានផ្តល់ជូន ដើម្បីពិនិត្យសុខុមាលភាពរបស់ទារក។',
+        bodyChanges: [
+          'ការរង់ចាំដែលយូរអាចមកជាមួយនឹងភាពអស់កម្លាំង និងភាពអត់ធ្មត់មិនបានកើនឡើង។',
+        ],
+        toKnow: [
+          'ការហួសពីកំណត់ជាទូទៅនាំឱ្យក្រុមវេជ្ជសាស្ត្រតាមដានកាន់តែច្រើន។',
+        ],
+      },
+      lo: {
+        babyDescription:
+          'ລູກນ້ອຍຍັງພັດທະນາຢ່າງເຕັມທີ່. ເມື່ອເລີຍວັນກຳນົດຄອດໄປແລ້ວ ໂດຍທົ່ວໄປຈະມີການຕິດຕາມຢ່າງໃກ້ຊິດຂຶ້ນ ເພື່ອກວດເບິ່ງສຸຂະພາບຂອງລູກນ້ອຍ.',
+        bodyChanges: [
+          'ການລໍຖ້າທີ່ຍາວນານອາດມາພ້ອມກັບຄວາມອ່ອນເພຍ ແລະ ຄວາມບໍ່ອົດທົນລໍຖ້າທີ່ເພີ່ມຂຶ້ນ.',
+        ],
+        toKnow: [
+          'ການເລີຍກຳນົດໂດຍທົ່ວໄປຈະນຳໄປສູ່ການຕິດຕາມທີ່ເພີ່ມຂຶ້ນໂດຍທີມແພດ.',
         ],
       },
     },

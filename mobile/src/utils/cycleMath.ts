@@ -59,6 +59,25 @@ export const WEEK_DAYS_HY = ['Երկ', 'Երք', 'Չրք', 'Հնգ', 'Ուր', '
 export const WEEK_DAYS_TG = ['Душ', 'Сеш', 'Чор', 'Пан', 'Ҷум', 'Шан', 'Яқш'];
 export const WEEK_DAYS_KY = ['Дүй', 'Шей', 'Шар', 'Бей', 'Жум', 'Ишм', 'Жек'];
 export const WEEK_DAYS_TK = ['Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen', 'Ýek'];
+export const WEEK_DAYS_MS = ['Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab', 'Ahd'];
+export const WEEK_DAYS_SO = ['Isn', 'Tal', 'Arb', 'Kha', 'Jim', 'Sab', 'Axd'];
+export const WEEK_DAYS_SW = ['Jtt', 'Jnn', 'Jtn', 'Alh', 'Ijm', 'Jms', 'Jpl'];
+export const WEEK_DAYS_KK = ['Дс', 'Сс', 'Ср', 'Бс', 'Жм', 'Сб', 'Жс'];
+export const WEEK_DAYS_WO = ['Alt', 'Tal', 'Àll', 'Alx', 'Àjj', 'Gaa', 'Dib'];
+export const WEEK_DAYS_HA = ['Lit', 'Tal', 'Lar', 'Alh', 'Jum', 'Asa', 'Lah'];
+export const WEEK_DAYS_LO = ['ອາ', 'ຈ', 'ອ', 'ພ', 'ພຫ', 'ສຸ', 'ສ'];
+export const WEEK_DAYS_KM = ['អា', 'ច', 'អ', 'ពុ', 'ព្រ', 'សុ', 'ស'];
+export const WEEK_DAYS_MY = ['နွေ', 'လာ', 'ဂါ', 'ဟူး', 'ကြာ', 'သော', 'စနေ'];
+export const WEEK_DAYS_PA = ['ਐਤ', 'ਸੋਮ', 'ਮੰਗਲ', 'ਬੁੱਧ', 'ਵੀਰ', 'ਸ਼ੁੱਕ', 'ਸ਼ਨੀ'];
+export const WEEK_DAYS_GU = ['રવિ', 'સોમ', 'મંગળ', 'બુધ', 'ગુરુ', 'શુક્ર', 'શનિ'];
+export const WEEK_DAYS_MR = ['रवि', 'सोम', 'मंगळ', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
+export const WEEK_DAYS_TE = ['ఆ', 'సో', 'మం', 'బు', 'గు', 'శు', 'శ'];
+export const WEEK_DAYS_TA = ['தி', 'செ', 'பு', 'வி', 'வெ', 'ச', 'ஞா'];
+export const WEEK_DAYS_FIL = ['Lu', 'Ma', 'Mi', 'Hu', 'Bi', 'Sa', 'Li'];
+export const WEEK_DAYS_EL = ['Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα', 'Κυ'];
+export const WEEK_DAYS_FI = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
+export const WEEK_DAYS_NL = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+export const WEEK_DAYS_AM = ['ሰኞ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ', 'እሑድ'];
 export const localizedWeekDays = (overrideLanguage?: string): string[] => {
   const language = overrideLanguage ?? getAppLanguage();
   if (language === 'en') {return WEEK_DAYS_EN;}
@@ -100,6 +119,25 @@ export const localizedWeekDays = (overrideLanguage?: string): string[] => {
   if (language === 'tg') {return WEEK_DAYS_TG;}
   if (language === 'ky') {return WEEK_DAYS_KY;}
   if (language === 'tk') {return WEEK_DAYS_TK;}
+  if (language === 'ms') {return WEEK_DAYS_MS;}
+  if (language === 'so') {return WEEK_DAYS_SO;}
+  if (language === 'sw') {return WEEK_DAYS_SW;}
+  if (language === 'kk') {return WEEK_DAYS_KK;}
+  if (language === 'wo') {return WEEK_DAYS_WO;}
+  if (language === 'ha') {return WEEK_DAYS_HA;}
+  if (language === 'am') {return WEEK_DAYS_AM;}
+  if (language === 'nl') {return WEEK_DAYS_NL;}
+  if (language === 'fi') {return WEEK_DAYS_FI;}
+  if (language === 'el') {return WEEK_DAYS_EL;}
+  if (language === 'fil') {return WEEK_DAYS_FIL;}
+  if (language === 'ta') {return WEEK_DAYS_TA;}
+  if (language === 'te') {return WEEK_DAYS_TE;}
+  if (language === 'mr') {return WEEK_DAYS_MR;}
+  if (language === 'gu') {return WEEK_DAYS_GU;}
+  if (language === 'pa') {return WEEK_DAYS_PA;}
+  if (language === 'my') {return WEEK_DAYS_MY;}
+  if (language === 'km') {return WEEK_DAYS_KM;}
+  if (language === 'lo') {return WEEK_DAYS_LO;}
   return WEEK_DAYS;
 };
 
@@ -184,6 +222,25 @@ export const dateFormatLocale = (overrideLanguage?: string): string => {
   if (language === 'tg') {return 'tg-TJ';}
   if (language === 'ky') {return 'ky-KG';}
   if (language === 'tk') {return 'tk-TM';}
+  if (language === 'ms') {return 'ms-MY';}
+  if (language === 'so') {return 'so-SO';}
+  if (language === 'sw') {return 'sw-KE';}
+  if (language === 'kk') {return 'kk-KZ';}
+  if (language === 'wo') {return 'wo-SN';}
+  if (language === 'ha') {return 'ha-NG';}
+  if (language === 'am') {return 'am-ET';}
+  if (language === 'nl') {return 'nl-NL';}
+  if (language === 'fi') {return 'fi-FI';}
+  if (language === 'el') {return 'el-GR';}
+  if (language === 'fil') {return 'fil-PH';}
+  if (language === 'ta') {return 'ta-IN';}
+  if (language === 'te') {return 'te-IN';}
+  if (language === 'mr') {return 'mr-IN';}
+  if (language === 'gu') {return 'gu-IN';}
+  if (language === 'pa') {return 'pa-IN';}
+  if (language === 'my') {return 'my-MM';}
+  if (language === 'km') {return 'km-KH';}
+  if (language === 'lo') {return 'lo-LA';}
   return 'fr-FR';
 };
 
@@ -309,6 +366,48 @@ const COMPOSED_HIJRI: Record<string, ComposedHijri | undefined> = {
     months: ['Muharrem', 'Safar', 'Rebiulewwel', 'Rebiulahyr', 'Jemaziýelewwel', 'Jemaziýelahyr', 'Rejep', 'Şagban', 'Remezan', 'Şewwal', 'Zylgäde', 'Zylhijje'],
     date: (year, month, day) => `${day} ${month} ${year} hijri`,
     monthYear: (year, month) => `${month} ${year} hijri`,
+  },
+  // Malay: composed from the numeric Islamic calendar parts with the month names used in Malaysian Islamic usage (Muharam … Zulhijjah; Western digits; the year is marked H), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the exact spellings.
+  ms: {
+    months: ['Muharam', 'Safar', 'Rabiulawal', 'Rabiulakhir', 'Jamadilawal', 'Jamadilakhir', 'Rejab', 'Syaaban', 'Ramadan', 'Syawal', 'Zulkaedah', 'Zulhijjah'],
+    date: (year, month, day) => `${day} ${month} ${year}H`,
+    monthYear: (year, month) => `${month} ${year}H`,
+  },
+  // Somali: composed from the numeric Islamic calendar parts with the month names used in Somali Islamic usage (Western digits; the year is marked H), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the spellings.
+  so: {
+    months: ['Muxarram', 'Safar', 'Rabiicul-awwal', 'Rabiicul-aakhir', 'Jumaadal-awwal', 'Jumaadal-aakhir', 'Rajab', 'Shacbaan', 'Ramadaan', 'Showaal', 'Dhul-qicda', 'Dhul-xijjo'],
+    date: (year, month, day) => `${day} ${month} ${year}H`,
+    monthYear: (year, month) => `${month} ${year}H`,
+  },
+  // Swahili: composed from the numeric Islamic calendar parts with the month names used in Swahili Islamic usage (Western digits; the year is marked H), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the spellings.
+  sw: {
+    months: ['Muharram', 'Safari', 'Rabiul Awwal', 'Rabiul Thani', 'Jumada l-Ula', 'Jumada l-Thani', 'Rajab', 'Shaaban', 'Ramadhani', 'Shawwal', 'Dhul-Qaada', 'Dhul-Hijja'],
+    date: (year, month, day) => `${day} ${month} ${year}H`,
+    monthYear: (year, month) => `${month} ${year}H`,
+  },
+  // Kazakh (Cyrillic): composed from the numeric Islamic calendar parts with the month names used in Kazakh Islamic usage (Western digits; the year is marked х.ж. = хижра жылы), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the transliterations and the era abbreviation.
+  kk: {
+    months: ['Мұхаррам', 'Сафар', 'Рабиғул-әууәл', 'Рабиғул-ахир', 'Жумада-л-уля', 'Жумада-с-сәнийа', 'Ражаб', 'Шағбан', 'Рамазан', 'Шәууәл', 'Зұл-қағда', 'Зұл-хижжа'],
+    date: (year, month, day) => `${day} ${month} ${year} х.ж.`,
+    monthYear: (year, month) => `${month} ${year} х.ж.`,
+  },
+  // Wolof (Latin): composed from the numeric Islamic calendar parts with the month names used in Wolof Islamic usage (Western digits; the year is marked H), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the spellings.
+  wo: {
+    months: ['Muharram', 'Safar', 'Rabiul Awwal', 'Rabiul Aakhir', 'Jumaada l-Uula', 'Jumaada l-Aakhira', 'Rajab', 'Chaaban', 'Koor', 'Chawwal', 'Dul Qida', 'Dul Hijja'],
+    date: (year, month, day) => `${day} ${month} ${year}H`,
+    monthYear: (year, month) => `${month} ${year}H`,
+  },
+  // Hausa (Latin): composed from the numeric Islamic calendar parts with the month names used in Hausa Islamic usage (Western digits; the year is marked H), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the spellings.
+  ha: {
+    months: ['Muharram', 'Safar', 'Rabi’ul Awwal', 'Rabi’ul Akhir', 'Jumada l-Ula', 'Jumada l-Akhira', 'Rajab', 'Sha’aban', 'Ramadan', 'Shawwal', 'Zul Ƙa’ada', 'Zul Hijja'],
+    date: (year, month, day) => `${day} ${month} ${year}H`,
+    monthYear: (year, month) => `${month} ${year}H`,
+  },
+  // Amharic (Ethiopic): composed from the numeric Islamic calendar parts with the month names used in Amharic Islamic usage (Western digits; the year is followed by the Hijri marker), so the result never depends on the device ICU. NATIVE / SCHOLAR REVIEW REQUIRED for the spellings.
+  am: {
+    months: ['ሙሐረም', 'ሰፈር', 'ረቢዑል አወል', 'ረቢዑል አኪር', 'ጀማዱል አወል', 'ጀማዱል አኪር', 'ረጀብ', 'ቸዕባን', 'ረመዳን', 'ቸዋል', 'ዙልቅዓዳ', 'ዙልሒጃ'],
+    date: (year, month, day) => `${day} ${month} ${year} ሂ.ዓ.`,
+    monthYear: (year, month) => `${month} ${year} ሂ.ዓ.`,
   },
   ko: {
     months: [
