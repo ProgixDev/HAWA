@@ -59,6 +59,7 @@ describe('one device locale tag -> a supported language', () => {
     ['sq', 'sq'], ['sq-AL', 'sq'], ['sq_AL', 'sq'], ['SQ-al', 'sq'], ['sq-XK', 'sq'], ['sq-MK', 'sq'], ['sq-Latn-AL', 'sq'], ['sq-AL.UTF-8', 'sq'],
     ['ja', 'ja'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['JA-jp', 'ja'], ['ja-JP-u-ca-japanese', 'ja'], ['ja-Jpan-JP', 'ja'], ['ja-JP.UTF-8', 'ja'],
     ['ko', 'ko'], ['ko-KR', 'ko'], ['ko_KR', 'ko'], ['KO-kr', 'ko'], ['ko-KR.UTF-8', 'ko'], ['ko-Kore-KR', 'ko'], ['ko-KP', 'ko'], ['ko-KR-u-ca-dangi', 'ko'],
+    ['ms', 'ms'], ['ms-MY', 'ms'], ['ms_MY', 'ms'], ['so-SO', 'so'], ['sw-KE', 'sw'], ['kk-KZ', 'kk'], ['wo-SN', 'wo'], ['ha-NG', 'ha'], ['am-ET', 'am'],  // the seven languages added for the 48-language release
     ['pt', 'pt-PT'], ['pt-PT', 'pt-PT'], ['pt_PT', 'pt-PT'], ['PT-pt', 'pt-PT'], ['pt-AO', 'pt-PT'], ['pt-MZ', 'pt-PT'], ['pt-CV', 'pt-PT'], ['pt-Latn-PT', 'pt-PT'], ['pt-PT.UTF-8', 'pt-PT'],
     ['pt-BR', 'pt-BR'], ['pt_BR', 'pt-BR'], ['PT-br', 'pt-BR'], ['pt-Latn-BR', 'pt-BR'], ['pt-BR.UTF-8', 'pt-BR'], ['pt-BR-u-nu-latn', 'pt-BR'],
     ['hi', 'hi'], ['hi-IN', 'hi'], ['hi_IN', 'hi'], ['HI-in', 'hi'], ['hi-Deva', 'hi'], ['hi-Deva-IN', 'hi'], ['hi-IN.UTF-8', 'hi'], ['  hi-IN  ', 'hi'],
@@ -68,7 +69,7 @@ describe('one device locale tag -> a supported language', () => {
     expect(languageFromLocaleTag(tag)).toBe(expected);
   });
 
-  it.each(['ar', 'ar-DZ', 'nl', 'ms-MY', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
+  it.each(['ar', 'ar-DZ', 'af', 'af-ZA', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
     expect(languageFromLocaleTag(tag)).toBeNull();
   });
 
@@ -83,19 +84,19 @@ describe('the first supported language among several preferred languages (Englis
   it.each([
     [['fr-FR'], 'fr'],
     [['ar-DZ', 'fr-DZ'], 'fr'], // Arabic first, French second -> French
-    [['ar', 'ms', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
+    [['ar', 'af', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
     [['pt-BR', 'ar', 'de-AT', 'fr'], 'pt-BR'], // Portuguese is supported, and Brazil is not mapped to Portugal
     [['pt-PT', 'pt-BR'], 'pt-PT'],
     [['ar', 'pt'], 'pt-PT'], // a bare 'pt' is Portugal (the base text), never silently Brazil
-    [['bn-BD', 'ms', 'es-MX'], 'bn'],
-    [['ms', 'es-MX', 'bn-IN'], 'es'],
+    [['bn-BD', 'af', 'es-MX'], 'bn'],
+    [['af', 'es-MX', 'bn-IN'], 'es'],
     [['as-IN', 'bn_IN', 'hi-IN'], 'bn'], // Assamese is not Bengali: skipped, the next supported one wins
-    [['ko', 'ms', 'es-MX'], 'ko'],
-    [['ms', 'es-MX', 'ko-KR'], 'es'],
+    [['ko', 'af', 'es-MX'], 'ko'],
+    [['af', 'es-MX', 'ko-KR'], 'es'],
     [['ko', 'ja-JP', 'es-MX'], 'ko'], // Korean is supported: the first SUPPORTED one wins
-    [['ms', 'ja-JP', 'ko-KR'], 'ja'],
+    [['af', 'ja-JP', 'ko-KR'], 'ja'],
     [['ar-DZ'], 'en'],
-    [['el', 'ar', 'nl'], 'en'],
+    [['af', 'ar', 'xx'], 'en'],
     [['th-TH', 'fr'], 'th'], // Thai and Vietnamese are supported languages
     [['vi-VN'], 'vi'],
     [[], 'en'],
@@ -121,8 +122,8 @@ describe('first launch (nothing stored): the phone language is resolved once and
 
   it.each([
     [['ar-DZ'], 'Arabic'],
-    [['el-GR'], 'Greek'],
-    [['el-GR', 'ms-MY'], 'Greek then Malay'],
+    [['af-ZA'], 'Afrikaans'],
+    [['af-ZA', 'xx-XX'], 'Afrikaans then an unknown language'],
     [[], 'an empty list'],
   ])('an unsupported device language (%j: %s) -> English, stored', async tags => {
     mockDevice.tags = tags;
@@ -382,7 +383,7 @@ describe('a manual choice', () => {
   });
 
   it.each(ALL_LANGUAGES)('choosing %s replaces the language resolved at the first launch', async language => {
-    mockDevice.tags = ['el-GR']; // first launch: English
+    mockDevice.tags = ['af-ZA']; // first launch: English
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(await AsyncStorage.getItem(KEY)).toBe('en');

@@ -94,7 +94,7 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk';
+export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // FIRST LAUNCH: with no stored language AWA detects the phone's preferred language ONCE (see hydrateAppearancePreferences),
@@ -114,7 +114,7 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn' || value === 'da' || value === 'sv' || value === 'nb' || value === 'pl' || value === 'uk' || value === 'cs' || value === 'sk' || value === 'hu' || value === 'ro' || value === 'bg' || value === 'sr' || value === 'hr' || value === 'bs' || value === 'sl' || value === 'ne' || value === 'si' || value === 'th' || value === 'vi' || value === 'uz' || value === 'az' || value === 'ka' || value === 'hy' || value === 'tg' || value === 'ky' || value === 'tk';
+  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn' || value === 'da' || value === 'sv' || value === 'nb' || value === 'pl' || value === 'uk' || value === 'cs' || value === 'sk' || value === 'hu' || value === 'ro' || value === 'bg' || value === 'sr' || value === 'hr' || value === 'bs' || value === 'sl' || value === 'ne' || value === 'si' || value === 'th' || value === 'vi' || value === 'uz' || value === 'az' || value === 'ka' || value === 'hy' || value === 'tg' || value === 'ky' || value === 'tk' || value === 'ms' || value === 'so' || value === 'sw' || value === 'kk' || value === 'wo' || value === 'ha' || value === 'am' || value === 'nl' || value === 'fi' || value === 'el' || value === 'fil' || value === 'ta' || value === 'te' || value === 'mr' || value === 'gu' || value === 'pa' || value === 'my' || value === 'km' || value === 'lo';
 
 /** Simplified Chinese compatibility aliases (any case, '-' or '_'): zh-CN, zh-Hans, zh-Hans-CN. Only Chinese has
  * aliases; every other language still needs its exact code. */
@@ -207,6 +207,44 @@ const TG_ALIASES = new Set(['tg-tj', 'tgk', 'tajik', 'tg-cyrl', 'tg-cyrl-tj']);
 const KY_ALIASES = new Set(['ky-kg', 'kir', 'kyrgyz', 'kirghiz', 'ky-cyrl', 'ky-cyrl-kg']);
 /** Turkmen ('tk', Türkmençe, Latin script, Intl locale tk-TM). */
 const TK_ALIASES = new Set(['tk-tm', 'tuk', 'turkmen', 'turkmence', 'tk-latn', 'tk-latn-tm']);
+/** Malay ('ms', Bahasa Melayu, Latin script, Intl locale ms-MY). */
+const MS_ALIASES = new Set(['ms-my', 'msa', 'may', 'malay', 'bahasa-melayu', 'ms-latn', 'ms-latn-my']);
+/** Somali ('so', Soomaali, Latin script, Intl locale so-SO). */
+const SO_ALIASES = new Set(['so-so', 'som', 'somali', 'soomaali', 'af-soomaali', 'so-latn', 'so-latn-so', 'so-et', 'so-ke', 'so-dj']);
+/** Swahili ('sw', Kiswahili, Latin script, Intl locale sw-KE). */
+const SW_ALIASES = new Set(['sw-ke', 'sw-tz', 'sw-ug', 'sw-cd', 'swa', 'swahili', 'kiswahili', 'sw-latn', 'sw-latn-ke', 'sw-latn-tz']);
+/** Kazakh ('kk', Қазақ тілі, Cyrillic script, Intl locale kk-KZ). */
+const KK_ALIASES = new Set(['kk-kz', 'kaz', 'kazakh', 'қазақша', 'қазақ тілі', 'kk-cyrl', 'kk-cyrl-kz']);
+/** Wolof ('wo', Latin script, Intl locale wo-SN). */
+const WO_ALIASES = new Set(['wo-sn', 'wol', 'wolof', 'wo-latn', 'wo-latn-sn', 'wo-gm', 'wo-mr']);
+/** Hausa ('ha', Latin/boko script, Intl locale ha-NG). */
+const HA_ALIASES = new Set(['ha-ng', 'hau', 'hausa', 'ha-latn', 'ha-latn-ng', 'ha-ne', 'ha-gh', 'ha-cm']);
+/** Amharic ('am', Ethiopic/Ge’ez script, Intl locale am-ET). */
+const AM_ALIASES = new Set(['am-et', 'amh', 'amharic', 'አማርኛ', 'am-ethi', 'am-ethi-et']);
+/** Dutch ('nl', Nederlands, Latin script, Intl locale nl-NL): Netherlands (nl-NL) and Belgium (nl-BE, Flemish) variants. */
+/** Finnish ('fi', Suomi, Latin script, Intl locale fi-FI). */
+/** Greek ('el', Ελληνικά, Greek script, Intl locale el-GR). */
+/** Filipino ('fil', Filipino/Tagalog, Latin script, Intl locale fil-PH; legacy 'tl' maps here). */
+/** Tamil ('ta', Tamil script, Intl locale ta-IN; also spoken in Sri Lanka, Singapore and Malaysia, which resolve to the same copy). */
+/** Telugu ('te', Telugu script, Intl locale te-IN). */
+/** Marathi ('mr', Devanagari script, Intl locale mr-IN). */
+/** Gujarati ('gu', Gujarati script, Intl locale gu-IN). */
+/** Punjabi ('pa', Gurmukhi script, Intl locale pa-IN). */
+/** Burmese ('my', Myanmar script, Intl locale my-MM). */
+/** Khmer ('km', Khmer script, Intl locale km-KH). */
+/** Lao ('lo', Lao script, Intl locale lo-LA). */
+const LO_ALIASES = new Set(['lo-la', 'lao', 'laotian', 'ລາວ', 'lao-la', 'lo-laoo']);
+const KM_ALIASES = new Set(['km-kh', 'khm', 'khmer', 'cambodian', 'ខ្មែរ', 'khmer-kh', 'km-khmr']);
+const MY_ALIASES = new Set(['my-mm', 'mya', 'bur', 'burmese', 'myanmar', 'မြန်မာ', 'burmese-mm', 'my-mymr']);
+const PA_ALIASES = new Set(['pa-in', 'pan', 'punjabi', 'panjabi', 'ਪੰਜਾਬੀ', 'punjabi-in', 'pa-guru']);
+const GU_ALIASES = new Set(['gu-in', 'guj', 'gujarati', 'ગુજરાતી', 'gujarati-in', 'gu-latn']);
+const MR_ALIASES = new Set(['mr-in', 'mar', 'marathi', 'मराठी', 'marathi-in', 'mr-latn']);
+const TE_ALIASES = new Set(['te-in', 'tel', 'telugu', 'తెలుగు', 'telugu-in', 'te-latn']);
+const TA_ALIASES = new Set(['ta-in', 'tam', 'tamil', 'தமிழ்', 'tamizh', 'ta-latn']);
+const FIL_ALIASES = new Set(['fil-ph', 'tl', 'tl-ph', 'tgl', 'tagalog', 'filipino', 'pilipino', 'fil-latn']);
+const EL_ALIASES = new Set(['el-gr', 'ell', 'gre', 'greek', 'ελληνικά', 'ellinika', 'el-latn']);
+const FI_ALIASES = new Set(['fi-fi', 'fin', 'finnish', 'suomi', 'suomen', 'suomi-fi', 'fi-latn']);
+const NL_ALIASES = new Set(['nl-nl', 'nld', 'dut', 'dutch', 'nederlands', 'nl-be', 'vls', 'flemish', 'vlaams', 'nl-sr', 'nl-aw', 'nl-cw', 'nl-sx']);
 /** Polish ('pl', Polski, Latin script, Intl locale pl-PL). */
 const PL_ALIASES = new Set(['pl-pl']);
 
@@ -316,6 +354,63 @@ export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   }
   if (typeof value === 'string' && TK_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
     return 'tk';
+  }
+  if (typeof value === 'string' && MS_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'ms';
+  }
+  if (typeof value === 'string' && SO_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'so';
+  }
+  if (typeof value === 'string' && SW_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'sw';
+  }
+  if (typeof value === 'string' && KK_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'kk';
+  }
+  if (typeof value === 'string' && WO_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'wo';
+  }
+  if (typeof value === 'string' && HA_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'ha';
+  }
+  if (typeof value === 'string' && AM_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'am';
+  }
+  if (typeof value === 'string' && NL_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'nl';
+  }
+  if (typeof value === 'string' && FI_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'fi';
+  }
+  if (typeof value === 'string' && EL_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'el';
+  }
+  if (typeof value === 'string' && FIL_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'fil';
+  }
+  if (typeof value === 'string' && TA_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'ta';
+  }
+  if (typeof value === 'string' && TE_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'te';
+  }
+  if (typeof value === 'string' && MR_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'mr';
+  }
+  if (typeof value === 'string' && GU_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'gu';
+  }
+  if (typeof value === 'string' && PA_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'pa';
+  }
+  if (typeof value === 'string' && MY_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'my';
+  }
+  if (typeof value === 'string' && KM_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'km';
+  }
+  if (typeof value === 'string' && LO_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'lo';
   }
   return null;
 }

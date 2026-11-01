@@ -256,6 +256,44 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                                             ? t('appearance.language.kyrgyzName')
                                           : getAppLanguage() === 'tk'
                                             ? t('appearance.language.turkmenName')
+                                          : getAppLanguage() === 'ms'
+                                            ? t('appearance.language.malayName')
+                                          : getAppLanguage() === 'so'
+                                            ? t('appearance.language.somaliName')
+                                          : getAppLanguage() === 'sw'
+                                            ? t('appearance.language.swahiliName')
+                                          : getAppLanguage() === 'kk'
+                                            ? t('appearance.language.kazakhName')
+                                          : getAppLanguage() === 'wo'
+                                            ? t('appearance.language.wolofName')
+                                          : getAppLanguage() === 'ha'
+                                            ? t('appearance.language.hausaName')
+                                          : getAppLanguage() === 'am'
+                                            ? t('appearance.language.amharicName')
+                                          : getAppLanguage() === 'nl'
+                                            ? t('appearance.language.dutchName')
+                                          : getAppLanguage() === 'fi'
+                                            ? t('appearance.language.finnishName')
+                                          : getAppLanguage() === 'el'
+                                            ? t('appearance.language.greekName')
+                                          : getAppLanguage() === 'fil'
+                                            ? t('appearance.language.filipinoName')
+                                          : getAppLanguage() === 'ta'
+                                            ? t('appearance.language.tamilName')
+                                          : getAppLanguage() === 'te'
+                                            ? t('appearance.language.teluguName')
+                                          : getAppLanguage() === 'mr'
+                                            ? t('appearance.language.marathiName')
+                                          : getAppLanguage() === 'gu'
+                                            ? t('appearance.language.gujaratiName')
+                                          : getAppLanguage() === 'pa'
+                                            ? t('appearance.language.punjabiName')
+                                          : getAppLanguage() === 'my'
+                                            ? t('appearance.language.burmeseName')
+                                          : getAppLanguage() === 'km'
+                                            ? t('appearance.language.khmerName')
+                                          : getAppLanguage() === 'lo'
+                                            ? t('appearance.language.laoName')
                                           : t('appearance.language.frenchName');
 
   return (
