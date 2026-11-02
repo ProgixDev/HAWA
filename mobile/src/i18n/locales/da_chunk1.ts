@@ -166,6 +166,8 @@ export const daChunk1 = {
       koreanName: '한국어',
       portugueseName: 'Português (Portugal)',
       portugueseBrazilName: 'Português (Brasil)',
+      englishUSName: 'English (US)',
+      traditionalChineseName: '繁體中文',
       bengaliName: 'বাংলা',
       danishName: 'Dansk',
       systemName: 'Systemstandard',
