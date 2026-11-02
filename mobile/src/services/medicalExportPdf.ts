@@ -22,6 +22,7 @@ import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
 import {CAIRO_BOLD_SUBSET_BASE64} from './pdfCairoBoldFont';
 import {DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64} from './pdfCyrillicFont';
 import {NOTO_SANS_SC_BOLD_SUBSET_BASE64, NOTO_SANS_SC_REGULAR_SUBSET_BASE64} from './pdfChineseFont';
+import {NOTO_SANS_TC_BOLD_SUBSET_BASE64, NOTO_SANS_TC_REGULAR_SUBSET_BASE64} from './pdfTraditionalChineseFont';
 import {NOTO_SANS_JP_BOLD_SUBSET_BASE64, NOTO_SANS_JP_REGULAR_SUBSET_BASE64} from './pdfJapaneseFont';
 import {NOTO_SANS_KR_BOLD_SUBSET_BASE64, NOTO_SANS_KR_REGULAR_SUBSET_BASE64} from './pdfKoreanFont';
 import {NOTO_SANS_DEVANAGARI_BOLD_SUBSET_BASE64, NOTO_SANS_DEVANAGARI_REGULAR_SUBSET_BASE64} from './pdfDevanagariFont';
@@ -40,6 +41,7 @@ import {NOTO_SANS_ARMENIAN_BOLD_SUBSET_BASE64, NOTO_SANS_ARMENIAN_REGULAR_SUBSET
 import {NOTO_SANS_ETHIOPIC_BOLD_SUBSET_BASE64, NOTO_SANS_ETHIOPIC_REGULAR_SUBSET_BASE64} from './pdfEthiopicFont';
 import {NOTO_SANS_GREEK_BOLD_SUBSET_BASE64, NOTO_SANS_GREEK_REGULAR_SUBSET_BASE64} from './pdfGreekFont';
 import {NOTO_SANS_VIETNAMESE_BOLD_SUBSET_BASE64, NOTO_SANS_VIETNAMESE_REGULAR_SUBSET_BASE64} from './pdfVietnameseFont';
+import {DEJAVU_AFRICAN_LATIN_BOLD_SUBSET_BASE64, DEJAVU_AFRICAN_LATIN_REGULAR_SUBSET_BASE64} from './pdfAfricanLatinFont';
 import {applyFontkitOpenTypeFixes, FixableFont, skipMissingBaseAnchors, tolerateGposLookupErrors} from './fontkitOpenTypeFixes';
 import i18n from '../i18n';
 
@@ -136,6 +138,9 @@ export const containsWolofEng = (text: string): boolean => WOLOF_ENG_RE.test(tex
 const HAUSA_HOOKED_RE = /[ɓƁɗƊƙƘƴƳ]/;
 
 export const containsHausaHookedLetter = (text: string): boolean => HAUSA_HOOKED_RE.test(text);
+
+/** These app languages use the African-Latin PDF face for the whole report, so words are never split across fonts when they contain open vowels, hooked letters, gamma, or combining tone marks. */
+const AFRICAN_LATIN_REPORT_LANGUAGES: ReadonlySet<string> = new Set(['kab', 'om', 'rw', 'rn', 'ig', 'yo', 'zu', 'xh', 'sn', 'ln', 'ff']);
 
 /** The Ethiopic blocks (Ethiopic, Ethiopic Supplement, Ethiopic Extended, Ethiopic Extended-A): drawn with Noto Sans Ethiopic (pdfEthiopicFont.ts). Ethiopic is a syllabary with one glyph per syllable and no reordering, so the run is drawn by pdf-lib directly (no fontkit shaping step). */
 const ETHIOPIC_RE = /[ሀ-᎟ⶀ-⷟꬀-꬯]/;
@@ -257,6 +262,8 @@ type Fonts = {
   latinBold: PDFFont;
   /** null when the report contains no Arabic (the font is then never loaded). */
   arabic: PDFFont | null;
+  /** Cairo Bold for the bold lines (titles, headings, dates) of an Arabic report; absent -> the regular face. */
+  arabicBold?: PDFFont | null;
   arabicSupport: PdfCharSupport;
   /** fontkit instance of the same face, used only to ask which direction it
    * will lay a string out in (see arrangeForArabicFace). */
@@ -711,7 +718,7 @@ export function layoutLineRuns(line: string, paraLevel: 0 | 1, fonts: Fonts, bol
     // No Arabic on this line: plain left-to-right text, exactly as before.
     return line ? [{text: line, font: latinFont}] : [];
   }
-  const arabic = fonts.arabic;
+  const arabic = bold && fonts.arabicBold ? fonts.arabicBold : fonts.arabic;
   const probe = fonts.probe;
   const {levels} = bidi.getEmbeddingLevels(line, paraLevel === 1 ? 'rtl' : 'ltr');
   const chars = line.split('');
@@ -955,17 +962,19 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   // standard marker (documented limitation, the CSV export is lossless).
   const needsChinese = strings.some(containsChinese);
   const needsCyrillic = !needsChinese && strings.some(containsCyrillic);
+  const reportLanguage = String(i18n.language ?? '').trim().toLowerCase().split(/[-_.]/)[0];
+  const needsAfricanLatin = !needsChinese && !needsCyrillic && AFRICAN_LATIN_REPORT_LANGUAGES.has(reportLanguage);
   // A Polish report (ą ć ę ł ń ś ź ż) uses the same embedded DejaVu face: its subset includes Latin Extended-A.
   // A Vietnamese report (ạ ả ấ ơ ư đ …), or an Uzbek one (ʻ ʼ), is drawn entirely with an embedded Noto Sans Regular + Bold subset (pdfVietnameseFont.ts); it takes precedence over the Polish /
   // Romanian test below because ă is shared and the DejaVu subset has no Vietnamese tone letters.
-  const needsVietnamese = !needsChinese && !needsCyrillic && strings.some(text => containsVietnameseSpecificLetter(text) || containsUzbekModifierLetter(text) || containsAzerbaijaniSchwa(text) || containsWolofEng(text) || containsHausaHookedLetter(text));
-  const needsPolish = !needsChinese && !needsCyrillic && !needsVietnamese && strings.some(containsPolishSpecificLetter);
+  const needsVietnamese = !needsChinese && !needsCyrillic && !needsAfricanLatin && strings.some(text => containsVietnameseSpecificLetter(text) || containsUzbekModifierLetter(text) || containsAzerbaijaniSchwa(text) || containsWolofEng(text) || containsHausaHookedLetter(text));
+  const needsPolish = !needsChinese && !needsCyrillic && !needsAfricanLatin && !needsVietnamese && strings.some(containsPolishSpecificLetter);
   // A Hindi report keeps Helvetica for Latin text and adds Noto Sans Devanagari for the Devanagari runs (the face has no Latin); a Bengali report does the
   // same with Noto Sans Bengali for the Bengali runs.
   const needsDevanagari = strings.some(text => DEVANAGARI_LETTERS_RE.test(text) || (containsDevanagari(text) && !containsBengali(text)));
   // In a Cyrillic or Chinese report the embedded face draws the Turkish letters too, so Cairo is only needed there for
   // Arabic text.
-  const needsTurkish = !needsCyrillic && !needsPolish && !needsVietnamese && !needsChinese && strings.some(containsTurkishSpecificLetter);
+  const needsTurkish = !needsCyrillic && !needsPolish && !needsAfricanLatin && !needsVietnamese && !needsChinese && strings.some(containsTurkishSpecificLetter);
   let cairo: PDFFont | null = null;
   let probe: FontkitFont | null = null;
   if (needsArabic || needsTurkish) {
@@ -979,6 +988,16 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
     doc.registerFontkit(fontkit);
     dejaVu = await doc.embedFont(DEJAVU_CYRILLIC_REGULAR_SUBSET_BASE64, {subset: true});
     dejaVuBold = await doc.embedFont(DEJAVU_CYRILLIC_BOLD_SUBSET_BASE64, {subset: true});
+  } else if (needsAfricanLatin) {
+    // The whole African Latin-script report uses one face, including headings, digits, and plain ASCII words.
+    doc.registerFontkit(fontkit);
+    // Tone marks (Yoruba, Igbo, Lingala: ẹ̀ ọ́ ɛ́ ɔ̀ ị́ …) are combining characters that only the font's GPOS mark-to-base / mark-to-mark anchors place correctly, and pdf-lib's
+    // own drawText keeps the glyph advances but drops those positions. So the face is embedded whole (glyph ids stay those of the font) and the run is shaped with
+    // fontkit and drawn glyph by glyph (drawShapedRun), exactly like the Thai / Indic faces.
+    dejaVu = await doc.embedFont(DEJAVU_AFRICAN_LATIN_REGULAR_SUBSET_BASE64, {subset: false});
+    dejaVuBold = await doc.embedFont(DEJAVU_AFRICAN_LATIN_BOLD_SUBSET_BASE64, {subset: false});
+    shapedFaces.set(dejaVu, fontkit.create(decodeFromBase64(DEJAVU_AFRICAN_LATIN_REGULAR_SUBSET_BASE64)) as unknown as ShapingFont);
+    shapedFaces.set(dejaVuBold, fontkit.create(decodeFromBase64(DEJAVU_AFRICAN_LATIN_BOLD_SUBSET_BASE64)) as unknown as ShapingFont);
   } else if (needsVietnamese) {
     // Same slots as the DejaVu face: the Noto Sans subset is the report's single Latin typeface (body, headings, digits), so no word is split between faces.
     doc.registerFontkit(fontkit);
@@ -990,12 +1009,14 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const japaneseReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('ja');
   // A Korean app language embeds Noto Sans KR (Hangul syllables, KS X 1001 + every dictionary character) instead.
   const koreanReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('ko');
+  // Traditional Chinese (zh-Hant) embeds Noto Sans TC: the Simplified subset only holds the GB2312 hanzi, which lack most traditional forms.
+  const traditionalReport = needsChinese && String(i18n.language ?? '').toLowerCase().startsWith('zh-hant');
   let notoSc: PDFFont | null = null;
   let notoScBold: PDFFont | null = null;
   if (needsChinese) {
     doc.registerFontkit(fontkit);
-    notoSc = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_REGULAR_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_REGULAR_SUBSET_BASE64 : NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
-    notoScBold = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_BOLD_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_BOLD_SUBSET_BASE64 : NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
+    notoSc = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_REGULAR_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_REGULAR_SUBSET_BASE64 : traditionalReport ? NOTO_SANS_TC_REGULAR_SUBSET_BASE64 : NOTO_SANS_SC_REGULAR_SUBSET_BASE64, {subset: true});
+    notoScBold = await doc.embedFont(japaneseReport ? NOTO_SANS_JP_BOLD_SUBSET_BASE64 : koreanReport ? NOTO_SANS_KR_BOLD_SUBSET_BASE64 : traditionalReport ? NOTO_SANS_TC_BOLD_SUBSET_BASE64 : NOTO_SANS_SC_BOLD_SUBSET_BASE64, {subset: true});
   }
   let devanagari: DevanagariFaces | null = null;
   if (needsDevanagari) {
@@ -1161,6 +1182,8 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const latin = notoSc ?? dejaVu ?? (needsTurkish && cairo ? cairo : await doc.embedFont(StandardFonts.Helvetica));
   const latinBold = notoScBold ?? dejaVuBold ?? cairoBold ?? (await doc.embedFont(StandardFonts.HelveticaBold));
   const arabic: PDFFont | null = needsArabic ? cairo : null;
+  // Arabic headings are bold too: the Cairo Bold subset has the same Arabic code points as the regular one (a Turkish report already embeds it).
+  const arabicBold: PDFFont | null = needsArabic && cairo ? cairoBold ?? (await doc.embedFont(CAIRO_BOLD_SUBSET_BASE64, {subset: true})) : null;
   const arabicSupport: PdfCharSupport = arabic ? pdfCharSupport(arabic) : new Set<number>();
   if (devanagari) {devanagari.latinSupport = pdfCharSupport(latin);}
   if (bengali) {bengali.latinSupport = pdfCharSupport(latin);}
@@ -1177,7 +1200,7 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   if (armenian) {armenian.latinSupport = pdfCharSupport(latin);}
   if (ethiopic) {ethiopic.latinSupport = pdfCharSupport(latin);}
   if (greek) {greek.latinSupport = pdfCharSupport(latin);}
-  const fonts: Fonts = {latin, latinBold, arabic, arabicSupport, probe: needsArabic ? probe : null, devanagari, bengali, tamil, telugu, gujarati, gurmukhi, myanmar, khmer, lao, sinhala, thai, georgian, armenian, ethiopic, greek};
+  const fonts: Fonts = {latin, latinBold, arabic, arabicBold, arabicSupport, probe: needsArabic ? probe : null, devanagari, bengali, tamil, telugu, gujarati, gurmukhi, myanmar, khmer, lao, sinhala, thai, georgian, armenian, ethiopic, greek};
   // Bold shares the regular face's character set, so one check covers both.
   const support: PdfCharSupport = new Set<number>([...pdfCharSupport(latin), ...arabicSupport, ...(devanagari ? devanagari.support : []), ...(bengali ? bengali.support : []), ...(tamil ? tamil.support : []), ...(telugu ? telugu.support : []), ...(gujarati ? gujarati.support : []), ...(gurmukhi ? gurmukhi.support : []), ...(myanmar ? myanmar.support : []), ...(khmer ? khmer.support : []), ...(lao ? lao.support : []), ...(sinhala ? sinhala.support : []), ...(thai ? thai.support : []), ...(georgian ? georgian.support : []), ...(armenian ? armenian.support : []), ...(ethiopic ? ethiopic.support : []), ...(greek ? greek.support : [])]);
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
