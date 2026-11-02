@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef} from 'react';
-import {Animated, PanResponder, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Animated, I18nManager, PanResponder, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
@@ -88,9 +88,13 @@ export default function ManagedProfileSwipeRow({
   // next gesture instead of Animated.Value's own (private) current value.
   const settledRef = useRef(0);
 
+  // The offsets above are kept in left-to-right terms (open = -DELETE_WIDTH). Under a right-to-left layout the delete button sits at the left edge, so the
+  // finger movement and the drawn translation are mirrored (direction = -1) while every threshold and clamp stays unchanged.
+  const direction = () => (I18nManager.isRTL ? -1 : 1);
+
   const settleTo = (value: number) => {
     settledRef.current = value;
-    Animated.spring(translateX, {toValue: value, ...SPRING}).start();
+    Animated.spring(translateX, {toValue: value * direction(), ...SPRING}).start();
   };
 
   useEffect(() => {
@@ -103,11 +107,11 @@ export default function ManagedProfileSwipeRow({
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => shouldClaimSwipeGesture(gesture.dx, gesture.dy),
       onPanResponderMove: (_, gesture) => {
-        translateX.setValue(clampSwipeOffset(settledRef.current + gesture.dx));
+        translateX.setValue(clampSwipeOffset(settledRef.current + direction() * gesture.dx) * direction());
       },
       onPanResponderRelease: (_, gesture) => {
-        const next = clampSwipeOffset(settledRef.current + gesture.dx);
-        const shouldOpen = shouldRevealDelete(next, gesture.vx);
+        const next = clampSwipeOffset(settledRef.current + direction() * gesture.dx);
+        const shouldOpen = shouldRevealDelete(next, direction() * gesture.vx);
         settleTo(shouldOpen ? -DELETE_WIDTH : 0);
         if (shouldOpen) {onSwipeOpen();}
       },

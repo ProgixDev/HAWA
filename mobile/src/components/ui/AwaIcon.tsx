@@ -24,8 +24,8 @@ export type AwaIconProps = {
   decorative?: boolean;
   accessibilityLabel?: string;
   /**
-   * Reserved for directional glyphs (chevrons / arrows). INERT today: the app has no RTL language and does not call
-   * I18nManager (decision D12). Accepted so call sites can already state their intent.
+   * Directional glyphs (chevrons / arrows) are mirrored automatically under a right-to-left layout by theme/installAwaRtl.ts (Arabic), by icon name, for
+   * every icon in the app. This prop stays for call sites that state their intent; it changes nothing by itself.
    */
   mirrorInRTL?: boolean;
   style?: StyleProp<TextStyle>;

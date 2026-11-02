@@ -35,7 +35,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     page:{flex:1,backgroundColor:theme.colors.background},
     safe:{flex:1},
     content:{flexGrow:1,alignItems:'center',paddingHorizontal:20},
-    back:{position:'absolute',top:20,left:18,zIndex:1},
+    back:{position:'absolute',top:34,left:18,zIndex:1},
     title:{marginTop:56,textAlign:'center'},
     subtitle:{maxWidth:330,marginTop:8,textAlign:'center'},
     spacer:{flex:1,minHeight:16},
