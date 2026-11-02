@@ -26,6 +26,7 @@ import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
@@ -212,7 +213,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           <Animated.View style={entranceStyle}>
             <ImageBackground imageStyle={styles.heroImage} resizeMode="cover" source={HERO_IMAGE} style={styles.hero}>
-              <View style={styles.heroCopy}>
+              <View style={[styles.heroCopy, journalHeroCopyRtl(28)]}>
                 <Text style={styles.heroTitle}>{t('pregnancySymptoms.hero.title')}</Text>
                 <Text style={styles.heroSubtitle}>{t('pregnancySymptoms.hero.subtitle')}</Text>
               </View>

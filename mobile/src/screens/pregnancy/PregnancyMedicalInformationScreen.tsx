@@ -109,6 +109,21 @@ const WEEK_DAYS_TR = ['P', 'S', 'Ç', 'P', 'C', 'C', 'P'] as const;
 const WEEK_DAYS_RU = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'] as const;
 const WEEK_DAYS_DE = ['M', 'D', 'M', 'D', 'F', 'S', 'S'] as const;
 const WEEK_DAYS_ZH = ['一', '二', '三', '四', '五', '六', '日'] as const;
+// Traditional Chinese uses the same single-character weekday initials as Simplified.
+const WEEK_DAYS_ZH_HANT = WEEK_DAYS_ZH;
+const WEEK_DAYS_KAB = ['S', 'K', 'K', 'S', 'S', 'S', 'Y'] as const;
+const WEEK_DAYS_OM = ['M', 'T', 'W', 'T', 'F', 'S', 'S'] as const;
+const WEEK_DAYS_TI = ['ሰ', 'ሰ', 'ረ', 'ሓ', 'ዓ', 'ቀ', 'ሰ'] as const;
+const WEEK_DAYS_RW = ['M', 'T', 'W', 'T', 'F', 'S', 'S'] as const;
+const WEEK_DAYS_RN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'] as const;
+const WEEK_DAYS_IG = ['M', 'T', 'W', 'T', 'F', 'S', 'S'] as const;
+const WEEK_DAYS_YO = ['A', 'Ì', 'Ọ', 'Ọ', 'Ẹ', 'À', 'À'] as const;
+const WEEK_DAYS_ZU = ['M', 'B', 'T', 'S', 'H', 'M', 'S'] as const;
+const WEEK_DAYS_XH = ['M', 'Sb', 'St', 'Sin', 'Hl', 'Mgq', 'C'] as const;
+const WEEK_DAYS_SN = ['M', 'C', 'C', 'C', 'C', 'M', 'S'] as const;
+const WEEK_DAYS_LN = ['y', 'm', 'm', 'm', 'm', 'p', 'e'] as const;
+const WEEK_DAYS_FF = ['a', 'm', 'n', 'n', 'm', 'h', 'd'] as const;
+const WEEK_DAYS_AR = ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'] as const;
 const WEEK_DAYS_ID = ['S', 'S', 'R', 'K', 'J', 'S', 'M'] as const;
 const WEEK_DAYS_HI = ['सो', 'मं', 'बु', 'गु', 'शु', 'श', 'र'] as const;
 const WEEK_DAYS_SQ = ['H', 'M', 'M', 'E', 'P', 'Sh', 'D'] as const;
@@ -163,13 +178,27 @@ const WEEK_DAYS_AM = ['ሰኞ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓር�
 
 function localizedSingleLetterWeekDays(): readonly string[] {
   const language = getAppLanguage();
-  if (language === 'en') {return WEEK_DAYS_EN;}
+  if (language === 'en' || language === 'en-US') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
   if (language === 'tr') {return WEEK_DAYS_TR;}
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
+  if (language === 'zh-Hant') {return WEEK_DAYS_ZH_HANT;}
+  if (language === 'ar') {return WEEK_DAYS_AR;}
+  if (language === 'kab') {return WEEK_DAYS_KAB;}
+  if (language === 'om') {return WEEK_DAYS_OM;}
+  if (language === 'ti') {return WEEK_DAYS_TI;}
+  if (language === 'rw') {return WEEK_DAYS_RW;}
+  if (language === 'rn') {return WEEK_DAYS_RN;}
+  if (language === 'ig') {return WEEK_DAYS_IG;}
+  if (language === 'yo') {return WEEK_DAYS_YO;}
+  if (language === 'zu') {return WEEK_DAYS_ZU;}
+  if (language === 'xh') {return WEEK_DAYS_XH;}
+  if (language === 'sn') {return WEEK_DAYS_SN;}
+  if (language === 'ln') {return WEEK_DAYS_LN;}
+  if (language === 'ff') {return WEEK_DAYS_FF;}
   if (language === 'id') {return WEEK_DAYS_ID;}
   if (language === 'hi') {return WEEK_DAYS_HI;}
   if (language === 'sq') {return WEEK_DAYS_SQ;}

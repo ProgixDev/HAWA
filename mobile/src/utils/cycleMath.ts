@@ -27,6 +27,20 @@ export const WEEK_DAYS_TR = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 export const WEEK_DAYS_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 export const WEEK_DAYS_DE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 export const WEEK_DAYS_ZH = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+export const WEEK_DAYS_ZH_HANT = ['週一', '週二', '週三', '週四', '週五', '週六', '週日'];
+export const WEEK_DAYS_AR = ['اثن', 'ثلا', 'أرب', 'خمي', 'جمع', 'سبت', 'أحد'];
+export const WEEK_DAYS_KAB = ['San', 'Kraḍ', 'Kuẓ', 'Sam', 'Sḍis', 'Say', 'Yan'];
+export const WEEK_DAYS_OM = ['Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San', 'Dil'];
+export const WEEK_DAYS_TI = ['ሰኑ', 'ሰሉ', 'ረቡ', 'ሓሙ', 'ዓር', 'ቀዳ', 'ሰን'];
+export const WEEK_DAYS_RW = ['mbe.', 'kab.', 'gtu.', 'kan.', 'gnu.', 'gnd.', 'cyu.'];
+export const WEEK_DAYS_RN = ['mbe.', 'kab.', 'gtu.', 'kan.', 'gnu.', 'gnd.', 'cu.'];
+export const WEEK_DAYS_IG = ['Mọn', 'Tiu', 'Wen', 'Tọọ', 'Fraị', 'Sat', 'Sọn'];
+export const WEEK_DAYS_YO = ['Aj', 'Ìsẹ́g', 'Ọjọ́r', 'Ọjọ́b', 'Ẹt', 'Àbám', 'Àìk'];
+export const WEEK_DAYS_ZU = ['Mso', 'Bil', 'Tha', 'Sin', 'Hla', 'Mgq', 'Son'];
+export const WEEK_DAYS_XH = ['Mvu', 'Bin', 'Tha', 'Sin', 'Hla', 'Mgq', 'Caw'];
+export const WEEK_DAYS_SN = ['Muv', 'Chp', 'Cht', 'Chn', 'Chs', 'Mug', 'Svo'];
+export const WEEK_DAYS_LN = ['ybo', 'mbl', 'mst', 'min', 'mtn', 'mps', 'eye'];
+export const WEEK_DAYS_FF = ['aaɓ', 'maw', 'nje', 'naa', 'mwd', 'hbi', 'dew'];
 export const WEEK_DAYS_ID = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
 export const WEEK_DAYS_HI = ['सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि', 'रवि'];
 export const WEEK_DAYS_SQ = ['Hën', 'Mar', 'Mër', 'Enj', 'Pre', 'Sht', 'Die'];
@@ -80,13 +94,27 @@ export const WEEK_DAYS_NL = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
 export const WEEK_DAYS_AM = ['ሰኞ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ', 'እሑድ'];
 export const localizedWeekDays = (overrideLanguage?: string): string[] => {
   const language = overrideLanguage ?? getAppLanguage();
-  if (language === 'en') {return WEEK_DAYS_EN;}
+  if (language === 'en' || language === 'en-US') {return WEEK_DAYS_EN;}
   if (language === 'es') {return WEEK_DAYS_ES;}
   if (language === 'it') {return WEEK_DAYS_IT;}
   if (language === 'tr') {return WEEK_DAYS_TR;}
   if (language === 'ru') {return WEEK_DAYS_RU;}
   if (language === 'de') {return WEEK_DAYS_DE;}
   if (language === 'zh') {return WEEK_DAYS_ZH;}
+  if (language === 'zh-Hant') {return WEEK_DAYS_ZH_HANT;}
+  if (language === 'ar') {return WEEK_DAYS_AR;}
+  if (language === 'kab') {return WEEK_DAYS_KAB;}
+  if (language === 'om') {return WEEK_DAYS_OM;}
+  if (language === 'ti') {return WEEK_DAYS_TI;}
+  if (language === 'rw') {return WEEK_DAYS_RW;}
+  if (language === 'rn') {return WEEK_DAYS_RN;}
+  if (language === 'ig') {return WEEK_DAYS_IG;}
+  if (language === 'yo') {return WEEK_DAYS_YO;}
+  if (language === 'zu') {return WEEK_DAYS_ZU;}
+  if (language === 'xh') {return WEEK_DAYS_XH;}
+  if (language === 'sn') {return WEEK_DAYS_SN;}
+  if (language === 'ln') {return WEEK_DAYS_LN;}
+  if (language === 'ff') {return WEEK_DAYS_FF;}
   if (language === 'id') {return WEEK_DAYS_ID;}
   if (language === 'hi') {return WEEK_DAYS_HI;}
   if (language === 'sq') {return WEEK_DAYS_SQ;}
@@ -180,13 +208,28 @@ export const capitalize = (value: string): string => capitalizeFor(value);
 // now-3-way-correct helper instead of re-deriving their own.
 export const dateFormatLocale = (overrideLanguage?: string): string => {
   const language = overrideLanguage ?? getAppLanguage();
-  if (language === 'en') {return 'en-US';}
+  if (language === 'en' || language === 'en-US') {return 'en-US';}
   if (language === 'es') {return 'es-ES';}
   if (language === 'it') {return 'it-IT';}
   if (language === 'tr') {return 'tr-TR';}
   if (language === 'ru') {return 'ru-RU';}
   if (language === 'de') {return 'de-DE';}
   if (language === 'zh') {return 'zh-CN';}
+  if (language === 'zh-Hant') {return 'zh-Hant-TW';}
+  // Arabic: plain 'ar' (Gregorian, not ar-SA's Umm al-Qura calendar) with Latin digits like every number AWA shows (see utils/arabicDigits note in layoutDirection.ts)
+  if (language === 'ar') {return 'ar-u-nu-latn';}
+  if (language === 'kab') {return 'kab-DZ';}
+  if (language === 'om') {return 'om-ET';}
+  if (language === 'ti') {return 'ti-ET';}
+  if (language === 'rw') {return 'rw-RW';}
+  if (language === 'rn') {return 'rn-BI';}
+  if (language === 'ig') {return 'ig-NG';}
+  if (language === 'yo') {return 'yo-NG';}
+  if (language === 'zu') {return 'zu-ZA';}
+  if (language === 'xh') {return 'xh-ZA';}
+  if (language === 'sn') {return 'sn-ZW';}
+  if (language === 'ln') {return 'ln-CD';}
+  if (language === 'ff') {return 'ff-Latn-SN';}
   if (language === 'id') {return 'id-ID';}
   if (language === 'hi') {return 'hi-IN';}
   if (language === 'sq') {return 'sq-AL';}
@@ -278,7 +321,36 @@ type ComposedHijri = {
   date: (year: number, month: string, day: number) => string;
   monthYear: (year: number, month: string) => string;
 };
+// Twelve African languages (kab om ti rw rn ig yo zu xh sn ln ff): ICU has no Hijri month names for them, so the Hijri date is composed from the numeric Islamic calendar parts
+// (Western digits) with the common transliterated month names (Latin; Ethiopic for Tigrinya) and the era mark H. NATIVE REVIEW REQUIRED for the month spellings.
+const LATIN_HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabiʿ al-Awwal', 'Rabiʿ al-Thani', 'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaʿban', 'Ramadan', 'Shawwal', 'Dhu al-Qiʿda', 'Dhu al-Hijja'];
+const ETHIOPIC_HIJRI_MONTHS = ['ሙሓረም', 'ሰፈር', 'ረቢዕ ኣል-ኣወል', 'ረቢዕ ኣል-ኣኺር', 'ጀማድ ኣል-ኣወል', 'ጀማድ ኣል-ኣኺር', 'ረጀብ', 'ሸዕባን', 'ረመዳን', 'ሸዋል', 'ዙል-ቅዕዳ', 'ዙል-ሂጃ'];
+const africanHijri = (months: readonly string[]): ComposedHijri => ({
+  months,
+  date: (year, month, day) => `${day} ${month} ${year} H`,
+  monthYear: (year, month) => `${month} ${year} H`,
+});
 const COMPOSED_HIJRI: Record<string, ComposedHijri | undefined> = {
+  kab: africanHijri(LATIN_HIJRI_MONTHS),
+  om: africanHijri(LATIN_HIJRI_MONTHS),
+  ti: africanHijri(ETHIOPIC_HIJRI_MONTHS),
+  rw: africanHijri(LATIN_HIJRI_MONTHS),
+  rn: africanHijri(LATIN_HIJRI_MONTHS),
+  ig: africanHijri(LATIN_HIJRI_MONTHS),
+  yo: africanHijri(LATIN_HIJRI_MONTHS),
+  zu: africanHijri(LATIN_HIJRI_MONTHS),
+  xh: africanHijri(LATIN_HIJRI_MONTHS),
+  sn: africanHijri(LATIN_HIJRI_MONTHS),
+  ln: africanHijri(LATIN_HIJRI_MONTHS),
+  ff: africanHijri(LATIN_HIJRI_MONTHS),
+
+  // Arabic: dateFormatLocale returns 'ar-u-nu-latn', which cannot take a second -u- extension for -u-ca-islamic, so the Hijri date is composed from the
+  // numeric Islamic calendar parts (Western digits) with the standard Arabic month names and the era mark هـ.
+  ar: {
+    months: ['محرّم', 'صفر', 'ربيع الأول', 'ربيع الآخر', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوّال', 'ذو القعدة', 'ذو الحجّة'],
+    date: (year, month, day) => `${day} ${month} ${year} هـ`,
+    monthYear: (year, month) => `${month} ${year} هـ`,
+  },
   ja: {
     months: [
       'ムハッラム',
