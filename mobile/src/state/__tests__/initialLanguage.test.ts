@@ -48,13 +48,13 @@ describe('one device locale tag -> a supported language', () => {
 
   it.each([
     ['fr', 'fr'], ['fr-FR', 'fr'], ['fr-DZ', 'fr'], ['fr_DZ', 'fr'], ['FR-dz', 'fr'],
-    ['en', 'en'], ['en-US', 'en'], ['en-GB', 'en'], ['en_US', 'en'],
+    ['en', 'en'], ['en-US', 'en-US'], ['en-GB', 'en'], ['en_US', 'en-US'], ['en-AU', 'en'], ['en-US-u-ca-gregory', 'en-US'],
     ['es', 'es'], ['es-ES', 'es'], ['es-419', 'es'],
     ['it-IT', 'it'], ['it', 'it'],
     ['tr-TR', 'tr'], ['tr', 'tr'],
     ['ru-RU', 'ru'], ['ru', 'ru'],
     ['de-DE', 'de'], ['de-AT', 'de'], ['de', 'de'],
-    ['zh', 'zh'], ['zh-CN', 'zh'], ['zh-Hans', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['zh-SG', 'zh'], ['zh-TW', 'zh'], ['zh-Hant-HK', 'zh'],
+    ['zh', 'zh'], ['zh-CN', 'zh'], ['zh-Hans', 'zh'], ['zh-Hans-CN', 'zh'], ['zh_CN', 'zh'], ['zh-SG', 'zh'], ['zh-TW', 'zh-Hant'], ['zh-Hant-HK', 'zh-Hant'], ['zh-HK', 'zh-Hant'], ['zh-MO', 'zh-Hant'], ['zh-Hant', 'zh-Hant'], ['zh_TW', 'zh-Hant'], ['zh-Hant-CN', 'zh-Hant'], ['zh-Hans-TW', 'zh'],
     ['id', 'id'], ['id-ID', 'id'], ['id_ID', 'id'], ['in', 'id'], ['in-ID', 'id'],
     ['sq', 'sq'], ['sq-AL', 'sq'], ['sq_AL', 'sq'], ['SQ-al', 'sq'], ['sq-XK', 'sq'], ['sq-MK', 'sq'], ['sq-Latn-AL', 'sq'], ['sq-AL.UTF-8', 'sq'],
     ['ja', 'ja'], ['ja-JP', 'ja'], ['ja_JP', 'ja'], ['JA-jp', 'ja'], ['ja-JP-u-ca-japanese', 'ja'], ['ja-Jpan-JP', 'ja'], ['ja-JP.UTF-8', 'ja'],
@@ -69,7 +69,7 @@ describe('one device locale tag -> a supported language', () => {
     expect(languageFromLocaleTag(tag)).toBe(expected);
   });
 
-  it.each(['ar', 'ar-DZ', 'af', 'af-ZA', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
+  it.each(['fa', 'fa-IR', 'af', 'af-ZA', 'xx', '', '   ', 'und', 'hi-Latn', 'hi-Latn-IN', 'hi_Latn', 'bn-Latn', 'bn_Latn_BD', 'as', 'as-IN'])('%j is not supported', tag => {
     expect(languageFromLocaleTag(tag)).toBeNull();
   });
 
@@ -83,11 +83,11 @@ describe('the first supported language among several preferred languages (Englis
 
   it.each([
     [['fr-FR'], 'fr'],
-    [['ar-DZ', 'fr-DZ'], 'fr'], // Arabic first, French second -> French
-    [['ar', 'af', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
-    [['pt-BR', 'ar', 'de-AT', 'fr'], 'pt-BR'], // Portuguese is supported, and Brazil is not mapped to Portugal
+    [['fa-IR', 'fr-DZ'], 'fr'], // Persian first, French second -> French
+    [['fa', 'af', 'de-AT', 'fr'], 'de'], // the first SUPPORTED one, in the phone's order
+    [['pt-BR', 'fa', 'de-AT', 'fr'], 'pt-BR'], // Portuguese is supported, and Brazil is not mapped to Portugal
     [['pt-PT', 'pt-BR'], 'pt-PT'],
-    [['ar', 'pt'], 'pt-PT'], // a bare 'pt' is Portugal (the base text), never silently Brazil
+    [['fa', 'pt'], 'pt-PT'], // a bare 'pt' is Portugal (the base text), never silently Brazil
     [['bn-BD', 'af', 'es-MX'], 'bn'],
     [['af', 'es-MX', 'bn-IN'], 'es'],
     [['as-IN', 'bn_IN', 'hi-IN'], 'bn'], // Assamese is not Bengali: skipped, the next supported one wins
@@ -95,8 +95,8 @@ describe('the first supported language among several preferred languages (Englis
     [['af', 'es-MX', 'ko-KR'], 'es'],
     [['ko', 'ja-JP', 'es-MX'], 'ko'], // Korean is supported: the first SUPPORTED one wins
     [['af', 'ja-JP', 'ko-KR'], 'ja'],
-    [['ar-DZ'], 'en'],
-    [['af', 'ar', 'xx'], 'en'],
+    [['fa-IR'], 'en'],
+    [['af', 'fa', 'xx'], 'en'],
     [['th-TH', 'fr'], 'th'], // Thai and Vietnamese are supported languages
     [['vi-VN'], 'vi'],
     [[], 'en'],
@@ -109,7 +109,7 @@ describe('the first supported language among several preferred languages (Englis
 
 describe('first launch (nothing stored): the phone language is resolved once and stored as the app language', () => {
   it.each([
-    ['fr-DZ', 'fr'], ['fr-FR', 'fr'], ['en-US', 'en'], ['en-GB', 'en'], ['es-ES', 'es'], ['it-IT', 'it'],
+    ['fr-DZ', 'fr'], ['fr-FR', 'fr'], ['en-US', 'en-US'], ['en-GB', 'en'], ['zh-TW', 'zh-Hant'], ['es-ES', 'es'], ['it-IT', 'it'],
     ['tr-TR', 'tr'], ['ru-RU', 'ru'], ['de-DE', 'de'], ['zh-CN', 'zh'], ['zh-Hans', 'zh'], ['id-ID', 'id'], ['in-ID', 'id'],
   ])('device %s -> AWA %s, stored', async (tag, expected) => {
     mockDevice.tags = [tag];
@@ -121,7 +121,7 @@ describe('first launch (nothing stored): the phone language is resolved once and
   });
 
   it.each([
-    [['ar-DZ'], 'Arabic'],
+    [['fa-IR'], 'Persian'],
     [['af-ZA'], 'Afrikaans'],
     [['af-ZA', 'xx-XX'], 'Afrikaans then an unknown language'],
     [[], 'an empty list'],
@@ -133,7 +133,7 @@ describe('first launch (nothing stored): the phone language is resolved once and
     expect(await AsyncStorage.getItem(KEY)).toBe('en');
   });
 
-  it.each([[['hi-IN'], 'hi'], [['hi'], 'hi'], [['hi-IN', 'en-US'], 'hi'], [['en-IN', 'hi-IN'], 'en'], [['ar', 'hi-IN'], 'hi'], [['hi-Latn-IN', 'hi-IN'], 'hi'], [['hi-Latn-IN'], 'en']])(
+  it.each([[['hi-IN'], 'hi'], [['hi'], 'hi'], [['hi-IN', 'en-US'], 'hi'], [['en-IN', 'hi-IN'], 'en'], [['fa', 'hi-IN'], 'hi'], [['hi-Latn-IN', 'hi-IN'], 'hi'], [['hi-Latn-IN'], 'en']])(
     'a Hindi phone (%j) starts AWA in %s on its first launch, stores it and reads the phone once',
     async (tags, expected) => {
       mockDevice.tags = tags;
@@ -251,7 +251,7 @@ describe('first launch (nothing stored): the phone language is resolved once and
   });
 
   it('uses a later preferred language when the first is unsupported (ar-DZ, then fr-DZ -> French)', async () => {
-    mockDevice.tags = ['ar-DZ', 'fr-DZ'];
+    mockDevice.tags = ['fa-IR', 'fr-DZ'];
     const prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('fr');
@@ -341,7 +341,7 @@ describe('an established app language is never overridden by the phone', () => {
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('fr');
 
-    for (const tags of [['en-US'], ['es-ES'], ['ar-DZ'], ['zh-CN']]) {
+    for (const tags of [['en-US'], ['es-ES'], ['fa-IR'], ['zh-CN']]) {
       mockDevice.tags = tags;
       prefs = startApp(); // every launch after the phone was switched
       await prefs.hydrateAppearancePreferences();
@@ -373,7 +373,7 @@ describe('a manual choice', () => {
     expect(prefs.getAppLanguage()).toBe('de');
 
     // the phone language changes (to Spanish, then to an unsupported one): AWA stays German
-    for (const tags of [['es-ES'], ['ar']]) {
+    for (const tags of [['es-ES'], ['fa']]) {
       mockDevice.tags = tags;
       prefs = startApp();
       await prefs.hydrateAppearancePreferences();
@@ -466,7 +466,7 @@ describe('existing installs: what was stored before', () => {
 
   it('a legacy "system" marker on an unsupported phone language migrates to English', async () => {
     await AsyncStorage.setItem(KEY, 'system');
-    mockDevice.tags = ['ar-DZ'];
+    mockDevice.tags = ['fa-IR'];
     const prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('en');

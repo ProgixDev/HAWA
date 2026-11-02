@@ -123,9 +123,9 @@ describe('Library articles — Italian content exists and mirrors the English st
     expect(withoutItalian).toEqual([]);
   });
 
-  it('CONTENT has exactly fr, en, es, it, tr, ru, de, zh, id — in that order — and the existing fr/en/es blocks are all still present', () => {
+  it('CONTENT has exactly fr, en, es, it, tr, ru, de, zh, zh-Hant, id — in that order — and the existing fr/en/es blocks are all still present', () => {
     for (const [file, content] of contents) {
-      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh,id,hi,sq,ja,ko,pt-PT,bn,da,sv,nb,pl,uk,cs,sk,hu,ro,bg,sr,hr,bs,sl,ne,si,th,vi,uz,az,ka,hy,tg,ky,tk,ms,so,sw,kk,wo,ha,am,nl,fi,el,fil,ta,te,mr,gu,pa,my,km,lo']);
+      expect([file, Object.keys(content).join()]).toEqual([file, 'fr,en,es,it,tr,ru,de,zh,zh-Hant,ar,kab,om,ti,rw,rn,ig,yo,zu,xh,sn,ln,ff,id,hi,sq,ja,ko,pt-PT,bn,da,sv,nb,pl,uk,cs,sk,hu,ro,bg,sr,hr,bs,sl,ne,si,th,vi,uz,az,ka,hy,tg,ky,tk,ms,so,sw,kk,wo,ha,am,nl,fi,el,fil,ta,te,mr,gu,pa,my,km,lo']);
     }
   });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, TextInput, type TextStyle} from 'react-native';
+import {I18nManager, Platform, StyleSheet, Text, TextInput, type TextStyle} from 'react-native';
 
 import {getAppLanguage} from '../state/themePreferences';
 
@@ -332,6 +332,57 @@ function resolveStyleProp(style: unknown, inherited: boolean) {
   return resolveAwaFont(StyleSheet.flatten(style as TextStyle), inherited);
 }
 
+// ARABIC (right-to-left). (1) Layout direction is global (I18nManager), so flex rows and left/right margins already mirror. An explicit textAlign 'left' / 'right' needs NO
+// handling here: React Native itself reads them as start / end under a right-to-left layout (TextAttributeProps.getTextAlignment + ReactTextShadowNode.getTextAlign),
+// so exchanging them again would invert them twice.
+// (2) The Android system face that draws Arabic (Noto Naskh / Noto Sans Arabic) has taller vertical metrics than Inter: a numeric lineHeight below
+// 1.5 x the font size can clip the dots and diacritics, so for a Text / TextInput that really holds Arabic it is raised to that ratio and a non-zero
+// letterSpacing is reset to 0 (tracking breaks Arabic letter joining). Other languages and non-Arabic strings keep their style exactly.
+export const ARABIC_LINE_HEIGHT_RATIO = 1.5;
+const ARABIC_RE = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+
+/** True when a string, or any string inside the (nested) children, holds an Arabic-script character. */
+export function containsArabicScript(node: unknown, depth = 0): boolean {
+  if (typeof node === 'string') {
+    return ARABIC_RE.test(node);
+  }
+  if (depth > 4 || node === null || typeof node !== 'object') {
+    return false;
+  }
+  if (Array.isArray(node)) {
+    return node.some(item => containsArabicScript(item, depth + 1));
+  }
+  const props = (node as {props?: {children?: unknown}}).props;
+  return props ? containsArabicScript(props.children, depth + 1) : false;
+}
+
+/** The style additions for an Arabic text (raised line height, no tracking), or null when the style needs no change. */
+export function arabicAdjustment(style: TextStyle | undefined): Pick<TextStyle, 'lineHeight' | 'letterSpacing'> | null {
+  const flat = style ?? {};
+  let lineHeight: number | null = null;
+  if (typeof flat.lineHeight === 'number' && typeof flat.fontSize === 'number') {
+    const wanted = Math.round(flat.fontSize * ARABIC_LINE_HEIGHT_RATIO);
+    lineHeight = flat.lineHeight < wanted ? wanted : null;
+  }
+  const resetTracking = typeof flat.letterSpacing === 'number' && flat.letterSpacing !== 0;
+  if (lineHeight === null && !resetTracking) {
+    return null;
+  }
+  return {...(lineHeight !== null ? {lineHeight} : {}), ...(resetTracking ? {letterSpacing: 0} : {})};
+}
+
+const LATIN_ONLY_KEYBOARDS = new Set(['email-address', 'phone-pad', 'url', 'number-pad', 'decimal-pad', 'numeric', 'visible-password']);
+const LATIN_ONLY_CONTENT = new Set(['emailAddress', 'URL', 'password', 'newPassword', 'telephoneNumber', 'username']);
+
+/** True for a TextInput that holds e-mail, phone, URL, number or password text (always written left to right). */
+export function isLatinOnlyField(props: Record<string, unknown>): boolean {
+  return (
+    props.secureTextEntry === true ||
+    (typeof props.keyboardType === 'string' && LATIN_ONLY_KEYBOARDS.has(props.keyboardType)) ||
+    (typeof props.textContentType === 'string' && LATIN_ONLY_CONTENT.has(props.textContentType))
+  );
+}
+
 /** Wraps `component.render` (exported for tests). Returns the function that removes the wrapper. */
 export function patchAwaRender(component: Renderable, nestable: boolean): () => void {
   const original = component.render;
@@ -386,6 +437,18 @@ export function patchAwaRender(component: Renderable, nestable: boolean): () => 
       if (adjustment !== null) {
         next = {...next, style: [next.style, adjustment]};
       }
+    }
+    if (getAppLanguage() === 'ar' && (containsArabicScript(props.children) || containsArabicScript(props.value) || containsArabicScript(props.defaultValue) || containsArabicScript(props.placeholder))) {
+      const adjustment = arabicAdjustment(StyleSheet.flatten(next.style as TextStyle));
+      if (adjustment !== null) {
+        next = {...next, style: [next.style, adjustment]};
+      }
+    }
+    // E-mail, phone, URL, numeric and password fields hold Latin text read left to right (Android picks the paragraph direction from the first strong
+    // character, so an address or password is never reordered). Under a right-to-left layout they sit at the field's start edge, the right edge in Arabic:
+    // React Native reads textAlign 'left' as start, which an EditText turns into Gravity.RIGHT.
+    if (I18nManager.isRTL && !nestable && isLatinOnlyField(props)) {
+      next = {...next, style: [next.style, {textAlign: 'left'}]};
     }
     const rendered = original.call(this, next, ref);
     // Anything drawn inside this Text (nested Text, inline views) is "nested"; TextInput never has Text children.
