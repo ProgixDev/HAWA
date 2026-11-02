@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
+import {localizedPrayerName} from '../../i18n/prayerNames';
 
 import {homeColors} from './homeTheme';
 import {AwaCard} from '../ui/AwaCard';
@@ -168,7 +169,7 @@ function SpiritualGuidanceCard({
       : prayerError
         ? t('spiritualGuidance.prayerTimesUnavailable')
         : prayerAvailable && nextWindow
-          ? `${nextWindow.name} · ${formatTime(nextWindow.start, timezone)}`
+          ? `${localizedPrayerName(t, nextWindow.name)} · ${formatTime(nextWindow.start, timezone)}`
           : t('spiritualGuidance.unavailable');
 
   const showPuritySummary =
@@ -193,10 +194,10 @@ function SpiritualGuidanceCard({
 
   const nextPrayerAfterPurityLine =
     purityResult?.prayerDue && purityResult.prayerName
-      ? t('spiritualGuidance.prayerDue', {prayerName: purityResult.prayerName})
+      ? t('spiritualGuidance.prayerDue', {prayerName: localizedPrayerName(t, purityResult.prayerName)})
       : purityResult?.nextPrayerName && purityResult.nextPrayerTime
         ? t('spiritualGuidance.firstPrayerAfterPurity', {
-            prayerName: purityResult.nextPrayerName,
+            prayerName: localizedPrayerName(t, purityResult.nextPrayerName),
             time: formatTime(purityResult.nextPrayerTime, timezone),
           })
         : '';

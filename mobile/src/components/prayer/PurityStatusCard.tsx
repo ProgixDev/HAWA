@@ -13,6 +13,7 @@ import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import {displayUpperCase} from '../../utils/textCase';
+import {localizedPrayerName} from '../../i18n/prayerNames';
 
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 
@@ -112,18 +113,18 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
             {result.prayerDue && result.prayerName && result.prayerStart && result.prayerEnd ? (
               <View style={styles.dueSection}>
                 <AwaText colorRole="onSurfaceVariant" variant="labelSmall" style={styles.dueLabel}>{displayUpperCase(t('prayerTimes.purity.dueLabel'))}</AwaText>
-                <AwaText variant="headlineSmall" style={styles.duePrayerName}>{result.prayerName}</AwaText>
+                <AwaText variant="headlineSmall" style={styles.duePrayerName}>{localizedPrayerName(t, result.prayerName)}</AwaText>
                 <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.dueRange}>
                   {formatTime(result.prayerStart, timezone)} → {formatTime(result.prayerEnd, timezone)}
                 </AwaText>
 
                 <View style={styles.duePill}>
                   <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="hand-heart-outline" size={14} />
-                  <Text style={styles.duePillText}>{t('prayerTimes.purity.dueBadge', {prayerName: result.prayerName})}</Text>
+                  <Text style={styles.duePillText}>{t('prayerTimes.purity.dueBadge', {prayerName: localizedPrayerName(t, result.prayerName)})}</Text>
                 </View>
 
                 <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.dueSubtitle}>
-                  {t('prayerTimes.purity.dueSubtitle', {prayerName: result.prayerName})}
+                  {t('prayerTimes.purity.dueSubtitle', {prayerName: localizedPrayerName(t, result.prayerName)})}
                 </AwaText>
               </View>
             ) : result.nextPrayerName && result.nextPrayerTime ? (
@@ -132,7 +133,7 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
                 <View style={styles.nextAfterPurityBlock}>
                   <AwaText colorRole="onSurfaceVariant" variant="labelSmall" style={styles.nextAfterPurityLabel}>{displayUpperCase(t('prayerTimes.purity.nextAfterPurityLabel'))}</AwaText>
                   <AwaText colorRole="primary" variant="titleMedium" style={styles.nextAfterPurityValue}>
-                    {result.nextPrayerName} · {formatTime(result.nextPrayerTime, timezone)}
+                    {localizedPrayerName(t, result.nextPrayerName)} · {formatTime(result.nextPrayerTime, timezone)}
                   </AwaText>
                 </View>
               </View>
