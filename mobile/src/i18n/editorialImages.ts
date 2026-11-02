@@ -129,6 +129,21 @@ export type LocalizedImageSet = Readonly<Record<'fr' | 'en' | 'es' | 'it', Image
   readonly ru?: ImageSourcePropType;
   readonly de?: ImageSourcePropType;
   readonly zh?: ImageSourcePropType;
+  readonly 'zh-Hant'?: ImageSourcePropType;
+  readonly ar?: ImageSourcePropType;
+  readonly kab?: ImageSourcePropType;
+  readonly om?: ImageSourcePropType;
+  readonly ti?: ImageSourcePropType;
+  readonly rw?: ImageSourcePropType;
+  readonly rn?: ImageSourcePropType;
+  readonly ig?: ImageSourcePropType;
+  readonly yo?: ImageSourcePropType;
+  readonly zu?: ImageSourcePropType;
+  readonly xh?: ImageSourcePropType;
+  readonly sn?: ImageSourcePropType;
+  readonly ln?: ImageSourcePropType;
+  readonly ff?: ImageSourcePropType;
+  readonly 'en-US'?: ImageSourcePropType;
   readonly id?: ImageSourcePropType;
   readonly hi?: ImageSourcePropType;
   readonly sq?: ImageSourcePropType;
@@ -235,7 +250,9 @@ export function resolveEditorialImage(
 
 /** True when `language` has its own variant of this illustration (false for a plain, language-neutral image). */
 export function hasLocalizedEditorialImage(image: ImageSourcePropType | LocalizedImageSet, language: string | null | undefined): boolean {
-  return isLocalizedSet(image) && image[resolveEditorialLanguage(language)] !== undefined;
+  // American English reads the English artwork: it has no variant of its own, but it is not a language that lacks one.
+  const resolved = resolveEditorialLanguage(language);
+  return isLocalizedSet(image) && image[resolved === 'en-US' ? 'en' : resolved] !== undefined;
 }
 
 /** The text-in-image illustrations that still have NO Turkish variant (their lettering is English in Turkish). */
@@ -796,11 +813,26 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
   pregnancyFollowUp: {
     fr: 'Illustration : une médecin et une femme enceinte pendant un suivi avec échographie. Texte : Suivi médical pendant la grossesse, pour la santé de maman et le bien-être de bébé.',
     en: 'Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom\'s health and baby\'s well-being.',
+    'en-US': 'Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom\'s health and baby\'s well-being.',
     es: 'Ilustración: una médica y una mujer embarazada durante un control con ecografía. Texto: Control médico durante el embarazo, por la salud de mamá y el bienestar del bebé.',
     tr: 'İlüstrasyon: Ultrason eşliğinde kontrol sırasında bir doktor ve hamile bir kadın. Görseldeki yazı İngilizcedir: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
     ru: 'Иллюстрация: врач и беременная женщина на плановом осмотре с УЗИ. Надпись на картинке на английском языке: «Medical care during pregnancy, for mom\'s health and baby\'s well-being.»',
     de: 'Illustration: eine Ärztin und eine Schwangere bei einer Vorsorgeuntersuchung mit Ultraschall. Die Beschriftung im Bild ist auf Englisch: „Medical care during pregnancy, for mom\'s health and baby\'s well-being.“',
     zh: '插图：一位医生与一位孕妇在做超声检查的产检中。图中文字为英文：“Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    'zh-Hant': '插圖：一位醫生與一位孕婦在做超音波檢查的產檢中。圖中文字為英文：「Medical care during pregnancy, for mom\'s health and baby\'s well-being.」',
+    ar: 'توضيح: طبيبة وامرأة حامل أثناء فحص متابعة بالموجات فوق الصوتية. النص في الصورة بالإنجليزية: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
+    kab: 'Tugniwin: ṭṭbib akked tmeṭṭut tamuhlat deg usenqed s ultrason. Aḍris: Taɣellist n ujeṭṭa deg lḥemla, i ṣṣaḥa n yimma d lehna n uqcic.',
+    om: 'Fakkii: doktoraa fi dubartii ulfaa yeroo qorannoo ultrasound waliin. Barreeffama: Kunuunsa fayyaa yeroo ulfaa, fayyaa haadhaa fi gaarummaa daa\'imaaf.',
+    ti: 'ስእሊ፦ ሓኪምን ጥንስቲ ጓል ኣንስተይትን ኣብ ግዜ ምርመራ ብኣልትራሳውንድ። ጽሑፍ፦ ኣብ ጥንሲ ሕክምናዊ ክንክን፣ ንጥዕና ኣደን ንጽቡቕ ህላወ ሕጻንን።',
+    rw: 'Ishusho: muganga n\'umugore utwite mu isuzuma bakoresha ultrasound. Inyandiko: Ubuvuzi mu gihe cy\'inda, ku buzima bwa mama no ku mibereho myiza y\'umwana.',
+    rn: 'Ishusho: muganga n’umugore w’imbuto mu isuzuma bakoresha ultrasound. Inyandiko: Ubuvuzi mu gihe c’inda, ku buzima bwa mama no ku mererwe myiza y’umwana.',
+    ig: 'Eserese: dọkịta na nwanyị dị ime n\'oge nyocha na ultrasound. Ederede: Nlekọta ahụike n\'oge ime, maka ahụike nne na ọdịmma nwa.',
+    yo: 'Àwòrán: dókítà àti obìnrin aláboyún nígbà àyẹ̀wò pẹ̀lú ultrasound. Ọ̀rọ̀: Ìtọ́jú ìṣègùn nígbà oyún, fún ìlera ìyá àti àlàáfíà ọmọ.',
+    zu: 'Isithombe: udokotela nowesifazane okhulelwe ngesikhathi sokuhlolwa nge-ultrasound. Umbhalo: Ukunakekelwa kwezokwelapha phakathi nokukhulelwa, ngempilo kamama nokuphila kahle kwengane.',
+    xh: 'Umzekeliso: ugqirha nomfazi okhulelweyo ngexesha lokuhlolwa nge-ultrasound. Isicatshulwa: Unyango ngexesha lokukhulelwa, ngenxa yempilo kamama nentlalo ntle yosana.',
+    sn: 'Mufananidzo: chiremba nemukadzi ane pamuviri panguva yekuongororwa neultrasound. Zvakanyorwa: Kuongororwa nechiremba panguva yepamuviri, kuti amai vave nehutano hwakanaka uye mwana akure zvakanaka.',
+    ln: 'Elilingi: monganga mpe mwasi ya zemi na tango ya kotala nzoto na ultrasound. Maloba: Bosali ya monganga na tango ya zemi, mpo na nzoto malamu ya mama mpe bomoi malamu ya mwana.',
+    ff: 'Natal: dokotoro e debbo reedu nder ndaarugo jawtugo e ultrason. Binndol: Reenugo ɓanndu e reedu, ngam cellal inna e moɗɗugo mawɗo.',
     id: 'Ilustrasi: seorang dokter dan ibu hamil saat pemeriksaan kehamilan dengan USG. Tulisan pada gambar berbahasa Inggris: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
     sq: 'Ilustrim: një mjeke dhe një grua shtatzënë gjatë një kontrolli me ekografi. Teksti në figurë është në anglisht: “Medical care during pregnancy, for mom\'s health and baby\'s well-being.”',
     ja: 'イラスト：超音波検査を行う妊婦健診中の医師と妊婦。画像内の文字は英語です：「Medical care during pregnancy, for mom\'s health and baby\'s well-being.」',
@@ -858,11 +890,26 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
   pregnancyExercise: {
     fr: 'Illustration : une femme enceinte en fente avant sur un tapis de yoga. Texte : Bouger pour une grossesse en santé. Affiche : une maman en bonne santé pour un bébé épanoui.',
     en: 'Illustration: a pregnant woman in a lunge stretch on a yoga mat. Text: Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.',
+    'en-US': 'Illustration: a pregnant woman in a lunge stretch on a yoga mat. Text: Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.',
     es: 'Ilustración: una mujer embarazada estirando en zancada sobre una esterilla de yoga. Texto: Muévete por un embarazo saludable. Cartel: una mamá en buena salud para un bebé feliz.',
     tr: 'İlüstrasyon: Yoga matı üzerinde hamle pozunda esneyen hamile bir kadın. Görseldeki yazı İngilizcedir: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     ru: 'Иллюстрация: беременная женщина в выпаде на коврике для йоги. Надпись на картинке на английском языке: «Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.»',
     de: 'Illustration: eine Schwangere im Ausfallschritt auf einer Yogamatte. Die Beschriftung im Bild ist auf Englisch: „Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.“',
     zh: '插图：一位孕妇在瑜伽垫上做弓步拉伸。图中文字为英文：“Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    'zh-Hant': '插圖：一位孕婦在瑜伽墊上做弓步拉伸。圖中文字為英文：「Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.」',
+    ar: 'توضيح: امرأة حامل تؤدي تمرين تمدد بخطوة اندفاع على سجادة يوغا. النص في الصورة بالإنجليزية: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
+    kab: 'Tugniwin: tameṭṭut tamuhlat deg tfaska n yiḍarren ɣef tneqqit n yoga. Aḍris: Mmud i lḥemla yelhan. Anagrawen: yimma s ṣṣaḥa i uqcic yettɣimmin.',
+    om: 'Fakkii: dubartii ulfaa matraasii yogaa irratti sochii harkisuu godhaa jirtu. Barreeffama: Fayyaa ulfaaf socho\'i. Poostarii: haadha fayyaa qabdu daa\'ima guddatuuf.',
+    ti: 'ስእሊ፦ ጥንስቲ ጓል ኣንስተይቲ ኣብ ዮጋ ማት ምስሓብ ሳንጋ ትገብር። ጽሑፍ፦ ንጥዕንቲ ጥንሲ ተንቀሳቐሲ። ፖስተር፦ ጥዕንቲ ኣደ ንዝዓቢ ሕጻን።',
+    rw: 'Ishusho: umugore utwite yirambuye mu buryo bwa lunge ku ikoborera rya yoga. Inyandiko: Ikore kugira ngo inda igende neza. Igitabo cyamamaza: mama ufite ubuzima bwiza ku mwana ukura neza.',
+    rn: 'Ishusho: umugore w’imbuto yaguramwo umubiri ku mukeka wa yoga. Inyandiko: Genda kugira inda ibe nziza. Icapa: mama w’amagara mazima ku mwana akura neza.',
+    ig: 'Eserese: nwanyị dị ime na-agbatị ahụ n\'ọnọdụ lunge n\'elu akwa yoga. Ederede: Megharịa ahụ maka ime ahụike. Mpempe akwụkwọ: nne nwere ahụike maka nwa na-eto nke ọma.',
+    yo: 'Àwòrán: obìnrin aláboyún tó ń nà ara ní ipò lunge lórí ẹní yoga. Ọ̀rọ̀: Ṣe eré ara fún oyún alálàáfíà. Ìwé ìkéde: ìyá tó ní ìlera fún ọmọ tó ń gbèrú.',
+    zu: 'Isithombe: owesifazane okhulelwe elula umzimba ngokunyathela phambili ekhaphethini le-yoga. Umbhalo: Nyakaza ukuze ukhulelwe kahle. Iphosta: umama onempilo ukuze ingane ikhule kahle.',
+    xh: 'Umzekeliso: umfazi okhulelweyo enza umtshato wokolula emathiweni e-yoga. Isicatshulwa: Hambisa umzimba ukuze ukhule kakuhle. Iposta: umama onempilo ukuze usana luphumelele.',
+    sn: 'Mufananidzo: mukadzi ane pamuviri achitambanudza muviri akaenzana mugumbo pamatsi eyoga. Zvakanyorwa: Famba-famba kuti pave nepamuviri pane hutano. Poster: amai vane hutano kuti mwana akure zvakanaka.',
+    ln: 'Elilingi: mwasi ya zemi azali kosala mozito ya kolona makolo likolo ya tapis ya yoga. Maloba: Zwa mobimba mpo na zemi ya malamu. Affiche: mama na nzoto malamu mpo na mwana oyo azali kokola malamu.',
+    ff: 'Natal: debbo reedu o hoɓɓitii e yoga dow tapis. Binndol: Yiiltu ngam reedu cellungu. Poster: inna cellungu ngam mawɗo moɗɗungo.',
     id: 'Ilustrasi: seorang ibu hamil melakukan peregangan lunge di atas matras yoga. Tulisan pada gambar berbahasa Inggris: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     sq: 'Ilustrim: një grua shtatzënë duke bërë shtrirje në pozicion sulmi (lunge) mbi një tapet joge. Teksti në figurë është në anglisht: “Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.”',
     ja: 'イラスト：ヨガマットの上でランジのストレッチをする妊婦。画像内の文字は英語です：「Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.」',
@@ -920,11 +967,26 @@ export const EDITORIAL_IMAGE_ALT: Record<MeaningfulEditorialImage, Record<Editor
   exercise: {
     fr: 'Illustration : une femme en fente avant sur un tapis de yoga. Texte : Bouger pour se sentir bien. Affiche : corps, équilibre, énergie.',
     en: 'Illustration: a woman in a lunge stretch on a yoga mat. Text: Move to feel good. Poster: body, balance, energy.',
+    'en-US': 'Illustration: a woman in a lunge stretch on a yoga mat. Text: Move to feel good. Poster: body, balance, energy.',
     es: 'Ilustración: una mujer estirando en zancada sobre una esterilla de yoga. Texto: Muévete para sentirte bien. Cartel: cuerpo, equilibrio, energía.',
     tr: 'İlüstrasyon: Yoga matı üzerinde hamle pozunda esneyen bir kadın. Görseldeki yazı İngilizcedir: “Move to feel good. Poster: body, balance, energy.”',
     ru: 'Иллюстрация: женщина в выпаде на коврике для йоги. Надпись на картинке на английском языке: «Move to feel good. Poster: body, balance, energy.»',
     de: 'Illustration: eine Frau im Ausfallschritt auf einer Yogamatte. Die Beschriftung im Bild ist auf Englisch: „Move to feel good. Poster: body, balance, energy.“',
     zh: '插图：一位女性在瑜伽垫上做弓步拉伸。图中文字为英文：“Move to feel good. Poster: body, balance, energy.”',
+    'zh-Hant': '插圖：一位女性在瑜伽墊上做弓步拉伸。圖中文字為英文：「Move to feel good. Poster: body, balance, energy.」',
+    ar: 'توضيح: امرأة تؤدي تمرين تمدد بخطوة اندفاع على سجادة يوغا. النص في الصورة بالإنجليزية: “Move to feel good. Poster: body, balance, energy.”',
+    kab: 'Tugniwin: tameṭṭut deg tfaska n yiḍarren ɣef tneqqit n yoga. Aḍris: Mmud i wakken ad tḥessed lehna. Anagrawen: ujeṭṭa, lemwazna, tazmert.',
+    om: 'Fakkii: dubartii matraasii yogaa irratti sochii harkisuu godhaa jirtu. Barreeffama: Gaarummaaf socho\'i. Poostarii: qaama, madaallii, humna.',
+    ti: 'ስእሊ፦ ጓል ኣንስተይቲ ኣብ ዮጋ ማት ምስሓብ ሳንጋ ትገብር። ጽሑፍ፦ ጽቡቕ ንምስማዕ ተንቀሳቐሲ። ፖስተር፦ ኣካል፣ ሚዛን፣ ሓይሊ።',
+    rw: 'Ishusho: umugore yirambuye mu buryo bwa lunge ku ikoborera rya yoga. Inyandiko: Ikore kugira ngo wumve umeze neza. Igitabo cyamamaza: umubiri, uburinganire, imbaraga.',
+    rn: 'Ishusho: umugore yaguramwo umubiri ku mukeka wa yoga. Inyandiko: Genda kugira wumve umerewe neza. Icapa: umubiri, uburinganiye, imbaraga.',
+    ig: 'Eserese: nwanyị na-agbatị ahụ n\'ọnọdụ lunge n\'elu akwa yoga. Ederede: Megharịa ahụ ka ị nwee mmetụta ọma. Mpempe akwụkwọ: ahụ, nguzozi, ume.',
+    yo: 'Àwòrán: obìnrin kan tó ń nà ara ní ipò lunge lórí ẹní yoga. Ọ̀rọ̀: Ṣe eré ara kí o lè rí ara rẹ dáadáa. Ìwé ìkéde: ara, ìwọ̀ntúnwọ̀nsì, agbára.',
+    zu: 'Isithombe: owesifazane elula umzimba ngokunyathela phambili ekhaphethini le-yoga. Umbhalo: Nyakaza ukuze uzizwe ukhululekile. Iphosta: umzimba, ibhalansi, amandla.',
+    xh: 'Umzekeliso: umfazi enza umtshato wokolula emathiweni e-yoga. Isicatshulwa: Hambisa umzimba ukuze uziive kakuhle. Iposta: umzimba, ukulingana, amandla.',
+    sn: 'Mufananidzo: mukadzi achitambanudza muviri akaenzana mugumbo pamatsi eyoga. Zvakanyorwa: Famba-famba kuti unzwe zvakanaka. Poster: muviri, kuenzana, simba.',
+    ln: 'Elilingi: mwasi azali kosala mozito ya kolona makolo likolo ya tapis ya yoga. Maloba: Zwa mobimba mpo ozala malamu. Affiche: nzoto, bokalamwi, makasi.',
+    ff: 'Natal: debbo o hoɓɓitii e yoga dow tapis. Binndol: Yiiltu ngam hoore maa. Poster: ɓanndu, jiidaa, semmbe.',
     id: 'Ilustrasi: seorang perempuan melakukan peregangan lunge di atas matras yoga. Tulisan pada gambar berbahasa Inggris: “Move to feel good. Poster: body, balance, energy.”',
     sq: 'Ilustrim: një grua duke bërë shtrirje në pozicion sulmi (lunge) mbi një tapet joge. Teksti në figurë është në anglisht: “Move to feel good. Poster: body, balance, energy.”',
     ja: 'イラスト：ヨガマットの上でランジのストレッチをする女性。画像内の文字は英語です：「Move to feel good. Poster: body, balance, energy.」',

@@ -17,6 +17,22 @@ import {ja} from './locales/ja';
 import {ko} from './locales/ko';
 import {ptPT} from './locales/ptPT';
 import {ptBR} from './locales/ptBR';
+import {ar} from './locales/ar';
+import {kab} from './locales/kab';
+import {om} from './locales/om';
+import {ti} from './locales/ti';
+import {rw} from './locales/rw';
+import {rn} from './locales/rn';
+import {ig} from './locales/ig';
+import {yo} from './locales/yo';
+import {zu} from './locales/zu';
+import {xh} from './locales/xh';
+import {sn} from './locales/sn';
+import {ln} from './locales/ln';
+import {ff} from './locales/ff';
+import {enUS} from './locales/enUS';
+import {applyLayoutDirectionForLanguage} from './layoutDirection';
+import {zhHant} from './locales/zhHant';
 import {bn} from './locales/bn';
 import {da} from './locales/da';
 import {sv} from './locales/sv';
@@ -104,12 +120,16 @@ i18n.use(initReactI18next).init({
   resources: {
     fr: {translation: fr},
     en: {translation: en},
+    // American English is an OVERLAY: only the strings that differ from English (see the fallback chain below).
+    'en-US': {translation: enUS},
     es: {translation: es},
     it: {translation: it},
     tr: {translation: tr},
     ru: {translation: ru},
     de: {translation: de},
     zh: {translation: zh},
+    // Traditional Chinese is a COMPLETE dictionary (converted from zh and reviewed for Taiwan wording); 'zh' is only its safety net.
+    'zh-Hant': {translation: zhHant},
     id: {translation: id},
     hi: {translation: hi},
     sq: {translation: sq},
@@ -163,16 +183,33 @@ i18n.use(initReactI18next).init({
     my: {translation: my},
     km: {translation: km},
     lo: {translation: lo},
+    // Arabic is a COMPLETE dictionary with the six CLDR plural forms (_zero/_one/_two/_few/_many/_other); English is only its safety net.
+    ar: {translation: ar},
+    // kab om ti rw rn ig yo zu xh sn ln ff: complete dictionaries (AI-written, native review required); English is their safety net.
+    kab: {translation: kab},
+    om: {translation: om},
+    ti: {translation: ti},
+    rw: {translation: rw},
+    rn: {translation: rn},
+    ig: {translation: ig},
+    yo: {translation: yo},
+    zu: {translation: zu},
+    xh: {translation: xh},
+    sn: {translation: sn},
+    ln: {translation: ln},
+    ff: {translation: ff},
   },
   lng: getAppLanguage(),
-  // pt-BR reads key by key: Brazilian overlay → Portugal dictionary → English. Every other language falls back to English only.
-  fallbackLng: {'pt-BR': ['pt-PT', 'en'], default: ['en']},
+  // pt-BR reads key by key: Brazilian overlay → Portugal dictionary → English; en-US: US overlay → English; zh-Hant: Traditional → Simplified → English. Every other language falls back to English only.
+  fallbackLng: {'pt-BR': ['pt-PT', 'en'], 'en-US': ['en'], 'zh-Hant': ['zh', 'en'], default: ['en']},
   interpolation: {escapeValue: false}, // React already escapes rendered text
   returnNull: false,
 });
 
 subscribeThemePreferences(() => {
   const language = getAppLanguage();
+  // Arabic is right-to-left: the layout direction follows every language change (applies at the next start; a prompt asks to reopen AWA).
+  applyLayoutDirectionForLanguage(language);
   if (i18n.language !== language) {
     i18n.changeLanguage(language).catch(() => {});
   }

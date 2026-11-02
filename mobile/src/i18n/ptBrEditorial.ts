@@ -4,6 +4,7 @@
 // the same text except where Brazilian Portuguese says something else (Registo → Registro, ecografia → ultrassonografia, equipa → equipe …): those
 // strings, and only those, are listed in ptBrEditorialOverlay.ts by their path inside the block. This keeps one source of truth, no duplicated
 // articles, and makes every regional difference explicit and reviewable.
+import {applyUsSpelling} from './enUsSpelling';
 import {PT_BR_ARTICLE_OVERLAY, PT_BR_WEEK_OVERLAY} from './ptBrEditorialOverlay';
 
 type Overlay = Readonly<Record<string, string>>;
@@ -40,9 +41,31 @@ export function applyPortugueseOverlay<T>(base: T, overlay: Overlay | undefined)
   return copy;
 }
 
-/** Adds the `'pt-BR'` block to one article's per-language CONTENT object: its `'pt-PT'` block with that article's Brazilian overlay applied. */
-export function withBrazilianPortuguese<T extends {readonly 'pt-PT': unknown}>(article: string, content: T): T & {readonly 'pt-BR': T['pt-PT']} {
-  return {...content, 'pt-BR': applyPortugueseOverlay(content['pt-PT'], PT_BR_ARTICLE_OVERLAY[article])};
+/** Adds the derived variants to one article's per-language CONTENT object: `'pt-BR'` = its `'pt-PT'` block with that article's Brazilian overlay applied, and
+ * `'en-US'` = its `'en'` block in American spelling (built on first use, so an article never opened in en-US costs nothing). Every article already goes
+ * through this wrapper (the legacy UnderstandCycle article has no English block: its 'en-US' is then undefined and it is never read), which is why the American English variant is added here instead of in 73 files. */
+export function withBrazilianPortuguese<T extends {readonly 'pt-PT': unknown; readonly en?: unknown}>(
+  article: string,
+  content: T,
+): T & {readonly 'pt-BR': T['pt-PT']; readonly 'en-US': T['en']} {
+  const variants = {...content, 'pt-BR': applyPortugueseOverlay(content['pt-PT'], PT_BR_ARTICLE_OVERLAY[article])} as T & {
+    readonly 'pt-BR': T['pt-PT'];
+    readonly 'en-US': T['en'];
+  };
+  let american: T['en'] | undefined;
+  Object.defineProperty(variants, 'en-US', {
+    enumerable: true,
+    get: () => {
+      if (american === undefined) {american = applyUsSpelling(content.en);}
+      return american;
+    },
+  });
+  return variants;
+}
+
+/** The American English version of one pregnancy week's content (the English content in US spelling). */
+export function americanWeekContent<T>(base: T): T {
+  return applyUsSpelling(base);
 }
 
 /** The Brazilian version of one pregnancy week's content (the Portugal content with that week's overlay applied). */

@@ -118,6 +118,20 @@ export function armenianCardinal(value: number): PluralCategory {
   return integerPart === 0 || integerPart === 1 ? 'one' : 'other';
 }
 
+/** CLDR cardinal rule for Arabic: zero (0), one (1), two (2), few (n mod 100 = 3..10), many (n mod 100 = 11..99), other (the rest, and every non-integer). */
+export function arabicCardinal(value: number): PluralCategory {
+  if (!Number.isFinite(value)) {return 'other';}
+  if (!Number.isInteger(value)) {return 'other';}
+  const n = Math.abs(value);
+  if (n === 0) {return 'zero';}
+  if (n === 1) {return 'one';}
+  if (n === 2) {return 'two';}
+  const mod100 = n % 100;
+  if (mod100 >= 3 && mod100 <= 10) {return 'few';}
+  if (mod100 >= 11 && mod100 <= 99) {return 'many';}
+  return 'other';
+}
+
 class AwaPluralRules {
   private readonly language: string;
   /** Portuguese only: true for 'pt-PT' (Portugal), false for 'pt' / 'pt-BR'. */
@@ -131,6 +145,7 @@ class AwaPluralRules {
 
   select(value: number): PluralCategory {
     if (this.language === 'ru' || this.language === 'uk') {return russianCardinal(value);}
+    if (this.language === 'ar') {return arabicCardinal(value);}
     if (this.language === 'pl') {return polishCardinal(value);}
     if (this.language === 'cs' || this.language === 'sk') {return czechCardinal(value);}
     if (this.language === 'ro') {return romanianCardinal(value);}
@@ -155,7 +170,7 @@ class AwaPluralRules {
     return {
       locale: this.language,
       pluralCategories:
-        this.language === 'ru' || this.language === 'uk' || this.language === 'pl' || this.language === 'cs' || this.language === 'sk' ? ['one', 'few', 'many', 'other'] : this.language === 'ro' || this.language === 'sr' || this.language === 'hr' || this.language === 'bs' ? ['one', 'few', 'other'] : this.language === 'sl' ? ['one', 'two', 'few', 'other'] : this.language === 'he' || this.language === 'iw' ? ['one', 'two', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi' || this.language === 'ms' || this.language === 'wo' || this.language === 'my' || this.language === 'km' || this.language === 'lo' ? ['other'] : ['one', 'other'],
+        this.language === 'ar' ? ['zero', 'one', 'two', 'few', 'many', 'other'] : this.language === 'ru' || this.language === 'uk' || this.language === 'pl' || this.language === 'cs' || this.language === 'sk' ? ['one', 'few', 'many', 'other'] : this.language === 'ro' || this.language === 'sr' || this.language === 'hr' || this.language === 'bs' ? ['one', 'few', 'other'] : this.language === 'sl' ? ['one', 'two', 'few', 'other'] : this.language === 'he' || this.language === 'iw' ? ['one', 'two', 'other'] : this.language === 'zh' || this.language === 'id' || this.language === 'ja' || this.language === 'ko' || this.language === 'th' || this.language === 'vi' || this.language === 'ms' || this.language === 'wo' || this.language === 'my' || this.language === 'km' || this.language === 'lo' ? ['other'] : ['one', 'other'],
     };
   }
 
