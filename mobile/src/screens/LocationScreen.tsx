@@ -445,7 +445,8 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            insets.top > 30 ? styles.contentNotched : styles.contentRegular,
+            // The status bar is translucent, so the screen itself must reserve the top inset (floored for devices/tests reporting 0).
+            {paddingTop: Math.max(insets.top, 16) + spacing.sm},
             insets.bottom > 20 ? styles.contentBottomNotched : styles.contentBottomRegular,
           ]}
           keyboardShouldPersistTaps="handled"
@@ -587,8 +588,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
 
     content: {flexGrow: 1, paddingHorizontal: spacing.lg},
-    contentNotched: {paddingTop: 8},
-    contentRegular: {paddingTop: 18},
     contentBottomNotched: {paddingBottom: 10},
     contentBottomRegular: {paddingBottom: 18},
     backButton: {alignSelf: 'flex-start'},

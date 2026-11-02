@@ -8,14 +8,13 @@
 // rewriting the style's `text-field` expressions — which is what localizeMapStyle() does. A label with no translation falls back to
 // the Latin transliteration (Latin-script languages only) and finally to the local name `name`; proper names are never translated here.
 
-/** The languages the map labels and the geocoder are asked for: AWA's fourteen languages (themePreferences.AwaAppLanguage; both Portuguese variants are the provider's single `pt`) plus
- * Arabic (supported by the provider; AWA has no Arabic interface yet). Anything else is NOT sent to the provider: the MapTiler
+/** The languages the map labels and the geocoder are asked for. Both Portuguese variants use the provider's single `pt`; Kabyle is omitted because the provider does not expose its three-letter `kab` code. Anything else is NOT sent to the provider: the MapTiler
  * geocoder answers an unknown `language` with HTTP 400. */
-export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv', 'no', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk', 'ms', 'so', 'sw', 'kk'] as const;
+export const MAP_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt', 'bn', 'ar', 'da', 'sv', 'no', 'pl', 'uk', 'cs', 'sk', 'hu', 'ro', 'bg', 'sr', 'hr', 'bs', 'sl', 'vi', 'uz', 'az', 'ka', 'hy', 'tg', 'ky', 'tk', 'ms', 'so', 'sw', 'kk', 'om', 'ti', 'rw', 'rn', 'ig', 'yo', 'zu', 'xh', 'sn', 'ln', 'ff'] as const;
 export type MapLanguage = (typeof MAP_LANGUAGES)[number];
 
 // Languages written in a non-Latin script: when a label has no translation they keep the LOCAL name rather than a Latin transliteration.
-const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar', 'bg', 'sr', 'ka', 'hy', 'tg', 'ky', 'kk']);
+const NON_LATIN_SCRIPT: ReadonlySet<MapLanguage> = new Set<MapLanguage>(['ru', 'zh', 'ja', 'ko', 'hi', 'ar', 'bg', 'sr', 'ka', 'hy', 'tg', 'ky', 'kk', 'ti']);
 
 // Languages whose script MapLibre Native cannot shape. Its Android library has no text-shaping engine (no HarfBuzz; glyphs are per-code-point SDF ranges),
 // so Bengali conjuncts (ক্ষ, ন্দ …), pre-base vowel signs (ি ে ৈ) and split vowels (ো ৌ) would be drawn as loose, mis-ordered letters. For them the map NEVER
@@ -35,10 +34,20 @@ export function mapLanguageFor(tag: string | null | undefined): MapLanguage | un
   return (MAP_LANGUAGES as readonly string[]).includes(base) ? (base as MapLanguage) : undefined;
 }
 
-/** The tile properties to read for a language, best first. Simplified Chinese is stored as `name:zh-Hans` (and `name:zh`). */
-export function localizedNameKeys(language: MapLanguage): string[] {
+/** True for a Traditional Chinese tag (zh-Hant, zh-TW, zh-HK, zh-MO, zh-Hant-TW ...): the labels then prefer `name:zh-Hant`. The provider language stays 'zh'
+ * (the geocoder is never sent 'zh-Hant', which it may answer with HTTP 400), so search results are the provider's Chinese names. */
+export function isTraditionalChineseTag(tag: string | null | undefined): boolean {
+  const parts = String(tag ?? '').trim().toLowerCase().split(/[-_.]/);
+  if (parts[0] !== 'zh' || parts.includes('hans')) {return false;}
+  return parts.includes('hant') || parts.includes('tw') || parts.includes('hk') || parts.includes('mo');
+}
+
+/** The tile properties to read for a language, best first. Simplified Chinese is stored as `name:zh-Hans` (and `name:zh`); Traditional Chinese reads `name:zh-Hant` first,
+ * then the same Chinese names, so a label with no Traditional name still shows the Chinese one. */
+export function localizedNameKeys(language: MapLanguage, traditional = false): string[] {
   if (UNSHAPED_SCRIPT.has(language)) {return [];}
   if (language === 'no') {return ['name:no', 'name:nb'];}
+  if (language === 'zh' && traditional) {return ['name:zh-Hant', 'name:zh-Hans', 'name:zh'];}
   return language === 'zh' ? ['name:zh-Hans', 'name:zh'] : [`name:${language}`];
 }
 
@@ -46,10 +55,10 @@ type Expression = unknown[];
 
 /** ["coalesce", name:<lang>, (name:latin), name]: the localized name, then (Latin-script languages) the Latin transliteration,
  * then the local/default name — a label never disappears because a translation is missing. */
-export function localizedNameExpression(language: MapLanguage): Expression {
+export function localizedNameExpression(language: MapLanguage, traditional = false): Expression {
   return [
     'coalesce',
-    ...localizedNameKeys(language).map(key => ['get', key]),
+    ...localizedNameKeys(language, traditional).map(key => ['get', key]),
     ...(NON_LATIN_SCRIPT.has(language) && !UNSHAPED_SCRIPT.has(language) ? [] : [['get', 'name:latin']]),
     ...(UNSHAPED_SCRIPT.has(language) ? [['get', 'name:en']] : []),
     ['get', 'name'],
@@ -121,12 +130,13 @@ export function localizeMapStyle<T extends StyleLike>(style: T, tag: string | nu
   if (!language || language === 'en' || !Array.isArray(style.layers)) {
     return style;
   }
+  const traditional = language === 'zh' && isTraditionalChineseTag(tag);
   let anyChanged = false;
   const layers = style.layers.map(layer => {
     const textField = layer.layout?.['text-field'];
     if (textField === undefined) {return layer;}
     const changed = {value: false};
-    const next = localizeTextField(textField, localizedNameExpression(language), changed);
+    const next = localizeTextField(textField, localizedNameExpression(language, traditional), changed);
     if (!changed.value) {return layer;}
     anyChanged = true;
     return {...layer, layout: {...layer.layout, 'text-field': next}};

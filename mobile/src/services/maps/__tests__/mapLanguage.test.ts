@@ -1,6 +1,7 @@
 import fixture from './fixtures/streetsV2Labels.json';
 import {
   MAP_LANGUAGES,
+  isTraditionalChineseTag,
   localizeMapStyle,
   mapLabelsUseLatinFallback,
   localizedNameExpression,
@@ -60,10 +61,10 @@ describe('mapLanguageFor', () => {
   });
 
   it('knows every language AWA registers (a new AwaAppLanguage must be added to MAP_LANGUAGES or this fails to compile)', () => {
-    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, es: true, it: true, tr: true, ru: true, de: true, zh: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true, sv: true, nb: true, pl: true, uk: true, cs: true, sk: true, hu: true, ro: true, bg: true, sr: true, hr: true, bs: true, sl: true, ne: true, si: true, th: true, vi: true, uz: true, az: true, ka: true, hy: true, tg: true, ky: true, tk: true, ms: true, so: true, sw: true, kk: true, wo: true, ha: true, am: true, nl: true, fi: true, el: true, fil: true, ta: true, te: true, mr: true, gu: true, pa: true, my: true, km: true, lo: true};
-    const NO_MAP_LANGUAGE = ['ne', 'si', 'th', 'wo', 'ha', 'am', 'nl', 'fi', 'el', 'fil', 'ta', 'te', 'mr', 'gu', 'pa', 'my', 'km', 'lo']; // AWA languages the map provider does not offer or whose support is not yet verified (omitted = safe provider default)
+    const registered: Record<AwaAppLanguage, true> = {fr: true, en: true, 'en-US': true, es: true, it: true, tr: true, ru: true, de: true, zh: true, 'zh-Hant': true, ar: true, id: true, hi: true, sq: true, ja: true, ko: true, 'pt-PT': true, 'pt-BR': true, bn: true, da: true, sv: true, nb: true, pl: true, uk: true, cs: true, sk: true, hu: true, ro: true, bg: true, sr: true, hr: true, bs: true, sl: true, ne: true, si: true, th: true, vi: true, uz: true, az: true, ka: true, hy: true, tg: true, ky: true, tk: true, ms: true, so: true, sw: true, kk: true, wo: true, ha: true, am: true, nl: true, fi: true, el: true, fil: true, ta: true, te: true, mr: true, gu: true, pa: true, my: true, km: true, lo: true, kab: true, om: true, ti: true, rw: true, rn: true, ig: true, yo: true, zu: true, xh: true, sn: true, ln: true, ff: true};
+    const NO_MAP_LANGUAGE = ['ne', 'si', 'th', 'wo', 'ha', 'am', 'nl', 'fi', 'el', 'fil', 'ta', 'te', 'mr', 'gu', 'pa', 'my', 'km', 'lo', 'kab']; // AWA languages the map provider does not offer or whose support is not yet verified (omitted = safe provider default)
     for (const language of Object.keys(registered)) {
-      const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language === 'nb' ? 'no' : language; // the provider has one Portuguese and calls Bokmål `no`
+      const expected = language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language === 'nb' ? 'no' : language === 'en-US' ? 'en' : language === 'zh-Hant' ? 'zh' : language; // the provider has one Portuguese and calls Bokmål `no`
       if (NO_MAP_LANGUAGE.includes(language)) {
         expect([language, mapLanguageFor(language)]).toEqual([language, undefined]); // the provider has no such names: the parameter is omitted
         continue;
@@ -72,6 +73,17 @@ describe('mapLanguageFor', () => {
       expect(MAP_LANGUAGES).toContain(expected);
     }
     expect(MAP_LANGUAGES).toContain('ar'); // supported by the provider, no AWA interface yet
+  });
+});
+
+describe('Traditional Chinese map labels', () => {
+  it('reads name:zh-Hant first for Traditional tags only, and keeps the provider language zh', () => {
+    expect(mapLanguageFor('zh-Hant')).toBe('zh');
+    expect(isTraditionalChineseTag('zh-TW')).toBe(true);
+    expect(isTraditionalChineseTag('zh-Hans-TW')).toBe(false);
+    expect(isTraditionalChineseTag('zh-CN')).toBe(false);
+    expect(localizedNameKeys('zh', true)).toEqual(['name:zh-Hant', 'name:zh-Hans', 'name:zh']);
+    expect(localizedNameKeys('zh')).toEqual(['name:zh-Hans', 'name:zh']);
   });
 });
 
