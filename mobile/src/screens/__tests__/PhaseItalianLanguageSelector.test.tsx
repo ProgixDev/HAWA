@@ -23,6 +23,8 @@ const TEST_METRICS: Metrics = {
 
 const SELF_DESCRIPTIONS = [
   ['English', 'Use AWA in English'],
+  ['English (US)', 'Use AWA in American English'],
+  ['العربية', 'استخدم AWA باللغة العربية'],
   ['Français', 'Utiliser AWA en français'],
   ['Español', 'Usar AWA en español'],
   ['Italiano', 'Usare AWA in italiano'],
@@ -110,7 +112,7 @@ afterEach(async () => {
 });
 
 describe('Italian language selector — the Italian card among the five options', () => {
-  it('shows exactly all 60 language cards (nine at the time of the Italian phase) (and no "System default" option)', async () => {
+  it('shows exactly all 75 language cards (nine at the time of the Italian phase) (and no "System default" option)', async () => {
     const renderer = await renderScreen();
     await openLanguageSheet(renderer);
     for (const [label] of SELF_DESCRIPTIONS) {
@@ -119,7 +121,7 @@ describe('Italian language selector — the Italian card among the five options'
     const allRadioLabels = new Set(
       renderer.root.findAll(node => node.props.accessibilityRole === 'radio').map(node => node.props.accessibilityLabel),
     );
-    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'Dansk', 'Svenska', 'Norsk bokmål', 'Polski', 'Українська', 'Čeština', 'Slovenčina', 'Magyar', 'Română', 'Български', 'Српски', 'Hrvatski', 'Bosanski', 'Slovenščina', 'नेपाली', 'සිංහල', 'ไทย', 'Tiếng Việt', 'Oʻzbekcha', 'Azərbaycanca', 'ქართული', 'Հայերեն', 'Тоҷикӣ', 'Кыргызча', 'Türkmençe', 'Bahasa Melayu', 'Soomaali', 'Kiswahili', 'Қазақ тілі', 'Wolof', 'Hausa', 'አማርኛ', 'Nederlands', 'Suomi', 'Ελληνικά', 'Filipino', 'தமிழ்', 'తెలుగు', 'मराठी', 'ગુજરાતી', 'ਪੰਜਾਬੀ', 'မြန်မာ', 'ខ្មែរ', 'ລາວ']));
+    expect(allRadioLabels).toEqual(new Set([...SELF_DESCRIPTIONS.map(([label]) => label), 'Türkçe', 'Русский', 'Deutsch', '简体中文', '繁體中文', 'Bahasa Indonesia', 'हिन्दी', 'বাংলা', 'Shqip', '日本語', '한국어', 'Português (Portugal)', 'Português (Brasil)', 'Dansk', 'Svenska', 'Norsk bokmål', 'Polski', 'Українська', 'Čeština', 'Slovenčina', 'Magyar', 'Română', 'Български', 'Српски', 'Hrvatski', 'Bosanski', 'Slovenščina', 'नेपाली', 'සිංහල', 'ไทย', 'Tiếng Việt', 'Oʻzbekcha', 'Azərbaycanca', 'ქართული', 'Հայերեն', 'Тоҷикӣ', 'Кыргызча', 'Türkmençe', 'Bahasa Melayu', 'Soomaali', 'Kiswahili', 'Қазақ тілі', 'Wolof', 'Hausa', 'አማርኛ', 'Nederlands', 'Suomi', 'Ελληνικά', 'Filipino', 'தமிழ்', 'తెలుగు', 'मराठी', 'ગુજરાતી', 'ਪੰਜਾਬੀ', 'မြန်မာ', 'ខ្មែរ', 'ລາວ', 'Taqbaylit', 'Afaan Oromoo', 'ትግርኛ', 'Ikinyarwanda', 'Ikirundi', 'Igbo', 'Yorùbá', 'isiZulu', 'isiXhosa', 'chiShona', 'Lingála', 'Fulfulde']));
   });
 
   it('the Italian card has the 🇮🇹 flag and the native-language subtitle "Usare AWA in italiano"', async () => {

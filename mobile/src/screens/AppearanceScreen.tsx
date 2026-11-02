@@ -815,12 +815,27 @@ type LanguageOption = {
 const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: string}> = {
   fr: {label: 'Français', subtitle: 'Utiliser AWA en français'},
   en: {label: 'English', subtitle: 'Use AWA in English'},
+  'en-US': {label: 'English (US)', subtitle: 'Use AWA in American English'},
   es: {label: 'Español', subtitle: 'Usar AWA en español'},
   it: {label: 'Italiano', subtitle: 'Usare AWA in italiano'},
   tr: {label: 'Türkçe', subtitle: 'AWA’yı Türkçe kullan'},
   ru: {label: 'Русский', subtitle: 'Использовать AWA на русском'},
   de: {label: 'Deutsch', subtitle: 'AWA auf Deutsch verwenden'},
   zh: {label: '简体中文', subtitle: '使用简体中文的 AWA'},
+  kab: {label: 'Taqbaylit', subtitle: 'Seqdec AWA s Taqbaylit'},
+  om: {label: 'Afaan Oromoo', subtitle: 'AWA Afaan Oromoo\'n fayyadami'},
+  ti: {label: 'ትግርኛ', subtitle: 'AWA ብትግርኛ ተጠቐም'},
+  rw: {label: 'Ikinyarwanda', subtitle: 'Koresha AWA mu Kinyarwanda'},
+  rn: {label: 'Ikirundi', subtitle: 'Koresha AWA mu Kirundi'},
+  ig: {label: 'Igbo', subtitle: 'Jiri AWA n\'asụsụ Igbo'},
+  yo: {label: 'Yorùbá', subtitle: 'Lo AWA ní èdè Yorùbá'},
+  zu: {label: 'isiZulu', subtitle: 'Sebenzisa i-AWA ngesiZulu'},
+  xh: {label: 'isiXhosa', subtitle: 'Sebenzisa i-AWA ngesiXhosa'},
+  sn: {label: 'chiShona', subtitle: 'Shandisa AWA muchiShona'},
+  ln: {label: 'Lingála', subtitle: 'Salela AWA na Lingála'},
+  ff: {label: 'Fulfulde', subtitle: 'Huutinir AWA e Fulfulde'},
+  ar: {label: 'العربية', subtitle: 'استخدم AWA باللغة العربية'},
+  'zh-Hant': {label: '繁體中文', subtitle: '使用繁體中文的 AWA'},
   id: {label: 'Bahasa Indonesia', subtitle: 'Gunakan AWA dalam Bahasa Indonesia'},
   hi: {label: 'हिन्दी', subtitle: 'AWA को हिन्दी में इस्तेमाल करें'},
   sq: {label: 'Shqip', subtitle: 'Përdor AWA në shqip'},
@@ -879,12 +894,27 @@ const LANGUAGE_SELF_LABELS: Record<AwaAppLanguage, {label: string; subtitle: str
 const LANGUAGE_NAME_KEYS: Record<AwaAppLanguage, string> = {
   fr: 'frenchName',
   en: 'englishName',
+  'en-US': 'englishUSName',
   es: 'spanishName',
   it: 'italianName',
   tr: 'turkishName',
   ru: 'russianName',
   de: 'germanName',
   zh: 'chineseName',
+  'zh-Hant': 'traditionalChineseName',
+  ar: 'arabicName',
+  kab: 'kabyleName',
+  om: 'oromoName',
+  ti: 'tigrinyaName',
+  rw: 'kinyarwandaName',
+  rn: 'kirundiName',
+  ig: 'igboName',
+  yo: 'yorubaName',
+  zu: 'zuluName',
+  xh: 'xhosaName',
+  sn: 'shonaName',
+  ln: 'lingalaName',
+  ff: 'fulfuldeName',
   id: 'indonesianName',
   hi: 'hindiName',
   sq: 'albanianName',
@@ -939,15 +969,20 @@ const LANGUAGE_NAME_KEYS: Record<AwaAppLanguage, string> = {
   lo: 'laoName',
 };
 
+// the palette carousel snaps by contentOffset.x / scrollTo({x}): its axis stays left to right in a right-to-left layout
+const LTR_AXIS = {direction: 'ltr'} as const;
+
 const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'fr', flag: '🇫🇷', ...LANGUAGE_SELF_LABELS.fr},
   {id: 'en', flag: '🇬🇧', ...LANGUAGE_SELF_LABELS.en},
+  {id: 'en-US', flag: '🇺🇸', ...LANGUAGE_SELF_LABELS['en-US']},
   {id: 'es', flag: '🇪🇸', ...LANGUAGE_SELF_LABELS.es},
   {id: 'it', flag: '🇮🇹', ...LANGUAGE_SELF_LABELS.it},
   {id: 'tr', flag: '🇹🇷', ...LANGUAGE_SELF_LABELS.tr},
   {id: 'ru', flag: '🇷🇺', ...LANGUAGE_SELF_LABELS.ru},
   {id: 'de', flag: '🇩🇪', ...LANGUAGE_SELF_LABELS.de},
   {id: 'zh', flag: '🇨🇳', ...LANGUAGE_SELF_LABELS.zh},
+  {id: 'zh-Hant', flag: '🇹🇼', ...LANGUAGE_SELF_LABELS['zh-Hant']},
   {id: 'id', flag: '🇮🇩', ...LANGUAGE_SELF_LABELS.id},
   {id: 'hi', flag: '🇮🇳', ...LANGUAGE_SELF_LABELS.hi},
   {id: 'sq', flag: '🇦🇱', ...LANGUAGE_SELF_LABELS.sq},
@@ -1000,6 +1035,19 @@ const LANGUAGE_OPTIONS: LanguageOption[] = [
   {id: 'my', flag: '🇲🇲', ...LANGUAGE_SELF_LABELS.my},
   {id: 'km', flag: '🇰🇭', ...LANGUAGE_SELF_LABELS.km},
   {id: 'lo', flag: '🇱🇦', ...LANGUAGE_SELF_LABELS.lo},
+  {id: 'ar', flag: '🇸🇦', ...LANGUAGE_SELF_LABELS.ar},
+  {id: 'kab', flag: '🇩🇿', ...LANGUAGE_SELF_LABELS.kab},
+  {id: 'om', flag: '🇪🇹', ...LANGUAGE_SELF_LABELS.om},
+  {id: 'ti', flag: '🇪🇷', ...LANGUAGE_SELF_LABELS.ti},
+  {id: 'rw', flag: '🇷🇼', ...LANGUAGE_SELF_LABELS.rw},
+  {id: 'rn', flag: '🇧🇮', ...LANGUAGE_SELF_LABELS.rn},
+  {id: 'ig', flag: '🇳🇬', ...LANGUAGE_SELF_LABELS.ig},
+  {id: 'yo', flag: '🇳🇬', ...LANGUAGE_SELF_LABELS.yo},
+  {id: 'zu', flag: '🇿🇦', ...LANGUAGE_SELF_LABELS.zu},
+  {id: 'xh', flag: '🇿🇦', ...LANGUAGE_SELF_LABELS.xh},
+  {id: 'sn', flag: '🇿🇼', ...LANGUAGE_SELF_LABELS.sn},
+  {id: 'ln', flag: '🇨🇩', ...LANGUAGE_SELF_LABELS.ln},
+  {id: 'ff', flag: '🇸🇳', ...LANGUAGE_SELF_LABELS.ff},
 ];
 
 function LanguageBottomSheet({
@@ -1605,6 +1653,8 @@ export default function AppearanceScreen({
           <ScrollView
             ref={carouselRef}
             horizontal
+            // the palette carousel snaps by contentOffset.x / scrollTo({x}): keep its axis left to right in a right-to-left layout
+            style={LTR_AXIS}
 
             showsHorizontalScrollIndicator={
               false

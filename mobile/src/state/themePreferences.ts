@@ -94,7 +94,7 @@ export function getTrueBlackEnabled(): boolean {
 // app/device, unaffected by owner/managed-daughter profile switching. Only
 // selects a language for now; the actual string translation is a separate,
 // later i18n migration (this store/UI does not translate anything yet).
-export type AwaAppLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo';
+export type AwaAppLanguage = 'fr' | 'en' | 'en-US' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'zh-Hant' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo' | 'ar' | 'kab' | 'om' | 'ti' | 'rw' | 'rn' | 'ig' | 'yo' | 'zu' | 'xh' | 'sn' | 'ln' | 'ff';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 // FIRST LAUNCH: with no stored language AWA detects the phone's preferred language ONCE (see hydrateAppearancePreferences),
@@ -114,11 +114,27 @@ const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
 const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
-  value === 'fr' || value === 'en' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn' || value === 'da' || value === 'sv' || value === 'nb' || value === 'pl' || value === 'uk' || value === 'cs' || value === 'sk' || value === 'hu' || value === 'ro' || value === 'bg' || value === 'sr' || value === 'hr' || value === 'bs' || value === 'sl' || value === 'ne' || value === 'si' || value === 'th' || value === 'vi' || value === 'uz' || value === 'az' || value === 'ka' || value === 'hy' || value === 'tg' || value === 'ky' || value === 'tk' || value === 'ms' || value === 'so' || value === 'sw' || value === 'kk' || value === 'wo' || value === 'ha' || value === 'am' || value === 'nl' || value === 'fi' || value === 'el' || value === 'fil' || value === 'ta' || value === 'te' || value === 'mr' || value === 'gu' || value === 'pa' || value === 'my' || value === 'km' || value === 'lo';
+  value === 'fr' || value === 'en' || value === 'en-US' || value === 'es' || value === 'it' || value === 'tr' || value === 'ru' || value === 'de' || value === 'zh' || value === 'zh-Hant' || value === 'id' || value === 'hi' || value === 'sq' || value === 'ja' || value === 'ko' || value === 'pt-PT' || value === 'pt-BR' || value === 'bn' || value === 'da' || value === 'sv' || value === 'nb' || value === 'pl' || value === 'uk' || value === 'cs' || value === 'sk' || value === 'hu' || value === 'ro' || value === 'bg' || value === 'sr' || value === 'hr' || value === 'bs' || value === 'sl' || value === 'ne' || value === 'si' || value === 'th' || value === 'vi' || value === 'uz' || value === 'az' || value === 'ka' || value === 'hy' || value === 'tg' || value === 'ky' || value === 'tk' || value === 'ms' || value === 'so' || value === 'sw' || value === 'kk' || value === 'wo' || value === 'ha' || value === 'am' || value === 'nl' || value === 'fi' || value === 'el' || value === 'fil' || value === 'ta' || value === 'te' || value === 'mr' || value === 'gu' || value === 'pa' || value === 'my' || value === 'km' || value === 'lo' || value === 'ar' || value === 'kab' || value === 'om' || value === 'ti' || value === 'rw' || value === 'rn' || value === 'ig' || value === 'yo' || value === 'zu' || value === 'xh' || value === 'sn' || value === 'ln' || value === 'ff';
 
 /** Simplified Chinese compatibility aliases (any case, '-' or '_'): zh-CN, zh-Hans, zh-Hans-CN. Only Chinese has
  * aliases; every other language still needs its exact code. */
 const ZH_ALIASES = new Set(['zh', 'zh-cn', 'zh-hans', 'zh-hans-cn', 'zh-sg', 'zh-hans-sg']);
+
+/** Traditional Chinese ('zh-Hant', 繁體中文, Taiwan-oriented wording, Intl locale zh-Hant-TW): the script tag and the Taiwan / Hong Kong / Macau regions.
+ * 'zh' stays Simplified Chinese; the two are separate app languages. */
+const ZH_HANT_ALIASES = new Set(['zh-hant', 'zh-tw', 'zh-hk', 'zh-mo', 'zh-hant-tw', 'zh-hant-hk', 'zh-hant-mo']);
+
+/** American English ('en-US', English (US)): a separate app language over the English ('en') text. 'en' keeps its own meaning and is never
+ * rewritten to 'en-US'. */
+/** Arabic ('ar', العربية, Modern Standard Arabic, right-to-left, Intl locale ar with Western digits): every Arabic country tag reaches it through the
+ * bare-language retry of languageFromLocaleTag; these make a STORED value written in a regional or script spelling resolve too. */
+const AR_ALIASES = new Set(['ar-sa', 'ar-eg', 'ar-dz', 'ar-ma', 'ar-tn', 'ar-ae', 'ar-iq', 'ar-jo', 'ar-lb', 'ar-sy', 'ar-kw', 'ar-qa', 'ar-bh', 'ar-om', 'ar-ye', 'ar-ly', 'ar-sd', 'ar-001', 'ar-arab', 'ar-arab-sa']);
+
+/** The twelve African languages added after Arabic (kab om ti rw rn ig yo zu xh sn ln ff): stored values written with a region or script. Every 'xx-*' device tag also
+ * reaches them through the bare-language retry of languageFromLocaleTag. */
+const AFRICAN_ALIASES: Record<string, AwaAppLanguage> = {'kab-dz': 'kab', 'om-et': 'om', 'om-ke': 'om', 'ti-er': 'ti', 'ti-et': 'ti', 'ti-ethi': 'ti', 'ti-ethi-er': 'ti', 'ti-ethi-et': 'ti', 'rw-rw': 'rw', 'rn-bi': 'rn', 'ig-ng': 'ig', 'yo-ng': 'yo', 'yo-bj': 'yo', 'zu-za': 'zu', 'xh-za': 'xh', 'sn-zw': 'sn', 'ln-cd': 'ln', 'ln-cg': 'ln', 'ln-ao': 'ln', 'ln-cf': 'ln', 'ff-latn': 'ff', 'ff-latn-sn': 'ff', 'ff-sn': 'ff', 'ff-gn': 'ff', 'ff-mr': 'ff', 'ff-ml': 'ff', 'ff-ne': 'ff', 'ff-cm': 'ff'};
+
+const EN_US_ALIASES = new Set(['en-us', 'en-latn-us']);
 
 /** Indonesian ('id', Bahasa Indonesia) aliases: id-ID, and the legacy Java/Android code 'in' (in, in-ID, in_ID). */
 const ID_ALIASES = new Set(['id-id', 'in', 'in-id']);
@@ -255,6 +271,21 @@ export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
   }
   if (typeof value === 'string' && ZH_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
     return 'zh';
+  }
+  if (typeof value === 'string' && ZH_HANT_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'zh-Hant';
+  }
+  if (typeof value === 'string') {
+    const african = AFRICAN_ALIASES[value.trim().toLowerCase().replace(/_/g, '-')];
+    if (african) {
+      return african;
+    }
+  }
+  if (typeof value === 'string' && AR_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'ar';
+  }
+  if (typeof value === 'string' && EN_US_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
+    return 'en-US';
   }
   if (typeof value === 'string' && ID_ALIASES.has(value.trim().toLowerCase().replace(/_/g, '-'))) {
     return 'id';
@@ -418,7 +449,7 @@ export function normalizeAppLanguage(value: unknown): AwaAppLanguage | null {
 /**
  * The supported language for ONE device locale tag ("fr-DZ", "fr_DZ", "FR", "zh-Hans-CN", "zh_TW" ...), or null.
  * Reuses normalizeAppLanguage (exact codes + the Simplified Chinese aliases), then retries with the bare language so every
- * regional variant maps to its language. Every Chinese locale maps to 'zh' (AWA has one Chinese translation, Simplified).
+ * regional variant maps to its language. Chinese: a Traditional script or a Taiwan / Hong Kong / Macau region maps to 'zh-Hant', every other Chinese locale (zh-CN, zh-Hans, zh-SG, bare zh) to 'zh'. English: the US region maps to 'en-US', every other English locale to 'en'.
  */
 export function languageFromLocaleTag(tag: unknown): AwaAppLanguage | null {
   if (typeof tag !== 'string') {
@@ -430,6 +461,20 @@ export function languageFromLocaleTag(tag: unknown): AwaAppLanguage | null {
   }
   if (/^(hi|bn)-latn(-|$)/.test(cleaned)) {
     return null; // Hindi / Bengali in Roman letters: not AWA's Devanagari Hindi or Bengali-script Bengali
+  }
+  if (cleaned === 'zh' || cleaned.startsWith('zh-')) {
+    // The script decides first (zh-Hant-CN is Traditional, zh-Hans-TW is Simplified), then the region (TW / HK / MO → Traditional).
+    const parts = cleaned.split(/-[ux]-/)[0].split('-').slice(1);
+    if (parts.includes('hans')) {
+      return 'zh';
+    }
+    const region = parts.find(part => /^[a-z]{2}$/.test(part));
+    return parts.includes('hant') || region === 'tw' || region === 'hk' || region === 'mo' ? 'zh-Hant' : 'zh';
+  }
+  if (cleaned === 'en' || cleaned.startsWith('en-')) {
+    // Only the US region is 'en-US'; en-GB, en-AU, en-CA, en-IN … keep the existing English.
+    const region = cleaned.split(/-[ux]-/)[0].split('-').slice(1).find(part => /^[a-z]{2}$/.test(part));
+    return region === 'us' ? 'en-US' : 'en';
   }
   if (cleaned === 'pt' || cleaned.startsWith('pt-')) {
     // Portuguese: the region decides (pt-BR, pt-Latn-BR, pt-BR-u-… → Brazil); anything else, bare 'pt' included, is Portugal.

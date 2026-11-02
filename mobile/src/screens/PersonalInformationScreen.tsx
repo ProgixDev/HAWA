@@ -176,7 +176,37 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
   // English. This reads the live language fresh, fixing a real display bug,
   // without touching the store's own field/migration logic at all.
   const languageDisplayValue =
-    getAppLanguage() === 'en'
+    getAppLanguage() === 'kab'
+      ? t('appearance.language.kabyleName')
+      : getAppLanguage() === 'om'
+      ? t('appearance.language.oromoName')
+      : getAppLanguage() === 'ti'
+      ? t('appearance.language.tigrinyaName')
+      : getAppLanguage() === 'rw'
+      ? t('appearance.language.kinyarwandaName')
+      : getAppLanguage() === 'rn'
+      ? t('appearance.language.kirundiName')
+      : getAppLanguage() === 'ig'
+      ? t('appearance.language.igboName')
+      : getAppLanguage() === 'yo'
+      ? t('appearance.language.yorubaName')
+      : getAppLanguage() === 'zu'
+      ? t('appearance.language.zuluName')
+      : getAppLanguage() === 'xh'
+      ? t('appearance.language.xhosaName')
+      : getAppLanguage() === 'sn'
+      ? t('appearance.language.shonaName')
+      : getAppLanguage() === 'ln'
+      ? t('appearance.language.lingalaName')
+      : getAppLanguage() === 'ff'
+      ? t('appearance.language.fulfuldeName')
+      : getAppLanguage() === 'ar'
+      ? t('appearance.language.arabicName')
+      : getAppLanguage() === 'en-US'
+      ? t('appearance.language.englishUSName')
+      : getAppLanguage() === 'zh-Hant'
+      ? t('appearance.language.traditionalChineseName')
+      : getAppLanguage() === 'en'
       ? t('appearance.language.englishName')
       : getAppLanguage() === 'es'
         ? t('appearance.language.spanishName')
