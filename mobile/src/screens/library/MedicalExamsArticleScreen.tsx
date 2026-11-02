@@ -383,6 +383,604 @@ const CONTENT = withBrazilianPortuguese('MedicalExams', {
       tipText: '每次产检前，不妨把问题写下来，免得当场遗漏：再小的问题都值得问。',
       shareMessage: '孕期检查时间表 — AWA',
     },
+  'zh-Hant': {
+      badge: '懷孕 • 醫療隨訪',
+      title: '孕期檢查\n時間表',
+      metaDuration: '閱讀約 6 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已審閱內容',
+      intro: '按孕期階段瞭解超音波檢查和重要的檢驗專案。',
+      contentsTitle: '本文內容',
+      topics: [
+        '隨訪超音波檢查',
+        '重要的血液檢查',
+        '為每次產檢做準備',
+        '值得注意的事',
+        '要點回顧',
+      ],
+      body1: '孕期通常包括三次主要的超音波檢查，每個孕期一次，各有不同的目的。',
+      ultrasounds: [
+        '孕早期：核對孕周和頸項透明層檢查',
+        '孕中期：胎兒結構超音波檢查',
+        '孕晚期：生長發育和寶寶的胎位',
+      ],
+      body2: '整個孕期會定期做血液檢查，監測幾項關鍵指標：',
+      bloodTests: [
+        '鐵含量，用於篩查可能的貧血',
+        '妊娠期糖尿病篩查，通常在孕中期前後進行',
+        '血型和不規則抗體篩查',
+        '血清學檢查（弓形蟲病、風疹），視你的免疫狀態而定',
+      ],
+      prepTips: [
+        '想到問題就隨時記下來，免得忘記',
+        '每次產檢都帶上你的孕期隨訪手冊',
+        '提到任何新出現的症狀，即使看起來很輕微',
+      ],
+      neutralText: '檢查的具體次數和時間安排，可能因你所接受的醫療服務、風險情況，以及所在國家或醫療機構的做法而有所不同。',
+      tipTitle: '小提醒',
+      tipText: '每次產檢前，不妨把問題寫下來，免得當場遺漏：再小的問題都值得問。',
+      shareMessage: '孕期檢查時間表 — AWA',
+    },
+  ar: {
+    badge: 'الحمل • المتابعة الطبية',
+    title: 'جدول فحوصات\nالحمل',
+    metaDuration: 'قراءة في 6 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى مُراجَع',
+    intro: 'الفحوصات بالموجات فوق الصوتية والتحاليل الأساسية، ثلثًا بعد ثلث.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'فحوصات المتابعة بالموجات فوق الصوتية',
+      'تحاليل الدم الأساسية',
+      'الاستعداد لكل موعد',
+      'جدير بالملاحظة',
+      'أهم النقاط',
+    ],
+    body1:
+      'يتضمن الحمل عمومًا ثلاثة فحوصات رئيسية بالموجات فوق الصوتية، واحد في كل ثلث، ولكلٍّ منها غرض مختلف.',
+    ultrasounds: [
+      'الثلث الأول: تحديد عمر الحمل وقياس الشفافية القفوية',
+      'الثلث الثاني: فحص التشكّل (البنية)',
+      'الثلث الثالث: النمو ووضعية الجنين',
+    ],
+    body2:
+      'تراقب تحاليل الدم المنتظمة عدة مؤشرات أساسية طوال الحمل:',
+    bloodTests: [
+      'مستويات الحديد، للكشف عن احتمال فقر الدم',
+      'الكشف عن سكري الحمل، عمومًا في حدود الثلث الثاني',
+      'فصيلة الدم والكشف عن الأجسام المضادة غير المنتظمة',
+      'التحاليل المصلية (داء المقوّسات، الحصبة الألمانية) بحسب مناعتك',
+    ],
+    prepTips: [
+      'دوّني أسئلتك كلما خطرت لك، قبل أن تنسيها',
+      'أحضري دفتر متابعة الحمل في كل موعد',
+      'اذكري أي عَرَض جديد، حتى لو بدا بسيطًا',
+    ],
+    neutralText:
+      'قد يختلف العدد الدقيق للفحوصات وجدولها بحسب رعايتك الصحية ومستوى الخطورة لديك وممارسات بلدك أو الجهة المقدّمة للرعاية.',
+    tipTitle: 'من المفيد أن تعرفي',
+    tipText:
+      'لا تترددي في تدوين أسئلتك قبل كل موعد حتى لا تنسي شيئًا في اللحظة نفسها: لا يوجد سؤال صغير جدًا لا يستحق أن يُطرح.',
+    shareMessage: 'جدول فحوصات الحمل — AWA',
+  },
+  kab: {
+    badge: 'TIGZI • ADFAR N TEZMERT',
+    title: 'Tafelwit n yisenqden\nn tigzi',
+    metaDuration: '6 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Anagar',
+    metaValidated: 'Agbur yettwaɛass',
+    intro: 'Ultrasound d yisenqden yesɛan azal, trimestre ɣer trimestre.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Ultrasound n udfar',
+      'Isenqden n idammen yesɛan azal',
+      'Ahyyi i yal asmekti',
+      'Yelha ad teɛlmeḍ',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    body1:
+      'Tigzi tesɛa s wudem amatu kraḍ n ultrasound imeqqranen, yiwen i yal trimestre, yal yiwen s wuswir yemgaraden.',
+    ultrasounds: [
+      'Trimestre amezwaru: tarikt n zzman d yimmal n tɣuri n ɣer ṭṭerf (nuchal)',
+      'Trimestre wis sin: ultrasound n tmuɣli n ugris',
+      'Trimestre wis kraḍ: ugar d wadeg n ubrid n lweldun',
+    ],
+    body2:
+      'Isenqden n idammen s lḥal ttɛassen aṭas n yimdanen yesɛan azal deg tegzi:',
+    bloodTests: [
+      'Aswir n uzzar, i usnerni n uɣbel yezmer ad d-yili',
+      'Asenqed n ssukkar n tigzi, s wudem amatu ɣer trimestre wis sin',
+      'Tagrupt n idammen d usenqed n tgemmunt ur nelli ara d tamagnut',
+      'Isenqden n serology (toxoplasmose, rubéole) almend n waddad-ik n tgellit',
+    ],
+    prepTips: [
+      'Aru isteqsiyen-ik akken ara d-ttaffeḍ-tent, uqbel ad tettuɣalen tettuɣaleḍ',
+      'Awi adlis-ik n udfar n tigzi ɣer yal asmekti',
+      'Ɛiwen yal tizmilt tamaynut, ɣas ma tettban-d d tamecṭuḥt',
+    ],
+    neutralText:
+      'Uṭṭun n yisenqden d tfelwit-nsen zemrent ad mgaraden almend n uɛawen-ik, n lxaṭar-ik, d tarrayin n tmurt-ik neɣ n win i k-yettɛawnen.',
+    tipTitle: 'Yelha ad teɛlmeḍ',
+    tipText:
+      'Ur tɛerrageḍ ara ad tarud isteqsiyen-ik uqbel yal asmekti akken ur tettuɣaleḍ ara kra: ulac asteqsi yecṭuḥ aṭas akken ad ttwasteqsin.',
+    shareMessage: 'Tafelwit n yisenqden n tigzi — AWA',
+  },
+  om: {
+    badge: 'ULFA • HORDOFFII FAYYAA',
+    title: 'Kalaandarii qorannoo\nulfaa',
+    metaDuration: 'Daqiiqaa 6 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee sakatta\'amee',
+    intro: 'Ultrasound fi qorannoowwan ijoo, trimester trimesteriin.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Ultrasound hordoffii',
+      'Qorannoo dhiigaa ijoo',
+      'Beellama hundaaf qophaa\'uu',
+      'Beekuun gaarii',
+      'Qabxiilee ijoo',
+    ],
+    body1:
+      'Ulfi yeroo baay\'ee ultrasound ijoo sadi qaba, trimester tokkoon tokko, tokkoon tokkoon isaa kaayyoo garaagaraa qaba.',
+    ultrasounds: [
+      'Trimester 1ffaa: guyyaa murteessuu fi nuchal translucency',
+      'Trimester 2ffaa: ultrasound bifa qaamaa',
+      'Trimester 3ffaa: guddina fi haala daa\'ima',
+    ],
+    body2:
+      'Qorannoon dhiigaa yeroo yeroon ulfa guutuu keessatti mallattoowwan ijoo hordofa:',
+    bloodTests: [
+      'Sadarkaa sibiilaa, dhiigni hanqina dhiigaa ta\'uu danda\'u ilaaluuf',
+      'Qorannoo sukkaara ulfaa, yeroo baay\'ee trimester 2ffaa naannoo',
+      'Gosa dhiigaa fi qorannoo antibody idilee hin taane',
+      'Qorannoo serology (toxoplasmosis, rubella) haala dhukkuba ittisuu kee irratti hundaa\'uun',
+    ],
+    prepTips: [
+      'Gaaffiilee kee yeroo sitti dhufan barreessi, osoo hin irraanfatin dura',
+      'Kitaaba hordoffii ulfaa kee beellama hundumaaf fidi',
+      'Mallattoo haaraa tokko illee, xiqqaa fakkaatus, ibsi',
+    ],
+    neutralText:
+      'Lakkoofsi fi sagantaan qorannoo sirrii kunuunsa kee, balaa kee, fi hojii biyya kee ykn kennaa kunuunsa irratti hundaa\'uun garaagarummaa qabaachuu danda\'a.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Beellama hundumaan dura gaaffilee kee barreessuuf hin sodaatin, yeroo sanatti waan tokko osoo hin irraanfatin: gaaffiin tokko illee gaafachuuf xiqqaa miti.',
+    shareMessage: 'Kalaandarii qorannoo ulfaa — AWA',
+  },
+  ti: {
+    badge: 'ጥንስቲ • ሕክምናዊ ክትትል',
+    title: 'ናይ ጥንስቲ ምርመራ\nካላንደር',
+    metaDuration: '6 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ኣልትራሳውንድን ኣገደስቲ ምርመራታትን፡ ሰለስተ ወርሒ ብሰለስተ ወርሒ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ናይ ክትትል ኣልትራሳውንድ',
+      'ኣገደስቲ ናይ ደም ምርመራታት',
+      'ንነፍሲ ወከፍ ቆጸራ ምድላው',
+      'ከተስተውዕልዮ ዘለካ',
+      'ቀንዲ ነጥብታት',
+    ],
+    body1:
+      'ጥንስቲ ብሓፈሻ ሰለስተ ቀንዲ ኣልትራሳውንድ ይሓዝ፡ ሓደ ኣብ ነፍሲ ወከፍ ትሪሜስተር፡ ነፍሲ ወከፍ ዝተፈለየ ዕላማ ዘለዎ።',
+    ultrasounds: [
+      '1ይ ትሪሜስተር፡ ምድናስን ኑካል ትራንስሉሰንሲን',
+      '2ይ ትሪሜስተር፡ ሞርፎሎጂ ኣልትራሳውንድ',
+      '3ይ ትሪሜስተር፡ ዕብየትን ኩነታት ሕጻንን',
+    ],
+    body2:
+      'ቀዋሚ ናይ ደም ምርመራታት ኣብ ጥንስቲ ምሉእ ብዙሓት ቀንዲ መለክዒታት ይከታተሉ፡',
+    bloodTests: [
+      'ደረጃ ኣሸንካ፡ ክሳብ ክንደይ ደም ምጉዳል ንምፍላጥ',
+      'ናይ ጥንስቲ ሽኮር ምፍላጥ፡ ብሓፈሻ ኣብ ከባቢ 2ይ ትሪሜስተር',
+      'ዓይነት ደምን ዘይልሙድ ኣንቲቦዲ ምፍላጥን',
+      'ሴሮሎጂ ምርመራታት (ቶክሶፕላስሞሲስ፡ ሩቤላ) ከከም ናይ መከላኸሊ ኩነታትኪ',
+    ],
+    prepTips: [
+      'ሕቶታትኪ ቅድሚ ምርሳዕኪ ከም ዝመጹኺ ጽሓፊ',
+      'ናይ ጥንስቲ ክትትል መጽሓፍኺ ናብ ነፍሲ ወከፍ ቆጸራ ሓዚ',
+      'ዝኾነ ሓድሽ ምልክት፡ ንእሽቶ እኳ እንተ መሰለ፡ ጥቀሲ',
+    ],
+    neutralText:
+      'ትኽክለኛ ቁጽርን ናይ ምርመራታት መደብን ከከም ክንክንኪ፡ መለክዒ ሓደጋኺን ናይ ሃገርኪ ወይ ኣቕራቢ ክንክን ልምድታትን ክፍለ ይኽእል።',
+    tipTitle: 'ከተፍልጥዮ ዘለካ',
+    tipText:
+      'ኣብቲ እዋን ሓንቲ ከይትረስዒ ቅድሚ ነፍሲ ወከፍ ቆጸራ ሕቶታትኪ ምጽሓፍ ኣይትጠራጠሪ፡ ኣዝዩ ንእሽቶ ሕቶ የለን።',
+    shareMessage: 'ናይ ጥንስቲ ምርመራ ካላንደር — AWA',
+  },
+  rw: {
+    badge: 'GUTWITA • IKURIKIRANWA RY\'UBUVUZI',
+    title: 'Ingengabihe y\'isuzuma\nry\'inda',
+    metaDuration: 'Gusoma: iminota 6',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Utangiye',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Ultrasound n\'ibizamini by\'ingenzi, ukurikije buri trimester.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ultrasound zo gukurikirana',
+      'Ibizamini by\'amaraso by\'ingenzi',
+      'Kwitegura buri gahunda yo kubonana',
+      'Ni byiza kubimenya',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    body1:
+      'Gutwita muri rusange bikubiyemo ultrasound eshatu z\'ingenzi, imwe kuri buri trimester, buri imwe ifite intego itandukanye.',
+    ultrasounds: [
+      'Trimester ya 1: kumenya imyaka y\'inda na nuchal translucency',
+      'Trimester ya 2: ultrasound y\'imiterere y\'umwana',
+      'Trimester ya 3: gukura n\'uko umwana aryamye',
+    ],
+    body2:
+      'Ibizamini by\'amaraso bikorwa buri gihe bigenzura ibimenyetso by\'ingenzi byinshi mu gihe cyose cyo gutwita:',
+    bloodTests: [
+      'Urugero rw\'icyuma mu mubiri, mu gusuzuma niba hashobora kuba hari amaraso make',
+      'Isuzuma rya diyabete yo gutwita, muri rusange hafi ya trimester ya 2',
+      'Ubwoko bw\'amaraso n\'isuzuma ry\'ingingo zirwanya indwara zidasanzwe',
+      'Ibizamini bya serology (toxoplasmose, rubéole) bitewe n\'uko ubwirinzi bwawe bw\'umubiri bumeze',
+    ],
+    prepTips: [
+      'Andika ibibazo byawe uko bije, mbere y\'ukoubyibagirwa',
+      'Jyana agatabo ko gukurikirana inda yawe kuri buri gahunda yo kubonana',
+      'Bwira muganga ikimenyetso cyose gishya, nubwo cyaba gisa n\'igito',
+    ],
+    neutralText:
+      'Umubare nyawo n\'ingengabihe y\'ibizamini bishobora gutandukana bitewe n\'uko wivuza, urwego rw\'ibyago byawe, n\'imikorere y\'igihugu cyawe cyangwa y\'ukwita ku buzima.',
+    tipTitle: 'Byiza kumenya',
+    tipText:
+      'Ntuzuyaze kwandika ibibazo byawe mbere ya buri gahunda yo kubonana kugira ngo hatagira ikikurenga muri ako kanya: nta kibazo kiba gito cyane ku buryo utakibaza.',
+    shareMessage: 'Ingengabihe y\'isuzuma ry\'inda — AWA',
+  },
+  rn: {
+    badge: 'IGITIGIRI • GUKURIKIRANWA KW\'UBUVUZI',
+    title: 'Ingengabihe y\'ibizamini\nvy\'igitigiri',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisuzumwe',
+    intro: 'Ultrasound n\'ibizamini by\'ingenzi, igice ku gice cy\'amezi atatu.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'Ultrasound zo gukurikirana',
+      'Ibizamini vy\'amaraso vy\'ingenzi',
+      'Kwitegura buri kubonana na muganga',
+      'Ikibereye kumenyekana',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    body1:
+      'Igitigiri gisanzwe kirimwo ultrasound eshatu nkuru, imwe kuri buri gice c\'amezi atatu, buri imwe ifise intego itandukanye.',
+    ultrasounds: [
+      'Igice ca 1 c\'amezi atatu: kumenya amatarike na nuchal translucency',
+      'Igice ca 2 c\'amezi atatu: ultrasound y\'ishusho y\'umwana',
+      'Igice ca 3 c\'amezi atatu: gukura n\'ukuntu umwana ari',
+    ],
+    body2:
+      'Ibizamini vy\'amaraso bisanzwe bikurikirana ibimenyetso vy\'ingenzi vyinshi mu gitigiri cose:',
+    bloodTests: [
+      'Urugero rw\'icuma, kugira ngo hamenyekane ubuke bw\'amaraso bushoboka',
+      'Gupima diyabete y\'igitigiri, isanzwe ahagana mu gice ca 2 c\'amezi atatu',
+      'Ubwoko bw\'amaraso no gupima antikorps zidasanzwe',
+      'Ibizamini bya serology (toxoplasmosis, rubella) bitewe n\'ukuntu umubiri wawe urinda indwara',
+    ],
+    prepTips: [
+      'Andika ibibazo vyawe uko bikuzaho, imbere y\'uko wibagira',
+      'Zana agatabo kawe ko gukurikirana igitigiri igihe cose ubonana na muganga',
+      'Bwira ikimenyetso cose gishasha, naho cogaragara nk\'icoroshe',
+    ],
+    neutralText:
+      'Ingano nyayo n\'ingengabihe y\'ibizamini bishobora gutandukana bitewe n\'ubuvuzi bwawe, urugero rw\'ingorane zawe, n\'imigenzo y\'igihugu canke y\'uwuguvura.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Ntutinye kwandika ibibazo vyawe imbere y\'igihe cose ubonana na muganga kugira ngo utagira ico wibagirwa muri ako kanya: nta kibazo kiri gito cane ku buryo kitabazwa.',
+    shareMessage: 'Ingengabihe y\'ibizamini vy\'igitigiri — AWA',
+  },
+  ig: {
+    badge: 'IME • NLEKỌTA AHỤIKE',
+    title: 'Kalenda nyocha\nmgbe ị dị ime',
+    metaDuration: 'Nkeji 6 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Onye mbido',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Ultrasound na nnwale ndị dị mkpa, ọnwa atọ ọ bụla.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Ultrasound nlekọta',
+      'Nnwale ọbara ndị dị mkpa',
+      'Ịkwadebe maka oge nleta ọ bụla',
+      'Ihe kwesịrị ịrịba ama',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    body1:
+      'Ime n\'ozuzu gụnyere ultrasound atọ bụ isi, otu n\'ọnwa atọ ọ bụla, nke ọ bụla nwere ebumnuche dị iche.',
+    ultrasounds: [
+      'Ọnwa atọ nke mbụ: ịkọ ụbọchị na nyocha akụkụ ọnụ azụ nwa',
+      'Ọnwa atọ nke abụọ: ultrasound ọdịdị ahụ nwa',
+      'Ọnwa atọ nke atọ: uto nwa na ọnọdụ ya',
+    ],
+    body2:
+      'Nnwale ọbara mgbe niile na-elekọta ọtụtụ ihe ngosi dị mkpa n\'ime ime:',
+    bloodTests: [
+      'Ọkwa igwe, iji chọpụta ọrịa ọbara dị ala nwere ike ịdị',
+      'Nyocha shuga n\'oge ime, n\'ozuzu gburugburu ọnwa atọ nke abụọ',
+      'Ụdị ọbara na nyocha ọgwụ mgbochi ọrịa na-adịghị ahụkebe',
+      'Nnwale serology (toxoplasmosis, rubella) dabere n\'ọnọdụ mgbochi ọrịa gị',
+    ],
+    prepTips: [
+      'Dee ajụjụ gị ka ha na-abata gị, tupu ichefu ha',
+      'Bute akwụkwọ nlekọta ime gị n\'oge nleta ọ bụla',
+      'Kọọ mgbaàmà ọhụrụ ọ bụla, ọ bụrụgodị na ọ dị ka obere ihe',
+    ],
+    neutralText:
+      'Ọnụ ọgụgụ kpọmkwem na oge nyocha nwere ike ịdịgasị dabere na nlekọta gị, profaịlụ ihe ize ndụ gị, na omume obodo gị ma ọ bụ onye na-elekọta gị.',
+    tipTitle: 'Ihe ọ dị mma ịma',
+    tipText:
+      'Atụla egwu idee ajụjụ gị tupu oge nleta ọ bụla ka ị ghara ichefu ihe ọ bụla n\'oge ahụ: ọ nweghị ajụjụ dị obere nke ukwuu ịjụ.',
+    shareMessage: 'Kalenda nyocha mgbe ị dị ime — AWA',
+  },
+  yo: {
+    badge: 'OYÚN • ÌTỌ́JÚ ÌLERA',
+    title: 'Kàlẹ́ńdà àyẹ̀wò\nfún oyún',
+    metaDuration: 'Ìṣẹ́jú 6 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti yẹ̀ wò',
+    intro: 'Ultrasound àti àwọn ìdánwò pàtàkì, trimester kọ̀ọ̀kan.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Àwọn ultrasound ìtọ́pinpin',
+      'Àwọn ìdánwò ẹ̀jẹ̀ pàtàkì',
+      'Ṣíṣe ìmúrasílẹ̀ fún ìpàdé kọ̀ọ̀kan',
+      'Ó yẹ kí a kíyèsí',
+      'Àwọn kókó pàtàkì',
+    ],
+    body1:
+      'Oyún sábà máa ń ní ultrasound pàtàkì mẹ́ta, ọ̀kan fún trimester kọ̀ọ̀kan, ọ̀kọ̀ọ̀kan sì ní ète tó yàtọ̀.',
+    ultrasounds: [
+      'Trimester 1: ṣíṣírò ọjọ́ oyún àti nuchal translucency',
+      'Trimester 2: ultrasound ìrísí ọmọ',
+      'Trimester 3: ìdàgbàsókè àti ipò ọmọ',
+    ],
+    body2:
+      'Àwọn ìdánwò ẹ̀jẹ̀ déédé ń ṣàkíyèsí àwọn àmì pàtàkì púpọ̀ jálẹ̀ oyún:',
+    bloodTests: [
+      'Ìwọ̀n irin, láti wádìí àìtó ẹ̀jẹ̀ tó ṣeé ṣe',
+      'Wíwá àtọ̀gbẹ oyún, ní gbogbogbò ní àyíká trimester 2',
+      'Irú ẹ̀jẹ̀ àti wíwá àwọn ohun ìjà ara tí kò wọ́pọ̀',
+      'Àwọn ìdánwò serology (toxoplasmosis, rubella) gẹ́gẹ́ bí ipò ìdáàbòbò ara rẹ',
+    ],
+    prepTips: [
+      'Kọ àwọn ìbéèrè rẹ sílẹ̀ bí wọ́n ṣe ń wá sí ọ lọ́kàn, kí o tó gbàgbé wọn',
+      'Mú ìwé ìtọ́pinpin oyún rẹ wá sí gbogbo ìpàdé',
+      'Sọ àmì tuntun èyíkéyìí, bó tilẹ̀ jẹ́ pé ó dà bí ohun kékeré',
+    ],
+    neutralText:
+      'Iye àti àkókò àwọn àyẹ̀wò gan-an lè yàtọ̀ gẹ́gẹ́ bí ìtọ́jú rẹ, ipò ewu rẹ, àti àṣà orílẹ̀-èdè rẹ tàbí olùtọ́jú rẹ.',
+    tipTitle: 'Ohun tó dára láti mọ̀',
+    tipText:
+      'Má ṣàìkọ àwọn ìbéèrè rẹ sílẹ̀ ṣáájú ìpàdé kọ̀ọ̀kan kí o má bàa gbàgbé ohunkóhun ní àkókò náà: kò sí ìbéèrè tó kéré jù láti béèrè.',
+    shareMessage: 'Kàlẹ́ńdà àyẹ̀wò fún oyún — AWA',
+  },
+  zu: {
+    badge: 'UKUKHULELWA • UKULANDELELWA KWEZEMPILO',
+    title: 'Ikhalenda lokuhlolwa\nkokukhulelwa',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Ongaqalayo',
+    metaValidated: 'Okuqukethwe okubuyekeziwe',
+    intro: 'Ama-ultrasound nokuhlolwa okubalulekile, i-trimester ngayinye.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ama-ultrasound okulandelela',
+      'Ukuhlolwa okubalulekile kwegazi',
+      'Ukulungiselela ukubonana ngakunye',
+      'Okufanele ukunake',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    body1:
+      'Ukukhulelwa ngokuvamile kuhlanganisa ama-ultrasound amathathu amakhulu, owodwa i-trimester ngayinye, ngamunye unenhloso ehlukile.',
+    ultrasounds: [
+      'I-trimester yokuqala: ukunquma isikhathi nokuhlolwa kwe-nuchal translucency',
+      'I-trimester yesibili: i-ultrasound yesimo somzimba',
+      'I-trimester yesithathu: ukukhula nesimo sengane',
+    ],
+    body2:
+      'Ukuhlolwa njalo kwegazi kulandelela izimpawu eziningana ezibalulekile ngesikhathi sokukhulelwa:',
+    bloodTests: [
+      'Amazinga e-iron, ukuhlola ukuthi kungabakhona yini ukuncipha kwegazi',
+      'Ukuhlola isifo sikashukela sokukhulelwa, ngokuvamile cishe ku-trimester yesibili',
+      'Uhlobo lwegazi nokuhlolwa kwamasosha omzimba angajwayelekile',
+      'Ukuhlolwa kwe-serology (i-toxoplasmosis, i-rubella) kuye ngesimo sakho somzimba wokuzivikela',
+    ],
+    prepTips: [
+      'Bhala phansi imibuzo yakho njengoba ifika kuwe, ngaphambi kokuyikhohlwa',
+      'Letha incwadi yakho yokulandelela ukukhulelwa ekubonaneni ngakunye',
+      'Khuluma ngenoma yiluphi uphawu olusha, ngisho nalapho lubonakala lungabalulekile',
+    ],
+    neutralText:
+      'Inani eliqondile nohlelo lokuhlolwa kungahluka kuye ngokunakekelwa kwakho, ubungozi bakho, nezindlela zezwe lakho noma zomnikezeli wakho wezempilo.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ungazinaki ukubhala phansi imibuzo yakho ngaphambi kokubonana ngakunye ukuze ungakhohlwa lutho: akukho mbuzo omncane kakhulu ukuba ubuzwe.',
+    shareMessage: 'Ikhalenda lokuhlolwa kokukhulelwa — AWA',
+  },
+  xh: {
+    badge: 'UKUKHULELWA • UKUHLOLWA KOMPHEFUMLO',
+    title: 'Ikhalenda yohlolo\nlokukhulelwa',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Ulwazi oluhlolisisiweyo',
+    intro: 'Ii-ultrasound kunye novavanyo olubalulekileyo, itrimesta nganye.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Ii-ultrasound zokulandelela',
+      'Uvavanyo lwegazi olubalulekileyo',
+      'Ukulungiselela idinga ngalinye',
+      'Kufanele ukuqaphela',
+      'Eyona nto ibalulekileyo',
+    ],
+    body1:
+      'Ukukhulelwa ngokubanzi kubandakanya ii-ultrasound ezintathu eziphambili, enye kwitrimesta nganye, nganye inenjongo eyahlukileyo.',
+    ultrasounds: [
+      'Itrimesta yoku-1: ukuqikelela umhla kunye ne-nuchal translucency',
+      'Itrimesta yesi-2: i-ultrasound yobume bomzimba',
+      'Itrimesta yesi-3: ukukhula kunye nendawo yosana',
+    ],
+    body2:
+      'Uvavanyo lwegazi rhoqo lulandelela iimpawu ezibalulekileyo ezininzi ngexesha lokukhulelwa:',
+    bloodTests: [
+      'Inqanaba lentsimbi, ukuhlola ukuba kusenokubakho ukuntsha kwegazi',
+      'Ukuhlolwa kweswekile yokukhulelwa, ngokubanzi malunga netrimesta yesi-2',
+      'Udidi lwegazi kunye nokuhlolwa kweendawo ezichasene nokungaqhelekanga',
+      'Uvavanyo lwe-serology (i-toxoplasmosis, i-rubella) ngokuxhomekeke kwimeko yakho yokuzikhusela',
+    ],
+    prepTips: [
+      'Bhala phantsi imibuzo yakho njengoko ize kuwe, ungakhange uyilibale',
+      'Phatha incwadi yakho yokulandelela ukukhulelwa kwidinga ngalinye',
+      'Chaza noluphi uphawu olutsha, nokuba lubonakala luncinci',
+    ],
+    neutralText:
+      'Inani kunye nethaimithebhile yohlolo kunokwahluka ngokuxhomekeke kunyango lwakho, kwiprofayili yakho yomngcipheko, nasekuhambeni kwezinto kwilizwe lakho okanye kumboneleli wakho wonyango.',
+    tipTitle: 'Kulungile ukwazi',
+    tipText:
+      'Musa ukuvilapha ukubhala imibuzo yakho phambi kwedinga ngalinye ukuze ungalibali nto ngelo xesha: akukho mbuzo mncinci kakhulu ongabuzwa.',
+    shareMessage: 'Ikhalenda yohlolo lokukhulelwa — AWA',
+  },
+  sn: {
+    badge: 'NHUMBU • KUTARISIRWA NECHIREMBA',
+    title: 'Kalendari yekuongororwa\nkwenhumbu',
+    metaDuration: 'Kuverenga kwemaminetsi 6',
+    metaType: 'Gwaro',
+    metaLevel: 'Anotanga',
+    metaValidated: 'Zvakaongororwa',
+    intro: 'Ma ultrasound nematesti akakosha, trimester neimwe.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Ma ultrasound ekutarisisa',
+      'Matesti akakosha eropa',
+      'Kugadzirira nguva imwe neimwe yekuonana nechiremba',
+      'Zvakakodzera kucherechedza',
+      'Zvakakosha kuyeuka',
+    ],
+    body1:
+      'Nhumbu inowanzova nema ultrasound matatu makuru, rimwe pa trimester, rimwe nerimwe nechinangwa chakasiyana.',
+    ultrasounds: [
+      'Trimester yekutanga: kuverenga nguva uye nuchal translucency',
+      'Trimester yechipiri: ultrasound yechimiro',
+      'Trimester yechitatu: kukura nenzvimbo yemwana',
+    ],
+    body2:
+      'Matesti eropa nguva dzose anotarisa zvinongedzo zvakati wandei zvakakosha panhumbu yose:',
+    bloodTests: [
+      'Mwero weiron, kuti kuongororwe kuti pane anemia here',
+      'Kuongororwa kwe gestational diabetes, kazhinji panguva ye trimester yechipiri',
+      'Rudzi rweropa nekuongororwa kwema antibody asina kujairika',
+      'Matesti e serology (toxoplasmosis, rubella) zvichienderana nemamiriro ako ekudzivirira muviri',
+    ],
+    prepTips: [
+      'Nyora mibvunzo yako painouya, usati wakanganwa',
+      'Uya nebhuku rako rekutarisira nhumbu panguva yega yega yekuonana',
+      'Taura chiratidzo chitsva chipi nechipi, kunyange kana chichioneka chiri chidiki',
+    ],
+    neutralText:
+      'Huwandu chaihwo nerongero yekuongororwa zvinogona kusiyana zvichienderana nekutarisirwa kwako, mamiriro ako enjodzi, netsika dzenyika yako kana vanokurapa.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Usazeze kunyora mibvunzo yako pamberi penguva yega yega yekuonana kuti urege kukanganwa chinhu panguva iyoyo: hapana mubvunzo muduku zvikuru kuti usabvunzwe.',
+    shareMessage: 'Kalendari yekuongororwa kwenhumbu — AWA',
+  },
+  ln: {
+    badge: 'ZEMI • KOTALA YA MONGANGA',
+    title: 'Kalandrie ya bandeko\nya zemi',
+    metaDuration: 'Miniti 6 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo oyo etalelami',
+    intro: 'Ba ultrasound mpe ba test ya ntina, trimester na trimester.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Ba ultrasound ya kotala',
+      'Ba test ya makila ya ntina',
+      'Kobongisa rendez-vous nyonso',
+      'Eloko ya kotala',
+      'Makambo ya kokanisa',
+    ],
+    body1:
+      'Zemi ezali na ba ultrasound misato ya monene, moko na trimester, mpe moko na moko ezali na ntina ekeseni.',
+    ultrasounds: [
+      'Trimester ya 1: kotala ntango mpe nuchal translucency',
+      'Trimester ya 2: ultrasound ya morphologie',
+      'Trimester ya 3: bokoli mpe esika mwana azali',
+    ],
+    body2:
+      'Ba test ya makila mbala na mbala etalaka bilembo mingi ya ntina na kati ya zemi:',
+    bloodTests: [
+      'Ndenge ya fer, mpo na kotala anémie ekoki kozala',
+      'Kotala diabète ya zemi, mbala mingi zingazinga ya trimester ya 2',
+      'Kotala groupe ya makila mpe anticorps ya ekeseni',
+      'Ba test ya sérologie (toxoplasmose, rubéole) engebene na bokasi ya nzoto na yo',
+    ],
+    prepTips: [
+      'Koma mituna na yo ntango ezali koya na makanisi na yo, liboso ya kobosana yango',
+      'Memá mokanda na yo ya kotala zemi na rendez-vous nyonso',
+      'Yebisa elembo nyonso ya sika, atako ezali lokola moke',
+    ],
+    neutralText:
+      'Motuya ya mpenza mpe ba molɔngɔ ya bandeko ekoki kokeseni engebene na bokɛngi na yo, likama na yo, mpe misala ya mboka na yo to ya esika ya kobatela.',
+    tipTitle: 'Eloko ya koyeba',
+    tipText:
+      'Kobanga te koma mituna na yo liboso ya rendez-vous nyonso mpo okobosana eloko moko te na ntango ya kosolola: motuna moko te ezali moke mpo na kotuna.',
+    shareMessage: 'Kalandrie ya bandeko ya zemi — AWA',
+  },
+  ff: {
+    badge: 'HOWRE • RAARUGO DOKOTORO',
+    title: 'Doggol ndaaruwol\nhowre',
+    metaDuration: 'Janngugol minti 6',
+    metaType: 'Jannginoore',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko ndaaraa',
+    intro: 'Ultrasound e ndaaruwol ko haani, trimester kala trimester.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'Ultrasound raarugo',
+      'Ndaaruwol ndiyam ko haani',
+      'Hawtugo ngam kala yahde',
+      'Ko haani hakkilaade',
+      'Ko ɗum ɓuri fuu',
+    ],
+    body1:
+      'Howre ɗum ɗon wondi e ultrasound tati mawɗe, gooto kala trimester, kala gooto e ko ɗum ɗon yiɗa.',
+    ultrasounds: [
+      'Trimester artungo: anndugo nyannde howre e nuchal translucency',
+      'Trimester ɗiɗmo: ultrasound morphology',
+      'Trimester tataɓo: mawnude e no ɓiɗɗo woni',
+    ],
+    body2:
+      'Ndaaruwol ndiyam wakkati ɗon raara hakkilaade seɗɗe nder howre:',
+    bloodTests: [
+      'Ɗuuɗal iron, ngam raarugo anemia',
+      'Ndaaruwol diabetes howre, ko foti haa trimester ɗiɗmo',
+      'Gaadiyam e ndaaruwol antibody ko wonaa ko foti',
+      'Ndaaruwol serology (toxoplasmosis, rubella) bana no ɓanndu maaɗa woni',
+    ],
+    prepTips: [
+      'Winndu naamne maaɗa to ɗum ɗon ara e hakkilo maaɗa, adda ma yejjitaade',
+      'Wara e kaaye raarugo howre maaɗa kala yahde',
+      'Haala ɓaleeji hesere fu, haa to ɗum wasa seɗɗa',
+    ],
+    neutralText:
+      'Ɗuuɗal e wakkati ndaaruwol ɗum waawi waylude bana raarugo maaɗa, ko ɗum woni e maaɗa, e no ɗum waɗirta nder leydi maaɗa malla e mo raarata ma.',
+    tipTitle: 'Ɗum ɓuri nafugo anndude',
+    tipText:
+      'Taa hoyru winndude naamne maaɗa adda kala yahde ngam taa yejjita ko fuu nder wakkati: walaa naamne pamaro ɗum ɗaɓɓataa.',
+    shareMessage: 'Doggol ndaaruwol howre — AWA',
+  },
   id: {
     badge: 'KEHAMILAN • PEMANTAUAN MEDIS',
     title: 'Kalender pemeriksaan\nkehamilan',

@@ -319,6 +319,531 @@ const CONTENT = withBrazilianPortuguese('Nidation', {
       tip2Text: '着床是悄悄发生的，无论有没有可见的迹象。验孕前多一点耐心，可以让你避免得到不可靠的结果。',
       shareMessage: '了解着床 — AWA',
     },
+  'zh-Hant': {
+      badge: '著床',
+      title: '瞭解\n著床',
+      metaDuration: '閱讀約 5 分鐘',
+      metaType: '文章',
+      metaLevel: '進階',
+      metaValidated: '已審閱內容',
+      intro: '從受精到驗孕呈陽性之間，究竟發生了什麼。',
+      contentsTitle: '本文內容',
+      topics: [
+        '從受精到著床',
+        '可能的跡象，但無法確定',
+        '何時驗孕才可靠',
+        '要點回顧',
+      ],
+      body1: '受精後，受精卵通常需要 6 到 10 天到達子宮並在那裡著床：這就是著床。這一步標誌著懷孕真正的起點。',
+      body2: '著床時有時會伴隨少量出血或痙攣感，但這並不是必然的，單憑這一點也不是可靠的跡象。',
+      possibleSigns: [
+        '非常少量的出血，有時被稱為「點滴出血」',
+        '下腹部輕微的痙攣感',
+        '對許多女性來說，沒有任何特別的跡象',
+      ],
+      tip1Title: '小提醒',
+      tip1Text: '沒有跡象並不說明什麼：許多妊娠在這個階段沒有任何明顯的症狀。',
+      body3: '只有在著床之後，hCG 荷爾蒙才會開始產生，並能被驗孕試紙檢測到。驗孕太早可能出現假陰性的結果。',
+      alertTitle: '注意',
+      alertText: '等到預計月經來潮的日子再驗孕，比過早驗孕得到的結果更可靠。',
+      tip2Title: '小提醒',
+      tip2Text: '著床是悄悄發生的，無論有沒有可見的跡象。驗孕前多一點耐心，可以讓你避免得到不可靠的結果。',
+      shareMessage: '瞭解著床 — AWA',
+    },
+  ar: {
+    badge: 'الانغراس',
+    title: 'فهم\nالانغراس',
+    metaDuration: 'قراءة 5 دقائق',
+    metaType: 'مقال',
+    metaLevel: 'متوسط',
+    metaValidated: 'محتوى مراجَع',
+    intro:
+      'ما الذي يحدث بين الإخصاب واختبار الحمل الإيجابي.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'من الإخصاب إلى الانغراس',
+      'علامات محتملة دون يقين',
+      'متى يصبح الاختبار موثوقًا',
+      'أهم النقاط',
+    ],
+    body1:
+      'بعد الإخصاب، تستغرق البويضة عادةً من 6 إلى 10 أيام لتصل إلى الرحم وتنغرس فيه: وهذا هو الانغراس. وتمثّل هذه الخطوة نقطة البداية الحقيقية للحمل.',
+    body2:
+      'قد يرافق الانغراس نزف خفيف أو تقلصات أحيانًا، لكن ذلك ليس منتظمًا، ولا يُعدّ علامة موثوقة بمفرده.',
+    possibleSigns: [
+      'نزف خفيف جدًا، يسمى أحيانًا «تبقّع»',
+      'تقلصات خفيفة في أسفل البطن',
+      'لا علامة معيّنة على الإطلاق، لدى كثير من النساء',
+    ],
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'غياب العلامات لا يعني شيئًا: فكثير من حالات الحمل تبدأ دون أي أعراض ملحوظة في هذه المرحلة.',
+    body3:
+      'بعد الانغراس فقط يبدأ إنتاج هرمون hCG ويصبح قابلًا للكشف باختبار الحمل. وإجراء الاختبار مبكرًا جدًا قد يعطي نتيجة سلبية كاذبة.',
+    alertTitle: 'ملاحظة',
+    alertText:
+      'الانتظار حتى اليوم المفترض لحيضك قبل إجراء الاختبار يعطي نتيجة أكثر موثوقية من الاختبار المبكر جدًا.',
+    tip2Title: 'من المفيد أن تعرفي',
+    tip2Text:
+      'يحدث الانغراس بهدوء، سواء ظهرت علامة أو لم تظهر. وقليل من الصبر قبل الاختبار يجنّبك نتيجة غير موثوقة.',
+    shareMessage: 'فهم الانغراس — AWA',
+  },
+  kab: {
+    badge: 'IMPLANTATION',
+    title: 'Fhem\nimplantation',
+    metaDuration: '5 n tesdatin n tɣuri',
+    metaType: 'Amagrad',
+    metaLevel: 'Alemmas',
+    metaValidated: 'Agbur yettwasenqed',
+    intro:
+      'D acu i d-yeḍran gar fécondation d ugar n ugaz n lḥemmil yellan d azemmur.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Seg fécondation ɣer implantation',
+      'Ticraḍ i izemren ad d-ilin, war tidet',
+      'Melmi ara yili ugaz yettwawwet',
+      'Tiɣawsiwin tigejdanin',
+    ],
+    body1:
+      'Seld fécondation, tamellalt s waṭas teddu seg 6 ɣer 10 n wussan akken ad tewweḍ ɣer teɣmert, ad tt-id-tawi dagi: wagi d implantation. Aswir-a d tazwara tideț n lḥemmil.',
+    body2:
+      'Idammen imellalen neɣ aḍṛar n teɣmert zemren ad d-yilin sɣur implantation, maca ur d-yettili ara yal tikkelt, ur d acraḍ yettwaweḥden ula d yiwen.',
+    possibleSigns: [
+      'Idammen meẓẓiyen aṭas, kra n tikkal ttwaqqaren "spotting"',
+      'Aḍṛar yeḥfifen deg uḍar n teɣmert',
+      'Ulac acraḍ ula d yiwen, i waṭas n tilawin',
+    ],
+    tip1Title: 'Ilaq ad teẓṛeḍ',
+    tip1Text:
+      'Ulac n yiwen n wacraḍ ur yemmal acemma: aṭas n yimerna ttbeddun war ma d-ilin ticraḍ deg uswir-a.',
+    body3:
+      'Seld implantation kan ara tebdu tuffɣa n hormone hCG, sakin ad d-tbeggen deg uteggi n lḥemmil. Uteggi uzwir yezmer ad d-yefk agmuḍ n "ulac" ur yelhi ara.',
+    alertTitle: 'Tamawt',
+    alertText:
+      'Aqqaz ar wass i tettwali lḥiḍ-ik ad d-yas send uteggi yefk agmuḍ yelhan ugar n win n uteggi uzwir.',
+    tip2Title: 'Ilaq ad teẓṛeḍ',
+    tip2Text:
+      'Implantation tettili s lehna, s wacraḍ neɣ war wacraḍ. Cwiṭ n tbaɣurt send uteggi ad k-ihelleḍ seg ugmuḍ ur yelhi ara.',
+    shareMessage: 'Fhem implantation — AWA',
+  },
+  om: {
+    badge: 'WAL-QABACHUU',
+    title: 'Wal-qabachuu\nhubachuu',
+    metaDuration: 'Daqiiqaa 5 dubbisuuf',
+    metaType: 'Barruu',
+    metaLevel: 'Giddugaleessa',
+    metaValidated: 'Qabiyyee sakatta\'ame',
+    intro:
+      'Wanti walitti makamuu fi qorannoo ulfaa mirkanaa\'e gidduu ta\'u.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Walitti makamuu irraa hanga wal-qabachuutti',
+      'Mallattoowwan danda\'amoo, mirkanaa\'uu malee',
+      'Yoom qorannoon amanamaa ta\'a',
+      'Ka\'umsa gurguddoo',
+    ],
+    body1:
+      'Walitti makamuu booda, hanqaaquun baay\'inaan guyyaa 6 hanga 10 fudhata bakka gadaa gahee achi wal-qabachuuf: kun wal-qabachuu dha. Sadarkaan kun jalqaba dhugaa ulfaa mul\'isa.',
+    body2:
+      'Dhiigni salphaa ykn dhukkubbiin garaa yeroo tokko tokko wal-qabachuu wajjin dhufuu danda\'a, garuu kun yeroo hunda hin ta\'u, mallattoo amanamaa ofii isaa qofaas miti.',
+    possibleSigns: [
+      'Dhiiga baay\'ee salphaa, yeroo tokko tokko "spotting" jedhamu',
+      'Dhukkubbii garaa gadii salphaa',
+      'Dubartoota baay\'eef mallattoo addaa tokkollee hin jiru',
+    ],
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Mallattoon dhabamuun waan tokko illee hin jechisiisu: ulfaan baay\'een sadarkaa kana irratti mallattoo hubatamu tokko malee jalqabu.',
+    body3:
+      'Wal-qabachuu booda qofa hormoonii hCG oomishamuu jalqaba, qorannoo ulfaatiin argamuu danda\'a. Dafee qorachuun bu\'aa sobaa negatiivii kennuu danda\'a.',
+    alertTitle: 'Hubadhu',
+    alertText:
+      'Hanga guyyaa laguu kee yaadamu eeguun qorachuu, dafee qorachuu caalaa bu\'aa amanamaa kenna.',
+    tip2Title: 'Beekuun gaarii dha',
+    tip2Text:
+      'Wal-qabachuun cal\'isaan ta\'a, mallattoo mul\'atu wajjin ykn malee. Qorachuun duras obsa xiqqoo qabaachuun bu\'aa hin amanamne irraa si baraara.',
+    shareMessage: 'Wal-qabachuu hubachuu — AWA',
+  },
+  ti: {
+    badge: 'ምስራጽ ኣብ ማህጸን',
+    title: 'ምስራጽ ኣብ ማህጸን\nምርዳእ',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaType: 'ዓንቀጽ',
+    metaLevel: 'ማእከላይ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'ኣብ መንጎ ምፍርያይን ኣወንታዊ ናይ ጥንሲ ምርመራን እንታይ ይኸውን።',
+    contentsTitle: 'ኣብዚ ዓንቀጽ',
+    topics: [
+      'ካብ ምፍርያይ ናብ ምስራጽ ኣብ ማህጸን',
+      'ክኾኑ ዝኽእሉ ምልክታት፣ ብዘይ ርግጸኛነት',
+      'ምርመራ እምነት ዝረክብ መዓስ እዩ',
+      'ቀንዲ ነጥብታት',
+    ],
+    body1:
+      'ድሕሪ ምፍርያይ፣ እቲ እንቋቁሖ ብዙሕ ግዜ ማህጸን ንምስራሕ ካብ 6 ክሳብ 10 መዓልቲ ይወስድ ኣብኡ ድማ ይሰርጽ፦ እዚ ምስራጽ ኣብ ማህጸን እዩ። እዚ ደረጃ ናይ ጥንሲ ሓቀኛ መጀመርታ እዩ።',
+    body2:
+      'ፈኲስ ደም ምፍሳስ ወይ ቁርጸት ሓደ ሓደ ግዜ ምስ ምስራጽ ክስዕብ ይኽእል፣ እዚ ግን ኩሉ ግዜ ኣይኮነን፣ ባዕሉውን እምነት ዝረክብ ምልክት ኣይኮነን።',
+    possibleSigns: [
+      'ኣዝዩ ፈኲስ ደም ምፍሳስ፣ ሓደ ሓደ ግዜ "ስፖቲንግ" ዝብሃል',
+      'ኣብ ታሕተዋይ ከብዲ ፈኲስ ቁርጸት',
+      'ንብዙሓት ደቂ ኣንስትዮ ዝኾነ ፍሉይ ምልክት ኣይህሉን',
+    ],
+    tip1Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip1Text:
+      'ምልክት ዘይምህላው ሓንቲ ነገር ኣይገልጽን፦ ብዙሓት ጥንስታት ኣብዚ ደረጃ ዝኾነ ዝስመዕ ምልክት ከይህልዎ ይጅምሩ።',
+    body3:
+      'ድሕሪ ምስራጽ ጥራይ እዩ ሆርሞን hCG ክፍጠር ዝጅምርን ብናይ ጥንሲ ምርመራ ክፍለጥ ዝኽእልን። ኣዝዩ ኣቐዲሙ ምርመራ ምግባር ብሓሶት ኣሉታዊ ውጽኢት ክህብ ይኽእል።',
+    alertTitle: 'ምልክት',
+    alertText:
+      'ቅድሚ ምርመራ ክሳብ ዝተሓስበ መዓልቲ ወርሓዊ ደምኪ ምጽባይ ካብ ኣዝዩ ኣቐዲሙ ምርመራ ዝበለጸ እምነት ዝረክብ ውጽኢት ይህብ።',
+    tip2Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip2Text:
+      'ምስራጽ ኣብ ማህጸን ብሰላም ይፍጸም፣ ዝረአ ምልክት ብዘይ ወይ ምስ ዝረአ። ቅድሚ ምርመራ ቁሩብ ትዕግስቲ ካብ ዘይእሙን ውጽኢት የድሕነኪ።',
+    shareMessage: 'ምስራጽ ኣብ ማህጸን ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'IMPLANTATION',
+    title: 'Gusobanukirwa\nimplantation',
+    metaDuration: 'Iminota 5 yo gusoma',
+    metaType: 'Inyandiko',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibisobanuro byasuzumwe',
+    intro:
+      'Ibiba hagati yo gusama n\'ikizamini cy\'inda cyerekana ko utwite.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Kuva ku gusama kugeza kuri implantation',
+      'Ibimenyetso bishoboka, nta cyizere',
+      'Igihe ikizamini kiba cyizewe',
+      'Ingingo z\'ingenzi',
+    ],
+    body1:
+      'Nyuma yo gusama, igi akenshi rifata iminsi 6 kugeza ku 10 kugira ngo rigere mu mura rihature: ni yo implantation. Iki cyiciro ni cyo gitangiza inda by\'ukuri.',
+    body2:
+      'Kuva amaraso make cyangwa kuribwa mu nda bishobora rimwe na rimwe kujyana na implantation, nubwo bitaba kuri bose, kandi si ikimenyetso cyizewe ubwacyo.',
+    possibleSigns: [
+      'Kuva amaraso make cyane, rimwe na rimwe yitwa "spotting"',
+      'Kuribwa gake mu nda yo hasi',
+      'Nta kimenyetso na kimwe, ku bagore benshi',
+    ],
+    tip1Title: 'Byiza kumenya',
+    tip1Text:
+      'Kutagira ikimenyetso nta cyo bisobanura: inda nyinshi zitangira nta kimenyetso kigaragara muri iki cyiciro.',
+    body3:
+      'Nyuma ya implantation ni bwo hormone hCG itangira gukorwa ikaboneka n\'ikizamini cy\'inda. Kwipimisha kare cyane bishobora gutanga igisubizo kitari cyo cy\'uko udatwite.',
+    alertTitle: 'Icyitonderwa',
+    alertText:
+      'Gutegereza umunsi wizeye ko imihango yawe igomba kuzira mbere yo kwipimisha bitanga igisubizo cyizewe kurusha kwipimisha kare cyane.',
+    tip2Title: 'Byiza kumenya',
+    tip2Text:
+      'Implantation ikorwa mu bwihisho, hari ikimenyetso kigaragara cyangwa nta cyo. Kwihangana gato mbere yo kwipimisha bikurinda igisubizo kitizewe.',
+    shareMessage: 'Gusobanukirwa implantation — AWA',
+  },
+  rn: {
+    badge: 'NIDATION',
+    title: 'Gusobanukirwa\nnidation',
+    metaDuration: 'Iminota 5 yo gusoma',
+    metaType: 'Inyandiko',
+    metaLevel: 'Hagati',
+    metaValidated: 'Amakuru yasuzumwe',
+    intro:
+      'Ibiba hagati ya fécondation n\'isuzuma ry\'inda ryerekana ko utwite.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Kuva kuri fécondation kugera kuri nidation',
+      'Ibimenyetso bishoboka, nta kwizera',
+      'Igihe isuzuma rigirirwa icizere',
+      'Ingenzi zo kwibuka',
+    ],
+    body1:
+      'Nyuma ya fécondation, igi kenshi rifata iminsi 6 kugeza ku 10 kugera mu nda ibyara (uterus) rikaharyomeka: ni nidation. Iyi ntambwe ni yo ntangiriro nyayo y\'inda.',
+    body2:
+      'Kuva amaraso make canke kuribwa mu nda rimwe na rimwe bishobora kuza na nidation, nubwo bitaba buri gihe, kandi si ikimenyetso cyizewe ku bwacyo.',
+    possibleSigns: [
+      'Kuva amaraso make cane, rimwe na rimwe yitwa "spotting"',
+      'Kuribwa gake mu nda yo hasi',
+      'Nta kimenyetso na kimwe, ku bagore benshi',
+    ],
+    tip1Title: 'Ni byiza kumenya',
+    tip1Text:
+      'Kutagira ikimenyetso ntibisobanura ikintu: inda nyinshi zitangira nta kimenyetso kigaragara muri iki gihe.',
+    body3:
+      'Ni nyuma ya nidation gusa umusemburo hCG utangira gukorwa ukaba ushobora kuboneka mu isuzuma ry\'inda. Gusuzuma kare cane bishobora gutanga igisubizo kitari co cy\'uko udatwite.',
+    alertTitle: 'Icitonderwa',
+    alertText:
+      'Gutegereza umunsi uteganijwe w\'imihango yawe mbere yo gusuzuma biha igisubizo cizewe kuruta gusuzuma kare cane.',
+    tip2Title: 'Ni byiza kumenya',
+    tip2Text:
+      'Nidation iba mu bwiru, ifite canke idafite ikimenyetso kigaragara. Kwihangana gato mbere yo gusuzuma bikurinda igisubizo kitizewe.',
+    shareMessage: 'Gusobanukirwa nidation — AWA',
+  },
+  ig: {
+    badge: 'NKWADO NWA N\'ỌBỌ',
+    title: 'Ịghọta nkwado\nnwa n\'ọbọ',
+    metaDuration: 'Nkeji 5 ka ị gụọ',
+    metaType: 'Isiokwu',
+    metaLevel: 'Etiti',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro:
+      'Ihe na-eme n\'etiti ịmụta nwa na nsonaazụ nlele ime dị mma.',
+    contentsTitle: 'Na isiokwu a',
+    topics: [
+      'Site n\'ịmụta ruo nkwado n\'ọbọ',
+      'Ihe ngosi nwere ike ịdị, na-enweghị nkwenye',
+      'Mgbe nlele ime bụ ihe a pụrụ ịtụkwasị obi',
+      'Isi ihe ndị dị mkpa',
+    ],
+    body1:
+      'Mgbe ịmụta nwa gasịrị, akwa na-ewekarị ụbọchị 6 ruo 10 iru n\'ọbọ ma kwado ebe ahụ: nke a bụ nkwado n\'ọbọ. Nzọụkwụ a bụ ezigbo mmalite nke ime.',
+    body2:
+      'Obere ọbara ịpụ ma ọ bụ mkpụkọ afọ nwere ike ịbịa mgbe ụfọdụ n\'oge nkwado, ọ bụ ezie na nke a abụghị mgbe niile, ọ bụghịkwa ihe ngosi a pụrụ ịtụkwasị obi naanị ya.',
+    possibleSigns: [
+      'Obere ọbara ịpụ nke ukwuu, nke a na-akpọ mgbe ụfọdụ "spotting"',
+      'Mkpụkọ afọ dị nro n\'okpuru afọ',
+      'Ọ dịghị ihe ngosi ọ bụla, maka ọtụtụ ụmụ nwanyị',
+    ],
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Enweghị ihe ngosi apụtaghị ihe ọ bụla: ọtụtụ ime na-amalite na-enweghị ihe mgbaàmà ọ bụla a na-ahụ n\'oge a.',
+    body3:
+      'Ọ bụ naanị mgbe nkwado n\'ọbọ gasịrị ka hormone hCG na-amalite ịmepụta ma nlele ime nwee ike ịchọpụta ya. Ilele n\'oge na-adịghị mma nwere ike inye nsonaazụ adịghị mma nke ụgha.',
+    alertTitle: 'Rịba ama',
+    alertText:
+      'Ichere ruo ụbọchị a na-eche na nsọ ọnwa gị ga-abịa tupu ilele na-enye nsonaazụ a pụrụ ịtụkwasị obi karịa ilele n\'oge na-adịghị mma.',
+    tip2Title: 'Ọ dị mma ịmara',
+    tip2Text:
+      'Nkwado n\'ọbọ na-eme n\'udo, ma ihe ngosi a na-ahụ anya adị ma ọ bụ ọ dịghị. Obere ntachi obi tupu ilele na-azọpụta gị n\'nsonaazụ na-adịghị ezi.',
+    shareMessage: 'Ịghọta nkwado nwa n\'ọbọ — AWA',
+  },
+  yo: {
+    badge: 'ÌGBÉKALẸ̀ OYÚN',
+    title: 'Lílóye\nìgbékalẹ̀ oyún',
+    metaDuration: 'Kíkà ìṣẹ́jú 5',
+    metaType: 'Àpilẹ̀kọ',
+    metaLevel: 'Àárín',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro:
+      'Ohun tó ń ṣẹlẹ̀ láàrin ìbálòpọ̀ ẹyin àti àyẹ̀wò oyún tó fi hàn pé o lóyún.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Láti ìbálòpọ̀ ẹyin dé ìgbékalẹ̀ oyún',
+      'Àwọn àmì tó ṣeé ṣe, láìsí ìdánilójú',
+      'Ìgbà tí àyẹ̀wò bá ṣeé gbẹ́kẹ̀lé',
+      'Àwọn kókó pàtàkì',
+    ],
+    body1:
+      'Lẹ́yìn ìbálòpọ̀ ẹyin, ẹyin náà sábà máa ń gba ọjọ́ 6 sí 10 láti dé inú ilé ọmọ kí ó sì tẹ̀ ẹ́ sí ibẹ̀: èyí ni ìgbékalẹ̀ oyún. Ìpele yìí ni ibi tí oyún ti bẹ̀rẹ̀ lóòótọ́.',
+    body2:
+      'Ẹ̀jẹ̀ díẹ̀ tàbí ìrora ikùn lè máa bá ìgbékalẹ̀ oyún rìn nígbà míràn, bó tilẹ̀ jẹ́ pé kì í ṣe nígbà gbogbo, bẹ́ẹ̀ ni kì í ṣe àmì tó ṣeé gbẹ́kẹ̀lé fúnra rẹ̀.',
+    possibleSigns: [
+      'Ẹ̀jẹ̀ díẹ̀ gan-an, tí a máa ń pè ní "spotting" nígbà míràn',
+      'Ìrora ikùn díẹ̀ ní ìsàlẹ̀ ikùn',
+      'Kò sí àmì kankan rárá, fún ọ̀pọ̀ obìnrin',
+    ],
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Àìsí àmì kò túmọ̀ sí nǹkankan: ọ̀pọ̀ oyún ló ń bẹ̀rẹ̀ láìsí àmì kankan tó hàn ní ìpele yìí.',
+    body3:
+      'Lẹ́yìn ìgbékalẹ̀ oyún nìkan ni hormone hCG bẹ̀rẹ̀ sí í jáde tí àyẹ̀wò oyún sì lè rí i. Ṣíṣe àyẹ̀wò láìpẹ́ jù lè fúnni ní àbájáde òdì èké.',
+    alertTitle: 'Àkíyèsí',
+    alertText:
+      'Dídúró títí di ọjọ́ tí a rò pé nǹkan oṣù rẹ yóò dé kí o tó ṣe àyẹ̀wò ń fúnni ní àbájáde tó ṣeé gbẹ́kẹ̀lé ju ṣíṣe àyẹ̀wò láìpẹ́ jù.',
+    tip2Title: 'Ó dára láti mọ̀',
+    tip2Text:
+      'Ìgbékalẹ̀ oyún máa ń ṣẹlẹ̀ ní ìkọ̀kọ̀, pẹ̀lú àmì tó hàn tàbí láìsí i. Sùúrù díẹ̀ ṣáájú àyẹ̀wò máa gbà ọ́ lọ́wọ́ àbájáde tí kò ṣeé gbẹ́kẹ̀lé.',
+    shareMessage: 'Lílóye ìgbékalẹ̀ oyún — AWA',
+  },
+  zu: {
+    badge: 'UKUZIMISELA ESIFUBENI SESISU',
+    title: 'Ukuqonda\nukuzimisela esibelethweni',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Isihloko',
+    metaLevel: 'Maphakathi',
+    metaValidated: 'Okubuyekeziwe',
+    intro:
+      'Lokho okwenzekayo phakathi kokuhlangana kweqanda nenhlanzi kanye nokuhlolwa kokukhulelwa okuvela kuhle.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Kusuka ekuhlanganeni kuya ekuzimiseleni',
+      'Izimpawu ezingenzeka, ngaphandle kokuqiniseka',
+      'Lapho ukuhlolwa kuthembeka',
+      'Amaphuzu abalulekile',
+    ],
+    body1:
+      'Ngemva kokuhlangana kweqanda nenhlanzi, iqanda ngokuvamile lithatha izinsuku ezingu-6 kuya ku-10 ukufinyelela esibelethweni futhi lizimisele lapho: lokhu kuyi-implantation. Lesi sinyathelo siyisiqalo sangempela sokukhulelwa.',
+    body2:
+      'Ukopha okuncane noma ubuhlungu besisu kungase kwenzeke ngesikhathi sokuzimisela, nakuba lokhu kungenzeki njalo, futhi akuyona uphawu oluthembekile ngokwalo.',
+    possibleSigns: [
+      'Ukopha okuncane kakhulu, kwesinye isikhathi okubizwa ngokuthi "spotting"',
+      'Ubuhlungu besisu obuncane engxenyeni engezansi yesisu',
+      'Ayikho neyodwa impawu ethize, kwabaningi besifazane',
+    ],
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Ukungabi bikho kwempawu akusho lutho: ukukhulelwa okuningi kuqala ngaphandle kwanoma yiziphi izimpawu ezibonakalayo kulesi sigaba.',
+    body3:
+      'Kungemva kokuzimisela kuphela lapho i-hormone ye-hCG iqala ukukhiqizwa futhi ibonakale ekuhlolweni kokukhulelwa. Ukuhlola ngaphambi kwesikhathi kungaletha umphumela onganembile ongelona wangempela.',
+    alertTitle: 'Qaphela',
+    alertText:
+      'Ukulinda kuze kube usuku olucatshangwa lokuya esikhathini ngaphambi kokuhlola kunikeza umphumela othembekile kakhulu kunokuhlola kungakabi sesikhathi.',
+    tip2Title: 'Kuhle ukwazi',
+    tip2Text:
+      'Ukuzimisela kwenzeka ngokuthula, noma kunempawu ebonakalayo noma kungekho. Ukubekezela kancane ngaphambi kokuhlola kukusindisa emphumeleni onganembile.',
+    shareMessage: 'Ukuqonda ukuzimisela esibelethweni — AWA',
+  },
+  xh: {
+    badge: 'UKUZINTSHA KWEYIJI',
+    title: 'Ukuqonda\nukuzintsha kweyiji',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Inqaku',
+    metaLevel: 'Phakathi',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro:
+      'Okwenzekayo phakathi kokuvundiswa kweyiji novavanyo olulungileyo lokukhulelwa.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Ukusuka ekuvundisweni ukuya ekuzintsheni',
+      'Iimpawu ezinokubakho, ngaphandle kokuqiniseka',
+      'Xa uvavanyo luba nokuthenjwa',
+      'Eyona nto ibalulekileyo',
+    ],
+    body1:
+      'Emva kokuvundiswa, iyiji ngokuqhelekileyo ithatha iintsuku ezi-6 ukuya kwezi-10 ukufikelela kwibhosho kwaye izintshe apho: oku kukuzintsha kweyiji. Eli nyathelo liphawula indawo yokuqala yokwenene yokukhulelwa.',
+    body2:
+      'Ukopha okungephi okanye iintlungu zesisu zinokuhamba nokuzintsha kweyiji ngamanye amaxesha, nangona oku kungenzeki rhoqo, kwaye asiluphawu lunokuthenjwa lodwa.',
+    possibleSigns: [
+      'Ukopha okuncinci kakhulu, ngamanye amaxesha okubizwa ngokuba “spotting”',
+      'Iintlungu ezincinci zesisu esiphantsi',
+      'Akukho phawu luthile konke konke, kwabaninzi abafazi',
+    ],
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'Ukungabikho kophawu akuthethi nto: ukukhulelwa okuninzi kuqala ngaphandle kwempawu ebonakalayo kweli nqanaba.',
+    body3:
+      'Kuphela emva kokuzintsha kweyiji apho ihomoni ye-hCG iqala ukuveliswa kwaye iyafumaneka kuvavanyo lokukhulelwa. Ukuvavanya kwangoko kakhulu kunokunika isiphumo esingeyonyani sokungabikho.',
+    alertTitle: 'Qaphela',
+    alertText:
+      'Ukulinda kude kube lusuku olucingelwa lokuya kwakho exesheni phambi kokuvavanya kunika isiphumo esithenjwa ngakumbi kunokuvavanya kwangoko kakhulu.',
+    tip2Title: 'Kulungile ukwazi',
+    tip2Text:
+      'Ukuzintsha kweyiji kwenzeka ngobunono, nokuba kukho uphawu olubonakalayo okanye akukho. Umonde omncinci phambi kovavanyo ukusindisa kwisiphumo esingathenjwa.',
+    shareMessage: 'Ukuqonda ukuzintsha kweyiji — AWA',
+  },
+  sn: {
+    badge: 'KUNAMATIRA',
+    title: 'Kunzwisisa\nkunamatira kweimbeu',
+    metaDuration: 'Maminitsi mashanu ekuverenga',
+    metaType: 'Chinyorwa',
+    metaLevel: 'Pakati',
+    metaValidated: 'Ruzivo rwakaongororwa',
+    intro:
+      'Zvinoitika pakati pekubatana kwembeu nekuenda kwe pregnancy test kunoratidza mimba.',
+    contentsTitle: 'Muchinyorwa ichi',
+    topics: [
+      'Kubva pakubatana kwembeu kusvika pakunamatira',
+      'Zviratidzo zvinogoneka, pasina chokwadi',
+      'Painotanga kuva yakavimbika test',
+      'Zvinokosha zvekuyeuka',
+    ],
+    body1:
+      'Mushure mekubatana kwembeu, zai kazhinji rinotora mazuva 6 kusvika ku10 kusvika pa uterus uye kunamatira ipapo: uku ndiko kunamatira. Danho iri ndiro rinoratidza kutanga chaiko kwemimba.',
+    body2:
+      'Kubuda ropa zvishoma kana kurwadziwa kwemuchiuno dzimwe nguva zvinogona kuuya nekunamatira, kunyange zvazvo zvisiri nguva dzose, kana chiratidzo chinovimbika chega.',
+    possibleSigns: [
+      'Kubuda ropa zvishoma zvikuru, dzimwe nguva kunonzi "spotting"',
+      'Kurwadziwa kushoma kwepazasi pedumbu',
+      'Pasina chiratidzo chipi zvacho, kune vakadzi vakawanda',
+    ],
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Kushaikwa kwechiratidzo hakurevi chinhu: mimba dzakawanda dzinotanga pasina chiratidzo chinoonekwa panguva iyi.',
+    body3:
+      'Ndiyo chete mushure mekunamatira apo hormone ye hCG inotanga kugadzirwa uye inova inoonekwa ne pregnancy test. Kuita test nekukurumidza kunogona kupa mhedzisiro isiri chokwadi yekuti hapana mimba.',
+    alertTitle: 'Cherechedza',
+    alertText:
+      'Kumirira kusvika pazuva rinofungidzirwa rekuenda kwako kumwedzi usati waita test kunopa mhedzisiro inovimbika kupfuura kuita test nekukurumidza.',
+    tip2Title: 'Zvakanaka kuziva',
+    tip2Text:
+      'Kunamatira kunoitika zvakanyarara, kune chiratidzo chinoonekwa kana pasina. Kutsungirira zvishoma usati waita test kunokuponesa mhedzisiro isingavimbike.',
+    shareMessage: 'Kunzwisisa kunamatira kweimbeu — AWA',
+  },
+  ln: {
+    badge: 'KOKANGA NA LIBUMU',
+    title: 'Kososola\nkokanga na libumu',
+    metaDuration: 'Mpe ya kotánga: min 5',
+    metaType: 'Lisolo',
+    metaLevel: 'Katikati',
+    metaValidated: 'Maloba oyo ekomi na bokeba',
+    intro:
+      'Nini esalemaka na kati ya fécondation mpe test ya mimba oyo emonisi positif.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Banda na fécondation tii kokanga na libumu',
+      'Bilembo oyo ekoki kozala, na ntembe',
+      'Ntango test ekómi ya kotyela motema',
+      'Makambo ya motuya',
+    ],
+    body1:
+      'Sima ya fécondation, liki mbala mingi ezwaka mikolo 6 tii 10 mpo na kokóma na libumu mpe kokanga wana: yango nde kokanga na libumu. Etápe oyo ezali ebandeli ya solo ya mimba.',
+    body2:
+      'Makila moke to mpasi ya libumu ekoki mbala mosusu kozala elongo na kokanga na libumu, atako ezali ntango nyonso te, mpe ezali elembo ya kotyela motema te na yango moko.',
+    possibleSigns: [
+      'Makila moke mpenza, oyo mbala mosusu bakobyangaka "spotting"',
+      'Mpasi moke ya libumu na nse ya libumu',
+      'Elembo moko te, mpo na basi mingi',
+    ],
+    tip1Title: 'Ezali malamu koyeba',
+    tip1Text:
+      'Kozanga elembo elingi koloba eloko te: mimba mingi ebandaka na elembo moko te oyo emonani na etápe oyo.',
+    body3:
+      'Ezali kaka sima ya kokanga na libumu ete hormone hCG ebandi kobima mpe ekoki komonana na test ya mimba. Kosala test noki mingi ekoki kopesa result ya négatif ya lokuta.',
+    alertTitle: 'Bokebi',
+    alertText:
+      'Kozela tii mokolo oyo sanza na yo esengeli kokóma liboso ya kosala test epesaka result ya kotyela motema koleka kosala yango noki mingi.',
+    tip2Title: 'Ezali malamu koyeba',
+    tip2Text:
+      'Kokanga na libumu esalemaka na kimya, na elembo oyo emonani to te. Mwa molende liboso ya kosala test elongolaka yo na result ya kotyela motema te.',
+    shareMessage: 'Kososola kokanga na libumu — AWA',
+  },
+  ff: {
+    badge: 'NIDATION',
+    title: 'Faamugol\nnidation',
+    metaDuration: 'Janngugol minit 5',
+    metaType: 'Winndannde',
+    metaLevel: 'Hakkunde',
+    metaValidated: 'Habaru ɗum ƴeewtaama',
+    intro:
+      'Ko waɗata hakkunde fecondation e test pellital ko jaɓi.',
+    contentsTitle: 'E winndannde ndee',
+    topics: [
+      'Diga fecondation haa nidation',
+      'Alamaaji foti wooɗude, bannjo hoolaaɗum',
+      'Nde test hoolnoowo',
+      'Ko ɗum ɗon ɗum ɓesngu',
+    ],
+    body1:
+      'Caggal fecondation, ɓiɗɗo ɗum ɗon ɗuuɗi nyalaaji 6 haa 10 ngam yottugo e matris e nasta ɗoo: ɗum woni nidation. Ngoo laawol ɗum ɗon fuɗɗoode pellital caatol.',
+    body2:
+      'Ƴiiƴam seɗɗa walla naawgol foti hawtude e nidation, kono ɗum ɗon ɗum ɗon kala, e ɗum ɗon alamaa hoolnoowo gooto.',
+    possibleSigns: [
+      'Ƴiiƴam seɗɗa ɗum ɗon, foti wiyeteeɗum "spotting"',
+      'Naawgol seɗɗa e nder reedu',
+      'Alaa alamaa feere, ngam rewbe ɗuuɗi',
+    ],
+    tip1Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip1Text:
+      'Alaa alamaa ɗum ɗon wooɗa alaa: pellital ɗuuɗi fuɗɗoode alaa ko ɗum ɗon ɗum yi’aa e ngoo wakkati.',
+    body3:
+      'Caggal nidation tan hormone hCG ɗum ɗon fuɗɗoode wontude e test pellital foti yi’ude ɗum. Test e yaawi foti hokka jaabawol negatif ko fenaande.',
+    alertTitle: 'Hoolnu',
+    alertText:
+      'Reenugol haa nyalaande menstruation maaɗa ɗum ɗon hoolnoowo ɓurii test e yaawi.',
+    tip2Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip2Text:
+      'Nidation ɗum ɗon waɗa e deeƴre, e alamaa walla alaa. Hettin seɗɗa ngam test hokka ma jaabawol hoolnoowo.',
+    shareMessage: 'Faamugol nidation — AWA',
+  },
   id: {
     badge: 'IMPLANTASI',
     title: 'Memahami\nimplantasi',

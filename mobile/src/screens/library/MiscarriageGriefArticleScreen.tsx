@@ -739,6 +739,1242 @@ const CONTENT = withBrazilianPortuguese('MiscarriageGrief', {
       disclaimerText: '科普内容。本文不能替代专业建议。如果你正经历艰难的时刻，请不要犹豫，与医疗专业人员谈一谈。',
       shareMessage: '走过悲伤，情感上的陪伴 — AWA',
     },
+  'zh-Hant': {
+      badge: '流產之後 • 情感支援',
+      title: '走過悲傷\n情感上的陪伴',
+      metaDuration: '閱讀約 7 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '科普內容',
+      intro: '走過這段經歷，沒有所謂正確的方式。每個人都有自己的方式和節奏。',
+      contentsTitle: '本文內容',
+      topics: [
+        '真實而正當的悲傷',
+        '因人而異的情緒',
+        '日常生活中可能有幫助的事',
+        '來自親友的支援',
+        '何時尋求專業幫助',
+        '要點回顧',
+      ],
+      section1Body: '無論孕期進展到哪個階段，悲傷、憤怒或空落落的感覺，都是面對這次失去時的正常反應。你的感受值得被認真對待。',
+      section1InfoTitle: '請記住',
+      section1InfoText: '走過這段經歷，沒有對錯之分。你的每一種情緒都是合理的。',
+      section2Body: '你可能會有其中的一種或幾種感受，有時甚至會同時出現：',
+      feelings: [
+        {
+          title: '悲傷',
+          text: '一種時來時去的哀傷，有時會不期而至。',
+        },
+        {
+          title: '憤怒',
+          text: '可能是對自己、對這件事，或是對不公平的感受——這並不需要擔心。',
+        },
+        {
+          title: '空落落的感覺',
+          text: '對剛剛發生的一切感到空茫或困惑。',
+        },
+      ],
+      section3Body: '給自己時間，不施加壓力，也不與他人比較，是療愈中很重要的一部分。',
+      dailySupport: [
+        {
+          title: '給自己時間',
+          text: '不必給「好起來」設定期限，也不必有壓力。',
+        },
+        {
+          title: '不與他人比較',
+          text: '每一種悲傷都是獨一無二的，沒有所謂正確的方式。',
+        },
+        {
+          title: '把感受說出來',
+          text: '把你的感受寫下來或說出來，可能有助於減輕情緒的重量。',
+        },
+      ],
+      section4Body: '與身邊親近的人、互助小組或專業人員聊一聊，可以幫助減輕這份重量。親友可以這樣幫助你：',
+      supportTitle: '親友可以如何給予支援',
+      howToSupport: [
+        '不帶評判地傾聽，即使說不出完美的話',
+        '避免輕描淡寫地看待這段經歷（比如「沒什麼大不了」「你還可以再試」）',
+        '給予陪伴，而不是急於提供解決辦法',
+        '在接下來的幾週裡持續關心',
+      ],
+      section5Body: '出現以下一些情況時，專業人員的支援可能會有幫助：',
+      warningTitle: '需要留意的訊號',
+      attentionSigns: [
+        '悲傷持續很久，而且越來越重，沒有減輕',
+        '日常生活變得難以應付',
+        '出現明顯的孤立感',
+        '出現侵入性的想法，或明顯的痛苦',
+      ],
+      section5InfoTitle: '你可以得到支援',
+      section5InfoText: '助產士、醫生、心理諮詢師或互助小組可以傾聽並陪伴你，不會評判你。',
+      tipTitle: '小提醒',
+      tipText: '尋求幫助並不是軟弱的表現，而是在這段時間裡照顧自己的一種方式。',
+      summaryPoints: [
+        '走過這段經歷，沒有對錯之分。',
+        '悲傷、憤怒或空落落的感覺，都是正常的反應。',
+        '給自己時間，不施加壓力，也不與他人比較，是療愈的一部分。',
+        '與身邊親近的人、互助小組或專業人員聊一聊，可以幫助減輕這份重量。',
+      ],
+      disclaimerText: '科普內容。本文不能替代專業建議。如果你正經歷艱難的時刻，請不要猶豫，與醫療專業人員談一談。',
+      shareMessage: '走過悲傷，情感上的陪伴 — AWA',
+    },
+  ar: {
+    badge: 'بعد الإجهاض • الدعم العاطفي',
+    title: 'عبور الحزن\nعاطفيًا',
+    metaDuration: 'قراءة في 7 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى للاطلاع',
+    intro:
+      'لا توجد طريقة صحيحة وحيدة لعبور هذه التجربة. كل امرأة تمرّ بها بطريقتها الخاصة وبوتيرتها.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'حزن حقيقي ومشروع',
+      'مشاعر تختلف من امرأة إلى أخرى',
+      'ما قد يساعد في الحياة اليومية',
+      'دعم المقرّبين',
+      'متى تطلبين مساعدة مختص',
+      'أهم النقاط',
+    ],
+    section1Body:
+      'الحزن أو الغضب أو الشعور بالفراغ ردود فعل طبيعية على هذا الفقدان، مهما كانت مرحلة الحمل. وما تشعرين به يستحق الاعتراف.',
+    section1InfoTitle: 'ضعي في بالك',
+    section1InfoText:
+      'لا توجد طريقة صحيحة أو خاطئة لعبور هذه التجربة. وكل شعور تمرّين به مشروع.',
+    section2Body:
+      'قد تشعرين بواحد أو أكثر من هذه المشاعر، وأحيانًا بها جميعًا في آن واحد:',
+    feelings: [
+      {
+        title: 'الحزن',
+        text: 'أسى قد يأتي ويذهب، وأحيانًا على غير توقع.',
+      },
+      {
+        title: 'الغضب',
+        text: 'تجاه نفسك أو الوضع أو إحساس بالظلم — وهذا لا يدعو إلى القلق.',
+      },
+      {
+        title: 'شعور بالفراغ',
+        text: 'إحساس بالفراغ أو الارتباك مما حدث للتو.',
+      },
+    ],
+    section3Body:
+      'إن منح نفسك الوقت، دون ضغط أو مقارنة، جزء أساسي من التعافي.',
+    dailySupport: [
+      {
+        title: 'امنحي نفسك الوقت',
+        text: 'دون ضغط أو موعد نهائي لـ«الشعور بتحسّن».',
+      },
+      {
+        title: 'لا تقارني نفسك بالأخريات',
+        text: 'كل حزن فريد؛ ولا توجد طريقة صحيحة لعبوره.',
+      },
+      {
+        title: 'عبّري بالكلمات',
+        text: 'الكتابة أو الحديث عمّا تشعرين به قد يخفف ثِقَل مشاعرك.',
+      },
+    ],
+    section4Body:
+      'الحديث إلى شخص مقرّب منك، أو إلى مجموعة دعم، أو إلى مختص قد يخفف هذا الثِّقَل. وهكذا يمكن للمقرّبين أن يساعدوا:',
+    supportTitle: 'كيف يمكن لشخص مقرّب أن يقدّم الدعم',
+    howToSupport: [
+      'الإصغاء دون إصدار أحكام، حتى دون امتلاك الكلمات المثالية',
+      'تجنّب التقليل من التجربة («لم يكن الأمر مهمًا»، «يمكنك المحاولة مجددًا»)',
+      'تقديم الحضور بدل الحلول',
+      'مواصلة الاطمئنان عليها خلال الأسابيع التالية',
+    ],
+    section5Body:
+      'قد تشير بعض العلامات إلى أن الدعم المختص قد يكون مفيدًا:',
+    warningTitle: 'علامات تستدعي الانتباه',
+    attentionSigns: [
+      'يستمر الحزن طويلًا ويزداد بدل أن يخف',
+      'يصبح من الصعب القيام بالمهام اليومية',
+      'يتسلل شعور كبير بالعزلة',
+      'تظهر أفكار متطفلة أو ضيق شديد',
+    ],
+    section5InfoTitle: 'الدعم متاح',
+    section5InfoText:
+      'يمكن للقابلة أو الطبيب أو الأخصائي النفسي أو مجموعة الدعم أن تصغي إليك وتدعمك، دون إصدار أحكام.',
+    tipTitle: 'من المفيد أن تعرفي',
+    tipText:
+      'طلب المساعدة ليس علامة ضعف — بل هو طريقة للعناية بنفسك في هذه الفترة.',
+    summaryPoints: [
+      'لا توجد طريقة صحيحة أو خاطئة لعبور هذه التجربة.',
+      'الحزن أو الغضب أو الشعور بالفراغ ردود فعل طبيعية.',
+      'منح نفسك الوقت، دون ضغط أو مقارنة، جزء من التعافي.',
+      'الحديث إلى شخص مقرّب منك، أو إلى مجموعة دعم، أو إلى مختص قد يخفف هذا الثِّقَل.',
+    ],
+    disclaimerText:
+      'محتوى للاطلاع. لا يغني هذا المقال عن مشورة مختص. وإذا كنتِ تمرّين بوقت صعب، فلا تترددي في التحدث إلى مختص في الرعاية الصحية.',
+    shareMessage: 'عبور الحزن، عاطفيًا — AWA',
+  },
+  kab: {
+    badge: 'DEFFIR TUQQNA N TIGZI • ASEMLEL N WUL',
+    title: 'Aɛdi deg ugurrut\ns wudem n wul',
+    metaDuration: '7 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Anagar',
+    metaValidated: 'Agbur n isallen',
+    intro:
+      'Ulac abrid ṣaḥiḥ i wakken ad tɛeddiḍ deg waya. Yal yiwet tettɛedday deg-s s wudem-is, s lḥal-is.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Agurrut ittwaqebblen, d tidet',
+      'Tarmit ibeddlen seg yiwet ɣer tayeḍ',
+      'D acu izemren ad k-yeɛawen yal ass',
+      'Tallelt n wid i k-yeqqnen',
+      'Melmi ara tsuter tallelt n umusnaw',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    section1Body:
+      'Tuggada, tuɛrurt, neɣ aḥsas n ulac d tarmit tamagnut i tuqqna-a, ɣas ma d acu n uswir n tigzi. Ayen tḥessseḍ yesɛa azal ad yettwaqbel.',
+    section1InfoTitle: 'Ɛass',
+    section1InfoText:
+      'Ulac abrid ṣaḥiḥ neɣ ur yelli ara ṣaḥiḥ i wakken ad tɛeddiḍ deg waya. Yal tarmit i tḥessseḍ tettwaqbel.',
+    section2Body:
+      'Tzemreḍ ad tḥessseḍ yiwet neɣ aṭas seg-sent, kra tikwal akk deg yiwen n wakud:',
+    feelings: [
+      {
+        title: 'Tuggada',
+        text: 'Aɣilif i izemren ad d-yas u ad iṛuḥ, kra tikwal war aɛdim.',
+      },
+      {
+        title: 'Tuɛrurt',
+        text: 'Ɣer yiman-ik, waddad, neɣ aḥsas n ulac n ddemma — ulac ayen ara k-yeččaren deg waya.',
+      },
+      {
+        title: 'Aḥsas n ulac',
+        text: 'Aḥsas n ulac neɣ n tkawit ɣef wayen i d-yeḍran.',
+      },
+    ],
+    section3Body:
+      'Ma tefkeḍ akud i yiman-ik, war ṭṭbiɛa neɣ amgirred, d ayen yesɛan azal deg uslaḥ.',
+    dailySupport: [
+      {
+        title: 'Fk akud i yiman-ik',
+        text: 'War tapart neɣ azemz n “ad tḥessseḍ yelha.”',
+      },
+      {
+        title: 'Ur tmgirredeḍ ara iman-ik d wiyaḍ',
+        text: 'Yal agurrut d anaẓur; ulac abrid ṣaḥiḥ i wakken ad tɛeddiḍ deg-s.',
+      },
+      {
+        title: 'Mmel-it s wawal',
+        text: 'Aru neɣ mmeslay ɣef wayen tḥessseḍ izmer ad k-yeɛawen ad tessefsuḍ aɣbel n tarmit-ik.',
+      },
+    ],
+    section4Body:
+      'Tameslayt d win i k-yeqqnen, d agraw n tallelt, neɣ d umusnaw tezmer ad k-yeɛawen ad tessefsuḍ aɣbel-a. Ha-t wamek zemren wid i k-yeqqnen ad k-ɛawnen:',
+    supportTitle: 'Amek zemren wid i k-yeqqnen ad k-ɛawnen',
+    howToSupport: [
+      'Ssel war ccek, ɣas ma ur tesɛiḍ ara awal ilaqen',
+      'Ɛass ur tessenqseḍ ara ayen yeḍran (“mačči d ayen ameqqran”, “tzemreḍ ad d-tɛawdeḍ”)',
+      'Ffeɣ s tallelt-ik wala s tifrat',
+      'Kemmel ad tsteqsiḍ ɣef wayen i d-yetteddun deg yimalas i d-yetteddun',
+    ],
+    section5Body:
+      'Kra n tizmilin zemrent ad bbeggnent belli tallelt n umusnaw tezmer ad tili d tamɛawant:',
+    warningTitle: 'Tizmilin ara twalid',
+    attentionSigns: [
+      'Tuggada tezzi aṭas u tettwanerni wala ad tennaqes',
+      'Yettuɣal yeɛya ad txedmeḍ ayen n yal ass',
+      'Aḥsas ameqqran n tusligt ittili',
+      'Ttbanent tkunwit ur nelli ara d timagnuyin neɣ tuggada tameqqrant',
+    ],
+    section5InfoTitle: 'Tallelt llan',
+    section5InfoText:
+      'Tamaɣart n tezmert, ṭṭbib, anaẓur n tikli, neɣ agraw n tallelt zemren ad k-ssleḍ u ad k-ɛawnen, war lḥukm.',
+    tipTitle: 'Yelha ad teɛlmeḍ',
+    tipText:
+      'Asuter n tallelt ur d-yebbi ara ulac n tezmert — d abrid n uɛass ɣef yiman-ik deg wakud-a.',
+    summaryPoints: [
+      'Ulac abrid ṣaḥiḥ neɣ ur yelli ara ṣaḥiḥ i wakken ad tɛeddiḍ deg tmeẓlayt-a.',
+      'Tuggada, tuɛrurt, neɣ aḥsas n ulac d tarmit tamagnut.',
+      'Ma tefkeḍ akud i yiman-ik, war ṭṭbiɛa neɣ amgirred, d aɣerwaḍ n uslaḥ.',
+      'Tameslayt d win i k-yeqqnen, d agraw n tallelt, neɣ d umusnaw tezmer ad k-yeɛawen ad tessefsuḍ aɣbel-a.',
+    ],
+    disclaimerText:
+      'Agbur n isallen. Amagrad-a ur yettnefsu ara tamawt n umusnaw. Ma tettɛeddiḍ deg wakud aɣbel, ur tɛerrageḍ ara ad tmeslayeḍ d umusnaw n tezmert.',
+    shareMessage: 'Aɛdi deg ugurrut, s wudem n wul — AWA',
+  },
+  om: {
+    badge: 'DHALUU BOODA • DEGGERSA MIIRAA',
+    title: 'Gaddaa miiraan\ndarbuu',
+    metaDuration: 'Daqiiqaa 7 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee odeeffannoo',
+    intro:
+      'Kana darbuuf karaan sirrii jedhamu hin jiru. Nama hundumtuu karaa mataa isaatiin, saffisa mataa isaatiin darba.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Gadda dhugaa fi seera qabeessa',
+      'Miira nama irraa nama garaagara',
+      'Guyyaa guyyaan maaltu gargaaruu danda\'a',
+      'Deggersa nama jaallatamu irraa',
+      'Yoom gargaarsa ogeessaa barbaaduu',
+      'Qabxiilee ijoo',
+    ],
+    section1Body:
+      'Gadda, aarii, ykn miira duwwaa ta\'uu dhabamsiisuu kanaaf deebii baramaa dha, sadarkaa ulfaa kamiyyuu. Wanti ati dhaga\'attu beekamtii argachuu qaba.',
+    section1InfoTitle: 'Yaadadhu',
+    section1InfoText:
+      'Kana darbuuf karaan sirrii ykn dogoggoraa hin jiru. Miira kee hundi sirrii dha.',
+    section2Body:
+      'Isaan keessaa tokko ykn caalaa, yeroo tokko tokko hundi yeroo tokkotti, dhaga\'uu dandeessa:',
+    feelings: [
+      {
+        title: 'Gadda',
+        text: 'Gaddi dhufee deemuu danda\'a, yeroo tokko tokko osoo hin eegin.',
+      },
+      {
+        title: 'Aarii',
+        text: 'Of irratti, haala irratti, ykn haqa dhabuu irratti — kunis yaaddessaa miti.',
+      },
+      {
+        title: 'Miira duwwaa ta\'uu',
+        text: 'Miira duwwaa ta\'uu ykn wanta ta\'e irratti burjaajii.',
+      },
+    ],
+    section3Body:
+      'Yeroo of kennuun, dhiibbaa ykn wal bira qabuu malee, fayyuu keessatti kutaa barbaachisaa dha.',
+    dailySupport: [
+      {
+        title: 'Yeroo of kennuu',
+        text: 'Dhiibbaa ykn yeroo “gaarii dhaga\'uu” malee.',
+      },
+      {
+        title: 'Namoota biroo waliin of wal-bira hin qabin',
+        text: 'Gaddi hundi addaa dha; kana darbuuf karaan sirrii hin jiru.',
+      },
+      {
+        title: 'Dubbiin dubbachuu',
+        text: 'Waan dhaga\'attu barreessuu ykn dubbachuun ulfina miira kee salphisuuf gargaaruu danda\'a.',
+      },
+    ],
+    section4Body:
+      'Nama siif dhiyoo ta\'e, garee deggersaa, ykn ogeessa wajjin haasa\'uun ulfina kana salphisuuf gargaaruu danda\'a. Warri jaallatamoo akkamitti gargaaruu danda\'u as jira:',
+    supportTitle: 'Nama jaallatamu akkamitti deggersa kennuu danda\'a',
+    howToSupport: [
+      'Murtii malee dhaggeeffadhu, jechoota gaarii osoo hin qabaatin illee',
+      'Muuxannoo xiqqeessuu irraa of eegi (“wanta guddaa hin turre,” “deebi\'ee yaaluu dandeessa”)',
+      'Furmaata mannaa jiraachuu kee dhiyeessi',
+      'Torban itti aanan keessatti ilaaluu itti fufi',
+    ],
+    section5Body:
+      'Mallattoowwan tokko tokko gargaarsa ogeessaa fayyadaa ta\'uu akka danda\'u agarsiisuu danda\'u:',
+    warningTitle: 'Mallattoowwan xiyyeeffannoo barbaadan',
+    attentionSigns: [
+      'Gaddi yeroo dheeraaf turee suuta hir\'achuu mannaa caalaa cimaa',
+      'Guyyaa guyyaan hojjechuun ulfaata',
+      'Kophaa ta\'uun guddaan dhufa',
+      'Yaadni nama dhiphisu ykn dhiphina guddaan mul\'ata',
+    ],
+    section5InfoTitle: 'Deggersi ni jira',
+    section5InfoText:
+      'Ogeessi dhalaa, doktora, ogeessi xiin-sammuu, ykn garee deggersaa murtii malee si dhaggeeffatee si deggeruu danda\'a.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Gargaarsa gaafachuun mallattoo dadhabbii miti — yeroo kanatti of kunuunsuu dha.',
+    summaryPoints: [
+      'Muuxannoo kana darbuuf karaan sirrii ykn dogoggoraa hin jiru.',
+      'Gaddi, aarii, ykn miira duwwaa ta\'uu deebii baramaa dha.',
+      'Yeroo of kennuun, dhiibbaa ykn wal bira qabuu malee, fayyuu keessatti kutaa dha.',
+      'Nama siif dhiyoo ta\'e, garee deggersaa, ykn ogeessa wajjin haasa\'uun ulfina kana salphisuuf gargaaruu danda\'a.',
+    ],
+    disclaimerText:
+      'Qabiyyee odeeffannoo. Barruun kun gorsa ogeessaa bakka hin bu\'u. Yeroo ulfaataa keessa yoo jirtu, ogeessa fayyaa wajjin haasa\'uuf hin sodaatin.',
+    shareMessage: 'Gaddaa miiraan darbuu — AWA',
+  },
+  ti: {
+    badge: 'ድሕሪ ምጥንፋእ • ስምዒታዊ ድጋፍ',
+    title: 'ሓዘን ብስምዒት\nምሕላፍ',
+    metaDuration: '7 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ሓበሬታዊ ትሕዝቶ',
+    intro:
+      'ነዚ ዘሕልፍ ቅኑዕ መንገዲ የለን። ነፍሲ ወከፍ ብናይ ባዕላ ኣገባብ፡ ብናይ ባዕላ ፍጥነት ተሕልፎ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ሓቀኛን ሕጋውን ሓዘን',
+      'ካብ ሰብ ናብ ሰብ ዝፍለዩ ስምዒታት',
+      'መዓልታዊ እንታይ ክሕግዝ ይኽእል',
+      'ካብ ዝፈትውኪ ድጋፍ',
+      'መዓስ ሞያዊ ሓገዝ ምድላይ',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Body:
+      'ሓዘን፡ ቁጥዐ፡ ወይ ስምዒት ባዶነት ንዚ ጥፍኣት፡ ኣብ ዝኾነ ደረጃ ጥንስቲ፡ ንቡር ምላሽ እዮም። እትሰምዕዮ ክኽበር ይግብኦ።',
+    section1InfoTitle: 'ዘክሪ',
+    section1InfoText:
+      'ነዚ ዘሕልፍ ቅኑዕ ወይ ጌጋ መንገዲ የለን። ነፍሲ ወከፍ እትሰምዕዮ ስምዒት ቅኑዕ እዩ።',
+    section2Body:
+      'ሓደ ወይ ብዙሓት ካብዚኦም ክስምዓኪ ይኽእል፡ ሓሓደ ግዜ ኩሎም ብሓደ፡',
+    feelings: [
+      {
+        title: 'ሓዘን',
+        text: 'ክመጽእን ክኸይድን ዝኽእል ሓዘን፡ ሓሓደ ግዜ ብዘይተጸበኻዮ።',
+      },
+      {
+        title: 'ቁጥዐ',
+        text: 'ንርእስኺ፡ ንኩነታት፡ ወይ ኣብ ዘይፍትሒ ስምዒት — እዚ ዘሰክፍ ኣይኮነን።',
+      },
+      {
+        title: 'ስምዒት ባዶነት',
+        text: 'ዘጋጠመ ብዛዕባ ባዶነት ወይ ምድንጋር ስምዒት።',
+      },
+    ],
+    section3Body:
+      'ንርእስኺ ግዜ ምሃብ፡ ብዘይ ጸቕጢ ወይ ምውድዳር፡ ኣገዳሲ ክፋል ፍዉስ እዩ።',
+    dailySupport: [
+      {
+        title: 'ንርእስኺ ግዜ ምሃብ',
+        text: 'ብዘይ ጸቕጢ ወይ “ምሕዋይ” ዝብል ዕላማ ዕለት።',
+      },
+      {
+        title: 'ምስ ካልኦት ዘይምውድዳር',
+        text: 'ነፍሲ ወከፍ ሓዘን ፍሉይ እዩ፤ ዘሕልፍ ቅኑዕ መንገዲ የለን።',
+      },
+      {
+        title: 'ብቓላት ምግላጽ',
+        text: 'እትሰምዕዮ ምጽሓፍ ወይ ምዝራብ ክብደት ስምዒትኪ ንምቕላል ክሕግዝ ይኽእል።',
+      },
+    ],
+    section4Body:
+      'ምስ ቀረባኺ፡ ኣብ ጉጅለ ድጋፍ ወይ ምስ ሰራሕተኛ ምዝራብ ነዚ ክብደት ንምቕላል ክሕግዝ ይኽእል። ቀረብቲ ከመይ ክሕግዙ ከም ዝኽእሉ፡',
+    supportTitle: 'ሓደ ቀራቢ ድጋፍ ከመይ ክህብ ይኽእል',
+    howToSupport: [
+      'ብዘይ ምፍራድ ስምዕ፡ ፍጹም ቃላት እውን እንተ ዘይብልካ',
+      'ተሞክሮ ካብ ምንኣስ ተወገድ (“ዓቢ ነገር ኣይነበረን”፡ “ዳግም ክትፍትኒ ትኽእሊ”)',
+      'መፍትሒታት ዘይኮነ ህላወኻ ሃብ',
+      'ኣብ ዝስዕቡ ሰሙናት ምሕታት ቀጽል',
+    ],
+    section5Body:
+      'ገለ ምልክታት ሞያዊ ድጋፍ ጠቓሚ ከም ዝኸውን ክሕብሩ ይኽእሉ፡',
+    warningTitle: 'ክትከታተልዮም ዘለዉ ምልክታት',
+    attentionSigns: [
+      'ሓዘን ንነዊሕ ግዜ ይቕጽል ክሕይሽ ኣብ ክንድኡ ይጸንዕ',
+      'መዓልታዊ ምስራሕ ይኸብድ',
+      'ዓቢ ስምዒት ነጸላ ምዃን ይመጽእ',
+      'ዘይደልዩ ሓሳባትን ዓቢ ጭንቀትን ይርአዩ',
+    ],
+    section5InfoTitle: 'ድጋፍ ይርከብ',
+    section5InfoText:
+      'ሚድዋይፍ፡ ዶክተር፡ ሳይኮሎጂስት፡ ወይ ጉጅለ ድጋፍ ብዘይ ፍርዲ ክሰምዓኪን ክድግፈኪን ይኽእል።',
+    tipTitle: 'ከተፍልጥዮ ዘለካ',
+    tipText:
+      'ሓገዝ ምሕታት ድኽመት ምልክት ኣይኮነን — ኣብዚ እዋን ንርእስኺ ናይ ምክንክን መንገዲ እዩ።',
+    summaryPoints: [
+      'ነዚ ተሞክሮ ዘሕልፍ ቅኑዕ ወይ ጌጋ መንገዲ የለን።',
+      'ሓዘን፡ ቁጥዐ፡ ወይ ስምዒት ባዶነት ንቡር ምላሽ እዮም።',
+      'ንርእስኺ ግዜ ምሃብ፡ ብዘይ ጸቕጢ ወይ ምውድዳር፡ ክፋል ፍዉስ እዩ።',
+      'ምስ ቀረባኺ፡ ኣብ ጉጅለ ድጋፍ ወይ ምስ ሰራሕተኛ ምዝራብ ነዚ ክብደት ንምቕላል ክሕግዝ ይኽእል።',
+    ],
+    disclaimerText:
+      'ሓበሬታዊ ትሕዝቶ። እዚ ጽሑፍ ሞያዊ ምኽሪ ኣይትካእልን። ከቢድ እዋን እንተ ኣሕሊፍኪ፡ ንሰራሕተኛ ጥዕና ክትዛረቢ ኣይትጠራጠሪ።',
+    shareMessage: 'ሓዘን ብስምዒት ምሕላፍ — AWA',
+  },
+  rw: {
+    badge: 'NYUMA YO GUTWITA INDA ISENYUKA • INKUNGA Y\'AMARANGAMUTIMA',
+    title: 'Kunyura mu gahinda\nmu marangamutima',
+    metaDuration: 'Gusoma: iminota 7',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Utangiye',
+    metaValidated: 'Ibikubiyemo by\'amakuru',
+    intro:
+      'Nta buryo bwiza bwo kunyuramo. Buri wese anyura muri byo mu buryo bwe, ku muvuduko we.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Agahinda nyako kandi gafite ishingiro',
+      'Amarangamutima atandukana hagati y\'umuntu n\'undi',
+      'Ibyagufasha umunsi ku munsi',
+      'Inkunga y\'abakwegereye',
+      'Igihe cyo gushaka ubufasha bw\'umuhanga',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    section1Body:
+      'Agahinda, uburakari, cyangwa kumva ubusa ni ibisubizo bisanzwe kuri uku gutakaza, uko icyiciro cy\'inda cyaba kimeze kose. Ibyo wumva bikwiye kwemerwa.',
+    section1InfoTitle: 'Ibuka',
+    section1InfoText:
+      'Nta buryo bwiza cyangwa bubi bwo kunyuramo. Buri marangamutima wumva ni ukuri.',
+    section2Body:
+      'Ushobora kumva kimwe cyangwa byinshi muri ibi, rimwe na rimwe byose icyarimwe:',
+    feelings: [
+      {
+        title: 'Agahinda',
+        text: 'Intimba ishobora kuza ikagenda, rimwe na rimwe bitunguranye.',
+      },
+      {
+        title: 'Uburakari',
+        text: 'Kuri wowe ubwawe, ku miterere, cyangwa kumva hari akarengane — kandi ibyo nta cyo guhangayikira.',
+      },
+      {
+        title: 'Kumva ubusa',
+        text: 'Kumva ubusa cyangwa urujijo ku byo byabaye.',
+      },
+    ],
+    section3Body:
+      'Kwiha igihe, nta gahato cyangwa ugereranya, ni igice cy\'ingenzi cyo gukira.',
+    dailySupport: [
+      {
+        title: 'Kwiha igihe',
+        text: 'Nta gahato cyangwa itariki ntarengwa yo “koroherwa.”',
+      },
+      {
+        title: 'Kutigereranya n\'abandi',
+        text: 'Buri gahinda ni umwihariko; nta buryo bwiza bwo kunyuramo.',
+      },
+      {
+        title: 'Kubivuga mu magambo',
+        text: 'Kwandika cyangwa kuvuga ku byo wumva bishobora gufasha koroshya uburemere bw\'amarangamutima yawe.',
+      },
+    ],
+    section4Body:
+      'Kuganira n\'umuntu ukwegereye, itsinda ry\'inkunga, cyangwa umuhanga bishobora gufasha koroshya uyu mutwaro. Dore uko abakwegereye bashobora gufasha:',
+    supportTitle: 'Uko umuntu ukwegereye yagutera inkunga',
+    howToSupport: [
+      'Umutege amatwi nta guca urubanza, nubwo utabona amagambo ahamye',
+      'Irinde gusuzugura ibyabaye (“si ikintu gikomeye,” “ushobora kongera kugerageza”)',
+      'Tanga ko uri hafi aho gutanga ibisubizo',
+      'Komeza kubaza uko ameze mu byumweru bikurikira',
+    ],
+    section5Body:
+      'Ibimenyetso bimwe bishobora kugaragaza ko ubufasha bw\'umuhanga bwagufasha:',
+    warningTitle: 'Ibimenyetso byo kwitondera',
+    attentionSigns: [
+      'Agahinda kamara igihe kirekire kakiyongera aho koroha',
+      'Biragorana gukora ibya buri munsi',
+      'Kumva uri wenyine cyane biraza',
+      'Ibitekerezo bitera ubwoba cyangwa agahinda gakabije biragaragara',
+    ],
+    section5InfoTitle: 'Inkunga irahari',
+    section5InfoText:
+      'Umubyaza, muganga, umuhanga mu mitekerereze, cyangwa itsinda ry\'inkunga bashobora kukumva no kugushyigikira, nta guca urubanza.',
+    tipTitle: 'Byiza kumenya',
+    tipText:
+      'Gusaba ubufasha si ikimenyetso cy\'intege nke — ni uburyo bwo kwita ku buzima bwawe muri iki gihe.',
+    summaryPoints: [
+      'Nta buryo bwiza cyangwa bubi bwo kunyura muri ibi bibazo.',
+      'Agahinda, uburakari, cyangwa kumva ubusa ni ibisubizo bisanzwe.',
+      'Kwiha igihe, nta gahato cyangwa ugereranya, ni igice cyo gukira.',
+      'Kuganira n\'umuntu ukwegereye, itsinda ry\'inkunga, cyangwa umuhanga bishobora gufasha koroshya uyu mutwaro.',
+    ],
+    disclaimerText:
+      'Ibikubiyemo by\'amakuru. Iyi nkuru ntisimbura inama z\'umuhanga. Niba unyura mu gihe kigoye, ntuzuyaze kuganira n\'umuhanga mu buzima.',
+    shareMessage: 'Kunyura mu gahinda mu marangamutima — AWA',
+  },
+  rn: {
+    badge: 'NYUMA Y\'INDA YAKUWEMWO • UGUSHIGIKIRWA MU MARANGAMUTIMA',
+    title: 'Gucamwo akababaro\nmu marangamutima',
+    metaDuration: 'Iminota 7 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikubiyemwo vyo kumenyesha',
+    intro:
+      'Nta buryo bwiza bwo kubicamwo. Buri wese abicamwo mu buryo bwiwe, ku muvuduko wiwe.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'Akababaro nyakuri kandi kemewe',
+      'Amarangamutima atandukana hagati y\'umuntu n\'uwundi',
+      'Ivyo bishobora gufasha buri musi',
+      'Ugushigikirwa n\'abagukunda',
+      'Igihe co gusaba ubufasha bw\'umuhinga',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    section1Body:
+      'Akababaro, uburakari, canke kumva ufise ubusa ni ibisubizo bisanzwe kuri iki gihombo, uko igice c\'igitigiri cari kimeze kwose. Ivyo wumva bikwiye kwemerwa.',
+    section1InfoTitle: 'Ibuka',
+    section1InfoText:
+      'Nta buryo bwiza canke bubi bwo kubicamwo. Buri marangamutima wumva ni yo.',
+    section2Body:
+      'Ushobora kumva rimwe canke menshi muri ayo, rimwe na rimwe yose icarimwe:',
+    feelings: [
+      {
+        title: 'Akababaro',
+        text: 'Umubabaro ushobora kuza ugatuma, rimwe na rimwe bitunguranye.',
+      },
+      {
+        title: 'Uburakari',
+        text: 'Kuri wewe, ukuntu bimeze, canke kumva hari akarengane — kandi nta co guhagarika umutima kirimwo.',
+      },
+      {
+        title: 'Kumva ufise ubusa',
+        text: 'Kumva ufise ubusa canke urujijo ku vyabaye gusa.',
+      },
+    ],
+    section3Body:
+      'Kwiha igihe, nta gukanda canke kugereranya, ni igice ca ngombwa c\'ukuvurwa kw\'umutima.',
+    dailySupport: [
+      {
+        title: 'Kwiha igihe',
+        text: 'Nta gukanda canke igihe ntarengwa co “kumererwa neza.”',
+      },
+      {
+        title: 'Kutigereranya n\'abandi',
+        text: 'Buri kababaro karihariye; nta buryo bwiza bwo kukacamwo.',
+      },
+      {
+        title: 'Kubishira mu magambo',
+        text: 'Kwandika canke kuvuga ivyo wumva bishobora gufasha koroshya uburemere bw\'amarangamutima yawe.',
+      },
+    ],
+    section4Body:
+      'Kuvugana n\'umuntu uri hafi yawe, itsinda ry\'ugushigikirana, canke umuhinga bishobora gufasha koroshya ubu buremere. Dore ukuntu abagukunda bashobora gufasha:',
+    supportTitle: 'Ukuntu uwugukunda ashobora gutanga ugushigikira',
+    howToSupport: [
+      'Umviriza nta kurenganya, naho utagira amagambo ahebuje',
+      'Irinde gufata uko bivye nk\'ibidafise agaciro (“si vyinshi”, “ushobora kugerageza kandi”)',
+      'Tanga kuba uhari aho gutanga ibisubizo',
+      'Ukomeze kubaza uko ameze mu byumweru bikurikira',
+    ],
+    section5Body:
+      'Ibimenyetso bimwebimwe bishobora kwerekana ko ubufasha bw\'umuhinga bwoba bufasha:',
+    warningTitle: 'Ibimenyetso vyo kwitaho',
+    attentionSigns: [
+      'Akababaro kamara igihe kirekire kandi kakarushiriza gukomera aho koroha',
+      'Biba ingorane gukora buri musi',
+      'Kumva uri wenyine cane biraza',
+      'Ivyiyumviro bibangamira canke umubabaro ukomeye biragaragara',
+    ],
+    section5InfoTitle: 'Ugushigikirwa kurahari',
+    section5InfoText:
+      'Umubyaza, umuganga, umuhinga w\'imitekerereze, canke itsinda ry\'ugushigikirana barashobora kukumva no kugushigikira, nta kurenganya.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Gusaba ubufasha si ikimenyetso c\'intege nke — ni uburyo bwo kwiyitaho muri iki gihe.',
+    summaryPoints: [
+      'Nta buryo bwiza canke bubi bwo gucamwo ivyo wacitsemwo.',
+      'Akababaro, uburakari, canke kumva ufise ubusa ni ibisubizo bisanzwe.',
+      'Kwiha igihe, nta gukanda canke kugereranya, ni igice c\'ukuvurwa kw\'umutima.',
+      'Kuvugana n\'umuntu uri hafi yawe, itsinda ry\'ugushigikirana, canke umuhinga bishobora gufasha koroshya ubu buremere.',
+    ],
+    disclaimerText:
+      'Ibikubiyemwo vyo kumenyesha. Iyi ngingo ntisubira inama z\'umuhinga. Nimba uciye mu gihe kigoye, ntutinye kuvugana n\'umuhinga mu vy\'ubuzima.',
+    shareMessage: 'Gucamwo akababaro mu marangamutima — AWA',
+  },
+  ig: {
+    badge: 'MGBE ỌPỤPỤ IME • NKWADO MMỤỌ',
+    title: 'Ịgafe iru újú\nn\'mmụọ',
+    metaDuration: 'Nkeji 7 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Onye mbido',
+    metaValidated: 'Ọdịnaya ozi',
+    intro:
+      'Ọ dịghị ụzọ ziri ezi isi gafee nke a. Onye ọ bụla na-agafe ya n\'ụzọ nke ya, n\'ọsọ nke ya.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Iru újú n\'ezie na nke ziri ezi',
+      'Mmetụta mmụọ nke dịgasị site n\'onye ruo onye',
+      'Ihe nwere ike inye aka kwa ụbọchị',
+      'Nkwado sitere n\'aka ndị i hụrụ n\'anya',
+      'Mgbe kwesịrị ịchọ enyemaka ọkachamara',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    section1Body:
+      'Mwute, iwe, ma ọ bụ mmetụta efu bụ nzaghachi nkịtị maka mfu a, n\'agbanyeghị ọkwa nke ime. Ihe ị na-enwe kwesịrị ka a ghọta ya.',
+    section1InfoTitle: 'Cheta',
+    section1InfoText:
+      'Ọ dịghị ụzọ ziri ezi ma ọ bụ nke na-ezighị ezi isi gafee nke a. Mmetụta mmụọ ọ bụla ị na-enwe bụ nke ziri ezi.',
+    section2Body:
+      'Ị nwere ike inwe otu ma ọ bụ ọtụtụ n\'ime ndị a, mgbe ụfọdụ ha niile n\'otu oge:',
+    feelings: [
+      {
+        title: 'Mwute',
+        text: 'Obi mwute nwere ike abịa ma laa, mgbe ụfọdụ n\'amaghị amatụ.',
+      },
+      {
+        title: 'Iwe',
+        text: 'Megide onwe gị, ọnọdụ ahụ, ma ọ bụ mmetụta nke ikpe na-ezighị ezi — nke ahụ abụghị ihe ị ga-echegbu onwe gị.',
+      },
+      {
+        title: 'Mmetụta efu',
+        text: 'Mmetụta efu ma ọ bụ mgbagwoju anya banyere ihe merenụ.',
+      },
+    ],
+    section3Body:
+      'Inye onwe gị oge, n\'enweghị nrụgide ma ọ bụ ịtụnyere, bụ akụkụ dị mkpa nke ọgwụgwọ.',
+    dailySupport: [
+      {
+        title: 'Inye onwe gị oge',
+        text: 'N\'enweghị nrụgide ma ọ bụ oge njedebe maka “ịdị mma.”',
+      },
+      {
+        title: 'Ịtụnyeghị onwe gị na ndị ọzọ',
+        text: 'Iru újú nke ọ bụla pụrụ iche; ọ dịghị ụzọ ziri ezi isi gafee ya.',
+      },
+      {
+        title: 'Ịkọwa ya n\'okwu',
+        text: 'Ide ma ọ bụ ikwu ihe ị na-enwe nwere ike inyere aka belata arọ nke mmetụta mmụọ gị.',
+      },
+    ],
+    section4Body:
+      'Ikwu okwu na onye dị gị nso, otu nkwado, ma ọ bụ onye ọkachamara nwere ike inyere aka belata arọ a. Lee etu ndị i hụrụ n\'anya nwere ike isi nyere aka:',
+    supportTitle: 'Etu onye i hụrụ n\'anya nwere ike isi kwado',
+    howToSupport: [
+      'Gee ntị n\'enweghị ikpe, ọ bụrụgodị na ị nweghị okwu zuru okè',
+      'Zere ibelata ahụmịhe ahụ (“ọ bụghị ihe dị ukwuu,” “ị nwere ike ịnwale ọzọ”)',
+      'Nye ọnụnọ gị kama ngwọta',
+      'Nọgide na-eleba anya n\'izu ndị na-esote',
+    ],
+    section5Body:
+      'Ihe ịrịba ama ụfọdụ nwere ike igosi na enyemaka ọkachamara nwere ike bara uru:',
+    warningTitle: 'Ihe ịrịba ama ị ga-elebara anya',
+    attentionSigns: [
+      'Mwute na-adịte aka ma na-ebuwanye ibu kama ibelata',
+      'Ọ na-esiri gị ike ịrụ ọrụ kwa ụbọchị',
+      'Mmetụta nke ịnọ naanị gị dị ukwuu na-abata',
+      'Echiche na-akpaghasị ma ọ bụ nnukwu mkpagbu na-apụta',
+    ],
+    section5InfoTitle: 'Enyemaka dị',
+    section5InfoText:
+      'Onye na-agba nne ọrụ, dọkịta, onye ọkà n\'uche, ma ọ bụ otu nkwado nwere ike ige gị ntị ma kwado gị, n\'enweghị ikpe.',
+    tipTitle: 'Ihe ọ dị mma ịma',
+    tipText:
+      'Ịrịọ enyemaka abụghị ihe ngosi adịghị ike — ọ bụ ụzọ ilekọta onwe gị n\'oge a.',
+    summaryPoints: [
+      'Ọ dịghị ụzọ ziri ezi ma ọ bụ nke na-ezighị ezi isi gafee ahụmịhe a.',
+      'Mwute, iwe, ma ọ bụ mmetụta efu bụ nzaghachi nkịtị.',
+      'Inye onwe gị oge, n\'enweghị nrụgide ma ọ bụ ịtụnyere, bụ akụkụ nke ọgwụgwọ.',
+      'Ikwu okwu na onye dị gị nso, otu nkwado, ma ọ bụ onye ọkachamara nwere ike inyere aka belata arọ a.',
+    ],
+    disclaimerText:
+      'Ọdịnaya ozi. Isiokwu a anaghị anọchi ndụmọdụ ọkachamara. Ma ọ bụrụ na ị na-agafe oge siri ike, atụla egwu ikwu okwu na onye ọrụ ahụike.',
+    shareMessage: 'Ịgafe iru újú, n\'mmụọ — AWA',
+  },
+  yo: {
+    badge: 'LẸ́YÌN ÌṢẸ́YUN • ÌTÌLẸ́YÌN Ẹ̀DÙN ỌKÀN',
+    title: 'Bí a ṣe ń la ìbànújẹ́\nkọjá ní ti ẹ̀dùn ọkàn',
+    metaDuration: 'Ìṣẹ́jú 7 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú fún ìmọ̀',
+    intro:
+      'Kò sí ọ̀nà kan tó tọ́ láti la èyí kọjá. Ẹnì kọ̀ọ̀kan ń la á kọjá ní ọ̀nà tirẹ̀, ní ìwọ̀n ìrìn tirẹ̀.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Ìbànújẹ́ tòótọ́ tó tọ́',
+      'Àwọn ìmọ̀lára tó yàtọ̀ láti ẹni sí ẹni',
+      'Ohun tó lè ṣèrànwọ́ lójoojúmọ́',
+      'Ìtìlẹ́yìn láti ọ̀dọ̀ àwọn tó sún mọ́ ọ',
+      'Ìgbà wo ni kí a wá ìrànlọ́wọ́ ọ̀jọ̀gbọ́n',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Body:
+      'Ìbànújẹ́, ìbínú, tàbí ìmọ̀lára òfo jẹ́ àwọn ìhùwàsí déédé sí àdánù yìí, ìpele oyún yòówù kó jẹ́. Ohun tí o ń rò yẹ fún ìmọ̀.',
+    section1InfoTitle: 'Rántí',
+    section1InfoText:
+      'Kò sí ọ̀nà tó tọ́ tàbí tí kò tọ́ láti la èyí kọjá. Gbogbo ìmọ̀lára tí o bá ní tọ́.',
+    section2Body:
+      'O lè ní ọ̀kan tàbí ọ̀pọ̀ nínú àwọn wọ̀nyí, nígbà míì gbogbo wọn ní àkókò kan náà:',
+    feelings: [
+      {
+        title: 'Ìbànújẹ́',
+        text: 'Ìkorò tó lè wá, tó sì lè lọ, nígbà míì láìròtẹ́lẹ̀.',
+      },
+      {
+        title: 'Ìbínú',
+        text: 'Sí ara rẹ, ipò náà, tàbí ìmọ̀lára àìṣòdodo — kò sì sí ohun tó yẹ kí o páyà nípa rẹ̀.',
+      },
+      {
+        title: 'Ìmọ̀lára òfo',
+        text: 'Ìmọ̀lára òfo tàbí ìdàrúdàpọ̀ nípa ohun tó ṣẹ̀ṣẹ̀ ṣẹlẹ̀.',
+      },
+    ],
+    section3Body:
+      'Fífi àkókò fún ara rẹ, láìsí ìfúnpá tàbí ìfiwéra, jẹ́ apá pàtàkì ìwòsàn.',
+    dailySupport: [
+      {
+        title: 'Fi àkókò fún ara rẹ',
+        text: 'Láìsí ìfúnpá tàbí àkókò ìparí fún “dídára sí i.”',
+      },
+      {
+        title: 'Má fi ara rẹ wé àwọn ẹlòmíràn',
+        text: 'Ìbànújẹ́ ẹnì kọ̀ọ̀kan yàtọ̀; kò sí ọ̀nà kan tó tọ́ láti la á kọjá.',
+      },
+      {
+        title: 'Fi í sínú ọ̀rọ̀',
+        text: 'Kíkọ tàbí sísọ̀rọ̀ nípa ohun tí o ń rò lè ṣèrànwọ́ láti dín ìwúwo ìmọ̀lára rẹ kù.',
+      },
+    ],
+    section4Body:
+      'Bíbá ẹnìkan tó sún mọ́ ọ sọ̀rọ̀, ẹgbẹ́ ìtìlẹ́yìn, tàbí ọ̀jọ̀gbọ́n lè ṣèrànwọ́ láti dín ìwúwo yìí kù. Èyí ni bí àwọn tó sún mọ́ ọ ṣe lè ràn ọ́ lọ́wọ́:',
+    supportTitle: 'Bí ẹni tó sún mọ́ ọ ṣe lè ṣe ìtìlẹ́yìn',
+    howToSupport: [
+      'Fetí sílẹ̀ láìdájọ́, bó tilẹ̀ jẹ́ pé o kò ní àwọn ọ̀rọ̀ pípé',
+      'Yẹra fún dídín ìrírí náà kù (“kì í ṣe nǹkan ńlá,” “o lè tún gbìyànjú”)',
+      'Fi wíwà pẹ̀lú rẹ̀ fúnni dípò àwọn ojútùú',
+      'Máa bẹ̀ ẹ́ wò ní àwọn ọ̀sẹ̀ tó tẹ̀lé',
+    ],
+    section5Body:
+      'Àwọn àmì kan lè fi hàn pé ìtìlẹ́yìn ọ̀jọ̀gbọ́n lè wúlò:',
+    warningTitle: 'Àwọn àmì tí ó yẹ kí o kíyèsí',
+    attentionSigns: [
+      'Ìbànújẹ́ pẹ́ gan-an, ó sì ń pọ̀ sí i dípò kí ó rọlẹ̀',
+      'Ó ń di ṣíṣòro láti ṣiṣẹ́ lójoojúmọ́',
+      'Ìmọ̀lára ìdánìkanwà ńlá bẹ̀rẹ̀',
+      'Àwọn èrò tó ń dà ni láàmú tàbí ìpọ́njú ńlá farahàn',
+    ],
+    section5InfoTitle: 'Ìtìlẹ́yìn wà',
+    section5InfoText:
+      'Agbẹ̀bí, dókítà, onímọ̀ ẹ̀mí, tàbí ẹgbẹ́ ìtìlẹ́yìn lè fetí sí ọ, kí ó sì tì ọ́ lẹ́yìn, láìdájọ́.',
+    tipTitle: 'Ohun tó dára láti mọ̀',
+    tipText:
+      'Bíbèèrè fún ìrànlọ́wọ́ kì í ṣe àmì àìlera — ó jẹ́ ọ̀nà láti tọ́jú ara rẹ ní àkókò yìí.',
+    summaryPoints: [
+      'Kò sí ọ̀nà tó tọ́ tàbí tí kò tọ́ láti la ìrírí yìí kọjá.',
+      'Ìbànújẹ́, ìbínú, tàbí ìmọ̀lára òfo jẹ́ àwọn ìhùwàsí déédé.',
+      'Fífi àkókò fún ara rẹ, láìsí ìfúnpá tàbí ìfiwéra, jẹ́ apá ìwòsàn.',
+      'Bíbá ẹnìkan tó sún mọ́ ọ sọ̀rọ̀, ẹgbẹ́ ìtìlẹ́yìn, tàbí ọ̀jọ̀gbọ́n lè ṣèrànwọ́ láti dín ìwúwo yìí kù.',
+    ],
+    disclaimerText:
+      'Àkóónú fún ìmọ̀. Àpilẹ̀kọ yìí kò rọ́pò ìmọ̀ràn ọ̀jọ̀gbọ́n. Tí o bá ń la àkókò ìṣòro kọjá, má ṣe ṣàìbá ọ̀jọ̀gbọ́n ìlera sọ̀rọ̀.',
+    shareMessage: 'Bí a ṣe ń la ìbànújẹ́ kọjá ní ti ẹ̀dùn ọkàn — AWA',
+  },
+  zu: {
+    badge: 'NGEMVA KOKUPHUPHUMA KWESISU • ISEKELO LEMIZWA',
+    title: 'Ukudlula emzimbeni wokulila\nngokwemizwa',
+    metaDuration: 'Imizuzu emi-7 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Ongaqalayo',
+    metaValidated: 'Okuqukethwe okunikeza ulwazi',
+    intro:
+      'Akukho ndlela efanele yokudlula kulokhu. Wonke umuntu udlula ngendlela yakhe, ngejubane lakhe.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Isililo sangempela nesifanele',
+      'Imizwa ehluka phakathi komuntu nomuntu',
+      'Okungasiza usuku nosuku',
+      'Isekelo elivela kwabathandekayo',
+      'Uma kufanele ufune usizo lochwepheshe',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    section1Body:
+      'Ukudabuka, ulaka, noma umuzwa wokuntuleka kuyimiphumela ejwayelekile kulokhu kulahlekelwa, noma ngabe sasiyisiphi isigaba sokukhulelwa. Lokho okuzwayo kufanele kuvunywe.',
+    section1InfoTitle: 'Khumbula',
+    section1InfoText:
+      'Akukho ndlela efanele noma engalungile yokudlula kulokhu. Yonke imizwa oyizwayo iyasebenza.',
+    section2Body:
+      'Ungazwa eyodwa noma eminingi yalezi, kwesinye isikhathi zonke kanyekanye:',
+    feelings: [
+      {
+        title: 'Ukudabuka',
+        text: 'Usizi olungeza lubuye, kwesinye isikhathi ngokungalindelekile.',
+      },
+      {
+        title: 'Ulaka',
+        text: 'Kuwe, esimweni, noma emuzweni wokungabi nabulungisa — futhi lokho akukho okufanele ukukhathazele.',
+      },
+      {
+        title: 'Umuzwa wokuntuleka',
+        text: 'Umuzwa wokuntuleka noma ukudideka ngalokho okuqhamuke kwenzeka.',
+      },
+    ],
+    section3Body:
+      'Ukuzinika isikhathi, ngaphandle kwengcindezi noma ukuqhathanisa, kuyingxenye ebalulekile yokuphola.',
+    dailySupport: [
+      {
+        title: 'Ukuzinika isikhathi',
+        text: 'Ngaphandle kwengcindezi noma umkhawulo wokuthi “uzizwe kangcono.”',
+      },
+      {
+        title: 'Ukungazaqhathanisi nabanye',
+        text: 'Isililo ngasinye sihlukile; akukho ndlela efanele yokudlula kuso.',
+      },
+      {
+        title: 'Ukukubeka emazwini',
+        text: 'Ukubhala noma ukukhuluma ngalokho okuzwayo kungasiza ukukhulula isisindo semizwa yakho.',
+      },
+    ],
+    section4Body:
+      'Ukukhuluma nomuntu osondelene nawe, iqembu losekelo, noma uchwepheshe kungasiza ukukhulula lesi sisindo. Nansi indlela abathandekayo abangasiza ngayo:',
+    supportTitle: 'Indlela umuntu othandekayo angaphana ngayo isekelo',
+    howToSupport: [
+      'Lalela ngaphandle kokwahlulela, ngisho nangaphandle kwamazwi aphelele',
+      'Gweme ukwehlisa ulwazi (“akuzange kube yinto enkulu,” “ungazama futhi”)',
+      'Nikeza ukuba khona kwakho kunokunikeza izixazululo',
+      'Qhubeka ubuza ngaye emasontweni alandelayo',
+    ],
+    section5Body:
+      'Ezinye izimpawu zingabonisa ukuthi isekelo lochwepheshe lingaba usizo:',
+    warningTitle: 'Izimpawu okufanele uzibheke',
+    attentionSigns: [
+      'Ukudabuka kuhlala isikhathi eside futhi kuyanda kunokuba kuncipha',
+      'Kuba nzima ukusebenza usuku nosuku',
+      'Kuvela umuzwa omkhulu wokuhlala wedwa',
+      'Kuvela imicabango eshaya noma ukucindezeleka okukhulu',
+    ],
+    section5InfoTitle: 'Isekelo liyatholakala',
+    section5InfoText:
+      'Umbelethisi, udokotela, usaziwayo wezengqondo, noma iqembu losekelo lingakulalela futhi likweseke, ngaphandle kokwahlulela.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukucela usizo akusona uphawu lobuthakathaka — kuyindlela yokuzinakekela ngalesi sikhathi.',
+    summaryPoints: [
+      'Akukho ndlela efanele noma engalungile yokudlula kulolu lwazi.',
+      'Ukudabuka, ulaka, noma umuzwa wokuntuleka kuyimiphumela ejwayelekile.',
+      'Ukuzinika isikhathi, ngaphandle kwengcindezi noma ukuqhathanisa, kuyingxenye yokuphola.',
+      'Ukukhuluma nomuntu osondelene nawe, iqembu losekelo, noma uchwepheshe kungasiza ukukhulula lesi sisindo.',
+    ],
+    disclaimerText:
+      'Okuqukethwe okunikeza ulwazi. Lesi sihloko asithathi indawo yeseluleko sochwepheshe. Uma udlula esikhathini esinzima, ungazinaki ukukhuluma nochwepheshe wezempilo.',
+    shareMessage: 'Ukudlula emzimbeni wokulila ngokwemizwa — AWA',
+  },
+  xh: {
+    badge: 'EMVA KOKUPHUMA KWESISU • INKXASO YEMIZWA',
+    title: 'Ukudlula kwimeko\nyoncwaba ngokwemizwa',
+    metaDuration: 'Imizuzu eyi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Ulwazi',
+    intro:
+      'Akukho ndlela ichanekileyo yokudlula kuloo meko. Wonke umntu uyidlula ngendlela yakhe, ngejubane lakhe.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Uncwaba oluyinyani nolufanelekileyo',
+      'Imizwa eyahlukileyo komnye ukuya komnye',
+      'Okunokunceda imihla ngemihla',
+      'Inkxaso evela kwabathandekayo',
+      'Xa kufuneka ucele uncedo lwengcali',
+      'Eyona nto ibalulekileyo',
+    ],
+    section1Body:
+      'Usizi, umsindo, okanye imvakalelo yokungabikho kuyimpendulo eqhelekileyo kolu lahleko, nokuba lilihlobo likuphi ukukhulelwa. Oko ukuvayo kufanele ukwamkelwa.',
+    section1InfoTitle: 'Khumbula',
+    section1InfoText:
+      'Akukho ndlela echanekileyo okanye engachanekanga yokudlula kuloo meko. Yonke imvakalelo oyivayo isemthethweni.',
+    section2Body:
+      'Unokuva enye okanye ezininzi zezi, ngamanye amaxesha zonke ngaxeshanye:',
+    feelings: [
+      {
+        title: 'Usizi',
+        text: 'Intlungu enokuza iye, ngamanye amaxesha ngokungalindelekanga.',
+      },
+      {
+        title: 'Umsindo',
+        text: 'Kuwe, kwimeko, okanye kwimvakalelo yokungabi nabulungisa — kwaye oko akukho nto kufuneka ukukhathazele.',
+      },
+      {
+        title: 'Imvakalelo yokungabikho',
+        text: 'Imvakalelo yokungabikho okanye intlonti malunga nento ebisandul’ ukwenzeka.',
+      },
+    ],
+    section3Body:
+      'Ukuzinika ixesha, ngaphandle koxinzelelo okanye uthelekiso, yinxalenye ebalulekileyo yokuphola.',
+    dailySupport: [
+      {
+        title: 'Ukuzinika ixesha',
+        text: 'Ngaphandle koxinzelelo okanye umhla wokugqibela wokuba "ube ngcono."',
+      },
+      {
+        title: 'Ukungazithelekisi nabanye',
+        text: 'Uncwaba ngalunye luyahlukile; akukho ndlela ichanekileyo yokudlula kulo.',
+      },
+      {
+        title: 'Ukufaka ngamazwi',
+        text: 'Ukubhala okanye ukuthetha ngoko ukuvayo kunganceda ukunciphisa umthwalo wemizwa yakho.',
+      },
+    ],
+    section4Body:
+      'Ukuthetha nomntu osondele kuwe, iqela lenkxaso, okanye ingcali kunganceda ukunciphisa lo mthwalo. Nantsi indlela abathandekayo abanokunceda ngayo:',
+    supportTitle: 'Indlela umntu othandekayo anokunika ngayo inkxaso',
+    howToSupport: [
+      'Mamela ngaphandle kokugweba, nokuba awunamazwi agqibeleleyo',
+      'Phepha ukuthoba ukubaluleka kwamava ("yayingeyonto inkulu," "ungazama kwakhona")',
+      'Nika ubukho bakho kunezisombululo',
+      'Qhubeka uhlola kwiiveki ezilandelayo',
+    ],
+    section5Body:
+      'Ezinye iimpawu zinokubonisa ukuba inkxaso yengcali inokuba luncedo:',
+    warningTitle: 'Iimpawu zokuqaphela',
+    attentionSigns: [
+      'Usizi lusenza ixesha elide kwaye luyanda endaweni yokuncipha',
+      'Kuba nzima ukusebenza imihla ngemihla',
+      'Kuvela imvakalelo enkulu yokuzahlula',
+      'Kuvela iingcinga ezingena ngenkani okanye uxinzelelo olukhulu',
+    ],
+    section5InfoTitle: 'Inkxaso iyafumaneka',
+    section5InfoText:
+      'Umbelekisi, ugqirha, usokhemisi wengqondo, okanye iqela lenkxaso linokumamela kwaye likuxhase, ngaphandle kokugweba.',
+    tipTitle: 'Kulungile ukwazi',
+    tipText:
+      'Ukucela uncedo akuyiso uphawu lobuthathaka — yindlela yokuzikhathalela ngeli xesha.',
+    summaryPoints: [
+      'Akukho ndlela echanekileyo okanye engachanekanga yokudlula kula mava.',
+      'Usizi, umsindo, okanye imvakalelo yokungabikho yimpendulo eqhelekileyo.',
+      'Ukuzinika ixesha, ngaphandle koxinzelelo okanye uthelekiso, yinxalenye yokuphola.',
+      'Ukuthetha nomntu osondele kuwe, iqela lenkxaso, okanye ingcali kunganceda ukunciphisa lo mthwalo.',
+    ],
+    disclaimerText:
+      'Ulwazi. Eli nqaku alithatheli indawo yecebiso lengcali. Ukuba uphila ixesha elinzima, musa ukuvilapha ukuthetha nengcali yezempilo.',
+    shareMessage: 'Ukudlula kuncwaba ngokwemizwa — AWA',
+  },
+  sn: {
+    badge: 'MUSHURE MENHUMBU YAPERA • RUTSIGIRO RWEMANZWIRO',
+    title: 'Kupfuura nenhamo\nmumanzwiro',
+    metaDuration: 'Kuverenga kwemaminetsi 7',
+    metaType: 'Gwaro',
+    metaLevel: 'Anotanga',
+    metaValidated: 'Zvinyorwa zvekuziva',
+    intro:
+      'Hapana nzira yakarurama yekupfuura nazvo. Munhu wese anopfuura nazvo nenzira yake, nekumhanya kwake.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Nhamo yechokwadi uye yakarurama',
+      'Manzwiro anosiyana kubva pamunhu kuenda kumumwe',
+      'Zvinogona kubatsira zuva nezuva',
+      'Rutsigiro kubva kune vaunoda',
+      'Nguva yekutsvaga rubatsiro rwenyanzvi',
+      'Zvakakosha kuyeuka',
+    ],
+    section1Body:
+      'Kusuwa, hasha, kana manzwiro ekushaiwa zvinhu zvinhu zvakajairika kurasikirwa uku, ipapo nhanho yenhumbu ipi neipi. Zvauri kunzwa zvakakodzera kubvumirwa.',
+    section1InfoTitle: 'Yeuka izvi',
+    section1InfoText:
+      'Hapana nzira yakarurama kana isina kururama yekupfuura nazvo. Manzwiro ega ega aunonzwa akarurama.',
+    section2Body:
+      'Unogona kunzwa rimwe kana akati wandei aya, dzimwe nguva ose panguva imwe chete:',
+    feelings: [
+      {
+        title: 'Kusuwa',
+        text: 'Hurwere hunogona kuuya nekuenda, dzimwe nguva usingatarisiri.',
+      },
+      {
+        title: 'Hasha',
+        text: 'Kwauri pachako, mamiriro, kana manzwiro ekusava nechokwadi — uye izvo hazvisi zvekuvhunduka.',
+      },
+      {
+        title: 'Manzwiro ekushaiwa',
+        text: 'Manzwiro ekushaiwa kana kusanzwisisa nezvezvakaitika.',
+      },
+    ],
+    section3Body:
+      'Kuzvipa nguva, pasina kumanikidzwa kana kuenzanisa, chikamu chakakosha chekupora.',
+    dailySupport: [
+      {
+        title: 'Kuzvipa nguva',
+        text: 'Pasina kumanikidzwa kana nguva yekuti “uve wakanaka”.',
+      },
+      {
+        title: 'Kusazvienzanisa nevamwe',
+        text: 'Nhamo yega yega yakasiyana; hapana nzira yakarurama yekupfuura nayo.',
+      },
+      {
+        title: 'Kuiisa mumashoko',
+        text: 'Kunyora kana kutaura nezvauri kunzwa kunogona kubatsira kuderedza mutoro wemanzwiro ako.',
+      },
+    ],
+    section4Body:
+      'Kutaura nemunhu ari pedyo newe, boka rerutsigiro, kana nyanzvi kunogona kubatsira kuderedza mutoro uyu. Heino nzira vaunoda vanogona kubatsira:',
+    supportTitle: 'Nzira inogona kuitwa nemunhu waunoda kupa rutsigiro',
+    howToSupport: [
+      'Teerera pasina kutonga, kunyange usina mashoko akakwana',
+      'Dzivisa kuderedza zvaitika (“hazvina kunyanya”, “unogona kuedza zvakare”)',
+      'Ipa kuvapo kwako pane mhinduro',
+      'Ramba uchibvunza mumavhiki anotevera',
+    ],
+    section5Body:
+      'Zviratidzo zvimwe zvinogona kuratidza kuti rutsigiro rwenyanzvi runogona kubatsira:',
+    warningTitle: 'Zviratidzo zvekutarisa',
+    attentionSigns: [
+      'Kusuwa kunoramba kwenguva refu uye kunowedzera pane kudzikira',
+      'Zvinova zvakaoma kuita zvezuva nezuva',
+      'Manzwiro makuru ekusarudzika anouya',
+      'Pfungwa dzinopinda dzisingadiwi kana kutambura kukuru kunoonekwa',
+    ],
+    section5InfoTitle: 'Rubatsiro rwuripo',
+    section5InfoText:
+      'Mukoti, chiremba, nyanzvi yepfungwa, kana boka rerutsigiro rinogona kukuteerera nekukutsigira, pasina kutonga.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Kukumbira rubatsiro hakusi chiratidzo chekushaiwa simba — inzira yekuzvitarisira panguva ino.',
+    summaryPoints: [
+      'Hapana nzira yakarurama kana isina kururama yekupfuura nechiitiko ichi.',
+      'Kusuwa, hasha, kana manzwiro ekushaiwa zvinhu zvinhu zvakajairika.',
+      'Kuzvipa nguva, pasina kumanikidzwa kana kuenzanisa, chikamu chekupora.',
+      'Kutaura nemunhu ari pedyo newe, boka rerutsigiro, kana nyanzvi kunogona kubatsira kuderedza mutoro uyu.',
+    ],
+    disclaimerText:
+      'Zvinyorwa zvekuziva chete. Chinyorwa ichi hachitsiviri zano renyanzvi. Kana uri kupfuura nenguva yakaoma, usazeze kutaura nenyanzvi yezveutano.',
+    shareMessage: 'Kupfuura nenhamo mumanzwiro — AWA',
+  },
+  ln: {
+    badge: 'SIMA YA KOBOMBA ZEMI • LISUNGI YA MOTEMA',
+    title: 'Kolekela mawa\nna motema',
+    metaDuration: 'Miniti 7 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo ya koyebisa',
+    intro:
+      'Nzela ya malamu ya kolekela likambo oyo ezali te. Moto na moto alekelaka yango na ndenge na ye, na lombangu na ye.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Mawa ya solo mpe ya malamu',
+      'Boyoki ya motema oyo ekeseni na moto na moto',
+      'Oyo ekoki kosalisa mokolo na mokolo',
+      'Lisungi ya bato oyo bazali pene na yo',
+      'Ntango ya kosenga lisungi ya moto ya mosala',
+      'Makambo ya kokanisa',
+    ],
+    section1Body:
+      'Mawa, nkanda, to koyoka ete ozali pamba ezali boyoki ya malamu mpo na kobungisa oyo, ata etape nini ya zemi. Oyo ozali koyoka ebongi na kondimama.',
+    section1InfoTitle: 'Kokanisa',
+    section1InfoText:
+      'Nzela ya malamu to ya mabe ya kolekela likambo oyo ezali te. Boyoki nyonso ya motema oyo ozali na yango ezali ya malamu.',
+    section2Body:
+      'Okoki koyoka moko to mingi na yango, mbala mosusu nyonso na ntango moko:',
+    feelings: [
+      {
+        title: 'Mawa',
+        text: 'Mawa oyo ekoki koya mpe kolongwa, mbala mosusu na mbalakaka.',
+      },
+      {
+        title: 'Nkanda',
+        text: 'Epai ya yo moko, likambo, to koyoka ete ezali bosembo te — mpe yango ezali likambo ya kobanga te.',
+      },
+      {
+        title: 'Koyoka ete ozali pamba',
+        text: 'Koyoka pamba to kobunga makanisi na ntina ya oyo esalemaki.',
+      },
+    ],
+    section3Body:
+      'Komipesa ntango, kozanga bopusi to komikokanisa na basusu, ezali eteni ya ntina ya kobika.',
+    dailySupport: [
+      {
+        title: 'Komipesa ntango',
+        text: 'Kozanga bopusi to ntango ya nsuka mpo na “koyoka malamu.”',
+      },
+      {
+        title: 'Komikokanisa na basusu te',
+        text: 'Mawa moko na moko ezali ya ndenge ekeseni; nzela ya malamu ya kolekela yango ezali te.',
+      },
+      {
+        title: 'Kolimbola yango na maloba',
+        text: 'Koma to kolobela oyo ozali koyoka ekoki kosalisa kokitisa kilo ya boyoki ya motema na yo.',
+      },
+    ],
+    section4Body:
+      'Kolobela na moto oyo azali pene na yo, etuluku ya lisungi, to moto ya mosala ekoki kosalisa kokitisa kilo oyo. Tala ndenge bato oyo bazali pene na yo bakoki kosalisa:',
+    supportTitle: 'Ndenge moto oyo azali pene na yo akoki kosunga',
+    howToSupport: [
+      'Yoka kozanga kosambisa, atako ozali na maloba ya malamu te',
+      'Kokitisa te ntina ya likambo (“ezalaki likambo monene te,” “okoki komeka lisusu”)',
+      'Pesa ezaleli na yo na esika ya ba solution',
+      'Kokoba kotuna ndenge ozali na poso oyo elandi',
+    ],
+    section5Body:
+      'Bilembo mosusu ekoki kolakisa ete lisungi ya moto ya mosala ekoki kozala na ntina:',
+    warningTitle: 'Bilembo ya kotala',
+    attentionSigns: [
+      'Mawa ekoba ntango molai mpe ekómi makasi na esika ya kokita',
+      'Ekómi mpasi kosala makambo mokolo na mokolo',
+      'Koyoka ete ozali sé yo moko ekómi monene',
+      'Makanisi oyo ezali kozonga mbala na mbala to mpasi monene ya motema ebimi',
+    ],
+    section5InfoTitle: 'Lisungi ezali',
+    section5InfoText:
+      'Sage-femme, monganga, psychologue, to etuluku ya lisungi ekoki koyoka yo mpe kosunga yo, kozanga kosambisa.',
+    tipTitle: 'Eloko ya koyeba',
+    tipText:
+      'Kosenga lisungi ezali elembo ya botau te — ezali ndenge ya komibatela na ntango oyo.',
+    summaryPoints: [
+      'Nzela ya malamu to ya mabe ya kolekela likambo oyo ezali te.',
+      'Mawa, nkanda, to koyoka pamba ezali boyoki ya malamu.',
+      'Komipesa ntango, kozanga bopusi to komikokanisa na basusu, ezali eteni ya kobika.',
+      'Kolobela na moto oyo azali pene na yo, etuluku ya lisungi, to moto ya mosala ekoki kosalisa kokitisa kilo oyo.',
+    ],
+    disclaimerText:
+      'Makambo ya koyebisa. Lisolo oyo etɛlɛmi na esika ya toli ya moto ya mosala te. Soki ozali kolekela ntango ya mpasi, kobanga te kolobela na moto ya mosala ya lisano.',
+    shareMessage: 'Kolekela mawa, na motema — AWA',
+  },
+  ff: {
+    badge: 'CAGGAL HOYRE HOWRE • WALLUGO BERNDE',
+    title: 'Yahde e naange\nbernde',
+    metaDuration: 'Janngugol minti 7',
+    metaType: 'Jannginoore',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Anndinde tan',
+    intro:
+      'Walaa laawol moyyuɗo ngam yahde e ɗum. Kala goɗɗo ɗon yaha e ɗum feere, bana wakkati maaɗa.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'Naange bernde goonga e haani',
+      'Hakkilaade ɗe ɗon waylude kala goɗɗo',
+      'Ko ɗum waawi wallude ma nyannde nyannde',
+      'Wallugo ɓe a yiɗi',
+      'Ndey ko haani ɗaɓɓude wallu mo anndi',
+      'Ko ɗum ɓuri fuu',
+    ],
+    section1Body:
+      'Naange, hoyre, malla hakkilaade wonaa ko ɗum jam ɗum ko normal nder hoyre ndin, bana wakkati howre. Ko a yiɗi ɗum haani anndeede.',
+    section1InfoTitle: 'Hakkilu',
+    section1InfoText:
+      'Walaa laawol moyyuɗo malla bonnuɗo ngam yahde e ɗum. Kala hakkilaade ko a yiɗi ɗum goonga.',
+    section2Body:
+      'A waawi yiɗde gooto malla ɗuuɗɗe e ɗum, saa\'i feere fuu e wakkati gooto:',
+    feelings: [
+      {
+        title: 'Naange',
+        text: 'Naange ɗum waawi ara e yaha, saa\'i feere bannda tampude.',
+      },
+      {
+        title: 'Hoyre',
+        text: 'Dow kaa ma, dow ko ɗum waɗi, malla dow ko wonaa ñaawoore — ɗum walaa ko haani hoyrude.',
+      },
+      {
+        title: 'Hakkilaade ko ɗum woni mebbe',
+        text: 'Hakkilaade mebbe malla ko a faamaa dow ko ɗum waɗi.',
+      },
+    ],
+    section3Body:
+      'Hokkugo hoore maaɗa wakkati, bannda yaawugo malla raarugo e goɗɗe, ko ɗum fuu nder sellugo.',
+    dailySupport: [
+      {
+        title: 'Hokkugo hoore maaɗa wakkati',
+        text: 'Bannda yaawugo malla wakkati ngam “sellude”.',
+      },
+      {
+        title: 'Taa raaru e goɗɗe',
+        text: 'Kala naange feere; walaa laawol moyyuɗo ngam yahde e ɗum.',
+      },
+      {
+        title: 'Wi\'ugo ko ɗum woni',
+        text: 'Winndude malla haalaade dow ko a yiɗi ɗum waawi wallude ma ɓuri tampude hakkilaade maaɗa.',
+      },
+    ],
+    section4Body:
+      'Haalaade e goɗɗo e maaɗa, kawtal wallugo, malla mo anndi ɗum waawi wallude ma yahde e ɗum. Ɗum no ɓe ngoni ma ngaɗan wallu:',
+    supportTitle: 'No goɗɗo e maaɗa waawi wallude ma',
+    howToSupport: [
+      'Rentu bannda ñaawoore, haa to a woodaa kuuɗe moyyere',
+      'Taa ɓesda ko ɗum waɗi (“ɗum wonaa ko mawngu”, “a waawi ɗaɓɓitude”)',
+      'Hokku ɓesngu maaɗa, wonaa feere tan',
+      'Jokku ndaarugo ma nder yontere ɗi ɗon ara',
+    ],
+    section5Body:
+      'Ɓaleeji seɗɗa ɗum waawi wi\'ugo wallugo mo anndi ɗum waawi wonde moyyere:',
+    warningTitle: 'Ɓaleeji ko haani raarude',
+    attentionSigns: [
+      'Naange ɗum ɗon jokka ɗum ɗon ɓeydi, wonaa ɗum ɗon yaha',
+      'Ɗum ɗon wona caɗeele huutinaade nyannde nyannde',
+      'Hoyre mawnde ko a ɗon wona hoore maaɗa tan',
+      'Miijooji malla hoyre mawnde ɗon ara',
+    ],
+    section5InfoTitle: 'Wallugo woodi',
+    section5InfoText:
+      'Mo hesɗitini ɗum, dokotoro, mo anndi hakkilo, malla kawtal wallugo ɗum waawi rentude e wallude ma, bannda ñaawoore.',
+    tipTitle: 'Ɗum ɓuri nafugo anndude',
+    tipText:
+      'Ɗaɓɓugo wallu wonaa ko ɗum ɗon wi\'a ko ɗum ɗon sella — ɗum feere hisnude hoore maaɗa nder wakkati ndin.',
+    summaryPoints: [
+      'Walaa laawol moyyuɗo malla bonnuɗo ngam yahde e hoyre ndin.',
+      'Naange, hoyre, malla hakkilaade mebbe ko normal.',
+      'Hokkugo hoore maaɗa wakkati, bannda yaawugo malla raarugo e goɗɗe, ko ɗum fuu nder sellugo.',
+      'Haalaade e goɗɗo e maaɗa, kawtal wallugo, malla mo anndi ɗum waawi wallude ma yahde e ɗum.',
+    ],
+    disclaimerText:
+      'Anndinde tan. Winndannde ndee ɗum sirtaaka wallu mo anndi. To a woodi wakkati caɗeele, taa hoyru haalaade e mo hesɗitini ɗum.',
+    shareMessage: 'Yahde e naange bernde — AWA',
+  },
   id: {
     badge: 'SETELAH KEGUGURAN • DUKUNGAN EMOSIONAL',
     title: 'Melewati duka\nsecara emosional',

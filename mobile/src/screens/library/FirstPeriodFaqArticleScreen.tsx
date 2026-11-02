@@ -459,6 +459,654 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
       ],
       shareMessage: '关于初潮的常见问题 — AWA',
     },
+  'zh-Hant': {
+      badge: '初潮',
+      title: '關於初潮\n的常見問題',
+      metaDuration: '閱讀約 4 分鐘',
+      metaType: '常見問題',
+      metaLevel: '入門',
+      metaValidated: '經審閱的內容',
+      intro: '用簡單的話，解答關於初潮最常見的問題。',
+      contentsTitle: '本文內容',
+      faq: [
+        {
+          question: '「出血量很少正常嗎？」',
+          answer: '正常。最初幾次月經的經量往往比較少。經量在不同週期之間可能有所變化，尤其是在剛開始的時候。',
+        },
+        {
+          question: '「出血量很多正常嗎？」',
+          answer: '經量較多也可能出現，尤其是在最初兩天。如果連續幾個小時，每小時都需要更換不止一次衛生用品，建議你向醫療專業人員諮詢。',
+        },
+        {
+          question: '「會痛經正常嗎？」',
+          answer: '下腹部輕微的痙攣痛很常見，通常不必擔心。熱水袋或稍作休息可能會有幫助。如果疼痛非常劇烈，值得告訴身邊的人。',
+        },
+        {
+          question: '「可以運動嗎？」',
+          answer: '可以，月經期間依然可以運動。只要根據當天身體的感覺調整強度就好。',
+        },
+        {
+          question: '「可以游泳嗎？」',
+          answer: '可以，只要使用合適的防護用品，月經期間依然可以游泳。也有不少人會選擇等自己對這件事更自在一些再去。',
+        },
+      ],
+      tipTitle: '小提醒',
+      tipText: '沒有什麼問題是難為情的：每個人的身體都不一樣，你隨時可以與信任的人聊一聊。',
+      relatedTitle: '♥  你可能還想看',
+      related: [
+        {
+          title: '你的初潮：會發生什麼',
+          meta: '5 分鐘  ·  指南',
+        },
+        {
+          title: '初潮該選哪種衛生用品？',
+          meta: '6 分鐘  ·  指南',
+        },
+        {
+          title: '緩解經期疼痛',
+          meta: '7 分鐘  ·  指南',
+        },
+      ],
+      shareMessage: '關於初潮的常見問題 — AWA',
+    },
+  ar: {
+    badge: 'أول حيض',
+    title: 'أسئلة شائعة\nحول أول حيض',
+    metaDuration: '4 دقائق للقراءة',
+    metaType: 'أسئلة شائعة',
+    metaLevel: 'مبتدئة',
+    metaValidated: 'محتوى مراجَع',
+    intro: 'إجابات بسيطة عن أكثر الأسئلة شيوعًا حول أول حيض.',
+    contentsTitle: 'في هذا المقال',
+    faq: [
+      {
+        question: '«هل من الطبيعي أن يكون الدم قليلًا جدًا؟»',
+        answer:
+          'نعم. غالبًا ما يكون تدفّق الدم خفيفًا في الدورات الأولى. وقد يختلف من دورة إلى أخرى، خاصة في البداية.',
+      },
+      {
+        question: '«هل من الطبيعي أن يكون الدم غزيرًا؟»',
+        answer:
+          'قد يحدث أيضًا تدفّق أغزر، خاصة خلال اليومين الأولين. وإذا احتجتِ إلى تغيير وسيلة الحماية أكثر من مرة في الساعة لعدّة ساعات متتالية، فمن الجيد التحدث إلى مختص في الرعاية الصحية بشأن ذلك.',
+      },
+      {
+        question: '«هل من الطبيعي أن أشعر بتقلصات؟»',
+        answer:
+          'التقلصات الخفيفة في أسفل البطن شائعة وغالبًا لا تدعو إلى القلق. وقد تفيد قنينة الماء الساخن أو قليل من الراحة. أما الألم الشديد جدًا فيستحق أن تخبري به شخصًا.',
+      },
+      {
+        question: '«هل يمكنني ممارسة الرياضة؟»',
+        answer:
+          'نعم، يمكنك ممارسة الرياضة أثناء الحيض. فقط عدّلي الشدّة بحسب ما يشعر به جسمك في ذلك اليوم.',
+      },
+      {
+        question: '«هل يمكنني السباحة؟»',
+        answer:
+          'نعم، يمكنك السباحة مع وسيلة الحماية المناسبة. وتفضّل كثيرات ببساطة الانتظار حتى يشعرن براحة أكبر تجاه الفكرة.',
+      },
+    ],
+    tipTitle: 'من المفيد أن تعرفي',
+    tipText: 'لا يوجد سؤال محرج: فكل جسم مختلف، ويمكنك دائمًا التحدث إلى شخص تثقين به.',
+    relatedTitle: '♥  قد يعجبك أيضًا',
+    related: [
+      {title: 'أول حيض لديك: ماذا تتوقعين', meta: '5 د  ·  دليل'},
+      {title: 'أي وسيلة حماية أختار لأول حيض؟', meta: '6 د  ·  دليل'},
+      {title: 'التعامل مع ألم الحيض', meta: '7 د  ·  دليل'},
+    ],
+    shareMessage: 'أسئلة شائعة حول أول حيض — AWA',
+  },
+  kab: {
+    badge: 'LḤID AMEZWARU',
+    title: 'Isteqsiyen i d-yettwaqeblen aṭas\nɣef lḥid-ik amezwaru',
+    metaDuration: '4 n tesdatin n tɣuri',
+    metaType: 'Isteqsiyen',
+    metaLevel: 'Amagrad',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Tririyin tifessasin i yisteqsiyen i d-yettwaqeblen aṭas ɣef lḥid-ik amezwaru.',
+    contentsTitle: 'deg umagrad-a',
+    faq: [
+      {
+        question: '“D amagnu ma yella cwiṭ kan n idammen?”',
+        answer:
+          'Ih. Icaluyen imezwura aṭas n tikkal sɛan usemmiḍ afessas. Usemmiḍ yezmer ad yettbeddil seg yiwen n wucal ɣer wayeḍ, s wudem uslig deg tazwara.',
+      },
+      {
+        question: '“D amagnu ma yella aṭas n idammen?”',
+        answer:
+          'Usemmiḍ ameqqran yezmer daɣen ad yeḍru, s wudem uslig deg sin n wussan imezwura. Ma tesɛiḍ ilaq ad tbeddeleḍ aḥerres-ik ugar n yiwet n tikkelt deg tsaɛt ɣef kra n tsaɛtin yeddan, yelha ad tmeslayeḍ d unaẓur n tezmert ɣef waya.',
+      },
+      {
+        question: '“D amagnu ma tesɛiḍ ṭṭṛaḥ n tebuqqet?”',
+        answer:
+          'Ṭṭṛaḥ afessas deg uḍar n tebuqqet d amagnu u s umata ur d-yeɛni ara aɣilif. Taqerɛet n waman iḥemmuyen neɣ cwiṭ n unefsu zemren ad ɛawen. Ṭṭṛaḥ yeqwan aṭas yelha ad tmeslayeḍ ɣef-s.',
+      },
+      {
+        question: '“Zemreɣ ad ddmuddeɣ?”',
+        answer:
+          'Ih, tzemreḍ ad tmuddeḍ deg lḥid-ik. Kan seggem uswir ɣer wamek i d-yettḥuss lǧism-ik deg wass-nni.',
+      },
+      {
+        question: '“Zemreɣ ad ɛumeɣ?”',
+        answer:
+          'Ih, tzemreḍ ad tɛumeḍ s uḥerres ilhan. Aṭas n yimdanen ttafen d ayen ilhan ad ṛǧun alamma ḥussen uṭṭun ugar.',
+      },
+    ],
+    tipTitle: 'Yelha ad tezwareḍ',
+    tipText: 'Ulac asteqsi ur nelhi ara: yal lǧism yemxalaf, u tzemreḍ dima ad tmeslayeḍ d win i tettkelleḍ fell-as.',
+    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    related: [
+      {title: 'Lḥid-ik amezwaru: acu ara tṛǧuḍ', meta: '5 n tesdatin  ·  Amawal'},
+      {title: 'Anwa aḥerres ara fren i lḥid-iw amezwaru?', meta: '6 n tesdatin  ·  Amawal'},
+      {title: 'Tawalt n ṭṭṛaḥ n lḥid', meta: '7 n tesdatin  ·  Amawal'},
+    ],
+    shareMessage: 'Isteqsiyen i d-yettwaqeblen aṭas ɣef lḥid-ik amezwaru — AWA',
+  },
+  om: {
+    badge: 'DHIITA JI\'AA JALQABAA',
+    title: 'Gaaffiiwwan yeroo baay\'ee gaafataman\ndhiita ji\'aa jalqabaa irratti',
+    metaDuration: 'Daqiiqaa 4 dubbisuuf',
+    metaType: 'Gaaffii fi deebii',
+    metaLevel: 'Jalqabaaf',
+    metaValidated: 'Qabiyyee ilaalame',
+    intro: 'Deebii salphaa gaaffiiwwan dhiita ji\'aa jalqabaa irratti baay\'ee gaafataman.',
+    contentsTitle: 'Barreeffama kana keessatti',
+    faq: [
+      {
+        question: '“Dhiiga baay\'ee xiqqoo qabaachuun idilee dhaa?”',
+        answer:
+          'Eeyyee. Marsaawwan jalqabaa baay\'ee dhangala\'uun laafaa ta\'a. Dhangala\'uun marsaa irraa marsaatti garaagara ta\'uu danda\'a, keessumaa jalqabarratti.',
+      },
+      {
+        question: '“Dhiiga baay\'ee qabaachuun idilee dhaa?”',
+        answer:
+          'Dhangala\'uun cimaan illee ta\'uu danda\'a, keessumaa guyyoota lamaan jalqabaa. Yoo sa\'aatii hedduuf eegumsa kee sa\'aatii tokkotti altokko ol jijjiirtu, ogeessa fayyaa waliin waa\'ee isaa haasa\'uun gaarii dha.',
+      },
+      {
+        question: '“Garaa kutuun idilee dhaa?”',
+        answer:
+          'Garaa gadii keessatti dhukkubbii laafaan baratamaa dha, yeroo baay\'ee wanta yaaddessu miti. Bishaan ho\'aa ykn boqonnaa xiqqoo gargaaruu danda\'a. Dhukkubbii baay\'ee cimaa nama tokkotti himuun gaarii dha.',
+      },
+      {
+        question: '“Ispoortii taphachuu nan danda\'aa?”',
+        answer:
+          'Eeyyee, yeroo dhiita ji\'aa kee ispoortii taphachuu ni dandeessa. Cimina isaa akkamitti akka qaamni kee guyyaa sanaa itti dhaga\'amu irratti sirreessi.',
+      },
+      {
+        question: '“Daakuu danda\'aa?”',
+        answer:
+          'Eeyyee, eegumsa sirrii waliin daakuu ni dandeessa. Namoonni hedduun yaada kanaan hanga itti mijaa\'anitti eeguu filatu.',
+      },
+    ],
+    tipTitle: 'Beekuun gaarii dha',
+    tipText: 'Gaaffiin ibsuu hin mijoofne hin jiru: qaamni hundi garaagara, yeroo hunda nama amantu waliin haasa\'uu dandeessa.',
+    relatedTitle: '♥  Kunis sitti tolu ta\'a',
+    related: [
+      {title: 'Dhiita ji\'aa kee jalqabaa: maal eeguu', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
+      {title: 'Dhiita ji\'aa kee jalqabaaf eegumsa kam filachuu qabda?', meta: 'Daqiiqaa 6  ·  Qajeelfama'},
+      {title: 'Dhukkubbii dhiita ji\'aa to\'achuu', meta: 'Daqiiqaa 7  ·  Qajeelfama'},
+    ],
+    shareMessage: 'Gaaffiiwwan yeroo baay\'ee gaafataman dhiita ji\'aa jalqabaa irratti — AWA',
+  },
+  ti: {
+    badge: 'ቀዳማይ ወርሓዊ ደም',
+    title: 'ብዛዕባ ቀዳማይ ወርሓዊ ደምኪ\nተደጋጋሚ ሕቶታት',
+    metaDuration: '4 ደቒቕ ንባብ',
+    metaType: 'ተደጋጋሚ ሕቶታት',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ብዛዕባ ቀዳማይ ወርሓዊ ደምኪ ንዝበዝሑ ልሙዳት ሕቶታት ቀሊል መልስታት።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    faq: [
+      {
+        question: '“ብጣዕሚ ውሑድ ደም ምህላው ንቡር ድዩ?”',
+        answer:
+          'እወ። ቀዳሞት ዑደታት ብዙሕ ግዜ ቀሊል ዓቐን ኣለዎም። ዓቐን ካብ ዑደት ናብ ዑደት ክፈላለ ይኽእል፣ ብፍላይ ኣብ መጀመሪያ።',
+      },
+      {
+        question: '“ብዙሕ ደም ምህላው ንቡር ድዩ?”',
+        answer:
+          'ዝበዝሐ ዓቐን እውን ክፍጸም ይኽእል፣ ብፍላይ ኣብ ቀዳሞት ክልተ መዓልታት። ንብዙሓት ተኸታታሊ ሰዓታት ካብ ሓደ ግዜ ኣብ ሰዓት ከላኻሊኺ ክትቅይሪ እንተድኣ ኣድልዩኪ፣ ምስ ሞያዊ ጥዕና ሰራሒ ብዛዕባኡ ምዝራብ ጽቡቕ እዩ።',
+      },
+      {
+        question: '“ምሕቓቕ ከብዲ ምህላው ንቡር ድዩ?”',
+        answer:
+          'ኣብ ታሕተዋይ ከብዲ ቀሊል ምሕቓቕ ልሙድ እዩ፣ ብዙሕ ግዜ ድማ ዝተሰግኣሉ ነገር ኣይኰነን። ሙቅ ማይ ዘሎዎ ጠርሙስ ወይ ቁሩብ ዕረፍቲ ክሕግዝ ይኽእል። ብጣዕሚ ብርቱዕ ቃንዛ ንሰብ ክትዛረብዮ ይግባእ።',
+      },
+      {
+        question: '“ስፖርት ክጻወት ይከኣል ድዩ?”',
+        answer:
+          'እወ፣ ኣብ ወርሓዊ ደምኪ እውን ስፖርት ክትጻወቲ ትኽእሊ። ኣብታ መዓልቲ ኣካልኪ ከመይ ከም ዝስምዐኪ ብርቱዕነት ጥራይ ኣሰማምዒ።',
+      },
+      {
+        question: '“ክሓንብስ ይከኣል ድዩ?”',
+        answer:
+          'እወ፣ ብቅኑዕ ከላኻሊ እውን ክትሓንብሲ ትኽእሊ። ብዙሓት ሰባት ምስ ሓሳብ ዝያዳ ምቾት ክሳብ ዝስምዖም ምጽባይ ይመርጹ።',
+      },
+    ],
+    tipTitle: 'ርዳእ እዚ',
+    tipText: 'ዘሕፍር ሕቶ ዝበሃል የለን፦ ነፍስ ወከፍ ኣካል ፍሉይ እዩ፣ እትኣምንዮ ሰብ ድማ ኩሉ ግዜ ክትዛረቢ ትኽእሊ።',
+    relatedTitle: '♥  ክትፈትይዮም ትኽእሊ',
+    related: [
+      {title: 'ቀዳማይ ወርሓዊ ደምኪ፦ እንታይ ክትጽበዪ', meta: '5 ደቒቕ  ·  መምርሒ'},
+      {title: 'ንቀዳማይ ወርሓዊ ደመይ ኣየነይቲ ከላኻሊ ክምረጽ?', meta: '6 ደቒቕ  ·  መምርሒ'},
+      {title: 'ቃንዛ ወርሓዊ ደም ምምሕዳር', meta: '7 ደቒቕ  ·  መምርሒ'},
+    ],
+    shareMessage: 'ብዛዕባ ቀዳማይ ወርሓዊ ደምኪ ተደጋጋሚ ሕቶታት — AWA',
+  },
+  rw: {
+    badge: 'IMIHANGO YA MBERE',
+    title: 'Ibibazo bikunze kubazwa\nku mihango yawe ya mbere',
+    metaDuration: 'Iminota 4 yo gusoma',
+    metaType: 'Ibibazo n’ibisubizo',
+    metaLevel: 'Ku batangiye',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Ibisubizo byoroshye ku bibazo bikunze kubazwa ku mihango yawe ya mbere.',
+    contentsTitle: 'Muri iyi nkuru',
+    faq: [
+      {
+        question: '“Ese ni ibisanzwe kugira amaraso make cyane?”',
+        answer:
+          'Yego. Ukwezi kwa mbere cyane akenshi kugira amaraso make. Amaraso ashobora gutandukana ku kwezi ku kundi, cyane cyane mu ntangiriro.',
+      },
+      {
+        question: '“Ese ni ibisanzwe kugira amaraso menshi?”',
+        answer:
+          'Amaraso menshi nayo ashobora kubaho, cyane cyane mu minsi ibiri ya mbere. Niba ukeneye guhindura igikoresho cyawe cyo kwirinda inshuro irenga imwe mu isaha mu masaha menshi akurikirana, ni byiza kubiganiraho n’umuganga.',
+      },
+      {
+        question: '“Ese ni ibisanzwe kubabara mu nda?”',
+        answer:
+          'Kubabara gato mu nda yo hasi ni ibisanzwe kandi akenshi nta mpamvu yo guhangayika. Icupa ry’amazi ashyushye cyangwa kuruhuka gato bishobora gufasha. Ububabare bukomeye cyane bukwiye kubwirwa umuntu.',
+      },
+      {
+        question: '“Ese nshobora gukora siporo?”',
+        answer:
+          'Yego, ushobora gukomeza gukora siporo mu gihe cy’imihango. Hindura gusa ubukana hakurikijwe uko umubiri wawe wumva uwo munsi.',
+      },
+      {
+        question: '“Ese nshobora koga?”',
+        answer:
+          'Yego, ushobora gukomeza koga ufite igikoresho gikwiye cyo kwirinda. Abantu benshi bahitamo gutegereza kugeza igihe bumva batuje kuri iyo ngingo.',
+      },
+    ],
+    tipTitle: 'Ni byiza kubimenya',
+    tipText: 'Nta kibazo giteye isoni kiriho: buri mubiri uratandukanye, kandi ushobora buri gihe kuvugana n’umuntu wizeye.',
+    relatedTitle: '♥  Ushobora no gukunda',
+    related: [
+      {title: 'Imihango yawe ya mbere: ibyo witeze', meta: 'Iminota 5  ·  Igitabo'},
+      {title: 'Ni ikihe gikoresho nahitamo ku mihango yanjye ya mbere?', meta: 'Iminota 6  ·  Igitabo'},
+      {title: 'Gucunga ububabare bw’imihango', meta: 'Iminota 7  ·  Igitabo'},
+    ],
+    shareMessage: 'Ibibazo bikunze kubazwa ku mihango yawe ya mbere — AWA',
+  },
+  rn: {
+    badge: 'IMIHANGO YA MBERE',
+    title: 'Ibibazo bikunze kubazwa\nku mihango yawe ya mbere',
+    metaDuration: 'Iminuta 4 yo gusoma',
+    metaType: 'Ibibazo bikunze kubazwa',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikubiye vyasuzumwe',
+    intro: 'Ibisubizo vyoroshe ku bibazo bikunze kubazwa cane ku mihango yawe ya mbere.',
+    contentsTitle: 'Muri iyi nkuru',
+    faq: [
+      {
+        question: '“Ni ibisanzwe kugira amaraso make cane?”',
+        answer:
+          'Ego. Ukwezi kwa mbere kunyuma akenshi kugira amaraso make. Amaraso ashobora gutandukana kuva ku kwezi ku kundi, cane cane mu ntango.',
+      },
+      {
+        question: '“Ni ibisanzwe kugira amaraso menshi?”',
+        answer:
+          'Amaraso menshi na ko ashobora kubaho, cane cane mu minsi ibiri ya mbere. Niba ukeneye guhindura ico wambaye ngo ukingire karenga rimwe mu isaha mu masaha menshi akurikirana, ni vyiza kubivugako n’umuganga.',
+      },
+      {
+        question: '“Ni ibisanzwe kugira ububabare mu nda?”',
+        answer:
+          'Ububabare bworoshe mu nda y’epfo burakunda kandi ntibusanzwe buteye impungenge. Icupa ry’amazi ashushe canke akaruhuko gato birashobora gufasha. Ububabare bukomeye cane bukwiye kuvugwa ku muntu.',
+      },
+      {
+        question: '“Nshobora gukina siporo?”',
+        answer:
+          'Ego, ushobora gukomeza gukina siporo mu gihe c’imihango. Hindura gusa urugero rwayo bitewe n’uko umubiri wawe wiyumva uwo musi.',
+      },
+      {
+        question: '“Nshobora koga?”',
+        answer:
+          'Ego, ushobora gukomeza koga ufise ico ukingiye gikwiye. Abantu benshi bahitamwo gusa gutegereza kugeza igihe bumvise borohewe n’iyo ngingo.',
+      },
+    ],
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText: 'Nta kibazo gitera isoni kibaho: umubiri wose uratandukanye, kandi ushobora buri gihe kuvugana n’umuntu wizeye.',
+    relatedTitle: '♥  Ushobora no gukunda',
+    related: [
+      {title: 'Imihango yawe ya mbere: ivyo utegereje', meta: 'Iminuta 5  ·  Ubuyobozi'},
+      {title: 'Ni ikihe gikoresho nahitamwo ku mihango yanje ya mbere?', meta: 'Iminuta 6  ·  Ubuyobozi'},
+      {title: 'Gucunga ububabare bw’imihango', meta: 'Iminuta 7  ·  Ubuyobozi'},
+    ],
+    shareMessage: 'Ibibazo bikunze kubazwa ku mihango yawe ya mbere — AWA',
+  },
+  ig: {
+    badge: 'NSỌ ỌNWA MBỤ',
+    title: 'Ajụjụ a na-ajụkarị\nbanyere nsọ ọnwa mbụ gị',
+    metaDuration: 'Nkeji 4 ka a na-agụ',
+    metaType: 'Ajụjụ na azịza',
+    metaLevel: 'Maka ndị na-amalite',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Azịza dị mfe maka ajụjụ ndị a na-ajụkarị banyere nsọ ọnwa mbụ gị.',
+    contentsTitle: 'N’edemede a',
+    faq: [
+      {
+        question: '“Ọ̀ bụ ihe nkịtị inwe ọbara dị nta nke ukwuu?”',
+        answer:
+          'Ee. Cycle mbụ ndị ahụ na-enwekarị ọbara dị nta. Ọbara nwere ike ịdịgasị iche site n’otu cycle gaa n’ọzọ, karịsịa na mbido.',
+      },
+      {
+        question: '“Ọ̀ bụ ihe nkịtị inwe ọbara dị ukwuu?”',
+        answer:
+          'Ọbara dị arọ karịa nwekwara ike ime, karịsịa n’ụbọchị abụọ mbụ. Ọ bụrụ na ị chọrọ ịgbanwe ihe nchebe gị ihe karịrị otu ugboro n’otu awa ruo ọtụtụ awa n’usoro, ọ dị mma ịgwa ọkachamara ahụike okwu banyere ya.',
+      },
+      {
+        question: '“Ọ̀ bụ ihe nkịtị inwe mgbu afọ?”',
+        answer:
+          'Mgbu afọ dị nro n’ala afọ na-adịkarị ma na-abụkarị ihe na-adịghị mkpa ichegbu onwe gị. Karama mmiri ọkụ ma ọ bụ obere izu ike nwere ike inye aka. Mgbu dị ike nke ukwuu kwesịrị ka ị gwa onye ọzọ.',
+      },
+      {
+        question: '“Ọ̀ dị m mma ime egwuregwu?”',
+        answer:
+          'Ee, ị ka nwere ike ime egwuregwu n’oge nsọ ọnwa gị. Naanị hazie ike ya dabere n’etu ahụ gị si adị n’ụbọchị ahụ.',
+      },
+      {
+        question: '“Ọ̀ dị m mma igwu mmiri?”',
+        answer:
+          'Ee, ị ka nwere ike igwu mmiri site n’ihe nchebe kwesịrị ekwesị. Ọtụtụ mmadụ na-ahọrọ ichere ruo mgbe ha na-enwe obi iru ala na echiche ahụ.',
+      },
+    ],
+    tipTitle: 'Ọ dị mma ịmara',
+    tipText: 'Ọ nweghị ajụjụ na-eme ihere: ahụ ọ bụla dị iche, ị nwekwara ike ịgwa onye ị tụkwasịrị obi okwu mgbe niile.',
+    relatedTitle: '♥  Ị nwere ike ịkpọkwa ndị a',
+    related: [
+      {title: 'Nsọ ọnwa mbụ gị: ihe ị ga-atụ anya ya', meta: 'Nkeji 5  ·  Ntuziaka'},
+      {title: 'Kedu ihe nchebe m ga-ahọrọ maka nsọ ọnwa mbụ m?', meta: 'Nkeji 6  ·  Ntuziaka'},
+      {title: 'Ijikwa mgbu nsọ ọnwa', meta: 'Nkeji 7  ·  Ntuziaka'},
+    ],
+    shareMessage: 'Ajụjụ a na-ajụkarị banyere nsọ ọnwa mbụ gị — AWA',
+  },
+  yo: {
+    badge: 'NǸKAN OṢÙ ÀKỌ́KỌ́',
+    title: 'Àwọn ìbéèrè tí a sábà máa ń béèrè\nnípa nǹkan oṣù àkọ́kọ́ rẹ',
+    metaDuration: 'Kíkà ní ìṣẹ́jú 4',
+    metaType: 'Àwọn ìbéèrè tí a sábà máa ń béèrè',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti àtúnyẹ̀wò',
+    intro: 'Àwọn ìdáhùn tó rọrùn sí àwọn ìbéèrè tó wọ́pọ̀ jù nípa nǹkan oṣù àkọ́kọ́ rẹ.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    faq: [
+      {
+        question: '“Ṣé ó jẹ́ deede láti ní ẹ̀jẹ̀ díẹ̀ gan-an?”',
+        answer:
+          'Bẹ́ẹ̀ ni. Àwọn àyípo àkọ́kọ́ gan-an sábà máa ń ní ìsun tó fúyẹ́. Ìsun náà lè yàtọ̀ láti àyípo kan sí òmíràn, pàápàá ní ìbẹ̀rẹ̀.',
+      },
+      {
+        question: '“Ṣé ó jẹ́ deede láti ní ẹ̀jẹ̀ púpọ̀?”',
+        answer:
+          'Ìsun tó pọ̀ jù náà lè ṣẹlẹ̀, pàápàá ní ọjọ́ méjì àkọ́kọ́. Tí o bá nílò láti yí ohun ìdáàbòbò rẹ padà ju ẹ̀ẹ̀kan lọ ní wákàtí kan fún wákàtí púpọ̀ ní ìtẹ̀léra, ó dára láti bá onímọ̀ ìlera sọ̀rọ̀ nípa rẹ̀.',
+      },
+      {
+        question: '“Ṣé ó jẹ́ deede láti ní ìrora ikùn (cramps)?”',
+        answer:
+          'Ìrora ikùn tó fúyẹ́ ní ìsàlẹ̀ ikùn wọ́pọ̀, kì í sì í sábà jẹ́ ohun tó yẹ kó dààmú ọ. Ìgò omi gbígbóná tàbí ìsinmi díẹ̀ lè ranni lọ́wọ́. Ìrora líle gan-an yẹ kí o sọ fún ẹnì kan.',
+      },
+      {
+        question: '“Ṣé mo lè ṣe eré ìdárayá?”',
+        answer:
+          'Bẹ́ẹ̀ ni, o ṣì lè ṣe eré ìdárayá nígbà nǹkan oṣù rẹ. Kàn ṣe àtúnṣe ìwọ̀n rẹ̀ ní ìbámu pẹ̀lú bí ara rẹ ṣe rí ní ọjọ́ náà.',
+      },
+      {
+        question: '“Ṣé mo lè wẹ̀ nínú omi?”',
+        answer:
+          'Bẹ́ẹ̀ ni, o ṣì lè wẹ̀ nínú omi pẹ̀lú ohun ìdáàbòbò tó tọ́. Ọ̀pọ̀ ènìyàn kàn yàn láti dúró títí wọn yóò fi ní ìtùnú sí èrò náà.',
+      },
+    ],
+    tipTitle: 'Ohun tó yẹ kí o mọ̀',
+    tipText: 'Kò sí ìbéèrè tó ń dójútì: gbogbo ara yàtọ̀, o sì lè máa bá ẹni tí o gbẹ́kẹ̀lé sọ̀rọ̀ nígbà gbogbo.',
+    relatedTitle: '♥  O lè fẹ́ràn èyí náà',
+    related: [
+      {title: 'Nǹkan oṣù rẹ àkọ́kọ́: ohun tí o lè retí', meta: '5 min  ·  Ìtọ́sọ́nà'},
+      {title: 'Ohun ìdáàbòbò wo ni kí n yàn fún nǹkan oṣù àkọ́kọ́ mi?', meta: '6 min  ·  Ìtọ́sọ́nà'},
+      {title: 'Ṣíṣàkóso ìrora nǹkan oṣù', meta: '7 min  ·  Ìtọ́sọ́nà'},
+    ],
+    shareMessage: 'Àwọn ìbéèrè tí a sábà máa ń béèrè nípa nǹkan oṣù àkọ́kọ́ rẹ — AWA',
+  },
+  zu: {
+    badge: 'ISIKHATHI SOKUQALA',
+    title: 'Imibuzo evame ukubuzwa\nngesikhathi sakho sokuqala',
+    metaDuration: 'Imizuzu emi-4 yokufunda',
+    metaType: 'Imibuzo evame ukubuzwa',
+    metaLevel: 'Okwabaqalayo',
+    metaValidated: 'Okuqulunqwe kabusha',
+    intro: 'Imiphendulo elula yemibuzo evame kakhulu ngesikhathi sakho sokuqala.',
+    contentsTitle: 'Kulesi sihloko',
+    faq: [
+      {
+        question: '“Ingabe kujwayelekile ukuba negazi elincane kakhulu?”',
+        answer:
+          'Yebo. Imijikelezo yokuqala imvamisa inegazi elincane. Ukuphuma kwegazi kungahluka kumjikelezo nomjikelezo, ikakhulukazi ekuqaleni.',
+      },
+      {
+        question: '“Ingabe kujwayelekile ukuba negazi eliningi?”',
+        answer:
+          'Igazi eliningi nalo lingenzeka, ikakhulukazi ezinsukwini ezimbili zokuqala. Uma udinga ukushintsha ukuvikela kwakho ngaphezu kwanye ngehora amahora amaningana alandelanayo, kuhle ukukhuluma nochwepheshe wezempilo ngakho.',
+      },
+      {
+        question: '“Ingabe kujwayelekile ukuba nezinhlungu zesisu?”',
+        answer:
+          'Ubuhlungu obuncane esiswini esingaphansi buvamile futhi imvamisa abukhathazi. Ibhodlela lamanzi ashisayo noma ukuphumula okuncane kungasiza. Ubuhlungu obukhulu kakhulu bufanele ukutshelwa umuntu.',
+      },
+      {
+        question: '“Ngingadlala ezemidlalo?”',
+        answer:
+          'Yebo, ungasadlala ezemidlalo ngesikhathi sakho. Nje lungisa izinga ngokwendlela umzimba wakho ozizwa ngayo ngalolo suku.',
+      },
+      {
+        question: '“Ngingabhukuda?”',
+        answer:
+          'Yebo, ungasabhukuda ngokuvikela okufanele. Abantu abaningi bakhetha nje ukulinda kuze kube yilapho bezizwa bekhululekile ngomqondo.',
+      },
+    ],
+    tipTitle: 'Kuhle ukwazi',
+    tipText: 'Akukho umbuzo ongajabulisi: umzimba ngamunye uhlukile, futhi ungahlala ukhuluma nomuntu omthembayo.',
+    relatedTitle: '♥  Ungathanda nalokhu',
+    related: [
+      {title: 'Isikhathi sakho sokuqala: okufanele ukulindele', meta: 'Imizuzu eyi-5  ·  Isikhokelo'},
+      {title: 'Ukhetha muphi uvikelo esikhathini sami sokuqala?', meta: 'Imizuzu eyi-6  ·  Isikhokelo'},
+      {title: 'Ukuphatha ubuhlungu besikhathi', meta: 'Imizuzu eyi-7  ·  Isikhokelo'},
+    ],
+    shareMessage: 'Imibuzo evame ukubuzwa ngesikhathi sakho sokuqala — AWA',
+  },
+  xh: {
+    badge: 'IXESHA LOKUQALA LENYANGA',
+    title: 'Imibuzo ebuzwa rhoqo\nngexesha lakho lokuqala lenyanga',
+    metaDuration: 'Imizuzu emi-4 yokufunda',
+    metaType: 'Imibuzo ebuzwa rhoqo',
+    metaLevel: 'Umqali',
+    metaValidated: 'Umxholo ohlolwe',
+    intro: 'Iimpendulo ezilula kwimibuzo ebuzwa rhoqo ngexesha lakho lokuqala lenyanga.',
+    contentsTitle: 'Kweli nqaku',
+    faq: [
+      {
+        question: '“Ngaba kuqhelekile ukuba negazi elincinci kakhulu?”',
+        answer:
+          'Ewe. Imijikelo yokuqala kakhulu ihlala inokuhamba kwegazi okuncinci. Ukuhamba kwegazi kunokwahluka komnye umjikelo kwelinye, ngakumbi ekuqaleni.',
+      },
+      {
+        question: '“Ngaba kuqhelekile ukuba negazi elininzi?”',
+        answer:
+          'Ukuhamba kwegazi okunzima ngakumbi kunokwenzeka, ngakumbi ngeentsuku ezimbini zokuqala. Ukuba kufuneka utshintshe ukhuseleko lwakho ngaphezu kwesihlandlo esinye ngeyure iiyure ezininzi ezilandelelanayo, kulungile ukuthetha nochwephesha kwezempilo ngayo.',
+      },
+      {
+        question: '“Ngaba kuqhelekile ukuba nezibetho zesisu?”',
+        answer:
+          'Izibetho ezincinci esiswini esingezantsi ziqhelekile kwaye zihlala zingeyonto yokukhathazeka. Ibhotile yamanzi ashushu okanye ukuphumla kancinci kunganceda. Intlungu enamandla kakhulu ifanele ukuxelelwa umntu.',
+      },
+      {
+        question: '“Ndingadlala ezemidlalo?”',
+        answer:
+          'Ewe, usengadlala ezemidlalo ngexesha lexesha lakho lenyanga. Lungelelanisa nje amandla ngokwendlela umzimba wakho oziva ngayo ngolo suku.',
+      },
+      {
+        question: '“Ndingabhukuda?”',
+        answer:
+          'Ewe, usengabhukuda ngokhuseleko olufanelekileyo. Abantu abaninzi bakhetha nje ukulinda de baziive bekhululekile ngomxholo.',
+      },
+    ],
+    tipTitle: 'Kulungile ukwazi',
+    tipText: 'Akukho mbuzo ucaphukisayo: umzimba ngamnye wahlukile, kwaye usoloko unokuthetha nomntu omthembayo.',
+    relatedTitle: '♥  Usenokuthanda ke nale',
+    related: [
+      {title: 'Ixesha lakho lokuqala lenyanga: oko ekufuneka ukulindele', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
+      {title: 'Ndikhethe ukhuseleko olunjani kwixesha lam lokuqala lenyanga?', meta: 'Imizuzu emi-6  ·  Isikhokelo'},
+      {title: 'Ukulawula intlungu yexesha lenyanga', meta: 'Imizuzu emi-7  ·  Isikhokelo'},
+    ],
+    shareMessage: 'Imibuzo ebuzwa rhoqo ngexesha lakho lokuqala lenyanga — AWA',
+  },
+  sn: {
+    badge: 'KUMWEDZI KWEKUTANGA',
+    title: 'Mibvunzo inobvunzwa kazhinji\npamusoro pekumwedzi kwako kwekutanga',
+    metaDuration: 'Maminetsi mana ekuverenga',
+    metaType: 'FAQ',
+    metaLevel: 'Anotangira',
+    metaValidated: 'Zvakatariswa',
+    intro: 'Mhinduro dzakareruka kumibvunzo yakajairika zvikuru pamusoro pekumwedzi kwako kwekutanga.',
+    contentsTitle: 'Muchinyorwa chino',
+    faq: [
+      {
+        question: '“Zvakajairika here kuva neropa shoma chaizvo?”',
+        answer:
+          'Hongu. Kutenderera kwekutanga kazhinji kune kuyerera kwakareruka. Kuyerera kunogona kusiyana pakutenderera kumwe nekumwe, kunyanya pakutanga.',
+      },
+      {
+        question: '“Zvakajairika here kuva neropa rakawanda?”',
+        answer:
+          'Kuyerera kwakawanda kunogonawo kuitika, kunyanya mumazuva maviri ekutanga. Kana uchifanira kuchinja chekuzvidzivirira kupfuura kamwe paawa kwemaawa akati akatevedzana, zvakanaka kutaura nemunhu ane unyanzvi muutano pamusoro pazvo.',
+      },
+      {
+        question: '“Zvakajairika here kuva ne cramps?”',
+        answer:
+          'Cramps dzakareruka mudumbu repasi dzakajairika uye kazhinji hazvina chikonzero chekushushikana. Bhodhoro remvura inopisa kana kuzorora zvishoma zvinogona kubatsira. Kurwadza kukuru zvikuru kwakakodzera kutaurirwa mumwe munhu.',
+      },
+      {
+        question: '“Ndinogona kutamba mitambo here?”',
+        answer:
+          'Hongu, unogona kuramba uchitamba mitambo panguva yekumwedzi kwako. Ingogadzirisa simba kuenderana nezvinonzwa muviri wako pazuva iroro.',
+      },
+      {
+        question: '“Ndinogona kushambira here?”',
+        answer:
+          'Hongu, unogona kuramba uchishambira une chekuzvidzivirira chakakodzera. Vazhinji vanongosarudza kumirira kusvika vanzwa vakasununguka nepfungwa iyi.',
+      },
+    ],
+    tipTitle: 'Zvakanaka kuziva',
+    tipText: 'Hapana mubvunzo unonyadzisa: muviri wega wega wakasiyana, uye unogona kutaura nguva dzose nemunhu waunovimba naye.',
+    relatedTitle: '♥  Unogona kufarirawo',
+    related: [
+      {title: 'Kumwedzi kwako kwekutanga: zvekutarisira', meta: 'Maminetsi 5  ·  Gwara'},
+      {title: 'Ndisarudze chekuzvidzivirira chipi pakumwedzi kwangu kwekutanga?', meta: 'Maminetsi 6  ·  Gwara'},
+      {title: 'Kubata kurwadza kwekumwedzi', meta: 'Maminetsi 7  ·  Gwara'},
+    ],
+    shareMessage: 'Mibvunzo inobvunzwa kazhinji pamusoro pekumwedzi kwako kwekutanga — AWA',
+  },
+  ln: {
+    badge: 'SANZA YA LIBOSO',
+    title: 'Mituna oyo ebiangami mingi\nna ntina ya sanza na yo ya liboso',
+    metaDuration: 'Minitɛ 4 ya kotánga',
+    metaType: 'FAQ',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo oyo ekomami malamu',
+    intro: 'Biyano ya pɛtɛɛ na mituna oyo ebiangami mingi na ntina ya sanza na yo ya liboso.',
+    contentsTitle: 'Na lisolo oyo',
+    faq: [
+      {
+        question: '“Ezali ya bozalani kozala na makila moke mingi?”',
+        answer:
+          'Iyo. Cycle ya liboso mingi mbala mingi ezali na makila moke. Makila ekoki kokesana kati na cycle moko na mosusu, mingi mingi na ebandeli.',
+      },
+      {
+        question: '“Ezali ya bozalani kozala na makila mingi?”',
+        answer:
+          'Makila mingi ekoki mpe kosalema, mingi mingi na mikolo mibale ya liboso. Soki esengeli obongola biloko na yo ya kobatela koleka mbala moko na ngonga moko, mpo na ngonga mingi na kolanda, ezali malamu kosolola na moto ya mosala ya bolamu.',
+      },
+      {
+        question: '“Ezali ya bozalani kozala na mpasi ya libumu?”',
+        answer:
+          'Mpasi moke na nse ya libumu ezali ya bozalani mpe mbala mingi ezali ntina ya kobanga te. Mai ya molunge ya moto to kopema moke ekoki kosalisa. Mpasi ya makasi mingi ebongi koyebisa moto.',
+      },
+      {
+        question: '“Nakoki kosala sport?”',
+        answer:
+          'Iyo, okoki kokoba kosala sport na sanza na yo. Bongisa kaka makasi na ndenge nzoto na yo eyokani mokolo wana.',
+      },
+      {
+        question: '“Nakoki kobenga mai?”',
+        answer:
+          'Iyo, okoki kokoba kobenga mai na biloko ya kobatela ya malamu. Bato mingi bapesaka ntango kaka tii bayoki malamu na likanisi yango.',
+      },
+    ],
+    tipTitle: 'Ezali malamu koyeba',
+    tipText: 'Motuna ya nsoni ezali te: nzoto na nzoto ezali ekeseni, mpe okoki ntango nyonso kosolola na moto oyo ondimi.',
+    relatedTitle: '♥  Okoki mpe kolinga',
+    related: [
+      {title: 'Sanza na yo ya liboso: oyo ozali kozela', meta: 'Min 5  ·  Buku ya bokambi'},
+      {title: 'Biloko nini ya kobatela ya kopona mpo na sanza na ngai ya liboso?', meta: 'Min 6  ·  Buku ya bokambi'},
+      {title: 'Kokamba mpasi ya sanza', meta: 'Min 7  ·  Buku ya bokambi'},
+    ],
+    shareMessage: 'Mituna oyo ebiangami mingi na ntina ya sanza na yo ya liboso — AWA',
+  },
+  ff: {
+    badge: 'REGLES ADANNDE',
+    title: 'Naamndi ɗi ɓe naamnata ɗuuɗum\nfii regles maaɗa adannde',
+    metaDuration: 'Ɗaɓɓitaago minti 4',
+    metaType: 'Naamndi',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko nastii ndikkaama',
+    intro: 'Jawaabu pamaru ngam naamndi ɗi ɓe naamnata ɗuuɗum fii regles maaɗa adannde.',
+    contentsTitle: 'Nder winndannde ndee',
+    faq: [
+      {
+        question: '“Ɗum ko wayri woodugo yiiyam seɗɗa tan?”',
+        answer:
+          'Ee. Cycle adannde saa\'i ɗuuɗum woodi yiiyam seɗɗa. Ɗuuɗal yiiyam waaway wayrugo cycle e cycle, ɓurɗum nder fuɗɗoode.',
+      },
+      {
+        question: '“Ɗum ko wayri woodugo yiiyam ɗuuɗum?”',
+        answer:
+          'Yiiyam ɗuuɗum waaway wonugo fahin, ɓurɗum nder nyalɗe ɗiɗi adannde. Si a haani wayrugo takkaadu reenugo ɓurngo marde gooto nder sahaa gooto nder sahaa ɗuuɗɗe tokkooɗe, ko moƴƴi haalugo e jaɓɓitaaɗo cellal fii ɗum.',
+      },
+      {
+        question: '“Ɗum ko wayri woodugo muusal reedu?”',
+        answer:
+          'Muusal reedu ɓuuɗum ko sunnaaji e saa\'i ɗuuɗum alaa hulugo. Ndiyam ɓuuɗum malla hoyrugo seɗɗa waaway walla. Muusal tiidum ɓuri ko moƴƴi haalugo e goɗɗo.',
+      },
+      {
+        question: '“Mi waaway ɗaɓɓude ɓanndu?”',
+        answer:
+          'Ee, a waaway fahin ɗaɓɓude ɓanndu nder regles maaɗa. Wayrir semmbe ɗaɓɓude tan e ko ɓanndu maaɗa hoosi nyalde ndin.',
+      },
+      {
+        question: '“Mi waaway wooyugo?”',
+        answer:
+          'Ee, a waaway fahin wooyugo e takkaadu reenugo moƴƴum. Woɗɓe ɗuuɗɓe suɓtata hoyrugo haa ɓe hoosa hoyre e miijo ndin.',
+      },
+    ],
+    tipTitle: 'Ko haani anndugo',
+    tipText: 'Walaa naamndal huunde nyiiɓu: kala ɓanndu ko feere, e a waaway fahin haalugo e goɗɗo ɗo yoɓaa.',
+    relatedTitle: '♥  A waaway yiɗugo fahin',
+    related: [
+      {title: 'Regles maaɗa adannde: ko haani yiɗugo', meta: 'Minti 5  ·  Paltirgel'},
+      {title: 'Takkaadu reenugo ɗume mi suɓtay ngam regles am adannde?', meta: 'Minti 6  ·  Paltirgel'},
+      {title: 'Reenugo muusal regles', meta: 'Minti 7  ·  Paltirgel'},
+    ],
+    shareMessage: 'Naamndi ɗi ɓe naamnata ɗuuɗum fii regles maaɗa adannde — AWA',
+  },
   id: {
     badge: 'HAID PERTAMA',
     title: 'Pertanyaan yang sering diajukan\ntentang haid pertamamu',

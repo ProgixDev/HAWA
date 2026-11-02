@@ -532,6 +532,867 @@ const CONTENT = withBrazilianPortuguese('LhTests', {
       disclaimerText: '仅供参考。本文不能替代个性化的医疗建议。如有疑问，请向医疗专业人员寻求指导。',
       shareMessage: '了解排卵试纸（LH 检测） — AWA',
     },
+  'zh-Hant': {
+      badge: '生育力 • 排卵試紙',
+      title: '瞭解排卵試紙\n（LH 檢測）',
+      metaDuration: '閱讀約 6 分鐘',
+      metaType: '指南',
+      metaLevel: '進階',
+      metaValidated: '已稽核內容',
+      intro: '這些試紙是怎麼起作用的，以及什麼時候使用。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是 LH？',
+        '這些檢測如何起作用',
+        '什麼時候開始檢測',
+        '如何解讀結果',
+        '假陽性與侷限',
+        '與其他表現結合使用',
+        '要點回顧',
+      ],
+      section1Body: 'LH（黃體生成素）由大腦分泌，調控卵巢的功能。排卵試紙檢測的是這種荷爾蒙的峰值，它會在 24 到 36 小時後促使卵子排出。',
+      section2Body: '尿液試紙可以檢測 LH 水平：檢測線與對照線一樣深或比對照線更深，就表示出現了峰值。',
+      section3Body: '建議在根據你的週期估算出的排卵日之前幾天開始檢測。',
+      testingTips: [
+        {
+          title: '根據你的週期來安排',
+          text: '在根據你週期的平均長度估算出的排卵日之前幾天開始。',
+        },
+        {
+          title: '每天在同一時間檢測',
+          text: '最好在中午前後，避開早晨的第一次尿液。',
+        },
+        {
+          title: '避免稀釋尿液',
+          text: '檢測前的幾個小時裡，不要一次喝大量的水。',
+        },
+      ],
+      section4Body: '結果呈陽性，表示接下來 1 到 2 天是同房受孕機會最高的時期。結果呈陰性，只是說明峰值還沒有出現。',
+      limitations: [
+        'PCOS 可能使 LH 水平天然偏高，從而讓讀數變得模糊',
+        '某些促孕治療可能影響結果',
+        '尿液過度稀釋可能導致假陰性',
+        '品質較差的試紙可能不夠可靠',
+      ],
+      infoTitle: '請記住',
+      infoText: 'LH 峰值表示出現了觸發排卵的荷爾蒙訊號，但僅憑它並不能保證卵子真的已經排出。',
+      tipTitle: '小提醒',
+      tipText: '把排卵試紙與基礎體溫或宮頸黏液的觀察結合起來，可以更完整地瞭解你的週期。',
+      summaryPoints: [
+        '排卵試紙檢測的是 LH 峰值，它會在 24 到 36 小時後促使卵子排出。',
+        '建議在根據你的週期估算出的排卵日之前幾天開始檢測。',
+        '結果呈陽性，表示接下來 1 到 2 天是同房受孕機會最高的時期。',
+        '僅憑 LH 峰值，並不能保證排卵確實發生。',
+      ],
+      disclaimerText: '僅供參考。本文不能替代個性化的醫療建議。如有疑問，請向醫療專業人員尋求指導。',
+      shareMessage: '瞭解排卵試紙（LH 檢測） — AWA',
+    },
+  ar: {
+    badge: 'الخصوبة • اختبارات الإباضة',
+    title: 'فهم اختبارات\nالإباضة (LH)',
+    metaDuration: 'قراءة 6 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'متوسط',
+    metaValidated: 'محتوى مراجَع',
+    intro: 'كيف تعمل هذه الشرائط، ومتى تستخدمينها.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هو الهرمون الملوتن (LH)؟',
+      'كيف تعمل هذه الاختبارات',
+      'متى تبدئين الاختبار',
+      'تفسير النتيجة',
+      'النتائج الإيجابية الكاذبة والقيود',
+      'دمجها مع علامات أخرى',
+      'أهم ما يجب تذكّره',
+    ],
+    section1Body:
+      'يُفرَز الهرمون الملوتن (LH) من الدماغ ويتحكم في عمل المبيضين. وتكشف اختبارات الإباضة ارتفاع هذا الهرمون المفاجئ، الذي يطلق خروج البويضة بعد 24 إلى 36 ساعة.',
+    section2Body:
+      'يقيس شريط اختبار البول مستوى LH: خط الاختبار الذي يكون بدرجة خط التحكم أو أغمق منه يدل على ارتفاع مفاجئ.',
+    section3Body:
+      'يُنصح بالبدء في الاختبار قبل بضعة أيام من تاريخ الإباضة المقدَّر بحسب دورتك.',
+    testingTips: [
+      {
+        title: 'اعتمدي على دورتك',
+        text: 'ابدئي قبل بضعة أيام من تاريخ الإباضة المقدَّر بحسب متوسط طول دوراتك.',
+      },
+      {
+        title: 'اختبري في الوقت نفسه كل يوم',
+        text: 'يفضَّل في منتصف النهار تقريبًا، مع تجنّب أول بول في الصباح.',
+      },
+      {
+        title: 'تجنّبي تخفيف البول',
+        text: 'قلّلي من شرب كميات كبيرة من السوائل في الساعات التي تسبق الاختبار.',
+      },
+    ],
+    section4Body:
+      'تدل النتيجة الإيجابية على أكثر الأوقات خصوبة للجماع خلال اليوم إلى اليومين التاليين. أما النتيجة السلبية فتعني ببساطة أن الارتفاع المفاجئ لم يحدث بعد.',
+    limitations: [
+      'قد تسبب متلازمة تكيّس المبايض مستويات LH مرتفعة بشكل طبيعي، مما قد يشوّش القراءة',
+      'قد تؤثر بعض علاجات الخصوبة في النتيجة',
+      'البول المخفَّف جدًا قد يعطي نتيجة سلبية كاذبة',
+      'قد يكون الاختبار الأقل جودة أقل موثوقية',
+    ],
+    infoTitle: 'تذكّري',
+    infoText:
+      'يدل ارتفاع LH على إشارة هرمونية محفِّزة، لكنه وحده لا يضمن أن البويضة خرجت فعلًا.',
+    tipTitle: 'من الجيد أن تعرفي',
+    tipText:
+      'دمج اختبارات الإباضة مع درجة حرارة جسمك القاعدية أو ملاحظة مخاط عنق الرحم يعطي صورة أشمل عن دورتك.',
+    summaryPoints: [
+      'تكشف اختبارات الإباضة ارتفاع LH المفاجئ، الذي يطلق خروج البويضة بعد 24 إلى 36 ساعة.',
+      'يُنصح بالبدء في الاختبار قبل بضعة أيام من تاريخ الإباضة المقدَّر بحسب دورتك.',
+      'تدل النتيجة الإيجابية على أكثر الأوقات خصوبة للجماع خلال اليوم إلى اليومين التاليين.',
+      'ارتفاع LH المفاجئ وحده لا يضمن أن الإباضة حدثت فعلًا.',
+    ],
+    disclaimerText:
+      'محتوى إعلامي. لا يغني هذا المقال عن استشارة طبية شخصية. عند الشك، استعيني بتوجيه مختص صحي.',
+    shareMessage: 'فهم اختبارات الإباضة (LH) — AWA',
+  },
+  kab: {
+    badge: 'TAYERZA • ISNEQDEN N OVULATION',
+    title: 'Fehm isnaqden\nn ovulation (LH)',
+    metaDuration: '6 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Amzun',
+    metaValidated: 'Agbur yettwaɛass',
+    intro: 'Amek xeddment tfelwiyin-a, d melmi ara ten-tesqedceḍ.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu i d LH?',
+      'Amek xeddment isnaqden-a',
+      'Melmi ara tebduḍ asenqed',
+      'Tafesrit n uṭṭuf',
+      'Isenqed ur nelli ara d ayen ṣaḥiḥ d tlisa',
+      'Ajmuɛ-nsen d tizmilin-nniḍen',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    section1Body:
+      'LH (hormone luteinisant) yettwaxdem sɣur uwengez u yettḥekkim deg umahil n yiwtilen. Isnaqden n ovulation ttafen abeddel n uḥormon-a, i d-yesbedden tuffɣa n tfelwit 24 ɣer 36 n tsaɛtin mbeɛd.',
+    section2Body:
+      'Tafelwit n usenqed n weššun tqiyes aswir n LH: yiwen n ugemmun n usenqed yeḥlayen am wagemmun n ukontrol neɣ ugar yeqqen abeddel.',
+    section3Body:
+      'Yelha ad tebduḍ asenqed kra n wussan uqbel azemz n ovulation i d-yettwakkes seg uzray-ik.',
+    testingTips: [
+      {
+        title: 'Ṭṭef deg uzray-ik',
+        text: 'Bdu kra n wussan uqbel azemz n ovulation i d-yettwakkes seg ugmuḍ n tiggdi n yizray-ik.',
+      },
+      {
+        title: 'Seqdec asenqed deg yiwen n wakud yal ass',
+        text: 'Ilaq ad yili ɣer ṭṭṣer, ma tzemreḍ, war ma tseqdceḍ weššun amezwaru n yimal.',
+      },
+      {
+        title: 'Ur teɛlaqeḍ ara weššun-ik',
+        text: 'Sennqes aswu n waman ugar deg tsaɛtin uqbel asenqed.',
+      },
+    ],
+    section4Body:
+      'Tagezmi tabaɣurt tbeggen aswir n tyaɣent ugar i tmeẓlayt deg 1 ɣer 2 n wussan i d-yetteddun. Tagezmi tazeggwaɣt tebbi kan belli abeddel ur d-yeḍri ara akka tura.',
+    limitations: [
+      'PCOS izmer ad d-yebnu aswir n LH aɣbel s tnafa, ayen izmer ad yessmumi taɣuri',
+      'Kra n ddwa n tyaɣent zemrent ad ssbedlent agmuḍ',
+      'Weššun ibrikan aṭas izmer ad d-yefk agmuḍ azeggwaɣ ur yelli ara d ṣaḥiḥ',
+      'Asenqed n tɣara tuzzigt izmer ad yili ur yelli ara d aseqqar',
+    ],
+    infoTitle: 'Ɛass',
+    infoText:
+      'Abeddel n LH d tazmilt n uḥerrek n iḥormonen, maca s wudem yeddan ur yettak ara aḥerz belli tfelwit tettwazwar tella.',
+    tipTitle: 'Yelha ad teɛlmeḍ',
+    tipText:
+      'Ajmuɛ n isnaqden n ovulation d tezmert tamagnut n ugris-ik neɣ aɛass n lmucus n tgellit ad k-yefk tamuɣli tuhlilt ugar ɣef uzray-ik.',
+    summaryPoints: [
+      'Isnaqden n ovulation ttafen abeddel n LH, i d-yesbedden tuffɣa n tfelwit 24 ɣer 36 n tsaɛtin mbeɛd.',
+      'Yelha ad tebduḍ asenqed kra n wussan uqbel azemz n ovulation i d-yettwakkes seg uzray-ik.',
+      'Tagezmi tabaɣurt tbeggen aswir n tyaɣent ugar i tmeẓlayt deg 1 ɣer 2 n wussan i d-yetteddun.',
+      'Abeddel n LH weḥd-s ur d-yettak ara aḥerz belli ovulation teḍra s tidet.',
+    ],
+    disclaimerText:
+      'Agbur n isallen. Amagrad-a ur yettnefsu ara amusnaw n tezmert i yiman-ik. Ma tettwaṭṭfeḍ s ccek, nadi ɣef lemɛawna i umusnaw n tezmert.',
+    shareMessage: 'Fehm isnaqden n ovulation (LH) — AWA',
+  },
+  om: {
+    badge: 'FAYYA • YAALII OVULATION',
+    title: 'Yaalii ovulation (LH)\nhubachuu',
+    metaDuration: 'Daqiiqaa 6 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Giddugaleessa',
+    metaValidated: 'Qabiyyee sakatta\'amee',
+    intro: 'Sirriitti akkamitti akka hojjetan, fi yoom itti fayyadamuu akka qabdu.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'LH maali?',
+      'Yaaliin kun akkamitti hojjeta',
+      'Yoom yaaluu eegaluu',
+      'Bu\'aa hiikuu',
+      'Bu\'aa sobaa fi daangaa',
+      'Mallattoowwan biroo waliin walitti makuu',
+      'Qabxiilee ijoo',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) sammuun oomishama, hojii ovary to\'ata. Yaaliin ovulation guddina hormoonii kanaa ni argisiisa, kunis sa\'aatii 24 hanga 36 booda uumamsa baasuu kaasa.',
+    section2Body:
+      'Sirna yaalii fincaanii sadarkaa LH safara: sararri yaalii akka sarara to\'annoo gurraacha ykn caalaa gurraacha ta\'e guddina agarsiisa.',
+    section3Body:
+      'Guyyoota muraasa guyyaa ovulation marsaa kee irraa tilmaamame dura yaaluu eegaluun gorfama.',
+    testingTips: [
+      {
+        title: 'Marsaa kee irratti hundaa\'i',
+        text: 'Guyyoota muraasa dura guyyaa ovulation giddugaleessa dheerina marsaa kee irraa tilmaamame eegali.',
+      },
+      {
+        title: 'Guyyaa hundaa yeroo tokko yaali',
+        text: 'Gaarii ta\'uu, naannoo giddugala guyyaa, fincaan ganama jalqabaa irraa fagaatamuu.',
+      },
+      {
+        title: 'Fincaan kee laaffisuu irraa of eeggadhu',
+        text: 'Sa\'aatii yaalii dura dhangala\'aa baay\'ee dhuguu daangessi.',
+      },
+    ],
+    section4Body:
+      'Bu\'aan mirkanaa\'e yeroo guyyoota 1 hanga 2 itti aanan keessatti walqunnamtii godhuuf yeroo baay\'ee oomishaa ta\'e agarsiisa. Bu\'aan ukkaamsaa guddinni hin ta\'in jechuu qofa.',
+    limitations: [
+      'PCOS sadarkaa LH uumamaan ol ba\'e fiduu danda\'a, kunis dubbisuu dhoksuu danda\'a',
+      'Yaalii oomishaa tokko tokko bu\'aa irratti dhiibbaa geessisuu danda\'a',
+      'Fincaan baay\'ee laaffate bu\'aa ukkaamsaa sobaa kennuu danda\'a',
+      'Yaaliin qulqullina gadi aanaa amanamummaa xiqqaa ta\'uu danda\'a',
+    ],
+    infoTitle: 'Yaadadhu',
+    infoText:
+      'Guddinni LH mallattoo hormoonii kaasu ni agarsiisa, garuu isaa qofaa uumamsi dhugumatti baheera jedhee hin mirkaneessu.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Yaalii ovulation ho\'ina qaama bu\'uuraa kee ykn ilaalcha dhangala\'aa afuuffee mudhii waliin walitti makuun fakkii marsaa kee guutuu siif kenna.',
+    summaryPoints: [
+      'Yaaliin ovulation guddina LH ni argisiisa, kunis sa\'aatii 24 hanga 36 booda uumamsa baasuu kaasa.',
+      'Guyyoota muraasa guyyaa ovulation marsaa kee irraa tilmaamame dura yaaluu eegaluun gorfama.',
+      'Bu\'aan mirkanaa\'e yeroo guyyoota 1 hanga 2 itti aanan keessatti walqunnamtii godhuuf yeroo baay\'ee oomishaa ta\'e agarsiisa.',
+      'Guddinni LH qofaa ovulation dhugumatti akka ta\'e hin mirkaneessu.',
+    ],
+    disclaimerText:
+      'Qabiyyee odeeffannoo. Barruun kun gorsa fayyaa dhuunfaa bakka hin bu\'u. Yoo shakkite, ogeessa fayyaa irraa qajeelfama argadhu.',
+    shareMessage: 'Yaalii ovulation (LH) hubachuu — AWA',
+  },
+  ti: {
+    badge: 'ጥንስቲ • ናይ ኦቭዩሌሽን ፈተናታት',
+    title: 'ናይ ኦቭዩሌሽን\nፈተናታት (LH) ምርዳእ',
+    metaDuration: '6 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ማእከላይ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'እዞም ስትሪፕታት ከመይ ከም ዝሰርሑን መዓስ ከም ዝጥቀሙ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'LH እንታይ እዩ?',
+      'እዞም ፈተናታት ከመይ ይሰርሑ',
+      'መዓስ ፈተና ምጅማር',
+      'ውጽኢት ምሕሳብ',
+      'ሓሶታዊ ውጽኢታትን ደረጃታትን',
+      'ምስ ካልኦት ምልክታት ምጥማር',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Body:
+      'LH (ሉተኒዚንግ ሆርሞን) ብኣእምሮ ይፍጠር ኣሰራርሓ ኦቫሪታት ይቆጻጸር። ናይ ኦቭዩሌሽን ፈተናታት ኣብዚ ሆርሞን ዘሎ ምውሳኽ ይፈልጡ፡ እዚ ድማ ድሕሪ 24 ክሳብ 36 ሰዓታት መውጽኢ እንቋቑሖ የምጽእ።',
+    section2Body:
+      'ናይ ሽንቲ ፈተና ስትሪፕ ደረጃ LH ይሰፍር፡ ከም መቆጻጸሪ መስመር ጸሊም ወይ ዝያዳ ጸሊም ዝኾነ ናይ ፈተና መስመር ምውሳኽ የመልክት።',
+    section3Body:
+      'ካብ ዑደትኪ ዝተገምተ ዕለት ኦቭዩሌሽን ቅድሚ ገለ መዓልታት ፈተና ምጅማር ይምከር።',
+    testingTips: [
+      {
+        title: 'ኣብ ዑደትኪ ተመርኮስ',
+        text: 'ካብ ማእከላይ ንዋሕ ዑደታትኪ ዝተገምተ ዕለት ኦቭዩሌሽን ቅድሚ ገለ መዓልታት ጀምሪ።',
+      },
+      {
+        title: 'ኩሉ መዓልቲ ኣብ ሓደ ሰዓት ተፈተኒ',
+        text: 'ብዝበለጸ ኣብ ከባቢ ቀትሪ፡ ናይ ንጽሓይ ቀዳማይ ሽንቲ ተወገዲ።',
+      },
+      {
+        title: 'ሽንትኺ ምስ ማይ ምብልቃይ ተወገዲ',
+        text: 'ቅድሚ ፈተና ኣብ ዝነበሩ ሰዓታት ዓበይቲ መጠን ፈሳሲ ምስታይ ቀንሲ።',
+      },
+    ],
+    section4Body:
+      'ዘወንታዊ ውጽኢት ኣብ ዝቕጽሉ 1 ክሳብ 2 መዓልታት ንምርኽኻብ ዝበለጸ ፍርያም ግዜ የመልክት። ኣሉታዊ ውጽኢት እቲ ምውሳኽ ገና ከም ዘይተፈጸመ ጥራይ የመልክት።',
+    limitations: [
+      'PCOS ብተፈጥሮ ዝለዓለ LH ክፈጥር ይኽእል፡ እዚ ድማ ንንባብ ክሕብእ ይኽእል',
+      'ገለ ናይ ፍርያም ሕክምናታት ንውጽኢት ክጸልዉ ይኽእሉ',
+      'ኣዝዩ ዝተበልቀየ ሽንቲ ሓሶታዊ ኣሉታዊ ውጽኢት ክህብ ይኽእል',
+      'ትሑት ጽሬት ዘለዎ ፈተና ውሑድ ርግጸኛ ክኸውን ይኽእል',
+    ],
+    infoTitle: 'ዘክሪ',
+    infoText:
+      'ምውሳኽ LH ዝጀምር ሆርሞናዊ ምልክት የመልክት፡ ባዕሉ ግን እቲ እንቋቑሖ ብሓቂ ከም ዝወጸ ኣየረጋግጽን።',
+    tipTitle: 'ከተፍልጥዮ ዘለካ',
+    tipText:
+      'ናይ ኦቭዩሌሽን ፈተናታት ምስ ባሳል ሙቐት ሰውነትኪ ወይ ምስ ልቃሕ ሓፍ ማህጸን ምስትውዓል ምጥማር ዝያዳ ምሉእ ስእሊ ዑደትኪ ይህብ።',
+    summaryPoints: [
+      'ናይ ኦቭዩሌሽን ፈተናታት ምውሳኽ LH ይፈልጡ፡ እዚ ድማ ድሕሪ 24 ክሳብ 36 ሰዓታት መውጽኢ እንቋቑሖ የምጽእ።',
+      'ካብ ዑደትኪ ዝተገምተ ዕለት ኦቭዩሌሽን ቅድሚ ገለ መዓልታት ፈተና ምጅማር ይምከር።',
+      'ዘወንታዊ ውጽኢት ኣብ ዝቕጽሉ 1 ክሳብ 2 መዓልታት ንምርኽኻብ ዝበለጸ ፍርያም ግዜ የመልክት።',
+      'ባዕሉ ምውሳኽ LH ኦቭዩሌሽን ብሓቂ ከም ዝተፈጸመ ኣየረጋግጽን።',
+    ],
+    disclaimerText:
+      'ሓበሬታዊ ትሕዝቶ። እዚ ጽሑፍ ውልቃዊ ሕክምናዊ ምኽሪ ኣይትካእልን። ጥርጣረ እንተ ኣሎ፡ ካብ ሰራሕተኛ ጥዕና መምርሒ ድለዪ።',
+    shareMessage: 'ናይ ኦቭዩሌሽን ፈተናታት (LH) ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'UBUREREKE • IBIPIMO BYA OVULATION',
+    title: 'Gusobanukirwa ibipimo\nbya ovulation (LH)',
+    metaDuration: 'Gusoma: iminota 6',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Uko utwo duti dukora, n\'igihe cyo kudukoresha.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'LH ni iki?',
+      'Uko ibi bipimo bikora',
+      'Igihe cyo gutangira gupima',
+      'Gusobanura igisubizo',
+      'Ibisubizo bitari ukuri n\'imbibi',
+      'Kubihuza n\'ibindi bimenyetso',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) ikorwa n\'ubwonko kandi igenga imikorere y\'intanga ngore. Ibipimo bya ovulation bimenya izamuka ry\'iyi misemburo, ritera irekurwa ry\'igi nyuma y\'amasaha 24 kugeza kuri 36.',
+    section2Body:
+      'Agace ko gupimisha inkari gapima urugero rwa LH: umurongo w\'igipimo wijimye nk\'umurongo w\'igenzura cyangwa urenzeho werekana izamuka.',
+    section3Body:
+      'Birasabwa gutangira gupima iminsi mike mbere y\'itariki ya ovulation yagereranyijwe hashingiwe ku ruhererekane rwawe.',
+    testingTips: [
+      {
+        title: 'Shingira ku ruhererekane rwawe',
+        text: 'Tangira iminsi mike mbere y\'itariki ya ovulation yagereranyijwe hashingiwe ku burebure bw\'impuzandengo bw\'uruhererekane rwawe.',
+      },
+      {
+        title: 'Pima mu gihe kimwe buri munsi',
+        text: 'Byiza ni hafi saa sita z\'amanywa, wirinda inkari ya mbere yo mu gitondo.',
+      },
+      {
+        title: 'Irinde kuvanga inkari n\'amazi',
+        text: 'Gabanya kunywa amazi menshi mu masaha abanziriza igipimo.',
+      },
+    ],
+    section4Body:
+      'Igisubizo cyiza cyerekana igihe gikwiye cyane cyo gutera akabariro mu minsi 1 kugeza kuri 2 ikurikira. Igisubizo kibi bivuze gusa ko izamuka ritaraba.',
+    limitations: [
+      'PCOS ishobora gutuma urugero rwa LH ruba rwinshi mu buryo karemano, bishobora guhisha igisubizo',
+      'Imiti imwe yo kuvura uburumbuke ishobora guhindura igisubizo',
+      'Inkari zivanze cyane n\'amazi zishobora gutanga igisubizo kibi kitari ukuri',
+      'Igipimo gifite ubuziranenge buke gishobora kutizerwa cyane',
+    ],
+    infoTitle: 'Ibuka',
+    infoText:
+      'Izamuka rya LH ryerekana ikimenyetso cy\'imisemburo gitera, ariko ubwacyo ntiryemeza ko igi ryarekuwe koko.',
+    tipTitle: 'Byiza kumenya',
+    tipText:
+      'Guhuza ibipimo bya ovulation n\'ubushyuhe bw\'umubiri bwawe bw\'ibanze cyangwa kwitegereza amatembabuzi yo mu nkanka y\'inda biguha ishusho yuzuye kurushaho y\'uruhererekane rwawe.',
+    summaryPoints: [
+      'Ibipimo bya ovulation bimenya izamuka rya LH, ritera irekurwa ry\'igi nyuma y\'amasaha 24 kugeza kuri 36.',
+      'Birasabwa gutangira gupima iminsi mike mbere y\'itariki ya ovulation yagereranyijwe hashingiwe ku ruhererekane rwawe.',
+      'Igisubizo cyiza cyerekana igihe gikwiye cyane cyo gutera akabariro mu minsi 1 kugeza kuri 2 ikurikira.',
+      'Izamuka rya LH ryonyine ntiryemeza ko ovulation yabaye koko.',
+    ],
+    disclaimerText:
+      'Ibikubiyemo by\'amakuru. Iyi nkuru ntisimbura inama z\'ubuvuzi zihariye. Niba ufite impungenge, shaka inama z\'umuganga.',
+    shareMessage: 'Gusobanukirwa ibipimo bya ovulation (LH) — AWA',
+  },
+  rn: {
+    badge: 'UBURYO BWO KUBYARA • IBIPIMO BYA OVULATION',
+    title: 'Gusobanukirwa ibipimo\nbya ovulation (LH)',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibisuzumwe',
+    intro: 'Ukuntu iyi migozi ikora, n\'igihe cyo kuyikoresha.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'LH ni iki?',
+      'Ukuntu ibi bipimo bikora',
+      'Igihe co gutangura gupima',
+      'Gusobanura igisubizo',
+      'Ibisubizo vy\'ikinyoma n\'imbibi',
+      'Kubihuza n\'ibindi bimenyetso',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) ikorwa n\'ubwonko kandi igenga ukuntu intanga ngore zikora. Ibipimo bya ovulation bimenya kwiyongera kw\'iyi hormone, gutuma igi risohoka nyuma y\'amasaha 24 kugera kuri 36.',
+    section2Body:
+      'Umugozi wo gupima inkari upima urugero rwa LH: umurongo w\'igipimo wirabura nk\'uw\'ikugenzura canke urusha, werekana kwiyongera.',
+    section3Body:
+      'Birasabwa gutangura gupima iminsi mike imbere y\'itarike ya ovulation ikekwa ukurikije uruziga rwawe.',
+    testingTips: [
+      {
+        title: 'Rishingire ku ruziga rwawe',
+        text: 'Tangura iminsi mike imbere y\'itarike ya ovulation ikekwa ukurikije impuzandengo y\'uko inzira zawe zimara.',
+      },
+      {
+        title: 'Pima mu gihe kimwe buri musi',
+        text: 'Ni vyiza ahagana mu gicamunsi, wirinda inkari za mbere zo mu gitondo.',
+      },
+      {
+        title: 'Irinde kuvanga inkari zawe n\'amazi',
+        text: 'Gabanya kunywa amazi menshi mu masaha abanziriza igipimo.',
+      },
+    ],
+    section4Body:
+      'Igisubizo cerekana ko LH yiyongereye cerekana igihe c\'ububyazi bukomeye cane cokwamamara mu minsi 1 kugera kuri 2 ikurikira. Igisubizo kitaryo cerekana gusa ko kwiyongera kutaraba.',
+    limitations: [
+      'PCOS ishobora gutera urugero rwa LH rwo hejuru mu buryo bw\'umuhango, bishobora gutuma gusoma kudasobanutse',
+      'Imiti imwe yo kubyara ishobora kugira ingaruka ku gisubizo',
+      'Inkari zivanze cane n\'amazi zishobora gutanga igisubizo kitaryo cy\'ikinyoma',
+      'Igipimo c\'ubuziranenge buke gishobora kutaba cizewe cane',
+    ],
+    infoTitle: 'Ibuka',
+    infoText:
+      'Kwiyongera kwa LH kwerekana ikimenyetso gitangura cya hormone, ariko ku bwako ntikwemeza ko igi ryasohotse koko.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Guhuza ibipimo bya ovulation n\'ubushyuhe bw\'umubiri wawe bw\'ibanze canke gukurikirana amazi y\'umunwa w\'inda biguha ishusho yuzuye y\'uruziga rwawe.',
+    summaryPoints: [
+      'Ibipimo bya ovulation bimenya kwiyongera kwa LH, gutuma igi risohoka nyuma y\'amasaha 24 kugera kuri 36.',
+      'Birasabwa gutangura gupima iminsi mike imbere y\'itarike ya ovulation ikekwa ukurikije uruziga rwawe.',
+      'Igisubizo cerekana ko LH yiyongereye cerekana igihe c\'ububyazi bukomeye cane cokwamamara mu minsi 1 kugera kuri 2 ikurikira.',
+      'Kwiyongera kwa LH ku bwako ntikwemeza ko ovulation yabaye koko.',
+    ],
+    disclaimerText:
+      'Ibikubiyemwo vyo kumenyesha. Iyi ngingo ntisubira inama z\'ubuvuzi zihariye. Nimba ufise amakenga, saba inama umuhinga mu vy\'ubuzima.',
+    shareMessage: 'Gusobanukirwa ibipimo bya ovulation (LH) — AWA',
+  },
+  ig: {
+    badge: 'ỌMỤMỤ • ENYEMAKA ỊCHỌPỤTA OVULATION',
+    title: 'Ịghọta nnwale\novulation (LH)',
+    metaDuration: 'Nkeji 6 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Ọkwa etiti',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Etu strip ndị a si arụ ọrụ, na mgbe a ga-eji ha.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Gịnị bụ LH?',
+      'Etu nnwale ndị a si arụ ọrụ',
+      'Mgbe a ga-amalite nnwale',
+      'Ịkọwa nsonaazụ',
+      'Nsonaazụ ụgha na oke',
+      'Ijikọta ha na ihe ịrịba ama ndị ọzọ',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    section1Body:
+      'A na-emepụta LH (luteinizing hormone) site n\'ụbụrụ ma ọ na-achịkwa etu ovary si arụ ọrụ. Nnwale ovulation na-achọpụta mmụba nke hormone a, nke na-akpalite ịhapụ akwa awa 24 ruo 36 mgbe e mesịrị.',
+    section2Body:
+      'Strip nnwale mmamịrị na-atụ ọkwa LH: ahịrị nnwale nke gbara ọchịchịrị dị ka ahịrị nchịkwa ma ọ bụ nke karịrị ya na-egosi mmụba.',
+    section3Body:
+      'A na-atụ aro ka ịmalite nnwale ụbọchị ole na ole tupu ụbọchị ovulation e mere atụmatụ site na usoro nsọ gị.',
+    testingTips: [
+      {
+        title: 'Dabere na usoro nsọ gị',
+        text: 'Malite ụbọchị ole na ole tupu ụbọchị ovulation e mere atụmatụ site na ogologo oge nkezi nke usoro nsọ gị.',
+      },
+      {
+        title: 'Nwalee n\'otu oge kwa ụbọchị',
+        text: 'Ọ kacha mma n\'ihe dị ka ehihie, na-ezere mmamịrị mbụ nke ụtụtụ.',
+      },
+      {
+        title: 'Zere ime ka mmamịrị gị dị mmiri mmiri',
+        text: 'Belata ịṅụ mmiri buru ibu n\'awa ndị bu ụzọ nnwale.',
+      },
+    ],
+    section4Body:
+      'Nsonaazụ nke pụtara pụtara na-egosi oge kacha ọmụmụ maka mmekọahụ n\'ụbọchị 1 ruo 2 na-esote. Nsonaazụ na-adịghị mma pụtara naanị na mmụba ahụ emebeghị.',
+    limitations: [
+      'PCOS nwere ike ime ka ọkwa LH dị elu n\'ụzọ okike, nke nwere ike ime ka ọgụgụ ghara ịdị doro anya',
+      'Ụfọdụ ọgwụgwọ ọmụmụ nwere ike imetụta nsonaazụ',
+      'Mmamịrị dị mmiri mmiri nke ukwuu nwere ike inye nsonaazụ ụgha nke na-adịghị mma',
+      'Nnwale nke àgwà dị ala nwere ike ịdị ntụkwasị obi pere mpe',
+    ],
+    infoTitle: 'Cheta',
+    infoText:
+      'Mmụba LH na-egosi ihe ngosi hormone na-akpalite, mana naanị ya anaghị ekwe nkwa na a hapụrụ akwa n\'ezie.',
+    tipTitle: 'Ihe ọ dị mma ịma',
+    tipText:
+      'Ijikọta nnwale ovulation na ọnọdụ ọkụ ahụ gị n\'izu ike ma ọ bụ nleba anya mmiri ọgọ na-enye foto zuru ezu karị nke usoro nsọ gị.',
+    summaryPoints: [
+      'Nnwale ovulation na-achọpụta mmụba LH, nke na-akpalite ịhapụ akwa awa 24 ruo 36 mgbe e mesịrị.',
+      'A na-atụ aro ka ịmalite nnwale ụbọchị ole na ole tupu ụbọchị ovulation e mere atụmatụ site na usoro nsọ gị.',
+      'Nsonaazụ nke pụtara pụtara na-egosi oge kacha ọmụmụ maka mmekọahụ n\'ụbọchị 1 ruo 2 na-esote.',
+      'Mmụba LH naanị ya anaghị ekwe nkwa na ovulation mere n\'ezie.',
+    ],
+    disclaimerText:
+      'Ọdịnaya ozi. Isiokwu a anaghị anọchi ndụmọdụ ahụike nke e ji mee gị. Ma ọ bụrụ na ị nwere obi abụọ, chọọ nduzi n\'aka onye ọrụ ahụike.',
+    shareMessage: 'Ịghọta nnwale ovulation (LH) — AWA',
+  },
+  yo: {
+    badge: 'ÌBÍMỌ • ÀWỌN ÌDÁNWÒ OVULATION',
+    title: 'Òye àwọn ìdánwò\novulation (LH)',
+    metaDuration: 'Ìṣẹ́jú 6 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Àárín',
+    metaValidated: 'Àkóónú tí a ti yẹ̀ wò',
+    intro: 'Bí àwọn ìlà ìdánwò wọ̀nyí ṣe ń ṣiṣẹ́, àti ìgbà tí a ó lò wọ́n.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni LH?',
+      'Bí àwọn ìdánwò wọ̀nyí ṣe ń ṣiṣẹ́',
+      'Ìgbà tí a ó bẹ̀rẹ̀ ìdánwò',
+      'Títúmọ̀ èsì kan',
+      'Èsì èké àti àwọn ààlà',
+      'Pípapọ̀ wọn pẹ̀lú àwọn àmì mìíràn',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) ni ọpọlọ ń ṣe, ó sì ń darí bí àwọn ẹyin obìnrin ṣe ń ṣiṣẹ́. Àwọn ìdánwò ovulation ń rí ìpọ̀sí hormone yìí, èyí tí ó ń mú kí ẹyin jáde ní wákàtí 24 sí 36 lẹ́yìn náà.',
+    section2Body:
+      'Ìlà ìdánwò ìtọ̀ ń wọn ìwọ̀n LH: ìlà ìdánwò tó dúdú bí ìlà ìṣàkóso tàbí tó dúdú jù ú lọ fi ìpọ̀sí hàn.',
+    section3Body:
+      'A dámọ̀ràn pé kí a bẹ̀rẹ̀ ìdánwò ní ọjọ́ mélòó kan ṣáájú ọjọ́ ovulation tí a ṣírò láti inú ìyípo rẹ.',
+    testingTips: [
+      {
+        title: 'Gbé e ka ìyípo rẹ',
+        text: 'Bẹ̀rẹ̀ ní ọjọ́ mélòó kan ṣáájú ọjọ́ ovulation tí a ṣírò láti inú ìpíndọ́gba gígùn ìyípo rẹ.',
+      },
+      {
+        title: 'Ṣe ìdánwò ní àkókò kan náà lójoojúmọ́',
+        text: 'Ó dára jù ní nǹkan bí ọ̀sán gangan, kí o sì yẹra fún ìtọ̀ àkọ́kọ́ òwúrọ̀.',
+      },
+      {
+        title: 'Yẹra fún dídín ìtọ̀ rẹ kù',
+        text: 'Dín mímu omi púpọ̀ kù ní wákàtí tó ṣáájú ìdánwò.',
+      },
+    ],
+    section4Body:
+      'Èsì rere fi àkókò tó lè bímọ jù hàn fún ìbálòpọ̀ ní ọjọ́ 1 sí 2 tó tẹ̀lé. Èsì àìrere túmọ̀ sí pé ìpọ̀sí náà kò tíì ṣẹlẹ̀ ni.',
+    limitations: [
+      'PCOS lè fa LH gíga lọ́nà àdánidá, èyí tí ó lè mú kíkà náà di aláìṣe kedere',
+      'Àwọn ìtọ́jú ìbímọ kan lè ní ipa lórí èsì náà',
+      'Ìtọ̀ tí ó ti rin jù lè fúnni ní èsì àìrere èké',
+      'Ìdánwò tí kò ní dídára lè jẹ́ èyí tí a kò lè gbẹ́kẹ̀lé tó',
+    ],
+    infoTitle: 'Rántí',
+    infoText:
+      'Ìpọ̀sí LH fi àmì hormone tó ń fa ovulation hàn, ṣùgbọ́n fúnra rẹ̀ kò ṣèdá dájú pé ẹyin náà jáde ní ti gidi.',
+    tipTitle: 'Ohun tó dára láti mọ̀',
+    tipText:
+      'Pípapọ̀ àwọn ìdánwò ovulation pẹ̀lú ìgbóná ara rẹ ní ìsinmi tàbí ṣíṣàkíyèsí omi ọrùn ilé ọmọ ń fún ọ ní àwòrán kíkún sí i ti ìyípo rẹ.',
+    summaryPoints: [
+      'Àwọn ìdánwò ovulation ń rí ìpọ̀sí LH, èyí tí ó ń mú kí ẹyin jáde ní wákàtí 24 sí 36 lẹ́yìn náà.',
+      'A dámọ̀ràn pé kí a bẹ̀rẹ̀ ìdánwò ní ọjọ́ mélòó kan ṣáájú ọjọ́ ovulation tí a ṣírò láti inú ìyípo rẹ.',
+      'Èsì rere fi àkókò tó lè bímọ jù hàn fún ìbálòpọ̀ ní ọjọ́ 1 sí 2 tó tẹ̀lé.',
+      'Ìpọ̀sí LH fúnra rẹ̀ kò ṣèdá dájú pé ovulation ṣẹlẹ̀ ní ti gidi.',
+    ],
+    disclaimerText:
+      'Àkóónú fún ìmọ̀ nìkan. Àpilẹ̀kọ yìí kò rọ́pò ìmọ̀ràn oníṣègùn tó jẹ mọ́ ẹni. Tí o bá ṣiyèméjì, wá ìtọ́sọ́nà lọ́dọ̀ ọ̀jọ̀gbọ́n ìlera.',
+    shareMessage: 'Òye àwọn ìdánwò ovulation (LH) — AWA',
+  },
+  zu: {
+    badge: 'UKUNGENA • AMATHESTHI E-OVULATION',
+    title: 'Ukuqonda amathesthi\ne-ovulation (LH)',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Eliphakathi',
+    metaValidated: 'Okuqukethwe okubuyekeziwe',
+    intro: 'Ukuthi lezi zinti zisebenza kanjani, nokuthi uzisebenzise nini.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Yini i-LH?',
+      'Ukuthi lawa mathesthi asebenza kanjani',
+      'Ukuthi uqale nini ukuhlola',
+      'Ukuhumusha umphumela',
+      'Imiphumela engeyiyo neminqunyelo',
+      'Ukuwahlanganisa nezinye izimpawu',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    section1Body:
+      'I-LH (i-luteinizing hormone) yakhiwa ubuchopho futhi ilawula indlela amaqanda asebenza ngayo. Amathesthi e-ovulation athola ukwenyuka kwale hormone, okuvusa ukukhululwa kweqanda emva kwamahora angu-24 kuya ku-36.',
+    section2Body:
+      'Intonga yokuhlola umchamo ilinganisa amazinga e-LH: umugqa wokuhlola omnyama njengomugqa wokulawula noma omnyama ngaphezulu ukhombisa ukwenyuka.',
+    section3Body:
+      'Kuyanconywa ukuqala ukuhlola izinsuku ezimbalwa ngaphambi kosuku lwe-ovulation olulinganiselwe ngomjikelezo wakho.',
+    testingTips: [
+      {
+        title: 'Yakhela emjikelezweni wakho',
+        text: 'Qala izinsuku ezimbalwa ngaphambi kosuku lwe-ovulation olulinganiselwe ngobude obujwayelekile bemijikelezo yakho.',
+      },
+      {
+        title: 'Hlola ngesikhathi esifanayo nsuku zonke',
+        text: 'Kuhle ngasemini, ugweme umchamo wakho wokuqala ekuseni.',
+      },
+      {
+        title: 'Gweme ukwehlisa umchamo wakho',
+        text: 'Nciphisa amanzi amaningi emahoreni angaphambi kokuhlola.',
+      },
+    ],
+    section4Body:
+      'Umphumela ophozithivu ukhomba isikhathi esilungele kakhulu sokuzalana ezinsukwini ezilandelayo ezingu-1 kuya ku-2. Umphumela onegethivu usho nje ukuthi ukwenyuka akukenzeki.',
+    limitations: [
+      'I-PCOS ingabangela amazinga e-LH aphezulu ngokwemvelo, okungenza ukufunda kube nzima',
+      'Ezinye izindlela zokwelapha ukuzala zingathinta umphumela',
+      'Umchamo ocijile kakhulu ungenza umphumela onegethivu ongeyiwo',
+      'Ithesthi elikhwalithi ephansi lingathembeki kangako',
+    ],
+    infoTitle: 'Khumbula',
+    infoText:
+      'Ukwenyuka kwe-LH kukhombisa isignali yama-hormone evusayo, kodwa yodwa ayiqinisekisi ukuthi iqanda likhululwe ngempela.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukuhlanganisa amathesthi e-ovulation nokushisa komzimba wakho wokuphumula noma ukubheka isikhumba esiphuma esibelethweni kunikeza isithombe esigcwele somjikelezo wakho.',
+    summaryPoints: [
+      'Amathesthi e-ovulation athola ukwenyuka kwe-LH, okuvusa ukukhululwa kweqanda emva kwamahora angu-24 kuya ku-36.',
+      'Kuyanconywa ukuqala ukuhlola izinsuku ezimbalwa ngaphambi kosuku lwe-ovulation olulinganiselwe ngomjikelezo wakho.',
+      'Umphumela ophozithivu ukhomba isikhathi esilungele kakhulu sokuzalana ezinsukwini ezilandelayo ezingu-1 kuya ku-2.',
+      'Ukwenyuka kwe-LH kuphela akuqinisekisi ukuthi i-ovulation yenzeke ngempela.',
+    ],
+    disclaimerText:
+      'Okuqukethwe okunikeza ulwazi. Lesi sihloko asithathi indawo yeseluleko sezokwelapha esikhethekile kuwe. Uma une-shwa, funa isiqondiso kochwepheshe wezempilo.',
+    shareMessage: 'Ukuqonda amathesthi e-ovulation (LH) — AWA',
+  },
+  xh: {
+    badge: 'UKUKHULELWA • IMIVAVANYO YE-OVULATION',
+    title: 'Ukuqonda imivavanyo\nye-ovulation (LH)',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Iqondo eliphakathi',
+    metaValidated: 'Umxholo ohlolwe',
+    intro: 'Indlela ezi ncuthu zisebenza ngayo, nokuba ungazisebenzisa nini.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni i-LH?',
+      'Indlela le mivavanyo esebenza ngayo',
+      'Xa kufuneka uqale ukuvavanya',
+      'Ukutolika umphumo',
+      'Iziphumo ezingeyonyani nemida',
+      'Ukuzidibanisa neminye imiqondiso',
+      'Amanqaku aphambili',
+    ],
+    section1Body:
+      'I-LH (luteinizing hormone) yenziwa yingqondo kwaye ilawula indlela amaqanda asebenza ngayo. Imivavanyo ye-ovulation ibona ukunyuka kwale hormone, okubangela ukukhutshwa kweqanda emva kweeyure ezili-24 ukuya kwezingama-36.',
+    section2Body:
+      'Isihlaha somchamo silinganisa amanqanaba e-LH: umgca wovavanyo omnyama okanye omnyama kunomgca wolawulo ubonisa ukunyuka.',
+    section3Body:
+      'Kucetyiswa ukuqala ukuvavanya iintsuku ezimbalwa ngaphambi komhla we-ovulation owulindeleyo ngokomjikelo wakho.',
+    testingTips: [
+      {
+        title: 'Gxila kumjikelo wakho',
+        text: 'Qala iintsuku ezimbalwa ngaphambi komhla we-ovulation owulindeleyo ngokobude obuqhelekileyo bemijikelo yakho.',
+      },
+      {
+        title: 'Vavanya ngexesha elifanayo mihla le',
+        text: 'Ngokufanelekileyo malunga nemini embindini, ukuphepha umchamo wokuqala wasekuseni.',
+      },
+      {
+        title: 'Phepha ukuncitshisa umchamo wakho',
+        text: 'Nciphisa amanzi amaninzi kwiiyure ezandulela uvavanyo.',
+      },
+    ],
+    section4Body:
+      'Umphumo ongqinelanayo ubonisa ixesha elilungele kakhulu ukukhulelwa kwiintsuku ezi-1 ukuya kwezi-2 ezilandelayo. Umphumo ongelulo ubonisa nje ukuba ukunyuka akukenzeki.',
+    limitations: [
+      'I-PCOS inokubangela amanqanaba e-LH aphezulu ngokwemvelo, nto leyo enokwenza ukufunda kungacaci',
+      'Ezinye iindlela zonyango lokukhulelwa zinokuchaphazela umphumo',
+      'Umchamo ocinezelwe kakhulu unokunika umphumo ongelulo ongeyonyani',
+      'Uvavanyo olungafanelekanga lunokungathembeki kangako',
+    ],
+    infoTitle: 'Khumbula',
+    infoText:
+      'Ukunyuka kwe-LH kubonisa umqondiso wehormone obangelayo, kodwa ngokwayo akuqinisekisi ukuba iqanda likhutshiwe ngokwenene.',
+    tipTitle: 'Kulungile ukwazi',
+    tipText:
+      'Ukudibanisa imivavanyo ye-ovulation nobushushu bakho bomzimba abuyisekileyo okanye ukubukela ubumanzi bomlomo wesibeleko kunika umfanekiso opheleleyo ngakumbi womjikelo wakho.',
+    summaryPoints: [
+      'Imivavanyo ye-ovulation ibona ukunyuka kwe-LH, okubangela ukukhutshwa kweqanda emva kweeyure ezili-24 ukuya kwezingama-36.',
+      'Kucetyiswa ukuqala ukuvavanya iintsuku ezimbalwa ngaphambi komhla we-ovulation owulindeleyo ngokomjikelo wakho.',
+      'Umphumo ongqinelanayo ubonisa ixesha elilungele kakhulu ukukhulelwa kwiintsuku ezi-1 ukuya kwezi-2 ezilandelayo.',
+      'Ukunyuka kwe-LH ngokwako akuqinisekisi ukuba i-ovulation yenzeke ngenene.',
+    ],
+    disclaimerText:
+      'Umxholo wolwazi. Eli nqaku alithathi indawo yengcebiso yezonyango eyenzelwe wena. Ukuba unamathandabuzo, funa isikhokelo kwingcali yezempilo.',
+    shareMessage: 'Ukuqonda imivavanyo ye-ovulation (LH) — AWA',
+  },
+  sn: {
+    badge: 'KUBEREKA • MATESTI E OVULATION',
+    title: 'Kunzwisisa matesti\ne ovulation (LH)',
+    metaDuration: 'Kuverenga kwemaminetsi 6',
+    metaType: 'Gwaro',
+    metaLevel: 'Epakati',
+    metaValidated: 'Zvakaongororwa',
+    intro: 'Maseru aya anoshanda sei, uye nguva yekuashandisa.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'LH chii?',
+      'Matesti aya anoshanda sei',
+      'Nguva yekutanga kuedza',
+      'Kududzira mhedzisiro',
+      'Mhedzisiro dzenhema nemigumo',
+      'Kuabatanidza nezvimwe zviratidzo',
+      'Zvakakosha kuyeuka',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) inogadzirwa neuropi uye inotungamira kushanda kwema ovary. Matesti e ovulation anoona kukwira kwehormone iyi, izvo zvinotangisa kubuda kweqanda mushure memaawa 24 kusvika ku 36.',
+    section2Body:
+      'Mutsetse wetesti weweti unoyera mwero we LH: mutsetse wetesti wakasviba sewekutonga kana kupfuura wacho unoratidza kukwira.',
+    section3Body:
+      'Zvinokurudzirwa kutanga kuedza mazuva mashoma ovulation isati yasvika zvichienderana nezuva rakafungidzirwa kubva pacycle yako.',
+    testingTips: [
+      {
+        title: 'Tanga necycle yako',
+        text: 'Tanga mazuva mashoma ovulation isati yasvika zvichienderana nezuva rakafungidzirwa kubva pakureba kwakajairika kwemacycle ako.',
+      },
+      {
+        title: 'Edza panguva imwe zuva rega rega',
+        text: 'Kazhinji masikati, ichidzivisa weti yekutanga yamangwanani.',
+      },
+      {
+        title: 'Dzivisa kunyungudutsa weti yako',
+        text: 'Deredza mvura yakawanda mumaawa asati aedza.',
+      },
+    ],
+    section4Body:
+      'Mhedzisiro yakanaka inoratidza nguva yakakodzera zvikuru yekuita hukama kwemazuva 1 kusvika ku 2 anotevera. Mhedzisiro isina kunaka inoreva chete kuti kukwira kuchaitika.',
+    limitations: [
+      'PCOS inogona kukonzera mwero wakakwirira we LH wechisikirwo, izvo zvinogona kuvhiringidza kuverenga',
+      'Mimwe mishonga yekubereka inogona kukanganisa mhedzisiro',
+      'Weti yakanyungudutswa zvakanyanya inogona kupa mhedzisiro yenhema isina kunaka',
+      'Testi yakaderera kunaka inogona kuva isingavimbike',
+    ],
+    infoTitle: 'Yeuka izvi',
+    infoText:
+      'Kukwira kwe LH kunoratidza chiratidzo chema hormone chinotangisa, asi chega hachivimbisi kuti qanda rakabuda chaizvo.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Kubatanidza matesti e ovulation nekupisa kwemuviri wako wepasi kana kutarisa cervical mucus kunopa mufananidzo wakazara wecycle yako.',
+    summaryPoints: [
+      'Matesti e ovulation anoona kukwira kwe LH, izvo zvinotangisa kubuda kweqanda mushure memaawa 24 kusvika ku 36.',
+      'Zvinokurudzirwa kutanga kuedza mazuva mashoma ovulation isati yasvika zvichienderana nezuva rakafungidzirwa kubva pacycle yako.',
+      'Mhedzisiro yakanaka inoratidza nguva yakakodzera zvikuru yekuita hukama kwemazuva 1 kusvika ku 2 anotevera.',
+      'Kukwira kwe LH chega hakuvimbisi kuti ovulation yakaitika chaizvo.',
+    ],
+    disclaimerText:
+      'Zvinyorwa zvekuziva chete. Chinyorwa ichi hachitsiviri zano rekurapwa rakakodzera iwe. Kana une kusava nechokwadi, tsvaga kutungamirirwa nenyanzvi yezveutano.',
+    shareMessage: 'Kunzwisisa matesti e ovulation (LH) — AWA',
+  },
+  ln: {
+    badge: 'BOMEMI • BA TEST YA OVULATION',
+    title: 'Kososola ba test\nya ovulation (LH)',
+    metaDuration: 'Miniti 6 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya katikati',
+    metaValidated: 'Makambo oyo etalelami',
+    intro: 'Ndenge nini bakartɔ oyo esalaka, mpe ntango nini ya kosalela yango.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'LH ezali nini?',
+      'Ndenge nini ba test oyo esalaka',
+      'Ntango nini ya kobanda kosala test',
+      'Kotánga eyano',
+      'Bilembo ya lokuta mpe bobangi',
+      'Kokokanisa yango na bilembo mosusu',
+      'Makambo ya kokanisa',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) ebimisami na mokili ya motó mpe ekambaka ndenge ba ovaire esalaka. Ba test ya ovulation ekamataka bobakisami ya hormone oyo, oyo ebimisaka lia na ngonga 24 tii 36 sima.',
+    section2Body:
+      'Karte ya test ya mpipi ekokanisaka ndenge LH ezali: mokɔlɔ ya test oyo ezali moindo lokola to koleka mokɔlɔ ya kotala elakisi bobakisami.',
+    section3Body:
+      'Esengeli kobanda kosala test mwa mikolo liboso ya mokolo ya ovulation oyo ekanisami engebene na cycle na yo.',
+    testingTips: [
+      {
+        title: 'Tyela cycle na yo motema',
+        text: 'Banda mwa mikolo liboso ya mokolo ya ovulation oyo ekanisami engebene na ntango ya kati-kati ya ba cycle na yo.',
+      },
+      {
+        title: 'Sala test na ngonga moko mokolo nyonso',
+        text: 'Ya malamu ezali zingazinga ya midi, kozanga mpipi ya libosoliboso ya ntɔngɔ.',
+      },
+      {
+        title: 'Kosukisa mpipi na yo te',
+        text: 'Kokitisa komela mai mingi na ngonga oyo ezali liboso ya test.',
+      },
+    ],
+    section4Body:
+      'Eyano ya positif elakisi ntango ya bomemi oyo eleki malamu mpo na boyokani na mikolo 1 tii 2 oyo elandi. Eyano ya négatif elimboli kaka ete bobakisami naino ebimi te.',
+    limitations: [
+      'PCOS ekoki kobimisa LH oyo ezali likolo na ndenge ya bomoto, yango ekoki kobunda na kotánga',
+      'Ba traitement mosusu ya bomemi ekoki kobongola eyano',
+      'Mpipi oyo ezali na mai mingi mpenza ekoki kopesa eyano ya négatif ya lokuta',
+      'Test ya kilo moke ekoki kozala ya bosembo moke',
+    ],
+    infoTitle: 'Kokanisa',
+    infoText:
+      'Bobakisami ya LH elakisi elembo ya hormone oyo ebandisi, kasi yango kaka ezali kondimisa te ete lia ebimaki mpenza.',
+    tipTitle: 'Eloko ya koyeba',
+    tipText:
+      'Kokokanisa ba test ya ovulation na molunge ya nzoto na yo ya ntɔngɔ to kotala mucus ya libumu epesi elongo ndenge ya mobimba ya cycle na yo.',
+    summaryPoints: [
+      'Ba test ya ovulation ekamataka bobakisami ya LH, oyo ebimisaka lia na ngonga 24 tii 36 sima.',
+      'Esengeli kobanda kosala test mwa mikolo liboso ya mokolo ya ovulation oyo ekanisami engebene na cycle na yo.',
+      'Eyano ya positif elakisi ntango ya bomemi oyo eleki malamu mpo na boyokani na mikolo 1 tii 2 oyo elandi.',
+      'Bobakisami ya LH kaka ezali kondimisa te ete ovulation esalemaki mpenza.',
+    ],
+    disclaimerText:
+      'Makambo ya koyebisa. Lisolo oyo etɛlɛmi na esika ya toli ya monganga oyo ebongi na yo moko te. Soki ozali na ntembe, luka toli epai ya moto ya mosala ya lisano.',
+    shareMessage: 'Kososola ba test ya ovulation (LH) — AWA',
+  },
+  ff: {
+    badge: 'ANNDUGO HAWTERE • TESTI OVULATION',
+    title: 'Faamugo testi\novulation (LH)',
+    metaDuration: 'Janngugol minti 6',
+    metaType: 'Jannginoore',
+    metaLevel: 'Hakkunde',
+    metaValidated: 'Ko ndaaraa',
+    intro: 'No strips ɗin ɗon wanna, e ndey ko haani huutinaade ɗum.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'LH ko ɗume?',
+      'No testi ɗin ɗon wanna',
+      'Ndey ko haani fuɗɗude testi',
+      'Faamugo jaabawol',
+      'Jaabawol fenaande e ko ɗum yaaji',
+      'Hawtugo e ɓaleeji feere',
+      'Ko ɗum ɓuri fuu',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) ɗum ɗon waɗa e hoore e ɗum ɗon hakkilii wanna ovaries. Testi ovulation ɗon yiɗa ɓeydude hormone ndin, ɗum ɗon waɗa ɗam ɗam yaha caggal nga\'u 24 haa 36.',
+    section2Body:
+      'Strip testi ngam ñiiwa ɗum ɗon ndaara LH: sarɗi testi ɗum ɗon sooynde bana sarɗi raarugo malla ɗum ɓuri sooynde ɗum ɗon wi\'a ɓeydude.',
+    section3Body:
+      'Ɗum moyyi fuɗɗude testi nyalaaje seɗɗe adda nyannde ovulation ɗum anndaa e doggol lewru maaɗa.',
+    testingTips: [
+      {
+        title: 'Raaru e doggol lewru maaɗa',
+        text: 'Fuɗɗu nyalaaje seɗɗe adda nyannde ovulation ɗum anndaa e mawnude doggol lewru maaɗa.',
+      },
+      {
+        title: 'Testi wakkati gooto kala nyannde',
+        text: 'Ɗum moyyi nder tuubako, taa huutina ñiiwa artungo nder ceeɗu.',
+      },
+      {
+        title: 'Taa waylu ñiiwa maaɗa ndiyam',
+        text: 'Hoyru yarde ndiyam ɗuuɗɗam nder nga\'u ɗi adda testi.',
+      },
+    ],
+    section4Body:
+      'Jaabawol moyyuɗo ɗum ɗon wi\'a wakkati ɓuri hawtere ngam jooɗude nder nyalaaje 1 haa 2 ɗin. Jaabawol walaa ɗum ɗon wi\'a ɓeydude ɗum hawraaki tawude.',
+    limitations: [
+      'PCOS ɗum waawi waɗugo LH ɗum ɓuri laaɓi nder hoore maɗɗum, ɗum waawi waɗugo ndaaraugo caɗeele',
+      'Nafooji hawtere seɗɗe ɗum waawi waylude jaabawol',
+      'Ñiiwa ndiyam ɗam ɗuuɗi ɗum waawi hokkugo jaabawol fenaande',
+      'Testi ɗum wonaa moyyere ɗum waawi wonde ko ɗum jaɓaaka',
+    ],
+    infoTitle: 'Hakkilu',
+    infoText:
+      'Ɓeydude LH ɗum ɗon wi\'a hormone ɗum ɗon fuɗɗa, kono hoore maɗɗum ɗum hokkataa goonga ndey ɗam yaadi.',
+    tipTitle: 'Ɗum ɓuri nafugo anndude',
+    tipText:
+      'Hawtugo testi ovulation e basal body temperature maaɗa malla raarugo cervical mucus ɗum hokka ma yiilaade ɓuri nder doggol lewru maaɗa.',
+    summaryPoints: [
+      'Testi ovulation ɗon yiɗa ɓeydude LH, ɗum ɗon waɗa ɗam yaha caggal nga\'u 24 haa 36.',
+      'Ɗum moyyi fuɗɗude testi nyalaaje seɗɗe adda nyannde ovulation ɗum anndaa e doggol lewru maaɗa.',
+      'Jaabawol moyyuɗo ɗum ɗon wi\'a wakkati ɓuri hawtere ngam jooɗude nder nyalaaje 1 haa 2 ɗin.',
+      'Ɓeydude LH hoore maɗɗum ɗum hokkataa goonga ndey ovulation waɗi.',
+    ],
+    disclaimerText:
+      'Anndinde tan. Winndannde ndee ɗum sirtaaka jaabawol dokotoro ngam hoore maaɗa. To a woodi hoyre, ɗaɓɓu wallu e mo hesɗitini ɗum.',
+    shareMessage: 'Faamugo testi ovulation (LH) — AWA',
+  },
   id: {
     badge: 'KESUBURAN • TES OVULASI',
     title: 'Memahami tes\novulasi (LH)',

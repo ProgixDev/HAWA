@@ -557,6 +557,831 @@ const CONTENT = withBrazilianPortuguese('UnderstandMenstrualFlow', {
       reliefText: '休息、热敷和轻柔的活动会有帮助。如果疼痛仍然非常剧烈或异常，请就医咨询。',
       shareMessage: '了解你的月经：身体里究竟发生了什么 — AWA',
     },
+  'zh-Hant': {
+      badge: '月經週期',
+      title: '瞭解你的月經：\n身體裡究竟發生了什麼',
+      metaDuration: '閱讀約 5 分鐘',
+      metaValidated: '已稽核內容',
+      intro: '月經是一個自然過程的一部分，對荷爾蒙和生殖健康至關重要。瞭解身體裡發生了什麼，可以讓你在每個週期裡更加安心。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是月經？',
+        '月經是如何進行的',
+        '什麼是正常的（什麼不是）',
+        '自然緩解疼痛',
+      ],
+      body1: '月經是在沒有受精的情況下，子宮內膜脫落的過程。平均每月發生一次。',
+      knowTitle: '小提醒',
+      knowText: '每個女性都是獨特的：持續時間、經量和感受，在不同週期之間都可能有所不同。',
+      body2: '整個經期的經量並不是一成不變的。它通常每天都在變化，包括量的多少、顏色和質地。',
+      flowSteps: [
+        {
+          title: '經期開始',
+          text: '最初幾天的經量通常較多。',
+        },
+        {
+          title: '經期中段',
+          text: '經量一般會開始逐漸減少。',
+        },
+        {
+          title: '經期結束',
+          text: '經量變少，顏色可能變深。',
+        },
+      ],
+      softInfoTitle: '請記住',
+      softInfoText: '這在不同週期之間可能有所不同。最重要的是瞭解自己平時的節律。',
+      body3: '經期中出現一些變化很常見。另一些訊號則更值得留意，尤其是當它們是新出現的或非常強烈時。',
+      normalSigns: [
+        {
+          title: '持續時間',
+          text: '月經通常持續幾天。',
+        },
+        {
+          title: '經量變化',
+          text: '一開始較多，之後逐漸減少。',
+        },
+        {
+          title: '顏色',
+          text: '從鮮紅色到暗紅色，臨近經期結束時可能呈棕色。',
+        },
+        {
+          title: '感覺',
+          text: '可能會有輕度到中度的痙攣感。',
+        },
+      ],
+      warningTitle: '什麼時候應該就醫諮詢？',
+      warningSigns: [
+        '非常劇烈或異常的疼痛',
+        '出血很快浸透衛生棉或衛生棉條',
+        '明顯疲倦、感覺快要昏厥或頭暈',
+        '與你平時的情況相比，突然出現並持續的變化',
+      ],
+      body4: '一些簡單的習慣可以幫助緩解不適，讓經期最初幾天更舒服。',
+      tipsTitle: '實用小建議',
+      tips: [
+        '多喝水，\n有助於減輕\n疲倦。',
+        '需要時，\n用熱敷\n溫暖小腹。',
+        '試試輕柔的\n活動：散步、\n瑜伽、拉伸。',
+        '讓自己多休息，\n保證優質\n睡眠。',
+      ],
+      reliefTitle: '傾聽身體的聲音',
+      reliefText: '休息、熱敷和輕柔的活動會有幫助。如果疼痛仍然非常劇烈或異常，請就醫諮詢。',
+      shareMessage: '瞭解你的月經：身體裡究竟發生了什麼 — AWA',
+    },
+  ar: {
+    badge: 'الدورة الشهرية',
+    title: 'فهم حيضك:\nما الذي يحدث فعلًا',
+    metaDuration: 'قراءة 5 دقائق',
+    metaValidated: 'محتوى مُراجَع',
+    intro:
+      'الحيض جزء من عملية طبيعية أساسية للصحة الهرمونية والإنجابية. وفهم ما يحدث في جسمك قد يساعدك على الشعور براحة أكبر مع كل دورة.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هو الحيض؟',
+      'كيف يسير حيضك',
+      'ما الطبيعي (وما ليس كذلك)',
+      'تخفيف الألم بطرق طبيعية',
+    ],
+    body1:
+      'الحيض هو تخلّص الجسم من بطانة الرحم عندما لا يحدث إخصاب. ويحدث ذلك في المتوسط مرة في الشهر.',
+    knowTitle: 'جدير بالمعرفة',
+    knowText:
+      'كل امرأة فريدة: فقد تختلف المدة والشدة والأحاسيس من دورة إلى أخرى.',
+    body2:
+      'لا يكون التدفق نفسه طوال فترة الحيض. فهو يتغير عادةً من يوم إلى آخر في الشدة واللون والقوام.',
+    flowSteps: [
+      {title: 'بداية حيضك', text: 'يكون التدفق غالبًا أغزر خلال الأيام الأولى.'},
+      {title: 'منتصف حيضك', text: 'يبدأ التدفق عمومًا بالانخفاض تدريجيًا.'},
+      {title: 'نهاية حيضك', text: 'يصبح التدفق أخف وقد يميل لونه إلى الداكن.'},
+    ],
+    softInfoTitle: 'تذكّري',
+    softInfoText:
+      'قد يختلف هذا من دورة إلى أخرى. والأهم هو أن تعرفي إيقاعك المعتاد.',
+    body3:
+      'بعض التغيرات شائعة أثناء الحيض. وهناك علامات أخرى تستحق مزيدًا من الانتباه، خصوصًا إذا كانت جديدة أو شديدة جدًا.',
+    normalSigns: [
+      {title: 'المدة', text: 'حيض يستمر عادةً بضعة أيام.'},
+      {title: 'تدفّق متغيّر', text: 'تدفّق أغزر في البداية ثم أخف.'},
+      {title: 'اللون', text: 'من الأحمر الفاتح إلى الأحمر الداكن أو البني قرب نهاية الحيض.'},
+      {title: 'الأحاسيس', text: 'قد تُحَسّ تقلصات خفيفة إلى متوسطة.'},
+    ],
+    warningTitle: 'متى تطلبين استشارة طبية؟',
+    warningSigns: [
+      'ألم شديد جدًا أو غير معتاد',
+      'نزف يُشبع الفوطة أو السدادة القطنية بسرعة كبيرة',
+      'تعب شديد أو شعور بالإغماء أو دوار',
+      'تغيّر مفاجئ ومستمر عن نمطك المعتاد',
+    ],
+    body4:
+      'عادات بسيطة قد تساعد على تخفيف الانزعاج وجعل الأيام الأولى من حيضك أكثر راحة.',
+    tipsTitle: 'نصائح عملية',
+    tips: [
+      'اشربي كمية كافية\nمن الماء للمساعدة\nعلى الحدّ من التعب.',
+      'ضعي كمادة دافئة\nعلى أسفل بطنك\nعند الحاجة.',
+      'جرّبي نشاطًا لطيفًا:\nالمشي أو اليوغا\nأو تمارين التمدد.',
+      'امنحي نفسك\nالراحة ونومًا\nجيدًا.',
+    ],
+    reliefTitle: 'أصغي إلى جسمك',
+    reliefText:
+      'قد تساعد الراحة والدفء والنشاط اللطيف. وإذا ظل الألم شديدًا جدًا أو غير معتاد، فاطلبي استشارة طبية.',
+    shareMessage: 'فهم حيضك: ما الذي يحدث فعلًا — AWA',
+  },
+  kab: {
+    badge: 'TAWAƔIT N LḤIḌ',
+    title: 'Fhem lḥiḍ-ik:\nayen i d-yettilin s tidet',
+    metaDuration: '5 n tesdidin n tɣuri',
+    metaValidated: 'Agbur yettwasenqed',
+    intro:
+      'Lḥiḍ-ik yella deg ukalas amagnu i ilaqen i tezmert n hormone d tmeddurt. Fhem ayen i d-yettilin deg ujeṭṭa-ik yezmer ad k-yeɛawen ad tḥessed lehna ugar deg yal tawaɣit.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu-t lḥiḍ?',
+      'Amek ara yeddu lḥiḍ-ik',
+      'Ayen yellan d amagnu (d ayen ur nelli ara)',
+      'Anaqqṣ n uḥrad s wudem unnig',
+    ],
+    body1:
+      'Lḥiḍ d tuffɣa n wanef n ukalas n tkuffa ticki ur yella ara usemmed. Aya ittilin s umata yiwen n tikkelt deg wayyur.',
+    knowTitle: 'Yelha ad tessneḍ',
+    knowText:
+      'Yal tameṭṭut d tarefrit: azal, tazmert, akked ayen yettwaḥessen zemren ad ttemgarad seg tawaɣit ɣer tayeḍ.',
+    body2:
+      'Idammen ur tt-ezgan ara am wakken yella deg lḥiḍ-ik. S umata ttbeddilen seg wass ɣer wayeḍ, deg tezmert, deg ccekl akked deg uḍad.',
+    flowSteps: [
+      {title: 'Tazwara n lḥiḍ-ik', text: 'Idammen ttilin d ugar deg ussan imezwura.'},
+      {title: 'Azgen n lḥiḍ-ik', text: 'Idammen s umata ttbeddilen ad ttnaqqṣen s wudem unelmad.'},
+      {title: 'Taggara n lḥiḍ-ik', text: 'Idammen ttuɣalen d ilemzi yerna zemren ad rren d acu yeẓẓuẓen.'},
+    ],
+    softInfoTitle: 'Cfu',
+    softInfoText:
+      'Aya izmer ad yemgarad seg tawaɣit ɣer tayeḍ. Ayen yeqqnen ugar d ayen ad tissineḍ amnaḍ i teɛfiḍ.',
+    body3:
+      'Kra n yibeddilen ttilin deg lḥiḍ. Iceddan-nniḍen ḥwaǧen aḥrad ugar, ladɣa ma d imaynuten neɣ d iqerrayen.',
+    normalSigns: [
+      {title: 'Azal', text: 'Lḥiḍ i yettwasen s kra n wussan.'},
+      {title: 'Idammen yemgaraden', text: 'Idammen ugar-iten deg tazwara, syin ttnaqqṣen.'},
+      {title: 'Ccekl', text: 'Seg weẓẓal ayefki ɣer weẓẓal yeẓẓuẓen neɣ ayeǧǧig ɣer taggara n lḥiḍ-ik.'},
+      {title: 'Ayen yettwaḥessen', text: 'Aṭṭan n wul amecṭuḥ ɣer umalas zemren ad ttwaḥessen.'},
+    ],
+    warningTitle: 'Melmi ara tsuteḍ tamusni n ṭṭbib?',
+    warningSigns: [
+      'Aṭṭan uslig neɣ ur nelli ara am wakken yella',
+      'Idammen i yesmedden s zzerb aḍris neɣ tasuqqit',
+      'Usexsi ameqqran, ammus n tuffɣa n tnefsit neɣ aɣuzzef n uqerru',
+      'Abeddel uslig yerna yeqqim seg ayen n wass-ik',
+    ],
+    body4:
+      'Aṭṭan kra n twaɣiwin yezmer ad k-yeɛawen ad ttnaqqṣen aḥrad yerna ad rren ussan imezwura n lḥiḍ-ik d ayen yelhan.',
+    tipsTitle: 'Iwellihen yelhan',
+    tips: [
+      'Swu aman\nyemmden i wakken\nad ttnaqqṣen usexsi.',
+      'Sers asemmaḍ\nɣer wadda n\nwaɛebbuḍ ma yelha.',
+      'Ɛreḍ armud yelhan:\nareglu, yoga,\ntunfas.',
+      'Ṛǧu iman-ik\nyerna ṭṭef nnuba\nyelhan.',
+    ],
+    reliefTitle: 'Sel i ujeṭṭa-ik',
+    reliefText:
+      'Taggara, asemmaḍ, tafat n usemmaḍ d armud yelhan zemren ad ɛawnen. Ma yeqqim uṭṭan d uslig neɣ ur nelli ara am wakken yella, suter tamusni n ṭṭbib.',
+    shareMessage: 'Fhem lḥiḍ-ik: ayen i d-yettilin s tidet — AWA',
+  },
+  om: {
+    badge: 'MARSAA LAGUU',
+    title: 'Laguu kee hubachuu:\ndhugumatti maal ta\'aa jira',
+    metaDuration: 'Dubbisuuf daqiiqaa 5',
+    metaValidated: 'Qabiyyee ilaalame',
+    intro:
+      'Laguun kee adeemsa uumamaa fayyaa hormoonii fi da\'umsaaf barbaachisaa kan ta\'e keessa isa tokko dha. Qaama kee keessatti maal akka ta\'aa jiru hubachuun marsaa hundatti of mijeessuuf si gargaara.',
+    contentsTitle: 'Barreeffama kana keessatti',
+    topics: [
+      'Laguun maali?',
+      'Laguun kee akkamitti adeema',
+      'Wanti idilee (fi wanti hin taane)',
+      'Dhukkubbii uumamaan salphisuu',
+    ],
+    body1:
+      'Laguun yeroo hanqaaquun hin uumamne, gogaan mudhii gadameessaa kan buqqa\'u dha. Kun giddu-galeessaan ji\'a tokkoon altokko ta\'a.',
+    knowTitle: 'Beekuun gaarii',
+    knowText:
+      'Dubartiin hundi adda: turtiin, cimina fi dhaga\'amni marsaa tokko irraa gara marsaa kaan garaagarummaa qabaachuu danda\'a.',
+    body2:
+      'Dhiigni laguu keessa hunda walfakkaataa miti. Yeroo baay\'ee guyyaa tokko irraa gara guyyaa biraatti cimina, halluu fi qabeenya isaa keessatti jijjiirama.',
+    flowSteps: [
+      {title: 'Jalqaba laguu kee', text: 'Dhiigni guyyoota jalqabaa keessa yeroo baay\'ee baay\'ee dha.'},
+      {title: 'Giddu-galeessa laguu kee', text: 'Dhiigni waliigalaan suuta suutaan hir\'achuu jalqaba.'},
+      {title: 'Xumura laguu kee', text: 'Dhiigni salphaa ta\'a, halluu gurraacha qabaachuu danda\'a.'},
+    ],
+    softInfoTitle: 'Yaadadhu',
+    softInfoText:
+      'Kun marsaa tokko irraa gara marsaa biraatti jijjiiramuu danda\'a. Wanti baay\'ee barbaachisu sirna kee idilee beekuu dha.',
+    body3:
+      'Jijjiiramni tokko tokko yeroo laguu baratamaa dha. Mallattoowwan biroo xiyyeeffannoo caalu argachuu qabu, keessumaa yoo haaraa yookaan baay\'ee cimaa ta\'e.',
+    normalSigns: [
+      {title: 'Turtii', text: 'Laguun yeroo baay\'ee guyyoota muraasaaf turu.'},
+      {title: 'Dhiiga garaagaraa', text: 'Jalqaba baay\'ee, booda salphaa.'},
+      {title: 'Halluu', text: 'Diimaa calaqqisaa irraa hanga diimaa gurraacha yookaan sumaa xumura laguu irratti.'},
+      {title: 'Dhaga\'amni', text: 'Dhukkubbii harmaa salphaa hanga giddu-galeessaa dhaga\'amuu danda\'a.'},
+    ],
+    warningTitle: 'Yoom gorsa fayyaa barbaaduu qabna?',
+    warningSigns: [
+      'Dhukkubbii baay\'ee cimaa yookaan idilee hin taane',
+      'Dhiiga paadii yookaan tampoonii baay\'ee ariitiin jiisu',
+      'Dadhabbii cimaa, of dhabuu, yookaan mataa naquu',
+      'Jijjiirama tasa fi itti fufu sirna kee idilee irraa',
+    ],
+    body4:
+      'Amalli salphaan mijaa\'uu dhabuu salphisuu fi guyyoota jalqabaa laguu kee mijaa\'aa taasisuu danda\'a.',
+    tipsTitle: 'Gorsa hojii irra oolu',
+    tips: [
+      'Bishaan gahaa dhugi\ndadhabbii\nhir\'isuuf.',
+      'Yoo barbaachise\ngadi garaa kee\nho\'isi.',
+      'Sochii salphaa yaali:\ngochuu,\nyogaa, harkisuu.',
+      'Of boqochiisi\nfi rafuu\ngaarii argadhu.',
+    ],
+    reliefTitle: 'Qaama kee dhaggeeffadhu',
+    reliefText:
+      'Boqonnaan, ho\'inni fi sochiin salphaan gargaaruu danda\'u. Yoo dhukkubbiin baay\'ee cimaa yookaan idilee hin taane ta\'ee itti fufe, gorsa fayyaa barbaadi.',
+    shareMessage: 'Laguu kee hubachuu: dhugumatti maal ta\'aa jira — AWA',
+  },
+  ti: {
+    badge: 'ወርሓዊ ዑደት',
+    title: 'ወርሓዊ ደምካ ምርዳእ፦\nብሓቂ እንታይ ይፍጠር',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'ወርሓዊ ደምካ ንሆርሞናዊን ንመጋቢ ጥዕናን ኣገዳሲ ተፈጥሮኣዊ መስርሕ ክፋል እዩ። ኣብ ኣካልካ እንታይ ከም ዝፍጠር ምርዳእ ምስ ነፍሲ ወከፍ ዑደት ዝያዳ ርግእ ክትብል ይሕግዘካ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ወርሓዊ ደም እንታይ እዩ?',
+      'ወርሓዊ ደምካ ከመይ ይሓልፍ',
+      'እንታይ ልሙድ እዩ (እንታይ ድማ ኣይኰነን)',
+      'ቃንዛ ብተፈጥሮኣዊ ኣገባብ ምቕላል',
+    ],
+    body1:
+      'ወርሓዊ ደም፣ ምፍርያይ ዘይተገብረ እዋን ንውሽጣዊ ሽፋን ማህጸን ምፍሳስ እዩ። እዚ ብማእከላይ ሓደ ግዜ ኣብ ወርሒ ይፍጠር።',
+    knowTitle: 'ምፍላጥ ጽቡቕ',
+    knowText:
+      'ነፍሲ ወከፍ ጓል ኣንስተይቲ ፍልይቲ እያ፦ ንውሓት፣ ጽንዓትን ስምዒትን ካብ ሓደ ዑደት ናብ ካልእ ክፈላለዩ ይኽእሉ።',
+    body2:
+      'እቲ ዝውሕዝ ደም ኣብ ኩሉ ወርሓዊ ደምካ ተመሳሳሊ ኣይኰነን። ብሓፈሻ ብመዓልቲ ብጽንዓት፣ ሕብርን ኣሰራርዓን ይቕየር።',
+    flowSteps: [
+      {title: 'ጅማሬ ወርሓዊ ደምካ', text: 'እቲ ዝውሕዝ ደም ኣብ ቀዳሞት ሒደት መዓልታት ብዙሕ ግዜ ዝያዳ እዩ።'},
+      {title: 'ማእከል ወርሓዊ ደምካ', text: 'እቲ ዝውሕዝ ደም ብሓፈሻ ቀስ ብቐስ ክንእስ ይጅምር።'},
+      {title: 'መወዳእታ ወርሓዊ ደምካ', text: 'እቲ ዝውሕዝ ደም ይቐልል፣ ጸሊም ሕብሪ’ውን ክሓዝ ይኽእል።'},
+    ],
+    softInfoTitle: 'ኣብ ኣእምሮኻ ሓዝ',
+    softInfoText:
+      'እዚ ካብ ሓደ ዑደት ናብ ካልእ ክፈላለይ ይኽእል። እቲ ዝያዳ ኣገዳሲ ናይ ባዕልኻ ልሙድ ሪትም ምፍላጥ እዩ።',
+    body3:
+      'ገሊኦም ለውጢታት ኣብ ግዜ ወርሓዊ ደምካ ልሙዳት እዮም። ካልኦት ምልክታት ድማ ዝያዳ ጥንቃቐ የድልዩ፣ ብፍላይ ሓደስቲ ወይ ብጣዕሚ ጽኑዓት ምስ ኮኑ።',
+    normalSigns: [
+      {title: 'ንውሓት', text: 'ብልሙድ ሒደት መዓልታት ዝጸንሕ ወርሓዊ ደም።'},
+      {title: 'ዝቕየር ዝውሕዝ ደም', text: 'ኣብ መጀመርታ ዝበዝሐ፣ ደሓር ዝቐልል ደም።'},
+      {title: 'ሕብሪ', text: 'ካብ ቀይሕ ብሩህ ክሳብ ጸሊም ቀይሕ ወይ ቡኒ ኣብ መወዳእታ ወርሓዊ ደምካ።'},
+      {title: 'ስምዒታት', text: 'ቀሊል ክሳብ ማእከላይ ምውቃዕ ክስምዓካ ይኽእል።'},
+    ],
+    warningTitle: 'መዓስ ሕክምናዊ ምኽሪ ክሕተት?',
+    warningSigns: [
+      'ብጣዕሚ ጽኑዕ ወይ ዘይልሙድ ቃንዛ',
+      'ንፓድ ወይ ታምፖን ብፍጥነት ዘልምስ ደም',
+      'ዓቢ ድኻም፣ ምድንጋጽ ወይ ሸውሸው ምባል',
+      'ካብ ልሙድ ሞዴልካ ድንገታውን ዝቀጸለን ለውጢ',
+    ],
+    body4:
+      'ቀሊላት ልምድታት ምቾት ምስኳር ከቐልሉን ቀዳሞት መዓልታት ወርሓዊ ደምካ ዝያዳ ምቾት ከገብሩን ይኽእሉ።',
+    tipsTitle: 'ተግባራዊ ምኽርታት',
+    tips: [
+      'ድኻም ንምንካይ\nኣድማዒ ማይ\nስተ።',
+      'እንተ ኣድሊዩ\nኣብ ታሕተዋይ\nክፍሊ ከብዲ ሙቐት ግበር።',
+      'ቀሊል ንጥፈት\nፈትን፦ ምኽኣል፣\nዮጋ፣ ምስሓብ።',
+      'ንባዕልኻ ዕረፍቲን\nጽቡቕ ድቃስን\nሃብ።',
+    ],
+    reliefTitle: 'ንኣካልካ ስማዕ',
+    reliefText:
+      'ዕረፍቲ፣ ሙቐትን ቀሊል ንጥፈትን ክሕግዙ ይኽእሉ። እቲ ቃንዛ ብጣዕሚ ጽኑዕ ወይ ዘይልሙድ ምስ ጸንሐ፣ ሕክምናዊ ምኽሪ ሕተት።',
+    shareMessage: 'ወርሓዊ ደምካ ምርዳእ፦ ብሓቂ እንታይ ይፍጠር — AWA',
+  },
+  rw: {
+    badge: 'URUZINDUKO RW\'IMIHANGO',
+    title: 'Gusobanukirwa imihango yawe:\nibiba bibaye koko',
+    metaDuration: 'Gusoma bitwara iminota 5',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro:
+      'Imihango yawe ni igice cy\'inzira karemano y\'ingenzi ku buzima bwa hormone n\'ubw\'imyororokere. Gusobanukirwa ibiba mu mubiri wawe bishobora kugufasha kumva utuje muri buri ruzinduko.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Imihango ni iki?',
+      'Uko imihango yawe igenda',
+      'Ibisanzwe (n\'ibitari bisanzwe)',
+      'Koroshya ububabare mu buryo karemano',
+    ],
+    body1:
+      'Imihango ni ukuva k\'igice cy\'imbere cy\'nyababyeyi iyo nta gusama kwabayeho. Ibi biba rimwe mu kwezi hafi.',
+    knowTitle: 'Byiza kumenya',
+    knowText:
+      'Buri mugore arihariye: igihe, uburemere n\'ibyo wumva bishobora gutandukana kuva ku ruzinduko ujya ku rundi.',
+    body2:
+      'Amaraso ntaba amwe mu gihe cyose cy\'imihango yawe. Akenshi ahinduka buri munsi, mu bwinshi, mu ibara no mu buryo ameze.',
+    flowSteps: [
+      {title: 'Intangiriro y\'imihango yawe', text: 'Amaraso akenshi aba menshi mu minsi ya mbere.'},
+      {title: 'Hagati y\'imihango yawe', text: 'Amaraso muri rusange atangira kugabanuka buhoro buhoro.'},
+      {title: 'Iherezo ry\'imihango yawe', text: 'Amaraso aba make kandi ashobora gufata ibara ry\'umukara.'},
+    ],
+    softInfoTitle: 'Ibuka',
+    softInfoText:
+      'Ibi bishobora gutandukana kuva ku ruzinduko ujya ku rundi. Icy\'ingenzi ni ukumenya uko usanzwe ugenda.',
+    body3:
+      'Impinduka zimwe ni zisanzwe mu gihe cy\'imihango. Ibindi bimenyetso bikwiye kwitabwaho cyane, cyane cyane iyo ari bishya cyangwa bikabije.',
+    normalSigns: [
+      {title: 'Igihe', text: 'Imihango isanzwe imara iminsi mike.'},
+      {title: 'Amaraso ahinduka', text: 'Menshi mbere, hanyuma agacika make.'},
+      {title: 'Ibara', text: 'Kuva ku mutuku utangaje kugeza ku mutuku wijimye cyangwa ikigina ku iherezo ry\'imihango yawe.'},
+      {title: 'Ibyo wumva', text: 'Ushobora kumva kuribwa mu nda koroheje kugeza ku buringaniye.'},
+    ],
+    warningTitle: 'Igihe cyo gusaba inama z\'ubuvuzi?',
+    warningSigns: [
+      'Ububabare bukabije cyane cyangwa budasanzwe',
+      'Amaraso yuzuza agatambaro cyangwa tampon vuba cyane',
+      'Umunaniro ukabije, kumva ushaka guta ubwenge, cyangwa kuzungera',
+      'Impinduka itunguranye kandi ihoraho ku buryo usanzwe ugenda',
+    ],
+    body4:
+      'Ingeso zoroshye zishobora gufasha koroshya kutumva neza no gutuma iminsi ya mbere y\'imihango yawe irushaho kuba myiza.',
+    tipsTitle: 'Inama z\'ingirakamaro',
+    tips: [
+      'Nywa amazi\nahagije kugira ngo\nugabanye umunaniro.',
+      'Shyira ubushyuhe\nku nda yo hasi\nigihe bikenewe.',
+      'Gerageza igikorwa\ncyoroheje: kugenda,\nyoga, kwirambura.',
+      'Iyiteho uruhuke\nkandi uryame\nneza.',
+    ],
+    reliefTitle: 'Umva umubiri wawe',
+    reliefText:
+      'Kuruhuka, ubushyuhe n\'ibikorwa byoroheje bishobora gufasha. Niba ububabare bukomeje kuba bukabije cyangwa budasanzwe, saba inama z\'ubuvuzi.',
+    shareMessage: 'Gusobanukirwa imihango yawe: ibiba bibaye koko — AWA',
+  },
+  rn: {
+    badge: 'URUZIGA RW’IMIHANGO',
+    title: 'Gusobanukirwa imihango yawe:\nico gikorwa vy’ukuri',
+    metaDuration: 'Isomwa rya iminota 5',
+    metaValidated: 'Ibikorwa byasuzumwe',
+    intro:
+      'Imihango yawe ni igice c’igikorwa gisanzwe c’ingenzi ku buzima bwa hormone n’ubw’imyororokere. Gusobanukirwa ivyo bibera mu mubiri wawe bishobora kugufasha kumererwa neza muri buri ruziga.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Imihango ni iki?',
+      'Uko imihango yawe igenda',
+      'Ibisanzwe (n’ibidasanzwe)',
+      'Koroshya ububabare mu buryo busanzwe',
+    ],
+    body1:
+      'Imihango ni ukuva k’umubiri w’imbere w’inda y’umwana iyo hatabaye gusama. Ibi biba ku rugero rumwe mu kwezi.',
+    knowTitle: 'Ni vyiza kumenya',
+    knowText:
+      'Buri mugore aratandukanye: igihe, ubukomezi n’ivyo yumva bishobora guhinduka kuva mu ruziga ukaja mu rundi.',
+    body2:
+      'Amaraso ntahora angana mu gihe cose c’imihango yawe. Mu rusangi ahinduka uko iminsi igenda, mu bukomezi, ibara n’uko ameze.',
+    flowSteps: [
+      {title: 'Intango y’imihango yawe', text: 'Amaraso akenshi aba menshi mu minsi ya mbere.'},
+      {title: 'Hagati y’imihango yawe', text: 'Amaraso mu rusangi atangura kugabanuka buhoro buhoro.'},
+      {title: 'Iherezo ry’imihango yawe', text: 'Amaraso aba make kandi ashobora gufata ibara ryijimye.'},
+    ],
+    softInfoTitle: 'Ibuka',
+    softInfoText:
+      'Ibi bishobora guhinduka kuva mu ruziga ukaja mu rundi. Icingenzi ni ukumenya uko usanzwe ugenda.',
+    body3:
+      'Impinduka zimwe ni zisanzwe mu gihe c’imihango. Ibindi bimenyetso bikwiye kwitonderwa cane, cane cane iyo ari bishasha canke bikomeye cane.',
+    normalSigns: [
+      {title: 'Igihe', text: 'Imihango isanzwe imara iminsi mikeya.'},
+      {title: 'Amaraso ahinduka', text: 'Amaraso menshi mu ntango, hanyuma akaba make.'},
+      {title: 'Ibara', text: 'Kuva ku bukungu bwerurutse kugeza ku bukungu bwijimye canke ibara ry’ikawa hafi y’iherezo ry’imihango yawe.'},
+      {title: 'Ivyo wumva', text: 'Ushobora kumva igikomo cyoroheje kugeza ku kiringaniye.'},
+    ],
+    warningTitle: 'Ni ryari wosaba inama z’abaganga?',
+    warningSigns: [
+      'Ububabare bukomeye cane canke budasanzwe',
+      'Amaraso yuzuza agatambaro canke tampon vuba cane',
+      'Umunaniro mwinshi, kwumva ugiye kugwa, canke kuzunguruka',
+      'Impinduka itunguranye kandi iguma mu vyo usanzwe umenyereye',
+    ],
+    body4:
+      'Imigenzo yoroshe irashobora gufasha koroshya ububabare no gutuma iminsi ya mbere y’imihango yawe iba myiza.',
+    tipsTitle: 'Inama zifatika',
+    tips: [
+      'Nywa amazi\nahagije kugira\nugabanye umunaniro.',
+      'Shyira ubushuhe\nku nda yawe\nyo hasi igihe bikenewe.',
+      'Gerageza igikorwa\ncyoroheje: kugenda,\nyoga, kwaguramwo umubiri.',
+      'Iha ikiruhuko\nn’ibitotsi\nbyiza.',
+    ],
+    reliefTitle: 'Umviriza umubiri wawe',
+    reliefText:
+      'Ikiruhuko, ubushuhe n’igikorwa cyoroheje birashobora gufasha. Iyo ububabare buguma bukomeye cane canke budasanzwe, saba inama z’abaganga.',
+    shareMessage: 'Gusobanukirwa imihango yawe: ico gikorwa vy’ukuri — AWA',
+  },
+  ig: {
+    badge: 'MENSTRUAL CYCLE',
+    title: 'Ịghọta oge ịhụ ọnwa gị:\nihe na-eme n\'ezie',
+    metaDuration: 'Ọgụgụ nke nkeji 5',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro:
+      'Oge ịhụ ọnwa gị bụ akụkụ nke usoro okike dị mkpa maka ahụike hormone na ahụike ọmụmụ. Ịghọta ihe na-eme n\'ahụ gị nwere ike inyere gị aka ịnọ jụụ n\'obi n\'cycle ọ bụla.',
+    contentsTitle: 'N\'edemede a',
+    topics: [
+      'Gịnị bụ oge ịhụ ọnwa?',
+      'Otú oge ịhụ ọnwa gị si aga',
+      'Ihe bụ nkịtị (na ihe na-abụghị)',
+      'Ibelata mgbu n\'ụzọ okike',
+    ],
+    body1:
+      'Oge ịhụ ọnwa bụ ịkwụsị akpụkpọ ahụ dị n\'ime akpa nwa mgbe ọ dịghị ịtụrụ ime mere. Nke a na-eme otu ugboro n\'ọnwa n\'ozuzu.',
+    knowTitle: 'Mara nke a',
+    knowText:
+      'Nwanyị ọ bụla dị iche: ogologo oge, ike, na mmetụta nwere ike ịdị iche site n\'cycle gaa n\'ọzọ.',
+    body2:
+      'Ọbara adịghị otu n\'oge ịhụ ọnwa gị niile. N\'ozuzu, ọ na-agbanwe site n\'ụbọchị gaa n\'ụbọchị, n\'ike, agba, na ọdịdị.',
+    flowSteps: [
+      {title: 'Mmalite oge ịhụ ọnwa gị', text: 'Ọbara na-abụkarị nke dị arọ n\'ụbọchị ole na ole mbụ.'},
+      {title: 'Etiti oge ịhụ ọnwa gị', text: 'N\'ozuzu, ọbara na-amalite ibelata nwayọ nwayọ.'},
+      {title: 'Ọgwụgwụ oge ịhụ ọnwa gị', text: 'Ọbara na-adị mfe ma nwee ike inwe agba ọchịchịrị karị.'},
+    ],
+    softInfoTitle: 'Chetara',
+    softInfoText:
+      'Nke a nwere ike ịdị iche site n\'cycle gaa n\'ọzọ. Ihe kacha mkpa bụ ịmara usoro gị nkịtị.',
+    body3:
+      'Ụfọdụ mgbanwe bụ ihe a na-ahụkarị n\'oge ịhụ ọnwa gị. Ihe ịrịba ama ndị ọzọ kwesịrị nlebara anya karịa, karịsịa mgbe ha bụ ọhụrụ ma ọ bụ siri ike nke ukwuu.',
+    normalSigns: [
+      {title: 'Ogologo oge', text: 'Oge ịhụ ọnwa nke na-adịkarị ụbọchị ole na ole.'},
+      {title: 'Ọbara na-agbanwe agbanwe', text: 'Ọbara dị arọ na mbụ, mgbe ahụ ọ dị mfe.'},
+      {title: 'Agba', text: 'Site na uhie na-acha ọkụ ruo uhie ọchịchịrị ma ọ bụ aja aja n\'ọgwụgwụ oge ịhụ ọnwa gị.'},
+      {title: 'Mmetụta', text: 'Enwere ike inwe cramps dị nro ruo ndị dị etiti.'},
+    ],
+    warningTitle: 'Mgbe ị kwesịrị ịjụ ndụmọdụ ahụike?',
+    warningSigns: [
+      'Mgbu siri ike nke ukwuu ma ọ bụ dị iche',
+      'Ọbara na-asa pad ma ọ bụ tampon ngwa ngwa nke ukwuu',
+      'Ike ọgwụgwụ dị ukwuu, ọmịiko ịda, ma ọ bụ isi ọgbụgbọ',
+      'Mgbanwe mberede na-adịgide site n\'usoro gị nkịtị',
+    ],
+    body4:
+      'Omenala dị mfe nwere ike inyere aka belata ahụ erughị ala ma mee ka ụbọchị mbụ nke oge ịhụ ọnwa gị dị mma karị.',
+    tipsTitle: 'Ndụmọdụ bara uru',
+    tips: [
+      'Ṅụọ mmiri zuru\nezu iji nyere aka\nibelata ike ọgwụgwụ.',
+      'Tinye ọkụ\nn\'akụkụ ala\nafọ gị ma ọ dị mkpa.',
+      'Gbalịa ọrụ\ndị nro: ije,\nyoga, ịgbatị ahụ.',
+      'Nye onwe gị\nezumike na ụra\nọma.',
+    ],
+    reliefTitle: 'Gee ntị n\'ahụ gị',
+    reliefText:
+      'Izu ike, ọkụ, na ọrụ dị nro nwere ike inye aka. Ọ bụrụ na mgbu ahụ ka siri ike nke ukwuu ma ọ bụ dị iche, jụọ ndụmọdụ ahụike.',
+    shareMessage: 'Ịghọta oge ịhụ ọnwa gị: ihe na-eme n\'ezie — AWA',
+  },
+  yo: {
+    badge: 'ÌYÍPO OṢÙ',
+    title: 'Lílóye nǹkan oṣù rẹ:\nohun tó ń ṣẹlẹ̀ lóòótọ́',
+    metaDuration: 'Ìṣẹ́jú 5 láti kà',
+    metaValidated: 'Àkóónú tí a ti ṣàyẹ̀wò',
+    intro:
+      'Nǹkan oṣù rẹ jẹ́ apá kan ìlànà àdánidá tó ṣe pàtàkì fún ìlera hormone àti ìbímọ. Lílóye ohun tó ń ṣẹlẹ̀ nínú ara rẹ lè ràn ọ́ lọ́wọ́ láti rí ara rẹ balẹ̀ ní ìyípo kọ̀ọ̀kan.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni nǹkan oṣù?',
+      'Bí nǹkan oṣù rẹ ṣe ń lọ',
+      'Ohun tó jẹ́ déédé (àti èyí tí kì í ṣe bẹ́ẹ̀)',
+      'Dídín ìrora kù lọ́nà àdánidá',
+    ],
+    body1:
+      'Nǹkan oṣù ni ìtújáde awọ inú ilé-ọmọ nígbà tí ìfọwọ́sọ̀yà kò wáyé. Èyí máa ń ṣẹlẹ̀ lẹ́ẹ̀kan lóṣù ní àròpín.',
+    knowTitle: 'Ó dára láti mọ̀',
+    knowText:
+      'Obìnrin kọ̀ọ̀kan yàtọ̀: gígùn, líle, àti ìmọ̀lára lè yàtọ̀ láti ìyípo kan sí òmíràn.',
+    body2:
+      'Ìsàn kì í dọ́gba jákèjádò nǹkan oṣù rẹ. Ó sábà máa ń yípadà láti ọjọ́ dé ọjọ́, ní líle, àwọ̀, àti bí ó ṣe rí.',
+    flowSteps: [
+      {title: 'Ìbẹ̀rẹ̀ nǹkan oṣù rẹ', text: 'Ìsàn sábà máa ń pọ̀ jù ní àwọn ọjọ́ díẹ̀ àkọ́kọ́.'},
+      {title: 'Àárín nǹkan oṣù rẹ', text: 'Ìsàn sábà máa ń bẹ̀rẹ̀ sí dínkù díẹ̀díẹ̀.'},
+      {title: 'Ìparí nǹkan oṣù rẹ', text: 'Ìsàn á fúyẹ́, ó sì lè ní àwọ̀ tó ṣókùnkùn jù.'},
+    ],
+    softInfoTitle: 'Rántí',
+    softInfoText:
+      'Èyí lè yàtọ̀ láti ìyípo kan sí òmíràn. Ohun tó ṣe pàtàkì jù ni mímọ ìlù tìrẹ déédé.',
+    body3:
+      'Àwọn ìyàtọ̀ kan wọ́pọ̀ nígbà nǹkan oṣù rẹ. Àwọn àmì mìíràn yẹ fún àfiyèsí sí i, pàápàá nígbà tí wọ́n bá jẹ́ tuntun tàbí tí wọ́n le gan-an.',
+    normalSigns: [
+      {title: 'Gígùn', text: 'Nǹkan oṣù tó sábà máa ń wà fún ọjọ́ díẹ̀.'},
+      {title: 'Ìsàn tó ń yípadà', text: 'Ìsàn tó pọ̀ jù ní ìbẹ̀rẹ̀, lẹ́yìn náà ó fúyẹ́.'},
+      {title: 'Àwọ̀', text: 'Láti pupa dídán dé pupa dúdú tàbí àwọ̀ ilẹ̀ síhà ìparí nǹkan oṣù rẹ.'},
+      {title: 'Ìmọ̀lára', text: 'Ìrora inú aláìle sí àárín lè wáyé.'},
+    ],
+    warningTitle: 'Ìgbà wo ni a ó wá ìmọ̀ràn ìṣègùn?',
+    warningSigns: [
+      'Ìrora tó le gan-an tàbí àìwọ́pọ̀',
+      'Ẹ̀jẹ̀ tó ń rin aṣọ ìnu tàbí tampon kíákíá',
+      'Àárẹ̀ tó pọ̀, ìmọ̀lára bí ẹni tí yóò dákú, tàbí òòyì',
+      'Àyípadà lójijì tí ó sì ń wà títí kúrò nínú ìlànà rẹ déédé',
+    ],
+    body4:
+      'Àwọn àṣà tó rọrùn lè ran ìbànújẹ́ ara lọ́wọ́ kí wọ́n sì jẹ́ kí àwọn ọjọ́ àkọ́kọ́ nǹkan oṣù rẹ rọrùn.',
+    tipsTitle: 'Àwọn ìmọ̀ràn tó wúlò',
+    tips: [
+      'Mu omi tó\ntó láti ṣèrànwọ́\nláti dín àárẹ̀ kù.',
+      'Fi ooru sí\nìsàlẹ̀ ikùn rẹ\nbí ó bá pọndandan.',
+      'Gbìyànjú iṣẹ́\njẹ́jẹ́: rìn, yoga,\nnínà ara.',
+      'Fún ara rẹ ní\nisinmi àti oorun\ntó dára.',
+    ],
+    reliefTitle: 'Gbọ́ ara rẹ',
+    reliefText:
+      'Isinmi, ooru, àti iṣẹ́ jẹ́jẹ́ lè ṣèrànwọ́. Bí ìrora náà bá ṣì le gan-an tàbí àìwọ́pọ̀, wá ìmọ̀ràn ìṣègùn.',
+    shareMessage: 'Lílóye nǹkan oṣù rẹ: ohun tó ń ṣẹlẹ̀ lóòótọ́ — AWA',
+  },
+  zu: {
+    badge: 'UMJIKELEZO WESIKHATHI',
+    title: 'Ukuqonda isikhathi sakho:\nokwenzeka ngempela',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaValidated: 'Okuphonswe ukubukeleka',
+    intro:
+      'Isikhathi sakho siyingxenye yenqubo yemvelo ebalulekile empilweni yamahomoni nenzalo. Ukuqonda okwenzeka emzimbeni wakho kungakusiza uzizwe ukhululekile ngomjikelezo ngamunye.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Siyini isikhathi?',
+      'Isikhathi sakho siqhubeka kanjani',
+      'Okujwayelekile (nokungajwayelekile)',
+      'Ukuphumuza ubuhlungu ngokwemvelo',
+    ],
+    body1:
+      'Isikhathi siwukuhlubuka kongqimba lwesibeletho uma kungenzekanga ukuhlangana kwamaqanda nesidoda. Lokhu kwenzeka cishe kanye ngenyanga.',
+    knowTitle: 'Kuhle ukwazi',
+    knowText:
+      'Wonke owesifazane wehlukile: ubude, amandla nezimvo kungahluka kusuka emjikelezweni oya komunye.',
+    body2:
+      'Ukuphuma kwegazi akuhlali kufana isikhathi sonke. Ngokuvamile kushintsha usuku nosuku, emandleni, ebhalweni nasebukhulwini.',
+    flowSteps: [
+      {title: 'Ukuqala kwesikhathi sakho', text: 'Ukuphuma kwegazi kuvame ukuba kuningi kunsuku ezimbalwa zokuqala.'},
+      {title: 'Maphakathi nesikhathi sakho', text: 'Ukuphuma kwegazi ngokuvamile kuqala ukwehla kancane kancane.'},
+      {title: 'Ekupheleni kwesikhathi sakho', text: 'Ukuphuma kwegazi kuba kuncane futhi kungaba nombala omnyama.'},
+    ],
+    softInfoTitle: 'Khumbula',
+    softInfoText:
+      'Lokhu kungahluka kusuka emjikelezweni oya komunye. Okubaluleke kakhulu ukwazi isigqi sakho esijwayelekile.',
+    body3:
+      'Ezinye izinguquko ziyajwayeleka phakathi nesikhathi sakho. Ezinye izimpawu zidinga ukunakwa kakhulu, ikakhulukazi uma ziyintsha noma zinamandla kakhulu.',
+    normalSigns: [
+      {title: 'Ubude', text: 'Isikhathi esijwayele ukuthatha izinsuku ezimbalwa.'},
+      {title: 'Ukuphuma kwegazi okuhlukahlukene', text: 'Okuningi kuqala, bese kuncipha.'},
+      {title: 'Umbala', text: 'Kusuka kubomvu obukhanyayo kuya kubomvu obumnyama noma obunsundu ekupheleni kwesikhathi sakho.'},
+      {title: 'Izimvo', text: 'Ukuhlushwa yisisu okuncane kuya kokuphakathi nendawo kungezwakala.'},
+    ],
+    warningTitle: 'Ukuthi kufanele ucele iseluleko sezokwelapha nini?',
+    warningSigns: [
+      'Ubuhlungu obunamandla kakhulu noma obungajwayelekile',
+      'Ukopha okugcwalisa iphedi noma i-tampon ngokushesha kakhulu',
+      'Ukukhathala okukhulu, ukuzwa sengathi uzocinwa, noma isiyezi',
+      'Inguquko ezumayo neqhubekayo kulokho okujwayelekile kuwe',
+    ],
+    body4:
+      'Imikhuba elula ingasiza ukuphumuza ukungakhululeki futhi yenze izinsuku zokuqala zesikhathi sakho zibe lula.',
+    tipsTitle: 'Amathiphu asebenzayo',
+    tips: [
+      'Phuza amanzi\nanele ukusiza\nukunciphisa ukukhathala.',
+      'Beka ukushisa\nesiswini sakho esiphansi\numa kudingeka.',
+      'Zama umsebenzi\nobumnene: ukuhamba,\ni-yoga, ukwelula.',
+      'Zinike ukuphumula\nnokulala\nokuhle.',
+    ],
+    reliefTitle: 'Lalela umzimba wakho',
+    reliefText:
+      'Ukuphumula, ukushisa nomsebenzi obumnene kungasiza. Uma ubuhlungu buhlala bunamandla kakhulu noma bungajwayelekile, cela iseluleko sezokwelapha.',
+    shareMessage: 'Ukuqonda isikhathi sakho: okwenzeka ngempela — AWA',
+  },
+  xh: {
+    badge: 'UMJIKELO WEXESHA LENYANGA',
+    title: 'Ukuqonda ixesha lenyanga yakho:\nokwenzeka ngokwenene',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro:
+      'Ixesha lenyanga yakho licwangciso lwendalo olubalulekileyo empilweni yehomoni nenzala. Ukuqonda okwenzeka emzimbeni wakho kunokukunceda uzive ukhululekile kumjikelo ngamnye.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Lithini ixesha lenyanga?',
+      'Indlela ixesha lenyanga yakho elihamba ngayo',
+      'Okuqhelekileyo (nokungeyiyo)',
+      'Ukunciphisa intlungu ngendalo',
+    ],
+    body1:
+      'Ixesha lenyanga kukuphalaza kolwelo lwesibeleko xa kungekho kukhawulwa okuye kwenzeka. Oku kwenzeka ngomndilili kanye ngenyanga.',
+    knowTitle: 'Kulungile ukwazi',
+    knowText:
+      'Umfazi ngamnye wahlukile: ubude, ubukhulu, neemvakalelo zinokwahluka ukusuka kumjikelo ukuya komnye.',
+    body2:
+      'Ukuhamba kwegazi akufani ngalo lonke ixesha lenyanga yakho. Kudla ngokutshintsha ngosuku, ngobukhulu, ngombala, nangokubonakala.',
+    flowSteps: [
+      {title: 'Ukuqala kwexesha lenyanga yakho', text: 'Ukuhamba kwegazi kudla ngokuba kukhulu ngeentsuku zokuqala ezimbalwa.'},
+      {title: 'Embindini wexesha lenyanga yakho', text: 'Ukuhamba kwegazi ngokubanzi kuqala ukuncipha ngokuthe ngcembe.'},
+      {title: 'Ekupheleni kwexesha lenyanga yakho', text: 'Ukuhamba kwegazi kuba lula kwaye kunokuba nombala omnyama.'},
+    ],
+    softInfoTitle: 'Khumbula',
+    softInfoText:
+      'Oku kunokwahluka ukusuka kumjikelo ukuya komnye. Okubalulekileyo kukwazi isantya sakho esiqhelekileyo.',
+    body3:
+      'Utshintsho oluthile luqhelekile ngexesha lenyanga. Ezinye iimpawu zifanele ingqwalaselo engakumbi, ngakumbi xa zintsha okanye zinkulu kakhulu.',
+    normalSigns: [
+      {title: 'Ubude', text: 'Ixesha lenyanga elidla ngokuhlala iintsuku ezimbalwa.'},
+      {title: 'Ukuhamba kwegazi okwahlukileyo', text: 'Ukuhamba kwegazi okukhulu ekuqaleni, emva koko okulula.'},
+      {title: 'Umbala', text: 'Ukusuka kubomvu obukhanyayo ukuya kubomvu obumnyama okanye ntsundu ngasekupheleni kwexesha lenyanga yakho.'},
+      {title: 'Iimvakalelo', text: 'Izicubu ezithambileyo ukuya kwezilingeneyo zinokuvakala.'},
+    ],
+    warningTitle: 'Xa kufuneka ucele ingcebiso yezonyango?',
+    warningSigns: [
+      'Intlungu enkulu kakhulu okanye engaqhelekanga',
+      'Ukopha okuntywilisela ipad okanye itampon ngokukhawuleza kakhulu',
+      'Ukudinwa okukhulu, ukuziva uzakuwa, okanye isiyezi',
+      'Utshintsho olungequbuliso nolugcinekayo kwisiqhelo sakho',
+    ],
+    body4:
+      'Izinto ezilula zinokunceda ukunciphisa ukungakhululeki nokwenza iintsuku zokuqala zexesha lenyanga yakho zikhululeke ngakumbi.',
+    tipsTitle: 'Iingcebiso ezisebenzayo',
+    tips: [
+      'Sela amanzi\nanele ukunceda\nukunciphisa ukudinwa.',
+      'Beka ubushushu\nkumbindi wakho ongezantsi\nxa kuyimfuneko.',
+      'Zama umsebenzi\nothambileyo: ukuhamba,\nyoga, ukolula.',
+      'Zinike ukuphumla\nnokulala\nokulungileyo.',
+    ],
+    reliefTitle: 'Mamela umzimba wakho',
+    reliefText:
+      'Ukuphumla, ubushushu, nomsebenzi othambileyo zinokunceda. Ukuba intlungu iqhubeka inkulu kakhulu okanye ingaqhelekanga, cela ingcebiso yezonyango.',
+    shareMessage: 'Ukuqonda ixesha lenyanga yakho: okwenzeka ngokwenene — AWA',
+  },
+  sn: {
+    badge: 'MENSTRUAL CYCLE',
+    title: 'Kunzwisisa kuenda kwako kumwedzi:\nzviri kuitika chaizvo',
+    metaDuration: 'Maminitsi mashanu ekuverenga',
+    metaValidated: 'Zvakaongororwa',
+    intro:
+      'Kuenda kwako kumwedzi chikamu chenzira yechisikigo yakakosha kuhutano hwehormone nehwekubereka. Kunzwisisa zviri kuitika mumuviri wako kunogona kukubatsira kunzwa wakasununguka pa cycle imwe neimwe.',
+    contentsTitle: 'Mune chinyorwa ichi',
+    topics: [
+      'Kuenda kumwedzi chii?',
+      'Kuenda kwako kumwedzi kunofamba sei',
+      'Zvakajairika (nezvisiri)',
+      'Kudzikisa kurwadza nenzira yechisikigo',
+    ],
+    body1:
+      'Kuenda kumwedzi kubuda kwerukoko rwechibereko kana pasina kubata mimba. Izvi zvinoitika nekuwanda kamwe pamwedzi.',
+    knowTitle: 'Zvakanaka kuziva',
+    knowText:
+      'Mukadzi mumwe nemumwe akasiyana: nguva, kusimba, nekunzwa zvinogona kusiyana kubva pa cycle kuenda kune inotevera.',
+    body2:
+      'Ropa harina kufanana panguva yose yekuenda kumwedzi. Kazhinji rinoshanduka zuva nezuva, mukusimba, ruvara, nekuoma.',
+    flowSteps: [
+      {title: 'Kutanga kwekuenda kumwedzi', text: 'Ropa kazhinji rinowanda mumazuva mashoma ekutanga.'},
+      {title: 'Pakati pekuenda kumwedzi', text: 'Ropa kazhinji rinotanga kuderera zvishoma nezvishoma.'},
+      {title: 'Kupera kwekuenda kumwedzi', text: 'Ropa rinova rakareruka uye rinogona kuva neruvara rwakasviba.'},
+    ],
+    softInfoTitle: 'Yeuka',
+    softInfoText:
+      'Izvi zvinogona kusiyana kubva pa cycle kuenda kune imwe. Chinokosha kuziva mufambiro wako wakajairika.',
+    body3:
+      'Shanduko dzimwe dzakajairika panguva yekuenda kumwedzi. Zviratidzo zvimwe zvinoda kutariswa zvakanyanya, kunyanya kana zviri zvitsva kana zvakasimba kwazvo.',
+    normalSigns: [
+      {title: 'Nguva', text: 'Kuenda kumwedzi kunowanzo kutora mazuva mashoma.'},
+      {title: 'Ropa rinosiyana', text: 'Ropa rakawanda pakutanga, ozoderera.'},
+      {title: 'Ruvara', text: 'Kubva pane tsvuku inopenya kusvika tsvuku yakasviba kana yakatsvukuruka kumugumo wekuenda kumwedzi.'},
+      {title: 'Kunzwa', text: 'Kurwadza kwemuviri kusina simba kusvika pakati nepakati kunogona kunzwika.'},
+    ],
+    warningTitle: 'Kana wafanira kutsvaga mazano ekurapwa?',
+    warningSigns: [
+      'Kurwadza kukuru kana kusina kujairika',
+      'Ropa rinonyudza pad kana tampon nekukurumidza kwazvo',
+      'Kuneta kukuru, kunzwa kuda kuwa, kana kutenderera mutwe',
+      'Shanduko inoerekana uye inoramba iripo kubva pane zvawajairira',
+    ],
+    body4:
+      'Tsika dzakapfava dzinogona kubatsira kuderedza kusagadzikana uye kuita kuti mazuva ekutanga ekuenda kumwedzi ave nyore.',
+    tipsTitle: 'Mazano anobatsira',
+    tips: [
+      'Nwa mvura\nyakakwana kubatsira\nkudzikisa kuneta.',
+      'Isa kudziya\npazasi pedumbu\nkana zvichidiwa.',
+      'Edza chiitiko\nchakapfava: kufamba,\nyoga, kutatamura.',
+      'Zvipe zororo\nnehope dzakanaka.',
+    ],
+    reliefTitle: 'Teerera muviri wako',
+    reliefText:
+      'Zororo, kudziya, nechiitiko chakapfava zvinogona kubatsira. Kana kurwadza kuchiramba kuri kukuru kwazvo kana kusina kujairika, tsvaga mazano ekurapwa.',
+    shareMessage: 'Kunzwisisa kuenda kwako kumwedzi: zviri kuitika chaizvo — AWA',
+  },
+  ln: {
+    badge: 'CYCLE YA SANZA',
+    title: 'Koyeba sanza na yo:\noyo esalemi solo',
+    metaDuration: 'Mikanda ya minutes 5',
+    metaValidated: 'Contenu etalamaki',
+    intro:
+      'Sanza na yo ezali eteni ya mosala ya bomoto oyo ezali na ntina mpo na kimya ya hormone mpe ya kobota. Koyeba oyo ezali kosalema na nzoto na yo ekoki kosunga yo koyoka malamu na cycle nyonso.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Sanza nini?',
+      'Ndenge sanza na yo ekendaka',
+      'Oyo ezali ya kokoka (mpe oyo ezali te)',
+      'Kolongola mpasi na ndenge ya bomoto',
+    ],
+    body1:
+      'Sanza ezali kobima ya lopango ya libumu ntango fertilisation esalemaki te. Ezalaka na ntango ya katikati mbala moko na sanza.',
+    knowTitle: 'Eloko ya koyeba',
+    knowText:
+      'Mwasi nyonso azali ya ye moko: ntango, makasi mpe ndenge ya koyoka ekoki kokesana uta cycle moko kino mosusu.',
+    body2:
+      'Makila ezali ndenge moko te na sanza mobimba. Ebongwanaka mingi uta mokolo na mokolo, na makasi, langi mpe lolenge.',
+    flowSteps: [
+      {title: 'Ebandeli ya sanza na yo', text: 'Makila ezalaka mingi na mikolo ya liboso.'},
+      {title: 'Katikati ya sanza na yo', text: 'Makila ebandaka kokita noki noki.'},
+      {title: 'Nsuka ya sanza na yo', text: 'Makila ekomi pete mpe ekoki kozwa langi ya molili.'},
+    ],
+    softInfoTitle: 'Kobosana te',
+    softInfoText:
+      'Oyo ekoki kokesana uta cycle moko kino mosusu. Eloko ya ntina mingi ezali koyeba lolenge ya ndenge na yo moko.',
+    body3:
+      'Bokeseni mosusu ezali ya mbala mingi na ntango ya sanza. Bilembo mosusu esengi bokebi mingi, mingi mingi soki ezali ya sika to makasi mingi.',
+    normalSigns: [
+      {title: 'Ntango', text: 'Sanza oyo ezalaka mikolo mike.'},
+      {title: 'Makila ya bokeseni', text: 'Makila mingi na ebandeli, sima pete.'},
+      {title: 'Langi', text: 'Uta motane makasi kino motane ya molili to ya bruni na nsuka ya sanza na yo.'},
+      {title: 'Koyoka', text: 'Mpasi ya libumu ya pete kino ya katikati ekoki koyokana.'},
+    ],
+    warningTitle: 'Ntango nini kosenga toli ya monganga?',
+    warningSigns: [
+      'Mpasi makasi mingi to ya kokesana',
+      'Makila oyo ezali kotondisa pad to tampon noki mingi',
+      'Kolemba mingi, koyoka ete okobɛta, to motu ezali kobukana',
+      'Mbongwana ya mbala moko mpe etikali na lolenge na yo ya ntango nyonso',
+    ],
+    body4:
+      'Bikela mike ekoki kosunga kopetolela mpasi mpe kosala ete mikolo ya liboso ya sanza na yo ezala pɛtɛɛ.',
+    tipsTitle: 'Toli ya kosalela',
+    tips: [
+      'Mela mai\nmingi mpo na\nkokitisa kolemba.',
+      'Tia moto\nna libumu na yo\nsoki esengeli.',
+      'Sala mosala\nya pete: kotambola,\nyoga, kololola nzoto.',
+      'Pesa nzoto\nkopema mpe\nmpongi malamu.',
+    ],
+    reliefTitle: 'Yoka nzoto na yo',
+    reliefText:
+      'Kopema, moto, mpe mosala ya pete ekoki kosunga. Soki mpasi etikali makasi mingi to ya kokesana, luka toli ya monganga.',
+    shareMessage: 'Koyeba sanza na yo: oyo esalemi solo — AWA',
+  },
+  ff: {
+    badge: 'SIKKLE MENSTRISIYON',
+    title: 'Faamugol menstrisiyon maaɗa:\nko woni ko waɗata dow',
+    metaDuration: 'Janngugol minit 5',
+    metaValidated: 'Ko ndaaraaka',
+    intro:
+      'Menstrisiyon maaɗa ko seɗɗa e kuugal aadaaji mawngal ɗum haani ngam cellal hormon e wuurude ɓiɗɗo. Faamugol ko woni nder ɓaleeɗo maaɗa ina waawi wallude ma hooreede ɓurdi moƴƴude e sikkle fuu.',
+    contentsTitle: 'Ɗoo nder winndannde',
+    topics: [
+      'Menstrisiyon ko ɗume?',
+      'No menstrisiyon maaɗa yahata',
+      'Ko aada (e ko wonaa aada)',
+      'Ɓennugol muusaare e laawol aada',
+    ],
+    body1:
+      'Menstrisiyon ko yaltugol lutti reedu si wuurude ɓiɗɗo waɗaaki. Ɗum waɗa ko feewi marde gooto e lewru.',
+    knowTitle: 'Ko haani anndude',
+    knowText:
+      'Debbo fuu ko feere: nde, tiiɗal e muusaare ina mbaawi waylude sikkle e sikkle.',
+    body2:
+      'Yiiyam wanaa nanndi nder menstrisiyon fuu. Ina feewi waylude balde e balde, e tiiɗal, kalluuji e nyaamdu.',
+    flowSteps: [
+      {title: 'Fuɗɗoode menstrisiyon maaɗa', text: 'Yiiyam ina feewi ɗuuɗude nder balde adannde.'},
+      {title: 'Hakkunde menstrisiyon maaɗa', text: 'Yiiyam ina fuɗɗa ɓoyude seɗɗa seɗɗa.'},
+      {title: 'Raɓ menstrisiyon maaɗa', text: 'Yiiyam ina ɓoyi e ina waawi hoorude kallu ɓurdi baɗɗa.'},
+    ],
+    softInfoTitle: 'Anndu ɗum',
+    softInfoText:
+      'Ɗum ina waawi waylude sikkle e sikkle. Ko ɗum ɓurdi tiiɗude ko anndude laawol maaɗa ngol aadaaji.',
+    body3:
+      'Waylooji feere ina ɗon aada nder menstrisiyon. Tokkindiral feere ina haani ndaaretee ɓurdi, ko feewi si ɗin kesum walla ɗin tiiɗi no feewi.',
+    normalSigns: [
+      {title: 'Nde', text: 'Menstrisiyon ɗum ko feewi yahata balde seɗɗa.'},
+      {title: 'Yiiyam ɗum waylata', text: 'Yiiyam ɗuuɗuɗam adii, ɓaawo ɗam ɓoyi.'},
+      {title: 'Kallu', text: 'Diwo ɓurdi haa baɗɗa walla ɓoɗɗum ɓaawo menstrisiyon maaɗa.'},
+      {title: 'Muusaare', text: 'Muusaare ɓoyƊa haa hakkunde ina waawi wonde.'},
+    ],
+    warningTitle: 'Ndeen naamnaade doktoor?',
+    warningSigns: [
+      'Muusaare tiiɗuɗo no feewi walla wanaa no feewi',
+      'Yiiyam ɗum ɗon jooɗa pad walla tampon yaaɗi no feewi',
+      'Tiiɗal mawngal, ñaawugol yiite, walla jaŋŋgal hoore',
+      'Wayluyal yaaɗiɗal e ɗum ɓennaaki e laawol maaɗa aadaaji',
+    ],
+    body4:
+      'Kuuɗe teddiɗɗe ina mbaawi wallude ɓoyude muusaare e wonnude balde adannde menstrisiyon maaɗa ɓurdi moƴƴude.',
+    tipsTitle: 'Anndinooji kuuɗe',
+    tips: [
+      'Yarru ndiyam\nɗuuɗam ngam wallude\nlamminde tiiɗal.',
+      'Hoynu reedu maaɗa\nlaabi\nsi ɗum haani.',
+      'Waɗu kuugal\nɓoyƊum: yahugol,\nyoga, nyaɗugol.',
+      'Hoosu e hoosugol\nmoƴƴum ngam\nɓaleeɗo maaɗa.',
+    ],
+    reliefTitle: 'Hojju ɓaleeɗo maaɗa',
+    reliefText:
+      'Hoosugol, hoynugol, e kuugal ɓoyƊum ina mbaawi wallude. Si muusaare ɓennaaki walla ina tiiɗi no feewi, ɗaɓɓu anndinol doktoor.',
+    shareMessage: 'Faamugol menstrisiyon maaɗa: ko woni ko waɗata dow — AWA',
+  },
   id: {
     badge: 'SIKLUS MENSTRUASI',
     title: 'Memahami haidmu:\napa yang sebenarnya terjadi',

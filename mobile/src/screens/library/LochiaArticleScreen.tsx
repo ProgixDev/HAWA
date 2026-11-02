@@ -958,6 +958,1604 @@ const CONTENT = withBrazilianPortuguese('Lochia', {
       disclaimerText: '科普内容。本文不能替代医疗建议或检查。如有疑虑，或出现令你担心的症状，请咨询医疗专业人员。',
       shareMessage: '了解产后恶露 — AWA',
     },
+  'zh-Hant': {
+      badgeText: '產後 • 惡露',
+      title: '瞭解產後\n惡露',
+      metaDuration: '閱讀約 6 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '科普內容',
+      intro: '分娩後，惡露是指與子宮自然恢復過程相關的陰道分泌物。它的顏色和量會在隨後的幾天和幾週裡逐漸變化。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是惡露？',
+        '它會如何隨時間變化？',
+        '哪些情況可能是正常的',
+        '舒適小提醒',
+        '何時該就醫諮詢？',
+        '要點回顧',
+      ],
+      section1Heading: '1. 什麼是惡露？',
+      section1Body1: '惡露是分娩後出現的陰道分泌物，主要是子宮在恢復過程中逐漸排出的血液、分泌物和組織。',
+      section1Body2: '它與普通月經不同。惡露在產後屬於預期中的現象，通常會逐漸減少。',
+      infoTitle: '要點回顧',
+      infoText: '惡露並不表示月經已經恢復。月經的恢復是另一件事，會在稍後發生。',
+      section2Heading: '2. 惡露會如何隨時間變化？',
+      section2Body: '它的外觀通常會在最初幾週裡發生變化。顏色會逐漸變淺，量也往往會減少。',
+      evolutionTitle: '循序漸進的變化',
+      evolutionSubtitle: '各個階段因人而異',
+      evolution: [
+        {
+          label: '鮮紅色',
+          period: '最初幾天',
+          text: '分泌物通常為紅色，一開始量可能較多。',
+        },
+        {
+          label: '粉色 / 褐色',
+          period: '幾天之後',
+          text: '顏色會逐漸變淺，可能轉為粉色或褐色。',
+        },
+        {
+          label: '淡黃白色',
+          period: '接下來的幾週',
+          text: '分泌物通常會變得更少，呈淡黃色或白色，然後逐漸消失。',
+        },
+      ],
+      section3Heading: '3. 哪些情況可能是正常的',
+      section3Body: '惡露的變化過程並不是人人完全一樣。產後恢復期間，出現某些變化可能是自然的。',
+      normalPoints: [
+        {
+          title: '量有變化',
+          text: '量可能在最初幾天有所變化，隨後逐漸減少。',
+        },
+        {
+          title: '顏色會變化',
+          text: '惡露通常會隨時間從紅色逐漸變為較淺的顏色。',
+        },
+        {
+          title: '持續時間不一',
+          text: '它可能持續數週，具體變化過程因人而異。',
+        },
+      ],
+      section4Heading: '4. 舒適與記錄小提醒',
+      section4Body: '這段時間裡，簡單的記錄可以幫助你觀察身體的變化，而不必拿自己的經歷與別人比較。',
+      comfortTips: [
+        {
+          title: '溫和清潔',
+          text: '建議溫和、規律地清洗，避免使用有刺激性的產品。',
+        },
+        {
+          title: '留意變化',
+          text: '如果對追蹤恢復情況有幫助，你可以記錄分泌物的顏色、量和變化過程。',
+        },
+        {
+          title: '允許自己休息',
+          text: '產後恢復需要時間。傾聽身體的聲音，尊重自己恢復的需要。',
+        },
+      ],
+      section5Heading: '5. 是惡露，還是月經恢復？',
+      section5Body: '惡露出現在分娩後的幾天裡，並會逐漸減少。而月經恢復，則是指在這段時期之後月經週期重新開始。',
+      compareLochiaTitle: '惡露',
+      compareLochiaText: '與產後子宮恢復相關的分泌物。',
+      compareReturnTitle: '月經恢復',
+      compareReturnText: '月經週期重新開始，時間因人而異。',
+      section6Heading: '6. 何時該就醫諮詢？',
+      section6Body: '如果你覺得惡露的變化過程不太尋常，或者整體狀況在變差，請務必向醫療專業人員諮詢。',
+      warningTitle: '需要就醫諮詢的訊號',
+      warningSigns: [
+        '有強烈或異常的氣味',
+        '發熱或整體狀況變差',
+        '出血量突然明顯增多',
+        '明顯、持續或異常的疼痛',
+        '出現讓你擔心的新症狀',
+      ],
+      tipTitle: '小提醒',
+      tipText: '惡露通常會逐漸變化：一開始可能是紅色，之後變淺，再逐漸消失。不過，每個人的恢復過程都是個體化的。',
+      summaryHeading: '要點回顧',
+      summaryPoints: [
+        '惡露是分娩後正常的分泌物。',
+        '它的顏色和量通常會在幾週內發生變化。',
+        '持續時間和變化過程因人而異。',
+        '異常氣味、發熱、明顯疼痛，或突然大量出血，都需要就醫諮詢。',
+      ],
+      disclaimerText: '科普內容。本文不能替代醫療建議或檢查。如有疑慮，或出現令你擔心的症狀，請諮詢醫療專業人員。',
+      shareMessage: '瞭解產後惡露 — AWA',
+    },
+  ar: {
+    badgeText: 'ما بعد الولادة • الهلابة',
+    title: 'فهم الهلابة\nبعد الولادة',
+    metaDuration: 'قراءة في 6 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى للاطلاع',
+    intro:
+      'بعد الولادة، تُطلق الهلابة على الإفرازات المهبلية المرتبطة بعملية تعافي الرحم الطبيعية. ويتغيّر لونها وكميتها تدريجيًا خلال الأيام والأسابيع التالية.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هي الهلابة؟',
+      'كيف تتغيّر مع مرور الوقت؟',
+      'ما قد يكون طبيعيًا',
+      'نصائح للراحة',
+      'متى نطلب المشورة الطبية؟',
+      'أهم النقاط',
+    ],
+    section1Heading: '1. ما هي الهلابة؟',
+    section1Body1:
+      'الهلابة إفرازات مهبلية تظهر بعد الولادة. وهي تتكوّن أساسًا من تخلّص الرحم تدريجيًا من الدم والإفرازات والأنسجة أثناء تعافيه.',
+    section1Body2:
+      'وهي تختلف عن الحيض المعتاد. فهي متوقعة في فترة ما بعد الولادة، وتقلّ عمومًا بشكل تدريجي.',
+    infoTitle: 'أهم النقاط',
+    infoText:
+      'الهلابة لا تعني أن حيضك قد عاد. فعودة الحيض حدث منفصل يأتي لاحقًا.',
+    section2Heading: '2. كيف تتغيّر الهلابة مع مرور الوقت؟',
+    section2Body:
+      'يتغيّر مظهرها عادةً خلال الأسابيع الأولى. فيصبح لونها أفتح تدريجيًا وتميل كميتها إلى النقصان.',
+    evolutionTitle: 'تطوّر تدريجي',
+    evolutionSubtitle: 'قد تختلف المراحل من امرأة إلى أخرى',
+    evolution: [
+      {
+        label: 'أحمر فاتح',
+        period: 'الأيام الأولى',
+        text: 'تكون الإفرازات حمراء عادةً، وقد تكون أغزر في البداية.',
+      },
+      {
+        label: 'وردي / مائل إلى البني',
+        period: 'بعد بضعة أيام',
+        text: 'يصبح اللون أفتح تدريجيًا وقد يميل إلى الوردي أو البني.',
+      },
+      {
+        label: 'أبيض مائل إلى الأصفر',
+        period: 'خلال الأسابيع التالية',
+        text: 'تصبح الإفرازات عادةً أخف، صفراء أو بيضاء، قبل أن تتلاشى.',
+      },
+    ],
+    section3Heading: '3. ما قد يكون طبيعيًا',
+    section3Body:
+      'ليس تطوّر الهلابة متطابقًا تمامًا عند الجميع. وقد تصاحب التعافي بعد الولادة بعض التغيّرات بشكل طبيعي.',
+    normalPoints: [
+      {
+        title: 'كمية متفاوتة',
+        text: 'قد تتغيّر الكمية خلال الأيام الأولى ثم تقلّ تدريجيًا.',
+      },
+      {
+        title: 'لون يتغيّر',
+        text: 'تنتقل الهلابة عادةً من الأحمر إلى درجات أفتح مع الوقت.',
+      },
+      {
+        title: 'مدة متفاوتة',
+        text: 'قد تستمر عدة أسابيع، ويختلف تطوّرها من امرأة إلى أخرى.',
+      },
+    ],
+    section4Heading: '4. نصائح للراحة والمتابعة',
+    section4Body:
+      'في هذه المرحلة، يمكن للمتابعة البسيطة أن تساعدك على ملاحظة كيف يتغيّر جسمك دون مقارنة تجربتك بتجربة غيرك.',
+    comfortTips: [
+      {
+        title: 'نظافة لطيفة',
+        text: 'فضّلي الغسل اللطيف المنتظم دون منتجات مهيّجة.',
+      },
+      {
+        title: 'راقبي تطوّرها',
+        text: 'يمكنك تدوين لون الإفرازات وكميتها وتطوّرها إن كان ذلك يساعدك على متابعة تعافيك.',
+      },
+      {
+        title: 'امنحي نفسك الراحة',
+        text: 'فترة ما بعد الولادة تحتاج إلى وقت. أصغي إلى جسمك واحترمي حاجتك إلى التعافي.',
+      },
+    ],
+    section5Heading: '5. الهلابة أم عودة الحيض؟',
+    section5Body:
+      'تظهر الهلابة في الأيام التي تلي الولادة وتقلّ تدريجيًا. أما عودة الحيض فتعني استئناف دورتك الشهرية بعد هذه الفترة.',
+    compareLochiaTitle: 'الهلابة',
+    compareLochiaText: 'إفرازات مرتبطة بتعافي الرحم بعد الولادة.',
+    compareReturnTitle: 'عودة الحيض',
+    compareReturnText:
+      'استئناف الدورة الشهرية، في وقت يختلف من امرأة إلى أخرى.',
+    section6Heading: '6. متى نطلب المشورة الطبية؟',
+    section6Body:
+      'إذا بدا لكِ التطوّر غير معتاد، أو إذا ساءت حالتك العامة، فمن المهم طلب المشورة من مختص في الرعاية الصحية.',
+    warningTitle: 'علامات تستدعي المشورة الطبية',
+    warningSigns: [
+      'رائحة قوية أو غير معتادة',
+      'حمّى أو تدهور في الحالة العامة',
+      'تدفّق يصبح أغزر بكثير فجأة',
+      'ألم شديد أو مستمر أو غير معتاد',
+      'عَرَض جديد يقلقك',
+    ],
+    tipTitle: 'من المفيد أن تعرفي',
+    tipText:
+      'تتطوّر الهلابة عادةً بشكل تدريجي: قد تكون حمراء في البداية ثم تصبح أخف قبل أن تتلاشى. ومع ذلك، فكل تعافٍ يختلف من امرأة إلى أخرى.',
+    summaryHeading: 'أهم النقاط',
+    summaryPoints: [
+      'الهلابة إفرازات طبيعية بعد الولادة.',
+      'يتغيّر لونها وكميتها عادةً على مدى الأسابيع.',
+      'قد تختلف مدتها وتطوّرها من امرأة إلى أخرى.',
+      'الرائحة غير المعتادة أو الحمّى أو الألم الشديد أو النزف الغزير المفاجئ تستدعي المشورة الطبية.',
+    ],
+    disclaimerText:
+      'محتوى للاطلاع. لا يغني هذا المقال عن المشورة الطبية أو الفحص. وإذا ساورك شك أو لاحظتِ عرضًا مقلقًا، فاطلبي المشورة من مختص في الرعاية الصحية.',
+    shareMessage: 'فهم الهلابة بعد الولادة — AWA',
+  },
+  kab: {
+    badgeText: 'DEFFIR TUYAT • LOCHIA',
+    title: 'Fehm lochia\ndeffir tuyat',
+    metaDuration: '6 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Anagar',
+    metaValidated: 'Agbur n isallen',
+    intro:
+      'Deffir tuyat, lochia d asuffeɣ n tgellit yeqqnen d usirem amagnu n tfelwit n ugris. Initen-is d yimḍan-is ttbeddilen s leḥnana deg wussan d wayyuren i d-yetteddun.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu i d lochia?',
+      'Amek i yettbeddil s wakud?',
+      'D acu izemren ad yili d amagnu',
+      'Tanaṣiḥin n lehna',
+      'Melmi ara tsuter tamawt n umusnaw?',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    section1Heading: '1. D acu i d lochia?',
+    section1Body1:
+      'Lochia d asuffeɣ n tgellit i d-yettbanen deffir tuyat. Yettwaxdem s wudem amatu seg tuffɣa n idammen, n yiferrawen d n iẓuran n tfelwit mi ara tettwaslaḥ.',
+    section1Body2:
+      'Ur yemṣada ara d lḥiḍ amagnu. D ayen yettwarǧa deg wakud n deffir tuyat u s wudem amatu yettunqes s leḥnana.',
+    infoTitle: 'Ayen ilaqen ad tettɛassed',
+    infoText:
+      'Lochia ur tebbi ara belli lḥiḍ-ik yuɣal yakan. Tuɣalin n lḥiḍ d ayen yemgaraden i d-yeḍran mbeɛd.',
+    section2Heading: '2. Amek i yettbeddil lochia s wakud?',
+    section2Body:
+      'Tamuɣli-ines tettbeddil s wudem amatu deg yimalas imezwura. Inin yettuɣal d aceqqaq s leḥnana u ddmiḍ yettnaqes.',
+    evolutionTitle: 'Abeddel s leḥnana',
+    evolutionSubtitle: 'Iswiren zemrent ad mgaraden seg yiwet ɣer tayeḍ',
+    evolution: [
+      {
+        label: 'Azegzaw ifazen',
+        period: 'Ussan imezwura',
+        text: 'Asuffeɣ yettili s wudem amatu d azeggaɣ u yezmer ad yili d ameqqran ugar deg tazwara.',
+      },
+      {
+        label: 'Axuxi / aberkan kra',
+        period: 'Mbeɛd kra n wussan',
+        text: 'Inin yettuɣal d aceqqaq s leḥnana u yezmer ad yuɣal d axuxi neɣ d aberkan.',
+      },
+      {
+        label: 'Amellal-awlalaw',
+        period: 'Deg yimalas i d-yetteddun',
+        text: 'Asuffeɣ yettuɣal d aceqqaq, d awlalaw neɣ d amellal, uqbel ad yeqqim.',
+      },
+    ],
+    section3Heading: '3. D acu izemren ad yili d amagnu',
+    section3Body:
+      'Abeddel n lochia ur yemṣada ara s wudem ummid i yal yiwet. Kra n yisenfal zemrent ad d-ddint s wudem amagnu d usirem deffir tuyat.',
+    normalPoints: [
+      {
+        title: 'Tallelt ibeddlen',
+        text: 'Tallelt tezmer ad tbeddel deg wussan imezwura, sakin ad tennaqes s leḥnana.',
+      },
+      {
+        title: 'Inin ibeddlen',
+        text: 'Lochia tettṛuḥ s wudem amatu seg uzeggaɣ ɣer yiniten yeḍfuren s wakud.',
+      },
+      {
+        title: 'Akud ibeddlen',
+        text: 'Tezmer ad teqqim kra n yimalas, u abeddel-is yemgarad seg yiwet ɣer tayeḍ.',
+      },
+    ],
+    section4Heading: '4. Tanaṣiḥin n lehna d uɛass',
+    section4Body:
+      'Deg wakud-a, ɛass fessus yezmer ad k-yeɛawen ad twalid amek i yettbeddil ugris-ik war ma tmegrdeḍ tarmit-ik d tin n wayeḍ.',
+    comfortTips: [
+      {
+        title: 'Tafnit s leḥnana',
+        text: 'Fren asizdeg s leḥnana, s lḥal, war tisabunin ara k-yeččaren.',
+      },
+      {
+        title: 'Ɛass abeddel-is',
+        text: 'Tzemreḍ ad taruḍ inin, ddmiḍ d ubeddel n usuffeɣ ma yella aya yeɛawen ad tɛassed asirem-ik.',
+      },
+      {
+        title: 'Eǧǧ iman-ik ad yeṛṛaḥ',
+        text: 'Deffir tuyat yeṭṭef akud. Sel i ugris-ik u ḥrem ilaq-is n usirem.',
+      },
+    ],
+    section5Heading: '5. Lochia neɣ tuɣalin n lḥiḍ?',
+    section5Body:
+      'Lochia tettban deg wussan deffir tuyat u tettunqes s leḥnana. Tuɣalin n lḥiḍ, deg ubrid-nniḍen, d ayen yeqqnen d usnulfu n uzray n lḥiḍ-ik mbeɛd akud-a.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Asuffeɣ yeqqnen d usirem n tfelwit deffir tuyat.',
+    compareReturnTitle: 'Tuɣalin n lḥiḍ',
+    compareReturnText:
+      'Asnulfu n uzray n lḥiḍ, deg wakud yemgaraden seg yiwet ɣer tayeḍ.',
+    section6Heading: '6. Melmi ara tsuter tamawt n umusnaw?',
+    section6Body:
+      'Ma yella abeddel-is yettban-ak d ayen ur nelli ara d amagnu, neɣ ma yella waddad-ik amatu yettemcer, d ayen yesɛan azal ad tsuteḍ tamawt n umusnaw n tezmert.',
+    warningTitle: 'Tizmilin ssutrent tamawt n umusnaw',
+    warningSigns: [
+      'Tgemmunt tazurant neɣ ur nelli ara d tamagnut',
+      'Taḥmi neɣ waddad amatu yettemcer',
+      'Azray i d-yuɣalen ameqqran s tuffirt',
+      'Aṭṭan ameqqran, yettṛajun neɣ ur nelli ara d amagnu',
+      'Tamzilt tamaynut i k-yeččaren',
+    ],
+    tipTitle: 'Yelha ad teɛlmeḍ',
+    tipText:
+      'Lochia tettbeddil s leḥnana: tezmer ad tili d tazeggaɣt deg tazwara, sakin ad tuɣal d taceqqaqt uqbel ad teqqim. Maca, asirem n yal yiwet yemgarad.',
+    summaryHeading: 'Ayen ilaqen ad tettɛassed',
+    summaryPoints: [
+      'Lochia d asuffeɣ amagnu deffir tuyat.',
+      'Tettbeddil s wudem amatu deg yinin d ddmiḍ deg yimalas.',
+      'Akud-is d ubeddel-is zemrent ad mgaraden seg yiwet ɣer tayeḍ.',
+      'Tagemmunt ur nelli ara d tamagnut, taḥmi, aṭṭan ameqqran, neɣ azray ameqqran d amazzal ssutrent tamawt n umusnaw.',
+    ],
+    disclaimerText:
+      'Agbur n isallen. Amagrad-a ur yettnefsu ara tamawt n umusnaw neɣ asenqed. Ma tettwaṭṭfeḍ s ccek neɣ ma twalid tizmilt i k-yeččaren, suter tamawt n umusnaw n tezmert.',
+    shareMessage: 'Fehm lochia deffir tuyat — AWA',
+  },
+  om: {
+    badgeText: 'IJOOLLEE DHALUU BOODA • LOCHIA',
+    title: 'Lochia erga da\'anii\nbooda hubachuu',
+    metaDuration: 'Daqiiqaa 6 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee odeeffannoo',
+    intro:
+      'Erga da\'anii booda, lochia dhangala\'aa qaama dhokataa ta\'ee gara deebi\'ee fayyuu mudhii uumamaa waliin wal qabatu dha. Halluun fi hammi isaa guyyoota fi torban itti aanan keessatti suuta jijjiirama.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Lochia maali?',
+      'Yeroo wajjin akkamitti jijjiirama?',
+      'Maaltu idilee ta\'uu danda\'a',
+      'Gorsa mijataa',
+      'Yoom gorsa fayyaa barbaaduu?',
+      'Qabxiilee ijoo',
+    ],
+    section1Heading: '1. Lochia maali?',
+    section1Body1:
+      'Lochia dhangala\'aa qaama dhokataa erga da\'anii booda mul\'atu dha. Yeroo baay\'ee dhiiga, dhangala\'aa fi foon mudhii irraa suuta baasuu isaa yeroo deebi\'ee fayyu dha.',
+    section1Body2:
+      'Laguu idilee irraa adda. Yeroo erga da\'anii booda eegamuu dha, yeroo baay\'ee suuta hir\'ata.',
+    infoTitle: 'Qabxiilee ijoo',
+    infoText:
+      'Lochia laguun kee duraanuu deebi\'eera jechuu miti. Deebi\'uun laguu taatee adda kan booda ta\'u dha.',
+    section2Heading: '2. Lochia yeroo wajjin akkamitti jijjiirama?',
+    section2Body:
+      'Bifti isaa yeroo baay\'ee torban jalqabaa muraasa keessatti jijjiirama. Halluun suuta ifaa ta\'a, hammi isaas hir\'achuuf deema.',
+    evolutionTitle: 'Adeemsa suuta suutaan',
+    evolutionSubtitle: 'Sadarkaan nama irraa nama garaagara ta\'uu danda\'a',
+    evolution: [
+      {
+        label: 'Diimaa ifaa',
+        period: 'Guyyoota jalqabaa',
+        text: 'Dhangala\'aan yeroo baay\'ee diimaa dha, jalqaba irratti caalaatti baay\'ata ta\'uu danda\'a.',
+      },
+      {
+        label: 'Diimaa addaa (pink) / bunaa fakkaata',
+        period: 'Guyyoota muraasa booda',
+        text: 'Halluun suuta ifaa ta\'a, gara diimaa addaa (pink) ykn bunaa deemuu danda\'a.',
+      },
+      {
+        label: 'Adii-adii keelloo fakkaata',
+        period: 'Torban itti aanan keessatti',
+        text: 'Dhangala\'aan yeroo baay\'ee laafaa ta\'a, keelloo ykn adii-adii, osoo hin dhumin dura.',
+      },
+    ],
+    section3Heading: '3. Maaltu idilee ta\'uu danda\'a',
+    section3Body:
+      'Lochia akkamitti akka jijjiiramu nama hundumaaf wal fakkaata miti. Jijjiiramni tokko tokko deebi\'ee fayyuu erga da\'anii booda uumamaan hordofuu danda\'a.',
+    normalPoints: [
+      {
+        title: 'Hammi garaagara',
+        text: 'Hammi isaa guyyoota jalqabaa muraasa keessatti jijjiiramuu danda\'a, booda suuta hir\'ata.',
+      },
+      {
+        title: 'Halluun kan jijjiiramu',
+        text: 'Lochia yeroo baay\'ee yeroo wajjin diimaa irraa gara halluu ifaatti deema.',
+      },
+      {
+        title: 'Turtii garaagara',
+        text: 'Torban baay\'eef turuu danda\'a, adeemsi isaas nama irraa nama garaagara.',
+      },
+    ],
+    section4Heading: '4. Gorsa mijataa fi hordoffii',
+    section4Body:
+      'Yeroo kanatti, hordoffiin salphaan qaamni kee akkamitti akka jijjiiramaa jiru, muuxannoo kee kan namaa waliin wal bira osoo hin qabin, ilaaluuf si gargaaruu danda\'a.',
+    comfortTips: [
+      {
+        title: 'Qulqullina laafaa',
+        text: 'Dhiqannaa laafaa fi yeroo yeroon oomishaalee dhukkubbii gogaa hin fidne malee filadhu.',
+      },
+      {
+        title: 'Adeemsa isaa ilaali',
+        text: 'Yoo deebi\'ee fayyuu kee hordofuuf si gargaare, halluu, hammaa fi adeemsa dhangala\'aa galmeessuu dandeessa.',
+      },
+      {
+        title: 'Of boqochiisi',
+        text: 'Yeroon erga da\'anii booda yeroo fudhata. Qaama kee dhaggeeffadhu, fi deebi\'ee fayyuuf fedhii kee kabaji.',
+      },
+    ],
+    section5Heading: '5. Lochia moo deebi\'uu laguu?',
+    section5Body:
+      'Lochia guyyoota erga da\'anii booda mul\'ata, suuta hir\'ata. Deebi\'uun laguu garuu, erga yeroon kun darbee booda, marsaa laguu kee deebi\'ee eegaluu dha.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Dhangala\'aa deebi\'ee fayyuu mudhii erga da\'anii booda waliin wal qabatu.',
+    compareReturnTitle: 'Deebi\'uu laguu',
+    compareReturnText:
+      'Marsaa laguu deebi\'ee eegaluu, yeroo nama irraa nama garaagara ta\'e.',
+    section6Heading: '6. Yoom gorsa fayyaa barbaaduu?',
+    section6Body:
+      'Adeemsi isaa si biratti addaa fakkaate, ykn haalli kee waliigalaa yoo hammaate, ogeessa fayyaa irraa gorsa barbaaduun barbaachisaa dha.',
+    warningTitle: 'Mallattoowwan gorsa fayyaa barbaadan',
+    warningSigns: [
+      'Foolii cimaa ykn addaa',
+      'Ho\'a qaamaa ykn haala waliigalaa hammaachaa deemu',
+      'Dhangala\'aan tasa baay\'ee baay\'achuu',
+      'Dhukkubbii guddaa, itti fufiinsa qabu, ykn addaa',
+      'Mallattoo haaraa si yaaddessu',
+    ],
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Lochia yeroo baay\'ee suuta jijjiirama: jalqaba diimaa ta\'uu danda\'a, booda ifaa ta\'ee osoo hin dhumin dura. Haa ta\'u malee, deebi\'ee fayyuun tokkoon tokkoon isaa dhuunfaa dha.',
+    summaryHeading: 'Qabxiilee ijoo',
+    summaryPoints: [
+      'Lochia erga da\'anii booda dhangala\'aa idilee dha.',
+      'Yeroo baay\'ee torban keessatti halluu fi hammi isaa jijjiirama.',
+      'Turtii fi adeemsi isaa nama irraa nama garaagara ta\'uu danda\'a.',
+      'Foolii addaa, ho\'a qaamaa, dhukkubbii guddaa, ykn dhiiga tasa baay\'ee baay\'ate gorsa fayyaa ni barbaachisa.',
+    ],
+    disclaimerText:
+      'Qabiyyee odeeffannoo. Barruun kun gorsa fayyaa ykn qorannoo bakka hin bu\'u. Yoo shakkite ykn mallattoo si yaaddessu yoo argite, ogeessa fayyaa irraa gorsa barbaadi.',
+    shareMessage: 'Lochia erga da\'anii booda hubachuu — AWA',
+  },
+  ti: {
+    badgeText: 'ድሕሪ ወሊድ • ሎኪያ',
+    title: 'ድሕሪ ወሊድ ሎኪያ\nምርዳእ',
+    metaDuration: '6 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ሓበሬታዊ ትሕዝቶ',
+    intro:
+      'ድሕሪ ወሊድ፡ ሎኪያ ምስ ተፈጥሮኣዊ ናይ ማህጸን ምሕዋይ ዝተሓሓዘ ናይ ሴት ኣካል ፍሰት እዩ። ከለሩን ብዝሒኡን ኣብ ዝስዕቡ መዓልታትን ሰሙናትን ቀስ ብቀስ ይቕየር።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ሎኪያ እንታይ እዩ?',
+      'ብግዜ ከመይ ይቕየር?',
+      'እንታይ ንቡር ክኸውን ይኽእል',
+      'ምቾት ዝህቡ ምኽርታት',
+      'መዓስ ሕክምናዊ ምኽሪ ክድለ?',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Heading: '1. ሎኪያ እንታይ እዩ?',
+    section1Body1:
+      'ሎኪያ ድሕሪ ወሊድ ዝርከብ ናይ ሴት ኣካል ፍሰት እዩ። ማህጸን ክሕዊ ከሎ ብዝበዝሐ ደም፡ ፈሳሲታትን ቲሹን ቀስ ብቀስ ምውጻእ እዩ።',
+    section1Body2:
+      'ካብ ልሙድ ወርሓዊ ደም ይፈልይ። ኣብ እዋን ድሕሪ ወሊድ ዝጽበ ኮይኑ ብሓፈሻ ቀስ ብቀስ ይንከይ።',
+    infoTitle: 'ቀንዲ ነጥብታት',
+    infoText:
+      'ሎኪያ ወርሓዊ ደምኪ ተመሊሱ ማለት ኣይኮነን። ምምላስ ወርሓዊ ደም ድሕሪ ግዜ ዝኸውን ፍሉይ ፍጻመ እዩ።',
+    section2Heading: '2. ሎኪያ ብግዜ ከመይ ይቕየር?',
+    section2Body:
+      'ምስላሉ ብዙሓት ግዜ ኣብ ቀዳሞት ሒደት ሰሙናት ይቕየር። ከለሩ ቀስ ብቀስ ይሓይሽ፡ ብዝሒኡ ድማ ይንከይ።',
+    evolutionTitle: 'ቀስ ብቀስ ምዕባለ',
+    evolutionSubtitle: 'ደረጃታት ካብ ሰብ ናብ ሰብ ክፍለዩ ይኽእሉ',
+    evolution: [
+      {
+        label: 'ብሩህ ቀይሕ',
+        period: 'ቀዳሞት መዓልታት',
+        text: 'ፍሰቱ ብዙሓት ግዜ ቀይሕ እዩ፡ ኣብ መጀመርታ ድማ ዝበዝሐ ክኸውን ይኽእል።',
+      },
+      {
+        label: 'ሮዛዊ / ቡናዊ',
+        period: 'ድሕሪ ገለ መዓልታት',
+        text: 'ከለሩ ቀስ ብቀስ ይሓይሽ፡ ናብ ሮዛዊ ወይ ቡናዊ ክቕየር ይኽእል።',
+      },
+      {
+        label: 'ፍርቂ ጻዕዳ-ቢጫ',
+        period: 'ኣብ ዝስዕቡ ሰሙናት',
+        text: 'ፍሰቱ ብዙሓት ግዜ ይቐሊል፡ ቢጫዊ ወይ ጻዕዳዊ ኮይኑ ቅድሚ ምጥፋኡ።',
+      },
+    ],
+    section3Heading: '3. እንታይ ንቡር ክኸውን ይኽእል',
+    section3Body:
+      'ሎኪያ ዝቕየረሉ ኣገባብ ንኹሉ ሰብ ሓደ ዓይነት ኣይኮነን። ገለ ለውጣት ብተፈጥሮ ድሕሪ ወሊድ ምሕዋይ ክስዕቡ ይኽእሉ።',
+    normalPoints: [
+      {
+        title: 'ዝፍለ ብዝሒ',
+        text: 'ብዝሒኡ ኣብ ቀዳሞት ሒደት መዓልታት ክቕየር ድሕሪኡ ቀስ ብቀስ ክንክይ ይኽእል።',
+      },
+      {
+        title: 'ዝቕየር ከለር',
+        text: 'ሎኪያ ብግዜ ብዝበዝሐ ካብ ቀይሕ ናብ ቀሊል ሕብሪታት ይሰጋገር።',
+      },
+      {
+        title: 'ዝፍለ ጊዜ',
+        text: 'ንብዙሓት ሰሙናት ክቕጽል ይኽእል፡ ምዕባለኡ ድማ ካብ ሰብ ናብ ሰብ ይፈላለ።',
+      },
+    ],
+    section4Heading: '4. ምቾትን ምክትታልን ምኽርታት',
+    section4Body:
+      'ኣብዚ እዋን ቀሊል ምክትታል ተሞክሮኺ ምስ ካልእ ከይተወዳደርኪ ሰውነትኪ ከመይ ከም ዝቕየር ንምዕዛብ ይሕግዘኪ።',
+    comfortTips: [
+      {
+        title: 'ለስላስ ንጽህና',
+        text: 'ብዘይ ዝጉድእ ምርትታት ለስላስን ብኣገባብን ምሕጻብ ሃቢ።',
+      },
+      {
+        title: 'ምዕባሌኡ ተዓዘቢ',
+        text: 'ምሕዋይኪ ንምክትታል እንተ ሓጊዙኪ ከለር፡ ብዝሒን ምዕባለን ፍሰቱ ክትጽሕፊ ትኽእሊ።',
+      },
+      {
+        title: 'ንርእስኺ ዕረፍቲ ሃቢ',
+        text: 'እዋን ድሕሪ ወሊድ ግዜ የድሊ። ንሰውነትኪ ሰምዕዮ ንናይ ምሕዋይ ድሌትኪ ድማ ኣኽብሪ።',
+      },
+    ],
+    section5Heading: '5. ሎኪያ ወይ ምምላስ ወርሓዊ ደምኪ?',
+    section5Body:
+      'ሎኪያ ኣብ ድሕሪ ወሊድ መዓልታት ይርአን ቀስ ብቀስ ይንከይን። ምምላስ ወርሓዊ ደምኪ ግን ድሕሪ ናይዚ እዋን ምቅጻል ወርሓዊ ዑደትኪ እዩ።',
+    compareLochiaTitle: 'ሎኪያ',
+    compareLochiaText: 'ድሕሪ ወሊድ ምስ ምሕዋይ ማህጸን ዝተሓሓዘ ፍሰት።',
+    compareReturnTitle: 'ምምላስ ወርሓዊ ደምኪ',
+    compareReturnText:
+      'ምቅጻል ወርሓዊ ዑደት፡ ኣብ ካብ ሰብ ናብ ሰብ ዝፍለ እዋን።',
+    section6Heading: '6. መዓስ ሕክምናዊ ምኽሪ ክድለ?',
+    section6Body:
+      'ምዕባለኡ ዘይልሙድ ኮይኑ እንተ ተሰሚዑኪ፡ ወይ ሓፈሻዊ ኩነታትኪ እንተ ኣጸቢቑ፡ ካብ ሰራሕተኛ ጥዕና ምኽሪ ምድላይ ኣገዳሲ እዩ።',
+    warningTitle: 'ሕክምናዊ ምኽሪ ዘድልዩ ምልክታት',
+    warningSigns: [
+      'ብርቱዕ ወይ ዘይልሙድ ሽታ',
+      'ሞቐት ወይ እናከፍኣ ዝኸደ ሓፈሻዊ ኩነታት',
+      'ድንገት ኣዝዩ ዝበዝሐ ፍሰት',
+      'ዓቢ፡ ቀጻሊ ወይ ዘይልሙድ ቁርቁስ',
+      'ዘሰክፈኪ ሓድሽ ምልክት',
+    ],
+    tipTitle: 'ከተፍልጥዮ ዘለካ',
+    tipText:
+      'ሎኪያ ብዙሓት ግዜ ቀስ ብቀስ ይቕየር፡ ኣብ መጀመርታ ቀይሕ ክኸውን፡ ድሕሪኡ ቀሊሉ ቅድሚ ምጥፋእ ክኸውን ይኽእል። እንተኾነ ነፍሲ ወከፍ ምሕዋይ ውልቃዊ እዩ።',
+    summaryHeading: 'ቀንዲ ነጥብታት',
+    summaryPoints: [
+      'ሎኪያ ድሕሪ ወሊድ ንቡር ፍሰት እዩ።',
+      'ብዙሓት ግዜ ኣብ ሰሙናት ከለሩን ብዝሒኡን ይቕየር።',
+      'ጊዜኡን ምዕባለኡን ካብ ሰብ ናብ ሰብ ክፍለ ይኽእል።',
+      'ዘይልሙድ ሽታ፡ ሞቐት፡ ዓቢ ቁርቁስ፡ ወይ ድንገተኛ ኣዝዩ ብዙሕ ደም ሕክምናዊ ምኽሪ የድልዩ።',
+    ],
+    disclaimerText:
+      'ሓበሬታዊ ትሕዝቶ። እዚ ጽሑፍ ሕክምናዊ ምኽሪ ወይ ምርመራ ኣይትካእልን። ጥርጣረ እንተ ኣሎ ወይ ዘሰክፍ ምልክት እንተ ረኺብኪ፡ ካብ ሰራሕተኛ ጥዕና ምኽሪ ድለዪ።',
+    shareMessage: 'ድሕሪ ወሊድ ሎኪያ ምርዳእ — AWA',
+  },
+  rw: {
+    badgeText: 'NYUMA YO KUBYARA • LOCHIA',
+    title: 'Gusobanukirwa lochia\nnyuma yo kubyara',
+    metaDuration: 'Gusoma: iminota 6',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Utangiye',
+    metaValidated: 'Ibikubiyemo by\'amakuru',
+    intro:
+      'Nyuma yo kubyara, lochia ni amatembabuzi yo mu gitsina ajyanye n\'uburyo karemano inda ibyara yongera kumera neza. Ibara ryayo n\'ingano yayo bihinduka buhoro buhoro mu minsi n\'ibyumweru bikurikira.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Lochia ni iki?',
+      'Ihinduka ite uko igihe gihita?',
+      'Ibishobora kuba bisanzwe',
+      'Inama zo kumererwa neza',
+      'Ni ryari wakwiriye gushaka inama z\'abaganga?',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    section1Heading: '1. Lochia ni iki?',
+    section1Body1:
+      'Lochia ni amatembabuzi yo mu gitsina agaragara nyuma yo kubyara. Agizwe ahanini no gusohoka buhoro buhoro kw\'amaraso, amatembabuzi, n\'inyama zo mu nda ibyara igihe irimo gukira.',
+    section1Body2:
+      'Itandukanye n\'imihango isanzwe. Iba ikiri iyo gutegerezwa mu gihe cya nyuma yo kubyara kandi muri rusange igabanuka buhoro buhoro.',
+    infoTitle: 'Iby\'ingenzi byo kwibuka',
+    infoText:
+      'Lochia ntivuze ko imihango yawe yamaze kugaruka. Kugaruka kw\'imihango ni ikindi kintu kiba nyuma.',
+    section2Heading: '2. Lochia ihinduka ite uko igihe gihita?',
+    section2Body:
+      'Isura yayo ikunze guhinduka mu byumweru bike bya mbere. Ibara rigenda ryoroha buhoro buhoro kandi ingano ikunze kugabanuka.',
+    evolutionTitle: 'Impinduka igenda buhoro buhoro',
+    evolutionSubtitle: 'Ibyiciro bishobora gutandukana hagati y\'umuntu n\'undi',
+    evolution: [
+      {
+        label: 'Umutuku ucyeye',
+        period: 'Iminsi ya mbere',
+        text: 'Amatembabuzi akunze kuba atukura kandi ashobora kuba menshi mu ntangiriro.',
+      },
+      {
+        label: 'Roza / ikigina',
+        period: 'Nyuma y\'iminsi mike',
+        text: 'Ibara rigenda ryoroha buhoro buhoro kandi rishobora kwerekeza kuri roza cyangwa ikigina.',
+      },
+      {
+        label: 'Umweru-umuhondo',
+        period: 'Mu byumweru bikurikira',
+        text: 'Amatembabuzi akunze koroha, akaba umuhondo cyangwa umweru, mbere yo kugabanuka burundu.',
+      },
+    ],
+    section3Heading: '3. Ibishobora kuba bisanzwe',
+    section3Body:
+      'Uko lochia ihinduka si ko bimeze kimwe kuri bose. Impinduka zimwe zishobora kujyana mu buryo karemano no gukira nyuma yo kubyara.',
+    normalPoints: [
+      {
+        title: 'Ingano ihinduka',
+        text: 'Ingano ishobora guhinduka mu minsi mike ya mbere hanyuma ikagabanuka buhoro buhoro.',
+      },
+      {
+        title: 'Ibara rihinduka',
+        text: 'Lochia ikunze kuva ku itukura ikerekeza ku mabara yoroheje uko igihe gihita.',
+      },
+      {
+        title: 'Igihe kimara gitandukanye',
+        text: 'Ishobora kumara ibyumweru byinshi, kandi uko ihinduka bitandukana hagati y\'umuntu n\'undi.',
+      },
+    ],
+    section4Heading: '4. Inama zo kumererwa neza no gukurikirana',
+    section4Body:
+      'Muri iki gihe, gukurikirana byoroheje bishobora kugufasha kubona uko umubiri wawe uri guhinduka utagereranya ibyo unyuramo n\'iby\'undi.',
+    comfortTips: [
+      {
+        title: 'Isuku yoroheje',
+        text: 'Hitamo koga buhoro, buri gihe, utarimo ibintu bitera kurakara.',
+      },
+      {
+        title: 'Kurikirana uko ihinduka',
+        text: 'Ushobora kwandika ibara, ingano, n\'uko amatembabuzi ahinduka niba bigufasha gukurikirana gukira kwawe.',
+      },
+      {
+        title: 'Iha uburuhukiro',
+        text: 'Igihe cya nyuma yo kubyara gifata igihe. Umva umubiri wawe kandi wubahe ibyo ukeneye kugira ngo ukire.',
+      },
+    ],
+    section5Heading: '5. Lochia cyangwa kugaruka kw\'imihango yawe?',
+    section5Body:
+      'Lochia igaragara mu minsi ikurikira kubyara kandi igabanuka buhoro buhoro. Kugaruka kw\'imihango, ku rundi ruhande, ni ugusubukura uruhererekane rw\'imihango nyuma y\'iki gihe.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Amatembabuzi ajyanye no gukira kw\'inda ibyara nyuma yo kubyara.',
+    compareReturnTitle: 'Kugaruka kw\'imihango yawe',
+    compareReturnText:
+      'Gusubukura uruhererekane rw\'imihango, mu gihe gitandukana hagati y\'umuntu n\'undi.',
+    section6Heading: '6. Ni ryari wakwiriye gushaka inama z\'abaganga?',
+    section6Body:
+      'Niba uko bigenda bigaragara nk\'ibidasanzwe kuri wowe, cyangwa niba imimerere yawe muri rusange irimo kuba mibi, ni iby\'ingenzi gushaka inama z\'umuganga.',
+    warningTitle: 'Ibimenyetso bisaba inama z\'abaganga',
+    warningSigns: [
+      'Impumuro ikomeye cyangwa idasanzwe',
+      'Umuriro cyangwa imimerere muri rusange irimo kuba mibi',
+      'Amaraso ahita aba menshi cyane mu buryo butunguranye',
+      'Ububabare bukomeye, buhoraho, cyangwa budasanzwe',
+      'Ikimenyetso gishya kigutera impungenge',
+    ],
+    tipTitle: 'Byiza kumenya',
+    tipText:
+      'Lochia ikunze guhinduka buhoro buhoro: ishobora kuba itukura mu ntangiriro, hanyuma ikoroha mbere yo kugabanuka. Nyamara, gukira kwa buri wese kuratandukanye.',
+    summaryHeading: 'Iby\'ingenzi byo kwibuka',
+    summaryPoints: [
+      'Lochia ni amatembabuzi asanzwe nyuma yo kubyara.',
+      'Ikunze guhindura ibara n\'ingano uko ibyumweru bihita.',
+      'Igihe imara n\'uko ihinduka bishobora gutandukana hagati y\'umuntu n\'undi.',
+      'Impumuro idasanzwe, umuriro, ububabare bukomeye, cyangwa amaraso menshi cyane aje gitunguranye bisaba inama z\'abaganga.',
+    ],
+    disclaimerText:
+      'Ibikubiyemo by\'amakuru. Iyi nkuru ntisimbura inama z\'ubuvuzi cyangwa isuzuma. Niba ufite impungenge cyangwa ubonye ikimenyetso giteye inkeke, shaka inama z\'umuganga.',
+    shareMessage: 'Gusobanukirwa lochia nyuma yo kubyara — AWA',
+  },
+  rn: {
+    badgeText: 'NYUMA YO KUBYARA • LOCHIA',
+    title: 'Gusobanukirwa lochia\nnyuma yo kubyara',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikubiyemwo vyo kumenyesha',
+    intro:
+      'Nyuma yo kubyara, lochia ni amazi asohoka mu gitsina ahambiriye n\'umuvuduko w\'umuhango wo koroherwa kw\'igitereko. Ibara ryayo n\'ingano yayo bihinduka buhorobuhoro mu minsi n\'ibyumweru bikurikira.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'Lochia ni iki?',
+      'Ihinduka gute uko igihe gihita?',
+      'Ivyo bishobora kuba bisanzwe',
+      'Impanuro zo kwumva umerewe neza',
+      'Ni ryari wokwiye gusaba inama z\'ubuvuzi?',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    section1Heading: '1. Lochia ni iki?',
+    section1Body1:
+      'Lochia ni amazi asohoka mu gitsina agaragara nyuma yo kubyara. Cane cane ni ugusohoka buhorobuhoro kw\'amaraso, amazi n\'ibitambaro vyo mu gitereko igihe kirimo kuroherwa.',
+    section1Body2:
+      'Itandukanye n\'imihango isanzwe. Itegerejwe mu gihe c\'inyuma yo kubyara kandi isanzwe igabanuka buhorobuhoro.',
+    infoTitle: 'Ivyingenzi vyo kwibuka',
+    infoText:
+      'Lochia ntivuga ko imihango yawe yamaze gusubira. Isubira ry\'imihango ni ikindi kintu kiba nyuma.',
+    section2Heading: '2. Lochia ihinduka gute uko igihe gihita?',
+    section2Body:
+      'Isura yayo isanzwe ihinduka mu byumweru bike bya mbere. Ibara rirushiriza koroha buhorobuhoro kandi ingano igira kugabanuka.',
+    evolutionTitle: 'Ukugenda buhorobuhoro',
+    evolutionSubtitle: 'Ibice birashobora gutandukana hagati y\'umuntu n\'uwundi',
+    evolution: [
+      {
+        label: 'Itukura ryeruye',
+        period: 'Iminsi ya mbere',
+        text: 'Amazi asanzwe atukura kandi ashobora kuba menshi mu ntangiriro.',
+      },
+      {
+        label: 'Roza / risa n\'ikayuka',
+        period: 'Nyuma y\'iminsi mike',
+        text: 'Ibara rirushiriza koroha buhorobuhoro kandi rishobora kuja kuri roza canke ikayuka.',
+      },
+      {
+        label: 'Yera ivuga umuhondo',
+        period: 'Mu byumweru bikurikira',
+        text: 'Amazi asanzwe arushiriza koroha, afise umuhondo canke yera, imbere yo gushira.',
+      },
+    ],
+    section3Heading: '3. Ivyo bishobora kuba bisanzwe',
+    section3Body:
+      'Ukuntu lochia ihinduka ntibiba bimwe ku bose. Impinduka zimwezimwe zishobora kuherekeza mu buryo bw\'umuhango koroherwa nyuma yo kubyara.',
+    normalPoints: [
+      {
+        title: 'Ingano ihinduka',
+        text: 'Ingano ishobora guhinduka mu minsi mike ya mbere hanyuma ikagabanuka buhorobuhoro.',
+      },
+      {
+        title: 'Ibara rihinduka',
+        text: 'Lochia isanzwe iva ku gitukura ikaja ku mabara yoroshe uko igihe gihita.',
+      },
+      {
+        title: 'Igihe gihinduka',
+        text: 'Ishobora kumara ibyumweru bitari bike, kandi uko ihinduka kuratandukana hagati y\'umuntu n\'uwundi.',
+      },
+    ],
+    section4Heading: '4. Impanuro zo kumererwa neza no gukurikirana',
+    section4Body:
+      'Muri iki gihe, gukurikirana koroshe bishobora kugufasha kurabira ukuntu umubiri wawe uhinduka utagereranya ivyo uciyemwo n\'ivy\'undi.',
+    comfortTips: [
+      {
+        title: 'Isuku yoroshe',
+        text: 'Hitamwo kwoza buhoro, buri kanya, utarimwo ibicuruzwa birakaza.',
+      },
+      {
+        title: 'Rabira uko ihinduka',
+        text: 'Ushobora kwandika ibara, ingano n\'ukuntu amazi ahinduka nimba bigufasha gukurikirana koroherwa kwawe.',
+      },
+      {
+        title: 'Iha akaruhuko',
+        text: 'Igihe c\'inyuma yo kubyara gisaba igihe. Umvira umubiri wawe kandi wubahirize ukeneye koroherwa.',
+      },
+    ],
+    section5Heading: '5. Lochia canke isubira ry\'imihango yawe?',
+    section5Body:
+      'Lochia igaragara mu minsi ikurikira kubyara kandi igabanuka buhorobuhoro. Isubira ry\'imihango yawe, naho, rihuye no gusubira kw\'uruziga rwawe rw\'imihango nyuma y\'iki gihe.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Amazi ahambiriye n\'ukoroherwa kw\'igitereko nyuma yo kubyara.',
+    compareReturnTitle: 'Isubira ry\'imihango yawe',
+    compareReturnText:
+      'Gusubira kw\'uruziga rw\'imihango, mu gihe gitandukanye hagati y\'umuntu n\'uwundi.',
+    section6Heading: '6. Ni ryari wokwiye gusaba inama z\'ubuvuzi?',
+    section6Body:
+      'Nimba uko bigenda bigusa n\'ibitari ibisanzwe, canke nimba uko umeze muri rusangi kurushiriza kuba kubi, ni ngombwa gusaba inama umuhinga mu vy\'ubuzima.',
+    warningTitle: 'Ibimenyetso bisaba inama z\'ubuvuzi',
+    warningSigns: [
+      'Umunuko ukomeye canke udasanzwe',
+      'Umuriro canke uko umeze muri rusangi kurushiriza kuba kubi',
+      'Amaraso ahise aba menshi cane gitunguranye',
+      'Ububabare bukomeye, budahera canke budasanzwe',
+      'Ikimenyetso gishasha kigutera ubwoba',
+    ],
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Lochia isanzwe ihinduka buhorobuhoro: ishobora kuba itukura mu ntangiriro, hanyuma ikarushiriza koroha imbere yo gushira. Ariko, koroherwa kwa buri muntu kurihariye.',
+    summaryHeading: 'Ivyingenzi vyo kwibuka',
+    summaryPoints: [
+      'Lochia ni amazi asanzwe nyuma yo kubyara.',
+      'Isanzwe ihindura ibara n\'ingano mu byumweru.',
+      'Igihe imara n\'uko ihinduka bishobora gutandukana hagati y\'umuntu n\'uwundi.',
+      'Umunuko udasanzwe, umuriro, ububabare bukomeye, canke kuva amaraso menshi cane gitunguranye bisaba inama z\'ubuvuzi.',
+    ],
+    disclaimerText:
+      'Ibikubiyemwo vyo kumenyesha. Iyi ngingo ntisubira inama z\'ubuvuzi canke isuzuma. Nimba ufise amakenga canke ubonye ikimenyetso gihangayikishije, saba inama umuhinga mu vy\'ubuzima.',
+    shareMessage: 'Gusobanukirwa lochia nyuma yo kubyara — AWA',
+  },
+  ig: {
+    badgeText: 'MGBE A MỤSỊRỊ NWA • LOCHIA',
+    title: 'Ịghọta lochia\nmgbe a mụsịrị nwa',
+    metaDuration: 'Nkeji 6 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Onye mbido',
+    metaValidated: 'Ọdịnaya ozi',
+    intro:
+      'Mgbe a mụsịrị nwa, lochia bụ mmiri sitere n\'ọgọ nke jikọtara na usoro okike nke ime akpa nwa ịgbake. Agba ya na ọnụ ọgụgụ ya na-agbanwe nwayọọ nwayọọ n\'ụbọchị na izu ndị na-esote.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Gịnị bụ lochia?',
+      'Kedu ka o si agbanwe n\'oge?',
+      'Ihe nwere ike ịbụ nkịtị',
+      'Ndụmọdụ maka ntụsara ahụ',
+      'Mgbe kwesịrị ịchọ ndụmọdụ ahụike?',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    section1Heading: '1. Gịnị bụ lochia?',
+    section1Body1:
+      'Lochia bụ mmiri sitere n\'ọgọ nke na-apụta mgbe a mụsịrị nwa. O mejupụtara nke ukwuu n\'ikpochapụ nwayọọ nwayọọ nke ọbara, mmiri ahụ, na anụ ahụ site n\'akpa nwa ka ọ na-agbake.',
+    section1Body2:
+      'Ọ dị iche n\'nsọ nkịtị. A na-atụ anya ya n\'oge mgbe a mụsịrị nwa, ọ na-ebelatakwa nwayọọ nwayọọ.',
+    infoTitle: 'Isi ihe ndị ị ga-eburu',
+    infoText:
+      'Lochia apụtaghị na nsọ gị alọtalarị. Ọlọghachi nke nsọ gị bụ ihe dị iche nke na-eme n\'oge ọzọ.',
+    section2Heading: '2. Kedu ka lochia si agbanwe n\'oge?',
+    section2Body:
+      'Ọdịdị ya na-agbanwekarị n\'izu ole na ole mbụ. Agba ahụ na-adị nro nwayọọ nwayọọ ma ọnụ ọgụgụ na-ebelata.',
+    evolutionTitle: 'Mgbanwe nwayọọ nwayọọ',
+    evolutionSubtitle: 'Ọkwa ndị a nwere ike ịdịgasị site n\'onye ruo onye',
+    evolution: [
+      {
+        label: 'Ọbara uhie na-egbuke egbuke',
+        period: 'Ụbọchị ndị mbụ',
+        text: 'Mmiri ahụ na-abụkarị uhie ma nwee ike ịdị ukwuu na mbido.',
+      },
+      {
+        label: 'Pink / aja aja',
+        period: 'Mgbe ụbọchị ole na ole gasịrị',
+        text: 'Agba ahụ na-adị nro nwayọọ nwayọọ ma nwee ike ịgbanwe gaa na pink ma ọ bụ aja aja.',
+      },
+      {
+        label: 'Odo na-acha ọcha ọcha',
+        period: 'N\'izu ndị na-esote',
+        text: 'Mmiri ahụ na-adịkarị nro, odo odo ma ọ bụ na-acha ọcha ọcha, tupu ọ kwụsị.',
+      },
+    ],
+    section3Heading: '3. Ihe nwere ike ịbụ nkịtị',
+    section3Body:
+      'Etu lochia si agbanwe adịghị otu kpọmkwem n\'onye ọ bụla. Mgbanwe ụfọdụ nwere ike iso ngwa ngwa ịgbake mgbe a mụsịrị nwa n\'ụzọ okike.',
+    normalPoints: [
+      {
+        title: 'Ọnụ ọgụgụ na-adịgasị',
+        text: 'Ọnụ ọgụgụ nwere ike ịgbanwe n\'ụbọchị ole na ole mbụ wee belata nwayọọ nwayọọ.',
+      },
+      {
+        title: 'Agba na-agbanwe',
+        text: 'Lochia na-esikarị n\'uhie gaa n\'agba dị nro n\'oge.',
+      },
+      {
+        title: 'Ogologo oge na-adịgasị',
+        text: 'Ọ nwere ike ịnọgide ruo izu ole na ole, ma etu o si agbanwe dị iche site n\'onye ruo onye.',
+      },
+    ],
+    section4Heading: '4. Ndụmọdụ ntụsara ahụ na nleba anya',
+    section4Body:
+      'N\'oge a, nleba anya dị mfe nwere ike inyere gị aka ilekọta etu ahụ gị si agbanwe n\'enweghị ịtụnyere ahụmịhe gị na nke onye ọzọ.',
+    comfortTips: [
+      {
+        title: 'Ịdị ọcha nwayọọ',
+        text: 'Họrọ ịsa nwayọọ, mgbe niile n\'enweghị ihe na-akpata ọkụ ahụ.',
+      },
+      {
+        title: 'Lebara etu o si agbanwe anya',
+        text: 'Ị nwere ike idekọ agba, ọnụ ọgụgụ, na etu mmiri ahụ si aga n\'ihu ma ọ bụrụ na nke ahụ na-enyere gị aka ilekọta ịgbake gị.',
+      },
+      {
+        title: 'Kwe ka onwe gị zuru ike',
+        text: 'Oge mgbe a mụsịrị nwa na-ewe oge. Gee ahụ gị ntị ma sọpụrụ mkpa ị nwere ịgbake.',
+      },
+    ],
+    section5Heading: '5. Lochia ka ọlọghachi nke nsọ gị?',
+    section5Body:
+      'Lochia na-apụta n\'ụbọchị ndị na-eso ọmụmụ ma na-ebelata nwayọọ nwayọọ. N\'aka nke ọzọ, ọlọghachi nke nsọ gị bụ ịmaliteghachi usoro nsọ gị mgbe oge a gasịrị.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Mmiri jikọtara na ịgbake nke akpa nwa mgbe a mụsịrị nwa.',
+    compareReturnTitle: 'Ọlọghachi nke nsọ gị',
+    compareReturnText:
+      'Ịmaliteghachi usoro nsọ, n\'oge nke dịgasị site n\'onye ruo onye.',
+    section6Heading: '6. Mgbe kwesịrị ịchọ ndụmọdụ ahụike?',
+    section6Body:
+      'Ma ọ bụrụ na etu o si aga n\'ihu dị gị ka ihe na-adịghị ahụkebe, ma ọ bụ ọnọdụ gị n\'ozuzu na-akawanye njọ, ọ dị mkpa ịchọ ndụmọdụ n\'aka onye ọrụ ahụike.',
+    warningTitle: 'Ihe ịrịba ama chọrọ ndụmọdụ ahụike',
+    warningSigns: [
+      'Ísì siri ike ma ọ bụ nke na-adịghị ahụkebe',
+      'Ahụ ọkụ ma ọ bụ ọnọdụ n\'ozuzu na-akawanye njọ',
+      'Ọbara na-eju nke ukwuu ngwa ngwa',
+      'Mgbu dị ukwuu, na-adịgide, ma ọ bụ na-adịghị ahụkebe',
+      'Mgbaàmà ọhụrụ na-echegbu gị',
+    ],
+    tipTitle: 'Ihe ọ dị mma ịma',
+    tipText:
+      'Lochia na-agbanwekarị nwayọọ nwayọọ: ọ nwere ike ịbụ uhie na mbụ, wee dị nro tupu ọ kwụsị. Ma, ịgbake nke ọ bụla bụ nke onwe ya.',
+    summaryHeading: 'Isi ihe ndị ị ga-eburu',
+    summaryPoints: [
+      'Lochia bụ mmiri nkịtị mgbe a mụsịrị nwa.',
+      'O na-agbanwekarị n\'agba na n\'ọnụ ọgụgụ n\'izu ndị na-aga.',
+      'Ogologo oge ya na etu o si aga n\'ihu nwere ike ịdịgasị site n\'onye ruo onye.',
+      'Ísì na-adịghị ahụkebe, ahụ ọkụ, mgbu dị ukwuu, ma ọ bụ ọbara na-eju nke ukwuu mberede chọrọ ndụmọdụ ahụike.',
+    ],
+    disclaimerText:
+      'Ọdịnaya ozi. Isiokwu a anaghị anọchi ndụmọdụ ahụike ma ọ bụ nyocha. Ma ọ bụrụ na ị nwere obi abụọ ma ọ bụ ị hụrụ mgbaàmà na-echegbu gị, chọọ ndụmọdụ n\'aka onye ọrụ ahụike.',
+    shareMessage: 'Ịghọta lochia mgbe a mụsịrị nwa — AWA',
+  },
+  yo: {
+    badgeText: 'LẸ́YÌN IBIMỌ • LOCHIA',
+    title: 'Òye lochia\nlẹ́yìn ibimọ',
+    metaDuration: 'Ìṣẹ́jú 6 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú fún ìmọ̀',
+    intro:
+      'Lẹ́yìn ibimọ, lochia tọ́ka sí omi tó ń jáde láti ọ̀nà obìnrin tí ó jẹ mọ́ ìlànà àdánidá ìgbàpadà ilé ọmọ. Àwọ̀ àti iye rẹ̀ ń yípadà díẹ̀díẹ̀ ní àwọn ọjọ́ àti ọ̀sẹ̀ tó tẹ̀lé.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni lochia?',
+      'Báwo ni ó ṣe ń yípadà pẹ̀lú àkókò?',
+      'Ohun tó lè jẹ́ déédé',
+      'Àwọn ìmọ̀ràn ìtùnú',
+      'Ìgbà wo ni kí a wá ìmọ̀ràn oníṣègùn?',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Heading: '1. Kí ni lochia?',
+    section1Body1:
+      'Lochia jẹ́ omi tó ń jáde láti ọ̀nà obìnrin lẹ́yìn ibimọ. Ó jẹ́ pàtàkì nípa jíjáde ẹ̀jẹ̀, omi àti àsopọ láti inú ilé ọmọ díẹ̀díẹ̀ bí ó ṣe ń gbàdúrà padà.',
+    section1Body2:
+      'Ó yàtọ̀ sí nǹkan oṣù déédé. A retí rẹ̀ lẹ́yìn ibimọ, ó sì sábà máa ń dín kù díẹ̀díẹ̀.',
+    infoTitle: 'Àwọn kókó pàtàkì',
+    infoText:
+      'Lochia kò túmọ̀ sí pé nǹkan oṣù rẹ ti padà. Ìpadàbọ̀ nǹkan oṣù rẹ jẹ́ ìṣẹ̀lẹ̀ tó yàtọ̀ tí ó ń ṣẹlẹ̀ lẹ́yìn náà.',
+    section2Heading: '2. Báwo ni lochia ṣe ń yípadà pẹ̀lú àkókò?',
+    section2Body:
+      'Ìrísí rẹ̀ sábà máa ń yípadà ní àwọn ọ̀sẹ̀ díẹ̀ àkọ́kọ́. Àwọ̀ rẹ̀ ń fúyẹ́ díẹ̀díẹ̀, iye rẹ̀ sì máa ń dín kù.',
+    evolutionTitle: 'Ìlọsíwájú díẹ̀díẹ̀',
+    evolutionSubtitle: 'Àwọn ìpele lè yàtọ̀ láti ẹni sí ẹni',
+    evolution: [
+      {
+        label: 'Pupa tó ń tàn',
+        period: 'Àwọn ọjọ́ àkọ́kọ́',
+        text: 'Omi náà sábà máa ń pupa, ó sì lè pọ̀ jù ní ìbẹ̀rẹ̀.',
+      },
+      {
+        label: 'Pọ́ńkì / àwọ̀ ilẹ̀ díẹ̀',
+        period: 'Lẹ́yìn ọjọ́ díẹ̀',
+        text: 'Àwọ̀ náà ń fúyẹ́ díẹ̀díẹ̀, ó sì lè yí sí pọ́ńkì tàbí àwọ̀ ilẹ̀.',
+      },
+      {
+        label: 'Funfun-ofeefee',
+        period: 'Ní àwọn ọ̀sẹ̀ tó tẹ̀lé',
+        text: 'Omi náà sábà máa ń fúyẹ́, ofeefee tàbí funfun díẹ̀, kí ó tó dínkù tán.',
+      },
+    ],
+    section3Heading: '3. Ohun tó lè jẹ́ déédé',
+    section3Body:
+      'Bí lochia ṣe ń yípadà kò jọra gan-an fún gbogbo ènìyàn. Àwọn àyípadà kan lè bá ìgbàpadà lẹ́yìn ibimọ rìn lọ́nà àdánidá.',
+    normalPoints: [
+      {
+        title: 'Iye tó ń yípadà',
+        text: 'Iye náà lè yípadà ní àwọn ọjọ́ díẹ̀ àkọ́kọ́, lẹ́yìn náà kí ó dín kù díẹ̀díẹ̀.',
+      },
+      {
+        title: 'Àwọ̀ tó ń yípadà',
+        text: 'Lochia sábà máa ń lọ láti pupa sí àwọn àwọ̀ tó fúyẹ́ pẹ̀lú àkókò.',
+      },
+      {
+        title: 'Gígùn àkókò tó yàtọ̀',
+        text: 'Ó lè wà fún ọ̀sẹ̀ mélòó kan, bí ó sì ṣe ń yípadà yàtọ̀ láti ẹni sí ẹni.',
+      },
+    ],
+    section4Heading: '4. Àwọn ìmọ̀ràn ìtùnú àti ìtọpinpin',
+    section4Body:
+      'Ní àkókò yìí, ìtọpinpin ṣíṣe-rọrùn lè ràn ọ́ lọ́wọ́ láti ṣàkíyèsí bí ara rẹ ṣe ń yípadà láìfi ìrírí rẹ wé ti ẹlòmíràn.',
+    comfortTips: [
+      {
+        title: 'Ìmọ́tótó jẹ́jẹ́',
+        text: 'Fẹ́ràn fífọ̀ jẹ́jẹ́, déédé, láìlo àwọn ọjà tó ń bí ara nínú.',
+      },
+      {
+        title: 'Ṣàkíyèsí bí ó ṣe ń yípadà',
+        text: 'O lè kọ àwọ̀, iye àti ìlọsíwájú omi náà sílẹ̀ tí ó bá ń ràn ọ́ lọ́wọ́ láti tọpa ìgbàpadà rẹ.',
+      },
+      {
+        title: 'Gba ara rẹ láàyè láti sinmi',
+        text: 'Àkókò lẹ́yìn ibimọ nílò ìgbà. Fetí sí ara rẹ, kí o sì bọ̀wọ̀ fún àìní rẹ láti gbàpadà.',
+      },
+    ],
+    section5Heading: '5. Lochia tàbí ìpadàbọ̀ nǹkan oṣù rẹ?',
+    section5Body:
+      'Lochia máa ń farahàn ní àwọn ọjọ́ lẹ́yìn ibimọ, ó sì ń dín kù díẹ̀díẹ̀. Ìpadàbọ̀ nǹkan oṣù rẹ, ní ọ̀nà kejì, túmọ̀ sí ìtẹ̀síwájú ìyípo nǹkan oṣù rẹ lẹ́yìn àkókò yìí.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Omi tó jẹ mọ́ ìgbàpadà ilé ọmọ lẹ́yìn ibimọ.',
+    compareReturnTitle: 'Ìpadàbọ̀ nǹkan oṣù rẹ',
+    compareReturnText:
+      'Ìtẹ̀síwájú ìyípo nǹkan oṣù, ní àkókò tó yàtọ̀ láti ẹni sí ẹni.',
+    section6Heading: '6. Ìgbà wo ni kí a wá ìmọ̀ràn oníṣègùn?',
+    section6Body:
+      'Tí ìlọsíwájú náà bá dà bí ohun tí kò wọ́pọ̀ lójú rẹ, tàbí tí ipò ara rẹ lápapọ̀ bá ń burú sí i, ó ṣe pàtàkì láti wá ìmọ̀ràn ọ̀jọ̀gbọ́n ìlera.',
+    warningTitle: 'Àwọn àmì tí ó nílò ìmọ̀ràn oníṣègùn',
+    warningSigns: [
+      'Òórùn líle tàbí tí kò wọ́pọ̀',
+      'Ibà tàbí ipò ara tó ń burú sí i',
+      'Ìṣàn tó di púpọ̀ ní òjijì',
+      'Ìrora tó pọ̀, tí kò lọ, tàbí tí kò wọ́pọ̀',
+      'Àmì tuntun tí ó ń kó ọ láyà sókè',
+    ],
+    tipTitle: 'Ohun tó dára láti mọ̀',
+    tipText:
+      'Lochia sábà máa ń yípadà díẹ̀díẹ̀: ó lè pupa ní àkọ́kọ́, lẹ́yìn náà ó fúyẹ́ kí ó tó dínkù tán. Síbẹ̀, ìgbàpadà ẹnì kọ̀ọ̀kan yàtọ̀.',
+    summaryHeading: 'Àwọn kókó pàtàkì',
+    summaryPoints: [
+      'Lochia jẹ́ omi déédé lẹ́yìn ibimọ.',
+      'Ó sábà máa ń yí àwọ̀ àti iye padà ní ọ̀sẹ̀ mélòó kan.',
+      'Gígùn àti ìlọsíwájú rẹ̀ lè yàtọ̀ láti ẹni sí ẹni.',
+      'Òórùn tí kò wọ́pọ̀, ibà, ìrora tó pọ̀, tàbí ẹ̀jẹ̀ tó pọ̀ gan-an lójijì nílò ìmọ̀ràn oníṣègùn.',
+    ],
+    disclaimerText:
+      'Àkóónú fún ìmọ̀. Àpilẹ̀kọ yìí kò rọ́pò ìmọ̀ràn oníṣègùn tàbí àyẹ̀wò. Tí o bá ṣiyèméjì tàbí tí o bá kíyèsí àmì tó ń kó ọ láyà sókè, wá ìmọ̀ràn ọ̀jọ̀gbọ́n ìlera.',
+    shareMessage: 'Òye lochia lẹ́yìn ibimọ — AWA',
+  },
+  zu: {
+    badgeText: 'NGEMVA KOKUBELETHA • I-LOCHIA',
+    title: 'Ukuqonda i-lochia\nngemva kokubeletha',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Ongaqalayo',
+    metaValidated: 'Okuqukethwe okunikeza ulwazi',
+    intro:
+      'Ngemva kokubeletha, i-lochia ibhekisela ekuphumeni kwamanzi esithandweni okuhlobene nenqubo yemvelo yokululama kwesibeletho. Umbala nenani lakho kushintsha kancane kancane ezinsukwini nasemavikini alandelayo.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Iyini i-lochia?',
+      'Ishintsha kanjani ngokuhamba kwesikhathi?',
+      'Okungaba okujwayelekile',
+      'Amathiphu enduduzo',
+      'Uma kufanele ufune iseluleko sezokwelapha?',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    section1Heading: '1. Iyini i-lochia?',
+    section1Body1:
+      'I-lochia ukuphuma kwamanzi esithandweni okuvela ngemva kokubeletha. Ikakhulukazi iwukukhishwa kancane kancane kwegazi, uketshezi nezicubu ezibelethweni lapho lilulama.',
+    section1Body2:
+      'Ihluke ekuyeni esikhathini okujwayelekile. Iyalindelwa ngesikhathi sangemva kokubeletha futhi ngokuvamile iyancipha kancane kancane.',
+    infoTitle: 'Okubalulekile okufanele ukukhumbule',
+    infoText:
+      'I-lochia ayisho ukuthi isikhathi sakho sesibuyile. Ukubuya kwesikhathi sakho kuyisenzakalo esihlukile esenzeka kamuva.',
+    section2Heading: '2. I-lochia ishintsha kanjani ngokuhamba kwesikhathi?',
+    section2Body:
+      'Ukubukeka kwayo ngokuvamile kushintsha emasontweni ambalwa okuqala. Umbala uya ngokukhanya kancane kancane futhi inani liyancipha.',
+    evolutionTitle: 'Inqubekela phambili ehamba kancane',
+    evolutionSubtitle: 'Izigaba zingahluka phakathi komuntu nomuntu',
+    evolution: [
+      {
+        label: 'Obomvu obukhanyayo',
+        period: 'Izinsuku zokuqala',
+        text: 'Ukuphuma kwamanzi ngokuvamile kubomvu futhi kungaba kuningi ekuqaleni.',
+      },
+      {
+        label: 'Pinki / insundu kancane',
+        period: 'Ngemva kwezinsuku ezimbalwa',
+        text: 'Umbala uya ngokukhanya kancane kancane futhi ungaba pinki noma insundu.',
+      },
+      {
+        label: 'Ububende obuphuzi',
+        period: 'Emasontweni alandelayo',
+        text: 'Ukuphuma kwamanzi ngokuvamile kuba lula, kuphuzi noma kumhlophe, ngaphambi kokuphela.',
+      },
+    ],
+    section3Heading: '3. Okungaba okujwayelekile',
+    section3Body:
+      'Indlela i-lochia eguquka ngayo ayifani ncamashi kubo bonke. Ushintsho oluthile lungahambisana ngokwemvelo nokululama ngemva kokubeletha.',
+    normalPoints: [
+      {
+        title: 'Inani eliyashintsha',
+        text: 'Inani lingashintsha ezinsukwini ezimbalwa zokuqala bese lehla kancane kancane.',
+      },
+      {
+        title: 'Umbala oshintshayo',
+        text: 'I-lochia ngokuvamile isuka ebomvini iye emibalini ekhanyayo ngokuhamba kwesikhathi.',
+      },
+      {
+        title: 'Isikhathi esishintshayo',
+        text: 'Ingahlala amasonto amaningana, futhi indlela eguquka ngayo ihluka phakathi komuntu nomuntu.',
+      },
+    ],
+    section4Heading: '4. Amathiphu enduduzo nokulandelela',
+    section4Body:
+      'Ngalesi sikhathi, ukulandelela okulula kungakusiza ubheke ukuthi umzimba wakho uguquka kanjani ngaphandle kokuqhathanisa ulwazi lwakho nolomunye umuntu.',
+    comfortTips: [
+      {
+        title: 'Inhlanzeko ethambile',
+        text: 'Khetha ukugeza okuthambile, okuhlelekile ngaphandle kwemikhiqizo ebangela ukuhlukumeza.',
+      },
+      {
+        title: 'Bheka ukuthi iguquka kanjani',
+        text: 'Ungabhala umbala, inani nenqubekela phambili yokuphuma kwamanzi uma lokho kukusiza ulandelele ukululama kwakho.',
+      },
+      {
+        title: 'Zinike ukuphumula',
+        text: 'Isikhathi sangemva kokubeletha sidinga isikhathi. Lalela umzimba wakho futhi uhloniphe isidingo sakho sokululama.',
+      },
+    ],
+    section5Heading: '5. I-lochia noma ukubuya kwesikhathi sakho?',
+    section5Body:
+      'I-lochia ivela ezinsukwini ezilandela ukubeletha futhi iyancipha kancane kancane. Ukubuya kwesikhathi sakho, ngakolunye uhlangothi, kuhambisana nokuqala kabusha komjikelezo wakho wokuya esikhathini ngemva kwalesi sikhathi.',
+    compareLochiaTitle: 'I-lochia',
+    compareLochiaText: 'Ukuphuma kwamanzi okuhlobene nokululama kwesibeletho ngemva kokubeletha.',
+    compareReturnTitle: 'Ukubuya kwesikhathi sakho',
+    compareReturnText:
+      'Ukuqala kabusha komjikelezo wokuya esikhathini, ngesikhathi esihluka phakathi komuntu nomuntu.',
+    section6Heading: '6. Uma kufanele ufune iseluleko sezokwelapha?',
+    section6Body:
+      'Uma inqubekela phambili ibonakala ingajwayelekile kuwe, noma uma isimo sakho jikelele sesibuyela emuva, kubalulekile ukufuna iseluleko kochwepheshe wezempilo.',
+    warningTitle: 'Izimpawu ezidinga iseluleko sezokwelapha',
+    warningSigns: [
+      'Iphunga elinamandla noma elingajwayelekile',
+      'Imfiva noma isimo jikelele esibuyela emuva',
+      'Ukuhamba kwegazi okuzumayo kuba kukhulu kakhulu',
+      'Ubuhlungu obukhulu, obuqhubekayo noma obungajwayelekile',
+      'Uphawu olusha oluyakukhathaza',
+    ],
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'I-lochia ngokuvamile iguquka kancane kancane: ingaba bomvu ekuqaleni, bese iba lula ngaphambi kokuphela. Nokho, ukululama ngakunye kuhlukile.',
+    summaryHeading: 'Okubalulekile okufanele ukukhumbule',
+    summaryPoints: [
+      'I-lochia iyikuphuma kwamanzi okujwayelekile ngemva kokubeletha.',
+      'Ngokuvamile ishintsha ngombala nangenani emasontweni.',
+      'Ubude bayo nenqubekela phambili yayo kungahluka phakathi komuntu nomuntu.',
+      'Iphunga elingajwayelekile, imfiva, ubuhlungu obukhulu, noma ukopha okuzumayo okukhulu kakhulu kudinga iseluleko sezokwelapha.',
+    ],
+    disclaimerText:
+      'Okuqukethwe okunikeza ulwazi. Lesi sihloko asithathi indawo yeseluleko sezokwelapha noma yokuhlolwa. Uma une-shwa noma uqaphela uphawu olukukhathazayo, funa iseluleko kochwepheshe wezempilo.',
+    shareMessage: 'Ukuqonda i-lochia ngemva kokubeletha — AWA',
+  },
+  xh: {
+    badgeText: 'EMVA KOKUBELEKA • ILOCHIA',
+    title: 'Ukuyiqonda ilochia\nemva kokubeleka',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Ulwazi',
+    intro:
+      'Emva kokubeleka, ilochia yintlenga yasebugxwabeni exhunyiwe nenkqubo yendalo yokuphola kwesibeleko. Umbala nobungakanani bayo buyatshintsha kancinci ngeentsuku neeveki ezilandelayo.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni ilochia?',
+      'Itshintsha njani ngokuhamba kwexesha?',
+      'Into enokuba yeyesiqhelo',
+      'Amacebiso okuzithoba',
+      'Xa kufuneka ucele icebiso lezonyango?',
+      'Eyona nto ibalulekileyo',
+    ],
+    section1Heading: '1. Yintoni ilochia?',
+    section1Body1:
+      'Ilochia yintlenga yasebugxwabeni eyenzekayo emva kokubeleka. Ikakhulu yingqokelela yegazi, ulwelo kunye nezicubu ezikhutshwa kancinci esibelekweni xa siphola.',
+    section1Body2:
+      'Ayifani nexesha lokuya exesheni eliqhelekileyo. Iyalindelwa ngexesha lasemva kokubeleka kwaye ihlala yehla kancinci.',
+    infoTitle: 'Eyona nto ibalulekileyo',
+    infoText:
+      'Ilochia ayithethi ukuba ixesha lakho lokuya exesheni selibuyile. Ukubuya kwexesha lokuya exesheni yinto eyahlukileyo eyenzeka kamva.',
+    section2Heading: '2. Itshintsha njani ilochia ngokuhamba kwexesha?',
+    section2Body:
+      'Ukubonakala kwayo kuhlala kutshintsha kwiiveki zokuqala ezimbalwa. Umbala uya ukhanya kancinci kwaye ubungakanani buye behle.',
+    evolutionTitle: 'Inkqubela kancinci',
+    evolutionSubtitle: 'Amanqanaba anokwahluka komnye ukuya komnye',
+    evolution: [
+      {
+        label: 'Bubomvu obukhanyayo',
+        period: 'Iintsuku zokuqala',
+        text: 'Intlenga idla ngokuba bubomvu kwaye inokuba ninzi ekuqaleni.',
+      },
+      {
+        label: 'Pinki / ngqukuva',
+        period: 'Emva kweentsuku ezimbalwa',
+        text: 'Umbala uya ukhanya kancinci kwaye ungaya ku-pinki okanye ebunqukuvini.',
+      },
+      {
+        label: 'Mhlophe-mthubi',
+        period: 'Kwiiveki ezilandelayo',
+        text: 'Intlenga idla ngokukhanya, ibe mthubi okanye mhlophe, phambi kokuba iphele.',
+      },
+    ],
+    section3Heading: '3. Into enokuba yeyesiqhelo',
+    section3Body:
+      'Indlela ilochia eqhubeka ngayo ayifani ncam kumntu wonke. Utshintsho oluthile lunokuhamba kunye nokuphola emva kokubeleka.',
+    normalPoints: [
+      {
+        title: 'Ubungakanani obuyahluka',
+        text: 'Ubungakanani bunokutshintsha kwiintsuku zokuqala ezimbalwa kwaye kuze kuhle kancinci.',
+      },
+      {
+        title: 'Umbala otshintshayo',
+        text: 'Ilochia idla ngokuhamba ukusuka kububomvu iye kwimibala ekhanyayo ngokuhamba kwexesha.',
+      },
+      {
+        title: 'Ixesha elahlukileyo',
+        text: 'Inokuhlala iiveki ezininzi, kwaye indlela eqhubeka ngayo yahlukile komnye ukuya komnye.',
+      },
+    ],
+    section4Heading: '4. Amacebiso okuzithoba nokulandelela',
+    section4Body:
+      'Ngeli xesha, ukulandelela ngokulula kunganceda ukuba ubone indlela umzimba wakho otshintsha ngayo, ungazithelekisi nomnye umntu.',
+    comfortTips: [
+      {
+        title: 'Inyango ethambileyo',
+        text: 'Khetha ukuhlamba ngobunono nangamaxesha rhoqo ungasebenzisi izinto ezibangela ukucaphuka.',
+      },
+      {
+        title: 'Khangela indlela eqhubeka ngayo',
+        text: 'Unokubhala umbala, ubungakanani nenkqubela yentlenga ukuba oko kukunceda ulandelele ukuphola kwakho.',
+      },
+      {
+        title: 'Zinike ixesha lokuphumla',
+        text: 'Ixesha lasemva kokubeleka lifuna ixesha. Mamela umzimba wakho kwaye uwahloniphe amandla okuphola.',
+      },
+    ],
+    section5Heading: '5. Ilochia okanye ukubuya kwexesha lokuya exesheni?',
+    section5Body:
+      'Ilochia ivela kwiintsuku ezilandela ukubeleka kwaye yehla kancinci. Ukubuya kwexesha lokuya exesheni, ngakolunye uhlangothi, kuthetha ukuqala kwakhona kowakho umjikelo wokuya exesheni emva kweli xesha.',
+    compareLochiaTitle: 'Ilochia',
+    compareLochiaText: 'Intlenga exhunyiwe nokuphola kwesibeleko emva kokubeleka.',
+    compareReturnTitle: 'Ukubuya kwexesha lokuya exesheni',
+    compareReturnText:
+      'Ukuqala kwakhona komjikelo wokuya exesheni, ngexesha eliyahlukileyo komnye ukuya komnye.',
+    section6Heading: '6. Xa kufuneka ucele icebiso lezonyango?',
+    section6Body:
+      'Ukuba inkqubela ibonakala ingaqhelekanga kuwe, okanye ukuba imeko yakho iyonke iya isiba mbi, kubalulekile ukucela icebiso kwingcali yezempilo.',
+    warningTitle: 'Imiqondiso efuna icebiso lezonyango',
+    warningSigns: [
+      'Ivumba elinamandla okanye elingaqhelekanga',
+      'Imfiva okanye imeko iyonke eya isiba mbi',
+      'Ukopha okuthi ngequbuliso kube kukhulu kakhulu',
+      'Intlungu enkulu, eqhubekayo okanye engaqhelekanga',
+      'Uphawu olutsha olukukhathazayo',
+    ],
+    tipTitle: 'Kulungile ukwazi',
+    tipText:
+      'Ilochia idla ngokuhamba kancinci: inokuba bubomvu ekuqaleni, ize ikhanye phambi kokuba iphele. Noko ke, ukuphola komntu ngamnye kwahlukile.',
+    summaryHeading: 'Eyona nto ibalulekileyo',
+    summaryPoints: [
+      'Ilochia yintlenga eqhelekileyo emva kokubeleka.',
+      'Idla ngokutshintsha umbala nobungakanani ngeeveki.',
+      'Ixesha layo nenkqubela inokwahluka komnye ukuya komnye.',
+      'Ivumba elingaqhelekanga, imfiva, intlungu enkulu, okanye ukopha okuthi ngequbuliso kube kukhulu kakhulu kufuna icebiso lezonyango.',
+    ],
+    disclaimerText:
+      'Ulwazi. Eli nqaku alithatheli indawo yecebiso lezonyango okanye uhlolo. Ukuba uyakrokrela okanye ubona uphawu olukukhathazayo, cela icebiso kwingcali yezempilo.',
+    shareMessage: 'Ukuyiqonda ilochia emva kokubeleka — AWA',
+  },
+  sn: {
+    badgeText: 'POSTPARTUM • LOCHIA',
+    title: 'Kunzwisisa lochia\nmushure mekubereka',
+    metaDuration: 'Kuverenga kwemaminetsi 6',
+    metaType: 'Gwaro',
+    metaLevel: 'Anotanga',
+    metaValidated: 'Zvinyorwa zvekuziva',
+    intro:
+      'Mushure mekubereka, lochia ndiyo mvura inobuda muvhazhina inobatana nenzira yechisikirwo yekupora kwebhokisi renhumbu. Ruvara rwayo nehuwandu hwayo zvinoshanduka zvishoma nezvishoma mumazuva nemavhiki anotevera.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Lochia chii?',
+      'Inoshanduka sei nenguva?',
+      'Zvinogona kuva zvakajairika',
+      'Mazano ekunyaradza',
+      'Nguva yekutsvaga zano rekurapwa?',
+      'Zvakakosha kuyeuka',
+    ],
+    section1Heading: '1. Lochia chii?',
+    section1Body1:
+      'Lochia mvura inobuda muvhazhina inoonekwa mushure mekubereka. Inowanzova kubviswa zvishoma nezvishoma kweropa, mvura dzemuviri, nenyama nyoro dzebhokisi renhumbu painopora.',
+    section1Body2:
+      'Yakasiyana nekuenda kumwedzi kwakajairika. Inotarisirwa panguva ye postpartum uye inowanzodzikira zvishoma nezvishoma.',
+    infoTitle: 'Zvakakosha kuyeuka',
+    infoText:
+      'Lochia haireve kuti kuenda kwako kumwedzi kwadzoka kare. Kudzoka kwekuenda kumwedzi chiitiko chakasiyana chinoitika gare gare.',
+    section2Heading: '2. Lochia inoshanduka sei nenguva?',
+    section2Body:
+      'Chimiro chayo chinowanzochinja mumavhiki mashoma ekutanga. Ruvara runoenda rwuchireruka zvishoma nezvishoma uye huwandu hunowanzodzikira.',
+    evolutionTitle: 'Kufambira mberi zvishoma nezvishoma',
+    evolutionSubtitle: 'Nhanho dzinogona kusiyana kubva pamunhu kuenda kumumwe',
+    evolution: [
+      {
+        label: 'Tsvuku inopenya',
+        period: 'Mazuva ekutanga',
+        text: 'Mvura inobuda inowanzova tsvuku uye inogona kuva yakawanda pakutanga.',
+      },
+      {
+        label: 'Pink / brown zvishoma',
+        period: 'Mushure memazuva mashoma',
+        text: 'Ruvara runoenda rwuchireruka zvishoma nezvishoma uye runogona kuita pink kana brown.',
+      },
+      {
+        label: 'Chena-yero',
+        period: 'Mumavhiki anotevera',
+        text: 'Mvura inobuda inowanzova nyoro, yero kana chena, isati yapera.',
+      },
+    ],
+    section3Heading: '3. Zvinogona kuva zvakajairika',
+    section3Body:
+      'Kushanduka kwe lochia hakusi chaizvo kwakafanana kune wese. Dzimwe shanduko dzinogona kuperekedza kupora mushure mekubereka zvechisikirwo.',
+    normalPoints: [
+      {
+        title: 'Huwandu hunosiyana',
+        text: 'Huwandu hunogona kuchinja mumazuva mashoma ekutanga ndokudzikira zvishoma nezvishoma.',
+      },
+      {
+        title: 'Ruvara runochinja',
+        text: 'Lochia inowanzobva pa tsvuku ichienda kumavara akareruka nenguva.',
+      },
+      {
+        title: 'Nguva inosiyana',
+        text: 'Inogona kuramba iripo kwemavhiki akati wandei, uye kushanduka kwayo kunosiyana kubva pamunhu kuenda kumumwe.',
+      },
+    ],
+    section4Heading: '4. Mazano ekunyaradza nekutarisa',
+    section4Body:
+      'Panguva ino, kutarisa kwakareruka kunogona kukubatsira kuona kuchinja kwemuviri wako pasina kuenzanisa zvaunosangana nazvo nezvomumwe munhu.',
+    comfortTips: [
+      {
+        title: 'Hutsanana hunyoro',
+        text: 'Sarudza kusuka zvinyoro, nguva dzose, pasina zvinhu zvinotsamwisa.',
+      },
+      {
+        title: 'Tarisa kushanduka kwayo',
+        text: 'Unogona kunyora ruvara, huwandu, nekufambira mberi kwemvura inobuda kana izvi zvichikubatsira kutarisa kupora kwako.',
+      },
+      {
+        title: 'Zvipe zororo',
+        text: 'Nguva ye postpartum inotora nguva. Teerera muviri wako uye uremekedze kuda kwako kupora.',
+      },
+    ],
+    section5Heading: '5. Lochia kana kudzoka kwekuenda kwako kumwedzi?',
+    section5Body:
+      'Lochia inoonekwa mumazuva anotevera kubereka uye inodzikira zvishoma nezvishoma. Kudzoka kwekuenda kwako kumwedzi, kune rimwe divi, kunoreva kutangazve kwecycle yako mushure menguva iyi.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Mvura inobuda inobatana nekupora kwebhokisi renhumbu mushure mekubereka.',
+    compareReturnTitle: 'Kudzoka kwekuenda kwako kumwedzi',
+    compareReturnText:
+      'Kutangazve kwecycle yekuenda kumwedzi, panguva inosiyana kubva pamunhu kuenda kumumwe.',
+    section6Heading: '6. Nguva yekutsvaga zano rekurapwa?',
+    section6Body:
+      'Kana kufambira mberi kuchioneka kusina kujairika kwauri, kana mamiriro ako ose ari kuipa, zvakakosha kutsvaga zano kunyanzvi yezveutano.',
+    warningTitle: 'Zviratidzo zvinoda zano rekurapwa',
+    warningSigns: [
+      'Hwema hwakasimba kana husina kujairika',
+      'Fivha kana mamiriro ose ari kuipa',
+      'Ropa rinoerekana raita rakawanda zvikuru',
+      'Kurwadziwa kukuru, kunoramba kuripo, kana kusina kujairika',
+      'Chiratidzo chitsva chinokuvhundutsa',
+    ],
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Lochia inowanzoshanduka zvishoma nezvishoma: inogona kutanga tsvuku, ichitoreruka isati yapera. Zvisinei, kupora kwega kwega kwakasiyana.',
+    summaryHeading: 'Zvakakosha kuyeuka',
+    summaryPoints: [
+      'Lochia mvura inobuda yakajairika mushure mekubereka.',
+      'Inowanzochinja ruvara nehuwandu mumavhiki.',
+      'Nguva yayo nekufambira mberi kwayo zvinogona kusiyana kubva pamunhu kuenda kumumwe.',
+      'Hwema husina kujairika, fivha, kurwadziwa kukuru, kana ropa rinoerekana raita rakawanda zvikuru zvinoda zano rekurapwa.',
+    ],
+    disclaimerText:
+      'Zvinyorwa zvekuziva chete. Chinyorwa ichi hachitsiviri zano rekurapwa kana kuongororwa. Kana une kusava nechokwadi kana uchiona chiratidzo chinokuvhundutsa, tsvaga zano kunyanzvi yezveutano.',
+    shareMessage: 'Kunzwisisa lochia mushure mekubereka — AWA',
+  },
+  ln: {
+    badgeText: 'SIMA YA KOBOTA • LOCHIA',
+    title: 'Kososola lochia\nsima ya kobota',
+    metaDuration: 'Miniti 6 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo ya koyebisa',
+    intro:
+      'Sima ya kobota, lochia elimboli mai oyo ebimaka na libumu oyo ezali na boyokani na ndenge libumu ezongaka na ntina na yango. Langi mpe mingi na yango ebongwanaka moke moke na mikolo mpe poso oyo elandi.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Lochia ezali nini?',
+      'Ebongwanaka boni na ntango?',
+      'Oyo ekoki kozala ya malamu',
+      'Malako ya kimia',
+      'Ntango nini ya kosenga toli ya monganga?',
+      'Makambo ya kokanisa',
+    ],
+    section1Heading: '1. Lochia ezali nini?',
+    section1Body1:
+      'Lochia ezali mai oyo ebimaka na libumu sima ya kobota. Ezali mingi mingi kobimisama moke moke ya makila, mai mosusu mpe nzoto moke ya libumu ntango ezali kozonga na ntina na yango.',
+    section1Body2:
+      'Ekeseni na sanza ya ndenge. Ezali oyo etalelamaka na ntango sima ya kobota mpe mbala mingi ekitaka malembe malembe.',
+    infoTitle: 'Makambo ya kokanisa',
+    infoText:
+      'Lochia elakisi te ete sanza na yo ezongi. Kozonga ya sanza ezali likambo mosusu oyo eyaka sima.',
+    section2Heading: '2. Lochia ebongwanaka boni na ntango?',
+    section2Body:
+      'Lolenge na yango ebongwanaka mbala mingi na poso ya liboso. Langi ekómaka pɛtɛ moke moke mpe mingi na yango ekitaka.',
+    evolutionTitle: 'Ebongwana ya moke moke',
+    evolutionSubtitle: 'Ba etape ekoki kokeseni na moto na moto',
+    evolution: [
+      {
+        label: 'Motane makasi',
+        period: 'Mikolo ya liboso',
+        text: 'Mai ezalaka mbala mingi motane mpe ekoki kozala mingi koleka na ebandeli.',
+      },
+      {
+        label: 'Pembe motane / bulɔ moke',
+        period: 'Sima ya mwa mikolo',
+        text: 'Langi ekómaka pɛtɛ moke moke mpe ekoki kokóma motane ya pembe to bulɔ.',
+      },
+      {
+        label: 'Pembe ya nkó',
+        period: 'Na poso oyo elandi',
+        text: 'Mai ekómaka mbala mingi pɛtɛ, ya nkó to ya mpembe, liboso ya kosila.',
+      },
+    ],
+    section3Heading: '3. Oyo ekoki kozala ya malamu',
+    section3Body:
+      'Ndenge lochia ebongwanaka ezali ndenge moko mpenza mpo na bato nyonso te. Mbongwana mosusu ekoki kozala elongo na ndenge nzoto ezongaka malamu sima ya kobota.',
+    normalPoints: [
+      {
+        title: 'Mingi oyo ebongwanaka',
+        text: 'Mingi na yango ekoki kobongwana na mikolo ya liboso mpe sima ekita moke moke.',
+      },
+      {
+        title: 'Langi oyo ebongwanaka',
+        text: 'Lochia euti mbala mingi na motane mpe ekomi na langi ya pɛtɛ na ntango.',
+      },
+      {
+        title: 'Ntango oyo ebongwanaka',
+        text: 'Ekoki kokoba poso mingi, mpe ndenge ebongwanaka ekeseni na moto na moto.',
+      },
+    ],
+    section4Heading: '4. Malako ya kimia mpe ya kotala',
+    section4Body:
+      'Na ntango oyo, kotala ya pɛtɛɛ ekoki kosalisa yo komona ndenge nzoto na yo ezali kobongwana, kozanga kokokanisa makambo na yo na oyo ya moto mosusu.',
+    comfortTips: [
+      {
+        title: 'Bopɛtɛ ya malembe',
+        text: 'Pona kosukola malembe mpe mbala na mbala, kozanga biloko oyo ebimisaka mpasi ya poso.',
+      },
+      {
+        title: 'Tala ndenge ebongwanaka',
+        text: 'Okoki koma langi, mingi mpe ndenge mai ebongwanaka soki yango esalisi yo kotala ndenge ozali kozonga malamu.',
+      },
+      {
+        title: 'Pesa nzoto na yo kopema',
+        text: 'Ntango ya sima ya kobota esengi ntango. Yoka nzoto na yo mpe pesa yango ntango oyo esengi mpo na kozongela makasi.',
+      },
+    ],
+    section5Heading: '5. Lochia to kozonga ya sanza na yo?',
+    section5Body:
+      'Lochia ebimaka na mikolo oyo elandi kobota mpe ekitaka malembe malembe. Kozonga ya sanza, na ngambo mosusu, elimboli kozonga ya cycle na yo ya sanza sima ya ntango oyo.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Mai oyo ezali na boyokani na ndenge libumu ezongaka na ntina na yango sima ya kobota.',
+    compareReturnTitle: 'Kozonga ya sanza na yo',
+    compareReturnText:
+      'Kozonga ya cycle ya sanza, na ntango oyo ekeseni na moto na moto.',
+    section6Heading: '6. Ntango nini ya kosenga toli ya monganga?',
+    section6Body:
+      'Soki ndenge ebongwanaka ezali ya ekeseni na miso na yo, to soki ndenge nzoto na yo ezali ekómi mabe, ezali na ntina ya kosenga toli epai ya moto ya mosala ya lisano.',
+    warningTitle: 'Bilembo oyo esengi toli ya monganga',
+    warningSigns: [
+      'Nsolo makasi to ya ekeseni',
+      'Molunge to ndenge nzoto ezali ekómi mabe',
+      'Makila oyo ekómi mingi mbalakaka',
+      'Mpasi monene, ya ntango molai, to ya ekeseni',
+      'Elembo ya sika oyo ezali kotungisa yo',
+    ],
+    tipTitle: 'Eloko ya koyeba',
+    tipText:
+      'Lochia ebongwanaka mbala mingi malembe malembe: ekoki kozala motane na ebandeli, sima ekómi pɛtɛ liboso ya kosila. Nzokande, kozonga makasi ezali ya moto na moto.',
+    summaryHeading: 'Makambo ya kokanisa',
+    summaryPoints: [
+      'Lochia ezali mai ya malamu sima ya kobota.',
+      'Mbala mingi ebongwanaka na langi mpe mingi na poso.',
+      'Ntango na yango mpe ndenge ebongwanaka ekoki kokeseni na moto na moto.',
+      'Nsolo ya ekeseni, molunge, mpasi monene, to makila mingi mpenza na mbalakaka esengi toli ya monganga.',
+    ],
+    disclaimerText:
+      'Makambo ya koyebisa. Lisolo oyo etɛlɛmi na esika ya toli to ya kotala ya monganga te. Soki ozali na ntembe to ozali komona elembo oyo ezali kotungisa yo, luka toli epai ya moto ya mosala ya lisano.',
+    shareMessage: 'Kososola lochia sima ya kobota — AWA',
+  },
+  ff: {
+    badgeText: 'CAGGAL DANYUGO • LOCHIA',
+    title: 'Faamugo lochia\ncaggal danyugo',
+    metaDuration: 'Janngugol minti 6',
+    metaType: 'Jannginoore',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Anndinde tan',
+    intro:
+      'Caggal danyugo, lochia ko ndiyam ɗam ɗon wara e ɓanndu jokkitaaɗam e sellugo bumbi ɗum no ɗum woni. Ɓaleeji maɗɗam e ɗuuɗal maɗɗam ɗon wayla seɗɗa seɗɗa nder nyalaaje e yontere ɗi ɗon ara.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'Lochia ko ɗume?',
+      'No ɗum waylirta wakkati?',
+      'Ko foti wonde normal',
+      'Ndaaneeji sellugo',
+      'Ndey ko haani ɗaɓɓude wallu dokotoro?',
+      'Ko ɗum ɓuri fuu',
+    ],
+    section1Heading: '1. Lochia ko ɗume?',
+    section1Body1:
+      'Lochia ko ndiyam ɗam ɗon wara caggal danyugo. Ɗum ko ndiyam, ko ɗum ɗon ɓuuɓa, e tissu ɗi ɗon ittee seɗɗa seɗɗa e bumbi to ɗum ɗon sella.',
+    section1Body2:
+      'Ɗum feere e lewru nyannde nyannde. Ɗum ko ɗum ɗon anndaa nder wakkati caggal danyugo (postpartum) e ɗum ɗon ɓeydi seɗɗa seɗɗa.',
+    infoTitle: 'Ko ɗum ɓuri fuu',
+    infoText:
+      'Lochia wi\'ataa ko lewru maaɗa ruttii. Ruttugo lewru ko feere, ɗum ɗon wara caggal.',
+    section2Heading: '2. No lochia ɗon wayla wakkati?',
+    section2Body:
+      'Ɓaleeji maɗɗam ɗon wayla nder yontere artuɗe. Ɓaleeji ɗon ɓeydi seɗɗa seɗɗa e ɗuuɗal ɗon ɓeydi seɗɗa.',
+    evolutionTitle: 'Yahde seɗɗa seɗɗa',
+    evolutionSubtitle: 'Wakkati ɗin ɗum waawi waylude kala goɗɗo',
+    evolution: [
+      {
+        label: 'Sooynde sooynde',
+        period: 'Nyalaaje artuɗe',
+        text: 'Ndiyam ɗam ɗon wara ko sooynde, ɗam waawi wonde ɗuuɗɗam ngam fuɗɗoode.',
+      },
+      {
+        label: 'Pink / bun',
+        period: 'Caggal nyalaaje seɗɗe',
+        text: 'Ɓaleeji ɗon ɓeydi seɗɗa seɗɗa, ɗum waawi yaha haa pink malla bun.',
+      },
+      {
+        label: 'Raneeji-boɗeejo',
+        period: 'Nder yontere ɗi ɗon ara',
+        text: 'Ndiyam ɗam ɗon wonda seɗɗa, ɗum boɗeejo malla raneejo, adda ɗum hoodi.',
+      },
+    ],
+    section3Heading: '3. Ko foti wonde normal',
+    section3Body:
+      'No lochia ɗon wayla ko wonaa bana kala goɗɗo. Waylude seɗɗa ɗum waawi wondude e sellugo caggal danyugo.',
+    normalPoints: [
+      {
+        title: 'Ɗuuɗal ko waylata',
+        text: 'Ɗuuɗal ɗum waawi waylude nder nyalaaje artuɗe, caggal ɗuum ɗon ɓeydi seɗɗa seɗɗa.',
+      },
+      {
+        title: 'Ɓaleeji ɗi ɗon wayla',
+        text: 'Lochia ɗon yaha ko sooynde haa ɓaleeji ɗi ɗon laabi ko wakkati yaha.',
+      },
+      {
+        title: 'Wakkati ko waylata',
+        text: 'Ɗum waawi jokkude yontere ɗuuɗɗe, e no ɗum waylirta ɗum feere e kala goɗɗo.',
+      },
+    ],
+    section4Heading: '4. Ndaaneeji sellugo e raarugo',
+    section4Body:
+      'Nder wakkati ndin, raarugo pamaro ɗum waawi wallude ma raarude no ɓanndu maaɗa ɗon wayla, bannda yeewtugo ko ɗum woni e ko goɗɗo woni.',
+    comfortTips: [
+      {
+        title: 'Laabal pamaro',
+        text: 'Suɓu looto pamaro wakkati bannda ko ɗum ɗon ɓuuɓa.',
+      },
+      {
+        title: 'Raaru no ɗum yaha',
+        text: 'A waawi winndude ɓaleeji, ɗuuɗal, e no ndiyam ɗam ɗon yaha to ɗum wallay ma raarugo sellugo maaɗa.',
+      },
+      {
+        title: 'Hokku hoore maaɗa dewgal',
+        text: 'Wakkati caggal danyugo ɗum ɗon yiɗi wakkati. Hakkilu ɓanndu maaɗa e mawnu ko ɗum yiɗi ngam sellugo.',
+      },
+    ],
+    section5Heading: '5. Lochia malla ruttugo lewru?',
+    section5Body:
+      'Lochia ɗon wara nder nyalaaje caggal danyugo e ɗon ɓeydi seɗɗa seɗɗa. Ruttugo lewru, nder feere, ko fuɗɗitugo doggol lewru maaɗa caggal wakkati ndin.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Ndiyam jokkitaaɗam e sellugo bumbi caggal danyugo.',
+    compareReturnTitle: 'Ruttugo lewru',
+    compareReturnText:
+      'Fuɗɗitugo doggol lewru, wakkati ɗum waylata kala goɗɗo.',
+    section6Heading: '6. Ndey ko haani ɗaɓɓude wallu dokotoro?',
+    section6Body:
+      'To no ɗum yaha ɗum yiɗaa ma, malla to no ɓanndu maaɗa woni ɗum ɗon bonna, ɗum haani ɗaɓɓude wallu e dokotoro malla mo hesɗitini ɗum.',
+    warningTitle: 'Ɓaleeji ɗi haani ɗaɓɓude wallu dokotoro',
+    warningSigns: [
+      'Ɓuuɓa mawngu malla ko wonaa ko foti',
+      'Wulde malla no ɓanndu woni ɗum ɗon bonna',
+      'Ndiyam ɗam ɗon ɓeydi gaaw masin',
+      'Muusu mawngu, ɗum jokkii, malla ko wonaa ko foti',
+      'Ɓaleeji hesere ɗi ɗon hoyra ma',
+    ],
+    tipTitle: 'Ɗum ɓuri nafugo anndude',
+    tipText:
+      'Lochia ɗon wayla seɗɗa seɗɗa: ɗum waawi wonde sooynde adda, caggal ɗum laabi, adda ɗum hoodi. Kono kala sellugo ko ɗum wooɗi.',
+    summaryHeading: 'Ko ɗum ɓuri fuu',
+    summaryPoints: [
+      'Lochia ko ndiyam normal caggal danyugo.',
+      'Ɗum ɗon wayla ɓaleeji e ɗuuɗal nder yontere.',
+      'Wakkati e no ɗum yaha ɗum waawi waylude kala goɗɗo.',
+      'Ɓuuɓa wonaa ko foti, wulde, muusu mawngu, malla ndiyam ɗam ɓeydi gaaw masin ɗum yiɗi wallu dokotoro.',
+    ],
+    disclaimerText:
+      'Anndinde tan. Winndannde ndee ɗum sirtaaka wallu dokotoro malla ndaaruwol. To a woodi hoyre malla a tawii ɓaleeji ɗi ɗon hoyra ma, ɗaɓɓu wallu e mo hesɗitini ɗum.',
+    shareMessage: 'Faamugo lochia caggal danyugo — AWA',
+  },
   id: {
     badgeText: 'PASCAPERSALINAN • LOKIA',
     title: 'Memahami lokia\nsetelah melahirkan',

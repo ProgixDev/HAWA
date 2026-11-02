@@ -505,6 +505,890 @@ const CONTENT = withBrazilianPortuguese('ReligiousFaqAfterLoss', {
       finalText: '照顾好自己、寻求支持、怀抱希望，可以逐渐引领你走向平静。',
       shareMessage: '失去宝宝之后的心灵指引 — AWA',
     },
+  'zh-Hant': {
+      badge: '心靈指引',
+      title: '失去寶寶之後的\n心靈指引',
+      metaDuration: '閱讀約 5 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaEducational: '教育性內容',
+      intro: '一些心靈上的指引，希望能幫助你溫柔、耐心、充滿慈悲地走過這段失去的時光。',
+      disclaimerTitle: '重要提示',
+      disclaimerText: '本內容屬教育性質。具體的宗教問題應向合格的學者求證。AWA 不釋出個性化的法特瓦。',
+      contentsTitle: '本文內容',
+      topics: [
+        '一場被理解的考驗',
+        '因情形而異的判定',
+        '耐心與希望',
+        '往前走的幾點指引',
+      ],
+      section1H2: '1. 一場被理解的考驗',
+      section1Body1: '妊娠丟失可能是一場極其痛苦的考驗。悲傷、沉默、困惑，或是想要退一步的需要，都是人之常情。',
+      section1Body2: '有這些情緒，並不代表缺乏信仰。每位女性都可以按自己的節奏走過悲傷。',
+      visual1Title: '接納自己的情緒',
+      visual1Body: '悲傷 • 需要休息 • 沉默 • 支援',
+      section2H2: '2. 因情形而異的判定',
+      section2Body1: '失去寶寶之後，相關的宗教規則可能取決於具體情形以及出血的性質。',
+      section2Body2: '特別是，在確定應該遵循哪些宗教實踐之前，可能需要先區分不同型別的出血。',
+      schemaTitle: '總體原則',
+      schemaLabel1: '情形',
+      schemaLabel2: '出血的性質',
+      schemaLabel3: '相應的指引',
+      doubtTipTitle: '如有疑問',
+      doubtTipText: '個人的情況可能需要不同的答案。最好向合格的人士請教。',
+      section3H2: '3. 耐心與希望',
+      section3Body1: '耐心（sabr）並不意味著不哭泣或感覺不到痛。它可以只是帶著信仰和希望，陪伴自己走過這段路。',
+      section3Body2: '一些小小的舉動可以幫助你慢慢找回內心的平靜：一次祈禱、一刻贊念（dhikr）、心靈上的傾聽，或是親近之人的陪伴。',
+      spiritual1: '祈禱',
+      spiritual2: '贊念',
+      spiritual3: '支援',
+      retainTipTitle: '請記住',
+      retainTipText: '癒合需要時間。走出失去的痛苦，並沒有統一的節奏。',
+      section4H2: '4. 往前走的幾點指引',
+      section4Body: '不必一下子做完所有事。選擇符合你的感受和此刻所需的就好。',
+      gentleSteps: [
+        '給自己時間去經歷悲傷',
+        '讓關心你的人陪在身邊',
+        '如果能帶來安慰，就繼續保持一些簡單的心靈脩持',
+        '遇到具體的宗教問題，可以尋求建議',
+        '如果悲傷變得難以承受，請尋求支援',
+      ],
+      finalTitle: '按自己的節奏走的路',
+      finalText: '照顧好自己、尋求支援、懷抱希望，可以逐漸引領你走向平靜。',
+      shareMessage: '失去寶寶之後的心靈指引 — AWA',
+    },
+  ar: {
+    badge: 'إرشاد روحي',
+    title: 'إرشاد روحي\nبعد الفقد',
+    metaDuration: 'قراءة 5 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئة',
+    metaEducational: 'محتوى تعليمي',
+    intro:
+      'بعض نقاط الإرشاد الروحي لتساعدك على تجاوز الفقد برفق وصبر ورحمة.',
+    disclaimerTitle: 'معلومة مهمة',
+    disclaimerText:
+      'هذا المحتوى تعليمي. ينبغي التحقق من المسائل الدينية الخاصة لدى عالِم مؤهل. لا يصدر AWA فتاوى مخصصة.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ابتلاء معترف به',
+      'حالة تتوقف على الوضع',
+      'الصبر والأمل',
+      'بعض نقاط الإرشاد للمضي قدمًا',
+    ],
+    section1H2: '1. ابتلاء معترف به',
+    section1Body1:
+      'قد يكون فقدان الحمل ابتلاءً مؤلمًا للغاية. والحزن والصمت والحيرة أو الحاجة إلى الابتعاد ردود فعل إنسانية طبيعية.',
+    section1Body2:
+      'الشعور بهذه المشاعر لا يعني ضعف الإيمان. ويمكن لكل امرأة أن تمرّ بحزنها بإيقاعها الخاص.',
+    visual1Title: 'تقبّلي مشاعرك',
+    visual1Body: 'حزن • حاجة إلى الراحة • صمت • دعم',
+    section2H2: '2. حالة قد تختلف بحسب الوضع',
+    section2Body1:
+      'بعد الفقد، قد تعتمد الأحكام الدينية على الوضع وعلى طبيعة النزف.',
+    section2Body2:
+      'وبوجه خاص، قد يلزم التمييز بين أنواع النزف المختلفة قبل تحديد الممارسات الدينية الواجب اتباعها.',
+    schemaTitle: 'المبدأ العام',
+    schemaLabel1: 'الوضع',
+    schemaLabel2: 'طبيعة النزف',
+    schemaLabel3: 'الإرشاد المناسب',
+    doubtTipTitle: 'عند الشك',
+    doubtTipText:
+      'قد تستدعي الحالة الشخصية جوابًا مختلفًا. والأفضل طلب المشورة من شخص مؤهل.',
+    section3H2: '3. الصبر والأمل',
+    section3Body1:
+      'الصبر لا يعني ألا تبكي أو ألا تشعري بالألم. بل يمكن أن يرافق الرحلة بإيمان وأمل.',
+    section3Body2:
+      'يمكن لأفعال صغيرة أن تساعد على استعادة السكينة تدريجيًا: دعاء، أو لحظة ذكر، أو استماع روحي، أو وجود شخص عزيز.',
+    spiritual1: 'الدعاء',
+    spiritual2: 'الذكر',
+    spiritual3: 'الدعم',
+    retainTipTitle: 'تذكّري',
+    retainTipText:
+      'الشفاء يحتاج إلى وقت. ولا يوجد إيقاع واحد للجميع لتجاوز الفقد.',
+    section4H2: '4. بعض نقاط الإرشاد للمضي قدمًا',
+    section4Body:
+      'لا داعي لفعل كل شيء دفعة واحدة. اختاري ما يناسب شعورك وما تحتاجينه الآن.',
+    gentleSteps: [
+      'امنحي نفسك الوقت لتعيشي حزنك',
+      'أحيطي نفسك بأشخاص يهتمون بك',
+      'حافظي على ممارسات روحية صغيرة إن كانت تمنحك الراحة',
+      'اطلبي المشورة في أي مسألة دينية خاصة',
+      'اطلبي الدعم إذا أصبح الحزن ثقيلًا عليك',
+    ],
+    finalTitle: 'طريق بإيقاعك الخاص',
+    finalText:
+      'الاعتناء بنفسك، وطلب الدعم، والتمسك بالأمل، يمكن أن تقودك تدريجيًا نحو السكينة.',
+    shareMessage: 'إرشاد روحي بعد الفقد — AWA',
+  },
+  kab: {
+    badge: 'TUDRIST TARRWHANIT',
+    title: 'Tudrist tarewhanit\nseld uɣilif n lḥemla',
+    metaDuration: 'Taɣuri n 5 n tisdidin',
+    metaType: 'Amellal',
+    metaLevel: 'Anagar',
+    metaEducational: 'Agbur asnaw',
+    intro:
+      'Kra n tmeẓrin n tudrist tarewhanit i wakken ad tɛeddiḍ lweqt n uɣilif s lehna, s ubrid, d lǧerr.',
+    disclaimerTitle: 'Talɣut tameqqrant',
+    disclaimerText:
+      'Agbur-a d asnaw. Isteqsiyen n ddin usligen ilaqen ad ttwaseknen i umusnaw yettwasnen. AWA ur d-yettaf ara fatwas udmawan.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Amudur yettwasnen',
+      'Waddad yettkel ɣef unamek',
+      'Sber d usirem',
+      'Kra n tmeẓrin i wakken ad tkemmleḍ',
+    ],
+    section1H2: '1. Amudur yettwasnen',
+    section1Body1:
+      'Aɣilif n lḥemla izmer ad yili d amudur aweɛran aṭas. Ccwal, ssusem, tuccḍa neɣ ussuter n tuɣalin ɣer deffir d tuffɣiwin tinagan n yimdanen.',
+    section1Body2:
+      'Ahulfu n iwulmen-a ur yebbi ara ad tebɛedḍ seg liman. Yal tameṭṭut tezmer ad tɛeddi lḥezn-is s lemɛawda-is.',
+    visual1Title: 'Ad tqebleḍ iwulmen-ik',
+    visual1Body: 'Ccwal • ussuter n tensa • ssusem • tallalt',
+    section2H2: '2. Waddad izmer ad yemxalef ɣef unamek',
+    section2Body1:
+      'Seld aɣilif, ilugan n ddin zemren ad ttkelen ɣef waddad d ɣef wanaw n idammen.',
+    section2Body2:
+      'Nezzeh, d ayen yelhan ad tfarqeḍ gar yinawen n idammen send ad tferneḍ acu n usemres n ddin ara tḍefreḍ.',
+    schemaTitle: 'Ameslay amatu',
+    schemaLabel1: 'Waddad',
+    schemaLabel2: 'Anaw n idammen',
+    schemaLabel3: 'Tudrist tegzem',
+    doubtTipTitle: 'Ma tcukkeḍ',
+    doubtTipText:
+      'Waddad udmawan izmer ad yesɛu tiririt tayeḍ. Ayen yelhan d ad tsuteḍ rray n win yettwasnen.',
+    section3H2: '3. Sber d usirem',
+    section3Body1:
+      'Sber ur yebbi ara ur tettɣeṛṛeḍ ara neɣ ur tḥessed ara lweǧɛ. Izmer kan ad d-yilin d lemɛawda n ubrid s liman d usirem.',
+    section3Body2:
+      'Tigawin timecṭuḥin zemrent ad ɛawnent ad d-tuɣaleḍ lehna: asuter, kra n lweqt n dhikr, tuḍfa n ugbur n ddin neɣ tinsa n win i tḥemmleḍ.',
+    spiritual1: 'Asuter',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Tallalt',
+    retainTipTitle: 'Ttuklal',
+    retainTipText:
+      'Uɣal ittḥewweṣ lweqt. Ulac agmuḍ amatu i usneɣ n uɣilif.',
+    section4H2: '4. Kra n tmeẓrin i wakken ad tkemmleḍ',
+    section4Body:
+      'Ulac ilaq ad txedmeḍ kullec yakan. Fren ayen i k-yelhan d wayen i tḥewweǧeḍ tura.',
+    gentleSteps: [
+      'Eǧǧ lweqt i usuref n uɣilif-ik',
+      'Ttmeẓẓa ɣer imdanen yelhan',
+      'Kemmel imala imecṭuḥen n tarewhanit ma ttawin-d lehna',
+      'Suter rray i yal asteqsi n ddin uslig',
+      'Suter tallalt ma yella uɣilif yuɣal yewɛer ad t-tawiḍ',
+    ],
+    finalTitle: 'Agmuḍ ɣef uɣalin-ik',
+    finalText:
+      'Aɣbel n yiman-ik, asuter n tallalt d ukkaw n usirem zemren ad ɛawnen ad tafeḍ abrid ɣer lehna s wudem aqrawan.',
+    shareMessage: 'Tudrist tarewhanit seld uɣilif — AWA',
+  },
+  om: {
+    badge: 'QAJEELFAMA HAFUURAA',
+    title: 'Qajeelfama hafuuraa\nerga dhabanii booda',
+    metaDuration: 'Daqiiqaa 5 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Eegaltoota',
+    metaEducational: 'Qabiyyee barnootaa',
+    intro:
+      'Qajeelfama hafuuraa muraasa dhabamuu laafina, obsa fi rahmata waliin darbuuf si gargaaru.',
+    disclaimerTitle: 'Odeeffannoo barbaachisaa',
+    disclaimerText:
+      'Qabiyyeen kun barnoota. Gaaffiin amantaa addaa ulamaa\'a dandeettii qabu waliin mirkaneeffamuu qaba. AWA fatwaa ofii-isaaf ta\'e hin kennu.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Qormaata beekamaa',
+      'Haala irratti hundaa\'e',
+      'Obsa fi abdii',
+      'Qajeelfama muraasa fuulduratti deemuuf',
+    ],
+    section1H2: '1. Qormaata beekamaa',
+    section1Body1:
+      'Ulfaa dhabuun qormaata dhukkubbii guddaa ta\'uu danda\'a. Gaddi, calʼisuun, burjaajessuun, ykn fagaachuuf barbaachisummaan deebii namummaa uumamaa dha.',
+    section1Body2:
+      'Miira kana qabaachuun amantaa hin qabdu jechuu miti. Dubartiin hundi gadda ishee saffisa mataa ishee irratti darbuu danda\'a.',
+    visual1Title: 'Miira kee simachuu',
+    visual1Body: 'Gadda • boqonnaa barbaaduu • calʼisuu • deeggarsa',
+    section2H2: '2. Haala irratti hundaa\'e garaagara ta\'uu danda\'a',
+    section2Body1:
+      'Erga dhabanii booda, seerri amantaa haala fi gosa dhiigaa irratti hundaa\'uu danda\'a.',
+    section2Body2:
+      'Keessattuu, gochaa amantaa kam hordofuu murteessuu dura gosa dhiigaa garaagaraa adda baasuun barbaachisaa ta\'uu danda\'a.',
+    schemaTitle: 'Ka\'umsa waliigalaa',
+    schemaLabel1: 'Haala',
+    schemaLabel2: 'Gosa dhiigaa',
+    schemaLabel3: 'Qajeelfama mijaa\'aa',
+    doubtTipTitle: 'Yoo shakkite',
+    doubtTipText:
+      'Haalli dhuunfaa deebii adda barbaaduu danda\'a. Nama dandeettii qabu irraa gorsa gaafachuun gaarii dha.',
+    section3H2: '3. Obsa fi abdii',
+    section3Body1:
+      'Obsi (sabr) hin booyyuu ykn dhukkubbii hin dhaga\'uu jechuu miti. Imala amantaa fi abdii waliin deeggaruu qofa danda\'a.',
+    section3Body2:
+      'Gochaawwan xixiqqaan suutuma suutuma nagaa deebisuuf gargaaruu danda\'u: kadhannaa, yeroo dhikrii, dhaggeeffannaa hafuuraa, ykn jaalalleen nama waliin ta\'uu.',
+    spiritual1: 'Kadhannaa',
+    spiritual2: 'Dhikrii',
+    spiritual3: 'Deeggarsa',
+    retainTipTitle: 'Yaadadhu',
+    retainTipText:
+      'Fayyuun yeroo fudhata. Dhabamuu darbuuf saffisni hundaaf ta\'u hin jiru.',
+    section4H2: '4. Qajeelfama muraasa fuulduratti deemuuf',
+    section4Body:
+      'Hunda yeroo tokkoon gochuun hin barbaachisu. Waan miira kee fi amma si barbaachisu waliin wal-simatu filadhu.',
+    gentleSteps: [
+      'Gadda kee jiraachuuf yeroo kenni',
+      'Namoota si eegan of naannoo kee kaa\'i',
+      'Gochaawwan hafuuraa xixiqqaa yoo nagaa kennan itti fufi',
+      'Gaaffii amantaa addaa kamiyyuuf gorsa gaafadhu',
+      'Gaddi baachuuf yoo ulfaate deeggarsa gaafadhu',
+    ],
+    finalTitle: 'Karaa saffisa kee mataa keetiin',
+    finalText:
+      'Of eegumsa gochuu, deeggarsa gaafachuu fi abdii qabachuun suutuma suutuma karaa gara nagaatti geessu qajeelchuu danda\'a.',
+    shareMessage: 'Qajeelfama hafuuraa erga dhabanii booda — AWA',
+  },
+  ti: {
+    badge: 'መንፈሳዊ መምርሒ',
+    title: 'ድሕሪ ጥንሲ ምስኣን\nመንፈሳዊ መምርሒ',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaEducational: 'ትምህርታዊ ትሕዝቶ',
+    intro:
+      'ምስኣን ብልስላሰ፣ ትዕግስትን ርህራሄን ንምሕላፍ ዝሕግዙ ገለ መንፈሳዊ መምርሒ ነጥብታት።',
+    disclaimerTitle: 'ኣገዳሲ ሓበሬታ',
+    disclaimerText:
+      'እዚ ትሕዝቶ ትምህርታዊ እዩ። ፍሉያት ሃይማኖታዊ ሕቶታት ምስ ብቑዕ ዓሊም ክረጋገጹ ኣለዎም። AWA ውልቃዊ ፈትዋታት ኣይህብን።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ዝፍለጥ ፈተና',
+      'ከከም ኩነታት ዝምርኰስ ኩነታት',
+      'ትዕግስትን ተስፋን',
+      'ንቕድሚት ንምኻድ ገለ መምርሒ ነጥብታት',
+    ],
+    section1H2: '1. ዝፍለጥ ፈተና',
+    section1Body1:
+      'ጥንሲ ምስኣን ዓሚቝ ቃንዛ ዘለዎ ፈተና ክኸውን ይኽእል። ሕዘን፣ ጸጥታ፣ ምድንጋርን ወይ ርሕቀት ምድላይን ተፈጥሮኣዊ ሰብኣዊ ግብረ መልሲ እዮም።',
+    section1Body2:
+      'እዞም ስምዒታት ምስምዓ ኣምነት ምጉዳል ማለት ኣይኮነን። ነፍሲ ወከፍ ሰበይቲ ሓዘና ብዝፈተወቶ ቅኑዕ ክትሓልፍ ትኽእል።',
+    visual1Title: 'ንስምዒታትካ ምቕባል',
+    visual1Body: 'ሕዘን • ዕረፍቲ ምድላይ • ጸጥታ • ደገፍ',
+    section2H2: '2. ከከም ኩነታት ክፈላለ ዝኽእል ኩነታት',
+    section2Body1:
+      'ድሕሪ ምስኣን፣ ሃይማኖታዊ ሕግታት ብኩነታትን ብዓይነት ደም ምፍሳስን ክምርኰሱ ይኽእሉ።',
+    section2Body2:
+      'ብፍላይ፣ ኣየናይ ሃይማኖታዊ ተግባራት ከም ዝኽተሉ ቅድሚ ምውሳን ኣብ መንጎ ዝተፈላለዩ ዓይነታት ደም ምፍሳስ ምፍላይ የድሊ ክኸውን ይኽእል።',
+    schemaTitle: 'ሓፈሻዊ መትከል',
+    schemaLabel1: 'ኩነታት',
+    schemaLabel2: 'ዓይነት ደም ምፍሳስ',
+    schemaLabel3: 'ዝበቅዕ መምርሒ',
+    doubtTipTitle: 'እንተ ተጠራጢርካ',
+    doubtTipText:
+      'ውልቃዊ ኩነታት ዝተፈለየ መልሲ ክጠልብ ይኽእል። ካብ ብቑዕ ሰብ ምኽሪ ምሕታት ይሓሽ።',
+    section3H2: '3. ትዕግስትን ተስፋን',
+    section3Body1:
+      'ትዕግስቲ (ሰብር) ዘይምሕዛንን ቃንዛ ዘይምስማዕን ማለት ኣይኮነን። ጉዕዞኡ ብኣምነትን ተስፋን ብቐሊሉ ክስዕብ ይኽእል።',
+    section3Body2:
+      'ንኣሽቱ ተግባራት ቀስ ብቀስ ስምዒት ሰላም ንምምላስ ክሕግዙ ይኽእሉ፦ ዱዓ፣ ሓደ ግዜ ዚክር፣ መንፈሳዊ ምስማዕ፣ ወይ ኣብ ጥቓኻ ዘሎ ፍቱው ሰብ።',
+    spiritual1: 'ዱዓ',
+    spiritual2: 'ዚክር',
+    spiritual3: 'ደገፍ',
+    retainTipTitle: 'ኣብ ኣእምሮኻ ሓዝ',
+    retainTipText:
+      'ምሕዋይ ግዜ ይወስድ። ምስኣን ንምሕላፍ ዓለምለኻዊ ቅኑዕ የለን።',
+    section4H2: '4. ንቕድሚት ንምኻድ ገለ መምርሒ ነጥብታት',
+    section4Body:
+      'ኩሉ ብሓንሳብ ምግባር የድልን። ከምቲ ዝስምዓካን ሕጂ ዘድልየካን ዝሰማማዕ ምረጽ።',
+    gentleSteps: [
+      'ሓዘንካ ንምሕላፍ ግዜ ውሰድ',
+      'ርህሩሃት ሰባት ኣብ ዙርያኻ ሓዝ',
+      'ምሕዝነት እንተ ሂቡ ንኣሽቱ መንፈሳዊ ልምድታት ቀጽል',
+      'ንዝኾነ ፍሉይ ሃይማኖታዊ ሕቶ ምኽሪ ሕተት',
+      'ሓዘን ንምጽዋር ኣዝዩ ኣጸጋሚ ምስ ዝኸውን ደገፍ ሕተት',
+    ],
+    finalTitle: 'ብዝፈተወቶ ቅኑዕ ዝኸይድ መንገዲ',
+    finalText:
+      'ንባዕልኻ ምክንኻን፣ ደገፍ ምሕታትን ተስፋ ምሓዝን ቀስ ብቀስ ናብ ሰላም ዝወስድ መንገዲ ክመርሑ ይኽእሉ።',
+    shareMessage: 'ድሕሪ ጥንሲ ምስኣን መንፈሳዊ መምርሒ — AWA',
+  },
+  rw: {
+    badge: 'UBUYOBOZI BWO MU MWUKA',
+    title: 'Ubuyobozi bwo mu mwuka\nnyuma yo gutakaza',
+    metaDuration: 'Isomwa mu minota 5',
+    metaType: 'Inyigisho',
+    metaLevel: 'Ugitangira',
+    metaEducational: 'Ibikubiyemo by’inyigisho',
+    intro:
+      'Ibyerekezo bike by’ubuyobozi bwo mu mwuka bigufasha kunyura mu gutakaza ufite ubugwaneza, kwihangana n’impuhwe.',
+    disclaimerTitle: 'Amakuru y’ingenzi',
+    disclaimerText:
+      'Ibi bikubiyemo ni iby’inyigisho. Ibibazo by’idini byihariye bigomba kugenzurwa n’umuhanga ubifitiye ubushobozi. AWA ntitanga fatwa zihariye.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ikigeragezo cyemewe',
+      'Imimerere iterwa n’uko bimeze',
+      'Kwihangana n’ibyiringiro',
+      'Ibyerekezo bike byo gukomeza imbere',
+    ],
+    section1H2: '1. Ikigeragezo cyemewe',
+    section1Body1:
+      'Gutakaza inda bishobora kuba ikigeragezo gikomeye cyane. Agahinda, guceceka, kuyoberwa, cyangwa gukenera kwisubiza inyuma ni ibyiyumviro bisanzwe by’umuntu.',
+    section1Body2:
+      'Kumva ibi byiyumviro ntibivuze kubura ukwemera. Buri mugore ashobora kunyura mu bubabare bwe ku muvuduko we.',
+    visual1Title: 'Kwakira amarangamutima yawe',
+    visual1Body: 'Agahinda • gukenera kuruhuka • guceceka • ubufasha',
+    section2H2: '2. Imimerere ishobora gutandukana bitewe n’uko bimeze',
+    section2Body1:
+      'Nyuma yo gutakaza, amategeko y’idini ashobora gutandukana bitewe n’uko bimeze n’imiterere y’amaraso yavuye.',
+    section2Body2:
+      'By’umwihariko, hashobora kuba ngombwa gutandukanya ubwoko bw’amaraso mbere yo kumenya imigenzo y’idini yo gukurikiza.',
+    schemaTitle: 'Ihame rusange',
+    schemaLabel1: 'Uko bimeze',
+    schemaLabel2: 'Imiterere y’amaraso yavuye',
+    schemaLabel3: 'Ubuyobozi bukwiye',
+    doubtTipTitle: 'Niba ushidikanya',
+    doubtTipText:
+      'Ikibazo cyihariye gishobora gusaba igisubizo gitandukanye. Ni byiza gusaba inama umuntu ubifitiye ubushobozi.',
+    section3H2: '3. Kwihangana n’ibyiringiro',
+    section3Body1:
+      'Kwihangana (sabr) ntibivuze kutarira cyangwa kutumva ububabare. Bishobora gusa guherekeza urugendo hamwe n’ukwemera n’ibyiringiro.',
+    section3Body2:
+      'Ibikorwa bito bishobora gufasha kugarura buhoro buhoro amahoro: gusaba Imana, akanya ka dhikr, gutega amatwi ibyo mu mwuka, cyangwa kuba hari uwo ukunda.',
+    spiritual1: 'Gusaba Imana',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Ubufasha',
+    retainTipTitle: 'Ibuka',
+    retainTipText:
+      'Gukira bifata igihe. Nta muvuduko rusange wo kunyura mu gutakaza.',
+    section4H2: '4. Ibyerekezo bike byo gukomeza imbere',
+    section4Body:
+      'Nta mpamvu yo gukora byose icyarimwe. Hitamo ibijyanye n’uko wiyumva n’ibyo ukeneye ubu.',
+    gentleSteps: [
+      'Fata igihe cyo kunyura mu bubabare bwawe',
+      'Ishyire hamwe n’abantu bakwitayeho',
+      'Komeza imigenzo mito yo mu mwuka niba ikuzanira ihumure',
+      'Saba inama ku kibazo cyose cyihariye cy’idini',
+      'Saba ubufasha niba agahinda kakubereye ikibazo cyo kwikorera',
+    ],
+    finalTitle: 'Urugendo ku muvuduko wawe',
+    finalText:
+      'Kwiyitaho, gusaba ubufasha no gukomeza ibyiringiro bishobora buhoro buhoro kuyobora inzira igana amahoro.',
+    shareMessage: 'Ubuyobozi bwo mu mwuka nyuma yo gutakaza — AWA',
+  },
+  rn: {
+    badge: 'UBUYOBOZI BW\'UMWUKA',
+    title: 'Ubuyobozi bw\'umwuka\nhanyuma y\'igihombo',
+    metaDuration: 'Soma muminuta 5',
+    metaType: 'Inyoborabwenge',
+    metaLevel: 'Intangiriro',
+    metaEducational: 'Ibikubiyemo vy\'ukwigisha',
+    intro:
+      'Ingingo zimwezimwe z\'ubuyobozi bw\'umwuka zigufasha kunyuramwo igihombo ufise ubuntu, kwihangana n\'impuhwe.',
+    disclaimerTitle: 'Amakuru y\'ingenzi',
+    disclaimerText:
+      'Ibi bikubiyemo ni vy\'ukwigisha. Ibibazo vy\'idini vyihariye bikwiye kugenzurwa n\'umuhanga abifitiye ububasha. AWA ntitanga fatwa zihariye.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ikigeragezo kimenyekana',
+      'Imimerere ishingiye ku buryo bimeze',
+      'Kwihangana n\'icizere',
+      'Ingingo zimwezimwe z\'ubuyobozi zo gutera imbere',
+    ],
+    section1H2: '1. Ikigeragezo kimenyekana',
+    section1Body1:
+      'Igihombo c\'inda gishobora kuba ikigeragezo kibabaza cane. Agahinda, guceceka, kuzinagurika, canke gukenera kwitandukanya ni ibisubizo vya kamere vy\'umuntu.',
+    section1Body2:
+      'Kwumva ayo marangamutima ntibisobanura kubura ukwizera. Umugore wese ashobora kunyuramwo agahinda ke ku muvuduko we.',
+    visual1Title: 'Kwakira amarangamutima yawe',
+    visual1Body: 'Agahinda • gukenera kuruhuka • guceceka • ubufasha',
+    section2H2: '2. Imimerere ishobora gutandukana bitewe n\'uko bimeze',
+    section2Body1:
+      'Hanyuma y\'igihombo, amategeko y\'idini ashobora guterwa n\'uko bimeze n\'imiterere y\'ukuva amaraso.',
+    section2Body2:
+      'Cane cane, bishobora kuba ngombwa gutandukanya ubwoko butandukanye bw\'ukuva amaraso imbere yo kumenya ibikorwa vy\'idini ukwiye gukurikiza.',
+    schemaTitle: 'Ihame rusangi',
+    schemaLabel1: 'Uko bimeze',
+    schemaLabel2: 'Imiterere y\'ukuva amaraso',
+    schemaLabel3: 'Ubuyobozi bubereye',
+    doubtTipTitle: 'Iyo ufise gukeka',
+    doubtTipText:
+      'Imimerere y\'umuntu ku giti ciwe ishobora gusaba igisubizo gitandukanye. Ni vyiza gusaba inama umuntu abifitiye ububasha.',
+    section3H2: '3. Kwihangana n\'icizere',
+    section3Body1:
+      'Kwihangana (sabr) ntibisobanura kudatinya kurira canke kudahura n\'ububabare. Bishobora gusa guherekeza urugendo ufise ukwizera n\'icizere.',
+    section3Body2:
+      'Ibikorwa bito bishobora gufasha kugarura buhoro buhoro amahoro: gusaba, akanya ka dhikr, kumva iby\'umwuka, canke kuba uri kumwe n\'uwo ukunda.',
+    spiritual1: 'Gusaba',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Ubufasha',
+    retainTipTitle: 'Ibuka',
+    retainTipText:
+      'Gukira bifata igihe. Nta muvuduko umwe wagenewe bose wo kunyuramwo igihombo.',
+    section4H2: '4. Ingingo zimwezimwe z\'ubuyobozi zo gutera imbere',
+    section4Body:
+      'Nta mpamvu yo gukora vyose icarimwe. Hitamwo ivyo bijanye n\'ukuntu wiyumva n\'ivyo ukeneye ubu.',
+    gentleSteps: [
+      'Fata igihe cyo kunyuramwo agahinda kawe',
+      'Izengurukishe abantu bakwitaho',
+      'Komeza imigenzo mito y\'iby\'umwuka niba ikuzanira ihumure',
+      'Saba inama ku kibazo cose cihariye c\'idini',
+      'Saba ubufasha iyo agahinda kabaye ngume kwikorera',
+    ],
+    finalTitle: 'Inzira ku muvuduko wawe',
+    finalText:
+      'Kwiyitaho, gusaba ubufasha no kugumana icizere bishobora gufasha buhoro buhoro kuyobora inzira igana amahoro.',
+    shareMessage: 'Ubuyobozi bw\'umwuka hanyuma y\'igihombo — AWA',
+  },
+  ig: {
+    badge: 'NDỤZI MMỤỌ',
+    title: 'Ndụzi mmụọ\nmgbe efu gasịrị',
+    metaDuration: 'Nkeji 5 iji gụọ',
+    metaType: 'Ntụziaka',
+    metaLevel: 'Mbido',
+    metaEducational: 'Ọdịnaya mmụta',
+    intro:
+      'Ihe ndụzi mmụọ ole na ole iji nyere gị aka ịgafe efu n\'nwayọọ, ndidi, na obi ọmịiko.',
+    disclaimerTitle: 'Ozi dị mkpa',
+    disclaimerText:
+      'Ọdịnaya a bụ maka mmụta. Ajụjụ okpukpe pụrụ iche kwesịrị ka onye ọkà mmụta nwere ikike lelee ya. AWA anaghị enye fatwa e mere maka onye ọ bụla.',
+    contentsTitle: 'N\'edemede a',
+    topics: [
+      'Ọnwụnwa a ghọtara',
+      'Ọnọdụ nke dabere n\'ọnọdụ',
+      'Ndidi na olileanya',
+      'Ihe ndụzi ole na ole maka ịga n\'ihu',
+    ],
+    section1H2: '1. Ọnwụnwa a ghọtara',
+    section1Body1:
+      'Ịfụ ime nwere ike ịbụ ọnwụnwa na-egbu mgbu nke ukwuu. Mwute, ịnọ nwayọọ, mgbagwoju anya, ma ọ bụ mkpa ịlaa azụ bụ mmeghachi omume mmadụ nkịtị.',
+    section1Body2:
+      'Inwe mmetụta ndị a apụtaghị ụkọ okwukwe. Nwanyị ọ bụla nwere ike ịgafe iru uju ya n\'ọsọ nke ya.',
+    visual1Title: 'Ịnabata mmetụta gị',
+    visual1Body: 'Mwute • mkpa izu ike • ịnọ nwayọọ • nkwado',
+    section2H2: '2. Ọnọdụ nke nwere ike ịdị iche dabere n\'ọnọdụ',
+    section2Body1:
+      'Mgbe efu gasịrị, iwu okpukpe nwere ike ịdabere n\'ọnọdụ na ụdị ọbara.',
+    section2Body2:
+      'N\'ụzọ pụrụ iche, ọ nwere ike ịdị mkpa ịmata ọdịiche dị n\'etiti ụdị ọbara dị iche iche tupu ikpebi omume okpukpe a ga-agbaso.',
+    schemaTitle: 'Ụkpụrụ n\'ozuzu',
+    schemaLabel1: 'Ọnọdụ',
+    schemaLabel2: 'Ụdị ọbara',
+    schemaLabel3: 'Ndụzi kwesịrị ekwesị',
+    doubtTipTitle: 'Ọ bụrụ na ị nwere obi abụọ',
+    doubtTipText:
+      'Ọnọdụ nke onwe nwere ike ichọ azịza dị iche. Ọ ka mma ịchọ ndụmọdụ site n\'aka onye nwere ikike.',
+    section3H2: '3. Ndidi na olileanya',
+    section3Body1:
+      'Ndidi (sabr) apụtaghị ịghara ịkwa ákwá ma ọ bụ ịghara inwe mgbu. Ọ nwere ike ịga n\'ihu na-eso njem ahụ n\'okwukwe na olileanya.',
+    section3Body2:
+      'Omume dị nta nwere ike inye aka weghachite udo nwayọọ nwayọọ: arịrịọ, oge dhikr, ige ntị mmụọ, ma ọ bụ ọnụnọ onye ị hụrụ n\'anya.',
+    spiritual1: 'Arịrịọ',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Nkwado',
+    retainTipTitle: 'Cheta',
+    retainTipText:
+      'Ọgwụgwọ na-ewe oge. Enweghị ọsọ zuru ụwa ọnụ maka ịgafe efu.',
+    section4H2: '4. Ihe ndụzi ole na ole maka ịga n\'ihu',
+    section4Body:
+      'Ọ dịghị mkpa ime ihe niile n\'otu oge. Họrọ ihe dabara n\'etu ị na-eche na ihe ị chọrọ ugbu a.',
+    gentleSteps: [
+      'Were oge ibi iru uju gị',
+      'Nọgide n\'etiti ndị na-eche banyere gị',
+      'Debe obere omume mmụọ ma ọ bụrụ na ha na-eweta nkasi obi',
+      'Chọọ ndụmọdụ maka ajụjụ okpukpe pụrụ iche ọ bụla',
+      'Chọọ nkwado ma ọ bụrụ na iru uju ghọọ ihe siri ike ibu',
+    ],
+    finalTitle: 'Ụzọ n\'ọsọ nke gị',
+    finalText:
+      'Ilekọta onwe gị, ịchọ nkwado, na idowe olileanya nwere ike ịduzi ụzọ gaa n\'udo nwayọọ nwayọọ.',
+    shareMessage: 'Ndụzi mmụọ mgbe efu gasịrị — AWA',
+  },
+  yo: {
+    badge: 'ÌTỌ́SỌ́NÀ ẸLẸ́MÍ',
+    title: 'Ìtọ́sọ́nà ẹlẹ́mí\nlẹ́yìn ìpàdánù',
+    metaDuration: 'Ìṣẹ́jú 5 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Fún àwọn tuntun',
+    metaEducational: 'Àkóónú ẹ̀kọ́',
+    intro:
+      'Àwọn ìtọ́ka ìtọ́sọ́nà ẹlẹ́mí díẹ̀ láti ràn ọ́ lọ́wọ́ la ìpàdánù kọjá pẹ̀lú ìrọ̀rùn, sùúrù àti àánú.',
+    disclaimerTitle: 'Ìmọ̀ pàtàkì',
+    disclaimerText:
+      'Àkóónú yìí wà fún ẹ̀kọ́. Àwọn ìbéèrè ẹ̀sìn pàtó yẹ kí a jẹ́rìí sí pẹ̀lú ọ̀mọ̀wé tó mọ̀ ọ́n. AWA kì í fúnni ní fatwa tí a ṣe fún ẹnì kan ní pàtó.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Ìdánwò tí a mọ̀',
+      'Ipò tó sinmi lórí ọ̀ràn',
+      'Sùúrù àti ìrètí',
+      'Àwọn ìtọ́ka ìtọ́sọ́nà díẹ̀ fún tẹ̀síwájú',
+    ],
+    section1H2: '1. Ìdánwò tí a mọ̀',
+    section1Body1:
+      'Ìpàdánù oyún lè jẹ́ ìdánwò tó ní ìrora jinlẹ̀. Ìbànújẹ́, ìdákẹ́jẹ́ẹ́, ìrúkèrúdò, tàbí àìní láti fà sẹ́yìn jẹ́ ìhùwàsí ènìyàn àdánidá.',
+    section1Body2:
+      'Níní àwọn ìmọ̀lára wọ̀nyí kò túmọ̀ sí àìní ìgbàgbọ́. Obìnrin kọ̀ọ̀kan lè la ọ̀fọ̀ rẹ̀ kọjá ní ìlù tirẹ̀.',
+    visual1Title: 'Gbígba àwọn ìmọ̀lára rẹ',
+    visual1Body: 'Ìbànújẹ́ • àìní ìsinmi • ìdákẹ́jẹ́ẹ́ • ìrànlọ́wọ́',
+    section2H2: '2. Ipò tó lè yàtọ̀ gẹ́gẹ́ bí ọ̀ràn ṣe rí',
+    section2Body1:
+      'Lẹ́yìn ìpàdánù, àwọn òfin ẹ̀sìn lè sinmi lórí ipò àti irú ẹ̀jẹ̀ náà.',
+    section2Body2:
+      'Ní pàtàkì, ó lè pọndandan láti ya àwọn oríṣiríṣi ẹ̀jẹ̀ sọ́tọ̀ kí a tó pinnu àwọn ìṣe ẹ̀sìn tí a ó tẹ̀lé.',
+    schemaTitle: 'Ìlànà gbogbogbòò',
+    schemaLabel1: 'Ipò',
+    schemaLabel2: 'Irú ẹ̀jẹ̀ náà',
+    schemaLabel3: 'Ìtọ́sọ́nà tó yẹ',
+    doubtTipTitle: 'Tí o bá ṣiyèméjì',
+    doubtTipText:
+      'Ipò ti ara ẹni lè nílò ìdáhùn tó yàtọ̀. Ó dára jù láti wá ìmọ̀ràn lọ́dọ̀ ẹni tó mọ̀ ọ́n.',
+    section3H2: '3. Sùúrù àti ìrètí',
+    section3Body1:
+      'Sùúrù (sabr) kò túmọ̀ sí àìsọkún tàbí àìní ìrora. Ó lè kàn tẹ̀lé ìrìn àjò náà pẹ̀lú ìgbàgbọ́ àti ìrètí.',
+    section3Body2:
+      'Àwọn ìṣe kékeré lè ṣèrànwọ́ láti mú ìmọ̀lára àlàáfíà padà díẹ̀díẹ̀: àdúrà ẹ̀bẹ̀, àkókò dhikr, gbígbọ́ ohun ẹlẹ́mí, tàbí wíwà ẹni tí o fẹ́ràn.',
+    spiritual1: 'Àdúrà ẹ̀bẹ̀',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Ìrànlọ́wọ́',
+    retainTipTitle: 'Rántí',
+    retainTipText:
+      'Ìwòsàn ń gba àkókò. Kò sí ìlù gbogbogbòò fún lílọ kọjá ìpàdánù.',
+    section4H2: '4. Àwọn ìtọ́ka ìtọ́sọ́nà díẹ̀ fún tẹ̀síwájú',
+    section4Body:
+      'Kò pọndandan láti ṣe gbogbo rẹ̀ lẹ́ẹ̀kan náà. Yan ohun tó bá bí o ṣe ń rí lára àti ohun tí o nílò báyìí mu.',
+    gentleSteps: [
+      'Gba àkókò láti gbé ọ̀fọ̀ rẹ',
+      'Yí ara ká pẹ̀lú àwọn ènìyàn tó ń tọ́jú rẹ',
+      'Máa ṣe àwọn ìṣe ẹlẹ́mí kékeré tí wọ́n bá ń mú ìtùnú wá',
+      'Wá ìmọ̀ràn fún ìbéèrè ẹ̀sìn pàtó èyíkéyìí',
+      'Wá ìrànlọ́wọ́ tí ọ̀fọ̀ náà bá di èyí tó wúwo jù láti gbé',
+    ],
+    finalTitle: 'Ọ̀nà ní ìlù tìrẹ',
+    finalText:
+      'Títọ́jú ara rẹ, wíwá ìrànlọ́wọ́, àti dídì ìrètí mú lè ṣèrànwọ́ díẹ̀díẹ̀ láti tọ́ ọ̀nà sí àlàáfíà.',
+    shareMessage: 'Ìtọ́sọ́nà ẹlẹ́mí lẹ́yìn ìpàdánù — AWA',
+  },
+  zu: {
+    badge: 'ISIQONDISO SOMOYA',
+    title: 'Isiqondiso somoya\nngemva kokulahlekelwa',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Abaqalayo',
+    metaEducational: 'Okuqukethwe kwemfundo',
+    intro:
+      'Amaphuzu ambalwa esiqondiso somoya okusiza udlule ekulahlekelweni ngobumnene, ukubekezela nesihawu.',
+    disclaimerTitle: 'Ulwazi olubalulekile',
+    disclaimerText:
+      'Lokhu okuqukethwe kungokwemfundo. Imibuzo ethile yenkolo kufanele iqinisekiswe nesazi esifanelekile. I-AWA ayikhiphi ama-fatwa enziwe umuntu.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Isilingo esamukelwe',
+      'Isimo esincike esimweni',
+      'Ukubekezela nethemba',
+      'Amaphuzu ambalwa esiqondiso sokuqhubeka',
+    ],
+    section1H2: '1. Isilingo esamukelwe',
+    section1Body1:
+      'Ukulahlekelwa ukukhulelwa kungaba isilingo esibuhlungu kakhulu. Ukudabuka, ukuthula, ukudideka, noma isidingo sokuhlehla kuyimiphumela yemvelo yomuntu.',
+    section1Body2:
+      'Ukuzwa le mizwa akusho ukuswela ukholo. Owesifazane ngamunye angadlula ekudabukeni kwakhe ngesivinini sakhe.',
+    visual1Title: 'Ukwamukela imizwa yakho',
+    visual1Body: 'Ukudabuka • isidingo sokuphumula • ukuthula • ukusekelwa',
+    section2H2: '2. Isimo esingahluka ngokuya ngesimo',
+    section2Body1:
+      'Ngemva kokulahlekelwa, imithetho yenkolo ingancika esimweni nasohlotsheni lokopha.',
+    section2Body2:
+      'Ikakhulukazi, kungase kudingeke kuhlukaniswe phakathi kwezinhlobo ezahlukene zokopha ngaphambi kokunquma ukuthi yimiphi imikhuba yenkolo okufanele ilandelwe.',
+    schemaTitle: 'Umgomo jikelele',
+    schemaLabel1: 'Isimo',
+    schemaLabel2: 'Uhlobo lokopha',
+    schemaLabel3: 'Isiqondiso esifanele',
+    doubtTipTitle: 'Uma ungabaza',
+    doubtTipText:
+      'Isimo somuntu siqu singadinga impendulo ehlukile. Kungcono ukucela ukweluleka komuntu ofanelekile.',
+    section3H2: '3. Ukubekezela nethemba',
+    section3Body1:
+      'Ukubekezela (sabr) akusho ukungakhali noma ukungezwa ubuhlungu. Kungaphelezela nje uhambo ngokholo nethemba.',
+    section3Body2:
+      'Izenzo ezincane zingasiza ukubuyisa kancane kancane umuzwa wokuthula: ukuncenga, isikhathi se-dhikr, ukulalela okomoya, noma ubukhona bomuntu omthandayo.',
+    spiritual1: 'Ukuncenga',
+    spiritual2: 'I-Dhikr',
+    spiritual3: 'Ukusekelwa',
+    retainTipTitle: 'Khumbula',
+    retainTipText:
+      'Ukuphola kuthatha isikhathi. Akukho sivinini sonke sokudlula ekulahlekelweni.',
+    section4H2: '4. Amaphuzu ambalwa esiqondiso sokuqhubeka',
+    section4Body:
+      'Akudingeki wenze konke ngasikhathi sinye. Khetha okuhambisana nendlela ozizwa ngayo nalokho okukudingayo manje.',
+    gentleSteps: [
+      'Thatha isikhathi sokuphila usizi lwakho',
+      'Zungezwe abantu abakunakekelayo',
+      'Gcina imikhuba emincane yomoya uma ikududuza',
+      'Cela ukweluleka kunoma yimuphi umbuzo othile wenkolo',
+      'Cela ukusekelwa uma usizi seluba nzima ukulithwala',
+    ],
+    finalTitle: 'Indlela ngesivinini sakho',
+    finalText:
+      'Ukuzinakekela, ukucela ukusekelwa, nokubamba ithemba kungasiza kancane kancane ukuqondisa indlela eya enkambisweni yokuthula.',
+    shareMessage: 'Isiqondiso somoya ngemva kokulahlekelwa — AWA',
+  },
+  xh: {
+    badge: 'ISIKHOKELO SOKOMOYA',
+    title: 'Isikhokelo sokomoya\nemva kokulahlekelwa',
+    metaDuration: 'Imizuzu eyi-5 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaEducational: 'Umxholo wezemfundo',
+    intro:
+      'Amanqaku ambalwa okukhokela ngokomoya ukukunceda udlule ekulahlekelweni ngobuthambile, ngomonde nangenceba.',
+    disclaimerTitle: 'Ulwazi olubalulekileyo',
+    disclaimerText:
+      'Lo mxholo wezemfundo. Imibuzo ethile yenkolo kufuneka iqinisekiswe nesifundiswa esifanelekileyo. I-AWA ayikhupheli ii-fatwa ezihambelana nomntu.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Uvavanyo olwamkelweyo',
+      'Imeko exhomekeke kwimeko',
+      'Umonde nethemba',
+      'Amanqaku ambalwa okukhokela ukuqhubela phambili',
+    ],
+    section1H2: '1. Uvavanyo olwamkelweyo',
+    section1Body1:
+      'Ukulahlekelwa kokumitha kunokuba luvavanyo olubuhlungu kakhulu. Intlungu, ukuthula, ukudideka okanye imfuno yokubuya umva yimvakalelo zendalo zomntu.',
+    section1Body2:
+      'Ukuziva ezi mvakalelo akuthethi ukuswela ukholo. Umfazi ngamnye unokudlula kwintlungu yakhe ngesantya sakhe.',
+    visual1Title: 'Ukwamkela iimvakalelo zakho',
+    visual1Body: 'Intlungu • imfuno yokuphumla • ukuthula • inkxaso',
+    section2H2: '2. Imeko enokwahluka ngokwemeko',
+    section2Body1:
+      'Emva kokulahlekelwa, imithetho yenkolo inokuxhomekeka kwimeko nakwindalo yokopha.',
+    section2Body2:
+      'Ngokukodwa, kunokuba yimfuneko ukwahlula phakathi kweentlobo ezahlukeneyo zokopha phambi kokumisela ukuba yeyiphi imikhwa yenkolo ekufuneka ilandelwe.',
+    schemaTitle: 'Umgaqo ngokubanzi',
+    schemaLabel1: 'Imeko',
+    schemaLabel2: 'Indalo yokopha',
+    schemaLabel3: 'Isikhokelo esifanelekileyo',
+    doubtTipTitle: 'Ukuba ukrokrela',
+    doubtTipText:
+      'Imeko yobuqu inokufuna impendulo eyahlukileyo. Kungcono ukucela ingcebiso kumntu ofanelekileyo.',
+    section3H2: '3. Umonde nethemba',
+    section3Body1:
+      'Umonde (sabr) akuthethi ukungalili okanye ukungazivi intlungu. Unokuphelekisa nje uhambo ngokholo nangethemba.',
+    section3Body2:
+      'Izenzo ezincinci zinokunceda ukubuyisela ngokuthe ngcembe imvakalelo yoxolo: ikhunjulo, umzuzu we-dhikr, ukuphulaphula okomoya, okanye ubukho wothandekayo.',
+    spiritual1: 'Ikhunjulo',
+    spiritual2: 'I-Dhikr',
+    spiritual3: 'Inkxaso',
+    retainTipTitle: 'Khumbula',
+    retainTipText:
+      'Ukuphila kuthatha ixesha. Akukho santya sihlala sisebenza kubo bonke sokudlula ekulahlekelweni.',
+    section4H2: '4. Amanqaku ambalwa okukhokela ukuqhubela phambili',
+    section4Body:
+      'Akukho mfuneko yokwenza yonke into ngaxeshanye. Khetha oko kuhambelana nendlela oziva ngayo nento oyidingayo ngoku.',
+    gentleSteps: [
+      'Thatha ixesha lokuphila intlungu yakho',
+      'Zijikelezise ngabantu abakhathalayo',
+      'Qhubeka nemikhwa emincinci yokomoya ukuba iyakuthuthuzela',
+      'Cela ingcebiso kuyo nayiphi na imibuzo ethile yenkolo',
+      'Funa inkxaso ukuba intlungu iba nzima kakhulu ukuyithwala',
+    ],
+    finalTitle: 'Indlela ngesantya sakho',
+    finalText:
+      'Ukuzikhathalela, ukufuna inkxaso nokubambelela kwithemba kunganceda ngokuthe ngcembe ukukhokela indlela eya uxolo.',
+    shareMessage: 'Isikhokelo sokomoya emva kokulahlekelwa — AWA',
+  },
+  sn: {
+    badge: 'NHUNGAMIRO YEMWEYA',
+    title: 'Nhungamiro yemweya\nmushure mekurasikirwa',
+    metaDuration: 'Maminitsi 5 ekuverenga',
+    metaType: 'Gwara',
+    metaLevel: 'Vanotanga',
+    metaEducational: 'Zvirimo zvinodzidzisa',
+    intro:
+      'Mazano mashoma enhungamiro yemweya ekukubatsira kupfuura kurasikirwa nerudo, moyo murefu nengoni.',
+    disclaimerTitle: 'Ruzivo rwakakosha',
+    disclaimerText:
+      'Zvirimo izvi zvinodzidzisa. Mibvunzo yakakosha yezvechitendero inofanira kusimbiswa nemudzidzi akakodzera. AWA haipi fatwa dzakakodzera munhu mumwe chete.',
+    contentsTitle: 'Mudzidziso uyu',
+    topics: [
+      'Muedzo wakasimbiswa',
+      'Mamiriro anoenderana nenyaya',
+      'Moyo murefu netariro',
+      'Mazano mashoma enhungamiro ekufambira mberi',
+    ],
+    section1H2: '1. Muedzo wakasimbiswa',
+    section1Body1:
+      'Kurasikirwa nepamuviri kunogona kuva muedzo unorwadza zvikuru. Kusuruvara, kunyarara, kusanzwisisa, kana kuda kuzvibvisa zvimwe zvinhu manzwiro evanhu akajairika.',
+    section1Body2:
+      'Kunzwa manzwiro aya hakurevi kushayiwa kwekutenda. Mukadzi wega wega anogona kupfuura panhamo yake nekumhanya kwake.',
+    visual1Title: 'Kugamuchira manzwiro ako',
+    visual1Body: 'Kusuruvara • kuda kuzorora • kunyarara • rubatsiro',
+    section2H2: '2. Mamiriro anogona kusiyana zvichienderana nenyaya',
+    section2Body1:
+      'Mushure mekurasikirwa, mitemo yechitendero inogona kuenderana nemamiriro uye mhando yekubuda ropa.',
+    section2Body2:
+      'Kunyanya, zvinogona kudikanwa kusiyanisa mhando dzakasiyana dzekubuda ropa usati wasarudza maitiro echitendero ekutevera.',
+    schemaTitle: 'Musimboti wakajairika',
+    schemaLabel1: 'Mamiriro',
+    schemaLabel2: 'Mhando yekubuda ropa',
+    schemaLabel3: 'Nhungamiro yakakodzera',
+    doubtTipTitle: 'Kana une kusava nechokwadi',
+    doubtTipText:
+      'Mamiriro omunhu anogona kuda mhinduro yakasiyana. Zviri nani kutsvaga zano kubva kumunhu akakodzera.',
+    section3H2: '3. Moyo murefu netariro',
+    section3Body1:
+      'Moyo murefu (sabr) hausi kureva kusachema kana kusanzwa marwadzo. Unogona kungoperekedza rwendo nekutenda netariro.',
+    section3Body2:
+      'Zviito zvidiki zvinogona kubatsira kudzorera runyararo zvishoma nezvishoma: minyengetero, nguva yedhikr, kuteerera zvemweya, kana kuvapo kwemumwe wauinoda.',
+    spiritual1: 'Minyengetero',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Rubatsiro',
+    retainTipTitle: 'Yeuka',
+    retainTipText:
+      'Kupora kunotora nguva. Hapana kumhanya kwakajairika kwekupfuura kurasikirwa.',
+    section4H2: '4. Mazano mashoma enhungamiro ekufambira mberi',
+    section4Body:
+      'Hapana chikonzero chekuita zvese panguva imwe chete. Sarudza zvinofambirana nezvaunonzwa uye zvaunoda izvezvi.',
+    gentleSteps: [
+      'Tora nguva yekurarama nhamo yako',
+      'Zvikomberedze nevanhu vanokuda',
+      'Chengeta maitiro madiki emweya kana achikupa kunyaradza',
+      'Tsvaga zano pambvunzo ipi neipi yakakosha yezvechitendero',
+      'Tsvaga rubatsiro kana nhamo yava yakaoma kutakura',
+    ],
+    finalTitle: 'Nzira yekufamba nekumhanya kwako',
+    finalText:
+      'Kuzvitarisira, kutsvaga rubatsiro, nekubata tariro zvinogona kubatsira zvishoma nezvishoma kutungamirira nzira yerunyararo.',
+    shareMessage: 'Nhungamiro yemweya mushure mekurasikirwa — AWA',
+  },
+  ln: {
+    badge: 'LITAMBWISI YA MOLIMO',
+    title: 'Litambwisi ya molimo\nnsima ya kobungisa',
+    metaDuration: 'Mwa mokapo ya kotánga: 5 min',
+    metaType: 'Mokanda ya litambwisi',
+    metaLevel: 'Mobandi',
+    metaEducational: 'Makambo ya koyekola',
+    intro:
+      'Mwa makambo ya litambwisi ya molimo mpo na kosalisa yo kolekisa kobungisa na bopɛtɛɛ, motema molai mpe mawa.',
+    disclaimerTitle: 'Maloba ya ntina',
+    disclaimerText:
+      'Makambo oyo ezali ya koyekola. Mituna ya mondimi ya ndenge mosusu esengeli kotalelama epai ya mosali ya mayele oyo ayebi. AWA epesaka fatwa oyo ebongi na moto moko te.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Komekama oyo ndimami',
+      'Ekalo oyo etalelaka makambo',
+      'Motema molai mpe elikya',
+      'Mwa makambo ya litambwisi mpo na kokende liboso',
+    ],
+    section1H2: '1. Komekama oyo ndimami',
+    section1Body1:
+      'Kobungisa zemi ekoki kozala komekama ya mpasi mingi. Mawa, kokanga monoko, kobulungana, to mposa ya kokabwana ezali mayoki ya kawaida ya moto.',
+    section1Body2:
+      'Koyoka mayoki oyo elakisi te kozanga kondima. Mwasi na mwasi akoki kolekisa mawa na ye na ntango na ye.',
+    visual1Title: 'Kondima mayoki na yo',
+    visual1Body: 'Mawa • mposa ya kopema • kokanga monoko • lisungi',
+    section2H2: '2. Ekalo oyo ekoki kokesena kolanda makambo',
+    section2Body1:
+      'Nsima ya kobungisa, mibeko ya mondimi ekoki kotalela makambo mpe lolenge ya makila.',
+    section2Body2:
+      'Mingi mingi, ekoki kozala ntina ya kokesenisa lolenge ya makila liboso ya kokata misala ya mondimi nini kolanda.',
+    schemaTitle: 'Mobeko ya mobimba',
+    schemaLabel1: 'Likambo',
+    schemaLabel2: 'Lolenge ya makila',
+    schemaLabel3: 'Litambwisi oyo ebongi',
+    doubtTipTitle: 'Soki ozali na ntembe',
+    doubtTipText:
+      'Likambo ya moto moko ekoki kosenga eyano ya ndenge mosusu. Eleki malamu kosenga toli epai ya moto oyo ayebi.',
+    section3H2: '3. Motema molai mpe elikya',
+    section3Body1:
+      'Motema molai (sabr) elakisi te kolela te to koyoka mpasi te. Ekoki kaka kokende elongo na nzela na kondima mpe elikya.',
+    section3Body2:
+      'Misala moke ekoki kosalisa kozongisa kimya mayɔkɔ: libondeli, ntango ya dhikr, koyoka makambo ya molimo, to kozala ya moto oyo olingi.',
+    spiritual1: 'Libondeli',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Lisungi',
+    retainTipTitle: 'Kobosana te',
+    retainTipText:
+      'Kobika ezwaka ntango. Mbango ya ndenge moko mpo na bato nyonso ya kolekisa kobungisa ezali te.',
+    section4H2: '4. Mwa makambo ya litambwisi mpo na kokende liboso',
+    section4Body:
+      'Esengeli te kosala nyonso mbala moko. Pona oyo ekokani na ndenge omiyoki mpe na oyo osengi sikoyo.',
+    gentleSteps: [
+      'Zwa ntango ya kolekisa mawa na yo',
+      'Zinga yo na bato ya motema malamu',
+      'Kobatela misala moke ya molimo soki epesi yo kimya',
+      'Senga toli mpo na mituna nyonso ya mondimi ya ndenge mosusu',
+      'Senga lisungi soki mawa ekómi mpasi mingi mpo na komema',
+    ],
+    finalTitle: 'Nzela na ndenge na yo',
+    finalText:
+      'Kobatela yo moko, kosenga lisungi mpe kobatela elikya ekoki kosalisa mayɔkɔ kokamba nzela epai ya kimya.',
+    shareMessage: 'Litambwisi ya molimo nsima ya kobungisa — AWA',
+  },
+  ff: {
+    badge: 'WASIYAAJI RUUHU',
+    title: 'Wasiyaaji ruuhu\ncaggal ɓoyndugo',
+    metaDuration: 'Janngugo 5 miniti',
+    metaType: 'Ɗerewol',
+    metaLevel: 'Fuɗɗoode',
+    metaEducational: 'Ko ƴetti ndaarol',
+    intro:
+      'Wasiyaaji ruuhu seɗɗa ngam wallugo ma yaadugo ɓoyndugo salaa tiiɗɗam, e muñal e yurmeende.',
+    disclaimerTitle: 'Anndinki mawndi',
+    disclaimerText:
+      'Ɗerewol ndin ko ngam janngugo. Ƴami diine feere haani teskugo e alim hanaani. AWA yoɓataa fatwa wallitiiɗo e neddo.',
+    contentsTitle: 'Nder ɗerewol ndin',
+    topics: [
+      'Jarribaare anndaaɗum',
+      'Laawol ɗum ndaara ko tawi',
+      'Muñal e hoolaare',
+      'Wasiyaaji seɗɗa ngam yahugo yeeso',
+    ],
+    section1H2: '1. Jarribaare anndaaɗum',
+    section1Body1:
+      'Ɓoyndugo reedu waawi laatugo jarribaare muusiinde no feewi. Tampere, ɗuurugo, hakkilo yiɗaaki, walla ɗaɓɓitaare dillugo seɗɗa ɗum ko hakkilo aadaaji neddo.',
+    section1Body2:
+      'Nanugo hakkilo ɗin hollataa walaa gooduru. Debbo kala waawi yaadugo tampere mum e wakkati mum.',
+    visual1Title: 'Jaɓugo hakkilo maaɗa',
+    visual1Body: 'Tampere • ɗaɓɓitaare hoosugo • ɗuurugo • wallitaare',
+    section2H2: '2. Laawol ɗum waawi wayyude e ko tawi',
+    section2Body1:
+      'Caggal ɓoyndugo, laawi diine kala waawi hoorugo ko tawi e no yiiɗam woni.',
+    section2Body2:
+      'Ko ɓuri, ɗum waawi laatugo ko ɗaɓɓi feerugo hakkunde yiiɗam feere-feere adan anndugo kuuɗe diine ɗe jokkugo.',
+    schemaTitle: 'Laawol mawndo',
+    schemaLabel1: 'Ko tawi',
+    schemaLabel2: 'Yiiɗam ko ɗum',
+    schemaLabel3: 'Wasiyaaji hanaani',
+    doubtTipTitle: 'Si ɗon ngonndii',
+    doubtTipText:
+      'Ko tawi ma waawi ɗaɓɓude jaabawol feere. Ɗum ɓuri ƴamugo muuyugo e goɗɗo anndiiɗo.',
+    section3H2: '3. Muñal e hoolaare',
+    section3Body1:
+      'Muñal (sabr) hollataa wanngugo yeewtere walla accugo nanugo muusi. Ɗum waawi wallugo laawol e gooduru e hoolaare tan.',
+    section3Body2:
+      'Kuuɗe ɓolliiɗe waawi wallugo ruttitugo hoosugo seɗɗa seɗɗa: du’a, wakkati dhikr, nanugo ko ruuhu, walla ruttugo goɗɗo mo ɗon yiɗi.',
+    spiritual1: 'Du’a',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Wallitaare',
+    retainTipTitle: 'Hoor ɗum',
+    retainTipText:
+      'Hosugo ɗaɓɓi wakkati. Walaa laawol wakkati gooto ngam yaadugo ɓoyndugo.',
+    section4H2: '4. Wasiyaaji seɗɗa ngam yahugo yeeso',
+    section4Body:
+      'Walaa ko ɗaɓɓi ma ngaɗugo fuu saa gooto. Suɓtu ko wayri e ko nanii ma e ko ɗaɓɓi ma jooni.',
+    gentleSteps: [
+      'Hokku wakkati ngam hoɗugo tampere maaɗa',
+      'Hoɗu e yimɓe ɗi yiɗi ma moƴƴo',
+      'Jokkit kuuɗe ruuhu ɓolliiɗe si ɗum hokkii ma hoosugo',
+      'Ƴam muuyugo ngam ƴami diine feere kala',
+      'Ƴam walleende si tampere ɓeydi no ɗum waawataa',
+    ],
+    finalTitle: 'Laawol e wakkati maaɗa',
+    finalText:
+      'Reentugo ma, ƴamugo walleende e jokkugo hoolaare waawi wallugo mo laawol haa hoosugo seɗɗa seɗɗa.',
+    shareMessage: 'Wasiyaaji ruuhu caggal ɓoyndugo — AWA',
+  },
   id: {
     badge: 'PANDUAN SPIRITUAL',
     title: 'Panduan spiritual\nsetelah kehilangan',

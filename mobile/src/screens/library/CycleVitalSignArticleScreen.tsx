@@ -695,6 +695,1155 @@ const CONTENT = withBrazilianPortuguese('CycleVitalSign', {
       finalBody: '你的月经周期是反映健康状况的众多指标之一。规律地记录它，可以帮助你更好地了解自己的身体，并随着时间推移，注意到值得特别关注的变化。',
       shareMessage: '你的周期，一项很好的健康指标 — AWA',
     },
+  'zh-Hant': {
+      badge: '週期與月經',
+      title: '你的週期，\n一項很好的健康指標',
+      metaDuration: '閱讀約 7 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已稽核內容',
+      intro: '為什麼週期有時被稱為「第五生命體徵」。',
+      contentsTitle: '本文內容',
+      topics: [
+        '你的週期：身體的一面鏡子',
+        '什麼是「正常」的週期？',
+        '需要留意的變化',
+        '這些變化可能說明什麼？',
+        '記錄週期，更瞭解自己',
+        '何時尋求建議？',
+        '小提醒',
+      ],
+      observeLabels: [
+        '週期長度',
+        '經期長度',
+        '經量',
+        '疼痛',
+        '陰道分泌物',
+        '情緒',
+        '精力 / 疲勞',
+        '其他反覆出現的症狀',
+      ],
+      factorLabels: [
+        '壓力',
+        '睡眠不足',
+        '體重明顯變化',
+        '高強度的身體活動',
+        '荷爾蒙變化',
+        '避孕',
+        '某些健康問題',
+      ],
+      s1Body1: '月經週期會受到身體一個月中荷爾蒙活動的影響。學著觀察它，可以幫助你更好地瞭解身體是如何運作的，而不需要事無鉅細地分析一切。',
+      s1Body2: '以下是最值得留意的幾個方面：',
+      s2Body1: '不存在唯一完美的週期：每個人的身體都有自己的節奏，這種節奏每個月也可能略有不同。週期一般在 21 到 35 天之間時被認為是規律的，經期通常持續 3 到 7 天。',
+      s2Body2: '這些數字只是平均值：輕微的差異完全正常，尤其是在青春期之後、分娩之後，或臨近停經時。',
+      s3Body1: '有些變化值得多留意一些，例如：',
+      changesToWatch: [
+        '週期規律性明顯改變',
+        '經量明顯比平時多',
+        '異常強烈或持續的疼痛',
+        '長時間不來月經',
+        '兩次月經之間出血',
+        '在連續幾個週期中反覆出現的明顯變化',
+      ],
+      s3Body2: '偶爾一次的週期異常，並不一定意味著健康出了問題：身體可能會因為許多不同的因素而暫時出現反應。',
+      s4Body1: '這些變化有時可能與以下幾個因素有關，但不一定是問題：',
+      s4Body2: '這些只是眾多可能原因中的一部分：它們永遠不能替代醫療專業人員的建議。',
+      s5VisualTitle: '觀察屬於你自己的節奏',
+      s5VisualText: '記下日期、經量或你的感受，可以幫助你一個月一個月地瞭解自己的規律。',
+      s5Body: '月經的第一天、持續時間、經量、疼痛、情緒、精力或陰道分泌物，都是可以長期記錄的內容。目的不是拿你的週期和別人比較，而是更好地認識什麼對你來說是平常的，什麼是有所不同的。',
+      s6Body1: '對自己的週期有疑問是再正常不過的。在某些情況下，尋求醫療建議會有幫助，例如：',
+      whenToAsk: [
+        '連續幾個週期持續出現明顯變化',
+        '疼痛影響了你的日常活動',
+        '經量非常多',
+        '長時間不來月經',
+        '不尋常的出血',
+        '任何讓你擔心的持續症狀',
+      ],
+      s6Body2: '與醫療專業人員聊一聊，可以讓你更安心，或在需要時獲得合適的支援，這本身並不是值得擔憂的事。',
+      tipText: '週期不需要完美規律才算正常。瞭解自己平時的節奏，往往比追求某個理想的長度更有用。',
+      finalBody: '你的月經週期是反映健康狀況的眾多指標之一。規律地記錄它，可以幫助你更好地瞭解自己的身體，並隨著時間推移，注意到值得特別關注的變化。',
+      shareMessage: '你的週期，一項很好的健康指標 — AWA',
+    },
+  ar: {
+    badge: 'الدورة والحيض',
+    title: 'دورتك، مؤشر ممتاز\nعلى صحتك',
+    metaDuration: '7 دقائق للقراءة',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئة',
+    metaValidated: 'محتوى مراجَع',
+    intro: 'لماذا تُسمّى الدورة أحيانًا «العلامة الحيوية الخامسة».',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'دورتك: انعكاس لجسمك',
+      'ما هي الدورة «الطبيعية»؟',
+      'تغيّرات تستحق الانتباه',
+      'ماذا قد تكشف هذه التغيّرات؟',
+      'تتبّع دورتك لتعرفي نفسك أكثر',
+      'متى تطلبين المشورة؟',
+      'من المفيد أن تعرفي',
+    ],
+    observeLabels: [
+      'مدّة الدورة',
+      'مدّة الحيض',
+      'تدفّق الدم أثناء الحيض',
+      'الألم',
+      'الإفرازات المهبلية',
+      'المزاج',
+      'الطاقة / التعب',
+      'أعراض أخرى متكررة',
+    ],
+    factorLabels: [
+      'التوتر',
+      'قلة النوم',
+      'تغيّرات كبيرة في الوزن',
+      'نشاط بدني شديد جدًا',
+      'التغيّرات الهرمونية',
+      'منع الحمل',
+      'بعض الحالات الطبية',
+    ],
+    s1Body1:
+      'تتأثر الدورة الشهرية بالنشاط الهرموني للجسم على مدار الشهر. وتعلّم مراقبتها يمكن أن يساعدك على فهم طريقة عمل جسمك بشكل أفضل، دون الحاجة إلى تحليل كل شيء بالتفصيل.',
+    s1Body2: 'إليك أكثر الأمور فائدة للملاحظة:',
+    s2Body1:
+      'لا توجد دورة مثالية واحدة: لكل جسم إيقاعه الخاص، وقد يتغيّر هذا الإيقاع قليلًا من شهر إلى آخر. وتُعدّ الدورة منتظمة عمومًا عندما تدوم بين 21 و35 يومًا، ويستمر الحيض في الغالب من 3 إلى 7 أيام.',
+    s2Body2:
+      'هذه الأرقام متوسطات: والاختلافات الطفيفة تبقى طبيعية تمامًا، خاصة بعد البلوغ، وبعد الولادة، أو عند الاقتراب من انقطاع الطمث.',
+    s3Body1:
+      'هناك تغيّرات يستحق الأمر مراقبتها عن كثب أكثر، مثل:',
+    changesToWatch: [
+      'تغيّر واضح في انتظام الدورة',
+      'حيض أغزر بشكل ملحوظ من المعتاد',
+      'ألم شديد أو مستمر على نحو غير معتاد',
+      'غياب الحيض لفترة طويلة',
+      'نزف بين فترات الحيض',
+      'تغيّر كبير يتكرر على مدى عدّة دورات',
+    ],
+    s3Body2:
+      'لا تعني دورة واحدة غير معتادة بالضرورة وجود مشكلة صحية: فقد يتفاعل الجسم مؤقتًا مع عوامل كثيرة ومختلفة.',
+    s4Body1:
+      'قد ترتبط هذه التغيّرات أحيانًا بعدّة عوامل، دون أن تكون بالضرورة مشكلة:',
+    s4Body2:
+      'هذه مجرّد بعض التفسيرات الممكنة من بين غيرها: ولا تحلّ أبدًا محلّ نصيحة مختص في الرعاية الصحية.',
+    s5VisualTitle: 'مراقبة إيقاعك الخاص',
+    s5VisualText:
+      'تدوين تواريخك وتدفّق الدم وشعورك يساعدك على التعرّف على عاداتك شهرًا بعد شهر.',
+    s5Body:
+      'يمكنك تدوين أول يوم من حيضك ومدّته وتدفّق الدم والألم والمزاج والطاقة أو الإفرازات المهبلية على مرّ الوقت. والهدف ليس مقارنة دورتك بدورة امرأة أخرى، بل التعرّف بشكل أفضل على ما هو معتاد بالنسبة إليك، وما يختلف عنه.',
+    s6Body1:
+      'من الطبيعي تمامًا أن تكون لديك أسئلة عن دورتك. وقد يكون طلب المشورة الطبية مفيدًا في بعض الحالات، مثل:',
+    whenToAsk: [
+      'تغيّرات كبيرة تستمر على مدى عدّة دورات',
+      'ألم يمنعك من ممارسة أنشطتك المعتادة',
+      'حيض غزير جدًا',
+      'غياب الحيض لفترة طويلة',
+      'نزف غير معتاد',
+      'أي عَرَض مستمر يقلقك',
+    ],
+    s6Body2:
+      'قد يساعدك التحدث مع مختص في الرعاية الصحية على الاطمئنان أو، عند الحاجة، على الحصول على الدعم المناسب — فهو ليس في حدّ ذاته سببًا للقلق.',
+    tipText:
+      'لا يلزم أن تكون الدورة منتظمة تمامًا لتكون طبيعية. ومعرفة إيقاعك المعتاد غالبًا ما تكون أنفع من البحث عن مدّة مثالية.',
+    finalBody:
+      'دورتك الشهرية هي أحد مؤشرات كثيرة على صحتك. وتتبّعها بانتظام قد يساعدك على فهم جسمك بشكل أفضل، وعلى ملاحظة التغيّرات التي تستحق عناية خاصة مع مرور الوقت.',
+    shareMessage: 'دورتك، مؤشر ممتاز على صحتك — AWA',
+  },
+  kab: {
+    badge: 'UCAL & LḤID',
+    title: 'Ucal-ik, amesli ameqqran\nn tezmert',
+    metaDuration: '7 n tesdatin n tɣuri',
+    metaType: 'Amawal',
+    metaLevel: 'Amagrad',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Acuɣer ucal yettwasemmay kra n tikkal “aṣekkel wis semmus n tudert”.',
+    contentsTitle: 'deg umagrad-a',
+    topics: [
+      'Ucal-ik: amgirred n lǧism-ik',
+      'D acu-t ucal “amagnu”?',
+      'Ibeddilen ilaqen ad d-tẓerreḍ',
+      'D acu i izemren ad d-ssken ibeddilen-a?',
+      'Aḍfar n ucal-ik i usnen n yiman-ik ugar',
+      'Melmi ara tessutureḍ tallelt?',
+      'Yelha ad tezwareḍ',
+    ],
+    observeLabels: [
+      'Teɣzi n ucal',
+      'Teɣzi n lḥid',
+      'Usemmiḍ n lḥid',
+      'Ṭṭṛaḥ',
+      'Tuffɣa n wadeg n tmeṭṭut',
+      'Wul',
+      'Tazmert / ɣilen',
+      'Tiwsatin-nniḍen i d-yettɛawaden',
+    ],
+    factorLabels: [
+      'Stres',
+      'Tuɣ n unyal',
+      'Ibeddilen imeqqranen n uzal',
+      'Armud n lǧism aqerrab aṭas',
+      'Ibeddilen n hormone',
+      'Asebbel',
+      'Kra n waddaden n tezmert',
+    ],
+    s1Body1:
+      'Ucal n lḥid yettwaḥekkem s urmud n hormone n lǧism deg ayyur. Ad tẓerreḍ-it yezmer ad k-ɛawen ad tfehmeḍ amek teddu tezmert-ik, war ma tessneḍ yal tamawt s tmeẓri.',
+    s1Body2: 'Ha-t-an wayen ilhan ugar ad tẓerreḍ:',
+    s2Body1:
+      'Ulac ucal ummid yiwen: yal lǧism yesɛa arrad-is, u arrad-a yezmer ad yettbeddil cwiṭ seg yiwen n wayyur ɣer wayeḍ. Ucal yettwaḥseb d amagnu, s umata, mi ara yeṭṭef gar 21 d 35 n wussan, u lḥid yettwaɣ, s umata, gar 3 d 7 n wussan.',
+    s2Body2:
+      'Tiwsatin-a d amatu kan: ibeddilen imecṭuḥen ttqimen d imagnuyen, s umata deffir ammas n tlawit, deffir tlalit, neɣ mi ara yeqreb menopause.',
+    s3Body1:
+      'Kra n yibeddilen yelha ad tẓerreḍ-ten ugar, am:',
+    changesToWatch: [
+      'Abeddil ameqqran deg uḍfar n ucal',
+      'Lḥid yeqwan ugar n wayen amagnu',
+      'Ṭṭṛaḥ yeqwan neɣ yettqimen akken ur yelli',
+      'Ulac lḥid deg wakud ucrik',
+      'Idammen garan lḥid',
+      'Abeddil ameqqran i d-yettɛawaden deg waṭas n yimalasen',
+    ],
+    s3Body2:
+      'Yiwen n ucal ur yelli ara amagnu ur yeɛni ara s tidet tamsalt n tezmert: lǧism yezmer ad yerr s wudem akudan i waṭas n yimsedwa.',
+    s4Body1:
+      'Ibeddilen-a zemren, kra n tikkal, ad ilin d iseggwen n waṭas n yimsedwa, war ma llan d ugur:',
+    s4Body2:
+      'Wagi kan d kra n tfaṛasin yezmer ad ilin ger wiyaḍ: ur rrint ara tallelt n unaẓur n tezmert.',
+    s5VisualTitle: 'Ẓer arrad-ik',
+    s5VisualText:
+      'Aru n yemyagen-ik, usemmiḍ neɣ amek i tḥussed ttɛawan ad tissneḍ tiɣawsiwin-ik, ayyur deffir wayeḍ.',
+    s5Body:
+      'Wass amezwaru n lḥid-ik, teɣzi-ines, usemmiḍ, ṭṭṛaḥ, wul, tazmert neɣ tuffɣa n wadeg n tmeṭṭut ttwaruyent akk i wakud. Aɣawas mačči ad tsemmgireḍ ucal-ik d wayen n wiyaḍ, maca ad tissneḍ ugar ayen amagnu i kečč, d ayen yemxalafen.',
+    s6Body1:
+      'Yelha ad tesɛuḍ isteqsiyen ɣef ucal-ik. Asuter n tallelt n ṭṭbib yezmer ad yelhu deg kra n waddaden, am:',
+    whenToAsk: [
+      'Ibeddilen imeqqranen yeqqimen deg waṭas n yimalasen',
+      'Ṭṭṛaḥ i k-yeḥbisen seg ayen tettxeddmeḍ yal ass',
+      'Lḥid yeqwan aṭas',
+      'Ulac lḥid deg wakud ucrik',
+      'Usemmiḍ ur nelhi ara',
+      'Yal tiwsatin yettqimen ara k-yettḥuzzin',
+    ],
+    s6Body2:
+      'Mmeslay d unaẓur n tezmert yezmer ad k-isenned wul neɣ, ma yella ilaq, ad k-id-yawi tallelt ilhan — ur d-yettili ara d ssebba n uḥezzeb.',
+    tipText:
+      'Ucal ur yelzem ara ad yili yemṣaḥ akken ad yili amagnu. Asnen n warrad-ik amagnu yelha ugar n unadi n teɣzi tamṣaḥt.',
+    finalBody:
+      'Ucal-ik n lḥid d yiwen seg waṭas n yimeslayen n tezmert-ik. Aḍfar-is s uḍfar yezmer ad k-ɛawen ad tfehmeḍ lǧism-ik ugar u, deg wakud, ad tẓerreḍ ibeddilen i yessefk ad tebḍeḍ ɣef-sen.',
+    shareMessage: 'Ucal-ik, amesli ameqqran n tezmert — AWA',
+  },
+  om: {
+    badge: 'MARSAA & DHIITA JI\'AA',
+    title: 'Marsaan kee, agarsiisaa\nfayyaa gaarii',
+    metaDuration: 'Daqiiqaa 7 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaaf',
+    metaValidated: 'Qabiyyee ilaalame',
+    intro: 'Maaliif marsaan yeroo tokko tokko “mallattoo jireenyaa shanaffaa” jedhamu.',
+    contentsTitle: 'Barreeffama kana keessatti',
+    topics: [
+      'Marsaan kee: calaqqee qaama kee',
+      'Marsaan “idilee” maali?',
+      'Jijjiirama of eeggannoon ilaalamuu qabu',
+      'Jijjiiramni kun maal agarsiisuu danda\'a?',
+      'Marsaa kee hordofuun of caalaatti beekuu',
+      'Yoom gorsa gaafachuu?',
+      'Beekuun gaarii dha',
+    ],
+    observeLabels: [
+      'Dheerina marsaa',
+      'Dheerina dhiita ji\'aa',
+      'Dhangala\'uu dhiita ji\'aa',
+      'Dhukkubbii',
+      'Dhangala\'aa qaama dhalaa',
+      'Miira',
+      'Anniisaa / dadhabbii',
+      'Mallattoowwan irra deddeebi\'an biroo',
+    ],
+    factorLabels: [
+      'Dhiphachuu',
+      'Hirriba dhabuu',
+      'Jijjiirama ulfaatinaa guddaa',
+      'Shaakala qaamaa baay\'ee cimaa',
+      'Jijjiirama hormoonii',
+      'Adamsa ulfaa',
+      'Haalawwan fayyaa tokko tokko',
+    ],
+    s1Body1:
+      'Marsaan ji\'aa guyyaa ji\'a guutuu hojii hormoonii qaamaan dhiibbaa argata. Ilaaluu barachuun, hunda sirriitti xiinxaluu malee, qaamni kee akkamitti hojjetu hubachuuf si gargaaruu danda\'a.',
+    s1Body2: 'Waan ilaaluuf baay\'ee fayyadan kana:',
+    s2Body1:
+      'Marsaa guutuu tokko hin jiru: qaamni hundi saffisa mataa isaa qaba, saffisnis ji\'a irraa ji\'aa xiqqoo jijjiiramuu danda\'a. Marsaan yeroo baay\'ee idilee jedhamee ilaalama yeroo guyyaa 21 fi 35 gidduu turu, dhiitni ji\'aa immoo yeroo baay\'ee guyyaa 3 hanga 7 tura.',
+    s2Body2:
+      'Lakkoofsonni kun giddugaleessa: garaagarummaan xiqqaan guutummaatti idilee dha, keessumaa erga ga\'umsa ga\'ee booda, erga deessee booda, ykn menopause yeroo dhiyaatu.',
+    s3Body1:
+      'Jijjiiramni tokko tokko xiyyeeffannoon caalaa ilaaluu gaarii dha, kanneen akka:',
+    changesToWatch: [
+      'Jijjiirama idilummaa marsaa kan mul\'atu',
+      'Dhiita ji\'aa kan baratamaa caalaa baay\'ee ta\'e',
+      'Dhukkubbii kan hin baratamne cimaa ykn itti fufaa',
+      'Dhiita ji\'aa yeroo dheeraa dhabuu',
+      'Dhiita ji\'aa gidduutti dhiita dhangala\'uu',
+      'Jijjiirama guddaa marsaa hedduu irratti irra deddeebi\'u',
+    ],
+    s3Body2:
+      'Marsaan hin baratamne tokkicha, kophaa isaa, rakkoo fayyaa jechuu hin ta\'u: qaamni yeroo muraasaaf sababoota hedduuf deebisuu danda\'a.',
+    s4Body1:
+      'Jijjiiramni kun yeroo tokko tokko sababoota hedduu waliin wal qabata, rakkoo ta\'uu hin barbaachisu:',
+    s4Body2:
+      'Kunniin ibsa danda\'amu biroo gidduu muraasa qofa: gorsa ogeessa fayyaa gonkumaa bakka hin bu\'an.',
+    s5VisualTitle: 'Saffisa mataa kee ilaaluu',
+    s5VisualText:
+      'Guyyaawwan kee, dhangala\'uu, ykn akkamitti akka itti dhaga\'amtu galmeessuun amala kee ji\'a irraa ji\'aa beekuuf si gargaara.',
+    s5Body:
+      'Guyyaa jalqabaa dhiita ji\'aa kee, dheerina isaa, dhangala\'uu, dhukkubbii, miira, anniisaa, ykn dhangala\'aa qaama dhalaa hundi yeroo darbuun galmeessuu dandeessa. Kaayyoon marsaa kee kan nama biroo wajjin wal bira qabuu miti, waan kee irratti baratamaa ta\'e fi kan irraa adda ta\'e caalaatti beekuu dha.',
+    s6Body1:
+      'Gaaffii marsaa kee ilaalchisee qabaachuun guutummaatti idilee dha. Gorsa fayyaa barbaaduun haala tokko tokko keessatti fayyaduu danda\'a, fakkeenyaaf:',
+    whenToAsk: [
+      'Jijjiirama guddaa marsaa hedduu irratti itti fufu',
+      'Dhukkubbii hojii kee baratamaa irraa si dhorku',
+      'Dhiita ji\'aa baay\'ee baay\'ee',
+      'Dhiita ji\'aa yeroo dheeraa dhabuu',
+      'Dhiita hin baratamne',
+      'Mallattoo itti fufaa si yaaddesse kamiyyuu',
+    ],
+    s6Body2:
+      'Ogeessa fayyaa waliin haasa\'uun sammuu kee tasgabbeessuu ykn, yoo barbaachise, deeggarsa sirrii argachuuf si gargaaruu danda\'a — kophaa isaa sababa yaaddoo gonkumaa miti.',
+    tipText:
+      'Marsaan idilee ta\'uuf guutummaatti idilee ta\'uu hin barbaachisu. Saffisa kee baratamaa beekuun yeroo baay\'ee dheerina fakkeenya barbaaduu caalaa fayyada.',
+    finalBody:
+      'Marsaan ji\'aa kee agarsiistota fayyaa kee hedduu keessaa tokko dha. Idileedhaan hordofuun qaama kee caalaatti hubachuu fi, yeroo darbuun, jijjiirama xiyyeeffannoo addaa malu hubachuuf si gargaaruu danda\'a.',
+    shareMessage: 'Marsaan kee, agarsiisaa fayyaa gaarii — AWA',
+  },
+  ti: {
+    badge: 'ዑደትን ወርሓዊ ደምን',
+    title: 'ዑደትኪ፣ ዝበለጸ\nመርኣያ ጥዕና',
+    metaDuration: '7 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ዑደት ስለምንታይ ሓደ ሓደ ግዜ “ሓምሻይ ህይወታዊ መርኣያ” ይበሃል።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ዑደትኪ፦ ነጸብራቕ ኣካልኪ',
+      '“ንቡር” ዑደት እንታይ እዩ?',
+      'ክዕዘቡ ዘለዎም ለውጢታት',
+      'እዞም ለውጢታት እንታይ ክገልጹ ይኽእሉ?',
+      'ርእስኺ ዝበለጸ ንምፍላጥ ዑደትኪ ምክታል',
+      'ምኽሪ መዓስ ትሓትቲ?',
+      'ርዳእ እዚ',
+    ],
+    observeLabels: [
+      'ንውሓት ዑደት',
+      'ንውሓት ወርሓዊ ደም',
+      'ዓቐን ወርሓዊ ደም',
+      'ቃንዛ',
+      'ናይ ማሕጸን ምስጢር',
+      'ስምዒት',
+      'ሓይሊ / ድኻም',
+      'ካልኦት ተደጋጋሚ ምልክታት',
+    ],
+    factorLabels: [
+      'ጭንቀት',
+      'ሕጽረት ድቃስ',
+      'ዓቢ ለውጢ ክብደት',
+      'ብጣዕሚ ብርቱዕ ኣካላዊ ንጥፈት',
+      'ለውጢ ሆርሞናት',
+      'ምክልኻል ጥንሲ',
+      'ገሊኦም ሕክምናዊ ኩነታት',
+    ],
+    s1Body1:
+      'ወርሓዊ ዑደት ብሆርሞናዊ ንጥፈት ኣካል ኣብ ዘለዎ ወርሒ ይጽለው። ምዕዛቡ ምምሃር ኣካልኪ ብኸመይ ከም እተሰርሕ ዝበለጸ ክትርድኢ ይሕግዘኪ፣ ኩሉ ብዝርዝር ክትምርምሪ ከይተገደድኪ።',
+    s1Body2: 'እዚ ዝበዝሐ ጠቓሚ ክዕዘብ ዘለዎ እዩ፦',
+    s2Body1:
+      'ፍጹም ዑደት ሓደ ኣይኰነን፦ ነፍስ ወከፍ ኣካል ናቱ ሪትም ኣለዎ፣ እዚ ሪትም ድማ ካብ ወርሒ ናብ ወርሒ ቁሩብ ክፈላለ ይኽእል። ዑደት ብሓፈሽኡ ኣብ መንጎ 21ን 35ን መዓልታት ምስ ዝጸንሕ ርጉእ ይቝጸር፣ ወርሓዊ ደም ድማ ብዙሕ ግዜ 3 ክሳብ 7 መዓልታት ይጸንሕ።',
+    s2Body2:
+      'እዘን ቁጽሪታት ማእከላይ እየን፦ ቀሊል ፍልልያት ፍጹም ንቡር እዮም፣ ብፍላይ ድሕሪ ጉርምስና፣ ድሕሪ ምውላድ ወይ ሜኖፓውዝ ክቐርብ ከሎ።',
+    s3Body1:
+      'ገሊኦም ለውጢታት ዝያዳ ብቐረባ ክዕዘቡ ይግባእ፣ ከም፦',
+    changesToWatch: [
+      'ኣብ ርጉእነት ዑደት ዝረአ ለውጢ',
+      'ካብ ልሙድ ብዙሕ ዝበዝሐ ወርሓዊ ደም',
+      'ዘይልሙድ ብርቱዕ ወይ ዝቐጸለ ቃንዛ',
+      'ነዊሕ ዝጸንሐ ወርሓዊ ደም ዘይምርካብ',
+      'ኣብ መንጎ ወርሓዊ ደም ደም ምፍሳስ',
+      'ኣብ ብዙሓት ዑደታት ዝደጋገም ዓቢ ለውጢ',
+    ],
+    s3Body2:
+      'ሓደ ዝተነጸለ ዘይልሙድ ዑደት ብዘይግብኣ ጸገም ጥዕና ማለት ኣይኰነን፦ ኣካል ንብዙሓት ዝተፈላለዩ ጠንቅታት ግዝያዊ ክምልስ ይኽእል።',
+    s4Body1:
+      'እዞም ለውጢታት ሓደ ሓደ ግዜ ምስ ብዙሓት ጠንቅታት ክተኣሳሰሩ ይኽእሉ፣ ጸገም ክኾኑ ከይግድዶም፦',
+    s4Body2:
+      'እዚኦም ካብ ካልኦት ገሊኦም ዝክኣሉ መብርሂታት ጥራይ እዮም፦ ምኽሪ ሞያዊ ጥዕና ሰራሒ ብፍጹም ኣይትክኡን።',
+    s5VisualTitle: 'ናትኪ ሪትም ምዕዛብ',
+    s5VisualText:
+      'ዕለታትኪ፣ ዓቐን ደምኪ ወይ ከመይ ከም ዝስምዐኪ ምጽሓፍ ልምድታትኪ ወርሒ ብወርሒ ክትፈልጢ ይሕግዘኪ።',
+    s5Body:
+      'መጀመሪያ መዓልቲ ወርሓዊ ደምኪ፣ ንውሓቱ፣ ዓቐኑ፣ ቃንዛ፣ ስምዒት፣ ሓይሊ ወይ ናይ ማሕጸን ምስጢር ብግዜ ክትጽሕፍዮም ዘለዎም ነገራት እዮም። ዕላማ ዑደትኪ ምስ ናይ ሰብ ምስ ምንጽጻር ኣይኰነን፣ ንዓኺ ልሙድ እንታይ ምዃኑን ካብኡ እንታይ ከም ዝፈልይን ዝበለጸ ንምግንዛብ እዩ።',
+    s6Body1:
+      'ብዛዕባ ዑደትኪ ሕቶታት ምህላው ፍጹም ንቡር እዩ። ሕክምናዊ ምኽሪ ምሕታት ኣብ ገሊኦም ኩነታት ጠቓሚ ክኸውን ይኽእል፣ ንኣብነት፦',
+    whenToAsk: [
+      'ኣብ ብዙሓት ዑደታት ዝጸንሑ ዓበይቲ ለውጢታት',
+      'ካብ ልሙድ ንጥፈታትኪ ዝጉድል ቃንዛ',
+      'ብጣዕሚ ዝበዝሐ ወርሓዊ ደም',
+      'ነዊሕ ዝጸንሐ ወርሓዊ ደም ዘይምርካብ',
+      'ዘይልሙድ ደም ምፍሳስ',
+      'ዝሰግኣኪ ዝኾነ ዝቐጸለ ምልክት',
+    ],
+    s6Body2:
+      'ምስ ሞያዊ ጥዕና ሰራሒ ምዝራብ ኣእምሮኺ ከሕርር፣ እንተድኣ ኣድልዩ ድማ ቅኑዕ ደገፍ ክረኽቢ ይሕግዘኪ — ባዕሉ ንግዲ ምኽንያት ጭንቀት ኣይኰነን።',
+    tipText:
+      'ዑደት ንቡር ንክኸውን ፍጹም ርጉእ ክኸውን ኣየድልን። ናትኪ ልሙድ ሪትም ምፍላጥ ብዙሕ ግዜ ካብ ዝበለጸ ንውሓት ምድላይ ዝያዳ ጠቓሚ እዩ።',
+    finalBody:
+      'ወርሓዊ ዑደትኪ ካብ ብዙሓት መርኣያታት ጥዕናኺ ሓደ እዩ። ብተደጋጋሚ ምክታሉ ኣካልኪ ዝበለጸ ክትርድኢ፣ ብግዜ ድማ ፍሉይ ኣቓልቦ ዝግብኦም ለውጢታት ክትዕዘቢ ይሕግዘኪ።',
+    shareMessage: 'ዑደትኪ፣ ዝበለጸ መርኣያ ጥዕና — AWA',
+  },
+  rw: {
+    badge: 'UKWEZI N’IMIHANGO',
+    title: 'Ukwezi kwawe, ikimenyetso\ncyiza cy’ubuzima',
+    metaDuration: 'Iminota 7 yo gusoma',
+    metaType: 'Igitabo',
+    metaLevel: 'Ku batangiye',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Impamvu ukwezi rimwe na rimwe kwitwa “ikimenyetso cya gatanu cy’ubuzima.”',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ukwezi kwawe: ishusho y’umubiri wawe',
+      'Ukwezi “gusanzwe” ni uguhe?',
+      'Impinduka zo kwitondera',
+      'Izi mpinduka zishobora kugaragaza iki?',
+      'Gukurikirana ukwezi kwawe kugira ngo wimenye neza',
+      'Ni ryari ugomba gusaba inama?',
+      'Ni byiza kubimenya',
+    ],
+    observeLabels: [
+      'Uburebure bw’ukwezi',
+      'Uburebure bw’imihango',
+      'Amaraso y’imihango',
+      'Ububabare',
+      'Ibisohoka mu gitsina',
+      'Amarangamutima',
+      'Imbaraga / umunaniro',
+      'Ibindi bimenyetso bisubiramo',
+    ],
+    factorLabels: [
+      'Guhangayika',
+      'Kubura ibitotsi',
+      'Impinduka zikomeye mu biro',
+      'Imyitozo ikomeye cyane',
+      'Impinduka z’imisemburo',
+      'Uburyo bwo kwirinda inda',
+      'Uburwayi bumwe',
+    ],
+    s1Body1:
+      'Ukwezi guterwa n’imikorere y’imisemburo y’umubiri mu gihe cy’ukwezi. Kwiga kukwitegereza bishobora kugufasha gusobanukirwa neza uko umubiri wawe ukora, utarebye buri kantu gato.',
+    s1Body2: 'Dore ibintu by’ingenzi cyane byo kwitegereza:',
+    s2Body1:
+      'Nta kwezi kumwe gutunganye: buri mubiri ufite injyana yawo, kandi iyo njyana ishobora no guhinduka gato ku kwezi ku kundi. Ukwezi gufatwa nk’ukwa buri gihe iyo kumara hagati y’iminsi 21 na 35, kandi imihango akenshi imara iminsi 3 kugeza kuri 7.',
+    s2Body2:
+      'Iyi mibare ni ibigereranyo: impinduka nto zikomeza kuba ibisanzwe, cyane cyane nyuma yo gukura, nyuma yo kubyara, cyangwa menopause iri hafi.',
+    s3Body1:
+      'Impinduka zimwe zikwiye kwitonderwa kurushaho, nka:',
+    changesToWatch: [
+      'Impinduka igaragara mu buryo ukwezi gusanzwe',
+      'Imihango irimo amaraso menshi kurusha uko bisanzwe',
+      'Ububabare bukomeye cyangwa bukomeza bidasanzwe',
+      'Kumara igihe kirekire nta mihango',
+      'Amaraso hagati y’imihango',
+      'Impinduka ikomeye isubiramo mu mezi menshi',
+    ],
+    s3Body2:
+      'Ukwezi kumwe gusa kudasanzwe ntibivuze ko hari ikibazo cy’ubuzima: umubiri ushobora kubyitwaramo by’igihe gito bitewe n’ibintu byinshi bitandukanye.',
+    s4Body1:
+      'Izi mpinduka rimwe na rimwe zishobora guhuzwa n’ibintu bitandukanye, bitavuze ko ari ikibazo:',
+    s4Body2:
+      'Ibi ni bimwe mu bisobanuro bishoboka mu bindi: ntibisimbura inama z’umuganga.',
+    s5VisualTitle: 'Kwitegereza injyana yawe',
+    s5VisualText:
+      'Kwandika amatariki yawe, amaraso, cyangwa uko wumva bigufasha kumenya ingeso zawe, ukwezi ku kundi.',
+    s5Body:
+      'Umunsi wa mbere w’imihango, uburebure bwayo, amaraso, ububabare, amarangamutima, imbaraga, cyangwa ibisohoka mu gitsina ni ibintu ushobora kwandika uko igihe kigenda. Intego si ugereranya ukwezi kwawe n’ukw’undi, ahubwo ni ukumenya neza ibisanzwe kuri wowe, n’ibitandukanye na byo.',
+    s6Body1:
+      'Ni ibisanzwe rwose kugira ibibazo ku kwezi kwawe. Gusaba inama z’umuganga bishobora gufasha mu bihe bimwe, urugero:',
+    whenToAsk: [
+      'Impinduka zikomeye zikomeza mu mezi menshi',
+      'Ububabare bukubuza gukora ibyo usanzwe ukora',
+      'Imihango irimo amaraso menshi cyane',
+      'Kumara igihe kirekire nta mihango',
+      'Amaraso adasanzwe',
+      'Ikimenyetso cyose gikomeza kikuteye impungenge',
+    ],
+    s6Body2:
+      'Kuvugana n’umuganga bishobora kugutuza cyangwa, nibiba ngombwa, kukugezaho ubufasha bukwiye — si impamvu yo guhangayika ubwayo.',
+    tipText:
+      'Ukwezi ntikwiye kuba gutunganye rwose ngo kube ari ibisanzwe. Kumenya injyana yawe isanzwe akenshi bifasha kurusha gushaka uburebure bwiza.',
+    finalBody:
+      'Ukwezi kwawe ni kimwe mu bimenyetso byinshi by’ubuzima bwawe. Kugukurikirana buri gihe bishobora kugufasha gusobanukirwa neza umubiri wawe kandi, uko igihe kigenda, kubona impinduka zikwiye kwitabwaho by’umwihariko.',
+    shareMessage: 'Ukwezi kwawe, ikimenyetso cyiza cy’ubuzima — AWA',
+  },
+  rn: {
+    badge: 'UKWEZI N’IMIHANGO',
+    title: 'Ukwezi kwawe, ikimenyetso\ngihambaye c’ubuzima',
+    metaDuration: 'Iminuta 7 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikubiye vyasuzumwe',
+    intro: 'Igituma rimwe na rimwe ukwezi kwitwa “ikimenyetso ca gatanu c’ubuzima”.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ukwezi kwawe: indorerwamo y’umubiri wawe',
+      'Ukwezi “gusanzwe” ni ikihe?',
+      'Impinduka zo kwitondera',
+      'Izo mpinduka zishobora kwerekana iki?',
+      'Gukurikirana ukwezi kwawe kugira wimenye neza',
+      'Ni ryari dusaba inama?',
+      'Ni vyiza kubimenya',
+    ],
+    observeLabels: [
+      'Uburebure bw’ukwezi',
+      'Uburebure bw’imihango',
+      'Amaraso y’imihango',
+      'Ububabare',
+      'Ibisohoka mu gitsina',
+      'Umutima',
+      'Imbaraga / kunanirwa',
+      'Ibindi bimenyetso bisubira',
+    ],
+    factorLabels: [
+      'Guhagarika umutima',
+      'Kubura ibitiro',
+      'Impinduka zikomeye mu biro',
+      'Imyitozo y’umubiri ikomeye cane',
+      'Impinduka za hormone',
+      'Uburyo bwo kudasama',
+      'Indwara zimwezimwe',
+    ],
+    s1Body1:
+      'Ukwezi kw’imihango kugirwa n’ibikorwa vya hormone z’umubiri mu kwezi kwose. Kwiga kukwitegereza bishobora kugufasha gusobanukirwa neza uko umubiri wawe ukora, udakeneye gusesengura vyose mu buryo burambuye.',
+    s1Body2: 'Dore ivyo gufasha cane kwitegereza:',
+    s2Body1:
+      'Nta kwezi kumwe kwuzuye: umubiri wose ufise umuvuduko wawo, kandi uwo muvuduko ushobora no gutandukana gake kuva mu kwezi ku kundi. Ukwezi kuraba gusanzwe iyo kumara hagati y’iminsi 21 na 35, kandi imihango ikunze kumara iminsi 3 kugeza kuri 7.',
+    s2Body2:
+      'Ivyo bipimo ni ibigereranyo: impinduka nkeya ziguma ari ibisanzwe rwose, cane cane nyuma yo kuvyiruka, nyuma yo kubyara, canke menopause yegereje.',
+    s3Body1:
+      'Impinduka zimwezimwe zikwiye kwitegerezwa neza kuruta, nk’izi:',
+    changesToWatch: [
+      'Impinduka igaragara mu buringanire bw’ukwezi',
+      'Imihango irushiriza cane gusanzwe kuba myinshi',
+      'Ububabare bukomeye canke buhoraho budasanzwe',
+      'Kubura imihango igihe kirekire',
+      'Kuva amaraso hagati y’imihango',
+      'Impinduka ikomeye isubira mu mezi menshi',
+    ],
+    s3Body2:
+      'Ukwezi kumwe gusa kudasanzwe ntivyerekana mu buryo bwikora ikibazo c’ubuzima: umubiri ushobora kwakira mu gihe gito ibintu vyinshi bitandukanye.',
+    s4Body1:
+      'Izo mpinduka rimwe na rimwe zishobora kuba zifitaniye isano n’ibintu bitandukanye, ata kuba ikibazo ngo gikwiye.',
+    s4Body2:
+      'Ivyo ni zimwe mu mpamvu zishoboka mu zindi: ntizisubira mu cumbi inama z’umuganga.',
+    s5VisualTitle: 'Kwitegereza umuvuduko wawe',
+    s5VisualText:
+      'Kwandika amatariki yawe, amaraso, canke uko wiyumva bigufasha kumenya ingeso zawe, ukwezi ku kundi.',
+    s5Body:
+      'Umusi wa mbere w’imihango yawe, uburebure bwayo, amaraso, ububabare, umutima, imbaraga, canke ibisohoka mu gitsina ni vyose ushobora kwandika uko igihe kigenda. Intego si ugereranya ukwezi kwawe n’ukw’undi, ahubwo ni ukurushiriza kumenya ivyo bisanzwe kuri wewe, n’ivyo bitandukanye.',
+    s6Body1:
+      'Ni ibisanzwe rwose kugira ibibazo ku kwezi kwawe. Gusaba inama y’umuganga bishobora gufasha mu bihe bimwebimwe, nk’ibi:',
+    whenToAsk: [
+      'Impinduka zikomeye zimara amezi menshi',
+      'Ububabare bukubuza ibikorwa vyawe bisanzwe',
+      'Imihango myinshi cane',
+      'Kubura imihango igihe kirekire',
+      'Kuva amaraso bidasanzwe',
+      'Ikimenyetso cose gihoraho kikuraje ishinga',
+    ],
+    s6Body2:
+      'Kuvugana n’umuganga bishobora kugutuza canke, nibiba ngombwa, kukuronsa ubufasha bukwiye — si impamvu yo guhagarika umutima ubwayo.',
+    tipText:
+      'Ukwezi ntikuba gukeneye kuba gufise uburinganire bwuzuye ngo kube gusanzwe. Kumenya umuvuduko wawe usanzwe akenshi bifasha kuruta kurondera uburebure bwiza.',
+    finalBody:
+      'Ukwezi kwawe kw’imihango ni kimwe mu bimenyetso vyinshi vy’ubuzima bwawe. Kukukurikirana buri gihe bishobora kugufasha gusobanukirwa umubiri wawe n’uko igihe kigenda, kubona impinduka zikwiye kwitonderwa by’umwihariko.',
+    shareMessage: 'Ukwezi kwawe, ikimenyetso gihambaye c’ubuzima — AWA',
+  },
+  ig: {
+    badge: 'CYCLE NA NSỌ ỌNWA',
+    title: 'Cycle gị, ihe ngosi\nahụike dị mma',
+    metaDuration: 'Nkeji 7 ka a na-agụ',
+    metaType: 'Ntuziaka',
+    metaLevel: 'Maka ndị na-amalite',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Ihe mere a ji akpọ cycle mgbe ụfọdụ “ihe ngosi ndụ nke ise.”',
+    contentsTitle: 'N’edemede a',
+    topics: [
+      'Cycle gị: ihe ngosi nke ahụ gị',
+      'Gịnị bụ cycle “nkịtị”?',
+      'Mgbanwe ndị ị ga-ele anya',
+      'Gịnị ka mgbanwe ndị a nwere ike igosi?',
+      'Iso cycle gị iji mara onwe gị nke ọma',
+      'Kedu mgbe ị ga-achọ ndụmọdụ?',
+      'Ọ dị mma ịmara',
+    ],
+    observeLabels: [
+      'Ogologo cycle',
+      'Ogologo nsọ ọnwa',
+      'Ọbara nsọ ọnwa',
+      'Mgbu',
+      'Mmiri si n’ebe nzuzo (discharge)',
+      'Mmụọ',
+      'Ike / ike ọgwụgwụ',
+      'Mgbaàmà ndị ọzọ na-alọghachi',
+    ],
+    factorLabels: [
+      'Nrụgide',
+      'Enweghị ụra zuru oke',
+      'Mgbanwe arọ dị ukwuu',
+      'Mmega ahụ siri ike nke ukwuu',
+      'Mgbanwe hormone',
+      'Ịkwụsị ime',
+      'Ọnọdụ ahụike ụfọdụ',
+    ],
+    s1Body1:
+      'Hormone ahụ na-emepụta n’ime ọnwa na-emetụta cycle nsọ ọnwa. Ịmụta ilebara ya anya nwere ike inyere gị aka ịghọta etu ahụ gị si arụ ọrụ, na-enweghị mkpa nyocha ihe niile n’otu n’otu.',
+    s1Body2: 'Nke a bụ ihe ndị kacha baa uru ịrịba ama:',
+    s2Body1:
+      'Ọ nweghị otu cycle zuru oke: ahụ ọ bụla nwere ọsọ nke ya, ọsọ ahụ nwekwara ike ịdịgasị iche obere site n’ọnwa gaa n’ọnwa. A na-ewere cycle dị ka nke nwere usoro mgbe ọ dị n’etiti ụbọchị 21 na 35, nsọ ọnwa na-adịkarị ụbọchị 3 ruo 7.',
+    s2Body2:
+      'Ọnụ ọgụgụ ndị a bụ nkezi: obere mgbanwe ka bụ ihe nkịtị kpamkpam, karịsịa mgbe oge okenye malitere, mgbe ịmụsịrị nwa, ma ọ bụ ka menopause na-eru nso.',
+    s3Body1:
+      'Mgbanwe ụfọdụ kwesịrị ka a lebara anya nke ọma, dị ka:',
+    changesToWatch: [
+      'Mgbanwe pụtara ìhè n’ịdị n’usoro nke cycle',
+      'Nsọ ọnwa nke dị arọ karịa ka ọ na-adị',
+      'Mgbu dị ike ma ọ bụ na-adịgide karịa ka ọ na-adị',
+      'Enweghị nsọ ọnwa ogologo oge',
+      'Ọbara n’etiti nsọ ọnwa',
+      'Mgbanwe dị ukwuu nke na-emeghachi n’ime ọtụtụ cycle',
+    ],
+    s3Body2:
+      'Otu cycle dị iche n’otu oge adịghị egosi na e nwere nsogbu ahụike: ahụ nwere ike ịmeghachi omume nwa oge n’ihi ọtụtụ ihe dị iche iche.',
+    s4Body1:
+      'Mgbanwe ndị a nwere ike jikọta mgbe ụfọdụ na ọtụtụ ihe, na-enweghị ịbụ nsogbu mgbe niile:',
+    s4Body2:
+      'Ndị a bụ naanị ụfọdụ nkọwa ndị nwere ike ịbụ n’etiti ndị ọzọ: ha anaghị anọchi ndụmọdụ nke ọkachamara ahụike.',
+    s5VisualTitle: 'Ilebara ọsọ nke gị anya',
+    s5VisualText:
+      'Idekọ ụbọchị gị, ọbara, ma ọ bụ etu ị na-eche na-enyere gị aka ịmata omume gị, ọnwa mgbe ọnwa.',
+    s5Body:
+      'Ụbọchị mbụ nke nsọ ọnwa gị, ogologo ya, ọbara, mgbu, mmụọ, ike, ma ọ bụ mmiri si n’ebe nzuzo bụ ihe niile ị nwere ike idekọ ka oge na-aga. Ebumnuche abụghị iji tụnyere cycle gị na nke onye ọzọ, kama ịmata nke ọma ihe dị nkịtị maka gị, na ihe dị iche na ya.',
+    s6Body1:
+      'Ọ bụ ihe nkịtị kpamkpam inwe ajụjụ banyere cycle gị. Ịchọ ndụmọdụ ahụike nwere ike ịba uru n’ọnọdụ ụfọdụ, dịka:',
+    whenToAsk: [
+      'Mgbanwe dị ukwuu nke na-adịgide n’ime ọtụtụ cycle',
+      'Mgbu nke na-egbochi gị ime ọrụ gị nkịtị',
+      'Nsọ ọnwa dị arọ nke ukwuu',
+      'Enweghị nsọ ọnwa ogologo oge',
+      'Ọbara na-adịghị ka nke nkịtị',
+      'Mgbaàmà ọ bụla na-adịgide nke na-echegbu gị',
+    ],
+    s6Body2:
+      'Ịgwa ọkachamara ahụike okwu nwere ike inyere gị aka ịnwe udo n’obi ma ọ bụ, ma ọ bụrụ na ọ dị mkpa, nweta enyemaka kwesịrị ekwesị — ọ bụghị ihe kpatara nchegbu n’onwe ya.',
+    tipText:
+      'Cycle apụtaghị ịdị n’usoro zuru oke ka ọ bụrụ nke nkịtị. Ịmara ọsọ nkịtị nke gị na-abakarị uru karịa ịchọ ogologo oge kacha mma.',
+    finalBody:
+      'Cycle nsọ ọnwa gị bụ otu n’ime ọtụtụ ihe ngosi nke ahụike gị. Iso ya mgbe niile nwere ike inyere gị aka ịghọta ahụ gị nke ọma ma, ka oge na-aga, chọpụta mgbanwe ndị kwesịrị nlebara anya pụrụ iche.',
+    shareMessage: 'Cycle gị, ihe ngosi ahụike dị mma — AWA',
+  },
+  yo: {
+    badge: 'ÀYÍPO ÀTI NǸKAN OṢÙ',
+    title: 'Àyípo rẹ, àmì ìlera\ntó dára gan-an',
+    metaDuration: 'Kíkà ní ìṣẹ́jú 7',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti àtúnyẹ̀wò',
+    intro: 'Ìdí tí a fi máa ń pe àyípo nígbà míì ní “àmì pàtàkì karùn-ún ti ìlera.”',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Àyípo rẹ: àfihàn ara rẹ',
+      'Kí ni àyípo “déédé”?',
+      'Àwọn ìyípadà láti kíyèsí',
+      'Kí ni àwọn ìyípadà wọ̀nyí lè fi hàn?',
+      'Títọpa àyípo rẹ láti mọ ara rẹ dáadáa',
+      'Ìgbà wo ni kí n wá ìmọ̀ràn?',
+      'Ohun tó yẹ kí o mọ̀',
+    ],
+    observeLabels: [
+      'Gígùn àyípo',
+      'Gígùn nǹkan oṣù',
+      'Ìsun nǹkan oṣù',
+      'Ìrora',
+      'Omi inú obo (discharge)',
+      'Ìwà',
+      'Agbára / àárẹ̀',
+      'Àwọn àmì mìíràn tó ń tún ṣẹlẹ̀',
+    ],
+    factorLabels: [
+      'Másùnmáwo',
+      'Àìsùn tó pọ̀ tó',
+      'Ìyípadà ìwúwo ara tó pọ̀',
+      'Ìgbòkègbodò ara líle gan-an',
+      'Ìyípadà hormone',
+      'Ìdènà oyún',
+      'Àwọn àìsàn kan',
+    ],
+    s1Body1:
+      'Àyípo nǹkan oṣù ń rí ipa láti iṣẹ́ hormone ara láàárín oṣù. Kíkọ́ láti kíyèsí rẹ̀ lè ràn ọ́ lọ́wọ́ láti lóye bí ara rẹ ṣe ń ṣiṣẹ́ dáadáa, láìsí pé o nílò láti ṣe ìtúpalẹ̀ ohun gbogbo.',
+    s1Body2: 'Àwọn ohun tó wúlò jù láti kíyèsí nìyí:',
+    s2Body1:
+      'Kò sí àyípo pípé kan ṣoṣo: gbogbo ara ló ní ìyára tirẹ̀, ìyára náà sì lè yàtọ̀ díẹ̀ láti oṣù dé oṣù. A sábà máa ń ka àyípo sí déédéé nígbà tí ó bá wà láàárín ọjọ́ 21 àti 35, nǹkan oṣù sì sábà máa ń gba ọjọ́ 3 sí 7.',
+    s2Body2:
+      'Àwọn nọ́mbà wọ̀nyí jẹ́ ìwọ̀n àpapọ̀: àwọn ìyàtọ̀ díẹ̀ ṣì jẹ́ deede pátápátá, pàápàá lẹ́yìn ìbàlágà, lẹ́yìn ìbímọ, tàbí bí menopause ṣe ń sún mọ́lé.',
+    s3Body1:
+      'Àwọn ìyípadà kan yẹ kí a máa wò lójú díẹ̀ sí i, bíi:',
+    changesToWatch: [
+      'Ìyípadà tó hàn gbangba nínú ìṣédéédé àyípo',
+      'Nǹkan oṣù tó pọ̀ ju ti tẹ́lẹ̀ lọ gidigidi',
+      'Ìrora tó lágbára tàbí tó pẹ́ ju bó ṣe yẹ',
+      'Àìsí nǹkan oṣù fún ìgbà pípẹ́',
+      'Ìsun ẹ̀jẹ̀ láàárín àwọn nǹkan oṣù',
+      'Ìyípadà tó pọ̀ tó ń tún ṣẹlẹ̀ láàárín àwọn àyípo púpọ̀',
+    ],
+    s3Body2:
+      'Àyípo kan tí kò wọ́pọ̀ nìkan kò túmọ̀ sí ìṣòro ìlera: ara lè dáhùn fún ìgbà díẹ̀ sí ọ̀pọ̀ nǹkan.',
+    s4Body1:
+      'Àwọn ìyípadà wọ̀nyí lè jẹ mọ́ àwọn nǹkan púpọ̀ nígbà míì, láìjẹ́ pé ìṣòro ni dandan:',
+    s4Body2:
+      'Àwọn wọ̀nyí jẹ́ àlàyé díẹ̀ tó ṣeéṣe láàárín àwọn mìíràn: wọn kì í rọ́pò ìmọ̀ràn onímọ̀ ìlera.',
+    s5VisualTitle: 'Kíkíyèsí ìyára tìrẹ',
+    s5VisualText:
+      'Kíkọ àwọn ọjọ́ rẹ, ìsun nǹkan oṣù, tàbí bí o ṣe ń rí lára ń ràn ọ́ lọ́wọ́ láti mọ àṣà rẹ, oṣù lẹ́yìn oṣù.',
+    s5Body:
+      'Ọjọ́ àkọ́kọ́ nǹkan oṣù rẹ, gígùn rẹ̀, ìsun rẹ̀, ìrora, ìwà, agbára, tàbí omi inú obo jẹ́ gbogbo nǹkan tí o lè kọ sílẹ̀ bí àkókò ti ń lọ. Èrò náà kì í ṣe láti fi àyípo rẹ wé ti ẹlòmíràn, bí kò ṣe láti mọ ohun tó wọ́pọ̀ fún ọ dáadáa, àti ohun tó yàtọ̀ sí i.',
+    s6Body1:
+      'Ó jẹ́ deede pátápátá láti ní ìbéèrè nípa àyípo rẹ. Wíwá ìmọ̀ràn ìṣègùn lè wúlò ní àwọn ipò kan, fún àpẹẹrẹ:',
+    whenToAsk: [
+      'Àwọn ìyípadà ńlá tó wà láàárín àwọn àyípo púpọ̀',
+      'Ìrora tó ń dí ọ lọ́wọ́ àwọn ìgbòkègbodò rẹ déédéé',
+      'Nǹkan oṣù tó pọ̀ gan-an',
+      'Àìsí nǹkan oṣù fún ìgbà pípẹ́',
+      'Ìsun ẹ̀jẹ̀ tí kò wọ́pọ̀',
+      'Àmì èyíkéyìí tó ń wà lọ tó sì ń kó ọ lọ́kàn sókè',
+    ],
+    s6Body2:
+      'Bíbá onímọ̀ ìlera sọ̀rọ̀ lè ràn ọ́ lọ́wọ́ láti ní ìbàlẹ̀ ọkàn tàbí, tí ó bá yẹ, láti rí ìrànlọ́wọ́ tó tọ́ — kì í ṣe ìdí fún àníyàn fúnra rẹ̀ láé.',
+    tipText:
+      'Àyípo kò ní láti jẹ́ déédéé pátápátá láti jẹ́ ohun deede. Mímọ ìyára tìrẹ nígbà gbogbo wúlò jù wíwá gígùn pípé lọ.',
+    finalBody:
+      'Àyípo nǹkan oṣù rẹ jẹ́ ọ̀kan lára ọ̀pọ̀ àmì ìlera rẹ. Títọpa rẹ̀ déédéé lè ràn ọ́ lọ́wọ́ láti lóye ara rẹ dáadáa àti, bí àkókò ti ń lọ, láti kíyèsí àwọn ìyípadà tó yẹ fún àfiyèsí pàtàkì.',
+    shareMessage: 'Àyípo rẹ, àmì ìlera tó dára gan-an — AWA',
+  },
+  zu: {
+    badge: 'UMJIKELEZO NESIKHATHI',
+    title: 'Umjikelezo wakho, isinkombo\nesihle sempilo',
+    metaDuration: 'Imizuzu eyi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Okwabaqalayo',
+    metaValidated: 'Okuqulunqwe kabusha',
+    intro: 'Kungani umjikelezo ngezinye izikhathi ubizwa ngokuthi “uphawu lwesihlanu lokuphila.”',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Umjikelezo wakho: isibonakaliso somzimba wakho',
+      'Umjikelezo “ojwayelekile” uyini?',
+      'Izinguquko okufanele ziqashelwe',
+      'Lezi zinguquko zingabonisani ini?',
+      'Ukulandelela umjikelezo wakho ukuze uzazi kangcono',
+      'Ucela nini iseluleko?',
+      'Kuhle ukwazi',
+    ],
+    observeLabels: [
+      'Ubude bomjikelezo',
+      'Ubude besikhathi',
+      'Ukuphuma kwegazi lesikhathi',
+      'Ubuhlungu',
+      'Uketshezi lwangasese',
+      'Isimo sengqondo',
+      'Amandla / ukukhathala',
+      'Ezinye izimpawu ezibuya njalo',
+    ],
+    factorLabels: [
+      'Ukucindezeleka',
+      'Ukuntuleka kokulala',
+      'Izinguquko ezinkulu zesisindo',
+      'Umsebenzi wokuzivocavoca onamandla kakhulu',
+      'Izinguquko zama-hormone',
+      'Ukuvikela ukukhulelwa',
+      'Ezinye izimo zezokwelapha',
+    ],
+    s1Body1:
+      'Umjikelezo wesikhathi uthonywa umsebenzi wama-hormone omzimba inyanga yonke. Ukufunda ukuwubuka kungakusiza uqonde kangcono ukuthi umzimba wakho usebenza kanjani, ngaphandle kokudinga ukuhlaziya yonke into ngokuningiliziwe.',
+    s1Body2: 'Nazi izinto eziwusizo kakhulu ukuziqaphela:',
+    s2Body1:
+      'Awukho umjikelezo oyedwa ophelele: umzimba ngamunye unesigqi sawo, futhi lesi sigqi singahluka kancane inyanga ngenyanga. Umjikelezo ngokujwayelekile uthathwa njengojwayelekile uma uhlala phakathi kwezinsuku ezingama-21 nezingama-35, futhi izikhathi imvamisa zihlala izinsuku ezi-3 kuya kwezi-7.',
+    s2Body2:
+      'Lezi zibalo ziyizilinganiso: ukuhluka okuncane kuhlala kujwayelekile ngokuphelele, ikakhulukazi ngemva kokuthomba, ngemva kokubeletha, noma lapho i-menopause isondela.',
+    s3Body1:
+      'Ezinye izinguquko ziyafaneleka ukubukwa ngokucophelela okwengeziwe, njengalezi:',
+    changesToWatch: [
+      'Ushintsho olubonakalayo ekuhleleni kwemijikelezo',
+      'Izikhathi ezinegazi elinengi kakhulu kunokujwayelekile',
+      'Ubuhlungu obukhulu noma obuqhubekayo ngokungajwayelekile',
+      'Ukungabi khona kwesikhathi isikhathi eside',
+      'Ukopha phakathi kwezikhathi',
+      'Ushintsho olukhulu oluphindaphindwayo emijikelezweni eminingana',
+    ],
+    s3Body2:
+      'Umjikelezo owodwa ongajwayelekile akusho ngokuzenzakalela ukuthi kunenkinga yempilo: umzimba ungaphendula okwesikhashana ezintweni eziningi ezahlukene.',
+    s4Body1:
+      'Lezi zinguquko ngezinye izikhathi zingahlobana nezizathu eziningana, ngaphandle kokuba yinkinga:',
+    s4Body2:
+      'Lezi ziyizincazelo ezimbalwa ezingaba khona phakathi kwezinye: azithathi indawo yeseluleko sochwepheshe wezempilo.',
+    s5VisualTitle: 'Ukubuka isigqi sakho siqu',
+    s5VisualText:
+      'Ukubhala izinsuku zakho, ukuphuma kwegazi, noma indlela ozizwa ngayo kukusiza ukuzazi imikhuba yakho, inyanga ngenyanga.',
+    s5Body:
+      'Usuku lokuqala lwesikhathi sakho, ubude baso, ukuphuma kwegazi, ubuhlungu, isimo sengqondo, amandla, noma uketshezi lwangasese yizo zonke izinto ongazibhala ngokuhamba kwesikhathi. Inhloso akuyona ukuqhathanisa umjikelezo wakho nowomunye umuntu, kodwa ukubona kangcono okujwayelekile kuwe, nalokho okuhlukile kukho.',
+    s6Body1:
+      'Kujwayelekile ngokuphelele ukuba nemibuzo ngomjikelezo wakho. Ukufuna iseluleko sezokwelapha kungasiza ezimeni ezithile, isibonelo:',
+    whenToAsk: [
+      'Izinguquko ezinkulu eziqhubeka emijikelezweni eminingana',
+      'Ubuhlungu obukuvimbela emisebenzini yakho ejwayelekile',
+      'Izikhathi ezinegazi elinengi kakhulu',
+      'Ukungabi khona kwesikhathi isikhathi eside',
+      'Ukopha okungajwayelekile',
+      'Noma yisiphi isimpawu esiqhubekayo osikhathazayo',
+    ],
+    s6Body2:
+      'Ukukhuluma nochwepheshe wezempilo kungakusiza uthole ukuthula noma, uma kudingeka, uthole ukwesekwa okufanele — akuyona isizathu sokukhathazeka ngokwayo.',
+    tipText:
+      'Umjikelezo awudingi ukuhleleka ngokuphelele ukuze ujwayelekile. Ukwazi isigqi sakho esijwayelekile imvamisa kuwusizo kakhulu kunokufuna ubude obufanelekile.',
+    finalBody:
+      'Umjikelezo wakho wesikhathi ungomunye wezinkomba eziningi zempilo yakho. Ukuwulandelela njalo kungakusiza uqonde kangcono umzimba wakho futhi, ngokuhamba kwesikhathi, ubone izinguquko ezidinga ukunakwa okukhethekile.',
+    shareMessage: 'Umjikelezo wakho, isinkombo esihle sempilo — AWA',
+  },
+  xh: {
+    badge: 'UMJIKELO NEXESHA LENYANGA',
+    title: 'Umjikelo wakho, isalathisi\nesihle sempilo',
+    metaDuration: 'Imizuzu emi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Umqali',
+    metaValidated: 'Umxholo ohlolwe',
+    intro: 'Kutheni umjikelo ngamanye amaxesha ubizwa ngokuba “yimpawu yesihlanu yobomi.”',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Umjikelo wakho: ukubonakala komzimba wakho',
+      'Yintoni umjikelo “oqhelekileyo”?',
+      'Utshintsho olufanele ukukhangelwa',
+      'Zingabonisa ntoni ezi ntshintsho?',
+      'Ukulandelela umjikelo wakho ukuze uzazi ngcono',
+      'Nini ukufuna icebiso?',
+      'Kulungile ukwazi',
+    ],
+    observeLabels: [
+      'Ubude bomjikelo',
+      'Ubude bexesha lenyanga',
+      'Ukuhamba kwegazi lexesha lenyanga',
+      'Intlungu',
+      'Amanzi esini',
+      'Imo',
+      'Amandla / ukudinwa',
+      'Ezinye iimpawu ezibuyayo',
+    ],
+    factorLabels: [
+      'Uxinzelelo lweengqondo',
+      'Ukungalali ngokwaneleyo',
+      'Utshintsho olukhulu lobunzima',
+      'Umdla womzimba onzima kakhulu',
+      'Utshintsho lwe-hormone',
+      'I-contraception',
+      'Iimeko ezithile zonyango',
+    ],
+    s1Body1:
+      'Umjikelo wenyanga uphenjelelwa yinkqubo ye-hormone yomzimba kuyo yonke inyanga. Ukufunda ukuwuqwalasela kunganceda ukuqonda ngcono indlela umzimba wakho osebenza ngayo, ngaphandle kokuba kufuneke uhlalutye yonke into ngobunzulu.',
+    s1Body2: 'Nazi izinto eziluncedo kakhulu ukuziqaphela:',
+    s2Body1:
+      'Akukho mjikelo omnye ogqibeleleyo: umzimba ngamnye unesingqi sawo, kwaye esi singqi sinokwahluka kancinci inyanga ngenyanga. Umjikelo uhlala uthathwa njengoqhelekileyo xa uthatha phakathi kweentsuku ezingama-21 nezingama-35, kwaye amaxesha enyanga ahlala ethatha iintsuku ezi-3 ukuya kwezi-7.',
+    s2Body2:
+      'Ezi ngxelo ziyimiyinge: ukwahluka okuncinci kusaqhelekile ngokupheleleyo, ngakumbi emva kobudoda nobufazi, emva kokubeletha, okanye xa i-menopause isondela.',
+    s3Body1:
+      'Utshintsho oluthile lufanele ukujongwa ngenyameko ngakumbi, olunjengoku:',
+    changesToWatch: [
+      'Utshintsho olubonakalayo kukuqhelekile komjikelo',
+      'Amaxesha enyanga anzima kakhulu kunesiqhelo',
+      'Intlungu enamandla okanye eqhubekayo ngokungaqhelekanga',
+      'Ukungabikho kwamaxesha enyanga ixesha elide',
+      'Ukopha phakathi kwamaxesha enyanga',
+      'Utshintsho olubalulekileyo oluphindaphindayo kwimijikelo emininzi',
+    ],
+    s3Body2:
+      'Umjikelo omnye nje ongaqhelekanga akuthethi ngokuzenzekelayo ukuba kukho ingxaki yempilo: umzimba unokuphendula okwethutyana kwizinto ezininzi ezahlukeneyo.',
+    s4Body1:
+      'Olu tshintsho ngamanye amaxesha lunokunxulumana nezinto ezininzi, ngaphandle kokuba yingxaki ngokuqinisekileyo:',
+    s4Body2:
+      'Ezi zezinye nje zeenkcazo ezinokwenzeka phakathi kwezinye: azizifuli icebiso lochwephesha kwezempilo.',
+    s5VisualTitle: 'Ukuqwalasela isingqi sakho',
+    s5VisualText:
+      'Ukubhala imihla yakho, ukuhamba kwegazi, okanye indlela oziva ngayo kukunceda wazi izinto ozenzayo, inyanga ngenyanga.',
+    s5Body:
+      'Usuku lokuqala lwexesha lakho lenyanga, ubude balo, ukuhamba kwegazi, intlungu, imo, amandla, okanye amanzi esini zonke zizinto onokuzibhala ngokuhamba kwexesha. Injongo ayikukuthelekisa umjikelo wakho nowomnye umntu, kodwa kukuqonda ngcono okuqhelekileyo kuwe, nokwahlukileyo kuko.',
+    s6Body1:
+      'Kuqhelekile ngokupheleleyo ukuba nemibuzo ngomjikelo wakho. Ukufuna icebiso lonyango kunokunceda kwiimeko ezithile, umzekelo:',
+    whenToAsk: [
+      'Utshintsho olubalulekileyo oluqhubeka kwimijikelo emininzi',
+      'Intlungu ekuthintela kwimisebenzi yakho eqhelekileyo',
+      'Amaxesha enyanga anzima kakhulu',
+      'Ukungabikho kwamaxesha enyanga ixesha elide',
+      'Ukopha okungaqhelekanga',
+      'Nayiphi na impawu eqhubekayo ekukhathazayo',
+    ],
+    s6Body2:
+      'Ukuthetha nje nochwephesha kwezempilo kunganceda ukuthomalalisa ingqondo yakho okanye, ukuba kuyimfuneko, ukufumana inkxaso efanelekileyo — akusoze kube sisizathu sokukhathazeka ngokwaso.',
+    tipText:
+      'Umjikelo awufuni ukuba ulungelelane ngokugqibeleleyo ukuze uqhelekile. Ukwazi isingqi sakho esiqhelekileyo kuhlala kuluncedo ngakumbi kunokukhangela ubude obufanelekileyo.',
+    finalBody:
+      'Umjikelo wakho wenyanga ngomnye wezalathisi ezininzi zempilo yakho. Ukuwulandelela rhoqo kunganceda ukuqonda ngcono umzimba wakho nokuphawula, ngokuhamba kwexesha, utshintsho olufanele ingqwalaselo ekhethekileyo.',
+    shareMessage: 'Umjikelo wakho, isalathisi esihle sempilo — AWA',
+  },
+  sn: {
+    badge: 'KUTENDERERA NEKUMWEDZI',
+    title: 'Kutenderera kwako, chiratidzo\nchakanaka chehutano',
+    metaDuration: 'Maminetsi manomwe ekuverenga',
+    metaType: 'Gwara',
+    metaLevel: 'Anotangira',
+    metaValidated: 'Zvakatariswa',
+    intro: 'Nei kutenderera dzimwe nguva kuchinzi “chiratidzo chechishanu chehupenyu.”',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Kutenderera kwako: mufananidzo wemuviri wako',
+      'Kutenderera “kwakajairika” chii?',
+      'Shanduko dzekuchenjerera',
+      'Shanduko idzi dzingaratidza chii?',
+      'Kutevedzera kutenderera kwako kuti uzvizive zvirinani',
+      'Nguva yekutsvaga zano?',
+      'Zvakanaka kuziva',
+    ],
+    observeLabels: [
+      'Urefu hwekutenderera',
+      'Urefu hwekumwedzi',
+      'Kuyerera kwekumwedzi',
+      'Kurwadza',
+      'Discharge yepachivande',
+      'Mufambiro wemanzwiro',
+      'Simba / kuneta',
+      'Zviratidzo zvimwe zvinodzokorora',
+    ],
+    factorLabels: [
+      'Kushushikana',
+      'Kushaya hope',
+      'Shanduko huru dzeuremu',
+      'Kuzvishandisa kwakanyanya',
+      'Shanduko dzema hormone',
+      'Kudzivirira kuita pamuviri',
+      'Dzimwe nhamba dzekurwara',
+    ],
+    s1Body1:
+      'Kutenderera kwekumwedzi kunokanganiswa nemabasa ema hormone emuviri mwedzi wose. Kudzidza kuritarisa kunogona kukubatsira kunzwisisa nani maitiro anoshanda muviri wako, pasina kudiwa kuongorora zvose nenzira yakadzama.',
+    s1Body2: 'Heano zvinhu zvinobatsira zvikuru kucherechedza:',
+    s2Body1:
+      'Hapana kutenderera kumwe kwakakwana: muviri wega wega une kumhanya kwawo, uye kumhanya uku kunogona kusiyanawo zvishoma pamwedzi nemwedzi. Kutenderera kunowanzoonekwa kuri kwakarongeka kana kuchitora mazuva 21 kusvika 35, uye kumwedzi kunowanzotora mazuva 3 kusvika 7.',
+    s2Body2:
+      'Nhamba idzi ndedzepakati: kusiyana kushoma kunoramba kuri kwakajairika, kunyanya mushure mekuyaruka, mushure mekubereka, kana menopause ichiswedera.',
+    s3Body1:
+      'Dzimwe shanduko dzakakodzera kutariswa zvakanyanya, dzakadai se:',
+    changesToWatch: [
+      'Shanduko huru mukurongeka kwekutenderera',
+      'Kumwedzi kwakawanda zvakajeka kupfuura zvakajairika',
+      'Kurwadza kukuru kusina kujairika kana kunoramba',
+      'Kusaita kumwedzi kwenguva refu',
+      'Kubuda ropa pakati pekumwedzi',
+      'Shanduko huru inodzokorora mukati mekutenderera kwakawanda',
+    ],
+    s3Body2:
+      'Kutenderera kumwe chete kusina kujairika hakurevi nguva dzose dambudziko rehutano: muviri unogona kuita zvakasiyana nenguva pfupi nekuda kwezvinhu zvakawanda.',
+    s4Body1:
+      'Shanduko idzi dzimwe nguva dzinogona kubatana nezvinhu zvakawanda, pasina kuva dambudziko nguva dzose:',
+    s4Body2:
+      'Idzi ndidzo dzimwe chete dzezvikonzero zvingaitika pakati pezvimwe: hadzitsivi zano remunhu ane unyanzvi muutano.',
+    s5VisualTitle: 'Kutarisa kumhanya kwako',
+    s5VisualText:
+      'Kunyora mazuva ako, kuyerera, kana maonero ako kunokubatsira kuziva tsika dzako, mwedzi nemwedzi.',
+    s5Body:
+      'Zuva rekutanga rekumwedzi kwako, urefu hwako, kuyerera, kurwadza, mufambiro wemanzwiro, simba, kana discharge yepachivande zvose ndezvinhu zvaunogona kunyora nenguva. Chinangwa hachisi chekuenzanisa kutenderera kwako nekwemumwe munhu, asi kuziva zvirinani zvakajairika kwauri, nezvinosiyana nazvo.',
+    s6Body1:
+      'Zvakajairika zvachose kuva nemibvunzo pamusoro pekutenderera kwako. Kutsvaga zano rekurapa kunogona kubatsira mune dzimwe nguva, semuenzaniso:',
+    whenToAsk: [
+      'Shanduko huru dzinoramba mukati mekutenderera kwakawanda',
+      'Kurwadza kunokudzivisa kuita zvaunowanzoita',
+      'Kumwedzi kwakawanda zvikuru',
+      'Kusaita kumwedzi kwenguva refu',
+      'Kubuda ropa kusina kujairika',
+      'Chiratidzo chipi zvacho chinoramba chichikushushikanisa',
+    ],
+    s6Body2:
+      'Kutaura nemunhu ane unyanzvi muutano kunogona kukupa runyararo kana, kana zvichidiwa, kukuwanisa rubatsiro rwakakodzera — hachisi chikonzero chekushushikana pachacho.',
+    tipText:
+      'Kutenderera hakuna kudikanwa kuva kwakarongeka zvakakwana kuti kuve kwakajairika. Kuziva kumhanya kwako kwakajairika kazhinji kunobatsira kupfuura kutsvaga urefu hwakakwana.',
+    finalBody:
+      'Kutenderera kwako kwekumwedzi chimwe chezvinoratidza zvakawanda zvehutano hwako. Kukutevedzera nguva dzose kunogona kukubatsira kunzwisisa nani muviri wako uye, nenguva, kucherechedza shanduko dzinofanira kungwarirwa zvakanyanya.',
+    shareMessage: 'Kutenderera kwako, chiratidzo chakanaka chehutano — AWA',
+  },
+  ln: {
+    badge: 'CYCLE MPE SANZA',
+    title: 'Cycle na yo, elembo ya malamu\nya bolamu',
+    metaDuration: 'Minitɛ 7 ya kotánga',
+    metaType: 'Buku ya bokambi',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo oyo ekomami malamu',
+    intro: 'Mpo na nini cycle ebiangami mbala mosusu “elembo ya mitano ya bomoi.”',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Cycle na yo: elilingi ya nzoto na yo',
+      'Cycle “ya bozalani” ezali nini?',
+      'Mbongwana ya kotala',
+      'Mbongwana oyo ekoki kolakisa nini?',
+      'Kolanda cycle na yo mpo na koyeba yo moko malamu',
+      'Ntango nini kosenga toli?',
+      'Ezali malamu koyeba',
+    ],
+    observeLabels: [
+      'Boumeli ya cycle',
+      'Boumeli ya sanza',
+      'Makila ya sanza',
+      'Mpasi',
+      'Mai ya nzoto ya esika ya kobota',
+      'Motema',
+      'Nguya / kilo',
+      'Bilembo mosusu oyo ezongelaka',
+    ],
+    factorLabels: [
+      'Stress',
+      'Kozanga mpɛndɛ',
+      'Mbongwana minene ya kilo ya nzoto',
+      'Misala ya nzoto ya makasi mingi',
+      'Mbongwana ya hormone',
+      'Kobanga zemi',
+      'Maladi mosusu',
+    ],
+    s1Body1:
+      'Cycle ya sanza ebongwanaka na nguya ya hormone ya nzoto na boumeli ya sanza. Koyekola kotala yango ekoki kosalisa yo ososola malamu ndenge nzoto na yo esalaka, na kotala nyonso na mozindo te.',
+    s1Body2: 'Tala makambo ya ntina koleka ya kotala:',
+    s2Body1:
+      'Cycle ya malamu mpenza ezali te: nzoto na nzoto ezali na molongo na yango, mpe molongo yango ekoki mpe kobongwana moke na sanza na sanza. Cycle ekanisami na molongo soki ewumeli kati na mikolo 21 mpe 35, mpe sanza ewumelaka mbala mingi mikolo 3 tii 7.',
+    s2Body2:
+      'Motango oyo ezali kati na kati: mbongwana moke ezali ya bozalani mpenza, mingi mingi nsima ya bolenge, nsima ya kobota, to ntango ménopause ezali kobɛlɛma.',
+    s3Body1:
+      'Mbongwana mosusu ekoki kotalama malamu koleka, lokola:',
+    changesToWatch: [
+      'Mbongwana makasi ya molongo ya cycle',
+      'Sanza ya makila mingi koleka ya bozalani',
+      'Mpasi ya makasi to ya kokoba na lolenge ya kokamwa',
+      'Kozanga sanza mpo na ntango molai',
+      'Makila kati na sanza mibale',
+      'Mbongwana minene oyo ezongelaka na cycle mingi',
+    ],
+    s3Body2:
+      'Cycle moko ya kokamwa, ya moko kaka, elakisi ete likambo ya bolamu ezali te: nzoto ekoki koyanola mpo na ntango moke na makambo ndenge na ndenge.',
+    s4Body1:
+      'Mbongwana oyo ekoki mbala mosusu kozala na boyokani na makambo mingi, na kozala likambo te:',
+    s4Body2:
+      'Oyo ezali kaka ndimbola mosusu na kati ya mosusu: ebimisi toli ya moto ya mosala ya bolamu te.',
+    s5VisualTitle: 'Kotala molongo na yo moko',
+    s5VisualText:
+      'Koma mikolo na yo, makila, to ndenge oyoki esalisaka yo oyeba bizaleli na yo, sanza na sanza.',
+    s5Body:
+      'Mokolo ya liboso ya sanza na yo, boumeli na yango, makila, mpasi, motema, nguya, to mai ya nzoto ya esika ya kobota ezali makambo nyonso okoki koma na ntango. Mokano ezali kokokanisa cycle na yo na ya moto mosusu te, kasi koyeba malamu oyo ezali ya bozalani mpo na yo, mpe oyo ekeseni na yango.',
+    s6Body1:
+      'Ezali ya bozalani mpenza kozala na mituna na ntina ya cycle na yo. Kosenga toli ya monganga ekoki kosalisa na makambo mosusu, na ndakisa:',
+    whenToAsk: [
+      'Mbongwana minene oyo ewumeli na cycle mingi',
+      'Mpasi oyo ekangi yo na misala na yo ya bozalani',
+      'Sanza ya makila mingi mpenza',
+      'Kozanga sanza mpo na ntango molai',
+      'Makila ya kokamwa',
+      'Elembo nyonso oyo ewumeli mpe ebangisi yo',
+    ],
+    s6Body2:
+      'Kosolola na moto ya mosala ya bolamu ekoki kopesa yo kimia to, soki esengeli, kozwa lisungi oyo ebongi — ezali ntina ya kobanga te na yango moko.',
+    tipText:
+      'Cycle esengi kozala na molongo ya kokoka te mpo ezala ya bozalani. Koyeba molongo na yo ya bozalani ezali mbala mingi na litomba koleka koluka boumeli ya malamu.',
+    finalBody:
+      'Cycle na yo ya sanza ezali moko na bilembo mingi ya bolamu na yo. Kolanda yango na molongo ekoki kosalisa yo ososola nzoto na yo malamu mpe, na ntango, komona mbongwana oyo esengi bokebi mpenza.',
+    shareMessage: 'Cycle na yo, elembo ya malamu ya bolamu — AWA',
+  },
+  ff: {
+    badge: 'CYCLE E REGLES',
+    title: 'Cycle maaɗa, maande moƴƴo\nngam cellal',
+    metaDuration: 'Ɗaɓɓitaago minti 7',
+    metaType: 'Paltirgel',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko nastii ndikkaama',
+    intro: 'Ko waɗi cycle wi\'ee saa\'i feere “maande vital jowaɗaɓal.”',
+    contentsTitle: 'Nder winndannde ndee',
+    topics: [
+      'Cycle maaɗa: ndaare ɓanndu maaɗa',
+      'Cycle “wayri” ko ɗume?',
+      'Wayrude ɗe haani raarugo',
+      'Ko wayrude ɗin ngaree hollugo?',
+      'Raarugo cycle maaɗa ngam anndugo hoore maaɗa ɓuri',
+      'Saa\'i ɗaɓɓitaago wasiya?',
+      'Ko haani anndugo',
+    ],
+    observeLabels: [
+      'Ɓoyɗal cycle',
+      'Ɓoyɗal regles',
+      'Ɗuuɗal yiiyam regles',
+      'Muusal',
+      'Discharge nder debbo',
+      'Haande',
+      'Semmbe / tampere',
+      'Maandeeji feere ɗi ngaɗata',
+    ],
+    factorLabels: [
+      'Tampere hakkilo',
+      'Walaa ndaneego',
+      'Wayrude ɓanndu mawnude',
+      'Ɗaɓɓude ɓanndu semmbe ɗuuɗum',
+      'Wayrude hormone',
+      'Fadaare reedu',
+      'Nyawuuji feere',
+    ],
+    s1Body1:
+      'Cycle regles ɗon wayra ko hormone ɓanndu wayrata nder lewru. Ekkitaago raarugo ɗum waaway walla maaɗa faamugo no ɓanndu maaɗa kuurata, bilaa ndaarugo kala huunde jaayngol.',
+    s1Body2: 'Ɗum ko ko ɓuri walliinde ndaarugo:',
+    s2Body1:
+      'Walaa cycle gooto timmuɗum: kala ɓanndu woodi laawol mum, e laawol ndin waaway wayrugo seɗɗa lewru e lewru. Cycle ko ɗum ɓoyi hakkunde nyalɗe 21 e 35 ko wi\'etee moƴƴum, e regles saa\'i ɗuuɗum ɗon ɓoyda nyalɗe 3 haa 7.',
+    s2Body2:
+      'Ɗin limgal ko hakkunde tan: wayrude pamaare ko moƴƴum, ɓurɗum caggal duuɓi jeyaaji, caggal jibinaade, malla si menopause ɗon ɓoyda.',
+    s3Body1:
+      'Wayrude woɗɓe haani raarugo ɓuri, no:',
+    changesToWatch: [
+      'Wayrude mawnde nder moƴƴal cycle',
+      'Regles ɓurɗe ɗuuɗugo ko ɗe ngaɗata',
+      'Muusal ɓurngo semmbe malla jaɓɓitaaɗum',
+      'Walaa regles ɗuuɗum',
+      'Yiiyam hakkunde regles',
+      'Wayrude mawnde ɗe ruttata nder cycle ɗuuɗɗe',
+    ],
+    s3Body2:
+      'Cycle gooto feere tan wonaa maande nyawu: ɓanndu waaway jaabugo saa\'i seɗɗa e ko ɗuuɗi.',
+    s4Body1:
+      'Wayrude ɗin saa\'i feere waaway haɓɓugo e ko ɗuuɗi, bilaa wonde tampere:',
+    s4Body2:
+      'Ɗin ko jawaabu woɗɓe hakkunde feere: ɗum ɓesdaaki wasiya jaɓɓitaaɗo cellal.',
+    s5VisualTitle: 'Raarugo laawol maaɗa',
+    s5VisualText:
+      'Winndugo nyalɗe maaɗa, yiiyam, malla no hoosuɗon walla maaɗa anndugo kuuje maaɗa, lewru e lewru.',
+    s5Body:
+      'Nyalde adannde regles maaɗa, ɓoyɗal mayɗum, ɗuuɗal yiiyam, muusal, haande, semmbe, malla discharge ko ɗum fuu a waaway winndugo e saa\'i. Ko ɗum yiɗaa wonaa sawtugo cycle maaɗa e cycle feere, kono anndugo ko woni sunnaaji e maaɗa, e ko wayri e ɗum.',
+    s6Body1:
+      'Ɗum ko moƴƴi e maaɗa woodugo naamndi fii cycle maaɗa. Naamnugo wasiya cellal waaway walliinde saa\'i feere, no:',
+    whenToAsk: [
+      'Wayrude mawnde ɗe ruttata nder cycle ɗuuɗɗe',
+      'Muusal ɗum haɓɓa kuuje maaɗa sunnaaji',
+      'Regles ɗuuɗugo',
+      'Walaa regles ɗuuɗum',
+      'Yiiyam wonaa sunnaaji',
+      'Maande kala ɗum jaɓɓitaaɗum ɗum hulɗina maaɗa',
+    ],
+    s6Body2:
+      'Haalugo e jaɓɓitaaɗo cellal waaway hoyrinugo hakkilo maaɗa malla, si ɗum haani, hokkugo walliinde moƴƴunde — ɗum wonaa sabaabu hulugo hoore mayɗum.',
+    tipText:
+      'Cycle haani wonugo timmungo ngam wonugo moƴƴum. Anndugo laawol maaɗa sunnaaji ko ɗum ɓurɗum walliinde yiɗugo ɓoyɗal ɓurɗum moƴƴugo.',
+    finalBody:
+      'Cycle maaɗa ko goɗɗum e maandeeji ɗuuɗi cellal maaɗa. Raarugo ɗum saa\'i fuu waaway walla maaɗa faamugo ɓanndu maaɗa e, caggal saa\'i, tawugo wayrude ɗe haani raarugo ɓuri.',
+    shareMessage: 'Cycle maaɗa, maande moƴƴo ngam cellal — AWA',
+  },
   id: {
     badge: 'SIKLUS & HAID',
     title: 'Siklusmu, indikator\nkesehatan yang sangat baik',

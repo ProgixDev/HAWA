@@ -597,6 +597,967 @@ const CONTENT = withBrazilianPortuguese('CervicalMucus', {
       disclaimerText: '仅供参考的内容。本文不能替代个性化的医疗建议。如有疑问，请咨询医疗专业人员。',
       shareMessage: '观察你的宫颈黏液 — AWA',
     },
+  'zh-Hant': {
+      badge: '生育力 • 宮頸黏液',
+      title: '觀察你的\n宮頸黏液',
+      metaDuration: '閱讀約 5 分鐘',
+      metaType: '指南',
+      metaLevel: '進階',
+      metaValidated: '已稽核內容',
+      intro: '一種自然、免費的訊號，幫助你找到易孕期。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是宮頸黏液？',
+        '它在週期中如何變化',
+        '識別易孕期的黏液',
+        '如何每天觀察',
+        '哪些因素會影響你的觀察',
+        '這種方法的侷限',
+        '要點回顧',
+      ],
+      section1Body: '它是由宮頸產生的一種自然分泌物。在雌激素和黃體素的作用下，宮頸黏液的質地會在整個週期中發生變化。',
+      cycleEvolution: [
+        {
+          title: '月經結束後',
+          text: '黏液很少，常常有乾燥的感覺。',
+        },
+        {
+          title: '排卵前',
+          text: '量變多，渾濁且黏稠。',
+        },
+        {
+          title: '臨近排卵時',
+          text: '清澈、可拉絲、有彈性，類似生雞蛋清。',
+        },
+        {
+          title: '排卵後',
+          text: '變得更稠、不透明，或明顯減少。',
+        },
+      ],
+      section3Intro: '臨近排卵時，它會變得：',
+      fertileSigns: [
+        '清澈或透明',
+        '可拉絲，在兩指之間可以拉開',
+        '有彈性，類似生雞蛋清',
+        '比其他日子量更多',
+      ],
+      infoTitle: '每天一個簡單的習慣',
+      infoText: '在每天大致相同的時間，用衛生紙或乾淨的手指觀察黏液的外觀和質地，並記下你的發現。',
+      modifyingFactors: [
+        '近期有過性生活',
+        '私處清潔產品',
+        '荷爾蒙類避孕或某些治療',
+        '感染或區域性菌群失衡',
+      ],
+      section6Body: '每個人的情況都不一樣，要認識自己的規律，需要經過數個週期的練習。每天觀察這種變化，再結合其他跡象，可以幫助你更準確地判斷易孕期，但如果你有顧慮，它永遠不能替代醫療建議。',
+      tipTitle: '小提醒',
+      tipText: '把宮頸黏液與基礎體溫或排卵試紙結合起來，可以讓你對自己的週期有更完整的瞭解。',
+      summaryPoints: [
+        '在雌激素和黃體素的作用下，宮頸黏液的質地會在整個週期中發生變化。',
+        '臨近排卵時，它會變得清澈、可拉絲、有彈性，類似生雞蛋清。',
+        '每天觀察這種變化，再結合其他跡象，可以幫助你更準確地判斷易孕期。',
+        '認識自己的規律需要練習，也需要觀察數個週期。',
+      ],
+      disclaimerText: '僅供參考的內容。本文不能替代個性化的醫療建議。如有疑問，請諮詢醫療專業人員。',
+      shareMessage: '觀察你的宮頸黏液 — AWA',
+    },
+  ar: {
+    badge: 'الخصوبة • مخاط عنق الرحم',
+    title: 'راقبي\nمخاط عنق الرحم',
+    metaDuration: '5 دقائق للقراءة',
+    metaType: 'دليل',
+    metaLevel: 'متوسط',
+    metaValidated: 'محتوى تمت مراجعته',
+    intro: 'إشارة طبيعية ومجانية لمعرفة فترة خصوبتك.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هو مخاط عنق الرحم؟',
+      'كيف يتغير على مدار الدورة',
+      'التعرّف على المخاط الخصب',
+      'كيف تراقبينه يوميًا',
+      'ما قد يؤثر في ملاحظاتك',
+      'حدود هذه الطريقة',
+      'أهم النقاط',
+    ],
+    section1Body:
+      'هو إفراز طبيعي يُنتجه عنق الرحم. ويتغير قوام مخاط عنق الرحم على مدار الدورة بتأثير الإستروجين والبروجسترون.',
+    cycleEvolution: [
+      {
+        title: 'بعد الحيض',
+        text: 'مخاط قليل، وغالبًا إحساس بالجفاف.',
+      },
+      {
+        title: 'قبل الإباضة',
+        text: 'أكثر غزارة، وعكر، ولزج.',
+      },
+      {
+        title: 'عند اقتراب الإباضة',
+        text: 'شفاف، وقابل للتمدد، ومطاطي، يشبه بياض البيض النيء.',
+      },
+      {
+        title: 'بعد الإباضة',
+        text: 'أكثر كثافة، أو معتم، أو أقل حضورًا بكثير.',
+      },
+    ],
+    section3Intro: 'عند اقتراب الإباضة، يصبح:',
+    fertileSigns: [
+      'صافيًا أو شفافًا',
+      'قابلًا للتمدد — يتمدد بين إصبعين',
+      'مطاطيًا، يشبه بياض البيض النيء',
+      'أغزر مما هو عليه في الأيام الأخرى',
+    ],
+    infoTitle: 'عادة بسيطة كل يوم',
+    infoText:
+      'لاحظي المظهر والقوام باستخدام ورق المرحاض أو أصابع نظيفة، في الوقت نفسه تقريبًا من اليوم، ودوّني ما تلاحظينه.',
+    modifyingFactors: [
+      'جماع حديث',
+      'منتجات النظافة الحميمة',
+      'وسائل منع الحمل الهرمونية أو بعض العلاجات',
+      'التهاب أو اختلال موضعي',
+    ],
+    section6Body:
+      'لكل امرأة نمطها المختلف، ويحتاج التعرّف على نمطك إلى ممارسة عبر عدة دورات. إن ملاحظة هذا التغيّر كل يوم، مع علامات أخرى، تساعدك على تحديد فترة خصوبتك بدقة أكبر — لكنها لا تغني أبدًا عن المشورة الطبية إذا كنتِ قلقة.',
+    tipTitle: 'من الجيد أن تعرفي',
+    tipText:
+      'الجمع بين مخاط عنق الرحم ودرجة حرارة جسمك القاعدية أو اختبارات الإباضة يعطي صورة أكمل عن دورتك.',
+    summaryPoints: [
+      'يتغير قوام مخاط عنق الرحم على مدار الدورة بتأثير الإستروجين والبروجسترون.',
+      'عند اقتراب الإباضة يصبح صافيًا وقابلًا للتمدد ومطاطيًا، يشبه بياض البيض النيء.',
+      'إن ملاحظة هذا التغيّر كل يوم، مع علامات أخرى، تساعدك على تحديد فترة خصوبتك بدقة أكبر.',
+      'التعرّف على نمطك الخاص يحتاج إلى ممارسة وإلى مراقبة عدة دورات.',
+    ],
+    disclaimerText:
+      'محتوى للاطلاع فقط. لا يغني هذا المقال عن استشارة طبية مخصّصة لحالتك. إذا ساورك شك، فاطلبي توجيهًا من مختص في الرعاية الصحية.',
+    shareMessage: 'مراقبة مخاط عنق الرحم — AWA',
+  },
+  kab: {
+    badge: 'TAZDAYT • MUCUS N UJEǦǦIG',
+    title: 'Aḍfar n\nmucus n ujeǧǧig-ik',
+    metaDuration: '5 n tesdatin n tɣuri',
+    metaType: 'Amawal',
+    metaLevel: 'Alemmas',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Tiwsatin tilawanin, war azal, i usnagar n tegwejdit-ik n tazdayt.',
+    contentsTitle: 'deg umagrad-a',
+    topics: [
+      'D acu-t mucus n ujeǧǧig?',
+      'Amek ibeddil deg ucal',
+      'Alaɣ n mucus yelhan i tazdayt',
+      'Amek ara t-tẓerreḍ yal ass',
+      'Ayen izemren ad yesḥerken ayen i d-tẓerreḍ',
+      'Tilas n tarrayt-a',
+      'Tiktiwin ineggura',
+    ],
+    section1Body:
+      'D asferd amagnu i d-yettaf ujeǧǧig. Mucus n ujeǧǧig ibeddil talɣa deg ucal, s lḥekma n estrogen d progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Deffir lḥid-ik',
+        text: 'Mucus meẓẓi, aṭas n tikkal tḥussed d ayen yeqqaṛ.',
+      },
+      {
+        title: 'Uqbel ovulation',
+        text: 'Aṭas ugar, ur yeffeɣ ara, yeqqim.',
+      },
+      {
+        title: 'Mi ara yeqreb ovulation',
+        text: 'Yeffeɣ, yettwazzel, yetteddu am wuḍi n tmellalt tazegzawt.',
+      },
+      {
+        title: 'Deffir ovulation',
+        text: 'Yeggman, ur yeffeɣ ara, neɣ yella ugar n wayen.',
+      },
+    ],
+    section3Intro: 'Mi ara yeqreb ovulation, yuɣal:',
+    fertileSigns: [
+      'Yeffeɣ neɣ yettbin',
+      'Yettwazzel — yettwazzel garan sin n yiḍuḍan',
+      'Yeqqim, am wuḍi n tmellalt tazegzawt',
+      'Aṭas ugar d wussan-nniḍen',
+    ],
+    infoTitle: 'Aɣawas afessas, yal ass',
+    infoText:
+      'Ẓer udem d talɣa s uyla n tkaɣeḍt n lexla neɣ s yiḍuḍan yeṣfan, deg yiwen n wakud n wass, u aru ayen i d-tẓerreḍ.',
+    modifyingFactors: [
+      'Tazmilt tamaynut',
+      'Ayen n lmendad n tegwejdit',
+      'Asebbel s hormone neɣ kra n wuznan',
+      'Aɣbalu neɣ amgirred adeg',
+    ],
+    section6Body:
+      'Yal yiwen yesɛa umeɣbun-is, u asnen n wayen-ik yehwaǧ asɛiwed deg waṭas n yimalasen. Aḍfar n ubeddil-a yal ass, d tiwsatin-nniḍen, yɛawen ad tafeḍ tegwejdit-ik ugar — maca ur yettekkes ara tallelt n ṭṭbib ma yella usemmiḍ.',
+    tipTitle: 'Yelha ad tezwareḍ',
+    tipText:
+      'Asmunnez n mucus n ujeǧǧig d temdit n ddaw n lǧism-ik neɣ ineẓrayen n ovulation yefka tamuɣli tummidt ɣef ucal-ik.',
+    summaryPoints: [
+      'Mucus n ujeǧǧig ibeddil talɣa deg ucal, s lḥekma n estrogen d progesterone.',
+      'Mi ara yeqreb ovulation, yuɣal yeffeɣ, yettwazzel u yeqqim, am wuḍi n tmellalt tazegzawt.',
+      'Aḍfar n ubeddil-a yal ass, d tiwsatin-nniḍen, yɛawen ad tafeḍ tegwejdit-ik ugar.',
+      'Asnen n wayen-ik yehwaǧ asɛiwed d aṭas n yimalasen n uḍfar.',
+    ],
+    disclaimerText:
+      'Agbur i ussenfar. Amagrad-a ur yettekkes ara tallelt n ṭṭbib. Ma tesɛiḍ ccek, suter tallelt ɣer unaẓur n tezmert.',
+    shareMessage: 'Aḍfar n mucus n ujeǧǧig-ik — AWA',
+  },
+  om: {
+    badge: 'ALA BARUU • CERVICAL MUCUS',
+    title: 'Cervical mucus kee\nilaaluu',
+    metaDuration: 'Daqiiqaa 5 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Giddugaleessa',
+    metaValidated: 'Qabiyyee ilaalame',
+    intro: 'Mallattoo uumamaa, bilisaa, fertile window kee adda baasuuf.',
+    contentsTitle: 'Barreeffama kana keessatti',
+    topics: [
+      'Cervical mucus maali?',
+      'Cycle guutuu keessatti akkamitti jijjiirama',
+      'Mucus fertile beekuu',
+      'Guyyaa guyyaan akkamitti ilaaluu',
+      'Waan ilaalcha kee dhiibuu danda\'u',
+      'Daangaa mala kanaa',
+      'Qabxiiwwan ijoo',
+    ],
+    section1Body:
+      'Dhangala\'aa uumamaa cervix irraa oomishamu dha. Cervical mucus cycle guutuu keessatti estrogen fi progesterone jalatti bifa jijjiira.',
+    cycleEvolution: [
+      {
+        title: 'Ji\'a-ji\'aa kee booda',
+        text: 'Mucus xiqqoo, yeroo baay\'ee miira goggogaa.',
+      },
+      {
+        title: 'Ovulation dura',
+        text: 'Baay\'ee, hurrii fi maxxanaa.',
+      },
+      {
+        title: 'Ovulation yeroo dhiyaatu',
+        text: 'Ifaa, harkifamuu fi sirna jiidhamuu, gogaa hanqaaquu aduu fakkaata.',
+      },
+      {
+        title: 'Ovulation booda',
+        text: 'Gaaddidduu, qilleensa hin dabarsine, ykn baay\'ee xiqqoo.',
+      },
+    ],
+    section3Intro: 'Ovulation yeroo dhiyaatu:',
+    fertileSigns: [
+      'Ifaa ykn ifaa ta\'a',
+      'Harkifamuu — quba lamaa gidduutti harkifama',
+      'Jiidhamuu, gogaa hanqaaquu aduu fakkaata',
+      'Guyyoota biroo caalaa baay\'ee',
+    ],
+    infoTitle: 'Amala salphaa, guyyaa hunda',
+    infoText:
+      'Bifa fi qabiyyee waraqaa fincaanii ykn quba qulqulluudhaan, yeroo guyyaa waliin wal fakkaatu keessatti ilaali, waan argite galmeessi.',
+    modifyingFactors: [
+      'Walqunnamtii saalaa yeroo dhiyoo',
+      'Oomishoota qulqullina dhuunfaa',
+      'Adamsa ulfaa hormoonii ykn yaalii gariin',
+      'Dhukkuba ykn walitti hin madaalin naannoo',
+    ],
+    section6Body:
+      'Nama hunduu bifa garaagara qaba, kan mataa kee beekuun cycle baay\'ee shaakaluu barbaada. Jijjiirama kana guyyaa hunda ilaaluun, mallattoowwan biroo waliin, fertile window kee akka sirriitti adda baafattuuf si gargaara — garuu yoo si yaaddesse gorsa fayyaa bakka hin bu\'u.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Cervical mucus ho\'a qaama basal kee ykn qorannoo ovulation waliin walitti makuun fakkii cycle kee guutuu kenna.',
+    summaryPoints: [
+      'Cervical mucus cycle guutuu keessatti estrogen fi progesterone jalatti bifa jijjiira.',
+      'Ovulation yeroo dhiyaatu ifaa, harkifamuu fi jiidhamuu ta\'a, gogaa hanqaaquu aduu fakkaata.',
+      'Jijjiirama kana guyyaa hunda ilaaluun, mallattoowwan biroo waliin, fertile window kee akka sirriitti adda baafattuuf si gargaara.',
+      'Fakkeenya mataa kee beekuun shaakala fi cycle ilaalchaa baay\'ee barbaada.',
+    ],
+    disclaimerText:
+      'Qabiyyee odeeffannoo. Barreeffamni kun gorsa fayyaa dhuunfaa bakka hin bu\'u. Yoo shakkite, ogeessa fayyaa gorsa gaafadhu.',
+    shareMessage: 'Cervical mucus kee ilaaluu — AWA',
+  },
+  ti: {
+    badge: 'ፍርያም • ጸቡር ምስጢር ማሕጸን',
+    title: 'ጸቡር ምስጢር\nማሕጸንኪ ምዕዛብ',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ማእከላይ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ግዜ ፍርያምኪ ንምፍላጥ ተፈጥሮኣዊ፣ ነጻ ምልክት።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ጸቡር ምስጢር ማሕጸን እንታይ እዩ?',
+      'ኣብ ዑደት ብኸመይ ይልወጥ',
+      'ፍርያም ጸቡር ምስጢር ምግንዛብ',
+      'መዓልታዊ ብኸመይ ትዕዘቦ',
+      'ንዕዘባኺ እንታይ ክጸልዎ ይኽእል',
+      'ዶባት እዚ ኣገባብ',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Body:
+      'ብማሕጸን ዝፍጠር ተፈጥሮኣዊ ምስጢር እዩ። ጸቡር ምስጢር ማሕጸን ብጽልዋ ኤስትሮጅንን ፕሮጀስትሮንን ኣብ ዑደት ቅርጹ ይልውጥ።',
+    cycleEvolution: [
+      {
+        title: 'ድሕሪ ወርሓዊ ደምኪ',
+        text: 'ውሑድ ጸቡር ምስጢር፣ ብዙሕ ግዜ ናይ ድርቕነት ስምዒት።',
+      },
+      {
+        title: 'ቅድሚ ኦቭዩለሽን',
+        text: 'ዝያዳ ብዙሕ፣ ድብልብል፣ ተጣበቕቲ።',
+      },
+      {
+        title: 'ኦቭዩለሽን ክቐርብ ከሎ',
+        text: 'ጥርዓይ፣ ዝሰሓብን ዝቕጥን፣ ከም ጥረ ጸዓዲ እንቋቑሖ።',
+      },
+      {
+        title: 'ድሕሪ ኦቭዩለሽን',
+        text: 'ዝያዳ ጽኑዕ፣ ዘይርኣይ ወይ ብዙሕ ዝውሑድ።',
+      },
+    ],
+    section3Intro: 'ኦቭዩለሽን ክቐርብ ከሎ ይኸውን፦',
+    fertileSigns: [
+      'ጥርዓይ ወይ ግሁድ',
+      'ዝሰሓብ — ኣብ መንጎ ክልተ ኣጻብዕቲ ይሰሓብ',
+      'ዝቕጥን፣ ከም ጥረ ጸዓዲ እንቋቑሖ',
+      'ካብ ካልኦት መዓልታት ዝያዳ ብዙሕ',
+    ],
+    infoTitle: 'ቀሊል ልምዲ፣ መዓልታዊ',
+    infoText:
+      'ቅርጺን ቅርጹን ብወረቐት መጸዳድዒ ወይ ንጹህ ኣጻብዕቲ ተዓዘቢ፣ ኣስታት ኣብ ተመሳሳሊ ሰዓት መዓልቲ፣ ዝረኸብኪዮ ድማ ጽሓፊ።',
+    modifyingFactors: [
+      'ቀረባ ጾታዊ ርክብ',
+      'ናይ ውሽጣዊ ንጽህና ምርቶታት',
+      'ሆርሞናዊ ምክልኻል ጥንሲ ወይ ገሊኦም ሕክምናታት',
+      'ኢንፈክሽን ወይ ከባቢያዊ ዘይምምጣን',
+    ],
+    section6Body:
+      'ነፍስ ወከፍ ፍልይ መገለጺ ኣለዋ፣ ናትኪ ምግንዛብ ድማ ኣብ ብዙሓት ዑደታት ልምምድ የድሊ። ነዚ ለውጢ መዓልታዊ ምዕዛብ፣ ምስ ካልኦት ምልክታት ብሓባር፣ ግዜ ፍርያምኪ ዝበለጸ ንምፍላጥ ይሕግዝ — ግን ዝሰግኣኪ እንተሎ ሕክምናዊ ምኽሪ ኣይትክእን።',
+    tipTitle: 'ርዳእ እዚ',
+    tipText:
+      'ጸቡር ምስጢር ማሕጸን ምስ ባዛል ሙቐት ኣካልኪ ወይ ሙከራ ኦቭዩለሽን ምጥርናፍ ዝተመልአ ስእሊ ዑደትኪ ይህብ።',
+    summaryPoints: [
+      'ጸቡር ምስጢር ማሕጸን ብጽልዋ ኤስትሮጅንን ፕሮጀስትሮንን ኣብ ዑደት ቅርጹ ይልውጥ።',
+      'ኦቭዩለሽን ክቐርብ ከሎ ጥርዓይ፣ ዝሰሓብን ዝቕጥንን ይኸውን፣ ከም ጥረ ጸዓዲ እንቋቑሖ።',
+      'ነዚ ለውጢ መዓልታዊ ምዕዛብ፣ ምስ ካልኦት ምልክታት ብሓባር፣ ግዜ ፍርያምኪ ዝበለጸ ንምፍላጥ ይሕግዝ።',
+      'ናትኪ ሕቡር ምግንዛብ ልምምድን ብዙሓት ዑደታት ምዕዛብን የድሊ።',
+    ],
+    disclaimerText:
+      'ሓበሬታዊ ትሕዝቶ። እዚ ጽሑፍ ውልቃዊ ሕክምናዊ ምኽሪ ኣይትክእን። እንተተጠራጢርኪ ሞያዊ ጥዕና ሰራሒ ምኽሪ ሕተቲ።',
+    shareMessage: 'ጸቡር ምስጢር ማሕጸንኪ ምዕዛብ — AWA',
+  },
+  rw: {
+    badge: 'UBURUMBUKE • URURENDA RWO MU NKONDO Y’UMURA',
+    title: 'Kwitegereza\nururenda rwo mu nkondo y’umura',
+    metaDuration: 'Iminota 5 yo gusoma',
+    metaType: 'Igitabo',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Ikimenyetso gisanzwe kandi k’ubuntu cyo kumenya igihe cy’uburumbuke bwawe.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ururenda rwo mu nkondo y’umura ni iki?',
+      'Uko ruhinduka mu gihe cy’ukwezi',
+      'Kumenya ururenda rw’uburumbuke',
+      'Uko ururitegereza buri munsi',
+      'Ibishobora guhindura ibyo witegereje',
+      'Imbibi z’ubu buryo',
+      'Ibyingenzi byo kwibuka',
+    ],
+    section1Body:
+      'Ni ibintu bisanzwe bikorwa n’inkondo y’umura. Ururenda rwo mu nkondo y’umura rurahinduka mu miterere mu gihe cy’ukwezi, bitewe na estrogène na progestérone.',
+    cycleEvolution: [
+      {
+        title: 'Nyuma y’imihango yawe',
+        text: 'Ururenda ruke, kenshi wumva wumye.',
+      },
+      {
+        title: 'Mbere ya ovulation',
+        text: 'Rurushaho kuba rwinshi, rwijimye kandi rwomekana.',
+      },
+      {
+        title: 'Ovulation iri hafi',
+        text: 'Rusobanutse, rurambuka kandi rworoshye, nk’umweru w’igi ritetse.',
+      },
+      {
+        title: 'Nyuma ya ovulation',
+        text: 'Rugwa neza, rudasobanutse, cyangwa ruba rukeya cyane.',
+      },
+    ],
+    section3Intro: 'Ovulation iri hafi, ruba:',
+    fertileSigns: [
+      'Rusobanutse cyangwa rwuzuye urumuri',
+      'Rurambuka — rurambuka hagati y’intoki ebyiri',
+      'Rworoshye, nk’umweru w’igi ritetse',
+      'Rwinshi kurusha indi minsi',
+    ],
+    infoTitle: 'Ingeso yoroshye, buri munsi',
+    infoText:
+      'Itegereze uko rusa n’uko rumeze ukoresheje impapuro z’isuku cyangwa intoki zisukuye, mu isaha imwe buri munsi, kandi wandike ibyo ubonye.',
+    modifyingFactors: [
+      'Imibonano mpuzabitsina ya vuba',
+      'Ibikoresho by’isuku y’ahantu hihariye',
+      'Uburyo bwo kwirinda inda bukoresha imisemburo cyangwa imiti imwe',
+      'Infection cyangwa kutaringaniza ahantu',
+    ],
+    section6Body:
+      'Buri wese afite imiterere ye, kandi kumenya iyawe bisaba imyitozo mu mezi menshi. Kwitegereza iri hinduka buri munsi, hamwe n’ibindi bimenyetso, bigufasha kumenya neza igihe cy’uburumbuke bwawe — ariko ntibisimbura inama z’umuganga niba ufite impungenge.',
+    tipTitle: 'Ni byiza kubimenya',
+    tipText:
+      'Guhuza ururenda rwo mu nkondo y’umura n’ubushyuhe bw’umubiri bwa buri gitondo cyangwa ibipimo bya ovulation bitanga ishusho yuzuye y’ukwezi kwawe.',
+    summaryPoints: [
+      'Ururenda rwo mu nkondo y’umura rurahinduka mu miterere mu gihe cy’ukwezi, bitewe na estrogène na progestérone.',
+      'Ovulation iri hafi, ruba rusobanutse, rurambuka kandi rworoshye, nk’umweru w’igi ritetse.',
+      'Kwitegereza iri hinduka buri munsi, hamwe n’ibindi bimenyetso, bigufasha kumenya neza igihe cy’uburumbuke bwawe.',
+      'Kumenya imiterere yawe bisaba imyitozo n’amezi menshi yo kwitegereza.',
+    ],
+    disclaimerText:
+      'Ibikubiyemo by’amakuru gusa. Iyi nkuru ntisimbura inama z’umuganga zihariye. Niba ufite ikibazo, saba umuganga kukuyobora.',
+    shareMessage: 'Kwitegereza ururenda rwo mu nkondo y’umura — AWA',
+  },
+  rn: {
+    badge: 'UBURUMBUKE • CERVICAL MUCUS',
+    title: 'Kwitegereza\ncervical mucus yawe',
+    metaDuration: 'Iminuta 5 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibikubiye vyasuzumwe',
+    intro: 'Ikimenyetso ca kamere, kitishyurwa, co kubona igihe cawe c’uburumbuke.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Cervical mucus ni iki?',
+      'Ukuntu ihinduka mu gihe c’ukwezi',
+      'Kumenya cervical mucus y’uburumbuke',
+      'Ukuntu wayitegereza buri musi',
+      'Ivyoshobora guhindura ivyo witegereje',
+      'Imbibi z’ubu buryo',
+      'Ivyo kwibuka',
+    ],
+    section1Body:
+      'Ni igisohoka c’umubiri gisanzwe gikorwa n’inkondo y’umura. Cervical mucus ihindura uko imeze mu gihe c’ukwezi bitewe na estrogene na progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Nyuma y’imihango yawe',
+        text: 'Mucus nkeya, akenshi wumva wumagaye.',
+      },
+      {
+        title: 'Imbere ya ovulation',
+        text: 'Irarushiriza kuba nyinshi, ikaba y’urujijo kandi ifata.',
+      },
+      {
+        title: 'Ovulation yegereje',
+        text: 'Irererana, irambuka kandi ikaba nk’umweru w’igi ritetse.',
+      },
+      {
+        title: 'Nyuma ya ovulation',
+        text: 'Irakomera, ntishobora kurebwamwo, canke iba nkeya cane.',
+      },
+    ],
+    section3Intro: 'Ovulation yegereje, iba:',
+    fertileSigns: [
+      'Irerana canke ibonerana',
+      'Irarambuka — irambuka hagati y’intoki zibiri',
+      'Irambuka nk’umweru w’igi ritetse',
+      'Nyinshi kuruta mu yindi minsi',
+    ],
+    infoTitle: 'Ingeso yoroshe, buri musi',
+    infoText:
+      'Itegereze ishusho n’uko imeze ukoresheje impapuro z’umusarani canke intoki zisukuye, hafi ku gihe kimwe c’umusi, maze wandike ivyo ubonye.',
+    modifyingFactors: [
+      'Imibonano mpuzabitsina iherutse',
+      'Ibikoresho vy’isuku y’ahantu hihishije',
+      'Iginika ryo kudasama canke imiti imwemwe',
+      'Indwara canke ukudahuza kw’ahantu hihishije',
+    ],
+    section6Body:
+      'Umuntu wese afise uko ameze, kandi kumenya ukwawe bisaba imyitozo mu mezi menshi. Kwitegereza iyi mpinduka buri musi, hamwe n’ibindi bimenyetso, bigufasha kumenya neza igihe cawe c’uburumbuke — ariko ntibisubira mu cumbi inama z’umuganga niba ufise impungenge.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Guhuza cervical mucus n’impemba y’umubiri wawe canke ibipimo vya ovulation bitanga ishusho yuzuye kuruta y’ukwezi kwawe.',
+    summaryPoints: [
+      'Cervical mucus ihindura uko imeze mu gihe c’ukwezi bitewe na estrogene na progesterone.',
+      'Ovulation yegereje, iba irerana, irambuka kandi ikaba nk’umweru w’igi ritetse.',
+      'Kwitegereza iyi mpinduka buri musi, hamwe n’ibindi bimenyetso, bigufasha kumenya neza igihe cawe c’uburumbuke.',
+      'Kumenya uko ukwawe kumera bisaba imyitozo n’amezi menshi yo kwitegereza.',
+    ],
+    disclaimerText:
+      'Ivyo ni ivyo kumenyesha gusa. Iyi nkuru ntisubira mu cumbi inama z’umuganga zikureba wenyine. Niba ufise ugukeka, saba inama umuganga.',
+    shareMessage: 'Kwitegereza cervical mucus yawe — AWA',
+  },
+  ig: {
+    badge: 'ỊMỤ NWA • CERVICAL MUCUS',
+    title: 'Ịhụ\ncervical mucus gị',
+    metaDuration: 'Nkeji 5 ka a na-agụ',
+    metaType: 'Ntuziaka',
+    metaLevel: 'Etiti',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Ihe ịrịba ama eke, na-akwụghị ụgwọ maka ịchọpụta oge ị nwere ike ịtụrụ ime.',
+    contentsTitle: 'N’edemede a',
+    topics: [
+      'Gịnị bụ cervical mucus?',
+      'Etu ọ si agbanwe n’ime cycle',
+      'Ịmata cervical mucus nke ịmụ nwa',
+      'Etu ị ga-esi ele ya kwa ụbọchị',
+      'Ihe nwere ike imetụta ihe ị na-ahụ',
+      'Oke nke ụzọ a',
+      'Isi ihe ndị a ga-echeta',
+    ],
+    section1Body:
+      'Ọ bụ mmiri eke nke cervix na-emepụta. Cervical mucus na-agbanwe udi ya n’ime cycle n’okpuru mmetụta estrogen na progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Mgbe nsọ ọnwa gị gasịrị',
+        text: 'Mucus ntakịrị, na-abụkarị mmetụta nke akọrọ.',
+      },
+      {
+        title: 'Tupu ovulation',
+        text: 'Na-abawanye ubi, na-adịghị ọcha, ma na-arapara.',
+      },
+      {
+        title: 'Ka ovulation na-eru nso',
+        text: 'Doro anya, na-agbatị, ma na-ekwe ka a dọpụta, ọ dị ka nkpuru akwa e wetụbeghị n’ọkụ.',
+      },
+      {
+        title: 'Mgbe ovulation gasịrị',
+        text: 'Na-eju, na-adịghị ahụ ihe dị n’ime ya, ma ọ bụ na-adị obere nke ukwuu.',
+      },
+    ],
+    section3Intro: 'Ka ovulation na-eru nso, ọ na-aghọ:',
+    fertileSigns: [
+      'Doro anya ma ọ bụ na-agafe ìhè',
+      'Na-agbatị — ọ na-agbatị n’etiti mkpịsị aka abụọ',
+      'Na-ekwe ka a dọpụta, ọ dị ka nkpuru akwa e wetụbeghị n’ọkụ',
+      'Na-abawanye ubi karịa n’ụbọchị ndị ọzọ',
+    ],
+    infoTitle: 'Omume dị mfe, kwa ụbọchị',
+    infoText:
+      'Lelee udi na ọdịdị ya site n’iji akwụkwọ ụlọ mposi ma ọ bụ mkpịsị aka dị ọcha, n’otu oge n’ụbọchị, ma dee ihe ị chọpụtara.',
+    modifyingFactors: [
+      'Mmekọ nso n’oge na-adịbeghị anya',
+      'Ngwaahịa ịdị ọcha nke ebe nzuzo',
+      'Ịkwụsị ime site na hormone ma ọ bụ ọgwụgwọ ụfọdụ',
+      'Ọrịa ma ọ bụ enweghị nguzozi n’ebe ahụ',
+    ],
+    section6Body:
+      'Onye ọ bụla nwere ụdị nke ya, ịmata nke gị chọkwara ọmụmụ n’ime ọtụtụ cycle. Ịhụ mgbanwe a kwa ụbọchị, tinyere ihe ịrịba ama ndị ọzọ, na-enyere gị aka ịchọpụta oge ị nwere ike ịtụrụ ime nke ọma — mana ọ naghị anọchi ndụmọdụ ahụike ma ọ bụrụ na ị na-echegbu onwe gị.',
+    tipTitle: 'Ọ dị mma ịmara',
+    tipText:
+      'Ijikọta cervical mucus na ọnụ ọkụ ahụ gị n’ọnọdụ izu ike ma ọ bụ ule ovulation na-enye foto zuru oke nke cycle gị.',
+    summaryPoints: [
+      'Cervical mucus na-agbanwe udi ya n’ime cycle n’okpuru mmetụta estrogen na progesterone.',
+      'Ka ovulation na-eru nso, ọ na-adị ọcha, na-agbatị, ma na-ekwe ka a dọpụta, ọ dị ka nkpuru akwa e wetụbeghị n’ọkụ.',
+      'Ịhụ mgbanwe a kwa ụbọchị, tinyere ihe ịrịba ama ndị ọzọ, na-enyere gị aka ịchọpụta oge ị nwere ike ịtụrụ ime nke ọma.',
+      'Ịmata ụkpụrụ nke gị chọkwara ọmụmụ na ọtụtụ cycle nke nlele.',
+    ],
+    disclaimerText:
+      'Ọdịnaya maka ozi. Edemede a anaghị anọchi ndụmọdụ ahụike nke e nyere gị n’onwe gị. Ọ bụrụ na ị nwere obi abụọ, rịọ ndụmọdụ n’aka ọkachamara ahụike.',
+    shareMessage: 'Ịhụ cervical mucus gị — AWA',
+  },
+  yo: {
+    badge: 'ÌBÍMỌ • CERVICAL MUCUS',
+    title: 'Kíkíyèsí\ncervical mucus rẹ',
+    metaDuration: 'Kíkà ní ìṣẹ́jú 5',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Àárín',
+    metaValidated: 'Àkóónú tí a ti àtúnyẹ̀wò',
+    intro: 'Àmì àdánidá, ọ̀fẹ́, láti mọ fertile window rẹ.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni cervical mucus?',
+      'Bí ó ṣe ń yí padà láàárín àyípo',
+      'Mímọ̀ cervical mucus tó ń fi ìbímọ hàn',
+      'Bí a ṣe ń kíyèsí rẹ̀ lójoojúmọ́',
+      'Ohun tó lè ní ipa lórí ohun tí o kíyèsí',
+      'Àwọn ààlà ọ̀nà yìí',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Body:
+      'Ó jẹ́ omi àdánidá tí cervix ń pèsè. Cervical mucus ń yí ìrísí rẹ̀ padà láàárín àyípo, nítorí ipa estrogen àti progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Lẹ́yìn nǹkan oṣù rẹ',
+        text: 'Mucus díẹ̀, nígbà púpọ̀ ìmọ̀lára gbígbẹ.',
+      },
+      {
+        title: 'Ṣáájú ovulation',
+        text: 'Ó pọ̀ sí i, ó ru, ó sì lẹ̀.',
+      },
+      {
+        title: 'Bí ovulation ṣe ń sún mọ́lé',
+        text: 'Ó mọ́, ó nà, ó sì rọ̀, bí funfun ẹyin tútù.',
+      },
+      {
+        title: 'Lẹ́yìn ovulation',
+        text: 'Ó nípọn jù, kò hàn gbangba, tàbí ó kéré gan-an.',
+      },
+    ],
+    section3Intro: 'Bí ovulation ṣe ń sún mọ́lé, ó di:',
+    fertileSigns: [
+      'Mímọ́ tàbí tó hàn gbangba',
+      'Tó ń nà — ó ń nà láàárín ìka méjì',
+      'Tó rọ̀, bí funfun ẹyin tútù',
+      'Tó pọ̀ ju ti àwọn ọjọ́ mìíràn lọ',
+    ],
+    infoTitle: 'Àṣà tó rọrùn, lójoojúmọ́',
+    infoText:
+      'Kíyèsí ìrísí àti bí ó ṣe rí nípa lílo bébà ilé ìgbọ̀nsẹ̀ tàbí ìka tó mọ́, ní nǹkan bí àkókò kan náà lójoojúmọ́, kí o sì kọ ohun tí o kíyèsí sílẹ̀.',
+    modifyingFactors: [
+      'Ìbálòpọ̀ láìpẹ́ yìí',
+      'Àwọn ọjà ìmọ́tótó ara ìkọ̀kọ̀',
+      'Ìdènà oyún pẹ̀lú hormone tàbí àwọn ìtọ́jú kan',
+      'Àkóràn tàbí àìdọ́gba ní agbègbè ìkọ̀kọ̀',
+    ],
+    section6Body:
+      'Gbogbo obìnrin ní ìrísí tirẹ̀, mímọ̀ tìrẹ sì nílò àṣà fún àyípo púpọ̀. Kíkíyèsí ìyípadà yìí lójoojúmọ́, pẹ̀lú àwọn àmì mìíràn, ń ràn ọ́ lọ́wọ́ láti mọ fertile window rẹ dáadáa — ṣùgbọ́n kò rọ́pò ìmọ̀ràn ìṣègùn tí ohun kan bá ń kó ọ lọ́kàn sókè.',
+    tipTitle: 'Ohun tó yẹ kí o mọ̀',
+    tipText:
+      'Ṣíṣe àpapọ̀ cervical mucus pẹ̀lú ìgbóná ara rẹ ní ìsinmi tàbí àwọn ìdánwò ovulation ń fún ọ ní àwòrán kíkún jù nípa àyípo rẹ.',
+    summaryPoints: [
+      'Cervical mucus ń yí ìrísí rẹ̀ padà láàárín àyípo, nítorí ipa estrogen àti progesterone.',
+      'Bí ovulation ṣe ń sún mọ́lé, ó di mímọ́, ó nà, ó sì rọ̀, bí funfun ẹyin tútù.',
+      'Kíkíyèsí ìyípadà yìí lójoojúmọ́, pẹ̀lú àwọn àmì mìíràn, ń ràn ọ́ lọ́wọ́ láti mọ fertile window rẹ dáadáa.',
+      'Mímọ àpẹẹrẹ tìrẹ nílò àṣà àti kíkíyèsí fún àwọn àyípo púpọ̀.',
+    ],
+    disclaimerText:
+      'Àkóónú fún ìmọ̀ nìkan. Àpilẹ̀kọ yìí kò rọ́pò ìmọ̀ràn ìṣègùn tó bá ọ pàtó. Tí o bá ń ṣiyèméjì, bèèrè ìtọ́sọ́nà lọ́wọ́ onímọ̀ ìlera.',
+    shareMessage: 'Kíkíyèsí cervical mucus rẹ — AWA',
+  },
+  zu: {
+    badge: 'UKUZALA • UMCHAMO WOMLOMO WESIBELETHO',
+    title: 'Ukubuka\ni-cervical mucus yakho',
+    metaDuration: 'Imizuzu eyi-5 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Okuphakathi nendawo',
+    metaValidated: 'Okuqulunqwe kabusha',
+    intro: 'Uphawu lwemvelo, olungenakhokhelo, lokubona isikhathi sakho sokuzala.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Iyini i-cervical mucus?',
+      'Ushintsha kanjani phakathi nomjikelezo',
+      'Ukubona i-cervical mucus yokuzala',
+      'Ukuwubuka kanjani nsuku zonke',
+      'Okungathinta ukubuka kwakho',
+      'Imikhawulo yale ndlela',
+      'Okubalulekile ongakukhumbula',
+    ],
+    section1Body:
+      'Uketshezi lwemvelo olukhiqizwa ngumlomo wesibeletho. I-cervical mucus ishintsha ukuthungwa kwayo phakathi nomjikelezo ngaphansi kwethonya le-estrogen ne-progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Ngemva kwesikhathi sakho',
+        text: 'I-mucus incane, imvamisa ukuzwa ukomisa.',
+      },
+      {
+        title: 'Ngaphambi kokukhipha iqanda',
+        text: 'Iningi kakhulu, igwebile, futhi iyanamathela.',
+      },
+      {
+        title: 'Lapho ukukhipha iqanda sekusondele',
+        text: 'Icacile, iyandiza, futhi iyalulama, ifana nomhlophe weqanda eliluhlaza.',
+      },
+      {
+        title: 'Ngemva kokukhipha iqanda',
+        text: 'Iqinile, ayikhanyi, noma ayisekho kakhulu.',
+      },
+    ],
+    section3Intro: 'Lapho ukukhipha iqanda sekusondele, uba:',
+    fertileSigns: [
+      'Icacile noma iyakhanya',
+      'Iyandiza — indiza phakathi kweminwe emibili',
+      'Iyalulama, ifana nomhlophe weqanda eliluhlaza',
+      'Iningi kunakwezinye izinsuku',
+    ],
+    infoTitle: 'Umkhuba olula, nsuku zonke',
+    infoText:
+      'Buka ukubukeka nokuthungwa usebenzisa iphepha lasendlini encane noma iminwe ehlanzekile, cishe ngesikhathi esifanayo sosuku, bese ubhala lokho okubonayo.',
+    modifyingFactors: [
+      'Ucansi lwakamuva',
+      'Imikhiqizo yobumsulwa bezindawo zangasese',
+      'Ukuvikela ukukhulelwa ngama-hormone noma ezinye izindlela zokwelapha',
+      'Isifo noma ukungalingani endaweni',
+    ],
+    section6Body:
+      'Wonke umuntu unephrofayili ehlukile, futhi ukuqaphela eyakho kudinga ukuzijwayeza emijikelezweni eminingana. Ukubuka lolu shintsho nsuku zonke, kanye nezinye izimpawu, kusiza ukukhomba kangcono isikhathi sakho sokuzala — kodwa akuthathi indawo yeseluleko sezokwelapha uma ukhathazekile.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukuhlanganisa i-cervical mucus nobushisa bomzimba wakho bokuphumula noma izivivinyo zokukhipha iqanda kunikeza isithombe esiphelele somjikelezo wakho.',
+    summaryPoints: [
+      'I-cervical mucus ishintsha ukuthungwa kwayo phakathi nomjikelezo ngaphansi kwethonya le-estrogen ne-progesterone.',
+      'Lapho ukukhipha iqanda sekusondele, iba icacile, iyandiza, futhi iyalulama, ifana nomhlophe weqanda eliluhlaza.',
+      'Ukubuka lolu shintsho nsuku zonke, kanye nezinye izimpawu, kusiza ukukhomba kangcono isikhathi sakho sokuzala.',
+      'Ukuqaphela iphethini yakho kudinga ukuzijwayeza kanye nemijikelezo eminingana yokubuka.',
+    ],
+    disclaimerText:
+      'Okokwazisa. Lesi sihloko asithathi indawo yeseluleko sezokwelapha esikuphathelene wena. Uma unokungabaza, cela isiqondiso kuchwepheshe wezempilo.',
+    shareMessage: 'Ukubuka i-cervical mucus yakho — AWA',
+  },
+  xh: {
+    badge: 'UKUZALA • I-CERVICAL MUCUS',
+    title: 'Ukujonga\ni-cervical mucus yakho',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Phakathi',
+    metaValidated: 'Umxholo ohlolwe ngabantu',
+    intro: 'Umqondiso wemvelo, ongabizi, wokubona ixesha lakho lokukwazi ukukhulelwa.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni i-cervical mucus?',
+      'Indlela etshintsha ngayo kwisithuba somjikelo',
+      'Ukuyiqonda i-mucus ekwazi ukukhulelwa',
+      'Indlela yokuyijonga imihla ngemihla',
+      'Okunokuchaphazela oko ukubonayo',
+      'Imida yale ndlela',
+      'Amanqaku aphambili',
+    ],
+    section1Body:
+      'Yinto eveliswa ngokwemvelo yintsimbi yomlomo webele. I-cervical mucus itshintsha ubume kwisithuba somjikelo phantsi kwempembelelo ye-estrogen ne-progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Emva kwexesha lakho lenyanga',
+        text: 'I-mucus encinci, rhoqo kukho imvakalelo yokoma.',
+      },
+      {
+        title: 'Ngaphambi kwe-ovulation',
+        text: 'Iyanda, ayicaci, kwaye iyanamathela.',
+      },
+      {
+        title: 'Xa i-ovulation isondela',
+        text: 'Icacile, iyatsalwa, kwaye iyabamba, ifana nokumhlophe weqanda eliluhlaza.',
+      },
+      {
+        title: 'Emva kwe-ovulation',
+        text: 'Ityebile, ayicaci, okanye ayikho kakhulu.',
+      },
+    ],
+    section3Intro: 'Xa i-ovulation isondela, iba:',
+    fertileSigns: [
+      'Icacile okanye ibonakala',
+      'Iyatsalwa — itsalwa phakathi kweminwe emibini',
+      'Iyabamba, ifana nokumhlophe weqanda eliluhlaza',
+      'Iyanda ngakumbi kunakwezinye iintsuku',
+    ],
+    infoTitle: 'Umkhwa olula, yonke imihla',
+    infoText:
+      'Jonga ukubonakala nobume usebenzisa iphepha lokuhlambela okanye iminwe ehlambulukileyo, ngexesha elifana losuku, uze ubhale oko ukuqaphelayo.',
+    modifyingFactors: [
+      'Ukwabelana ngesondo kwakutshanje',
+      'Iimveliso zococeko lwangasese',
+      'Ukuthintela ukukhulelwa ngehomoni okanye unyango oluthile',
+      'Usulelo okanye ukungalingani kwendawo',
+    ],
+    section6Body:
+      'Wonke umntu unobume obahlukileyo, kwaye ukuqonda owakho kufuna ukuziqhelanisa kwimijikelo emininzi. Ukujonga olu tshintsho yonke imihla, kunye neminye imiqondiso, kunceda ukuchonga ngcono ixesha lakho lokukwazi ukukhulelwa — kodwa ayithathi ndawo yeseluleko sezonyango ukuba uxhalabile.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukudibanisa i-cervical mucus nobushushu bomzimba wakho esiphumleni okanye iimvavanyo ze-ovulation kunika umfanekiso opheleleyo ngakumbi womjikelo wakho.',
+    summaryPoints: [
+      'I-cervical mucus itshintsha ubume kwisithuba somjikelo phantsi kwempembelelo ye-estrogen ne-progesterone.',
+      'Xa i-ovulation isondela, iba nocaca, iyatsalwa, kwaye iyabamba, ifana nokumhlophe weqanda eliluhlaza.',
+      'Ukujonga olu tshintsho yonke imihla, kunye neminye imiqondiso, kunceda ukuchonga ngcono ixesha lakho lokukwazi ukukhulelwa.',
+      'Ukuqonda umlinganiselo wakho kufuna ukuziqhelanisa nemijikelo emininzi yokujonga.',
+    ],
+    disclaimerText:
+      'Umxholo wolwazi. Eli nqaku aliyithatheli indawo iseluleko sezonyango esikulungeleyo wena. Ukuba uyathandabuza, buza ingcali yezempilo ukuba ikukhokele.',
+    shareMessage: 'Ukujonga i-cervical mucus yakho — AWA',
+  },
+  sn: {
+    badge: 'KUBEREKA • CERVICAL MUCUS',
+    title: 'Kutarisa\ncervical mucus yako',
+    metaDuration: 'Maminetsi mashanu ekuverenga',
+    metaType: 'Gwara',
+    metaLevel: 'Pakati',
+    metaValidated: 'Zvakatariswa',
+    intro: 'Chiratidzo chakasikwa, chisina mari, chekuona nguva yako yekubereka.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Cervical mucus chii?',
+      'Maitiro ayo anochinja mukati mekutenderera',
+      'Kuziva mucus yekubereka',
+      'Maitiro ekuitarisa zuva nezuva',
+      'Zvinogona kukanganisa zvaunoona',
+      'Zvipimo zvenzira iyi',
+      'Zvakakosha zvekuyeuka',
+    ],
+    section1Body:
+      'Ndiyo mvura yakasikwa inogadzirwa nemuromo wechibereko. Cervical mucus inochinja chimiro mukati mekutenderera nekuda kwe estrogen ne progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Mushure mekumwedzi kwako',
+        text: 'Mucus shoma, kazhinji kunzwa kuoma.',
+      },
+      {
+        title: 'Pamberi peovulation',
+        text: 'Yakawanda zvikuru, yakasviba, uye inonamira.',
+      },
+      {
+        title: 'Ovulation ichiswedera',
+        text: 'Yakajeka, inotatamuka, uye inotenderera, yakafanana nechena cheeggs mbishi.',
+      },
+      {
+        title: 'Mushure meovulation',
+        text: 'Yakakora, isingaoneki, kana kuti shoma zvikuru.',
+      },
+    ],
+    section3Intro: 'Ovulation ichiswedera, inova:',
+    fertileSigns: [
+      'Yakajeka kana inoonekera',
+      'Inotatamuka — inotatamuka pakati pemunwe miviri',
+      'Inotenderera, yakafanana nechena cheeggs mbishi',
+      'Yakawanda kupfuura mumamwe mazuva',
+    ],
+    infoTitle: 'Tsika iri nyore, zuva nezuva',
+    infoText:
+      'Tarisa chimiro nemaitiro uchishandisa bepa rechimbuzi kana minwe yakachena, panguva yakada kufanana zuva rimwe nerimwe, uye nyora zvauri kuona.',
+    modifyingFactors: [
+      'Kuita zvegorosi kwazvino',
+      'Zvinhu zvekuchenesa nzvimbo dzepachivande',
+      'Kudzivirira kuita pamuviri kwehormone kana mamwe marapiro',
+      'Hutachiona kana kusaenzana kwenzvimbo imwe',
+    ],
+    section6Body:
+      'Munhu wose ane chimiro chakasiyana, uye kuziva chako kunoda kudzidzira kwemakutenderera mazhinji. Kutarisa shanduko iyi zuva nezuva, pamwe nezvimwe zviratidzo, kunokubatsira kuona nani nguva yako yekubereka — asi hakutsivi zano rekurapa kana uchishushikana.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Kubatanidza cervical mucus nebasal body temperature yako kana ovulation tests kunopa mufananidzo wakazara wekutenderera kwako.',
+    summaryPoints: [
+      'Cervical mucus inochinja chimiro mukati mekutenderera nekuda kwe estrogen ne progesterone.',
+      'Ovulation ichiswedera, inova yakajeka, inotatamuka, uye inotenderera, yakafanana nechena cheeggs mbishi.',
+      'Kutarisa shanduko iyi zuva nezuva, pamwe nezvimwe zviratidzo, kunokubatsira kuona nani nguva yako yekubereka.',
+      'Kuziva chimiro chako kunoda kudzidzira uye kutarisa makutenderera mazhinji.',
+    ],
+    disclaimerText:
+      'Zvekuzivisa chete. Chinyorwa chino hachitsivi zano rekurapa rakakodzera iwe. Kana uine mubvunzo, kumbira zano kumunhu ane unyanzvi muutano.',
+    shareMessage: 'Kutarisa cervical mucus yako — AWA',
+  },
+  ln: {
+    badge: 'FERTILITÉ • CERVICAL MUCUS',
+    title: 'Kotala\ncervical mucus na yo',
+    metaDuration: 'Minitɛ 5 ya kotánga',
+    metaType: 'Buku ya bokambi',
+    metaLevel: 'Ya katikati',
+    metaValidated: 'Makambo oyo ekomami malamu',
+    intro: 'Elembo ya bomoto, ya mpamba, mpo na koyeba tango ya fertilité na yo.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Cervical mucus ezali nini?',
+      'Ndenge ebongwanaka na cycle',
+      'Koyeba cervical mucus ya fertilité',
+      'Ndenge ya kotala yango mokolo na mokolo',
+      'Oyo ekoki kobebisa makambo oyo ozali kotala',
+      'Bolai ya nzela oyo',
+      'Makambo ya ntina',
+    ],
+    section1Body:
+      'Ezali mai ya nzoto oyo col ya libumu ebimisaka. Cervical mucus ebongwanaka lolenge na cycle, na nguya ya estrogène mpe progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Nsima ya sanza na yo',
+        text: 'Cervical mucus moke, mbala mingi koyoka kokauka.',
+      },
+      {
+        title: 'Liboso ya ovulation',
+        text: 'Mingi koleka, ya mapata, mpe ya kolona.',
+      },
+      {
+        title: 'Ntango ovulation ezali kobɛlɛma',
+        text: 'Pɛtɛɛ, ekoki kolongwa, mpe ezali na makasi ya kolongwa, lokola mai ya lisaki ya kokoka te.',
+      },
+      {
+        title: 'Nsima ya ovulation',
+        text: 'Makasi koleka, ya kozanga mwinda, to moke mingi.',
+      },
+    ],
+    section3Intro: 'Ntango ovulation ezali kobɛlɛma, ekómaka:',
+    fertileSigns: [
+      'Pɛtɛɛ to ya komonana na kati',
+      'Ekoki kolongwa — ekoki kolongwa katikati ya mapeka mibale',
+      'Ya makasi ya kolongwa, lokola mai ya lisaki ya kokoka te',
+      'Mingi koleka na mikolo mosusu',
+    ],
+    infoTitle: 'Momeseno ya pɛtɛɛ, mokolo na mokolo',
+    infoText:
+      'Tala lolenge mpe makasi na kosalela papye ya kopɛtola to misapi ya pɛtɛɛ, na ngonga ya lolenge moko ya mokolo, mpe koma oyo omoni.',
+    modifyingFactors: [
+      'Kosangana nzoto ya sika',
+      'Biloko ya kopɛtola ya bopɛtɛ ya kati',
+      'Kobanga zemi na hormone to nkisi mosusu',
+      'Maladi to kobebisama ya esika wana',
+    ],
+    section6Body:
+      'Moto na moto azali na lolenge na ye, mpe koyeba oyo ya yo esengi komeka na cycle mingi. Kotala mbongwana oyo mokolo na mokolo, elongo na bilembo mosusu, esalisaka yo oyeba malamu tango ya fertilité na yo — kasi ebimisi toli ya monganga te soki ozali na mawa.',
+    tipTitle: 'Ezali malamu koyeba',
+    tipText:
+      'Kosangisa cervical mucus na temperature ya suba ya nzoto na yo to ba test ya ovulation epesaka elilingi ya kokoka ya cycle na yo.',
+    summaryPoints: [
+      'Cervical mucus ebongwanaka lolenge na cycle, na nguya ya estrogène mpe progesterone.',
+      'Ntango ovulation ezali kobɛlɛma, ekómaka pɛtɛɛ, ekoki kolongwa, mpe ya makasi ya kolongwa, lokola mai ya lisaki ya kokoka te.',
+      'Kotala mbongwana oyo mokolo na mokolo, elongo na bilembo mosusu, esalisaka yo oyeba malamu tango ya fertilité na yo.',
+      'Koyeba lolenge ya yo moko esengi komeka mpe cycle mingi ya kotala.',
+    ],
+    disclaimerText:
+      'Makambo ya koyebisa. Lisolo oyo ebimisi toli ya monganga te. Soki ozali na ntembe, senga toli epai ya moto ya mosala ya bolamu.',
+    shareMessage: 'Kotala cervical mucus na yo — AWA',
+  },
+  ff: {
+    badge: 'ƁIƊƊUGO • CERVICAL MUCUS',
+    title: 'Raarugo\ncervical mucus maaɗa',
+    metaDuration: 'Ɗaɓɓitaago minti 5',
+    metaType: 'Paltirgel',
+    metaLevel: 'Hakkunde',
+    metaValidated: 'Ko nastii ndikkaama',
+    intro: 'Maande hoyre, bilaa njoɓdi, ngam tawugo ɗuuɗal ɓiɗɗugo maaɗa.',
+    contentsTitle: 'Nder winndannde ndee',
+    topics: [
+      'Cervical mucus ko ɗume?',
+      'No ɗum wayrata nder cycle',
+      'Anndugo cervical mucus ɓiɗɗugo',
+      'No ɗum raarataa nyalaade kala',
+      'Ko waaway wayrugo raarugo maaɗa',
+      'Ɓoyɗum laawol ndin',
+      'Ko haani hoyrude',
+    ],
+    section1Body:
+      'Ɗum ko ndiyam hoyre yaltata e cervix. Cervical mucus ɗon wayra mbaadi nder cycle, ngam estrogen e progesterone.',
+    cycleEvolution: [
+      {
+        title: 'Caggal regles maaɗa',
+        text: 'Seɗɗa tan, saa\'i feere hoosugo ɓuuɗi.',
+      },
+      {
+        title: 'Adii ovulation',
+        text: 'Ɓurɗum ɗuuɗugo, ɓoyɗum, e ɗum ɗon haɓɓa.',
+      },
+      {
+        title: 'Si ovulation ɗon ɓoyda',
+        text: 'Laaɓɗum, ɗum ɗon sooɗa, e ɗum ɗon muddoo, no ɓaawo ɓaleeri ɗiyam ɓiɗɗi.',
+      },
+      {
+        title: 'Caggal ovulation',
+        text: 'Tiidɗum, naa laaɓɗum, malla ɗum ɓuuɗi.',
+      },
+    ],
+    section3Intro: 'Si ovulation ɗon ɓoyda, ɗum wonta:',
+    fertileSigns: [
+      'Laaɓɗum malla tiiɗum',
+      'Ɗum ɗon sooɗa — ɗum sooɗoo hakkunde ɗiɗi njiyaaji',
+      'Ɗum ɗon muddoo, no ɓaawo ɓaleeri ɗiyam ɓiɗɗi',
+      'Ɓurngo ɗuuɗugo e nyalɗe feere',
+    ],
+    infoTitle: 'Ɓoyɗum laawol, nyalaade kala',
+    infoText:
+      'Raar mbaadi e tiidal ɗum, huutinirgo takkaadu tuubaako malla njiyaaji laaɓɗi, saa\'i gooto nder nyalaade, e winndu ko tawɗaa.',
+    modifyingFactors: [
+      'Hawtugo tawtoreedo',
+      'Kuuje laaɓugo muusal',
+      'Pilule hormone malla dawaaji feere',
+      'Nyawu malla wayrude nder',
+    ],
+    section6Body:
+      'Kala gooto woodi mbaadi mum, e anndugo ko maaɗa ɗum ekkitaago nder cycle ɗuuɗɗe. Raarugo wayrude ndee nyalaade kala, e maandeeji feere, walla maaɗa tawugo ɗuuɗal ɓiɗɗugo maaɗa — kono ɗum ɓesdaaki walliinde dokteer si a woodi hulugo.',
+    tipTitle: 'Ko haani anndugo',
+    tipText:
+      'Haɓɓugo cervical mucus e temperature hoore maaɗa malla ovulation tests hokkata yiytere timmunde cycle maaɗa.',
+    summaryPoints: [
+      'Cervical mucus ɗon wayra mbaadi nder cycle, ngam estrogen e progesterone.',
+      'Si ovulation ɗon ɓoyda, ɗum wonta laaɓɗum, ɗum ɗon sooɗa, e ɗum ɗon muddoo, no ɓaawo ɓaleeri ɗiyam ɓiɗɗi.',
+      'Raarugo wayrude ndee nyalaade kala, e maandeeji feere, walla maaɗa tawugo ɗuuɗal ɓiɗɗugo maaɗa.',
+      'Anndugo mbaadi maaɗa ekkitaago e cycle ɗuuɗɗe raarugo.',
+    ],
+    disclaimerText:
+      'Ko anndinde. Winndannde ndee ɓesdaaki ndaarugo dokteer. Si a woodi hesitude, naamnu jaɓɓitaaɗo cellal.',
+    shareMessage: 'Raarugo cervical mucus maaɗa — AWA',
+  },
   id: {
     badge: 'KESUBURAN • LENDIR SERVIKS',
     title: 'Mengamati\nlendir servikmu',

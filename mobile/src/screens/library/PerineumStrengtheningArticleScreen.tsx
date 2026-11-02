@@ -1638,6 +1638,2883 @@ const CONTENT = withBrazilianPortuguese('PerineumStrengthening', {
       finalTipText: '分娩后，你的身体经历了许多变化。会阴值得和身体其他部位一样得到关注：循序渐进、规律坚持，不给自己压力。',
       disclaimerText: '本文仅供参考，不能替代个性化的医疗建议。如果你感到疼痛、症状持续，或对自己的恢复有任何担忧，请咨询医疗专业人员。',
     },
+  'zh-Hant': {
+      badge: '產後 • 恢復',
+      title: '產後盆底肌\n強化訓練',
+      metaDuration: '閱讀約 8 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已審閱內容',
+      intro: '懷孕和分娩之後，盆底肌需要時間恢復。簡單、規律、循序漸進的練習，可以幫助你重新找回力量、控制力和信心，不必急於求成。',
+      contentsTitle: '本文內容',
+      topics: [
+        '瞭解會陰的作用',
+        '為什麼分娩會讓它承受壓力',
+        '何時開始盆底康復',
+        '學會正確收縮',
+        '建立循序漸進的練習計劃',
+        '需要避免的錯誤',
+        '何時尋求幫助',
+        '逐步恢復運動',
+        '為就診做準備',
+        '要點回顧',
+      ],
+      shareMessage: '產後盆底肌強化訓練 — AWA',
+      s1Heading: '瞭解會陰的作用',
+      s1Body1: '會陰，也稱盆底，是位於骨盆底部的一組肌肉。它參與控制膀胱和腸道，並幫助支撐盆腔器官。',
+      s1Body2: '懷孕期間，這些肌肉需要連續數月承受額外的重量。分娩時，它們也會承受很大的壓力。',
+      s1HighlightTitle: '低調卻至關重要的肌肉',
+      s1HighlightText: '盆底肌參與多項日常功能：控制尿液和糞便、控制排氣、支撐盆腔器官，並在某些性功能中發揮作用。',
+      benefitsHeading: '盆底肌更強健的好處',
+      benefitsIntro: '循序漸進且方法正確的強化訓練，有助於改善盆底肌的控制力和支撐力。',
+      benefits: [
+        {
+          icon: 'water-outline',
+          title: '更好地控制膀胱',
+          text: '盆底肌在膀胱控制中發揮作用。逐步強化它，可能有助於減少某些漏尿情況。',
+        },
+        {
+          icon: 'toilet',
+          title: '輔助腸道功能',
+          text: '這些肌肉同樣有助於控制排氣和糞便，並參與支撐盆腔器官。',
+        },
+        {
+          icon: 'human-female',
+          title: '支撐盆腔器官',
+          text: '盆底肌構成一層真正的肌肉底座，幫助支撐膀胱、子宮和腸道。',
+        },
+        {
+          icon: 'heart-pulse',
+          title: '逐漸找回感覺',
+          text: '合適的康復訓練也能幫助你更好地感知和控制這個部位。',
+        },
+      ],
+      s2Heading: '為什麼懷孕和分娩會讓盆底肌承受壓力',
+      s2Body1: '懷孕會讓盆底肌所受的壓力逐漸增加。經陰道分娩時，這個部位的肌肉和組織可能被明顯拉伸。',
+      s2Body2: '剖腹產也並不能完全讓盆底肌免受影響：懷孕本身對這些肌肉來說就是一段負擔較重的時期。',
+      s2Body3: '因此，產後恢復需要時間是正常的。有些女性幾乎沒有任何症狀，也有些人可能會注意到漏尿、下墜感或肌肉控制力下降。',
+      s2TipTitle: '每個人的恢復都不一樣',
+      s2TipText: '分娩方式、是否有撕裂或會陰側切、是否疼痛，以及產後的整體狀況，都會影響恢復。',
+      s3Heading: '何時開始盆底康復？',
+      s3Body1: '自然產且沒有併發症的話，通常可以逐步恢復輕柔的盆底肌收縮。仍然需要根據自己的情況調整練習；如果你經歷過併發症、明顯的疼痛或特殊的操作，請先諮詢專業人員。',
+      s3Body2: '如果你留置了導尿管，一些建議是等到拔除導尿管、恢復正常排尿後，再開始會陰練習。',
+      s3AlertTitle: '不要忍痛硬撐',
+      s3AlertText: '明顯的疼痛、症狀加重、傷口癒合不良，或任何特別的擔憂，都應向助產士、醫生或康復專業人員尋求建議。',
+      s4Heading: '學會正確收縮',
+      s4Body1: '要找到正確的動作，可以想像同時憋住排氣和尿意。你要找的是一種向內收緊、向上提的感覺。',
+      s4Body2: '目標不是讓全身都緊繃。臀部、大腿和腹肌應儘量保持放鬆，同時正常呼吸。',
+      exercises: [
+        {
+          icon: 'weather-windy',
+          label: '呼吸',
+        },
+        {
+          icon: 'human-handsup',
+          label: '輕柔收縮',
+        },
+        {
+          icon: 'arrow-up-bold-circle-outline',
+          label: '長收縮',
+        },
+        {
+          icon: 'gesture-tap-button',
+          label: '快速收縮',
+        },
+      ],
+      s4HighlightTitle: '放鬆同樣重要',
+      s4HighlightText: '每次收縮之後，讓肌肉完全放鬆。好的康復訓練，並不是讓會陰整天保持收緊。',
+      s5Heading: '建立循序漸進的練習計劃',
+      s5Body1: '一開始，最重要的是學會找到這些肌肉，並正確完成動作。堅持比強度更重要。',
+      s5h3a: '長收縮',
+      s5Body2: '輕輕收縮盆底肌，然後保持收縮幾秒鐘，不要屏住呼吸。接著完全放鬆，再重新開始。',
+      s5h3b: '短收縮',
+      s5Body3: '動作掌握之後，可以加入小幅度的快速收縮。它們有助於訓練你在腹壓升高時迅速收縮肌肉的能力，例如在咳嗽或打噴嚏之前。',
+      dailyTips: [
+        {
+          icon: 'clock-outline',
+          label: '把練習和日常習慣結合起來',
+        },
+        {
+          icon: 'human-sitting',
+          label: '從舒適的姿勢開始',
+        },
+        {
+          icon: 'weather-windy',
+          label: '收縮時正常呼吸',
+        },
+        {
+          icon: 'sleep',
+          label: '給放鬆階段足夠時間',
+        },
+        {
+          icon: 'chart-line',
+          label: '逐步增加難度',
+        },
+        {
+          icon: 'doctor',
+          label: '不確定時請諮詢專業人員',
+        },
+      ],
+      s5TipTitle: '貴在堅持',
+      s5TipText: '把練習和你日常已有的習慣結合起來，會更容易堅持：比如餵奶之後、刷牙之後，或任何適合你的時間。',
+      s6Heading: '常見的錯誤',
+      s6Body1: '會陰練習看似簡單，但很容易用其他肌肉代償，或者用力過度。',
+      commonMistakes: [
+        '收緊的是臀部或大腿，而不是盆底肌',
+        '收縮時屏住呼吸',
+        '讓肌肉一直保持收縮，不放鬆',
+        '只練幾天就停下來',
+        '為了檢驗收縮效果而故意中斷排尿',
+      ],
+      s6TipTitle: '不要這樣做',
+      s6TipText: '不建議通過故意中斷尿流來做練習。這種方法不能正確地訓練會陰，還可能干擾正常的膀胱功能。',
+      s7Heading: '出現哪些症狀應該就診？',
+      s7Body1: '分娩後有時會出現輕微漏尿或異常的感覺。但如果這些情況持續存在、加重或影響日常生活，就不應忽視。',
+      warningSigns: [
+        '咳嗽、打噴嚏、大笑或用力時漏尿',
+        '下腹部盆腔有下墜感或壓迫感',
+        '感覺陰道里有腫塊或有東西往下掉',
+        '難以控制排氣或糞便',
+        '會陰持續疼痛',
+        '性生活時或之後疼痛',
+        '難以找到或正確收縮會陰肌肉',
+      ],
+      consultLabel: '何時應該尋求建議？',
+      s7Body2: '助產士、醫生，或專門從事盆底康復的物理治療師，可以檢查肌肉功能，併為你制定合適的訓練方案。',
+      s8Heading: '如果有撕裂、會陰側切或剖腹產呢？',
+      s8Body1: '撕裂或會陰側切在癒合期間需要特別的護理。恢復活動時應考慮疼痛程度、傷口狀況以及分娩後得到的指導。',
+      s8Body2: '剖腹產之後，恢復還涉及腹壁和傷口。即使不是經陰道分娩，懷孕本身仍然給盆底肌帶來了壓力。',
+      s8HighlightTitle: '個性化的護理會有幫助',
+      s8HighlightText: '如果撕裂較嚴重、有疼痛、排尿或排便方面的症狀，或存在持續的困擾，請醫療專業人員做一次評估會特別有幫助。',
+      s9Heading: '逐步恢復運動',
+      s9Body1: '分娩後恢復運動應循序漸進。散步和輕柔的活動通常可以根據身體感受逐步恢復，而高衝擊的活動則需要更加謹慎。',
+      s9Body2: '在恢復跑步、跳躍或高強度訓練之前，最好先評估盆底肌的恢復情況，並留意任何症狀。',
+      s9AlertTitle: '不要急於求成',
+      s9AlertText: '運動時或運動後出現漏尿、下墜感或疼痛，說明你應該放慢節奏，並在加大強度之前先尋求建議。',
+      s10Heading: '何時去看專科醫生？',
+      s10Body1: '如果你不確定自己的收縮是否正確，症狀持續存在，或者想有信心地恢復某些體育活動，請助產士或物理治療師指導盆底康復會有幫助。',
+      questionCardTitle: '可以問的問題',
+      appointmentQuestions: [
+        '我的症狀是否符合盆底肌薄弱的表現？',
+        '我的收縮動作正確嗎？',
+        '我每天應該做多少次？',
+        '我可以恢復跑步、運動或高衝擊的鍛鍊嗎？',
+        '我需要請助產士或物理治療師做康復嗎？',
+        '我的傷口、撕裂或剖腹產是否需要特別的注意事項？',
+      ],
+      s10TipTitle: '小提醒',
+      s10TipText: '去看專業人員並不一定意味著有什麼問題。一次就診也可以只是幫你檢查動作是否正確、評估恢復情況，並學會如何正確地循序漸進。',
+      s11Heading: '需要時間的恢復',
+      s11Body1: '生完寶寶後，無法立刻找回懷孕前的感覺或肌肉力量，這是正常的。',
+      s11Body2: '目標不是儘可能多地做收縮，而是逐漸重新建立收縮與放鬆之間的良好協調，然後能夠在日常活動中自然地運用這些肌肉。',
+      s11HighlightTitle: '每一點小進步都是真正的進步',
+      s11HighlightText: '對動作更有感覺、收縮多堅持幾秒，或者漏尿減少，都已經是令人鼓舞的訊號。',
+      s12Heading: '要點回顧',
+      summaryTitle: '核心要點',
+      summaryItems: [
+        '懷孕和分娩會讓盆底肌承受較大的壓力。',
+        '產後循序漸進地恢復是正常的。',
+        '練習應優先注重動作品質，而不是力量。',
+        '呼吸和放鬆與收縮同樣重要。',
+        '漏尿、下墜感或持續疼痛，值得請專業人員評估。',
+        '在助產士或物理治療師指導下進行康復，可以幫助你更好地恢復控制力。',
+        '恢復運動應循序漸進，尤其是高衝擊的活動。',
+      ],
+      finalTipTitle: '給自己恢復的時間',
+      finalTipText: '分娩後，你的身體經歷了許多變化。會陰值得和身體其他部位一樣得到關注：循序漸進、規律堅持，不給自己壓力。',
+      disclaimerText: '本文僅供參考，不能替代個性化的醫療建議。如果你感到疼痛、症狀持續，或對自己的恢復有任何擔憂，請諮詢醫療專業人員。',
+    },
+  ar: {
+    badge: 'ما بعد الولادة • التعافي',
+    title: 'تقوية قاع الحوض\nبعد الولادة',
+    metaDuration: '8 د قراءة',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئة',
+    metaValidated: 'محتوى مراجَع',
+    intro:
+      'بعد الحمل والولادة، يحتاج قاع الحوض إلى وقت ليتعافى. ويمكن لتمارين بسيطة ومنتظمة وتدريجية أن تساعدك على استعادة القوة والتحكم والثقة، دون محاولة استعجال الأمور.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'فهم دور العجان',
+      'لماذا تُجهده الولادة',
+      'متى يبدأ تأهيل قاع الحوض',
+      'تعلّم الانقباض الصحيح',
+      'بناء روتين تدريجي',
+      'أخطاء يجب تجنّبها',
+      'متى تطلبين المساعدة',
+      'استئناف الرياضة تدريجيًا',
+      'التحضير لموعد الطبيب',
+      'أهم النقاط',
+    ],
+    shareMessage: 'تقوية قاع الحوض بعد الولادة — AWA',
+
+    s1Heading: 'فهم دور العجان',
+    s1Body1:
+      'العجان، ويسمى أيضًا قاع الحوض، مجموعة من العضلات تقع في أسفل الحوض. وله دور في التحكم بالمثانة والأمعاء ويساعد على دعم أعضاء الحوض.',
+    s1Body2:
+      'خلال الحمل، تضطر هذه العضلات إلى تحمّل وزن إضافي لعدة أشهر. كما تتعرض لإجهاد كبير أثناء الولادة.',
+    s1HighlightTitle: 'عضلة هادئة لكنها أساسية',
+    s1HighlightText:
+      'يشارك قاع الحوض في عدة وظائف يومية: حبس البول والبراز، والتحكم في الغازات، ودعم أعضاء الحوض، وله دور في بعض الوظائف الجنسية.',
+
+    benefitsHeading: 'فوائد تقوية قاع الحوض',
+    benefitsIntro:
+      'التقوية التدريجية الصحيحة قد تساعد على تحسين التحكم في قاع الحوض ودعمه.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'تحكم أفضل بالمثانة',
+        text: 'لقاع الحوض دور في التحكم بالمثانة. وقد تساعد تقويته تدريجيًا على تقليل بعض حالات تسرّب البول.',
+      },
+      {
+        icon: 'toilet',
+        title: 'دعم وظيفة الأمعاء',
+        text: 'تساعد هذه العضلات أيضًا في التحكم بالغازات والبراز، وتسهم في دعم أعضاء الحوض.',
+      },
+      {
+        icon: 'human-female',
+        title: 'دعم أعضاء الحوض',
+        text: 'يشكّل قاع الحوض قاعدة عضلية حقيقية تساعد على دعم المثانة والرحم والأمعاء.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'استعادة الإحساس تدريجيًا',
+        text: 'يمكن للتأهيل المناسب أن يساعدك أيضًا على استعادة وعي أفضل بهذه المنطقة وتحكم أفضل بها.',
+      },
+    ],
+
+    s2Heading: 'لماذا يُجهد الحمل والولادة قاع الحوض',
+    s2Body1:
+      'يزيد الحمل الضغط على قاع الحوض تدريجيًا. وقد تؤدي الولادة المهبلية بعد ذلك إلى شدّ كبير لعضلات هذه المنطقة وأنسجتها.',
+    s2Body2:
+      'كما أن العملية القيصرية لا تُعفي قاع الحوض تمامًا: فالحمل نفسه فترة مهمة لهذه العضلات.',
+    s2Body3:
+      'لذلك من الطبيعي بعد الولادة أن يستغرق التعافي وقتًا. فبعض النساء لا يشعرن بأي أعراض تقريبًا، بينما قد تلاحظ أخريات تسربًا أو إحساسًا بالثقل أو ضعفًا في التحكم بالعضلات.',
+    s2TipTitle: 'كل تعافٍ يختلف عن غيره',
+    s2TipText:
+      'نوع الولادة، ووجود تمزق أو شق العجان، ووجود ألم، وحالتك العامة بعد الولادة، كلها قد تؤثر في التعافي.',
+
+    s3Heading: 'متى يبدأ تأهيل قاع الحوض؟',
+    s3Body1:
+      'بعد ولادة غير معقّدة، يمكن عادةً استئناف انقباضات قاع الحوض اللطيفة تدريجيًا. ويبقى من المهم تكييف التمارين مع حالتك وطلب المشورة إذا واجهتِ مضاعفات أو ألمًا كبيرًا أو إجراءً طبيًا خاصًا.',
+    s3Body2:
+      'إذا كان لديك قسطرة بولية، تقترح بعض التوصيات الانتظار حتى تُزال ويعود التبوّل الطبيعي قبل البدء بتمارين العجان.',
+    s3AlertTitle: 'لا تتحمّلي الألم',
+    s3AlertText:
+      'الألم الشديد، أو تفاقم الأعراض، أو جرح لا يلتئم جيدًا، أو أي قلق خاص، كلها تستدعي مشورة القابلة أو الطبيب أو مختص التأهيل.',
+
+    s4Heading: 'تعلّم الانقباض الصحيح',
+    s4Body1:
+      'لتحديد الحركة، تخيّلي أنك تحاولين حبس الغازات وحبس الرغبة في التبوّل في الوقت نفسه. والحركة المطلوبة هي إحساس بالانقباض والشدّ إلى الداخل نحو الأعلى.',
+    s4Body2:
+      'الهدف ليس شدّ جسمك كله بقوة. ينبغي أن تبقى الأرداف والفخذان وعضلات البطن مسترخية قدر الإمكان، مع استمرار التنفس بشكل طبيعي.',
+    exercises: [
+      {icon: 'weather-windy', label: 'التنفس'},
+      {icon: 'human-handsup', label: 'انقباض لطيف'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'انقباض طويل'},
+      {icon: 'gesture-tap-button', label: 'انقباضات سريعة'},
+    ],
+    s4HighlightTitle: 'الاسترخاء مهم بالقدر نفسه',
+    s4HighlightText:
+      'بعد كل انقباض، دعي العضلات ترتخي تمامًا. فالتأهيل الجيد لا يعني إبقاء العجان منقبضًا طوال اليوم.',
+
+    s5Heading: 'بناء روتين تدريجي',
+    s5Body1:
+      'في البداية، أهم ما في الأمر هو تعلّم التعرّف على العضلات وأداء الحركة بشكل صحيح. والانتظام أهم من الشدة.',
+    s5h3a: 'الانقباضات الطويلة',
+    s5Body2:
+      'اقبضي قاع الحوض بلطف، ثم حافظي على الانقباض لبضع ثوانٍ دون حبس النفس. ثم أرخي تمامًا قبل أن تبدئي من جديد.',
+    s5h3b: 'الانقباضات القصيرة',
+    s5Body3:
+      'عندما تتقنين الحركة، يمكن إضافة انقباضات صغيرة سريعة. فهي تساعد على تدريب قدرتك على انقباض العضلات بسرعة عندما يزداد ضغط البطن، مثلًا قبل السعال أو العطاس مباشرة.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'اربطي التمارين بعادة يومية'},
+      {icon: 'human-sitting', label: 'ابدئي في وضعية مريحة'},
+      {icon: 'weather-windy', label: 'تنفّسي بشكل طبيعي أثناء الانقباضات'},
+      {icon: 'sleep', label: 'احترمي فترات الاسترخاء'},
+      {icon: 'chart-line', label: 'زيدي الصعوبة تدريجيًا'},
+      {icon: 'doctor', label: 'اطلبي المشورة إذا لم تكوني متأكدة'},
+    ],
+    s5TipTitle: 'الانتظام قبل كل شيء',
+    s5TipText:
+      'قد يسهّل عليك ربط التمارين بعادة موجودة أصلًا في يومك الاستمرارَ عليها: بعد الرضعة، أو بعد تنظيف أسنانك، أو في أي وقت آخر يناسبك.',
+
+    s6Heading: 'أخطاء شائعة يجب تجنّبها',
+    s6Body1:
+      'قد تبدو تمارين العجان بسيطة، لكن من السهل تعويضها بعضلات أخرى أو بذل جهد زائد.',
+    commonMistakes: [
+      'شدّ الأرداف أو الفخذين بدل قاع الحوض',
+      'حبس النفس أثناء الانقباض',
+      'إبقاء العضلات منقبضة باستمرار دون تركها ترتخي',
+      'ممارسة التمارين أيامًا قليلة ثم التوقف',
+      'إيقاف تدفق البول عمدًا للتحقق من الانقباض',
+    ],
+    s6TipTitle: 'ما لا ينبغي فعله',
+    s6TipText:
+      'لا يُنصح بممارسة التمارين عن طريق إيقاف تدفق البول عمدًا. فهذه الطريقة لا تدرّب العجان بشكل صحيح وقد تخلّ بوظيفة المثانة الطبيعية.',
+
+    s7Heading: 'ما الأعراض التي تستدعي الاستشارة؟',
+    s7Body1:
+      'قد يظهر أحيانًا بعد الولادة تسرّب بسيط أو إحساس غير معتاد. لكن لا ينبغي تجاهله إذا استمر أو ازداد سوءًا أو أثّر في حياتك اليومية.',
+    warningSigns: [
+      'تسرّب البول عند السعال أو العطاس أو الضحك أو بذل الجهد',
+      'إحساس بالثقل أو الضغط في أسفل الحوض',
+      'إحساس بوجود كتلة أو شيء ينزل إلى المهبل',
+      'صعوبة في حبس الغازات أو البراز',
+      'ألم مستمر في العجان',
+      'ألم أثناء الجماع أو بعده',
+      'صعوبة في تحديد عضلات العجان أو في انقباضها بشكل صحيح',
+    ],
+    consultLabel: 'متى ينبغي أن تطلبي المشورة؟',
+    s7Body2:
+      'يمكن للقابلة أو الطبيب أو أخصائي العلاج الطبيعي المتخصص في تأهيل قاع الحوض فحص وظيفة العضلات واقتراح برنامج مناسب.',
+
+    s8Heading: 'وبعد التمزق أو شق العجان أو العملية القيصرية؟',
+    s8Body1:
+      'يتطلب التمزق أو شق العجان عناية خاصة أثناء الالتئام. وينبغي أن يراعي استئناف الأنشطة الألم وحالة الندبة والتوجيهات المقدمة بعد الولادة.',
+    s8Body2:
+      'بعد العملية القيصرية، يشمل التعافي أيضًا جدار البطن والندبة. وحتى لو لم تكن الولادة مهبلية، فإن الحمل نفسه أجهد قاع الحوض.',
+    s8HighlightTitle: 'العناية المخصّصة قد تفيد',
+    s8HighlightText:
+      'في حال وجود تمزق كبير أو ألم أو أعراض بولية أو معوية أو صعوبات مستمرة، قد يكون التقييم لدى مختصة صحية مفيدًا بشكل خاص.',
+
+    s9Heading: 'استئناف الرياضة تدريجيًا',
+    s9Body1:
+      'ينبغي أن يكون استئناف الحركة بعد الولادة تدريجيًا. يمكن عمومًا استئناف المشي والحركات اللطيفة بحسب ما تشعرين به، بينما تتطلب الأنشطة عالية التأثير حذرًا أكبر.',
+    s9Body2:
+      'قبل استئناف الجري أو القفز أو التمارين الشديدة جدًا، من الأفضل تقييم تعافي قاع الحوض ومراعاة أي أعراض.',
+    s9AlertTitle: 'لا تستعجلي المراحل',
+    s9AlertText:
+      'التسرّب أو الإحساس بالثقل أو الألم أثناء التمرين أو بعده علامات تدعوك إلى التمهّل وطلب المشورة قبل زيادة الشدة.',
+
+    s10Heading: 'متى تراجعين مختصة؟',
+    s10Body1:
+      'قد يكون تأهيل قاع الحوض لدى قابلة أو أخصائي علاج طبيعي مفيدًا إذا لم تكوني متأكدة من أنك تنقبضين بشكل صحيح، أو إذا استمرت أعراضك، أو إذا أردتِ استئناف بعض الأنشطة البدنية بثقة.',
+    questionCardTitle: 'أسئلة مفيدة لطرحها',
+    appointmentQuestions: [
+      'هل أعراضي تتوافق مع ضعف في قاع الحوض؟',
+      'هل أؤدي الانقباضات بشكل صحيح؟',
+      'كم تكرارًا ينبغي أن أؤدي كل يوم؟',
+      'هل يمكنني العودة إلى الجري أو الرياضة أو التمارين عالية التأثير؟',
+      'هل أحتاج إلى تأهيل لدى قابلة أو أخصائي علاج طبيعي؟',
+      'هل تتطلب ندبتي أو التمزق أو العملية القيصرية احتياطات خاصة؟',
+    ],
+    s10TipTitle: 'من المفيد أن تعرفي',
+    s10TipText:
+      'مراجعة مختصة لا تعني بالضرورة أن هناك خطبًا ما. فقد تساعدك الجلسة ببساطة على التحقق من طريقتك وتقييم تعافيك وتعلّم التقدم بشكل صحيح.',
+
+    s11Heading: 'تعافٍ يحتاج إلى وقت',
+    s11Body1:
+      'بعد الولادة، من الطبيعي ألا تستعيدي فورًا الإحساس نفسه أو قوة العضلات نفسها التي كانت لديك قبل الحمل.',
+    s11Body2:
+      'الهدف ليس أداء أكبر عدد ممكن من الانقباضات، بل استعادة تنسيق جيد تدريجيًا بين الانقباض والاسترخاء، ثم القدرة على استخدام هذه العضلات بشكل طبيعي في الأنشطة اليومية.',
+    s11HighlightTitle: 'التقدم الصغير تقدم حقيقي',
+    s11HighlightText:
+      'وعي أفضل بالحركة، أو بضع ثوانٍ إضافية من الانقباض، أو انخفاض في التسرّب، كلها علامات مشجعة بالفعل.',
+
+    s12Heading: 'أهم النقاط',
+    summaryTitle: 'الخلاصة',
+    summaryItems: [
+      'يضع الحمل والولادة إجهادًا كبيرًا على قاع الحوض.',
+      'التعافي التدريجي أمر طبيعي بعد الولادة.',
+      'ينبغي أن تعطي التمارين الأولوية لجودة الحركة على القوة.',
+      'التنفس والاسترخاء مهمان بقدر الانقباض.',
+      'تسرّب البول أو الإحساس بالثقل أو الألم المستمر يستحق رأيًا مختصًا.',
+      'يمكن للتأهيل لدى قابلة أو أخصائي علاج طبيعي أن يساعدك على استعادة تحكم أفضل.',
+      'ينبغي أن تكون العودة إلى الرياضة تدريجية، خاصة في الأنشطة عالية التأثير.',
+    ],
+
+    finalTipTitle: 'امنحي نفسك وقتًا للتعافي',
+    finalTipText:
+      'بعد الولادة، مرّ جسمك بتغيّرات كثيرة. ويستحق العجان الاهتمام نفسه الذي يستحقه بقية جسمك: تدريجيًا ومنتظمًا ودون ضغط.',
+
+    disclaimerText:
+      'هذا المقال للمعلومات فقط ولا يغني عن المشورة الطبية المخصّصة. إذا شعرتِ بألم أو أعراض مستمرة، أو كانت لديك أي مخاوف بشأن تعافيك، فاطلبي المشورة من مختصة صحية.',
+  },
+  kab: {
+    badge: 'MA SELD TULAWT • TUDERT',
+    title: 'Asenneɣ n lpirine\nseld tulawt',
+    metaDuration: 'Taɣuri n 8 n tisdidin',
+    metaType: 'Amellal',
+    metaLevel: 'Anagar',
+    metaValidated: 'Agbur yettwasenqed',
+    intro:
+      'Seld lḥemla d tulawt, lpirine yesra lweqt i wakken ad d-yuɣal. Ineɣman yessefken, yellan s lemɛawda u s wudem aqrawan zemrent ad k-iɛiwen ad d-tafeḍ tazmert, aɛekkem d ttiqa, war ma tettaɛǧalt.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Ad tfehmeḍ ayen i ixeddem lpirine',
+      'Acuɣer tulawt ttɛeddi-t aṭas',
+      'Melmi ara tebdu tuɣalin n lpirine',
+      'Ad tessneḍ amek ara tessemmedeḍ akken iwata',
+      'Taggara n lbarnamaj s wudem aqrawan',
+      'Tuccḍiwin ilaqen ad tettuɣalen',
+      'Melmi ara tsuter tallalt',
+      'Tuɣalin n uzeṭṭa s wudem aqrawan',
+      'Ad tesfeḍ i usarag',
+      'Tifrat tigejdanin',
+    ],
+    shareMessage: 'Asenneɣ n lpirine seld tulawt — AWA',
+
+    s1Heading: 'Ad tfehmeḍ ayen i ixeddem lpirine',
+    s1Body1:
+      'Lpirine, i d-yettusemman daɣen aferdis n lbasin, d tagrumt n iferdasen yellan deg uda n lbasin. Yesɛa tamlilt deg uḥkem n tbuqit d uzgen n yimi n uẓar, u yettɛawan ad yeṭṭef iɣsan n lbasin.',
+    s1Body2:
+      'Deg lḥemla, iferdasen-a ilaqen ad d-ḥmelen aggar ugar n wazal ɣef waṭas n wayyuren. Daɣen ttɛeddin ugur ameqqran deg tulawt.',
+    s1HighlightTitle: 'Afferdis ur d-yettban ara maca ilaqen',
+    s1HighlightText:
+      'Aferdis n lbasin yettekkild deg waṭas n yimala n yal ass: aḥbas n yiɣi d uẓelmaḍ, aḥkem deg ugaz, aɛawen n iɣsan n lbasin, u yesɛa tamlilt deg kra n yimala n tugniwin.',
+
+    benefitsHeading: 'Lfayda n lpirine yeqwan',
+    benefitsIntro:
+      'Asenneɣ s wudem aqrawan u s wudem ilaqen izmer ad yeɛiwen ad yelhu uḥkem d wawaɛun n lpirine.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Aḥkem ahlawan n tbuqit',
+        text: 'Aferdis n lbasin yesɛa tamlilt deg uḥkem n tbuqit. Asenneɣ-is s wudem aqrawan izmer ad yessenqes kra n yimalen n iɣi.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Aɛawen n yiɣsan n lbasin',
+        text: 'Iferdasen-a ɛawnen daɣen deg uḥkem n ugaz d uẓelmaḍ, u ttekkin deg uɛawen n yiɣsan n lbasin.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Aɛawen n yiɣsan n lbasin',
+        text: 'Aferdis n lbasin d aseggas n yiferdasen i iɛawnen ad ṭṭfen tbuqit, tazmert d tamrart.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Tuɣalin n uḥulfu s wudem aqrawan',
+        text: 'Uɣal-nni ilaqen izmer daɣen ad k-iɛiwen ad tḥessed akken iwata aḥkem n tmennaḍt-a.',
+      },
+    ],
+
+    s2Heading: 'Acuɣer lḥemla d tulawt ttɛeddi-ten aṭas',
+    s2Body1:
+      'Lḥemla tesseḥmel s wudem aqrawan ugar n uẓeṭṭa ɣef uferdis n lbasin. Tulawt n tgecrirt tezmer ad tessaɣ iferdasen d yirawen n tmennaḍt-a aṭas.',
+    s2Body2:
+      'Taɣuri n yimi n uqerruy (césarienne) daɣen ur tessekfa ara aferdis n lbasin akken ilaq: lḥemla s timmad-is tbeddu d aseggas ameqqran i yiferdasen-a.',
+    s2Body3:
+      'Seld tulawt, d ayen amagnu ad tettwaḥtaǧ tuɣalin lweqt. Kra n tilawin ur ḥessent ara aṭas, wiyaḍ zemrent ad ẓrent iɣi, ahlil n ugari neɣ tsemmeḍt n uḥkem n yiferdasen.',
+    s2TipTitle: 'Yal tuɣalin temxalaf',
+    s2TipText:
+      'Amanaw n tulawt, azegzaw neɣ episiotomie, tin i yellan n lweǧɛ, d waddad-ik amatu seld tulawt, ttɛeddin ɣef tuɣalin.',
+
+    s3Heading: 'Melmi ara tebdu tuɣalin n uferdis n lbasin?',
+    s3Body1:
+      'Seld tulawt war ugur, ameẓẓuɣt n uferdis n lbasin s wudem yelhan tezmer ad d-tuɣal s wudem aqrawan. Yelha ad tessewjdeḍ ineɣman i waddad-ik u ad tsuteḍ tallalt ma tɛeddiḍ ugur, lweǧɛ ameqqran neɣ ttuɣal n kra n wazal usligen.',
+    s3Body2:
+      'Ma tesɛiḍ tabbut n ubeṭṭu (sonde), kra n yiwellihen ssumren ad txedmeḍ ayen-a ar ttwakkes u ar yuɣal ubeṭṭu amagnu send ad tebduḍ ineɣman n lpirine.',
+    s3AlertTitle: 'Ur tḥebbeḍ ara lweǧɛ',
+    s3AlertText:
+      'Lweǧɛ ameqqran, tilɣa i d-yettuɣalen d wayen yellan d aɣelnaw, aḥric ur nettwali ara, neɣ yal kra i k-yeɛnan teḥwağ tallalt n taqabalt, n uṭṭbib neɣ n umaẓrag n tuɣalin.',
+
+    s4Heading: 'Ad tessneḍ amek ara tessemmedeḍ akken iwata',
+    s4Body1:
+      'I wakken ad tafeḍ ineɣman, sɛu tamuɣli ukud tettḥebseḍ ugaz d uzelmaḍ ɣer yiwen n lweqt. Ineɣman i tebɣiḍ d usemmed d usebbek ɣer daxel.',
+    s4Body2:
+      'Iswi mačči d asemmed n ugris meṛṛa. Iɣafen, ifassen d uḍar ilaqen ad d-qqimen d izellilen kan, mi ara tkemmleḍ tuffɣa n usemmid amagnu.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Tuffɣa n usemmid'},
+      {icon: 'human-handsup', label: 'Asemmed ahlawan'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Asemmed ameqqran'},
+      {icon: 'gesture-tap-button', label: 'Isemmeden uzzigen'},
+    ],
+    s4HighlightTitle: 'Asenfsel yesɛa azal am usemmed',
+    s4HighlightText:
+      'Seld yal asemmed, eǧǧ iferdasen ad nfusen akk. Asenneɣ yelhan ur yeqqen ara ɣer usemmed n lpirine ass meṛṛa.',
+
+    s5Heading: 'Taggara n lbarnamaj s wudem aqrawan',
+    s5Body1:
+      'Deg tazwara, ayen yelhan s waṭas d ad tsenmeḍ iferdasen u ad txedmeḍ ineɣman akken iwata. Lemɛawda tezmer ugar n tezmert.',
+    s5h3a: 'Isemmeden ameqqran',
+    s5Body2:
+      'Semmed aferdis n lbasin s wudem ahlawan, sakin ṭṭef asemmed kra n tasinin war ma tessaṭeḍ asemmid. Sakin eǧǧ-it akk send ad tebduḍ tikkelt-nniḍen.',
+    s5h3b: 'Isemmeden imecṭuḥen',
+    s5Body3:
+      'Mi ara tesɛu ineɣman, tzemreḍ ad ternuḍ isemmeden imecṭuḥen uzzigen. Ttɛawanen ad tsenseḍ tazmert n usemmed uzzig mi ara tettaru uzɣal deg ukerruy, am ṭṭerf send tuccḍa neɣ tatsut.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Qqen ineɣman d tamezzit n yal ass'},
+      {icon: 'human-sitting', label: 'Bdu deg waddad yeṛṛaḥen'},
+      {icon: 'weather-windy', label: 'Sennef amagnu mi ara tessemmedeḍ'},
+      {icon: 'sleep', label: 'Err azal i tallalt n unfusel'},
+      {icon: 'chart-line', label: 'Ssemlil ugar s wudem aqrawan'},
+      {icon: 'doctor', label: 'Suter tallalt ma yella ur tettḥeqqeḍ ara'},
+    ],
+    s5TipTitle: 'Lemɛawda qbel kullec',
+    s5TipText:
+      'Aqqen n yineɣman ɣer tamezzit i yellan yakan deg wass-ik zemren ad k-ɛawnen ad tkemmleḍ: seld unnaw n uqabaɣ, seld usired n tuɣmas, neɣ deg wakud-nniḍen i k-yelhan.',
+
+    s6Heading: 'Tuccḍiwin imeɣtanen ilaqen ad tettwarrent',
+    s6Body1:
+      'Ineɣman n lpirine zemren ad banen d imecṭuḥ, maca d ayen yewɛer ad tessemreḍ iferdasen-nniḍen neɣ ad tessaṭeḍ aṭas.',
+    commonMistakes: [
+      'Asemmed n yiɣafen neɣ n uḍar deg ubdil n uferdis n lbasin',
+      'Aṭṭaf n usemmid deg usemmed',
+      'Aṭṭaf n iferdasen yesmeddan dima war ma tefsiḍ-iten',
+      'Aḍfar n yineɣman kra n wussan kan sakin tḥebseḍ',
+      'Aḥbas n wumjer n iɣi s wudem uslig i wakken ad tneqqeḍ asemmed',
+    ],
+    s6TipTitle: 'Ayen ur ilaqen ara',
+    s6TipText:
+      'Ur yettusumer ara ad txedmeḍ ineɣman s uḥbas n wumjer n iɣi s wudem uslig. Tarrayt-a ur tesseggem ara lpirine akken iwata u tezmer ad tessenfeli tamahut tamagnut n tbuqit.',
+
+    s7Heading: 'Acu n tilɣa ilaqen ad k-yawin ɣer usinag?',
+    s7Body1:
+      'Iɣi imecṭuḥen neɣ uḥulfu ur nelli ara d amagnu zemren ad d-banen seld tulawt. Maca ur ilaq ara ad ten-tuklalḍ ma ttkemmilen, ma ttuɣalen yir neɣ ma ttɛeṭṭilen tudert-ik n yal ass.',
+    warningSigns: [
+      'Iɣi n iɣi mi ara tetsedmeḍ, tessmeslayeḍ, tmeṭṭeḍ neɣ mi ara tettaɛǧalt',
+      'Uḥulfu n uẓeṭṭa neɣ n uggar deg ukerruy n lbasin',
+      'Uḥulfu n wayen ibedden neɣ n kra i d-yettuɣalen ɣer uqqerruy n tgella',
+      'Tuccḍa n uṭṭaf n ugaz neɣ n uẓelmaḍ',
+      'Lweǧɛ ittkemmilen deg lpirine',
+      'Lweǧɛ deg neɣ seld tuddsa n tugniwin',
+      'Tuccḍa n usnen neɣ n usemmed akken iwata n yiferdasen n lpirine',
+    ],
+    consultLabel: 'Melmi ara tsuteḍ talwit?',
+    s7Body2:
+      'Taqabalt, aṭṭbib neɣ amaẓrag n tuɣalin yettwasnen deg uferdis n lbasin zemren ad ssenqden tazmert n yiferdasen u ad d-sumren barnamaj yelhan.',
+
+    s8Heading: 'D acu seld uzegzaw, episiotomie neɣ taɣuri n yimi n uqerruy (césarienne)?',
+    s8Body1:
+      'Azegzaw neɣ episiotomie ttḥewwiṣen aɣbel ixusen deg lweqt n usseɣ. Ttuɣalin n yimala ilaqen ad ttwakkan deg uḥsab lweǧɛ, waddad n uḥricen d iwellihen i d-yettwafken seld tulawt.',
+    s8Body2:
+      'Seld césarienne, tuɣalin teqqen daɣen ɣer uglim n uqerruy d uḥricen. Ula ma yella ur tella ara tulawt s uẓar, lḥemla timmad-is tessaɣ aferdis n lbasin.',
+    s8HighlightTitle: 'Aɣbel iwulmen izmer ad yelhu',
+    s8HighlightText:
+      'Ma yella uzegzaw ameqqran, lweǧɛ, tilɣa n iɣi neɣ n yiɣsan, neɣ uɣilif ittkemmilen, asenqed d umaẓrag n ṣṣeḥḥa yezmer ad yili yelha aṭas.',
+
+    s9Heading: 'Tuɣalin n uzeṭṭa s wudem aqrawan',
+    s9Body1:
+      'Tuɣalin n tikli seld tulawt ilaq ad tili s wudem aqrawan. Tikli d yisnifilen ahlawan zemren ad uɣalen akken ad tḥessed, maca imala iweɛren s waṭas ttuḥwağen ugar n uḥseb.',
+    s9Body2:
+      'Send ad terrḍed tazzla, aɣli neɣ asemmid yeqwan aṭas, yelha ad tesnezreḍ tuɣalin n uferdis n lbasin u ad tettwafkeḍ tilɣa deg uḥsab.',
+    s9AlertTitle: 'Ur tettaɛǧalt ara deg tfarisin',
+    s9AlertText:
+      'Iɣi, uḥulfu n uẓeṭṭa neɣ lweǧɛ deg neɣ seld uzeṭṭa d tilɣa i d-yeqqen ad tessenqeseḍ s wudem wezzil u ad tsuteḍ tallalt send ad tessnernud tazmert.',
+
+    s10Heading: 'Melmi ara tẓerreḍ amaẓrag?',
+    s10Body1:
+      'Tuɣalin n uferdis n lbasin ɣer taqabalt neɣ amaẓrag n tuɣalin tezmer ad tili tlelha ma yella ur tessineḍ ara ma tessemmedeḍ akken iwata, ma ttkemmilent tilɣa neɣ ma tebɣiḍ ad tuɣaleḍ ɣer kra n yimala n tgensa s wuklal.',
+    questionCardTitle: 'Isteqsiyen yelhan ad ttwasutren',
+    appointmentQuestions: [
+      'Tilɣa-iw ttemcabint ɣer tmerẓeq n uferdis n lbasin?',
+      'Tessemmeda isemmeden akken iwata?',
+      'Acḥal n tikkal ilaqen ad xedmeɣ yal ass?',
+      'Zemreɣ ad uɣaleɣ ɣer tazzla, ɣer tgensa neɣ ɣer ineɣman iweɛren?',
+      'Ilaq-iyi unnaw n tuɣalin ɣer taqabalt neɣ amaẓrag n tuɣalin?',
+      'Azegzaw-iw, tazzla-iw neɣ césarienne-iw ttuḥwağen kra n lḥedd?',
+    ],
+    s10TipTitle: 'Yelha ad tessneḍ',
+    s10TipText:
+      'Aẓer n umaẓrag ur yeqqen ara dima ɣer ugur. Asnez yezmer ad k-iɛiwen ad tessenqedeḍ tarrayt-ik, ad tesḥseḍ tuɣalin-ik u ad tessneḍ amek ara tgeddeḍ.',
+
+    s11Heading: 'Tuɣalin yeṭṭafaren lweqt',
+    s11Body1:
+      'Seld ma tulaḍ, d ayen amagnu ur tuɣaleḍ ara ɣer yiḥulfawen neɣ ɣer tezmert n yiferdasen i tesɛiḍ send lḥemla, deg yiwen n lweqt.',
+    s11Body2:
+      'Iswi mačči d ad txedmeḍ aṭas n yisemmeden. D ayen ugar n tuɣalin n tarrayt yelhan gar usemmed d unfusel, sakin ad tessemreḍ iferdasen-a s wudem amagnu deg yimala n yal ass.',
+    s11HighlightTitle: 'Ssenfar imecṭuḥen d ssenfar n tidet',
+    s11HighlightText:
+      'Ahulfu ahlawan n usemmid, kra n tasinin d-yernan deg usemmed, neɣ aneqqes n iɣi, d tilɣa yettɛawanen yakan.',
+
+    s12Heading: 'Tifrat tigejdanin',
+    summaryTitle: 'Ayen yelhan',
+    summaryItems: [
+      'Lḥemla d tulawt ttɛeddi-ten aṭas iferdasen n lbasin.',
+      'Tuɣalin s wudem aqrawan d ayen amagnu seld tulawt.',
+      'Ineɣman ilaqen ad d-ssinfen lǧuda n usemmid uqbel tazmert.',
+      'Anfas d unfusel ɛzizen am usemmed.',
+      'Iɣi n iɣi, uḥulfu n uẓeṭṭa neɣ lweǧɛ ittkemmilen ilaq-asen rray n umaẓrag.',
+      'Tuɣalin ɣer taqabalt neɣ amaẓrag n tuɣalin tezmer ad k-tɛiwen ad d-tafeḍ aḥkem ugar.',
+      'Tuɣalin ɣer tgensa ilaq ad tili s wudem aqrawan, nezzeh imala iweɛren.',
+    ],
+
+    finalTipTitle: 'Eǧǧ lweqt i wakken ad d-tuɣaleḍ',
+    finalTipText:
+      'Seld tulawt, ayen i ixeddem ugris-ik yettɛeddi aṭas n yisnifilen. Lpirine yessefk ad yeṭṭef ccan am wayen-nniḍen n ugris-ik: s wudem aqrawan, s lemɛawda u war aẓeṭṭa.',
+
+    disclaimerText:
+      'Amagrad-a yella i lǧerr n talɣut kan u ur d-yettnaqqes ara talwit n uṭṭbib i yiman-ik. Ma tḥessed lweǧɛ, tilɣa ittkemmilen neɣ ma tesɛiḍ tuṭṭfa ɣef tuɣalin-ik, suter talwit i umaẓrag n ṣṣeḥḥa.',
+  },
+  om: {
+    badge: 'ERGA DA\'UU BOODA • FAYYUU',
+    title: 'Erga da\'anii booda maashaawwan\ndhuunfaa kee jabeessuu',
+    metaDuration: 'Daqiiqaa 8 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Eegaltoota',
+    metaValidated: 'Qabiyyee madaalame',
+    intro:
+      'Ulfaa fi da\'umsa booda, maashaawwan dhuunfaa fayyuuf yeroo barbaadu. Shaakala salphaa, idaa idaa fi suutuma suutuma ta\'e jabina, to\'annoo fi amantaa deebisuuf si gargaaruu danda\'a, osoo ariifachuu hin yaaliin.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Hojii perineum hubachuu',
+      'Maaliif da\'umsi isa dhiphisa',
+      'Yoom fayyisuu maashaa dhuunfaa eegaluu',
+      'Sirnaan maashaa qabsiisuu barachuu',
+      'Gochaa suutuma suutuma ta\'e ijaaruu',
+      'Dogoggora irraa of eeguu',
+      'Yoom gargaarsa gaafachuu',
+      'Suutuma suutuma ispoortii deebi\'uu',
+      'Beellama yaalaaf of qopheessuu',
+      'Ejjennoowwan ijoo',
+    ],
+    shareMessage: 'Erga da\'anii booda maashaawwan dhuunfaa kee jabeessuu — AWA',
+
+    s1Heading: 'Hojii perineum hubachuu',
+    s1Body1:
+      'Perineum, maashaawwan dhuunfaa (pelvic floor) jedhamus, gareen maashaa gadi aanaa dhuunfaa keessa jiru dha. Fincaan fi geengoo to\'achuu irratti, akkasumas qaamolee dhuunfaa deeggaruu irratti gahee qaba.',
+    s1Body2:
+      'Yeroo ulfaa, maashaawwan kun ji\'oota baay\'ee ulfina dabalataa baachuu qabu. Yeroo da\'umsas dhiibbaa guddaa irra bu\'u.',
+    s1HighlightTitle: 'Maashaa callisaa garuu murteessaa',
+    s1HighlightText:
+      'Maashaan dhuunfaa hojii guyyaa guyyaa baay\'ee keessatti hirmaata: fincaa fi bobaa qabachuu, bubbee to\'achuu, qaamolee dhuunfaa deeggaruu, fi hojii saalaa tokko tokko keessatti gahee qabaachuu.',
+
+    benefitsHeading: 'Maashaan dhuunfaa jabaate bu\'aa isaa',
+    benefitsIntro:
+      'Jabeessuun suutuma suutuma ta\'e fi sirnaan raawwatame to\'annoo fi deeggarsa maashaa dhuunfaa fooyyessuuf gargaaruu danda\'a.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'To\'annoo fincaa gaarii',
+        text: 'Maashaan dhuunfaa to\'annoo fincaa irratti gahee qaba. Suutuma suutuma jabeessuun dhangala\'uu fincaa tokko tokko hir\'isuuf gargaaruu danda\'a.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Hojii geengoo deeggaruu',
+        text: 'Maashaawwan kun bubbee fi bobaa to\'achuu irratti ni gargaaru, qaamolee dhuunfaa deeggaruus irratti ni gumaacha.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Qaamolee dhuunfaa deeggaruu',
+        text: 'Maashaan dhuunfaa bu\'uura maashaa dhugaa uuma kan fincaan, mudhii dhaabaa (uterus) fi geengoo deeggaruuf gargaaru.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Suutuma suutuma miira deebisuu',
+        text: 'Fayyisuun sirrii ta\'e bakka kana caalaatti hubachuu fi to\'achuu deebisuuf si gargaaruu danda\'a.',
+      },
+    ],
+
+    s2Heading: 'Maaliif ulfaa fi da\'umsi isa dhiphisa',
+    s2Body1:
+      'Ulfaan suutuma suutuma maashaa dhuunfaa irratti dhiibbaa dabaluu. Da\'umsi dhaloota qaama saalaa karaa dhiibbaa bakka kana keessatti maashaa fi qaama baay\'ee dheeressuu danda\'a.',
+    s2Body2:
+      'Da\'umsi cesarean (muruu) illee maashaa dhuunfaa guutummaatti hin eegu: ulfaan ofii isaa maashaawwan kanaaf yeroo murteessaa dha.',
+    s2Body3:
+      'Erga da\'anii booda, fayyuun yeroo fudhachuun waan baratamaa dha. Dubartoonni tokko tokko mallattoo ba\'aa hin qaban; kaan immoo dhangala\'uu, miira ulfaatina, ykn to\'annoo maashaa hir\'ate hubachuu danda\'u.',
+    s2TipTitle: 'Fayyuun hundi garaagara',
+    s2TipText:
+      'Gosa da\'umsaa, dhiita\'uu ykn muruu (episiotomy), dhukkubbii jiraachuu, fi haala keessa fayyaa kee erga da\'anii booda hundi fayyuu irratti dhiibbaa gochuu danda\'u.',
+
+    s3Heading: 'Fayyisuun maashaa dhuunfaa yoom eegala?',
+    s3Body1:
+      'Da\'umsa rakkoo hin qabne booda, maashaa dhuunfaa laaffisanii qabsiisuun suutuma suutuma deebi\'uu danda\'a. Shaakala haala keetiif sirreessuun, rakkoo, dhukkubbii guddaa, ykn tooftaa addaa yoo si mudate gorsa barbaaduun barbaachisaa dhaa.',
+    s3Body2:
+      'Yoo kaatetera fincaa qabaatte, gorsi tokko tokko hanga isaa baafamee fi fincaan sirrii deebi\'ee eegaluu eeguu akka filatamu agarsiisu, shaakala perineum kan eegaltu.',
+    s3AlertTitle: 'Dhukkubbii irratti hin dhiibin',
+    s3AlertText:
+      'Dhukkubbii guddaa, mallattoo hammaataa, madaa sirriitti hin fayyine, ykn yaaddoo addaa kamiyyuu gorsa ogeessa da\'umsaa, doktora, ykn ogeessa fayyisuu barbaada.',
+
+    s4Heading: 'Sirnaan maashaa qabsiisuu barachuu',
+    s4Body1:
+      'Sochii kana adda baasuuf, bubbee fi fincaa tokkummaan qabachuuf yaaluu yaadi. Sochiin barbaaddu miira qabsiisuu fi gara keessaatti ol baasuu dha.',
+    s4Body2:
+      'Kaayyoon qaama kee guutuu cimsuu miti. Dugdi kee, luka kee fi garaan kee dandeettii keetiin laafaa ta\'uu qaba, afuufni immoo akkuma baratametti itti fufa.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Afuufuu'},
+      {icon: 'human-handsup', label: 'Qabsiisuu laafaa'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Qabsiisuu dheeraa'},
+      {icon: 'gesture-tap-button', label: 'Qabsiisuu dafaa'},
+    ],
+    s4HighlightTitle: 'Laaffachuun akkasuma barbaachisaa dha',
+    s4HighlightText:
+      'Qabsiisuu hundaa booda, maashaan guutummaatti haa laaffatu. Fayyisuun gaariin perineum guyyaa guutuu qabsiisuu jechuu miti.',
+
+    s5Heading: 'Gochaa suutuma suutuma ta\'e ijaaruu',
+    s5Body1:
+      'Jalqaba irratti, waan guddaan maashaa adda baasuu fi sochii sirnaan raawwachuu barachuu dha. Itti fufiinsi cimina caalaa murteessaa dha.',
+    s5h3a: 'Qabsiisuu dheeraa',
+    s5Body2:
+      'Maashaa dhuunfaa laaffisanii qabsiisi, achiis sekondii muraasaaf qabi, afuuffee hin qabin. Itti aansee guutummaatti gadhiisi, yeroo biraa osoo hin eegalin dura.',
+    s5h3b: 'Qabsiisuu gabaabaa',
+    s5Body3:
+      'Sochiin yoo baratame, qabsiisuun xixiqqaa fi dafaa dabaluu ni danda\'ama. Yeroo dhiibbaan garaa dabalu maashaa dafee qabsiisuuf dandeettii leenjisuuf gargaaru, fakkeenyaaf osoo hin qufaa ykn hin atamin dura.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Shaakala gochaa guyyaa guyyaa waliin wal-qabsiisi'},
+      {icon: 'human-sitting', label: 'Teessuma mijaa\'aa irraa jalqabi'},
+      {icon: 'weather-windy', label: 'Yeroo qabsiisuu akkuma baratametti afuufi'},
+      {icon: 'sleep', label: 'Yeroo laaffachuu kabajii'},
+      {icon: 'chart-line', label: 'Suutuma suutuma ulfinaa dabali'},
+      {icon: 'doctor', label: 'Yoo mirkaneeffachuu dhabde gorsa gaafadhu'},
+    ],
+    s5TipTitle: 'Itti fufiinsi hunda caalaa',
+    s5TipText:
+      'Shaakala gochaa guyyaa kee keessa jiru waliin wal-qabsiisuun itti fufuuf salphisuu danda\'a: erga hiyyeessanii booda, erga ilkaan dhiqatee booda, ykn yeroo biraa siif mijaa\'u.',
+
+    s6Heading: 'Dogoggora baratamaa irraa of eeguu',
+    s6Body1:
+      'Shaakalli perineum salphaa fakkaachuu danda\'a, garuu maashaa biraan bakka buusuu ykn baay\'ee dhiibuu salphaa dha.',
+    commonMistakes: [
+      'Maashaa dhuunfaa bakka buusuun dugda ykn luka cimsuu',
+      'Yeroo qabsiisuu afuuffee qabuu',
+      'Maashaa yeroo hunda qabsiisanii osoo hin laaffisin turuu',
+      'Guyyaa muraasaaf qofa shaakaluu achiis dhaabuu',
+      'Fincaa kan itti fufu of-barsiisanii dhaabuun qabsiisuu ilaaluu',
+    ],
+    s6TipTitle: 'Waan hin gochiin',
+    s6TipText:
+      'Fincaa of-barsiisanii dhaabuun shaakaluun hin gorfamu. Mala kun perineum sirnaan hin leenjisu, hojii fincaa baratamaa tokko tokko gufachiisuu danda\'a.',
+
+    s7Heading: 'Mallattooleen kam doktora ilaaluuf si kakaasuu qaba?',
+    s7Body1:
+      'Dhangala\'uun xiqqaa ykn miirri hin baratamne erga da\'anii booda yeroo tokko tokko mul\'achuu danda\'a. Garuu yoo itti fufan, yoo hammaatan, ykn jireenya guyyaa guyyaa keessatti rakkoo fidan, tuffachuu hin qaban.',
+    warningSigns: [
+      'Yeroo qufaa, atamuu, kolfuu ykn ciniinsu fincaan dhangala\'uu',
+      'Miira ulfaatina ykn dhiibbaa dhuunfaa gadii irratti',
+      'Miira tokko tokko ykn waan tokko qaama saalaa keessatti gad bu\'uu',
+      'Bubbee ykn bobaa qabachuuf rakkoo',
+      'Dhukkubbii itti fufu perineum irratti',
+      'Yeroo ykn erga wal-qunnamtii saalaa booda dhukkubbii',
+      'Maashaawwan perineum adda baasuu ykn sirnaan qabsiisuuf rakkoo',
+    ],
+    consultLabel: 'Yoom gorsa gaafachuu qabda?',
+    s7Body2:
+      'Ogeessi da\'umsaa, doktorri, ykn fiizioteraapistiin fayyisuu maashaa dhuunfaa irratti leenjifame hojii maashaa ilaaluu fi pirogiraama mijaa\'u dhiheessuu danda\'a.',
+
+    s8Heading: 'Dhiita\'uu, muruu (episiotomy), ykn cesarean booda hoo?',
+    s8Body1:
+      'Dhiita\'uun ykn muruun yeroo fayyuu eegumsa addaa barbaada. Hojiiwwan deebi\'anii eegaluun dhukkubbii, haala madaa fi qajeelfama erga da\'anii booda kenname ilaalcha keessa galchuu qaba.',
+    s8Body2:
+      'Cesarean booda, fayyuun dhaabaa garaa fi madaa illee of keessaa qaba. Da\'umsi karaa qaama saalaa hin taanes, ulfaan ofii isaa maashaa dhuunfaa irratti dhiibbaa geessise.',
+    s8HighlightTitle: 'Eegumsi ofii-isaaf ta\'e ni gargaara',
+    s8HighlightText:
+      'Haala dhiita\'uu guddaa, dhukkubbii, mallattoo fincaa ykn geengoo, ykn rakkoo itti fufuu keessatti, ogeessa fayyaa waliin madaalluun addaan gargaaraa ta\'uu danda\'a.',
+
+    s9Heading: 'Suutuma suutuma ispoortii deebi\'uu',
+    s9Body1:
+      'Erga da\'anii booda sochii deebi\'uun suutuma suutuma ta\'uu qaba. Adeemuu fi sochii laafaa akkuma miira keetti deebi\'uu ni danda\'ama, hojiiwwan dhiibbaa guddaa qaban immoo of eeggannoo dabalataa barbaadu.',
+    s9Body2:
+      'Fiigicha, utaaluu, ykn leenjii baay\'ee cimaa deebi\'anii eegaluu dura, fayyuu maashaa dhuunfaa madaaluu fi mallattoo kamiyyuu ilaalcha keessa galchuun gaarii dha.',
+    s9AlertTitle: 'Sadarkaalee hin ariifatin',
+    s9AlertText:
+      'Dhangala\'uu, miira ulfaatina, ykn yeroo ykn erga shaakalaa booda dhukkubbii mallattoo suuta jedhee ciminaa dabaluu dura gorsa gaafachuu si barbaachisu dha.',
+
+    s10Heading: 'Yoom ogeessa addaa argu?',
+    s10Body1:
+      'Fayyisuun maashaa dhuunfaa ogeessa da\'umsaa ykn fiizioteraapistii waliin yoo sirnaan qabsiisuu dhiisuu mirkaneeffachuu dhabde, yoo mallattooleen kee itti fufan, ykn hojii qaamaa tokko tokko amantaadhaan deebi\'uu yoo barbaadde gargaaruu danda\'a.',
+    questionCardTitle: 'Gaaffilee gargaaran',
+    appointmentQuestions: [
+      'Mallattooleen koo laafina maashaa dhuunfaa waliin wal-simataa?',
+      'Qabsiisuu sirnaan raawwachaa jiraa?',
+      'Guyyaa guyyaan irra deddeebi\'ee hammam gochuu qaba?',
+      'Gara fiigichaa, ispoortii, ykn shaakala dhiibbaa guddaa qabuu deebi\'uu danda\'aa?',
+      'Ogeessa da\'umsaa ykn fiizioteraapistii waliin fayyisuun na barbaachisaa?',
+      'Madaan koo, dhiita\'uun koo, ykn cesarean koo of eeggannoo addaa barbaadaa?',
+    ],
+    s10TipTitle: 'Beekuun gaarii dha',
+    s10TipText:
+      'Ogeessa ilaaluun wanti tokko dogoggora jechuu hin ta\'u. Yeroon tokko mala kee ilaaluu, fayyuu kee madaaluu fi sirnaan fuulduratti deemuu barachuuf gargaaruu danda\'a.',
+
+    s11Heading: 'Fayyuun yeroo fudhatu',
+    s11Body1:
+      'Erga da\'anii booda, miirri fi jabinni maashaa ulfaa duraa yeruma sana deebi\'uu dhabuun waan baratamaa dha.',
+    s11Body2:
+      'Kaayyoon hamma danda\'ametti qabsiisuu baay\'ee gochuu miti. Caalaatti suutuma suutuma qabsiisuu fi laaffachuu gidduutti walsimannaa gaarii deebisuu, achiis maashaawwan kana hojii guyyaa guyyaa keessatti uumamaan fayyadamuu danda\'uu dha.',
+    s11HighlightTitle: 'Guddina xiqqaan guddina dhugaa dha',
+    s11HighlightText:
+      'Sochii caalaatti hubachuu, sekondii muraasa dabalataa qabsiisuu, ykn dhangala\'uu hir\'achuun mallattoo kajeelchu dha.',
+
+    s12Heading: 'Ejjennoowwan ijoo',
+    summaryTitle: 'Ijoo isaa',
+    summaryItems: [
+      'Ulfaa fi da\'umsi maashaa dhuunfaa irratti dhiibbaa guddaa geessisa.',
+      'Erga da\'anii booda suutuma suutuma fayyuun waan baratamaa dha.',
+      'Shaakalli cimina caalaa qulqullina sochii dursuu qaba.',
+      'Afuufuu fi laaffachuun akkuma qabsiisuu barbaachisaa dha.',
+      'Dhangala\'uu fincaa, ulfaatina, ykn dhukkubbii itti fufuun yaada ogeessaa hin barbaachisa.',
+      'Fayyisuun ogeessa da\'umsaa ykn fiizioteraapistii waliin to\'annoo caalaatti deebisuuf si gargaaruu danda\'a.',
+      'Ispoortii deebi\'uun suutuma suutuma ta\'uu qaba, keessumaa hojiiwwan dhiibbaa guddaa qabaniif.',
+    ],
+
+    finalTipTitle: 'Fayyuuf yeroo kenni',
+    finalTipText:
+      'Erga da\'anii booda, qaamni kee jijjiirama baay\'ee keessa darbeera. Perineumiin akkuma qaama kee hafe xiyyeeffannoo isaaf malu argachuu qaba: suutuma suutuma, idaa idaa, osoo dhiibbaa hin qabaatin.',
+
+    disclaimerText:
+      'Barruun kun odeeffannoo qofaaf; gorsa yaalaa ofii-isaaf ta\'e hin bakkaa bu\'u. Yoo dhukkubbii, mallattoo itti fufu, ykn yaaddoo fayyuu kee ilaalchisee qabaatte, ogeessa fayyaa irraa gorsa gaafadhu.',
+  },
+  ti: {
+    badge: 'ድሕሪ ወሊድ • ምጥጣዕ',
+    title: 'ድሕሪ ወሊድ ጭዋዳታት\nሕቝፊ ምጥንካር',
+    metaDuration: '8 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'ድሕሪ ጥንሲን ወሊድን፣ ጭዋዳታት ሕቝፊ ንምምላስ ግዜ የድልዮም። ቀሊላት፣ ቀጻልቲን ቀስ ብቀስ ዝኽዱ ልምምዳት ሓይሊ፣ ቁጽጽርን ተኣማንነትን ክትመልስ ክሕግዙኻ ይኽእሉ፣ ነገራት ከይተቐልጠፍካ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ግደ ፔሪኒየም ምርዳእ',
+      'ወሊድ ስለምንታይ ጸቕጢ የስዕብ',
+      'ልምምድ ጭዋዳታት ሕቝፊ መዓስ ይጅምር',
+      'ብትኽክል ምጽባጥ ምምሃር',
+      'ቀስ ብቀስ ዝኸይድ መደብ ምምስራት',
+      'ክትርሕቆም ዘለካ ጌጋታት',
+      'ሓገዝ መዓስ ትሓትት',
+      'ቀስ ብቀስ ስፖርት ምጅማር',
+      'ንቆጸራ ምድላው',
+      'ቀንዲ ነጥብታት',
+    ],
+    shareMessage: 'ድሕሪ ወሊድ ጭዋዳታት ሕቝፊ ምጥንካር — AWA',
+
+    s1Heading: 'ግደ ፔሪኒየም ምርዳእ',
+    s1Body1:
+      'ፔሪኒየም፣ ጭዋዳታት ሕቝፊ እውን ዝበሃል፣ ኣብ ታሕቲ ሕቝፊ ዝርከብ ጉጅለ ጭዋዳታት እዩ። ኣብ ምቁጽጻር ሽንቲ ከብዲ ዘለዎ ግደ ኣለዎ፣ ኣካላት ሕቝፊ ከኣ ይሕግዝ።',
+    s1Body2:
+      'ኣብ ጥንሲ እዞም ጭዋዳታት ን ብዙሕ ኣዋርሕ ተወሳኺ ክብደት ክጸውሩ ኣለዎም። ኣብ ወሊድ እውን ዓቢ ጸቕጢ ይወርዶም።',
+    s1HighlightTitle: 'ኣዝዩ ኣገዳሲ ግን ዘይረአ ጭዋዳ',
+    s1HighlightText:
+      'ጭዋዳታት ሕቝፊ ኣብ ብዙሓት መዓልታዊ ተግባራት ይሳተፉ፦ ሽንትን ሰገራን ምሕዛል፣ ጋዝ ምቁጽጻር፣ ኣካላት ሕቝፊ ምድጋፍ፣ ኣብ ገለ ምስ ጾታ ዝተኣሳሰሩ ተግባራትውን ግደ ምጽዋት።',
+
+    benefitsHeading: 'ዝሓየለ ጭዋዳታት ሕቝፊ ረብሓታት',
+    benefitsIntro:
+      'ቀስ ብቀስ ብትኽክል ዝግበር ምጥንካር ቁጽጽርን ደገፍን ጭዋዳታት ሕቝፊ ክሕግዝ ይኽእል።',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'ዝሓሸ ምቁጽጻር ፊኛ',
+        text: 'ጭዋዳታት ሕቝፊ ኣብ ምቁጽጻር ፊኛ ግደ ኣለዎም። ቀስ ብቀስ ምጥንካሮም ገለ ናይ ሽንቲ ምፍሳስ ክውስድ ይኽእል።',
+      },
+      {
+        icon: 'toilet',
+        title: 'ተግባር ከብዲ ምድጋፍ',
+        text: 'እዞም ጭዋዳታት ጋዝን ሰገራን ምቁጽጻርን ኣካላት ሕቝፊ ምድጋፍን ይሕግዙ።',
+      },
+      {
+        icon: 'human-female',
+        title: 'ኣካላት ሕቝፊ ምድጋፍ',
+        text: 'ጭዋዳታት ሕቝፊ ንፊኛ፣ ማህጸንን ከብዲን ዝሕግዝ ሓቀኛ ጭዋዳዊ መሰረት እዩ።',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'ቀስ ብቀስ ስምዒት ምምላስ',
+        text: 'ዝግበኣ ምጥጣዕ ንዚ ቦታ ዝሓሸ ዕዉት ምፍላጥን ቁጽጽርን ክሕግዝ ይኽእል።',
+      },
+    ],
+
+    s2Heading: 'ጥንሲን ወሊድን ስለምንታይ ጸቕጢ የስዕብ',
+    s2Body1:
+      'ጥንሲ ቀስ ብቀስ ኣብ ጭዋዳታት ሕቝፊ ዝያዳ ጸቕጢ የውርድ። ብምሕጽኖ ወሊድ እቶም ጭዋዳታትን ሕብሪታትን ኣብዚ ቦታ ብዓቢኡ ክሰሓቡ ይኽእሉ።',
+    s2Body2:
+      'ብቀዶ ጥገና ወሊድ እውን ንጭዋዳታት ሕቝፊ ምሉእ ብምሉእ ኣየድሕንን፦ ባዕሉ ጥንሲ ንዞም ጭዋዳታት ኣገዳሲ ግዜ እዩ።',
+    s2Body3:
+      'ድሕሪ ወሊድ፣ ምምላስ ግዜ ምውሳዱ ልሙድ እዩ። ገለ ደቀንስትዮ ዳርጋ ምንም ምልክት ኣይስምዓን፣ ካልኦት ድማ ምፍሳስ፣ ስምዒት ክብደት፣ ወይ ጭዋዳ ምቁጽጻር ምጉዳል ክሰምዓ ይኽእላ።',
+    s2TipTitle: 'ነፍሲ ወከፍ ምምላስ ፍሉይ እዩ',
+    s2TipText:
+      'ዓይነት ወሊድ፣ ምስንጣቕ ወይ ኤፒዚዮቶሚ፣ ሓሞት ምህላው፣ ድሕሪ ወሊድ ሓፈሻዊ ኩነታትካ ኩሉ ንምምላስ ክጸሉ ይኽእሉ።',
+
+    s3Heading: 'ልምምድ ጭዋዳታት ሕቝፊ መዓስ ይጅምር?',
+    s3Body1:
+      'ድሕሪ ዘይተሸገረ ወሊድ፣ ለስሕ ምጽባጥ ጭዋዳታት ሕቝፊ ብሓፈሻ ቀስ ብቀስ ክጅምር ይከኣል። ልምምዳት ምስ ኩነታትካ ምምዕባል ኣገዳሲ እዩ፣ ሸግር፣ ዓቢ ሓሞት ወይ ፍሉይ ኣሰራርሓ እንተ ኔሩ ምኽሪ ሕተት።',
+    s3Body2:
+      'ናይ ሽንቲ ካቴተር እንተ ኣልዩኻ፣ ገለ ምኽሪታት ክሳብ ዝወሃብ ከምኡውን ልሙድ ሽንቲ ዝመልስ ምጽባይ ቅድሚ ልምምድ ፔሪኒየም ከም ዝጅመር ይሕብሩ።',
+    s3AlertTitle: 'ብሓሞት ኣይተገድድ',
+    s3AlertText:
+      'ዓቢ ሓሞት፣ ዝኸፍአ ምልክታት፣ ብጽቡቕ ዘይፈውስ ቁስሊ፣ ወይ ዝኾነ ፍሉይ ጭንቀት ምኽሪ ካብ ወላዲት፣ ሓኪም፣ ወይ ሞያዊ ምጥጣዕ የድልዩ።',
+
+    s4Heading: 'ብትኽክል ምጽባጥ ምምሃር',
+    s4Body1:
+      'ንምንቅስቓስ ንምልላይ፣ ጋዝን ሽንቲ ምሕዛል ድሌትን ብሓደ ግዜ ከም ትሕዝ ሕሰብ። እቲ ትደልዮ ምንቅስቓስ ናብ ውሽጢ ምጽባጥን ምልዓልን ስምዒት እዩ።',
+    s4Body2:
+      'ዕላማኡ ምሉእ ኣካልካ ብሓይሊ ምጽባጥ ኣይኮነን። ቅልጥምትን ጭዋዳታት ጭሕምን ከብድን ክተኽእል ዝተኻእለ ተዘልዓል ክኾኑ ኣለዎም፣ ምትንፋስ ድማ ልሙድ ይቕጽል።',
+    exercises: [
+      {icon: 'weather-windy', label: 'ምትንፋስ'},
+      {icon: 'human-handsup', label: 'ለሳሕ ምጽባጥ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'ነዊሕ ምጽባጥ'},
+      {icon: 'gesture-tap-button', label: 'ቅልጡፍ ምጽባጥ'},
+    ],
+    s4HighlightTitle: 'ምዝላል ብተመሳሳሊ ኣገዳሲ እዩ',
+    s4HighlightText:
+      'ድሕሪ ነፍሲ ወከፍ ምጽባጥ፣ ጭዋዳታት ምሉእ ብምሉእ ይዘልዑ። ጽቡቕ ምጥጣዕ ፔሪኒየም ምሉእ መዓልቲ ተጸቢጡ ምሓዝ ማለት ኣይኮነን።',
+
+    s5Heading: 'ቀስ ብቀስ ዝኸይድ መደብ ምምስራት',
+    s5Body1:
+      'ኣብ መጀመርታ፣ እቲ ዝዓበየ ነገር ጭዋዳታት ምልላይን ምንቅስቓስ ብትኽክል ምግባርን እዩ። ቀጻልነት ካብ ሓይሊ ይበልጽ።',
+    s5h3a: 'ነዊሕ ምጽባጥ',
+    s5Body2:
+      'ጭዋዳታት ሕቝፊ ብለሳሕ ጽባጥ፣ ደሓር ንገለ ካልኢታት ምትንፋስ ከይሓዝካ ሓዞ። ደሓር ቅድሚ ዳግም ምጅማር ምሉእ ብምሉእ ልቀቖ።',
+    s5h3b: 'ሓጸርቲ ምጽባጥ',
+    s5Body3:
+      'ምንቅስቓስ ምስ ተጸንዐ፣ ንኣሽቱ ቅልጡፋት ምጽባጥ ክውሰኹ ይኽእሉ። ጸቕጢ ከብዲ ምስ ዝውስኽ፣ ከም ቅድሚ ምስዓል ወይ ምስንባዝ፣ ጭዋዳታት ብቕልጡፍ ንምጽባጥ ዘለካ ዓቕሚ የሰልጥኑ።',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'ንልምምዳት ምስ መዓልታዊ ልምዲ ኣሳሰሮም'},
+      {icon: 'human-sitting', label: 'ብምቹእ ኩነታት ጀምር'},
+      {icon: 'weather-windy', label: 'ኣብ ግዜ ምጽባጥ ብልሙድ ተንፍስ'},
+      {icon: 'sleep', label: 'ግዜ ምዝላል ኣኽብር'},
+      {icon: 'chart-line', label: 'ቀስ ብቀስ ጽንኑ ውስኽ'},
+      {icon: 'doctor', label: 'እንተ ዘይተኣሚንካ ምኽሪ ሕተት'},
+    ],
+    s5TipTitle: 'ቀጻልነት ልዕሊ ኩሉ',
+    s5TipText:
+      'ንልምምዳት ምስ ኣብ መዓልትኻ ዘሎ ልምዲ ምድማር ቀጻሊ ክትከውን የቐልል፦ ድሕሪ ምምጋብ፣ ድሕሪ ስኒ ምጽራይ፣ ወይ ካልእ ንዓኻ ዝበቅዕ ግዜ።',
+
+    s6Heading: 'ክትርሕቆም ዘለካ ልሙዓት ጌጋታት',
+    s6Body1:
+      'ልምምዳት ፔሪኒየም ቀሊላት ክመስላ ይኽእላ፣ ግን ብካልኦት ጭዋዳታት ምትካእ ወይ ብዙሕ ምግፋሕ ቀሊል እዩ።',
+    commonMistakes: [
+      'ኣብ ክንዲ ጭዋዳታት ሕቝፊ ኣልያትን ጭንዳን ምጽባጥ',
+      'ኣብ ግዜ ምጽባጥ ምትንፋስ ምሓዝ',
+      'ከይዘልዐ ጭዋዳታት ኩሉ ግዜ ተጸቢጦም ምሓዝ',
+      'ንሒደት መዓልታት ጥራይ ልምምድ ምግባርን ደሓር ምቁራጽን',
+      'ምጽባጥ ንምርግጋጽ ብፍላጥ ፍሰት ሽንቲ ምቁራጽ',
+    ],
+    s6TipTitle: 'እንታይ ኣይግበርን',
+    s6TipText:
+      'ብፍላጥ ፍሰት ሽንቲ ብምቁራጽ ልምምዳት ምግባር ኣይምከርን። እዚ ኣገባብ ፔሪኒየም ብትኽክል ኣየሰልጥንን፣ ልሙድ ተግባር ፊኛ ድማ ከዛብዕ ይኽእል።',
+
+    s7Heading: 'ኣየናይ ምልክታት ሕክምናዊ ምኽሪ የድልዩ?',
+    s7Body1:
+      'ድሕሪ ወሊድ ንኣሽቱ ምፍሳስን ዘይልሙድ ስምዒትን ሓደ ሓደ ግዜ ክርአ ይኽእል። ግን ምስ ዝቕጽሉ፣ ምስ ዝኸፍኡ፣ ወይ መዓልታዊ ህይወትካ ምስ ዘጸልዉ ክዝንግዑ የብሎምን።',
+    warningSigns: [
+      'ምስ ትስዕል፣ ትስነብዝ፣ ትስሕቕ ወይ ትግፍሕ ምፍሳስ ሽንቲ',
+      'ኣብ ታሕቲ ሕቝፊ ስምዒት ክብደት ወይ ጸቕጢ',
+      'ሓደ ቍራሕ ወይ ገለ ነገር ናብ መሓመድ ዝወርድ ዝመስል ስምዒት',
+      'ጋዝ ወይ ሰገራ ምሕዛል ሽግር',
+      'ኣብ ፔሪኒየም ዘይሓልፍ ቃንዛ',
+      'ኣብ ግዜ ወይ ድሕሪ ጾታዊ ርክብ ቃንዛ',
+      'ጭዋዳታት ፔሪኒየም ብትኽክል ምልላይ ወይ ምጽባጥ ሽግር',
+    ],
+    consultLabel: 'ምኽሪ መዓስ ትሓትት?',
+    s7Body2:
+      'ኣብ ምጥጣዕ ጭዋዳታት ሕቝፊ ዝተፈለየ ወላዲት፣ ሓኪም ወይ ፊዚዮቴራፒስት ተግባር ጭዋዳታት ክርእይን ዝበቅዕ መደብ ክሕብርን ይኽእል።',
+
+    s8Heading: 'ድሕሪ ምስንጣቕ፣ ኤፒዚዮቶሚ ወይ ቀዶ ጥገና ወሊድኸ?',
+    s8Body1:
+      'ምስንጣቕ ወይ ኤፒዚዮቶሚ ኣብ ግዜ ምሕዋይ ፍሉይ ክንክን የድልዮ። ንጥፈታት ምጅማር ቃንዛ፣ ኩነታት ምልክትን ድሕሪ ወሊድ ዝተዋህበ መምርሒን ኣብ ግምት ከእትው ኣለዎ።',
+    s8Body2:
+      'ድሕሪ ቀዶ ጥገና ወሊድ፣ ምምላስ ንጓሓፍ ከብድን ምልክትን እውን ይሓዝ። ወሊዱ ብመንገዲ ምድሪ ኣይኮነን እኳ ይኹን፣ ጥንሲ ባዕሉ ኣብ ጭዋዳታት ሕቝፊ ጸቕጢ ኣውሪዱ።',
+    s8HighlightTitle: 'ውልቃዊ ክንክን ክሕግዝ ይኽእል',
+    s8HighlightText:
+      'ኣብ ዓቢ ምስንጣቕ፣ ቃንዛ፣ ናይ ሽንቲ ወይ ከብዲ ምልክታት፣ ወይ ዘይሓልፍ ሽግራት፣ ምስ ጥዕና ሰራሕተኛ ዝግበር ግምገማ ብፍላይ ክሕግዝ ይኽእል።',
+
+    s9Heading: 'ቀስ ብቀስ ስፖርት ምጅማር',
+    s9Body1:
+      'ድሕሪ ወሊድ ምንቅስቓስ ምጅማር ቀስ ብቀስ ክኸውን ኣለዎ። ምጉያይን ለሳሕ ምንቅስቓሳትን ብብዝሒ ከም ዝስምዓካ ክጅምር ይከኣል፣ ጽኑዕ ጽልዋ ዘለዎም ንጥፈታት ግን ዝያዳ ጥንቃቐ የድልዩ።',
+    s9Body2:
+      'ቅድሚ ምጉያይ፣ ምድሃይ፣ ወይ ኣዝዩ ጽኑዕ ልምምድ ምጅማር፣ ምምላስ ጭዋዳታት ሕቝፊ ምግምጋምን ዝኾነ ምልክት ኣብ ግምት ምእታውን ይሓሽ።',
+    s9AlertTitle: 'ደረጃታት ኣይትቀልጥፍ',
+    s9AlertText:
+      'ምፍሳስ፣ ስምዒት ክብደት፣ ወይ ኣብ ግዜ ወይ ድሕሪ ልምምድ ቃንዛ ምቅልጣፍ ከተዘንግዕን ቅድሚ ሓይሊ ምውሳኽ ምኽሪ ክትሓትትን ዘሎካ ምልክታት እዮም።',
+
+    s10Heading: 'ሓኪም ፍሉይ መዓስ ትርኢ?',
+    s10Body1:
+      'ምስ ወላዲት ወይ ፊዚዮቴራፒስት ዝግበር ምጥጣዕ ጭዋዳታት ሕቝፊ፣ ብትኽክል ከም እትጽብጥ እንተ ዘይተኣሚንካ፣ ምልክታትካ እንተቐጸሉ፣ ወይ ገለ ኣካላዊ ንጥፈታት ብተኣማንነት ክትጅምር እንተደሊኻ ክሕግዝ ይኽእል።',
+    questionCardTitle: 'ክትሓትቶም ዝግብኡ ጠቓሚ ሕቶታት',
+    appointmentQuestions: [
+      'ምልክታተይ ምስ ድኽመት ጭዋዳታት ሕቝፊ ይሰማማዑ ዶ?',
+      'ምጽባጥ ብትኽክል እገብር ዶ?',
+      'መዓልታዊ ክንደይ ግዜ ክደጋግም ኣለኒ?',
+      'ናብ ምጉያይ፣ ስፖርት፣ ወይ ጽኑዕ ልምምድ ክምለስ ይኽእል ዶ?',
+      'ምስ ወላዲት ወይ ፊዚዮቴራፒስት ምጥጣዕ የድልየኒ ዶ?',
+      'ምልክተይ፣ ምስንጣቕ፣ ወይ ቀዶ ጥገና ወሊደይ ፍሉይ ጥንቃቐ የድልዮ ዶ?',
+    ],
+    s10TipTitle: 'ጽቡቕ ምፍላጥ',
+    s10TipText:
+      'ሞያዊ ምርኣይ ገለ ነገር ጌጋ ኣሎ ማለት ኣይኮነን። ሓደ ኣጋጣሚ ዘገባብካ ንምርግጋጽ፣ ምምላስካ ንምግምጋምን ብትኽክል ክትቅጽል ንምምሃርን ክሕግዝ ይኽእል።',
+
+    s11Heading: 'ግዜ ዝወስድ ምምላስ',
+    s11Body1:
+      'ድሕሪ ወሊድ፣ ቅድሚ ጥንሲ ዝነበረካ ተመሳሳሊ ስምዒትን ሓይልን ብቕልጡፍ ዘይምምላስ ልሙድ እዩ።',
+    s11Body2:
+      'ዕላማኡ ክሳብ ዝከኣል ብዙሕ ምጽባጥ ምግባር ኣይኮነን። ቀስ ብቀስ ኣብ መንጎ ምጽባጥን ምዝላልን ጽቡቕ ምትእስሳር ምምላስን ደሓር ንዞም ጭዋዳታት ብተፈጥሮ ኣብ መዓልታዊ ንጥፈታት ምጥቃምን ይበልጽ።',
+    s11HighlightTitle: 'ንኣሽቱ ምዕባለታት ሓቀኛ ምዕባለታት እዮም',
+    s11HighlightText:
+      'ንምንቅስቓስ ዝሓሸ ምፍላጥ፣ ገለ ተወሳኺ ካልኢታት ምጽባጥ፣ ወይ ምፍሳስ ምውሓድ ኣብዚ ግዜ ዘተባብዑ ምልክታት እዮም።',
+
+    s12Heading: 'ቀንዲ ነጥብታት',
+    summaryTitle: 'ቀንዲ ነጥብታት',
+    summaryItems: [
+      'ጥንሲን ወሊድን ኣብ ጭዋዳታት ሕቝፊ ዓቢ ጸቕጢ የውርዱ።',
+      'ድሕሪ ወሊድ ቀስ ብቀስ ምምላስ ልሙድ እዩ።',
+      'ልምምዳት ካብ ሓይሊ ንጽሬት ምንቅስቓስ ክቐድሙ ኣለዎም።',
+      'ምትንፋስን ምዝላልን ከምቲ ምጽባጥ ብተመሳሳሊ ኣገዳሲ እዮም።',
+      'ምፍሳስ ሽንቲ፣ ስምዒት ክብደት፣ ወይ ዘይሓልፍ ቃንዛ ሞያዊ ርእይቶ ይግብኦም።',
+      'ምስ ወላዲት ወይ ፊዚዮቴራፒስት ዝግበር ምጥጣዕ ዝሓሸ ቁጽጽር ንምምላስ ክሕግዝ ይኽእል።',
+      'ናብ ስፖርት ምምላስ ቀስ ብቀስ ክኸውን ኣለዎ፣ ብፍላይ ጽኑዕ ጽልዋ ዘለዎም ንጥፈታት።',
+    ],
+
+    finalTipTitle: 'ንምምላስ ግዜ ውሰድ',
+    finalTipText:
+      'ድሕሪ ወሊድ፣ ኣካልካ ብዙሕ ለውጥታት ሓሊፉ። ፔሪኒየም ከም ካልእ ኣካልካ ተመሳሳሊ ቀልቢ ይግብኦ፦ ቀስ ብቀስ፣ ብቀጻልነትን ብዘይ ጸቕጢን።',
+
+    disclaimerText:
+      'እዚ ጽሑፍ ንሓበሬታ ጥራይ እዩ፣ ውልቃዊ ሕክምናዊ ምኽሪ ኣይተክእን። ቃንዛ፣ ዘይሓልፉ ምልክታት፣ ወይ ብዛዕባ ምምላስካ ዝኾነ ሸግር እንተ ኣሎካ፣ ካብ ጥዕና ሰራሕተኛ ምኽሪ ሕተት።',
+  },
+  rw: {
+    badge: 'NYUMA YO KUBYARA • GUKIRA',
+    title: 'Gukomeza imikaya yo mu nda yo hasi\nnyuma yo kubyara',
+    metaDuration: 'Isomwa mu minota 8',
+    metaType: 'Inyigisho',
+    metaLevel: 'Ugitangira',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro:
+      'Nyuma yo gutwita no kubyara, imikaya yo mu nda yo hasi (pelvic floor) ikenera igihe cyo gukira. Imyitozo yoroheje, ikorwa buri gihe kandi buhoro buhoro, ishobora kugufasha kongera imbaraga, kugenzura no kwigirira icyizere, utarimo kwihutisha ibintu.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Gusobanukirwa uruhare rwa perineum',
+      'Impamvu kubyara bituma ihangayika',
+      'Igihe cyo gutangira imyitozo yo gukomeza imikaya yo mu nda yo hasi',
+      'Kwiga gukanda neza',
+      'Gutegura gahunda igenda buhoro buhoro',
+      'Amakosa yo kwirinda',
+      'Igihe cyo gusaba ubufasha',
+      'Gusubira muri siporo buhoro buhoro',
+      'Kwitegura gahunda yo kwa muganga',
+      'Iby’ingenzi wibuka',
+    ],
+    shareMessage: 'Gukomeza imikaya yo mu nda yo hasi nyuma yo kubyara — AWA',
+
+    s1Heading: 'Gusobanukirwa uruhare rwa perineum',
+    s1Body1:
+      'Perineum, yitwa kandi pelvic floor, ni itsinda ry’imikaya iri hasi y’igitsina cy’imbere. Ifasha kugenzura uruhago n’amara kandi ifasha gushyigikira ibice by’imbere byo mu nda yo hasi.',
+    s1Body2:
+      'Mu gihe cyo gutwita, iyi mikaya ikorera uburemere bwiyongereye mu mezi menshi. Iyo kubyara na ho irahangayika cyane.',
+    s1HighlightTitle: 'Imikaya yihishe ariko y’ingenzi',
+    s1HighlightText:
+      'Pelvic floor igira uruhare mu mirimo myinshi ya buri munsi: gufunga inkari n’umwanda, kugenzura imyuka, gushyigikira ibice byo mu nda yo hasi, no kugira uruhare mu mirimo imwe y’imibonano mpuzabitsina.',
+
+    benefitsHeading: 'Akamaro ko gukomeza pelvic floor',
+    benefitsIntro:
+      'Gukomeza buhoro buhoro kandi mu buryo bukwiye bishobora gufasha kunoza kugenzura no gushyigikira kwa pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kugenzura neza uruhago',
+        text: 'Pelvic floor igira uruhare mu kugenzura uruhago. Kuyikomeza buhoro buhoro bishobora gufasha kugabanya inkari zimwe zisohoka ku buryo butateguwe.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Gufasha imikorere y’amara',
+        text: 'Iyi mikaya kandi ifasha kugenzura imyuka n’umwanda kandi igira uruhare mu gushyigikira ibice byo mu nda yo hasi.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Gushyigikira ibice byo mu nda yo hasi',
+        text: 'Pelvic floor ni nk’urufatiro rw’imikaya rufasha gushyigikira uruhago, nyababyeyi n’amara.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Kugarura buhoro buhoro ibyiyumviro',
+        text: 'Imyitozo ikwiye ishobora kandi kugufasha kongera kumenya no kugenzura neza aka gace.',
+      },
+    ],
+
+    s2Heading: 'Impamvu gutwita no kubyara bihangayikisha pelvic floor',
+    s2Body1:
+      'Gutwita bishyira buhoro buhoro igitutu kinini kuri pelvic floor. Kubyara mu buryo busanzwe bishobora noneho kurambura cyane imikaya n’ibice by’umubiri biri aha hantu.',
+    s2Body2:
+      'Kubyara hakoreshejwe kubagwa na byo ntibirinda pelvic floor burundu: gutwita ubwabyo ni igihe gikomeye kuri iyi mikaya.',
+    s2Body3:
+      'Nyuma yo kubyara rero, ni ibisanzwe ko gukira bifata igihe. Abagore bamwe nta bimenyetso bumva, abandi bashobora kubona inkari zisohoka, kumva uburemere, cyangwa kugabanuka kw’ubushobozi bwo kugenzura imikaya.',
+    s2TipTitle: 'Gukira kwa buri wese kuratandukanye',
+    s2TipText:
+      'Uburyo wabyayemo, gucika cyangwa gukata (episiotomy), kuba hari ububabare, n’uko umeze muri rusange nyuma yo kubyara, byose bishobora kugira ingaruka ku gukira.',
+
+    s3Heading: 'Ni ryari watangira imyitozo yo gukomeza pelvic floor?',
+    s3Body1:
+      'Nyuma yo kubyara nta kibazo, gukanda gake imikaya ya pelvic floor bishobora gusubukurwa buhoro buhoro. Biracyari ngombwa guhuza imyitozo n’uko umeze no gusaba inama niba wagize ikibazo, ububabare bukomeye, cyangwa uburyo bwihariye bwakorewe.',
+    s3Body2:
+      'Niba ufite umuyoboro w’inkari (catheter), inama zimwe zivuga ko ukwiye gutegereza ko ukurwaho kandi ko kunyara bisanzwe kongera gukora mbere yo gutangira imyitozo ya perineum.',
+    s3AlertTitle: 'Ntukomeze ububabare',
+    s3AlertText:
+      'Ububabare bukomeye, ibimenyetso byiyongera, igisebe gikira nabi, cyangwa ikindi kibazo cyose bisaba inama z’umubyaza, muganga cyangwa umuhanga mu gufasha gukira.',
+
+    s4Heading: 'Kwiga gukanda neza',
+    s4Body1:
+      'Kugira ngo umenye ibyo ugomba gukora, tekereza ugerageza gufunga umwuka n’icyifuzo cyo kunyara icyarimwe. Icyo ushaka ni ukumva imikaya ikanda kandi izamuka imbere.',
+    s4Body2:
+      'Intego si ugukanda umubiri wose cyane. Ikibuno, ibibero n’inda bigomba kuguma byoroshye uko bishoboka, mu gihe guhumeka bikomeza uko bisanzwe.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Guhumeka'},
+      {icon: 'human-handsup', label: 'Gukanda byoroheje'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Gukanda igihe kirekire'},
+      {icon: 'gesture-tap-button', label: 'Gukanda vuba'},
+    ],
+    s4HighlightTitle: 'Kworoshya na ko ni ngombwa nk’uko',
+    s4HighlightText:
+      'Nyuma yo gukanda buri gihe, reka imikaya yoroshye burundu. Gukira neza ntibivuze kugumisha perineum ikanze umunsi wose.',
+
+    s5Heading: 'Gutegura gahunda igenda buhoro buhoro',
+    s5Body1:
+      'Mu ntangiriro, icy’ingenzi ni ukwiga kumenya imikaya no gukora igikorwa neza. Gukora buri gihe bifite akamaro kurusha gukora cyane.',
+    s5h3a: 'Gukanda igihe kirekire',
+    s5Body2:
+      'Kanda pelvic floor byoroheje, hanyuma ugumane igikorwa amasegonda make utafunze umwuka. Hanyuma wirekure burundu mbere yo gutangira ukundi.',
+    s5h3b: 'Gukanda igihe gito',
+    s5Body3:
+      'Iyo igikorwa kimaze kumenyerwa, hashobora kongerwamo gukanda vuba kandi guto. Bifasha kwitoza gukanda imikaya vuba iyo igitutu cyo mu nda cyiyongereye, urugero mbere gato yo gukorora cyangwa kwitsamura.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Huza imyitozo n’ikintu ukora buri munsi'},
+      {icon: 'human-sitting', label: 'Tangirira mu mwanya ukorohereza'},
+      {icon: 'weather-windy', label: 'Humeka uko bisanzwe mu gihe ukanda'},
+      {icon: 'sleep', label: 'Subiza imikaya ku kworoha'},
+      {icon: 'chart-line', label: 'Ongera ubugorane buhoro buhoro'},
+      {icon: 'doctor', label: 'Saba inama niba utizeye'},
+    ],
+    s5TipTitle: 'Gukora buri gihe mbere ya byose',
+    s5TipText:
+      'Guhuza imyitozo n’umuco usanzwe mu munsi wawe bishobora koroshya gukomeza: nyuma yo konsa, nyuma yo koza amenyo, cyangwa ikindi gihe kikubereye.',
+
+    s6Heading: 'Amakosa asanzwe yo kwirinda',
+    s6Body1:
+      'Imyitozo ya perineum ishobora kugaragara nk’iyoroshye, ariko biroroshye gukoresha indi mikaya cyangwa gukanda cyane.',
+    commonMistakes: [
+      'Gukanda ikibuno cyangwa ibibero aho gukanda pelvic floor',
+      'Gufunga umwuka mu gihe ukanda',
+      'Kugumisha imikaya ikanze buri gihe utayireka ngo yoroshye',
+      'Gukora imyitozo iminsi mike hanyuma ugahagarika',
+      'Guhagarika inkari ku bushake kugira ngo ugerageze gukanda',
+    ],
+    s6TipTitle: 'Ibyo kudakora',
+    s6TipText:
+      'Ntibyemewe gukora imyitozo uhagarika inkari ku bushake. Ubu buryo ntibutoza perineum neza kandi bushobora guhungabanya imikorere isanzwe y’uruhago.',
+
+    s7Heading: 'Ni ibihe bimenyetso bikwiye gutuma ujya kwa muganga?',
+    s7Body1:
+      'Inkari nke zisohoka cyangwa ikintu kidasanzwe wumva rimwe na rimwe bishobora kuza nyuma yo kubyara. Icyakora ntibikwiye kwirengagizwa iyo bikomeje, byiyongera, cyangwa bibangamira ubuzima bwawe bwa buri munsi.',
+    warningSigns: [
+      'Inkari zisohoka iyo ukorora, witsamura, useka cyangwa wikoze imbaraga',
+      'Kumva uburemere cyangwa igitutu mu nda yo hasi',
+      'Kumva ko hari ikintu cyangwa ikibyimba kimanuka mu gitsina',
+      'Ingorane zo gufunga imyuka cyangwa umwanda',
+      'Ububabare buhoraho muri perineum',
+      'Ububabare mu gihe cyangwa nyuma yo gukora imibonano mpuzabitsina',
+      'Ingorane zo kumenya cyangwa gukanda neza imikaya ya perineum',
+    ],
+    consultLabel: 'Ni ryari ukwiye gusaba inama?',
+    s7Body2:
+      'Umubyaza, muganga cyangwa umuganga w’imyitozo ngororamubiri (physiotherapist) uzobereye mu gufasha gukira kwa pelvic floor ashobora gusuzuma imikorere y’imikaya akagusaba gahunda ikwiye.',
+
+    s8Heading: 'Byagenda bite nyuma yo gucika, gukata (episiotomy) cyangwa kubagwa?',
+    s8Body1:
+      'Gucika cyangwa gukata (episiotomy) bisaba kwitabwaho by’umwihariko mu gihe cyo gukira. Gusubukura ibikorwa bigomba kwita ku bubabare, uko inkovu imeze n’inama wahawe nyuma yo kubyara.',
+    s8Body2:
+      'Nyuma yo kubagwa, gukira kandi bifitanye isano n’urukuta rw’inda n’inkovu. Nubwo kubyara bitabaye mu buryo busanzwe, gutwita ubwabyo byahangayikishije pelvic floor.',
+    s8HighlightTitle: 'Kwitabwaho by’umwihariko bishobora gufasha',
+    s8HighlightText:
+      'Iyo hari gucika gukomeye, ububabare, ibimenyetso by’inkari cyangwa by’amara, cyangwa ingorane zikomeje, isuzuma ku muganga ushinzwe ubuzima rishobora kugira akamaro cyane.',
+
+    s9Heading: 'Gusubira muri siporo buhoro buhoro',
+    s9Body1:
+      'Gusubukura kugenda nyuma yo kubyara bigomba kuba buhoro buhoro. Kugenda n’ingendo zoroheje bishobora gusubukurwa bitewe n’uko wiyumva, mu gihe ibikorwa bikaze bisaba kwitonda cyane.',
+    s9Body2:
+      'Mbere yo gusubukura kwiruka, gusimbuka cyangwa imyitozo ikaze cyane, ni byiza gusuzuma uko pelvic floor yakize no kwita ku bimenyetso byose.',
+    s9AlertTitle: 'Ntukihutishe intambwe',
+    s9AlertText:
+      'Inkari zisohoka, kumva uburemere, cyangwa ububabare mu gihe cyangwa nyuma y’imyitozo ni ibimenyetso ko ugomba kugabanya umuvuduko ugasaba inama mbere yo kongera ubukana.',
+
+    s10Heading: 'Ni ryari wajya kureba umuhanga?',
+    s10Body1:
+      'Imyitozo yo gukira kwa pelvic floor hamwe n’umubyaza cyangwa physiotherapist ishobora kugira akamaro niba utizeye ko ukanda neza, niba ibimenyetso bikomeje, cyangwa niba ushaka gusubukura ibikorwa bimwe by’umubiri wizeye.',
+    questionCardTitle: 'Ibibazo byafasha kubaza',
+    appointmentQuestions: [
+      'Ese ibimenyetso byanjye bihuye no koroha kwa pelvic floor?',
+      'Ese nkanda neza?',
+      'Ni inshuro zingahe nkwiye gukora buri munsi?',
+      'Ese nshobora gusubira kwiruka, muri siporo, cyangwa mu myitozo ikaze?',
+      'Ese nkeneye imyitozo yo gukira hamwe n’umubyaza cyangwa physiotherapist?',
+      'Ese inkovu yanjye, gucika cyangwa kubagwa bisaba kwitonda mu buryo bwihariye?',
+    ],
+    s10TipTitle: 'Ni byiza kubimenya',
+    s10TipText:
+      'Kubona umuhanga ntibivuze ako kanya ko hari ikibazo. Isomo rishobora gufasha kugenzura uburyo ukora, gusuzuma uko ukira, no kwiga gutera imbere neza.',
+
+    s11Heading: 'Gukira bifata igihe',
+    s11Body1:
+      'Nyuma yo kubyara, ni ibisanzwe kudasubirana ako kanya ibyiyumviro cyangwa imbaraga z’imikaya wari ufite mbere yo gutwita.',
+    s11Body2:
+      'Intego si ugukanda inshuro nyinshi uko bishoboka. Ahubwo ni ukongera gusubirana buhoro buhoro guhuza neza gukanda no kworoha, hanyuma ukabasha gukoresha iyi mikaya mu buryo busanzwe mu bikorwa bya buri munsi.',
+    s11HighlightTitle: 'Iterambere rito ni iterambere nyaryo',
+    s11HighlightText:
+      'Kumenya neza igikorwa, amasegonda make y’inyongera yo gukanda, cyangwa kugabanuka kw’inkari zisohoka ni ibimenyetso bitanga icyizere.',
+
+    s12Heading: 'Iby’ingenzi wibuka',
+    summaryTitle: 'Iby’ingenzi',
+    summaryItems: [
+      'Gutwita no kubyara bihangayikisha cyane pelvic floor.',
+      'Gukira buhoro buhoro ni ibisanzwe nyuma yo kubyara.',
+      'Imyitozo igomba gushyira imbere uburyo igikorwa gikorwa kuruta imbaraga.',
+      'Guhumeka no kworoha ni ngombwa nk’uko gukanda.',
+      'Inkari zisohoka, kumva uburemere, cyangwa ububabare buhoraho bikwiye inama z’umuhanga.',
+      'Imyitozo yo gukira hamwe n’umubyaza cyangwa physiotherapist ishobora kugufasha kongera kugenzura neza.',
+      'Gusubira muri siporo bigomba kuba buhoro buhoro, cyane cyane ku bikorwa bikaze.',
+    ],
+
+    finalTipTitle: 'Fata igihe cyo gukira',
+    finalTipText:
+      'Nyuma yo kubyara, umubiri wawe wanyuze mu mpinduka nyinshi. Perineum ikwiye kwitabwaho nk’ibindi bice by’umubiri wawe: buhoro buhoro, buri gihe kandi nta gihato.',
+
+    disclaimerText:
+      'Iyi nkuru ni iy’amakuru gusa kandi ntisimbura inama za muganga zihariye. Niba ufite ububabare, ibimenyetso bikomeje, cyangwa impungenge zose ku gukira kwawe, saba inama umuganga ushinzwe ubuzima.',
+  },
+  rn: {
+    badge: 'HANYUMA Y\'UKUBYARA • GUKIRA',
+    title: 'Gutera imbaraga imikaya yo mu nda y\'epfo\nhanyuma y\'ukubyara',
+    metaDuration: 'Soma muminuta 8',
+    metaType: 'Inyoborabwenge',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikorwa vyasuzumwe',
+    intro:
+      'Hanyuma yo gutwita no kubyara, imikaya yo mu nda y\'epfo isaba igihe co gukira. Imyitozo yoroshe, ihoraho kandi ijanye n\'ingene ugenda ukira irashobora kugufasha kugarura imbaraga, ububasha n\'icizere, utihuta.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Gusobanukirwa uruhara rw\'imikaya yo mu nda y\'epfo (perineum)',
+      'Igituma kubyara bigira ingaruka kuri yo',
+      'Igihe co gutangura imyitozo y\'iyo mikaya',
+      'Kwiga gukanda neza',
+      'Gushiraho gahunda ijanye n\'ingene ugenda ukira',
+      'Amakosa yo kwirinda',
+      'Igihe cyo gusaba ubufasha',
+      'Gusubira buhoro buhoro mu mikino',
+      'Kwitegura kubonana n\'umuhanga',
+      'Ivy\'ingenzi',
+    ],
+    shareMessage: 'Gutera imbaraga imikaya yo mu nda y\'epfo hanyuma y\'ukubyara — AWA',
+
+    s1Heading: 'Gusobanukirwa uruhara rw\'imikaya yo mu nda y\'epfo (perineum)',
+    s1Body1:
+      'Perineum, yitwa kandi imikaya yo mu nda y\'epfo, ni itsinda ry\'imikaya iri munsi y\'igikanka c\'inda. Igira uruhara mu kugenzura inkari n\'amabyi kandi ifasha gushigikira ingingo zo mu nda y\'epfo.',
+    s1Body2:
+      'Mu gihe co gutwita, iyi mikaya itwara uburemere burenze amezi menshi. Kandi irabazwa cane mu gihe co kubyara.',
+    s1HighlightTitle: 'Umukaya utagaragara ariko w\'ingenzi',
+    s1HighlightText:
+      'Imikaya yo mu nda y\'epfo igira uruhara mu bikorwa vyinshi vya buri musi: gufata inkari n\'amabyi, kugenzura umwuka usohoka, gushigikira ingingo zo mu nda y\'epfo, no kugira uruhara mu bikorwa bimwebimwe vy\'imibonano.',
+
+    benefitsHeading: 'Akamaro ko kugira imikaya yo mu nda y\'epfo ikomeye',
+    benefitsIntro:
+      'Gutera imbaraga buhoro buhoro kandi neza birashobora gufasha kunoza ukugenzura n\'ugushigikira kw\'iyi mikaya.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kugenzura neza inkari',
+        text: 'Imikaya yo mu nda y\'epfo igira uruhara mu kugenzura inkari. Kuyiha imbaraga buhoro buhoro bishobora gufasha kugabanya inkari zimwezimwe zisohoka ku gahato.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Gushigikira imikorere y\'amara',
+        text: 'Iyi mikaya kandi ifasha kugenzura umwuka n\'amabyi kandi igashigikira ingingo zo mu nda y\'epfo.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Gushigikira ingingo zo mu nda y\'epfo',
+        text: 'Imikaya yo mu nda y\'epfo ni nk\'ishingiro ry\'imikaya rifasha gushigikira uruhago, nyababyeyi n\'amara.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Kugarura buhoro buhoro ukumva',
+        text: 'Imyitozo ibereye irashobora kandi kugufasha kumenya no kugenzura neza aka gace.',
+      },
+    ],
+
+    s2Heading: 'Igituma gutwita no kubyara bigira ingaruka kuri yo',
+    s2Body1:
+      'Gutwita bishira buhoro buhoro igitutu kinini ku mikaya yo mu nda y\'epfo. Kubyara mu buryo busanzwe birashobora gukurura cane iyi mikaya n\'ibindi bice vyo muri aka gace.',
+    s2Body2:
+      'Kubyara bakubaga na vyo ntibirinda iyi mikaya rwose: gutwita ubwabyo biguma ari igihe gikomeye kuri yo.',
+    s2Body3:
+      'Hanyuma y\'ukubyara, nta cantangaza gukira gufata igihe. Abagore bamwebamwe ntibabona ibimenyetso biruta, abandi bashobora kubona inkari zisohoka, ukumva uburemere, canke imikaya itagishoboye kugenzurwa.',
+    s2TipTitle: 'Ugukira kose kuratandukanye',
+    s2TipText:
+      'Uburyo wabyayemwo, gutabuka canke gukatwa (episiotomie), ububabare, n\'uko umerewe muri rusangi hanyuma y\'ukubyara, vyose bishobora kugira ingaruka ku gukira.',
+
+    s3Heading: 'Igihe co gutangura imyitozo y\'iyi mikaya?',
+    s3Body1:
+      'Hanyuma y\'ukubyara nta kibazo, imyitozo yoroshe yo gukanda imikaya yo mu nda y\'epfo isanzwe isubukurwa buhoro buhoro. Biracari ngombwa guhuza imyitozo n\'uko umeze no gusaba inama niba wagize ingorane, ububabare bukomeye, canke igikorwa c\'ubuvuzi cihariye.',
+    s3Body2:
+      'Niba ufise umuyoboro w\'inkari (sonde), inama zimwezimwe zerekana ko wogereza imyitozo y\'iyi mikaya kugeza igihe uvanyweho kandi ukongera kunyara bisanzwe.',
+    s3AlertTitle: 'Ntukomeze ububabare',
+    s3AlertText:
+      'Ububabare bukomeye, ibimenyetso bikaze, ibarwe ritakira neza, canke ikindi kibazo cose bisaba inama z\'umubyaza, muganga canke umuhanga mu gufasha gukira.',
+
+    s4Heading: 'Kwiga gukanda neza',
+    s4Body1:
+      'Kugira ngo umenye ukuntu bikorwa, tekereza ko ugerageza gufata umwuka n\'icifuzo co kunyara icarimwe. Ico ushaka ni ukwumva imikaya ikandaguye kandi izamutse imbere.',
+    s4Body2:
+      'Intumbero si ugukanda umubiri wose. Ibibuno, ibibero n\'inda bigomba kuguma biruhutse uko bishoboka, mu gihe uhumeka bisanzwe.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Guhumeka'},
+      {icon: 'human-handsup', label: 'Gukanda byoroshe'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Gukanda igihe kirekire'},
+      {icon: 'gesture-tap-button', label: 'Gukanda vuba vuba'},
+    ],
+    s4HighlightTitle: 'Kuruhuka na vyo ni ngirakamaro',
+    s4HighlightText:
+      'Nyuma ya buri gukanda, reka imikaya iruhuke rwose. Imyitozo myiza ntisobanura gukomeza gukanda perineum umusi wose.',
+
+    s5Heading: 'Gushiraho gahunda ijanye n\'ingene ugenda ukira',
+    s5Body1:
+      'Mu ntango, ico gihambaye cane ni ukwiga kumenya iyi mikaya no gukora igikorwa neza. Gukora buri musi biruta ububasha bwinshi.',
+    s5h3a: 'Gukanda igihe kirekire',
+    s5Body2:
+      'Kanda imikaya yo mu nda y\'epfo buhoro, hanyuma ugumane gukanda amasegonda make utafashe umwuka. Hanyuma uyirekure rwose imbere yo gutangura bundi bushasha.',
+    s5h3b: 'Gukanda igihe gito',
+    s5Body3:
+      'Igihe umaze kumenya igikorwa, ushobora kongeraho gukanda gutoya kandi kwihuta. Bifasha imikaya kwiga gukanda vuba iyo igitutu c\'inda cyiyongereye, nk\'imbere gato yo gukorora canke gucinya.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Huza imyitozo n\'ingeso ya buri musi'},
+      {icon: 'human-sitting', label: 'Tangura uri mu mererwe myiza'},
+      {icon: 'weather-windy', label: 'Humeka bisanzwe mu gihe ukanda'},
+      {icon: 'sleep', label: 'Wubahirize ibihe vyo kuruhuka'},
+      {icon: 'chart-line', label: 'Ongera buhoro buhoro ingorane'},
+      {icon: 'doctor', label: 'Saba inama niba utabizi neza'},
+    ],
+    s5TipTitle: 'Gukora buri musi imbere ya vyose',
+    s5TipText:
+      'Guhuza imyitozo n\'ingeso usanzwe ufise bishobora koroshya gukomeza: hanyuma yo konsa, hanyuma yo koza amenyo, canke ikindi gihe kikubereye.',
+
+    s6Heading: 'Amakosa akunze kwirindwa',
+    s6Body1:
+      'Imyitozo y\'iyi mikaya irashobora kugaragara nk\'ihendutse, ariko biroroshe gukoresha izindi mikaya canke gukanda cane.',
+    commonMistakes: [
+      'Gukanda ibibuno canke ibibero aho gukanda imikaya yo mu nda y\'epfo',
+      'Gufata umwuka mu gihe ukanda',
+      'Guguma ukanze imikaya udasiga ngo iruhuke',
+      'Gukora imyitozo iminsi mike hanyuma ukayireka',
+      'Guhagarika inkari ku bushake kugira ngo ugerageze gukanda',
+    ],
+    s6TipTitle: 'Ivyo utagomba gukora',
+    s6TipText:
+      'Ntibisabwa gukora imyitozo uhagarika inkari ku bushake. Ubu buryo ntibutoza neza perineum kandi bushobora kuvuruga imikorere isanzwe y\'uruhago.',
+
+    s7Heading: 'Ni ibihe bimenyetso bikwiye kugutuma ubonana na muganga?',
+    s7Body1:
+      'Inkari zitoya zisohoka canke ukumva ibidasanzwe birashobora rimwe na rimwe kuboneka hanyuma y\'ukubyara. Ariko ntibikwiye kwirengagizwa iyo bikomeje, biba bibi, canke bibangamira ubuzima bwawe bwa buri musi.',
+    warningSigns: [
+      'Inkari zisohoka iyo ukorora, ucinya, useka canke ukoresha imbaraga',
+      'Ukumva uburemere canke igitutu mu nda y\'epfo',
+      'Ukumva nk\'ikintu gikomeye canke ikintu kimanuka mu gitsina',
+      'Ingorane zo gufata umwuka canke amabyi',
+      'Ububabare buhoraho muri perineum',
+      'Ububabare mu gihe canke hanyuma y\'imibonano',
+      'Ingorane zo kumenya canke gukanda neza imikaya ya perineum',
+    ],
+    consultLabel: 'Ni ryari wosaba inama?',
+    s7Body2:
+      'Umubyaza, muganga canke umuhanga mu gufasha gukira (physiothérapeute) w\'imikaya yo mu nda y\'epfo arashobora gusuzuma imikorere y\'imikaya akagusaba imyitozo ibereye.',
+
+    s8Heading: 'Ni gute hanyuma yo gutabuka, gukatwa (episiotomie) canke kubyara bakubaga?',
+    s8Body1:
+      'Gutabuka canke gukatwa bisaba kwitwararika mu gihe c\'ugukira. Gusubira mu bikorwa bikwiye kwitwararika ububabare, uko ibarwe rimeze, n\'amabwiriza wahawe hanyuma y\'ukubyara.',
+    s8Body2:
+      'Hanyuma yo kubyara bakubaga, ugukira kuraba kandi kuri ruhago rw\'inda n\'ibarwe. N\'iyo kubyara bitabaye mu buryo busanzwe, gutwita ubwabyo vyagize ingaruka ku mikaya yo mu nda y\'epfo.',
+    s8HighlightTitle: 'Kwitabwaho mu buryo bwihariye bishobora gufasha',
+    s8HighlightText:
+      'Mu gihe c\'ugutabuka gukomeye, ububabare, ibimenyetso vy\'inkari canke vy\'amara, canke ingorane zikomeje, isuzuma ry\'umuhanga mu buvuzi rirashobora gufasha cane.',
+
+    s9Heading: 'Gusubira buhoro buhoro mu mikino',
+    s9Body1:
+      'Gusubira mu bikorwa hanyuma y\'ukubyara bikwiye kuba buhoro buhoro. Kugenda n\'ibikorwa byoroshe bishobora gusubukurwa bitewe n\'ukuntu wumva umerewe, mu gihe ibikorwa bikomeye bisaba kwitonda cane.',
+    s9Body2:
+      'Imbere yo gusubira mu kwiruka, gusimbuka, canke imyitozo ikaze cane, ni vyiza gusuzuma ugukira kw\'imikaya yo mu nda y\'epfo no kwitwararika ibimenyetso vyose.',
+    s9AlertTitle: 'Ntuhute ibice',
+    s9AlertText:
+      'Inkari zisohoka, ukumva uburemere, canke ububabare mu gihe canke hanyuma y\'imyitozo ni ibimenyetso vyerekana ko ukwiye kugabanya kandi ugasaba inama imbere yo kongera imbaraga.',
+
+    s10Heading: 'Ni ryari wobonana n\'umuhanga?',
+    s10Body1:
+      'Imyitozo y\'imikaya yo mu nda y\'epfo hamwe n\'umubyaza canke physiothérapeute irashobora kugira akamaro niba utazi neza ko ukanda neza, niba ibimenyetso bikomeje, canke niba ushaka gusubira mu bikorwa vy\'umubiri ufise icizere.',
+    questionCardTitle: 'Ibibazo vyiza vyo kubaza',
+    appointmentQuestions: [
+      'Ese ibimenyetso vyanje bijanye n\'imikaya yo mu nda y\'epfo idakomeye?',
+      'Ese nkanda neza?',
+      'Ni kangahe nkwiye gukora imyitozo buri musi?',
+      'Ese nshobora gusubira mu kwiruka, mu mikino, canke mu myitozo ikaze?',
+      'Ese nkeneye imyitozo y\'ugukira hamwe n\'umubyaza canke physiothérapeute?',
+      'Ese ibarwe ryanje, ugutabuka canke ukubyara bakubaga bisaba kwitwararika kwihariye?',
+    ],
+    s10TipTitle: 'Ni vyiza kubimenya',
+    s10TipText:
+      'Kubonana n\'umuhanga ntibisobanura ko hari ikitagenda. Isuzuma rirashobora gusa gufasha kugenzura uburyo ukora, gusuzuma ugukira kwawe no kwiga gutera imbere neza.',
+
+    s11Heading: 'Ugukira gufata igihe',
+    s11Body1:
+      'Hanyuma yo kubyara, nta cantangaza kudasubira vuba kubona ukumva canke imbaraga z\'imikaya wari ufise imbere yo gutwita.',
+    s11Body2:
+      'Intumbero si ugukanda kenshi gashoboka. Ni ugusubirana buhoro buhoro uburyo bwiza hagati yo gukanda no kuruhuka, hanyuma ugashobora gukoresha iyi mikaya mu buryo busanzwe mu bikorwa vya buri musi.',
+    s11HighlightTitle: 'Iterambere rito ni iterambere nyaryo',
+    s11HighlightText:
+      'Kurushiriza kumenya igikorwa, amasegonda make y\'ugukanda arenga, canke ukugabanuka kw\'inkari zisohoka biri mu bimenyetso bitanga akanyabugabo.',
+
+    s12Heading: 'Ivy\'ingenzi',
+    summaryTitle: 'Ivy\'ingenzi',
+    summaryItems: [
+      'Gutwita no kubyara bigira ingaruka nini ku mikaya yo mu nda y\'epfo.',
+      'Gukira buhoro buhoro ni ibisanzwe hanyuma y\'ukubyara.',
+      'Imyitozo ikwiye kwitwararika ubuhanga bw\'igikorwa kuruta imbaraga.',
+      'Guhumeka no kuruhuka ni ngirakamaro nko gukanda.',
+      'Inkari zisohoka, ukumva uburemere, canke ububabare buhoraho bikwiye inama z\'umuhanga.',
+      'Imyitozo y\'ugukira hamwe n\'umubyaza canke physiothérapeute irashobora kugufasha kugarura ukugenzura kwiza.',
+      'Gusubira mu mikino bikwiye kuba buhoro buhoro, cane cane ku bikorwa bikaze.',
+    ],
+
+    finalTipTitle: 'Fata igihe cyo gukira',
+    finalTipText:
+      'Hanyuma y\'ukubyara, umubiri wawe wanyuze mu mpinduka nyinshi. Perineum ikwiye kwitabwaho nk\'ibindi bice vy\'umubiri wawe: buhoro buhoro, buri musi, kandi nta gitutu.',
+
+    disclaimerText:
+      'Iyi nkuru ni iy\'ukumenyesha gusa kandi ntisubira mu cimbo c\'inama z\'ubuvuzi zagenewe wowe. Niba ufise ububabare, ibimenyetso bikomeje, canke ufise ikibazo cose ku gukira kwawe, saba inama umuhanga mu buvuzi.',
+  },
+  ig: {
+    badge: 'MGBE E MECHASỊRỊ ỊMỤ NWA • ỊLỌGHACHI',
+    title: 'Ịmee ka pelvic floor gị sie ike\nmgbe ị mụsịrị nwa',
+    metaDuration: 'Nkeji 8 iji gụọ',
+    metaType: 'Ntụziaka',
+    metaLevel: 'Mbido',
+    metaValidated: 'Ọdịnaya e nyochaworo',
+    intro:
+      'Mgbe ime na ịmụ nwa gasịrị, pelvic floor chọrọ oge iji lọghachi. Mmega ahụ dị mfe, nke a na-eme mgbe niile ma nwayọọ nwayọọ nwere ike inyere gị aka ịlaghachi ike, njikwa, na ntụkwasị obi, n\'enweghị ịgba ọsọ.',
+    contentsTitle: 'N\'edemede a',
+    topics: [
+      'Ịghọta ọrụ perineum',
+      'Ihe kpatara ịmụ nwa ji etinye ya n\'nrụgide',
+      'Mgbe e kwesịrị ịmalite mmega pelvic floor',
+      'Ịmụta ime nkwekọrịta n\'ụzọ ziri ezi',
+      'Ịmepụta usoro nwayọọ nwayọọ',
+      'Njehie ndị a ga-ezere',
+      'Mgbe ị kwesịrị ịchọ enyemaka',
+      'Ịlaghachi n\'egwuregwu nwayọọ nwayọọ',
+      'Ịkwadebe maka nhọpụta',
+      'Isi ihe dị mkpa',
+    ],
+    shareMessage: 'Ịmee ka pelvic floor gị sie ike mgbe ị mụsịrị nwa — AWA',
+
+    s1Heading: 'Ịghọta ọrụ perineum',
+    s1Body1:
+      'Perineum, nke a na-akpọkwa pelvic floor, bụ otu akwara dị n\'ala pelvis. Ọ na-arụ ọrụ n\'njikwa akpa mmiri na eriri afọ ma na-enyere aka kwado akụkụ ahụ ndị dị na pelvis.',
+    s1Body2:
+      'N\'oge ime, akwara ndị a ga-ebu ibu ọzọ ọtụtụ ọnwa. A na-etinyekwa ha n\'nrụgide dị ukwuu n\'oge ịmụ nwa.',
+    s1HighlightTitle: 'Akwara dị mkpa mana nke a na-adịghị ahụ anya',
+    s1HighlightText:
+      'Pelvic floor na-etinye aka n\'ọtụtụ ọrụ kwa ụbọchị: ijide mmiri ahụ na nsị, ijikwa ikuku, ikwado akụkụ ahụ dị na pelvis, na ịrụ ọrụ n\'ọrụ mmekọahụ ụfọdụ.',
+
+    benefitsHeading: 'Uru nke pelvic floor siri ike',
+    benefitsIntro:
+      'Ime ka ọ sie ike nwayọọ nwayọọ, n\'ụzọ ziri ezi nwere ike inyere aka melite njikwa na nkwado pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Njikwa akpa mmiri ka mma',
+        text: 'Pelvic floor na-arụ ọrụ n\'njikwa akpa mmiri. Ime ka ọ sie ike nwayọọ nwayọọ nwere ike inyere aka belata ọsọ mmiri ụfọdụ.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ịkwado ọrụ eriri afọ',
+        text: 'Akwara ndị a na-enyekwa aka ijikwa ikuku na nsị ma na-enye aka n\'ikwado akụkụ ahụ dị na pelvis.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Ịkwado akụkụ ahụ dị na pelvis',
+        text: 'Pelvic floor na-eme ntọala akwara n\'ezie nke na-enyere aka kwado akpa mmiri, akpa nwa, na eriri afọ.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Ịlaghachi mmetụta nwayọọ nwayọọ',
+        text: 'Mmega kwesịrị ekwesị nwekwara ike inyere gị aka inwe nghọta na njikwa ka mma nke ebe a.',
+      },
+    ],
+
+    s2Heading: 'Ihe kpatara ime na ịmụ nwa ji etinye ya n\'nrụgide',
+    s2Body1:
+      'Ime na-etinye nrụgide karịa na pelvic floor nwayọọ nwayọọ. Ịmụ nwa n\'ụzọ ngwongwo nwere ike ịdọpụ akwara na anụ ahụ dị n\'ebe a nke ukwuu.',
+    s2Body2:
+      'Ịwa ahụ iji wepụta nwa (cesarean) anaghị echebe pelvic floor kpamkpam: ime n\'onwe ya bụ oge dị mkpa maka akwara ndị a.',
+    s2Body3:
+      'Mgbe a mụsịrị nwa, ọ bụ ihe nkịtị na ịlaghachi ga-were oge. Ụfọdụ ụmụ nwanyị anaghị enwe afọ ọbụla, ebe ndị ọzọ nwere ike ịchọpụta ọsọ mmiri, mmetụta ibu, ma ọ bụ njikwa akwara belatara.',
+    s2TipTitle: 'Ịlaghachi ọ bụla dị iche',
+    s2TipText:
+      'Ụdị ịmụ nwa, mgbawa ma ọ bụ episiotomy, ọnụnọ mgbu, na ọnọdụ ahụ gị n\'ozuzu mgbe a mụsịrị nwa niile nwere ike imetụta ịlaghachi.',
+
+    s3Heading: 'Mgbe e kwesịrị ịmalite mmega pelvic floor?',
+    s3Body1:
+      'Mgbe ịmụ nwa na-enweghị nsogbu gasịrị, a pụrụ ịmaliteghachi nkwekọrịta dị nwayọọ nke pelvic floor nwayọọ nwayọọ. Ọ ka dị mkpa ịhazi mmega ahụ dabere n\'ọnọdụ gị ma chọọ ndụmọdụ ma ọ bụrụ na ị nwere nsogbu, mgbu dị ukwuu, ma ọ bụ usoro pụrụ iche.',
+    s3Body2:
+      'Ọ bụrụ na ị nwere catheter mmiri, ụfọdụ ndụmọdụ na-atụ aro ichere ruo mgbe e wepụrụ ya ma ịtụ mmiri n\'ụzọ nkịtị alaghachila tupu ịmalite mmega perineum.',
+    s3AlertTitle: 'Ejila mgbu mee ihe',
+    s3AlertText:
+      'Mgbu dị ukwuu, afọ na-aka njọ, ọnya na-agwọ nke ọma, ma ọ bụ nchegbu ọ bụla pụrụ iche chọrọ ndụmọdụ site n\'aka midwife, dọkịta, ma ọ bụ onye ọkachamara mmega.',
+
+    s4Heading: 'Ịmụta ime nkwekọrịta n\'ụzọ ziri ezi',
+    s4Body1:
+      'Iji chọpụta mmegharị ahụ, tụgharịa uche ịnwa ijide ikuku na ọchịchọ ịtụ mmiri n\'otu oge. Mmegharị ị na-achọ bụ mmetụta nkwekọrịta na ibuli ihe gaa n\'ime.',
+    s4Body2:
+      'Ebumnuche abụghị ịmee ka ahụ gị niile dị ike. Ọkpụkpụ ịkpụkpụ gị, apata, na akwara afọ kwesịrị ịdị nwayọọ dịka o kwere mee, ebe iku ume na-aga n\'ihu n\'ụzọ nkịtị.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Iku ume'},
+      {icon: 'human-handsup', label: 'Nkwekọrịta dị nwayọọ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Nkwekọrịta ogologo'},
+      {icon: 'gesture-tap-button', label: 'Nkwekọrịta ngwa ngwa'},
+    ],
+    s4HighlightTitle: 'Ịmee ka ahụ dị nwayọọ dị mkpa nke ukwuu',
+    s4HighlightText:
+      'Mgbe nkwekọrịta ọ bụla gasịrị, hapụ akwara ndị a ka ha dị nwayọọ kpamkpam. Mmega ọma apụtaghị idowe perineum n\'ọnọdụ nkwekọrịta ụbọchị niile.',
+
+    s5Heading: 'Ịmepụta usoro nwayọọ nwayọọ',
+    s5Body1:
+      'Na mbụ, ihe kacha mkpa bụ ịmụta ịmata akwara ndị a na ime mmegharị ahụ n\'ụzọ ziri ezi. Ime ya mgbe niile dị mkpa karịa ike.',
+    s5h3a: 'Nkwekọrịta ogologo',
+    s5Body2:
+      'Mee ka pelvic floor kwekọrịta nwayọọ, wee jide nkwekọrịta ahụ ruo sekọnd ole na ole n\'enweghị ijide ume. Mgbe ahụ hapụ kpamkpam tupu ịmalitegharị.',
+    s5h3b: 'Nkwekọrịta mkpụmkpụ',
+    s5Body3:
+      'Ozugbo i mụtara mmegharị ahụ, a pụrụ itinye obere nkwekọrịta ngwa ngwa. Ha na-enyere aka zụọ ikike gị ịkwekọrị akwara ngwa ngwa mgbe nrụgide afọ na-abawanye, dịka tupu ụkwara ma ọ bụ mgbe ị ga-ata mmiri.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Jikọta mmega ahụ na omume kwa ụbọchị'},
+      {icon: 'human-sitting', label: 'Malite n\'ọnọdụ dị mma'},
+      {icon: 'weather-windy', label: 'Kuo ume n\'ụzọ nkịtị n\'oge nkwekọrịta'},
+      {icon: 'sleep', label: 'Sọpụrụ oge ịdị nwayọọ'},
+      {icon: 'chart-line', label: 'Bawanye ihe isi ike nwayọọ nwayọọ'},
+      {icon: 'doctor', label: 'Jụọ ndụmọdụ ma ọ bụrụ na ị nweghị mgbagha'},
+    ],
+    s5TipTitle: 'Ime ya mgbe niile bụ isi',
+    s5TipText:
+      'Ijikọta mmega ahụ na omume dị n\'ụbọchị gị na-enye ya aka ime ya mgbe niile: mgbe ịnyere nwa ara, mgbe ịsachara ezé, ma ọ bụ n\'oge ọzọ kwesịrị gị.',
+
+    s6Heading: 'Njehie a na-ejikarị zere',
+    s6Body1:
+      'Mmega perineum nwere ike ịdị ka ihe dị mfe, mana ọ dị mfe iji akwara ndị ọzọ kwụghachi ma ọ bụ ịkwatu ike nke ukwuu.',
+    commonMistakes: [
+      'Ime ka ọkpụkpụ ịkpụkpụ ma ọ bụ apata sie ike kama pelvic floor',
+      'Ijide ume n\'oge nkwekọrịta',
+      'Idowe akwara ndị a n\'nkwekọrịta mgbe niile n\'enweghị ịhapụ ha',
+      'Ime mmega ahụ naanị ụbọchị ole na ole wee kwụsị',
+      'Ịkwụsị mmiri mmiri mgbe ị na-atụ iji lelee nkwekọrịta',
+    ],
+    s6TipTitle: 'Ihe a na-eme',
+    s6TipText:
+      'A naghị atụ aro ime mmega ahụ site n\'ịkwụsị mmiri ọnụ mgbe ị na-atụ. Usoro a anaghị azụ perineum n\'ụzọ ziri ezi ma nwee ike ịkpaghasị ọrụ akpa mmiri nkịtị.',
+
+    s7Heading: 'Kedu afọ kwesịrị ịkpọtụrụ dọkịta?',
+    s7Body1:
+      'Obere ọsọ mmiri ma ọ bụ mmetụta pụrụ iche nwere ike ịpụta mgbe ịmụ nwa gasịrị. Agbanyeghị, ekwesịghị ileghara ha anya ma ọ bụrụ na ha na-adịgide, na-aka njọ, ma ọ bụ na-egbochi ndụ gị kwa ụbọchị.',
+    warningSigns: [
+      'Ọsọ mmiri mgbe ị na-akwa ụkwara, na-agba imi, na-achị ọchị, ma ọ bụ na-agbasi ike',
+      'Mmetụta ibu ma ọ bụ nrụgide n\'ala pelvis',
+      'Mmetụta na ihe ọkpụkpụ ma ọ bụ ihe ọzọ na-agbada n\'ime ọnụ ụzọ nwanyị',
+      'Isi ike ijide ikuku ma ọ bụ nsị',
+      'Mgbu na-adịgide n\'ime perineum',
+      'Mgbu n\'oge ma ọ bụ mgbe mmekọahụ gasịrị',
+      'Isi ike ịmata ma ọ bụ ịkwekọrị akwara perineum n\'ụzọ ziri ezi',
+    ],
+    consultLabel: 'Mgbe ị kwesịrị ịchọ ndụmọdụ?',
+    s7Body2:
+      'Midwife, dọkịta, ma ọ bụ physiotherapist na-ahụkarị mmega pelvic floor nwere ike lelee ọrụ akwara ma tụọ aro usoro kwesịrị ekwesị.',
+
+    s8Heading: 'Gịnị bụ mgbe mgbawa, episiotomy, ma ọ bụ ịwa ahụ cesarean?',
+    s8Body1:
+      'Mgbawa ma ọ bụ episiotomy chọrọ nlekọta pụrụ iche n\'oge agwọ. Ịmaliteghachi ọrụ kwesịrị ịtụle mgbu, ọnọdụ ọnya, na ndụmọdụ e nyere mgbe ịmụ nwa gasịrị.',
+    s8Body2:
+      'Mgbe ịwa ahụ cesarean gasịrị, ịlaghachi gụnyekwara mgbidi afọ na ọnya. Ọ bụrụgodi na ịmụ nwa abụghị n\'ụzọ ngwongwo, ime n\'onwe ya etinyeela nrụgide na pelvic floor.',
+    s8HighlightTitle: 'Nlekọta e mere maka gị nwere ike inyere aka',
+    s8HighlightText:
+      'N\'ọnọdụ mgbawa dị ukwuu, mgbu, afọ mmiri ma ọ bụ eriri afọ, ma ọ bụ nsogbu na-adịgide, nyocha site n\'aka onye ọrụ ahụike nwere ike ịba uru karịsịa.',
+
+    s9Heading: 'Ịlaghachi n\'egwuregwu nwayọọ nwayọọ',
+    s9Body1:
+      'Ịmaliteghachi mmegharị ahụ mgbe ịmụ nwa gasịrị kwesịrị ịbụ nwayọọ nwayọọ. Ije ije na mmegharị dị nwayọọ nwere ike ịmaliteghachi dabere n\'etu ị na-eche, ebe ọrụ ndị nwere nsogbu dị elu chọrọ nlezianya karịa.',
+    s9Body2:
+      'Tupu ịmaliteghachi ịgba ọsọ, ịmịfe, ma ọ bụ mmega siri ike, ọ ka mma ịlele ịlaghachi pelvic floor ma tụlee afọ ọ bụla.',
+    s9AlertTitle: 'Ejila ngwa ngwa mee usoro ndị a',
+    s9AlertText:
+      'Ọsọ mmiri, mmetụta ibu, ma ọ bụ mgbu n\'oge ma ọ bụ mgbe mmega gasịrị bụ akara na ị kwesịrị ịdị nwayọọ ma chọọ ndụmọdụ tupu ịbawanye ike.',
+
+    s10Heading: 'Mgbe ị kwesịrị ịhụ onye ọkachamara?',
+    s10Body1:
+      'Mmega pelvic floor na midwife ma ọ bụ physiotherapist nwere ike ịba uru ma ọ bụrụ na ị nweghị mgbagha ma ị na-ekwekọrị n\'ụzọ ziri ezi, ma ọ bụrụ na afọ gị na-adịgide, ma ọ bụ ma ọ bụrụ na ịchọrọ ịmaliteghachi ụfọdụ ọrụ anụ ahụ n\'ntụkwasị obi.',
+    questionCardTitle: 'Ajụjụ bara uru ịjụ',
+    appointmentQuestions: [
+      'Afọ m ọ kwekọrọ na ntakịrị ike nke pelvic floor?',
+      'Ọ bụ n\'ụzọ ziri ezi ka m na-eme nkwekọrịta?',
+      'Ugboro ole ka m kwesịrị ime kwa ụbọchị?',
+      'Enwere m ike ịlaghachi n\'ịgba ọsọ, egwuregwu, ma ọ bụ mmega siri ike?',
+      'Achọrọ m mmega na midwife ma ọ bụ physiotherapist?',
+      'Ọnya m, mgbawa m, ma ọ bụ ịwa ahụ cesarean m ọ chọrọ ntụpọ nche pụrụ iche?',
+    ],
+    s10TipTitle: 'Ọ dị mma ịmara',
+    s10TipText:
+      'Ịhụ onye ọkachamara apụtaghị na ihe na-adịghị mma. Oge otu ntụziaka nwere ike inyere gị aka ịlele usoro gị, tụọ ịlaghachi gị, ma mụta ịga n\'ihu n\'ụzọ ziri ezi.',
+
+    s11Heading: 'Ịlaghachi nke na-ewe oge',
+    s11Body1:
+      'Mgbe ị mụsịrị nwa, ọ bụ ihe nkịtị na ị gaghị enweghachi otu mmetụta ma ọ bụ ike akwara ị nwere tupu ime ozugbo.',
+    s11Body2:
+      'Ebumnuche abụghị ime ọtụtụ nkwekọrịta dị ka o kwere mee. Ọ bụ karịa ịlaghachi nwayọọ nwayọọ n\'nkwekọrịta ọma n\'etiti nkwekọrịta na ịdị nwayọọ, wee nwee ike iji akwara ndị a n\'ụzọ okike n\'ọrụ kwa ụbọchị.',
+    s11HighlightTitle: 'Obere ọganihu bụ ọganihu n\'ezie',
+    s11HighlightText:
+      'Nghọta ka mma nke mmegharị ahụ, sekọnd ole na ole ọzọ nke nkwekọrịta, ma ọ bụ mbelata ọsọ mmiri bụ akara na-akpali mmụọ ugbu a.',
+
+    s12Heading: 'Isi ihe dị mkpa',
+    summaryTitle: 'Isi ihe',
+    summaryItems: [
+      'Ime na ịmụ nwa na-etinye nrụgide dị ukwuu na pelvic floor.',
+      'Ịlaghachi nwayọọ nwayọọ bụ ihe nkịtị mgbe ịmụ nwa gasịrị.',
+      'Mmega kwesịrị ibute ụzọ mmegharị ọma karịa ike.',
+      'Iku ume na ịdị nwayọọ dị mkpa dịka nkwekọrịta.',
+      'Ọsọ mmiri, mmetụta ibu, ma ọ bụ mgbu na-adịgide kwesịrị echiche onye ọkachamara.',
+      'Mmega na midwife ma ọ bụ physiotherapist nwere ike inyere gị aka ịlaghachi njikwa ka mma.',
+      'Ịlaghachi n\'egwuregwu kwesịrị ịbụ nwayọọ nwayọọ, karịsịa maka ọrụ siri ike.',
+    ],
+
+    finalTipTitle: 'Were oge ịlaghachi',
+    finalTipText:
+      'Mgbe ịmụ nwa gasịrị, ahụ gị agafeela ọtụtụ mgbanwe. Perineum kwesịrị otu nlebara anya dịka akụkụ ahụ gị ndị ọzọ: nwayọọ nwayọọ, mgbe niile, na n\'enweghị nrụgide.',
+
+    disclaimerText:
+      'Edemede a bụ maka ozi naanị ma ọ dochighị ndụmọdụ dọkịta e mere maka gị. Ọ bụrụ na ị nwere mgbu, afọ na-adịgide, ma ọ bụ nchegbu ọ bụla gbasara ịlaghachi gị, chọọ ndụmọdụ site n\'aka onye ọrụ ahụike.',
+  },
+  yo: {
+    badge: 'LẸ́YÌN ÌBÍMỌ • ÌMÚPADÀBỌ̀SÍPÒ',
+    title: 'Fífún ìsàlẹ̀ ìbàdí rẹ lókun\nlẹ́yìn ìbímọ',
+    metaDuration: 'Ìṣẹ́jú 8 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Fún àwọn tuntun',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro:
+      'Lẹ́yìn oyún àti ìbímọ, ìsàlẹ̀ ìbàdí (pelvic floor) nílò àkókò láti padà bọ̀ sípò. Àwọn ìdárayá tó rọrùn, tí a ń ṣe déédéé tí a sì ń ṣe díẹ̀díẹ̀ lè ràn ọ́ lọ́wọ́ láti rí agbára, ìṣàkóso àti ìgboyà padà, láìsí pé o ń yára.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Òye iṣẹ́ perineum',
+      'Ìdí tí ìbímọ fi ń fi wàhálà lé e',
+      'Ìgbà tí a bẹ̀rẹ̀ ìmúpadàbọ̀sípò ìsàlẹ̀ ìbàdí',
+      'Kíkọ́ bí a ṣe ń há iṣan náà dáadáa',
+      'Ṣíṣe ètò ìdárayá díẹ̀díẹ̀',
+      'Àwọn àṣìṣe láti yẹra fún',
+      'Ìgbà tí o yẹ kí o béèrè ìrànlọ́wọ́',
+      'Pípadà sí eré ìdárayá díẹ̀díẹ̀',
+      'Ìmúrasílẹ̀ fún ìpàdé dókítà',
+      'Àwọn kókó pàtàkì',
+    ],
+    shareMessage: 'Fífún ìsàlẹ̀ ìbàdí rẹ lókun lẹ́yìn ìbímọ — AWA',
+
+    s1Heading: 'Òye iṣẹ́ perineum',
+    s1Body1:
+      'Perineum, tí a tún ń pè ní ìsàlẹ̀ ìbàdí (pelvic floor), jẹ́ àwùjọ iṣan tó wà ní ìsàlẹ̀ ìbàdí. Ó ní ipa nínú ṣíṣàkóso àpòòtọ̀ àti ìfun, ó sì ń ṣèrànwọ́ láti gbé àwọn ẹ̀yà ara inú ìbàdí dúró.',
+    s1Body2:
+      'Nígbà oyún, àwọn iṣan wọ̀nyí gbọ́dọ̀ gbé ìwúwo àfikún fún oṣù díẹ̀. A tún fi wàhálà púpọ̀ lé wọn nígbà ìbímọ.',
+    s1HighlightTitle: 'Iṣan tó dákẹ́ ṣùgbọ́n tó ṣe pàtàkì',
+    s1HighlightText:
+      'Ìsàlẹ̀ ìbàdí ní ipa nínú ọ̀pọ̀ iṣẹ́ ojoojúmọ́: dídá ito àti ìgbẹ́ dúró, ṣíṣàkóso afẹ́fẹ́ inú, gbígbé àwọn ẹ̀yà ara inú ìbàdí dúró, àti níní ipa nínú àwọn iṣẹ́ ìbálòpọ̀ kan.',
+
+    benefitsHeading: 'Àwọn àǹfààní ìsàlẹ̀ ìbàdí tó lágbára sí i',
+    benefitsIntro:
+      'Fífún un lókun díẹ̀díẹ̀ tí a sì ṣe dáadáa lè ràn ìṣàkóso àti ìgbékalẹ̀ ìsàlẹ̀ ìbàdí lọ́wọ́ láti sunwọ̀n sí i.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Ìṣàkóso àpòòtọ̀ tó dára sí i',
+        text: 'Ìsàlẹ̀ ìbàdí ní ipa nínú ṣíṣàkóso àpòòtọ̀. Fífún un lókun díẹ̀díẹ̀ lè ṣèrànwọ́ láti dín àwọn ìtú ito kan kù.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ìrànlọ́wọ́ fún iṣẹ́ ìfun',
+        text: 'Àwọn iṣan wọ̀nyí tún ń ṣèrànwọ́ láti ṣàkóso afẹ́fẹ́ inú àti ìgbẹ́, wọ́n sì ń kópa nínú gbígbé àwọn ẹ̀yà ara inú ìbàdí dúró.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Gbígbé àwọn ẹ̀yà ara inú ìbàdí dúró',
+        text: 'Ìsàlẹ̀ ìbàdí jẹ́ ìpìlẹ̀ iṣan tòótọ́ tó ń ṣèrànwọ́ láti gbé àpòòtọ̀, ilé ọmọ àti ìfun dúró.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Rírí ìmọ̀lára padà díẹ̀díẹ̀',
+        text: 'Ìmúpadàbọ̀sípò tó yẹ tún lè ràn ọ́ lọ́wọ́ láti ní òye àti ìṣàkóso tó dára sí i lórí agbègbè yìí.',
+      },
+    ],
+
+    s2Heading: 'Ìdí tí oyún àti ìbímọ fi ń fi wàhálà lé e',
+    s2Body1:
+      'Oyún ń fi ìfúnpá púpọ̀ sí i lé ìsàlẹ̀ ìbàdí díẹ̀díẹ̀. Ìbímọ lọ́nà àbínibí lè wá na àwọn iṣan àti àwọn ara agbègbè yìí gan-an.',
+    s2Body2:
+      'Ìbímọ nípa iṣẹ́ abẹ (cesarean) kò gba ìsàlẹ̀ ìbàdí là pátápátá pẹ̀lú: oyún fúnra rẹ̀ jẹ́ àkókò pàtàkì fún àwọn iṣan wọ̀nyí.',
+    s2Body3:
+      'Lẹ́yìn ìbímọ, nítorí náà, ó jẹ́ ohun àbáyọ pé ìmúpadàbọ̀sípò máa gba àkókò. Àwọn obìnrin kan kò ní rí àmì kankan, nígbà tí àwọn mìíràn lè kíyèsí ìtú ito, ìmọ̀lára ìwúwo, tàbí ìdínkù ìṣàkóso iṣan.',
+    s2TipTitle: 'Ìmúpadàbọ̀sípò kọ̀ọ̀kan yàtọ̀',
+    s2TipText:
+      'Irú ìbímọ, yíya tàbí gígé (episiotomy), wíwà ìrora, àti ipò ara rẹ lápapọ̀ lẹ́yìn ìbímọ, gbogbo wọn lè nípa lórí ìmúpadàbọ̀sípò.',
+
+    s3Heading: 'Ìgbà wo ni a bẹ̀rẹ̀ ìmúpadàbọ̀sípò ìsàlẹ̀ ìbàdí?',
+    s3Body1:
+      'Lẹ́yìn ìbímọ tí kò ní ìṣòro, a lè bẹ̀rẹ̀ sí í há ìsàlẹ̀ ìbàdí pẹ̀lẹ́ padà díẹ̀díẹ̀. Ó ṣì ṣe pàtàkì láti ṣe àtúnṣe àwọn ìdárayá sí ipò rẹ àti láti wá ìmọ̀ràn tí o bá ní ìṣòro, ìrora púpọ̀, tàbí ìtọ́jú pàtó kan.',
+    s3Body2:
+      'Tí o bá ní ọpọ́n ito (urinary catheter), àwọn ìmọ̀ràn kan dámọ̀ràn pé kí o dúró títí a ó fi yọ ọ́ kúrò tí ito dídá sì padà sí déédéé kí o tó bẹ̀rẹ̀ àwọn ìdárayá perineum.',
+    s3AlertTitle: 'Má ṣe fi tipátipá ṣe é nígbà tí ó bá ń dùn',
+    s3AlertText:
+      'Ìrora púpọ̀, àwọn àmì tó ń burú sí i, ọgbẹ́ tí kò ń san dáadáa, tàbí àníyàn èyíkéyìí nílò ìmọ̀ràn láti ọ̀dọ̀ agbẹ̀bí, dókítà, tàbí ọ̀jọ̀gbọ́n ìmúpadàbọ̀sípò.',
+
+    s4Heading: 'Kíkọ́ bí a ṣe ń há iṣan náà dáadáa',
+    s4Body1:
+      'Láti dá ìṣípòpadà náà mọ̀, ronú pé o ń gbìyànjú láti dá afẹ́fẹ́ àti ìfẹ́ láti tọ̀ dúró lẹ́ẹ̀kan náà. Ìṣípòpadà tí ò ń wá ni ìmọ̀lára híhá àti gbígbé sókè sí inú.',
+    s4Body2:
+      'Ète rẹ̀ kì í ṣe láti há gbogbo ara rẹ mọ́ra. Ìdí rẹ, itan rẹ àti ikùn rẹ gbọ́dọ̀ dákẹ́ jẹ́ẹ́ bí ó ti ṣeé ṣe tó, nígbà tí mímí ń lọ déédéé.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Mímí'},
+      {icon: 'human-handsup', label: 'Híhá pẹ̀lẹ́'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Híhá gígùn'},
+      {icon: 'gesture-tap-button', label: 'Híhá kíákíá'},
+    ],
+    s4HighlightTitle: 'Ìsinmi ṣe pàtàkì bákan náà',
+    s4HighlightText:
+      'Lẹ́yìn híhá kọ̀ọ̀kan, jẹ́ kí àwọn iṣan sinmi pátápátá. Ìmúpadàbọ̀sípò tó dára kì í túmọ̀ sí pípa perineum mọ́ ní híhá ní gbogbo ọjọ́.',
+
+    s5Heading: 'Ṣíṣe ètò ìdárayá díẹ̀díẹ̀',
+    s5Body1:
+      'Ní àkọ́kọ́, ohun tó ṣe pàtàkì jù ni kíkọ́ láti dá àwọn iṣan mọ̀ àti láti ṣe ìṣípòpadà náà dáadáa. Ṣíṣe déédéé ṣe pàtàkì ju agbára lọ.',
+    s5h3a: 'Híhá gígùn',
+    s5Body2:
+      'Há ìsàlẹ̀ ìbàdí pẹ̀lẹ́, lẹ́yìn náà dì híhá náà mú fún ìṣẹ́jú-àáyá díẹ̀ láìdí mímí mú. Lẹ́yìn náà tú u sílẹ̀ pátápátá kí o tó tún bẹ̀rẹ̀.',
+    s5h3b: 'Híhá kúkúrú',
+    s5Body3:
+      'Nígbà tí o bá ti ní ìṣípòpadà náà, a lè fi àwọn híhá kékeré kíákíá kún un. Wọ́n ń ṣèrànwọ́ láti kọ́ agbára rẹ láti há àwọn iṣan kíákíá nígbà tí ìfúnpá inú bá pọ̀ sí i, fún àpẹẹrẹ ṣáájú kí o tó wú ikọ́ tàbí kí o tó sín.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'So àwọn ìdárayá mọ́ àṣà ojoojúmọ́'},
+      {icon: 'human-sitting', label: 'Bẹ̀rẹ̀ ní ipò tí ó tù ọ́'},
+      {icon: 'weather-windy', label: 'Mí déédéé nígbà híhá'},
+      {icon: 'sleep', label: 'Bọ̀wọ̀ fún àwọn àkókò ìsinmi'},
+      {icon: 'chart-line', label: 'Mú ìṣòro náà pọ̀ sí i díẹ̀díẹ̀'},
+      {icon: 'doctor', label: 'Béèrè fún ìmọ̀ràn tí o kò bá mọ̀ dájú'},
+    ],
+    s5TipTitle: 'Ṣíṣe déédéé ju gbogbo rẹ̀ lọ',
+    s5TipText:
+      'Sísopọ̀ àwọn ìdárayá mọ́ àṣà tí ó ti wà nínú ọjọ́ rẹ lè mú kí ó rọrùn láti máa ṣe déédéé: lẹ́yìn fífún ọmọ lọ́mú, lẹ́yìn fífọ eyín, tàbí ní àkókò mìíràn tó bá ọ mu.',
+
+    s6Heading: 'Àwọn àṣìṣe tó wọ́pọ̀ láti yẹra fún',
+    s6Body1:
+      'Àwọn ìdárayá perineum lè dà bí ohun tó rọrùn, ṣùgbọ́n ó rọrùn láti lo àwọn iṣan mìíràn dípò rẹ̀ tàbí láti tì í jù.',
+    commonMistakes: [
+      'Híhá ìdí tàbí itan dípò ìsàlẹ̀ ìbàdí',
+      'Dídí mímí mú nígbà híhá',
+      'Pípa àwọn iṣan mọ́ ní híhá nígbà gbogbo láìjẹ́ kí wọ́n sinmi',
+      'Ṣíṣe àwọn ìdárayá fún ọjọ́ díẹ̀ nìkan lẹ́yìn náà kí a dúró',
+      'Mọ̀ọ́mọ̀ dá ito dúró láti ṣàyẹ̀wò híhá náà',
+    ],
+    s6TipTitle: 'Ohun tí kò yẹ kí o ṣe',
+    s6TipText:
+      'A kò dámọ̀ràn ṣíṣe àwọn ìdárayá nípa mímọ̀ọ́mọ̀ dá ito dúró. Ọ̀nà yìí kò kọ́ perineum dáadáa, ó sì lè da iṣẹ́ àpòòtọ̀ déédéé rú.',
+
+    s7Heading: 'Àwọn àmì wo ni ó yẹ kí ó mú kí o lọ rí dókítà?',
+    s7Body1:
+      'Ìtú ito kékeré tàbí ìmọ̀lára àìwọ́pọ̀ lè farahàn nígbà míì lẹ́yìn ìbímọ. Ṣùgbọ́n, kò yẹ kí a fojú fò wọ́n tí wọ́n bá ń tẹ̀síwájú, tí wọ́n ń burú sí i, tàbí tí wọ́n ń dí ìgbésí ayé rẹ lọ́wọ́.',
+    warningSigns: [
+      'Ìtú ito nígbà tí o bá wú ikọ́, sín, rẹ́rìn-ín, tàbí tẹ̀ ara',
+      'Ìmọ̀lára ìwúwo tàbí ìfúnpá ní ìsàlẹ̀ ìbàdí',
+      'Ìmọ̀lára pé ìdì kan tàbí ohun kan ń sọ̀kalẹ̀ sínú obo',
+      'Ìṣòro dídá afẹ́fẹ́ tàbí ìgbẹ́ dúró',
+      'Ìrora tí kì í lọ ní perineum',
+      'Ìrora nígbà tàbí lẹ́yìn ìbálòpọ̀',
+      'Ìṣòro dídá àwọn iṣan perineum mọ̀ tàbí híhá wọn dáadáa',
+    ],
+    consultLabel: 'Ìgbà wo ni o yẹ kí o wá ìmọ̀ràn?',
+    s7Body2:
+      'Agbẹ̀bí, dókítà, tàbí physiotherapist tó mọ̀ nípa ìmúpadàbọ̀sípò ìsàlẹ̀ ìbàdí lè ṣàyẹ̀wò iṣẹ́ àwọn iṣan, kí ó sì dámọ̀ràn ètò tó yẹ.',
+
+    s8Heading: 'Àti lẹ́yìn yíya, episiotomy, tàbí ìbímọ nípa iṣẹ́ abẹ?',
+    s8Body1:
+      'Yíya tàbí episiotomy nílò ìtọ́jú pàtó nígbà ìwòsàn. Pípadà sí àwọn iṣẹ́ yẹ kí ó ronú nípa ìrora, ipò àpá, àti ìtọ́sọ́nà tí a fún ọ lẹ́yìn ìbímọ.',
+    s8Body2:
+      'Lẹ́yìn ìbímọ nípa iṣẹ́ abẹ, ìmúpadàbọ̀sípò tún kan ògiri ikùn àti àpá. Àní bí ìbímọ náà kò bá jẹ́ ti àbínibí, oyún fúnra rẹ̀ ṣì fi wàhálà lé ìsàlẹ̀ ìbàdí.',
+    s8HighlightTitle: 'Ìtọ́jú tí a ṣe fún ọ lè ṣèrànwọ́',
+    s8HighlightText:
+      'Ní ọ̀ràn yíya tó pọ̀, ìrora, àwọn àmì tó jẹ mọ́ ito tàbí ìfun, tàbí àwọn ìṣòro tí kì í lọ, àyẹ̀wò pẹ̀lú ọ̀jọ̀gbọ́n ìlera lè wúlò gan-an.',
+
+    s9Heading: 'Pípadà sí eré ìdárayá díẹ̀díẹ̀',
+    s9Body1:
+      'Pípadà sí ìṣípòpadà lẹ́yìn ìbímọ yẹ kí ó jẹ́ díẹ̀díẹ̀. Rírìn àti àwọn ìṣípòpadà pẹ̀lẹ́ lè bẹ̀rẹ̀ padà ní gbogbogbòò gẹ́gẹ́ bí bí o ṣe ń rí lára, nígbà tí àwọn iṣẹ́ tó lágbára nílò ìṣọ́ra púpọ̀ sí i.',
+    s9Body2:
+      'Kí o tó padà sí sísáré, fífò, tàbí ìdárayá líle gan-an, ó dára jù láti ṣe àyẹ̀wò ìmúpadàbọ̀sípò ìsàlẹ̀ ìbàdí kí o sì kíyèsí àwọn àmì èyíkéyìí.',
+    s9AlertTitle: 'Má ṣe yára àwọn ìgbésẹ̀',
+    s9AlertText:
+      'Ìtú ito, ìmọ̀lára ìwúwo, tàbí ìrora nígbà tàbí lẹ́yìn ìdárayá jẹ́ àmì pé o yẹ kí o dín ìyára kù kí o sì wá ìmọ̀ràn kí o tó mú agbára pọ̀ sí i.',
+
+    s10Heading: 'Ìgbà wo ni o yẹ kí o rí ọ̀jọ̀gbọ́n?',
+    s10Body1:
+      'Ìmúpadàbọ̀sípò ìsàlẹ̀ ìbàdí pẹ̀lú agbẹ̀bí tàbí physiotherapist lè wúlò tí o kò bá mọ̀ dájú bóyá o ń há iṣan náà dáadáa, tí àwọn àmì rẹ bá ń tẹ̀síwájú, tàbí tí o bá fẹ́ padà sí àwọn iṣẹ́ ara kan pẹ̀lú ìgboyà.',
+    questionCardTitle: 'Àwọn ìbéèrè tó wúlò láti béèrè',
+    appointmentQuestions: [
+      'Ṣé àwọn àmì mi bá àìlera ìsàlẹ̀ ìbàdí mu?',
+      'Ṣé mo ń há iṣan náà dáadáa?',
+      'Ìgbà mélòó ni ó yẹ kí n ṣe é lójoojúmọ́?',
+      'Ṣé mo lè padà sí sísáré, eré ìdárayá, tàbí ìdárayá líle?',
+      'Ṣé mo nílò ìmúpadàbọ̀sípò pẹ̀lú agbẹ̀bí tàbí physiotherapist?',
+      'Ṣé àpá mi, yíya mi, tàbí ìbímọ mi nípa iṣẹ́ abẹ nílò ìṣọ́ra pàtó kan?',
+    ],
+    s10TipTitle: 'Ó dára láti mọ̀',
+    s10TipText:
+      'Rírí ọ̀jọ̀gbọ́n kì í fi dandan túmọ̀ sí pé ohun kan ṣe. Ìpàdé kan lè ràn ọ́ lọ́wọ́ láti ṣàyẹ̀wò ọ̀nà tí ò ń gbà ṣe é, láti wo ìmúpadàbọ̀sípò rẹ, àti láti kọ́ bí a ṣe ń tẹ̀síwájú dáadáa.',
+
+    s11Heading: 'Ìmúpadàbọ̀sípò tó ń gba àkókò',
+    s11Body1:
+      'Lẹ́yìn ìbímọ, ó jẹ́ ohun àbáyọ pé o kò ní rí ìmọ̀lára tàbí agbára iṣan kan náà tí o ní ṣáájú oyún lẹ́sẹ̀kẹsẹ̀.',
+    s11Body2:
+      'Ète rẹ̀ kì í ṣe láti há iṣan tó pọ̀ jù lọ bí ó ti ṣeé ṣe. Ó jẹ́ nípa rírí ìṣọ̀kan tó dára padà díẹ̀díẹ̀ láàrín híhá àti ìsinmi, lẹ́yìn náà kí o lè lo àwọn iṣan wọ̀nyí nípa ti ẹ̀dá nínú àwọn iṣẹ́ ojoojúmọ́.',
+    s11HighlightTitle: 'Ìlọsíwájú kékeré jẹ́ ìlọsíwájú gidi',
+    s11HighlightText:
+      'Òye tó dára sí i nípa ìṣípòpadà náà, ìṣẹ́jú-àáyá díẹ̀ àfikún nínú híhá, tàbí ìdínkù ìtú ito jẹ́ àmì tó ń fúnni níṣìírí.',
+
+    s12Heading: 'Àwọn kókó pàtàkì',
+    summaryTitle: 'Àwọn kókó pàtàkì',
+    summaryItems: [
+      'Oyún àti ìbímọ ń fi wàhálà púpọ̀ lé ìsàlẹ̀ ìbàdí.',
+      'Ìmúpadàbọ̀sípò díẹ̀díẹ̀ jẹ́ ohun àbáyọ lẹ́yìn ìbímọ.',
+      'Àwọn ìdárayá yẹ kí ó fi ìdára ìṣípòpadà ṣáájú agbára.',
+      'Mímí àti ìsinmi ṣe pàtàkì bí híhá.',
+      'Ìtú ito, ìwúwo, tàbí ìrora tí kì í lọ yẹ fún èrò ọ̀jọ̀gbọ́n.',
+      'Ìmúpadàbọ̀sípò pẹ̀lú agbẹ̀bí tàbí physiotherapist lè ràn ọ́ lọ́wọ́ láti rí ìṣàkóso tó dára padà.',
+      'Pípadà sí eré ìdárayá yẹ kí ó jẹ́ díẹ̀díẹ̀, pàápàá fún àwọn iṣẹ́ líle.',
+    ],
+
+    finalTipTitle: 'Gba àkókò láti múpadàbọ̀sípò',
+    finalTipText:
+      'Lẹ́yìn ìbímọ, ara rẹ ti la ọ̀pọ̀ àyípadà kọjá. Perineum yẹ fún ìtọ́jú bí ìyókù ara rẹ: díẹ̀díẹ̀, déédéé, àti láìsí ìfúnpá.',
+
+    disclaimerText:
+      'Àpilẹ̀kọ yìí wà fún ìmọ̀ nìkan, kò sì rọ́pò ìmọ̀ràn ìṣègùn tí a ṣe fún ọ ní pàtó. Tí o bá ní ìrora, àwọn àmì tí kì í lọ, tàbí àníyàn èyíkéyìí nípa ìmúpadàbọ̀sípò rẹ, wá ìmọ̀ràn lọ́dọ̀ ọ̀jọ̀gbọ́n ìlera.',
+  },
+  zu: {
+    badge: 'NGEMVA KOKUBELETHA • UKUPHILA KABUSHA',
+    title: 'Ukuqinisa i-pelvic floor\nngemva kokubeletha',
+    metaDuration: 'Imizuzu emi-8 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Okuphawulwe ngochwepheshe',
+    intro:
+      'Ngemva kokukhulelwa nokubeletha, i-pelvic floor idinga isikhathi ukuze iphile kabusha. Imisebenzi elula, ejwayelekile neqhubekayo ingakusiza ubuyele emandleni, ekulawuleni nasekuzethembeni, ngaphandle kokushisekela ukusheshisa izinto.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ukuqonda indima ye-perineum',
+      'Kungani ukubeletha kuyicindezela',
+      'Isikhathi sokuqala ukuvivinya i-pelvic floor',
+      'Ukufunda ukuncipha kahle kwemisipha',
+      'Ukwakha inqubo eqhubekayo',
+      'Amaphutha okufanele ugweme',
+      'Isikhathi sokucela usizo',
+      'Ukubuyela kancane kancane ekuzivivinyeni',
+      'Ukulungiselela ukuvakashela udokotela',
+      'Okubalulekile',
+    ],
+    shareMessage: 'Ukuqinisa i-pelvic floor ngemva kokubeletha — AWA',
+
+    s1Heading: 'Ukuqonda indima ye-perineum',
+    s1Body1:
+      'I-perineum, ebizwa nangokuthi i-pelvic floor, yiqembu lemisipha esekeleni lesiphundu. Isiza ekulawuleni isinyi nesigaxa futhi isekela izitho zesiphundu.',
+    s1Body2:
+      'Ngesikhathi sokukhulelwa, le misipha kufanele iphathe isisindo esengeziwe izinyanga eziningana. Icindezelwa kakhulu nangesikhathi sokubeletha.',
+    s1HighlightTitle: 'Umsipha ocashile kodwa obalulekile',
+    s1HighlightText:
+      'I-pelvic floor ibamba iqhaza emisebenzini eminingana yansuku zonke: ukubamba umchamo nendle, ukulawula umoya, ukusekela izitho zesiphundu, nokubamba iqhaza kwezinye izindlela zocansi.',
+
+    benefitsHeading: 'Izinzuzo zokuqina kwe-pelvic floor',
+    benefitsIntro:
+      'Ukuqinisa kancane kancane futhi ngendlela efanele kungasiza ukuthuthukisa ukulawula nokusekela kwe-pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Ukulawula kangcono isinye',
+        text: 'I-pelvic floor ibamba iqhaza ekulawuleni isinye. Ukuyiqinisa kancane kancane kungasiza ukunciphisa ukuvuza komchamo okuthile.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ukusekela umsebenzi wamathumbu',
+        text: 'Le misipha isiza nasekulawuleni umoya nendle futhi inikela ekusekeleni izitho zesiphundu.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Ukusekela izitho zesiphundu',
+        text: 'I-pelvic floor yakha isisekelo semisipha esiqinisekile esisiza ukusekela isinye, ibhikawozi namathumbu.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Ukubuyelwa kancane kancane yilokho okuzwayo',
+        text: 'Ukuvivinya okufanele kungakusiza futhi ube nokuqaphela nokulawula kangcono kule ndawo.',
+      },
+    ],
+
+    s2Heading: 'Kungani ukukhulelwa nokubeletha kuyicindezela',
+    s2Body1:
+      'Ukukhulelwa kubeka ingcindezi eyengeziwe kancane kancane ku-pelvic floor. Ukubeletha ngomhlandla kungase kuyelule kakhulu imisipha nezicubu kule ndawo.',
+    s2Body2:
+      'Ukubeletha ngokuhlinzwa (cesarean) nakho akuyisindisi ngokuphelele i-pelvic floor: ukukhulelwa ngokwakho kuhlala kuyisikhathi esibalulekile kule misipha.',
+    s2Body3:
+      'Ngemva kokubeletha, ngakho-ke kujwayelekile ukuthi ukuphila kabusha kuthathe isikhathi. Abanye besifazane cishe abazwa zimpawu, kanti abanye bangaphawula ukuvuza, umuzwa wokusinda, noma ukwehla kokulawula imisipha.',
+    s2TipTitle: 'Ukuphila kabusha kuhlukile kowesifazane ngamunye',
+    s2TipText:
+      'Uhlobo lokubeletha, ukuklebhuka noma i-episiotomy, ubuhlungu, nesimo sakho jikelele ngemva kokubeletha konke kungathinta ukuphila kabusha.',
+
+    s3Heading: 'Isikhathi sokuqala ukuvivinya i-pelvic floor?',
+    s3Body1:
+      'Ngemva kokubeletha okungenazinkinga, ukuncipha okuthambile kwe-pelvic floor imvamisa kungaqalwa kabusha kancane kancane. Kuhlala kubalulekile ukuvumelanisa imisebenzi nesimo sakho nokucela ukweluleka uma ube nenkinga, ubuhlungu obukhulu, noma inqubo ethile.',
+    s3Body2:
+      'Uma unompompi womchamo, ezinye izincomo ziphakamisa ukulinda kuze kukhishwe futhi ukuchama okujwayelekile kubuyele ngaphambi kokuqala imisebenzi ye-perineum.',
+    s3AlertTitle: 'Ungaphoqi uma kubuhlungu',
+    s3AlertText:
+      'Ubuhlungu obukhulu, izimpawu ezimbi kakhulu, inxeba eliphola kabi, noma yikuphi okukukhathazayo kudinga ukweluleka komzali (umbelethisi), udokotela, noma uchwepheshe wokuvivinya.',
+
+    s4Heading: 'Ukufunda ukuncipha kahle kwemisipha',
+    s4Body1:
+      'Ukuze uqaphele lo mnyakazo, cabanga ukuthi uzama ukubamba umoya nesifiso sokuchama ngasikhathi sinye. Lokho okufunayo umuzwa wokuncipha nokuhlehlisa phakathi.',
+    s4Body2:
+      'Inhloso akukhona ukuqinisa umzimba wonke. Amanqina, amathanga nesisu kufanele kuhlale kuthambile kakhulu ngangokunokwenzeka, kuyilapho ukuphefumula kuqhubeka kujwayelekile.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Ukuphefumula'},
+      {icon: 'human-handsup', label: 'Ukuncipha okuthambile'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Ukuncipha okude'},
+      {icon: 'gesture-tap-button', label: 'Ukuncipha okusheshayo'},
+    ],
+    s4HighlightTitle: 'Ukuphumula kubalulekile ngokulinganayo',
+    s4HighlightText:
+      'Ngemva kokuncipha ngakunye, vumela imisipha iphumule ngokuphelele. Ukuvivinya okuhle akusho ukugcina i-perineum iqinile usuku lonke.',
+
+    s5Heading: 'Ukwakha inqubo eqhubekayo',
+    s5Body1:
+      'Ekuqaleni, okubaluleke kakhulu ukufunda ukuhlonza imisipha nokwenza umnyakazo kahle. Ukuhlala njalo kubalulekile kunamandla.',
+    s5h3a: 'Ukuncipha okude',
+    s5Body2:
+      'Ncipha kancane i-pelvic floor, bese ugcina ukuncipha imizuzwana embalwa ngaphandle kokubamba umoya. Bese ukhulula ngokuphelele ngaphambi kokuphinda.',
+    s5h3b: 'Ukuncipha okufushane',
+    s5Body3:
+      'Uma umnyakazo usuwazi kahle, ungangeza ukuncipha okuncane okusheshayo. Kusiza ukuzijwayeza ukuncipha ngokushesha lapho ingcindezi yesisu ikhula, isibonelo ngaphambi kokukhwehlela noma ukuthimula.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Hlanganisa imisebenzi nesihloko sansuku zonke'},
+      {icon: 'human-sitting', label: 'Qala ngesimo esiphumulayo'},
+      {icon: 'weather-windy', label: 'Phefumula kahle ngesikhathi sokuncipha'},
+      {icon: 'sleep', label: 'Hlonipha izigaba zokuphumula'},
+      {icon: 'chart-line', label: 'Khulisa ubunzima kancane kancane'},
+      {icon: 'doctor', label: 'Cela ukweluleka uma ungaqiniseki'},
+    ],
+    s5TipTitle: 'Ukuhlala njalo ngaphezu kwakho konke',
+    s5TipText:
+      'Ukuhlanganisa imisebenzi nesihloko esivele sisosukwini lwakho kungakusiza ukuhlala njalo: ngemva kokuncelisa, ngemva kokuxubha amazinyo, noma ngesinye isikhathi esikufanelayo.',
+
+    s6Heading: 'Amaphutha avamile okufanele ugweme',
+    s6Body1:
+      'Imisebenzi ye-perineum ingabonakala ilula, kodwa kulula ukusebenzisa eminye imisipha esikhundleni noma ukuphoqa ngokweqile.',
+    commonMistakes: [
+      'Ukuqinisa amanqina noma amathanga esikhundleni se-pelvic floor',
+      'Ukubamba umoya ngesikhathi sokuncipha',
+      'Ukugcina imisipha ncipha njalo ngaphandle kokuyiyekela iphumule',
+      'Ukwenza imisebenzi izinsuku ezimbalwa kuphela bese uyayeka',
+      'Ukumisa ngamabomu umchamo ukuze uhlole ukuncipha',
+    ],
+    s6TipTitle: 'Okungafanele ukwenze',
+    s6TipText:
+      'Akunconywa ukuzivivinya ngokumisa umchamo ngamabomu. Le ndlela ayiyivivinyi kahle i-perineum futhi ingaphazamisa umsebenzi ojwayelekile wesinye.',
+
+    s7Heading: 'Yiziphi izimpawu ezifanele zikuthumele ukubonana nodokotela?',
+    s7Body1:
+      'Ukuvuza okuncane noma umuzwa ongajwayelekile kungavela ngemva kokubeletha. Kodwa akufanele kunganakwa uma kuqhubeka, kubi kakhulu, noma kuphazamisa impilo yakho yansuku zonke.',
+    warningSigns: [
+      'Ukuvuza komchamo uma ukhwehlela, uthimula, uhleka noma uphokophela',
+      'Umuzwa wokusinda noma wengcindezi ezansi esiphundwini',
+      'Umuzwa wokuthi isigaxa noma okuthile kuyehla emacansini',
+      'Ubunzima bokubamba umoya noma indle',
+      'Ubuhlungu obuqhubekayo ku-perineum',
+      'Ubuhlungu ngesikhathi noma ngemva kobuhlobo bocansi',
+      'Ubunzima bokuhlonza noma bokuncipha kahle kwemisipha ye-perineum',
+    ],
+    consultLabel: 'Kufanele ucele ukweluleka nini?',
+    s7Body2:
+      'Umbelethisi, udokotela, noma i-physiotherapist ekhethekile ekuvivinyeni i-pelvic floor angahlola umsebenzi wemisipha futhi aphakamise uhlelo olufanele.',
+
+    s8Heading: 'Nakuba kuklebhukile, kwenziwe i-episiotomy, noma kwahlinzwa (cesarean)?',
+    s8Body1:
+      'Ukuklebhuka noma i-episiotomy kudinga ukunakekelwa okukhethekile ngesikhathi sokuphola. Ukubuyela emisebenzini kufanele kucabangele ubuhlungu, isimo sesibazi, nesiqondiso esinikeziwe ngemva kokubeletha.',
+    s8Body2:
+      'Ngemva kokubeletha ngokuhlinzwa, ukuphila kabusha kuhilela nodonga lwesisu nesibazi. Noma ngabe ukubeletha kwakungeyona ngomhlandla, ukukhulelwa ngokwakho kwabeka ingcindezi ku-pelvic floor.',
+    s8HighlightTitle: 'Ukunakekelwa okwenzelwe wena kungasiza',
+    s8HighlightText:
+      'Uma kuklebhuke kakhulu, kunobuhlungu, izimpawu zomchamo noma zamathumbu, noma ubunzima obuqhubekayo, ukuhlolwa ngochwepheshe wezempilo kungaba wusizo kakhulu.',
+
+    s9Heading: 'Ukubuyela kancane kancane ekuzivivinyeni',
+    s9Body1:
+      'Ukubuyela ekunyakazeni ngemva kokubeletha kufanele kube kancane kancane. Ukuhamba nokunyakaza okuthambile imvamisa kungaqalwa kabusha ngokuya ngendlela ozizwa ngayo, kanti imisebenzi enomthelela omkhulu idinga ukuqapha okwengeziwe.',
+    s9Body2:
+      'Ngaphambi kokuqala ukugijima, ukugxuma, noma ukuzivivinya okunzima kakhulu, kungcono ukuhlola ukuphila kabusha kwe-pelvic floor futhi ucabangele nanoma yiziphi izimpawu.',
+    s9AlertTitle: 'Ungasheshisi izigaba',
+    s9AlertText:
+      'Ukuvuza, umuzwa wokusinda, noma ubuhlungu ngesikhathi noma ngemva kokuzivivinya kuyizimpawu zokuthi kufanele wehlise isivinini futhi ucele ukweluleka ngaphambi kokukhulisa amandla.',
+
+    s10Heading: 'Isikhathi sokubona uchwepheshe?',
+    s10Body1:
+      'Ukuvivinya i-pelvic floor nomzali (umbelethisi) noma i-physiotherapist kungaba wusizo uma ungaqiniseki ukuthi uncipha kahle, uma izimpawu zakho ziqhubeka, noma uma ufuna ukubuyela emisebenzini ethile yomzimba ngokuzethemba.',
+    questionCardTitle: 'Imibuzoewusizo ongayibuza',
+    appointmentQuestions: [
+      'Ingabe izimpawu zami ziyahambisana nokuphela kwamandla kwe-pelvic floor?',
+      'Ingabe ngenza ukuncipha ngendlela efanele?',
+      'Kufanele ngiphinde kangaki ngosuku?',
+      'Ngingabuyela ekugijimeni, ezemidlalo, noma ekuzivivinyeni okunomthelela omkhulu?',
+      'Ngidinga ukuvivinywa nomzali (umbelethisi) noma i-physiotherapist?',
+      'Ingabe isibazi sami, ukuklebhuka, noma ukuhlinzwa (cesarean) kudinga ukuqapha okukhethekile?',
+    ],
+    s10TipTitle: 'Kuhle ukwazi',
+    s10TipText:
+      'Ukubona uchwepheshe akusho ngempela ukuthi kukhona okungalungile. Isikhathi esisodwa singasiza nje ukuhlola indlela yakho, ukuhlola ukuphila kabusha kwakho, nokufunda ukuqhubeka kahle.',
+
+    s11Heading: 'Ukuphila kabusha okuthatha isikhathi',
+    s11Body1:
+      'Ngemva kokubeletha, kujwayelekile ukungabuyeli masisha emizweni noma emandleni emisipha owayenayo ngaphambi kokukhulelwa.',
+    s11Body2:
+      'Inhloso akukhona ukwenza ukuncipha okuningi ngangokunokwenzeka. Kumayelana nokubuyisa kancane kancane ukuvumelana okuhle phakathi kokuncipha nokuphumula, bese uba nokusebenzisa le misipha ngokwemvelo emisebenzini yansuku zonke.',
+    s11HighlightTitle: 'Inqubekela phambili encane iyinqubekela phambili ngempela',
+    s11HighlightText:
+      'Ukuqaphela kangcono umnyakazo, imizuzwana embalwa eyengeziwe yokuncipha, noma ukwehla kokuvuza kuyizimpawu ezikhuthazayo kakade.',
+
+    s12Heading: 'Okubalulekile',
+    summaryTitle: 'Okubalulekile',
+    summaryItems: [
+      'Ukukhulelwa nokubeletha kubeka ingcindezi enkulu ku-pelvic floor.',
+      'Ukuphila kabusha kancane kancane kujwayelekile ngemva kokubeletha.',
+      'Imisebenzi kufanele ibeke phambili ikhwalithi yomnyakazo kunamandla.',
+      'Ukuphefumula nokuphumula kubalulekile ngokulinganayo nokuncipha.',
+      'Ukuvuza komchamo, ukusinda, noma ubuhlungu obuqhubekayo kudinga umbono wochwepheshe.',
+      'Ukuvivinya nomzali (umbelethisi) noma i-physiotherapist kungakusiza ubuyele ekulawuleni kangcono.',
+      'Ukubuyela ezemidlalo kufanele kube kancane kancane, ikakhulukazi emisebenzini enomthelela omkhulu.',
+    ],
+
+    finalTipTitle: 'Thatha isikhathi sokuphila kabusha',
+    finalTipText:
+      'Ngemva kokubeletha, umzimba wakho wadlula ezinguqukweni eziningi. I-perineum ifanele ukunakwa ngokufanayo nomzimba wonke: kancane kancane, njalo, futhi ngaphandle kwengcindezi.',
+
+    disclaimerText:
+      'Lesi sihloko siyolwazi kuphela futhi asithathi indawo yeseluleko sezokwelapha esenzelwe wena. Uma unobuhlungu, izimpawu eziqhubekayo, noma uthintwa yinoma yikuphi mayelana nokuphila kabusha kwakho, cela ukweluleka kochwepheshe wezempilo.',
+  },
+  xh: {
+    badge: 'UKUBELEKA KWEMVA • UKUPHILA',
+    title: 'Ukomeleza i-pelvic floor yakho\nemva kokubeleka',
+    metaDuration: 'Imizuzu eyi-8 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro:
+      'Emva kokukhulelwa nokubeleka, i-pelvic floor idinga ixesha lokuphila. Imithambo elula, eqhelekileyo nenyuka kancinci inokukunceda ubuyisele amandla, ulawulo nokuzithemba, ngaphandle kokuzama ukukhawulezisa izinto.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Ukuqonda indima ye-perineum',
+      'Kutheni ukubeleka kuyibeka phantsi koxinzelelo',
+      'Xa kufuneka uqale uhlaziyo lwe-pelvic floor',
+      'Ukufunda ukuncina ngokuchanekileyo',
+      'Ukwakha inkqubo enyuka kancinci',
+      'Iimpazamo ekufuneka uzigcine',
+      'Xa kufuneka ucele uncedo',
+      'Ukubuyela kancinci kwezemidlalo',
+      'Ukulungiselela ukubonana',
+      'Eyona nto ibalulekileyo',
+    ],
+    shareMessage: 'Ukomeleza i-pelvic floor yakho emva kokubeleka — AWA',
+
+    s1Heading: 'Ukuqonda indima ye-perineum',
+    s1Body1:
+      'I-perineum, ekwabizwa ngokuba yi-pelvic floor, liqela leemisipha eliseziko lenkqayi. Idlala indima ekulawuleni isinyi nesikhumba ibe inceda ukuxhasa iinkqubo zenkqayi.',
+    s1Body2:
+      'Ngexesha lokukhulelwa, ezi misipha kufuneka zithwale ubunzima obongezelelweyo iinyanga ezininzi. Zikwabekwa phantsi koxinzelelo olukhulu ngexesha lokubeleka.',
+    s1HighlightTitle: 'Umsipha ocwangcisiweyo kodwa obalulekileyo',
+    s1HighlightText:
+      'I-pelvic floor ibandakanyeka kwimisebenzi emininzi yemihla ngemihla: ukubamba umchamo nesidoda, ukulawula umoya, ukuxhasa izitho zenkqayi, nokudlala indima kwimisebenzi ethile yezesondo.',
+
+    benefitsHeading: 'Iinzuzo zokomeleza i-pelvic floor',
+    benefitsIntro:
+      'Ukomeleza kancinci nokwenziwa ngokuchanekileyo kunokunceda ukuphucula ulawulo nenkxaso ye-pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Ulawulo olubhetele lesinyi',
+        text: 'I-pelvic floor idlala indima ekulawuleni isinyi. Ukuyomeleza kancinci kunokunceda ukunciphisa ukuvuza komchamo okuthile.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Ukuxhasa umsebenzi wamathumbu',
+        text: 'Ezi misipha zinceda nokulawula umoya nesidoda kwaye zinegalelo ekuxhaseni izitho zenkqayi.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Ukuxhasa izitho zenkqayi',
+        text: 'I-pelvic floor yenza isiseko semisipha esinceda ukuxhasa isinyi, isizalo nesisu esincinci.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Ukubuyisela ukuvakalelwa kancinci',
+        text: 'Uhlaziyo olufanelekileyo lunokukunceda ufumane ukuqonda nolawulo olungcono lwale ndawo.',
+      },
+    ],
+
+    s2Heading: 'Kutheni ukukhulelwa nokubeleka kuyibeka phantsi koxinzelelo',
+    s2Body1:
+      'Ukukhulelwa kubeka uxinzelelo olungakumbi kancinci kwi-pelvic floor. Ukubeleka ngomgudu wesibeleko kunokolula ngokukhulu imisipha nemithambo kule ndawo.',
+    s2Body2:
+      'Ukuhlinzwa kokubeleka (cesarean) akuyikhuseli ngokupheleleyo i-pelvic floor: ukukhulelwa ngokwako kuhlala kuyixesha elibalulekileyo kwezi misipha.',
+    s2Body3:
+      'Emva kokubeleka, kuqhelekile ke ukuba ukuphila kuthathe ixesha. Abanye abafazi abavakalelwa kuphantse kungabikho mpawu, ngelixa abanye banokuphawula ukuvuza, imvakalelo yobunzima, okanye ukuncipha kolawulo lwemisipha.',
+    s2TipTitle: 'Ukuphila ngakunye kwahlukile',
+    s2TipText:
+      'Uhlobo lokubeleka, ukuqhekeka okanye i-episiotomy, ubukho bobuhlungu, nemeko yakho jikelele emva kokubeleka zonke zinokuchaphazela ukuphila.',
+
+    s3Heading: 'Xa kufuneka uqale uhlaziyo lwe-pelvic floor?',
+    s3Body1:
+      'Emva kokubeleka okungenamingeni, ukuncina okuthambileyo kwe-pelvic floor kudla ngokuqalwa kwakhona kancinci. Kusabalulekile ukulungelelanisa imithambo kwimeko yakho nokucela icebiso ukuba ubunengxaki, ubuhlungu obukhulu, okanye inkqubo ethile.',
+    s3Body2:
+      'Ukuba une-catheter yomchamo, ezinye iingcebiso zicebisa ukulinda de isuswe kwaye ukuchama okuqhelekileyo kuqale kwakhona ngaphambi kokuqala imithambo ye-perineum.',
+    s3AlertTitle: 'Musa ukunyamezela ubuhlungu',
+    s3AlertText:
+      'Ubuhlungu obukhulu, iimpawu ezibhetyebhetyayo, inxeba eliphilayo kakubi, okanye nayiphi na inkxalabo ekhethekileyo kufuna icebiso lombelekisi, igqirha, okanye ichwephesha lohlaziyo.',
+
+    s4Heading: 'Ukufunda ukuncina ngokuchanekileyo',
+    s4Body1:
+      'Ukuchonga intshukumo, cinga ngokuzama ukubamba umoya nesilumkiso sokuchama kunye. Intshukumo oyifunayo yimvakalelo yokuncina nokuphakamisa ngaphakathi.',
+    s4Body2:
+      'Injongo ayikukuqinisa umzimba wakho wonke. Iimpundu, amathanga nesisu kufuneka zihlale zikhululekile kangangoko, ngelixa ukuphefumla kuqhubeka ngokuqhelekileyo.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Ukuphefumla'},
+      {icon: 'human-handsup', label: 'Ukuncina okuthambileyo'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Ukuncina okude'},
+      {icon: 'gesture-tap-button', label: 'Ukuncina okukhawulezileyo'},
+    ],
+    s4HighlightTitle: 'Ukukhululeka nako kubalulekile kakhulu',
+    s4HighlightText:
+      'Emva kokuncina ngakunye, vumela imisipha ikhululeke ngokupheleleyo. Uhlaziyo oluhle aluthethi ukugcina i-perineum ixinene usuku lonke.',
+
+    s5Heading: 'Ukwakha inkqubo enyuka kancinci',
+    s5Body1:
+      'Ekuqaleni, eyona nto ibalulekileyo kukufunda ukuchonga imisipha nokwenza intshukumo ngokuchanekileyo. Ukuhlala uqhubeka kubaluleke ngakumbi kunamandla.',
+    s5h3a: 'Ukuncina okude',
+    s5Body2:
+      'Ncina i-pelvic floor ngobunono, emva koko ugcine ukuncina imizuzwana embalwa ngaphandle kokubamba umoya. Emva koko khulula ngokupheleleyo ngaphambi kokuqala kwakhona.',
+    s5h3b: 'Ukuncina okufutshane',
+    s5Body3:
+      'Xa intshukumo ifundiwe, kunokongezwa ukuncina okuncinci okukhawulezileyo. Kunceda ukuqeqesha ukukwazi kwakho ukuncina imisipha ngokukhawuleza xa uxinzelelo lwesisu lunyuka, umzekelo ngaphambi nje kokukhohlela okanye ukuthimla.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Dibanisa imithambo nesiqhelo semihla ngemihla'},
+      {icon: 'human-sitting', label: 'Qala kwindawo ekhululekileyo'},
+      {icon: 'weather-windy', label: 'Phefumla ngokuqhelekileyo ngexesha lokuncina'},
+      {icon: 'sleep', label: 'Hlonipha amanqanaba okukhululeka'},
+      {icon: 'chart-line', label: 'Khulisa ubunzima kancinci kancinci'},
+      {icon: 'doctor', label: 'Cela icebiso ukuba awuqinisekanga'},
+    ],
+    s5TipTitle: 'Ukuhlala uqhubeka ngaphezu kwayo yonke into',
+    s5TipText:
+      'Ukudibanisa imithambo nesiqhelo esele sisemini yakho kunokwenza kube lula ukuhlala uqhubeka: emva kokondla, emva kokuxubha amazinyo, okanye ngelinye ixesha elikulungeleyo.',
+
+    s6Heading: 'Iimpazamo eziqhelekileyo ekufuneka uzigcine',
+    s6Body1:
+      'Imithambo ye-perineum inokubonakala ilula, kodwa kulula ukuhlawulela ngeminye imisipha okanye ukunyanzela kakhulu.',
+    commonMistakes: [
+      'Ukuxinana kweempundu okanye amathanga endaweni ye-pelvic floor',
+      'Ukubamba umoya ngexesha lokuncina',
+      'Ukugcina imisipha ixinene rhoqo ngaphandle kokuyiyekela ikhululeke',
+      'Ukwenza imithambo kwiintsuku ezimbalwa kuphela emva koko uyeke',
+      'Ukumisa ngabom umlambo womchamo ukuhlola ukuncina',
+    ],
+    s6TipTitle: 'Into engafanele ukwenziwa',
+    s6TipText:
+      'Akucetyiswa ukwenza imithambo ngokumisa ngabom umlambo wakho womchamo. Le ndlela ayiqeqeshi i-perineum ngokuchanekileyo kwaye inokuphazamisa umsebenzi oqhelekileyo wesinyi.',
+
+    s7Heading: 'Zeziphi iimpawu ekufuneka zikhokele ekubonaneni nogqirha?',
+    s7Body1:
+      'Ukuvuza okuncinane okanye imvakalelo engaqhelekanga kunokuvela ngamanye amaxesha emva kokubeleka. Noko ke, akufuneki kunganyanyezelwa ukuba kuyaqhubeka, kuyabhetyebhetye, okanye kuphazamisa ubomi bakho bemihla ngemihla.',
+    warningSigns: [
+      'Ukuvuza komchamo xa ukhohlela, uthimla, uhleka, okanye unyanzela',
+      'Imvakalelo yobunzima okanye uxinzelelo ezantsi enkqayini',
+      'Imvakalelo yokuba iqhuma okanye into ethile iyehla ukuya esithweni sobufazi',
+      'Ubunzima bokubamba umoya okanye isidoda',
+      'Ubuhlungu obuqhubekayo kwi-perineum',
+      'Ubuhlungu ngexesha okanye emva kokwabelana ngesondo',
+      'Ubunzima bokuchonga okanye bokuncina ngokuchanekileyo imisipha ye-perineum',
+    ],
+    consultLabel: 'Xa kufuneka ucele icebiso?',
+    s7Body2:
+      'Umbelekisi, igqirha, okanye i-physiotherapist ekhethekileyo kuhlaziyo lwe-pelvic floor unokuhlola umsebenzi wemisipha aphakamise inkqubo efanelekileyo.',
+
+    s8Heading: 'Kuthekani emva kokuqhekeka, i-episiotomy, okanye ukuhlinzwa kokubeleka?',
+    s8Body1:
+      'Ukuqhekeka okanye i-episiotomy kufuna ukhathalelo olukhethekileyo ngexesha lokuphila. Ukuqalisa kwakhona imisebenzi kufuneka kuthathele ingqalelo ubuhlungu, imeko yesanya, nesikhokelo esinikiweyo emva kokubeleka.',
+    s8Body2:
+      'Emva kokuhlinzwa kokubeleka, ukuphila kubandakanya nodonga lwesisu nesanya. Nokuba ukubeleka kwakungekho ngomgudu wesibeleko, ukukhulelwa ngokwako kwabeka uxinzelelo kwi-pelvic floor.',
+    s8HighlightTitle: 'Ukhathalelo olwenzelwe wena lunokunceda',
+    s8HighlightText:
+      'Kwimeko yokuqhekeka okukhulu, ubuhlungu, iimpawu zomchamo okanye zamathumbu, okanye ubunzima obuqhubekayo, uvavanyo nechwephesha lezempilo lunokuba luncedo kakhulu.',
+
+    s9Heading: 'Ukubuyela kancinci kwezemidlalo',
+    s9Body1:
+      'Ukubuyela kwintshukumo emva kokubeleka kufuneka kube kancinci kancinci. Ukuhamba nentshukumo ethambileyo kunokuqalwa kwakhona ngokwendlela ovakalelwa ngayo, ngelixa imisebenzi enempembelelo enkulu ifuna ukuphaphama ngakumbi.',
+    s9Body2:
+      'Ngaphambi kokuqala kwakhona ukubaleka, ukutsiba, okanye uqeqesho olunamandla kakhulu, kungcono ukuhlola ukuphila kwe-pelvic floor uthathele ingqalelo nayiphi na iimpawu.',
+    s9AlertTitle: 'Musa ukukhawulezisa amanqanaba',
+    s9AlertText:
+      'Ukuvuza, imvakalelo yobunzima, okanye ubuhlungu ngexesha okanye emva kokuzilolonga ziimpawu zokuba kufuneka wehlise isantya ucele icebiso ngaphambi kokwandisa amandla.',
+
+    s10Heading: 'Xa kufuneka ubone ingcali?',
+    s10Body1:
+      'Uhlaziyo lwe-pelvic floor nombelekisi okanye i-physiotherapist lunokuba luncedo ukuba awuqinisekanga ukuba uyancina ngokuchanekileyo, ukuba iimpawu ziyaqhubeka, okanye ukuba ufuna ukuqalisa kwakhona imisebenzi ethile yomzimba ngokuzithemba.',
+    questionCardTitle: 'Imibuzo eluncedo ekufuneka uyibuze',
+    appointmentQuestions: [
+      'Ngaba iimpawu zam ziyahambelana nokubuthathaka kwe-pelvic floor?',
+      'Ngaba ndiyawenza ngokuchanekileyo amaxesha okuncina?',
+      'Kufuneka ndiyenze kangaphi imithambo yonke imihla?',
+      'Ngaba ndingabuyela ekubalekeni, kwezemidlalo, okanye kwimithambo enempembelelo enkulu?',
+      'Ngaba ndifuna uhlaziyo nombelekisi okanye i-physiotherapist?',
+      'Ngaba isanya sam, ukuqhekeka, okanye ukuhlinzwa kokubeleka kufuna nawaphi na amanyathelo ekhethekileyo okhuseleko?',
+    ],
+    s10TipTitle: 'Kulungile ukwazi',
+    s10TipText:
+      'Ukubona ichwephesha akuthethi ngokuzenzekelayo ukuba kukho into engalunganga. Iseshoni inokukunceda nje uhlole indlela yakho, uvavanye ukuphila kwakho, ufunde ukuqhubela phambili ngokuchanekileyo.',
+
+    s11Heading: 'Ukuphila okuthatha ixesha',
+    s11Body1:
+      'Emva kokubeleka, kuqhelekile ukungabuyiseli ngoko nangoko ukuvakalelwa okufanayo okanye amandla emisipha obunawo ngaphambi kokukhulelwa.',
+    s11Body2:
+      'Injongo ayikukwenza ukuncina okuninzi kangangoko kunokwenzeka. Kukukubuyisela kancinci ulungelelwano oluhle phakathi kokuncina nokukhululeka, emva koko ukwazi ukusebenzisa ezi misipha ngokwemvelo kwimisebenzi yemihla ngemihla.',
+    s11HighlightTitle: 'Inkqubela encinane yinkqubela yokwenene',
+    s11HighlightText:
+      'Ukuqonda okungcono kwentshukumo, imizuzwana embalwa eyongezelelweyo yokuncina, okanye ukunciphisa kokuvuza sele yimiqondiso enkenketha.',
+
+    s12Heading: 'Eyona nto ibalulekileyo',
+    summaryTitle: 'Eyona nto ibalulekileyo',
+    summaryItems: [
+      'Ukukhulelwa nokubeleka kubeka uxinzelelo olukhulu kwi-pelvic floor.',
+      'Ukuphila kancinci kancinci kuqhelekile emva kokubeleka.',
+      'Imithambo kufuneka ibeke phambili umgangatho wentshukumo kunamandla.',
+      'Ukuphefumla nokukhululeka kubaluleke kakhulu njengokuncina.',
+      'Ukuvuza komchamo, ubunzima, okanye ubuhlungu obuqhubekayo kufanele kufumane uluvo lochwephesha.',
+      'Uhlaziyo nombelekisi okanye i-physiotherapist lunokukunceda ubuyisele ulawulo olungcono.',
+      'Ukubuyela kwezemidlalo kufuneka kube kancinci kancinci, ngakumbi kwimisebenzi enempembelelo enkulu.',
+    ],
+
+    finalTipTitle: 'Thatha ixesha lokuphila',
+    finalTipText:
+      'Emva kokubeleka, umzimba wakho udlule kutshintsho oluninzi. I-perineum ifanele ingqalelo efanayo nomzimba wakho wonke: kancinci kancinci, rhoqo, nangaphandle koxinzelelo.',
+
+    disclaimerText:
+      'Eli nqaku lolwazi kuphela kwaye alithathi indawo yeengcebiso zezonyango ezenzelwe wena. Ukuba uva ubuhlungu, iimpawu eziqhubekayo, okanye unayo nayiphi na inkxalabo ngokuphila kwakho, cela icebiso kuchwephesha lezempilo.',
+  },
+  sn: {
+    badge: 'PASI PEKUBEREKA • KUGADZIRIRWA',
+    title: 'Kusimbisa pelvic floor yako\nmushure mekubereka',
+    metaDuration: 'Maminitsi 8 ekuverenga',
+    metaType: 'Gwara',
+    metaLevel: 'Vanotanga',
+    metaValidated: 'Zvakaongororwa',
+    intro:
+      'Mushure mekuva nepamuviri nekubereka, pelvic floor inoda nguva yekupora. Maekisesaizi akareruka, anoitwa nguva dzose uye zvishoma nezvishoma anogona kukubatsira kudzorera simba, kudzora uye chivimbo, pasina kukurumidza.',
+    contentsTitle: 'Mudzidziso uyu',
+    topics: [
+      'Kunzwisisa basa reperineum',
+      'Nei kubereka kuchiisa mutoro',
+      'Painotanga kudzidziswa zvakare kwepelvic floor',
+      'Kudzidza kudhonza nenzira chaiyo',
+      'Kuumba hurongwa hwezvishoma nezvishoma',
+      'Zvikanganiso zvekudzivirira',
+      'Painofanira kukumbira rubatsiro',
+      'Kudzoka zvishoma nezvishoma kumitambo',
+      'Kugadzirira kuenda kuchiremba',
+      'Zvinhu zvakakosha',
+    ],
+    shareMessage: 'Kusimbisa pelvic floor yako mushure mekubereka — AWA',
+
+    s1Heading: 'Kunzwisisa basa reperineum',
+    s1Body1:
+      'Perineum, inonziwo pelvic floor, mapfupa enyama ari pasi pepelvis. Ine basa mukudzora chikvapu nematumbu uye inobatsira kutsigira nhengo dzepelvis.',
+    s1Body2:
+      'Panguva yepamuviri, nyama idzi dzinofanira kutakura huremu hwakawedzera kwemwedzi yakawanda. Dzinoiswawo pasi pemutoro mukuru panguva yekubereka.',
+    s1HighlightTitle: 'Nyama isina ruzha asi inokosha',
+    s1HighlightText:
+      'Pelvic floor inobatanidzwa mumabasa mazhinji ezuva nezuva: kuramba mutsvo nemarwadzo, kudzora mhepo, kutsigira nhengo dzepelvis, uye kuva nebasa mumamwe mabasa ekuita rudo.',
+
+    benefitsHeading: 'Zvakanakira pelvic floor yakasimba',
+    benefitsIntro:
+      'Kusimbisa zvishoma nezvishoma uye nenzira chaiyo kunogona kubatsira kuvandudza kudzora nekutsigira kwepelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Kudzora chikvapu zvirinani',
+        text: 'Pelvic floor ine basa mukudzora chikvapu. Kuisimbisa zvishoma nezvishoma kunogona kubatsira kudzikisa kuyerera kwemvura kunoitika.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Kutsigira basa rematumbu',
+        text: 'Nyama idzi dzinobatsirawo kudzora mhepo nemarwadzo uye dzinobatsira kutsigira nhengo dzepelvis.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Kutsigira nhengo dzepelvis',
+        text: 'Pelvic floor inoumba hwaro chaihwo hwenyama hunobatsira kutsigira chikvapu, chibereko nematumbu.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Kudzorera manzwiro zvishoma nezvishoma',
+        text: 'Kudzidziswa kwakakodzera kunogona kukubatsirawo kudzorera kuziva nekudzora kwenzvimbo iyi.',
+      },
+    ],
+
+    s2Heading: 'Nei pamuviri nekubereka zvichiisa mutoro',
+    s2Body1:
+      'Pamuviri zvishoma nezvishoma pano wedzera kumanikidza pelvic floor. Kubereka nenzira yeukadzi kunogona kuwedzera kutambanudza nyama nenzvimbo iyi zvakanyanya.',
+    s2Body2:
+      'Kubvarurwa (cesarean) hakuponesi pelvic floor zvachose zvakare: pamuviri pacho kuchiri nguva huru kunyama idzi.',
+    s2Body3:
+      'Mushure mekubereka, saka zvakajairika kuti kupora kutore nguva. Vamwe vakadzi havanzwi zviratidzo chaizvo, vamwe vanogona kuona kuyerera kwemvura, manzwiro ekurema, kana kuderera kwekudzora nyama.',
+    s2TipTitle: 'Kupora kwega kwega kwakasiyana',
+    s2TipText:
+      'Mhando yekubereka, kubvaruka kana episiotomy, kuvapo kwemarwadzo, uye mamiriro ako ose mushure mekubereka zvinogona kukanganisa kupora.',
+
+    s3Heading: 'Painotanga kudzidziswa zvakare kwepelvic floor?',
+    s3Body1:
+      'Mushure mekubereka kusina matambudziko, kudhonza zvakapfava kwepelvic floor kunogona kazhinji kuvamba zvishoma nezvishoma. Zvichiri zvakakosha kuchinjanisa maekisesaizi kuti ayenderane nemamiriro ako uye kutsvaga zano kana waona dambudziko, marwadzo makuru kana nzira yakakosha yakaitwa.',
+    s3Body2:
+      'Kana uine catheter yechikvapu, mamwe mazano anoratidza kumirira kusvikira yabviswa uye kuchera kwakajairika kwavamba zvakare usati watanga maekisesaizi eperineum.',
+    s3AlertTitle: 'Usamanikidza kana uchirwadziwa',
+    s3AlertText:
+      'Marwadzo makuru, zviratidzo zviri kuipa,gwapa rinorapa zvisina kunaka, kana kunetseka kupi zvako kunoda zano kubva kumuzvarisi (midwife), chiremba kana nyanzvi yekudzidzisa zvakare.',
+
+    s4Heading: 'Kudzidza kudhonza nenzira chaiyo',
+    s4Body1:
+      'Kuti uone kufamba kwacho, fungidzira kuti uri kuramba mhepo uye chido chekuchera panguva imwe chete. Kufamba kwauri kutsvaga manzwiro ekudhonza nekusimudzira mukati.',
+    s4Body2:
+      'Chinangwa hachisi chekushamisa muviri wese zvakasimba. Matako, mitezo uye dumbu zvinofanira kugara zvakapfava zvakanyanya, uku kufema kuchienderera zvakajairika.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Kufema'},
+      {icon: 'human-handsup', label: 'Kudhonza zvakapfava'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Kudhonza kurefu'},
+      {icon: 'gesture-tap-button', label: 'Kudhonza kwakakurumidza'},
+    ],
+    s4HighlightTitle: 'Kuzorora kwakakoshawo zvakafanana',
+    s4HighlightText:
+      'Mushure mekudhonza kwega kwega, rega nyama dzizorore zvizere. Kudzidziswa zvakare kwakanaka hakurevi kuramba perineum yakadhonzwa zuva rose.',
+
+    s5Heading: 'Kuumba hurongwa hwezvishoma nezvishoma',
+    s5Body1:
+      'Pakutanga, chakakosha ndechekudzidza kuziva nyama uye kuita kufamba nenzira chaiyo. Kuramba uchiita kunokosha kupfuura simba.',
+    s5h3a: 'Kudhonza kurefu',
+    s5Body2:
+      'Dhonza pelvic floor zvakapfava, ozoramba wakadhonza kwemasekondi mashoma usingabate kufema. Ozosunungura zvizere usati wadzokorora.',
+    s5h3b: 'Kudhonza kupfupi',
+    s5Body3:
+      'Kufamba kwacho kana kwatonyatsonzwisiswa, kudhonza kwakakurumidza kudiki kunogona kuwedzerwa. Kunobatsira kudzidzisa kugona kwako kudhonza nyama nokukurumidza kana kumanikidzwa kwedumbu kuchiwedzera, semuenzaniso pamberi pekukosora kana kutsvova.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Batanidza maekisesaizi nemararamiro ezuva nezuva'},
+      {icon: 'human-sitting', label: 'Tanga uri pachinzvimbo chinorodza'},
+      {icon: 'weather-windy', label: 'Fema zvakajairika panguva yekudhonza'},
+      {icon: 'sleep', label: 'Tevedza nguva dzekuzorora'},
+      {icon: 'chart-line', label: 'Wedzera kuoma zvishoma nezvishoma'},
+      {icon: 'doctor', label: 'Bvunza zano kana usina chokwadi'},
+    ],
+    s5TipTitle: 'Kuramba uchiita pamusoro pezvose',
+    s5TipText:
+      'Kubatanidza maekisesaizi nemararamiro aripo kare muzuva rako kunogona kuita kuti zvive nyore kuramba uchiita: mushure mekupa mukaka, mushure mekubhurasha mazino, kana panguva yamwe inokunakira.',
+
+    s6Heading: 'Zvikanganiso zvinowanzoitika zvekudzivirira',
+    s6Body1:
+      'Maekisesaizi eperineum anogona kuoneka akareruka, asi zviri nyore kushandisa dzimwe nyama panzvimbo kana kumanikidza zvakanyanya.',
+    commonMistakes: [
+      'Kusimbisa matako kana mitezo panzvimbo yepelvic floor',
+      'Kubata kufema panguva yekudhonza',
+      'Kuramba nyama dzakadhonzwa nguva dzose pasina kuzidzorera kuti dzizorore',
+      'Kuita maekisesaizi mazuva mashoma bedzi ozomira',
+      'Kumira zvakananga kuerera kwechikvapu kuti uedze kudhonza',
+    ],
+    s6TipTitle: 'Zvisingafaniri kuitwa',
+    s6TipText:
+      'Hazvikurudzirwi kuita maekisesaizi uchimira zvakananga kuerera kwechikvapu. Nzira iyi haidzidzisi perineum nenzira chaiyo uye inogona kukanganisa basa rakajairika rechikvapu.',
+
+    s7Heading: 'Zviratidzo zvipi zvinofanira kukuita kuti uende kuchiremba?',
+    s7Body1:
+      'Kuyerera kudiki kwemvura kana manzwiro asina kujairika zvinogona kuoneka dzimwe nguva mushure mekubereka. Asi hazvifaniri kuregedzerwa kana zvichiramba zviripo, zvichiipa, kana zvichikanganisa hupenyu hwako hwezuva nezuva.',
+    warningSigns: [
+      'Kuyerera kwemvura kana uchikosora, uchitsvova, uchiseka kana uchimanikidza',
+      'Manzwiro ekurema kana kumanikidzwa pasi pepelvis',
+      'Manzwiro okuti chimwe chinhu chiri kudonha mukati mechibereko',
+      'Kuoma kuramba mhepo kana marwadzo',
+      'Marwadzo asingaperi muperineum',
+      'Marwadzo panguva kana mushure mekuita rudo',
+      'Kuoma kuziva kana kudhonza nenzira chaiyo nyama dzeperineum',
+    ],
+    consultLabel: 'Painofanira kutsvagwa zano?',
+    s7Body2:
+      'Muzvarisi (midwife), chiremba kana physiotherapist akadzidzira kudzidziswa zvakare kwepelvic floor anogona kuongorora basa renyama uye kukurudzira chirongwa chakakodzera.',
+
+    s8Heading: 'Zvino mushure mekubvaruka, episiotomy kana cesarean?',
+    s8Body1:
+      'Kubvaruka kana episiotomy kunoda kutarisirwa zvakanyanya panguva yekupora. Kudzokera kumabasa kunofanira kuona marwadzo, mamiriro egwapa, uye mazano akapiwa mushure mekubereka.',
+    s8Body2:
+      'Mushure mecesarean, kupora kunobatanidza madziro edumbu negwapa. Kunyange kana kubereka kusina kuitwa nenzira yeukadzi, pamuviri pacho kwakaisa mutoro pelvic floor.',
+    s8HighlightTitle: 'Kutarisirwa kwakakodzera iwe kunogona kubatsira',
+    s8HighlightText:
+      'Kana pane kubvaruka kukuru, marwadzo, zviratidzo zvechikvapu kana zvematumbu, kana matambudziko anoramba aripo, kuongororwa nemushandi wezvehutano kunogona kubatsira zvikuru.',
+
+    s9Heading: 'Kudzoka zvishoma nezvishoma kumitambo',
+    s9Body1:
+      'Kudzoka kukufamba mushure mekubereka kunofanira kuva kwezvishoma nezvishoma. Kufamba nekufamba kwakapfava kunogona kuvamba zvakajairika zvichienderana nemanzwiro ako, asi mabasa anorova zvakasimba anoda kungwarira kwakawanda.',
+    s9Body2:
+      'Usati wavamba kumhanya, kusvetuka kana kudzidziswa kwakanyanya, zviri nani kuongorora kupora kwepelvic floor uye kucherechedza zviratidzo zvipi zvazvo.',
+    s9AlertTitle: 'Usakurumidze nhanho',
+    s9AlertText:
+      'Kuyerera kwemvura, manzwiro ekurema kana marwadzo panguva kana mushure mekuita ekisesaizi zviratidzo zvekuti unofanira kuderedza uye kutsvaga zano usati wawedzera simba.',
+
+    s10Heading: 'Painofanira kuona nyanzvi?',
+    s10Body1:
+      'Kudzidziswa zvakare kwepelvic floor nemuzvarisi (midwife) kana physiotherapist kunogona kubatsira kana usina chokwadi kuti uri kudhonza nenzira chaiyo, kana zviratidzo zvichiramba zviripo, kana uchida kudzokera kune mamwe mabasa emuviri une chivimbo.',
+    questionCardTitle: 'Mibvunzo inobatsira kubvunza',
+    appointmentQuestions: [
+      'Zviratidzo zvangu zvinofambirana here nekushaya simba kwepelvic floor?',
+      'Ndiri kudhonza nenzira chaiyo here?',
+      'Ndinofanira kuita kangani zuva rega rega?',
+      'Ndingadzokera kukumhanya, mitambo kana ekisesaizi inorova zvakasimba here?',
+      'Ndinoda kudzidziswa zvakare nemuzvarisi (midwife) kana physiotherapist here?',
+      'Gwapa rangu, kubvaruka kana cesarean zvinoda kungwarira kwakakosha here?',
+    ],
+    s10TipTitle: 'Zvakanaka kuziva',
+    s10TipText:
+      'Kuona nyanzvi hakurevi pachena kuti pane chisiri kunaka. Musangano mumwe chete unogona kubatsira kuongorora maitiro ako, kuongorora kupora kwako, uye kudzidza kufambira mberi nenzira chaiyo.',
+
+    s11Heading: 'Kupora kunotora nguva',
+    s11Body1:
+      'Mushure mekubereka, zvakajairika kusadzoka pakarepo kumanzwiro kana simba renyama raiva naro usati wava nepamuviri.',
+    s11Body2:
+      'Chinangwa hachisi chekuita kudhonza kwakawanda sezvinobvira. Kunyanya ndechekudzorera zvishoma nezvishoma kubatana kwakanaka pakati pekudhonza nekuzorora, uye kugona kushandisa nyama idzi zvakasikwa mumabasa ezuva nezuva.',
+    s11HighlightTitle: 'Budiriro diki ibudiriro chaiyo',
+    s11HighlightText:
+      'Kuziva kufamba zvirinani, masekondi mashoma ekudhonza akawedzera, kana kudzikira kwekuyerera kwemvura zvatova zviratidzo zvinoita mwoyo wakasimba.',
+
+    s12Heading: 'Zvinhu zvakakosha',
+    summaryTitle: 'Zvakakosha',
+    summaryItems: [
+      'Pamuviri nekubereka zvinoisa mutoro mukuru pelvic floor.',
+      'Kupora zvishoma nezvishoma kwakajairika mushure mekubereka.',
+      'Maekisesaizi anofanira kuisa kunaka kwekufamba pamberi pesimba.',
+      'Kufema nekuzorora zvakakoshawo zvakafanana nekudhonza.',
+      'Kuyerera kwemvura, kurema kana marwadzo asingaperi zvinofanira kuonekwa nenyanzvi.',
+      'Kudzidziswa zvakare nemuzvarisi (midwife) kana physiotherapist kunogona kukubatsira kudzorera kudzora kwakanaka.',
+      'Kudzokera kumitambo kunofanira kuva kwezvishoma nezvishoma, kunyanya mabasa anorova zvakasimba.',
+    ],
+
+    finalTipTitle: 'Tora nguva yekupora',
+    finalTipText:
+      'Mushure mekubereka, muviri wako wakapfuura mushanduko dzakawanda. Perineum inofanira kutarisirwa sezvakaita muviri wese: zvishoma nezvishoma, nguva dzose, pasina kumanikidzwa.',
+
+    disclaimerText:
+      'Nyaya iyi ndeyeruzivo bedzi uye haitsiviri zano rekurapa rakakodzera iwe. Kana uchirwadziwa, uine zviratidzo zvinoramba zviripo, kana uine kunetseka kupi zvako pamusoro pekupora kwako, tsvaga zano kubva kumushandi wezvehutano.',
+  },
+  ln: {
+    badge: 'NSIMA YA KOBOTA • KOBIKA',
+    title: 'Kolendisa misisa ya libumu ya nse\nnsima ya kobota',
+    metaDuration: 'Mwa mokapo ya kotánga: 8 min',
+    metaType: 'Mokanda ya litambwisi',
+    metaLevel: 'Mobandi',
+    metaValidated: 'Maloba etalelami',
+    intro:
+      'Nsima ya zemi mpe kobota, misisa ya libumu ya nse esengi ntango mpo na kobika. Misala ya pɛtɛɛ, ya ntango nyonso mpe ya mayɔkɔ ekoki kosalisa yo kozwa lisusu makasi, bokonzi mpe elikya, kozanga kosala noki.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Koyeba mosala ya périnée',
+      'Mpo na nini kobota esalaka yango ezwa mpasi',
+      'Ntango ya kobanda kobongisa misisa ya libumu ya nse',
+      'Koyekola kokanga malamu',
+      'Kotia mosala ya mayɔkɔ',
+      'Mabunga oyo esengeli koboya',
+      'Ntango ya kosenga lisalisi',
+      'Kozonga na masano ya nzoto mayɔkɔ',
+      'Kobongisa rendez-vous',
+      'Makambo ya ntina',
+    ],
+    shareMessage: 'Kolendisa misisa ya libumu ya nse nsima ya kobota — AWA',
+
+    s1Heading: 'Koyeba mosala ya périnée',
+    s1Body1:
+      'Périnée, oyo babengaka mpe misisa ya libumu ya nse, ezali liboke ya misisa oyo ezali na nse ya libumu. Esalaka mosala na kokanga mai ya nzoto mpe bipɔtɔ, mpe esalisaka kosimba binkoko ya libumu.',
+    s1Body2:
+      'Na ntango ya zemi, misisa oyo esengeli komema bozito mosusu sanza mingi. Ebwakamaka mpe na mpasi mingi na ntango ya kobota.',
+    s1HighlightTitle: 'Misisa moke kasi ya ntina',
+    s1HighlightText:
+      'Misisa ya libumu ya nse ezali na mosala na makambo mingi ya mokolo na mokolo: kokanga mai ya nzoto mpe bipɔtɔ, kokanga mopɛpɛ, kosimba binkoko ya libumu, mpe kozala na mosala na makambo mosusu ya bolingo.',
+
+    benefitsHeading: 'Litomba ya misisa ya libumu ya nse oyo ezali makasi',
+    benefitsIntro:
+      'Kolendisa yango mayɔkɔ mpe malamu ekoki kosalisa bokonzi mpe lisungi ya misisa ya libumu ya nse.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Bokonzi ya malamu ya mai ya nzoto',
+        text: 'Misisa ya libumu ya nse ezali na mosala na bokonzi ya mai ya nzoto. Kolendisa yango mayɔkɔ ekoki kosalisa kokitisa mai oyo ebimaka na mbala mosusu.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Kosunga mosala ya libumu ya nse',
+        text: 'Misisa oyo esalisaka mpe kokanga mopɛpɛ mpe bipɔtɔ mpe ekotisaka mpe na kosimba binkoko ya libumu.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Kosimba binkoko ya libumu',
+        text: 'Misisa ya libumu ya nse ezali lokola moboko ya misisa oyo esalisaka kosimba vési, libumu mpe ana.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Kozwa lisusu mayɔkɔ makoki ya koyoka',
+        text: 'Kobongisa oyo ebongi ekoki mpe kosalisa yo koyeba mpe kokonza malamu esika oyo.',
+      },
+    ],
+
+    s2Heading: 'Mpo na nini zemi mpe kobota esalaka yango ezwa mpasi',
+    s2Body1:
+      'Zemi etiaka mayɔkɔ mpiko mingi na misisa ya libumu ya nse. Kobota na nzela ya mokɛlɛ ekoki bongo kolendisa misisa mpe nzoto ya esika oyo mingi.',
+    s2Body2:
+      'Kobota na nzela ya kokata libumu ebatelaka te mpenza misisa ya libumu ya nse: zemi yango moko ezali ntango ya ntina mpo na misisa oyo.',
+    s2Body3:
+      'Nsima ya kobota, ezali bongo malamu ete kobika ezwa ntango. Basi mosusu bayokaka mpasi moko te, basi mosusu bakoki komona mai ebimaka, komiyoka bozito, to bokonzi ya misisa ekiti.',
+    s2TipTitle: 'Kobika ya moto na moto ekeseni',
+    s2TipText:
+      'Ndenge ya kobota, kokatama to episiotomi, mpasi, mpe ndenge nzoto na yo ezali nsima ya kobota ekoki nyonso kosala likama na kobika.',
+
+    s3Heading: 'Ntango nini kobanda kobongisa misisa ya libumu ya nse?',
+    s3Body1:
+      'Nsima ya kobota oyo ezangaki mikakatano, kokanga misisa ya libumu ya nse mayɔkɔ ekoki mbala mingi kozonga mayɔkɔ. Ezali ntina kobongisa misala na makambo na yo mpe kosenga toli soki ozalaki na mikakatano, mpasi makasi, to mosala ya monganga ya ndenge mosusu.',
+    s3Body2:
+      'Soki ozali na tube ya mai ya nzoto, toli mosusu elobi ete ozela tube ebimisama mpe kolula mai ya nzoto ezonga malamu liboso ya kobanda misala ya périnée.',
+    s3AlertTitle: 'Kopusa na mpasi te',
+    s3AlertText:
+      'Mpasi makasi, bilembo oyo ezali kokóma mabe, mpota oyo ezali kobika malamu te, to likanisi nyonso ya ndenge mosusu esengi toli ya mobotisi, ya monganga to ya mosali ya kobongisa.',
+
+    s4Heading: 'Koyekola kokanga malamu',
+    s4Body1:
+      'Mpo na koyeba mouvement, kanisa ete ozali kokanga mopɛpɛ mpe mposa ya kolula mai ya nzoto na ntango moko. Mouvement oyo ozali koluka ezali komiyoka ete ozali kokanga mpe kotombola na kati.',
+    s4Body2:
+      'Mokano ezali kokanga nzoto mobimba makasi te. Ntolo, mabɔlɔ mpe libumu esengeli kotikala pɛtɛɛ lokola ekoki, wana mpema ezali kokoba na ndenge ya kawaida.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Kopema'},
+      {icon: 'human-handsup', label: 'Kokanga mayɔkɔ'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Kokanga molai'},
+      {icon: 'gesture-tap-button', label: 'Kokanga noki noki'},
+    ],
+    s4HighlightTitle: 'Kopema malamu ezali na ntina lokola',
+    s4HighlightText:
+      'Nsima ya kokanga nyonso, tika misisa epema mpenza. Kobongisa malamu elakisi te kokanga périnée mokolo mobimba.',
+
+    s5Heading: 'Kotia mosala ya mayɔkɔ',
+    s5Body1:
+      'Na ebandeli, eloko ya ntina mingi ezali koyekola koyeba misisa mpe kosala mouvement malamu. Kosala ntango nyonso eleki makasi.',
+    s5h3a: 'Kokanga molai',
+    s5Body2:
+      'Kanga mayɔkɔ misisa ya libumu ya nse, sima sala ete ekoba bongo mwa bisika ya sekonde kozanga kokanga mpema. Sima tika yango mpenza liboso ya kobanda lisusu.',
+    s5h3b: 'Kokanga mokuse',
+    s5Body3:
+      'Ntango ozali koyeba mouvement, okoki kobakisa kokanga mokuse mpe noki. Esalisaka misisa ekoka kokanga noki ntango mpiko ya libumu ekoli, ndakisa liboso ya kokohola to kopɛsɛ.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Kolanda misala oyo na momeseno ya mokolo na mokolo'},
+      {icon: 'human-sitting', label: 'Banda na ndenge ya kofanda ya malamu'},
+      {icon: 'weather-windy', label: 'Pema ndenge ya kawaida ntango ozali kokanga'},
+      {icon: 'sleep', label: 'Bátela ntango ya kopema'},
+      {icon: 'chart-line', label: 'Bakisa mpasi mayɔkɔ'},
+      {icon: 'doctor', label: 'Senga toli soki oyebi te'},
+    ],
+    s5TipTitle: 'Kosala ntango nyonso liboso ya nyonso',
+    s5TipText:
+      'Kolanda misala oyo na momeseno oyo ezali na mokolo na yo ekoki kosalisa yo kokoba: nsima ya kopesa mwana mabɛle, nsima ya kosukola minyo, to na ntango mosusu oyo ebongi na yo.',
+
+    s6Heading: 'Mabunga oyo esengeli koboya',
+    s6Body1:
+      'Misala ya périnée ekoki komonana pɛtɛɛ, kasi ezali pɛtɛɛ kosalela misisa mosusu to kopusa makasi mingi.',
+    commonMistakes: [
+      'Kokanga ntolo to mabɔlɔ na esika ya misisa ya libumu ya nse',
+      'Kokanga mpema ntango ozali kokanga',
+      'Kokanga misisa ntango nyonso kozanga kotika epema',
+      'Kosala misala kaka mikolo moke sima kotika',
+      'Kokanga mai ya nzoto na mokano mpo na kotala kokanga',
+    ],
+    s6TipTitle: 'Oyo esengeli kosala te',
+    s6TipText:
+      'Ebongi te kosala misala na kokanga mai ya nzoto na mokano. Nzela oyo ekolendisa périnée malamu te mpe ekoki kobebisa mosala ya malamu ya vési.',
+
+    s7Heading: 'Bilembo nini esengeli kopesa ntina ya kokende epai ya monganga?',
+    s7Body1:
+      'Mai moke oyo ebimaka to ndenge ya ndenge mosusu ekoki mbala mosusu kobima nsima ya kobota. Kasi esengeli te kotika yango soki ekoki kokoba, kokóma mabe, to kopesa yo mikakatano na bomoi na yo ya mokolo na mokolo.',
+    warningSigns: [
+      'Mai ya nzoto oyo ebimaka ntango ozali kokohola, kopɛsɛ, koseka to kopusa',
+      'Komiyoka bozito to mpiko na nse ya libumu',
+      'Komiyoka lokola eloko ezali kokita na kati ya libumu ya mwasi',
+      'Mpasi ya kokanga mopɛpɛ to bipɔtɔ',
+      'Mpasi oyo ekendaka te na périnée',
+      'Mpasi ntango to nsima ya bolingo',
+      'Mpasi ya koyeba to kokanga malamu misisa ya périnée',
+    ],
+    consultLabel: 'Ntango nini osengeli kosenga toli?',
+    s7Body2:
+      'Mobotisi, monganga to mosali ya kobongisa nzoto oyo ayebi mosala ya misisa ya libumu ya nse akoki kotala ndenge misisa esalaka mpe kopesa programe oyo ebongi.',
+
+    s8Heading: 'Mpe nsima ya kokatama, episiotomi to kokata libumu?',
+    s8Body1:
+      'Kokatama to episiotomi esengi bokebi na ntango ya kobika. Kozonga na misala esengeli kotalela mpasi, ndenge elembo ya mpota ezali, mpe toli oyo epesamaki nsima ya kobota.',
+    s8Body2:
+      'Nsima ya kokata libumu, kobika etali mpe mosuni ya libumu mpe elembo ya mpota. Ata kobota ezalaki na nzela ya mokɛlɛ te, zemi yango moko etiaki mpe mpiko na misisa ya libumu ya nse.',
+    s8HighlightTitle: 'Bokebi oyo ebongi na yo ekoki kosalisa',
+    s8HighlightText:
+      'Soki kokatama ezalaki makasi, na mpasi, na bilembo ya mai ya nzoto to ya libumu, to na mikakatano oyo ekoki kokoba, kotalelama na mosali ya mayele ekoki kosalisa mingi.',
+
+    s9Heading: 'Kozonga na masano ya nzoto mayɔkɔ',
+    s9Body1:
+      'Kozonga na mouvement nsima ya kobota esengeli kozala mayɔkɔ. Kotambola mpe mouvement ya pɛtɛɛ ekoki mbala mingi kozonga kolanda ndenge omiyoki, kasi misala ya makasi esengi bokebi mingi.',
+    s9Body2:
+      'Liboso ya kozonga na kopota mbango, kopumbwa to komata na nzoto makasi mingi, ezali malamu kotalela ndenge misisa ya libumu ya nse ebiki mpe kotalela bilembo nyonso.',
+    s9AlertTitle: 'Kosala noki te na bikalo',
+    s9AlertText:
+      'Mai oyo ebimaka, komiyoka bozito, to mpasi ntango to nsima ya misala ya nzoto elakisi ete osengeli kokita noki mpe kosenga toli liboso ya kobakisa makasi.',
+
+    s10Heading: 'Ntango nini kokende epai ya mosali ya mayele?',
+    s10Body1:
+      'Kobongisa misisa ya libumu ya nse epai ya mobotisi to ya mosali ya kobongisa nzoto ekoki kosalisa soki oyebi te soki ozali kokanga malamu, soki bilembo na yo ezali kokoba, to soki olingi kozonga na misala mosusu ya nzoto na elikya.',
+    questionCardTitle: 'Mituna ya malamu ya kotuna',
+    appointmentQuestions: [
+      'Bilembo na ngai ekokani na bolembu ya misisa ya libumu ya nse?',
+      'Nazali kokanga malamu?',
+      'Nasengeli kosala mbala boni na mokolo?',
+      'Nakoki kozonga na kopota mbango, masano ya nzoto to misala ya makasi?',
+      'Nasengeli kobongisa misisa epai ya mobotisi to ya mosali ya kobongisa nzoto?',
+      'Elembo ya mpota na ngai, kokatama, to kokata libumu esengi bokebi ya ndenge mosusu?',
+    ],
+    s10TipTitle: 'Eloko ya malamu koyeba',
+    s10TipText:
+      'Kokende epai ya mosali ya mayele elakisi ntango nyonso te ete eloko ezali malamu te. Lisanga moko ekoki kaka kosalisa kotala ndenge ozali kosala, kotala kobika na yo, mpe koyekola kokende liboso malamu.',
+
+    s11Heading: 'Kobika oyo ezwaka ntango',
+    s11Body1:
+      'Nsima ya kobota, ezali kaka ya kawaida te kozwa mbala moko makoki ya koyoka to makasi ya misisa oyo ozalaki na yango liboso ya zemi.',
+    s11Body2:
+      'Mokano ezali kosala kokanga mingi lokola ekoki te. Ezali koleka mpo na kozwa lisusu mayɔkɔ boyokani malamu kati na kokanga mpe kopema, sima kokoka kosalela misisa oyo ndenge ya kawaida na misala ya mokolo na mokolo.',
+    s11HighlightTitle: 'Bokɛngi moke ezali bokɛngi ya solo',
+    s11HighlightText:
+      'Koyeba malamu mouvement, mwa bisika ya sekonde ya kobakisa na kokanga, to kokita ya mai oyo ebimaka ezali bilembo ya elikya.',
+
+    s12Heading: 'Makambo ya ntina',
+    summaryTitle: 'Oyo ya ntina',
+    summaryItems: [
+      'Zemi mpe kobota etiaka mpiko mingi na misisa ya libumu ya nse.',
+      'Kobika mayɔkɔ nsima ya kobota ezali ya kawaida.',
+      'Misala esengeli kopesa ntina na kosala malamu koleka makasi.',
+      'Kopema mpe kopema malamu ezali na ntina lokola kokanga.',
+      'Mai oyo ebimaka, komiyoka bozito, to mpasi oyo ekendaka te esengi likanisi ya mosali ya mayele.',
+      'Kobongisa elongo na mobotisi to mosali ya kobongisa nzoto ekoki kosalisa yo kozwa lisusu bokonzi malamu.',
+      'Kozonga na masano ya nzoto esengeli kozala mayɔkɔ, mingi mingi na misala ya makasi.',
+    ],
+
+    finalTipTitle: 'Zwa ntango ya kobika',
+    finalTipText:
+      'Nsima ya kobota, nzoto na yo eleki na bobongwani mingi. Périnée ebongi na bokebi lokola nzoto mosusu: mayɔkɔ, ntango nyonso mpe kozanga mpiko.',
+
+    disclaimerText:
+      'Lisolo oyo ezali mpo na koyebisa kaka mpe ekoki te kozwa esika ya toli ya monganga oyo ebongi na yo moko. Soki ozali na mpasi, na bilembo oyo ekendaka te, to na mitungisi na ntina ya kobika na yo, senga toli epai ya mosali ya mayele.',
+  },
+  ff: {
+    badge: 'CAGGAL DANYUGO • HOSUGO',
+    title: 'Tiiɗnugo perineum maaɗa\ncaggal danyugo',
+    metaDuration: 'Janngugo 8 miniti',
+    metaType: 'Ɗerewol',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko ƴetti ndaarol',
+    intro:
+      'Caggal reedu e danyugo, perineum ngaɗan wakkati ngam hosugo. Fiilaaji ɗi ngonnda ɓolliiɗi, ɗi ngaɗetee wakkati kala, seɗɗa seɗɗa, ɗum waawi wallugo ma heɓugo semmbe, hakkilo e hoolaare, salaa nanndi ko tawa.',
+    contentsTitle: 'Nder ɗerewol ndin',
+    topics: [
+      'Faamugo kuugal perineum',
+      'Ngam ɗume danyugo ɗum tiiɗnata',
+      'Wakkati ngam fuɗɗugo hosugo perineum',
+      'Janngugo tiiɗnugo no haanani',
+      'Fuɗɗugo kuugal seɗɗa seɗɗa',
+      'Fahin-fahin ɗin ngalaa',
+      'Wakkati ngam ƴamugo walleende',
+      'Hoɗugo siporu seɗɗa seɗɗa',
+      'Haɗugo ngam yahugo ndaarugo doktoor',
+      'Ko ɓuri laaɓtugo',
+    ],
+    shareMessage: 'Tiiɗnugo perineum maaɗa caggal danyugo — AWA',
+
+    s1Heading: 'Faamugo kuugal perineum',
+    s1Body1:
+      'Perineum, ɗum ngoni kadi pelvic floor, ko ɗum ko ɓoggol nder cakkol hakkunde. Ɗum huwa ko haɗugo ndiyam ɗam e njaayeendu e wallugo ko hakkunde cakkol ɗin.',
+    s1Body2:
+      'Nder reedu, ɓoggol ɗin ngaɗan ko ɓeydaaɗum nder lebbi ɗuuɗɗi. Ɗum tiiɗnaa kadi no feewi saa danyugo.',
+    s1HighlightTitle: 'Ɓoggol ɓoyɗo kono ɗum ɓuri nafugo',
+    s1HighlightText:
+      'Pelvic floor huwa nder kuuɗe ñalnde kala ɗuuɗɗe: haɗugo ndiyam ɗam e ñaawaaru, sarugo gaaz, wallugo ko hakkunde cakkol, e huwugo nder kuuɗe cuudi goɗɗe.',
+
+    benefitsHeading: 'Ko tiiɗnugo pelvic floor nafata',
+    benefitsIntro:
+      'Tiiɗnugo seɗɗa seɗɗa, ngaɗaaɗum no haanani, waawi wallugo ɓeydugo hakkilo e wallugo pelvic floor.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Hakkilo ɓuri dow ñaawaaru',
+        text: 'Pelvic floor huwa nder haɗugo ñaawaaru. Tiiɗnugo ɗum seɗɗa seɗɗa waawi wallugo ɓoggol nyaamdu ñaawaaru.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Wallugo kuugal ñaamdu',
+        text: 'Ɓoggol ɗin kadi mbaawi wallugo haɗugo gaaz e ñaawaaru e wallugo ko hakkunde cakkol.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Wallugo ko hakkunde cakkol',
+        text: 'Pelvic floor ko ɓoggol dow ɗum wallata ñaawaaru, reedu e njaayeendu.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Heɓugo hakkilo seɗɗa seɗɗa',
+        text: 'Hosugo no haanani waawi kadi wallugo ma heɓugo anndal e hakkilo dow nokku ɗu.',
+      },
+    ],
+
+    s2Heading: 'Ngam ɗume reedu e danyugo ɗum tiiɗnata',
+    s2Body1:
+      'Reedu ɓeydan ko tiiɗi dow pelvic floor seɗɗa seɗɗa. Danyugo saa gooto waawi ɗaɗɗugo ɓoggol e ko hakkunde nokku ɗu no feewi.',
+    s2Body2:
+      'Operasion cesarean hoosaay pelvic floor kollaa: reedu e hoore mum ɗum wakkati mawndi ngam ɓoggol ɗin.',
+    s2Body3:
+      'Caggal danyugo, ɗum ko nanndi hosugo ɗaɓɓana wakkati. Woɗɓe e rewɓe nanataa alamaaji feere-feere, woɗɓe nanaa ñaawaaru yaajata, hoyre, walla hakkilo ɓoggol sakitii.',
+    s2TipTitle: 'Hosugo kala ko feere',
+    s2TipText:
+      'Danyugo no wayri, wuccugo walla episiotomy, naange muusi, e no ɓernde maaɗa woni caggal danyugo ɗum waawi sellude hosugo.',
+
+    s3Heading: 'Naa wakkati ngam fuɗɗugo hosugo pelvic floor?',
+    s3Body1:
+      'Caggal danyugo no yiɗi, tiiɗnugo pelvic floor ɗum ɓolliiɗum waawi jokkitaade seɗɗa seɗɗa. Ɗum ɓuri nafugo wayyingo fiilaaji ɗin no wayri e ko tawi ma, e ƴamugo muuyugo si heɓi caɗeele, muusi mawndi, walla kuugal feere.',
+    s3Body2:
+      'Si tawi ma hodorde ñaawaaru, wasiyaaji goɗɗi mbi\'i ɗum ɓuri jooɗaago haa ɗum ƴetteeɗum e ñaawaaru jokkitii no wayri adan fuɗɗugo fiilaaji perineum.',
+    s3AlertTitle: 'Ndaa ɗum muusi',
+    s3AlertText:
+      'Muusi mawndi, alamaaji ɗum ɗaɗɗi, ciɗɗa ɗum hosaay no haanani, walla hoyre feere kala yiɗi muuyugo e sage-femme, doktoor, walla goɗɗo anndiiɗo hosugo.',
+
+    s4Heading: 'Janngugo tiiɗnugo no haanani',
+    s4Body1:
+      'Ngam anndugo wayyingo ɗum, miijo ma ɗum haɗa gaaz e yiɗde ñaawaaru saa gooto. Wayyingo ndu ɗaɓɓitaa ko tiiɗnugo e yaadugo dow nder.',
+    s4Body2:
+      'Ko yiɗaa ko tiiɗnugo ɓernde ma fuu tiiɗi. Ɓoggol, cuuɗi e reedu ngaɗaa hoosaaki no feewi, fahin hakkilo yaha no wayri.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Heftugo hakkilo'},
+      {icon: 'human-handsup', label: 'Tiiɗnugo ɓolliiɗum'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Tiiɗnugo ɗuuɗum'},
+      {icon: 'gesture-tap-button', label: 'Tiiɗnugo wuurnooɗum'},
+    ],
+    s4HighlightTitle: 'Hoosugo ɗum ɓuri nafugo no maaɗum',
+    s4HighlightText:
+      'Caggal tiiɗnugo kala, acc ɓoggol ɗin hoosoo fuu. Hosugo no haanani hollataa tiiɗnugo perineum ñalnde fuu.',
+
+    s5Heading: 'Fuɗɗugo kuugal seɗɗa seɗɗa',
+    s5Body1:
+      'Fuɗɗoode, ko ɓuri nafugo ko janngugo anndugo ɓoggol ɗin e ngaɗugo wayyingo no haanani. Wakkati kala ɓuri semmbe.',
+    s5h3a: 'Tiiɗnugo ɗuuɗum',
+    s5Body2:
+      'Tiiɗnu pelvic floor ɓolliiɗum, boɗɗum jokku seɗɗa sekondi salaa tiiɗnugo hakkilo. Caggal ɗuum acc ɗum hoosoo fuu adan fuɗɗitugo.',
+    s5h3b: 'Tiiɗnugo wuurnooɗum',
+    s5Body3:
+      'So wayyingo ɗu anndaama, tiiɗnugo wuurnooɗum ɓolliiɗum waawi ɓeydugo. Ɗum wallan ma tiiɗnugo ɓoggol ɗin sahaa, so tiiɗnugo reedu ɓeydi, no wayi saa ma ngaɗi tuusi walla tuusi.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Jokkir fiilaaji ɗin e ko ngaɗata ñalnde kala'},
+      {icon: 'human-sitting', label: 'Fuɗɗu e nokku ɗum sellina'},
+      {icon: 'weather-windy', label: 'Heftu no wayri saa tiiɗnugo'},
+      {icon: 'sleep', label: 'Wasiyaaji hoosugo'},
+      {icon: 'chart-line', label: 'Ɓeydu fiilaaji ɗin seɗɗa seɗɗa'},
+      {icon: 'doctor', label: 'Ƴami muuyugo si anndaa'},
+    ],
+    s5TipTitle: 'Wakkati kala ɗum ɓuri',
+    s5TipText:
+      'Jokkirgo fiilaaji ɗin e ko ngaɗata ñalnde kala waawi wallugo ma jokkugo: caggal hunnugo ɓiɗɗo, caggal ɓaɗgo ɗaɗi, walla saa feere ɗum sellina ma.',
+
+    s6Heading: 'Fahin-fahin ɗi ngaɗetaaɗum',
+    s6Body1:
+      'Fiilaaji perineum ndaaretee ɓolliiɗi, kono ɗum yoɗɗa ngaɗugo ɗum e ɓoggol goɗɗi walla tiiɗnugo ɗum ɓurngal.',
+    commonMistakes: [
+      'Tiiɗnugo cuuɗi walla cuuɗi dow ɓoggol pelvic floor',
+      'Boɗɗugo hakkilo saa tiiɗnugo',
+      'Jokkugo tiiɗnugo ɓoggol ɗin salaa acce ɗum hoosoo',
+      'Ngaɗugo fiilaaji ɗin ñalɗi seɗɗa tan e ndeen accugo',
+      'Haɗugo ndiyam ɗam ngam ndaarugo tiiɗnugo',
+    ],
+    s6TipTitle: 'Ko ɗum ngaɗetaako',
+    s6TipText:
+      'Ɗum wasiyaaka ngaɗugo fiilaaji ɗin e haɗugo ndiyam ɗam. Ɗum ruttitan perineum no haanani, ɗum waawi bonnugo kuugal ñaawaaru.',
+
+    s7Heading: 'Alamaaji ɗume ɗi ngaɗata ndaarugo doktoor?',
+    s7Body1:
+      'Ndiyam seɗɗa ɗam yaaɗi walla nanugo feere waawi feƴƴude caggal danyugo. Kono ɗum fotaa accugo si ɗum jokkoti, ɗum ɓeydi, walla ɗum haɗi ma ngaɗugo kuuɗe ñalnde kala.',
+    warningSigns: [
+      'Ndiyam ɗam yaaɗi saa ma hoyri, ma sanyi, ma ɓoosi, walla ma tiiɗnini',
+      'Hakkilo ɓoggol sakitii walla tiiɗɗam dow cakkol',
+      'Hakkilo ko ɓoggol walla ko goɗɗum jaɓɓi nder njaayeendu',
+      'Caɗeele haɗugo gaaz walla ɓoosi',
+      'Muusi jokkotooɗum nder perineum',
+      'Muusi saa walla caggal jokkugo e gorko',
+      'Caɗeele anndugo walla tiiɗnugo no haanani ɓoggol perineum',
+    ],
+    consultLabel: 'Saa ngoye ma ƴami muuyugo?',
+    s7Body2:
+      'Sage-femme, doktoor, walla goɗɗo anndiiɗo hosugo pelvic floor waawi ndaarugo kuugal ɓoggol ɗin e hollugo ma laawol hanaani.',
+
+    s8Heading: 'E caggal wuccugo, episiotomy, walla operasion cesarean?',
+    s8Body1:
+      'Wuccugo walla episiotomy ɗaɓɓan reentugo hanaande saa hosugo. Jokkitugo kuuɗe ɗum ndaara muusi, no naange woni, e muuyugo ɗum hokkaa caggal danyugo.',
+    s8Body2:
+      'Caggal operasion cesarean, hosugo ɗum sellina kadi reedu e naange. Hay so danyugo naa e njaayeendu, reedu e hoore mum ɗum tiiɗnini pelvic floor.',
+    s8HighlightTitle: 'Reentugo wallitiiɗum e maaɗa waawi wallugo',
+    s8HighlightText:
+      'Si wuccugo mawndi, muusi, alamaaji ñaawaaru walla ɓoosi, walla caɗeele jokkotooɗe, ndaarugo e doktoor ɗum waawi wallugo no feewi.',
+
+    s9Heading: 'Hoɗugo siporu seɗɗa seɗɗa',
+    s9Body1:
+      'Jokkitugo yahugo caggal danyugo ɗum ko seɗɗa seɗɗa. Yahugo e yaadugo ɓolliiɗum waawi jokkitaade no ɗum nanii ma, kono kuuɗe tiiɗɗe ɗaɓɓi hakkilo ɓurngal.',
+    s9Body2:
+      'Adan jokkitugo ruttugo, mbuuɗugo, walla fiilaaji tiiɗɗi no feewi, ɗum ɓuri ndaarugo hosugo pelvic floor e ndaarugo alamaaji ɗin.',
+    s9AlertTitle: 'Taa yaaɗu laabi ɗin',
+    s9AlertText:
+      'Ndiyam ɗam yaaɗi, tiiɗɗam, walla muusi saa walla caggal fiilaaji ɗum alamaaji ɗi ngaɗata ma ɗum nuunɗa hakkilo e ƴamugo muuyugo adan ɓeydugo semmbe.',
+
+    s10Heading: 'Saa ngoye ma yaha ndaarugo goɗɗo anndiiɗo?',
+    s10Body1:
+      'Hosugo pelvic floor e sage-femme walla goɗɗo anndiiɗo waawi wallugo si anndaa ma tiiɗnata no haanani, si alamaaji ɗin mooftaay, walla si yiɗi ma jokkitugo kuuɗe ɓoggol e hoolaare.',
+    questionCardTitle: 'Ƴami ɗi nafata',
+    appointmentQuestions: [
+      'Alamaaji am ɗin kawri e ɓoggol pelvic floor ɓoyɗo?',
+      'Mi tiiɗnan no haanani?',
+      'Laabi ngooye mi ngaɗan ñalnde kala?',
+      'Mi waawi ruttitugo ruttugo, siporu, walla fiilaaji tiiɗɗi?',
+      'Mi ɗaɓɓi hosugo e sage-femme walla goɗɗo anndiiɗo?',
+      'Naange am, wuccugo, walla operasion cesarean am ɗaɓɓi reentugo feere?',
+    ],
+    s10TipTitle: 'Ko mari njoɓdi',
+    s10TipText:
+      'Yahugo ndaarugo goɗɗo anndiiɗo hollataa kala ko woni. Sahaa gooto waawi wallugo ndaarugo no ngaɗataa, ndaarugo hosugo maaɗa, e janngugo yahugo yeeso no haanani.',
+
+    s11Heading: 'Hosugo ɗum ɗaɓɓi wakkati',
+    s11Body1:
+      'Caggal danyugo, ɗum ko nanndi accugo heɓugo gaɗa e semmbe ɓoggol no heɓataa ɗum adan reedu saa gooto.',
+    s11Body2:
+      'Ko yiɗaa ko ngaɗugo tiiɗnugo ɓurngo. Ɗum ko ɓuri heɓugo seɗɗa seɗɗa hakkilo no haanani hakkunde tiiɗnugo e hoosugo, e huwugo e ɓoggol ɗin ñalnde kala.',
+    s11HighlightTitle: 'Ɓeydaare seɗɗa ɗum ɓeydaare yaadu',
+    s11HighlightText:
+      'Anndugo wayyingo ɗu ɓuri, sekondi seɗɗa ɓeydaaɗum nder tiiɗnugo, walla ndiyam ɗam yaaɗata seɗɗa ɗum alamaaji laaɓtooɗi.',
+
+    s12Heading: 'Ko ɓuri laaɓtugo',
+    summaryTitle: 'Ko ɓuri hoosugo',
+    summaryItems: [
+      'Reedu e danyugo tiiɗnini pelvic floor no feewi.',
+      'Hosugo seɗɗa seɗɗa ɗum ko nanndi caggal danyugo.',
+      'Fiilaaji ɗin ndaara wayyingo no haanani ɓuri semmbe.',
+      'Heftugo hakkilo e hoosugo ɓuri nafugo no tiiɗnugo.',
+      'Ndiyam ɗam yaaɗi, tiiɗɗam, walla muusi jokkotooɗum ɗaɓɓi miijo goɗɗo anndiiɗo.',
+      'Hosugo e sage-femme walla goɗɗo anndiiɗo waawi wallugo ma heɓugo hakkilo ɓuri.',
+      'Ruttugo siporu ɗum ko seɗɗa seɗɗa, ko ɓuri kuuɗe tiiɗɗe.',
+    ],
+
+    finalTipTitle: 'Hokku ɗum wakkati ngam hosugo',
+    finalTipText:
+      'Caggal danyugo, yaadu maaɗa heɓii wayrude ɗuuɗɗe. Perineum deserve ndaarugo nanndi e ɓernde maaɗa fuu: seɗɗa seɗɗa, wakkati kala, salaa tiiɗnugo.',
+
+    disclaimerText:
+      'Ɗerewol ndin ko ngam anndinki tan, ndiyaataa muuyugo hanaani e maaɗa. So muusi, alamaaji jokkotooɗi, walla miijo ɗum haɗi ma dow hosugo maaɗa, ƴami muuyugo e goɗɗo anndiiɗo.',
+  },
   id: {
     badge: 'PASCAPERSALINAN • PEMULIHAN',
     title: 'Memperkuat otot dasar panggul\nsetelah melahirkan',

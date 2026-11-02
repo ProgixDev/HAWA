@@ -354,6 +354,573 @@ const CONTENT = withBrazilianPortuguese('Ovulation', {
       tip2Text: '单靠任何一种迹象都不是完全可靠的：把它们结合起来，能更好地判断你最易孕的时间。',
       shareMessage: '了解排卵 — AWA',
     },
+  'zh-Hant': {
+      badge: '排卵',
+      title: '瞭解\n排卵',
+      metaDuration: '閱讀約 6 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已稽核內容',
+      intro: '週期中的關鍵時刻，以及如何識別它。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是排卵？',
+        '可能伴隨出現的跡象',
+        '認識你自己的節奏',
+        '要點回顧',
+      ],
+      body1: '排卵是指其中一側卵巢釋放出一枚卵子。無論週期總長度如何，排卵通常發生在下次月經來潮前約 14 天。',
+      tip1Title: '小提醒',
+      tip1Text: '因人而異的是下次月經來潮的日期，而排卵到月經來潮之間的間隔，變化要小得多。',
+      body2: '臨近排卵時，身體可能會出現某些跡象，程度因人而異。',
+      visualTitle: '宮頸黏液變得更潤滑',
+      visualText: '臨近排卵時，宮頸黏液會變得更清澈、更能拉絲，也更有彈性。',
+      otherSigns: [
+        '下腹一側輕微的疼痛（「mittelschmerz」，即排卵痛）',
+        '乳房脹痛',
+        '排卵後基礎體溫輕微上升',
+        '部分女性會感到精力充沛',
+      ],
+      body3: '連續幾個週期觀察這些跡象，可以幫助你瞭解自己的節奏，它可能與一般的平均情況有所不同。',
+      alertTitle: '請注意',
+      alertText: '偶爾出現沒有排卵的週期是可能的，這不一定值得擔心。如果月經長時間沒有來，或你不確定，建議諮詢醫生。',
+      tip2Title: '小提醒',
+      tip2Text: '單靠任何一種跡象都不是完全可靠的：把它們結合起來，能更好地判斷你最易孕的時間。',
+      shareMessage: '瞭解排卵 — AWA',
+    },
+  ar: {
+    badge: 'الإباضة',
+    title: 'فهم\nالإباضة',
+    metaDuration: 'قراءة 6 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى مراجَع',
+    intro: 'اللحظة المحورية في دورتك، وكيف تتعرّفين عليها.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هي الإباضة؟',
+      'العلامات التي قد ترافقها',
+      'التعرف على إيقاعك الخاص',
+      'أهم النقاط',
+    ],
+    body1:
+      'الإباضة هي إطلاق بويضة من أحد المبيضين. وتحدث عادةً قبل حوالي 14 يومًا من حيضك القادم، بغض النظر عن طول دورتك الإجمالي.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'موعد حيضك القادم هو الذي يختلف من امرأة إلى أخرى، وبدرجة أكبر بكثير من المدة بين الإباضة وقدومه.',
+    body2:
+      'قد ترافق بعض العلامات الجسدية اقتراب الإباضة، بدرجات متفاوتة بحسب المرأة.',
+    visualTitle: 'مخاط عنق الرحم أكثر سيولة',
+    visualText:
+      'مع اقتراب الإباضة، يصبح مخاط عنق الرحم أكثر صفاءً وأكثر مطاطية وقابلية للامتداد.',
+    otherSigns: [
+      'ألم خفيف في جانب واحد من أسفل البطن («ميتلشميرتس»)',
+      'ألم في الثديين',
+      'ارتفاع طفيف في درجة حرارة الجسم القاعدية بعد الإباضة',
+      'دفعة من الطاقة لدى بعض النساء',
+    ],
+    body3:
+      'ملاحظة هذه العلامات على مدى عدة دورات تساعدك على التعرف على إيقاعك الخاص، الذي قد يختلف عن المتوسطات العامة.',
+    alertTitle: 'تنبيه',
+    alertText:
+      'قد تحدث دورة بلا إباضة أحيانًا، دون أن يكون ذلك مدعاة للقلق بالضرورة. وإذا غاب حيضك لفترة طويلة أو كنتِ غير متأكدة، يُنصح بطلب مشورة طبية.',
+    tip2Title: 'من المفيد أن تعرفي',
+    tip2Text:
+      'لا توجد علامة واحدة موثوقة تمامًا بمفردها: والجمع بينها يعطي فكرة أفضل عن فترة خصوبتك القصوى.',
+    shareMessage: 'فهم الإباضة — AWA',
+  },
+  kab: {
+    badge: 'OVULATION',
+    title: 'Fhem\novulation',
+    metaDuration: '6 n tesdatin n tɣuri',
+    metaType: 'Amnir',
+    metaLevel: 'Anabdu',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Akud agejdan n cycle-ik, d amek ara t-tessneḍ.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu i d ovulation?',
+      'Ticraḍ i izemren ad tt-ilin',
+      'Sen amiḍan-ik',
+      'Tiɣawsiwin tigejdanin',
+    ],
+    body1:
+      'Ovulation d tuffɣa n tamellalt seg yiwen seg yiseksawen. S waṭas teḍra ɣer 14 n wussan send lḥiḍ-ik i d-iteddun, war ma yeḥseb ɣef talemmast n cycle-ik.',
+    tip1Title: 'Ilaq ad teẓṛeḍ',
+    tip1Text:
+      'D asmekti n lḥiḍ-ik i d-iteddun i yettbeddil seg yiwet ɣer tayeḍ, s waṭas ugar n wakud gar ovulation d ukken-is.',
+    body2:
+      'Kra n ticraḍ n ugraw zemren ad d-ilin ɣer ovulation, s waṭas wala drus almend n tilawin.',
+    visualTitle: 'Tidimt n ɛenq n tebburt tettɣaṛ',
+    visualText:
+      'Mi ara tqeṛṛeb ovulation, tidimt n ɛenq n tebburt tettuɣal d tafessast, tezzulut d tabaɛlalt.',
+    otherSigns: [
+      'Aḍṛar yeḥfifen deg yiwen n uḍar n teɣmert ("mittelschmerz")',
+      'Aḍṛar deg uɣerrus',
+      'Asenti n wuḥemmum n ugraw n usawen seld ovulation',
+      'Tazmert tameqqrant deg kra n tilawin',
+    ],
+    body3:
+      'Asenqed n ticraḍ-a deg waṭas n cycle ittɛawan ad teẓṛeḍ amiḍan-ik, i izemren ad yemgarad seg umatu.',
+    alertTitle: 'Ɣur-k',
+    alertText:
+      'Cycle war ovulation yezmer ad d-yeḍru kra n tikkal, war ma yili d acraḍ n tuggdi. Ma ur d-yeqqim ara lḥiḍ-ik aṭas n wakud neɣ ur tessineḍ ara, tanṣiḥt n ṭṭbib tettwanṣeḥ.',
+    tip2Title: 'Ilaq ad teẓṛeḍ',
+    tip2Text:
+      'Ulac acraḍ yelhan s wudem uččuran ula d yiwen: asdukkel-nsen yefk-ak tamuɣli yelhan ɣef wakud ideg tesɛuḍ tannumi.',
+    shareMessage: 'Fhem ovulation — AWA',
+  },
+  om: {
+    badge: 'OVULATION',
+    title: 'Ovulation\nhubachuu',
+    metaDuration: 'Daqiiqaa 6 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee sakatta\'ame',
+    intro: 'Yeroo ijoo marsaa kee, fi akkamitti adda baasuu akka dandeessu.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Ovulation maali?',
+      'Mallattoowwan wajjin dhufuu danda\'an',
+      'Akkaataa ofii kee beekuu',
+      'Ka\'umsa gurguddoo',
+    ],
+    body1:
+      'Ovulation gadaa tokko gadaa irraa gadi dhiisuu dha. Baay\'inaan guyyaa 14 laguu kee itti aanu dura ta\'a, dheerina marsaa kee guutuu osoo hin ilaalin.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Guyyaan laguu kee itti aanu dubartii irraa gara dubartiitti garaagarummaa qaba, yeroo ovulation fi dhufuu isaa gidduu jiru caalaa.',
+    body2:
+      'Mallattoowwan qaamaa tokko tokko ovulation dhiyaachuu wajjin dhufuu danda\'u, dubartii irratti hundaa\'ee hammi garaagarummaa qabaachuu danda\'a.',
+    visualTitle: 'Dhangala\'aan garaa garaa caalaatti dhangala\'aa',
+    visualText:
+      'Ovulation yeroo dhiyaatu, dhangala\'aan garaa garaa ifaa, harkifataa, fi laafaa ta\'a.',
+    otherSigns: [
+      'Dhukkubbii salphaa gama tokko garaa gadii ("mittelschmerz")',
+      'Harmi dhukkubbii',
+      'Ovulation booda ho\'ina qaamaa bu\'uuraa waan xiqqoo ol ba\'uu',
+      'Dubartoota tokko tokkoof humna dabalataa',
+    ],
+    body3:
+      'Mallattoowwan kana marsaa hedduu keessatti ilaaluun akkaataa ofii kee beekuuf si gargaara; kun giddugaleessa waliigalaa irraa garaagarummaa qabaachuu danda\'a.',
+    alertTitle: 'Hubadhu',
+    alertText:
+      'Marsaan ovulation hin qabne yeroo tokko tokko ta\'uu danda\'a, kun yaaddessaa ta\'uu isaa dirqama miti. Yoo laguun kee yeroo dheeraaf hin jiraanne ykn yoo shakkite, gorsi fayyaa gorfama.',
+    tip2Title: 'Beekuun gaarii dha',
+    tip2Text:
+      'Mallattoon tokkollee ofii isaatiin guutummaatti amanamaa miti: walitti makuun yeroo ulfaaf mijataa kee caalaatti akka beekamu si gargaara.',
+    shareMessage: 'Ovulation hubachuu — AWA',
+  },
+  ti: {
+    badge: 'ኦቭዩሌሽን',
+    title: 'ኦቭዩሌሽን\nምርዳእ',
+    metaDuration: '6 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'መእተዊ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ዝለዓለ ግዜ ዑደትኪ፣ ከመይ ከም እትፈልጥዮ።',
+    contentsTitle: 'ኣብዚ ዓንቀጽ',
+    topics: [
+      'ኦቭዩሌሽን እንታይ እዩ?',
+      'ክስዕቡ ዝኽእሉ ምልክታት',
+      'ናይ ባዕልኪ ሪትም ምልላይ',
+      'ቀንዲ ነጥብታት',
+    ],
+    body1:
+      'ኦቭዩሌሽን ብሓደ ካብ እንቋቕሖ ማህጸን ሓደ እንቋቕሖ ምስቓል እዩ። ብዙሕ ግዜ ሓፈሻዊ ርዝመት ዑደትኪ ዘየገድስ፣ ቅድሚ ዝቕጽል ወርሓዊ ደምኪ ኣስታት 14 መዓልቲ ይፍጸም።',
+    tip1Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip1Text:
+      'ካብ ሰበይቲ ናብ ሰበይቲ ዝፈላለ ዝቕጽል ወርሓዊ ደምኪ መዓልቲ እዩ፣ ካብቲ ኣብ መንጎ ኦቭዩሌሽንን ምጽዋዕን ዘሎ ግዜ ብዙሕ ዝበዝሐ።',
+    body2:
+      'ገለ ኣካላዊ ምልክታት ንቅርበት ኦቭዩሌሽን ክስዕብ ይኽእል፣ ከከም ሰበይቲ ብዝተፈላለየ ደረጃ።',
+    visualTitle: 'ዝያዳ ፈሳሲ ናይ ማህጸን ሙከስ',
+    visualText:
+      'ኦቭዩሌሽን ምስ ዝቐርብ፣ ናይ ማህጸን ሙከስ ዝተረጋገአ፣ ዝተሰሓበን ዝያዳ ዝተዘርግሐን ይኸውን።',
+    otherSigns: [
+      'ኣብ ሓደ ወገን ታሕተዋይ ከብዲ ፈኲስ ቃንዛ ("ሚተልሽመርዝ")',
+      'ናይ ጡብ ተነኳኢነት',
+      'ድሕሪ ኦቭዩሌሽን ኣብ መሰረታዊ ናይ ኣካል ጽሕቶ ቁሩብ ምዕባይ',
+      'ንገለ ደቂ ኣንስትዮ ዝያዳ ጉልበት',
+    ],
+    body3:
+      'ነዚ ምልክታት ኣብ ብዙሓት ዑደታት ምጥማት ካብ ሓፈሻዊ ማእከላይ ዝፈላለ ናይ ባዕልኪ ሪትም ንምፍላጥ ይሕግዝ።',
+    alertTitle: 'ጥንቃቐ',
+    alertText:
+      'ብዘይ ኦቭዩሌሽን ዑደት ሓደ ሓደ ግዜ ክኸውን ይኽእል፣ እዚ ግን ኩሉ ግዜ ዘተሓሳስብ ኣይኮነን። ወርሓዊ ደምኪ ንነዊሕ ግዜ እንተ ዘይመጽአ ወይ እንተ ዘይርግጸኛ ኮንኪ፣ ሓኪማዊ ምኽሪ ይመከር።',
+    tip2Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip2Text:
+      'ሓደ ምልክት ባዕሉ ምሉእ እምነት ዘለዎ ኣይኮነን፦ ምጥምራቶም ብዛዕባ እቲ ብጣዕሚ ዝፈርየሉ ግዜኺ ዝበለጸ ሓሳብ ይህብ።',
+    shareMessage: 'ኦቭዩሌሽን ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'OVULATION',
+    title: 'Gusobanukirwa\novulation',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Igitabo cy\'inama',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisobanuro byasuzumwe',
+    intro: 'Igihe cy\'ingenzi cy\'ukwezi kwawe k\'imihango, n\'uko wakimenya.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Ovulation ni iki?',
+      'Ibimenyetso bishobora kuyigaragaza',
+      'Kumenya uko ukwezi kwawe kugenda',
+      'Ingingo z\'ingenzi',
+    ],
+    body1:
+      'Ovulation ni irekurwa ry\'igi n\'imwe mu runini rw\'intanga ngore. Akenshi iba hafi iminsi 14 mbere y\'imihango yawe ikurikira, hatitawe ku burebure bwose bw\'ukwezi kwawe.',
+    tip1Title: 'Byiza kumenya',
+    tip1Text:
+      'Itariki y\'imihango yawe ikurikira ni yo itandukana hagati y\'umugore n\'undi, cyane kuruta igihe kiri hagati ya ovulation n\'iza ry\'imihango.',
+    body2:
+      'Ibimenyetso bimwe by\'umubiri bishobora kujyana no kwegereza ovulation, bitandukanye ku rugero bitewe n\'umugore.',
+    visualTitle: 'Ururenda rwo mu nkondo y\'umura rworoshye kurushaho',
+    visualText:
+      'Uko ovulation yegereza, ururenda rwo mu nkondo y\'umura ruba rusobanutse, rurambuka kandi rworoshye kurushaho.',
+    otherSigns: [
+      'Ububabare buke ku ruhande rumwe rw\'inda yo hasi ("mittelschmerz")',
+      'Kuribwa amabere',
+      'Kwiyongera guke kw\'ubushyuhe bw\'umubiri mu gitondo nyuma ya ovulation',
+      'Kwiyongera kw\'imbaraga ku bagore bamwe',
+    ],
+    body3:
+      'Kwitegereza ibi bimenyetso mu mezi menshi y\'imihango bigufasha kumenya uko ukwezi kwawe kugenda, gushobora gutandukana n\'impuzandengo rusange.',
+    alertTitle: 'Icyitonderwa',
+    alertText:
+      'Ukwezi kutarimo ovulation gushobora rimwe na rimwe kubaho, bitari ngombwa ko biba impamvu yo guhangayika. Niba imihango yawe imaze igihe kirekire itaza cyangwa ushidikanya, inama z\'abaganga ziragirwa.',
+    tip2Title: 'Byiza kumenya',
+    tip2Text:
+      'Nta kimenyetso na kimwe cyizewe neza ubwacyo: kubihuza bitanga igitekerezo cyiza cy\'igihe ushobora gusama cyane.',
+    shareMessage: 'Gusobanukirwa ovulation — AWA',
+  },
+  rn: {
+    badge: 'OVULATION',
+    title: 'Gusobanukirwa\novulation',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Amakuru yasuzumwe',
+    intro: 'Akanya k\'ingenzi ka cycle yawe, n\'uko wakamenya.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Ovulation ni iki?',
+      'Ibimenyetso bishobora kuza na yo',
+      'Kumenya injyana yawe bwite',
+      'Ingenzi zo kwibuka',
+    ],
+    body1:
+      'Ovulation ni ugusohoka kw\'igi riva muri rumwe mu ngingo z\'intanga ngore (ovaires). Kenshi iba hafi y\'iminsi 14 mbere y\'imihango yawe itaha, uko cycle yawe yaba ingana kose.',
+    tip1Title: 'Ni byiza kumenya',
+    tip1Text:
+      'Ni itariki y\'imihango yawe itaha ihinduka ku mugore umwe n\'undi, cane kuruta igihe kiri hagati ya ovulation no kuza kw\'imihango.',
+    body2:
+      'Ibimenyetso bimwe by\'umubiri bishobora kuza hafi ya ovulation, mu rugero rutandukanye bitewe n\'umugore.',
+    visualTitle: 'Umusemburo wo mu muhogo w\'inda ushonga kurushaho',
+    visualText:
+      'Uko ovulation yegereje, umusemburo wo mu muhogo w\'inda urushaho kuba usobanutse, urambuka kandi urakomera.',
+    otherSigns: [
+      'Ububabare bworoheje ku ruhande rumwe rw\'inda yo hasi ("mittelschmerz")',
+      'Amabere ababara',
+      'Kwiyongera gake k\'ubushyuhe bw\'umubiri (température basale) nyuma ya ovulation',
+      'Kwiyongera kw\'imbaraga ku bagore bamwe',
+    ],
+    body3:
+      'Kwitegereza ibi bimenyetso mu ma cycle menshi bigufasha kumenya injyana yawe bwite, ishobora gutandukana n\'impuzandengo rusangi.',
+    alertTitle: 'Icitonderwa',
+    alertText:
+      'Cycle idafite ovulation rimwe na rimwe ishobora kubaho, bitaba ngombwa ko biteye impungenge. Niba imihango yawe imaze igihe kirekire itaza canke ukaba ushidikanya, inama y\'abaganga iratanzwe.',
+    tip2Title: 'Ni byiza kumenya',
+    tip2Text:
+      'Nta kimenyetso kimwe cyizewe rwose ku bwacyo: kubihuza bitanga igitekerezo cyiza cy\'igihe wumva uruhimbi cyane.',
+    shareMessage: 'Gusobanukirwa ovulation — AWA',
+  },
+  ig: {
+    badge: 'OVULATION',
+    title: 'Ịghọta\novulation',
+    metaDuration: 'Nkeji 6 ka ị gụọ',
+    metaType: 'Ntụziaka',
+    metaLevel: 'Mmalite',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Oge kachasị mkpa nke usoro ọnwa gị, na otú esi amata ya.',
+    contentsTitle: 'Na isiokwu a',
+    topics: [
+      'Gịnị bụ ovulation?',
+      'Ihe ngosi nwere ike ịbịa na ya',
+      'Ịmata usoro nke gị',
+      'Isi ihe ndị dị mkpa',
+    ],
+    body1:
+      'Ovulation bụ ịhapụ akwa site n\'otu n\'ime ovary. Ọ na-eme n\'ihe dị ka ụbọchị 14 tupu nsọ ọnwa gị na-esote, n\'agbanyeghị ogologo usoro ọnwa gị n\'ozuzu.',
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Ụbọchị nsọ ọnwa gị na-esote bụ ya na-adịgasị iche site n\'onye nwanyị ruo n\'onye nwanyị, karịa oge dị n\'etiti ovulation na ọbịbịa ya.',
+    body2:
+      'Ihe ngosi ahụ ụfọdụ nwere ike ịbịa mgbe ovulation na-abịaru nso, n\'ọkwa dị iche dabere n\'onye nwanyị.',
+    visualTitle: 'Mmiri ọnụ afọ ime dị ọkụ karị',
+    visualText:
+      'Ka ovulation na-abịaru nso, mmiri ọnụ afọ ime na-adị ọcha, na-eto, ma dịkwa ọkụ ọkụ.',
+    otherSigns: [
+      'Mgbu dị nro n\'otu akụkụ n\'okpuru afọ ("mittelschmerz")',
+      'Mmetụta mgbu n\'ara',
+      'Ntakịrị ịrị elu nke okpomọkụ ahụ basal mgbe ovulation gasịrị',
+      'Ike na-abawanye n\'ụfọdụ ụmụ nwanyị',
+    ],
+    body3:
+      'Ilebara ihe ngosi ndị a anya n\'usoro ọnwa ole na ole na-enyere gị aka ịmata usoro nke gị, nke nwere ike ịdị iche na nkezi n\'ozuzu.',
+    alertTitle: 'Biko rịba ama',
+    alertText:
+      'Usoro ọnwa na-enweghị ovulation nwere ike ime mgbe ụfọdụ, na-abụghị mgbe niile ihe na-echegbu. Ọ bụrụ na nsọ ọnwa gị anọghị ogologo oge ma ọ bụ ị nweghị n\'aka, a na-atụ aro ndụmọdụ dọkịta.',
+    tip2Title: 'Ọ dị mma ịmara',
+    tip2Text:
+      'Ọ dịghị otu ihe ngosi a pụrụ ịtụkwasị obi kpam kpam naanị ya: ijikọta ha na-enye echicheka mma gbasara oge gị kachasị mma maka ịmụta nwa.',
+    shareMessage: 'Ịghọta ovulation — AWA',
+  },
+  yo: {
+    badge: 'OVULATION',
+    title: 'Lílóye\novulation',
+    metaDuration: 'Kíkà ìṣẹ́jú 6',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Ìbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro: 'Àkókò pàtàkì àyípo nǹkan oṣù rẹ, àti bí o ṣe lè dá a mọ̀.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni ovulation?',
+      'Àwọn àmì tó lè bá a rìn',
+      'Mímọ ìlù ara rẹ',
+      'Àwọn kókó pàtàkì',
+    ],
+    body1:
+      'Ovulation ni jíjáde ẹyin láti ọ̀kan nínú àwọn ovary. Ó sábà máa ń ṣẹlẹ̀ ní nǹkan bí ọjọ́ 14 ṣáájú nǹkan oṣù rẹ tó kàn, láìka gígùn àyípo rẹ gbogbo sí.',
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Ọjọ́ tí nǹkan oṣù rẹ tó kàn yóò dé ni ó ń yàtọ̀ láti obìnrin kan sí òmíràn, ju àkókò láàrin ovulation àti dídé rẹ̀ lọ.',
+    body2:
+      'Àwọn àmì ara kan lè máa bá ìsúnmọ́ ovulation rìn, ní ìwọ̀n tó yàtọ̀ gẹ́gẹ́ bí obìnrin náà.',
+    visualTitle: 'Ìsàn inú obo tó tún rọ̀ jù',
+    visualText:
+      'Bí ovulation ṣe ń súnmọ́, ìsàn inú obo ń mọ́ sí i, ń nà sí i, ó sì ń rọ̀ sí i.',
+    otherSigns: [
+      'Ìrora díẹ̀ ní ẹ̀gbẹ́ kan ní ìsàlẹ̀ ikùn ("mittelschmerz")',
+      'Ìrora ọmú',
+      'Ìgbóná ara ìsinmi tó ga díẹ̀ lẹ́yìn ovulation',
+      'Agbára tó ń pọ̀ sí i fún àwọn obìnrin kan',
+    ],
+    body3:
+      'Wíwo àwọn àmì wọ̀nyí fún àyípo púpọ̀ ń ràn ọ́ lọ́wọ́ láti mọ ìlù ara rẹ, èyí tó lè yàtọ̀ sí àwọn ìpíndọ́gba gbogbogbò.',
+    alertTitle: 'Jọ̀wọ́ ṣàkíyèsí',
+    alertText:
+      'Àyípo láìsí ovulation lè ṣẹlẹ̀ nígbà míràn, láìjẹ́ pé èyí jẹ́ ohun tó yẹ kí ó kó ìdààmú báni. Bí nǹkan oṣù rẹ bá kò sí fún ìgbà pípẹ́ tàbí tí kò dá ọ lójú, a gba ìmọ̀ràn ìṣègùn.',
+    tip2Title: 'Ó dára láti mọ̀',
+    tip2Text:
+      'Kò sí àmì kan ṣoṣo tó ṣeé gbẹ́kẹ̀lé pátápátá fúnra rẹ̀: pípa wọ́n pọ̀ ń fúnni ní èrò tó dára jù nípa àkókò tí o lè lóyún jù.',
+    shareMessage: 'Lílóye ovulation — AWA',
+  },
+  zu: {
+    badge: 'UKUKHIPHA IQANDA',
+    title: 'Ukuqonda\nukukhipha iqanda',
+    metaDuration: 'Imizuzu eyi-6 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Isiqalo',
+    metaValidated: 'Okubuyekeziwe',
+    intro: 'Isikhathi esiyisihluthulelo somjikelezo wakho, nendlela yokusibona.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Kuyini ukukhipha iqanda?',
+      'Izimpawu ezingahambisana nakho',
+      'Ukubona isigqi sakho siqu',
+      'Amaphuzu abalulekile',
+    ],
+    body1:
+      'Ukukhipha iqanda ukukhululwa kweqanda yinye yamaqanda esibeletho. Ngokuvamile kwenzeka cishe izinsuku ezingu-14 ngaphambi kokuya kwakho esikhathini okulandelayo, kungakhathaliseki ubude bonke bomjikelezo wakho.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Usuku lokuya kwakho esikhathini okulandelayo lulona oluhluka kwesinye isifazane nakwesinye, kakhulu kunesikhathi esiphakathi kokukhipha iqanda nokufika kwalo.',
+    body2:
+      'Ezinye izimpawu zomzimba zingahambisana nokusondela kokukhipha iqanda, ngezinga elihlukile kuye ngesifazane.',
+    visualTitle: 'Ubumanzi bomlomo wesibeletho obuthambile kakhulu',
+    visualText:
+      'Njengoba ukukhipha iqanda kusondela, ubumanzi bomlomo wesibeletho buba bucacile, buyalulama futhi buyaqina.',
+    otherSigns: [
+      'Ubuhlungu obuncane ohlangothini olulodwa lwesisu esingezansi ("mittelschmerz")',
+      'Ubuhlungu ebeleni',
+      'Ukwenyuka okuncane kwezinga lokushisa komzimba ngesikhathi sokuphumula ngemva kokukhipha iqanda',
+      'Amandla amaningi kwabanye besifazane',
+    ],
+    body3:
+      'Ukubuka lezi zimpawu emijikelezweni eminingana kukusiza ukuthi uzazi isigqi sakho siqu, esingahluka kumaphesenti avamile.',
+    alertTitle: 'Qaphela',
+    alertText:
+      'Umjikelezo ongenakho ukukhipha iqanda ungenzeka ngezikhathi ezithile, ngaphandle kokuthi lokhu kuthathwe njengesizathu sokukhathazeka. Uma ukuya kwakho esikhathini kungabikho isikhathi eside noma ungaqiniseki, kunconywa iseluleko sezokwelapha.',
+    tip2Title: 'Kuhle ukwazi',
+    tip2Text:
+      'Akukho uphawu olulodwa oluthembekile ngokuphelele ngokwalo: ukuluhlanganisa kunikeza umbono ongcono wesikhathi sakho sokuzala kakhulu.',
+    shareMessage: 'Ukuqonda ukukhipha iqanda — AWA',
+  },
+  xh: {
+    badge: 'I-OVULATION',
+    title: 'Ukuqonda\ni-ovulation',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Umqali',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro: 'Ixesha elibalulekileyo lomjikelo wakho, nendlela yokuliqonda.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni i-ovulation?',
+      'Iimpawu ezinokuhamba nayo',
+      'Ukuqonda ixesha lakho',
+      'Eyona nto ibalulekileyo',
+    ],
+    body1:
+      'I-Ovulation kukukhululwa kweyiji yenye yemiqolo. Ngokuqhelekileyo yenzeka malunga neentsuku ezi-14 phambi kokuya kwakho exesheni olandelayo, nokuba umjikelo wakho unde kangakanani.',
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'Lusuku lokuya kwakho exesheni olandelayo oluhluka komfazi nomfazi, ngaphezulu kakhulu kunexesha eliphakathi kwe-ovulation nokufika kwalo.',
+    body2:
+      'Iimpawu ezithile zomzimba zinokuhamba nokusondela kwe-ovulation, ngokwamanqanaba ahlukeneyo ngokwabafazi.',
+    visualTitle: 'Ubumanzi obuthe thaxa bomlomo wesibeleko',
+    visualText:
+      'Njengoko i-ovulation isondela, ubumanzi bomlomo wesibeleko buba buhlaza, buthe bula, bubonakale buthe nkqo.',
+    otherSigns: [
+      'Intlungu encinci ecaleni elinye lesisu esiphantsi ("mittelschmerz")',
+      'Ukuvakala kweebele',
+      'Ukunyuka okuncinci kobushushu bomzimba obuyisiseko emva kwe-ovulation',
+      'Umandla owongezelelekileyo kwabanye abafazi',
+    ],
+    body3:
+      'Ukujonga ezi mpawu kwimijikelo emininzi kunceda ukuba wazi ixesha lakho, elinokwahluka kwiimpuma eziqhelekileyo.',
+    alertTitle: 'Qaphela',
+    alertText:
+      'Umjikelo ongenayo i-ovulation unokwenzeka ngamanye amaxesha, ngaphandle kokuba lisizathu senkxalabo ngokuqinisekileyo. Ukuba ixesha lakho alikho ixesha elide okanye awuqinisekanga, kucetyiswa ingcebiso yezonyango.',
+    tip2Title: 'Kulungile ukwazi',
+    tip2Text:
+      'Akukho phawu lunye luthenjwa ngokupheleleyo lodwa: ukudibanisa ezi mpawu kunika umbono ongcono wexesha lakho eliveza kakhulu.',
+    shareMessage: 'Ukuqonda i-ovulation — AWA',
+  },
+  sn: {
+    badge: 'OVULATION',
+    title: 'Kunzwisisa\novulation',
+    metaDuration: 'Maminitsi matanhatu ekuverenga',
+    metaType: 'Nhungamiro',
+    metaLevel: 'Vanotanga',
+    metaValidated: 'Ruzivo rwakaongororwa',
+    intro: 'Nguva yakakosha yekutenderera kwako, uye madiro ekuizivisa.',
+    contentsTitle: 'Muchinyorwa ichi',
+    topics: [
+      'Ovulation chii?',
+      'Zviratidzo zvinogona kuuya nayo',
+      'Kuziva maitiro ako pachako',
+      'Zvinokosha zvekuyeuka',
+    ],
+    body1:
+      'Ovulation kuburitswa kwezai neimwe ye ovaries. Kazhinji inoitika mazuva anenge 14 usati waenda kumwedzi unotevera, pasinei nehurefu hwese hwekutenderera kwako.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Ndiro zuva rekuenda kwako kumwedzi unotevera rinosiyana kubva kumukadzi kuenda kumukadzi, zvakanyanya kupfuura nguva iri pakati pe ovulation nekusvika kwaro.',
+    body2:
+      'Zviratidzo zvimwe zvemuviri zvinogona kuuya nekusvika kwe ovulation, zvakasiyana zvichienderana nemukadzi.',
+    visualTitle: 'Cervical mucus yakanyorova zvakanyanya',
+    visualText:
+      'Sezvo ovulation ichisvika padyo, cervical mucus inova yakajeka, yakatambanuka, uye ine kutambanuka.',
+    otherSigns: [
+      'Kurwadziwa kushoma kurutivi rumwe rwepazasi pedumbu ("mittelschmerz")',
+      'Kurwadziwa kwemazamu',
+      'Kukwira kushoma kwe basal body temperature mushure me ovulation',
+      'Simba rakawedzerwa kune vamwe vakadzi',
+    ],
+    body3:
+      'Kutarisa zviratidzo izvi mukati mekutenderera kwakawanda kunokubatsira kuziva maitiro ako pachako, anogona kusiyana nezvizhinji zvakazara.',
+    alertTitle: 'Cherechedza',
+    alertText:
+      'Kutenderera kusina ovulation kunogona kuitika dzimwe nguva, pasina kuti izvi zvive zvikonzero zvekuvhunduka. Kana kuenda kwako kumwedzi kusipo kwenguva refu kana usina chokwadi, zano rechiremba rinokurudzirwa.',
+    tip2Title: 'Zvakanaka kuziva',
+    tip2Text:
+      'Hapana chiratidzo chimwe chinovimbika zvakakwana chega: kuzvibatanidza kunopa fungidziro yakanaka yenguva yako yakanyanya kubereka.',
+    shareMessage: 'Kunzwisisa ovulation — AWA',
+  },
+  ln: {
+    badge: 'OVULATION',
+    title: 'Kososola\novulation',
+    metaDuration: 'Mpe ya kotánga: min 6',
+    metaType: 'Mokanda ya litambwisi',
+    metaLevel: 'Mobandi',
+    metaValidated: 'Maloba oyo ekomi na bokeba',
+    intro: 'Ntango ya motuya ya sanza na yo, mpe ndenge ya koyeba yango.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Ovulation ezali nini?',
+      'Bilembo oyo ekoki kozala elongo na yango',
+      'Koyeba ndenge na yo moko',
+      'Makambo ya motuya',
+    ],
+    body1:
+      'Ovulation ezali kobima ya liki na moko ya baovaire. Esalemaka mbala mingi penepene na mikolo 14 liboso ya sanza na yo oyo ekoya, ata boumeli mobimba ya sanza na yo ezali boni.',
+    tip1Title: 'Ezali malamu koyeba',
+    tip1Text:
+      'Ezali mokolo ya sanza na yo oyo ekoya oyo ekesanaka na mwasi na mwasi, mingi koleka ntango na kati ya ovulation mpe koya na yango.',
+    body2:
+      'Bilembo mosusu ya nzoto ekoki kozala elongo na kopusana ya ovulation, na bonene ekesani engebene na mwasi.',
+    visualTitle: 'Mukus ya kingo ya libumu oyo ezali mai mingi',
+    visualText:
+      'Ntango ovulation ezali kopusana, mukus ya kingo ya libumu ekómaka pɛtɛɛ, ekoki kolonga mpe ekómi na nzela mingi.',
+    otherSigns: [
+      'Mpasi moke na ngámbo moko ya libumu na nse ("mittelschmerz")',
+      'Mpasi ya mabele',
+      'Kopusa moke ya molunge ya nzoto ya kokoma sima ya ovulation',
+      'Ngolu mingi na basi mosusu',
+    ],
+    body3:
+      'Kotala bilembo oyo na boumeli ya basanza mingi esungaka yo koyeba ndenge na yo moko, oyo ekoki kokesana na nsima ya motango ya mbala mingi.',
+    alertTitle: 'Bokebi',
+    alertText:
+      'Sanza oyo ovulation ezali te ekoki mbala mosusu kosalema, kozanga ete ezala na ntembe ya kobanga. Soki sanza na yo ezali te mpo na ntango molai to ozali na ntembe, toli ya monganga ebongi.',
+    tip2Title: 'Ezali malamu koyeba',
+    tip2Text:
+      'Elembo moko te ezali ya kotyela motema mpenza na yango moko: kosangisa yango epesi likanisi malamu ya ntango na yo ya kobota mingi.',
+    shareMessage: 'Kososola ovulation — AWA',
+  },
+  ff: {
+    badge: 'OVULATION',
+    title: 'Faamugol\novulation',
+    metaDuration: 'Janngugol minit 6',
+    metaType: 'Ɗaɓɓitaaji',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Habaru ɗum ƴeewtaama',
+    intro: 'Wakkati ɓesngu ciklu maaɗa, e no ɗum ɗon anndaa.',
+    contentsTitle: 'E winndannde ndee',
+    topics: [
+      'Ɗume woni ovulation?',
+      'Alamaaji ɗi foti hawtude e ɗum',
+      'Anndugo laawol maaɗa',
+      'Ko ɗum ɗon ɗum ɓesngu',
+    ],
+    body1:
+      'Ovulation ko yaltugol ɓiɗɗo ndu ovaire gooto. Ɗum ɗon waɗa nyalaaji 14 caggal menstruation maaɗa ndu arata, bannjo juutugol ciklu maaɗa fuu.',
+    tip1Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip1Text:
+      'Ko nyalaande menstruation maaɗa ndu arata ɗum ɗon wooɗa e rewbe, ɓurii wakkati hakkunde ovulation e arugol maako.',
+    body2:
+      'Alamaaji ɓanndu feere foti hawtude e ovulation, ko ɗuuɗi e rewbe.',
+    visualTitle: 'Cervical mucus ɗum ɗon wontii ɗiɗi',
+    visualText:
+      'Nde ovulation ɗum ɗon aroo, cervical mucus ɗum ɗon wontii laaɓɗum, e juutɗum, e ɗum ɗon.',
+    otherSigns: [
+      'Naawgol seɗɗa e nder reedu e geɗal gooto ("mittelschmerz")',
+      'Naawgol e ɓoggol',
+      'Wooɗugol seɗɗa e kaaldi ɓanndu caggal ovulation',
+      'Semmbe ɗum ɗon wontii e rewbe feere',
+    ],
+    body3:
+      'Yi’ugo alamaaji ɗii e nder ciklu ɗuuɗi walliidi ma anndugo laawol maaɗa, ɗum ɗon wooɗa e hiisa ɗum ɗon.',
+    alertTitle: 'Hoolnu',
+    alertText:
+      'Ciklu alaa ovulation foti waɗude, bannjo ɗum ɗon ko hiisa. So menstruation maaɗa ɗum ɗon alaa ko ɗuuɗi walla a anndaa, ɗaɓɓitaa jamaa doktoor.',
+    tip2Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip2Text:
+      'Alamaa gooto ɗum ɗon hoolnoowo tan: hawtugol ɗum ɗon hokka ma anndugo wakkati maaɗa ɓurii yiɗaaɗum.',
+    shareMessage: 'Faamugol ovulation — AWA',
+  },
   id: {
     badge: 'OVULASI',
     title: 'Memahami\novulasi',

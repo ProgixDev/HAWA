@@ -1230,6 +1230,2189 @@ const CONTENT = withBrazilianPortuguese('PcosIntro', {
       finalNoteText: '本文仅供一般性参考，不能替代就诊。每个人的情况各不相同：如有疑问或症状持续，请向医疗专业人员咨询。',
       shareMessage: '了解多囊卵巢综合征 — AWA',
     },
+  'zh-Hant': {
+      badge: 'PCOS • 基礎指南',
+      title: '瞭解\n多囊性卵巢症候群',
+      metaDuration: '閱讀約 10 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '科普內容',
+      intro: '多囊性卵巢症候群（常簡稱 PCOS）是一種常見的內分泌狀況，可能影響你的月經週期、排卵、皮膚、毛髮、代謝，有時還會影響生育力。',
+      introSecondary: '它的表現因人而異。瞭解 PCOS 主要是為了幫助你認識它的症狀，知道何時該就醫，並在不自責的前提下記錄它的變化。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是 PCOS？',
+        'PCOS 為什麼會出現？',
+        '主要表現',
+        '如何診斷？',
+        'PCOS 與排卵',
+        'PCOS 與生育力',
+        'PCOS 與體重／代謝',
+        '皮膚、頭髮與體毛',
+        '如何管理 PCOS？',
+        '常見誤區',
+        '何時就醫',
+        '要點回顧',
+      ],
+      s1Heading: '什麼是 PCOS？',
+      s1Body1: '多囊性卵巢症候群（PCOS）是一種常見的內分泌狀況，可能改變卵巢的正常功能以及某些荷爾蒙的平衡。',
+      s1Body2: '對一些女性來說，主要問題是排卵不規律；對另一些人來說，最先突出的則是痤瘡、毛髮增多、脫髮或代謝方面的表現。',
+      s1TipTitle: '小提醒',
+      s1TipText: '儘管名字裡有「多囊」，PCOS 並不一定意味著卵巢裡有「囊腫」。這個沿用下來的名稱容易讓人誤解，而且僅憑超音波檢查並不足以確診。',
+      s2Heading: 'PCOS 為什麼會出現？',
+      s2Body1: 'PCOS 並沒有單一的病因。它似乎是多種因素共同作用的結果：家族傾向、荷爾蒙功能、排卵、代謝以及個體因素。',
+      s2Factors: [
+        '家族傾向與遺傳因素',
+        '排卵紊亂',
+        '相對的雄性素偏多',
+        '部分女性存在胰島素抵抗',
+        '代謝與環境因素',
+      ],
+      s2NeutralText: 'PCOS 不是個人的過錯。它並不單純是意志力不足、飲食不當或運動不夠造成的。',
+      s3Heading: '主要表現',
+      s3Body1: 'PCOS 的表現因人而異，差別可能很大。有些人有好幾種症狀，有些人則幾乎沒有察覺。',
+      s3Signs: [
+        '月經不規律、間隔很長，有時甚至沒有月經',
+        '排卵不規律或難以預測',
+        '持續的痤瘡，尤其出現在面部下半部',
+        '面部、胸部或身體的毛髮增多',
+        '荷爾蒙型脫髮',
+        '體重增加或難以減重',
+        '難以懷孕',
+      ],
+      s3AlertTitle: '重要提示',
+      s3AlertText: '出現其中一種症狀並不一定意味著你患有 PCOS。其他多種情況也可能引起類似的症狀。',
+      s4Heading: '如何診斷？',
+      s4Body1: '診斷 PCOS 是一個醫療過程。醫療專業人員通常會先了解你的月經週期、症狀、病史以及正在使用的藥物。',
+      s4Body2: '根據具體情況，還可能建議做荷爾蒙相關的血液檢查和超音波檢查。',
+      s4Points: [
+        '月經週期不規律或排卵稀少',
+        '雄性素偏多的表現：痤瘡、毛髮增多、脫髮，或血液檢查結果',
+        '在需要做超音波檢查時，卵巢的形態符合 PCOS 的特點',
+      ],
+      s4Body3: '在確診 PCOS 之前，醫生還必須排除可能導致月經不規律或雄性素偏多的其他原因。',
+      s5Heading: 'PCOS 與排卵',
+      s5Body1: '排卵是指卵子（卵母細胞）從卵巢中排出。患有 PCOS 時，排卵可能不那麼頻繁，或更難預測。',
+      s5Body2: '這可以解釋為什麼月經週期有時很長、不規律或難以預判。',
+      s5HighlightTitle: '記錄你的週期',
+      s5HighlightText: '記下月經日期、症狀以及任何排卵跡象，有助於你更好地瞭解自己的規律。',
+      s6Heading: 'PCOS 與生育力',
+      s6Body1: '由於排卵可能不規律，一些患有 PCOS 的女性可能會更難懷孕。',
+      s6Body2: '但這並不意味著 PCOS 一定會妨礙懷孕。許多患有 PCOS 的女效能夠自然受孕，或在適當的醫療支援下懷孕。',
+      s6TipTitle: '請記住',
+      s6TipText: '難以懷孕並不等於不可能懷孕。如果你希望懷孕，醫生或助產士可以為你提供適合你情況的方案。',
+      s7Heading: 'PCOS 與體重／代謝',
+      s7Body1: 'PCOS 可能伴隨代謝方面的變化，其中包括部分女性存在的胰島素抵抗。',
+      s7Body2: '不過，僅憑體重既不能診斷也不能排除 PCOS。身材偏瘦的女性也可能患有 PCOS，超重的女性也可能沒有。',
+      s7NeutralText: '後續的隨訪應關注整體健康，而不只是體重秤上的數字。',
+      s8Heading: '皮膚、頭髮與體毛',
+      s8Body1: '相對的雄性素偏多可能影響皮脂腺和毛囊。',
+      s8Body2: '因人而異，這可能表現為持續的痤瘡、毛髮增多或脫髮。',
+      s8Items: [
+        '荷爾蒙型痤瘡',
+        '面部或身體毛髮增多',
+        '頭髮變稀或脫髮',
+      ],
+      s9Heading: '如何管理 PCOS？',
+      s9Body1: '管理 PCOS 並沒有適合每個人的單一方法。具體選擇取決於症狀、目標和醫療情況。',
+      s9Body2: '在人生的不同階段，目標也可能不同：調節月經週期、改善某些症狀、保護代謝健康，或為懷孕計劃提供支援。',
+      s9MiniTitle: '有益健康的習慣',
+      s9Lifestyle: [
+        '飲食多樣、規律，並適合自己的需要',
+        '進行你能長期堅持的規律運動',
+        '保持足夠規律的睡眠',
+        '記錄月經週期和症狀隨時間的變化',
+        '不要因為體重或症狀的變化而責怪自己',
+      ],
+      s9Body3: '根據你的需要，醫療專業人員也可能針對某些症狀提供治療，或為懷孕計劃提供支援。',
+      s9AlertTitle: '請勿自行用藥',
+      s9AlertText: '荷爾蒙類藥物、代謝類藥物和膳食補充劑，都應先與醫療專業人員討論。',
+      s10Heading: '關於 PCOS 的常見誤區',
+      s10Myths: [
+        'PCOS 一定意味著有「囊腫」：這個名稱容易讓人誤解。診斷並不只依據是否存在囊腫。',
+        '所有 PCOS 患者都超重：PCOS 可以出現在各種體型的女性身上。',
+        'PCOS 一定會妨礙懷孕：排卵可能不規律，但仍然有可能懷孕。',
+        '只要有一種症狀就足以診斷 PCOS：診斷需要全面的評估。',
+        'PCOS 會隨著年齡增長自行消失：它的表現可能在一生中發生變化，但持續的隨訪依然重要。',
+      ],
+      s11Heading: '何時就醫',
+      s11Body1: '當月經週期變得非常不規律、停止好幾個月，或出現異常症狀時，尤其值得尋求醫療建議。',
+      s11ConsultItems: [
+        '月經週期非常不規律或沒有月經',
+        '異常的痤瘡或毛髮增多',
+        '明顯的脫髮',
+        '難以懷孕',
+        '症狀變化很快',
+      ],
+      s12Heading: '要點回顧',
+      s12SummaryTitle: '核心要點',
+      s12SummaryItems: [
+        'PCOS 是一種常見的內分泌狀況。',
+        '它的表現可以有很多種。',
+        '並非所有 PCOS 患者的症狀都相同。',
+        '僅憑體重不足以診斷或排除 PCOS。',
+        '診斷需要全面的醫學評估。',
+        'PCOS 可能影響排卵，有時也會影響生育力。',
+        '個性化的照護方式有助於滿足每位女性的需求。',
+      ],
+      finalNoteTitle: '幫助你更好地瞭解',
+      finalNoteText: '本文僅供一般性參考，不能替代就診。每個人的情況各不相同：如有疑問或症狀持續，請向醫療專業人員諮詢。',
+      shareMessage: '瞭解多囊性卵巢症候群 — AWA',
+    },
+  ar: {
+    badge: 'متلازمة تكيّس المبايض • الدليل الأساسي',
+    title: 'فهم\nمتلازمة تكيّس المبايض',
+    metaDuration: '10 دقائق للقراءة',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى تثقيفي',
+    intro:
+      'متلازمة تكيّس المبايض حالة هرمونية شائعة، قد تؤثر في دوراتك والإباضة والبشرة والشعر والاستقلاب، وأحيانًا في الخصوبة.',
+    introSecondary:
+      'تختلف طريقة ظهورها كثيرًا من امرأة إلى أخرى. وفهمها يساعدك أساسًا على التعرف على أعراضها، ومعرفة متى تطلبين المشورة الطبية، وتتبّع تطورها دون لوم للنفس.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هي متلازمة تكيّس المبايض؟',
+      'لماذا تحدث متلازمة تكيّس المبايض؟',
+      'العلامات الرئيسية',
+      'كيف تُشخَّص؟',
+      'متلازمة تكيّس المبايض والإباضة',
+      'متلازمة تكيّس المبايض والخصوبة',
+      'متلازمة تكيّس المبايض والوزن / الاستقلاب',
+      'البشرة والشعر وشعر الجسم',
+      'كيف تُدار متلازمة تكيّس المبايض؟',
+      'مفاهيم خاطئة شائعة',
+      'متى تراجعين الطبيب',
+      'أهم النقاط',
+    ],
+    s1Heading: 'ما هي متلازمة تكيّس المبايض؟',
+    s1Body1:
+      'متلازمة تكيّس المبايض حالة هرمونية شائعة قد تغيّر عمل المبيضين المعتاد وتوازن بعض الهرمونات.',
+    s1Body2:
+      'لدى بعض النساء تكون المشكلة الرئيسية عدم انتظام الإباضة. ولدى أخريات يكون حب الشباب أو زيادة نمو الشعر أو تساقطه أو العلامات الاستقلابية هي الأبرز في البداية.',
+    s1TipTitle: 'من المفيد أن تعرفي',
+    s1TipText:
+      'رغم اسمها، لا تعني متلازمة تكيّس المبايض بالضرورة وجود «أكياس» في المبيضين. فالمصطلح التاريخي قد يكون مضلّلًا، ولا تكفي الموجات فوق الصوتية وحدها لإثبات التشخيص.',
+    s2Heading: 'لماذا تحدث متلازمة تكيّس المبايض؟',
+    s2Body1:
+      'ليس لمتلازمة تكيّس المبايض سبب واحد. ويبدو أنها تنتج عن عدة عوامل قد تجتمع: الاستعداد العائلي، والعمل الهرموني، والإباضة، والاستقلاب، وعوامل فردية.',
+    s2Factors: [
+      'الاستعداد العائلي والعوامل الوراثية',
+      'اضطرابات في الإباضة',
+      'زيادة نسبية في الأندروجينات',
+      'مقاومة الإنسولين لدى بعض النساء',
+      'عوامل استقلابية وبيئية',
+    ],
+    s2NeutralText:
+      'متلازمة تكيّس المبايض ليست تقصيرًا شخصيًا. فهي لا تنتج ببساطة عن ضعف الإرادة أو سوء التغذية أو قلة النشاط البدني.',
+    s3Heading: 'العلامات الرئيسية',
+    s3Body1:
+      'قد تظهر متلازمة تكيّس المبايض بشكل مختلف جدًا من امرأة إلى أخرى. فبعضهن لديهن عدة أعراض، وأخريات يلاحظن القليل جدًا.',
+    s3Signs: [
+      'دورات غير منتظمة أو متباعدة أو غائبة أحيانًا',
+      'إباضة غير منتظمة أو يصعب توقعها',
+      'حب شباب مستمر، خاصة في أسفل الوجه',
+      'زيادة نمو الشعر على الوجه أو الصدر أو الجسم',
+      'تساقط الشعر بنمط هرموني',
+      'زيادة الوزن أو صعوبة إنقاصه',
+      'صعوبة في الحمل',
+    ],
+    s3AlertTitle: 'مهم',
+    s3AlertText:
+      'وجود أحد هذه الأعراض لا يعني تلقائيًا أنك مصابة بمتلازمة تكيّس المبايض. فهناك حالات أخرى كثيرة قد تسبب أعراضًا مشابهة.',
+    s4Heading: 'كيف تُشخَّص؟',
+    s4Body1:
+      'تشخيص متلازمة تكيّس المبايض عملية طبية. وعادةً يبدأ مقدّم الرعاية الصحية بالحديث عن دوراتك وأعراضك وتاريخك الطبي وأي علاجات تتناولينها.',
+    s4Body2:
+      'وحسب الحالة، قد تُقترح أيضًا تحاليل دم هرمونية وفحص بالموجات فوق الصوتية.',
+    s4Points: [
+      'دورات غير منتظمة أو إباضة نادرة',
+      'علامات زيادة الأندروجينات: حب الشباب، أو زيادة نمو الشعر، أو تساقطه، أو نتائج تحليل الدم',
+      'مظهر للمبيضين يتوافق مع متلازمة تكيّس المبايض في الموجات فوق الصوتية، عندما يكون هذا الفحص مناسبًا',
+    ],
+    s4Body3:
+      'ويجب على الطبيب أيضًا استبعاد الأسباب الأخرى المحتملة لعدم انتظام الدورة أو زيادة الأندروجينات قبل تأكيد تشخيص متلازمة تكيّس المبايض.',
+    s5Heading: 'متلازمة تكيّس المبايض والإباضة',
+    s5Body1:
+      'الإباضة هي خروج البويضة من المبيض. وفي متلازمة تكيّس المبايض قد تكون الإباضة أقل تكرارًا أو أصعب توقعًا.',
+    s5Body2:
+      'وهذا قد يفسّر أن الدورات تكون أحيانًا طويلة أو غير منتظمة أو يصعب توقعها.',
+    s5HighlightTitle: 'تتبّع دورتك',
+    s5HighlightText:
+      'تسجيل تواريخ حيضك وأعراضك وأي علامات للإباضة قد يساعدك على فهم أنماطك الخاصة بشكل أفضل.',
+    s6Heading: 'متلازمة تكيّس المبايض والخصوبة',
+    s6Body1:
+      'بما أن الإباضة قد تكون غير منتظمة، فقد تواجه بعض النساء المصابات بمتلازمة تكيّس المبايض صعوبة أكبر في الحمل.',
+    s6Body2:
+      'لكن هذا لا يعني أن متلازمة تكيّس المبايض تمنع الحمل تلقائيًا. فكثير من النساء المصابات بها يحملن بشكل طبيعي أو بدعم طبي مناسب.',
+    s6TipTitle: 'تذكّري',
+    s6TipText:
+      'صعوبة الحمل لا تعني استحالته. وإذا كنتِ ترغبين في الحمل، يمكن للطبيب أو القابلة أن يقترح خطة تناسب حالتك.',
+    s7Heading: 'متلازمة تكيّس المبايض والوزن / الاستقلاب',
+    s7Body1:
+      'قد ترتبط متلازمة تكيّس المبايض بتغيّرات استقلابية، منها مقاومة الإنسولين لدى بعض النساء.',
+    s7Body2:
+      'لكن الوزن وحده لا يشخّص متلازمة تكيّس المبايض ولا يستبعدها. فقد تُصاب بها امرأة نحيفة، كما قد لا تُصاب بها امرأة تعاني من زيادة الوزن.',
+    s7NeutralText:
+      'ينبغي أن تراعي المتابعة الصحة العامة، لا الرقم الذي تظهره الميزان فقط.',
+    s8Heading: 'البشرة والشعر وشعر الجسم',
+    s8Body1:
+      'قد تؤثر الزيادة النسبية في الأندروجينات في الغدد الدهنية وبصيلات الشعر.',
+    s8Body2:
+      'وحسب كل امرأة، قد يظهر ذلك في صورة حب شباب مستمر، أو زيادة في نمو الشعر، أو تساقط الشعر.',
+    s8Items: [
+      'حب الشباب الهرموني',
+      'زيادة شعر الوجه أو الجسم',
+      'ترقّق الشعر أو تساقطه',
+    ],
+    s9Heading: 'كيف تُدار متلازمة تكيّس المبايض؟',
+    s9Body1:
+      'لا يوجد نهج واحد لإدارة متلازمة تكيّس المبايض يناسب كل امرأة. ويعتمد الاختيار على الأعراض والأهداف والظروف الطبية.',
+    s9Body2:
+      'وقد يختلف الهدف حسب مرحلة الحياة: تنظيم الدورة، أو تحسين بعض الأعراض، أو حماية الصحة الاستقلابية، أو دعم مشروع حمل.',
+    s9MiniTitle: 'عادات تدعم الصحة',
+    s9Lifestyle: [
+      'تناول غذاء متنوع ومنتظم يناسب احتياجاتك',
+      'ممارسة نشاط بدني منتظم يمكنك الاستمرار عليه مع الوقت',
+      'الحفاظ على نوم منتظم بما يكفي',
+      'تتبّع تطور دوراتك وأعراضك مع الوقت',
+      'عدم لوم نفسك على تغيّرات الوزن أو الأعراض',
+    ],
+    s9Body3:
+      'وحسب احتياجاتك، قد يقترح مقدّم الرعاية الصحية أيضًا علاجات لبعض الأعراض أو لدعم مشروع الحمل.',
+    s9AlertTitle: 'لا تعالجي نفسك بنفسك',
+    s9AlertText:
+      'ينبغي مناقشة العلاجات الهرمونية والأدوية الاستقلابية والمكملات الغذائية كلها مع مقدّم الرعاية الصحية.',
+    s10Heading: 'مفاهيم خاطئة شائعة عن متلازمة تكيّس المبايض',
+    s10Myths: [
+      'متلازمة تكيّس المبايض تعني دائمًا وجود «أكياس»: قد يكون الاسم مضلّلًا. فالتشخيص لا يعتمد على وجود الأكياس وحدها.',
+      'كل النساء المصابات بمتلازمة تكيّس المبايض يعانين من زيادة الوزن: يمكن أن تصيب المتلازمة النساء من جميع أنواع الأجسام.',
+      'متلازمة تكيّس المبايض تمنع الحمل دائمًا: قد تكون الإباضة غير منتظمة، لكن الحمل يبقى ممكنًا.',
+      'عَرَض واحد يكفي لتشخيص متلازمة تكيّس المبايض: التشخيص يتطلب تقييمًا شاملًا.',
+      'متلازمة تكيّس المبايض تزول ببساطة مع التقدم في العمر: قد تتغير طريقة ظهورها على مدى العمر، لكن المتابعة المستمرة تبقى مهمة.',
+    ],
+    s11Heading: 'متى تراجعين الطبيب',
+    s11Body1:
+      'تكون المشورة الطبية مفيدة بشكل خاص عندما تصبح الدورات غير منتظمة جدًا، أو تنقطع لعدة أشهر، أو عندما تظهر أعراض غير معتادة.',
+    s11ConsultItems: [
+      'دورات غير منتظمة جدًا أو غائبة',
+      'حب شباب أو نمو شعر غير معتاد',
+      'تساقط شعر ملحوظ',
+      'صعوبة في الحمل',
+      'أعراض تتغير بسرعة',
+    ],
+    s12Heading: 'أهم النقاط',
+    s12SummaryTitle: 'النقاط الأساسية',
+    s12SummaryItems: [
+      'متلازمة تكيّس المبايض حالة هرمونية شائعة.',
+      'يمكن أن تظهر بطرق كثيرة مختلفة.',
+      'لا تعاني كل النساء المصابات بمتلازمة تكيّس المبايض من الأعراض نفسها.',
+      'الوزن وحده لا يكفي لتشخيص متلازمة تكيّس المبايض أو استبعادها.',
+      'يتطلب التشخيص تقييمًا طبيًا شاملًا.',
+      'قد تؤثر متلازمة تكيّس المبايض في الإباضة وأحيانًا في الخصوبة.',
+      'نهج الرعاية الشخصي يساعد على تلبية احتياجات كل امرأة.',
+    ],
+    finalNoteTitle: 'دليل لفهم أفضل',
+    finalNoteText:
+      'هذا المقال للمعلومات العامة ولا يغني عن الاستشارة الطبية. فكل حالة مختلفة: وإذا ساورك شك أو استمرت الأعراض، فاطلبي مشورة مختص في الرعاية الصحية.',
+    shareMessage: 'فهم متلازمة تكيّس المبايض — AWA',
+  },
+  kab: {
+    badge: 'PCOS • AMEZRAG ATIGEJDAN',
+    title: 'Fhem\nPCOS',
+    metaDuration: '10 n tesdatin n tɣuri',
+    metaType: 'Amnir',
+    metaLevel: 'Anabdu',
+    metaValidated: 'Agbur n uselmed',
+    intro:
+      'Asyndrom n yiseksawen s waṭas n kystes, yettwaxeddem s waṭas PCOS, d ugur amatu n hormone i izemren ad yesɛu tikli ɣef cycles-ik, ovulation, uglim, ccwari, métabolisme, d kra n tikkal tamerna.',
+    introSecondary:
+      'Amek i d-yettbeggen yemgarad aṭas seg yiwet ɣer tayeḍ. Ma tfehmeḍ PCOS, ad ak-yɛawen s wudem uslig ad tessneḍ ticraḍ-is, ad tessneḍ melmi ara tessuturem tanṣiḥt n ṭṭbib, d ad tḥerzeḍ asnifel-is war ma tessmuqleḍ iman-ik.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu i d PCOS?',
+      'Ayɣer i d-yettili PCOS?',
+      'Ticraḍ igejdanin',
+      'Amek i yettwasenqed?',
+      'PCOS d ovulation',
+      'PCOS d tmerna',
+      'PCOS d uzɣal / métabolisme',
+      'Aglim, ccwari, d ccwari n ugraw',
+      'Amek i yettwaḥekkem PCOS?',
+      'Ticraḍ ur nelli ara d tidet',
+      'Melmi ara twaliḍ aṭṭbib',
+      'Tiɣawsiwin tigejdanin',
+    ],
+    s1Heading: 'D acu i d PCOS?',
+    s1Body1:
+      'Asyndrom n yiseksawen s waṭas n kystes (PCOS) d ugur amatu n hormone i izemren ad ibeddel tikli tamenzut n yiseksawen d umizzan n kra n hormone.',
+    s1Body2:
+      'I kra n tilawin, ugur agejdan d ovulation ur yelli ara d tamaḍalt. I wiyaḍ, d acne, aṭaṭ n ccwari, ukkes n ccwari, neɣ ticraḍ n métabolisme i d-yettbeggen d ayen amezwaru.',
+    s1TipTitle: 'Ilaq ad teẓṛeḍ',
+    s1TipText:
+      'Ɣas akken isem-is, PCOS ur yeqqar ara dakken iseksawen sɛan “kystes.” Awal amezruy-ines yezmer ad k-yeḥbes, ultrason kan ur d-yeqqar ara asenqed.',
+    s2Heading: 'Ayɣer i d-yettili PCOS?',
+    s2Body1:
+      'Ulac ssebba yiwen n PCOS. Yettwali d yimi n aṭas n wayen i izemren ad ddukklen: asenfar n twacult, tikli n hormone, ovulation, métabolisme, d wayen n yal yiwen.',
+    s2Factors: [
+      'Asenfar n twacult d wayen n jinat',
+      'Ugur deg ovulation',
+      'Aṭaṭ amassan n androgène',
+      'Tamentilt n insuline deg kra n tilawin',
+      'Ilmend n métabolisme d n twaculant',
+    ],
+    s2NeutralText:
+      'PCOS mačči d taɣellit n yiwen. Ur d-yeqqar ara kan s ukkes n lebɣi, tuccant ur yelli ara d tameqqrant, neɣ urar n ugraw ur yelli ara d aṭaṭ.',
+    s3Heading: 'Ticraḍ igejdanin',
+    s3Body1:
+      'PCOS tezmer ad d-tettbeggen s wudem yemgaraden aṭas seg yiwet ɣer tayeḍ. Kra sɛant aṭas n ticraḍ, wiyaḍ ttwalint drus.',
+    s3Signs: [
+      'Cycles ur yelli ara d imaḍalen, ttwabeɛden, neɣ kra n tikkal ur d-yettili ara',
+      'Ovulation ur yelli ara d tamaḍalt neɣ yewɛer ad tt-id-tesmektiyeḍ',
+      'Acne i yettqimen, s wudem uslig deg udem n ddaw',
+      'Aṭaṭ n ccwari deg udem, uɣerrus, neɣ ugraw',
+      'Ukkes n ccwari s wudem n hormone',
+      'Azrir n uzɣal neɣ tuɣalin n uzɣal yewɛer',
+      'Tuqqna tewɛer ad tt-id-tsewweḍ',
+    ],
+    s3AlertTitle: 'D ayen yelhan',
+    s3AlertText:
+      'Ma tesɛiḍ yiwen seg ticraḍ-a ur yeqqar ara s wudem awurman belli tesɛiḍ PCOS. Aṭas n tallunin niḍen zemrent ad d-awint ticraḍ ur nemgaradent ara.',
+    s4Heading: 'Amek i yettwasenqed?',
+    s4Body1:
+      'Asenqed n PCOS d abrid n ṭṭbib. Amaẓrag n lɛafit s waṭas ibeddu s tamsawalt ɣef cycles-ik, ticraḍ-ik, amezruy-ik n ddwa, d ddwa i tettawiḍ.',
+    s4Body2:
+      'Almend n tmeẓẓi, isenqed n idammen n hormone d ultrason zemren ad ttunefken daɣen.',
+    s4Points: [
+      'Cycles ur yelli ara d imaḍalen neɣ ovulation ur d-tettili ara',
+      'Ticraḍ n aṭaṭ n androgène: acne, aṭaṭ n ccwari, ukkes n ccwari, neɣ igmuḍ n isenqed n idammen',
+      'Udem n yiseksawen yeqqnen ɣer PCOS deg ultrason, mi ara yella usenqed-a yettwaswayen',
+    ],
+    s4Body3:
+      'Aṭṭbib ilaq daɣen ad yekkes ssebbat niḍen n cycles ur yelli ara d imaḍalen neɣ n aṭaṭ n androgène send ad yessaḥ asenqed n PCOS.',
+    s5Heading: 'PCOS d ovulation',
+    s5Body1:
+      'Ovulation d tuffɣa n tamellalt (ovocyte) seg useksaw. Deg PCOS, ovulation tezmer ad tili drus neɣ yewɛer ad tt-id-tesmektiyeḍ.',
+    s5Body2:
+      'Wagi yezmer ad yefk i cycles ad ilin d iɣezfanen, ur d-ilin ara d imaḍalen, neɣ yewɛer ad ten-tesmektiyeḍ.',
+    s5HighlightTitle: 'Ad tḥerzeḍ cycle-ik',
+    s5HighlightText:
+      'Ma truẓeḍ wussan n lḥiḍ-ik, ticraḍ-ik, d yal acraḍ n ovulation, ad k-ɛawen ad tfehmeḍ asnifel-ik.',
+    s6Heading: 'PCOS d tmerna',
+    s6Body1:
+      'Acku ovulation tezmer ad tili ur yelli ara d tamaḍalt, kra n tilawin i sɛan PCOS zemrent ad sɛunt ugar n wuguren n tmerna.',
+    s6Body2:
+      'Wagi ur yeqqar ara, maca, belli PCOS tegg tamerna s wudem awurman. Aṭas n tilawin i sɛan PCOS ttmernant s tmeẓẓi neɣ s lɛawna n ṭṭbib yelhan.',
+    s6TipTitle: 'Ṭṭef deg wallaɣ',
+    s6TipText:
+      'Ugur n tmerna ur yeqqar ara belli ur tezmireḍ ara. Ma tebɣiḍ ad tmerneḍ, aṭṭbib neɣ taqbalt zemren ad d-ssufɣen tarrayt yelhan i tmeẓẓi-ik.',
+    s7Heading: 'PCOS d uzɣal / métabolisme',
+    s7Body1:
+      'PCOS tezmer ad tettwaqqen d usnifel n métabolisme, ula d tamentilt n insuline deg kra n tilawin.',
+    s7Body2:
+      'Maca, uzɣal kan ur izmir ara ad yessaḥ neɣ ad yekkes asenqed n PCOS. Tameṭṭut tazewwaɣt tezmer ad tesɛu PCOS, am akken tameṭṭut yesɛan aṭaṭ n uzɣal tezmer ur t-tesɛi ara.',
+    s7NeutralText:
+      'Tallunt ilaq ad tmuqel ɣer tezmert tamatut, mačči ɣer wuṭṭun kan deg uzɣal.',
+    s8Heading: 'Aglim, ccwari, d ccwari n ugraw',
+    s8Body1:
+      'Aṭaṭ amassan n androgène yezmer ad yesɛu tikli ɣef tigeddiwin n wuɣen d iyi n ccwari.',
+    s8Body2:
+      'Almend n tmeṭṭut, wagi yezmer ad d-yettbeggen d acne i yettqimen, aṭaṭ n ccwari, neɣ ukkes n ccwari.',
+    s8Items: [
+      'Acne n hormone',
+      'Aṭaṭ n ccwari deg udem neɣ deg ugraw',
+      'Ccwari yeqqnen neɣ ukkes n ccwari',
+    ],
+    s9Heading: 'Amek i yettwaḥekkem PCOS?',
+    s9Body1:
+      'Ulac abrid yiwen n uḥekkem n PCOS i yelhan i yal tameṭṭut. Afran yettɛalaq ɣer ticraḍ, iswi, d tallunin n tmeẓẓi.',
+    s9Body2:
+      'Iswi yezmer ad yemgarad almend n uswir n tudert: ad yettwaswey cycles, ad ttwasnefren kra n ticraḍ, ad tettwaḥrez tazmert n métabolisme, neɣ ad tettwaɛawen tmerna.',
+    s9MiniTitle: 'Iɛadaten i yettɛawanen tazmert',
+    s9Lifestyle: [
+      'Ad tettuccaneḍ s wudem yemgaraden, amaḍal, yelhan i wayen i tḥewweǧeḍ',
+      'Ad txedmeḍ urar n ugraw amaḍal i tzemreḍ ad tkemmleḍ',
+      'Ad tgneḍ s wudem amaḍal s wudem yettwaweṭṭef',
+      'Ad tḥerzeḍ amek i d-ttbeddilen cycles-ik d ticraḍ-ik s wakud',
+      'Ur tessmuqleḍ ara iman-ik ɣef usnifel n uzɣal neɣ ticraḍ',
+    ],
+    s9Body3:
+      'Almend n tmeẓẓi-ik, amaẓrag n lɛafit yezmer daɣen ad d-ssufeɣ ddwa i kra n ticraḍ neɣ i uɣrad n tmerna.',
+    s9AlertTitle: 'Ur tesseqdac ara ddwa s yiman-ik',
+    s9AlertText:
+      'Ddwa n hormone, ddwa n métabolisme, d tiyuttiwin n tuccant ilaq ad ttwassawalent akk d umaẓrag n lɛafit.',
+    s10Heading: 'Ticraḍ ur nelli ara d tidet ɣef PCOS',
+    s10Myths: [
+      'PCOS tegg s wudem amatu “kystes”: isem yezmer ad k-yeḥbes. Asenqed ur yettwabna ara kan ɣef lǧal n kystes.',
+      'Akk tilawin i sɛan PCOS ɛellint: PCOS tezmer ad tesɛu tikli ɣef tilawin n yal udem n ugraw.',
+      'PCOS ttegg tamerna yal tikkelt: ovulation tezmer ad tili ur yelli ara d tamaḍalt, maca tamerna tezmer.',
+      'Yiwen n wacraḍ yekfa akken ad yettwasenqed PCOS: asenqed yessuter tmeẓẓi tamatut.',
+      'PCOS tedda s leɛmer: amek i d-tettbeggen yezmer ad yettbeddil deg tudert, maca asenqed i yettkemmilen yeqqim d ayen yelhan.',
+    ],
+    s11Heading: 'Melmi ara twaliḍ aṭṭbib',
+    s11Body1:
+      'Tanṣiḥt n ṭṭbib telha s wudem uslig mi ara tuɣal cycles d ayen ur yelli ara d amaḍal aṭas, ttbeddun aṭas n wayyuren, neɣ mi ara d-ilin ticraḍ ur nelli ara d tidet.',
+    s11ConsultItems: [
+      'Cycles ur yelli ara d imaḍalen aṭas neɣ ur d-ttilin ara',
+      'Acne neɣ aṭaṭ n ccwari ur yelli ara d amaḍal',
+      'Ukkes n ccwari ameqqran',
+      'Tuqqna tewɛer ad tt-id-tsewweḍ',
+      'Ticraḍ i yettbeddilen s tazmert',
+    ],
+    s12Heading: 'Tiɣawsiwin tigejdanin',
+    s12SummaryTitle: 'Ticraḍ igejdanin',
+    s12SummaryItems: [
+      'PCOS d ugur amatu n hormone.',
+      'Tezmer ad d-tettbeggen s aṭas n wudmawen.',
+      'Akk tilawin i sɛan PCOS ur sɛant ara ticraḍ kif kif.',
+      'Uzɣal kan ur yekfi ara ad yessaḥ neɣ ad yekkes PCOS.',
+      'Asenqed yessuter tameẓẓi tamatut n ṭṭbib.',
+      'PCOS tezmer ad tesɛu tikli ɣef ovulation d kra n tikkal tamerna.',
+      'Tarrayt n tmeẓẓi yettwaswayen tɛawen ad tgem ayen i yeḥwaǧ yal tameṭṭut.',
+    ],
+    finalNoteTitle: 'Amagrad i usefhem ilhan',
+    finalNoteText:
+      'Amagrad-a yettunefk i talɣut tamatut, ur d-yettɛawad ara tamsawalt n ṭṭbib. Yal tamsalt temgarad: ma tesɛiḍ ccek neɣ ma ticraḍ qqimen, suter tanṣiḥt n umaẓrag n lɛafit.',
+    shareMessage: 'Fhem PCOS — AWA',
+  },
+  om: {
+    badge: 'PCOS • QAJEELFAMA BARBAACHISAA',
+    title: 'PCOS\nhubachuu',
+    metaDuration: 'Daqiiqaa 10 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee barnootaa',
+    intro:
+      'Sindiroomii gadaa baay\'ee kisii, yeroo baay\'ee PCOS jedhamu, haala hormoonii baratamaa kan marsaa kee, ovulation, gogaa, rifeensa, metaboolizimii, fi yeroo tokko tokko da\'umsa irratti dhiibbaa qabaachuu danda\'u dha.',
+    introSecondary:
+      'Akkaataa itti mul\'atu dubartii irraa gara dubartiitti baay\'ee garaagarummaa qaba. PCOS hubachuun keessumaa mallattoo isaa adda baasuuf, yoom gorsa fayyaa barbaaduu akka qabdu beekuuf, fi of balaaleffachuu malee akkamitti jijjiiramaa akka jiru hordofuuf si gargaara.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'PCOS maali?',
+      'Maaliif PCOS ta\'a?',
+      'Mallattoowwan ijoo',
+      'Akkamitti adda baafama?',
+      'PCOS fi ovulation',
+      'PCOS fi da\'umsa',
+      'PCOS fi ulfaatina / metaboolizimii',
+      'Gogaa, rifeensa, fi rifeensa qaamaa',
+      'PCOS akkamitti to\'atama?',
+      'Ejjannoo dogoggoraa baratamaa',
+      'Yoom doktora ilaaluu',
+      'Ka\'umsa gurguddoo',
+    ],
+    s1Heading: 'PCOS maali?',
+    s1Body1:
+      'Sindiroomii gadaa baay\'ee kisii (PCOS) haala hormoonii baratamaa kan hojii gadaa idilee fi madaalli hormoonii tokko tokko jijjiiruu danda\'u dha.',
+    s1Body2:
+      'Dubartoota tokko tokkoof, rakkoon ijoo ovulation sirrii hin taane. Kaaniif, ujummoo, rifeensa baay\'ee guddachuu, rifeensi kufuu, ykn mallattoon metaboolizimii dura mul\'atu.',
+    s1TipTitle: 'Beekuun gaarii dha',
+    s1TipText:
+      'Maqaa isaa osoo hin ilaalin, PCOS gadaan "sisti" qaba jechuu hin jechisiisu. Jechi seenaa balleessuu danda\'a, ultrasaawundiin qofti murtii kennuuf hin gahu.',
+    s2Heading: 'Maaliif PCOS ta\'a?',
+    s2Body1:
+      'PCOS sababa tokko hin qabu. Wantoota hedduu walitti makamuu danda\'an irraa dhufe fakkaata: maatii irraa dhaalamuu, hojii hormoonii, ovulation, metaboolizimii, fi wantoota dhuunfaa.',
+    s2Factors: [
+      'Maatii irraa dhaalamuu fi sababoota jeenetiksii',
+      'Ovulation keessatti jeequmsa',
+      'Androjiinii dabalataan walitti qabamu',
+      'Dubartoota tokko tokko keessatti dandeettii insuliinii dhabuu',
+      'Sababoota metaboolizimii fi naannoo',
+    ],
+    s2NeutralText:
+      'PCOS dogoggora dhuunfaa miti. Humna fedhii dhabuu, nyaata dhabuu, ykn sochii qaamaa gahaa dhabuu qofaan hin dhufu.',
+    s3Heading: 'Mallattoowwan ijoo',
+    s3Body1:
+      'PCOS dubartii irraa gara dubartiitti baay\'ee adda ta\'ee mul\'achuu danda\'a. Tokko tokko mallattoo hedduu qabu, kaan immoo baay\'ee xiqqoo hubatu.',
+    s3Signs: [
+      'Marsaa sirrii hin taane, baay\'ee fageenya qabu, ykn yeroo tokko tokko hin jiraanne',
+      'Ovulation sirrii hin taane ykn tilmaamuuf ulfaataa',
+      'Ujummoo itti fufu, keessumaa fuula gadii irratti',
+      'Rifeensi fuula, qomaa, ykn qaama irratti dabaluu',
+      'Rifeensi kufuu akka hormoonii',
+      'Ulfaatina dabaluu ykn ulfaatina hir\'isuuf ulfaataa ta\'uu',
+      'Ulfa fudhachuuf ulfaachuu',
+    ],
+    s3AlertTitle: 'Barbaachisaa',
+    s3AlertText:
+      'Mallattoo kana keessaa tokko qabaachuun ofumaan PCOS qabda jechuu miti. Haalawwan biroo hedduun mallattoo wal-fakkaatu fiduu danda\'u.',
+    s4Heading: 'Akkamitti adda baafama?',
+    s4Body1:
+      'PCOS adda baasuun adeemsa fayyaa dha. Ogeessi fayyaa yeroo baay\'ee marsaa kee, mallattoo kee, seenaa fayyaa kee, fi yaalii ati fudhattu irratti haasa\'uun jalqaba.',
+    s4Body2:
+      'Akka haalaatti, qorannoon dhiigaa hormoonii fi ultrasaawundiin dhiyaachuu danda\'a.',
+    s4Points: [
+      'Marsaa sirrii hin taane ykn ovulation yeroo xiqqoo',
+      'Mallattoo androjiinii baay\'ee: ujummoo, rifeensa baay\'ee guddachuu, rifeensi kufuu, ykn bu\'aa qorannoo dhiigaa',
+      'Fakkii gadaa PCOS wajjin walsimatu ultrasaawundii irratti, qorannoon kun yeroo barbaachisu',
+    ],
+    s4Body3:
+      'Doktorri murtii PCOS mirkaneessuu dura sababoota biroo marsaa sirrii hin taane ykn androjiinii baay\'ee ta\'an immoo ittisuu qaba.',
+    s5Heading: 'PCOS fi ovulation',
+    s5Body1:
+      'Ovulation gadaa (oosaayitii) gadaa irraa gadi dhiisuu dha. PCOS keessatti, ovulation yeroo xiqqoo ykn tilmaamuuf ulfaataa ta\'uu danda\'a.',
+    s5Body2:
+      'Kun maaliif marsaan yeroo tokko tokko dheeraa, sirrii hin taane, ykn tilmaamuuf ulfaataa akka ta\'e ibsuu danda\'a.',
+    s5HighlightTitle: 'Marsaa kee hordofuu',
+    s5HighlightText:
+      'Guyyaa laguu kee, mallattoo kee, fi mallattoo ovulation yoo jiraate galmeessuun adeemsa dhuunfaa kee caalaatti akka hubattu si gargaaruu danda\'a.',
+    s6Heading: 'PCOS fi da\'umsa',
+    s6Body1:
+      'Ovulation sirrii hin taane waan ta\'ef, dubartoota PCOS qaban tokko tokko ulfa fudhachuuf ulfaataa ta\'uu danda\'a.',
+    s6Body2:
+      'Kun ofumaan PCOS ulfa dhorka jechuu miti, garuu. Dubartoonni PCOS qaban hedduun uumamaan ykn deeggarsa fayyaa mijaa\'aan ulfa fudhatu.',
+    s6TipTitle: 'Yaadadhu',
+    s6TipText:
+      'Ulfa fudhachuuf ulfaachuun hin danda\'amu jechuu miti. Yoo ulfa fudhachuu abdii qabaatte, doktorri ykn da\'umsaan karoora haala keetiif mijaa\'e yaada dhiheessuu danda\'a.',
+    s7Heading: 'PCOS fi ulfaatina / metaboolizimii',
+    s7Body1:
+      'PCOS jijjiirama metaboolizimii wajjin, dubartoota tokko tokko keessatti dandeettii insuliinii dhabuu dabalatee, walqabachuu danda\'a.',
+    s7Body2:
+      'Haa ta\'u malee, ulfaatinni qofti PCOS adda baasuu ykn ittisuu hin danda\'u. Dubartiin qal\'aa PCOS qabaachuu danda\'a, akkasumas dubartiin ulfaatina qabdu hin qabaanne.',
+    s7NeutralText:
+      'Kunuunsi hordofaa fayyaa waliigalaa ilaaluu qaba, lakkoofsa safartuu irratti qofa miti.',
+    s8Heading: 'Gogaa, rifeensa, fi rifeensa qaamaa',
+    s8Body1:
+      'Androjiinii dabalataan walitti qabame wal-qabsiisaa coomaa fi buqqaa rifeensaa irratti dhiibbaa qabaachuu danda\'a.',
+    s8Body2:
+      'Akka dubartiitti, kun ujummoo itti fufuu, rifeensa dabalaa guddachuu, ykn rifeensi kufuu ta\'ee mul\'achuu danda\'a.',
+    s8Items: [
+      'Ujummoo hormoonii',
+      'Rifeensa fuula ykn qaama dabalaa',
+      'Rifeensa xiqqaachuu ykn kufuu',
+    ],
+    s9Heading: 'PCOS akkamitti to\'atama?',
+    s9Body1:
+      'PCOS to\'achuuf mala tokko dubartii hundaaf hojjetu hin jiru. Filannoon mallattoo, kaayyoo, fi haala fayyaa irratti hundaa\'a.',
+    s9Body2:
+      'Kaayyoon sadarkaa jireenyaa irratti hundaa\'ee adda ta\'uu danda\'a: marsaa sirreessuu, mallattoo tokko tokko fooyyessuu, fayyaa metaboolizimii eegu, ykn karoora ulfaa deeggaruu.',
+    s9MiniTitle: 'Amaloota fayyaa deeggaran',
+    s9Lifestyle: [
+      'Nyaata garaagarummaa qabu, yeroo hunda, fedhii keetiif mijaa\'e nyaachuu',
+      'Sochii qaamaa yeroo hunda yeroo dheeraaf itti fufuu dandeessu raawwachuu',
+      'Hirribaa gahaa yeroo hunda taasisuu',
+      'Marsaa fi mallattoon kee yeroodhaan akkamitti akka jijjiiramu hordofuu',
+      'Jijjiirama ulfaatinaa ykn mallattoo irratti of balaaleffachuu dhiisuu',
+    ],
+    s9Body3:
+      'Fedhii keetti hundaa\'ee, ogeessi fayyaa mallattoo tokko tokkoof ykn karoora ulfaa deeggaruuf yaalii illee dhiyeessuu danda\'a.',
+    s9AlertTitle: 'Ofii yaaluu hin godhin',
+    s9AlertText:
+      'Yaaliin hormoonii, qorichi metaboolizimii, fi faayidaan nyaataa hundi ogeessa fayyaa wajjin mari\'atamuu qaba.',
+    s10Heading: 'Ejjannoo dogoggoraa baratamaa PCOS irratti',
+    s10Myths: [
+      'PCOS yeroo hunda "sisti" qabaachuu jechuu dha: maqaan sun dogoggorsuu danda\'a. Murtiin sisti jiraachuu qofa irratti hin hundaa\'u.',
+      'Dubartoonni PCOS qaban hundi ulfaatina qabu: PCOS dubartoota bifa qaamaa hundaa irratti ta\'uu danda\'a.',
+      'PCOS yeroo hunda ulfa dhorka: ovulation sirrii hin taane ta\'uu danda\'a, garuu ulfi ammayyuu danda\'ama.',
+      'Mallattoo tokko PCOS adda baasuuf gaha: murtiin qorannoo guutuu barbaada.',
+      'PCOS umuriin ofumaan bada: akkaataa itti mul\'atu jireenya guutuu keessatti jijjiiramuu danda\'a, garuu hordofni itti fufiinsa qabu ammayyuu barbaachisaa dha.',
+    ],
+    s11Heading: 'Yoom doktora ilaaluu',
+    s11Body1:
+      'Gorsi fayyaa keessumaa marsaan baay\'ee sirrii hin taane yoo ta\'e, ji\'a hedduuf yoo dhaabbate, ykn mallattoon hin baratamne yoo mul\'ate bu\'a qaba.',
+    s11ConsultItems: [
+      'Marsaa baay\'ee sirrii hin taane ykn hin jiraanne',
+      'Ujummoo ykn rifeensa guddachuu hin baratamne',
+      'Rifeensi kufuu guddaa',
+      'Ulfa fudhachuuf ulfaachuu',
+      'Mallattoo saffisaan jijjiiramu',
+    ],
+    s12Heading: 'Ka\'umsa gurguddoo',
+    s12SummaryTitle: 'Qabxiiwwan ijoo',
+    s12SummaryItems: [
+      'PCOS haala hormoonii baratamaa dha.',
+      'Karaa adda addaa hedduun mul\'achuu danda\'a.',
+      'Dubartoonni PCOS qaban hundi mallattoo wal-fakkaatu hin qaban.',
+      'Ulfaatinni qofti PCOS adda baasuuf ykn ittisuuf hin gahu.',
+      'Murtiin qorannoo fayyaa guutuu barbaada.',
+      'PCOS ovulation fi yeroo tokko tokko da\'umsa irratti dhiibbaa qabaachuu danda\'a.',
+      'Mala kunuunsa dhuunfaa fedhii dubartii tokkoon tokkoo guutuuf gargaara.',
+    ],
+    finalNoteTitle: 'Qajeelfama caalaatti hubachuuf',
+    finalNoteText:
+      'Barruun kun odeeffannoo waliigalaaf kan taa\'e; mariin fayyaa hin bakka bu\'u. Haalli hundi adda dha: yoo shakkite ykn mallattoon itti fufe, ogeessa fayyaa irraa gorsa gaafadhu.',
+    shareMessage: 'PCOS hubachuu — AWA',
+  },
+  ti: {
+    badge: 'PCOS • ኣገዳሲ መምርሒ',
+    title: 'PCOS\nምርዳእ',
+    metaDuration: '10 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'መእተዊ',
+    metaValidated: 'ትምህርታዊ ትሕዝቶ',
+    intro:
+      'ፖሊሲስቲክ ኦቫሪ ሲንድሮም፣ ብዙሕ ግዜ PCOS ዝብሃል፣ ንዑደታትኪ፣ ኦቭዩሌሽንኪ፣ ቆርበትኪ፣ ጸጉርኪ፣ ሜታቦሊዝምኪን ሓደ ሓደ ግዜ ውሉድነትኪን ክጸሉ ዝኽእል ልሙድ ናይ ሆርሞን ኩነታት እዩ።',
+    introSecondary:
+      'ከመይ ከም ዝረአ ካብ ሰበይቲ ናብ ሰበይቲ ብዙሕ ይፈላለ። PCOS ምርዳእ ብዝበለጸ ምልክታቱ ንምፍላጥ፣ መዓስ ሓኪማዊ ምኽሪ ከም ዘድሊ ንምፍላጥን ብዘይ ነብስኻ ምውቃስ ምስጋሩ ንምክትታልን ይሕግዝ።',
+    contentsTitle: 'ኣብዚ ዓንቀጽ',
+    topics: [
+      'PCOS እንታይ እዩ?',
+      'PCOS ስለምንታይ ይኸውን?',
+      'ቀንዲ ምልክታት',
+      'ከመይ ይርመር?',
+      'PCOS ኦቭዩሌሽንን',
+      'PCOS ውሉድነትን',
+      'PCOS ክብደትን / ሜታቦሊዝምን',
+      'ቆርበት፣ ጸጉርን ጸጉሪ ኣካልን',
+      'PCOS ከመይ ይተሓዝ?',
+      'ልሙድ ዘይቅኑዕ ኣተሓሳስባታት',
+      'መዓስ ሓኪም ክርአ',
+      'ቀንዲ ነጥብታት',
+    ],
+    s1Heading: 'PCOS እንታይ እዩ?',
+    s1Body1:
+      'ፖሊሲስቲክ ኦቫሪ ሲንድሮም (PCOS) ንተለምዶ ተግባር እንቋቕሖ ማህጸንን ሚዛን ገለ ሆርሞናትን ክቕይር ዝኽእል ልሙድ ናይ ሆርሞን ኩነታት እዩ።',
+    s1Body2:
+      'ንገለ ደቂ ኣንስትዮ፣ ቀንዲ ጸገም ዘይምጉዳል ኦቭዩሌሽን እዩ። ንካልኦት፣ ቅድም ዝረአ ብጉር፣ ዝበዝሐ ዕብየት ጸጉሪ፣ ምውዳቕ ጸጉሪ ወይ ሜታቦሊክ ምልክታት እዩ።',
+    s1TipTitle: 'ምፍላጥ ጽቡቕ እዩ',
+    s1TipText:
+      'ስሙ እኳ ከምኡ እንተ ኮነ፣ PCOS እንቋቕሖ ማህጸን “ሲስታት” ይሕዝ ማለት ኣይኮነን። እቲ ታሪኻዊ ስም ዘሳሕት ክኸውን ይኽእል፣ ኣልትራሳውንድ ባዕሉ ድማ ንምርመራ ኣይኣክልን።',
+    s2Heading: 'PCOS ስለምንታይ ይኸውን?',
+    s2Body1:
+      'ንPCOS ሓደ ምኽንያት የለን። ክሕወሱ ዝኽእሉ ብዙሓት ሓሳባት ውጽኢት ይመስል፦ ቤተሰባዊ ዝንባለ፣ ናይ ሆርሞን ተግባር፣ ኦቭዩሌሽን፣ ሜታቦሊዝምን ውልቃዊ ሓሳባትን።',
+    s2Factors: [
+      'ቤተሰባዊ ዝንባለን ዘርኣዊ ሓሳባትን',
+      'ዘይምጉዳል ኣብ ኦቭዩሌሽን',
+      'ዝበዝሐ ኣንድሮጅን',
+      'ኣብ ገለ ደቂ ኣንስትዮ ኢንሱሊን ምቅዋም',
+      'ሜታቦሊክን ከባብያዊን ሓሳባት',
+    ],
+    s2NeutralText:
+      'PCOS ውልቃዊ ጌጋ ኣይኮነን። ብሕጽረት ድልየት ሓይሊ፣ ብሕማቕ መግቢ ወይ ብዘይ ኣድማዕነት ኣካላዊ እንቅስቃስ ዝመጽእ ኣይኮነን።',
+    s3Heading: 'ቀንዲ ምልክታት',
+    s3Body1:
+      'PCOS ካብ ሰበይቲ ናብ ሰበይቲ ኣዝዩ ብዝተፈላለየ ኣገባብ ክረአ ይኽእል። ገለ ብዙሓት ምልክታት ኣለወን፣ ካልኦት ድማ ኣዝዮም ውሑዳት የስተውዕላ።',
+    s3Signs: [
+      'ዘይምጉዳል፣ ሰፊሕ ዝተፈላለየ፣ ወይ ሓደ ሓደ ግዜ ዘየለ ዑደታት',
+      'ዘይምጉዳል ወይ ንምግማት ዝኸብድ ኦቭዩሌሽን',
+      'ዝቕጽል ብጉር፣ ብፍላይ ኣብ ታሕተዋይ ገጽ',
+      'ኣብ ገጽ፣ ሰለፍ ወይ ኣካል ዝበዝሐ ዕብየት ጸጉሪ',
+      'ናይ ሆርሞን ዓይነት ምውዳቕ ጸጉሪ',
+      'ክብደት ምውሳኽ ወይ ክብደት ምኽሳር ምክብዳይ',
+      'ምጥንሳስ ምኽብዳይ',
+    ],
+    s3AlertTitle: 'ኣገዳሲ',
+    s3AlertText:
+      'ሓደ ካብዞም ምልክታት ምህላው ብኣውቶማቲክ PCOS ኣለኪ ማለት ኣይኮነን። ብዙሓት ካልኦት ኩነታት ተመሳሳሊ ምልክታት ክፈጥሩ ይኽእሉ።',
+    s4Heading: 'ከመይ ይርመር?',
+    s4Body1:
+      'ምርመራ PCOS ሓኪማዊ መስርሕ እዩ። ሓደ ሞያ ጥዕና ዘለዎ ሰብ ብዙሕ ግዜ ብዛዕባ ዑደታትኪ፣ ምልክታትኪ፣ ሓኪማዊ ታሪኽኪን እትወስድዮ ሕክምናታትን ብምዝርራብ ይጅምር።',
+    s4Body2:
+      'ከከም ኩነታት፣ ናይ ሆርሞን ናይ ደም ፈተናታትን ኣልትራሳውንድን እውን ክቐርቡ ይኽእሉ።',
+    s4Points: [
+      'ዘይምጉዳል ዑደታት ወይ ዘይተደጋገመ ኦቭዩሌሽን',
+      'ምልክታት ዝበዝሐ ኣንድሮጅን፦ ብጉር፣ ዝበዝሐ ዕብየት ጸጉሪ፣ ምውዳቕ ጸጉሪ፣ ወይ ውጽኢት ናይ ደም ፈተና',
+      'ኣብ ኣልትራሳውንድ ምስ PCOS ዝሰማማዕ ኣምሳል እንቋቕሖ ማህጸን፣ እዚ ምርመራ ምስ ዝግብኦ',
+    ],
+    s4Body3:
+      'እቲ ሓኪም እውን ምርመራ PCOS ቅድሚ ምርግጋጽ ካልኦት ክኾኑ ዝኽእሉ ምኽንያታት ዘይምጉዳል ዑደታት ወይ ዝበዝሐ ኣንድሮጅን ክእልዮም ይግባእ።',
+    s5Heading: 'PCOS ኦቭዩሌሽንን',
+    s5Body1:
+      'ኦቭዩሌሽን ካብ እንቋቕሖ ማህጸን እንቋቕሖ (ኦኦሳይት) ምስቓል እዩ። ኣብ PCOS፣ ኦቭዩሌሽን ዘይተደጋገመ ወይ ንምግማት ዝኸብድ ክኸውን ይኽእል።',
+    s5Body2:
+      'እዚ ዑደታት ሓሓደ ግዜ ስለምንታይ ነዊሓት፣ ዘይምጉዳል ወይ ንምጽባይ ዝኸብዱ ከም ዝኾኑ ክገልጽ ይኽእል።',
+    s5HighlightTitle: 'ዑደትኪ ምክትታል',
+    s5HighlightText:
+      'ዕለታት ወርሓዊ ደምኪ፣ ምልክታትን ዝኾነ ናይ ኦቭዩሌሽን ምልክታትን ምምዝጋብ ናይ ባዕልኪ ኣካይዳታት ዝበለጸ ንኽትርድእዮ ክሕግዘኪ ይኽእል።',
+    s6Heading: 'PCOS ውሉድነትን',
+    s6Body1:
+      'ኦቭዩሌሽን ዘይምጉዳል ክኸውን ስለ ዝኽእል፣ ገለ ምስ PCOS ዘለዋ ደቂ ኣንስትዮ ምጥንሳስ ዝያዳ ክኸብደን ይኽእል።',
+    s6Body2:
+      'እዚ ግን PCOS ብኣውቶማቲክ ጥንሲ የዕንቅፍ ማለት ኣይኮነን። ብዙሓት ምስ PCOS ዘለዋ ደቂ ኣንስትዮ ብተፈጥሮ ወይ ብዝግባእ ሓኪማዊ ደገፍ ይጠንሳ።',
+    s6TipTitle: 'ሕሰቢ',
+    s6TipText:
+      'ምጥንሳስ ምኽብዳይ ዘይከኣል ማለት ኣይኮነን። ክትጠንሲ እንተ ትጽቢ፣ ሓኪም ወይ ወላዲት ሓጋዚት ንኩነታትኪ ዝስማማዕ ስትራተጂ ክሕብር ይኽእል።',
+    s7Heading: 'PCOS ክብደትን / ሜታቦሊዝምን',
+    s7Body1:
+      'PCOS ምስ ሜታቦሊክ ለውጥታት፣ ኣብ ገለ ደቂ ኣንስትዮ ኢንሱሊን ምቅዋም ጨሚሩ፣ ክተኣሳሰር ይኽእል።',
+    s7Body2:
+      'ይኹን እምበር ክብደት ባዕሉ PCOS ክዳሉ ወይ ክእሊ ኣይክእልን። ቀጢን ሰበይቲ PCOS ክህልዋ ይኽእል፣ ልክዕ ከም ክብደት ዝበዝሐ ሰበይቲ ክሎ ዘይህልዋ።',
+    s7NeutralText:
+      'ክትትል ሓፈሻዊ ጥዕና ክሓስብ ይግባእ፣ ኣብ ሚዛን ዘሎ ቁጽሪ ጥራይ ኣይኮነን።',
+    s8Heading: 'ቆርበት፣ ጸጉርን ጸጉሪ ኣካልን',
+    s8Body1:
+      'ዝበዝሐ ኣንድሮጅን ንናይ ስብሒ እጢታትን ጸጉሪ ፎሊኩላትን ክጸሉ ይኽእል።',
+    s8Body2:
+      'ከከም ሰበይቲ፣ እዚ ዝቕጽል ብጉር፣ ዝበዝሐ ዕብየት ጸጉሪ፣ ወይ ምውዳቕ ጸጉሪ ኮይኑ ክረአ ይኽእል።',
+    s8Items: [
+      'ናይ ሆርሞን ብጉር',
+      'ዝበዝሐ ጸጉሪ ኣብ ገጽ ወይ ኣካል',
+      'ዝስእን ጸጉር ወይ ምውዳቕ ጸጉሪ',
+    ],
+    s9Heading: 'PCOS ከመይ ይተሓዝ?',
+    s9Body1:
+      'ንኹሉ ሰበይቲ ዝሰርሕ ሓደ ኣገባብ ምሕዛ PCOS የለን። ምርጫ ኣብ ምልክታት፣ ዕላማታትን ሓኪማዊ ኩነታትን ይምርኮስ።',
+    s9Body2:
+      'ዕላማ ከከም ደረጃ ህይወት ክፈላለ ይኽእል፦ ዑደታት ምርግጋእ፣ ገለ ምልክታት ምምሕያሽ፣ ሜታቦሊክ ጥዕና ምሕላው፣ ወይ መደብ ጥንሲ ምድጋፍ።',
+    s9MiniTitle: 'ጥዕና ዝድግፉ ልምድታት',
+    s9Lifestyle: [
+      'ንድሌታትኪ ዝስማማዕ ዝተፈላለየ ቀጻልነት ዘለዎ መግቢ ምብላዕ',
+      'ብግዜ ክትቅጽልዮ እትኽእሊ ቀጻልነት ዘለዎ ኣካላዊ እንቅስቃስ ምግባር',
+      'ብዝግባእ ቀጻልነት ዘለዎ ድቃስ ምሓዝ',
+      'ዑደታትኪን ምልክታትኪን ብግዜ ከመይ ከም ዝቕየሩ ምክትታል',
+      'ብሰንኪ ለውጢ ክብደት ወይ ምልክታት ንነብስኪ ኣይትወቅሲ',
+    ],
+    s9Body3:
+      'ከከም ድሌትኪ፣ ሞያ ጥዕና ዘለዎ ሰብ ንገለ ምልክታት ወይ መደብ ጥንሲ ንምድጋፍ ሕክምናታት እውን ክሕብር ይኽእል።',
+    s9AlertTitle: 'ባዕልኪ ሕክምና ኣይትገብሪ',
+    s9AlertText:
+      'ናይ ሆርሞን ሕክምናታት፣ ሜታቦሊክ መድሃኒታትን ሰፕሊመንትን ኩሎም ምስ ሞያ ጥዕና ዘለዎ ሰብ ክዝተዩ ይግባእ።',
+    s10Heading: 'ልሙድ ዘይቅኑዕ ኣተሓሳስባታት ብዛዕባ PCOS',
+    s10Myths: [
+      'PCOS ኩሉ ግዜ “ሲስታት” ምህላው ማለት እዩ፦ እቲ ስም ዘሳሕት ክኸውን ይኽእል። እቲ ምርመራ ኣብ ሲስታት ምህላው ጥራይ ኣይምርኮስን።',
+      'ኩሎም ምስ PCOS ዘለዋ ደቂ ኣንስትዮ ክብደት ዝበዝሖም እየን፦ PCOS ንደቂ ኣንስትዮ ኩሉ ዓይነት ኣካላዊ ቅርጺ ክጸሉ ይኽእል።',
+      'PCOS ኩሉ ግዜ ጥንሲ የዕንቅፍ፦ ኦቭዩሌሽን ዘይምጉዳል ክኸውን ይኽእል፣ ጥንሲ ግን ክኸውን ይኽእል።',
+      'ሓደ ምልክት ንምርመራ PCOS ይኣኽል፦ ምርመራ ምሉእ ግምገማ የድልዮ።',
+      'PCOS ብዕድመ ባዕሉ ይኸይድ፦ ኣገባብ ምርኣዩ ኣብ ህይወት ብዘመናት ክቕይር ይኽእል፣ ቀጻልነት ዘለዎ ክትትል ግን ኣገዳሲ እዩ።',
+    ],
+    s11Heading: 'መዓስ ሓኪም ክርአ',
+    s11Body1:
+      'ሓኪማዊ ምኽሪ ብፍላይ ዑደታት ኣዝዮም ዘይምጉዳል ምስ ዝኾኑ፣ ንብዙሓት ወርሒ ምስ ዝቕጽሉ፣ ወይ ዘይተለምደ ምልክታት ምስ ዝረኣዩ ጠቓሚ እዩ።',
+    s11ConsultItems: [
+      'ኣዝዩ ዘይምጉዳል ወይ ዘየለ ዑደታት',
+      'ዘይተለምደ ብጉር ወይ ዕብየት ጸጉሪ',
+      'ዓቢ ምውዳቕ ጸጉሪ',
+      'ምጥንሳስ ምኽብዳይ',
+      'ብቕልጡፍ ዝቕየሩ ምልክታት',
+    ],
+    s12Heading: 'ቀንዲ ነጥብታት',
+    s12SummaryTitle: 'ኣገደስቲ ነጥብታት',
+    s12SummaryItems: [
+      'PCOS ልሙድ ናይ ሆርሞን ኩነታት እዩ።',
+      'ብብዙሕ ዝተፈላለየ ኣገባብ ክረአ ይኽእል።',
+      'ኩለን ምስ PCOS ዘለዋ ደቂ ኣንስትዮ ሓደ ዓይነት ምልክታት የብለንን።',
+      'ክብደት ባዕሉ PCOS ንምርመራ ወይ ንምእላይ ኣይኣክልን።',
+      'ምርመራ ምሉእ ሓኪማዊ ግምገማ የድልዮ።',
+      'PCOS ንኦቭዩሌሽንን ሓሓደ ግዜ ንውሉድነትን ክጸሉ ይኽእል።',
+      'ውልቃዊ ናይ ክንክን ኣገባብ ንድሌታት ነፍሲ ወከፍ ሰበይቲ ንምምላእ ይሕግዝ።',
+    ],
+    finalNoteTitle: 'ዝበለጸ ንምርዳእ መምርሒ',
+    finalNoteText:
+      'እዚ ዓንቀጽ ንሓፈሻዊ ሓበሬታ ዝተዳለወ እዩ ሓኪማዊ ምርመራ ድማ ኣይትክእን። ነፍሲ ወከፍ ኩነታት ፍሉይ እዩ፦ እንተ ተጠራጢርኪ ወይ ምልክታት እንተ ቀጺሉ፣ ሞያ ጥዕና ዘለዎ ሰብ ምኽሪ ሕተቲ።',
+    shareMessage: 'PCOS ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'PCOS • IGITABO CY\'INGENZI',
+    title: 'Gusobanukirwa\nPCOS',
+    metaDuration: 'Iminota 10 yo gusoma',
+    metaType: 'Igitabo cy\'inama',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisobanuro by\'inyigisho',
+    intro:
+      'Polycystic ovary syndrome, akenshi yitwa PCOS, ni indwara ya hormone ikunze kubaho ishobora kugira ingaruka ku kwezi kwawe, ovulation, uruhu, umusatsi, metabolism, kandi rimwe na rimwe ku buryumbuke.',
+    introSecondary:
+      'Uko igaragara itandukanye cyane ku mugore ku wundi. Gusobanukirwa PCOS bigufasha ahanini kumenya ibimenyetso byayo, kumenya igihe cyo gusaba inama z\'abaganga, no gukurikirana uko ihinduka uticiriye urubanza.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'PCOS ni iki?',
+      'Kuki PCOS ibaho?',
+      'Ibimenyetso nyamukuru',
+      'Isuzumwa ite?',
+      'PCOS na ovulation',
+      'PCOS n\'uburumbuke',
+      'PCOS n\'ibiro / metabolism',
+      'Uruhu, umusatsi, n\'ubwoya',
+      'PCOS ivurwa ite?',
+      'Imyumvire itari yo isanzwe',
+      'Igihe cyo kujya kwa muganga',
+      'Ingingo z\'ingenzi',
+    ],
+    s1Heading: 'PCOS ni iki?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) ni indwara ya hormone ikunze kubaho ishobora guhindura imikorere isanzwe y\'intanga ngore n\'uburimbane bw\'ama hormone amwe.',
+    s1Body2:
+      'Ku bagore bamwe, ikibazo nyamukuru ni ovulation idahoraho. Ku bandi, ni ibiheri, kwiyongera kw\'ubwoya, guta umusatsi, cyangwa ibimenyetso bya metabolic bigaragara mbere.',
+    s1TipTitle: 'Byiza kumenya',
+    s1TipText:
+      'Nubwo izina ryayo riri uko, PCOS ntisobanura byanze bikunze ko intanga ngore zirimo “cysts.” Ijambo ry\'amateka rishobora kuyobya, kandi ultrasound yonyine ntihagije ngo isuzume ritangwe.',
+    s2Heading: 'Kuki PCOS ibaho?',
+    s2Body1:
+      'Nta mpamvu imwe ya PCOS. Bisa n\'aho iterwa n\'ibintu byinshi bishobora guhurira hamwe: umurage mu muryango, imikorere ya hormone, ovulation, metabolism, n\'ibindi bya buri muntu.',
+    s2Factors: [
+      'Umurage mu muryango n\'ibintu bya genetique',
+      'Ibibazo muri ovulation',
+      'Androgens nyinshi ugereranyije',
+      'Insulin resistance ku bagore bamwe',
+      'Ibintu bya metabolic n\'iby\'ibidukikije',
+    ],
+    s2NeutralText:
+      'PCOS si ikosa rya muntu. Ntiterwa gusa no kubura ubushake, imirire mibi, cyangwa kudakora imyitozo ihagije.',
+    s3Heading: 'Ibimenyetso nyamukuru',
+    s3Body1:
+      'PCOS ishobora kugaragara mu buryo butandukanye cyane ku mugore ku wundi. Bamwe bagira ibimenyetso byinshi, mu gihe abandi babona bike cyane.',
+    s3Signs: [
+      'Ukwezi kudahoraho, gutandukanye, cyangwa rimwe na rimwe kutaboneka',
+      'Ovulation idahoraho cyangwa igoye guhanura',
+      'Ibiheri bikomeza, cyane cyane mu maso hasi',
+      'Kwiyongera kw\'ubwoya mu maso, mu gituza, cyangwa ku mubiri',
+      'Guta umusatsi bifitanye isano na hormone',
+      'Kongera ibiro cyangwa kugorwa no kubigabanya',
+      'Kugorwa no gusama',
+    ],
+    s3AlertTitle: 'Ni ngombwa',
+    s3AlertText:
+      'Kugira kimwe muri ibi bimenyetso ntibisobanura byanze bikunze ko ufite PCOS. Izindi ndwara nyinshi zishobora gutera ibimenyetso bisa.',
+    s4Heading: 'Isuzumwa ite?',
+    s4Body1:
+      'Gusuzuma PCOS ni uburyo bw\'ubuvuzi. Umukozi w\'ubuzima akenshi atangira avugana nawe ku kwezi kwawe, ibimenyetso, amateka y\'ubuvuzi, n\'imiti ufata.',
+    s4Body2:
+      'Bitewe n\'imimerere, ibizamini by\'amaraso bya hormone na ultrasound na byo bishobora gutangwa.',
+    s4Points: [
+      'Ukwezi kudahoraho cyangwa ovulation ikunze kubura',
+      'Ibimenyetso bya androgens nyinshi: ibiheri, ubwoya bwinshi, guta umusatsi, cyangwa ibisubizo by\'ibizamini by\'amaraso',
+      'Uko intanga ngore zisa kuri ultrasound bihuye na PCOS, igihe iri suzuma ryagenwe',
+    ],
+    s4Body3:
+      'Muganga agomba kandi gukuraho izindi mpamvu zishoboka z\'ukwezi kudahoraho cyangwa androgens nyinshi mbere yo kwemeza isuzuma rya PCOS.',
+    s5Heading: 'PCOS na ovulation',
+    s5Body1:
+      'Ovulation ni irekurwa ry\'igi (oocyte) riva mu ntanga ngore. Muri PCOS, ovulation ishobora kuba nke cyangwa ikaba igoye guhanura.',
+    s5Body2:
+      'Ibi bishobora gusobanura impamvu ukwezi rimwe na rimwe kuba kurerure, kudahoraho, cyangwa bigoye kwitega.',
+    s5HighlightTitle: 'Gukurikirana ukwezi kwawe',
+    s5HighlightText:
+      'Kwandika amatariki y\'imihango yawe, ibimenyetso, n\'ibimenyetso byose bya ovulation bishobora kugufasha gusobanukirwa neza uko usanzwe ubigenza.',
+    s6Heading: 'PCOS n\'uburumbuke',
+    s6Body1:
+      'Kubera ko ovulation ishobora kudahoraho, abagore bamwe bafite PCOS bashobora kugorwa kurushaho no gusama.',
+    s6Body2:
+      'Ibi ariko ntibivuze ko PCOS ibuza gutwita byanze bikunze. Abagore benshi bafite PCOS basama mu buryo busanzwe cyangwa bafashijwe n\'ubuvuzi bukwiye.',
+    s6TipTitle: 'Zirikana',
+    s6TipText:
+      'Kugorwa no gusama ntibivuze ko bidashoboka. Niba wizeye gutwita, muganga cyangwa umubyaza ashobora kugusaba uburyo bukwiranye n\'imimerere yawe.',
+    s7Heading: 'PCOS n\'ibiro / metabolism',
+    s7Body1:
+      'PCOS ishobora kujyana n\'impinduka za metabolic, harimo insulin resistance ku bagore bamwe.',
+    s7Body2:
+      'Ariko, ibiro byonyine ntibishobora gusuzuma cyangwa gukuraho PCOS. Umugore unanutse ashobora kugira PCOS, nk\'uko umugore ufite ibiro byinshi ashobora kutayigira.',
+    s7NeutralText:
+      'Gukurikirana bigomba kwita ku buzima bwose, si umubare ku munzani gusa.',
+    s8Heading: 'Uruhu, umusatsi, n\'ubwoya',
+    s8Body1:
+      'Androgens nyinshi ugereranyije zishobora kugira ingaruka ku mitsi itanga amavuta y\'uruhu no ku mizi y\'imisatsi.',
+    s8Body2:
+      'Bitewe n\'umugore, ibi bishobora kugaragara nk\'ibiheri bikomeza, kwiyongera kw\'ubwoya, cyangwa guta umusatsi.',
+    s8Items: [
+      'Ibiheri bya hormone',
+      'Ubwoya bwinshi mu maso cyangwa ku mubiri',
+      'Umusatsi ugenda woroha cyangwa guta umusatsi',
+    ],
+    s9Heading: 'PCOS ivurwa ite?',
+    s9Body1:
+      'Nta buryo bumwe bwo kuvura PCOS bukora ku bagore bose. Guhitamo bishingira ku bimenyetso, intego, n\'imimerere y\'ubuvuzi.',
+    s9Body2:
+      'Intego ishobora gutandukana bitewe n\'igihe cy\'ubuzima: gutunganya ukwezi, kunoza ibimenyetso bimwe, kurinda ubuzima bwa metabolic, cyangwa gushyigikira umugambi wo gutwita.',
+    s9MiniTitle: 'Imigirire ifasha ubuzima',
+    s9Lifestyle: [
+      'Kurya indyo ifite ubwoko bwinshi kandi ihoraho ikwiranye n\'ibyo ukeneye',
+      'Gukora imyitozo ngororamubiri ihoraho ushobora gukomeza igihe kirekire',
+      'Gusinzira bihagije kandi buri gihe',
+      'Gukurikirana uko ukwezi kwawe n\'ibimenyetso bihinduka uko igihe gihita',
+      'Kudaharanira kwishinja impinduka z\'ibiro cyangwa z\'ibimenyetso',
+    ],
+    s9Body3:
+      'Bitewe n\'ibyo ukeneye, umukozi w\'ubuzima ashobora kandi kugusaba imiti y\'ibimenyetso bimwe cyangwa yo gushyigikira umugambi wo gutwita.',
+    s9AlertTitle: 'Ntukivurire',
+    s9AlertText:
+      'Imiti ya hormone, imiti ya metabolic, n\'inyongeramirire byose bigomba kuganirwaho n\'umukozi w\'ubuzima.',
+    s10Heading: 'Imyumvire itari yo isanzwe kuri PCOS',
+    s10Myths: [
+      'PCOS buri gihe isobanura kugira “cysts”: izina rishobora kuyobya. Isuzuma ntirishingira gusa ku bubaho bwa cysts.',
+      'Abagore bose bafite PCOS bafite ibiro byinshi: PCOS ishobora kugera ku bagore b\'ingano zose z\'umubiri.',
+      'PCOS buri gihe ibuza gutwita: ovulation ishobora kudahoraho, ariko gutwita biracyashoboka.',
+      'Ikimenyetso kimwe gihagije gusuzuma PCOS: isuzuma risaba isuzuma ryuzuye.',
+      'PCOS ishira gusa uko imyaka igenda: uko igaragara gushobora guhinduka mu buzima bwose, ariko gukomeza gukurikiranwa biracyafite akamaro.',
+    ],
+    s11Heading: 'Igihe cyo kujya kwa muganga',
+    s11Body1:
+      'Inama z\'abaganga zifite akamaro cyane iyo ukwezi gutangiye gutandukana cyane, guhagarara amezi menshi, cyangwa iyo hagaragaye ibimenyetso bidasanzwe.',
+    s11ConsultItems: [
+      'Ukwezi gutandukanye cyane cyangwa kutaboneka',
+      'Ibiheri cyangwa ubwoya bidasanzwe',
+      'Guta umusatsi bikabije',
+      'Kugorwa no gusama',
+      'Ibimenyetso bihinduka vuba',
+    ],
+    s12Heading: 'Ingingo z\'ingenzi',
+    s12SummaryTitle: 'Iby\'ingenzi',
+    s12SummaryItems: [
+      'PCOS ni indwara ya hormone ikunze kubaho.',
+      'Ishobora kugaragara mu buryo bwinshi butandukanye.',
+      'Abagore bose bafite PCOS ntibafite ibimenyetso bimwe.',
+      'Ibiro byonyine ntibihagije gusuzuma cyangwa gukuraho PCOS.',
+      'Isuzuma risaba isuzuma ryuzuye ry\'ubuvuzi.',
+      'PCOS ishobora kugira ingaruka kuri ovulation kandi rimwe na rimwe ku buryumbuke.',
+      'Uburyo bw\'ubuvuzi bwihariye bufasha guhaza ibyo buri mugore akeneye.',
+    ],
+    finalNoteTitle: 'Igitabo cyo gusobanukirwa neza',
+    finalNoteText:
+      'Iyi nyandiko igenewe ibisobanuro rusange kandi ntisimbura kujya kwa muganga. Buri mimerere iratandukanye: niba ushidikanya cyangwa ibimenyetso bikomeje, saba inama umukozi w\'ubuzima.',
+    shareMessage: 'Gusobanukirwa PCOS — AWA',
+  },
+  rn: {
+    badge: 'PCOS • UBUYOBOZI BW\'INGENZI',
+    title: 'Gusobanukirwa\nPCOS',
+    metaDuration: 'Iminota 10 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Amakuru yo kwigisha',
+    intro:
+      'Syndrome des ovaires polykystiques, kenshi yitwa PCOS, ni indwara isanzwe y\'imisemburo ishobora kugira ingaruka ku ma cycle yawe, ovulation, uruhu, imisatsi, imikorere y\'umubiri, na rimwe na rimwe uburumbuke.',
+    introSecondary:
+      'Uko igaragara irahinduka cane ku mugore umwe n\'undi. Gusobanukirwa PCOS ahanini bigufasha kumenya ibimenyetso byayo, kumenya igihe cyo gusaba inama y\'abaganga, no gukurikirana uko ihinduka uticiraho iteka.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'PCOS ni iki?',
+      'Kubera iki PCOS ibaho?',
+      'Ibimenyetso nyamukuru',
+      'Imenyekana gute?',
+      'PCOS na ovulation',
+      'PCOS n\'uburumbuke',
+      'PCOS n\'ibiro / imikorere y\'umubiri',
+      'Uruhu, imisatsi, n\'ubwoya',
+      'PCOS ivurwa gute?',
+      'Ibitekerezo bitari ukuri bikunze kuboneka',
+      'Igihe cyo kubona muganga',
+      'Ingenzi zo kwibuka',
+    ],
+    s1Heading: 'PCOS ni iki?',
+    s1Body1:
+      'Syndrome des ovaires polykystiques (PCOS) ni indwara isanzwe y\'imisemburo ishobora guhindura imikorere isanzwe y\'intanga ngore n\'uburinganire bw\'imisemburo imwe.',
+    s1Body2:
+      'Ku bagore bamwe, ikibazo nyamukuru ni ovulation idahwanye. Ku bandi, ni ibiheri, imisatsi myinshi, gutakaza imisatsi, canke ibimenyetso by\'imikorere y\'umubiri bigaragara mbere.',
+    s1TipTitle: 'Ni byiza kumenya',
+    s1TipText:
+      'Nubwo izina ryayo, PCOS ntivuga ko intanga ngore zirimo “kystes”. Ijambo rya kera rishobora kuyobya, kandi echographie yonyine ntihagije ngo hemezwe isuzuma.',
+    s2Heading: 'Kubera iki PCOS ibaho?',
+    s2Body1:
+      'Nta mpamvu imwe ya PCOS. Isa n\'iterwa n\'ibintu byinshi bishobora kwiyongera: umurage mu muryango, imikorere y\'imisemburo, ovulation, imikorere y\'umubiri, n\'ibintu bya buri muntu.',
+    s2Factors: [
+      'Umurage mu muryango n\'ibintu bya génétique',
+      'Ihungabana rya ovulation',
+      'Androgènes nyinshi ugereranije',
+      'Insuline idakora neza (résistance à l\'insuline) ku bagore bamwe',
+      'Ibintu bijanye n\'imikorere y\'umubiri n\'ibidukikije',
+    ],
+    s2NeutralText:
+      'PCOS si ikosa ry\'umuntu. Ntiterwa gusa no kubura imbaraga z\'umutima, ibiryo bibi, canke imyitozo idahagije.',
+    s3Heading: 'Ibimenyetso nyamukuru',
+    s3Body1:
+      'PCOS ishobora kugaragara mu buryo butandukanye cane ku mugore umwe n\'undi. Bamwe bagira ibimenyetso byinshi, abandi bakabona bike cane.',
+    s3Signs: [
+      'Ama cycle adahwanye, atandukanijwe, canke rimwe na rimwe adahari',
+      'Ovulation idahwanye canke igoye guteganya',
+      'Ibiheri bidashira, cane cane ku gice cyo hasi cy\'isura',
+      'Imisatsi myinshi ku isura, mu gituza, canke ku mubiri',
+      'Gutakaza imisatsi bijyanye n\'imisemburo',
+      'Kongera ibiro canke ingorane zo kubigabanya',
+      'Ingorane zo gusama',
+    ],
+    s3AlertTitle: 'Ingenzi',
+    s3AlertText:
+      'Kugira kimwe muri ibi bimenyetso ntibivuga ko ufite PCOS. Indwara nyinshi zindi zishobora gutera ibimenyetso bisa.',
+    s4Heading: 'Imenyekana gute?',
+    s4Body1:
+      'Gusuzuma PCOS ni uburyo bw\'ubuvuzi. Umukozi w\'ubuzima kenshi atangira aganira ku ma cycle yawe, ibimenyetso, amateka y\'ubuvuzi, n\'imiti iyo ari yo yose ufata.',
+    s4Body2:
+      'Bitewe n\'uko bimeze, ibizamini by\'amaraso by\'imisemburo na echographie bishobora na byo gutangwa.',
+    s4Points: [
+      'Ama cycle adahwanye canke ovulation idakunze kubaho',
+      'Ibimenyetso bya androgènes nyinshi: ibiheri, imisatsi myinshi, gutakaza imisatsi, canke ibisubizo vy\'ikizamini c\'amaraso',
+      'Uko intanga ngore zisa kuri echographie bihuye na PCOS, igihe iri suzuma risabwa',
+    ],
+    s4Body3:
+      'Muganga agomba kandi gukuraho izindi mpamvu zishoboka z\'ama cycle adahwanye canke androgènes nyinshi mbere yo kwemeza isuzuma rya PCOS.',
+    s5Heading: 'PCOS na ovulation',
+    s5Body1:
+      'Ovulation ni ugusohoka kw\'igi (ovocyte) riva mu ntanga ngore. Muri PCOS, ovulation ishobora kuba idakunze canke igoye guteganya.',
+    s5Body2:
+      'Ibi bishobora gusobanura impamvu ama cycle rimwe na rimwe aba maremare, adahwanye, canke ugoye kuyateganya.',
+    s5HighlightTitle: 'Gukurikirana cycle yawe',
+    s5HighlightText:
+      'Kwandika amatariki y\'imihango yawe, ibimenyetso, n\'ibimenyetso vyose bya ovulation bishobora kugufasha gusobanukirwa neza injyana yawe bwite.',
+    s6Heading: 'PCOS n\'uburumbuke',
+    s6Body1:
+      'Kubera ko ovulation ishobora kuba idahwanye, abagore bamwe bafite PCOS bashobora kugira ingorane nyinshi zo gusama.',
+    s6Body2:
+      'Ibi ariko ntibivuga ko PCOS ibuza gutwita. Abagore benshi bafite PCOS basama mu buryo busanzwe canke bafashijwe n\'ubuvuzi bukwiye.',
+    s6TipTitle: 'Ibuke',
+    s6TipText:
+      'Ingorane zo gusama ntizivuga ko bidashoboka. Niba wizeye gutwita, muganga canke umubyaza ashobora kugusaba uburyo bukubereye.',
+    s7Heading: 'PCOS n\'ibiro / imikorere y\'umubiri',
+    s7Body1:
+      'PCOS ishobora kujyana n\'ihinduka ry\'imikorere y\'umubiri, harimo résistance à l\'insuline ku bagore bamwe.',
+    s7Body2:
+      'Ariko, ibiro byonyine ntibishobora gusuzuma canke gukuraho PCOS. Umugore unanutse ashobora kugira PCOS, nk\'uko umugore ufite ibiro byinshi ashobora kutayigira.',
+    s7NeutralText:
+      'Ubuvuzi bukwiye kwita ku buzima muri rusangi, si umubare w\'ibiro gusa.',
+    s8Heading: 'Uruhu, imisatsi, n\'ubwoya',
+    s8Body1:
+      'Androgènes nyinshi ugereranije zishobora kugira ingaruka ku bice bitanga amavuta y\'uruhu no ku mizi y\'imisatsi.',
+    s8Body2:
+      'Bitewe n\'umugore, ibi bishobora kugaragara nk\'ibiheri bidashira, imisatsi myinshi, canke gutakaza imisatsi.',
+    s8Items: [
+      'Ibiheri by\'imisemburo',
+      'Imisatsi myinshi ku isura canke ku mubiri',
+      'Imisatsi yoroha canke gutakaza imisatsi',
+    ],
+    s9Heading: 'PCOS ivurwa gute?',
+    s9Body1:
+      'Nta buryo bumwe bwo gucunga PCOS bukora kuri buri mugore. Guhitamo biterwa n\'ibimenyetso, intego, n\'uko ubuvuzi bumeze.',
+    s9Body2:
+      'Intego ishobora gutandukana bitewe n\'igice cy\'ubuzima: gutunganya ama cycle, kunoza ibimenyetso bimwe, kurinda ubuzima bw\'imikorere y\'umubiri, canke gushigikira gahunda yo gutwita.',
+    s9MiniTitle: 'Ingeso zishigikira ubuzima',
+    s9Lifestyle: [
+      'Kurya ifunguro ritandukanye, risanzwe kandi ribereye ibyo ukeneye',
+      'Gukora imyitozo ngororamubiri isanzwe ushobora gukomezanya igihe kirekire',
+      'Gusinzira mu buryo busanzwe bihagije',
+      'Gukurikirana uko ama cycle n\'ibimenyetso vyawe bihinduka uko igihe gihita',
+      'Kuticiraho iteka ku bw\'ihinduka ry\'ibiro canke ibimenyetso',
+    ],
+    s9Body3:
+      'Bitewe n\'ibyo ukeneye, umukozi w\'ubuzima ashobora kandi gutanga imiti y\'ibimenyetso bimwe canke yo gushigikira gahunda yo gutwita.',
+    s9AlertTitle: 'Ntukivurire wenyine',
+    s9AlertText:
+      'Imiti y\'imisemburo, imiti y\'imikorere y\'umubiri, n\'inyongeramirire byose bikwiye kuganirwaho n\'umukozi w\'ubuzima.',
+    s10Heading: 'Ibitekerezo bitari ukuri bikunze kuboneka kuri PCOS',
+    s10Myths: [
+      'PCOS buri gihe ivuga kugira “kystes”: izina rishobora kuyobya. Isuzuma ntiryishingikiriza gusa ku kuba hari kystes.',
+      'Abagore bose bafite PCOS bafite ibiro byinshi: PCOS ishobora kugira ingaruka ku bagore b\'ibituro byose.',
+      'PCOS buri gihe ibuza gutwita: ovulation ishobora kuba idahwanye, ariko gutwita biracashoboka.',
+      'Ikimenyetso kimwe gihagije ngo hemezwe PCOS: isuzuma risaba isuzumabushobozi ryuzuye.',
+      'PCOS ishira gusa uko imyaka yiyongera: uko igaragara gishobora guhinduka mu buzima bwose, ariko gukurikiranwa bikomeza kuba ingenzi.',
+    ],
+    s11Heading: 'Igihe cyo kubona muganga',
+    s11Body1:
+      'Inama y\'abaganga ifite akamaro cane igihe ama cycle aba adahwanye cane, ahagarara amezi menshi, canke igihe ibimenyetso bidasanzwe bigaragaye.',
+    s11ConsultItems: [
+      'Ama cycle adahwanye cane canke adahari',
+      'Ibiheri canke imisatsi bidasanzwe',
+      'Gutakaza imisatsi kwinshi',
+      'Ingorane zo gusama',
+      'Ibimenyetso bihinduka vuba',
+    ],
+    s12Heading: 'Ingenzi zo kwibuka',
+    s12SummaryTitle: 'Ingenzi z\'ingenzi',
+    s12SummaryItems: [
+      'PCOS ni indwara isanzwe y\'imisemburo.',
+      'Ishobora kugaragara mu buryo bwinshi butandukanye.',
+      'Abagore bose bafite PCOS ntibagira ibimenyetso bimwe.',
+      'Ibiro byonyine ntibihagije ngo hasuzumwe canke hakurweho PCOS.',
+      'Isuzuma risaba isuzumabushobozi ryuzuye ry\'ubuvuzi.',
+      'PCOS ishobora kugira ingaruka kuri ovulation na rimwe na rimwe ku buryumbuke.',
+      'Uburyo bw\'ubuvuzi bwihariye bufasha kuzuza ibikenewe bya buri mugore.',
+    ],
+    finalNoteTitle: 'Ubuyobozi bwo gusobanukirwa neza',
+    finalNoteText:
+      'Iyi nyandiko igenewe amakuru rusangi kandi ntisimbura inama y\'abaganga. Buri kibazo kiratandukanye: niba ushidikanya canke ibimenyetso bikomeje, saba inama y\'umukozi w\'ubuzima.',
+    shareMessage: 'Gusobanukirwa PCOS — AWA',
+  },
+  ig: {
+    badge: 'PCOS • NTỤZIAKA BỤ ISI',
+    title: 'Ịghọta\nPCOS',
+    metaDuration: 'Nkeji 10 ka ị gụọ',
+    metaType: 'Ntụziaka',
+    metaLevel: 'Mmalite',
+    metaValidated: 'Ọdịnaya mmụta',
+    intro:
+      'Polycystic ovary syndrome, nke a na-akpọkarị PCOS, bụ ọnọdụ hormone a na-ahụkarị nke nwere ike imetụta usoro ọnwa gị, ovulation, akpụkpọ ahụ, ntutu, metabolism, na mgbe ụfọdụ ọmụmụ nwa.',
+    introSecondary:
+      'Otú o si egosi dị iche nke ukwuu site n\'otu nwanyị ruo n\'ọzọ. Ịghọta PCOS na-enyere gị aka karịsịa ịmata mgbaàmà ya, ịmara mgbe ị ga-achọ ndụmọdụ dọkịta, na ilebara otú ọ si agbanwe anya na-ekwughị onwe gị ikpe.',
+    contentsTitle: 'Na isiokwu a',
+    topics: [
+      'Gịnị bụ PCOS?',
+      'Gịnị mere PCOS ji eme?',
+      'Ihe ngosi bụ isi',
+      'Kedu ka esi achọpụta ya?',
+      'PCOS na ovulation',
+      'PCOS na ọmụmụ nwa',
+      'PCOS na ibu / metabolism',
+      'Akpụkpọ ahụ, ntutu, na ntutu ahụ',
+      'Kedu ka esi ejikwa PCOS?',
+      'Echiche ndị na-ezighị ezi a na-ahụkarị',
+      'Mgbe ị ga-ahụ dọkịta',
+      'Isi ihe ndị dị mkpa',
+    ],
+    s1Heading: 'Gịnị bụ PCOS?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) bụ ọnọdụ hormone a na-ahụkarị nke nwere ike ịgbanwe ọrụ ovary nkịtị na nguzozi hormone ụfọdụ.',
+    s1Body2:
+      'Maka ụfọdụ ụmụ nwanyị, nsogbu bụ isi bụ ovulation na-adịghị n\'usoro. Maka ndị ọzọ, ọ bụ pimples, uto ntutu karịrị ókè, ntutu na-ada, ma ọ bụ ihe ngosi metabolic na-apụta ụzọ mbụ.',
+    s1TipTitle: 'Ọ dị mma ịmara',
+    s1TipText:
+      'N\'agbanyeghị aha ya, PCOS apụtaghị n\'onwe ya na ovary nwere “cyst.” Okwu ochie a nwere ike ịghọgbu, ultrasound naanị anaghịkwa ezu iji mee nchọpụta.',
+    s2Heading: 'Gịnị mere PCOS ji eme?',
+    s2Body1:
+      'Ọ dịghị otu ihe na-akpata PCOS. Ọ dị ka ọ si n\'ọtụtụ ihe nwere ike ijikọta pụta: ọnọdụ ezinụlọ, ọrụ hormone, ovulation, metabolism, na ihe nke onwe.',
+    s2Factors: [
+      'Ọnọdụ ezinụlọ na ihe jikọtara na mkpụrụ ndụ ọmụmụ',
+      'Nsogbu n\'ovulation',
+      'Androgen karịrị ókè n\'ụzọ ụfọdụ',
+      'Insulin resistance n\'ụfọdụ ụmụ nwanyị',
+      'Ihe metabolic na gburugburu',
+    ],
+    s2NeutralText:
+      'PCOS abụghị ụkọ nke onwe. Ọ naghị esi naanị n\'enweghị ike uche, nri na-adịghị mma, ma ọ bụ mmegharị ahụ na-ezughị.',
+    s3Heading: 'Ihe ngosi bụ isi',
+    s3Body1:
+      'PCOS nwere ike igosi n\'ụzọ dị iche nke ukwuu site n\'otu nwanyị ruo n\'ọzọ. Ụfọdụ nwere ọtụtụ mgbaàmà, ebe ndị ọzọ na-ahụ ole na ole.',
+    s3Signs: [
+      'Usoro ọnwa na-adịghị n\'usoro, dị anya, ma ọ bụ mgbe ụfọdụ anọghị',
+      'Ovulation na-adịghị n\'usoro ma ọ bụ siri ike ịkọ',
+      'Pimples na-adịgide, karịsịa n\'akụkụ ala nke ihu',
+      'Uto ntutu na-abawanye n\'ihu, n\'obi, ma ọ bụ n\'ahụ',
+      'Ntutu na-ada nke hormone',
+      'Ịba ibu ma ọ bụ nsogbu ibelata ibu',
+      'Nsogbu ịtụrụ ime',
+    ],
+    s3AlertTitle: 'Dị mkpa',
+    s3AlertText:
+      'Inwe otu n\'ime mgbaàmà ndị a apụtaghị n\'onwe ya na ị nwere PCOS. Ọtụtụ ọnọdụ ndị ọzọ nwere ike ịkpata mgbaàmà yiri ya.',
+    s4Heading: 'Kedu ka esi achọpụta ya?',
+    s4Body1:
+      'Ịchọpụta PCOS bụ usoro ahụike. Onye na-enye nlekọta ahụike na-amalitekarị site n\'ikwurịta usoro ọnwa gị, mgbaàmà, akụkọ ahụike, na ọgwụgwọ ọ bụla ị na-aṅụ.',
+    s4Body2:
+      'Dabere n\'ọnọdụ, enwere ike ịtụ aro nlele ọbara hormone na ultrasound.',
+    s4Points: [
+      'Usoro ọnwa na-adịghị n\'usoro ma ọ bụ ovulation na-adịghị ahụkebe',
+      'Ihe ngosi nke androgen karịrị ókè: pimples, uto ntutu karịrị ókè, ntutu na-ada, ma ọ bụ nsonaazụ nlele ọbara',
+      'Ọdịdị ovary kwekọrọ na PCOS na ultrasound, mgbe a na-egosi nlele a',
+    ],
+    s4Body3:
+      'Dọkịta ga-ewepụkwa ihe ndị ọzọ nwere ike ịkpata usoro ọnwa na-adịghị n\'usoro ma ọ bụ androgen karịrị ókè tupu ikwenye nchọpụta PCOS.',
+    s5Heading: 'PCOS na ovulation',
+    s5Body1:
+      'Ovulation bụ ịhapụ akwa (oocyte) site na ovary. Na PCOS, ovulation nwere ike ịdịkarịghị ma ọ bụ siri ike ịkọ.',
+    s5Body2:
+      'Nke a nwere ike ịkọwa ihe mere usoro ọnwa ji adị ogologo, na-adịghị n\'usoro, ma ọ bụ siri ike ịtụ anya mgbe ụfọdụ.',
+    s5HighlightTitle: 'Ịdekọ usoro ọnwa gị',
+    s5HighlightText:
+      'Ịdekọ ụbọchị nsọ ọnwa gị, mgbaàmà, na ihe ngosi ọ bụla nke ovulation nwere ike inyere gị aka ịghọta usoro nke gị nke ọma.',
+    s6Heading: 'PCOS na ọmụmụ nwa',
+    s6Body1:
+      'N\'ihi na ovulation nwere ike ịdị n\'usoro, ụfọdụ ụmụ nwanyị nwere PCOS nwere ike ịchọta ịtụrụ ime siri ike karị.',
+    s6Body2:
+      'Nke a apụtaghị, ma, na PCOS na-egbochi ime n\'onwe ya. Ọtụtụ ụmụ nwanyị nwere PCOS na-atụrụ ime n\'onwe ha ma ọ bụ site n\'enyemaka ahụike kwesịrị ekwesị.',
+    s6TipTitle: 'Cheta',
+    s6TipText:
+      'Nsogbu ịtụrụ ime apụtaghị na ọ gaghị ekwe omume. Ọ bụrụ na ị na-atụ anya ịtụrụ ime, dọkịta ma ọ bụ midwife nwere ike ịtụ aro atụmatụ dabara n\'ọnọdụ gị.',
+    s7Heading: 'PCOS na ibu / metabolism',
+    s7Body1:
+      'PCOS nwere ike ịbụ nke jikọtara na mgbanwe metabolic, gụnyere insulin resistance n\'ụfọdụ ụmụ nwanyị.',
+    s7Body2:
+      'Ma, ibu naanị enweghị ike ichọpụta ma ọ bụ wepụ PCOS. Nwanyị dị gịrịgịrị nwere ike inwe PCOS, dị ka nwanyị nwere ibu karịrị ókè nwere ike ịghara inwe ya.',
+    s7NeutralText:
+      'Nlekọta kwesịrị ịtụle ahụike n\'ozuzu, ọ bụghị naanị ọnụọgụ dị na ihe ịtụ ibu.',
+    s8Heading: 'Akpụkpọ ahụ, ntutu, na ntutu ahụ',
+    s8Body1:
+      'Androgen karịrị ókè n\'ụzọ ụfọdụ nwere ike imetụta glands sebaceous na follicle ntutu.',
+    s8Body2:
+      'Dabere n\'nwanyị, nke a nwere ike igosi dị ka pimples na-adịgide, uto ntutu na-abawanye, ma ọ bụ ntutu na-ada.',
+    s8Items: [
+      'Pimples hormone',
+      'Ntutu ihu ma ọ bụ ahụ na-abawanye',
+      'Ntutu na-adị ntakịrị ma ọ bụ na-ada',
+    ],
+    s9Heading: 'Kedu ka esi ejikwa PCOS?',
+    s9Body1:
+      'Ọ dịghị otu ụzọ ijikwa PCOS nke na-arụ ọrụ maka nwanyị ọ bụla. Nhọrọ na-adabere na mgbaàmà, ebumnuche, na ọnọdụ ahụike.',
+    s9Body2:
+      'Ebumnuche nwere ike ịdị iche dabere n\'oge ndụ: ịhazi usoro ọnwa, imeziwanye mgbaàmà ụfọdụ, ichebe ahụike metabolic, ma ọ bụ ịkwado atụmatụ ime.',
+    s9MiniTitle: 'Àgwà na-akwado ahụike',
+    s9Lifestyle: [
+      'Iri nri dị iche iche, mgbe niile dabara na mkpa gị',
+      'Ime mmegharị ahụ mgbe niile nke ị nwere ike idowe ogologo oge',
+      'Idebe ụra dị mma na nke zuru ezu mgbe niile',
+      'Ịdekọ otú usoro ọnwa na mgbaàmà gị si agbanwe ka oge na-aga',
+      'Ịkwụsị ịkpọ onwe gị ikpe maka mgbanwe n\'ibu ma ọ bụ mgbaàmà',
+    ],
+    s9Body3:
+      'Dabere n\'mkpa gị, onye na-enye nlekọta ahụike nwekwara ike ịtụ aro ọgwụgwọ maka mgbaàmà ụfọdụ ma ọ bụ ịkwado atụmatụ ime.',
+    s9AlertTitle: 'Agwọla onwe gị',
+    s9AlertText:
+      'Ọgwụgwọ hormone, ọgwụ metabolic, na ihe mgbakwunye nri niile kwesịrị ka a kwurịta ya na onye na-enye nlekọta ahụike.',
+    s10Heading: 'Echiche ndị na-ezighị ezi a na-ahụkarị gbasara PCOS',
+    s10Myths: [
+      'PCOS pụtara mgbe niile inwe “cyst”: aha ahụ nwere ike ịghọgbu. Nchọpụta anaghị adabere naanị n\'ịdị adị nke cyst.',
+      'Ụmụ nwanyị niile nwere PCOS nwere ibu karịrị ókè: PCOS nwere ike imetụta ụmụ nwanyị nke ụdị ahụ niile.',
+      'PCOS na-egbochi ime mgbe niile: ovulation nwere ike ịdị n\'usoro, mana ịtụrụ ime ka kwere omume.',
+      'Otu mgbaàmà zuru ezu iji chọpụta PCOS: nchọpụta chọrọ nyocha zuru oke.',
+      'PCOS na-apụ naanị ka afọ na-aga: otú ọ si apụta nwere ike ịgbanwe n\'ogologo ndụ, mana nlekọta na-aga n\'ihu ka dị mkpa.',
+    ],
+    s11Heading: 'Mgbe ị ga-ahụ dọkịta',
+    s11Body1:
+      'Ndụmọdụ dọkịta bara uru karịsịa mgbe usoro ọnwa na-adịghị n\'usoro nke ukwuu, kwụsị ọnwa ole na ole, ma ọ bụ mgbe mgbaàmà na-adịghị ahụkebe pụtara.',
+    s11ConsultItems: [
+      'Usoro ọnwa na-adịghị n\'usoro nke ukwuu ma ọ bụ anọghị',
+      'Pimples ma ọ bụ uto ntutu na-adịghị ahụkebe',
+      'Ntutu na-ada nke ukwuu',
+      'Nsogbu ịtụrụ ime',
+      'Mgbaàmà na-agbanwe ngwa ngwa',
+    ],
+    s12Heading: 'Isi ihe ndị dị mkpa',
+    s12SummaryTitle: 'Isi ihe ndị dị mkpa',
+    s12SummaryItems: [
+      'PCOS bụ ọnọdụ hormone a na-ahụkarị.',
+      'Ọ nwere ike igosi n\'ọtụtụ ụzọ dị iche iche.',
+      'Ụmụ nwanyị niile nwere PCOS anaghị enwe otu mgbaàmà.',
+      'Ibu naanị ezughị iji chọpụta ma ọ bụ wepụ PCOS.',
+      'Nchọpụta chọrọ nyocha ahụike zuru oke.',
+      'PCOS nwere ike imetụta ovulation na mgbe ụfọdụ ọmụmụ nwa.',
+      'Ụzọ nlekọta nke onwe na-enyere aka imezu mkpa nwanyị ọ bụla.',
+    ],
+    finalNoteTitle: 'Ntụziaka maka ịghọta nke ọma',
+    finalNoteText:
+      'Isiokwu a bụ maka ozi n\'ozuzu ma ọ naghị anọchi nzukọ dọkịta. Ọnọdụ ọ bụla dị iche: ọ bụrụ na ị nwere obi abụọ ma ọ bụ mgbaàmà na-adịgide, jụọ ndụmọdụ n\'aka ọkachamara ahụike.',
+    shareMessage: 'Ịghọta PCOS — AWA',
+  },
+  yo: {
+    badge: 'PCOS • ÌTỌ́SỌ́NÀ PÀTÀKÌ',
+    title: 'Lílóye\nPCOS',
+    metaDuration: 'Kíkà ìṣẹ́jú 10',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Ìbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú ẹ̀kọ́',
+    intro:
+      'Polycystic ovary syndrome, tí a sábà máa ń pè ní PCOS, jẹ́ àrùn hormone tó wọ́pọ̀ tó lè ní ipa lórí àyípo rẹ, ovulation, awọ ara, irun, metabolism, àti nígbà míràn ìbímọ.',
+    introSecondary:
+      'Bí ó ṣe hàn yàtọ̀ gan-an láti obìnrin kan sí òmíràn. Lílóye PCOS ń ràn ọ́ lọ́wọ́ ní pàtàkì láti dá àwọn àmì rẹ̀ mọ̀, láti mọ ìgbà tí o yẹ kí o wá ìmọ̀ràn ìṣègùn, àti láti tọpa bí ó ṣe ń yípadà láìdá ara rẹ lẹ́bi.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni PCOS?',
+      'Kí ló dé tí PCOS fi ń ṣẹlẹ̀?',
+      'Àwọn àmì pàtàkì',
+      'Báwo ni a ṣe ń ṣe ìwádìí rẹ̀?',
+      'PCOS àti ovulation',
+      'PCOS àti ìbímọ',
+      'PCOS àti ìwọ̀n ara / metabolism',
+      'Awọ ara, irun, àti irun ara',
+      'Báwo ni a ṣe ń tọ́jú PCOS?',
+      'Àwọn èrò àṣìṣe tó wọ́pọ̀',
+      'Ìgbà tí o yẹ kí o rí dókítà',
+      'Àwọn kókó pàtàkì',
+    ],
+    s1Heading: 'Kí ni PCOS?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) jẹ́ àrùn hormone tó wọ́pọ̀ tó lè yí iṣẹ́ àtẹ̀yìnwá àwọn ovary àti ìwọ́ntúnwọ̀nsì àwọn hormone kan padà.',
+    s1Body2:
+      'Fún àwọn obìnrin kan, ìṣòro pàtàkì ni ovulation tí kò tẹ̀lé ìlànà. Fún àwọn mìíràn, ìbájẹ́ ojú, irun tó pọ̀ jù, dídá irun, tàbí àwọn àmì metabolism ni ó kọ́kọ́ hàn.',
+    s1TipTitle: 'Ó dára láti mọ̀',
+    s1TipText:
+      'Láìka orúkọ rẹ̀ sí, PCOS kò túmọ̀ sí pé àwọn ovary ní “cyst” dandan. Orúkọ àtijọ́ náà lè ṣini lọ́nà, ultrasound nìkan kò sì tó láti ṣe ìwádìí àrùn náà.',
+    s2Heading: 'Kí ló dé tí PCOS fi ń ṣẹlẹ̀?',
+    s2Body1:
+      'Kò sí ìdí kan ṣoṣo fún PCOS. Ó dà bí ẹni pé ó jẹ́ àbájáde ọ̀pọ̀ nǹkan tó lè parapọ̀: ìtẹ̀sí ẹbí, iṣẹ́ hormone, ovulation, metabolism, àti àwọn nǹkan ẹnì kọ̀ọ̀kan.',
+    s2Factors: [
+      'Ìtẹ̀sí ẹbí àti àwọn nǹkan ìdílé',
+      'Ìdíwọ́ nínú ovulation',
+      'Androgen tó pọ̀ jù lọ́nà ìbátan',
+      'Àtakò insulin fún àwọn obìnrin kan',
+      'Àwọn nǹkan metabolism àti àyíká',
+    ],
+    s2NeutralText:
+      'PCOS kì í ṣe àṣìṣe ara ẹni. Kì í kàn ṣe àbájáde àìní agbára ìfẹ́, oúnjẹ búburú, tàbí ìṣe ara tí kò tó.',
+    s3Heading: 'Àwọn àmì pàtàkì',
+    s3Body1:
+      'PCOS lè hàn lọ́nà tó yàtọ̀ gan-an láti obìnrin kan sí òmíràn. Àwọn kan ní ọ̀pọ̀ àmì, nígbà tí àwọn mìíràn ṣàkíyèsí díẹ̀ péré.',
+    s3Signs: [
+      'Àyípo tí kò tẹ̀lé ìlànà, tó jìnnà sí ara wọn, tàbí tí kò sí nígbà míràn',
+      'Ovulation tí kò tẹ̀lé ìlànà tàbí tó ṣòro láti sọ tẹ́lẹ̀',
+      'Ìbájẹ́ ojú tó ń wà títí, ní pàtàkì ní ìsàlẹ̀ ojú',
+      'Irun tó pọ̀ sí i ní ojú, àyà, tàbí ara',
+      'Dídá irun tó jẹ mọ́ hormone',
+      'Ìwúwo ara tó ń pọ̀ sí i tàbí ìṣòro láti dín ìwúwo kù',
+      'Ìṣòro láti lóyún',
+    ],
+    s3AlertTitle: 'Pàtàkì',
+    s3AlertText:
+      'Níní ọ̀kan nínú àwọn àmì wọ̀nyí kò túmọ̀ sí pé o ní PCOS láìfọwọ́yí. Àwọn àrùn mìíràn púpọ̀ lè fa àwọn àmì tó jọra.',
+    s4Heading: 'Báwo ni a ṣe ń ṣe ìwádìí rẹ̀?',
+    s4Body1:
+      'Ṣíṣe ìwádìí PCOS jẹ́ ìlànà ìṣègùn. Òṣìṣẹ́ ìlera sábà máa ń bẹ̀rẹ̀ nípa jíjíròrò àyípo rẹ, àwọn àmì rẹ, ìtàn ìlera rẹ, àti àwọn ìtọ́jú èyíkéyìí tí o ń lò.',
+    s4Body2:
+      'Gẹ́gẹ́ bí ipò ṣe rí, a tún lè dábàá àwọn àyẹ̀wò ẹ̀jẹ̀ hormone àti ultrasound.',
+    s4Points: [
+      'Àyípo tí kò tẹ̀lé ìlànà tàbí ovulation tí kò wọ́pọ̀',
+      'Àwọn àmì androgen tó pọ̀ jù: ìbájẹ́ ojú, irun tó pọ̀ jù, dídá irun, tàbí àbájáde àyẹ̀wò ẹ̀jẹ̀',
+      'Ìrísí ovary tó bá PCOS mu lórí ultrasound, nígbà tí a bá yan àyẹ̀wò yìí',
+    ],
+    s4Body3:
+      'Dókítà náà tún gbọ́dọ̀ yọ àwọn ìdí mìíràn tó ṣeé ṣe fún àyípo tí kò tẹ̀lé ìlànà tàbí androgen tó pọ̀ jù kúrò kí ó tó jẹ́rìí ìwádìí PCOS.',
+    s5Heading: 'PCOS àti ovulation',
+    s5Body1:
+      'Ovulation ni jíjáde ẹyin (oocyte) láti inú ovary. Nínú PCOS, ovulation lè má wọ́pọ̀ tàbí kí ó ṣòro láti sọ tẹ́lẹ̀.',
+    s5Body2:
+      'Èyí lè ṣàlàyé ìdí tí àyípo fi gùn nígbà míràn, tí kò tẹ̀lé ìlànà, tàbí tó ṣòro láti rí tẹ́lẹ̀.',
+    s5HighlightTitle: 'Títọpa àyípo rẹ',
+    s5HighlightText:
+      'Kíkọ ọjọ́ nǹkan oṣù rẹ, àwọn àmì, àti àmì ovulation èyíkéyìí sílẹ̀ lè ràn ọ́ lọ́wọ́ láti lóye àwọn ìlànà tìrẹ dáadáa.',
+    s6Heading: 'PCOS àti ìbímọ',
+    s6Body1:
+      'Nítorí pé ovulation lè má tẹ̀lé ìlànà, àwọn obìnrin kan tó ní PCOS lè ní ìṣòro jù láti lóyún.',
+    s6Body2:
+      'Èyí kò túmọ̀ sí, síbẹ̀, pé PCOS ń dènà oyún láìfọwọ́yí. Ọ̀pọ̀ obìnrin tó ní PCOS ń lóyún lọ́nà àdánidá tàbí pẹ̀lú ìrànlọ́wọ́ ìṣègùn tó yẹ.',
+    s6TipTitle: 'Rántí',
+    s6TipText:
+      'Ìṣòro láti lóyún kò túmọ̀ sí pé kò ṣeé ṣe. Bí o bá ń retí láti lóyún, dókítà tàbí agbẹ̀bí lè dábàá ètò tó bá ipò rẹ mu.',
+    s7Heading: 'PCOS àti ìwọ̀n ara / metabolism',
+    s7Body1:
+      'PCOS lè jẹ mọ́ àwọn ìyípadà metabolism, pẹ̀lú àtakò insulin fún àwọn obìnrin kan.',
+    s7Body2:
+      'Síbẹ̀, ìwọ̀n ara nìkan kò lè ṣe ìwádìí tàbí yọ PCOS kúrò. Obìnrin tó tín-ín-rín lè ní PCOS, gẹ́gẹ́ bí obìnrin tó sanra jù ṣe lè má ní i.',
+    s7NeutralText:
+      'Ìtọ́jú tó ń tẹ̀lé e yẹ kí ó ronú nípa ìlera gbogbo, kì í ṣe iye orí òṣùwọ̀n nìkan.',
+    s8Heading: 'Awọ ara, irun, àti irun ara',
+    s8Body1:
+      'Androgen tó pọ̀ jù lọ́nà ìbátan lè ní ipa lórí àwọn ẹ̀jẹ̀ sebaceous àti àwọn gbòǹgbò irun.',
+    s8Body2:
+      'Gẹ́gẹ́ bí obìnrin náà ṣe rí, èyí lè hàn bí ìbájẹ́ ojú tó ń wà títí, irun tó pọ̀ sí i, tàbí dídá irun.',
+    s8Items: [
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone',
+      'Irun ojú tàbí ara tó pọ̀ sí i',
+      'Irun tó ń tín-ín-rín tàbí dídá irun',
+    ],
+    s9Heading: 'Báwo ni a ṣe ń tọ́jú PCOS?',
+    s9Body1:
+      'Kò sí ọ̀nà kan ṣoṣo láti tọ́jú PCOS tó ṣiṣẹ́ fún gbogbo obìnrin. Yíyàn náà sinmi lórí àwọn àmì, àwọn ète, àti ipò ìṣègùn.',
+    s9Body2:
+      'Ète lè yàtọ̀ gẹ́gẹ́ bí ìpele ìgbésí ayé: ṣíṣe àtúnṣe àyípo, mímú àwọn àmì kan sunwọ̀n sí i, dídáàbò bo ìlera metabolism, tàbí ìrànlọ́wọ́ fún ètò oyún.',
+    s9MiniTitle: 'Àwọn ìṣe tó ń ti ìlera lẹ́yìn',
+    s9Lifestyle: [
+      'Jíjẹ oúnjẹ onírúurú, déédéé tó bá àwọn ohun tí o nílò mu',
+      'Ṣíṣe ìṣe ara déédéé tí o lè tẹ̀ lé fún ìgbà pípẹ́',
+      'Níní oorun tó tó déédéé',
+      'Títọpa bí àyípo àti àwọn àmì rẹ ṣe ń yípadà bí àkókò ti ń lọ',
+      'Máa ṣe dá ara rẹ lẹ́bi fún àwọn ìyípadà nínú ìwọ̀n ara tàbí àwọn àmì',
+    ],
+    s9Body3:
+      'Gẹ́gẹ́ bí àwọn ohun tí o nílò, òṣìṣẹ́ ìlera tún lè dábàá àwọn ìtọ́jú fún àwọn àmì kan tàbí láti ti ètò oyún lẹ́yìn.',
+    s9AlertTitle: 'Má ṣe fi oògùn tọ́jú ara rẹ',
+    s9AlertText:
+      'Ó yẹ kí a jíròrò àwọn ìtọ́jú hormone, àwọn oògùn metabolism, àti àwọn àfikún oúnjẹ pẹ̀lú òṣìṣẹ́ ìlera.',
+    s10Heading: 'Àwọn èrò àṣìṣe tó wọ́pọ̀ nípa PCOS',
+    s10Myths: [
+      'PCOS túmọ̀ sí níní “cyst” nígbà gbogbo: orúkọ náà lè ṣini lọ́nà. Ìwádìí àrùn kò gbára lé wíwà cyst nìkan.',
+      'Gbogbo obìnrin tó ní PCOS ló sanra jù: PCOS lè kan àwọn obìnrin ní gbogbo irú ara.',
+      'PCOS ń dènà oyún nígbà gbogbo: ovulation lè má tẹ̀lé ìlànà, ṣùgbọ́n oyún ṣì ṣeé ṣe.',
+      'Àmì kan ṣoṣo tó tó láti ṣe ìwádìí PCOS: ìwádìí àrùn nílò àyẹ̀wò pípé.',
+      'PCOS máa ń lọ fúnra rẹ̀ pẹ̀lú ọjọ́ orí: bí ó ṣe hàn lè yípadà ní gbogbo ayé, ṣùgbọ́n ìtẹ̀síwájú ìtọ́jú ṣì ṣe pàtàkì.',
+    ],
+    s11Heading: 'Ìgbà tí o yẹ kí o rí dókítà',
+    s11Body1:
+      'Ìmọ̀ràn ìṣègùn ṣe pàtàkì ní pàtàkì nígbà tí àyípo bá di èyí tí kò tẹ̀lé ìlànà gan-an, dúró fún oṣù pípẹ́, tàbí nígbà tí àwọn àmì tí kò wọ́pọ̀ bá hàn.',
+    s11ConsultItems: [
+      'Àyípo tí kò tẹ̀lé ìlànà gan-an tàbí tí kò sí',
+      'Ìbájẹ́ ojú tàbí irun tí kò wọ́pọ̀',
+      'Dídá irun tó pọ̀',
+      'Ìṣòro láti lóyún',
+      'Àwọn àmì tó ń yípadà kíákíá',
+    ],
+    s12Heading: 'Àwọn kókó pàtàkì',
+    s12SummaryTitle: 'Àwọn kókó pàtàkì',
+    s12SummaryItems: [
+      'PCOS jẹ́ àrùn hormone tó wọ́pọ̀.',
+      'Ó lè hàn ní ọ̀nà púpọ̀ tó yàtọ̀.',
+      'Kì í ṣe gbogbo obìnrin tó ní PCOS ló ní àwọn àmì kan náà.',
+      'Ìwọ̀n ara nìkan kò tó láti ṣe ìwádìí tàbí yọ PCOS kúrò.',
+      'Ìwádìí àrùn nílò àyẹ̀wò ìṣègùn pípé.',
+      'PCOS lè ní ipa lórí ovulation àti nígbà míràn ìbímọ.',
+      'Ọ̀nà ìtọ́jú tó bá ẹnì kọ̀ọ̀kan mu ń ràn án lọ́wọ́ láti pàdé àwọn ohun tí obìnrin kọ̀ọ̀kan nílò.',
+    ],
+    finalNoteTitle: 'Ìtọ́sọ́nà fún òye tó dára jù',
+    finalNoteText:
+      'Àpilẹ̀kọ yìí wà fún ìfitónilétí gbogbogbò, kò sì rọ́pò ìbẹ̀wò sí dókítà. Ipò ẹnì kọ̀ọ̀kan yàtọ̀: bí o bá ṣiyèméjì tàbí tí àwọn àmì bá ń wà títí, wá ìmọ̀ràn lọ́dọ̀ òṣìṣẹ́ ìlera.',
+    shareMessage: 'Lílóye PCOS — AWA',
+  },
+  zu: {
+    badge: 'PCOS • UMHLAHLANDLELA OBALULEKILE',
+    title: 'Ukuqonda\ni-PCOS',
+    metaDuration: 'Imizuzu eyi-10 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Isiqalo',
+    metaValidated: 'Okwemfundo',
+    intro:
+      'I-polycystic ovary syndrome, evame ukubizwa ngokuthi i-PCOS, isimo sama-hormone esivamile esingathinta imijikelezo yakho, ukukhipha iqanda, isikhumba, izinwele, imetabolism, futhi ngezinye izikhathi nokuzala.',
+    introSecondary:
+      'Indlela ebonakala ngayo ihluka kakhulu komunye wesifazane nakomunye. Ukuqonda i-PCOS kukusiza ikakhulukazi ukuthi ubone izimpawu zayo, wazi ukuthi nini ufuna iseluleko sezokwelapha, futhi ulandelele indlela eguquka ngayo ngaphandle kokuzisola.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Iyini i-PCOS?',
+      'Kungani i-PCOS yenzeka?',
+      'Izimpawu eziyinhloko',
+      'Ihlolwa kanjani?',
+      'I-PCOS nokukhipha iqanda',
+      'I-PCOS nokuzala',
+      'I-PCOS nesisindo / imetabolism',
+      'Isikhumba, izinwele, nezinwele zomzimba',
+      'I-PCOS iphathwa kanjani?',
+      'Imibono engalungile evamile',
+      'Uma kufanele ubone udokotela',
+      'Amaphuzu abalulekile',
+    ],
+    s1Heading: 'Iyini i-PCOS?',
+    s1Body1:
+      'I-polycystic ovary syndrome (PCOS) isimo sama-hormone esivamile esingashintsha ukusebenza okujwayelekile kwamaqanda esibeletho nokulingana kwama-hormone athile.',
+    s1Body2:
+      'Kwabanye besifazane, inkinga eyinhloko ukukhipha iqanda okungalingani. Kwabanye, yizinyosi, ukukhula kwezinwele ngokweqile, ukuthuthuka kwezinwele, noma izimpawu zemetabolism ezivela kuqala.',
+    s1TipTitle: 'Kuhle ukwazi',
+    s1TipText:
+      'Naphezu negama layo, i-PCOS ayisho ngempela ukuthi amaqanda esibeletho aqukethe “ama-cyst”. Igama lomlando lingadukisa, futhi i-ultrasound yodwa ayanele ukwenza ukuhlolwa.',
+    s2Heading: 'Kungani i-PCOS yenzeka?',
+    s2Body1:
+      'Akukho sizathu esisodwa se-PCOS. Kubonakala kuvela ezintweni eziningana ezingahlangana: ukuthambekela komndeni, ukusebenza kwama-hormone, ukukhipha iqanda, imetabolism, nezinto zomuntu ngamunye.',
+    s2Factors: [
+      'Ukuthambekela komndeni nezinto zofuzo',
+      'Ukuphazamiseka ekukhipheni iqanda',
+      'Ukweqile okuhlobene kwama-androgen',
+      'Ukumelana ne-insulin kwabanye besifazane',
+      'Izinto zemetabolism nezemvelo',
+    ],
+    s2NeutralText:
+      'I-PCOS akulona iphutha lomuntu. Ayiveli nje ngokuntuleka kwamandla okuzikhandla, ukudla okubi, noma ukuntuleka kokuzivocavoca.',
+    s3Heading: 'Izimpawu eziyinhloko',
+    s3Body1:
+      'I-PCOS ingabonakala ngendlela ehluke kakhulu komunye wesifazane nakomunye. Abanye banezimpawu eziningana, kuyilapho abanye beziqaphela kancane kakhulu.',
+    s3Signs: [
+      'Imijikelezo engalingani, ehlukene kakhulu, noma ngezinye izikhathi engekho',
+      'Ukukhipha iqanda okungalingani noma okunzima ukukubikezela',
+      'Izinyosi eziqhubekayo, ikakhulukazi engxenyeni engezansi yobuso',
+      'Ukukhula kwezinwele okwandile ebusweni, esifubeni, noma emzimbeni',
+      'Ukuthuthuka kwezinwele okuhlobene nama-hormone',
+      'Ukwenyuka kwesisindo noma ubunzima bokunciphisa isisindo',
+      'Ubunzima bokukhulelwa',
+    ],
+    s3AlertTitle: 'Okubalulekile',
+    s3AlertText:
+      'Ukuba nesinye salezi zimpawu akusho ngokuzenzakalela ukuthi unayo i-PCOS. Ezinye izimo eziningana zingabangela izimpawu ezifanayo.',
+    s4Heading: 'Ihlolwa kanjani?',
+    s4Body1:
+      'Ukuhlola i-PCOS inqubo yezokwelapha. Umhlinzeki wezempilo ngokuvamile uqala ngokuxoxa ngemijikelezo yakho, izimpawu, umlando wezokwelapha, nanoma yikuphi ukwelashwa ukusebenzisayo.',
+    s4Body2:
+      'Ngokuya ngesimo, izivivinyo zegazi zama-hormone ne-ultrasound nazo zingase zinikezwe.',
+    s4Points: [
+      'Imijikelezo engalingani noma ukukhipha iqanda okungavamile',
+      'Izimpawu zokweqile kwama-androgen: izinyosi, ukukhula kwezinwele ngokweqile, ukuthuthuka kwezinwele, noma imiphumela yokuhlolwa kwegazi',
+      'Ukubonakala kwamaqanda esibeletho okuhambisana ne-PCOS ku-ultrasound, uma lokhu kuhlolwa kukhonjisiwe',
+    ],
+    s4Body3:
+      'Udokotela kufanele futhi akhiphe ezinye izimbangela ezingenzeka zemijikelezo engalingani noma ukweqile kwama-androgen ngaphambi kokuqinisekisa ukuhlolwa kwe-PCOS.',
+    s5Heading: 'I-PCOS nokukhipha iqanda',
+    s5Body1:
+      'Ukukhipha iqanda ukukhululwa kweqanda (i-oocyte) esibelethweni. Ku-PCOS, ukukhipha iqanda kungavama kancane noma kube nzima ukukubikezela.',
+    s5Body2:
+      'Lokhu kungachaza ukuthi kungani imijikelezo ngezinye izikhathi imide, ingalingani, noma inzima ukuyilindela.',
+    s5HighlightTitle: 'Ukulandelela umjikelezo wakho',
+    s5HighlightText:
+      'Ukurekhoda izinsuku zesikhathi sakho, izimpawu, nanoma yiziphi izimpawu zokukhipha iqanda kungakusiza uqonde kangcono izindlela zakho siqu.',
+    s6Heading: 'I-PCOS nokuzala',
+    s6Body1:
+      'Ngenxa yokuthi ukukhipha iqanda kungase kungalingani, abanye besifazane abanayo i-PCOS bangaba nobunzima obukhulu bokukhulelwa.',
+    s6Body2:
+      'Lokhu akusho, kodwa-ke, ukuthi i-PCOS ivimbela ngokuzenzakalela ukukhulelwa. Abesifazane abaningi abanayo i-PCOS bakhulelwa ngokwemvelo noma ngosizo lwezokwelapha olufanele.',
+    s6TipTitle: 'Khumbula',
+    s6TipText:
+      'Ubunzima bokukhulelwa abusho ukuthi akunakwenzeka. Uma unethemba lokukhulelwa, udokotela noma umbelethisi angaphakamisa uhlelo olufanele isimo sakho.',
+    s7Heading: 'I-PCOS nesisindo / imetabolism',
+    s7Body1:
+      'I-PCOS ingahlotshaniswa nezinguquko zemetabolism, kuhlanganise nokumelana ne-insulin kwabanye besifazane.',
+    s7Body2:
+      'Kodwa-ke, isisindo sodwa asikwazi ukuhlola noma ukukhipha i-PCOS. Owesifazane obhokile angaba nayo i-PCOS, njengoba nje owesifazane onesisindo esiningi engase angabi nayo.',
+    s7NeutralText:
+      'Ukunakekelwa okulandelayo kufanele kucabangele impilo iyonke, hhayi inani elisesilinganisweni kuphela.',
+    s8Heading: 'Isikhumba, izinwele, nezinwele zomzimba',
+    s8Body1:
+      'Ukweqile okuhlobene kwama-androgen kungathinta izindlala zamafutha nezimpande zezinwele.',
+    s8Body2:
+      'Ngokuya ngowesifazane, lokhu kungabonakala njengezinyosi eziqhubekayo, ukukhula kwezinwele okwandile, noma ukuthuthuka kwezinwele.',
+    s8Items: [
+      'Izinyosi zama-hormone',
+      'Izinwele ezandile ebusweni noma emzimbeni',
+      'Izinwele ezibhekile noma ukuthuthuka kwezinwele',
+    ],
+    s9Heading: 'I-PCOS iphathwa kanjani?',
+    s9Body1:
+      'Akukho ndlela eyodwa yokuphatha i-PCOS esebenzela wonke owesifazane. Ukukhetha kuncike ezimpawini, ezinhlosweni, nasezimweni zezokwelapha.',
+    s9Body2:
+      'Inhloso ingahluka ngokuya ngesigaba sokuphila: ukulungisa imijikelezo, ukuthuthukisa izimpawu ezithile, ukuvikela impilo yemetabolism, noma ukusekela uhlelo lokukhulelwa.',
+    s9MiniTitle: 'Imikhuba esekela impilo',
+    s9Lifestyle: [
+      'Ukudla ukudla okuhlukahlukene, okujwayelekile okufanele izidingo zakho',
+      'Ukuzivocavoca njalo okungakugcina isikhathi eside',
+      'Ukugcina ukulala okujwayelekile ngokwanele',
+      'Ukulandelela indlela imijikelezo yakho nezimpawu eziguquka ngayo ngokuhamba kwesikhathi',
+      'Ukungazisoli ngezinguquko zesisindo noma zezimpawu',
+    ],
+    s9Body3:
+      'Ngokuya ngezidingo zakho, umhlinzeki wezempilo angase futhi anikeze ukwelashwa kwezimpawu ezithile noma ukusekela uhlelo lokukhulelwa.',
+    s9AlertTitle: 'Ungazelaphi',
+    s9AlertText:
+      'Ukwelashwa kwama-hormone, imithi yemetabolism, nezithasiselo zokudla kufanele konke kuxoxwe nomhlinzeki wezempilo.',
+    s10Heading: 'Imibono engalungile evamile ngo-PCOS',
+    s10Myths: [
+      'I-PCOS ihlale isho ukuba “nama-cyst”: igama lingadukisa. Ukuhlolwa akuncikile kuphela ekubeni khona kwama-cyst.',
+      'Bonke abesifazane abanayo i-PCOS banesisindo esiningi: i-PCOS ingathinta abesifazane bazo zonke izinhlobo zemizimba.',
+      'I-PCOS ihlale ivimbela ukukhulelwa: ukukhipha iqanda kungase kungalingani, kodwa ukukhulelwa kusenokwenzeka.',
+      'Uphawu olulodwa luyanela ukuhlola i-PCOS: ukuhlolwa kudinga ukuhlolwa okuphelele.',
+      'I-PCOS iyanyamalala nje ngeminyaka: indlela ebonakala ngayo ingashintsha impilo yonke, kodwa ukulandelela okuqhubekayo kusabalulekile.',
+    ],
+    s11Heading: 'Uma kufanele ubone udokotela',
+    s11Body1:
+      'Iseluleko sezokwelapha siwusizo ikakhulukazi lapho imijikelezo iba nga lingani kakhulu, imiswa izinyanga eziningana, noma lapho kuvela izimpawu ezingajwayelekile.',
+    s11ConsultItems: [
+      'Imijikelezo engalingani kakhulu noma engekho',
+      'Izinyosi noma ukukhula kwezinwele okungajwayelekile',
+      'Ukuthuthuka kwezinwele okukhulu',
+      'Ubunzima bokukhulelwa',
+      'Izimpawu eziguquka ngokushesha',
+    ],
+    s12Heading: 'Amaphuzu abalulekile',
+    s12SummaryTitle: 'Amaphuzu abalulekile',
+    s12SummaryItems: [
+      'I-PCOS isimo sama-hormone esivamile.',
+      'Ingabonakala ngezindlela eziningi ezihlukene.',
+      'Akubona bonke abesifazane abanayo i-PCOS abanezimpawu ezifanayo.',
+      'Isisindo sodwa asinele ukuhlola noma ukukhipha i-PCOS.',
+      'Ukuhlolwa kudinga ukuhlolwa okuphelele kwezokwelapha.',
+      'I-PCOS ingathinta ukukhipha iqanda futhi ngezinye izikhathi nokuzala.',
+      'Indlela yokunakekela eyenzelwe umuntu ngamunye isiza ukuhlangabezana nezidingo zowesifazane ngamunye.',
+    ],
+    finalNoteTitle: 'Umhlahlandlela wokuqonda kangcono',
+    finalNoteText:
+      'Lesi sihloko senzelwe ulwazi jikelele futhi asithathi isikhundla sokubonana nodokotela. Isimo ngasinye sihlukile: uma unokungabaza noma uma izimpawu ziqhubeka, cela iseluleko kochwepheshe wezempilo.',
+    shareMessage: 'Ukuqonda i-PCOS — AWA',
+  },
+  xh: {
+    badge: 'I-PCOS • ISIKHOKELO ESIBALULEKILEYO',
+    title: 'Ukuyiqonda\ni-PCOS',
+    metaDuration: 'Imizuzu eli-10 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Umxholo wemfundo',
+    intro:
+      'I-polycystic ovary syndrome, evame ukubizwa ngokuba yi-PCOS, yimeko eqhelekileyo yeehomoni enokuchaphazela imijikelo yakho, i-ovulation, isikhumba, iinwele, i-metabolism, kwaye ngamanye amaxesha nokuzala.',
+    introSecondary:
+      'Indlela ebonakala ngayo iyahluka kakhulu komfazi ukuya komnye. Ukuqonda i-PCOS kukunceda ikakhulu ukuba uqaphele iimpawu zayo, wazi ukuba ucela nini icebiso lezonyango, kwaye ulandelele indlela eqhubeka ngayo ngaphandle kokuziteta.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni i-PCOS?',
+      'Kutheni i-PCOS yenzeka?',
+      'Iimpawu eziphambili',
+      'Ixilongwa njani?',
+      'I-PCOS ne-ovulation',
+      'I-PCOS nokuzala',
+      'I-PCOS nobunzima / i-metabolism',
+      'Isikhumba, iinwele, neenwele zomzimba',
+      'I-PCOS ilawulwa njani?',
+      'Iingcinga ezingachanekanga eziqhelekileyo',
+      'Xa kufuneka ubone gqirha',
+      'Eyona nto ibalulekileyo',
+    ],
+    s1Heading: 'Yintoni i-PCOS?',
+    s1Body1:
+      'I-polycystic ovary syndrome (PCOS) yimeko eqhelekileyo yeehomoni enokutshintsha indlela eqhelekileyo amaqanda asebenza ngayo nokulingana kweehomoni ezithile.',
+    s1Body2:
+      'Kwabanye abafazi, ingxaki ephambili yi-ovulation engaqhelekanga. Kwabanye, yi-acne, ukukhula ngokugqithisileyo kweenwele, ukuwa kweenwele, okanye iimpawu ze-metabolism ezibonakala kuqala.',
+    s1TipTitle: 'Kulungile ukwazi',
+    s1TipText:
+      'Nangona negama layo, i-PCOS ayithethi ngokuyimfuneko ukuba amaqanda aneempawu ze-"cyst." Igama lakudala linokukhohlisa, kwaye i-ultrasound yodwa ayanele ukwenza uxilongo.',
+    s2Heading: 'Kutheni i-PCOS yenzeka?',
+    s2Body1:
+      'Asikho isizathu esinye se-PCOS. Ibonakala iyimbonakalo yezinto ezininzi ezinokuhlangana: ukuthambekela kosapho, ukusebenza kweehomoni, i-ovulation, i-metabolism, nezinto zomntu ngamnye.',
+    s2Factors: [
+      'Ukuthambekela kosapho nezinto zofuzo',
+      'Ukuphazamiseka kwe-ovulation',
+      'Ukugqitha okuhlobene kwee-androgen',
+      'Ukumelana ne-insulin kwabanye abafazi',
+      'Izinto ze-metabolism nezendalo',
+    ],
+    s2NeutralText:
+      'I-PCOS ayilulo ukusilela komntu. Ayiveli nje ngenxa yokunqongophala kwamandla okuzimisela, ukungatyi kakuhle, okanye ukungenzi umthambo womzimba owaneleyo.',
+    s3Heading: 'Iimpawu eziphambili',
+    s3Body1:
+      'I-PCOS inokubonakala ngokwahlukileyo kakhulu komfazi ukuya komnye. Abanye banezimpawu ezininzi, ngelixa abanye baqaphela ezimbalwa kakhulu.',
+    s3Signs: [
+      'Imijikelo engaqhelekanga, ityhalelekile, okanye ngamanye amaxesha engekho',
+      'I-ovulation engaqhelekanga okanye enzima ukuyiqikelela',
+      'I-acne eqhubekayo, ngakumbi kwingingqi esezantsi yobuso',
+      'Ukukhula kweenwele okwandileyo ebusweni, esifubeni, okanye emzimbeni',
+      'Ukuwa kweenwele ngendlela yeehomoni',
+      'Ukuthamba okanye ubunzima bokuncipha',
+      'Ubunzima bokukhulelwa',
+    ],
+    s3AlertTitle: 'Kubalulekile',
+    s3AlertText:
+      'Ukuba nolunye lwezi mpawu akuthethi ngokuzenzekelayo ukuba une-PCOS. Ezinye iimeko ezininzi zinokubangela iimpawu ezifanayo.',
+    s4Heading: 'Ixilongwa njani?',
+    s4Body1:
+      'Ukuxilonga i-PCOS yinkqubo yezonyango. Umboneleli wezempilo udla ngokuqala ngokuthetha ngemijikelo yakho, iimpawu, imbali yezonyango, nanoma yiluphi unyango olusebenzisayo.',
+    s4Body2:
+      'Ngokuxhomekeke kwimeko, uvavanyo lwegazi lweehomoni ne-ultrasound nazo zinokunikelwa.',
+    s4Points: [
+      'Imijikelo engaqhelekanga okanye i-ovulation engenzeki rhoqo',
+      'Iimpawu zokugqitha kwee-androgen: i-acne, ukukhula ngokugqithisileyo kweenwele, ukuwa kweenwele, okanye iziphumo zovavanyo lwegazi',
+      'Ukubonakala kwamaqanda okuhambelana ne-PCOS kwi-ultrasound, xa olu hlolo lunikezelwe',
+    ],
+    s4Body3:
+      'Ugqirha kufuneka akwazi ukuthintela ezinye izizathu ezinokubakho zemijikelo engaqhelekanga okanye ukugqitha kwee-androgen phambi kokuqinisekisa uxilongo lwe-PCOS.',
+    s5Heading: 'I-PCOS ne-ovulation',
+    s5Body1:
+      'I-ovulation kukukhululwa kweqanda (i-oocyte) kwi-ovary. Kwi-PCOS, i-ovulation inokuba ngengenzeki rhoqo okanye inzima ukuyiqikelela.',
+    s5Body2:
+      'Oku kunokuchaza ukuba kutheni imijikelo ngamanye amaxesha ibe mide, ingaqhelekanga, okanye inzima ukuyilindela.',
+    s5HighlightTitle: 'Ukulandelela umjikelo wakho',
+    s5HighlightText:
+      'Ukurekhoda imihla yexesha lakho lokuya exesheni, iimpawu, nayiphi na imiqondiso ye-ovulation kunganceda uqonde ngcono iiphethini zakho.',
+    s6Heading: 'I-PCOS nokuzala',
+    s6Body1:
+      'Ngenxa yokuba i-ovulation inokungaqhelekanga, abanye abafazi abane-PCOS bangafumana ubunzima ngakumbi bokukhulelwa.',
+    s6Body2:
+      'Oku akuthethi, noko ke, ukuba i-PCOS ithintela ukukhulelwa ngokuzenzekelayo. Abafazi abaninzi abane-PCOS bakhulelwa ngokwendalo okanye ngenkxaso efanelekileyo yezonyango.',
+    s6TipTitle: 'Khumbula',
+    s6TipText:
+      'Ubunzima bokukhulelwa abuthethi ukuba akunakwenzeka. Ukuba unethemba lokukhulelwa, ugqirha okanye umbelekisi unokucebisa isicwangciso esifanele imeko yakho.',
+    s7Heading: 'I-PCOS nobunzima / i-metabolism',
+    s7Body1:
+      'I-PCOS inokunxulumana notshintsho lwe-metabolism, kuquka ukumelana ne-insulin kwabanye abafazi.',
+    s7Body2:
+      'Noko ke, ubunzima bodwa abunakuxilonga okanye bugatye i-PCOS. Umfazi othe tyaba unokuba ne-PCOS, kanye njengokuba umfazi onobunzima obugqithisileyo enokungabi nayo.',
+    s7NeutralText:
+      'Unyango lulandelelo kufuneka luqwalasele impilo iyonke, hayi nje inani kwisikali.',
+    s8Heading: 'Isikhumba, iinwele, neenwele zomzimba',
+    s8Body1:
+      'Ukugqitha okuhlobene kwee-androgen kunokuchaphazela imithambo yeoli yesikhumba kunye nee-follicle zeenwele.',
+    s8Body2:
+      'Ngokomfazi, oku kunokubonakala njenge-acne eqhubekayo, ukukhula kweenwele okwandileyo, okanye ukuwa kweenwele.',
+    s8Items: [
+      'I-acne yeehomoni',
+      'Iinwele ezandileyo ebusweni okanye emzimbeni',
+      'Iinwele ezisondeleleyo okanye ukuwa kweenwele',
+    ],
+    s9Heading: 'I-PCOS ilawulwa njani?',
+    s9Body1:
+      'Akukho ndlela inye yokulawula i-PCOS esebenza kuwo wonke umfazi. Ukhetho luxhomekeke kwiimpawu, iinjongo, neemeko zezonyango.',
+    s9Body2:
+      'Injongo inokwahluka ngokwenqanaba lobomi: ukulungelelanisa imijikelo, ukuphucula iimpawu ezithile, ukukhusela impilo ye-metabolism, okanye ukuxhasa isicwangciso sokukhulelwa.',
+    s9MiniTitle: 'Iziqhelo ezixhasa impilo',
+    s9Lifestyle: [
+      'Ukutya ukutya okwahlukeneyo, okuqhelekileyo okufanelana neemfuno zakho',
+      'Ukwenza umthambo womzimba rhoqo onokuwugcina ixesha elide',
+      'Ukugcina isiqaqa esiqhelekileyo ngokwaneleyo',
+      'Ukulandelela indlela imijikelo neempawu zakho ezitshintsha ngayo ngokuhamba kwexesha',
+      'Ukungazityhili ngenxa yotshintsho lobunzima okanye iimpawu',
+    ],
+    s9Body3:
+      'Ngokuxhomekeke kwiimfuno zakho, umboneleli wezempilo unokunikela unyango lweempawu ezithile okanye lokuxhasa isicwangciso sokukhulelwa.',
+    s9AlertTitle: 'Musa ukuzinyanga',
+    s9AlertText:
+      'Unyango lweehomoni, amayeza e-metabolism, nezongezelelo zokutya zonke kufuneka zixoxwe nomboneleli wezempilo.',
+    s10Heading: 'Iingcinga ezingachanekanga eziqhelekileyo ngeli-PCOS',
+    s10Myths: [
+      'I-PCOS rhoqo ithetha ukuba nee-"cyst": igama linokukhohlisa. Uxilongo alixhomekekanga kubukho bee-cyst kuphela.',
+      'Bonke abafazi abane-PCOS bathe tyaba: i-PCOS inokuchaphazela abafazi bayo yonke imizimba.',
+      'I-PCOS rhoqo ithintela ukukhulelwa: i-ovulation inokungaqhelekanga, kodwa ukukhulelwa kusenokwenzeka.',
+      'Uphawu olunye lwanele ukuxilonga i-PCOS: uxilongo lufuna uhlolo olupheleleyo.',
+      'I-PCOS iyaphela ngobudala: indlela ebonakala ngayo inokutshintsha ebomini bonke, kodwa ukulandelwa okuqhubekayo kusabalulekile.',
+    ],
+    s11Heading: 'Xa kufuneka ubone gqirha',
+    s11Body1:
+      'Icebiso lezonyango liluncedo ngakumbi xa imijikelo iba ngengaqhelekanga kakhulu, iyeka iinyanga ezininzi, okanye xa kuvela iimpawu ezingaqhelekanga.',
+    s11ConsultItems: [
+      'Imijikelo engaqhelekanga kakhulu okanye engekho',
+      'I-acne okanye ukukhula kweenwele okungaqhelekanga',
+      'Ukuwa kweenwele okukhulu',
+      'Ubunzima bokukhulelwa',
+      'Iimpawu ezitshintsha ngokukhawuleza',
+    ],
+    s12Heading: 'Eyona nto ibalulekileyo',
+    s12SummaryTitle: 'Iingongoma ezibalulekileyo',
+    s12SummaryItems: [
+      'I-PCOS yimeko eqhelekileyo yeehomoni.',
+      'Inokubonakala ngeendlela ezininzi ezahlukeneyo.',
+      'Ayikho yonke imizimba yabafazi abane-PCOS enezimpawu ezifanayo.',
+      'Ubunzima bodwa abwanele ukuxilonga okanye ukugatya i-PCOS.',
+      'Uxilongo lufuna uhlolo lwezonyango olupheleleyo.',
+      'I-PCOS inokuchaphazela i-ovulation kwaye ngamanye amaxesha nokuzala.',
+      'Indlela yonyango yomntu ngamnye inceda ukuhlangabezana neemfuno zomfazi ngamnye.',
+    ],
+    finalNoteTitle: 'Isikhokelo sokuqonda ngcono',
+    finalNoteText:
+      'Eli nqaku lenzelwe ulwazi jikelele kwaye alithatheli indawo yophando lwezonyango. Imeko nganye yahlukile: ukuba uyakrokrela okanye iimpawu ziyaqhubeka, cela icebiso kwingcali yezempilo.',
+    shareMessage: 'Ukuyiqonda i-PCOS — AWA',
+  },
+  sn: {
+    badge: 'PCOS • NHUNGAMIRO YAKAKOSHA',
+    title: 'Kunzwisisa\nPCOS',
+    metaDuration: 'Maminitsi gumi ekuverenga',
+    metaType: 'Nhungamiro',
+    metaLevel: 'Vanotanga',
+    metaValidated: 'Zvinyorwa zvekudzidzisa',
+    intro:
+      'Polycystic ovary syndrome, inowanzonzi PCOS, mamiriro emahormone anowanikwa kazhinji anogona kukanganisa kutenderera kwako, ovulation, ganda, vhudzi, metabolism, uye dzimwe nguva kubereka.',
+    introSecondary:
+      'Madiro anoonekwa anosiyana zvikuru kubva kumukadzi kuenda kumukadzi. Kunzwisisa PCOS kunonyanya kukubatsira kuziva zviratidzo zvayo, kuziva painofanira kutsvagwa zano rechiremba, uye kutevera maitiro ayo pasina kuzvipa mhosva.',
+    contentsTitle: 'Muchinyorwa ichi',
+    topics: [
+      'PCOS chii?',
+      'Nei PCOS ichiitika?',
+      'Zviratidzo zvikuru',
+      'Inoongororwa sei?',
+      'PCOS ne ovulation',
+      'PCOS nekubereka',
+      'PCOS nehuremu / metabolism',
+      'Ganda, vhudzi, nemvere dzemuviri',
+      'PCOS inorapwa sei?',
+      'Pfungwa dzisiri dzechokwadi dzinowanzoitwa',
+      'Painofanira kuonekwa chiremba',
+      'Zvinokosha zvekuyeuka',
+    ],
+    s1Heading: 'PCOS chii?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) mamiriro emahormone anowanikwa kazhinji anogona kushandura mashandiro akajairika e ovaries nekuenzana kwemahormone mamwe.',
+    s1Body2:
+      'Kune vamwe vakadzi, dambudziko guru ndeye ovulation isina kurongeka. Kune vamwe, mapundu, kukura kwemvere zvakanyanya, kuonda kwevhudzi, kana zviratidzo zve metabolism zvinoonekwa kutanga.',
+    s1TipTitle: 'Zvakanaka kuziva',
+    s1TipText:
+      'Kunyange zita rayo, PCOS haireve kuti ovaries ine "cysts". Izwi rekare rinogona kudzvova, uye ultrasound oga haikwani kuita kuongororwa.',
+    s2Heading: 'Nei PCOS ichiitika?',
+    s2Body1:
+      'Hapana chikonzero chimwe chete che PCOS. Zvinoratidzika kuti inobva pazvinhu zvakawanda zvinogona kubatana: kutaridzwa kwemhuri, mashandiro emahormone, ovulation, metabolism, uye zvinhu zvemunhu.',
+    s2Factors: [
+      'Kutaridzwa kwemhuri nezvinhu zvenhaka',
+      'Kukanganiswa kwe ovulation',
+      'Androgens dzakanyanya zvishoma',
+      'Insulin resistance kune vamwe vakadzi',
+      'Zvinhu zve metabolism nezvenharaunda',
+    ],
+    s2NeutralText:
+      'PCOS haisi kutadza kwemunhu. Hainyatsobva pakushaya simba rekuda, kudya kusina kunaka, kana kushaya kuita zvekuzorodza muviri kwakakwana.',
+    s3Heading: 'Zviratidzo zvikuru',
+    s3Body1:
+      'PCOS inogona kuoneka nenzira dzakasiyana zvikuru kubva kumukadzi kuenda kumukadzi. Vamwe vane zviratidzo zvakawanda, nepo vamwe vachicherechedza zvishoma zvikuru.',
+    s3Signs: [
+      'Kutenderera kusina kurongeka, kwakagara kure, kana dzimwe nguva kusipo',
+      'Ovulation isina kurongeka kana kuoma kufanotaurwa',
+      'Mapundu anoramba aripo, kunyanya kumeso kwepazasi',
+      'Kuwedzera kukura kwemvere kumeso, pachipfuva, kana muviri',
+      'Kuonda kwevhudzi kwemaitiro emahormone',
+      'Kuwedzera huremu kana kuoma kuderedza huremu',
+      'Kuoma kubata mimba',
+    ],
+    s3AlertTitle: 'Zvakakosha',
+    s3AlertText:
+      'Kuva nechimwe chezviratidzo izvi hazvirevi otomatiki kuti une PCOS. Mamiriro mamwe akawanda anogona kukonzera zviratidzo zvakafanana.',
+    s4Heading: 'Inoongororwa sei?',
+    s4Body1:
+      'Kuongorora PCOS maitiro ezvehutano. Mupi wehutano kazhinji anotanga nekutaura nezvekutenderera kwako, zviratidzo, nhoroondo yehutano, nekurapwa kupi zvako kwaunoshandisa.',
+    s4Body2:
+      'Zvichienderana nemamiriro, blood tests dzemahormone ne ultrasound zvinogonawo kukurudzirwa.',
+    s4Points: [
+      'Kutenderera kusina kurongeka kana ovulation isingawanzoitika',
+      'Zviratidzo zve androgens dzakanyanya: mapundu, kukura kwemvere zvakanyanya, kuonda kwevhudzi, kana mhedzisiro ye blood test',
+      'Maonekero e ovaries anoenderana ne PCOS paultrasound, kana kuongorora uku kuchikurudzirwa',
+    ],
+    s4Body3:
+      'Chiremba anofanirawo kubvisa zvimwe zvikonzero zvinogoneka zvekutenderera kusina kurongeka kana androgens dzakanyanya asati asimbisa kuongororwa kwe PCOS.',
+    s5Heading: 'PCOS ne ovulation',
+    s5Body1:
+      'Ovulation kuburitswa kwezai (oocyte) kubva ku ovary. Mu PCOS, ovulation inogona kusawanzoitika kana kuoma kufanotaurwa.',
+    s5Body2:
+      'Izvi zvinogona kutsanangura kuti nei kutenderera dzimwe nguva kuri kurefu, kusina kurongeka, kana kuoma kufungidzirwa.',
+    s5HighlightTitle: 'Kutevera kutenderera kwako',
+    s5HighlightText:
+      'Kunyora mazuva ekuenda kwako kumwedzi, zviratidzo, nezviratidzo zvipi zvazvo zve ovulation kunogona kukubatsira kunzwisisa zvirinani maitiro ako pachako.',
+    s6Heading: 'PCOS nekubereka',
+    s6Body1:
+      'Nokuti ovulation inogona kusava nerongeka, vamwe vakadzi vane PCOS vanogona kuva nenhamo huru yekubata mimba.',
+    s6Body2:
+      'Izvi hazvirevi, zvisinei, kuti PCOS inodzivirira mimba otomatiki. Vakadzi vakawanda vane PCOS vanobata mimba nenzira yechisikigo kana nerubatsiro rwezvehutano rwakakodzera.',
+    s6TipTitle: 'Yeuka',
+    s6TipText:
+      'Kuoma kubata mimba hakurevi kuti hazvigoneki. Kana uchitarisira kubata mimba, chiremba kana mukoti anogona kukurudzira nzira inokodzera mamiriro ako.',
+    s7Heading: 'PCOS nehuremu / metabolism',
+    s7Body1:
+      'PCOS inogona kubatana neshanduko dze metabolism, kusanganisira insulin resistance kune vamwe vakadzi.',
+    s7Body2:
+      'Asi, huremu oga hahugone kuongorora kana kubvisa PCOS. Mukadzi mutete anogona kuva ne PCOS, sezvo mukadzi akaremera angasave nayo.',
+    s7NeutralText:
+      'Kutevera kwehutano kunofanira kutarisa hutano hwese, kwete nhamba iri pa scale chete.',
+    s8Heading: 'Ganda, vhudzi, nemvere dzemuviri',
+    s8Body1:
+      'Androgens dzakanyanya zvishoma dzinogona kukanganisa sebaceous glands ne hair follicles.',
+    s8Body2:
+      'Zvichienderana nemukadzi, izvi zvinogona kuoneka semapundu anoramba aripo, kuwedzera kukura kwemvere, kana kuonda kwevhudzi.',
+    s8Items: [
+      'Mapundu emahormone',
+      'Kuwedzera mvere dzekumeso kana dzemuviri',
+      'Vhudzi rinonaya kana kuonda',
+    ],
+    s9Heading: 'PCOS inorapwa sei?',
+    s9Body1:
+      'Hapana nzira imwe chete yekurapa PCOS inoshanda kumukadzi wese. Sarudzo inoenderana nezviratidzo, zvinangwa, nemamiriro ezvehutano.',
+    s9Body2:
+      'Chinangwa chinogona kusiyana zvichienderana nechikamu chehupenyu: kurongedza kutenderera, kuvandudza zviratidzo zvimwe, kuchengetedza hutano hwe metabolism, kana kutsigira chirongwa chemimba.',
+    s9MiniTitle: 'Tsika dzinotsigira hutano',
+    s9Lifestyle: [
+      'Kudya kudya kwakasiyana, kwakarongeka kunokodzera zvaunoda',
+      'Kuita zvekuzorodza muviri nguva dzose zvaunogona kuenderera nazvo nenguva',
+      'Kuchengetedza kurara kwakarongeka zvakakwana',
+      'Kutevera kuti kutenderera nezviratidzo zvako zvinoshanduka sei nenguva',
+      'Kusazvipa mhosva pashanduko dzehuremu kana zviratidzo',
+    ],
+    s9Body3:
+      'Zvichienderana nezvaunoda, mupi wehutano anogona kukurudzirawo kurapwa kwezviratidzo zvimwe kana kutsigira chirongwa chemimba.',
+    s9AlertTitle: 'Usazvirape wega',
+    s9AlertText:
+      'Kurapwa kwemahormone, mushonga we metabolism, nezvinowedzera zvekudya zvese zvinofanira kutaurwa nemupi wehutano.',
+    s10Heading: 'Pfungwa dzisiri dzechokwadi dzinowanzoitwa nezve PCOS',
+    s10Myths: [
+      'PCOS inogara ichireva kuva ne "cysts": zita rinogona kudzvova. Kuongororwa hakutsamiri kuvapo kwe cysts chete.',
+      'Vakadzi vese vane PCOS vakaremera: PCOS inogona kukanganisa vakadzi vemhando dzese dzemuviri.',
+      'PCOS inogara ichidzivirira mimba: ovulation inogona kusava nerongeka, asi mimba ichigoneka.',
+      'Chiratidzo chimwe chete chinokwana kuongorora PCOS: kuongororwa kunoda kuongorora kwakazara.',
+      'PCOS inopera nezera: maonekero ayo anogona kushanduka muhupenyu hwese, asi kutevera kuri kuenderera kunoramba kuchikosha.',
+    ],
+    s11Heading: 'Painofanira kuonekwa chiremba',
+    s11Body1:
+      'Zano rechiremba rinokodzera zvikuru kana kutenderera kuchisava nerongeka zvikuru, kuchiva kwemwedzi yakawanda, kana zviratidzo zvisina kujairika zvichiuya.',
+    s11ConsultItems: [
+      'Kutenderera kusina kurongeka zvikuru kana kusipo',
+      'Mapundu kana kukura kwemvere kusina kujairika',
+      'Kuonda kwevhudzi kukuru',
+      'Kuoma kubata mimba',
+      'Zviratidzo zvinoshanduka nekukurumidza',
+    ],
+    s12Heading: 'Zvinokosha zvekuyeuka',
+    s12SummaryTitle: 'Mapoinzi akakosha',
+    s12SummaryItems: [
+      'PCOS mamiriro emahormone anowanikwa kazhinji.',
+      'Inogona kuoneka nenzira dzakasiyana dzakawanda.',
+      'Vakadzi vese vane PCOS havana zviratidzo zvakafanana.',
+      'Huremu oga hahukwani kuongorora kana kubvisa PCOS.',
+      'Kuongororwa kunoda kuongorora kwakazara kwezvehutano.',
+      'PCOS inogona kukanganisa ovulation uye dzimwe nguva kubereka.',
+      'Nzira yekurapwa yakagadzirirwa munhu inobatsira kuzadzisa zvinodiwa nemukadzi wese.',
+    ],
+    finalNoteTitle: 'Nhungamiro yekunzwisisa zvirinani',
+    finalNoteText:
+      'Chinyorwa ichi chekupa ruzivo rwakazara uye hachitsivi kuenda kuchiremba. Mamiriro ega ega akasiyana: kana uine mubvunzo kana zviratidzo zvichiramba zvichivapo, tsvaga zano kunyanzvi yezvehutano.',
+    shareMessage: 'Kunzwisisa PCOS — AWA',
+  },
+  ln: {
+    badge: 'PCOS • LITAMBWISI YA MOTUYA',
+    title: 'Kososola\nPCOS',
+    metaDuration: 'Mpe ya kotánga: min 10',
+    metaType: 'Mokanda ya litambwisi',
+    metaLevel: 'Mobandi',
+    metaValidated: 'Maloba ya koteya',
+    intro:
+      'Syndrome ya baovaire ya kisto, oyo babyangaka mbala mingi PCOS, ezali bokono ya hormone ya mbala mingi oyo ekoki kosala na basanza na yo, ovulation, poso, nsuki, métabolisme, mpe mbala mosusu kobota.',
+    introSecondary:
+      'Ndenge emonanaka ekesani mingi na mwasi na mwasi. Kososola PCOS esungaka mingi mpo na koyeba bilembo na yango, koyeba ntango nini osengeli kotuna toli ya monganga, mpe kolanda ndenge ekómaka kozanga komilela.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'PCOS ezali nini?',
+      'Mpo na nini PCOS ebimaka?',
+      'Bilembo ya monene',
+      'Ndenge nini esambisamaka?',
+      'PCOS mpe ovulation',
+      'PCOS mpe kobota',
+      'PCOS mpe kilo / métabolisme',
+      'Poso, nsuki, mpe nsuki ya nzoto',
+      'Ndenge nini PCOS ekambamaka?',
+      'Makanisi mabe ya mbala mingi',
+      'Ntango nini osengeli kotala monganga',
+      'Makambo ya motuya',
+    ],
+    s1Heading: 'PCOS ezali nini?',
+    s1Body1:
+      'Syndrome ya baovaire ya kisto (PCOS) ezali bokono ya hormone ya mbala mingi oyo ekoki kobongola mosala ya mbala mingi ya baovaire mpe kimya ya ba hormone mosusu.',
+    s1Body2:
+      'Mpo na basi mosusu, pasi ya monene ezali ovulation ya kokesana. Mpo na basusu, ezali bouton, nsuki mingi, kokwea ya nsuki, to bilembo ya métabolisme oyo emonanaka liboso.',
+    s1TipTitle: 'Ezali malamu koyeba',
+    s1TipText:
+      'Atako nkombo na yango, PCOS elingi koloba ntango nyonso te ete baovaire ezali na "kisto". Nkombo ya kala ekoki kokosa, mpe ultrasound kaka ekoki te mpo na kosala bosambisi.',
+    s2Heading: 'Mpo na nini PCOS ebimaka?',
+    s2Body1:
+      'Ntina moko kaka ya PCOS ezali te. Emonani ete ebimi na makambo mingi oyo ekoki kosangana: bokangami ya libota, mosala ya hormone, ovulation, métabolisme, mpe makambo ya moto na moto.',
+    s2Factors: [
+      'Bokangami ya libota mpe makambo ya gène',
+      'Bobebisi ya ovulation',
+      'Androgène mingi koleka',
+      'Insuline ezali na mosunga moke na basi mosusu',
+      'Makambo ya métabolisme mpe ya zingazinga',
+    ],
+    s2NeutralText:
+      'PCOS ezali libunga ya moto te. Ebimaka kaka na kozanga molende, bilei mabe, to misala ya nzoto ya moke te.',
+    s3Heading: 'Bilembo ya monene',
+    s3Body1:
+      'PCOS ekoki komonana ndenge ekesani mingi na mwasi na mwasi. Basi mosusu bazali na bilembo mingi, wana basusu bamonaka moke mpenza.',
+    s3Signs: [
+      'Basanza ya kokesana, ya mosika, to mbala mosusu ezali te',
+      'Ovulation ya kokesana to pasi koyeba yango liboso',
+      'Bouton oyo etikalaka, mingi mingi na nse ya elongi',
+      'Nsuki mingi na elongi, na ntolo, to na nzoto',
+      'Kokwea ya nsuki ya ndenge ya hormone',
+      'Kozwa kilo to pasi ya kokitisa kilo',
+      'Pasi ya kozwa mimba',
+    ],
+    s3AlertTitle: 'Ya motuya',
+    s3AlertText:
+      'Kozala na elembo moko ya bilembo oyo elingi koloba te ete ozali na PCOS. Bokono mosusu mingi ekoki kobimisa bilembo ya kokokana.',
+    s4Heading: 'Ndenge nini esambisamaka?',
+    s4Body1:
+      'Kosambisa PCOS ezali mosala ya monganga. Moto ya mosala ya bokolongono abandaka mbala mingi na kosolola na ntina ya basanza na yo, bilembo, histoire ya monganga, mpe bakisi oyo ozali kozwa.',
+    s4Body2:
+      'Engebene na likambo, ba test ya makila ya hormone mpe ultrasound ekoki mpe kopesama.',
+    s4Points: [
+      'Basanza ya kokesana to ovulation ya mbala moke',
+      'Bilembo ya androgène mingi: bouton, nsuki mingi, kokwea ya nsuki, to ba result ya test ya makila',
+      'Lolenge ya baovaire oyo ekokani na PCOS na ultrasound, ntango botalisi oyo ezali na ntina',
+    ],
+    s4Body3:
+      'Monganga asengeli mpe kolongola bantina mosusu ya basanza ya kokesana to ya androgène mingi liboso ya kondimisa bosambisi ya PCOS.',
+    s5Heading: 'PCOS mpe ovulation',
+    s5Body1:
+      'Ovulation ezali kobima ya liki (ovocyte) na ovaire. Na PCOS, ovulation ekoki kozala mbala moke to pasi koyeba yango liboso.',
+    s5Body2:
+      'Yango ekoki kolimbola mpo na nini basanza ezali mbala mosusu molai, ya kokesana, to pasi koyeba yango liboso.',
+    s5HighlightTitle: 'Kolanda sanza na yo',
+    s5HighlightText:
+      'Kokoma mikolo ya sanza na yo, bilembo, mpe bilembo nyonso ya ovulation ekoki kosunga yo kososola ndenge na yo moko malamu.',
+    s6Heading: 'PCOS mpe kobota',
+    s6Body1:
+      'Mpo ete ovulation ekoki kozala ya kokesana, basi mosusu oyo bazali na PCOS bakoki kozala na pasi mingi ya kozwa mimba.',
+    s6Body2:
+      'Yango elingi koloba te, kasi, ete PCOS epekisi mimba ntango nyonso. Basi mingi oyo bazali na PCOS bazwaka mimba na ndenge ya bomoto to na lisungi ya monganga oyo ebongi.',
+    s6TipTitle: 'Kanisa',
+    s6TipText:
+      'Pasi ya kozwa mimba elingi koloba ete ekoki te. Soki ozali na elikya ya kozwa mimba, monganga to mama mosungi ya kobota akoki kopesa nzela oyo ebongi na likambo na yo.',
+    s7Heading: 'PCOS mpe kilo / métabolisme',
+    s7Body1:
+      'PCOS ekoki kozala elongo na bobongwani ya métabolisme, na kati na yango mosunga moke ya insuline na basi mosusu.',
+    s7Body2:
+      'Kasi, kilo kaka ekoki kosambisa to kolongola PCOS te. Mwasi ya mokuse akoki kozala na PCOS, ndenge mwasi oyo azali na kilo mingi akoki kozala na yango te.',
+    s7NeutralText:
+      'Bobateli esengeli kotala malamu ya mobimba, na motango moko kaka ya kilo te.',
+    s8Heading: 'Poso, nsuki, mpe nsuki ya nzoto',
+    s8Body1:
+      'Androgène mingi koleka ekoki kosala na bisika ya mafuta ya poso mpe na misisa ya nsuki.',
+    s8Body2:
+      'Engebene na mwasi, yango ekoki komonana lokola bouton oyo etikalaka, nsuki mingi, to kokwea ya nsuki.',
+    s8Items: [
+      'Bouton ya hormone',
+      'Nsuki mingi na elongi to na nzoto',
+      'Nsuki ya mpɛtɛ to kokwea ya nsuki',
+    ],
+    s9Heading: 'Ndenge nini PCOS ekambamaka?',
+    s9Body1:
+      'Nzela moko kaka ya kokamba PCOS oyo esalaka mpo na basi nyonso ezali te. Ponami etali bilembo, mikano, mpe makambo ya monganga.',
+    s9Body2:
+      'Mokano ekoki kokesana engebene na etápe ya bomoi: kobongisa basanza, kobongisa bilembo mosusu, kobatela malamu ya métabolisme, to kosunga mokano ya mimba.',
+    s9MiniTitle: 'Momeseno oyo esungaka malamu',
+    s9Lifestyle: [
+      'Kolia bilei ya ndenge na ndenge mpe ya ntango nyonso oyo ebongi na mposa na yo',
+      'Kosala misala ya nzoto ya ntango nyonso oyo okoki kokoba na boumeli ya ntango',
+      'Kozala na mpongi ya ntango nyonso malamu',
+      'Kolanda ndenge basanza na yo mpe bilembo na yo ebongwanaka na ntango',
+      'Komilela te mpo na bobongwani ya kilo to ya bilembo',
+    ],
+    s9Body3:
+      'Engebene na mposa na yo, moto ya mosala ya bokolongono akoki mpe kopesa bakisi mpo na bilembo mosusu to mpo na kosunga mokano ya mimba.',
+    s9AlertTitle: 'Komibikisa te',
+    s9AlertText:
+      'Bakisi ya hormone, nkisi ya métabolisme, mpe supplément ya bilei esengeli nyonso kolobelama na moto ya mosala ya bokolongono.',
+    s10Heading: 'Makanisi mabe ya mbala mingi na ntina ya PCOS',
+    s10Myths: [
+      'PCOS elingi ntango nyonso koloba kozala na "kisto": nkombo ekoki kokosa. Bosambisi etiami kaka na kisto te.',
+      'Basi nyonso oyo bazali na PCOS bazali na kilo mingi: PCOS ekoki kosala na basi ya lolenge nyonso ya nzoto.',
+      'PCOS epekisaka mimba ntango nyonso: ovulation ekoki kozala ya kokesana, kasi mimba ekoki kozala.',
+      'Elembo moko kaka ekoki mpo na kosambisa PCOS: bosambisi esengi kotalama ya mobimba.',
+      'PCOS elongwaka kaka na mibu: ndenge emonanaka ekoki kobongwana na boumeli ya bomoi, kasi kolanda ntango nyonso ezali na motuya.',
+    ],
+    s11Heading: 'Ntango nini osengeli kotala monganga',
+    s11Body1:
+      'Toli ya monganga ezali na ntina mingi ntango basanza ekómi ya kokesana mingi, etiki mpo na basanza mingi, to ntango bilembo ya kokamwa ebimi.',
+    s11ConsultItems: [
+      'Basanza ya kokesana mingi to ezanga',
+      'Bouton to nsuki mingi ya kokamwa',
+      'Kokwea ya nsuki ya monene',
+      'Pasi ya kozwa mimba',
+      'Bilembo oyo ebongwanaka noki',
+    ],
+    s12Heading: 'Makambo ya motuya',
+    s12SummaryTitle: 'Makambo ya mbango',
+    s12SummaryItems: [
+      'PCOS ezali bokono ya hormone ya mbala mingi.',
+      'Ekoki komonana na ndenge mingi ekesani.',
+      'Basi nyonso oyo bazali na PCOS bazali na bilembo ndenge moko te.',
+      'Kilo kaka ekoki te mpo na kosambisa to kolongola PCOS.',
+      'Bosambisi esengi kotalama ya monganga ya mobimba.',
+      'PCOS ekoki kosala na ovulation mpe mbala mosusu na kobota.',
+      'Nzela ya bobateli ya moto na moto esungaka mpo na kokokisa mposa ya mwasi na mwasi.',
+    ],
+    finalNoteTitle: 'Litambwisi mpo na kososola malamu',
+    finalNoteText:
+      'Lisolo oyo ezali mpo na boyebisi ya mobimba mpe ekotɛlɛmaka na kotala monganga te. Likambo nyonso ekesani: soki ozali na ntembe to bilembo etikali, senga toli epai ya moto ya mosala ya bokolongono.',
+    shareMessage: 'Kososola PCOS — AWA',
+  },
+  ff: {
+    badge: 'PCOS • HOKKITAARE ƁESNGU',
+    title: 'Faamugol\nPCOS',
+    metaDuration: 'Janngugol minit 10',
+    metaType: 'Ɗaɓɓitaaji',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Habaru janngugol',
+    intro:
+      'Polycystic ovary syndrome, ko ɗuuɗi wiyeteeɗum PCOS, ko ngonka hormones ɗum ɗon wooɗa ɗuuɗi ɗum foti wuurtude ciklu maaɗa, ovulation, fuuɗe, gaseeje, metabolism, e ko ɗuuɗi jibinaare.',
+    introSecondary:
+      'No ɗum ɗon hollude ɗum ɗon wooɗa ɗuuɗal e rewbe. Faamugol PCOS ɗum ɗon walliidi ma anndugo alamaaji maako, anndugo nde ɗaɓɓitaade walliinde doktoor, e ƴeewndo no ɗum ɗon wooɗa bannjo wi’ugo hoore maaɗa ko laawi.',
+    contentsTitle: 'E winndannde ndee',
+    topics: [
+      'Ɗume woni PCOS?',
+      'Ko waɗi PCOS waɗata?',
+      'Alamaaji ɓesngu',
+      'No anndiraa?',
+      'PCOS e ovulation',
+      'PCOS e jibinaare',
+      'PCOS e dabbare / metabolism',
+      'Fuuɗe, gaseeje, e hoorɗe',
+      'No PCOS reenaa?',
+      'Ko ɗum ɗon wooɗaa ko ɗuuɗi',
+      'Nde ƴeewndaade doktoor',
+      'Ko ɗum ɗon ɗum ɓesngu',
+    ],
+    s1Heading: 'Ɗume woni PCOS?',
+    s1Body1:
+      'Polycystic ovary syndrome (PCOS) ko ngonka hormones ɗum ɗon wooɗa ɗuuɗi ɗum foti wuurtude kuugal ovaires e tuugnorgal hormones feere.',
+    s1Body2:
+      'E rewbe feere, ko ɓesngu woni ovulation wooɗaaɗum. E feere, ko acne, ɗuuɗugol gaseeje, soofugol gaseeje, walla alamaaji metabolism ɗi ɗon yi’aa adii.',
+    s1TipTitle: 'Ɗum ɗon ɗum ɓesngu',
+    s1TipText:
+      'Hay so inde maako, PCOS ɗum ɗon wi’a ma ovaires mari “cysts.” Inde ɗum ɗon fuɗɗoode foti hokkude fenaande, e ultrasound tan ɗum ɗon yotta ngam anndugo.',
+    s2Heading: 'Ko waɗi PCOS waɗata?',
+    s2Body1:
+      'Alaa sabaabu gootoo PCOS. Ɗum ɗon yi’aa bana ko hawtaaɗum e kuuje ɗuuɗi: tuugnorgal ɗiɗɗa, kuugal hormones, ovulation, metabolism, e kuuje neɗɗo e neɗɗo.',
+    s2Factors: [
+      'Tuugnorgal ɗiɗɗa e genetic',
+      'Wooɗal e ovulation',
+      'Androgens ɗuuɗal seɗɗa',
+      'Insulin resistance e rewbe feere',
+      'Kuuje metabolism e ɗo jooɗorgal',
+    ],
+    s2NeutralText:
+      'PCOS ɗum ɗon sabu bonnere maaɗa. Ɗum ɗon waɗa ko semmbe hakkilo alaa, nyaamdu bonnuɗum, walla hakkilo ɓanndu seɗɗa.',
+    s3Heading: 'Alamaaji ɓesngu',
+    s3Body1:
+      'PCOS foti hollude feere-feere e rewbe. Feere mari alamaaji ɗuuɗi, feere mari seɗɗa tan.',
+    s3Signs: [
+      'Ciklu wooɗaaɗum, feerti ɗuuɗal, walla ko ɗuuɗi alaa',
+      'Ovulation wooɗaaɗum walla saɗal anndugo',
+      'Acne ɗum ɗon jooɗa, ko ɗuuɗi yeeso ley',
+      'Ɗuuɗugol gaseeje e yeeso, ɓoggol, walla ɓanndu',
+      'Soofugol gaseeje hormones',
+      'Ɗuuɗugol dabbare walla saɗal wontinugo',
+      'Saɗal heɓugo pellital',
+    ],
+    s3AlertTitle: 'Ɗum ɓesngu',
+    s3AlertText:
+      'Mariŋgo gootal e alamaaji ɗii ɗum ɗon wi’a ma mari PCOS. Ngonka feere ɗuuɗi foti hokkude alamaaji nanndi.',
+    s4Heading: 'No anndiraa?',
+    s4Body1:
+      'Anndugo PCOS ko laawol doktoor. Neɗɗo anndudo ɓanndu ɗum ɗon fuɗɗoode e yeewtugo dow ciklu maaɗa, alamaaji, tuugnorgal ɓanndu, e safaara ɗi a ɗon huutina.',
+    s4Body2:
+      'Ko ɗuuɗi e ngonka, tests ɗiyam hormones e ultrasound foti ɗaɓɓitaade.',
+    s4Points: [
+      'Ciklu wooɗaaɗum walla ovulation seɗɗa',
+      'Alamaaji androgens ɗuuɗal: acne, ɗuuɗugol gaseeje, soofugol gaseeje, walla jawaabuuji test ɗiyam',
+      'Takaaɗe ovaires nanndi e PCOS e ultrasound, so ƴeewndo ɗum ɗon ɗaɓɓitaa',
+    ],
+    s4Body3:
+      'Doktoor ɗum ɗon haani fahin yiɗugo sabaabuuji feere ciklu wooɗaaɗum walla androgens ɗuuɗal ado hoolnugo anndugo PCOS.',
+    s5Heading: 'PCOS e ovulation',
+    s5Body1:
+      'Ovulation ko yaltugol ɓiɗɗo (oocyte) diga ovaire. E PCOS, ovulation foti wontude seɗɗa walla saɗal anndugo.',
+    s5Body2:
+      'Ɗum foti hollude ko waɗi ciklu feere ɗum ɗon juutɗum, wooɗaaɗum, walla saɗal anndugo.',
+    s5HighlightTitle: 'Ƴeewndo ciklu maaɗa',
+    s5HighlightText:
+      'Winndugol nyalaaji menstruation maaɗa, alamaaji, e takaaɗe ovulation foti walliinde ma faamugo laawol maaɗa.',
+    s6Heading: 'PCOS e jibinaare',
+    s6Body1:
+      'Sabu ovulation foti wontude wooɗaaɗum, rewbe feere e PCOS foti saɗude heɓugo pellital.',
+    s6Body2:
+      'Kono ɗum ɗon wi’a ma PCOS ɗum ɗon reeni pellital ko hoore maako. Rewbe ɗuuɗi e PCOS ɗon heɓa pellital ko e jam walla e walliinde doktoor ɗum ɗon.',
+    s6TipTitle: 'Hoolnu',
+    s6TipText:
+      'Saɗal heɓugo pellital ɗum ɗon wi’a ɗum ɗon wooɗaaka. So a yiɗi heɓugo pellital, doktoor walla midwife foti hokkude laawol ɗum ɗon e ngonka maaɗa.',
+    s7Heading: 'PCOS e dabbare / metabolism',
+    s7Body1:
+      'PCOS foti hawtude e wooɗal metabolism, ko ɗuuɗi insulin resistance e rewbe feere.',
+    s7Body2:
+      'Kono dabbare tan foti anndude walla accude PCOS. Debbo ɓooyɗo foti mariŋgo PCOS, bana debbo dabbaaɗo foti mariŋgo ɗum.',
+    s7NeutralText:
+      'Ƴeewndo ɗum ɗon ɗaɓɓitii hakkilo e jam fuu, bannjo hiisa dabbare tan.',
+    s8Heading: 'Fuuɗe, gaseeje, e hoorɗe',
+    s8Body1:
+      'Androgens ɗuuɗal seɗɗa foti wuurtude sebaceous glands e follicles gaseeje.',
+    s8Body2:
+      'Ko ɗuuɗi e debbo, ɗum foti hollude bana acne ɗum ɗon jooɗa, ɗuuɗugol gaseeje, walla soofugol gaseeje.',
+    s8Items: [
+      'Acne hormones',
+      'Gaseeje ɗuuɗal e yeeso walla ɓanndu',
+      'Gaseeje ɓooyɗe walla soofugol gaseeje',
+    ],
+    s9Heading: 'No PCOS reenaa?',
+    s9Body1:
+      'Alaa laawol gootol reenugol PCOS ɗum ɗon wooɗa e rewbe fuu. Suɓugol ɗum ɗon ko ɗuuɗi e alamaaji, ko ɗum ɗon yiɗi, e ngonka doktoor.',
+    s9Body2:
+      'Ko ɗum ɗon yiɗi foti wooɗude ko ɗuuɗi e wakkati nguurndam: wooɗugol ciklu, ɓesnugol alamaaji feere, reenugol jam metabolism, walla walliinde ko a yiɗi e pellital.',
+    s9MiniTitle: 'Kuuje ɗi ɗon walliinde jam',
+    s9Lifestyle: [
+      'Nyaamugo nyaamdu feere-feere sooynaaɗum ko ɗuuɗi e ko ɓanndu maaɗa yiɗi',
+      'Waɗugol hakkilo ɓanndu sooynaaɗum ɗum a foti jokkude',
+      'Reenugol sulugol sooynaaɗum',
+      'Ƴeewndo no ciklu maaɗa e alamaaji maaɗa kuutiniraa e nder wakkati',
+      'Taa wi’a hoore maaɗa ko laawi dow wooɗal dabbare walla alamaaji',
+    ],
+    s9Body3:
+      'Ko ɗuuɗi e ko ɗaɓɓitaa, neɗɗo anndudo ɓanndu foti hokkude safaara ngam alamaaji feere walla ngam walliinde ko a yiɗi e pellital.',
+    s9AlertTitle: 'Taa huutina safaara hoore maaɗa',
+    s9AlertText:
+      'Safaara hormones, safaara metabolism, e supplements ɗum ɗon yeewteede e neɗɗo anndudo ɓanndu.',
+    s10Heading: 'Ko ɗum ɗon wooɗaa ko ɗuuɗi dow PCOS',
+    s10Myths: [
+      'PCOS ɗum ɗon wi’a ma mari “cysts”: inde foti hokkude fenaande. Anndugo ɗum ɗon wooɗa e cysts tan.',
+      'Rewbe fuu e PCOS ɗon dabbaaɗi: PCOS foti wontude e rewbe fuu kala ɓanndu maako.',
+      'PCOS ɗum ɗon reeni pellital kala: ovulation foti wontude wooɗaaɗum, kono pellital ɗum ɗon wooɗa.',
+      'Alamaa gooto tan yotta ngam anndugo PCOS: anndugo ɗum ɗon ɗaɓɓitii ƴeewndo timmuɗum.',
+      'PCOS ɗum ɗon accude e duuɗe: no ɗum ɗon hollude foti wooɗude e nguurndam, kono ƴeewndo ɗum ɗon jokka ɗum ɓesngu.',
+    ],
+    s11Heading: 'Nde ƴeewndaade doktoor',
+    s11Body1:
+      'Walliinde doktoor ɗum ɗon welii ko ɗuuɗi nde ciklu wontii wooɗaaɗum ɗuuɗal, ɗum ɗon accude lewru ɗuuɗi, walla nde alamaaji wooɗaaɗum ngaari.',
+    s11ConsultItems: [
+      'Ciklu wooɗaaɗum ɗuuɗal walla alaa',
+      'Acne walla ɗuuɗugol gaseeje wooɗaaɗum',
+      'Soofugol gaseeje ɗuuɗal',
+      'Saɗal heɓugo pellital',
+      'Alamaaji ɗi ɗon wooɗa yaawi',
+    ],
+    s12Heading: 'Ko ɗum ɗon ɗum ɓesngu',
+    s12SummaryTitle: 'Ko ɓesngu',
+    s12SummaryItems: [
+      'PCOS ko ngonka hormones ɗum ɗon wooɗa ɗuuɗi.',
+      'Ɗum foti hollude e laawol ɗuuɗi.',
+      'Rewbe fuu e PCOS ɗon mari alamaaji nanndi kala.',
+      'Dabbare tan yotta ngam anndugo walla accugo PCOS.',
+      'Anndugo ɗum ɗon ɗaɓɓitii ƴeewndo doktoor timmuɗum.',
+      'PCOS foti wuurtude ovulation e ko ɗuuɗi jibinaare.',
+      'Laawol reenugol ɗum ɗon e debbo kala walliidi yottugo ko ɗum ɗon yiɗi.',
+    ],
+    finalNoteTitle: 'Hokkitaare ngam faamugo ɓurugo',
+    finalNoteText:
+      'Winndannde ndee ɗum ɗon anndinirɗum tan e ɗum ɗon wuurta ƴeewndo doktoor. Ngonka kala ɗum ɗon feere: so a ɗon sikke walla alamaaji ɗon jooɗa, ɗaɓɓitaa jamaa neɗɗo anndudo ɓanndu.',
+    shareMessage: 'Faamugol PCOS — AWA',
+  },
   id: {
     badge: 'PCOS • PANDUAN UTAMA',
     title: 'Memahami\nPCOS',
