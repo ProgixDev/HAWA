@@ -27,6 +27,7 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -337,6 +338,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               style={[
                 styles.heroCopy,
                 isSmallScreen && styles.heroCopySmall,
+                journalHeroCopyRtl(isSmallScreen ? 13 : 17),
               ]}>
               <Text style={styles.heroTitle}>{t('journalNote.heroTitle')}</Text>
               <Text style={styles.heroText}>{t('journalNote.heroText')}</Text>

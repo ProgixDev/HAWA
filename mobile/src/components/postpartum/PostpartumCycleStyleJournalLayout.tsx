@@ -3,6 +3,7 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
+  I18nManager,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -134,7 +135,7 @@ export function PostpartumCycleStyleJournalLayout({
               resizeMode="cover"
               source={heroImage}
               style={styles.hero}>
-              <View style={styles.heroContent}>
+              <View style={[styles.heroContent, I18nManager.isRTL && styles.heroContentRtl]}>
                 {heroIcon ? (
                   <View style={styles.heroIconCircle}>
                     <MaterialDesignIcons color={theme.colors.primary} name={heroIcon} size={24} />
@@ -248,6 +249,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   heroImage: {borderRadius: 12},
   heroContent: {width: '59%', minHeight: 158, justifyContent: 'center', paddingHorizontal: 18, paddingVertical: 16},
+  // Right-to-left (Arabic): the artwork is not mirrored (subject on the right), so the copy box moves to the free LEFT side (alignSelf flex-end is the left edge in RTL).
+  heroContentRtl: {alignSelf: 'flex-end'},
   heroIconCircle: {width: 46, height: 46, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.surface},
   // The hero photo is light in every theme (see journalHeroInk.ts): dark ink, not the themed accent / onSurfaceVariant.
   heroTitle: {marginTop: 9, color: JOURNAL_HERO_INK.title},

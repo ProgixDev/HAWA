@@ -12,6 +12,7 @@ import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -288,7 +289,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
-          <View style={styles.heroCopy}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="information-outline" size={17} /></View></View>
+          <View style={[styles.heroCopy, journalHeroCopyRtl(16)]}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="information-outline" size={17} /></View></View>
         </ImageBackground>
 
         <View style={styles.privateArea}>

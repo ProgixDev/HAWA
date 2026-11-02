@@ -11,6 +11,7 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -290,7 +291,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
         <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 24}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           {daughter ? null : (
             <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/mood-header-woman.png')} style={styles.hero}>
-              <View style={styles.heroCopy}>
+              <View style={[styles.heroCopy, journalHeroCopyRtl(26)]}>
                 <Text style={styles.heroTitle}>{t('journalMood.heroTitle')}</Text>
                 <Text style={styles.heroSubtitle}>{t('journalMood.heroSubtitle')}</Text>
               </View>
