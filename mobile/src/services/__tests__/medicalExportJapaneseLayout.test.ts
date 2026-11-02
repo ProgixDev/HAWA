@@ -88,6 +88,9 @@ describe('Japanese PDF export', () => {
     // the Chinese endonym (简体中文) is a Simplified-Chinese string inside the Japanese dictionary: it is shown in the language selector,
     // never in a report, and 简 is not a Japanese kanji
     chars.delete('简');
+    // likewise the Traditional Chinese endonym (繁體中文): 繁 and 體 are not in the Japanese level-1 set and are only ever shown in the language selector
+    chars.delete('繁');
+    chars.delete('體');
     const all = Array.from(chars).sort();
     expect(all.length).toBeGreaterThan(900);
     const lines: string[] = [];
