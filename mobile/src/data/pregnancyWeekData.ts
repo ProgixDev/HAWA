@@ -1,7 +1,7 @@
 import type {ImageSourcePropType} from 'react-native';
 
 import {resolveEditorialLanguage, type EditorialLanguage} from '../i18n/editorialLanguage';
-import {brazilianWeekContent} from '../i18n/ptBrEditorial';
+import {americanWeekContent, brazilianWeekContent} from '../i18n/ptBrEditorial';
 
 // ============================================================
 // CENTRALIZED WEEK-BY-WEEK PREGNANCY REFERENCE DATA
@@ -112,6 +112,20 @@ type PregnancyWeekEntry = {
     ru: PregnancyWeekEditorialContent;
     de: PregnancyWeekEditorialContent;
     zh: PregnancyWeekEditorialContent;
+    'zh-Hant': PregnancyWeekEditorialContent;
+    ar: PregnancyWeekEditorialContent;
+    kab: PregnancyWeekEditorialContent;
+    om: PregnancyWeekEditorialContent;
+    ti: PregnancyWeekEditorialContent;
+    rw: PregnancyWeekEditorialContent;
+    rn: PregnancyWeekEditorialContent;
+    ig: PregnancyWeekEditorialContent;
+    yo: PregnancyWeekEditorialContent;
+    zu: PregnancyWeekEditorialContent;
+    xh: PregnancyWeekEditorialContent;
+    sn: PregnancyWeekEditorialContent;
+    ln: PregnancyWeekEditorialContent;
+    ff: PregnancyWeekEditorialContent;
     id: PregnancyWeekEditorialContent;
     hi: PregnancyWeekEditorialContent;
     sq: PregnancyWeekEditorialContent;
@@ -510,6 +524,159 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '从末次月经开始计算孕周，可以用统一的方式估算预产期，尽管实际受孕会稍晚一些。',
           '这一阶段没有任何变化是很常见的。',
+        ],
+      },
+      'zh-Hant': {
+        babyDescription: '按醫學慣例，孕周從末次月經的第一天開始計算。這一階段通常還沒有發生受精。',
+        bodyChanges: [
+          '這段時間通常在受孕之前，一般還不會出現與懷孕相關的身體變化。',
+        ],
+        toKnow: [
+          '從末次月經開始計算孕周，可以用統一的方式估算預產期，儘管實際受孕會稍晚一些。',
+          '這一階段沒有任何變化是很常見的。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يُحتسب الحمل من أول يوم في آخر حيض، بحسب الاصطلاح الطبي. وفي هذه المرحلة لا يكون الإخصاب قد حدث عمومًا بعد.',
+        bodyChanges: [
+          'تسبق هذه الفترة عمومًا الحمل، ولا يوجد عادةً بعد أي تغيّر جسدي مرتبط بالحمل.',
+        ],
+        toKnow: [
+          'احتساب الحمل من آخر حيض يعطي طريقة موحّدة لتقدير تاريخ الولادة، رغم أن الحمل يحدث فعليًا بعد ذلك بقليل.',
+          'من الشائع ألا تلاحظي أي تغيير في هذه المرحلة.',
+        ],
+      },
+      kab: {
+        babyDescription:
+          'Lḥemla tettwaḥseb seg wass amezwaru n lḥiḍ aneggaru, s tuṭṭfa n ṭṭbib. Deg acelḍ-a, usemmed s umata ur yelli ara yakan.',
+        bodyChanges: [
+          'Tallit-a s umata tezga send usemmed; s umata ur yelli ara abeddel ajeṭṭan yeqqnen ɣer lḥemla.',
+        ],
+        toKnow: [
+          'Aḥsab n lḥemla seg lḥiḍ aneggaru yefka tarrayt yeqqnen i ukayad n wass n ulli, ula ma usemmed yettilin ugar yal tikkelt.',
+          'D ayen imatu ur ttwaḥessen ara abeddel deg acelḍ-a.',
+        ],
+      },
+      om: {
+        babyDescription:
+          'Ulfaan guyyaa jalqaba laguu dhumaa irraa, aadaa fayyaatiin lakkaa\'ama. Sadarkaa kanatti, hanqaaquun waliigalaan hin raawwatamne.',
+        bodyChanges: [
+          'Yeroon kun waliigalaan ulfaa\'uu dura dha; jijjiirama qaamaa ulfaa waliin walqabatu yeroo baay\'ee hin jiru.',
+        ],
+        toKnow: [
+          'Ulfaa laguu dhumaa irraa lakkaa\'uun guyyaa da\'uu tilmaamuuf mala sirna qabu kenna, ulfaa\'uun dhugaan yeroo xiqqoo booda ta\'us.',
+          'Sadarkaa kanatti jijjiirama tokko illee hin hubatamne ta\'uun baratamaa dha.',
+        ],
+      },
+      ti: {
+        babyDescription:
+          'ጥንሲ ብሕክምናዊ ልምዲ ካብ ፈለማ መዓልቲ መወዳእታ ወርሓዊ ደምካ ይቝጸር። ኣብዚ ደረጃ ምፍርያይ ብሓፈሻ ገና ኣይተገብረን።',
+        bodyChanges: [
+          'እዚ እዋን ብሓፈሻ ቅድሚ ምጥናስ እዩ፤ ብሓፈሻ ምስ ጥንሲ ዝተኣሳሰረ ኣካላዊ ለውጢ ገና የለን።',
+        ],
+        toKnow: [
+          'ጥንሲ ካብ መወዳእታ ወርሓዊ ደም ምቝጻር፣ ምጥናስ ብሓቂ ቁሩብ ደሓር እኳ እንተ ኮነ፣ ዕለት ወሊድ ንምግማት ደረጃውን ዝጥዕም ኣገባብ ይህብ።',
+          'ኣብዚ ደረጃ ዝኾነ ለውጢ ከይስተውዓልካ ምጽናሕ ልሙድ እዩ።',
+        ],
+      },
+      rw: {
+        babyDescription:
+          'Inda ibarwa uhereye ku munsi wa mbere w\'imihango yawe iheruka, ku bw\'amategero y\'ubuvuzi. Muri iki gihe, muri rusange gusama kuba kutaraba.',
+        bodyChanges: [
+          'Iki gihe muri rusange kiza mbere yo gusama; akenshi nta mpinduka y\'umubiri ijyanye n\'inda iba ihari.',
+        ],
+        toKnow: [
+          'Kubara inda uhereye ku mihango iheruka bitanga uburyo busanzwe bwo kugereranya itariki yo kubyara, nubwo gusama kuba hashize igihe gito.',
+          'Ni ibisanzwe kutabona impinduka iyo ari yo yose muri iki gihe.',
+        ],
+      },
+      rn: {
+        babyDescription:
+          'Inda ibarwa kuva ku munsi wa mbere w’imihango yawe ya nyuma, ku mategeko y’abaganga. Kuri iki gihe, gusama mu rusangi ntivyari vyaba.',
+        bodyChanges: [
+          'Iki gihe mu rusangi kiba imbere yo gusama; mu rusangi nta mpinduka y’umubiri ijanye n’inda iba iriho.',
+        ],
+        toKnow: [
+          'Kubara inda kuva ku mihango ya nyuma bitanga uburyo busanzwe bwo kugereranya itariki yo kubyara, naho gusama kuba hanyuma gatoya.',
+          'Ni ibisanzwe kutitegereza impinduka iyo ari yo yose kuri iki gihe.',
+        ],
+      },
+      ig: {
+        babyDescription:
+          'A na-agụ ime site n\'ụbọchị mbụ nke oge ịhụ ọnwa gị ikpeazụ, dị ka omenala ahụike si dị. N\'ọkwa a, n\'ozuzu, a ka emeghị ka akwa na nsi nwoke zukọta.',
+        bodyChanges: [
+          'N\'ozuzu, oge a na-abịa tupu ịtụrụ ime; na-adịkarị enweghị mgbanwe ahụ metụtara ime.',
+        ],
+        toKnow: [
+          'Ịgụ ime site n\'oge ịhụ ọnwa ikpeazụ na-enye ụzọ ejiri ọkọlọtọ mee atụmatụ ụbọchị ịmụ nwa, ọ bụ ezie na ịtụrụ ime n\'ezie na-eme ntakịrị mgbe e mesịrị.',
+          'Ọ bụ ihe a na-ahụkarị ịhụghị mgbanwe ọ bụla n\'ọkwa a.',
+        ],
+      },
+      yo: {
+        babyDescription:
+          'A ń ka oyún láti ọjọ́ àkọ́kọ́ nǹkan oṣù rẹ tó kọjá, gẹ́gẹ́ bí àṣà ìṣègùn. Ní ìpele yìí, ìfọwọ́sọ̀yà kò tíì wáyé ní gbogbogbò.',
+        bodyChanges: [
+          'Àkókò yìí sábà máa ń ṣáájú ìbímọ; kò sábà sí àyípadà ara tó jẹ mọ́ oyún síbẹ̀.',
+        ],
+        toKnow: [
+          'Kíka oyún láti nǹkan oṣù tó kọjá ń fúnni ní ọ̀nà déédé láti ṣírò ọjọ́ ìbímọ, bó tilẹ̀ jẹ́ pé ìbímọ gan-an ń ṣẹlẹ̀ lẹ́yìn díẹ̀.',
+          'Ó wọ́pọ̀ láti má kíyèsí àyípadà kankan ní ìpele yìí.',
+        ],
+      },
+      zu: {
+        babyDescription:
+          'Ukukhulelwa kubalwa kusukela osukwini lokuqala lwesikhathi sakho sokugcina, ngokomkhuba wezokwelapha. Kulesi sigaba, ukuhlangana kwamaqanda nesidoda ngokuvamile kungakenzeki.',
+        bodyChanges: [
+          'Lesi sikhathi ngokuvamile siza ngaphambi kokukhulelwa; ngokuvamile akukabi khona ushintsho lomzimba olumayelana nokukhulelwa.',
+        ],
+        toKnow: [
+          'Ukubala ukukhulelwa kusukela esikhathini sokugcina kunikeza indlela ejwayelekile yokulinganisela usuku lokubeletha, nakuba ukukhulelwa ngempela kwenzeka kamuva kancane.',
+          'Kuyajwayeleka ukungaqapheli noma yiluphi ushintsho kulesi sigaba.',
+        ],
+      },
+      xh: {
+        babyDescription:
+          'Ukukhawulwa kubalwa ukususela kumhla wokuqala wexesha lenyanga lokugqibela, ngokwesiqhelo sezonyango. Kweli nqanaba, ukukhawulwa ngokubanzi akukenzeki.',
+        bodyChanges: [
+          'Eli xesha ngokubanzi lisandulela ukukhawulwa; ngokuqhelekileyo akukabikho tshintsho lomzimba olumalunga nokukhawulwa.',
+        ],
+        toKnow: [
+          'Ukubala ukukhawulwa ukususela kwixesha lenyanga lokugqibela kunika indlela eqhelekileyo yokulinganisela umhla wokuzalwa, nangona ukukhawulwa kwenzeka kamva kancinane.',
+          'Kuqhelekile ukungaboni mtshintsho kweli nqanaba.',
+        ],
+      },
+      sn: {
+        babyDescription:
+          'Mimba inoverengwa kubva pazuva rekutanga rekuenda kwako kumwedzi kwekupedzisira, nemutemo wekurapwa. Panguva ino, kubata mimba kazhinji hakuna kuitika.',
+        bodyChanges: [
+          'Nguva iyi kazhinji inouya pamberi pekubata mimba; kazhinji hapana shanduko yemuviri yakabatana nemimba.',
+        ],
+        toKnow: [
+          'Kuverenga mimba kubva pakuenda kumwedzi kwekupedzisira kunopa nzira yakatemwa yekufungidzira zuva rekubereka, kunyange kubata mimba chaiko kuchiitika gare gare zvishoma.',
+          'Zvakajairika kusaona shanduko panguva ino.',
+        ],
+      },
+      ln: {
+        babyDescription:
+          'Zemi ebandi kotángama uta mokolo ya liboso ya sanza ya nsuka na yo, na mobeko ya monganga. Na ntango oyo, fertilisation esalemaki naino te na ndenge ya mbala mingi.',
+        bodyChanges: [
+          'Ntango oyo ekoyaka mbala mingi liboso ya conception; mbongwana ya nzoto ya zemi ezalaka naino te.',
+        ],
+        toKnow: [
+          'Kotánga zemi uta sanza ya nsuka epesi lolenge ya ndenge moko ya kotala mokolo ya kobota, atako conception esalemaka sima moke.',
+          'Ezali ya mbala mingi kotala mbongwana moko te na ntango oyo.',
+        ],
+      },
+      ff: {
+        babyDescription:
+          'Reedu ina limtee ko e nyalaande adannde menstrisiyon cakitiingo maaɗa, no doktoor ngaɗiri. E wakkati ɗoo, ɓiɗɗo ɗum ɓurdi wuurude yaaɗi.',
+        bodyChanges: [
+          'Wakkati ɗoo ina feewi adana wuurude; ɗum walaa waylooji ɓaleeɗo ngam reedu.',
+        ],
+        toKnow: [
+          'Limtugol reedu ko e menstrisiyon cakitiingo ina hokka laawol aada ngam andugol nyalaande bornaango, hay si wuurude ina waɗa seɗɗa ɓaawo.',
+          'Ina aada a nanaa hay ko wayliri e wakkati ɗoo.',
         ],
       },
       id: {
@@ -1143,6 +1310,133 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '排卵的确切时间因人而异，所以这段时间仍然只是估算。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '排卵和可能的受精通常發生在這個時期，具體取決於每個人的週期長度。',
+        bodyChanges: [
+          '排卵時間會因週期長度而不同，這會影響實際可能的受孕日期。',
+          '這一階段通常還沒有懷孕特有的身體變化。',
+        ],
+        toKnow: [
+          '排卵的確切時間因人而異，所以這段時間仍然只是估算。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تحدث الإباضة والإخصاب المحتمل عمومًا في هذا الوقت تقريبًا، بحسب طول دورة كل امرأة.',
+        bodyChanges: [
+          'قد يختلف توقيت الإباضة بحسب طول الدورة، مما يؤثر في التاريخ الفعلي الممكن للحمل.',
+          'لا يوجد عمومًا في هذه المرحلة أي تغيّر جسدي خاص بالحمل بعد.',
+        ],
+        toKnow: ['يختلف التوقيت الدقيق للإباضة من امرأة إلى أخرى، ولهذا تظل هذه الفترة تقديرية.'],
+      },
+      kab: {
+        babyDescription:
+          'Ovulation akked usemmed izmer ad d-yeḍru s umata deg wakud-a, ɣef uɣerbaz n tawaɣit n yal yiwen.',
+        bodyChanges: [
+          'Wakud n ovulation izmer ad yemgarad ɣef uɣerbaz n tawaɣit, ayen yesɛan aḍrar ɣef wass n usemmed i izemren.',
+          'S umata ur yelli ara abeddel ajeṭṭan yeqqnen ɣer lḥemla deg acelḍ-a.',
+        ],
+        toKnow: ['Wakud ummid n ovulation yemgarad seg yiwen ɣer wayeḍ, daymi tallit-a tezga d ayen ittwakayyad.'],
+      },
+      om: {
+        babyDescription:
+          'Ovulation fi hanqaaquun ta\'uu danda\'u waliigalaan yeroo kana naannoo ta\'a, akka turtii marsaa nama tokkoon tokkoo.',
+        bodyChanges: [
+          'Yeroon ovulation akka turtii marsaa jijjiiramuu danda\'a, kunis guyyaa ulfaa\'uu dhugaa danda\'amu irratti dhiibbaa qaba.',
+          'Sadarkaa kanatti jijjiiramni qaamaa ulfaa irratti addatti kan hundaa\'e waliigalaan hin jiru.',
+        ],
+        toKnow: ['Yeroon sirrii ovulation nama tokko irraa gara nama biraatti garaagarummaa qaba, kanaaf yeroon kun tilmaama ta\'ee hafa.'],
+      },
+      ti: {
+        babyDescription:
+          'ኦቩሌሽንን ዝኽእል ምፍርያይን ብሓፈሻ ኣብዚ እዋን ይፍጠሩ፣ ከም ንውሓት ዑደት ነፍሲ ወከፍ ሰብ።',
+        bodyChanges: [
+          'እዋን ኦቩሌሽን ከም ንውሓት ዑደት ክፈላለይ ይኽእል፣ እዚ ድማ ንሓቀኛ ዝኽእል ዕለት ምጥናስ ይጸልዎ።',
+          'ኣብዚ ደረጃ ብሓፈሻ ልዑል ንጥንሲ ዝምልከት ኣካላዊ ለውጢ ገና የለን።',
+        ],
+        toKnow: ['ትክክለኛ እዋን ኦቩሌሽን ካብ ሰብ ናብ ሰብ ይፈላለይ፣ ስለዚ እዚ እዋን ግምት ኮይኑ ይጸንሕ።'],
+      },
+      rw: {
+        babyDescription:
+          'Ovulation no gusama gushoboka muri rusange biba hafi muri iki gihe, bitewe n\'uburebure bw\'uruzinduko rwa buri muntu.',
+        bodyChanges: [
+          'Igihe cya ovulation gishobora gutandukana bitewe n\'uburebure bw\'uruzinduko, bigira ingaruka ku itariki nyayo gusama gushobora kubaho.',
+          'Muri rusange nta mpinduka y\'umubiri yihariye y\'inda iba ihari muri iki gihe.',
+        ],
+        toKnow: ['Igihe nyacyo cya ovulation gitandukana ku muntu n\'undi, ni yo mpamvu iki gihe gikomeza kuba igereranya.'],
+      },
+      rn: {
+        babyDescription:
+          'Ovulation no gusama bishobora kuba mu rusangi ahagana kuri iki gihe, hakurikijwe uko uruziga rwa buri muntu ruri.',
+        bodyChanges: [
+          'Igihe cya ovulation gishobora guhinduka hakurikijwe uko uruziga rungana, bigira ingaruka ku tariki nyayo ushobora gusamiraho.',
+          'Mu rusangi nta mpinduka y’umubiri yihariye y’inda iriho kuri iki gihe.',
+        ],
+        toKnow: ['Igihe nyakuri ca ovulation gitandukana kuri buri muntu, ni co gituma iki gihe gikomeza kuba igereranyo.'],
+      },
+      ig: {
+        babyDescription:
+          'N\'ozuzu, ovulation na ịtụrụ ime nwere ike ime n\'oge a, dabere n\'ogologo cycle onye ọ bụla.',
+        bodyChanges: [
+          'Oge ovulation nwere ike ịdị iche dabere n\'ogologo cycle, nke na-emetụta ụbọchị ịtụrụ ime ga-ekwe omume n\'ezie.',
+          'N\'ozuzu, ọ nweghị mgbanwe ahụ pụrụ iche nke ime n\'ọkwa a.',
+        ],
+        toKnow: ['Oge kpọmkwem nke ovulation dị iche site n\'onye gaa n\'onye, ya mere oge a ji ka bụrụ atụmatụ.'],
+      },
+      yo: {
+        babyDescription:
+          'Ovulation àti ìfọwọ́sọ̀yà tó lè wáyé sábà máa ń ṣẹlẹ̀ ní àyíká àkókò yìí, gẹ́gẹ́ bí gígùn ìyípo oṣù ẹnìkọ̀ọ̀kan.',
+        bodyChanges: [
+          'Àkókò ovulation lè yàtọ̀ gẹ́gẹ́ bí gígùn ìyípo oṣù, èyí tó ń kan ọjọ́ tí ìbímọ lè wáyé gan-an.',
+          'Kò sábà sí àyípadà ara pàtó tó jẹ mọ́ oyún síbẹ̀ ní ìpele yìí.',
+        ],
+        toKnow: ['Àkókò pàtó ovulation yàtọ̀ láti ẹnìkan sí òmíràn, ìdí nìyí tí àkókò yìí fi jẹ́ ìṣirò.'],
+      },
+      zu: {
+        babyDescription:
+          'Ukukhipha iqanda nokuhlangana okungenzeka kwamaqanda nesidoda ngokuvamile kwenzeka cishe ngalesi sikhathi, kuye ngobude bomjikelezo womuntu ngamunye.',
+        bodyChanges: [
+          'Isikhathi sokukhipha iqanda singahluka kuye ngobude bomjikelezo, okuthinta usuku lokukhulelwa olungenzeka ngempela.',
+          'Ngokuvamile akukabikho ushintsho lomzimba olukhethekile lokukhulelwa kulesi sigaba.',
+        ],
+        toKnow: ['Isikhathi esiqondile sokukhipha iqanda siyahluka kumuntu ngamunye, yingakho lesi sikhathi sihlala siyisilinganiso.'],
+      },
+      xh: {
+        babyDescription:
+          'I-Ovulation nokukhawulwa okunokwenzeka ngokubanzi kwenzeka ngeli xesha, kuxhomekeke kubude bomjikelo womntu ngamnye.',
+        bodyChanges: [
+          'Ixesha le-ovulation linokwahluka ngokobude bomjikelo, nto leyo echaphazela umhla wokwenene onokwenzeka wokukhawulwa.',
+          'Ngokubanzi akukabikho tshintsho lomzimba olukhethekileyo lokukhawulwa kweli nqanaba.',
+        ],
+        toKnow: ['Ixesha elichanekileyo le-ovulation lwahluka ngomntu ngamnye, yiyo loo nto eli xesha lihlala lilinganiselo.'],
+      },
+      sn: {
+        babyDescription:
+          'Ovulation nekubata mimba kunogona kuitika kazhinji panguva ino, zvichienderana nehurefu hwe cycle yemunhu.',
+        bodyChanges: [
+          'Nguva ye ovulation inogona kusiyana zvichienderana nehurefu hwe cycle, izvo zvinokanganisa zuva chairo rekubata mimba.',
+          'Kazhinji hapana shanduko yemuviri yakatemwa yemimba panguva ino.',
+        ],
+        toKnow: ['Nguva chaiyo ye ovulation inosiyana kubva kumunhu kuenda kune mumwe, ndosaka nguva iyi ichiramba iri kufungidzirwa.'],
+      },
+      ln: {
+        babyDescription:
+          'Ovulation mpe fertilisation oyo ekoki kosalema esalemaka mbala mingi pene na ntango oyo, na kolanda molai ya cycle ya moto na moto.',
+        bodyChanges: [
+          'Ntango ya ovulation ekoki kokesana na kolanda molai ya cycle, oyo ezali kosala na mokolo ya solo oyo conception ekoki kosalema.',
+          'Mbala mingi mbongwana ya nzoto ya zemi ezalaka naino te na ntango oyo.',
+        ],
+        toKnow: ['Ntango mpenza ya ovulation ekesanaka uta moto kino mosusu, yango wana ntango oyo etikali kaka likanisi.'],
+      },
+      ff: {
+        babyDescription:
+          'Ovilasiyon e wuurude ɓiɗɗo mo waawi wonde ina ɗon ɗon e wakkati ɗoo, e laawol nde sikkle ko feere.',
+        bodyChanges: [
+          'Wakkati ovilasiyon ina waawi waylude e nde sikkle, ɗum sankata nyalaande wuurude mo waawi wonde.',
+          'Ɗum walaa waylooji ɓaleeɗo ngam reedu e wakkati ɗoo.',
+        ],
+        toKnow: ['Wakkati ovilasiyon feewi ko feere e debbo e debbo, ngam ɗuum wakkati ɗoo ko hakkunde tan.'],
+      },
       id: {
         babyDescription: 'Ovulasi dan kemungkinan pembuahan umumnya terjadi sekitar waktu ini, tergantung pada panjang siklus masing-masing.',
         bodyChanges: [
@@ -1742,6 +2036,119 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '大多数尿液验孕试纸要到下周前后、着床开始之后才比较可靠。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '如果已經受精，受精卵會開始分裂並向子宮移動，但驗孕還檢測不到。',
+        bodyChanges: [
+          '這一週仍處於圍繞受孕的醫學計算期內，通常不會有明顯的身體訊號。',
+        ],
+        toKnow: [
+          '大多數尿液驗孕試紙要到下週前後、著床開始之後才比較可靠。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'إذا حدث الإخصاب، تبدأ البويضة بالانقسام والتحرك نحو الرحم، لكن لا شيء يمكن كشفه بعد باختبار الحمل.',
+        bodyChanges: [
+          'ما زال هذا الأسبوع ضمن فترة التأريخ الطبي المحيطة بالحمل؛ ولا تظهر عمومًا أي علامة جسدية ملحوظة في هذه المرحلة.',
+        ],
+        toKnow: ['تصبح معظم اختبارات الحمل البولية موثوقة من الأسبوع التالي تقريبًا، بعد أن يبدأ انغراس الجنين.'],
+      },
+      kab: {
+        babyDescription:
+          'Ma usemmed yeḍra, ibiḍ yebda ad yetfarraq yerna ad iddu ɣer taddart n tkuffa, maca ulac kra yettwafen yakan s uḥedqen n lḥemla.',
+        bodyChanges: [
+          'Dduls-a tezga deg tallit n uḥsab n ṭṭbib yeqqnen ɣer usemmed; ulac ccaɣel ajeṭṭan yettwaḥessen s umata deg acelḍ-a.',
+        ],
+        toKnow: ['Aṭas n yihedqenen n lḥemla n umalas ttuɣalen d iyettwaḍmanen seg dduls i d-yeḍfer, ticki ujerreb yebda.'],
+      },
+      om: {
+        babyDescription:
+          'Yoo hanqaaquun ta\'e, hanqaaquun qoodamuu fi gara mudhii gadameessaatti sochoʼuu jalqaba, garuu qorannoo ulfaatiin ammaaf wanti tokko illee hin argamu.',
+        bodyChanges: [
+          'Torbanni kun ammallee yeroo lakkaa\'ama fayyaa hanqaaquu naannoo keessa jira; sadarkaa kanatti mallattoon qaamaa waliigalaan hin hubatamu.',
+        ],
+        toKnow: ['Qorannoon ulfaa fincaanii baay\'een naannoo torban itti aanu irraa eegalee amanamaa ta\'a, yeroo mudhii itti maxxanu eegalee.'],
+      },
+      ti: {
+        babyDescription:
+          'ምፍርያይ እንተ ተገይሩ፣ እቲ እንቋቑሖ ክኸፈል ይጅምርን ናብ ማህጸን ይጓዓዝን፣ ብመርመራ ጥንሲ ግን ገና ኣይልለን።',
+        bodyChanges: [
+          'እዛ ሳምንቲ ገና ኣብ ዙሪያ ምጥናስ ዘሎ ሕክምናዊ ዕለት ምቝጻር እዋን እያ፤ ብሓፈሻ ኣብዚ ደረጃ ዝስተዋዓል ኣካላዊ ምልክት የለን።',
+        ],
+        toKnow: ['ዝበዝሑ መርመራታት ጥንሲ ብሽንቲ ካብ ዝቕጽል ሳምንቲ ጀሚሮም፣ ምትካል ምስ ጀመረ ኣተኣማማኒ ይኾኑ።'],
+      },
+      rw: {
+        babyDescription:
+          'Niba gusama kwabayeho, igi ritangira kwigabanyamo no kwerekeza mu nyababyeyi, ariko nta kintu gishobora kuboneka n\'ikizamini cy\'inda.',
+        bodyChanges: [
+          'Iki cyumweru kiracyari mu gihe cyo kubara mu buvuzi gikikije gusama; nta kimenyetso cy\'umubiri kigaragara muri rusange muri iki gihe.',
+        ],
+        toKnow: ['Ibizamini byinshi by\'inda bikoreshwa mu nkari bigira icyizere guhera mu cyumweru gikurikira, igihe kwiyomekaho kwatangiye.'],
+      },
+      rn: {
+        babyDescription:
+          'Iyo gusama kwabaye, igi ritangura kwigabanya no kugenda rija mu nda y’umwana, ariko nta kintu na kimwe gishobora kuboneka n’ikizamini c’inda.',
+        bodyChanges: [
+          'Iki cumweru kiracari mu gihe c’ibarwa ry’abaganga kizengurutse gusama; mu rusangi nta kimenyetso c’umubiri kiboneka kuri iki gihe.',
+        ],
+        toKnow: ['Ibizamini vy’inda vy’inkari vyinshi bitangura kwizerwa ahagana mu cumweru gikurikira, igihe gutanga kw’inda kwatanguye.'],
+      },
+      ig: {
+        babyDescription:
+          'Ọ bụrụ na akwa na nsi nwoke zukọtara, akwa ahụ na-amalite ịkewa ma na-aga n\'akpa nwa, mana ule ime enweghị ike ịchọpụta ihe ọ bụla.',
+        bodyChanges: [
+          'Izu a ka dabara n\'oge ahụike ejiri gụọ ihe gbara ịtụrụ ime gburugburu; n\'ozuzu, enweghị ihe ịrịba ama ahụ a na-ahụ n\'ọkwa a.',
+        ],
+        toKnow: ['Ọtụtụ ule ime site na mmiri ahụ na-adị ntụkwasị obi site n\'izu na-esote, mgbe akwa ahụ amalitechara ịrapara.'],
+      },
+      yo: {
+        babyDescription:
+          'Bí ìfọwọ́sọ̀yà bá ti wáyé, ẹyin náà bẹ̀rẹ̀ sí pín ara rẹ̀ ó sì ń lọ sí ilé-ọmọ, ṣùgbọ́n ìdánwò oyún kò tíì lè rí nǹkan kan síbẹ̀.',
+        bodyChanges: [
+          'Ọ̀sẹ̀ yìí ṣì wà nínú àkókò ìṣirò ìṣègùn tó yí ìbímọ ká; kò sábà sí àmì ara tí a lè kíyèsí ní ìpele yìí.',
+        ],
+        toKnow: ['Ọ̀pọ̀ ìdánwò oyún ìtọ̀ máa ń ṣeé gbẹ́kẹ̀lé láti àyíká ọ̀sẹ̀ tó kàn, lẹ́yìn tí ìfàmọ́ra ti bẹ̀rẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Uma ukuhlangana kwamaqanda nesidoda kwenzekile, iqanda liqala ukuhlukana futhi lihambele esibelethweni, kodwa akukabikho okutholakalayo ngovivinyo lokukhulelwa.',
+        bodyChanges: [
+          'Leli sonto lisewela esikhathini sokubala sezokwelapha esizungeze ukukhulelwa; ngokuvamile asikho isibonakaliso somzimba esiphawulekayo kulesi sigaba.',
+        ],
+        toKnow: ['Ovivinyo lokukhulelwa lomchamo oluningi luthembeka kusukela cishe esontweni elilandelayo, uma ukunamathela sekuqalile.'],
+      },
+      xh: {
+        babyDescription:
+          'Ukuba ukukhawulwa kuye kwenzeka, iqanda liqala ukwahlukana kwaye lihambe liye esibelekweni, kodwa akukabikho into ebonakalayo kuvavanyo lokukhawulwa.',
+        bodyChanges: [
+          'Le veki isawela ngaphakathi kwexesha lokubala kwezonyango elijikeleze ukukhawulwa; akukho mpawu yomzimba ebonakalayo ngokubanzi kweli nqanaba.',
+        ],
+        toKnow: ['Uvavanyo lokukhawulwa lomchamo oluninzi luba nokuthenjwa ukusuka malunga neveki elandelayo, xa ukuncamathela sele kuqalile.'],
+      },
+      sn: {
+        babyDescription:
+          'Kana kubata mimba kwaitika, zai rinotanga kupatsanura nekufamba richienda kuchibereko, asi hapana chinowanikwa nechiedzo chemimba.',
+        bodyChanges: [
+          'Vhiki iri richiri mukati menguva yekuverenga kwekurapwa yakakomberedza kubata mimba; kazhinji hapana chiratidzo chemuviri chinoonekwa panguva ino.',
+        ],
+        toKnow: ['Machiedzo mazhinji emimba emvura yemumuti anovimbika kubva padyo nevhiki rinotevera, kana kunamatira kwatanga.'],
+      },
+      ln: {
+        babyDescription:
+          'Soki fertilisation esalemi, ovule ebandi kokabwana mpe kokende epai ya libumu, kasi test ya zemi ekoki naino te kozwa eloko.',
+        bodyChanges: [
+          'Poso oyo ezali naino na kati ya ntango ya monganga pene na conception; elembo ya nzoto ezali mbala mingi te.',
+        ],
+        toKnow: ['Ba test ya zemi ya mputa mingi ezalaka na bondimi uta poso oyo elandi, sima ya implantation ebandi.'],
+      },
+      ff: {
+        babyDescription:
+          'Si wuurude ɓiɗɗo waɗii, ɗum ina fuɗɗa seertude e yahude haa reedu, ammaa walaa ko tawtee e tesiti reedu.',
+        bodyChanges: [
+          'Jammaa ɗoo ina ɗon e wakkati limtugol doktoor dow wuurude; walaa tokkindiral ɓaleeɗo ɗum yiyetee e wakkati ɗoo.',
+        ],
+        toKnow: ['Tesiti reedu ndiyam-nyaamdu ɗuuɗɗi ina fuɗɗa wonde hoolaaɗi ɓaawo jammaa nde wuyɗi, ɓaawo ɗum hiɓi.'],
       },
       id: {
         babyDescription: 'Jika pembuahan telah terjadi, sel telur mulai membelah dan bergerak menuju rahim, tetapi belum bisa terdeteksi oleh tes kehamilan.',
@@ -2413,6 +2820,161 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '这通常是验孕可以开始出现阳性结果的时间。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '胚胎剛剛著床在子宮壁上。羊膜囊和卵黃囊正在形成，它們會在最初幾天為胚胎提供營養。',
+        length: '約 2 毫米',
+        comparison: '罌粟籽',
+        bodyChanges: [
+          '在這個非常早的階段，有些人還沒有任何感覺。',
+          '從這一週起，尿液驗孕通常就能檢測到懷孕。',
+        ],
+        toKnow: [
+          '這通常是驗孕可以開始出現陽性結果的時間。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'انغرس الجنين للتو في جدار الرحم. ويتشكل الكيس الأمنيوسي وكيس المح اللذان سيغذّيانه في الأيام الأولى جدًا.',
+        length: 'حوالي 2 مم',
+        comparison: 'بذرة الخشخاش',
+        bodyChanges: [
+          'لا تلاحظ بعض النساء أي علامة بعد في هذه المرحلة المبكرة جدًا.',
+          'يمكن لاختبار الحمل البولي عمومًا كشف الحمل ابتداءً من هذا الأسبوع.',
+        ],
+        toKnow: ['هذا هو الوقت المعتاد الذي يمكن أن يبدأ فيه اختبار الحمل بإعطاء نتيجة إيجابية.'],
+      },
+      kab: {
+        babyDescription:
+          'Ageddid amecṭuḥ yezwar yeqqen deg ugdil n tkuffa. Taxsayt n lmayeɛ d taxsayt n tmellalt, i ara t-yeččen deg ussan imezwura, ttbedun ad d-ttwaxdment.',
+        length: 'Azal n 2 mm',
+        comparison: 'Aɣerbal n tyiwant',
+        bodyChanges: [
+          'Kra n medden ur ẓrint ara kra n yimenan akka tura deg acelḍ-a ameẓyan.',
+          'Ahedqen n lḥemla n umalas izmer ad d-yeldi lḥemla s umata seg dduls-a.',
+        ],
+        toKnow: ['D akud amatu ideg ahedqen n lḥemla izmer ad yebdu ad d-yefk agmuḍ yelhan.'],
+      },
+      om: {
+        babyDescription:
+          'Hanqaaquun ammuma dallaa mudhii gadameessaa irratti maxxaneera. Kuusaan bishaan hanqaaquu fi kuusaan galaa, guyyoota jalqabaa baay\'ee isa nyaachisan, uumamaa jiru.',
+        length: 'Gara 2 mm',
+        comparison: 'Sanyii poppy',
+        bodyChanges: [
+          'Namoonni tokko tokko sadarkaa baay\'ee jalqabaa kanatti mallattoo tokko illee hin hubatan.',
+          'Qorannoon ulfaa fincaanii waliigalaan torban kana irraa eegalee ulfaa adda baasuu danda\'a.',
+        ],
+        toKnow: ['Kun yeroo idilee qorannoon ulfaa bu\'aa gaarii (positive) kennuu jalqabuu danda\'u dha.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ኤምብሪዮ ገና ኣብ ጎኒ ማህጸን ተተኺሉ። እቲ ኣምኒዮቲክ ከስ ከምኡ’ውን ኣብ ቀዳሞት መዓልታት ዘንብር ኣስሓ ከስ ይፍጠሩ ኣለዉ።',
+        length: 'ኣስታት 2 mm',
+        comparison: 'ፓፒ ዘርኢ',
+        bodyChanges: [
+          'ገሊኦም ሰባት ኣብዚ ብጣዕሚ ቀዳማይ ደረጃ ገና ዝኾነ ምልክት ኣየስተውዕሉን።',
+          'መርመራ ጥንሲ ብሽንቲ ብሓፈሻ ካብዛ ሳምንቲ ጀሚሩ ጥንሲ ክሓዝ ይኽእል።',
+        ],
+        toKnow: ['እዚ መርመራ ጥንሲ ኣወንታዊ ውጽኢት ክህብ ዝጅምር ልሙድ እዋን እዩ።'],
+      },
+      rw: {
+        babyDescription:
+          'Insoro yiyomekaho ku rukuta rw\'inyababyeyi. Agapfunyika k\'amazi n\'agapfunyika k\'umuhondo, kazayigaburira mu minsi ya mbere cyane, birimo kuremwa.',
+        length: 'Hafi mm 2',
+        comparison: 'Akabuto ka pavot',
+        bodyChanges: [
+          'Bamwe ntibabona ikimenyetso na kimwe muri iki gihe cya mbere cyane.',
+          'Ikizamini cy\'inda mu nkari muri rusange gishobora kubona inda guhera muri iki cyumweru.',
+        ],
+        toKnow: ['Iki ni igihe gisanzwe ikizamini cy\'inda gishobora gutangira kwerekana igisubizo cyiza.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana akiri akana yaranguruye mu rukuta rw’inda y’umwana. Agapfunyika k’amazi n’agapfunyika k’umuhondo, bizomugaburira mu minsi ya mbere cane, birimo biraba.',
+        length: 'Hafi ya mm 2',
+        comparison: 'Imbuto ya poppy',
+        bodyChanges: [
+          'Bamwe nta kimenyetso na kimwe barabona kuri iki gihe cya mbere cane.',
+          'Ikizamini c’inda c’inkari mu rusangi gishobora kuyibona kuva kuri iki cumweru.',
+        ],
+        toKnow: ['Iki ni igihe gisanzwe ikizamini c’inda gishobora gutangura gutanga igisubizo c’ “yego”.'],
+      },
+      ig: {
+        babyDescription:
+          'Embryo ahụ arapaala n\'mgbidi akpa nwa. Akpa amniotic na akpa yolk, nke ga-azụ ya n\'ụbọchị mbụ, na-etolite.',
+        length: 'Ihe dị ka 2 mm',
+        comparison: 'Mkpụrụ poppy',
+        bodyChanges: [
+          'Ụfọdụ mmadụ anaghị ahụ ihe ịrịba ama ọ bụla n\'ọkwa mbụ a.',
+          'N\'ozuzu, ule ime site na mmiri ahụ nwere ike ịchọpụta ime site n\'izu a gaa n\'ihu.',
+        ],
+        toKnow: ['Nke a bụ oge a na-adịkarị mgbe ule ime nwere ike ịmalite inye nsonaazụ dị mma.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ inú oyún ṣẹ̀ṣẹ̀ fàmọ́ ògiri ilé-ọmọ. Àpò omi àti àpò yolk tí yóò bọ́ ọ ní àwọn ọjọ́ àkọ́kọ́ gan-an ń dàgbà.',
+        length: 'Nǹkan bí 2 mm',
+        comparison: 'Irúgbìn poppy',
+        bodyChanges: [
+          'Àwọn kan kò tíì kíyèsí àmì kankan ní ìpele ìbẹ̀rẹ̀ gan-an yìí.',
+          'Ìdánwò oyún ìtọ̀ sábà máa ń rí oyún láti ọ̀sẹ̀ yìí lọ.',
+        ],
+        toKnow: ['Èyí ni àkókò déédé tí ìdánwò oyún lè bẹ̀rẹ̀ sí fi èsì tó dájú hàn.'],
+      },
+      zu: {
+        babyDescription:
+          'Umbungu usanda kunamathela odongeni lwesibeletho. Isikhwama se-amniotic nesikhwama se-yolk, esizokondla ezinsukwini zokuqala kakhulu, siyakheka.',
+        length: 'Cishe 2 mm',
+        comparison: 'Imbewu ye-poppy',
+        bodyChanges: [
+          'Abanye abantu abaqapheli noma yisiphi isibonakaliso kulesi sigaba sokuqala kakhulu.',
+          'Ucwaningo lokukhulelwa lomchamo ngokuvamile lungathola ukukhulelwa kusukela kuleli sonto.',
+        ],
+        toKnow: ['Lesi yisikhathi esijwayelekile lapho ucwaningo lokukhulelwa lungaqala ukubonisa umphumela omuhle.'],
+      },
+      xh: {
+        babyDescription:
+          'Umbungu usandula ukuncamathela kodonga lwesibeleko. Isingxobo samanzi esibeleko kunye nesingxobo seqanda, ezizakumondla kwiintsuku zokuqala kakhulu, ziyakheka.',
+        length: 'Malunga ne-2 mm',
+        comparison: 'Imbewu yepoppy',
+        bodyChanges: [
+          'Abanye abantu abayiboni mpawu okwangoku kweli nqanaba lokuqala kakhulu.',
+          'Uvavanyo lokukhawulwa lomchamo ngokubanzi lunokubona ukukhawulwa ukususela kule veki ukuya phambili.',
+        ],
+        toKnow: ['Eli lixesha eliqhelekileyo apho uvavanyo lokukhawulwa lunokuqala ukunika isiphumo esiqinisekileyo.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana ari mudumbu ava kunamatira pamadziro echibereko. Chikwama chemvura chaamniotic nechikwama cheyolk, zvichamudyisa mumazuva ekutanga kwazvo, zviri kuumbwa.',
+        length: 'Kunge 2 mm',
+        comparison: 'Mbeu yepoppy',
+        bodyChanges: [
+          'Vamwe havaone chiratidzo chipi zvacho panguva yekutanga kwazvo iyi.',
+          'Chiedzo chemimba chemvura yemumuti kazhinji chinogona kuona mimba kubva muvhiki rino zvichienda.',
+        ],
+        toKnow: ['Iyi ndiyo nguva yakajairika apo chiedzo chemimba chinogona kutanga kupa mhedziso yakanaka.'],
+      },
+      ln: {
+        babyDescription:
+          'Embryon ebandi kokangama na lopango ya libumu. Sac amniotique mpe sac vitellin, oyo ekopesa yango bilei na mikolo ya liboso, ezali kosalema.',
+        length: 'Pene 2 mm',
+        comparison: 'Mboto ya pavot',
+        bodyChanges: [
+          'Basusu bamoni naino elembo moko te na ntango oyo ya ebandeli.',
+          'Test ya zemi ya mputa ekoki mbala mingi kokamata zemi uta poso oyo.',
+        ],
+        toKnow: ['Oyo ezali ntango ya kokoka oyo test ya zemi ekoki kobanda kopesa eyano ya positif.'],
+      },
+      ff: {
+        babyDescription:
+          'Embiriyoŋ jooɗii e mbaalu reedu. Fiɗɗere ndiyam e fiɗɗere yolk, ɗe ɗum nyaamnata balde adannde, ina ɗon e waɗeede.',
+        length: 'Nder mm 2',
+        comparison: 'Ɓiɗɗere poppi',
+        bodyChanges: [
+          'Woɗɓe tawataa hay tokkindiral e wakkati ɗoo ɓurdi adii.',
+          'Tesiti reedu ndiyam-nyaamdu ina waawi tawde reedu ko jammaa ɗoo haa tokka.',
+        ],
+        toKnow: ['Ko ɗum wakkati aada nde tesiti reedu fuɗɗata hollude ɗum.'],
       },
       id: {
         babyDescription: 'Embrio baru saja menempel pada dinding rahim. Kantung ketuban dan kantung kuning telur, yang akan menyuplai nutrisi pada hari-hari pertama, mulai terbentuk.',
@@ -3122,6 +3684,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '建议在这个时候预约医疗专业人员，开始孕期检查。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '神經系統開始形成，小小的心臟即將第一次跳動。',
+        length: '約 2 毫米',
+        comparison: '芝麻粒',
+        bodyChanges: [
+          '可能會出現異常的疲倦、輕微的噁心或乳房脹痛。',
+        ],
+        toKnow: [
+          '建議在這個時候預約醫療專業人員，開始孕期檢查。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يبدأ الجهاز العصبي بالتشكل، والقلب، وهو لا يزال صغيرًا جدًا، على وشك أن ينبض للمرة الأولى.',
+        length: 'حوالي 2 مم',
+        comparison: 'بذرة السمسم',
+        bodyChanges: ['قد يظهر تعب غير معتاد أو غثيان خفيف أو ألم في الثديين.'],
+        toKnow: ['هذا هو الوقت الموصى به لحجز موعد مع مختص صحي لبدء رعاية الحمل.'],
+      },
+      kab: {
+        babyDescription:
+          'Anagraw n tawwurt-ik yebda ad yeddu, yerna wul, mazal d amecṭuḥ, ad yebdu ad yettekki i tikkelt tamezwarut.',
+        length: 'Azal n 2 mm',
+        comparison: 'Aɣerbal n tsekkuṛt',
+        bodyChanges: ['Aṭṭan uslig, aḥrad amecṭuḥ n uḍfel neɣ ucemmus n ufud zemren ad d-banen.'],
+        toKnow: ['D wakud i d-yettunefken i wakken ad tfeṛṣeḍ asgen n tamusni n ṭṭbib akken ad tebduḍ ukeččum n lḥemla.'],
+      },
+      om: {
+        babyDescription:
+          'Sirni narvii uumamuu jalqaba, onneen, ammallee xiqqoo, al-tokko rukutuuf jira.',
+        length: 'Gara 2 mm',
+        comparison: 'Sanyii sesame',
+        bodyChanges: ['Dadhabbii idilee hin taane, hamma xiqqaa garaa kaasuu, yookaan harmi dhukkubuu mul\'achuu danda\'a.'],
+        toKnow: ['Kun yeroo ogeessa fayyaa waliin beellama godhachuun kunuunsa ulfaa jalqabuuf gorfamu dha.'],
+      },
+      ti: {
+        babyDescription:
+          'ስርዓት ነርቭ ክፍጠር ይጅምር፣ እቲ ገና ንኡስ ልቢ ድማ ንመጀመርታ ግዜ ክቐጥቕጥ እዩ።',
+        length: 'ኣስታት 2 mm',
+        comparison: 'ሰምሰም',
+        bodyChanges: ['ዘይልሙድ ድኻም፣ ቀሊል ምግላል፣ ወይ ጡብ ምስኳር ክረኣዩ ይኽእሉ።'],
+        toKnow: ['እዚ ዕጥንታት ጥንሲ ክጅምር ምስ ክኢላ ጥዕና ቆጸራ ንምሓዝ እተመከረ እዋን እዩ።'],
+      },
+      rw: {
+        babyDescription:
+          'Imiyoboro y\'imyakura itangira kuremwa, kandi umutima, ukiri muto cyane, ugiye gutera ku nshuro ya mbere.',
+        length: 'Hafi mm 2',
+        comparison: 'Akabuto ka sesame',
+        bodyChanges: ['Umunaniro udasanzwe, iseseme yoroheje, cyangwa kubabara amabere bishobora kugaragara.'],
+        toKnow: ['Iki ni igihe cyiza cyo gufata gahunda n\'umuhanga mu buzima kugira ngo utangire gukurikiranwa mu gihe cy\'inda.'],
+      },
+      rn: {
+        babyDescription:
+          'Sisiteme y’imitsi itangura kuboneka, kandi umutima, ukiri muto cane, ugiye gutera ubwa mbere.',
+        length: 'Hafi ya mm 2',
+        comparison: 'Imbuto ya sesame',
+        bodyChanges: ['Umunaniro udasanzwe, isesemi yoroheje, canke kuribwa amabere vyoshobora kuboneka.'],
+        toKnow: ['Iki ni igihe cagirwa inama co gufata igihe n’umuhanga mu vy’ubuzima kugira utangure gukurikiranwa inda.'],
+      },
+      ig: {
+        babyDescription:
+          'Sistemụ akwara na-amalite ịmalite, obi ahụ, nke ka dị obere, na-adịgide ịkụ nke mbụ.',
+        length: 'Ihe dị ka 2 mm',
+        comparison: 'Mkpụrụ sesame',
+        bodyChanges: ['Ike ọgwụgwụ dị iche, ọgbụgbọ dị nro, ma ọ bụ mgbu ara nwere ike ịpụta.'],
+        toKnow: ['Nke a bụ oge a na-akwado ịkpọ oge nzute na onye ọrụ ahụike iji malite nlekọta ime.'],
+      },
+      yo: {
+        babyDescription:
+          'Ètò iṣan ara bẹ̀rẹ̀ sí dàgbà, ọkàn, tó ṣì kéré gan-an, sì fẹ́rẹ̀ lù fún ìgbà àkọ́kọ́.',
+        length: 'Nǹkan bí 2 mm',
+        comparison: 'Irúgbìn sesame',
+        bodyChanges: ['Àárẹ̀ àìwọ́pọ̀, ríru aláìle, tàbí ọmú ríro lè hàn.'],
+        toKnow: ['Èyí ni àkókò tí a gbà nímọ̀ràn láti ṣe ìpàdé pẹ̀lú oníṣẹ́ ìlera láti bẹ̀rẹ̀ ìtọ́jú oyún.'],
+      },
+      zu: {
+        babyDescription:
+          'Uhlelo lwezinzwa luqala ukwakheka, nenhliziyo, esengaphezulu kuncane, isiya ukushaya okokuqala.',
+        length: 'Cishe 2 mm',
+        comparison: 'Imbewu ye-sesame',
+        bodyChanges: ['Ukukhathala okungajwayelekile, isicanucanu esincane, noma izibele ezibuhlungu kungavela.'],
+        toKnow: ['Lesi yisikhathi esinconywayo sokwenza isikhathi sokuhlangana nochwepheshe wezempilo ukuqala ukunakekelwa kokukhulelwa.'],
+      },
+      xh: {
+        babyDescription:
+          'Inkqubo yemithambo-luvo iqala ukwakheka, kwaye intliziyo, esamncinci, ilizele ukubetha okokuqala.',
+        length: 'Malunga ne-2 mm',
+        comparison: 'Imbewu yesesame',
+        bodyChanges: ['Ukudinwa okungaqhelekanga, isicaphucaphu esithambileyo, okanye ukuvuvukala kwamabele kunokuvela.'],
+        toKnow: ['Eli lixesha elicetyiswayo lokwenza idinga nengcali yezempilo ukuqala ukhathalelo lokukhawulwa.'],
+      },
+      sn: {
+        babyDescription:
+          'Nervous system inotanga kuumbwa, uye moyo, uchiri mudiki, wava kuda kurova kwekutanga.',
+        length: 'Kunge 2 mm',
+        comparison: 'Mbeu yesesame',
+        bodyChanges: ['Kuneta kusina kujairika, kusvotwa kusina simba, kana kurwadza kwemazamu zvinogona kuoneka.'],
+        toKnow: ['Iyi ndiyo nguva inokurudzirwa yekuita appointment nemushandi wezvehutano kuti utange kutarisirwa kwemimba.'],
+      },
+      ln: {
+        babyDescription:
+          'Système nerveux ebandi kosalema, mpe motema, naino moke mingi, ezali pene ya kobɛta mbala ya liboso.',
+        length: 'Pene 2 mm',
+        comparison: 'Mboto ya sésame',
+        bodyChanges: ['Kolemba ya kokesana, nausea ya mike, to mpasi ya mabɛlɛ ekoki kobima.'],
+        toKnow: ['Oyo ezali ntango oyo ebongi mpo na kosala rendez-vous na moto ya mosala ya lisano mpo na kobanda bokɔngɔli ya zemi.'],
+      },
+      ff: {
+        babyDescription:
+          'Nyawu hoyre ina fuɗɗa waɗeede, e ɓerɗe, ɗum ɓurdi ɓoyƊum, ina taskaade fuɗɗaade fiɗɗugol laabi adannde.',
+        length: 'Nder mm 2',
+        comparison: 'Ɓiɗɗere sesame',
+        bodyChanges: ['Tiiɗal wanaa aada, ñaawugol yiite seɗɗa, walla muusaare ɓeemeeji ina mbaawi wonde.'],
+        toKnow: ['Ko ɗum wakkati ɗum haani suɓde nde hawtugol e jey-jeyaaɗo ɗemngal dawrugol ngam fuɗɗoode reentugol reedu.'],
+      },
       id: {
         babyDescription: 'Sistem saraf mulai terbentuk, dan jantung yang masih sangat kecil akan segera berdetak untuk pertama kalinya.',
         length: 'Sekitar 2 mm',
@@ -3802,6 +4479,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '早期超声检查有时最早在这一周就能看到心脏活动。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '手臂和腿的小芽出現了，耳朵將來形成的位置出現小小的凹陷。有時在超音波檢查中已經能看到心臟。',
+        length: '約 6 毫米',
+        comparison: '豌豆',
+        bodyChanges: [
+          '在這段時間，有些人的噁心和疲倦可能會加重。',
+        ],
+        toKnow: [
+          '早期超音波檢查有時最早在這一週就能看到心臟活動。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تظهر براعم الذراعين والساقين، مع انخفاضات صغيرة سيتشكل فيها الأذنان. ويمكن أحيانًا كشف القلب بالموجات فوق الصوتية.',
+        length: 'حوالي 6 مم',
+        comparison: 'حبة البازلاء',
+        bodyChanges: ['قد يزداد الغثيان والتعب لدى بعض النساء خلال هذه الفترة.'],
+        toKnow: ['قد يظهر نشاط القلب أحيانًا منذ هذا الأسبوع في فحص مبكر بالموجات فوق الصوتية.'],
+      },
+      kab: {
+        babyDescription:
+          'Iɣerbalen n yifassen d yiḍaren d-banen, d ibeẓẓaren imecṭuḥen deg ara d-yili usemmaṭ n yiseɛdan. Wul izmer ad yettwaf yakan s ultrason.',
+        length: 'Azal n 6 mm',
+        comparison: 'Aɣerbal n ujedid',
+        bodyChanges: ['Aḥrad d usexsi zemren ad ggarden i kra n medden deg wakud-a.'],
+        toKnow: ['Armud n wul izmer ad yettwaf kra n tikkal seg ddasen-a s ultrason imezwura.'],
+      },
+      om: {
+        babyDescription:
+          'Burqaan harkaa fi miilaa ni mul\'ata, akkasumas gurraan itti uumamu iddoowwan xiqqoo hanqaqaan. Onneen yeroo tokko tokko duraanuu ultrasound irratti argamuu danda\'a.',
+        length: 'Gara 6 mm',
+        comparison: 'Ater',
+        bodyChanges: ['Garaa kaasuun fi dadhabbiin namoota tokko tokkoof yeroo kana cimuu danda\'a.'],
+        toKnow: ['Sochiin onnee yeroo tokko tokko torban kana irraa eegalee ultrasound duraa irratti mul\'achuu danda\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ጨናፍር ኣዕጽምቲ ኣእዳውን እግርን ይርአዩ፣ ከምኡ’ውን እተን እዝኒ ዝፍጠረሉ ንኣሽቱ ጥሕሎታት። ልቢ ገለ ግዜ ኣብ ኣልትራሳውንድ ክፍለጥ ይኽእል።',
+        length: 'ኣስታት 6 mm',
+        comparison: 'ኣተር',
+        bodyChanges: ['ኣብዚ እዋን ምግላልን ድኻምን ንገሊኦም ሰባት ክዓቢ ይኽእል።'],
+        toKnow: ['ንጥፈት ልቢ ኣብ ቀዳማይ ኣልትራሳውንድ ካብዛ ሳምንቲ ጀሚሩ ገለ ግዜ ክረአ ይኽእል።'],
+      },
+      rw: {
+        babyDescription:
+          'Utubuto tw\'amaboko n\'amaguru turagaragara, hamwe n\'utuntu duto aho amatwi azaremwa. Umutima rimwe na rimwe ushobora kuboneka kuri ultrasound.',
+        length: 'Hafi mm 6',
+        comparison: 'Ikinyamisogwe',
+        bodyChanges: ['Iseseme n\'umunaniro bishobora gukomera ku bantu bamwe muri iki gihe.'],
+        toKnow: ['Umutima ushobora rimwe na rimwe kuboneka guhera muri iki cyumweru kuri ultrasound ya kare.'],
+      },
+      rn: {
+        babyDescription:
+          'Utuntu tw’amaboko n’amaguru turatangura kugaragara, hamwe n’udusumbwa duto aho amatwi azoba. Umutima rimwe na rimwe urashobora kumenyekana kuri ultrasound.',
+        length: 'Hafi ya mm 6',
+        comparison: 'Ingano',
+        bodyChanges: ['Isesemi n’umunaniro bishobora kwiyongera kuri bamwe muri iki gihe.'],
+        toKnow: ['Ibikorwa vy’umutima rimwe na rimwe vyoshobora kugaragara kuva kuri iki cumweru kuri ultrasound ya mbere.'],
+      },
+      ig: {
+        babyDescription:
+          'Ọkpụkpụ aka na ụkwụ na-apụta, yana obere ọgbụ ebe ntị ga-etolite. Obi nwere ike ịchọpụta mgbe ụfọdụ n\'ultrasound.',
+        length: 'Ihe dị ka 6 mm',
+        comparison: 'Pea',
+        bodyChanges: ['Ọgbụgbọ na ike ọgwụgwụ nwere ike ịkawanye njọ maka ụfọdụ mmadụ n\'oge a.'],
+        toKnow: ['Ọrụ obi nwere ike ịhụ mgbe ụfọdụ ọbụna site n\'izu a n\'ultrasound mbụ.'],
+      },
+      yo: {
+        babyDescription:
+          'Àwọn ẹ̀ka apá àti ẹsẹ̀ hàn, pẹ̀lú àwọn ìsàlẹ̀ kéékèèké níbi tí etí yóò ti dàgbà. Nígbà míràn a lè rí ọkàn lórí ultrasound.',
+        length: 'Nǹkan bí 6 mm',
+        comparison: 'Ẹ̀wà pea',
+        bodyChanges: ['Ríru àti àárẹ̀ lè pọ̀ sí i fún àwọn kan ní àkókò yìí.'],
+        toKnow: ['Nígbà míràn a lè rí iṣẹ́ ọkàn ní ọ̀sẹ̀ yìí lórí ultrasound ìbẹ̀rẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Amahlumela ezingalo namehlo ayavela, kanye nezigodi ezincane lapho izindlebe zizokwakheka. Inhliziyo ngezinye izikhathi ingatholakala kakade nge-ultrasound.',
+        length: 'Cishe 6 mm',
+        comparison: 'Uphizi',
+        bodyChanges: ['Isicanucanu nokukhathala kungase kwande kwabanye abantu phakathi nalesi sikhathi.'],
+        toKnow: ['Umsebenzi wenhliziyo ngezinye izikhathi ungabonakala kusukela kuleli sonto nge-ultrasound yokuqala.'],
+      },
+      xh: {
+        babyDescription:
+          'Ii-bud zengalo nemilenze ziyavela, kunye nezikhubekiso ezincinci apho iindlebe ziza kwakheka khona. Intliziyo ngamanye amaxesha sele inokubonwa kwi-ultrasound.',
+        length: 'Malunga ne-6 mm',
+        comparison: 'Ipea',
+        bodyChanges: ['Isicaphucaphu nokudinwa kunokwanda kwabanye abantu ngeli xesha.'],
+        toKnow: ['Umsebenzi wentliziyo ngamanye amaxesha unokubonwa kwangoko kule veki kwi-ultrasound yokuqala.'],
+      },
+      sn: {
+        babyDescription:
+          'Mabumbu emaoko nemakumbo anoonekwa, pamwe nemakomba madiki apachazoumbwa nzeve. Moyo unogona dzimwe nguva kuonekwa kare paultrasound.',
+        length: 'Kunge 6 mm',
+        comparison: 'Pizi',
+        bodyChanges: ['Kusvotwa nekuneta zvinogona kuwedzera kune vamwe panguva ino.'],
+        toKnow: ['Basa remoyo rinogona dzimwe nguva kuoneka kare muvhiki rino paultrasound yekutanga.'],
+      },
+      ln: {
+        babyDescription:
+          'Matambe ya maboko mpe ya makolo ebimi, elongo na mabulu mike epai bakosala matoyi. Motema ekoki mbala mosusu komonana na ultrasound.',
+        length: 'Pene 6 mm',
+        comparison: 'Pois',
+        bodyChanges: ['Nausea mpe kolemba ekoki kokóma makasi mpo na basusu na ntango oyo.'],
+        toKnow: ['Mosala ya motema ekoki mbala mosusu komonana uta poso oyo na ultrasound ya ebandeli.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗere juude e koyɗe ina ngarta, e ɓoyƊi seɗɗa ɗi nanirɗe maaɗe ina waɗeede. Ɓerɗe ina waawi yiyeede seɗɗa e ultrasound.',
+        length: 'Nder mm 6',
+        comparison: 'Pea',
+        bodyChanges: ['Ñaawugol yiite e tiiɗal ina mbaawi ɓeydude ngam woɗɓe e wakkati ɗoo.'],
+        toKnow: ['Kuugal ɓerɗe ina waawi yiyeede seɗɗa tuma e jammaa ɗoo e ultrasound adannde.'],
+      },
       id: {
         babyDescription: 'Tunas lengan dan kaki mulai muncul, bersama lekukan kecil tempat telinga akan terbentuk. Jantung terkadang sudah dapat terdeteksi lewat USG.',
         length: 'Sekitar 6 mm',
@@ -4481,6 +5273,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '神经管会发育成大脑和脊髓，在这几周里仍在继续闭合。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '大腦的發育比身體其他部分更快，所以前額顯得突出。手臂末端開始出現小小的手芽。',
+        length: '約 10 毫米',
+        comparison: '葡萄',
+        bodyChanges: [
+          '可能會特別想吃某些食物，或者相反，對某些食物感到抗拒。',
+        ],
+        toKnow: [
+          '神經管會發育成大腦和脊髓，在這幾週裡仍在繼續閉合。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'ينمو الدماغ أسرع من بقية الجسم، مما يعطي جبهة بارزة. وتبدأ براعم اليدين الصغيرة بالظهور في نهايتي الذراعين.',
+        length: 'حوالي 10 مم',
+        comparison: 'حبة العنب',
+        bodyChanges: ['من الممكن حدوث اشتهاء خاص لبعض الأطعمة، أو على العكس نفور من أطعمة معيّنة.'],
+        toKnow: ['يواصل الأنبوب العصبي، الذي ينشأ منه الدماغ والحبل الشوكي، انغلاقه خلال هذه الأسابيع.'],
+      },
+      kab: {
+        babyDescription:
+          'Aɣerrabu yettalay ugar n ayen n ujeṭṭa, ayen i d-yefkan iẓem amecṭuḥ. Iɣerbalen imecṭuḥen n ifassen ttbedun ad d-banen deg taggara n iɣerfan.',
+        length: 'Azal n 10 mm',
+        comparison: 'Aɣerbal n tazart',
+        bodyChanges: ['Ugzam ixeddmen n lqut neɣ ayen yettwaɛeddan n kra n yimekli yezmer ad yili.'],
+        toKnow: ['Ajeṭṭan n anagraw, ayen i d-yeqqimen d aɣerrabu d ujeṭṭa n uzargu, yezga ittekkat deg ddasen-a.'],
+      },
+      om: {
+        babyDescription:
+          'Sammuun qaama hafe caalaa dafee guddata, gubbaa mataa guddaa taasisa. Burqaan harkaa xiqqoon fiixee irree irratti mul\'achuu jalqaba.',
+        length: 'Gara 10 mm',
+        comparison: 'Wayinii (ija wayinii)',
+        bodyChanges: ['Nyaata addaa hawwuun, yookaan faallaa isaa nyaata tokko tokko jibbuun ni danda\'ama.'],
+        toKnow: ['Tuubii narvii, sammuu fi sidaa dugdaa kan uumu, torbanoota kana keessa cufamuu itti fufa.'],
+      },
+      ti: {
+        babyDescription:
+          'ኣእምሮ ካብ ዝተረፈ ኣካል ብቕልጡፍ ይዓቢ፣ ዓቢ ግምባር ይህብ። ኣብ መወዳእታ ኣእዳው ንኣሽቱ ጨናፍር ክርአዩ ይጅምሩ።',
+        length: 'ኣስታት 10 mm',
+        comparison: 'ወይኒ',
+        bodyChanges: ['ፍሉያት ድሌት መግቢ፣ ወይ ኣንጻር ገሊኦም መግብታት ምጽልኣይ ክህሉ ይኽእል።'],
+        toKnow: ['እቲ ኣእምሮን ሓንጎልን ዝፈጥር ነርቫዊ ትቦ እዘን ሳምንታት ምዕጻው ይቕጽል።'],
+      },
+      rw: {
+        babyDescription:
+          'Ubwonko bukura vuba kurusha ibindi bice by\'umubiri, bigatuma uruhanga rugaragara. Utubuto duto tw\'intoki dutangira kugaragara ku mpera z\'amaboko.',
+        length: 'Hafi mm 10',
+        comparison: 'Imizabibu',
+        bodyChanges: ['Kwifuza ibiryo bimwe na bimwe, cyangwa ku rundi ruhande kutabyifuza, birashoboka.'],
+        toKnow: ['Umuyoboro w\'imyakura, utanga ubwonko n\'umugongo, ukomeza gufunga muri ibi byumweru.'],
+      },
+      rn: {
+        babyDescription:
+          'Ubwonko bukura vuba kuruta ibindi bice vy’umubiri, bigatuma uruhanga ruba runini. Utuntu tw’amaboko dutangura kugaragara ku mpera z’amaboko.',
+        length: 'Hafi ya mm 10',
+        comparison: 'Imizabibu',
+        bodyChanges: ['Gukunda ibiryo bimwebimwe, canke ukundi gutinya ibiryo bimwebimwe, birashoboka.'],
+        toKnow: ['Umuyoboro w’imitsi, utanga ubwonko n’umugongo, uracari mu gufunga muri ibi byumweru.'],
+      },
+      ig: {
+        babyDescription:
+          'Ụbụrụ na-etolite ngwa ngwa karịa ahụ ndị ọzọ, na-enye ihu ihu pụtara ìhè. Obere ọgbụ aka na-amalite ịpụta na njedebe aka.',
+        length: 'Ihe dị ka 10 mm',
+        comparison: 'Mkpụrụ vaịnị',
+        bodyChanges: ['Ọchịchọ nri pụrụ iche, ma ọ bụ n\'ụzọ ọzọ, enweghị mmasị n\'ụfọdụ nri, ga-ekwe omume.'],
+        toKnow: ['Neural tube, nke na-eweta ụbụrụ na ọkpụkpụ azụ, na-aga n\'ihu na-emechi n\'izu ndị a.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọpọlọ ń dàgbà yára ju ìyókù ara lọ, èyí tó ń fún ní iwájú orí tó yọ jáde. Àwọn ẹ̀ka ọwọ́ kéékèèké bẹ̀rẹ̀ sí hàn ní ìkángun apá.',
+        length: 'Nǹkan bí 10 mm',
+        comparison: 'Èso àjàrà',
+        bodyChanges: ['Ìfẹ́ sí àwọn oúnjẹ kan pàtó, tàbí ìkórìíra àwọn oúnjẹ kan, ṣeé ṣe.'],
+        toKnow: ['Ọpọn iṣan ara, tó ń fún ọpọlọ àti ọ̀pá ẹ̀yìn ní ìwà, ń tẹ̀síwájú láti tì ní àwọn ọ̀sẹ̀ wọ̀nyí.'],
+      },
+      zu: {
+        babyDescription:
+          'Ubuchopho bukhula ngokushesha kunomzimba osele, kunikeza ibunzi eliphawulekayo. Amahlumela amancane ezandla aqala ukuvela ekugcineni kwezingalo.',
+        length: 'Cishe 10 mm',
+        comparison: 'Igilebhisi',
+        bodyChanges: ['Ukulangazelela ukudla okuthile, noma ukunengeka ngokudla okuthile, kuyenzeka.'],
+        toKnow: ['Ithyubhu le-neural, elikhiqiza ubuchopho nomgogodla, liqhubeka nokuvaleka phakathi nalawa masonto.'],
+      },
+      xh: {
+        babyDescription:
+          'Ingqondo ikhula ngokukhawuleza kunomzimba osele, inika impumlo ephumileyo. Ii-bud ezincinci zezandla ziqala ukuvela ekupheleni kweengalo.',
+        length: 'Malunga ne-10 mm',
+        comparison: 'Isidiliya',
+        bodyChanges: ['Ukulangazelela ukutya okuthile, okanye ngokuchaseneyo ukwenyanya ukutya okuthile, kuyenzeka.'],
+        toKnow: ['Itubhu yemithambo-luvo, enika ingqondo nomthambo womqolo, iqhubeka ivalwa ngeli xesha leeveki.'],
+      },
+      sn: {
+        babyDescription:
+          'Uropi hunokura nekukurumidza kupfuura muviri wese, zvichipa chinhambwe chakakura. Mabumbu madiki emaoko anotanga kuoneka kumagumo emaoko.',
+        length: 'Kunge 10 mm',
+        comparison: 'Mazambiringa',
+        bodyChanges: ['Kuda zvokudya zvakati kana kuramba zvimwe zvokudya zvinogoneka.'],
+        toKnow: ['Neural tube, inogadzira uropi nebhonzo remusana, inoramba ichivharika munguva dzemavhiki aya.'],
+      },
+      ln: {
+        babyDescription:
+          'Ntolo ekómaka noki koleka nzoto mosusu, kopesa moto monene. Matambe mike ya maboko ebandi kobima na nsuka ya maboko.',
+        length: 'Pene 10 mm',
+        comparison: 'Mbuma ya raisin',
+        bodyChanges: ['Mposa ya bilei ya kokesana, to mpe kozila bilei mosusu, ekoki kobima.'],
+        toKnow: ['Tube neural, oyo ekobimisa ntolo mpe mokolo ya mongongo, ezali kokanga na poso oyo.'],
+      },
+      ff: {
+        babyDescription:
+          'Hoore ina ɓeydi ɓurdi ɓaleeɗo feere, ɗum hokka ɓoggol mawngol. Ɓiɗɗere juude ina fuɗɗa yaltude e raɓ juude.',
+        length: 'Nder mm 10',
+        comparison: 'Inabi',
+        bodyChanges: ['Muusaare nyaamdu feere, walla ɗum waɗa fii nyaamdu feere, ina waawi wonde.'],
+        toKnow: ['Tuyaŋ nyawu hoyre, ɗum waɗata hoore e ɓiɗɗa kokkere, ina tokka hoynude e jammaa ɗoo.'],
       },
       id: {
         babyDescription: 'Otak berkembang lebih cepat daripada bagian tubuh lainnya, sehingga dahi tampak menonjol. Tunas tangan yang kecil mulai muncul di ujung lengan.',
@@ -5164,6 +6071,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '第一次核对孕周的超声检查通常安排在孕 8 周到孕 14 周之间。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '胚胎現在稱為胎兒。手臂在變長，頭部開始略微挺直，胎盤還在繼續形成。',
+        length: '約 16 毫米',
+        comparison: '覆盆子',
+        bodyChanges: [
+          '對氣味敏感和孕吐在這個階段很常見，但並不是每個人都會有。',
+        ],
+        toKnow: [
+          '第一次核對孕周的超音波檢查通常安排在孕 8 周到孕 14 周之間。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يُسمّى الجنين الآن جنينًا (فيتس). تطول الذراعان، ويبدأ الرأس بالاستقامة قليلًا، وتواصل المشيمة تكوّنها.',
+        length: 'حوالي 16 مم',
+        comparison: 'توت العليق',
+        bodyChanges: ['الحساسية للروائح والغثيان الصباحي شائعان في هذه المرحلة، لكنهما ليسا عامَّين.'],
+        toKnow: ['يُحدَّد موعد أول فحص بالموجات فوق الصوتية لتأريخ الحمل عمومًا بين الأسبوع 8 والأسبوع 14.'],
+      },
+      kab: {
+        babyDescription:
+          'Ageddid yettusemma tura d aqcic. Iɣerfan ttwaɣellten, iqerru ittbeddu ad izuzzer, yerna lmeṣra yezga ittuxdam.',
+        length: 'Azal n 16 mm',
+        comparison: 'Aɣerbal n lemqaq',
+        bodyChanges: ['Ixsas n iɣerrabun d ucemmus n uzaglu ttilin deg acelḍ-a, maca mačči i yal yiwen.'],
+        toKnow: ['Ahedqen amezwaru n wass n ulli yettwasbedd s umata gar ddasen 8 ɣer 14.'],
+      },
+      om: {
+        babyDescription:
+          'Hanqaaquun amma fetus jedhama. Irreen dheeraa jira, mataan xiqqoo qajeelaa jira, mudhiin immoo uumamuu itti fufa.',
+        length: 'Gara 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: ['Sodaa fooriin fi garaa kaasuu ganamaa sadarkaa kanatti baratamaa dha, garuu hundaaf miti.'],
+        toKnow: ['Ultrasound jalqabaa yeroo ulfaa murteessu waliigalaan torban 8 fi torban 14 gidduutti qabama.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ኤምብሪዮ ሕጂ ጽንሲ ይበሃል። ኣእዳው ይነውሕ ኣሎ፣ ርእሲ ቁሩብ ክቕንዕ ይጅምር፣ ኣብ ከምኡ’ውን ፕላሰንታ ምፍጣር ይቕጽል።',
+        length: 'ኣስታት 16 mm',
+        comparison: 'ራስበሪ',
+        bodyChanges: ['ኣብዚ ደረጃ ንረሻሓት ተቐባልነትን ናይ ንጽህቲ ምግላልን ልሙዳት እዮም፣ ኩሎም ግን ኣይኰኑን።'],
+        toKnow: ['ቀዳማይ ናይ ዕለት ምቝጻር ኣልትራሳውንድ ብሓፈሻ ኣብ መንጎ ሳምንቲ 8 ን ሳምንቲ 14 ን ይግበር።'],
+      },
+      rw: {
+        babyDescription:
+          'Insoro ubu yitwa umwana uri mu nda. Amaboko ariyongera, umutwe utangira kugororoka gato, kandi urugingo rutanga amaraso ku mwana (placenta) rukomeza kuremwa.',
+        length: 'Hafi mm 16',
+        comparison: 'Framboise',
+        bodyChanges: ['Kumva cyane impumuro n\'iseseme yo mu gitondo ni ibisanzwe muri iki gihe, nubwo atari kuri bose.'],
+        toKnow: ['Ultrasound ya mbere yo kugena itariki isanzwe iteganywa hagati y\'icyumweru cya 8 n\'icya 14.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana ubu yitwa fetus. Amaboko aragenda arekura, umutwe utangura kugororoka gatoya, kandi placenta irakomeza kuboneka.',
+        length: 'Hafi ya mm 16',
+        comparison: 'Raspberry',
+        bodyChanges: ['Kwumva impumuro cane n’isesemi yo mu gitondo ni ibisanzwe kuri iki gihe, naho atari ku bose.'],
+        toKnow: ['Ultrasound ya mbere yo kugena itariki mu rusangi ikorwa hagati y’icumweru ca 8 n’ica 14.'],
+      },
+      ig: {
+        babyDescription:
+          'A na-akpọ embryo ahụ fetus ugbu a. Aka na-aga n\'ihu na-ata ogologo, isi na-amalite ịkwụ ọtọ ntakịrị, ma placenta na-aga n\'ihu na-etolite.',
+        length: 'Ihe dị ka 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: ['Mmetụta nye isi ísì na ọgbụgbọ ụtụtụ bụ ihe a na-ahụkarị n\'ọkwa a, ọ bụ ezie na ọ bụghị mmadụ niile.'],
+        toKnow: ['N\'ozuzu, a na-ahazi ultrasound mbụ maka ịchọpụta ụbọchị n\'etiti izu 8 na izu 14.'],
+      },
+      yo: {
+        babyDescription:
+          'A ń pe ọmọ inú oyún ní fetus báyìí. Àwọn apá ń gùn, orí bẹ̀rẹ̀ sí nà díẹ̀, placenta sì ń tẹ̀síwájú láti dàgbà.',
+        length: 'Nǹkan bí 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: ['Ìmọ̀lára sí òórùn àti ríru òwúrọ̀ wọ́pọ̀ ní ìpele yìí, bó tilẹ̀ jẹ́ pé kì í ṣe gbogbo ènìyàn.'],
+        toKnow: ['Ultrasound àkọ́kọ́ fún ṣíṣírò ọjọ́ sábà máa ń wáyé láàrin ọ̀sẹ̀ 8 àti ọ̀sẹ̀ 14.'],
+      },
+      zu: {
+        babyDescription:
+          'Umbungu manje usubizwa ngokuthi yingane esesibelethweni (fetus). Izingalo ziyaba side, ikhanda liqala ukuqonda kancane, futhi i-placenta iyaqhubeka nokwakheka.',
+        length: 'Cishe 16 mm',
+        comparison: 'I-raspberry',
+        bodyChanges: ['Ukuzwela iphunga nesicanucanu sasekuseni kuyajwayeleka kulesi sigaba, nakuba kungenjalo kubo bonke.'],
+        toKnow: ['I-ultrasound yokuqala yokuthola isikhathi ngokuvamile ihlelwa phakathi kweviki lesi-8 neleshumi nane.'],
+      },
+      xh: {
+        babyDescription:
+          'Umbungu ngoku ubizwa ngokuba yifetus. Iingalo ziyanda, intloko iqala ukuthamba kancinane, kwaye ipleseta iqhubeka ikheka.',
+        length: 'Malunga ne-16 mm',
+        comparison: 'Iraspberry',
+        bodyChanges: ['Ukuvakala kwevumba nokugula kwakusasa kuqhelekile kweli nqanaba, nangona kungenjalo ngabo bonke.'],
+        toKnow: ['I-ultrasound yokuqala yokumisela umhla ngokubanzi icwangciswa phakathi kweveki 8 neveki 14.'],
+      },
+      sn: {
+        babyDescription:
+          'Embryo yava kunzi fetus. Maoko ari kureba, musoro unotanga kusimuka zvishoma, uye placenta inoramba ichiumbwa.',
+        length: 'Kunge 16 mm',
+        comparison: 'Raspberry',
+        bodyChanges: ['Kunzwa kwakanyanya kunhuhwirira nekusvotwa kwemangwanani zvakajairika panguva ino, kunyange zvisiri nguva dzose.'],
+        toKnow: ['Ultrasound yekutanga yekuziva nguva kazhinji inoitwa pakati pevhiki 8 nevhiki 14.'],
+      },
+      ln: {
+        babyDescription:
+          'Embryon ebengami sikoyo fœtus. Maboko ezali kolaya, motu ebandi kobongisama moke, mpe placenta ezali kokoba kosalema.',
+        length: 'Pene 16 mm',
+        comparison: 'Framboise',
+        bodyChanges: ['Koyoka solo na nsolo mpe nausea ya ntongo ezali ya mbala mingi na ntango oyo, atako ezali ya bato nyonso te.'],
+        toKnow: ['Ultrasound ya liboso ya kotala mokolo ezalaka mbala mingi kati na poso 8 mpe poso 14.'],
+      },
+      ff: {
+        babyDescription:
+          'Embiriyoŋ ina ngoni foetus joonin. Juude ina juutude, hoore ina fuɗɗa tiiɗude seɗɗa, e plasenta ina tokka waɗeede.',
+        length: 'Nder mm 16',
+        comparison: 'Frambwaas',
+        bodyChanges: ['Muusaare ñaawugol yiite e fuɗɗoode ɓoyƊa aada e wakkati ɗoo, hay si wanaa fuu.'],
+        toKnow: ['Ultrasound adannde ngam anndude nyalaande ko feewi hokkee hakkunde jammaa 8 e jammaa 14.'],
+      },
       id: {
         babyDescription: 'Embrio kini disebut janin. Lengan makin panjang, kepala mulai sedikit menegak, dan plasenta terus terbentuk.',
         length: 'Sekitar 16 mm',
@@ -5843,6 +6865,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '生殖器官刚刚开始分化，但通常要到很久以后的系统超声检查时才能看出性别。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '面部特徵更加清晰，眼瞼保護著眼睛，手和腳正在成形，將來的手指和腳趾也初具雛形。',
+        length: '約 22 毫米',
+        comparison: '草莓',
+        bodyChanges: [
+          '明顯的疲倦和噁心可能仍然存在，到孕早期結束時往往會逐漸減輕。',
+        ],
+        toKnow: [
+          '生殖器官剛剛開始分化，但通常要到很久以後的系統超音波檢查時才能看出性別。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تصبح ملامح الوجه أوضح، وتحمي الجفون العينين، وتتشكل اليدان والقدمان مع الأصابع المستقبلية.',
+        length: 'حوالي 22 مم',
+        comparison: 'الفراولة',
+        bodyChanges: ['قد يستمر التعب والغثيان الشديدان؛ وغالبًا ما يميلان إلى التراجع بنهاية الثلث الأول.'],
+        toKnow: ['تبدأ الأعضاء التناسلية للتو بالتمايز، لكن لا يمكن عمومًا تحديد الجنس إلا في وقت متأخر جدًا، عند الفحص التشريحي بالموجات فوق الصوتية.'],
+      },
+      kab: {
+        babyDescription:
+          'Iɣerbalen n udmawen ttbanen mliḥ, iɣerbal ttḥerzen allen, yerna ifassen d iḍaren ttuxdamen d wuẓaren n ikalasen.',
+        length: 'Azal n 22 mm',
+        comparison: 'Aɣerbal n tilawt',
+        bodyChanges: ['Aḥrad d usexsi aṭas zemren ad qqimen; ttnaqqṣen s umata ɣer taggara n tlata n yibeddan n lḥemla.'],
+        toKnow: ['Iɛeḍman n lḥasin ttbedun ad ttemgaradent, maca lǧens ur d-yettbin ara s umata armi d yirgazen, deg ultrason n usaḍar.'],
+      },
+      om: {
+        babyDescription:
+          'Amaloonni fuula ifaa ta\'u, qaabni ija ija ni eega, harkii fi miilli hidhii fi quba-miilaa boriitti ta\'uu qaban waliin bocama.',
+        length: 'Gara 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: ['Dadhabbiin cimaa fi garaa kaasuun ammallee jiraachuu danda\'u; yeroo baay\'ee xumura kutaa jalqabaa irratti salphaatu.'],
+        toKnow: ['Qaamoleen saalaa ammuma adda ba\'uu jalqabu, garuu saalli waliigalaan hanga yeroo booda, ultrasound qaama sirrii irratti, hin beekamu.'],
+      },
+      ti: {
+        babyDescription:
+          'መልክዕ ገጽ ዝያዳ ይተሓላለ፣ ኣዕቢያት ዓይኒ ይሽፍኑ፣ ኣእዳውን እግርን ድማ ምስ መጻኢ ኣጻብዕቲ ይቐርጹ ኣለዉ።',
+        length: 'ኣስታት 22 mm',
+        comparison: 'ስትሮበሪ',
+        bodyChanges: ['ዓቢ ድኻምን ምግላልን ገና ክህልዉ ይኽእሉ፤ ብዙሕ ግዜ ብመወዳእታ ቀዳማይ ትሪሜስተር ይቕንሱ።'],
+        toKnow: ['ኣካላት ጾታ ገና ክፈላለዩ ይጅምሩ እዮም፣ ጾታ ግን ብሓፈሻ ክሳብ ዝተደሓረ እዋን፣ ኣብ ኣናቶሚ ኣልትራሳውንድ ዘይፍለጥ እዩ።'],
+      },
+      rw: {
+        babyDescription:
+          'Isura irushaho kugaragara neza, ibirenge by\'amaso birinda amaso, kandi amaboko n\'ibirenge biri gufata ishusho hamwe n\'intoki zizaza.',
+        length: 'Hafi mm 22',
+        comparison: 'Strawberry',
+        bodyChanges: ['Umunaniro ukabije n\'iseseme bishobora kuba bigihari; akenshi bigenda bigabanuka ku iherezo ry\'igihembwe cya mbere.'],
+        toKnow: ['Ibice by\'imyanya ndangagitsina bitangiye gutandukana, ariko igitsina muri rusange ntikimenyekana kugeza nyuma cyane, kuri ultrasound y\'imiterere.'],
+      },
+      rn: {
+        babyDescription:
+          'Ibiranga mu maso biragenda birushiriza kugaragara, ibitsike birinda amaso, kandi amaboko n’ibirenge biragenda bigira ishusho hamwe n’intoke z’ahazaza.',
+        length: 'Hafi ya mm 22',
+        comparison: 'Strawberry',
+        bodyChanges: ['Umunaniro mwinshi n’isesemi bishobora kuracaba bihari; akenshi bitangura koroha ahagana mu herezo rya trimestre ya mbere.'],
+        toKnow: ['Ibice vy’imyanya ndangagitsina bitangura kwigaragaza gusa, ariko igitsina mu rusangi ntikimenyekana kugeza hanyuma cane, kuri ultrasound y’umubiri.'],
+      },
+      ig: {
+        babyDescription:
+          'Atụmatụ ihu na-adị ọcha karị, mkpuchi anya na-echebe anya, aka na ụkwụ na-etolite yana mkpịsị aka na mkpịsị ụkwụ ga-abụ.',
+        length: 'Ihe dị ka 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: ['Ike ọgwụgwụ na ọgbụgbọ dị ukwuu nwere ike ịnọgide; ha na-adịkarị na-ebelata n\'ọgwụgwụ nke trimester mbụ.'],
+        toKnow: ['Akụkụ mmekọahụ na-amalite ịdị iche, mana n\'ozuzu, a naghị ama mmekọahụ ruo ogologo oge ka e mesịrị, n\'ultrasound anatomy.'],
+      },
+      yo: {
+        babyDescription:
+          'Àwọn ẹ̀yà ojú túbọ̀ hàn gbangba, ìbòjú ojú ń dáàbò bo ojú, ọwọ́ àti ẹsẹ̀ sì ń gba ìrísí pẹ̀lú ìka ọwọ́ àti ẹsẹ̀ ọjọ́ iwájú.',
+        length: 'Nǹkan bí 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: ['Àárẹ̀ àti ríru tó pọ̀ lè ṣì wà; wọ́n sábà máa ń dínkù ní ìparí trimester àkọ́kọ́.'],
+        toKnow: ['Àwọn ẹ̀yà ìbálòpọ̀ ṣẹ̀ṣẹ̀ ń bẹ̀rẹ̀ sí yàtọ̀ síra, ṣùgbọ́n kò sábà ṣeé dá mọ̀ akọ tàbí abo títí di ìgbà tó pẹ́ gan-an, ní ultrasound ìdàgbàsókè ara.'],
+      },
+      zu: {
+        babyDescription:
+          'Izici zobuso ziba nobuchule, izinsiba zamehlo zivikela amehlo, nezandla nezinyawo ziyakheka nezinzwani zesikhathi esizayo.',
+        length: 'Cishe 22 mm',
+        comparison: 'I-strawberry',
+        bodyChanges: ['Ukukhathala okukhulu nesicanucanu kungase kusabakhona; ngokuvamile kuvame ukwehla ekupheleni kwe-trimester yokuqala.'],
+        toKnow: ['Izitho zangasese zisanda kuqala ukuhlukana, kodwa ubulili ngokuvamile abukwazi ukuhlonzwa kuze kube kamuva kakhulu, nge-ultrasound yesakhiwo.'],
+      },
+      xh: {
+        babyDescription:
+          'Iimpawu zobuso ziba zicace ngakumbi, amajwabu avikela amehlo, kwaye izandla neenyawo ziyakheka kunye neminwe yexesha elizayo.',
+        length: 'Malunga ne-22 mm',
+        comparison: 'Istrawberry',
+        bodyChanges: ['Ukudinwa okukhulu nesicaphucaphu zisenokubakho; zidla ngokuthamba ngasekupheleni kwetrimester yokuqala.'],
+        toKnow: ['Izitho zesini ziqala nje ukwahlukana, kodwa isini ngokubanzi asikwazi ukuchongwa kude kube kamva kakhulu, kwi-ultrasound yeanatomi.'],
+      },
+      sn: {
+        babyDescription:
+          'Chiso chinoita chakajeka, nzvimbo dzemaziso dzinodzivirira maziso, uye maoko ntsoka zviri kuumbwa nenhunzi nenzara dzenguva yemberi.',
+        length: 'Kunge 22 mm',
+        comparison: 'Strawberry',
+        bodyChanges: ['Kuneta kukuru nekusvotwa zvingaramba zvichivapo; kazhinji zvinoderera kumugumo wetrimester yekutanga.'],
+        toKnow: ['Nhengo dzekubereka dziri kungotanga kusiyana, asi bonde kazhinji harizivikanwi kusvika gare gare, paanatomy ultrasound.'],
+      },
+      ln: {
+        babyDescription:
+          'Bilembo ya elongi ekomi polele, makonzi ezali kobatela miso, mpe maboko mpe makolo ezali kozwa lolenge elongo na mino mpe misapi ya sika.',
+        length: 'Pene 22 mm',
+        comparison: 'Fraise',
+        bodyChanges: ['Kolemba makasi mpe nausea ekoki kozala naino; ekitaka mbala mingi na nsuka ya trimestre ya liboso.'],
+        toKnow: ['Biteni ya kobota ebandi kokesana, kasi mobali to mwasi eyebanaka mbala mingi te kino sima mingi, na ultrasound ya anatomie.'],
+      },
+      ff: {
+        babyDescription:
+          'Fuunde yeeso ina fuɗɗa yiyeede, ɗon e ñaawugol yitere, e juude e koyɗe ina ngoodi ɓiɗɗa juude e koyɗe.',
+        length: 'Nder mm 22',
+        comparison: 'Tammaate',
+        bodyChanges: ['Tiiɗal e ñaawugol yiite ina mbaawi wonde tawon; ɗum feewi saabaade raɓ trimestre adannde.'],
+        toKnow: ['Ɓaleeɗo ɗon ina fuɗɗa seertude, ammaa gorko walla debbo feewi anndeteeɗo haa ɓaawo, e ultrasound anatomi.'],
       },
       id: {
         babyDescription: 'Fitur wajah makin jelas, kelopak mata melindungi mata, dan tangan serta kaki mulai terbentuk bersama calon jari tangan dan jari kaki.',
@@ -6524,6 +7661,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕早期联合筛查（如果提供的话）通常在孕 11 周到孕 14 周之间进行。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '面部更容易辨認，眼瞼對光有反應，心跳很快，大約是成年人的三倍。',
+        length: '約 30 毫米',
+        comparison: '小杏',
+        bodyChanges: [
+          '腰圍可能會開始有些輕微變化，不過肚子通常還看不出來。',
+        ],
+        toKnow: [
+          '孕早期聯合篩查（如果提供的話）通常在孕 11 周到孕 14 周之間進行。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يصبح الوجه أكثر قابلية للتمييز، وتتفاعل الجفون مع الضوء، ويخفق القلب بمعدل سريع، أسرع بنحو ثلاث مرات من قلب البالغ.',
+        length: 'حوالي 30 مم',
+        comparison: 'مشمشة صغيرة',
+        bodyChanges: ['قد يبدأ محيط خصرك بالتغيّر قليلًا، رغم أن البطن لا يكون ظاهرًا عمومًا بعد.'],
+        toKnow: ['يُجرى الفحص المركّب في الثلث الأول، عند عرضه، بين الأسبوع 11 والأسبوع 14 عمومًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Udem yettuɣal d ayen i d-yettwassen ugar, iɣerbal ttḥessen s tafat, yerna wul yettekkat s wudem uzzir, azal n tlata n tikkal i uzzir n ukbir.',
+        length: 'Azal n 30 mm',
+        comparison: 'Aɣerbal n tabricket',
+        bodyChanges: ['Lḥewṛ-ik izmer ad yebdu ad yettbeddil cwiṭ, ula ma uḍfel ur d-yettbin ara akka tura.'],
+        toKnow: ['Asenqed amezwaru n tlata n wayyuren yeqqnen, ma yettunefk, yettxeddem s umata gar ddasen 11 ɣer 14.'],
+      },
+      om: {
+        babyDescription:
+          'Fuulli caalaatti beekamaa ta\'a, qaabni ija ifatti deebii kenna, onneen saffisa guddaadhaan rukuta, gara dachaa sadii nama guddaa caalaa.',
+        length: 'Gara 30 mm',
+        comparison: 'Apricot xiqqaa',
+        bodyChanges: ['Mudhii kee xiqqoo jijjiiramuu jalqabuu danda\'a, garaan yeroo baay\'ee ammallee hin mul\'atu.'],
+        toKnow: ['Qorannoon jalqabaa kutaa jalqabaa kan walitti makame, yoo dhihaate, waliigalaan torban 11 fi torban 14 gidduutti godhama.'],
+      },
+      ti: {
+        babyDescription:
+          'ገጽ ዝያዳ ይፍለጥ፣ ኣዕቢያት ዓይኒ ንብርሃን ይምልሱ፣ ልቢ ድማ ብቕልጡፍ ይቐጥቕጥ፣ ካብ እቲ ናይ ዓባይ ሰብ ዳርጋ ሰለስተ ሳዕ ዝበለጸ።',
+        length: 'ኣስታት 30 mm',
+        comparison: 'ንኣሽቶ ኣፕሪኮት',
+        bodyChanges: ['ከብዲ ብሓፈሻ ገና እንተ ዘይርአ’ውን ክሳብ ምስ ቁሩብ ይቕየር።'],
+        toKnow: ['ሓድሽ ናይ ቀዳማይ ትሪሜስተር ምዱብ መርመራ፣ እንተ ቀሪቡ፣ ብሓፈሻ ኣብ መንጎ ሳምንቲ 11 ን ሳምንቲ 14 ን ይግበር።'],
+      },
+      rw: {
+        babyDescription:
+          'Isura irushaho kumenyekana, ibirenge by\'amaso bikora ku rumuri, kandi umutima utera vuba, hafi inshuro eshatu kurusha uw\'umuntu mukuru.',
+        length: 'Hafi mm 30',
+        comparison: 'Apricot nto',
+        bodyChanges: ['Mu rukenyerero rwawe hashobora gutangira guhinduka gato, nubwo inda muri rusange itaragaragara.'],
+        toKnow: ['Isuzuma rihuriweho ry\'igihembwe cya mbere, iyo rihawe, muri rusange rikorwa hagati y\'icyumweru cya 11 n\'icya 14.'],
+      },
+      rn: {
+        babyDescription:
+          'Mu maso harushiriza kumenyekana, ibitsike bikira ku mucyo, kandi umutima utera vuba, hafi inshuro eshatu kurusha uw’umuntu mukuru.',
+        length: 'Hafi ya mm 30',
+        comparison: 'Apricot ntoya',
+        bodyChanges: ['Ukuboko kwawe kwo mu rukenyerero gushobora gutangura guhinduka gatoya, naho inda mu rusangi itaraboneka.'],
+        toKnow: ['Ikizamini cegeranije ca trimestre ya mbere, iyo gitanzwe, mu rusangi gikorwa hagati y’icumweru ca 11 n’ica 14.'],
+      },
+      ig: {
+        babyDescription:
+          'Ihu na-aghọ nke a ga-amata karị, mkpuchi anya na-aza ìhè, ma obi na-akụ ngwa ngwa, ihe dị ka ugboro atọ ngwa ngwa karịa nke okenye.',
+        length: 'Ihe dị ka 30 mm',
+        comparison: 'Obere apricot',
+        bodyChanges: ['Úkwù gị nwere ike ịmalite ịgbanwe ntakịrị, ọ bụ ezie na afọ adịghị ahụ ahụ n\'ozuzu.'],
+        toKnow: ['Nyocha jikọtara nke trimester mbụ, mgbe a na-enye ya, n\'ozuzu a na-eme ya n\'etiti izu 11 na izu 14.'],
+      },
+      yo: {
+        babyDescription:
+          'Ojú túbọ̀ ṣeé dá mọ̀, ìbòjú ojú ń dáhùn sí ìmọ́lẹ̀, ọkàn sì ń lù ní ìyára gíga, nǹkan bí ìgbà mẹ́ta yára ju ti àgbàlagbà lọ.',
+        length: 'Nǹkan bí 30 mm',
+        comparison: 'Apricot kékeré',
+        bodyChanges: ['Ìbàdí rẹ lè bẹ̀rẹ̀ sí yípadà díẹ̀, bó tilẹ̀ jẹ́ pé ikùn kò sábà hàn síbẹ̀.'],
+        toKnow: ['Àyẹ̀wò àpapọ̀ trimester àkọ́kọ́, nígbà tí a bá fúnni, sábà máa ń wáyé láàrin ọ̀sẹ̀ 11 àti ọ̀sẹ̀ 14.'],
+      },
+      zu: {
+        babyDescription:
+          'Ubuso buba nokuhlonipheka kakhulu, izinsiba zamehlo ziphendula ekukhanyeni, futhi inhliziyo ishaya ngesivinini esikhulu, cishe izikhathi ezintathu ngokushesha kunesomuntu omdala.',
+        length: 'Cishe 30 mm',
+        comparison: 'I-apricot encane',
+        bodyChanges: ['Ibhande lakho lingase liqale ukushintsha kancane, nakuba isisu ngokuvamile singakabonakali.'],
+        toKnow: ['Ukuhlolwa okuhlanganisiwe kwe-trimester yokuqala, uma kunikezwa, ngokuvamile kwenziwa phakathi kweviki le-11 neleshumi nane.'],
+      },
+      xh: {
+        babyDescription:
+          'Ubuso buba nokwaziwa ngakumbi, amajwabu asabela ekukhanyeni, kwaye intliziyo ibetha ngesantya esikhawulezayo, malunga neentsuku ezintathu ngokukhawuleza kunoomntu abadala.',
+        length: 'Malunga ne-30 mm',
+        comparison: 'Iapricot encinci',
+        bodyChanges: ['Isinqe sakho sinokuqala ukutshintsha kancinane, nangona isisu ngokubanzi singabonakali okwangoku.'],
+        toKnow: ['Uhlolo oludibeneyo lwetrimester yokuqala, xa lunikezelwa, ngokubanzi lwenziwa phakathi kweveki 11 neveki 14.'],
+      },
+      sn: {
+        babyDescription:
+          'Chiso chinozivikanwa zvakanyanya, maziso anoita kuchiedza, uye moyo unorova nekukurumidza, kanokwana katatu kupfuura wemunhu mukuru.',
+        length: 'Kunge 30 mm',
+        comparison: 'Apricot diki',
+        bodyChanges: ['Chiuno chako chinogona kutanga kushanduka zvishoma, kunyange dumbu kazhinji risati raonekwa.'],
+        toKnow: ['Combined screening yetrimester yekutanga, kana ichipiwa, kazhinji inoitwa pakati pevhiki 11 nevhiki 14.'],
+      },
+      ln: {
+        babyDescription:
+          'Elongi ekomi koyebana malamu, makonzi ezali koyoka mwinda, mpe motema ezali kobɛta noki, mbala misato noki koleka ya moto ya monene.',
+        length: 'Pene 30 mm',
+        comparison: 'Abricot ya moke',
+        bodyChanges: ['Mokɔlɔ na yo ekoki kobanda kobongwana moke, atako libumu ezali naino komonana te.'],
+        toKnow: ['Dépistage ya combiné ya trimestre ya liboso, soki epesami, esalemaka mbala mingi kati na poso 11 mpe poso 14.'],
+      },
+      ff: {
+        babyDescription:
+          'Fuunde yeeso ina ɓeydi anndeede, yitere ina ngaɗa e annoora, e ɓerɗe ina ɗon e yaawugol, saa\'i tato ɓurdi ko mawɓe.',
+        length: 'Nder mm 30',
+        comparison: 'Abrikoo ɓoyƊo',
+        bodyChanges: ['Hedde maaɗa ina waawi waylude seɗɗa, hay si reedu ina yiyetaa ɗoo.'],
+        toKnow: ['Ndaarugol trimestre adannde, si ɗum hokkee, ko feewi waɗee hakkunde jammaa 11 e jammaa 14.'],
+      },
       id: {
         babyDescription: 'Wajah makin mudah dikenali, kelopak mata bereaksi terhadap cahaya, dan jantung berdetak cepat, sekitar tiga kali lebih cepat daripada jantung orang dewasa.',
         length: 'Sekitar 30 mm',
@@ -7203,6 +8455,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '宝宝已经开始活动，但这个阶段通常还感觉不到。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '手指和腳趾分開了，小小的指甲出現，胎盤逐漸接替卵黃囊，為胎兒提供營養。',
+        length: '約 41 毫米',
+        comparison: '無花果',
+        bodyChanges: [
+          '你可能會注意到情緒起伏，這尤其與荷爾蒙變化有關。',
+        ],
+        toKnow: [
+          '寶寶已經開始活動，但這個階段通常還感覺不到。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تنفصل الأصابع عن بعضها في اليدين والقدمين، وتظهر أظافر صغيرة جدًا، وتحلّ المشيمة تدريجيًا محل كيس المح في تغذية الجنين.',
+        length: 'حوالي 41 مم',
+        comparison: 'التينة',
+        bodyChanges: ['قد تلاحظين تقلبات في المزاج، مرتبطة خصوصًا بالتغيرات الهرمونية.'],
+        toKnow: ['بدأت حركات الجنين، لكن لا تُحَسّ عمومًا بعد في هذه المرحلة.'],
+      },
+      kab: {
+        babyDescription:
+          'Iḍudan n ifassen d iḍaren ttfarqen, iɣecfan imecṭuḥen ttbanen, yerna lmeṣra yettawi cwiṭ cwiṭ amkan n taxsayt n tmellalt deg uččuy n uḍfel.',
+        length: 'Azal n 41 mm',
+        comparison: 'Aɣerbal n tazart',
+        bodyChanges: ['Tzemreḍ ad tẓreḍ abeddel n wul, i d-yeqqnen ladɣa ɣer ubeddel n hormone.'],
+        toKnow: ['Ukkus n uqcic yebda, maca s umata ur yettwaḥessen ara deg acelḍ-a.'],
+      },
+      om: {
+        babyDescription:
+          'Quba harkaa fi miilaa ni adda ba\'u, qoreen xixiqqoon mul\'ata, mudhiin suuta suutaan kuusaa galaa bakka bu\'uun fetus nyaachisa.',
+        length: 'Gara 41 mm',
+        comparison: 'Fig',
+        bodyChanges: ['Jijjiirama miira qabaachuu dandeessa, keessumaa jijjiirama hormoonii waliin walqabatu.'],
+        toKnow: ['Sochiin daa\'ima eegalaa jira, garuu sadarkaa kanatti waliigalaan ammallee hin dhaga\'amu.'],
+      },
+      ti: {
+        babyDescription:
+          'ኣጻብዕቲ እጅን እግርን ይፈላለዩ፣ ንኣሽቱ ጥፍሪ ይርአዩ፣ ፕላሰንታ ድማ ቀስ ብቐስ ካብ ኣስሓ ከስ ጽንሲ ምምግባብ ይወስድ።',
+        length: 'ኣስታት 41 mm',
+        comparison: 'በለስ',
+        bodyChanges: ['ብፍላይ ምስ ሆርሞናዊ ለውጢታት ዝተኣሳሰሩ ለውጢታት ስምዒት ክስምዓካ ይኽእል።'],
+        toKnow: ['ምንቅስቓስ ሕጻን ይጅምር እዩ፣ ብሓፈሻ ግን ኣብዚ ደረጃ ገና ኣይስምዕን።'],
+      },
+      rw: {
+        babyDescription:
+          'Intoki z\'amaboko n\'iz\'ibirenge ziratandukana, inzara nto zirakura, kandi placenta igenda isimbura agapfunyika k\'umuhondo mu kugaburira umwana.',
+        length: 'Hafi mm 41',
+        comparison: 'Umutini',
+        bodyChanges: ['Ushobora kubona guhindagurika kw\'amarangamutima, bifitanye isano by\'umwihariko n\'impinduka za hormone.'],
+        toKnow: ['Ingendo z\'umwana zirimo gutangira, ariko muri rusange ntiziragaragara muri iki gihe.'],
+      },
+      rn: {
+        babyDescription:
+          'Intoke z’amaboko n’iz’ibirenge ziratandukana, inzara nto zirakura, kandi placenta igenda yisubiza buhoro buhoro umwanya w’agapfunyika k’umuhondo mu kugaburira umwana.',
+        length: 'Hafi ya mm 41',
+        comparison: 'Umutini',
+        bodyChanges: ['Ushobora kwitegereza impinduka z’umutima, zijanye cane cane n’impinduka za hormone.'],
+        toKnow: ['Ingendo z’umwana zirakwiza gutangura, ariko mu rusangi ntizirumvwa kuri iki gihe.'],
+      },
+      ig: {
+        babyDescription:
+          'Mkpịsị aka na mkpịsị ụkwụ na-ekewa, obere mpịakọ na-apụta, ma placenta na-anọchi yolk sac nke nta nke nta n\'ịzụ fetus ahụ.',
+        length: 'Ihe dị ka 41 mm',
+        comparison: 'Mkpụrụ fig',
+        bodyChanges: ['Ị nwere ike ịhụ mgbanwe mmụọ, nke jikọtara karịsịa na mgbanwe hormone.'],
+        toKnow: ['Mmegharị nwa ahụ na-amalite, mana n\'ozuzu, a naghị enwe mmetụta ha n\'ọkwa a.'],
+      },
+      yo: {
+        babyDescription:
+          'Ìka ọwọ́ àti ẹsẹ̀ yà síra, èékánná kéékèèké hàn, placenta sì ń gba ipò àpò yolk díẹ̀díẹ̀ nínú bíbọ́ fetus.',
+        length: 'Nǹkan bí 41 mm',
+        comparison: 'Èso ọ̀pọ̀tọ́',
+        bodyChanges: ['O lè kíyèsí ìyípadà ìṣesí, tó jẹ mọ́ àwọn àyípadà hormone ní pàtàkì.'],
+        toKnow: ['Ìṣípòpadà ọmọ ń bẹ̀rẹ̀, ṣùgbọ́n kò sábà ṣeé ní rí lára síbẹ̀ ní ìpele yìí.'],
+      },
+      zu: {
+        babyDescription:
+          'Iminwe yezandla nezinzwani zezinyawo ziyahlukana, izinzipho ezincane ziyavela, futhi i-placenta kancane kancane ithatha esikhundleni se-yolk sac ekondleni ingane esesibelethweni.',
+        length: 'Cishe 41 mm',
+        comparison: 'Ikhiwane',
+        bodyChanges: ['Ungase uqaphele ukushintsha kwemizwa, okuhlobene ikakhulukazi nezinguquko zamahomoni.'],
+        toKnow: ['Ukunyakaza kwengane kuyaqala, kodwa ngokuvamile akuzwakali kulesi sigaba.'],
+      },
+      xh: {
+        babyDescription:
+          'Iminwe yezandla neyeenyawo iyahlukana, ii-nail ezincinci ziyavela, kwaye ipleseta ithatha ngokuthe ngcembe indawo yesingxobo seqanda ekondleni ifetus.',
+        length: 'Malunga ne-41 mm',
+        comparison: 'Ityhefu',
+        bodyChanges: ['Unokubona ukutshintsha kwemood, okudityaniswe ngokukodwa notshintsho lwehomoni.'],
+        toKnow: ['Intshukumo yosana iyaqala, kodwa ngokubanzi ayivakali okwangoku kweli nqanaba.'],
+      },
+      sn: {
+        babyDescription:
+          'Minwe yemaoko netsoka inosiyana, nzara diki dzinoonekwa, uye placenta inotora zvishoma nezvishoma basa reyolk sac rekudyisa fetus.',
+        length: 'Kunge 41 mm',
+        comparison: 'Mkuyu',
+        bodyChanges: ['Unogona kuona kushanduka kwemufambiro wemoyo, kunokonzerwa kunyanya neshanduko dzehormone.'],
+        toKnow: ['Kufamba kwemwana kuri kutanga, asi kazhinji hakunzwiki panguva ino.'],
+      },
+      ln: {
+        babyDescription:
+          'Misapi ya maboko mpe ya makolo ekabwani, ba ongle ya mike ebimi, mpe placenta ezali kozwa esika ya sac vitellin mpo na kopesa fœtus bilei.',
+        length: 'Pene 41 mm',
+        comparison: 'Figue',
+        bodyChanges: ['Okoki komona mbongwana ya motema, oyo ezali na boyokani na mbongwana ya hormone.'],
+        toKnow: ['Mbongwana ya mwana ebandi, kasi eyokanaka naino te mbala mingi na ntango oyo.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗa juude e koyɗe ina seertude, sippiiji ɓoyƊi ina ngarta, e plasenta ina tokka ɓesdude kuugal nyaamnugol foetus.',
+        length: 'Nder mm 41',
+        comparison: 'Siki',
+        bodyChanges: ['A nanay waylooji hakkiilo, ɗum sabaabu waylooji hormon.'],
+        toKnow: ['Hoyrugol ɓiɗɗo ina fuɗɗa, ammaa ɗum nanaaka ɗoo.'],
       },
       id: {
         babyDescription: 'Jari tangan dan jari kaki mulai terpisah, kuku-kuku kecil muncul, dan plasenta berangsur menggantikan kantung kuning telur dalam menyuplai nutrisi bagi janin.',
@@ -7884,6 +9251,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕早期结束时，流产风险通常被认为比之前几周要低。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '內臟器官和肌肉已經長得不錯，骨骼開始骨化。生殖器官已經形成，不過在超音波檢查中還看不到。',
+        length: '約 5.4 釐米',
+        comparison: '李子',
+        bodyChanges: [
+          '噁心往往會在這個時期逐漸緩解，不過因人而異，差別很大。',
+        ],
+        toKnow: [
+          '孕早期結束時，流產風險通常被認為比之前幾週要低。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'نمت الأعضاء الداخلية والعضلات جيدًا، ويبدأ الهيكل العظمي بالتعظّم. وقد تشكلت الأعضاء التناسلية، رغم أنها لا تظهر بعد في الموجات فوق الصوتية.',
+        length: 'حوالي 5.4 سم',
+        comparison: 'الخوخ الأحمر (البرقوق)',
+        bodyChanges: ['يميل الغثيان غالبًا إلى التراجع تدريجيًا في هذا الوقت، رغم أن ذلك يختلف كثيرًا من امرأة إلى أخرى.'],
+        toKnow: ['غالبًا ما يرتبط نهاية الثلث الأول بانخفاض خطر الإجهاض مقارنةً بالأسابيع السابقة.'],
+      },
+      kab: {
+        babyDescription:
+          'Iɛeḍman n lǧuf d ikalasen sɛan taɣessa, yerna ukalet yebda ad yettaḥaḍ. Iɛeḍman n tuffɣa xedmen yakan, maca ur d-banen ara deg ultrason akka tura.',
+        length: 'Azal n 5.4 cm',
+        comparison: 'Aɣerbal n lbrikuk',
+        bodyChanges: ['Uzaglu s umata ittnaqqaṣ cwiṭ cwiṭ deg wakud-a, ula ma yemgarad aṭas seg yiwen ɣer wayeḍ.'],
+        toKnow: ['Taggara n tlata n wayyuren tettwaqqen s umata ɣer uqaṭṭar n lmeskel amecṭuḥ ma yettwasebded ɣer ddasen i izwaren.'],
+      },
+      om: {
+        babyDescription:
+          'Qaamoleen keessoo fi leenjiin gaarii guddataniiru, lafeen immoo cimuu jalqabaa jira. Qaamoleen da\'umsaa uumamaniiru, garuu ultrasound irratti ammallee hin mul\'atan.',
+        length: 'Gara 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: ['Garaa kaasuun yeroo baay\'ee yeroo kana naannoo suuta suutaan salphata, garuu kun nama irraa nama biraatti baay\'ee garaagarummaa qaba.'],
+        toKnow: ['Xumura kutaa jalqabaa yeroo baay\'ee torbanoota darban waliin wal bira qabamee balaa dhabamuu ulfaa gad-aanaa waliin wal-qabsiifama.'],
+      },
+      ti: {
+        babyDescription:
+          'ውሽጣዊ ኣካላትን ጭቡጣትን ጽቡቕ ዓቢዮም፣ ዓጽሚ’ውን ክጠንክር ይጅምር። ኣካላት ምፍርያይ ተፈጢሮም፣ ኣብ ኣልትራሳውንድ ግን ገና ኣይርኣዩን።',
+        length: 'ኣስታት 5.4 cm',
+        comparison: 'ፕለም',
+        bodyChanges: ['ምግላል ብሓፈሻ ኣብዚ እዋን ቀስ ብቐስ ክቕንስ ይጅምር፣ እዚ ግን ካብ ሰብ ናብ ሰብ ብጣዕሚ ይፈላለይ።'],
+        toKnow: ['መወዳእታ ቀዳማይ ትሪሜስተር ብዙሕ ግዜ ምስ ቀደምቲ ሳምንታት ክነጻጸር ከሎ ትሑት ሓደጋ ጥንሲ ምጥፋእ ጋር ይኣሳሰር።'],
+      },
+      rw: {
+        babyDescription:
+          'Ingingo z\'imbere n\'imikaya byakuze neza, kandi amagufwa atangiye gukomera. Ingingo z\'imyororokere zarakozwe, nubwo zitaragaragara kuri ultrasound.',
+        length: 'Hafi cm 5.4',
+        comparison: 'Prune',
+        bodyChanges: ['Iseseme akenshi igenda igabanuka buhoro buhoro hafi muri iki gihe, nubwo bitandukanye cyane ku muntu n\'undi.'],
+        toKnow: ['Iherezo ry\'igihembwe cya mbere akenshi rifitanye isano n\'ibyago bike byo gukuramo inda ugereranyije n\'ibyumweru byabanje.'],
+      },
+      rn: {
+        babyDescription:
+          'Ingingo z’imbere n’imikaya vyarakuze neza, kandi amagufa atangura gukomera. Ibice vy’imyororokere vyarashizweho, naho bitaboneka kuri ultrasound.',
+        length: 'Hafi ya cm 5,4',
+        comparison: 'Plum',
+        bodyChanges: ['Isesemi akenshi itangura koroha buhoro buhoro ahagana kuri iki gihe, naho bitandukanye cane kuri buri muntu.'],
+        toKnow: ['Iherezo rya trimestre ya mbere rirakunze kujanishwa n’ingaruka nkeya zo guhomba inda ugereranije n’ibyumweru vyabanje.'],
+      },
+      ig: {
+        babyDescription:
+          'Akụkụ ime na akwara etoola nke ọma, ma ọkpụkpụ na-amalite ịmasị. Akụkụ ọmụmụ etolitela, ọ bụ ezie na a naghị ahụ ha n\'ultrasound.',
+        length: 'Ihe dị ka 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: ['Ọgbụgbọ na-adịkarị na-ebelata nwayọ nwayọ n\'oge a, ọ bụ ezie na nke a dị iche nke ukwuu site n\'onye gaa n\'onye.'],
+        toKnow: ['A na-ejikọkarị njedebe nke trimester mbụ na ihe ize ndụ miscarriage dị ala karịa izu ndị gara aga.'],
+      },
+      yo: {
+        babyDescription:
+          'Àwọn ẹ̀yà ara inú àti iṣan ti dàgbà dáadáa, egungun sì ń bẹ̀rẹ̀ sí le. Àwọn ẹ̀yà ìbímọ ti dá, bó tilẹ̀ jẹ́ pé wọn kò tíì hàn lórí ultrasound.',
+        length: 'Nǹkan bí 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: ['Ríru sábà máa ń rọlẹ̀ díẹ̀díẹ̀ ní àyíká àkókò yìí, bó tilẹ̀ jẹ́ pé èyí yàtọ̀ gan-an láti ẹnìkan sí òmíràn.'],
+        toKnow: ['Ìparí trimester àkọ́kọ́ sábà máa ń jẹ mọ́ ewu ìṣẹ́yún tí ó kéré sí i ní ìfiwéra pẹ̀lú àwọn ọ̀sẹ̀ tó ṣáájú.'],
+      },
+      zu: {
+        babyDescription:
+          'Izitho zangaphakathi nemisipha sekukhule kahle, futhi amathambo aqala ukuqina. Izitho zokuzala ziyakhiwe, nakuba zingabonakali ku-ultrasound okwamanje.',
+        length: 'Cishe 5.4 cm',
+        comparison: 'Ipulamu',
+        bodyChanges: ['Isicanucanu ngokuvamile siyaqala ukwehla kancane kancane cishe ngalesi sikhathi, nakuba lokhu kuhluka kakhulu kumuntu ngamunye.'],
+        toKnow: ['Ukuphela kwe-trimester yokuqala ngokuvamile kuhlotshaniswa nobungozi obuphansi bokukhishwa kwesisu uma kuqhathaniswa namasonto andulele.'],
+      },
+      xh: {
+        babyDescription:
+          'Izitho zangaphakathi nemisipha zikhule kakuhle, kwaye amathambo aqala ukuqina. Izitho zokuzala ziyakheke, nangona zingabonakali kwi-ultrasound okwangoku.',
+        length: 'Malunga ne-5.4 cm',
+        comparison: 'Iplum',
+        bodyChanges: ['Isicaphucaphu sidla ngokuthamba ngokuthe ngcembe malunga neli xesha, nangona oku kwahluka kakhulu ngomntu ngamnye.'],
+        toKnow: ['Isiphelo setrimester yokuqala sidla ngokudityaniswa nomngcipheko osezantsi wokuphelelwa yinkqubo yokukhawulwa xa kuthelekiswa neeveki ezandulelayo.'],
+      },
+      sn: {
+        babyDescription:
+          'Nhengo dzemukati nemhasuru zvakura zvakanaka, uye mapfupa ari kutanga kuomarara. Nhengo dzekubereka dzaumbwa, kunyange dzisati dzaonekwa paultrasound.',
+        length: 'Kunge 5.4 cm',
+        comparison: 'Plum',
+        bodyChanges: ['Kusvotwa kazhinji kunoderera zvishoma nezvishoma panguva ino, kunyange izvi zvichisiyana zvakanyanya kubva kumunhu kuenda kune mumwe.'],
+        toKnow: ['Kupera kwetrimester yekutanga kazhinji kunobatana nengozi yakaderera yemiscarriage kana ichienzaniswa nemavhiki akaitangira.'],
+      },
+      ln: {
+        babyDescription:
+          'Biteni ya kati mpe misisa etomboki malamu, mpe mikuwa ebandi kokoma makasi. Biteni ya kobota esili kosalema, atako emonanaka naino te na ultrasound.',
+        length: 'Pene 5,4 cm',
+        comparison: 'Prune',
+        bodyChanges: ['Nausea ekitaka mbala mingi noki noki pene na ntango oyo, atako yango ekesanaka mingi uta moto kino mosusu.'],
+        toKnow: ['Nsuka ya trimestre ya liboso ekangami mbala mingi na likama moke ya kobwaka zemi kokokanisa na poso oyo eleki.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓaleeɗo ɗon e muusaaji ina mawni moƴƴum, e kaɓirɗe ina fuɗɗa tiiɗude. Ɓaleeɗo ɗon ina waɗaama, hay si ɗum yiyetaa e ultrasound ɗoo.',
+        length: 'Nder cm 5,4',
+        comparison: 'Prun',
+        bodyChanges: ['Ñaawugol yiite ina fuɗɗa ɓoyude seɗɗa seɗɗa e wakkati ɗoo, hay si ɗum feewi saabaade debbo e debbo.'],
+        toKnow: ['Raɓ trimestre adannde ina ɗon tokkaama e dooyugol ɓurdi e jammaa adii.'],
+      },
       id: {
         babyDescription: 'Organ dalam dan otot telah tumbuh dengan baik, dan kerangka mulai mengeras. Organ reproduksi sudah terbentuk, meski belum terlihat pada USG.',
         length: 'Sekitar 5,4 cm',
@@ -8563,6 +10045,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '孕早期通常在这一周前后结束，之后的产检间隔会拉长一些。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '動作仍然有些抽動，但變得更協調了一點。有些寶寶已經出現吮吸拇指的反射。',
+        length: '約 7.4 釐米',
+        comparison: '桃子',
+        bodyChanges: [
+          '隨著孕中期臨近，很多人的精力會逐漸恢復一些。',
+        ],
+        toKnow: [
+          '孕早期通常在這一週前後結束，之後的產檢間隔會拉長一些。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تصبح الحركات، التي لا تزال متقطعة، أكثر تناسقًا قليلًا. وتُظهر بعض الأجنّة بالفعل منعكس مصّ الإبهام.',
+        length: 'حوالي 7.4 سم',
+        comparison: 'الخوخ',
+        bodyChanges: ['تستعيد كثير من النساء تدريجيًا قدرًا أكبر من الطاقة مع اقتراب الثلث الثاني.'],
+        toKnow: ['ينتهي الثلث الأول عمومًا في هذا الأسبوع تقريبًا؛ وتستمر الرعاية بمواعيد أكثر تباعدًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Ukkus, mazal yettawi, yettuɣal d ayen yeqqnen cwiṭ. Kra n yiqcicen sɛan yakan arrad n ummus n uḍar.',
+        length: 'Azal n 7.4 cm',
+        comparison: 'Aɣerbal n lxux',
+        bodyChanges: ['Aṭas n medden ttaɣalen cwiṭ cwiṭ i tezmert cwiṭ ugar mi ara yeqreb wayyur wis sin.'],
+        toKnow: ['Wayyur amezwaru n lḥemla yekfa s umata ɣer ddasen-a; aḥrad yettkemmil s ussan n wuffir imbaɛden.'],
+      },
+      om: {
+        babyDescription:
+          'Sochiin, ammallee jeeqamaa, xiqqoo walsimataa ta\'a. Daa\'imman tokko tokko duraanuu reeflexii quba mimmixuu agarsiisu.',
+        length: 'Gara 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: ['Namoonni baay\'een kutaa lammaffaa dhiʼeenya waliin suuta suutaan humna xiqqoo deebisanii argatu.'],
+        toKnow: ['Kutaan jalqabaa waliigalaan torban kana naannoo xumurama; kunuunsi beellama baay\'ee addaan fageeyyii waliin itti fufa.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ገና ዘይመጣጠን ምንቅስቓሳት ቁሩብ ዝያዳ ይተሓላለዉ። ገሊኦም ሕጻናት ድሮ ጣት ናይ ምጥባይ ተገብሮ ይርእዩ።',
+        length: 'ኣስታት 7.4 cm',
+        comparison: 'ፒች',
+        bodyChanges: ['ዳግማይ ትሪሜስተር ክቐርብ ከሎ ብዙሓት ሰባት ቀስ ብቐስ ቁሩብ ዝያዳ ሓይሊ ይረኽቡ።'],
+        toKnow: ['ቀዳማይ ትሪሜስተር ብሓፈሻ ኣብዚ ሳምንቲ ይውዳእ፤ ክትትል ብዝያዳ ዝተነጸለ ቆጸራታት ይቕጽል።'],
+      },
+      rw: {
+        babyDescription:
+          'Ingendo, zikiri zo gukubita, zirushaho guhuzwa gato. Bamwe mu bana basanzwe bafite ingeso yo konka igikumwe.',
+        length: 'Hafi cm 7.4',
+        comparison: 'Pêche',
+        bodyChanges: ['Abantu benshi basubirana imbaraga nke buhoro buhoro uko igihembwe cya kabiri kigenda kiza.'],
+        toKnow: ['Igihembwe cya mbere muri rusange kirangira hafi muri iki cyumweru; gukurikiranwa kuracyakomeza hamwe n\'inama zitaba kenshi.'],
+      },
+      rn: {
+        babyDescription:
+          'Ingendo, zikiri zidahuye, zirakwiza guhuza neza gatoya. Abana bamwe bamaze kugira akamenyero ko konka urutoki.',
+        length: 'Hafi ya cm 7,4',
+        comparison: 'Peach',
+        bodyChanges: ['Benshi baragenda basubirana imbaraga nkeya uko trimestre ya kabiri yegereza.'],
+        toKnow: ['Trimestre ya mbere mu rusangi irangira ahagana kuri iki cumweru; gukurikiranwa gukomeza n’amafasi atandukanijwe cane.'],
+      },
+      ig: {
+        babyDescription:
+          'Mmegharị, nke ka na-agbapụ, na-aghọ nke ntakịrị dị mma karị. Ụfọdụ nwa ndị na-egosikwa mmeghachi omume ịmịkọrọ mkpịsị aka.',
+        length: 'Ihe dị ka 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: ['Ọtụtụ mmadụ na-enweta ntakịrị ume ọzọ nwayọ nwayọ ka trimester nke abụọ na-eru nso.'],
+        toKnow: ['N\'ozuzu, trimester mbụ na-agwụ n\'ihe dị ka izu a; nlekọta na-aga n\'ihu na nzute ndị dị ogologo oge n\'etiti.'],
+      },
+      yo: {
+        babyDescription:
+          'Àwọn ìṣípòpadà, tó ṣì ń já, túbọ̀ ṣe déédé díẹ̀. Àwọn ọmọ kan ti ń fi ìka mu ẹnu ná.',
+        length: 'Nǹkan bí 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: ['Ọ̀pọ̀ ènìyàn ń rí agbára díẹ̀ sí i padà díẹ̀díẹ̀ bí trimester kejì ti ń sún mọ́.'],
+        toKnow: ['Trimester àkọ́kọ́ sábà máa ń parí ní àyíká ọ̀sẹ̀ yìí; ìtọ́jú ń tẹ̀síwájú pẹ̀lú àwọn ìpàdé tí ó jìnnà síra jù.'],
+      },
+      zu: {
+        babyDescription:
+          'Ukunyakaza, okusadlalayo, kuya ngokuhlangana kancane. Ezinye izingane sezibonisa umkhuba wokumunca isithupha.',
+        length: 'Cishe 7.4 cm',
+        comparison: 'Ipentshisi',
+        bodyChanges: ['Abantu abaningi kancane kancane babuyisela amandla amaningi njengoba i-trimester yesibili isondela.'],
+        toKnow: ['I-trimester yokuqala ngokuvamile iphela cishe kuleli sonto; ukunakekelwa kuyaqhubeka nokuhlangana okuhlukene kakhulu.'],
+      },
+      xh: {
+        babyDescription:
+          'Intshukumo, esasuka-suka, iba ngokulungelelana ngakumbi kancinane. Abanye osana sele bebonisa ukumunxa isithupha.',
+        length: 'Malunga ne-7.4 cm',
+        comparison: 'Ipeach',
+        bodyChanges: ['Abantu abaninzi bayaphinda bafumane amandla amaninzi ngokuthe ngcembe njengoko itrimester yesibini isondela.'],
+        toKnow: ['Itrimester yokuqala ngokubanzi iphela malunga nale veki; ukhathalelo luqhubeka ngamadinga ahlukeneyo ngakumbi.'],
+      },
+      sn: {
+        babyDescription:
+          'Kufamba, kuchiri kwekutyamara, kunova kwakanyatsonamatana zvishoma. Vamwe vana vanoratidza kare reflex yekusveta chigunwe.',
+        length: 'Kunge 7.4 cm',
+        comparison: 'Peach',
+        bodyChanges: ['Vanhu vazhinji vanowana simba zvishoma zvakare zvishoma nezvishoma sezvo trimester yechipiri ichiswedera.'],
+        toKnow: ['Trimester yekutanga kazhinji inopera panguva yevhiki rino; kutarisirwa kunoenderera nemaappointment akaparadzaniswa.'],
+      },
+      ln: {
+        babyDescription:
+          'Mbongwana, naino ya kokokana te, ekómi moke moke ya kosunga. Bana mosusu bamonisi naino mosala ya kolia mosapi.',
+        length: 'Pene 7,4 cm',
+        comparison: 'Pêche',
+        bodyChanges: ['Bato mingi bazongaka moke moke na nguya moke koleka ntango trimestre ya mibale ezali pene.'],
+        toKnow: ['Trimestre ya liboso esilaka mbala mingi pene na poso oyo; bokɔngɔli ekobaka na rendez-vous ya mosika moke.'],
+      },
+      ff: {
+        babyDescription:
+          'Hoyrugol, wanaa ɗum yaaɗi, ina ɓeydi fuɗɗaade tokkude. Ɓiɗɗa feere ina ngoodi nanndi ñaamugol kawrugol.',
+        length: 'Nder cm 7,4',
+        comparison: 'Piiʼ',
+        bodyChanges: ['Woɗɓe ɗuuɗɓe ina ngaɗa seɗɗa semmbe ɓaawo ndeen trimestre ɗiɗaɓal ina ɓadiike.'],
+        toKnow: ['Trimestre adannde ina raɓa e jammaa ɗoo; reentugol ina tokka e ndaarugol ɓurdi ɗaɓɓude wakkati.'],
       },
       id: {
         babyDescription: 'Gerakan yang masih kaku menjadi sedikit lebih terkoordinasi. Beberapa bayi bahkan sudah menunjukkan refleks mengisap jempol.',
@@ -9246,6 +10843,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '医疗专业人员有时可以用放在肚子上的超声设备开始听到胎心。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '頭部變得更圓，與身體其他部分更成比例。胎兒會吞嚥少量羊水，羊水會經過胃和腎臟。',
+        length: '約 8.5 釐米',
+        comparison: '獼猴桃',
+        bodyChanges: [
+          '對有些人來說，肚子開始更明顯地隆起。',
+        ],
+        toKnow: [
+          '醫療專業人員有時可以用放在肚子上的超音波裝置開始聽到胎心。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يصبح الرأس أكثر استدارة وأكثر تناسبًا مع بقية الجسم. ويبتلع الجنين قليلًا من السائل الأمنيوسي، الذي يمر عبر المعدة والكليتين.',
+        length: 'حوالي 8.5 سم',
+        comparison: 'الكيوي',
+        bodyChanges: ['يبدأ البطن بالاستدارة بشكل أوضح لدى بعض النساء.'],
+        toKnow: ['يستطيع المختص الصحي أحيانًا أن يبدأ بسماع نبض القلب بجهاز موجات فوق صوتية يوضع على البطن.'],
+      },
+      kab: {
+        babyDescription:
+          'Iqerru yettuɣal d ayen yeqqnen ugar d lǧuf. Aqcic yettɣimmi cwiṭ n waman n lmayeɛ, ayen yettɛeddin deg tikuffa d ukan.',
+        length: 'Azal n 8.5 cm',
+        comparison: 'Aɣerbal n kiwi',
+        bodyChanges: ['Uḍfel ittbedu ad yettbeddil ugar i kra n medden.'],
+        toKnow: ['Unelmad n tezmert izmer kra n tikkal ad yebdu ad isel i wul s ukamil n ultrason yettwasbedden ɣer uḍfel.'],
+      },
+      om: {
+        babyDescription:
+          'Mataan caalaatti geengoo ta\'a, qaama hafe waliin madaalamaa ta\'a. Fetus bishaan hanqaaquu xiqqoo liqimsa, kunis garaa fi kalee keessa darba.',
+        length: 'Gara 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['Garaan namoota tokko tokkoof caalaatti ifatti geengoo ta\'uu jalqaba.'],
+        toKnow: ['Ogeessi fayyaa yeroo tokko tokko meeshaa ultrasound garaa irra kaa\'ame fayyadamuun dhukkuba onnee dhaga\'uu jalqabuu danda\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ርእሲ ዝያዳ ክቡብ ይኸውን፣ ምስ ዝተረፈ ኣካል’ውን ዝያዳ ይመጣጠን። ጽንሲ ቁሩብ ፈሳሲ ኣምኒዮን ይውሕጥ፣ ንሱ ብቆልዓ ከብዲን ኩላሊትን ይሓልፍ።',
+        length: 'ኣስታት 8.5 cm',
+        comparison: 'ኪዊ',
+        bodyChanges: ['ከብዲ ንገሊኦም ሰባት ብዝያዳ ርኡይ ኣገባብ ክቡብ ይጅምር።'],
+        toKnow: ['ክኢላ ጥዕና ገለ ግዜ ኣብ ከብዲ ብዝተቐመጠ ናይ ኣልትራሳውንድ መሳርሒ ድምጺ ልቢ ክሰምዕ ይጅምር።'],
+      },
+      rw: {
+        babyDescription:
+          'Umutwe urushaho kuba uruziga kandi ukangana n\'ibindi bice by\'umubiri. Umwana aconga amazi make y\'inda, anyura mu gifu no mu mpyiko.',
+        length: 'Hafi cm 8.5',
+        comparison: 'Kiwi',
+        bodyChanges: ['Inda itangira kugaragara neza ku bantu bamwe.'],
+        toKnow: ['Umuhanga mu buzima rimwe na rimwe ashobora gutangira kumva umutima ukoresheje igikoresho cya ultrasound gishyizwe ku nda.'],
+      },
+      rn: {
+        babyDescription:
+          'Umutwe urarushiriza kuba mugari kandi uringaniye n’umubiri wose. Umwana anywa amazi make y’inda, anyura mu gifu no mu bihimba.',
+        length: 'Hafi ya cm 8,5',
+        comparison: 'Kiwi',
+        bodyChanges: ['Inda itangura kugaragara cane kuri bamwe.'],
+        toKnow: ['Umuhanga mu vy’ubuzima rimwe na rimwe ashobora gutangura kumva umutima w’umwana akoresheje igikoresho ca ultrasound gishyizwe ku nda.'],
+      },
+      ig: {
+        babyDescription:
+          'Isi na-aghọ nke gbara okirikiri karị ma kwekọọ karị na ahụ ndị ọzọ. Fetus na-eloda obere mmiri amniotic, nke na-agafe n\'afọ na akụrụ.',
+        length: 'Ihe dị ka 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['Afọ na-amalite ịgba okirikiri karị n\'ụzọ a na-ahụ maka ụfọdụ mmadụ.'],
+        toKnow: ['Onye ọrụ ahụike nwere ike ịmalite ịnụ mkpọtụ obi mgbe ụfọdụ site na ngwa ultrasound e debere n\'afọ.'],
+      },
+      yo: {
+        babyDescription:
+          'Orí túbọ̀ yí ó sì túbọ̀ bá ìyókù ara mu. Fetus ń gbé omi amniotic díẹ̀ mì, èyí tó ń kọjá inú àti kíndìnrín.',
+        length: 'Nǹkan bí 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['Ikùn bẹ̀rẹ̀ sí yípo sí i ní kedere fún àwọn kan.'],
+        toKnow: ['Nígbà míràn oníṣẹ́ ìlera lè bẹ̀rẹ̀ sí gbọ́ ìlù ọkàn pẹ̀lú ẹ̀rọ ultrasound tí a gbé lé ikùn.'],
+      },
+      zu: {
+        babyDescription:
+          'Ikhanda liba nomumo ojikelezayo futhi lilingana kangcono nomzimba osele. Ingane esesibelethweni iginya uketshezi lwe-amniotic oluncane, oludlula esiswini nasezinyaweni zezinso.',
+        length: 'Cishe 8.5 cm',
+        comparison: 'I-kiwi',
+        bodyChanges: ['Isisu siqala ukuvela ngokubonakalayo kwabanye abantu.'],
+        toKnow: ['Uchwepheshe wezempilo ngezinye izikhathi angaqala ukuzwa ukushaya kwenhliziyo ngethuluzi le-ultrasound elibekwe esiswini.'],
+      },
+      xh: {
+        babyDescription:
+          'Intloko iba ngqukuva ngakumbi kwaye iyalingana nomzimba osele. Ifetus imginya ulwelo oluncinci lwesibeleko, oludlula esiswini nakwizintso.',
+        length: 'Malunga ne-8.5 cm',
+        comparison: 'Ikiwi',
+        bodyChanges: ['Isisu siqala ukujikeleza ngakumbi kwabanye abantu.'],
+        toKnow: ['Ingcali yezempilo ngamanye amaxesha inokuqala ukuva ukubetha kwentliziyo ngesixhobo se-ultrasound esibekwe esiswini.'],
+      },
+      sn: {
+        babyDescription:
+          'Musoro unova wakatenderera uye unofanana zvakanyanya nemuviri wese. Fetus inomedza mvura yeamniotic shoma, inopfuura nemudumbu nenhengo dzemitezo.',
+        length: 'Kunge 8.5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['Dumbu rinotanga kutenderera zvinooneka zvakanyanya kune vamwe.'],
+        toKnow: ['Mushandi wezvehutano anogona dzimwe nguva kutanga kunzwa kurova kwemoyo nechishandiso che ultrasound chakaiswa padumbu.'],
+      },
+      ln: {
+        babyDescription:
+          'Motu ekomi ya molango mpe ekokani malamu na nzoto mosusu. Fœtus ezali komela mai ya amniotique moke, oyo eleki na libumu mpe na mikolo ya mitoi.',
+        length: 'Pene 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['Mokɔlɔ ebandi kobimela malamu mpo na basusu.'],
+        toKnow: ['Moto ya mosala ya lisano akoki mbala mosusu kobanda koyoka motema na eloko ya ultrasound oyo etiami na mokɔlɔ.'],
+      },
+      ff: {
+        babyDescription:
+          'Hoore ina ɓeydi gonɗude e ɓaleeɗo feere. Foetus ina ñaamna ndiyam reedu seɗɗa, ndiyam ina fotta nder reedu e ɓeemeeji.',
+        length: 'Nder cm 8,5',
+        comparison: 'Kiwi',
+        bodyChanges: ['Reedu ina fuɗɗa gonɗude ɓurdi yiyeede ngam woɗɓe.'],
+        toKnow: ['Jey-jeyaaɗo ɗemngal dawrugol ina waawi fuɗɗude nande ɓerɗe e suuɗu ultrasound dow reedu.'],
+      },
       id: {
         babyDescription: 'Kepala menjadi lebih bulat dan lebih proporsional dengan tubuh. Janin menelan sedikit air ketuban, yang kemudian melewati lambung dan ginjal.',
         length: 'Sekitar 8,5 cm',
@@ -9926,6 +11638,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '听觉大约在这个时候开始发育：你的声音和身体内部的声音会逐渐被听到。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '一層叫做胎毛的細軟絨毛逐漸覆蓋皮膚，眉毛和睫毛開始出現。眼睛開始對光敏感。',
+        length: '約 10.1 釐米',
+        comparison: '蘋果',
+        bodyChanges: [
+          '你的食慾可能會改變，有時會出現新的食物渴望或抗拒。',
+        ],
+        toKnow: [
+          '聽覺大約在這個時候開始發育：你的聲音和身體內部的聲音會逐漸被聽到。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تغطي زغابة ناعمة تسمى اللانوغو الجلد تدريجيًا، وتبدأ الحواجب والرموش بالظهور. وتصبح العينان حساستين للضوء.',
+        length: 'حوالي 10.1 سم',
+        comparison: 'التفاح',
+        bodyChanges: ['قد تتغير شهيتك، أحيانًا مع اشتهاء أطعمة جديدة أو نفور منها.'],
+        toKnow: ['يبدأ السمع بالنمو في هذا الوقت تقريبًا: فيصبح صوتك والأصوات الداخلية للجسم مسموعة تدريجيًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqucuy ameẓyan yettwassen d lanugo ittbedu ad yeqqim ɣef weglim, yerna iɣerfan d tekkamin ttbanen. Allen ttuɣalen d iḥessasen i tafat.',
+        length: 'Azal n 10.1 cm',
+        comparison: 'Aɣerbal n tifaḥ',
+        bodyChanges: ['Lbɣi-ik n imekli izmer ad yettbeddil, kra n tikkal s ugzam neɣ ur nelli ara n kra n yimekli.'],
+        toKnow: ['Asel yebda ad d-yettalay ɣer ddasen-a: taɣect-ik d yiɣbaren n ujeṭṭa ttbedun ad ttwasselen cwiṭ cwiṭ.'],
+      },
+      om: {
+        babyDescription:
+          'Rifeensi xiqqoon lanugo jedhamu suuta suutaan gogaa haguuga, kophee fi rifeensa ija mul\'achuu jalqaba. Ijji ifaaf miira qabaata.',
+        length: 'Gara 10.1 cm',
+        comparison: 'Apple',
+        bodyChanges: ['Fedhiin nyaataa kee jijjiiramuu danda\'a, yeroo tokko tokko nyaata haaraa hawwuu yookaan jibbuu waliin.'],
+        toKnow: ['Dhaga\'uun yeroo kana naannoo guddachuu jalqaba: sagalee kee fi sagalee keessoo qaamaa suuta suutaan dhaga\'amuu danda\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ላኑጎ ዝብሃል ቀጢን ጸጉሪ ቀስ ብቐስ ቆርበት ይሽፍን፣ ሽፋሽፍትን ኣዕቢያት ዓይንን ክርአዩ ይጅምሩ። ዓይኒ ንብርሃን ተቐባሊ ይኸውን።',
+        length: 'ኣስታት 10.1 cm',
+        comparison: 'ቱፋሕ',
+        bodyChanges: ['ድሌት መግቢኻ ክቕየር ይኽእል፣ ገለ ግዜ ምስ ሓደስቲ ድሌታትን ጽልኣትን።'],
+        toKnow: ['ስምዒት ምስማዕ ኣብዚ እዋን ክዓብይ ይጅምር፦ ድምጽኻን ውሽጣዊ ድምጺ ኣካልን ቀስ ብቐስ ይስማዕ።'],
+      },
+      rw: {
+        babyDescription:
+          'Ubwoya bworoshye bwitwa lanugo buhoro buhoro bupfuka uruhu, kandi ibitsike n\'ibyiyi by\'amaso bitangira kugaragara. Amaso arumva urumuri.',
+        length: 'Hafi cm 10.1',
+        comparison: 'Pome',
+        bodyChanges: ['Ubushake bwo kurya bwawe bushobora guhinduka, rimwe na rimwe hakabaho kwifuza cyangwa kwanga ibiryo bishya.'],
+        toKnow: ['Kumva bitangira gukura hafi muri iki gihe: ijwi ryawe n\'amajwi y\'imbere mu mubiri buhoro buhoro bitangira kumvikana.'],
+      },
+      rn: {
+        babyDescription:
+          'Umusatsi muto witwa lanugo uragenda upfuka uruhu, kandi ibitsike n’inzara z’amaso bitangura kugaragara. Amaso arumva umucyo.',
+        length: 'Hafi ya cm 10,1',
+        comparison: 'Pome',
+        bodyChanges: ['Ubushake bwo kurya bushobora guhinduka, rimwe na rimwe hamwe no gukunda canke gutinya ibiryo bishasha.'],
+        toKnow: ['Kumva gutangura gukura ahagana kuri iki gihe: ijwi ryawe n’amajwi y’imbere mu mubiri biragenda bimenyekana buhoro buhoro.'],
+      },
+      ig: {
+        babyDescription:
+          'Ntutu dị nro a na-akpọ lanugo na-ekpuchi akpụkpọ ahụ nwayọ nwayọ, ma ntutu anya na ntutu mkpuchi anya na-amalite ịpụta. Anya na-aghọ nke na-eche ìhè.',
+        length: 'Ihe dị ka 10.1 cm',
+        comparison: 'Apụl',
+        bodyChanges: ['Agụụ gị nwere ike ịgbanwe, mgbe ụfọdụ na ọchịchọ nri ọhụrụ ma ọ bụ enweghị mmasị n\'ụfọdụ nri.'],
+        toKnow: ['Ịnụ ihe na-amalite ịtolite n\'ihe dị ka oge a: olu gị na ụda dị n\'ime ahụ na-aghọ ihe a na-anụ nwayọ nwayọ.'],
+      },
+      yo: {
+        babyDescription:
+          'Irun rírọ̀ tí a ń pè ní lanugo bo awọ ara díẹ̀díẹ̀, ìgbájú àti ìpéǹpéjú sì bẹ̀rẹ̀ sí hàn. Ojú di ẹni tó ní ìmọ̀lára sí ìmọ́lẹ̀.',
+        length: 'Nǹkan bí 10.1 cm',
+        comparison: 'Ápù',
+        bodyChanges: ['Ìfẹ́ oúnjẹ rẹ lè yípadà, nígbà míràn pẹ̀lú ìfẹ́ tàbí ìkórìíra oúnjẹ tuntun.'],
+        toKnow: ['Gbígbọ́ràn bẹ̀rẹ̀ sí dàgbà ní àyíká àkókò yìí: ohùn rẹ àti àwọn ohùn inú ara ń di ohun tí a lè gbọ́ díẹ̀díẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Izinwele ezincane ezibizwa ngokuthi i-lanugo zimboza kancane kancane isikhumba, futhi izinsiba nezinsiba zamehlo ziqala ukuvela. Amehlo aba nozwela ekukhanyeni.',
+        length: 'Cishe 10.1 cm',
+        comparison: 'I-apula',
+        bodyChanges: ['Isifiso sakho sokudla singashintsha, ngezinye izikhathi kube nokulangazelela ukudla okusha noma ukunengeka.'],
+        toKnow: ['Ukuzwa kuqala ukukhula cishe ngalesi sikhathi: izwi lakho nemisindo yangaphakathi yomzimba kancane kancane kuyezwakala.'],
+      },
+      xh: {
+        babyDescription:
+          'Uboya obuhle obubizwa ngokuba yi-lanugo ngokuthe ngcembe bugubungela ulusu, kwaye iintshiya neentshiya zamehlo ziqala ukuvela. Amehlo ayabuthathaka ekukhanyeni.',
+        length: 'Malunga ne-10.1 cm',
+        comparison: 'Iapile',
+        bodyChanges: ['Ukutya kwakho kunokutshintsha, ngamanye amaxesha ngokulangazelela okanye ukwenyanya ukutya okutsha.'],
+        toKnow: ['Ukuva kuqala ukukhula malunga neli xesha: ilizwi lakho namandla angaphakathi omzimba ngokuthe ngcembe ayabonakala.'],
+      },
+      sn: {
+        babyDescription:
+          'Bvudzi rakapfava rinonzi lanugo rinofukidza nganda zvishoma nezvishoma, uye matsinga nemisosva zvinotanga kuoneka. Maziso anova anonzwa chiedza.',
+        length: 'Kunge 10.1 cm',
+        comparison: 'Apuro',
+        bodyChanges: ['Chido chako chekudya chinogona kushanduka, dzimwe nguva uchida kana kuramba zvokudya zvitsva.'],
+        toKnow: ['Kunzwa kunotanga kukura panguva ino: izwi rako nenzwi dzemukati memuviri zvinonzwika zvishoma nezvishoma.'],
+      },
+      ln: {
+        babyDescription:
+          'Nsuki ya pete oyo ebengami lanugo ezipi poso moke moke, mpe makonzi mpe nsuki ya miso ebandi kobima. Miso ekomi koyoka mwinda.',
+        length: 'Pene 10,1 cm',
+        comparison: 'Pomme',
+        bodyChanges: ['Mposa na yo ya kolia ekoki kobongwana, mbala mosusu na mposa ya bilei ya sika to kozila bilei.'],
+        toKnow: ['Koyoka ebandi kosalema pene na ntango oyo: jwi na yo mpe makelele ya kati ya nzoto ekomi koyokana moke moke.'],
+      },
+      ff: {
+        babyDescription:
+          'Hu\'ere ɓoyƊum, ɗum ngoni lanugo, ina fuɗɗa wonde dow fuunde, e ɓiɗɗa yitere ina ngarta. Yitere ina fuɗɗa nanaade annoora.',
+        length: 'Nder cm 10,1',
+        comparison: 'Poɗɗu',
+        bodyChanges: ['Ñaamdu maaɗa ina waawi waylude, ɗum waɗa hokkitaade nyaamdu feere walla fii.'],
+        toKnow: ['Nanugol ina fuɗɗa waɗeede e wakkati ɗoo: ɓaaɗam maaɗa e ɗiɗi ɓaleeɗo ina fuɗɗa nanaade seɗɗa seɗɗa.'],
+      },
       id: {
         babyDescription: 'Bulu halus yang disebut lanugo berangsur menutupi kulit, dan alis serta bulu mata mulai muncul. Mata menjadi peka terhadap cahaya.',
         length: 'Sekitar 10,1 cm',
@@ -10598,6 +12425,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '第一次感觉到胎动的时间因每次怀孕而差别很大，尤其取决于是不是第一次怀孕。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '神經系統已經能讓手臂和腿活動。小手可以握成小拳頭。',
+        length: '約 11.6 釐米',
+        comparison: '牛油果',
+        bodyChanges: [
+          '有些人大約從這個時候開始感覺到非常輕微的胎動，常被形容為輕輕的撲動。',
+        ],
+        toKnow: [
+          '第一次感覺到胎動的時間因每次懷孕而差別很大，尤其取決於是不是第一次懷孕。',
+        ],
+      },
+      ar: {
+        babyDescription: 'يتيح الجهاز العصبي حركات الذراعين والساقين. ويمكن لليدين أن تنغلقا على شكل قبضتين صغيرتين.',
+        length: 'حوالي 11.6 سم',
+        comparison: 'الأفوكادو',
+        bodyChanges: ['تبدأ بعض النساء بالإحساس بحركات خفيفة جدًا منذ هذا الوقت تقريبًا، وغالبًا ما توصف بأنها رفرفة.'],
+        toKnow: ['يختلف الإحساس بالحركات الأولى كثيرًا من حمل إلى آخر، خصوصًا بحسب ما إذا كان الحمل الأول.'],
+      },
+      kab: {
+        babyDescription: 'Anagraw n tawwurt yeǧǧa armud n ifassen d iḍaren. Ifassen zemren ad ččiren d isɛa imecṭuḥen.',
+        length: 'Azal n 11.6 cm',
+        comparison: 'Aɣerbal n ṛṛuman',
+        bodyChanges: ['Kra n medden ttbeddun ad ḥessen armud amecṭuḥ aṭas seg ddasen-a, yettwaglem am ussu n lǧennact.'],
+        toKnow: ['Ahessi n yimudar imezwura yemgarad aṭas seg yiwen ɣer wayeḍ, ladɣa ma d lḥemla tamezwarut neɣ ala.'],
+      },
+      om: {
+        babyDescription: 'Sirni narvii irree fi miila sochoʼsisuu mul\'isa. Harkii dhiʼeenyaan dhahamuu danda\'a.',
+        length: 'Gara 11.6 cm',
+        comparison: 'Avokaadoo',
+        bodyChanges: ['Namoonni tokko tokko yeroo kana irraa eegalee sochii salphaa baay\'ee dhaga\'uu jalqabu, yeroo baay\'ee akka harka baalli fiigu ibsama.'],
+        toKnow: ['Sochii jalqabaa dhaga\'uun ulfaa tokko irraa gara ulfaa biraatti baay\'ee garaagarummaa qaba, keessumaa ulfaa jalqabaa ta\'uu isaa irratti hundaa\'uun.'],
+      },
+      ti: {
+        babyDescription: 'ስርዓት ነርቭ ንምንቅስቓስ ኣእዳውን እግርን የኽእል። ኣእዳው ናብ ንኣሽቱ ጡጫታት ክዕጸዉ ይኽእሉ።',
+        length: 'ኣስታት 11.6 cm',
+        comparison: 'ኣቮካዶ',
+        bodyChanges: ['ገሊኦም ሰባት ካብዚ እዋን ጀሚሮም ብጣዕሚ ቀሊል ምንቅስቓሳት ክስምዑ ይጅምሩ፣ ብዙሕ ግዜ ከም ምንቅስቓስ ክንፊ ይግለጹ።'],
+        toKnow: ['ቀዳማይ ምንቅስቓሳት ምስማዕ ካብ ሓደ ጥንሲ ናብ ካልእ ብጣዕሚ ይፈላለይ፣ ብፍላይ ቀዳማይ ጥንሲ እንተ ኮይኑ።'],
+      },
+      rw: {
+        babyDescription: 'Imiyoboro y\'imyakura ituma amaboko n\'amaguru bigenda. Amaboko ashobora gufunga nk\'amadukira mato.',
+        length: 'Hafi cm 11.6',
+        comparison: 'Avoka',
+        bodyChanges: ['Bamwe batangira kumva ingendo zoroheje cyane guhera hafi muri iki gihe, akenshi zisobanurwa nk\'ukunyeganyega.'],
+        toKnow: ['Kumva ingendo za mbere bitandukana cyane ku nda imwe n\'indi, cyane cyane bitewe n\'uko ari inda ya mbere cyangwa atari yo.'],
+      },
+      rn: {
+        babyDescription: 'Sisiteme y’imitsi yemerera ingendo z’amaboko n’amaguru. Amaboko ashobora gufunga nk’ingumi ntoya.',
+        length: 'Hafi ya cm 11,6',
+        comparison: 'Avoka',
+        bodyChanges: ['Bamwe batangura kumva ingendo zoroheje cane kuva ahagana kuri iki gihe, akenshi bisobanurwa nk’ugukubita kw’amababa.'],
+        toKnow: ['Kumva ingendo za mbere bitandukana cane kuva ku nda ukaja ku yindi, cane cane hakurikijwe niba ari inda ya mbere.'],
+      },
+      ig: {
+        babyDescription: 'Sistemụ akwara na-ekwe ka aka na ụkwụ na-agagharị. Aka nwere ike imechi n\'obere ọkpọ.',
+        length: 'Ihe dị ka 11.6 cm',
+        comparison: 'Avocado',
+        bodyChanges: ['Ụfọdụ mmadụ na-amalite inwe mmetụta mmegharị dị mfe nke ukwuu site n\'ihe dị ka oge a, nke a na-akọwa ugboro ugboro dị ka ịfụ nwayọ.'],
+        toKnow: ['Inwe mmetụta mmegharị mbụ dị iche nke ukwuu site n\'ime gaa n\'ọzọ, karịsịa dabere n\'ịbụ ime mbụ.'],
+      },
+      yo: {
+        babyDescription: 'Ètò iṣan ara jẹ́ kí apá àti ẹsẹ̀ lè ṣípòpadà. Ọwọ́ lè di ikunku kékeré.',
+        length: 'Nǹkan bí 11.6 cm',
+        comparison: 'Avocado',
+        bodyChanges: ['Àwọn kan bẹ̀rẹ̀ sí ní ìmọ̀lára ìṣípòpadà fúyẹ́ gan-an láti àyíká àkókò yìí, tí a sábà ń ṣàpèjúwe bí fífò.'],
+        toKnow: ['Ìmọ̀lára ìṣípòpadà àkọ́kọ́ yàtọ̀ gan-an láti oyún kan sí òmíràn, ní pàtàkì gẹ́gẹ́ bóyá oyún àkọ́kọ́ ni.'],
+      },
+      zu: {
+        babyDescription: 'Uhlelo lwezinzwa luvumela ukunyakaza kwezingalo namathanga. Izandla zingavaleka zibe izibhakela ezincane.',
+        length: 'Cishe 11.6 cm',
+        comparison: 'I-avokhado',
+        bodyChanges: ['Abanye abantu baqala ukuzwa ukunyakaza okulula kakhulu kusukela cishe ngalesi sikhathi, kuvame ukuchazwa njengokuphapha.'],
+        toKnow: ['Ukuzwa ukunyakaza kokuqala kuhluka kakhulu kokunye ukukhulelwa kuya komunye, ikakhulukazi kuye ngokuthi ngabe kungukukhulelwa kokuqala.'],
+      },
+      xh: {
+        babyDescription: 'Inkqubo yemithambo-luvo ivumela intshukumo yengalo nomlenze. Izandla zinokuvalwa zibe ziinqindi ezincinci.',
+        length: 'Malunga ne-11.6 cm',
+        comparison: 'Iavokhado',
+        bodyChanges: ['Abanye abantu baqala ukuvakalelwa yintshukumo elula kakhulu ukusuka malunga neli xesha, edla ngokuchazwa njengokubhabha.'],
+        toKnow: ['Ukuvakalelwa yintshukumo yokuqala kwahluka kakhulu ukusuka kukhawulo olunye ukuya kolunye, ngokukhethekileyo kuxhomekeke ekubeni ngowokuqala.'],
+      },
+      sn: {
+        babyDescription: 'Nervous system inobvumira kufamba kwemaoko nemakumbo. Maoko anogona kuvharika kuita zvibhakera zvidiki.',
+        length: 'Kunge 11.6 cm',
+        comparison: 'Avocado',
+        bodyChanges: ['Vamwe vanotanga kunzwa kufamba kwakareruka kwazvo kubva panguva ino, kazhinji kunotsanangurwa sekuvhunduka.'],
+        toKnow: ['Kunzwa kufamba kwekutanga kunosiyana zvakanyanya kubva pamimba imwe kuenda kune imwe, kunyanya zvichienderana nekuti ndiyo mimba yekutanga here.'],
+      },
+      ln: {
+        babyDescription: 'Système nerveux epesi nzela na mbongwana ya maboko mpe makolo. Maboko ekoki kokanga lokola bapoto mike.',
+        length: 'Pene 11,6 cm',
+        comparison: 'Avocat',
+        bodyChanges: ['Basusu bandi koyoka mbongwana ya pete mingi uta pene na ntango oyo, ebengami mbala mingi lokola kopumbwa.'],
+        toKnow: ['Koyoka mbongwana ya liboso ekesanaka mingi uta zemi moko kino mosusu, mingi mingi soki ezali zemi ya liboso.'],
+      },
+      ff: {
+        babyDescription: 'Nyawu hoyre ina waɗa juude e koyɗe waawi hoyrude. Juude ina mbaawi tiiɗude ngam waɗude kuuɗal.',
+        length: 'Nder cm 11,6',
+        comparison: 'Avokaa',
+        bodyChanges: ['Woɗɓe ina fuɗɗa nanaade hoyrugol ɓoyƊum wakkati ɗoo, ɗum ina limtee wanaa ɓaawo ɓiɗɗo.'],
+        toKnow: ['Nanugol hoyrugol adannde ina feewi seertude e reedu e reedu, ko feewi saabaade reedu adannde.'],
       },
       id: {
         babyDescription: 'Sistem saraf memungkinkan gerakan lengan dan kaki. Tangan sudah bisa mengepal menjadi kepalan kecil.',
@@ -11279,6 +13208,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '外界的声音开始透过羊水，以模糊的方式被宝宝听到。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '眼睛仍然閉著，但可以轉動，寶寶現在會對很大的聲音有反應。指紋開始形成。',
+        length: '約 12 釐米',
+        comparison: '石榴',
+        bodyChanges: [
+          '隨著重心發生變化，可能會出現輕微的背痛。',
+        ],
+        toKnow: [
+          '外界的聲音開始透過羊水，以模糊的方式被寶寶聽到。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يمكن للعينين، وهما لا تزالان مغلقتين، أن تتحركا، ويتفاعل الجنين الآن مع الأصوات العالية. وتبدأ بصمات الأصابع بالتشكل.',
+        length: 'حوالي 12 سم',
+        comparison: 'الرمان',
+        bodyChanges: ['قد يظهر ألم خفيف في الظهر مع تغيّر مركز ثقلك.'],
+        toKnow: ['بدأت الأصوات الخارجية تُدرَك، بشكل مكتوم، عبر السائل الأمنيوسي.'],
+      },
+      kab: {
+        babyDescription:
+          'Allen, mazal ttemǧan, zemrent ad ttmudden, yerna aqcic yettqabal tura ɣer yimesla iẓeggwaɣen. Ifassen ttbedun ad ttuxdamen.',
+        length: 'Azal n 12 cm',
+        comparison: 'Aɣerbal n tlefsa',
+        bodyChanges: ['Aṭṭan n ufud amecṭuḥ izmer ad d-yili ticki asmuddi n ukuref yettbeddil.'],
+        toKnow: ['Iɣbaren n berra ttbedun ad ttwasselen, d iffiren, ɣer uwaman n lmayeɛ.'],
+      },
+      om: {
+        babyDescription:
+          'Ijji, ammallee cufamaa, sochoʼuu danda\'a, daa\'imni amma sagalee guddaaf deebii kenna. Mallattoon quba harkaa uumamuu jalqabaa jira.',
+        length: 'Gara 12 cm',
+        comparison: 'Pomegranate',
+        bodyChanges: ['Dhukkubbiin dugdaa salphaan wanti arrabsuu ofii yeroo jijjiiramu mul\'achuu danda\'a.'],
+        toKnow: ['Sagaleen alaa bishaan hanqaaquu keessaan, haalaan ciibbaan, dhaga\'amuu jalqabaa jira.'],
+      },
+      ti: {
+        babyDescription:
+          'ገና ዝተዓጽዉ ዓይኒታት ክንቀሳቀሱ ይኽእሉ፣ እቲ ሕጻን ድማ ሕጂ ንዓቢ ድምጺ ይምልስ። ኣሰር ኣጻብዕቲ ክፍጠር ይጅምር።',
+        length: 'ኣስታት 12 cm',
+        comparison: 'ሮማን',
+        bodyChanges: ['ማእኸል ስሕበት ምስ ዝቕየር ቀሊል ቃንዛ ሕቖ ክፍጠር ይኽእል።'],
+        toKnow: ['ደገ ድምጽታት ብውሽጢ ፈሳሲ ኣምኒዮን ብጸሊም ኣገባብ ክስማዕ ይጅምር።'],
+      },
+      rw: {
+        babyDescription:
+          'Amaso, akiri afunze, ashobora kugenda, kandi umwana ubu yumva amajwi akomeye. Imiterere y\'ibirenge by\'intoki iratangira kuremwa.',
+        length: 'Hafi cm 12',
+        comparison: 'Makomamanga',
+        bodyChanges: ['Kubabara umugongo koroheje bishobora kugaragara uko aho umubiri wawe uringaniza hahinduka.'],
+        toKnow: ['Amajwi yo hanze atangira kumvikana, mu buryo bwumvikana buhoro, anyuze mu mazi y\'inda.'],
+      },
+      rn: {
+        babyDescription:
+          'Amaso, akiri afunze, ashobora kugenda, kandi umwana ubu arumva amajwi manini. Ibimenyetso by’intoke bitangura kuboneka.',
+        length: 'Hafi ya cm 12',
+        comparison: 'Pomegranate',
+        bodyChanges: ['Umugongo woroheje ushobora kuribwa uko igice c’uburemere bw’umubiri wawe cihinduka.'],
+        toKnow: ['Amajwi yo hanze atangura kumvwa, mu buryo bwuzuyemwo, anyuze mu mazi y’inda.'],
+      },
+      ig: {
+        babyDescription:
+          'Anya, nke ka mechiri, nwere ike ịgagharị, ma nwa ahụ na-aza ụda dị ike ugbu a. Akara mkpịsị aka na-amalite ịmalite.',
+        length: 'Ihe dị ka 12 cm',
+        comparison: 'Pomegranate',
+        bodyChanges: ['Mgbu azụ dị nro nwere ike ịpụta ka ebe arọ ahụ gị na-agbanwe.'],
+        toKnow: ['Ụda si n\'èzí na-amalite ịnụ, n\'ụdị na-adịghị ike, site na mmiri amniotic.'],
+      },
+      yo: {
+        babyDescription:
+          'Ojú, tó ṣì ń tì, lè ṣípòpadà, ọmọ náà sì ń dáhùn sí ariwo ńlá báyìí. Àmì ìka ọwọ́ bẹ̀rẹ̀ sí dá.',
+        length: 'Nǹkan bí 12 cm',
+        comparison: 'Pomegranate',
+        bodyChanges: ['Ìrora ẹ̀yìn aláìle lè hàn bí ìwọ̀ntúnwọ̀nsì ara rẹ ṣe ń yípadà.'],
+        toKnow: ['Àwọn ohùn láti òde bẹ̀rẹ̀ sí di gbígbọ́, ní ìrísí tí kò hàn kedere, nípasẹ̀ omi amniotic.'],
+      },
+      zu: {
+        babyDescription:
+          'Amehlo, asavaliwe, angahamba, futhi ingane manje iphendula emisindweni ephakeme. Izigxivizo zeminwe ziqala ukwakheka.',
+        length: 'Cishe 12 cm',
+        comparison: 'I-pomegranate',
+        bodyChanges: ['Ubuhlungu obuncane bomhlane bungavela njengoba isikhungo sakho sesisindo sishintsha.'],
+        toKnow: ['Imisindo yangaphandle iqala ukuzwakala, ngendlela ethuliswe, ngoketshezi lwe-amniotic.'],
+      },
+      xh: {
+        babyDescription:
+          'Amehlo, asavaliwe, anokushukuma, kwaye usana ngoku lusabela kwimisindo ephezulu. Iimpawu zeminwe ziqala ukwakheka.',
+        length: 'Malunga ne-12 cm',
+        comparison: 'Ipomegranate',
+        bodyChanges: ['Intlungu yomqolo ethambileyo inokuvela njengoko isiseko sakho sobunzima sishenxa.'],
+        toKnow: ['Imisindo yangaphandle iqala ukuvakala, ngendlela ethomalalisiweyo, ngolwelo lwesibeleko.'],
+      },
+      sn: {
+        babyDescription:
+          'Maziso, achiri akavharwa, anogona kufamba, uye mwana ava kuita kunzwa manzwi makuru. Zvigunwe zviri kutanga kuumba mavara.',
+        length: 'Kunge 12 cm',
+        comparison: 'Pomegranate',
+        bodyChanges: ['Kurwadza musana kusina simba kunogona kuoneka sezvo pakati pekurema kwako pachishanduka.'],
+        toKnow: ['Manzwi ekunze ari kutanga kunzwika, asina kujeka, kuburikidza nemvura yeamniotic.'],
+      },
+      ln: {
+        babyDescription:
+          'Miso, naino ekangami, ekoki kokenda, mpe mwana ayokaka sikoyo makelele makasi. Bilembo ya misapi ebandi kosalema.',
+        length: 'Pene 12 cm',
+        comparison: 'Grenade',
+        bodyChanges: ['Mpasi ya mongongo ya pete ekoki kobima ntango esika ya kilo ya nzoto ebongwani.'],
+        toKnow: ['Makelele ya libanda ebandi koyokana, na lolenge ya kozipama, na mai ya amniotique.'],
+      },
+      ff: {
+        babyDescription:
+          'Yitere, tawon ɗum hippii, ina waawi hoyrude, e ɓiɗɗo ina nanay ɗiɗi tiiɗuɗi. Taaɗe juude ina fuɗɗa waɗeede.',
+        length: 'Nder cm 12',
+        comparison: 'Garnaa',
+        bodyChanges: ['Muusaare ɓuggol ina waawi wonde ngam hedde maaɗa ina waylude.'],
+        toKnow: ['Ɗiɗi dow ina fuɗɗa nanaade, ɗum ɓoyƊum, nder ndiyam reedu.'],
+      },
       id: {
         babyDescription: 'Mata, yang masih tertutup, bisa bergerak, dan bayi kini bereaksi terhadap suara keras. Sidik jari mulai terbentuk.',
         length: 'Sekitar 12 cm',
@@ -11959,6 +14003,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '检查宝宝整体发育情况的系统超声检查，通常安排在孕 18 周到孕 21 周之间。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '聽覺、觸覺、吞嚥和吮吸反射繼續發育。寶寶越來越活躍，手臂和腿的動作也更多了。',
+        length: '約 14.2 釐米',
+        comparison: '甜椒',
+        bodyChanges: [
+          '這個階段肚子通常已經很明顯，你的重心也在持續變化。',
+        ],
+        toKnow: [
+          '檢查寶寶整體發育情況的系統超音波檢查，通常安排在孕 18 周到孕 21 周之間。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يواصل السمع واللمس والبلع ومنعكس المص نموها. ويزداد الجنين نشاطًا، مع مزيد من حركات الذراعين والساقين.',
+        length: 'حوالي 14.2 سم',
+        comparison: 'الفلفل الحلو',
+        bodyChanges: ['غالبًا ما يكون البطن ظاهرًا بوضوح في هذه المرحلة، ويستمر مركز ثقلك في التغير.'],
+        toKnow: ['يُعرض الفحص التشريحي بالموجات فوق الصوتية، الذي يتفحص النمو العام للجنين، عمومًا بين الأسبوع 18 والأسبوع 21.'],
+      },
+      kab: {
+        babyDescription:
+          'Asel, ahdez, aḥwi d ammus yettkemmilen ad xedmen. Aqcic yettuɣal d aɣelnaw ugar d ugar, s ugar n yimudar n ifassen d iḍaren.',
+        length: 'Azal n 14.2 cm',
+        comparison: 'Aɣerbal n lfelfel',
+        bodyChanges: ['Uḍfel d aṭas ittbin ddasen-a, yerna uzzel n uzzel-ik ittkemmil abeddel.'],
+        toKnow: ['Ultrason n usaḍar, ittwazen asenqed amatu n ukayad n uqcic, yettwabder s umata gar ddasen 18 ɣer 21.'],
+      },
+      om: {
+        babyDescription:
+          'Dhaga\'uun, tuquun, liqimsuun fi reeflexiin hiruu guddachuu itti fufu. Daa\'imni caalaatti sochii qabaachaa jira, sochii irree fi miilaa caalaa waliin.',
+        length: 'Gara 14.2 cm',
+        comparison: 'Bell pepper',
+        bodyChanges: ['Garaan sadarkaa kanatti yeroo baay\'ee ifatti mul\'ata, gidduu-galeessi ulfaatinnaa kee ammallee jijjiiramaa jira.'],
+        toKnow: ['Ultrasound qaama, guddina waliigalaa daa\'imaa qoru, waliigalaan torban 18 fi torban 21 gidduutti dhiyaata.'],
+      },
+      ti: {
+        babyDescription:
+          'ስምዒት ምስማዕ፣ ምትንካፍ፣ ምውሓጥን ምጥባይ ተገብሮን ምዕባይ ይቕጽሉ። እቲ ሕጻን ዝያዳ ንጡፍ ይኸውን ኣሎ፣ ብዝያዳ ምንቅስቓሳት ኣእዳውን እግርን።',
+        length: 'ኣስታት 14.2 cm',
+        comparison: 'ዓቢ ፔፐር',
+        bodyChanges: ['ከብዲ ብዙሕ ግዜ ኣብዚ ደረጃ ብንጹር ይርአ፣ ማእኸል ስሕበትካ’ውን ክቕየር ይቕጽል።'],
+        toKnow: ['እቲ ንሓፈሻዊ ዕብየት ሕጻን ዝምርምር ኣናቶሚ ኣልትራሳውንድ ብሓፈሻ ኣብ መንጎ ሳምንቲ 18 ን ሳምንቲ 21 ን ይቐርብ።'],
+      },
+      rw: {
+        babyDescription:
+          'Kumva, gukora ku kintu, kumira, n\'ingeso yo konka bikomeza gukura. Umwana arushaho gukora cyane, afite ingendo nyinshi z\'amaboko n\'amaguru.',
+        length: 'Hafi cm 14.2',
+        comparison: 'Poivron',
+        bodyChanges: ['Inda akenshi iba igaragara neza muri iki gihe, kandi aho umubiri wawe uringaniza hakomeza guhinduka.'],
+        toKnow: ['Ultrasound y\'imiterere, isuzuma ikura rusange ry\'umwana, muri rusange itangwa hagati y\'icyumweru cya 18 n\'icya 21.'],
+      },
+      rn: {
+        babyDescription:
+          'Kumva, gukoraho, kumira n’akamenyero ko konka biragenda bikura. Umwana ararushiriza gukora, afise ingendo nyinshi z’amaboko n’amaguru.',
+        length: 'Hafi ya cm 14,2',
+        comparison: 'Poivron',
+        bodyChanges: ['Inda akenshi iba igaragara neza kuri iki gihe, kandi igice c’uburemere bw’umubiri wawe kigakomeza guhinduka.'],
+        toKnow: ['Ultrasound y’umubiri, isuzuma ukura kw’umwana muri rusangi, mu rusangi itangwa hagati y’icumweru ca 18 n’ica 21.'],
+      },
+      ig: {
+        babyDescription:
+          'Ịnụ ihe, imetụ aka, ilo, na mmeghachi omume ịmịkọrọ na-aga n\'ihu na-etolite. Nwa ahụ na-aghọwanye onye na-eme ihe, yana mmegharị aka na ụkwụ karị.',
+        length: 'Ihe dị ka 14.2 cm',
+        comparison: 'Bell pepper',
+        bodyChanges: ['A na-ahụkarị afọ n\'ụzọ doro anya n\'ọkwa a, ma ebe arọ ahụ gị na-aga n\'ihu na-agbanwe.'],
+        toKnow: ['A na-enyekarị ultrasound anatomy, nke na-enyocha mmepe nwa niile, n\'etiti izu 18 na izu 21.'],
+      },
+      yo: {
+        babyDescription:
+          'Gbígbọ́ràn, ìfọwọ́kàn, gbígbé mì, àti ìfúnmu ń tẹ̀síwájú láti dàgbà. Ọmọ náà ń túbọ̀ ṣiṣẹ́, pẹ̀lú ìṣípòpadà apá àti ẹsẹ̀ tó pọ̀ sí i.',
+        length: 'Nǹkan bí 14.2 cm',
+        comparison: 'Ata bẹ́ẹ̀lì',
+        bodyChanges: ['Ikùn sábà máa ń hàn kedere ní ìpele yìí, ìwọ̀ntúnwọ̀nsì ara rẹ sì ń yípadà síwájú.'],
+        toKnow: ['Ultrasound ìdàgbàsókè ara, tó ń ṣàyẹ̀wò ìdàgbàsókè gbogbogbò ọmọ náà, sábà máa ń wáyé láàrin ọ̀sẹ̀ 18 àti ọ̀sẹ̀ 21.'],
+      },
+      zu: {
+        babyDescription:
+          'Ukuzwa, ukuthinta, ukugwinya nomkhuba wokumunca kuyaqhubeka nokukhula. Ingane iya ngokusebenza kakhulu, ineziningi izinyakazo zezingalo namathanga.',
+        length: 'Cishe 14.2 cm',
+        comparison: 'I-bell pepper',
+        bodyChanges: ['Isisu ngokuvamile sibonakala ngokucacile kulesi sigaba, futhi isikhungo sakho sesisindo siyaqhubeka nokushintsha.'],
+        toKnow: ['I-ultrasound yesakhiwo, ehlola intuthuko iyonke yengane, ngokuvamile inikezwa phakathi kweviki le-18 neleshumi nanye.'],
+      },
+      xh: {
+        babyDescription:
+          'Ukuva, ukuchukumisa, ukumginya, nokumunxa kuyaqhubeka nokukhula. Usana luba nomsebenzi ngakumbi, lunentshukumo yeengalo nemilenze emininzi.',
+        length: 'Malunga ne-14.2 cm',
+        comparison: 'Ipepile enkulu',
+        bodyChanges: ['Isisu sidla ngokubonakala ngokucacileyo kweli nqanaba, kwaye isiseko sakho sobunzima siqhubeka sishenxa.'],
+        toKnow: ['I-ultrasound yeanatomi, ehlola ukukhula jikelele kosana, ngokubanzi inikezelwa phakathi kweveki 18 neveki 21.'],
+      },
+      sn: {
+        babyDescription:
+          'Kunzwa, kubata, kumedza, nereflex yekusveta zvinoramba zvichikura. Mwana ari kuwedzera kushanda, nekufamba kwakawanda kwemaoko nemakumbo.',
+        length: 'Kunge 14.2 cm',
+        comparison: 'Bell pepper',
+        bodyChanges: ['Dumbu kazhinji rinooneka zvakajeka panguva ino, uye pakati pekurema kwako panoramba pachishanduka.'],
+        toKnow: ['Anatomy ultrasound, inoongorora kukura kwese kwemwana, kazhinji inopiwa pakati pevhiki 18 nevhiki 21.'],
+      },
+      ln: {
+        babyDescription:
+          'Koyoka, kosimba, komela mpe mosala ya kolia ekobaka kosalema. Mwana azali kokóma mingi mpe mingi na mosala, na mbongwana ya maboko mpe makolo ebakisami.',
+        length: 'Pene 14,2 cm',
+        comparison: 'Poivron',
+        bodyChanges: ['Mokɔlɔ emonanaka mbala mingi polele na ntango oyo, mpe esika ya kilo ya nzoto na yo ekobaka kobongwana.'],
+        toKnow: ['Ultrasound ya anatomie, oyo etalaka bokoli ya mwana mobimba, epesamaka mbala mingi kati na poso 18 mpe poso 21.'],
+      },
+      ff: {
+        babyDescription:
+          'Nanugol, ndaarugol, ñaamugol, e kawrugol ina tokka waɗeede. Ɓiɗɗo ina ɓeydi hoyrude, e juude e koyɗe.',
+        length: 'Nder cm 14,2',
+        comparison: 'Poowra',
+        bodyChanges: ['Reedu ina feewi yiyeede ngam woɗɓe e wakkati ɗoo, e hedde maaɗa ina tokka waylude.'],
+        toKnow: ['Ultrasound anatomi, ɗum ndaarata nyalaande ɓiɗɗo fuu, ko feewi hokkee hakkunde jammaa 18 e jammaa 21.'],
+      },
       id: {
         babyDescription: 'Pendengaran, indra peraba, kemampuan menelan, dan refleks mengisap terus berkembang. Bayi makin aktif, dengan lebih banyak gerakan lengan dan kaki.',
         length: 'Sekitar 14,2 cm',
@@ -12638,6 +14797,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '这通常是开始更明显地感觉到宝宝胎动的时期。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '未來的恆牙開始在正在準備的乳牙後面形成，寶寶的體重也在繼續逐漸增加。',
+        length: '約 15.3 釐米',
+        comparison: '大番茄',
+        bodyChanges: [
+          '隨著子宮增大，肚子兩側可能會有牽拉感（圓韌帶痛）。',
+        ],
+        toKnow: [
+          '這通常是開始更明顯地感覺到寶寶胎動的時期。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تبدأ الأسنان الدائمة المستقبلية بالتكوّن خلف الأسنان اللبنية التي يجري إعدادها، ويواصل الجنين زيادة وزنه تدريجيًا.',
+        length: 'حوالي 15.3 سم',
+        comparison: 'طماطم كبيرة',
+        bodyChanges: ['قد يحدث إحساس بالشدّ على جانبي البطن (ألم الرباط المستدير) مع نمو الرحم.'],
+        toKnow: ['هذا وقت شائع لبدء الإحساس بحركات الجنين بوضوح أكبر.'],
+      },
+      kab: {
+        babyDescription:
+          'Isɛa n weswir ittbeddun ad ttwaxdament deffir wid n lbeṛṛani i ttuheyyiɣen, yerna aqcic yettkemmil ad yettaru azal.',
+        length: 'Azal n 15.3 cm',
+        comparison: 'Aɣerbal n ṭumaṭic ameqqran',
+        bodyChanges: ['Ahettu n ujeṭṭan ɣef yidmaren n uḍfel (aṭṭan n tgecrart tamecṭuḥt) izmer ad d-yili ticki taddart n tkuffa tettaru.'],
+        toKnow: ['D wakud amatu i usurez n armud n uqcic ugar s tefses.'],
+      },
+      om: {
+        babyDescription:
+          'Ilkaan dhaabbataa dhufu ilkaan ruuphii qophaa\'aa jiran duubaan uumamuu jalqabu, daa\'imni immoo suuta suutaan ulfaatina itti dabaluu itti fufa.',
+        length: 'Gara 15.3 cm',
+        comparison: 'Timaatima guddaa',
+        bodyChanges: ['Mudhiin guddachaa jiru waan ta\'eef, miira harkifannaa cinaa garaa irratti (dhukkubbii hidhaa geengoo) mul\'achuu danda\'a.'],
+        toKnow: ['Kun yeroo baay\'ee sochii daa\'imaa caalaatti ifatti dhaga\'uu eegaluu dha.'],
+      },
+      ti: {
+        babyDescription:
+          'መጻኢ ቀዋሚ ስናን ኣብ ድሕሪ እቲ ዝዳሎ ናይ ሕጻን ስናን ክፍጠር ይጅምር፣ እቲ ሕጻን’ውን ቀስ ብቐስ ክኸብድ ይቕጽል።',
+        length: 'ኣስታት 15.3 cm',
+        comparison: 'ዓቢ ቲማቲም',
+        bodyChanges: ['ማህጸን ክዓብይ ከሎ ኣብ ጎድኒ ከብዲ ምስሓብ ስምዒት (ቃንዛ ክብ ልጉም) ክፍጠር ይኽእል።'],
+        toKnow: ['እዚ ምንቅስቓሳት ሕጻን ዝያዳ ብንጹር ምስማዕ ዝጅምር ልሙድ እዋን እዩ።'],
+      },
+      rw: {
+        babyDescription:
+          'Amenyo y\'iteka azaza atangira kuremwa inyuma y\'amenyo y\'ibere ategurwa, kandi umwana akomeza kongera ibiro buhoro buhoro.',
+        length: 'Hafi cm 15.3',
+        comparison: 'Inyanya nini',
+        bodyChanges: ['Kumva gukururwa ku mpande z\'inda (ububabare bw\'imikaya ikikije nyababyeyi) bishobora kubaho uko nyababyeyi ikura.'],
+        toKnow: ['Iki ni igihe gisanzwe cyo gutangira kumva ingendo z\'umwana neza kurushaho.'],
+      },
+      rn: {
+        babyDescription:
+          'Amenyo y’ahazaza ahoraho atangura gukura inyuma y’amenyo y’umwana ategurwa, kandi umwana akomeza kwiyongera ibiro buhoro buhoro.',
+        length: 'Hafi ya cm 15,3',
+        comparison: 'Inyanya nini',
+        bodyChanges: ['Kwumva gukurura ku mpande z’inda (kuribwa kw’umutsi ushyigikira inda) bishobora kuboneka uko inda y’umwana ikura.'],
+        toKnow: ['Iki ni igihe gisanzwe cyo gutangura kumva ingendo z’umwana neza.'],
+      },
+      ig: {
+        babyDescription:
+          'Eze ndị ga-adịgide adịgide na-amalite ịmalite n\'azụ eze nwa ndị a na-akwado, ma nwa ahụ na-aga n\'ihu na-eru arọ nwayọ nwayọ.',
+        length: 'Ihe dị ka 15.3 cm',
+        comparison: 'Tomato dị ukwuu',
+        bodyChanges: ['Mmetụta ịdọta n\'akụkụ afọ (mgbu round ligament) nwere ike ime ka akpa nwa na-eto.'],
+        toKnow: ['Nke a bụ oge a na-ahụkarị mgbe a na-amalite inwe mmetụta mmegharị nwa ahụ nke ọma karị.'],
+      },
+      yo: {
+        babyDescription:
+          'Eyín ìdúró ọjọ́ iwájú bẹ̀rẹ̀ sí dá lẹ́yìn eyín ọmọdé tí a ń múrasílẹ̀, ọmọ náà sì ń tẹ̀síwájú láti pọ̀ sí i ní ìwọ̀n díẹ̀díẹ̀.',
+        length: 'Nǹkan bí 15.3 cm',
+        comparison: 'Tòmátì ńlá',
+        bodyChanges: ['Ìmọ̀lára fífà ní ẹ̀gbẹ́ ikùn (ìrora round ligament) lè wáyé bí ilé-ọmọ ṣe ń dàgbà.'],
+        toKnow: ['Èyí jẹ́ àkókò tó wọ́pọ̀ láti bẹ̀rẹ̀ sí ní ìmọ̀lára ìṣípòpadà ọmọ lọ́nà tó ṣe kedere sí i.'],
+      },
+      zu: {
+        babyDescription:
+          'Amazinyo ayoba unomphela esikhathini esizayo aqala ukwakheka ngemuva kwamazinyo engane alungiselelwayo, futhi ingane iqhubeka nokukhula kancane kancane ngesisindo.',
+        length: 'Cishe 15.3 cm',
+        comparison: 'Utamatisi omkhulu',
+        bodyChanges: ['Umuzwa wokudonswa emaceleni esisu (ubuhlungu be-round ligament) ungase wenzeke njengoba isibeletho sikhula.'],
+        toKnow: ['Lesi yisikhathi esijwayelekile sokuqala ukuzwa ukunyakaza kwengane ngokucacile.'],
+      },
+      xh: {
+        babyDescription:
+          'Amazinyo omlinganiswa wexesha elizayo aqala ukwakheka emva kwamazinyo osana alungiselelwayo, kwaye usana luqhubeka lunyuka ubunzima ngokuthe ngcembe.',
+        length: 'Malunga ne-15.3 cm',
+        comparison: 'Itumato enkulu',
+        bodyChanges: ['Imvakalelo yokutsala ngasemacaleni esisu (intlungu yesibopho esijikelezayo) inokwenzeka njengoko isibeleko sikhula.'],
+        toKnow: ['Eli lixesha eliqhelekileyo lokuqala ukuvakalelwa yintshukumo yosana ngokucacileyo ngakumbi.'],
+      },
+      sn: {
+        babyDescription:
+          'Mazino ekusingaperi enguva yemberi anotanga kuumbwa seri kwemazino emwana ari kugadzirirwa, uye mwana anoramba achiwedzera uremu zvishoma nezvishoma.',
+        length: 'Kunge 15.3 cm',
+        comparison: 'Tomato hombe',
+        bodyChanges: ['Kunzwa kudhonzwa pamativi edumbu (kurwadza kweround ligament) kunogona kuitika sezvo chibereko chichikura.'],
+        toKnow: ['Iyi nguva yakajairika yekutanga kunzwa kufamba kwemwana zvakajeka.'],
+      },
+      ln: {
+        babyDescription:
+          'Mino ya mpenza ya sika ebandi kosalema sima ya mino ya bana oyo ezali kobongisama, mpe mwana akobaka kozwa kilo moke moke.',
+        length: 'Pene 15,3 cm',
+        comparison: 'Tomate monene',
+        bodyChanges: ['Mpasi ya kobɛta na ngambo ya mokɔlɔ (mpasi ya ligament ya mobimba) ekoki kobima ntango libumu ezali kokola.'],
+        toKnow: ['Oyo ezali ntango ya mbala mingi ya kobanda koyoka mbongwana ya mwana polele.'],
+      },
+      ff: {
+        babyDescription:
+          'Sippiiji kesum ina fuɗɗa waɗeede ɓaawo sippiiji ɓoyƊi ɗi taskaama, e ɓiɗɗo ina tokka ɓeydude nyaamdu.',
+        length: 'Nder cm 15,3',
+        comparison: 'Tomaat mawnde',
+        bodyChanges: ['Hokkitaade e nder ɓaaɗam reedu (muusaare mbuuyam) ina waawi wonde ngam reedu ina mawnude.'],
+        toKnow: ['Ko ɗum wakkati aada ngam fuɗɗaade nanaade hoyrugol ɓiɗɗo ɓurdi laɓɓude.'],
       },
       id: {
         babyDescription: 'Calon gigi permanen mulai terbentuk di balik gigi susu yang sedang dipersiapkan, dan berat badan bayi terus bertambah secara bertahap.',
@@ -13321,6 +15595,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕期过半时，通常会由负责你孕期照护的医疗专业人员做一次全面检查。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '從這一週起，長度改為從頭量到腳跟，而不是從頭量到臀部，因為現在雙腿可以伸直並被測量——這也解釋了參考尺寸與前幾週相比為什麼會明顯跳升。',
+        length: '約 25.6 釐米',
+        comparison: '香蕉',
+        bodyChanges: [
+          '圓潤的肚子可能會開始影響你的平衡和姿勢。',
+        ],
+        toKnow: [
+          '孕期過半時，通常會由負責你孕期照護的醫療專業人員做一次全面檢查。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'ابتداءً من هذا الأسبوع، يُقاس الطول من الرأس إلى الكعب بدلًا من الرأس إلى المقعدة، إذ يمكن الآن مدّ الساقين وقياسهما — وهذا يفسّر قفزة ملحوظة في الحجم المرجعي مقارنةً بالأسابيع السابقة.',
+        length: 'حوالي 25.6 سم',
+        comparison: 'الموز',
+        bodyChanges: ['قد يبدأ بطنك المستدير بشكل جميل بالتأثير في توازنك ووضعية جسمك.'],
+        toKnow: ['غالبًا ما يُميَّز منتصف الحمل بفحص شامل لدى المختص الصحي الذي يتابع رعايتك.'],
+      },
+      kab: {
+        babyDescription:
+          'Seg ddasen-a, azal ittwaḥseb seg uqerru ɣer uḍar, mačči seg uqerru ɣer uɣerfan, acku iḍaren zemren ad ttwaɣellen yerna ad ttwaḥsben — aya yefka tiɣerɣert ittbin deg useqqamu n ukayad mgal ddasen iɛeddan.',
+        length: 'Azal n 25.6 cm',
+        comparison: 'Aɣerbal n lbanan',
+        bodyChanges: ['Uḍfel-ik yettuɣal d aɣerdayan yezmer ad yesɛu aḍrar ɣef usaḍuf d wudem-ik.'],
+        toKnow: ['Ammas n lḥemla yettwaɛerḍ s umata s usenqed ummid ɣer unelmad n tezmert i yettḥerrin.'],
+      },
+      om: {
+        babyDescription:
+          'Torban kana irraa eegalee, dheerinni mataa irraa mila-gad-aanaa tti safarama malee mataa irraa gadi-aanaa hin ta\'u, sababni isaas miilli amma diriirsamee safaramuu danda\'a — kun torbanoota darban waliin wal bira qabamee guddina ifaa safara wabii keessatti ibsa.',
+        length: 'Gara 25.6 cm',
+        comparison: 'Muuzii',
+        bodyChanges: ['Garaan kee bareedaan geengoo ta\'e madaalliin fi dhaabbiin kee irratti dhiibbaa geessisuu jalqabuu danda\'a.'],
+        toKnow: ['Giddu-galeessi ulfaa yeroo baay\'ee qorannoo guutuu ogeessa fayyaa kunuunsa kee hordofu waliin mallattoo\'amu.'],
+      },
+      ti: {
+        babyDescription:
+          'ካብዛ ሳምንቲ ጀሚሩ ንውሓት ካብ ርእሲ ክሳብ ሸኽ እግሪ እምበር ካብ ርእሲ ክሳብ መቐመጢ ኣይኰነን ይለካዕ፣ ምኽንያቱ እግርታት ሕጂ ክሰፍሑን ክልከዑን ይኽእሉ — እዚ ምስ ቀደምቲ ሳምንታት ክነጻጸር ከሎ ኣብ መወከሲ ዓቕሚ ዝርአ ዘለዎ ዝላ የብርህ።',
+        length: 'ኣስታት 25.6 cm',
+        comparison: 'ሙዝ',
+        bodyChanges: ['ጽቡቕ ዝተቐብዐ ከብድኻ ሚዛንካን ኣጣጥዓኻን ክጸሉ ይጅምር።'],
+        toKnow: ['ማእከል ጥንሲ ብዙሕ ግዜ ምስ እቲ ክትትል ዝገብረልኪ ክኢላ ጥዕና ምሉእ ምርመራ ይምልከት።'],
+      },
+      rw: {
+        babyDescription:
+          'Guhera muri iki cyumweru, uburebure bupimwa uhereye ku mutwe ukageza ku gatsinsino aho kuba ku mutwe ukageza ku kibuno, kuko amaguru ubu ashobora kurambuka agapimwa — ibi busobanura isimbuka rigaragara mu bunini bwo kugereranya ugereranyije n\'ibyumweru byabanje.',
+        length: 'Hafi cm 25.6',
+        comparison: 'Igitoki',
+        bodyChanges: ['Inda yawe izengurutse neza ishobora gutangira kugira ingaruka ku buringanire no ku buryo uhagaze.'],
+        toKnow: ['Hagati y\'inda akenshi hagaragazwa n\'isuzuma ryuzuye ku muhanga mu buzima ugukurikirana.'],
+      },
+      rn: {
+        babyDescription:
+          'Kuva kuri iki cumweru, uburebure bupimwa kuva ku mutwe kugeza ku gitsintsiri aho kuva ku mutwe kugeza ku kibuno, kuko amaguru ubu ashobora kurambikwa agapimwa — ibi bisobanura izamuka rigaragara ry’ingano ugereranije n’ibyumweru vyabanje.',
+        length: 'Hafi ya cm 25,6',
+        comparison: 'Igitoki',
+        bodyChanges: ['Inda yawe yashushanye neza ishobora gutangura kugira ingaruka ku buringanire no ku buryo uhagaze.'],
+        toKnow: ['Hagati y’inda akenshi hajanishwa n’isuzuma ryuzuye ry’umuhanga mu vy’ubuzima agukurikirana.'],
+      },
+      ig: {
+        babyDescription:
+          'Site n\'izu a gaa n\'ihu, a na-atụ ogologo site n\'isi ruo ikiri ụkwụ kama isi ruo ọdụ, ebe ụkwụ nwere ike ịgbatị ma tụọ ugbu a — nke a na-akọwa ọrịrị a na-ahụ n\'ọkwa ntụaka e jiri tụnyere izu ndị gara aga.',
+        length: 'Ihe dị ka 25.6 cm',
+        comparison: 'Banana',
+        bodyChanges: ['Afọ gị gbara okirikiri nke ọma nwere ike ịmalite imetụta nguzozi na otú ị na-eguzo.'],
+        toKnow: ['A na-ejikarị nlele zuru ezu na onye ọrụ ahụike na-elekọta gị mara etiti ime.'],
+      },
+      yo: {
+        babyDescription:
+          'Láti ọ̀sẹ̀ yìí lọ, a ń wọn gígùn láti orí dé gìgísẹ̀ dípò orí dé ìsàlẹ̀, nítorí pé a lè na ẹsẹ̀ báyìí kí a sì wọn wọ́n — èyí ṣàlàyé ìfò tó hàn gbangba nínú ìwọ̀n ìtọ́kasí ní ìfiwéra pẹ̀lú àwọn ọ̀sẹ̀ tó ṣáájú.',
+        length: 'Nǹkan bí 25.6 cm',
+        comparison: 'Ọ̀gẹ̀dẹ̀',
+        bodyChanges: ['Ikùn rẹ tó yípo dáadáa lè bẹ̀rẹ̀ sí nípa lórí ìwọ̀ntúnwọ̀nsì àti ìdúró rẹ.'],
+        toKnow: ['Àárín oyún sábà máa ń jẹ́ àmì pẹ̀lú àyẹ̀wò pípé lọ́dọ̀ oníṣẹ́ ìlera tó ń tọ́jú rẹ.'],
+      },
+      zu: {
+        babyDescription:
+          'Kusukela kuleli sonto, ubude bukalwa kusukela ekhanda kuya esithendeni kunokusuka ekhanda kuya ezinqeni, njengoba amathanga manje angelulwa futhi akalwe — lokhu kuchaza ukweqa okubonakalayo osayizini wereferensi uma kuqhathaniswa namasonto adlule.',
+        length: 'Cishe 25.6 cm',
+        comparison: 'Ibhanana',
+        bodyChanges: ['Isisu sakho esiyindilinga kahle singaqala ukuthinta ibhalansi nokuma kwakho.'],
+        toKnow: ['Maphakathi nokukhulelwa kuvame ukuphawulwa ngokuhlolwa okuphelele nochwepheshe wezempilo olandela ukunakekelwa kwakho.'],
+      },
+      xh: {
+        babyDescription:
+          'Ukususela kule veki ukuya phambili, ubude bulinganiswa ukusuka entloko ukuya kwisithende kunokuba ukusuka entloko ukuya emva, kuba imilenze ngoku inokolulwa kwaye ilinganiswe — oku kuchaza ukutsiba okubonakalayo kubungakanani bereferensi xa kuthelekiswa neeveki ezidlulileyo.',
+        length: 'Malunga ne-25.6 cm',
+        comparison: 'Ibhanana',
+        bodyChanges: ['Isisu sakho esijikelezileyo kakuhle sinokuqala ukuchaphazela ukulingana nokuma kwakho.'],
+        toKnow: ['Embindini wokukhawulwa udla ngokuphawulwa luhlolo olupheleleyo nengcali yezempilo elandela ukhathalelo lwakho.'],
+      },
+      sn: {
+        babyDescription:
+          'Kubva muvhiki rino zvichienda, hurefu hunoyerwa kubva pamusoro kusvika patsoka panzvimbo yekubva pamusoro kusvika pamabhudu, sezvo makumbo achigona kutatamurwa nekuyerwa — izvi zvinotsanangura kusvetuka kunooneka kwehukuru hwekureva kana ichienzaniswa nemavhiki akapfuura.',
+        length: 'Kunge 25.6 cm',
+        comparison: 'Banana',
+        bodyChanges: ['Dumbu rako rakatenderera zvakanaka rinogona kutanga kukanganisa kuringana kwako nemafambiro ako.'],
+        toKnow: ['Pakati pemimba kazhinji pane kuongororwa kukuru nemushandi wezvehutano anotarisira kutarisirwa kwako.'],
+      },
+      ln: {
+        babyDescription:
+          'Uta poso oyo, molai etekemaka uta motu kino na makolo kasi te uta motu kino na nsuka ya nzoto, mpo ete makolo ekoki sikoyo kolandama mpe kotekama — yango ezali kolimbola mpo na nini bokeseni ya molai emonanaka polele na poso oyo eleki.',
+        length: 'Pene 25,6 cm',
+        comparison: 'Banane',
+        bodyChanges: ['Mokɔlɔ na yo ya kobongama ekoki kobanda kosala na kimya mpe lolenge na yo ya kotɛlɛma.'],
+        toKnow: ['Katikati ya zemi ezalaka mbala mingi elembo na kotala mobimba na moto ya mosala ya lisano oyo azali kolanda bokɔngɔli na yo.'],
+      },
+      ff: {
+        babyDescription:
+          'Hoosal ɗoo, juutal ina limtee e hoore haa koyngal, wanaa e hoore haa ɓaawo, ngam koyɗe ina mbaawi juutude. Ɗum hollata ɓeydugol yiyeteeɗum nder nde ɗum limtee ngam jammaa adii.',
+        length: 'Nder cm 25,6',
+        comparison: 'Banaana',
+        bodyChanges: ['Reedu maaɗa mawngu ina waawi sankude sooynde e no a ndarata.'],
+        toKnow: ['Hakkunde reedu ina feewi tawee e ndaarugol timmuɗo e jey-jeyaaɗo ɗemngal dawrugol.'],
+      },
       id: {
         babyDescription: 'Mulai minggu ini, panjang diukur dari kepala hingga tumit, bukan dari kepala hingga bokong, karena kaki kini bisa diluruskan dan diukur — inilah yang menjelaskan lonjakan ukuran acuan yang tampak dibandingkan minggu-minggu sebelumnya.',
         length: 'Sekitar 25,6 cm',
@@ -13993,6 +16382,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '熟悉宝宝平时的胎动规律，更容易察觉到异常的变化。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '寶寶的動作變得更清晰、更協調，這段時間通常能明顯感覺到胎動。',
+        length: '約 26.7 釐米',
+        comparison: '胡蘿蔔',
+        bodyChanges: [
+          '隨著子宮佔據更多空間，活動時可能會出現輕微的氣短。',
+        ],
+        toKnow: [
+          '熟悉寶寶平時的胎動規律，更容易察覺到異常的變化。',
+        ],
+      },
+      ar: {
+        babyDescription: 'تصبح الحركات أوضح وأكثر تناسقًا، ومن الشائع أن تبدأي بالإحساس بها بوضوح خلال هذه الفترة.',
+        length: 'حوالي 26.7 سم',
+        comparison: 'الجزر',
+        bodyChanges: ['قد يظهر ضيق خفيف في التنفس عند بذل المجهود مع احتلال الرحم مساحة أكبر.'],
+        toKnow: ['التعرّف على نمط حركة طفلك المعتاد يسهّل ملاحظة أي تغيّر غير معتاد.'],
+      },
+      kab: {
+        babyDescription: 'Armud yettuɣal d ayen yeqqnen ugar d ayen ittunefken, yerna d ayen imatu ad yebdu ad yettwaḥess s tefses deg tallit-a.',
+        length: 'Azal n 26.7 cm',
+        comparison: 'Aɣerbal n lxizzu',
+        bodyChanges: ['Ugzam amecṭuḥ n uḍfel s ukayad izmer ad d-yili ticki taddart n tkuffa teččur ugar.'],
+        toKnow: ['Asnan n uṭṭan n armud n uqcic ittuɣal d ayen yeqqnen yeḥrez ad d-yettwaf abeddel ur nelli ara am wakken yella.'],
+      },
+      om: {
+        babyDescription: 'Sochiin ifaa fi walsimataa ta\'a, yeroo kana keessa ifatti dhaga\'uu jalqabuun baratamaa dha.',
+        length: 'Gara 26.7 cm',
+        comparison: 'Kaarotii',
+        bodyChanges: ['Mudhiin iddoo caalu waan qabatuuf, hafuura rakkachuun salphaan yeroo hojii irratti mul\'achuu danda\'a.'],
+        toKnow: ['Haala sochii idilee daa\'ima keetii beekuun, jijjiirama idilee hin taane hubachuu salphisa.'],
+      },
+      ti: {
+        babyDescription: 'ምንቅስቓሳት ዝያዳ ንጹራትን ዝተሓላለዩን ይኾኑ፣ ኣብዚ እዋን ብንጹር ምስማዕ ምጅማር ልሙድ እዩ።',
+        length: 'ኣስታት 26.7 cm',
+        comparison: 'ካሮት',
+        bodyChanges: ['ማህጸን ዝያዳ ቦታ ክሕዝ ከሎ ኣብ ጸዓት ቀሊል ምትንፋስ ሓጺር ክረአ ይኽእል።'],
+        toKnow: ['ልሙድ ሞዴል ምንቅስቓስ ሕጻንኪ ምፍላጥ ዘይልሙድ ለውጢ ንምስትውዓል የቐልል።'],
+      },
+      rw: {
+        babyDescription: 'Ingendo zirushaho kuba zisobanutse kandi zihuzwa, kandi ni ibisanzwe gutangira kuzumva neza muri iki gihe.',
+        length: 'Hafi cm 26.7',
+        comparison: 'Karoti',
+        bodyChanges: ['Guhumeka bigoye gato igihe ukoze imbaraga bishobora kugaragara uko nyababyeyi ifata umwanya munini.'],
+        toKnow: ['Kumenyera uko ingendo z\'umwana wawe zisanzwe bituma byoroha kubona impinduka idasanzwe.'],
+      },
+      rn: {
+        babyDescription: 'Ingendo ziragenda zirushiriza kugaragara no guhuza, kandi ni ibisanzwe gutangura kuzumva neza muri iki gihe.',
+        length: 'Hafi ya cm 26,7',
+        comparison: 'Karoti',
+        bodyChanges: ['Guhema gato ku murimo bishobora kuboneka uko inda y’umwana ifata umwanya mwinshi.'],
+        toKnow: ['Kumenyera uko umwana wawe asanzwe agenda bituma byoroha kwitegereza impinduka idasanzwe.'],
+      },
+      ig: {
+        babyDescription: 'Mmegharị na-aghọ nke doro anya karị ma kwekọọ karị, ma ọ bụ ihe a na-ahụkarị ịmalite inwe mmetụta ha nke ọma n\'oge a.',
+        length: 'Ihe dị ka 26.7 cm',
+        comparison: 'Karọt',
+        bodyChanges: ['Obere nsogbu iku ume mgbe ị na-agba mbọ nwere ike ịpụta ka akpa nwa na-ewere ohere karị.'],
+        toKnow: ['Ịmara usoro mmegharị nkịtị nke nwa gị na-eme ka ọ dị mfe ịhụ mgbanwe dị iche.'],
+      },
+      yo: {
+        babyDescription: 'Àwọn ìṣípòpadà túbọ̀ ṣe kedere, wọ́n sì túbọ̀ ṣe déédé, ó sì wọ́pọ̀ láti bẹ̀rẹ̀ sí ní ìmọ̀lára wọn kedere ní àkókò yìí.',
+        length: 'Nǹkan bí 26.7 cm',
+        comparison: 'Karọ́ọ̀tì',
+        bodyChanges: ['Ẹ̀mí gbígbẹ̀ aláìle nígbà iṣẹ́ lè hàn bí ilé-ọmọ ṣe ń gba ààyè púpọ̀ sí i.'],
+        toKnow: ['Mímọ ìlànà ìṣípòpadà ọmọ rẹ déédé ń jẹ́ kí ó rọrùn láti kíyèsí àyípadà àìwọ́pọ̀.'],
+      },
+      zu: {
+        babyDescription: 'Ukunyakaza kuba sobala futhi kuhlangana kakhulu, futhi kuyajwayeleka ukuqala ukukuzwa ngokucacile phakathi nalesi sikhathi.',
+        length: 'Cishe 26.7 cm',
+        comparison: 'Ukharothi',
+        bodyChanges: ['Ukuphelelwa umoya okuncane lapho wenza umzamo kungavela njengoba isibeletho sithatha isikhala esiningi.'],
+        toKnow: ['Ukujwayela indlela yokunyakaza evamile yengane yakho kwenza kube lula ukuqaphela ushintsho olungajwayelekile.'],
+      },
+      xh: {
+        babyDescription: 'Intshukumo iba cacileyo kwaye ilungelelane ngakumbi, kwaye kuqhelekile ukuqala ukuvakalelwa yiyo ngokucacileyo ngeli xesha.',
+        length: 'Malunga ne-26.7 cm',
+        comparison: 'Isaqathi',
+        bodyChanges: ['Ukuphefumla ngokukhawuleza okuthambileyo ngexesha lomsebenzi kunokuvela njengoko isibeleko sithatha indawo engakumbi.'],
+        toKnow: ['Ukuqhelana nesantya sentshukumo esiqhelekileyo sosana lwakho kwenza kube lula ukubona utshintsho olungaqhelekanga.'],
+      },
+      sn: {
+        babyDescription: 'Kufamba kunova kwakajeka uye kwakanyatsonamatana, uye zvakajairika kutanga kukunzwa zvakajeka panguva ino.',
+        length: 'Kunge 26.7 cm',
+        comparison: 'Karoti',
+        bodyChanges: ['Kuneta kufema kusina simba pakuzvishandisa kunogona kuoneka sezvo chibereko chichitora nzvimbo yakawanda.'],
+        toKnow: ['Kujairira mufambiro wakajairika wemwana wako kunoita kuti zvive nyore kuona shanduko isina kujairika.'],
+      },
+      ln: {
+        babyDescription: 'Mbongwana ekómi polele mpe ya kosunga, mpe ezali ya mbala mingi kobanda koyoka yango polele na ntango oyo.',
+        length: 'Pene 26,7 cm',
+        comparison: 'Carotte',
+        bodyChanges: ['Kopema na pete ya mpasi ntango ozali kosala makasi ekoki kobima ntango libumu ezali kozwa esika mingi.'],
+        toKnow: ['Koyeba lolenge ya ntango nyonso ya mbongwana ya mwana na yo esalaka ete ezala pɛtɛɛ komona mbongwana ya kokesana.'],
+      },
+      ff: {
+        babyDescription: 'Hoyrugol ina ɓeydi laɓɓude e tokkude, e ina aada a fuɗɗa nanaade ɗum laɓɓum e wakkati ɗoo.',
+        length: 'Nder cm 26,7',
+        comparison: 'Karoot',
+        bodyChanges: ['Daŋŋgol hoyre seɗɗa e kuugal ina waawi wonde ngam reedu ina ɓeydi nokkuure.'],
+        toKnow: ['Anndude aada hoyrugol ɓiɗɗo maaɗa ina wallita ma nanaade waylugol wanaa aada.'],
       },
       id: {
         babyDescription: 'Gerakan makin jelas dan terkoordinasi, dan wajar jika kamu mulai merasakannya dengan jelas pada masa ini.',
@@ -14674,6 +17165,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '你吃的食物可能会影响羊水，而宝宝会经常吞咽羊水。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '肺部繼續發育，寶寶會練習輕微的呼吸動作，味蕾也在形成。',
+        length: '約 27.8 釐米',
+        comparison: '紅薯',
+        bodyChanges: [
+          '有些人可能會出現腿部抽筋，尤其是在夜間。',
+        ],
+        toKnow: [
+          '你吃的食物可能會影響羊水，而寶寶會經常吞嚥羊水。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تواصل الرئتان نموهما، ويتمرن الجنين على حركات تنفس صغيرة. كما تتشكل البراعم الذوقية.',
+        length: 'حوالي 27.8 سم',
+        comparison: 'البطاطا الحلوة',
+        bodyChanges: ['تقلصات الساقين، خصوصًا ليلًا، ممكنة لدى بعض النساء.'],
+        toKnow: ['ما تأكلينه قد يؤثر في السائل الأمنيوسي الذي يبتلعه الجنين بانتظام.'],
+      },
+      kab: {
+        babyDescription:
+          'Idamen ttkemmilen ad xeddment, yerna aqcic yettuɣal d aɣelnaw n armud amecṭuḥ n uddurar. Tiluẓin n tmeɣrut daɣen ttbeddun ad ttwaxdament.',
+        length: 'Azal n 27.8 cm',
+        comparison: 'Aɣerbal n lbaṭaṭa',
+        bodyChanges: ['Imawalen n iḍaren, ladɣa deg yiḍ, zemren ad d-banen i kra n medden.'],
+        toKnow: ['Ayen i d-tečč yezmer ad yesɛu aḍrar ɣef waman n lmayeɛ, i yettarwa uqcic s umata.'],
+      },
+      om: {
+        babyDescription:
+          'Sombi guddachuu itti fufa, daa\'imni sochii hafuura xiqqoo shaakala. Bakkeewwan mi\'a dhandhamuu illee uumamaa jiru.',
+        length: 'Gara 27.8 cm',
+        comparison: 'Dinnicha mi\'aawaa',
+        bodyChanges: ['Miilli ciccimuun, keessumaa halkan, namoota tokko tokkoof ni danda\'ama.'],
+        toKnow: ['Wanti ati nyaattu bishaan hanqaaquu, kan daa\'imni yeroo yeroon liqimsu, irratti dhiibbaa geessisuu danda\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ሳምባ ምዕባይ ይቕጽል፣ እቲ ሕጻን ድማ ንኣሽቱ ምትንፋስ ምንቅስቓሳት ይለማመድ። ጥዕምቲ ጠቕሊ’ውን ይፍጠር ኣለዎ።',
+        length: 'ኣስታት 27.8 cm',
+        comparison: 'ጥዑም ድንሽ',
+        bodyChanges: ['ብፍላይ ኣብ ለይቲ ምውቃዕ እግሪ ንገሊኦም ሰባት ክህሉ ይኽእል።'],
+        toKnow: ['እትበልዕዮ ነገር ኣብ ፈሳሲ ኣምኒዮን፣ እቲ ሕጻን ብጻዕሪ ዝውሕጦ፣ ክጸሉ ይኽእል።'],
+      },
+      rw: {
+        babyDescription:
+          'Ibihaha bikomeza gukura, kandi umwana yimenyereza ingendo nto zo guhumeka. Imitsi yo kumva uburyohe na yo iri kuremwa.',
+        length: 'Hafi cm 27.8',
+        comparison: 'Ibijumba',
+        bodyChanges: ['Kuribwa mu maguru, cyane cyane nijoro, birashoboka ku bantu bamwe.'],
+        toKnow: ['Ibyo urya bishobora kugira ingaruka ku mazi y\'inda, umwana amira buri gihe.'],
+      },
+      rn: {
+        babyDescription:
+          'Ibihaha bikomeza gukura, kandi umwana yimenyereza ingendo nto zo guhema. Ibinyabwoya vy’ururimi na vyo birimo birakura.',
+        length: 'Hafi ya cm 27,8',
+        comparison: 'Ibijumba',
+        bodyChanges: ['Gufatwa n’imikaya y’amaguru, cane cane nijoro, birashoboka kuri bamwe.'],
+        toKnow: ['Ivyo urya bishobora guhindura amazi y’inda, umwana anywa buri gihe.'],
+      },
+      ig: {
+        babyDescription:
+          'Ngụgụ na-aga n\'ihu na-etolite, ma nwa ahụ na-eme obere mmegharị iku ume. Ọnụ ọnụ ụtọ na-etolitekwa.',
+        length: 'Ihe dị ka 27.8 cm',
+        comparison: 'Mbụ ube ose (sweet potato)',
+        bodyChanges: ['Cramps ụkwụ, karịsịa n\'abalị, ga-ekwe omume maka ụfọdụ mmadụ.'],
+        toKnow: ['Ihe ị na-eri nwere ike imetụta mmiri amniotic, nke nwa ahụ na-eloda mgbe niile.'],
+      },
+      yo: {
+        babyDescription:
+          'Ẹ̀dọ̀fóró ń tẹ̀síwájú láti dàgbà, ọmọ náà sì ń ṣe àwọn ìṣípòpadà mímí kékeré. Àwọn ẹ̀yà ìtọ́wò ahọ́n tún ń dá.',
+        length: 'Nǹkan bí 27.8 cm',
+        comparison: 'Ọdùnkún',
+        bodyChanges: ['Ìgbẹ́ ẹsẹ̀, ní pàtàkì ní òru, ṣeé ṣe fún àwọn kan.'],
+        toKnow: ['Ohun tí o ń jẹ lè nípa lórí omi amniotic, tí ọmọ náà ń gbé mì déédé.'],
+      },
+      zu: {
+        babyDescription:
+          'Amaphaphu aqhubeka nokukhula, futhi ingane ifunda ukunyakaza okuncane kokuphefumula. Ama-taste buds nawo ayakheka.',
+        length: 'Cishe 27.8 cm',
+        comparison: 'Ubhatata',
+        bodyChanges: ['Ukuhlushwa yisisu emathangeni, ikakhulukazi ebusuku, kungenzeka kwabanye abantu.'],
+        toKnow: ['Lokho okudlayo kungathinta uketshezi lwe-amniotic, okugwinywa yingane njalo.'],
+      },
+      xh: {
+        babyDescription:
+          'Imiphunga iqhubeka ikhula, kwaye usana luziqhelanisa nentshukumo encinci yokuphefumla. Iindawo zokungcamla nazo ziyakheka.',
+        length: 'Malunga ne-27.8 cm',
+        comparison: 'Iitapile ezimnandi',
+        bodyChanges: ['Ukubanda kwemilenze, ngakumbi ebusuku, kuyenzeka kwabanye abantu.'],
+        toKnow: ['Oko utya kunokuchaphazela ulwelo lwesibeleko, olumginywa rhoqo ngusana.'],
+      },
+      sn: {
+        babyDescription:
+          'Mapapu anoramba achikura, uye mwana anodzidzira kufema kudiki. Nzvimbo dzekunzwa kuravira dziri kuumbwawo.',
+        length: 'Kunge 27.8 cm',
+        comparison: 'Mbambaira tsvuku',
+        bodyChanges: ['Kusungirana kwemakumbo, kunyanya usiku, kunogoneka kune vamwe.'],
+        toKnow: ['Zvaunodya zvinogona kukanganisa mvura yeamniotic, yaunomedza nguva dzose mwana.'],
+      },
+      ln: {
+        babyDescription:
+          'Mapema ekobaka kosalema, mpe mwana azali koyekola kopema moke. Ba papilles ya nkaka ezali mpe kosalema.',
+        length: 'Pene 27,8 cm',
+        comparison: 'Patate douce',
+        bodyChanges: ['Mpasi ya makolo, mingi mingi na butu, ekoki kobima mpo na basusu.'],
+        toKnow: ['Oyo ozali kolia ekoki kosala na mai ya amniotique, oyo mwana azali komela mbala na mbala.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗa hoore ina tokka waɗeede, e ɓiɗɗo ina taskaade daŋŋgol hoyre seɗɗa. Ɗemngal ina fuɗɗa waɗeede.',
+        length: 'Nder cm 27,8',
+        comparison: 'Patat',
+        bodyChanges: ['Muusaare koyngal, ko feewi jemma, ina waawi wonde ngam woɗɓe.'],
+        toKnow: ['Ko ñaamataa ina waawi sankude ndiyam reedu, ɗum ɓiɗɗo ñaamata laabi ɗuuɗi.'],
+      },
       id: {
         babyDescription: 'Paru-paru terus berkembang, dan bayi berlatih gerakan bernapas kecil. Kuncup pengecap juga sedang terbentuk.',
         length: 'Sekitar 27,8 cm',
@@ -15353,6 +17959,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '观察宝宝活跃和安静的时段，可以帮你了解他自己的节奏。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '四肢比例已經協調。寶寶會練習呼吸，並開始交替出現睡眠和清醒的階段。',
+        length: '約 28.9 釐米',
+        comparison: '大芒果',
+        bodyChanges: [
+          '隨著體重逐漸增加，可能會出現更明顯的背痛。',
+        ],
+        toKnow: [
+          '觀察寶寶活躍和安靜的時段，可以幫你瞭解他自己的節奏。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'أصبحت الأطراف الآن متناسبة جيدًا. ويتمرن الجنين على التنفس ويبدأ بالتناوب بين مرحلتي النوم واليقظة.',
+        length: 'حوالي 28.9 سم',
+        comparison: 'مانجو كبيرة',
+        bodyChanges: ['قد يظهر ألم أكثر وضوحًا في الظهر مع زيادة الوزن التدريجية.'],
+        toKnow: ['ملاحظة فترات نشاط الجنين وهدوئه تساعدك على التعرّف على إيقاعه الخاص.'],
+      },
+      kab: {
+        babyDescription:
+          'Iḍaren tura ttwaḥsaben mliḥ. Aqcic yettwehhu ad yettnefsi yerna yebda ad yettbeddil gar tallit n unuba d tallit n wul.',
+        length: 'Azal n 28.9 cm',
+        comparison: 'Aɣerbal n lmanɣa ameqqran',
+        bodyChanges: ['Aṭṭan n ufud ameqqran izmer ad d-yili s tuɣalin n lzzayed n azal.'],
+        toKnow: ['Tuffɣa n tallit n tmeɣrut d tallit n unuba n uqcic ak-yeɛawen ad tessneḍ aswir-is.'],
+      },
+      om: {
+        babyDescription:
+          'Irree fi miilli amma madaalamaniiru. Daa\'imni hafuura shaakala, sadarkaalee rafuu fi dammaquu jijjiiruu jalqaba.',
+        length: 'Gara 28.9 cm',
+        comparison: 'Maangoo guddaa',
+        bodyChanges: ['Ulfaatina suuta suutaan dabaluun dhukkubbiin dugdaa caalu mul\'achuu danda\'a.'],
+        toKnow: ['Yeroo daa\'imni sochii qabuu fi tasgabbaa\'u ilaaluun, sirna ofii isaa baruuf si gargaara.'],
+      },
+      ti: {
+        babyDescription:
+          'እግርታት ሕጂ ጽቡቕ ይመጣጠና። እቲ ሕጻን ምትንፋስ ይለማመድ፣ ድቃስን ንቅሓትን ድማ ብቐሊሉ ክልውጥ ይጅምር።',
+        length: 'ኣስታት 28.9 cm',
+        comparison: 'ዓቢ ማንጎ',
+        bodyChanges: ['ሕቖ ዝያዳ ቃንዛ ብቐስ ብቐስ ምውሳኽ ክብደት ክህሉ ይኽእል።'],
+        toKnow: ['ንንጡፍን ህዱእን እዋን ሕጻን ምዕዛብ ናይ ባዕሉ ሪትም ንምፍላጥ ይሕግዝ።'],
+      },
+      rw: {
+        babyDescription:
+          'Ingingo ubu zingana neza. Umwana yimenyereza guhumeka kandi atangira guhinduranya ibihe byo gusinzira n\'ibyo gukanguka.',
+        length: 'Hafi cm 28.9',
+        comparison: 'Mango nini',
+        bodyChanges: ['Kubabara umugongo cyane bishobora kugaragara uko ibiro byiyongera buhoro buhoro.'],
+        toKnow: ['Kwitegereza ibihe umwana akora n\'ibihe aruhuka bigufasha kumenya uko yihariye.'],
+      },
+      rn: {
+        babyDescription:
+          'Amaguru n’amaboko ubu biringaniye neza. Umwana yimenyereza guhema kandi atangura guhinduranya ibihe vyo gusinzira n’ibyo gukanguka.',
+        length: 'Hafi ya cm 28,9',
+        comparison: 'Umwembe munini',
+        bodyChanges: ['Umugongo urushiriza kuribwa ushobora kuboneka n’izamuka rya buhoro buhoro ry’ibiro.'],
+        toKnow: ['Kwitegereza ibihe umwana akora n’ibihe atuje bigufasha kumenya umuzingo we.'],
+      },
+      ig: {
+        babyDescription:
+          'Akụkụ ahụ dị nke ọma ugbu a. Nwa ahụ na-eme iku ume ma na-amalite ịgbanwe n\'etiti oge ụra na oge iteta.',
+        length: 'Ihe dị ka 28.9 cm',
+        comparison: 'Mango dị ukwuu',
+        bodyChanges: ['Mgbu azụ dị ukwuu karị nwere ike ịpụta ka arọ na-abawanye nwayọ nwayọ.'],
+        toKnow: ['Ilele oge nwa ahụ na-emega na oge ọ na-ada jụụ na-enyere gị aka ịmụta usoro nke ya.'],
+      },
+      yo: {
+        babyDescription:
+          'Àwọn ẹ̀ka ara ti ní ìwọ̀n tó dára báyìí. Ọmọ náà ń ṣe ìdánrawò mímí ó sì bẹ̀rẹ̀ sí máa pààrọ̀ ìpele oorun àti jíjí.',
+        length: 'Nǹkan bí 28.9 cm',
+        comparison: 'Mangoro ńlá',
+        bodyChanges: ['Ìrora ẹ̀yìn tó pọ̀ sí i lè hàn pẹ̀lú ìwọ̀n ara tó ń pọ̀ sí i díẹ̀díẹ̀.'],
+        toKnow: ['Ṣíṣàkíyèsí àwọn àkókò tí ọmọ náà ń ṣiṣẹ́ àti èyí tó dákẹ́ ń ràn ọ́ lọ́wọ́ láti kọ́ ìlù tirẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Amalungu manje alinganiswe kahle. Ingane ifunda ukuphefumula futhi iqala ukushintshanisa izigaba zokulala nokuvuka.',
+        length: 'Cishe 28.9 cm',
+        comparison: 'Umango omkhulu',
+        bodyChanges: ['Ubuhlungu bomhlane obukhulu kakhulu bungavela ngokukhula kancane kancane kwesisindo.'],
+        toKnow: ['Ukubuka izikhathi eziphilayo nezithulile zengane kukusiza ufunde isigqi sayo.'],
+      },
+      xh: {
+        babyDescription:
+          'Imilenze nengalo ngoku zilingana kakuhle. Usana luziqhelanisa nokuphefumla kwaye luqala ukutshintshana phakathi kokulala nokuvuka.',
+        length: 'Malunga ne-28.9 cm',
+        comparison: 'Imango enkulu',
+        bodyChanges: ['Intlungu yomqolo ebonakalayo ngakumbi inokuvela ngokunyuka kobunzima ngokuthe ngcembe.'],
+        toKnow: ['Ukubona amaxesha osana asebenzayo nathe cwaka kukunceda ufunde isantya salo.'],
+      },
+      sn: {
+        babyDescription:
+          'Maoko nemakumbo zvava nehukuru hwakanaka. Mwana anodzidzira kufema uye anotanga kutsiva nguva dzehope nedzekumuka.',
+        length: 'Kunge 28.9 cm',
+        comparison: 'Mango hombe',
+        bodyChanges: ['Kurwadza musana kwakanyanya kunogona kuoneka nekuwedzera kweuremu zvishoma nezvishoma.'],
+        toKnow: ['Kutarisa nguva dzekushanda nedzekunyarara dzemwana kunokubatsira kudzidza mufambiro wake.'],
+      },
+      ln: {
+        babyDescription:
+          'Makolo ekokani malamu sikoyo. Mwana azali koyekola kopema mpe abandi kobongola kolala mpe kolamuka.',
+        length: 'Pene 28,9 cm',
+        comparison: 'Mangue monene',
+        bodyChanges: ['Mpasi ya mongongo ya makasi ekoki kobima na komata ya kilo moke moke.'],
+        toKnow: ['Kotala ntango ya mwana ya mosala mpe ya kimya esunga yo koyeba lolenge na ye.'],
+      },
+      ff: {
+        babyDescription:
+          'Juude e koyɗe ina ngoodi juutal moƴƴal. Ɓiɗɗo ina taskaade daŋŋgol hoyre e fuɗɗa seertugol hoosugol e wanaa hoosugol.',
+        length: 'Nder cm 28,9',
+        comparison: 'Mango mawngo',
+        bodyChanges: ['Muusaare ɓuggol ɓurdi tiiɗude ina waawi wonde ngam ɓeydugol tiiɗal.'],
+        toKnow: ['Ndaarugol wakkatiiji ɓiɗɗo hoyrata e ɗi hoosata ina wallita ma anndude aada mum.'],
       },
       id: {
         babyDescription: 'Anggota tubuh kini sudah proporsional. Bayi berlatih bernapas dan mulai bergantian antara fase tidur dan terjaga.',
@@ -16034,6 +18755,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '妊娠期糖尿病筛查通常在这个时期进行。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '寶寶到達了存活能力的臨界點：在這一階段如果極早產，專業的新生兒醫療護理配合適當的支援，可以讓寶寶存活。',
+        length: '約 30 釐米',
+        comparison: '玉米',
+        bodyChanges: [
+          '膀胱受到的壓力可能增加，也可能出現尿頻。',
+        ],
+        toKnow: [
+          '妊娠期糖尿病篩查通常在這個時期進行。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يبلغ الجنين عتبة القدرة على البقاء: ففي حال الولادة المبكرة جدًا في هذه المرحلة، يمكن للرعاية الطبية المتخصصة لحديثي الولادة أن تتيح البقاء، مع الدعم المناسب.',
+        length: 'حوالي 30 سم',
+        comparison: 'كوز الذرة',
+        bodyChanges: ['قد يظهر ضغط متزايد على المثانة وحاجة متكررة إلى التبول.'],
+        toKnow: ['يُعرض فحص سكري الحمل عمومًا في هذا الوقت تقريبًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yewwi ɣer ubdar n tudert: ma yella tuffɣa tazzayezt aṭas deg acelḍ-a, unelmad n tezmert n yemmudnen yeqqnen izmer ad yeǧǧ tudert, s tallit yelhan.',
+        length: 'Azal n 30 cm',
+        comparison: 'Aɣerbal n ulbuq n ṣṣura',
+        bodyChanges: ['Ugzam ɣef ubalun d lbɣi n ukacem s tikkelt zemren ad d-banen.'],
+        toKnow: ['Asenqed n ssuker n lḥemla yettunefk s umata deg wakud-a.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni daangaa jiraachuu ga\'a: yoo sadarkaa kanatti baay\'ee dafee dhalate, kunuunsi fayyaa daa\'ima dhalatee addaa jiraachuu mirkaneessuu danda\'a, deeggarsa mijaa\'aa waliin.',
+        length: 'Gara 30 cm',
+        comparison: 'Boqqolloo',
+        bodyChanges: ['Dhiibbaan fincaan qabu dabaluu fi fedhiin fincaanuu yeroo baay\'ee mul\'achuu danda\'a.'],
+        toKnow: ['Qorannoon dhukkuba sukkaaraa ulfaa waliigalaan yeroo kana naannoo dhiyaata.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ንመድረኽ ምቅጻል ህይወት ይበጽሕ፦ ኣብዚ ደረጃ ብጣዕሚ ቅድሚ ግዜ ዝተወልደ እንተኾይኑ፣ ፍሉይ ናይ ሓድሽ ተወላዲ ሕክምናዊ ክንክን ምስ ግቡእ ሓገዝ ንምድሓን ይሕግዝ።',
+        length: 'ኣስታት 30 cm',
+        comparison: 'ዕፉን ኮርን',
+        bodyChanges: ['ኣብ ሽንቲ ከብዲ ዝያዳ ጸቕጢ ከምኡ’ውን ተደጋጋሚ ድሌት ምሽንታት ክረኣዩ ይኽእሉ።'],
+        toKnow: ['ናይ ምርመራ ሕማም ሽኮር ኣብ ጥንሲ ብሓፈሻ ኣብዚ እዋን ይቐርብ።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana agera ku rugero rwo kubaho: mu gihe cyo kubyara hakiri kare cyane muri iki gihe, ubuvuzi bwihariye bw\'abana bavutse bushobora gutuma abaho, hamwe n\'ubufasha bukwiye.',
+        length: 'Hafi cm 30',
+        comparison: 'Ikigori',
+        bodyChanges: ['Igitutu cyiyongereye ku ruhago no kumva ushaka kujya kunyara kenshi bishobora kugaragara.'],
+        toKnow: ['Isuzuma ry\'diyabete y\'inda muri rusange ritangwa hafi muri iki gihe.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana agera ku rugero rwo kuba ashobora kubaho: mu gihe c’ivuka ritaragera cane kuri iki gihe, ubuvuzi bwihariye bw’abana bavutse bushobora gutuma abaho, hamwe n’ubufasha bukwiye.',
+        length: 'Hafi ya cm 30',
+        comparison: 'Ikigori',
+        bodyChanges: ['Igitutu cyongerewe ku mpago n’icipfuzo gikunze cyo kwihagarika bishobora kuboneka.'],
+        toKnow: ['Isuzuma rya diyabete y’inda mu rusangi ritangwa ahagana kuri iki gihe.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ erutela ọnụ ụzọ ibi ndụ: ma ọ bụrụ na a mụọ ya n\'oge na-erubeghị n\'ọkwa a, nlekọta ahụike pụrụ iche maka nwa ọhụrụ nwere ike ime ka ọ dịrị ndụ, yana nkwado kwesịrị ekwesị.',
+        length: 'Ihe dị ka 30 cm',
+        comparison: 'Ọka bekee (otu osisi)',
+        bodyChanges: ['Nrụgide dị ukwuu na akpa mmiri mmiri na ọchịchọ ịsa mmiri ugboro ugboro nwere ike ịpụta.'],
+        toKnow: ['N\'ozuzu, a na-enye nyocha shuga ime n\'ihe dị ka oge a.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà dé ìlà ìwàláàyè: bí a bá bí i láìpé gan-an ní ìpele yìí, ìtọ́jú ìṣègùn ọmọ tuntun pàtàkì lè jẹ́ kí ó yè, pẹ̀lú ìrànlọ́wọ́ tó yẹ.',
+        length: 'Nǹkan bí 30 cm',
+        comparison: 'Ṣùkù ọkà àgbàdo',
+        bodyChanges: ['Ìfúnpá lórí àpòòtọ̀ àti ìfẹ́ láti ṣe ìtọ̀ nígbàkigbà lè hàn.'],
+        toKnow: ['Àyẹ̀wò àtọ̀gbẹ oyún sábà máa ń wáyé ní àyíká àkókò yìí.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane ifinyelela esilinganisweni sokuphila: uma kwenzeka ukuzalwa kusenesikhathi kakhulu kulesi sigaba, ukunakekelwa kwezokwelapha kwezingane ezizelwe okukhethekile kungavumela ukusinda, ngosekelo olufanele.',
+        length: 'Cishe 30 cm',
+        comparison: 'Isikhwebu sombila',
+        bodyChanges: ['Ingcindezi eyengeziwe esinqeni sokuchama nesifiso esivamile sokuchama kungavela.'],
+        toKnow: ['Ukuhlolwa kwesifo sikashukela sokukhulelwa ngokuvamile kunikezwa cishe ngalesi sikhathi.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana lufikelela kumda wokuphila: ukuba kwenzeke ukuzalwa kwangaphambi kwexesha kakhulu kweli nqanaba, ukhathalelo lwezonyango lwabantwana abasanda kuzalwa olukhethekileyo lunokwenza ukuba luphile, ngenkxaso efanelekileyo.',
+        length: 'Malunga ne-30 cm',
+        comparison: 'Isiphunga sombona',
+        bodyChanges: ['Uxinzelelo olwanda esibhobhozini nesidingo esiqhelekileyo sokuchama zinokuvela.'],
+        toKnow: ['Uvavanyo lwesifo seswekile sokukhawulwa ngokubanzi lunikezelwa malunga neli xesha.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana anosvika pamuganhu wekugona kurarama: kana akaberekwa nguva isati yakwana zvakanyanya panguva ino, kurapwa kwakanangana kwevacheche kunogona kubatsira kurarama, nerutsigiro rwakakodzera.',
+        length: 'Kunge 30 cm',
+        comparison: 'Chibage',
+        bodyChanges: ['Kuwedzera kudzvanywa kwebhodhoro uye kuda kwakawanda kuchera mvura kunogona kuoneka.'],
+        toKnow: ['Kuongororwa kwegestational diabetes kazhinji kunopiwa panguva ino.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana akómi na ndelo ya kozala na bomoi: soki abotami liboso ya ntango mingi na ntango oyo, bokɔngɔli ya monganga ya sipesiale ya bana ekoki kosunga ye abika, na lisalisi oyo ebongi.',
+        length: 'Pene 30 cm',
+        comparison: 'Mbuma ya mais',
+        bodyChanges: ['Kotindika makasi na vessie mpe mposa ya mbala mingi ya kosala mai ekoki kobima.'],
+        toKnow: ['Dépistage ya diabète ya zemi epesamaka mbala mingi pene na ntango oyo.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina hettii haa wakkati wuurude: si ɗum danyi ɓurdi adii e wakkati ɗoo, reentugol doktoor ngam ɓiɗɗa danyaaɓe ina waawi wallude ɗum wuurude, e walliinde moƴƴum.',
+        length: 'Nder cm 30',
+        comparison: 'Koodi maaya',
+        bodyChanges: ['Tiiɗal dow ɓolol-ndiyam e muusaare piʼugol ndiyam ɗuuɗɗum ina mbaawi wonde.'],
+        toKnow: ['Ndaarugol diyabeet reedu ko feewi hokkee e wakkati ɗoo.'],
+      },
       id: {
         babyDescription: 'Bayi mencapai ambang viabilitas: jika lahir sangat prematur pada tahap ini, perawatan medis neonatal khusus dapat membuatnya bertahan hidup, dengan dukungan yang sesuai.',
         length: 'Sekitar 30 cm',
@@ -16714,6 +19550,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '偶尔感觉到胎儿打嗝，一般被认为是正常的。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '寶寶現在聽到很大的聲音會受驚或踢腿，你偶爾還能感覺到打嗝。寶寶會定期把尿排入羊水中。',
+        length: '約 34.6 釐米',
+        comparison: '西葫蘆',
+        bodyChanges: [
+          '燒心或反酸可能會變得更頻繁。',
+        ],
+        toKnow: [
+          '偶爾感覺到胎兒打嗝，一般被認為是正常的。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يتفاعل الجنين الآن مع الأصوات العالية بانتفاضة أو ركلة، وقد يُحَسّ بفواق من حين لآخر. ويتبوّل بانتظام في السائل الأمنيوسي.',
+        length: 'حوالي 34.6 سم',
+        comparison: 'الكوسا',
+        bodyChanges: ['قد يصبح الحرقان أو الارتجاع الحمضي أكثر تكرارًا.'],
+        toKnow: ['يُعدّ فواق الجنين الذي يُحَسّ من حين لآخر طبيعيًا عمومًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yettqabal tura ɣer yimesla iẓeggwaɣen s ugdal neɣ s waɣbar, yerna zemren ad ttwaḥessen kra n wuccan. Yettnunneḍ s tfunast deg waman n lmayeɛ.',
+        length: 'Azal n 34.6 cm',
+        comparison: 'Aɣerbal n lkabbu',
+        bodyChanges: ['Ugraw n tmeɣrut neɣ ibaleɛ n lḥemla zemren ad ttilin ugar.'],
+        toKnow: ['Wuccan n uqcic i yettwaḥessen seg wakud ɣer wayeḍ ttwaḥsaben d imatu.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni amma sagalee guddaaf of dhiibuu yookaan dhiibuun deebii kenna, hiccuu yeroo tokko tokko dhaga\'amuu danda\'a. Bishaan hanqaaquu keessatti yeroo hunda fincaan.',
+        length: 'Gara 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: ['Garaa gubachuun yookaan asiidii deebi\'uun yeroo baay\'ee ta\'uu danda\'a.'],
+        toKnow: ['Hiccuun daa\'ima yeroo yeroon dhaga\'amu waliigalaan idilee ta\'ee ilaalama.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ሕጂ ንዓቢ ድምጽታት ብምድንጋጽ ወይ ብምርግጻእ ይምልስ፣ ገለ ግዜ ድማ ሂቕ ክስምዕ ይኽእል። ኣብ ፈሳሲ ኣምኒዮን ብመደበኛ ይሸይን።',
+        length: 'ኣስታት 34.6 cm',
+        comparison: 'ዙኪኒ',
+        bodyChanges: ['ጥንተ ሕቖ ወይ ኣሲድ ምምላስ ዝያዳ ተደጋጋሚ ክኸውን ይኽእል።'],
+        toKnow: ['ካብ ግዜ ናብ ግዜ ዝስማዕ ሂቕ ጽንሲ ብሓፈሻ ልሙድ ይቝጸር።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana ubu agira icyo akora ku majwi akomeye, ahinda umushyitsi cyangwa agakubita ikirenge, kandi ushobora rimwe na rimwe kumva ahangayutse (hiccups). Anyara buri gihe mu mazi y\'inda.',
+        length: 'Hafi cm 34.6',
+        comparison: 'Courgette',
+        bodyChanges: ['Ikirungurira cyangwa gusubiza ibyo wariye bishobora kuba byinshi.'],
+        toKnow: ['Hiccups z\'umwana zumvikana rimwe na rimwe muri rusange zifatwa nk\'ibisanzwe.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana ubu arahinda umushitsi canke agatera igitsintsiri iyo yumvise amajwi manini, kandi hiccups zimwe na zimwe zishobora kumvwa. Yihagarika buri gihe mu mazi y’inda.',
+        length: 'Hafi ya cm 34,6',
+        comparison: 'Zucchini',
+        bodyChanges: ['Gutwika mu gifuba canke acid reflux bishobora kuba kenshi.'],
+        toKnow: ['Hiccups z’umwana zumvwa rimwe na rimwe mu rusangi zibonwa nk’izisanzwe.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ na-aza mkpọtụ dị ike ugbu a site na ịma jijiji ma ọ bụ ịkụ ụkwụ, a nwekwara ike inwe mmetụta ịkwa ikuku mgbe ụfọdụ. Ọ na-asa mmiri mgbe niile n\'ime mmiri amniotic.',
+        length: 'Ihe dị ka 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: ['Ọkụ n\'obi ma ọ bụ acid reflux nwere ike ịbawanye ugboro ugboro.'],
+        toKnow: ['A na-ewere ịkwa ikuku nke fetus a na-enwe mmetụta ya site n\'oge ruo n\'oge dị ka ihe nkịtị n\'ozuzu.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ń dáhùn sí ariwo ńlá báyìí nípa fífò sókè tàbí fífi ẹsẹ̀ tì, a sì lè rí ìgbóòrùn lẹ́ẹ̀kọ̀ọ̀kan. Ó ń tọ̀ déédé sínú omi amniotic.',
+        length: 'Nǹkan bí 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: ['Ìgbóná àyà tàbí ìtúnsàn acid lè pọ̀ sí i.'],
+        toKnow: ['Ìgbóòrùn ọmọ inú tí a ń rí lẹ́ẹ̀kọ̀ọ̀kan ni a sábà ka sí déédé.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane manje iphendula emisindweni ephakeme ngokuthuka noma ngokukhaba, futhi ukuthuthumela kwesikhathi esithile kungezwakala. Ichama njalo koketshezi lwe-amniotic.',
+        length: 'Cishe 34.6 cm',
+        comparison: 'I-zucchini',
+        bodyChanges: ['Ukuvutha kwesifuba noma i-acid reflux kungavama kakhulu.'],
+        toKnow: ['Ukuthuthumela kwengane okuzwakala ngezikhathi ezithile ngokuvamile kuthathwa njengokujwayelekile.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana ngoku lusabela kumsindo ophezulu ngokothuka okanye ukukhaba, kwaye ukuhlikihla ngamanye amaxesha kunokuvakala. Luchama rhoqo kulwelo lwesibeleko.',
+        length: 'Malunga ne-34.6 cm',
+        comparison: 'Izukini',
+        bodyChanges: ['Ukutshisa esifubeni okanye ukuphindela kweasidi kunokwenzeka rhoqo.'],
+        toKnow: ['Ukuhlikihla kwefetus okuvakala ngamanye amaxesha kudla ngokuthathwa njengokuqhelekileyo.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana ava kuita kuzvinzwi zvikuru nekuvhunduka kana kukanda gumbo, uye kuhiccup kwenguva nenguva kunogona kunzwika. Anochera mvura nguva dzose mumvura yeamniotic.',
+        length: 'Kunge 34.6 cm',
+        comparison: 'Zucchini',
+        bodyChanges: ['Kupisa pachipfuva kana acid reflux zvinogona kuwedzera kuitika.'],
+        toKnow: ['Kuhiccup kwefetus kunonzwika dzimwe nguva kazhinji kunoonekwa sekwakajairika.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana ayokaka sikoyo makelele makasi na kobɛta to kopumba, mpe hoquet ekoki koyokana mbala mosusu. Asalaka mai ya mbala na mbala na kati ya mai ya amniotique.',
+        length: 'Pene 34,6 cm',
+        comparison: 'Courgette',
+        bodyChanges: ['Kotumba na libumu to acid reflux ekoki kokóma ya mbala mingi.'],
+        toKnow: ['Hoquet ya mwana oyo eyokanaka mbala mosusu etalamaka mbala mingi lokola ya kokoka.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina nanay ɗiɗi tiiɗuɗi e hoyrugol walla yiiʼugol, e tokkindiral nyaamdu seɗɗa ina waawi nanaade. Ɗum ina piʼa ndiyam nder ndiyam reedu feewi.',
+        length: 'Nder cm 34,6',
+        comparison: 'Koorzet',
+        bodyChanges: ['Ñaawugol yiite walla acid ina waawi ɓeydude.'],
+        toKnow: ['Hoyrugol seɗɗa ɓiɗɗo nanaaɗo e wakkati e wakkati ina limtee aada.'],
+      },
       id: {
         babyDescription: 'Bayi kini bereaksi terhadap suara keras dengan terkejut atau menendang, dan sesekali cegukan bisa terasa. Bayi buang air kecil secara teratur ke dalam air ketuban.',
         length: 'Sekitar 34,6 cm',
@@ -17387,6 +20338,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '孕晚期即将到来，产检通常会变得更频繁。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '眼睛第一次睜開。寶寶眼睛最終的顏色，通常要到出生後幾個月才能確定。',
+        length: '約 35.6 釐米',
+        comparison: '黃瓜',
+        bodyChanges: [
+          '腳踝或腳部可能會出現輕微水腫，尤其是在一天快結束的時候。',
+        ],
+        toKnow: [
+          '孕晚期即將到來，產檢通常會變得更頻繁。',
+        ],
+      },
+      ar: {
+        babyDescription: 'تنفتح العينان للمرة الأولى. ولا يُعرف لونهما النهائي عمومًا إلا بعد عدة أشهر من الولادة.',
+        length: 'حوالي 35.6 سم',
+        comparison: 'الخيار',
+        bodyChanges: ['قد يظهر تورّم خفيف في الكاحلين أو القدمين، خصوصًا في نهاية اليوم.'],
+        toKnow: ['يقترب الثلث الثالث، وتصبح المتابعة الطبية عمومًا أكثر تكرارًا.'],
+      },
+      kab: {
+        babyDescription: 'Allen ldint i tikkelt tamezwarut. Ccekl-nsent aneggaru ur yettwassen ara s umata armi yekfa kra n wayyuren deffir tlalit.',
+        length: 'Azal n 35.6 cm',
+        comparison: 'Aɣerbal n tasekkurt',
+        bodyChanges: ['Ahettu amecṭuḥ n yiɛeḍman neɣ n iḍaren izmer ad d-yili, ladɣa deg taggara n wass.'],
+        toKnow: ['Wayyur wis tlata yeqreb, yerna anelmad ittwaweṭṭen yettuɣal d ugar s umata.'],
+      },
+      om: {
+        babyDescription: 'Ijji al-tokko jalqabaaf banama. Halluun isaa dhumaa waliigalaan ji\'a hedduu dhalootaa booda malee hin beekamu.',
+        length: 'Gara 35.6 cm',
+        comparison: 'Kukumbarii',
+        bodyChanges: ['Dhiitni salphaan eeboo yookaan miila irratti, keessumaa xumura guyyaa irratti, mul\'achuu danda\'a.'],
+        toKnow: ['Kutaan sadaffaa dhiʼaachaa jira, hordoffiin fayyaa waliigalaan yeroo baay\'ee ta\'aa jira.'],
+      },
+      ti: {
+        babyDescription: 'ዓይኒታት ንመጀመርታ ግዜ ይኽፈታ። ናይ መወዳእታ ሕብረን ብሓፈሻ ክሳብ ድሕሪ ልደት ብዙሓት ኣዋርሕ ኣይፍለጥን።',
+        length: 'ኣስታት 35.6 cm',
+        comparison: 'ኩኩምበር',
+        bodyChanges: ['ብፍላይ ኣብ መወዳእታ መዓልቲ ቀሊል ምሕባጥ ሸኽ እግርን ጫማን ክረአ ይኽእል።'],
+        toKnow: ['ሳልሳይ ትሪሜስተር ይቐርብ ኣሎ፣ ሕክምናዊ ክትትል’ውን ብሓፈሻ ዝያዳ ተደጋጋሚ ይኸውን።'],
+      },
+      rw: {
+        babyDescription: 'Amaso arakingura ku nshuro ya mbere. Ibara ryayo ryanyuma muri rusange ntirizamenyekana kugeza amezi menshi nyuma yo kuvuka.',
+        length: 'Hafi cm 35.6',
+        comparison: 'Concombre',
+        bodyChanges: ['Kubyimba koroheje kw\'amaguru cyangwa ibirenge bishobora kugaragara, cyane cyane ku iherezo ry\'umunsi.'],
+        toKnow: ['Igihembwe cya gatatu kiregereje, gukurikiranwa n\'abaganga muri rusange birushaho kuba kenshi.'],
+      },
+      rn: {
+        babyDescription: 'Amaso arakingura ubwa mbere. Ibara ryayo rya nyuma mu rusangi ntirizamenyekana kugeza hashize amezi menshi nyuma y’ivuka.',
+        length: 'Hafi ya cm 35,6',
+        comparison: 'Igitunguru gisanzwe cya concombre',
+        bodyChanges: ['Kubyimba gatoya kw’ibirenge canke utuguru bishobora kuboneka, cane cane ku herezo ry’umusi.'],
+        toKnow: ['Trimestre ya gatatu iregereje, gukurikiranwa n’abaganga mu rusangi biragenda biba kenshi.'],
+      },
+      ig: {
+        babyDescription: 'Anya na-emeghe nke mbụ. N\'ozuzu, a naghị ama agba ikpeazụ ha ruo ọnwa ole na ole mgbe a mụsịrị nwa.',
+        length: 'Ihe dị ka 35.6 cm',
+        comparison: 'Cucumber',
+        bodyChanges: ['Ọzịza dị nro nke ikiri ụkwụ ma ọ bụ ụkwụ nwere ike ịpụta, karịsịa n\'ọgwụgwụ ụbọchị.'],
+        toKnow: ['Trimester nke atọ na-abịaru nso, ma nlekọta ahụike na-abụkarị nke ugboro ugboro karị.'],
+      },
+      yo: {
+        babyDescription: 'Ojú ṣí fún ìgbà àkọ́kọ́. A kò sábà mọ àwọ̀ ìkẹyìn wọn títí di oṣù díẹ̀ lẹ́yìn ìbí.',
+        length: 'Nǹkan bí 35.6 cm',
+        comparison: 'Kùkúńbà',
+        bodyChanges: ['Wíwú aláìle ní kókósẹ̀ tàbí ẹsẹ̀ lè hàn, ní pàtàkì ní ìparí ọjọ́.'],
+        toKnow: ['Trimester kẹta ń sún mọ́, pẹ̀lú ìtọ́jú ìṣègùn tó sábà máa ń pọ̀ sí i.'],
+      },
+      zu: {
+        babyDescription: 'Amehlo avuleka okokuqala. Umbala wawo wokugcina ngokuvamile awuyukwaziwa kuze kudlule izinyanga eziningana ngemva kokuzalwa.',
+        length: 'Cishe 35.6 cm',
+        comparison: 'Ikhukhamba',
+        bodyChanges: ['Ukuvuvukala okuncane kwamaqakala noma kwezinyawo kungavela, ikakhulukazi ngasekupheleni kosuku.'],
+        toKnow: ['I-trimester yesithathu iyasondela, nokulandelelwa kwezokwelapha ngokuvamile kuya ngokuvama.'],
+      },
+      xh: {
+        babyDescription: 'Amehlo ayavuleka okokuqala. Umbala wawo wokugqibela ngokubanzi awuyi kwaziwa kude kube ngamanyathelo aliqela ezinyangeni emva kokuzalwa.',
+        length: 'Malunga ne-35.6 cm',
+        comparison: 'Ikhukhamba',
+        bodyChanges: ['Ukudumba okuthambileyo kweengxingo okanye iinyawo kunokuvela, ngakumbi ekupheleni kosuku.'],
+        toKnow: ['Itrimester yesithathu iyasondela, ngokulandelela kwezonyango ngokubanzi kuba rhoqo.'],
+      },
+      sn: {
+        babyDescription: 'Maziso anovhurika kekutanga. Ruvara rwawo rwekupedzisira kazhinji harungazivikanwi kusvika mwedzi yakati wandei mushure mekuberekwa.',
+        length: 'Kunge 35.6 cm',
+        comparison: 'Kakaka',
+        bodyChanges: ['Kuzvimba kusina simba kwemakumbo kana tsoka kunogona kuoneka, kunyanya kumagumo ezuva.'],
+        toKnow: ['Trimester yechitatu iri kusvika, nekutarisirwa kwekurapwa kazhinji kuchiwedzera kuitika.'],
+      },
+      ln: {
+        babyDescription: 'Miso efungwami mbala ya liboso. Langi na yango ya nsuka eyebanaka mbala mingi te kino sanza mingi nsima ya kobota.',
+        length: 'Pene 35,6 cm',
+        comparison: 'Concombre',
+        bodyChanges: ['Kovimba ya mike ya mongongo ya makolo to makolo ekoki kobima, mingi mingi na nsuka ya mokolo.'],
+        toKnow: ['Trimestre ya misato ezali pene, mpe bokɔngɔli ya monganga ekómaka mbala mingi mingi.'],
+      },
+      ff: {
+        babyDescription: 'Yitere ina hippii laabi adannde. Kallu mum timmuɗum ina anndeete ɓaawo lewru ɗuuɗi ɓaawo danyugol.',
+        length: 'Nder cm 35,6',
+        comparison: 'Konkombur',
+        bodyChanges: ['Tuumaare seɗɗa koyɗe walla koyngal ina waawi wonde, ko feewi nder raɓ nyalaande.'],
+        toKnow: ['Trimestre tataɓal ina ɓadiike, e reentugol doktoor ina ɓeydi ɓurdi ɗuuɗude.'],
       },
       id: {
         babyDescription: 'Mata terbuka untuk pertama kalinya. Warna matanya yang sebenarnya umumnya baru diketahui beberapa bulan setelah lahir.',
@@ -18067,6 +21120,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '孕晚期刚开始时，往往是开始考虑分娩计划的好时机。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '肺部逐漸具備啟動呼吸的能力，寶寶皮下的脂肪不斷積累，身體繼續變得豐滿。',
+        length: '約 36.6 釐米',
+        comparison: '花椰菜',
+        bodyChanges: [
+          '身體負擔的重量不斷增加，疲倦感可能會再次出現。',
+        ],
+        toKnow: [
+          '孕晚期剛開始時，往往是開始考慮分娩計劃的好時機。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تصبح الرئتان قادرتين على بدء التنفس، ويواصل الجنين امتلاءه مع تراكم الدهون تحت الجلد.',
+        length: 'حوالي 36.6 سم',
+        comparison: 'القرنبيط',
+        bodyChanges: ['قد يعود التعب مع حمل جسمك لوزن متزايد.'],
+        toKnow: ['غالبًا ما تكون بداية الثلث الثالث وقتًا مناسبًا للبدء بالتفكير في خطة ولادتك.'],
+      },
+      kab: {
+        babyDescription:
+          'Idamen ttuɣalen d wid izemren ad bdun anfas, yerna aqcic yettkemmil ad yettwaxdam am wakken yettuzzu zzit n ukalet n weglim.',
+        length: 'Azal n 36.6 cm',
+        comparison: 'Aɣerbal n ukerneb',
+        bodyChanges: ['Usexsi izmer ad d-yuɣal ticki ajeṭṭa-ik yewwi azal yettilin ugar.'],
+        toKnow: ['Tazwara n wayyur wis tlata d tallit yelhan akken ad tbeddu ad tmektiḍ ɣef ahil n tlalit.'],
+      },
+      om: {
+        babyDescription:
+          'Sombi hafuura jalqabuu danda\'a, daa\'imni cuuphaa ixxifamu gogaa jala kuusamu waan ta\'eef guutuu itti fufa.',
+        length: 'Gara 36.6 cm',
+        comparison: 'Cauliflower',
+        bodyChanges: ['Dadhabbiin deebi\'uu danda\'a, qaamni kee ulfaatina dabalaa jiru waan baatuuf.'],
+        toKnow: ['Jalqaba kutaa sadaffaa yeroo baay\'ee yeroo gaarii karoora da\'umsa kee yaaduu jalqabuuf dha.'],
+      },
+      ti: {
+        babyDescription:
+          'ሳምባ ምትንፋስ ክጅምር ይኽእል፣ እቲ ሕጻን ድማ ስብሒ ኣብ ትሕቲ ቆርበት ክእከብ ከሎ ብምምላእ ይቕጽል።',
+        length: 'ኣስታት 36.6 cm',
+        comparison: 'ካሊፍላወር',
+        bodyChanges: ['ኣካልካ እናወሰኸ ዝመጽእ ክብደት ክጸውር ከሎ ድኻም ክምለስ ይኽእል።'],
+        toKnow: ['ጅማሬ ሳልሳይ ትሪሜስተር ብዙሕ ግዜ ብዛዕባ መደብ ወሊድ ክትሓስቡ ንምጅማር ጽቡቕ እዋን እዩ።'],
+      },
+      rw: {
+        babyDescription:
+          'Ibihaha bigira ubushobozi bwo gutangira guhumeka, kandi umwana akomeza kubyibuha uko ibinure bibitswe munsi y\'uruhu.',
+        length: 'Hafi cm 36.6',
+        comparison: 'Chou-fleur',
+        bodyChanges: ['Umunaniro ushobora gusubira uko umubiri wawe wikorera ibiro byiyongera.'],
+        toKnow: ['Intangiriro y\'igihembwe cya gatatu akenshi ni igihe cyiza cyo gutangira gutekereza ku mugambi wawe wo kubyara.'],
+      },
+      rn: {
+        babyDescription:
+          'Ibihaha bigira ubushobozi bwo gutangura guhema, kandi umwana akomeza kwiyongera kuko amavuta yirunda munsi y’uruhu.',
+        length: 'Hafi ya cm 36,6',
+        comparison: 'Chou-fleur',
+        bodyChanges: ['Umunaniro ushobora kugaruka kuko umubiri wawe wikoreye uburemere bugenda bwiyongera.'],
+        toKnow: ['Intango ya trimestre ya gatatu akenshi ni igihe ciza co gutangura gutekereza ku mugambi wawe wo kubyara.'],
+      },
+      ig: {
+        babyDescription:
+          'Ngụgụ na-aghọ nke nwere ike ịmalite iku ume, ma nwa ahụ na-aga n\'ihu na-ejuputa ka abụba na-ewu n\'okpuru akpụkpọ ahụ.',
+        length: 'Ihe dị ka 36.6 cm',
+        comparison: 'Cauliflower',
+        bodyChanges: ['Ike ọgwụgwụ nwere ike ịlaghachi ka ahụ gị na-ebu arọ na-abawanye.'],
+        toKnow: ['Mmalite nke trimester nke atọ na-abụkarị oge ọma ịmalite iche maka atụmatụ ịmụ nwa gị.'],
+      },
+      yo: {
+        babyDescription:
+          'Ẹ̀dọ̀fóró di ẹni tó lè bẹ̀rẹ̀ mímí, ọmọ náà sì ń tẹ̀síwájú láti kún bí ọ̀rá ṣe ń kó jọ lábẹ́ awọ ara.',
+        length: 'Nǹkan bí 36.6 cm',
+        comparison: 'Cauliflower',
+        bodyChanges: ['Àárẹ̀ lè padà bí ara rẹ ṣe ń gbé ìwọ̀n tó ń pọ̀ sí i.'],
+        toKnow: ['Ìbẹ̀rẹ̀ trimester kẹta sábà máa ń jẹ́ àkókò rere láti bẹ̀rẹ̀ sí ronú nípa ètò ìbímọ rẹ.'],
+      },
+      zu: {
+        babyDescription:
+          'Amaphaphu aqala ukukwazi ukuqala ukuphefumula, futhi ingane iqhubeka nokugcwala njengoba amafutha eqoqana ngaphansi kwesikhumba.',
+        length: 'Cishe 36.6 cm',
+        comparison: 'Ikholifulawa',
+        bodyChanges: ['Ukukhathala kungase kubuye njengoba umzimba wakho ukhula isisindo esikhulayo.'],
+        toKnow: ['Ukuqala kwe-trimester yesithathu kuvame ukuba yisikhathi esihle sokuqala ukucabanga ngohlelo lwakho lokubeletha.'],
+      },
+      xh: {
+        babyDescription:
+          'Imiphunga iba nako ukuqalisa ukuphefumla, kwaye usana luqhubeka lukhula njengoko amafutha eqokelela phantsi kolusu.',
+        length: 'Malunga ne-36.6 cm',
+        comparison: 'Ikholifulawa',
+        bodyChanges: ['Ukudinwa kunokubuya njengoko umzimba wakho ukhwela ubunzima obunyukayo.'],
+        toKnow: ['Ukuqala kwetrimester yesithathu kudla ngokuba lixesha elihle lokuqala ukucinga ngecebo lakho lokubeleka.'],
+      },
+      sn: {
+        babyDescription:
+          'Mapapu anova nekugona kutanga kufema, uye mwana anoramba achizara sezvo mafuta achiunganidzwa pasi penganda.',
+        length: 'Kunge 36.6 cm',
+        comparison: 'Cauliflower',
+        bodyChanges: ['Kuneta kunogona kudzoka sezvo muviri wako uchitakura uremu hwakawedzera.'],
+        toKnow: ['Kutanga kwetrimester yechitatu kazhinji inguva yakanaka yekutanga kufunga nezvechirongwa chako chekubereka.'],
+      },
+      ln: {
+        babyDescription:
+          'Mapema ekomi na likoki ya kobanda kopema, mpe mwana akobaka kotonda lokola mafuta ezali kosangana na nse ya poso.',
+        length: 'Pene 36,6 cm',
+        comparison: 'Chou-fleur',
+        bodyChanges: ['Kolemba ekoki kozonga ntango nzoto na yo ezali komema kilo ezali kokola.'],
+        toKnow: ['Ebandeli ya trimestre ya misato ezali mbala mingi ntango malamu ya kobanda kokanisa mpo na plan na yo ya kobota.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗa hoore ina waawi fuɗɗaade hoyre, e ɓiɗɗo ina tokka ɓeydude nyaamdu ngam ɗum ina fuɗɗa mbuuyam e ɓaleeɗo.',
+        length: 'Nder cm 36,6',
+        comparison: 'Cuuɓi',
+        bodyChanges: ['Tiiɗal ina waawi ngarde ngam ɓaleeɗo maaɗa ina ɓeydi tiiɗude.'],
+        toKnow: ['Fuɗɗoode trimestre tataɓal ko wakkati moƴƴum ngam fuɗɗaade miijaade dow danyugol maaɗa.'],
       },
       id: {
         babyDescription: 'Paru-paru menjadi mampu memulai pernapasan, dan bayi terus berisi seiring penumpukan lemak di bawah kulit.',
@@ -18750,6 +21918,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕晚期通常从这一周前后开始，产检也会变得更频繁。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '孕早期較快的心率現在已經穩定在每分鐘約 130 到 140 次，用聽診器就能聽到。',
+        length: '約 37.6 釐米',
+        comparison: '茄子',
+        bodyChanges: [
+          '隨著子宮佔據更多空間，氣短或燒心可能會變得更頻繁。',
+        ],
+        toKnow: [
+          '孕晚期通常從這一週前後開始，產檢也會變得更頻繁。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'استقر معدل ضربات القلب، الذي كان أسرع في بداية الحمل، عند نحو 130 إلى 140 نبضة في الدقيقة، ويمكن الآن سماعه بالسماعة الطبية.',
+        length: 'حوالي 37.6 سم',
+        comparison: 'الباذنجان',
+        bodyChanges: ['قد يصبح ضيق التنفس أو الحرقان أكثر تكرارًا مع احتلال الرحم مساحة أكبر.'],
+        toKnow: ['يبدأ الثلث الثالث عمومًا في هذا الأسبوع تقريبًا، وتصبح المواعيد أكثر تكرارًا.'],
+      },
+      kab: {
+        babyDescription:
+          'Uzzir n wul, yelli iẓegger deg tazwara n lḥemla, yeqqim ɣer 130 ɣer 140 n tikkelt deg tesdidt yerna tura izmer ad d-yettwasel s ustetoscope.',
+        length: 'Azal n 37.6 cm',
+        comparison: 'Aɣerbal n lbaḏinžan',
+        bodyChanges: ['Ugzam n anfas neɣ aɣbaleɛ n lḥemla zemren ad ttilin ugar ticki taddart n tkuffa teččur ugar.'],
+        toKnow: ['Wayyur wis tlata yebda s umata ɣer ddasen-a, s ussan n wuffir ttuɣalen d ugar.'],
+      },
+      om: {
+        babyDescription:
+          'Saffisni onnee, ulfaa baay\'ee jalqabaa keessatti saffisaa ture, gara rukuta 130 hanga 140 daqiiqaatti tasgabbaa\'eera, amma stethoscope-n dhaga\'amuu danda\'a.',
+        length: 'Gara 37.6 cm',
+        comparison: 'Eggplant',
+        bodyChanges: ['Hafuura rakkachuun yookaan garaa gubachuun mudhiin iddoo caalu waan qabatuuf yeroo baay\'ee ta\'uu danda\'a.'],
+        toKnow: ['Kutaan sadaffaa waliigalaan torban kana naannoo jalqaba, beellamni yeroo baay\'ee ta\'aa jira.'],
+      },
+      ti: {
+        babyDescription:
+          'ኣብ ብጣዕሚ ቀዳማይ ጥንሲ ዝነበረ ቅልጡፍ ምግፋሕ ልቢ ኣብ ኣስታት 130 ክሳብ 140 ምትሓት ኣብ ደቒቕ ተረጋጊኡ፣ ሕጂ’ውን ብስቴቶስኮፕ ክስማዕ ይኽእል።',
+        length: 'ኣስታት 37.6 cm',
+        comparison: 'ባዝንጃን',
+        bodyChanges: ['ማህጸን ዝያዳ ቦታ ክሕዝ ከሎ ምትንፋስ ሓጺር ወይ ጥንተ ሕቖ ዝያዳ ተደጋጋሚ ክኸውን ይኽእል።'],
+        toKnow: ['ሳልሳይ ትሪሜስተር ብሓፈሻ ኣብዚ ሳምንቲ ይጅምር፣ ቆጸራታት’ውን ዝያዳ ተደጋጋሚ ይኾኑ።'],
+      },
+      rw: {
+        babyDescription:
+          'Umutima, watera vuba cyane mu ntangiriro y\'inda, ubu wahamye hafi inshuro 130 kugeza kuri 140 mu munota kandi ushobora kumvikana na stethoscope.',
+        length: 'Hafi cm 37.6',
+        comparison: 'Intoryi',
+        bodyChanges: ['Guhumeka bigoye cyangwa ikirungurira bishobora kuba byinshi uko nyababyeyi ifata umwanya munini.'],
+        toKnow: ['Igihembwe cya gatatu muri rusange gitangira hafi muri iki cyumweru, hamwe n\'inama zirushaho kuba nyinshi.'],
+      },
+      rn: {
+        babyDescription:
+          'Umutima, wari utera vuba mu ntango z’inda, wahamye ahagana kuri 130 kugeza kuri 140 mu munota kandi ubu urashobora kumvwa na stethoscope.',
+        length: 'Hafi ya cm 37,6',
+        comparison: 'Aubergine',
+        bodyChanges: ['Guhema gatoya canke gutwika mu gifuba bishobora kuba kenshi uko inda y’umwana ifata umwanya mwinshi.'],
+        toKnow: ['Trimestre ya gatatu mu rusangi itangura ahagana kuri iki cumweru, amafasi arushiriza kuba kenshi.'],
+      },
+      ig: {
+        babyDescription:
+          'Ọnụ ọgụgụ obi, nke dị ngwa karị n\'mmalite ime, kwụsiri ike n\'ihe dị ka 130 ruo 140 ịkụ kwa nkeji ma enwere ike ịnụ ya ugbu a site na stethoscope.',
+        length: 'Ihe dị ka 37.6 cm',
+        comparison: 'Eggplant',
+        bodyChanges: ['Nsogbu iku ume ma ọ bụ ọkụ n\'obi nwere ike ịbawanye ugboro ugboro ka akpa nwa na-ewere ohere karị.'],
+        toKnow: ['N\'ozuzu, trimester nke atọ na-amalite n\'ihe dị ka izu a, yana nzute na-aghọ nke ugboro ugboro karị.'],
+      },
+      yo: {
+        babyDescription:
+          'Ìlù ọkàn, tó yára ní ìbẹ̀rẹ̀ oyún, ti dúró ṣinṣin ní àyíká 130 sí 140 ìlù ní ìṣẹ́jú kan, a sì lè gbọ́ rẹ̀ báyìí pẹ̀lú stethoscope.',
+        length: 'Nǹkan bí 37.6 cm',
+        comparison: 'Eggplant',
+        bodyChanges: ['Ẹ̀mí gbígbẹ̀ tàbí ìgbóná àyà lè pọ̀ sí i bí ilé-ọmọ ṣe ń gba ààyè púpọ̀ sí i.'],
+        toKnow: ['Trimester kẹta sábà máa ń bẹ̀rẹ̀ ní àyíká ọ̀sẹ̀ yìí, pẹ̀lú àwọn ìpàdé tó ń pọ̀ sí i.'],
+      },
+      zu: {
+        babyDescription:
+          'Izinga lokushaya kwenhliziyo, elalisheshe kakhulu ekuqaleni kokukhulelwa, selizinzile cishe emashumini ayi-130 kuya kwayi-140 ngomzuzu futhi manje lingezwakala nge-stethoscope.',
+        length: 'Cishe 37.6 cm',
+        comparison: 'I-eggplant',
+        bodyChanges: ['Ukuphelelwa umoya noma ukuvutha kwesifuba kungase kuvame kakhulu njengoba isibeletho sithatha isikhala esiningi.'],
+        toKnow: ['I-trimester yesithathu ngokuvamile iqala cishe kuleli sonto, nokuhlangana kuya ngokuvama.'],
+      },
+      xh: {
+        babyDescription:
+          'Isantya sentliziyo, esikhawulezayo ekukhawulweni kwangaphambili kakhulu, sizinzile malunga neebhithi ezili-130 ukuya kwezili-140 ngomzuzu kwaye ngoku sinokuviwa nge-stethoscope.',
+        length: 'Malunga ne-37.6 cm',
+        comparison: 'Ibrinjal',
+        bodyChanges: ['Ukuphefumla ngokukhawuleza okanye ukutshisa esifubeni kunokwenzeka rhoqo njengoko isibeleko sithatha indawo engakumbi.'],
+        toKnow: ['Itrimester yesithathu ngokubanzi iqala malunga nale veki, namadinga eba rhoqo.'],
+      },
+      sn: {
+        babyDescription:
+          'Kurova kwemoyo, kwakanga kwakakurumidza muhupfumi hwemimba hwekutanga, kwagadzikana pakunge 130 kusvika 140 pamunhumi, uye kunogona kunzwika zvino nestethoscope.',
+        length: 'Kunge 37.6 cm',
+        comparison: 'Biringanya',
+        bodyChanges: ['Kuneta kufema kana kupisa pachipfuva zvinogona kuwedzera kuitika sezvo chibereko chichitora nzvimbo yakawanda.'],
+        toKnow: ['Trimester yechitatu kazhinji inotanga panguva yevhiki rino, nemaappointment achiwedzera kuitika.'],
+      },
+      ln: {
+        babyDescription:
+          'Lolenge ya motema, oyo ezalaki noki na ebandeli ya zemi, etɛlɛmi pene na kobɛta 130 kino 140 na minute mpe ekoki koyokana sikoyo na stéthoscope.',
+        length: 'Pene 37,6 cm',
+        comparison: 'Aubergine',
+        bodyChanges: ['Kopema na pete to kotumba ekoki kokóma ya mbala mingi ntango libumu ezali kozwa esika mingi.'],
+        toKnow: ['Trimestre ya misato ebandaka mbala mingi pene na poso oyo, na rendez-vous oyo ekómi ya mbala mingi.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓerɗe ɓiɗɗo, ɗum ɓurdi yaawude nder reedu adii, ina tokka tiiɗude e koo 130 haa 140 piʼugol e minit, e ina waawi nanaade e stetoskop.',
+        length: 'Nder cm 37,6',
+        comparison: 'Bandanje',
+        bodyChanges: ['Daŋŋgol hoyre walla ñaawugol yiite ina waawi ɓeydude ngam reedu ina ɓeydi nokkuure.'],
+        toKnow: ['Trimestre tataɓal ko feewi fuɗɗa e jammaa ɗoo, e reentugol doktoor ina ɓeydi ɗuuɗude.'],
+      },
       id: {
         babyDescription: 'Detak jantung, yang lebih cepat pada awal kehamilan, telah stabil di sekitar 130 hingga 140 denyut per menit dan kini dapat didengar dengan stetoskop.',
         length: 'Sekitar 37,6 cm',
@@ -19429,6 +22712,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '孕晚期通常建议向左侧卧休息，以帮助血液循环。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '寶寶已經發育得很完整，接下來的幾週主要是器官成熟和體重增加。覆蓋在皮膚上的那層薄薄的保護層開始被吸收。',
+        length: '約 38.6 釐米',
+        comparison: '奶油南瓜',
+        bodyChanges: [
+          '肚子越來越大，可能會更難入睡。',
+        ],
+        toKnow: [
+          '孕晚期通常建議向左側臥休息，以幫助血液迴圈。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'الجنين مكتمل التكوين تقريبًا؛ وستُخصَّص الأسابيع القادمة أساسًا لنضج الأعضاء وزيادة الوزن. ويبدأ الغلاف الواقي الرقيق الذي يغطي جلده بالامتصاص.',
+        length: 'حوالي 38.6 سم',
+        comparison: 'قرع الجوز (الباترنات)',
+        bodyChanges: ['قد يصبح النوم أصعب بسبب كبر بطنك.'],
+        toKnow: ['غالبًا ما يُوصى بالاستراحة على الجانب الأيسر في أواخر الحمل لدعم الدورة الدموية.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yebna yakan mliḥ; ddasen i d-yeḍfern ad d-sseqdacent akka kan i uɣelnaw n iɛeḍman d uzmil n uzal. Aɣecc ameẓyan i yeggugen aglim-is ittbeddu ad yettwaṣfar.',
+        length: 'Azal n 38.6 cm',
+        comparison: 'Aɣerbal n lqeṛɛa',
+        bodyChanges: ['Nnuba izmer ad yuɣal d aṭṭan ɣef sebba n uḍfel-ik i d-yettilin.'],
+        toKnow: ['Asemmaḍ ɣef uzelmaḍ yettunefk s umata deg taggara n lḥemla i usnejmeṛ n unnuba.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni duraanuu gaarii uumameera; torbanni itti aanan caalaatti qaamoleen ga\'umsa argachuu fi ulfaatina dabaluu irratti kan xiyyeeffatan ta\'a. Haguugni eegumsaa dhiphaan gogaa isaa haguuge buusamuu jalqaba.',
+        length: 'Gara 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: ['Garaan kee guddachaa jiru waan ta\'eef rafuun ulfaataa ta\'uu danda\'a.'],
+        toKnow: ['Cinaa bitaa irra boqochuun ulfaa dhumaa keessatti yeroo baay\'ee dhiigni akka deemu deeggaruuf gorfama.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ድሮ ጽቡቕ ተፈጢሩ እዩ፤ ዝመጽኡ ሳምንታት ብዝበዝሐ ንምብላዕ ኣካላትን ምውሳኽ ክብደትን ይውፈዩ። ቆርበቱ ዝሽፍን ቀጢን ሓለዋ ሽፋን ቀስ ብቐስ ክሕለፍ ይጅምር።',
+        length: 'ኣስታት 38.6 cm',
+        comparison: 'ዱባ',
+        bodyChanges: ['ብምኽንያት ዝዓበየ ከብድኻ ድቃስ ምርካብ ክኸብድ ይኽእል።'],
+        toKnow: ['ኣብ መወዳእታ ጥንሲ ደውራ ንምሕጋዝ ኣብ ጸጋም ጎድኒ ምዕራፍ ብዙሕ ግዜ ይመከር።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana yamaze kuremwa neza; ibyumweru biri imbere bizaba ahanini ibyo gukura kw\'ingingo no kongera ibiro. Agahu koroheje kakingira uruhu rwe gatangira kongera gufatwa n\'umubiri.',
+        length: 'Hafi cm 38.6',
+        comparison: 'Ibihaza',
+        bodyChanges: ['Gusinzira bishobora kuba bigoye kubera inda yawe ikura.'],
+        toKnow: ['Kuruhukira ku ruhande rw\'ibumoso akenshi birasabwa mu gihe cy\'inda igeze kure kugira ngo bifashe imigendekere y\'amaraso.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana yamaze gushirwaho neza; ibyumweru bikurikira bizoba cane cane ivyo gukura kw’ingingo no kwiyongera ibiro. Agapfunyika gato karinda uruhu rwiwe gatangura gushiramwo.',
+        length: 'Hafi ya cm 38,6',
+        comparison: 'Courge butternut',
+        bodyChanges: ['Gusinzira bishobora kugorana kubera inda yawe igenda ikura.'],
+        toKnow: ['Kuruhukira ku ruhande rw’ibumoso akenshi kugirwa inama mu herezo ry’inda kugira ushyigikire gutembera kw’amaraso.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ etolitela nke ọma ugbu a; izu ndị na-abịa ga-abụkarị maka ịtozu akụkụ ime na ịrị arọ. Obere mkpuchi echebe nke na-ekpuchi akpụkpọ ahụ ya na-amalite ịmịkọrọ.',
+        length: 'Ihe dị ka 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: ['Ọ nwere ike ịdị ike ịchọta ụra n\'ihi afọ gị na-eto.'],
+        toKnow: ['A na-akwadokarị izu ike n\'akụkụ aka ekpe n\'ọgwụgwụ ime iji kwado ọbara ịgafe.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ti dàgbà dáadáa; àwọn ọ̀sẹ̀ tó ń bọ̀ yóò jẹ́ fún ìdàgbà àwọn ẹ̀yà ara àti ìrẹ́pọ̀ ìwọ̀n. Ìbòrí tínrín tó ń dáàbò bo awọ ara rẹ̀ bẹ̀rẹ̀ sí ní gbígbà padà.',
+        length: 'Nǹkan bí 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: ['Oorun lè túbọ̀ ṣòro láti rí nítorí ikùn rẹ tó ń dàgbà.'],
+        toKnow: ['Sísinmi lórí ẹ̀gbẹ́ òsì rẹ ni a sábà máa ń gbani nímọ̀ràn ní ìparí oyún láti ṣèrànwọ́ fún ìṣàn ẹ̀jẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane isikheke kahle; amasonto azayo ahlose kakhulu ukukhula kwezitho nokukhula kwesisindo. Ungqimba oluncane lokuvikela olumboze isikhumba sayo luqala ukumuncwa.',
+        length: 'Cishe 38.6 cm',
+        comparison: 'I-butternut',
+        bodyChanges: ['Ukulala kungase kube nzima kakhulu ngenxa yokukhula kwesisu sakho.'],
+        toKnow: ['Ukuphumula uhlangothini lwakho lwesobunxele kuvame ukunconywa ekupheleni kokukhulelwa ukusekela ukuhamba kwegazi.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana sele lwakheke kakuhle; iiveki ezizayo ziya kunikezelwa ikakhulu ekuvuthweni kwezitho nokunyuka kobunzima. Ulwakhiwo olubhityileyo lokukhusela olugubungela ulusu lwalo luqala ukufunxwa kwakhona.',
+        length: 'Malunga ne-38.6 cm',
+        comparison: 'Ibutternut squash',
+        bodyChanges: ['Ukulala kunokuba nzima ukukufumana ngenxa yesisu sakho esikhulayo.'],
+        toKnow: ['Ukuphumla ngecala lakho lasekhohlo kudla ngokucetyiswa ekupheleni kokukhawulwa ukuxhasa ukujikeleza kwegazi.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana ava akaumbwa zvakanaka; mavhiki anotevera achatsaurirwa kunyanya kukura kwenhengo nekuwedzera uremu. Chifukidzo chitete chinodzivirira nganda dzake chinotanga kutorwa zvakare.',
+        length: 'Kunge 38.6 cm',
+        comparison: 'Butternut squash',
+        bodyChanges: ['Kuwana hope kunogona kuoma nekuda kwedumbu rako rinokura.'],
+        toKnow: ['Kuzorora parutivi rwako rweruboshwe kazhinji kunokurudzirwa muhupfumi hwemimba hwekupedzisira kutsigira kutenderera kweropa.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana asili kosalema malamu; poso oyo ezali koya ekopesama mingi na kokola ya biteni mpe komata ya kilo. Eloko ya poso ya pete oyo ezipi poso na ye ebandi kosukisama.',
+        length: 'Pene 38,6 cm',
+        comparison: 'Courge butternut',
+        bodyChanges: ['Mpongi ekoki kokóma mpasi mpo na mokɔlɔ na yo oyo ezali kokola.'],
+        toKnow: ['Kopema na ngambo ya mwasi ya mwasi ya lobɔkɔ ya mwasi ezali mbala mingi kotindama na nsuka ya zemi mpo na kosunga kolekisa makila.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina ngaɗa moƴƴum; jammaa ɗin ngarata ko ɗum ɓesdugol ɓiɗɗa hoore e ɓeydugol tiiɗal. Hu\'ere ɓoyƊum dow fuunde ina fuɗɗa ɓennude.',
+        length: 'Nder cm 38,6',
+        comparison: 'Cuuɓi butaanut',
+        bodyChanges: ['Hoosugol ina waawi ɓeydude ngam reedu maaɗa ina mawnude.'],
+        toKnow: ['Hoosugol dow nyaamo ɓaleeɗo ina feewi anndinee e wakkati cakitiingo reedu ngam wallude yiyugol yiiyam.'],
       },
       id: {
         babyDescription: 'Bayi sudah terbentuk dengan baik; minggu-minggu mendatang terutama dipakai untuk pematangan organ dan penambahan berat badan. Lapisan pelindung tipis yang menutupi kulitnya mulai terserap kembali.',
@@ -20110,6 +23508,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '从这个阶段起，产检通常会变得更频繁。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '視力繼續發育；出生時，寶寶能夠看清近處的面孔，之後會逐漸學會追視移動的物體。',
+        length: '約 39.9 釐米',
+        comparison: '捲心菜',
+        bodyChanges: [
+          '下背部或骨盆的沉重感可能會加重。',
+        ],
+        toKnow: [
+          '從這個階段起，產檢通常會變得更頻繁。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تواصل الرؤية نموها؛ وعند الولادة سيتمكن الطفل من تمييز الوجوه القريبة، قبل أن يتعلم تدريجيًا تتبّع الأشياء المتحركة.',
+        length: 'حوالي 39.9 سم',
+        comparison: 'الملفوف',
+        bodyChanges: ['قد يزداد الشعور بالثقل في أسفل الظهر أو الحوض.'],
+        toKnow: ['تصبح مواعيد متابعة الحمل عمومًا أكثر تكرارًا ابتداءً من هذه المرحلة.'],
+      },
+      kab: {
+        babyDescription:
+          'Tamuɣli tettkemmil ad texdem; mi ara d-yili uqcic, ad izmer ad iẓer udmawen i yeqqnen, send ad yeɣleb ad yettwehhu ad yeḍfer iɣerfan i yettmudden.',
+        length: 'Azal n 39.9 cm',
+        comparison: 'Aɣerbal n tabrint',
+        bodyChanges: ['Ahettu n lekmal deg uḍfel neɣ deg ukalas izmer ad yettilin ugar.'],
+        toKnow: ['Ussan n wuffir n ukayad ttuɣalen d ugar s umata seg ddasen-a.'],
+      },
+      om: {
+        babyDescription:
+          'Arguun guddachuu itti fufa; yeroo dhalatu, daa\'imni fuula dhiʼoo adda baasuu danda\'a, booda suuta suutaan wanta socho\'u hordofuu baratu.',
+        length: 'Gara 39.9 cm',
+        comparison: 'Kaabeejii',
+        bodyChanges: ['Miirri ulfaatinaa dugda gadii yookaan guyyaa mudhii keessatti dabaluu danda\'a.'],
+        toKnow: ['Beellamni dhalootaa duraa waliigalaan sadarkaa kana irraa eegalee yeroo baay\'ee ta\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ርእየት ምዕባይ ይቕጽል፤ ኣብ ግዜ ልደት እቲ ሕጻን ቀረባ ገጻት ክፈላለ ይኽእል፣ ቀስ ብቐስ ድማ ዝንቀሳቀሱ ነገራት ክከታተል ይመሃር።',
+        length: 'ኣስታት 39.9 cm',
+        comparison: 'ጎመን',
+        bodyChanges: ['ኣብ ታሕተዋይ ሕቖ ወይ ዳሕሎ ዝተሓላለየ ከቢድ ስምዒት ክውስኽ ይኽእል።'],
+        toKnow: ['ቅድሚ ወሊድ ቆጸራታት ካብዚ ደረጃ ጀሚሩ ብሓፈሻ ዝያዳ ተደጋጋሚ ይኾኑ።'],
+      },
+      rw: {
+        babyDescription:
+          'Kureba bikomeza gukura; ku mavuko, umwana azashobora kubona isura zegereye, mbere yo kwiga buhoro buhoro gukurikira ibintu bigenda.',
+        length: 'Hafi cm 39.9',
+        comparison: 'Ikomamanga ry\'ikabage',
+        bodyChanges: ['Kumva uburemere mu mugongo wo hasi cyangwa mu rukenyerero bishobora kwiyongera.'],
+        toKnow: ['Inama zo mbere yo kubyara muri rusange zirushaho kuba nyinshi guhera muri iki gihe.'],
+      },
+      rn: {
+        babyDescription:
+          'Kubona kuracakura; mu kuvuka, umwana azoba ashobora kubona mu maso h’abari hafi, imbere yo kwiga buhoro buhoro gukurikira ibintu bigenda.',
+        length: 'Hafi ya cm 39,9',
+        comparison: 'Ikabagi',
+        bodyChanges: ['Kwumva uburemere mu mugongo wo hasi canke mu kibuno bishobora kwiyongera.'],
+        toKnow: ['Amafasi yo gukurikiranwa inda mu rusangi arushiriza kuba kenshi kuva kuri iki gihe.'],
+      },
+      ig: {
+        babyDescription:
+          'Ịhụ ụzọ na-aga n\'ihu na-etolite; mgbe a mụrụ ya, nwa ahụ ga-enwe ike ịmata ihu ndị dị nso, tupu ya amụta nwayọ nwayọ ịsoro ihe na-agagharị.',
+        length: 'Ihe dị ka 39.9 cm',
+        comparison: 'Kabeeji',
+        bodyChanges: ['Mmetụta arọ n\'ime azụ dị ala ma ọ bụ pelvis nwere ike ịbawanye.'],
+        toKnow: ['N\'ozuzu, nzute tupu a mụọ nwa na-aghọ nke ugboro ugboro karị site n\'ọkwa a gaa n\'ihu.'],
+      },
+      yo: {
+        babyDescription:
+          'Ìríran ń tẹ̀síwájú láti dàgbà; ní ìgbà ìbí, ọmọ náà yóò lè mọ ojú tó wà nítòsí, kí ó tó kọ́ díẹ̀díẹ̀ láti tẹ̀lé àwọn nǹkan tó ń gbéra.',
+        length: 'Nǹkan bí 39.9 cm',
+        comparison: 'Kábéèjì',
+        bodyChanges: ['Ìmọ̀lára ìwúwo ní ẹ̀yìn ìsàlẹ̀ tàbí ìdí lè pọ̀ sí i.'],
+        toKnow: ['Àwọn ìpàdé ìtọ́jú ṣáájú ìbí sábà máa ń pọ̀ sí i láti ìpele yìí lọ.'],
+      },
+      zu: {
+        babyDescription:
+          'Ukubona kuyaqhubeka nokukhula; lapho izalwa, ingane izokwazi ukuhlonza ubuso obuseduze, ngaphambi kokufunda kancane kancane ukulandela izinto ezihambayo.',
+        length: 'Cishe 39.9 cm',
+        comparison: 'Ikhabishi',
+        bodyChanges: ['Umuzwa wesindo ezansi emhlane noma ku-pelvis ungase wande.'],
+        toKnow: ['Izikhathi zokuhlangana zangaphambi kokubeletha ngokuvamile ziya ngokuvama kusukela kulesi sigaba.'],
+      },
+      xh: {
+        babyDescription:
+          'Ukubona kuqhubeka kukhula; ekuzalweni, usana luya kukwazi ukwahlula ubuso obuseduze, phambi kokufunda ngokuthe ngcembe ukulandela izinto ezishukumayo.',
+        length: 'Malunga ne-39.9 cm',
+        comparison: 'Ikhaphetshu',
+        bodyChanges: ['Imvakalelo yobunzima emqolweni ongezantsi okanye kwi-pelvis inokunyuka.'],
+        toKnow: ['Amadinga angaphambi kokuzalwa ngokubanzi aba rhoqo ukususela kweli nqanaba.'],
+      },
+      sn: {
+        babyDescription:
+          'Kuona kunoramba kuchikura; pakuberekwa, mwana achagona kuona zviso zviri padyo, asati adzidza zvishoma nezvishoma kutevera zvinhu zvinofamba.',
+        length: 'Kunge 39.9 cm',
+        comparison: 'Kabichi',
+        bodyChanges: ['Kunzwa kurema muchiuno chepazasi kana pelvis kunogona kuwedzera.'],
+        toKnow: ['Maappointment ekutarisirwa pamberi pekubereka kazhinji anowedzera kuitika kubva panguva ino zvichienda.'],
+      },
+      ln: {
+        babyDescription:
+          'Komona ekobaka kosalema; na ntango ya kobota, mwana akokoka komona bilongi pene, liboso ya koyekola moke moke kolanda biloko ezali kotambola.',
+        length: 'Pene 39,9 cm',
+        comparison: 'Chou',
+        bodyChanges: ['Koyoka kilo na ngambo ya nse ya mongongo to ya libumu ya nse ekoki komata.'],
+        toKnow: ['Ba rendez-vous ya liboso ya kobota ekómaka mbala mingi uta na ntango oyo.'],
+      },
+      ff: {
+        babyDescription:
+          'Ndaarugol ina tokka waɗeede; e danyugol, ɓiɗɗo ina waawi yiʼude yeeso ɓadiiɗo, ɓaawo ɗum ina andu tokkude ko hoyra.',
+        length: 'Nder cm 39,9',
+        comparison: 'Kabiis',
+        bodyChanges: ['Tiiɗal e nder ɓaawo walla e pelwiis ina waawi ɓeydude.'],
+        toKnow: ['Reentugol e ɓerɗe ɗiɗi ina feewi ɓeydude ɗuuɗude e wakkati ɗoo.'],
+      },
       id: {
         babyDescription: 'Penglihatan terus berkembang; saat lahir, bayi akan mampu mengenali wajah yang berada dekat dengannya, sebelum berangsur belajar mengikuti benda yang bergerak.',
         length: 'Sekitar 39,9 cm',
@@ -20789,6 +24302,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '宝宝开始能够辨认外界经常听到的某些熟悉的声音。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '寶寶活動很活躍，有時會吮吸手指，也能做出幅度較大的動作。隨著脂肪積累，皮膚的皺紋會減少。',
+        length: '約 41.1 釐米',
+        comparison: '椰子',
+        bodyChanges: [
+          '你可能會偶爾感覺到被稱為「假性宮縮」（Braxton Hicks）的練習性宮縮。',
+        ],
+        toKnow: [
+          '寶寶開始能夠辨認外界經常聽到的某些熟悉的聲音。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يتحرك الجنين بنشاط، ويمصّ أصابعه أحيانًا، ويمكنه القيام بحركات واسعة. ويصبح جلده أقل تجعدًا مع تراكم الدهون.',
+        length: 'حوالي 41.1 سم',
+        comparison: 'جوز الهند',
+        bodyChanges: ['قد تبدأ التقلصات التدريبية، المعروفة بتقلصات براكستون هيكس، بالظهور من حين لآخر.'],
+        toKnow: ['يبدأ الجنين بالتعرف على بعض الأصوات المألوفة التي يسمعها بانتظام من الخارج.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yettmudden s tezmert, kra n tikkal yettččuf ifassen-is, yerna izmer ad ixdem armud ameqqran. Aglim-is yettuɣal d amecṭuḥ i wacu n ukalet i d-yettwarnan.',
+        length: 'Azal n 41.1 cm',
+        comparison: 'Aɣerbal n lqersu',
+        bodyChanges: ['Tuffɣa n yimudar n usnaleɛ, i yettusemman Braxton Hicks, zemrent ad ttbeddunt ad ttwaḥessent kra n tikkal.'],
+        toKnow: ['Aqcic ittbedu ad iɛqel kra n yimesla yettwasnen ittwasel s umata seg berra.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni ifatti socho\'a, yeroo tokko tokko quba isaa mimmixa, sochii bal\'aa gochuu danda\'a. Gogaan isaa cuuphaan walitti qabamu waan ta\'eef rukkutaa dhiphaa ta\'a.',
+        length: 'Gara 41.1 cm',
+        comparison: 'Kookoo',
+        bodyChanges: ['Ciccimni shaakalaa, Braxton Hicks jedhamu, yeroo tokko tokko dhaga\'amuu jalqabuu danda\'a.'],
+        toKnow: ['Daa\'imni sagalee beekamaa tokko tokko alaa yeroo hunda dhaga\'amu adda baasuu jalqabaa jira.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ብንጡፍ ይንቀሳቐስ፣ ገለ ግዜ ኣጻብዕቱ ይጥብ፣ ብሰፊሕ ምንቅስቓሳት’ውን ይገብር። ስብሒ ክእከብ ከሎ ቆርበቱ ዝተሓጽረ ይኸውን።',
+        length: 'ኣስታት 41.1 cm',
+        comparison: 'ኮኮነት',
+        bodyChanges: ['ብራክስተን ሂክስ ዝብሃሉ ናይ ልምምድ ምጥባቕ ግዜ ግዜ ክስምዕ ይጅምር።'],
+        toKnow: ['እቲ ሕጻን ካብ ደገ ብመደበኛ ዝስማዕ ገሊኦም ልሙድ ድምጽታት ክፈልጥ ይጅምር።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana agenda cyane, rimwe na rimwe yonka intoki, kandi ashobora gukora ingendo nini. Uruhu rwe rugabanya iminkanyari uko ibinure bigenda byiyongera.',
+        length: 'Hafi cm 41.1',
+        comparison: 'Igikoma cy\'inazi',
+        bodyChanges: ['Kwiyegeranya kw\'umubiri kwo kwitoza, kwitwa Braxton Hicks, gushobora gutangira kumvikana rimwe na rimwe.'],
+        toKnow: ['Umwana atangira kumenya amajwi amwe yamenyerewe yumva buri gihe aturutse hanze.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana aragenda cane, rimwe na rimwe yonka intoke, kandi ashobora gukora ingendo nini. Uruhu rwiwe rugabanya iminkanyari uko amavuta yirunda.',
+        length: 'Hafi ya cm 41,1',
+        comparison: 'Igitoki cya coco',
+        bodyChanges: ['Ibikoma vyo kwimenyereza, bizwi nka Braxton Hicks, bishobora gutangura kumvwa rimwe na rimwe.'],
+        toKnow: ['Umwana aratangura kumenya amajwi amwe y’abamenyereye yumvwa buri gihe avuye hanze.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ na-emega ahụ nke ọma, mgbe ụfọdụ na-amịkọrọ mkpịsị aka ya, ma nwee ike ime mmegharị buru ibu. Akpụkpọ ahụ ya na-adị obere gbuchaa ka abụba na-ewu.',
+        length: 'Ihe dị ka 41.1 cm',
+        comparison: 'Aki oyibo (coconut)',
+        bodyChanges: ['Mkpọchi ọzụzụ, nke a maara dị ka Braxton Hicks, nwere ike ịmalite inwe mmetụta mgbe ụfọdụ.'],
+        toKnow: ['Nwa ahụ na-amalite ịmata ụfọdụ olu ndị ọ maara nke a na-anụ mgbe niile site n\'èzí.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ń ṣípòpadà lọ́nà tó ń ṣiṣẹ́, nígbà míràn ó ń mu ìka rẹ̀, ó sì lè ṣe àwọn ìṣípòpadà gbígbòòrò. Awọ ara rẹ̀ ń dín wíwọ́ kù bí ọ̀rá ṣe ń kó jọ.',
+        length: 'Nǹkan bí 41.1 cm',
+        comparison: 'Àgbọn',
+        bodyChanges: ['Àwọn ìfúnpọ̀ ìdánrawò, tí a mọ̀ sí Braxton Hicks, lè bẹ̀rẹ̀ sí ní rírí lára lẹ́ẹ̀kọ̀ọ̀kan.'],
+        toKnow: ['Ọmọ náà ń bẹ̀rẹ̀ sí dá àwọn ohùn kan tí ó mọ̀ mọ́ tí a ń gbọ́ déédé láti òde.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane inyakaza ngamandla, ngezinye izikhathi imunca iminwe yayo, futhi ingenza ukunyakaza okubanzi. Isikhumba sayo siba nokuguquguquka okuncane njengoba amafutha eqoqana.',
+        length: 'Cishe 41.1 cm',
+        comparison: 'Ukhokhonathi',
+        bodyChanges: ['Ukucindezelwa kokuzilolonga, okwaziwa ngokuthi i-Braxton Hicks, kungase kuqale ukuzwakala ngezikhathi ezithile.'],
+        toKnow: ['Ingane iqala ukuhlonza amazwi athile ajwayelekile ezwakala njalo ngaphandle.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana luhamba lusebenza, ngamanye amaxesha lumunxa iminwe, kwaye lunokwenza intshukumo ebanzi. Ulusu lwalo luba nemigangatho emincinci njengoko amafutha eqokelela.',
+        length: 'Malunga ne-41.1 cm',
+        comparison: 'Ikhokhonathi',
+        bodyChanges: ['Ukuncipha kokuziqhelanisa, okwaziwa ngokuba yi-Braxton Hicks, kunokuqala ukuvakala ngamanye amaxesha.'],
+        toKnow: ['Usana luqala ukuqonda amazwi athile aqhelekileyo aviwa rhoqo ngaphandle.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana anofamba zvakanyanya, dzimwe nguva anosveta minwe yake, uye anogona kuita kufamba kwakafara. Nganda yake inova isina kukwenya zvakanyanya sezvo mafuta achiunganidzwa.',
+        length: 'Kunge 41.1 cm',
+        comparison: 'Kokonati',
+        bodyChanges: ['Kudzvova kwekudzidzira, kunozivikanwa seBraxton Hicks, kunogona kutanga kunzwika dzimwe nguva.'],
+        toKnow: ['Mwana ari kutanga kuziva manzwi akati azivikanwa anonzwika nguva dzose kubva kunze.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana azali na mosala mingi, mbala mosusu alei misapi na ye, mpe akoki kosala mbongwana minene. Poso na ye ekómi na makwata moke ntango mafuta ezali kosangana.',
+        length: 'Pene 41,1 cm',
+        comparison: 'Noix de coco',
+        bodyChanges: ['Kokanga ya libumu ya komekola, oyo ebengami Braxton Hicks, ekoki kobanda koyokana mbala mosusu.'],
+        toKnow: ['Mwana abandi koyeba mwa mondo oyo ayokaka mbala na mbala uta libanda.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina hoyra, ɓiɗɗa feere ina ñaama juude mum, e ina waawi waɗude hoyrugol mawngol. Hu\'ere mum ina ɓeydi ɓesdude ngam mbuuyam ina ɗaɓɓude.',
+        length: 'Nder cm 41,1',
+        comparison: 'Koko',
+        bodyChanges: ['Tiiɗal tiiɗuɗo, ɗum limtee Braxton Hicks, ina waawi nanaade seɗɗa.'],
+        toKnow: ['Ɓiɗɗo ina fuɗɗa anndude ɗiɗi feere ɗi o nanata laabi ɗuuɗi e dow.'],
       },
       id: {
         babyDescription: 'Bayi bergerak aktif, terkadang mengisap jarinya, dan bisa melakukan gerakan yang luas. Kulitnya menjadi lebih tidak keriput seiring menumpuknya lemak.',
@@ -21470,6 +25098,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '随着预产期临近，头朝下的胎位（头位）会越来越常见。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '寶寶已經發育得很完整，正逐漸調整為頭朝下的姿勢，為出生做準備。接下來的幾週，寶寶主要繼續增加體重。',
+        length: '約 42.4 釐米',
+        comparison: '一把芹菜',
+        bodyChanges: [
+          '這段時間體重增加往往更明顯，這與寶寶的生長有關。',
+        ],
+        toKnow: [
+          '隨著預產期臨近，頭朝下的胎位（頭位）會越來越常見。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'الجنين مكتمل التكوين تقريبًا ويستقر تدريجيًا برأسه إلى الأسفل استعدادًا للولادة. ويواصل أساسًا زيادة وزنه خلال الأسابيع المتبقية.',
+        length: 'حوالي 42.4 سم',
+        comparison: 'حزمة كرفس',
+        bodyChanges: ['من الشائع زيادة الوزن بشكل أوضح خلال هذه الفترة، بسبب نمو الجنين.'],
+        toKnow: ['يصبح وضع الرأس إلى الأسفل (المجيء الرأسي) أكثر شيوعًا مع اقتراب موعد الولادة.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yebna yakan mliḥ yerna ittbedu ad yeṭṭef tallit n uqerru ɣer wadda i yeqqnen i tlalit. Yettkemmil ad yettaru azal deg ddasen i d-yeqqimen.',
+        length: 'Azal n 42.4 cm',
+        comparison: 'Aɣerbal n lbeṛṛ',
+        bodyChanges: ['Uzal d ayen ittbin ugar d ayen imatu deg tallit-a, i yeqqnen ɣer uɣelnaw n uqcic.'],
+        toKnow: ['Allen n uqerru ɣer wadda (taskant n uqerru) tettuɣal d ayen imatu ugar ticki yeqreb wass n tlalit.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni duraanuu gaarii uumameera, suuta suutaan mataa gadi godhatee dhaloota eeggachuuf of qopheessaa jira. Torbanoota hafan keessatti caalaatti ulfaatina dabaluu itti fufa.',
+        length: 'Gara 42.4 cm',
+        comparison: 'Cuunfaa seleri',
+        bodyChanges: ['Ulfaatinni caalaatti mul\'atu yeroo kana keessa baratamaa dha, guddina daa\'imaa waliin walqabata.'],
+        toKnow: ['Mataa gadi godhachuun (cephalic presentation) yeroo da\'umsi dhiʼaatu caalaatti baratamaa ta\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ድሮ ጽቡቕ ተፈጢሩ፣ ንወሊድ ኣብ ምድላው ቀስ ብቐስ ርእሱ ናብ ታሕቲ ይቕመጥ ኣሎ። ኣብ ዝተረፉ ሳምንታት ብዝበዝሐ ክብደት ምውሳኽ ይቕጽል።',
+        length: 'ኣስታት 42.4 cm',
+        comparison: 'ሕሩር ሰለሪ',
+        bodyChanges: ['ኣብዚ እዋን ንዕብየት ሕጻን ዝምልከት ዝያዳ ርኡይ ምውሳኽ ክብደት ልሙድ እዩ።'],
+        toKnow: ['ዕለት ወሊድ ክቐርብ ከሎ ርእሲ ናብ ታሕቲ ምዃን (ሴፋሊክ ኣቀማምጣ) ዝያዳ ልሙድ ይኸውን።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana yamaze kuremwa neza kandi buhoro buhoro ari kwicara umutwe ugana hasi yitegura kuvuka. Ahanini akomeza kongera ibiro mu byumweru bisigaye.',
+        length: 'Hafi cm 42.4',
+        comparison: 'Umurundo wa seleri',
+        bodyChanges: ['Kongera ibiro cyane birasanzwe muri iki gihe, bifitanye isano no gukura k\'umwana.'],
+        toKnow: ['Gushyira umutwe hasi (cephalic presentation) birushaho kuba bisanzwe uko igihe cyo kubyara kigenda kigera.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana yamaze gushirwaho neza kandi aragenda yicara umutwe ujanye hasi ategura ivuka. Cane cane akomeza kwiyongera ibiro mu byumweru bisigaye.',
+        length: 'Hafi ya cm 42,4',
+        comparison: 'Igitego ca celery',
+        bodyChanges: ['Kwiyongera ibiro bigaragara cane ni ibisanzwe muri iki gihe, bijanye n’ukura kw’umwana.'],
+        toKnow: ['Kwicara umutwe ujanye hasi (cephalic) biragenda biba bisanzwe uko igihe cyo kuvuka kigeze.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ etolitela nke ọma ma na-ewere ọnọdụ isi n\'ala nwayọ nwayọ iji kwado maka ịmụ nwa. Ọ na-aga n\'ihu na-eru arọ n\'izu ndị fọdụrụ.',
+        length: 'Ihe dị ka 42.4 cm',
+        comparison: 'Otu ihe celery',
+        bodyChanges: ['Ịrị arọ pụtara ìhè karị bụ ihe a na-ahụkarị n\'oge a, nke jikọtara n\'ito nwa ahụ.'],
+        toKnow: ['Ọnọdụ isi n\'ala (cephalic presentation) na-aghọkwu nke a na-ahụkarị ka oge ịmụ nwa na-eru nso.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ti dàgbà dáadáa ó sì ń gba ipò orí-nísàlẹ̀ díẹ̀díẹ̀ ní ìmúrasílẹ̀ fún ìbí. Ó ń tẹ̀síwájú ní pàtàkì láti pọ̀ sí i ní ìwọ̀n ní àwọn ọ̀sẹ̀ tó kù.',
+        length: 'Nǹkan bí 42.4 cm',
+        comparison: 'Ìdì seleri',
+        bodyChanges: ['Ìrẹ́pọ̀ ìwọ̀n ara tó hàn gbangba wọ́pọ̀ ní àkókò yìí, tó jẹ mọ́ ìdàgbà ọmọ náà.'],
+        toKnow: ['Ipò orí-nísàlẹ̀ (cephalic presentation) di wọ́pọ̀ sí i bí ọjọ́ ìbí ṣe ń sún mọ́.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane isikheke kahle futhi kancane kancane ikhetha isikhundla sekhanda phansi ukulungiselela ukuzalwa. Ikakhulukazi iqhubeka nokukhula ngesisindo emasontweni asele.',
+        length: 'Cishe 42.4 cm',
+        comparison: 'Isixha se-celery',
+        bodyChanges: ['Ukukhula kwesisindo okubonakala kakhulu kuyajwayeleka phakathi nalesi sikhathi, okuhlobene nokukhula kwengane.'],
+        toKnow: ['Isikhundla sekhanda phansi (cephalic presentation) siba sivame kakhulu njengoba usuku lokubeletha lusondela.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana sele lwakheke kakuhle kwaye luyazinza ngokuthe ngcembe intloko ingaphantsi ekulungiseleleni ukuzalwa. Luqhubeka ikakhulu ngokunyuka kobunzima ngeeveki eziseleyo.',
+        length: 'Malunga ne-42.4 cm',
+        comparison: 'Isixa selery',
+        bodyChanges: ['Ukunyuka kobunzima okubonakalayo ngakumbi kuqhelekile ngeli xesha, kudibene nokukhula kosana.'],
+        toKnow: ['Ukubeka intloko ngaphantsi (cephalic presentation) kuba luqhelekile ngakumbi njengoko ixesha lokuzalwa lisondela.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana ava akaumbwa zvakanaka uye ari kuzviisa zvishoma nezvishoma nemusoro pasi achigadzirira kuberekwa. Anoramba achiwedzera uremu munguva yemavhiki asara.',
+        length: 'Kunge 42.4 cm',
+        comparison: 'Murwi wecelery',
+        bodyChanges: ['Kuwedzera uremu kunooneka zvakanyanya kwakajairika panguva ino, kunobatana nekukura kwemwana.'],
+        toKnow: ['Kuiswa nemusoro pasi (cephalic presentation) kunova kwakajairika zvakanyanya sezvo nguva yekubereka ichiswedera.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana asili kosalema malamu mpe azali kotya motu na nse moke moke mpo na kobota. Akobaka mingi kozwa kilo na poso oyo etikali.',
+        length: 'Pene 42,4 cm',
+        comparison: 'Mwa liboke ya céleri',
+        bodyChanges: ['Komata ya kilo ya polele ezali ya mbala mingi na ntango oyo, na boyokani na kokola ya mwana.'],
+        toKnow: ['Kotya motu na nse (présentation céphalique) ekómi ya mbala mingi ntango ntango ya kobota ezali pene.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina ngaɗa moƴƴum e ina fuɗɗa wonde hoore dow haa asam ngam danyugol. Ɗum ina tokka ɓeydude tiiɗal e jammaa ɗin cakitiiɗen.',
+        length: 'Nder cm 42,4',
+        comparison: 'Seleri',
+        bodyChanges: ['Ɓeydugol tiiɗal ina aada e wakkati ɗoo, ɗum ina e mawnugol ɓiɗɗo.'],
+        toKnow: ['Hoore dow haa asam (cephalic) ina ɓeydi aadaade nde danyugol ɓadii.'],
+      },
       id: {
         babyDescription: 'Bayi sudah terbentuk dengan baik dan berangsur mengambil posisi kepala di bawah sebagai persiapan lahir. Selama minggu-minggu yang tersisa, bayi terutama terus bertambah berat badannya.',
         length: 'Sekitar 42,4 cm',
@@ -22150,6 +25893,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '宝宝出生时头骨的柔韧性是暂时的，会在出生后第一年逐渐闭合。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '大腦和神經系統現在已經發育得很好。骨骼繼續變硬，只有頭骨仍保持柔韌，以便分娩時更容易通過產道。',
+        length: '約 43.7 釐米',
+        comparison: '菠蘿',
+        bodyChanges: [
+          '這個階段，很難找到舒服的睡姿是常見的。',
+        ],
+        toKnow: [
+          '寶寶出生時頭骨的柔韌性是暫時的，會在出生後第一年逐漸閉合。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'أصبح الدماغ والجهاز العصبي متطورين جيدًا. وتواصل العظام تصلّبها، باستثناء عظام الجمجمة التي تبقى مرنة لتسهيل مرورها أثناء الولادة.',
+        length: 'حوالي 43.7 سم',
+        comparison: 'الأناناس',
+        bodyChanges: ['من الشائع صعوبة إيجاد وضعية نوم مريحة في هذه المرحلة.'],
+        toKnow: ['مرونة عظام الجمجمة عند الولادة مؤقتة وتنغلق تدريجيًا خلال السنة الأولى.'],
+      },
+      kab: {
+        babyDescription:
+          'Aɣerrabu d unagraw n tawwurt xedmen yakan mliḥ. Iɛeḍman ttkemmilen ad ttwaḥeṭṭren, ɣer wid n ukerru i yeqqimen d imɣuyen akken ad yessinen tuffɣa deg tlalit.',
+        length: 'Azal n 43.7 cm',
+        comparison: 'Aɣerbal n lananas',
+        bodyChanges: ['Ugzam n usmuggi n tallit n nnuba yelhan d ayen imatu deg tallit-a.'],
+        toKnow: ['Taɣuyi n iɛeḍman n uqerru deg tlalit d taɛeddit yerna tettwaqqen cwiṭ cwiṭ deg useggas amezwaru.'],
+      },
+      om: {
+        babyDescription:
+          'Sammuun fi sirni narvii amma gaarii guddataniiru. Lafeen cimuu itti fufu, kan mataa malee, isaan akka dhaloota yeroo darbuuf salphaatti jiraatan jabaa hin taane turu.',
+        length: 'Gara 43.7 cm',
+        comparison: 'Anaanaasii',
+        bodyChanges: ['Iddoo rafuu mijaa\'aa argachuu rakkachuun sadarkaa kanatti baratamaa dha.'],
+        toKnow: ['Jabaa hin ta\'uun lafee mataa yeroo dhalootaa yeroo gabaabaaf kan ta\'e fi mudhii jalqabaa keessa suuta suutaan cufama.'],
+      },
+      ti: {
+        babyDescription:
+          'ኣእምሮን ስርዓት ነርቭን ሕጂ ጽቡቕ ተማዕብሉ። ዓጽምታት ምጥንካር ይቕጽሉ፣ ዓጽሚ ርእሲ ብዘይካ፣ ኣብ ግዜ ወሊድ ንምሕላፍ ንምቅላል ልዋጥ ይጸንሕ።',
+        length: 'ኣስታት 43.7 cm',
+        comparison: 'ኣናናስ',
+        bodyChanges: ['ኣብዚ ደረጃ ምቹእ ኣቀማምጣ ድቃስ ምርካብ ጸገም ልሙድ እዩ።'],
+        toKnow: ['ልዋጥነት ዓጽምታት ርእሲ ኣብ ግዜ ወሊድ ግዝያዊ እዩ፣ ኣብ ቀዳማይ ዓመት ድማ ቀስ ብቐስ ይዕጸው።'],
+      },
+      rw: {
+        babyDescription:
+          'Ubwonko n\'imiyoboro y\'imyakura ubu byakuze neza. Amagufwa akomeza gukomera, uretse ay\'igihanga, akomeza kuba yoroshye kugira ngo byorohereze kunyura igihe cyo kubyara.',
+        length: 'Hafi cm 43.7',
+        comparison: 'Inanasi',
+        bodyChanges: ['Kugorwa no kubona uburyo bwiza bwo gusinzira birasanzwe muri iki gihe.'],
+        toKnow: ['Koroha kw\'amagufwa y\'igihanga igihe cyo kuvuka ni iby\'igihe gito kandi buhoro buhoro arafunga mu mwaka wa mbere.'],
+      },
+      rn: {
+        babyDescription:
+          'Ubwonko na sisiteme y’imitsi ubu byarakuze neza. Amagufa akomeza gukomera, uretse ay’igihanga, asigara yoroshe kugira byoroshe kunyura mu gihe c’ivuka.',
+        length: 'Hafi ya cm 43,7',
+        comparison: 'Inanasi',
+        bodyChanges: ['Ingorane zo kubona uburyo bworoshe bwo kuryama ni ibisanzwe kuri iki gihe.'],
+        toKnow: ['Ukworoha kw’amagufa y’igihanga mu kuvuka ni uk’akanya gato kandi kugenda gufunga buhoro buhoro mu mwaka wa mbere.'],
+      },
+      ig: {
+        babyDescription:
+          'Ụbụrụ na sistemụ akwara etoola nke ọma ugbu a. Ọkpụkpụ na-aga n\'ihu na-esi ike, ewezuga nke ọkpọ isi, nke na-anọgide na-adị mfe ịgbagọ iji mee ka ọ dị mfe ịgafe n\'oge ịmụ nwa.',
+        length: 'Ihe dị ka 43.7 cm',
+        comparison: 'Akwụkwọ ananā (pineapple)',
+        bodyChanges: ['Nsogbu ịchọta ọnọdụ ụra dị mma bụ ihe a na-ahụkarị n\'ọkwa a.'],
+        toKnow: ['Mfe nke ọkpụkpụ ọkpọ isi mgbe a mụrụ nwa bụ nke nwa oge ma na-emechi nwayọ nwayọ n\'afọ mbụ.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọpọlọ àti ètò iṣan ara ti dàgbà dáadáa báyìí. Egungun ń tẹ̀síwájú láti le, àfi ti agbárí tó ṣì rọ̀ kí ó lè rọrùn láti kọjá nígbà ìbí.',
+        length: 'Nǹkan bí 43.7 cm',
+        comparison: 'Ọ̀pẹ̀ oyinbo',
+        bodyChanges: ['Ìṣòro rírí ipò sísùn tó tura wọ́pọ̀ ní ìpele yìí.'],
+        toKnow: ['Rírọ̀ egungun agbárí ní ìgbà ìbí jẹ́ ti ìgbà díẹ̀, ó sì ń tì díẹ̀díẹ̀ ní ọdún àkọ́kọ́.'],
+      },
+      zu: {
+        babyDescription:
+          'Ubuchopho nohlelo lwezinzwa manje sekukhule kahle. Amathambo aqhubeka nokuqina, ngaphandle kwalawo ekhanda, ahlala ethambile ukwenza kube lula ukudlula ngesikhathi sokuzalwa.',
+        length: 'Cishe 43.7 cm',
+        comparison: 'Uphayinaphu',
+        bodyChanges: ['Ubunzima bokuthola isikhundla sokulala esinethezekile buyajwayeleka kulesi sigaba.'],
+        toKnow: ['Ukuthamba kwamathambo ekhanda ngesikhathi sokuzalwa kuyisikhashana futhi kancane kancane kuyavaleka phakathi nonyaka wokuqala.'],
+      },
+      xh: {
+        babyDescription:
+          'Ingqondo nenkqubo yemithambo-luvo ngoku ikhule kakuhle. Amathambo aqhubeka eqina, ngaphandle kwamathambo ekhakhayi, asala ethambile ukwenza kube lula ukudlula ngexesha lokuzalwa.',
+        length: 'Malunga ne-43.7 cm',
+        comparison: 'Ipayinapile',
+        bodyChanges: ['Ubunzima bokufumana indawo yokulala ekhululekileyo kuqhelekile kweli nqanaba.'],
+        toKnow: ['Ukuthamba kwamathambo ekhakhayi ekuzalweni kwethutyana kwaye kuvaleka ngokuthe ngcembe kunyaka wokuqala.'],
+      },
+      sn: {
+        babyDescription:
+          'Uropi nenervous system zvava zvakakura zvakanaka. Mapfupa anoramba achiomarara, kunze kwemapfupa emusoro, anoramba akapfava kuti zvive nyore kupfuura panguva yekuberekwa.',
+        length: 'Kunge 43.7 cm',
+        comparison: 'Chinanazi',
+        bodyChanges: ['Kunetseka kuwana nzvimbo yakanaka yekurara kwakajairika panguva ino.'],
+        toKnow: ['Kupfava kwemapfupa emusoro pakuberekwa kwenguva pfupi uye kunovharika zvishoma nezvishoma mugore rekutanga.'],
+      },
+      ln: {
+        babyDescription:
+          'Ntolo mpe système nerveux ezali sikoyo malamu. Mikuwa ekobaka kokóma makasi, longola ya motu, oyo etikalaka pete mpo na kosunga kolekisa yango na ntango ya kobota.',
+        length: 'Pene 43,7 cm',
+        comparison: 'Ananas',
+        bodyChanges: ['Mpasi ya kozwa lolenge malamu ya kolala ezali ya mbala mingi na ntango oyo.'],
+        toKnow: ['Pete ya mikuwa ya motu na ntango ya kobota ezali ya ntango moke mpe ekangaka moke moke na mbula ya liboso.'],
+      },
+      ff: {
+        babyDescription:
+          'Hoore e nyawu hoyre ina ngoodi moƴƴum. Ɓoyƴe ina tokka tiiɗude, si wanaa ɓoyƴe hoore, ɗe ina ngoni ɓoyƊe ngam yaltugol nde danyugol.',
+        length: 'Nder cm 43,7',
+        comparison: 'Ananaas',
+        bodyChanges: ['Ɗaɓɓugol nokkuure hoosugol moƴƴum ina aada e wakkati ɗoo.'],
+        toKnow: ['Ɓoyƴe hoore nder danyugol ko ɓoyƊe wakkati tan, ɗe tiiɗan seɗɗa seɗɗa nder duuɓi adannde.'],
+      },
       id: {
         babyDescription: 'Otak dan sistem saraf kini sudah berkembang dengan baik. Tulang terus mengeras, kecuali tulang tengkorak yang tetap lentur agar lebih mudah melewati jalan lahir saat persalinan.',
         length: 'Sekitar 43,7 cm',
@@ -22825,6 +26683,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '一直到分娩，持续关注宝宝平时的胎动仍然很重要。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '由於空間有限，寶寶蜷縮著，雙腿通常向胸部彎曲，同時仍會規律地活動。',
+        length: '約 45 釐米',
+        comparison: '哈密瓜',
+        bodyChanges: [
+          '儘管空間變小，寶寶的動作和你肚子形狀的變化通常仍然很明顯。',
+        ],
+        toKnow: [
+          '一直到分娩，持續關注寶寶平時的胎動仍然很重要。',
+        ],
+      },
+      ar: {
+        babyDescription: 'يبقى الجنين، المنكمش بسبب ضيق المساحة، في الغالب ساقيه مثنيتين نحو صدره، مع استمراره في الحركة بانتظام.',
+        length: 'نحو 45 سم',
+        comparison: 'شمّام الكنتالوب',
+        bodyChanges: ['رغم قلّة المساحة، تبقى حركات الجنين وتغيّر شكل بطنك ملحوظة عادةً.'],
+        toKnow: ['يبقى الانتباه إلى حركات الجنين المعتادة أمرًا مهمًا حتى لحظة الولادة.'],
+      },
+      kab: {
+        babyDescription: 'Aqcic, yeqqnen ɣef wakken ur yelli ara umkan, s umata yeǧǧa iḍaren-is ttwaɣellten ɣer uɣerfan mi ara yettkemmil armud s wudem imatu.',
+        length: 'Azal n 45 cm',
+        comparison: 'Aɣerbal n lmelon',
+        bodyChanges: ['Ɣas akken umkan yenqes, armud n uqcic d ubeddel n wudem n uḍfel-ik zemren ad qqimen d ayen yettwaḥessen.'],
+        toKnow: ['Ad tkemmleḍ ad tḥessed i wuṭṭun n armud n uqcic yezga d ayen yelhan armi d tlalit.'],
+      },
+      om: {
+        babyDescription: 'Daa\'imni iddoo dhabuu irraa kan ta\'e walitti maramee, waliigalaan miila isaa gara laphee isaatti maru, yeroo hunda sochii itti fufaa.',
+        length: 'Gara 45 cm',
+        comparison: 'Meloonii cantaloupe',
+        bodyChanges: ['Iddoon xiqqaachuu isaa osoo jiruu, sochiin daa\'imaa fi jijjiiramni bifa garaa kee yeroo baay\'ee ni hubatama.'],
+        toKnow: ['Sochii idilee daa\'imaa xiyyeeffannoon hordofuun hanga dhalootaatti barbaachisaa dha.'],
+      },
+      ti: {
+        babyDescription: 'እቲ ሕጻን ብሰንኪ ጸቢብ ቦታ ተጠምጢሙ፣ ብሓፈሻ እግሩ ናብ ሰፍሖ ተመሊሱ ይሕዝ፣ ብመደበኛ ድማ ምንቅስቓስ ይቕጽል።',
+        length: 'ኣስታት 45 cm',
+        comparison: 'ካንታሎፕ ሜሎን',
+        bodyChanges: ['ዝተጸበበ ቦታ እኳ እንተ ኮነ፣ ምንቅስቓሳት ሕጻንን ዝቕየር ቅርጺ ከብድኻን ብሓፈሻ ርኡያት ይጸንሑ።'],
+        toKnow: ['ንልሙድ ምንቅስቓሳት ሕጻን ምጥንቃቕ ክሳብ ወሊድ ኣገዳሲ እዩ።'],
+      },
+      rw: {
+        babyDescription: 'Umwana, wiyegeranyije kubera kubura umwanya, muri rusange akomeza kuzinga amaguru yerekeza ku gituza mu gihe akomeza kugenda buri gihe.',
+        length: 'Hafi cm 45',
+        comparison: 'Melon ya cantaloup',
+        bodyChanges: ['Nubwo umwanya wagabanutse, ingendo z\'umwana n\'imiterere ihinduka y\'inda yawe akenshi biracyagaragara.'],
+        toKnow: ['Gukomeza kwita ku ngendo z\'umwana zisanzwe biracyari ngombwa kugeza igihe cyo kuvuka.'],
+      },
+      rn: {
+        babyDescription: 'Umwana, wakubise kubera kubura umwanya, mu rusangi akomeza kuzinga amaguru ayajanisha mu gituza mu gihe akomeza kugenda buri gihe.',
+        length: 'Hafi ya cm 45',
+        comparison: 'Melon ya cantaloupe',
+        bodyChanges: ['Naho umwanya wagabanutse, ingendo z’umwana n’ishusho y’inda yawe ihinduka mu rusangi biguma bigaragara.'],
+        toKnow: ['Gukomeza kwitegereza ingendo z’umwana zisanzwe biguma ari ngombwa kugeza ku ivuka.'],
+      },
+      ig: {
+        babyDescription: 'Nwa ahụ, nke gbagọrọ agbagọ n\'ihi enweghị ohere, n\'ozuzu na-edebe ụkwụ ya agbagọrọ n\'akụkụ obi ma na-aga n\'ihu na-emega ahụ mgbe niile.',
+        length: 'Ihe dị ka 45 cm',
+        comparison: 'Cantaloupe melon',
+        bodyChanges: ['Ọ bụ ezie na ohere belatara, mmegharị nwa ahụ na mgbanwe ọdịdị afọ gị na-anọgide na-apụta ìhè n\'ozuzu.'],
+        toKnow: ['Ịga n\'ihu na-ele mmegharị nkịtị nke nwa ahụ anya ka dị mkpa ruo mgbe a mụrụ ya.'],
+      },
+      yo: {
+        babyDescription: 'Ọmọ náà, tó ká ara rẹ̀ jọ nítorí àìsí ààyè, sábà máa ń pa ẹsẹ̀ rẹ̀ mọ́ àyà nígbà tó ń tẹ̀síwájú láti máa ṣípòpadà déédé.',
+        length: 'Nǹkan bí 45 cm',
+        comparison: 'Melon cantaloupe',
+        bodyChanges: ['Bó tilẹ̀ jẹ́ pé ààyè ti dínkù, ìṣípòpadà ọmọ àti ìrísí ikùn rẹ tó ń yípadà sábà máa ń ṣì hàn.'],
+        toKnow: ['Ṣíṣe àfiyèsí sí ìṣípòpadà déédé ọmọ náà ṣì ṣe pàtàkì títí di ìgbà ìbí.'],
+      },
+      zu: {
+        babyDescription: 'Ingane, ngenxa yokuntuleka kwesikhala, ngokuvamile igcina imilenze yayo igobile iye esifubeni ngenkathi iqhubeka nokunyakaza njalo.',
+        length: 'Cishe 45 cm',
+        comparison: 'Ikhabe (umelophu we-cantaloupe)',
+        bodyChanges: ['Naphezu kwesikhala esincishisiwe, ukunyakaza kwengane nokushintsha kwesimo sesisu sakho ngokuvamile kuhlala kubonakala.'],
+        toKnow: ['Ukuqhubeka nokunaka ukunyakaza okujwayelekile kwengane kuhlala kubalulekile kuze kube yilapho izalwa.'],
+      },
+      xh: {
+        babyDescription: 'Usana, oluqokelelene ngenxa yokusilela kwendawo, ngokuqhelekileyo luhlala luwagobise imilenze ibheke esifubeni ngoxa luqhubeka lushukuma rhoqo.',
+        length: 'Malunga ne-45 cm',
+        comparison: 'Imeloni ye-cantaloupe',
+        bodyChanges: ['Nangona indawo incitshisiwe, iintshukumo zosana kunye notshintsho lwemilo yesisu sakho ngokuqhelekileyo ziyaqhubeka zivakala.'],
+        toKnow: ['Ukuqhubeka unikela ingqalelo kwiintshukumo eziqhelekileyo zosana kusafanelekile kude kube kukubeletha.'],
+      },
+      sn: {
+        babyDescription: 'Mwana, akakotama nekuda kwekushaiwa nzvimbo, kazhinji anochengeta makumbo ake akapetwa kuchipfuva achiramba achifamba nguva dzose.',
+        length: 'Kunge 45 cm',
+        comparison: 'Cantaloupe melon',
+        bodyChanges: ['Kunyange nzvimbo yakaderera, kufamba kwemwana nekushanduka kwenzvimbo yedumbu rako kazhinji zvinoramba zvichinzwika.'],
+        toKnow: ['Kuramba uchitarisa kufamba kwakajairika kwemwana kunoramba kuri kwakakosha kusvika pakuberekwa.'],
+      },
+      ln: {
+        babyDescription: 'Mwana, oyo akangami mpo na kozanga esika, abatelaka mbala mingi makolo na ye mikangami na ngambo ya ntolo ntango azali kokoba kopumbwa na ndenge ya ntango nyonso.',
+        length: 'Pene 45 cm',
+        comparison: 'Melon cantaloup',
+        bodyChanges: ['Atako esika ekiti, mbongwana ya mwana mpe lolenge ya mokɔlɔ na yo ebongwanaka ezalaka mbala mingi polele.'],
+        toKnow: ['Kokoba kokebisa mbongwana ya mwana ya ntango nyonso ezali na ntina kino ntango ya kobota.'],
+      },
+      ff: {
+        babyDescription: 'Ɓiɗɗo, ɗum ina e ɗum ɓoyƊum ngam walaa nokkuure, ko feewi ina hoyna koyɗe mum haa ɓerɗe, ɗum tokka hoyrude no feewi.',
+        length: 'Nder cm 45',
+        comparison: 'Meloŋ kantaloup',
+        bodyChanges: ['Hay si nokkuure ina ɓoyi, hoyrugol ɓiɗɗo e waylugol reedu maaɗa ko feewi ina tokka anndeede.'],
+        toKnow: ['Tokkugol ndaarugol aada hoyrugol ɓiɗɗo ina tokka moƴƴude haa wakkati danyugol.'],
+      },
       id: {
         babyDescription: 'Bayi, yang meringkuk karena kurang ruang, umumnya menjaga kakinya tetap terlipat ke arah dada sambil terus bergerak secara teratur.',
         length: 'Sekitar 45 cm',
@@ -23497,6 +27457,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '尽管空间有限，宝宝仍应保持与前几周相近的活动规律。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '寶寶繼續長得豐滿，這將幫助他出生後調節體溫。子宮內可用的空間變得更加有限。',
+        length: '約 46.2 釐米',
+        comparison: '蜜瓜',
+        bodyChanges: [
+          '隨著寶寶逐漸下降，可能會出現更明顯的骨盆壓迫感。',
+        ],
+        toKnow: [
+          '儘管空間有限，寶寶仍應保持與前幾週相近的活動規律。',
+        ],
+      },
+      ar: {
+        babyDescription: 'يواصل الجنين امتلاءه، وهذا يساعده على تنظيم حرارة جسمه بعد الولادة. وتزداد المساحة المتاحة في الرحم ضيقًا.',
+        length: 'نحو 46.2 سم',
+        comparison: 'شمّام العسل',
+        bodyChanges: ['قد يظهر ضغط أوضح في منطقة الحوض مع نزول الجنين تدريجيًا.'],
+        toKnow: ['رغم ضيق المساحة، ينبغي أن يواصل الجنين الحركة بانتظام مشابه للأسابيع السابقة.'],
+      },
+      kab: {
+        babyDescription: 'Aqcic yettkemmil ad yettaru azal, ayen ara t-yeɛawen ad yessuter asemmaḍ-is mi ara d-yili. Umkan yettilin deg taddart n tkuffa yettuɣal d amecṭuḥ ugar.',
+        length: 'Azal n 46.2 cm',
+        comparison: 'Aɣerbal n lmelon amellal',
+        bodyChanges: ['Ahettu ameqqran n ukalas izmer ad d-yili ticki aqcic yettekkes cwiṭ cwiṭ.'],
+        toKnow: ['Ɣas akken umkan yeqqnen, aqcic ilaq ad yettkemmil armud s wudem imatu am ddasen iɛeddan.'],
+      },
+      om: {
+        babyDescription: 'Daa\'imni guutuu itti fufa, kunis erga dhalatee booda ho\'ina qaamaa isaa sirreessuuf isa gargaara. Iddoon mudhii keessaa jiru caalaatti daangeeffama.',
+        length: 'Gara 46.2 cm',
+        comparison: 'Meloonii honeydew',
+        bodyChanges: ['Daa\'imni suuta suutaan gadi bu\'aa waan jiruuf, dhiibbaan pelvis caalaatti mul\'achuu danda\'a.'],
+        toKnow: ['Iddoon xiqqaa ta\'us, daa\'imni torbanoota darban waliin walfakkaatu sirna idileen socho\'uu itti fufuu qaba.'],
+      },
+      ti: {
+        babyDescription: 'እቲ ሕጻን ምምላእ ይቕጽል፣ እዚ ድማ ድሕሪ ልደት ሙቐቱ ንምቁጽጻር ይሕግዞ። ኣብ ማህጸን ዘሎ ቦታ ዝያዳ ይጸብብ።',
+        length: 'ኣስታት 46.2 cm',
+        comparison: 'ሃኒዱ ሜሎን',
+        bodyChanges: ['እቲ ሕጻን ቀስ ብቐስ ክወርድ ከሎ ዝያዳ ጉሉሕ ጸቕጢ ዳሕሎ ክረአ ይኽእል።'],
+        toKnow: ['ዝተወሰነ ቦታ እኳ እንተ ኮነ፣ እቲ ሕጻን ምስ ቀደምቲ ሳምንታት ተመሳሳሊ ርጋጸ ምንቅስቓስ ክቕጽል ይግበኦ።'],
+      },
+      rw: {
+        babyDescription: 'Umwana akomeza kubyibuha, bizamufasha kugenga ubushyuhe bwe amaze kuvuka. Umwanya uboneka muri nyababyeyi urushaho kuba muto.',
+        length: 'Hafi cm 46.2',
+        comparison: 'Melon ya honeydew',
+        bodyChanges: ['Igitutu cyo mu rukenyerero gikabije gishobora kugaragara uko umwana amanuka buhoro buhoro.'],
+        toKnow: ['Nubwo umwanya ari muto, umwana akwiye gukomeza kugenda nk\'uko yagendaga mu byumweru byabanje.'],
+      },
+      rn: {
+        babyDescription: 'Umwana akomeza kwiyongera, ibizamufasha kugenzura ubushuhe bw’umubiri igihe avutse. Umwanya uboneka mu nda y’umwana uragenda uba muto.',
+        length: 'Hafi ya cm 46,2',
+        comparison: 'Melon ya honeydew',
+        bodyChanges: ['Igitutu c’ikibuno kigaragara cane gishobora kuboneka uko umwana amanuka buhoro buhoro.'],
+        toKnow: ['Naho umwanya ari muto, umwana akwiye gukomeza kugenda ku buryo busa n’ubw’ibyumweru vyabanje.'],
+      },
+      ig: {
+        babyDescription: 'Nwa ahụ na-aga n\'ihu na-eru arọ, nke ga-enyere ya aka ịhazi okpomọkụ ya mgbe a mụrụ ya. Ohere dị n\'akpa nwa na-aghọ nke pere mpe.',
+        length: 'Ihe dị ka 46.2 cm',
+        comparison: 'Honeydew melon',
+        bodyChanges: ['Nrụgide pelvis dị ukwuu karị nwere ike ịpụta ka nwa ahụ na-arịda nwayọ nwayọ.'],
+        toKnow: ['Ọ bụ ezie na ohere pere mpe, nwa ahụ kwesịrị ịga n\'ihu na-emega ahụ n\'usoro yiri nke izu ndị gara aga.'],
+      },
+      yo: {
+        babyDescription: 'Ọmọ náà ń tẹ̀síwájú láti kún, èyí tí yóò ràn án lọ́wọ́ láti ṣàkóso ìgbóná ara rẹ̀ lẹ́yìn ìbí. Ààyè tó wà nínú ilé-ọmọ ń dínkù.',
+        length: 'Nǹkan bí 46.2 cm',
+        comparison: 'Melon honeydew',
+        bodyChanges: ['Ìfúnpá ìdí tó pọ̀ sí i lè hàn bí ọmọ náà ṣe ń sọ̀kalẹ̀ díẹ̀díẹ̀.'],
+        toKnow: ['Bó tilẹ̀ jẹ́ pé ààyè kéré, ọmọ náà yẹ kí ó tẹ̀síwájú láti máa ṣípòpadà pẹ̀lú ìlànà tó jọ ti àwọn ọ̀sẹ̀ tó kọjá.'],
+      },
+      zu: {
+        babyDescription: 'Ingane iqhubeka nokugcwala, okuzoyisiza ilawule izinga layo lokushisa lapho isizelwe. Isikhala esikhona esibelethweni siya sincipha.',
+        length: 'Cishe 46.2 cm',
+        comparison: 'Umelophu we-honeydew',
+        bodyChanges: ['Ingcindezi ye-pelvis ekhulu kakhulu ingavela njengoba ingane yehla kancane kancane.'],
+        toKnow: ['Naphezu kwesikhala esincane, ingane kufanele iqhubeke nokunyakaza ngokuvamile okufana namasonto adlule.'],
+      },
+      xh: {
+        babyDescription: 'Usana luqhubeka lukhula, oku kuza kululeka ukulawula ubushushu bomzimba emva kokuzalwa. Indawo ekhoyo esibelekweni iya isiba ncinane.',
+        length: 'Malunga ne-46.2 cm',
+        comparison: 'Imeloni ye-honeydew',
+        bodyChanges: ['Uxinzelelo lwenyonga olubonakala ngakumbi lunokubakho njengoko usana lusihla ngokuthe ngcembe.'],
+        toKnow: ['Nangona indawo ilinganiselwe, usana kufuneka luqhubeke lushukuma ngokuhlala rhoqo okufana neeveki ezidlulileyo.'],
+      },
+      sn: {
+        babyDescription: 'Mwana anoramba achizara, izvo zvichamubatsira kugadzirisa kudziya kwemuviri wake kana abereka. Nzvimbo iripo muchibereko inova shoma.',
+        length: 'Kunge 46.2 cm',
+        comparison: 'Honeydew melon',
+        bodyChanges: ['Kudzvanywa kwakanyanya kwepelvis kunogona kuoneka sezvo mwana achidzika zvishoma nezvishoma.'],
+        toKnow: ['Kunyange nzvimbo shoma, mwana anofanira kuramba achifamba nenguva dzakafanana nemavhiki akapfuura.'],
+      },
+      ln: {
+        babyDescription: 'Mwana akobaka kotonda, oyo ekosunga ye kobatela molunge ya nzoto na ye sima ya kobotama. Esika ya libumu ekómi moke.',
+        length: 'Pene 46,2 cm',
+        comparison: 'Melon honeydew',
+        bodyChanges: ['Kotindika ya makasi na libumu ya nse ekoki kobima ntango mwana azali kokita moke moke.'],
+        toKnow: ['Atako esika ezali moke, mwana esengeli kokoba kopumbwa na lolenge ya ndenge moko lokola poso oyo eleki.'],
+      },
+      ff: {
+        babyDescription: 'Ɓiɗɗo ina tokka ɓesdude, ɗum wallan ɗum reende sanɗaare mum ɓaawo danyugol. Nokkuure nder reedu ina ɓeydi ɓoyude.',
+        length: 'Nder cm 46,2',
+        comparison: 'Meloŋ honeydew',
+        bodyChanges: ['Tiiɗal pelwiis ɓurdi anndeede ina waawi wonde ngam ɓiɗɗo ina tokka jippude seɗɗa seɗɗa.'],
+        toKnow: ['Hay si nokkuure ɓoyi, ɓiɗɗo ina haani tokka hoyrude no nanndi e jammaa adii.'],
       },
       id: {
         babyDescription: 'Bayi terus bertambah berisi, yang akan membantunya mengatur suhu tubuh setelah lahir. Ruang yang tersedia di dalam rahim makin terbatas.',
@@ -24178,6 +28240,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '孕 37 周到孕 42 周之间被认为是足月妊娠。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '肺部通常已經成熟到可以獨立呼吸，寶寶也能夠吮吸和消化。',
+        length: '約 47.4 釐米',
+        comparison: '羅馬生菜',
+        bodyChanges: [
+          '子宮在肋骨下佔據了很大空間，你有時可能會覺得更氣短。',
+        ],
+        toKnow: [
+          '孕 37 周到孕 42 周之間被認為是足月妊娠。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'تكون الرئتان قد نضجتا في الغالب بما يكفي للتنفس باستقلالية، ويصبح الجنين قادرًا على المصّ والهضم.',
+        length: 'نحو 47.4 سم',
+        comparison: 'خسّ روماني',
+        bodyChanges: ['قد تشعرين أحيانًا بضيق في التنفس، لأن الرحم يشغل مساحة كبيرة تحت الأضلاع.'],
+        toKnow: ['يُعدّ الحمل مكتمل المدة بين الأسبوع 37 والأسبوع 42.'],
+      },
+      kab: {
+        babyDescription:
+          'Idamen sɛan tazmert n uddurar n yiman-is s umata, yerna aqcic izmer ad yettwaḥaddu ad yettawi.',
+        length: 'Azal n 47.4 cm',
+        comparison: 'Aɣerbal n lxas',
+        bodyChanges: ['Tzemreḍ ad tḥessed kra n tikkal d anfas amecṭuḥ, acku taddart n tkuffa tettawi aṭas n umkan deg wadda n iɣsan.'],
+        toKnow: ['Lḥemla tettwaḥseb d tummidt gar ddasen 37 ɣer 42.'],
+      },
+      om: {
+        babyDescription:
+          'Sombi waliigalaan ofumaan hafuura baafachuuf ga\'umsa argateera, daa\'imni tuttuquu fi nyaata affeeruu danda\'a.',
+        length: 'Gara 47.4 cm',
+        comparison: 'Baala lettuce',
+        bodyChanges: ['Mudhiin ribs jala iddoo baay\'ee waan qabatuuf, yeroo tokko tokko hafuura rakkachuu dandeessa.'],
+        toKnow: ['Ulfaan torban 37 fi torban 42 gidduutti guutuu (full term) ta\'ee ilaalama.'],
+      },
+      ti: {
+        babyDescription:
+          'ሳምባ ብሓፈሻ ባዕሉ ንምትንፋስ ዘኽእል ብዝበቅዕ በሲሉ፣ እቲ ሕጻን ድማ ክጥብን ክሕጭን ይኽእል።',
+        length: 'ኣስታት 47.4 cm',
+        comparison: 'ሮመይን ሰላጣ',
+        bodyChanges: ['ማህጸን ኣብ ትሕቲ ጎድኒ ብዙሕ ቦታ ስለ ዝሕዝ፣ ገለ ግዜ ምትንፋስ ሓጺር ክስምዓካ ይኽእል።'],
+        toKnow: ['ጥንሲ ኣብ መንጎ ሳምንቲ 37 ን ሳምንቲ 42 ን ምሉእ ግዜ ይቝጸር።'],
+      },
+      rw: {
+        babyDescription:
+          'Ibihaha muri rusange byamaze gukura bihagije ku buryo umwana ashobora guhumeka ubwe, kandi ashobora konka no gusya.',
+        length: 'Hafi cm 47.4',
+        comparison: 'Salade ya romaine',
+        bodyChanges: ['Rimwe na rimwe ushobora kumva guhumeka bikugoye cyane, kuko nyababyeyi ifata umwanya munini munsi y\'imbavu.'],
+        toKnow: ['Inda ifatwa nk\'iyuzuye hagati y\'icyumweru cya 37 n\'icya 42.'],
+      },
+      rn: {
+        babyDescription:
+          'Ibihaha mu rusangi byarakuze bihagije kugira umwana ahumeke ubwiwe, kandi umwana ashobora konka no gusya ivyo yariye.',
+        length: 'Hafi ya cm 47,4',
+        comparison: 'Salade ya romaine',
+        bodyChanges: ['Rimwe na rimwe ushobora kumva ubuze umwuka, kuko inda y’umwana ifata umwanya munini munsi y’imbavu.'],
+        toKnow: ['Inda ibonwa nk’iyuzuye hagati y’icumweru ca 37 n’ica 42.'],
+      },
+      ig: {
+        babyDescription:
+          'N\'ozuzu, ngụgụ etolitela nke ọma iji kwe ka iku ume n\'onwe ya, ma nwa ahụ nwere ike ịmịkọrọ na ịgbari nri.',
+        length: 'Ihe dị ka 47.4 cm',
+        comparison: 'Romaine lettuce',
+        bodyChanges: ['Ị nwere ike mgbe ụfọdụ inwe mmetụta nsogbu iku ume, ebe akpa nwa na-ewe ohere buru ibu n\'okpuru ọkpụkpụ azụ.'],
+        toKnow: ['A na-ewere ime dị ka nke zuru oke n\'etiti izu 37 na izu 42.'],
+      },
+      yo: {
+        babyDescription:
+          'Ẹ̀dọ̀fóró sábà máa ń ti dàgbà tó láti jẹ́ kí mímí fúnra ẹni ṣeé ṣe, ọmọ náà sì lè mu kí ó sì jẹ oúnjẹ dà.',
+        length: 'Nǹkan bí 47.4 cm',
+        comparison: 'Letusi romaine',
+        bodyChanges: ['O lè ní ìmọ̀lára ẹ̀mí gbígbẹ̀ nígbà míràn, nítorí ilé-ọmọ ń gba ààyè púpọ̀ lábẹ́ egungun ìhà.'],
+        toKnow: ['A ka oyún sí ti ọjọ́ kíkún láàrin ọ̀sẹ̀ 37 àti ọ̀sẹ̀ 42.'],
+      },
+      zu: {
+        babyDescription:
+          'Amaphaphu ngokuvamile asekhulile ngokwanele ukuvumela ukuphefumula ngokuzimele, futhi ingane iyakwazi ukumunca nokugaya.',
+        length: 'Cishe 47.4 cm',
+        comparison: 'Isaladi le-romaine',
+        bodyChanges: ['Ungase ngezinye izikhathi uzizwe uphelelwa umoya kakhulu, njengoba isibeletho sithatha isikhala esiningi ngaphansi kwezimbambo.'],
+        toKnow: ['Ukukhulelwa kubhekwa njengokuphelele phakathi kweviki lama-37 neleshumi nane nambili.'],
+      },
+      xh: {
+        babyDescription:
+          'Imiphunga ngokuqhelekileyo isivuthiwe ngokwaneleyo ukuvumela ukuphefumla ngokuzimeleyo, kwaye usana lunako ukuncanca nokutyisa.',
+        length: 'Malunga ne-47.4 cm',
+        comparison: 'Ityuwa ye-romaine',
+        bodyChanges: ['Ungavakalelwa ngamanye amaxesha ngumoya omfutshane, kuba isibeleko sithatha indawo enkulu phantsi kwembambo.'],
+        toKnow: ['Ukumitha kubalwa njengokuphelele phakathi kweveki ye-37 neveki ye-42.'],
+      },
+      sn: {
+        babyDescription:
+          'Mapapu kazhinji akura zvakakwana kubvumira kufema pachake, uye mwana anogona kusveta nekugaya.',
+        length: 'Kunge 47.4 cm',
+        comparison: 'Romaine lettuce',
+        bodyChanges: ['Unogona dzimwe nguva kunzwa kuneta kufema, sezvo chibereko chichitora nzvimbo yakawanda pasi pembabvu.'],
+        toKnow: ['Mimba inoonekwa seyakakwana pakati pevhiki 37 nevhiki 42.'],
+      },
+      ln: {
+        babyDescription:
+          'Mapema esili kokola mbala mingi mpo na kopema yango moko, mpe mwana akoki kolia mpe kobongola bilei.',
+        length: 'Pene 47,4 cm',
+        comparison: 'Laitue romaine',
+        bodyChanges: ['Okoki mbala mosusu koyoka kopema na pete, ntango libumu ezali kozwa esika mingi na nse ya mikuwa ya ebandeli.'],
+        toKnow: ['Zemi etalamaka lokola ekokisami kati na poso 37 mpe poso 42.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗa hoore ko feewi ina ɓesdi haa waawi hoyre e nder hoore mum, e ɓiɗɗo ina waawi ñaamugol e ñaamnugol.',
+        length: 'Nder cm 47,4',
+        comparison: 'Salaad romeen',
+        bodyChanges: ['A nanay daŋŋgol hoyre seɗɗa seɗɗa, ngam reedu ina ɗon e nokkuure ɗuuɗuɗum dow ɓoyƴe.'],
+        toKnow: ['Reedu ina limtee timmiinde hakkunde jammaa 37 e jammaa 42.'],
+      },
       id: {
         babyDescription: 'Paru-paru umumnya sudah cukup matang untuk memungkinkan pernapasan mandiri, dan bayi mampu mengisap serta mencerna.',
         length: 'Sekitar 47,4 cm',
@@ -24850,6 +29027,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '从这一周起，就被认为已经足月，随时都可能分娩。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '寶寶已被認為成熟到可以出生。絕大多數寶寶現在都是頭朝下的姿勢。',
+        length: '約 48.6 釐米',
+        comparison: '韭蔥',
+        bodyChanges: [
+          '隨著寶寶入盆，骨盆壓迫感逐漸增強是常見的。',
+        ],
+        toKnow: [
+          '從這一週起，就被認為已經足月，隨時都可能分娩。',
+        ],
+      },
+      ar: {
+        babyDescription: 'يُعدّ الجنين ناضجًا بما يكفي للولادة. ويكون الجزء الأكبر من الأجنّة الآن في وضعية الرأس إلى الأسفل.',
+        length: 'نحو 48.6 سم',
+        comparison: 'كرّاث',
+        bodyChanges: ['من الشائع الشعور بضغط متزايد في الحوض مع استقرار الجنين فيه.'],
+        toKnow: ['ابتداءً من هذا الأسبوع يُعدّ الحمل قد بلغ مدته الكاملة، وقد تحدث الولادة في أي وقت.'],
+      },
+      kab: {
+        babyDescription: 'Aqcic ittwaḥseb d ayen yewjed ad yettwaleḍ. Tuget n yiqcicen yezga qqnen s uqerru ɣer wadda.',
+        length: 'Azal n 48.6 cm',
+        comparison: 'Aɣerbal n lkurrat',
+        bodyChanges: ['Ahettu n ukayad deg ukalas d ayen imatu ticki aqcic yeqqen deg ukalas.'],
+        toKnow: ['Seg ddasen-a, ittwaḥseb belli lḥemla tewjed, yerna tlalit tezmer ad d-teḍru ula d anwa wass.'],
+      },
+      om: {
+        babyDescription: 'Daa\'imni dhalachuuf ga\'umsa qaba jedhamee ilaalama. Daa\'imman baay\'een amma mataa gadi godhachuun jiru.',
+        length: 'Gara 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: ['Daa\'imni pelvis keessa galuu isaatiin, miirri dhiibbaa pelvis guddachaa jiru baratamaa dha.'],
+        toKnow: ['Torban kana irraa eegalee yeroon guutuu gaheera jedhama, dhaloota yeroo kamiyyuu ta\'uu danda\'a.'],
+      },
+      ti: {
+        babyDescription: 'እቲ ሕጻን ንምውላድ ብዝበቅዕ በሲሉ ይቝጸር። እቲ ዝበዝሑ ሕጻናት ሕጂ ርእሶም ናብ ታሕቲ ተቐሚጦም።',
+        length: 'ኣስታት 48.6 cm',
+        comparison: 'ሊክ',
+        bodyChanges: ['እቲ ሕጻን ኣብ ዳሕሎ ክኣቱ ከሎ እናወሰኸ ዝመጽእ ጸቕጢ ዳሕሎ ስምዒት ልሙድ እዩ።'],
+        toKnow: ['ካብዛ ሳምንቲ ጀሚሩ ምሉእ ግዜ ከም ዝበጽሐ ይቝጸር፣ ወሊድ’ውን ኣብ ዝኾነ ግዜ ክፍጠር ይኽእል።'],
+      },
+      rw: {
+        babyDescription: 'Umwana afatwa nk\'ukuze bihagije ngo avuke. Abana benshi cyane ubu bashyizwe umutwe hasi.',
+        length: 'Hafi cm 48.6',
+        comparison: 'Poireau',
+        bodyChanges: ['Kumva igitutu cyo mu rukenyerero kiyongera ni ibisanzwe uko umwana yinjira mu rukenyerero.'],
+        toKnow: ['Guhera muri iki cyumweru, igihe cyuzuye gifatwa nk\'igeze kandi kubyara bishobora kuba igihe icyo ari cyo cyose.'],
+      },
+      rn: {
+        babyDescription: 'Umwana abonwa nk’umaze gukura bihagije kugira avuke. Abana benshi cane ubu bicaye umutwe ujanye hasi.',
+        length: 'Hafi ya cm 48,6',
+        comparison: 'Poireau',
+        bodyChanges: ['Kwumva igitutu c’ikibuno kigenda cyiyongera ni ibisanzwe uko umwana yinjira mu kibuno.'],
+        toKnow: ['Kuva kuri iki cumweru, inda ibonwa nk’iyuzuye kandi ivuka rishobora kuba igihe cose.'],
+      },
+      ig: {
+        babyDescription: 'A na-ewere nwa ahụ dị ka onye tozuru etozu iji mụọ. Ọtụtụ nwa kacha nwere isi ha n\'ala ugbu a.',
+        length: 'Ihe dị ka 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: ['Mmetụta nrụgide pelvis na-abawanye bụ ihe a na-ahụkarị ka nwa ahụ na-abata n\'ime pelvis.'],
+        toKnow: ['Site n\'izu a gaa n\'ihu, a na-ewere na oge erutela, a nwekwara ike ịmụ nwa n\'oge ọ bụla.'],
+      },
+      yo: {
+        babyDescription: 'A ka ọmọ náà sí ẹni tó ti dàgbà tó láti bí. Ọ̀pọ̀ jù lọ àwọn ọmọ ti wà ní ipò orí-nísàlẹ̀ báyìí.',
+        length: 'Nǹkan bí 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: ['Ìmọ̀lára ìfúnpá ìdí tó ń pọ̀ sí i wọ́pọ̀ bí ọmọ náà ṣe ń wọ inú ìdí.'],
+        toKnow: ['Láti ọ̀sẹ̀ yìí lọ, a ka ọjọ́ ìbí sí pé ó ti dé, ìbí sì lè wáyé nígbàkigbà.'],
+      },
+      zu: {
+        babyDescription: 'Ingane ibhekwa njengesikhulile ngokwanele ukuzalwa. Iningi elikhulu lezingane manje likhundleni sekhanda phansi.',
+        length: 'Cishe 48.6 cm',
+        comparison: 'I-leek',
+        bodyChanges: ['Umuzwa wengcindezi ekhulayo ye-pelvis uyajwayeleka njengoba ingane ingena ku-pelvis.'],
+        toKnow: ['Kusukela kuleli sonto, usuku lokubeletha lubhekwa njengolufinyelelwe futhi ukuzalwa kungenzeka noma yinini.'],
+      },
+      xh: {
+        babyDescription: 'Usana lubalwa njengolukhule ngokwaneleyo ukuzalwa. Uninzi olukhulu losana ngoku lubekwe intloko ibheke phantsi.',
+        length: 'Malunga ne-48.6 cm',
+        comparison: 'I-leek',
+        bodyChanges: ['Imvakalelo yoxinzelelo lwenyonga olukhulayo iqhelekile njengoko usana luzibeka kwinyonga.'],
+        toKnow: ['Ukusukela kule veki, ixesha limiselweyo lithathwa njengelifikelelwe kwaye ukubeletha kunokwenzeka nangaliphi na ixesha.'],
+      },
+      sn: {
+        babyDescription: 'Mwana anoonekwa akura zvakakwana kuberekwa. Vana vazhinji vava nemusoro pasi.',
+        length: 'Kunge 48.6 cm',
+        comparison: 'Leek',
+        bodyChanges: ['Kunzwa kudzvanywa kwepelvis kuchiwedzera kwakajairika sezvo mwana achipinda mupelvis.'],
+        toKnow: ['Kubva muvhiki rino zvichienda, nguva yakakwana inoonekwa yasvika uye kubereka kunogona kuitika chero nguva.'],
+      },
+      ln: {
+        babyDescription: 'Mwana etalamaka lokola asili kokola mpo na kobotama. Mingi ya bana batiami sikoyo motu na nse.',
+        length: 'Pene 48,6 cm',
+        comparison: 'Poireau',
+        bodyChanges: ['Koyoka kotindika ya libumu ya nse ekómaka ya mbala mingi ntango mwana azali kokɔta na libumu ya nse.'],
+        toKnow: ['Uta poso oyo, ntango ya zemi etalamaka lokola ekokisami mpe kobota ekoki kosalema ntango nyonso.'],
+      },
+      ff: {
+        babyDescription: 'Ɓiɗɗo ina limtee ɗum ɓesdi haa waawi danyeede. Ɓiɗɗa ɗuuɗɓe ina ɗon dow haa asam.',
+        length: 'Nder cm 48,6',
+        comparison: 'Poro',
+        bodyChanges: ['Tiiɗal pelwiis ina ɓeydi ina aada ngam ɓiɗɗo ina naata nder pelwiis.'],
+        toKnow: ['Ko fuɗɗi jammaa ɗoo, reedu ina limtee timmii e danyugol ina waawi wonde wakkati fuu.'],
       },
       id: {
         babyDescription: 'Bayi dianggap sudah cukup matang untuk dilahirkan. Sebagian besar bayi kini berada dalam posisi kepala di bawah.',
@@ -25524,6 +29803,108 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         toKnow: [
           '没有医学指征的计划性分娩，通常不建议安排在孕 39 周之前。',
         ],
+      },
+      'zh-Hant': {
+        babyDescription: '原本覆蓋在皮膚上的細小絨毛已基本消失，腸道里正在積累胎便，也就是新生兒的第一次大便。',
+        length: '約 49.8 釐米',
+        comparison: '大黃莖',
+        bodyChanges: [
+          '隨著分娩臨近，瞭解臨產的徵兆會很有幫助。',
+        ],
+        toKnow: [
+          '沒有醫學指徵的計劃性分娩，通常不建議安排在孕 39 周之前。',
+        ],
+      },
+      ar: {
+        babyDescription: 'اختفت إلى حدّ كبير الزغب الناعم الذي كان يغطي الجلد، وتتجمّع في الأمعاء العقي، وهو أول براز للمولود.',
+        length: 'نحو 49.8 سم',
+        comparison: 'ساق الراوند',
+        bodyChanges: ['قد يكون من المفيد التعرّف إلى علامات المخاض مع اقتراب الولادة.'],
+        toKnow: ['لا يُنصح عمومًا بتحديد موعد للولادة قبل الأسبوع 39 عندما لا توجد دواعٍ طبية.'],
+      },
+      kab: {
+        babyDescription: 'Aqucuy ameẓyan i yeggugen aglim yeqqnen yakan, yerna iɣsan ttnumuyen meconium, amazrar amezwaru n uqcic.',
+        length: 'Azal n 49.8 cm',
+        comparison: 'Aɣerbal n ṛṛiwend',
+        bodyChanges: ['Ssen tilɣa n tlalit yezmer ad yelhu ticki yeqreb wass n tlalit.'],
+        toKnow: ['Tlalit i yettuheyyin, ma yella war lemɛna n ṭṭbib, ur tettwaqnaɛ ara s umata send ddasen 39.'],
+      },
+      om: {
+        babyDescription: 'Rifeensi xiqqoon gogaa haguuge baay\'ee dhabameera, mudhii keessatti meconium, nyaata dhiiba jalqabaa daa\'ima dhalate, walitti qabamaa jira.',
+        length: 'Gara 49.8 cm',
+        comparison: 'Qoree rhubarb',
+        bodyChanges: ['Mallattoowwan dhukkubbii da\'umsaa beekuun, yeroo dhaloota dhiʼaatu fayyadaa ta\'uu danda\'a.'],
+        toKnow: ['Dhaloonni karoorfame, yeroo mallattoo fayyaa malee ilaalamu, waliigalaan torban 39 dura hin gorfamu.'],
+      },
+      ti: {
+        babyDescription: 'እቲ ቆርበት ዝሽፍን ቀጢን ጸጉሪ ብዝበዝሐ ጠፊኡ፣ ከብዲ ድማ መኮንዮም ይእክብ ኣሎ፣ እዚ ቀዳማይ ሰገራ ሓድሽ ተወላዲ እዩ።',
+        length: 'ኣስታት 49.8 cm',
+        comparison: 'ሩባርብ ጉንጉን',
+        bodyChanges: ['ወሊድ ክቐርብ ከሎ ምልክታት ምጥን ምፍላጥ ጠቓሚ ክኸውን ይኽእል።'],
+        toKnow: ['ብዘይ ሕክምናዊ ምልክት ዝተሓሰበ ዝተመደበ ወሊድ ብሓፈሻ ቅድሚ ሳምንቲ 39 ኣይእመከርን።'],
+      },
+      rw: {
+        babyDescription: 'Ubwoya bworoshye bwapfukaga uruhu bwamaze kubura ahanini, kandi amara arimo kwegeranya meconium, umwanda wa mbere w\'uruhinja.',
+        length: 'Hafi cm 49.8',
+        comparison: 'Igiti cya rhubarbe',
+        bodyChanges: ['Kumenyera ibimenyetso by\'ibise bishobora kugufasha uko igihe cyo kubyara kigenda kigera.'],
+        toKnow: ['Kubyara byateganyijwe, iyo bitekerezwa nta mpamvu y\'ubuvuzi, muri rusange ntibisabwa mbere y\'icyumweru cya 39.'],
+      },
+      rn: {
+        babyDescription: 'Umusatsi muto wapfutse uruhu wamaze gushira cane, kandi amara arakusanya meconium, ikibyimba ca mbere c’uruyoya.',
+        length: 'Hafi ya cm 49,8',
+        comparison: 'Igiti ca rhubarb',
+        bodyChanges: ['Kumenyera ibimenyetso vy’ibise bishobora kugufasha uko ivuka riregereza.'],
+        toKnow: ['Ivuka ryateguwe, iyo ritagize impamvu y’abaganga, mu rusangi ntirigirwa inama imbere y’icumweru ca 39.'],
+      },
+      ig: {
+        babyDescription: 'Ntutu dị nro nke kpuchiri akpụkpọ ahụ apụọla nke ukwuu, ma eriri afọ na-agbakọta meconium, nsị mbụ nke nwa ọhụrụ.',
+        length: 'Ihe dị ka 49.8 cm',
+        comparison: 'Rhubarb stalk',
+        bodyChanges: ['Ịmara ihe ịrịba ama nke ibu nwa nwere ike ịba uru ka ịmụ nwa na-eru nso.'],
+        toKnow: ['N\'ozuzu, a naghị akwado ịmụ nwa e hazịrị, mgbe a na-atụle ya n\'enweghị ihe ahụike na-egosi, tupu izu 39.'],
+      },
+      yo: {
+        babyDescription: 'Irun rírọ̀ tó bo awọ ara ti parẹ́ pàápàá, ìfun sì ń kó meconium jọ, ìgbẹ́ àkọ́kọ́ ọmọ tuntun.',
+        length: 'Nǹkan bí 49.8 cm',
+        comparison: 'Igi rhubarb',
+        bodyChanges: ['Mímọ àwọn àmì ìrọbí lè wúlò bí ìbí ṣe ń sún mọ́.'],
+        toKnow: ['A kì í sábà gbani nímọ̀ràn ìbí tí a ṣètò, nígbà tí kò sí ìdí ìṣègùn, ṣáájú ọ̀sẹ̀ 39.'],
+      },
+      zu: {
+        babyDescription: 'Izinwele ezincane ezazimboza isikhumba sezinyamalele kakhulu, futhi amathumbu aqoqa i-meconium, indle yokuqala yengane esanda kuzalwa.',
+        length: 'Cishe 49.8 cm',
+        comparison: 'Isiqu se-rhubarb',
+        bodyChanges: ['Ukujwayela izimpawu zokubeletha kungaba usizo njengoba ukuzalwa kusondela.'],
+        toKnow: ['Ukuzalwa okuhlelelwe, uma kuthathwa ngaphandle kwesizathu sezokwelapha, ngokuvamile akunconywa ngaphambi kweviki lama-39.'],
+      },
+      xh: {
+        babyDescription: 'Iinwele ezintle ezazigubungela isikhumba ziphantse zanyamalala, kwaye amathumbu aqokelela i-meconium, ukwenza kokuqala kosana olusandul’ ukuzalwa.',
+        length: 'Malunga ne-49.8 cm',
+        comparison: 'Isiqu se-rhubarb',
+        bodyChanges: ['Ukuqhelana nezimpawu zokubeletha kunokuba luncedo njengoko ukubeletha kusondela.'],
+        toKnow: ['Ukubeletha okucwangcisiweyo, xa kuthathwa ngaphandle kwesizathu sezonyango, ngokuqhelekileyo akucetyiswa phambi kweveki ye-39.'],
+      },
+      sn: {
+        babyDescription: 'Bvudzi rakapfava raifukidza nganda rakanyanya kupera, uye mudumbu munounganidzwa meconium, kutsvina kwekutanga kwemwana achangoberekwa.',
+        length: 'Kunge 49.8 cm',
+        comparison: 'Rhubarb stalk',
+        bodyChanges: ['Kujairira zviratidzo zvekusununguka kwekubereka kunogona kubatsira sezvo kubereka kuchiswedera.'],
+        toKnow: ['Kubereka kwakarongwa, kana kuchifungwa pasina chikonzero chekurapwa, kazhinji hakukurudzirwi vhiki 39 isati yasvika.'],
+      },
+      ln: {
+        babyDescription: 'Nsuki ya pete oyo ezipaki poso esili mingi kolimwa, mpe ba intestin ezali kobomba meconium, mbongo ya liboso ya mwana ya sika.',
+        length: 'Pene 49,8 cm',
+        comparison: 'Nzube ya rhubarbe',
+        bodyChanges: ['Koyeba bilembo ya kobota ekoki kozala na ntina ntango kobota ezali pene.'],
+        toKnow: ['Kobota oyo etiamaki mokolo, ntango ezali na ntina ya monganga te, ezali mbala mingi kotindama te liboso ya poso 39.'],
+      },
+      ff: {
+        babyDescription: 'Hu\'ere ɓoyƊum ɗum ngoni dow fuunde ina ɓennii ɗuuɗum, e ɓerɗe ina taskaade mekoniyom, ɗum ɓiɗɗo cukalel danyaaɗo adannde.',
+        length: 'Nder cm 49,8',
+        comparison: 'Rubarb',
+        bodyChanges: ['Anndude tokkindiral danyugol ina waawi wallude nde danyugol ɓadii.'],
+        toKnow: ['Danyugol tawteteeɗo, si walaa ko doktoor ɗaɓɓi, ko feewi ɗum haani nde jammaa 39 yaaɗi.'],
       },
       id: {
         babyDescription: 'Bulu halus yang menutupi kulit sebagian besar sudah hilang, dan usus mengumpulkan mekonium, tinja pertama bayi baru lahir.',
@@ -26205,6 +30586,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '新生儿的血液循环在出生后仍在调整，这可能会让手或脚暂时带点淡淡的青紫色。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '之前較薄的皮膚已經變厚，現在能更好地保護寶寶。一層叫作胎脂的保護層，也會讓分娩時更容易通過產道。',
+        length: '約 50.7 釐米',
+        comparison: '西瓜',
+        bodyChanges: [
+          '隨著預產期臨近，感到焦急和有些疲倦是常見的。',
+        ],
+        toKnow: [
+          '新生兒的血液迴圈在出生後仍在調整，這可能會讓手或腳暫時帶點淡淡的青紫色。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'أصبح الجلد، الذي كان أرقّ سابقًا، أكثر سماكة ويحمي الجنين بشكل أفضل. كما أن طبقة واقية تُسمّى الدهن الجنيني تسهّل مروره أثناء الولادة.',
+        length: 'نحو 50.7 سم',
+        comparison: 'بطيخ',
+        bodyChanges: ['من الشائع الشعور بنفاد الصبر وبقدر من التعب مع اقتراب تاريخ الولادة المتوقع.'],
+        toKnow: ['تواصل الدورة الدموية للمولود تكيّفها بعد الولادة مباشرة، وقد يمنح ذلك اليدين أو القدمين لونًا مزرقًّا خفيفًا بشكل مؤقت.'],
+      },
+      kab: {
+        babyDescription:
+          'Aglim, yettuɣalen d arqaq send, yettuɣal d aɣelnaw yerna yettwaḥrez aqcic ugar. Aɣecc ameẓyan, vernix, daɣen ittɛawan ɣer tuffɣa deg tlalit.',
+        length: 'Azal n 50.7 cm',
+        comparison: 'Aɣerbal n tdellaɛt',
+        bodyChanges: ['Tuffɣa n usbar d tmerrit ur d-yettwaḥessen ara aṭas ttilint ticki tqeṛṛeb ass n tlalit.'],
+        toKnow: ['Askaddab n idammen n uqcic yettkemmil deffir tlalit, yerna aya izmer ad yerr ifassen neɣ iḍaren-is d azeggaɣ cwiṭ s wakud.'],
+      },
+      om: {
+        babyDescription:
+          'Gogaan, duraan dhiphaa ture, jabaateera, amma daa\'ima caalaatti eega. Haguugni eegumsaa, vernix, yeroo dhalootaa darbuu isaas ni salphisa.',
+        length: 'Gara 50.7 cm',
+        comparison: 'Shaammuu (watermelon)',
+        bodyChanges: ['Obsa dhabuun fi dadhabbii hammam tokko guyyaan da\'umsaa yeroo dhiʼaatu baratamaa dha.'],
+        toKnow: ['Dhiigni daa\'ima dhalate erga dhalatee booda sirreeffamuu itti fufa, kunis yeroo gabaabaaf harka yookaan miila bifa cuquliisaa xiqqoo kennuu danda\'a.'],
+      },
+      ti: {
+        babyDescription:
+          'ቅድሚ ሕጂ ቀጢን ዝነበረ ቆርበት ወሲኹ ሕጂ ንሕጻን ዝበለጸ የሕልዎ። ሓላዊ ሽፋን፣ ቨርኒክስ፣ ኣብ ግዜ ወሊድ ምሕላፉ’ውን የቐልል።',
+        length: 'ኣስታት 50.7 cm',
+        comparison: 'ሓብሓብ',
+        bodyChanges: ['ዕለት ወሊድ ክቐርብ ከሎ ዘይምጽናዕን ገለ ድኻምን ልሙድ እዩ።'],
+        toKnow: ['ዝተወልደ ሕጻን ዝውሕዝ ደም ድሕሪ ልደት ብቐጥታ ምላመድ ይቕጽል፣ እዚ ድማ ንግዜ ኣእዳው ወይ እግሪ ቁሩብ ሰማያዊ ሕብሪ ክህብ ይኽእል።'],
+      },
+      rw: {
+        babyDescription:
+          'Uruhu, rwari rworoshye mbere, rwarakomeye kandi ubu rurinda umwana neza. Agahu karinda, kitwa vernix, na ko korohereza inzira ye igihe cyo kubyara.',
+        length: 'Hafi cm 50.7',
+        comparison: 'Watermelon',
+        bodyChanges: ['Kudatuza no kunanirwa runaka ni ibisanzwe uko itariki yo kubyara igenda ikura.'],
+        toKnow: ['Imigendekere y\'amaraso y\'uruhinja ikomeza kwimenyereza nyuma gato yo kuvuka, ibyo bishobora by\'igihe gito guha amaboko cyangwa ibirenge ibara ry\'ubururu buke.'],
+      },
+      rn: {
+        babyDescription:
+          'Uruhu, rwari ruto kuruta, rwarabyimbye kandi ubu rurinda umwana neza. Agapfunyika karinda, vernix, kandi korohereza inzira ye mu gihe c’ivuka.',
+        length: 'Hafi ya cm 50,7',
+        comparison: 'Pastèque',
+        bodyChanges: ['Kudashobora gutegereza no kunanirwa gatoya ni ibisanzwe uko itariki yo kubyara yegereza.'],
+        toKnow: ['Gutembera kw’amaraso y’uruyoya gukomeza kwimenyereza nyuma gato y’ivuka, ibishobora kuguma gutuma amaboko canke ibirenge bigira ibara ry’ubururu bworoheje mu kanya gato.'],
+      },
+      ig: {
+        babyDescription:
+          'Akpụkpọ ahụ, nke dị mkpa tupu mgbe ahụ, agbawala ma na-echebe nwa ahụ nke ọma ugbu a. Mkpuchi echebe, vernix, na-eme ka ọ dị mfe ịgafe n\'oge ịmụ nwa.',
+        length: 'Ihe dị ka 50.7 cm',
+        comparison: 'Watermelon',
+        bodyChanges: ['Enweghị ndidi na ike ọgwụgwụ ụfọdụ bụ ihe a na-ahụkarị ka ụbọchị ịmụ nwa na-eru nso.'],
+        toKnow: ['Ọbara na-agagharị n\'ahụ nwa ọhụrụ na-aga n\'ihu na-agbanwe ozugbo a mụsịrị ya, nke nwere ike ime ka aka ma ọ bụ ụkwụ nwee agba anụnụ anụnụ obere oge.'],
+      },
+      yo: {
+        babyDescription:
+          'Awọ ara, tí ó tínrín tẹ́lẹ̀, ti nípọn ó sì ń dáàbò bo ọmọ náà dáadáa báyìí. Ìbòrí aláàbò kan, vernix, tún ń mú kí ìkọjá rẹ̀ rọrùn nígbà ìbí.',
+        length: 'Nǹkan bí 50.7 cm',
+        comparison: 'Elégédé',
+        bodyChanges: ['Àìlèdúró àti àárẹ̀ díẹ̀ wọ́pọ̀ bí ọjọ́ ìbímọ ṣe ń sún mọ́.'],
+        toKnow: ['Ìṣàn ẹ̀jẹ̀ ọmọ tuntun ń tẹ̀síwájú láti ṣe àtúnṣe lẹ́yìn ìbí, èyí tó lè fún ọwọ́ tàbí ẹsẹ̀ ní àwọ̀ búlúù díẹ̀ fún ìgbà díẹ̀.'],
+      },
+      zu: {
+        babyDescription:
+          'Isikhumba, esasincane ngaphambili, siqinile futhi manje sivikela ingane kangcono. Ungqimba lokuvikela, i-vernix, nalo lwenza kube lula ukudlula ngesikhathi sokuzalwa.',
+        length: 'Cishe 50.7 cm',
+        comparison: 'Ikhabe (watermelon)',
+        bodyChanges: ['Ukungabi nesineke nokukhathala okuthile kuyajwayeleka njengoba usuku lokubeletha lusondela.'],
+        toKnow: ['Ukuhamba kwegazi kwengane esanda kuzalwa kuyaqhubeka nokuzilungisa ngokushesha ngemva kokuzalwa, okungenza izandla noma izinyawo zibe nombala obhulukhwini kancane okwesikhashana.'],
+      },
+      xh: {
+        babyDescription:
+          'Isikhumba, esasinciphile ngaphambili, sikhulile ngoku kwaye sikhusela usana ngcono. Isigqubuthelo sokukhusela, i-vernix, sikwenza kube lula ukudlula kwalo ngexesha lokubeletha.',
+        length: 'Malunga ne-50.7 cm',
+        comparison: 'Ikhaphetshu yamanzi (iwatermeloni)',
+        bodyChanges: ['Ukungabi nasineke nokudinwa okuthile kuqhelekile njengoko umhla wokubeletha usondela.'],
+        toKnow: ['Ukujikeleza kwegazi losana olusandul’ ukuzalwa kuqhubeka kuziqhelanisa emva nje kokuzalwa, oku kunokunika izandla okanye iinyawo umbala oluhlaza ngokwexeshana.'],
+      },
+      sn: {
+        babyDescription:
+          'Nganda, yaimbova yakatetepa, yakora uye zvino inodzivirira mwana zviri nani. Chifukidzo chinodzivirira, vernix, chinoyeruzawo kupfuura kwake panguva yekuberekwa.',
+        length: 'Kunge 50.7 cm',
+        comparison: 'Tarisi',
+        bodyChanges: ['Kusagadzikana kwemoyo nekuneta kwakati zvakajairika sezvo zuva rekubereka richiswedera.'],
+        toKnow: ['Kutenderera kweropa kwemwana achangoberekwa kunoramba kuchigadziriswa mushure mekuberekwa, izvo zvinogona kupa maoko kana tsoka ruvara rwebhuruu shoma kwenguva pfupi.'],
+      },
+      ln: {
+        babyDescription:
+          'Poso, oyo ezalaki pete liboso, ekomi makasi mpe ebatelaka mwana malamu mingi. Eloko ya kobatela, vernix, esunga mpe ye kolekisa na ntango ya kobota.',
+        length: 'Pene 50,7 cm',
+        comparison: 'Pastèque',
+        bodyChanges: ['Kozila na mposa mpe kolemba mwa ndenge ezali ya mbala mingi ntango mokolo ya kobota ezali pene.'],
+        toKnow: ['Kolekisa makila ya mwana ya sika ekoba kobongisama sima ya kobotama, oyo ekoki ntango moke kopesa maboko to makolo langi ya bleu moke.'],
+      },
+      ff: {
+        babyDescription:
+          'Hu\'ere, ɗum adii ɓolluɗum, ina tiiɗi e jooni ina reenta ɓiɗɗo moƴƴum. Ɗum ɗon e ko reentata, vernis, ina wallita ɗum yaltude nder danyugol.',
+        length: 'Nder cm 50,7',
+        comparison: 'Pastek',
+        bodyChanges: ['Hakkiilo hoolo e tiiɗal seɗɗa ina aada nde nyalaande danyugol ɓadii.'],
+        toKnow: ['Yiiyam ɓiɗɗo danyaaɗo ina tokka ɓesdude ɓaawo danyugol, ɗum ina waawi hokkude juude e koyɗe kallu ɓoɗɗum seɗɗa.'],
+      },
       id: {
         babyDescription: 'Kulit yang sebelumnya lebih tipis kini sudah menebal dan melindungi bayi dengan lebih baik. Lapisan pelindung yang disebut vernix juga memudahkan bayi saat melewati jalan lahir.',
         length: 'Sekitar 50,7 cm',
@@ -26885,6 +31381,121 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '稍微超过预产期仍然很常见，不一定意味着有问题；通常会安排更密切的监测。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '寶寶已經完全發育好，隨時準備出生。預產期只是一個估計：許多寶寶會在預產期前後幾天出生，可能早一些，也可能晚一些。',
+        length: '約 51.2 釐米',
+        comparison: '南瓜',
+        bodyChanges: [
+          '這段時間裡，等待臨產的徵兆（規律宮縮、破水）是很常見的。',
+        ],
+        toKnow: [
+          '稍微超過預產期仍然很常見，不一定意味著有問題；通常會安排更密切的監測。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'اكتمل نمو الجنين وهو جاهز للولادة. وتاريخ الولادة المتوقع مجرد تقدير: فالكثير من الولادات تحدث في الأيام المحيطة به، قبله أو بعده.',
+        length: 'نحو 51.2 سم',
+        comparison: 'يقطين',
+        bodyChanges: ['من الشائع خلال هذه الفترة انتظار علامات المخاض (تقلصات منتظمة، نزول ماء الجنين).'],
+        toKnow: ['تجاوز تاريخ الولادة المتوقع بقليل أمر شائع ولا يعني بالضرورة وجود مشكلة؛ وتُقترح عادةً متابعة أقرب.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yewjed mliḥ yerna yewjed ad d-yettwaleḍ. Wass n tlalit d ukayad: aṭas n tlalin ttilint deg wussan i yezzin, send neɣ deffir.',
+        length: 'Azal n 51.2 cm',
+        comparison: 'Aɣerbal n tabsella',
+        bodyChanges: ['Ṛǧu tilɣa n tlalit (tisidmin n yimudar, tuffɣa n waman) d ayen imatu deg tallit-a.'],
+        toKnow: ['Tuffɣa cwiṭ ɣef wass n tlalit tezga d ayen imatu yerna ur yeɛni ara dima ilaq ad yili uguren; ittunefk askaddab ugar s umata.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni guutummaatti guddateera, dhalachuuf qophaa\'eera. Guyyaan da\'umsaa tilmaama dha: dhaloonni baay\'een guyyoota naannoo isaa, dura yookaan booda, ta\'a.',
+        length: 'Gara 51.2 cm',
+        comparison: 'Boqqolloo cuquliisaa (pumpkin)',
+        bodyChanges: ['Mallattoowwan dhukkubbii da\'umsaa eeggachuun (ciccimni idilee, bishaan cabuu) yeroo kana keessa baratamaa dha.'],
+        toKnow: ['Guyyaa da\'umsaa xiqqoo darbuun ammallee baratamaa dha, rakkoon jira jechuu hin taane; hordoffiin dhiʼoo waliigalaan dhiyaata.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ምሉእ ብምሉእ ተማዕብሉ፣ ንምውላድ’ውን ድልው እዩ። ዕለት ወሊድ ግምት እዩ፦ ብዙሓት ወሊዳት ኣብ ዙርያ እዚ መዓልታት፣ ቅድሚኡ ወይ ድሕሪኡ ይፍጠሩ።',
+        length: 'ኣስታት 51.2 cm',
+        comparison: 'ዱባ',
+        bodyChanges: ['ምልክታት ምጥን (ተደጋጋሚ ምጥባቕ፣ ማይ ምፍሳስ) ምጽባይ ኣብዚ እዋን ልሙድ እዩ።'],
+        toKnow: ['ቁሩብ ካብ ዕለት ወሊድ ምሕላፍ ልሙድ እዩ፣ ጸገም ኣሎ ማለት’ውን ኣይኰነን፤ ብሓፈሻ ዝያዳ ቀረባ ክትትል ይቐርብ።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana yamaze gukura byuzuye kandi yiteguye kuvuka. Itariki yo kubyara ni igereranya: kubyara benshi biba mu minsi iyikikije, mbere cyangwa nyuma.',
+        length: 'Hafi cm 51.2',
+        comparison: 'Igihaza',
+        bodyChanges: ['Gutegereza ibimenyetso by\'ibise (kwiyegeranya k\'umubiri kuri buri gihe, kumeneka kw\'amazi) ni ibisanzwe muri iki gihe.'],
+        toKnow: ['Kurenza gato itariki yo kubyara biracyari ibisanzwe kandi ntibivuze byanze bikunze ko hari ikibazo; gukurikiranwa cyane muri rusange bitangwa.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana yamaze gukura rwose kandi yiteguye kuvuka. Itariki yo kubyara ni igereranyo: ivuka ryinshi riba mu minsi izengurutse iyo tariki, imbere canke inyuma yayo.',
+        length: 'Hafi ya cm 51,2',
+        comparison: 'Igihaza',
+        bodyChanges: ['Gutegereza ibimenyetso vy’ibise (ibikoma bihoraho, amazi y’inda asenyutse) ni ibisanzwe muri iki gihe.'],
+        toKnow: ['Kurenza gatoya itariki yo kubyara biracari bisanzwe kandi ntibisobanura ko hari ikibazo; gukurikiranwa cane mu rusangi kuratangwa.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ etolitela kpam kpam ma dị njikere ka a mụọ ya. Ụbọchị ịmụ nwa bụ atụmatụ: ọtụtụ ịmụ nwa na-eme n\'ụbọchị ndị gbara ya gburugburu, tupu ma ọ bụ mgbe ya gasịrị.',
+        length: 'Ihe dị ka 51.2 cm',
+        comparison: 'Mkpụrụ ugu (pumpkin)',
+        bodyChanges: ['Ichere ihe ịrịba ama nke ibu nwa (mkpọchi na-adị n\'usoro, mmiri ịgbawa) bụ ihe a na-ahụkarị n\'oge a.'],
+        toKnow: ['Ịgafe ụbọchị ịmụ nwa ntakịrị ka bụ ihe a na-ahụkarị ma apụtaghị na nsogbu adịla; n\'ozuzu, a na-enye nlekota anya karị.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ti dàgbà pátápátá ó sì ti ṣetán láti bí. Ọjọ́ ìbímọ jẹ́ ìṣirò: ọ̀pọ̀ ìbí ni ó ń wáyé ní àwọn ọjọ́ tó yí i ká, ṣáájú tàbí lẹ́yìn.',
+        length: 'Nǹkan bí 51.2 cm',
+        comparison: 'Ẹ̀gùsí elégédé',
+        bodyChanges: ['Dídúró de àwọn àmì ìrọbí (ìfúnpọ̀ déédé, omi tó ń ya) wọ́pọ̀ ní àkókò yìí.'],
+        toKnow: ['Kíkọjá ọjọ́ ìbímọ díẹ̀ ṣì wọ́pọ̀, kò sì túmọ̀ sí dandan pé ìṣòro wà; a sábà máa ń fúnni ní ìfojúsùn tó sún mọ́ sí i.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane isikhulile ngokuphelele futhi isilungele ukuzalwa. Usuku lokubeletha lungumbono olinganisiwe: ukuzalwa okuningi kwenzeka ezinsukwini ezizungezile, ngaphambi noma ngemva.',
+        length: 'Cishe 51.2 cm',
+        comparison: 'Ithanga',
+        bodyChanges: ['Ukulinda izimpawu zokubeletha (ukucindezela okujwayelekile, ukuphuka kwamanzi) kuyajwayeleka phakathi nalesi sikhathi.'],
+        toKnow: ['Ukudlula kancane usuku lokubeletha kuhlala kujwayelekile futhi akusho ngempela ukuthi kunenkinga; ukuqashelwa ngokucophelela kakhulu ngokuvamile kuyanikezwa.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana lukhule ngokupheleleyo kwaye lulungele ukuzalwa. Umhla wokubeletha uqikelelo: ukubeletha okuninzi kwenzeka ngeentsuku ezijikelezileyo, ngaphambi okanye emva.',
+        length: 'Malunga ne-51.2 cm',
+        comparison: 'Ithanga',
+        bodyChanges: ['Ukulinda iimpawu zokubeletha (ukwanda kwesibeleko rhoqo, ukuqhekeka kwamanzi) kuqhelekile ngeli xesha.'],
+        toKnow: ['Ukudlula kancinane umhla wokubeletha kuhlala kuqhelekile kwaye akuthethi ukuba kukho ingxaki; ukujongwa ngokusondeleyo ngokuqhelekileyo kuyanikezelwa.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana akura zvizere uye akagadzirira kuberekwa. Zuva rekubereka kufungidzira: kuberekwa kwakawanda kunoitika mumazuva akaripoteredza, pamberi kana mushure.',
+        length: 'Kunge 51.2 cm',
+        comparison: 'Dovi',
+        bodyChanges: ['Kumirira zviratidzo zvekubereka (kudzvova kwenguva dzose, kubuda kwemvura) kwakajairika panguva ino.'],
+        toKnow: ['Kupfuura zuva rekubereka zvishoma kunoramba kuri kwakajairika uye hakurevi kuti pane dambudziko; kazhinji kutariswa kwakawedzera kunopiwa.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana asili kokola mobimba mpe azali na ntina ya kobotama. Mokolo ya kobota ezali likanisi: kobota mingi esalemaka na mikolo pene na yango, liboso to sima.',
+        length: 'Pene 51,2 cm',
+        comparison: 'Potiron',
+        bodyChanges: ['Kozila bilembo ya kobota (kokanga ya libumu ya ndenge moko, mai ebimi) ezali ya mbala mingi na ntango oyo.'],
+        toKnow: ['Koleka moke mokolo ya kobota ezali naino ya mbala mingi mpe elingi koloba te ete likambo ezali mabe; kotala na bokebi mingi epesamaka mbala mingi.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina timmii, ina ɓesdi ngam danyeede. Nyalaande bornaango ko hakkunde tan: danyugol ɗuuɗum ina waɗa nder balde ɗe ɗum ɓadii, adii walla ɓaawo.',
+        length: 'Nder cm 51,2',
+        comparison: 'Maanta',
+        bodyChanges: ['Reende tokkindiral danyugol (tiiɗal ina tokka, ndiyam fottugol) ina aada nder wakkati ɗoo.'],
+        toKnow: ['Yaadude seɗɗa dow nyalaande bornaango ina tokka aada e ɗum waɗataa ko ɗum jiidii; ndaarugol ɓurdi hoolaade ko feewi hokkee.'],
+      },
       id: {
         babyDescription: 'Bayi sudah berkembang sepenuhnya dan siap dilahirkan. Hari perkiraan lahir hanyalah perkiraan: banyak persalinan terjadi pada hari-hari di sekitarnya, sebelum atau sesudahnya.',
         length: 'Sekitar 51,2 cm',
@@ -27503,6 +32114,93 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           '超过足月后，医疗团队通常会加强监测。',
         ],
       },
+      'zh-Hant': {
+        babyDescription: '寶寶仍然發育完全。超過預產期後，通常會安排更密切的監測，以確認寶寶的狀況。',
+        bodyChanges: [
+          '漫長的等待可能會伴隨著更明顯的疲倦和焦急。',
+        ],
+        toKnow: [
+          '超過足月後，醫療團隊通常會加強監測。',
+        ],
+      },
+      ar: {
+        babyDescription:
+          'يبقى نمو الجنين مكتملًا. وبعد تاريخ الولادة المتوقع، تُقترح عادةً متابعة أقرب للاطمئنان على سلامة الجنين.',
+        bodyChanges: ['قد يصاحب الانتظار الطويل مزيد من التعب ونفاد الصبر.'],
+        toKnow: ['يؤدي تجاوز المدة الكاملة عادةً إلى زيادة المتابعة من الفريق الطبي.'],
+      },
+      kab: {
+        babyDescription:
+          'Aqcic yezga yewjed mliḥ. Deffir wass n tlalit, askaddab ugar yettunefk s umata akken ad ttwasenqed ṣṣaḥa n uqcic.',
+        bodyChanges: ['Uṛǧu yeṭṭawen yezmer ad d-yeddu d usexsi d lbɣi n lweqt ugar.'],
+        toKnow: ['Tuffɣa ɣef wakud n tlalit s umata tettawi ɣer askaddab ugar sɣur tarbaɛt tamedyant.'],
+      },
+      om: {
+        babyDescription:
+          'Daa\'imni guutummaatti guddateera. Guyyaa da\'umsaa booda, nageenya daa\'imaa mirkaneessuuf hordoffiin dhiʼoo waliigalaan dhiyaata.',
+        bodyChanges: ['Eegumsi dheeraan dadhabbii fi obsa dhabuu dabaluu waliin dhufuu danda\'a.'],
+        toKnow: ['Yeroo guutuu darbuun waliigalaan hordoffii garee fayyaa dabaluu geessa.'],
+      },
+      ti: {
+        babyDescription:
+          'እቲ ሕጻን ምሉእ ብምሉእ ተማዕብሉ ይጸንሕ። ድሕሪ ዕለት ወሊድ፣ ንጥዕና ሕጻን ንምርግጋጽ ብሓፈሻ ዝያዳ ቀረባ ክትትል ይቐርብ።',
+        bodyChanges: ['ነዊሕ ምጽባይ ምስ ዝያዳ ድኻምን ዘይምጽናዕን ክመጽእ ይኽእል።'],
+        toKnow: ['ምሉእ ግዜ ምሕላፍ ብሓፈሻ ብሕክምናዊ ጉጅለ ዝያዳ ክትትል የስዕብ።'],
+      },
+      rw: {
+        babyDescription:
+          'Umwana aracyari yakuze byuzuye. Nyuma y\'itariki yo kubyara, gukurikiranwa cyane muri rusange bitangwa kugira ngo harebwe imibereho myiza y\'umwana.',
+        bodyChanges: ['Gutegereza igihe kirekire bishobora kujyana n\'umunaniro wiyongereye no kudatuza.'],
+        toKnow: ['Kurenza igihe cyuzuye muri rusange bituma itsinda ry\'abaganga rikurikirana cyane.'],
+      },
+      rn: {
+        babyDescription:
+          'Umwana aracari yarakuze rwose. Inyuma y’itariki yo kubyara, gukurikiranwa cane mu rusangi kuratangwa kugira harebwe amagara y’umwana.',
+        bodyChanges: ['Gutegereza igihe kirekire bishobora kujana n’umunaniro n’ukudashobora gutegereza kwiyongereye.'],
+        toKnow: ['Kurenza igihe c’inda mu rusangi bitera ko itsinda ry’abaganga rikurikirana cane.'],
+      },
+      ig: {
+        babyDescription:
+          'Nwa ahụ ka etolitere kpam kpam. Mgbe ụbọchị ịmụ nwa gafechara, n\'ozuzu a na-enye nlekota anya karị iji lelee ọdịmma nwa ahụ.',
+        bodyChanges: ['Ichere ogologo oge nwere ike iso ike ọgwụgwụ na enweghị ndidi na-abawanye.'],
+        toKnow: ['Ịgafe oge n\'ozuzu na-eduga n\'ịbawanye nlekota site n\'otu ahụike.'],
+      },
+      yo: {
+        babyDescription:
+          'Ọmọ náà ṣì ti dàgbà pátápátá. Lẹ́yìn ọjọ́ ìbímọ, a sábà máa ń fúnni ní ìfojúsùn tó sún mọ́ sí i láti ṣàyẹ̀wò àlàáfíà ọmọ náà.',
+        bodyChanges: ['Dídúró fún ìgbà pípẹ́ lè wá pẹ̀lú àárẹ̀ àti àìlèdúró tó pọ̀ sí i.'],
+        toKnow: ['Kíkọjá ọjọ́ ìbí sábà máa ń yọrí sí ìfojúsùn tó pọ̀ sí i láti ọ̀dọ̀ ẹgbẹ́ ìṣègùn.'],
+      },
+      zu: {
+        babyDescription:
+          'Ingane isahlala isikhulile ngokuphelele. Ngemva kosuku lokubeletha, ukuqashelwa ngokucophelela kakhulu ngokuvamile kuyanikezwa ukuhlola impilo yengane.',
+        bodyChanges: ['Ukulinda isikhathi eside kungase kuhambisane nokukhathala nokungabi nesineke okwandayo.'],
+        toKnow: ['Ukudlula usuku lokubeletha ngokuvamile kuholela ekuqashelweni okwandayo yithimba lezokwelapha.'],
+      },
+      xh: {
+        babyDescription:
+          'Usana luhlala lukhule ngokupheleleyo. Ngaphaya komhla wokubeletha, ukujongwa ngokusondeleyo ngokuqhelekileyo kuyanikezelwa ukujonga impilo yosana.',
+        bodyChanges: ['Ukulinda okude kunokuhamba nokudinwa nokungabi nasineke okukhulayo.'],
+        toKnow: ['Ukudlula ixesha limiselweyo ngokuqhelekileyo kukhokelela ekuhlolweni okongezelelekileyo yiqela lezonyango.'],
+      },
+      sn: {
+        babyDescription:
+          'Mwana anoramba akura zvizere. Pamusoro pezuva rekubereka, kazhinji kutariswa kwakawedzera kunopiwa kuti kuongororwe hutano hwemwana.',
+        bodyChanges: ['Kumirira kwenguva refu kunogona kuuya nekuneta nekusagadzikana kwemoyo kwakawedzera.'],
+        toKnow: ['Kupfuura nguva yakakwana kazhinji kunotungamira kukutariswa kwakawedzera nechikwata chekurapwa.'],
+      },
+      ln: {
+        babyDescription:
+          'Mwana azali naino kokola mobimba. Sima ya mokolo ya kobota, kotala na bokebi mingi epesamaka mbala mingi mpo na kotala kimya ya mwana.',
+        bodyChanges: ['Kozila molai ekoki kozala elongo na kolemba mingi mpe kozila na mposa.'],
+        toKnow: ['Kolekisa ntango ya zemi elongaka mbala mingi na kotala mingi na ekipi ya monganga.'],
+      },
+      ff: {
+        babyDescription:
+          'Ɓiɗɗo ina tokka timmude. Ɓaawo nyalaande bornaango, ndaarugol ɓurdi hoolaade ko feewi hokkee ngam ndaarude cellal ɓiɗɗo.',
+        bodyChanges: ['Reende juutuɗo ina waawi wonde e ɓeydugol tiiɗal e yaawugol.'],
+        toKnow: ['Yaadude dow wakkati timmugol ko feewi ina yiɗa ndaarugol ɓurdi hoolaade diga ekip doktoor.'],
+      },
       id: {
         babyDescription: 'Bayi tetap sudah berkembang sepenuhnya. Setelah lewat hari perkiraan lahir, pemantauan yang lebih ketat umumnya ditawarkan untuk memeriksa kesejahteraan bayi.',
         bodyChanges: [
@@ -27793,7 +32491,9 @@ export function getPregnancyWeekData(week: number, lang: EditorialLanguage = 'en
   }
   const language = resolveEditorialLanguage(lang);
   // Brazilian Portuguese = the Portugal text with this week's overlay (ptBrEditorialOverlay.ts)
-  const content = language === 'pt-BR' ? brazilianWeekContent(week, entry.content['pt-PT']) : entry.content[language];
+  // American English = the English content in US spelling (enUsSpelling.ts); Brazilian Portuguese = the Portugal content with this week's overlay.
+  const content =
+    language === 'pt-BR' ? brazilianWeekContent(week, entry.content['pt-PT']) : language === 'en-US' ? americanWeekContent(entry.content.en) : entry.content[language];
   return {
     week: entry.week,
     babyImage: entry.babyImage,
