@@ -10,6 +10,7 @@ import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import {displayUpperCase} from '../../utils/textCase';
+import {localizedPrayerName} from '../../i18n/prayerNames';
 import type {PrayerWindow} from '../../services/prayerTimes';
 
 const PRAYER_IMAGE = require('../../assets/images/priere.png');
@@ -51,7 +52,7 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
 
       {window ? (
         <>
-          <AwaText variant="headlineMedium" style={styles.name}>{window.name}</AwaText>
+          <AwaText variant="headlineMedium" style={styles.name}>{localizedPrayerName(t, window.name)}</AwaText>
           <AwaText variant="titleLarge" style={styles.time}>{formatTime(window.start, timezone)}</AwaText>
 
           <View style={styles.countdownPill}>

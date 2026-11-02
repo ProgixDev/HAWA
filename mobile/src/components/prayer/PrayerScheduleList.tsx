@@ -11,6 +11,7 @@ import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {formatClockTimeInZone} from '../../utils/timeOfDay';
 import type {PrayerName, PrayerWindow} from '../../services/prayerTimes';
+import {localizedPrayerName} from '../../i18n/prayerNames';
 
 type Props = {
   windows: PrayerWindow[];
@@ -51,7 +52,7 @@ function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JS
 
             <View style={styles.rowBody}>
               <View style={styles.rowHeadLine}>
-                <AwaText colorRole={active ? 'onPrimaryContainer' : 'onSurface'} emphasized style={styles.name} variant="titleSmall">{window.name}</AwaText>
+                <AwaText colorRole={active ? 'onPrimaryContainer' : 'onSurface'} emphasized style={styles.name} variant="titleSmall">{localizedPrayerName(t, window.name)}</AwaText>
                 <AwaText colorRole={active ? 'onPrimaryContainer' : 'onSurface'} emphasized variant="titleMedium">{formatTime(window.start, timezone)}</AwaText>
               </View>
               {active ? (
