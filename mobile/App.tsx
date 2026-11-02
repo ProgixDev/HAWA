@@ -71,6 +71,7 @@ import {recoverInterruptedRestore} from './src/services/restoreJournal';
 import {runStructuredMigration} from './src/services/structuredDataMigration';
 import {getAppLanguage, hydrateAppearancePreferences, subscribeThemePreferences} from './src/state/themePreferences';
 import {initializeAppLanguage} from './src/i18n/appLanguage';
+import {LayoutDirectionRestartPrompt} from './src/components/appearance/LayoutDirectionRestartPrompt';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
@@ -447,6 +448,7 @@ function App(): React.JSX.Element {
     <SafeAreaProvider>
       <AwaThemeProvider>
         <AwaRootStatusBar />
+        <LayoutDirectionRestartPrompt />
         <AppNavigator
           onReady={() => {
             openPendingPostpartumNifasNotification();

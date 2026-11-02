@@ -57,7 +57,7 @@ describe('initializeAppLanguage — the language is right before the first scree
   });
 
   it('an unsupported phone language (Arabic, Amharic) starts in English, never in French', async () => {
-    for (const tags of [['ar-DZ'], ['am-ET'], ['ar', 'am']]) {
+    for (const tags of [['fa-IR'], ['am-ET'], ['fa', 'am']]) {
       mockDevice.tags = tags;
       const {i18n, boot} = startApp();
       await boot.initializeAppLanguage();
@@ -66,8 +66,8 @@ describe('initializeAppLanguage — the language is right before the first scree
     }
   });
 
-  it('Arabic first and French second starts in French (the first supported preferred language)', async () => {
-    mockDevice.tags = ['ar-DZ', 'fr-DZ'];
+  it('Persian first and French second starts in French (the first supported preferred language)', async () => {
+    mockDevice.tags = ['fa-IR', 'fr-DZ'];
     const {i18n, boot} = startApp();
     await boot.initializeAppLanguage();
     expect(i18n.language).toBe('fr');
@@ -109,7 +109,7 @@ describe('the language of the first launch is kept: a later phone-language chang
     expect(app.i18n.language).toBe('fr');
     expect(await AsyncStorage.getItem(KEY)).toBe('fr');
 
-    for (const tags of [['en-US'], ['ar-DZ'], ['es-ES']]) {
+    for (const tags of [['en-US'], ['fa-IR'], ['es-ES']]) {
       mockDevice.tags = tags;
       app = startApp(); // a new launch after the phone's language changed
       await app.boot.initializeAppLanguage();

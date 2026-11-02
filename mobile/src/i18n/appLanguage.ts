@@ -1,5 +1,5 @@
 import i18n from './index';
-import {restoreDefaultLayoutDirection} from './layoutDirection';
+import {applyLayoutDirectionForLanguage} from './layoutDirection';
 import {getAppLanguage, hydrateAppearancePreferences} from '../state/themePreferences';
 
 // Start-up language handling, kept out of App.tsx so it can be tested on its own.
@@ -28,6 +28,8 @@ export async function initializeAppLanguage(): Promise<void> {
   } catch {
     // keep the language i18next already has
   }
-  // Clears the layout direction a previous build stored natively (see layoutDirection.ts).
-  restoreDefaultLayoutDirection();
+  // Writes the native layout direction of the language in force (right-to-left for Arabic, left-to-right for every other language; it also clears the
+  // direction a previous build stored natively). It applies at the next cold start; layoutDirection.ts raises the restart prompt when it differs from the
+  // direction running now.
+  applyLayoutDirectionForLanguage(getAppLanguage());
 }
