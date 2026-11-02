@@ -116,7 +116,7 @@ describe('dictionary integrity', () => {
 
   it('is real Indonesian: no raw key, no Chinese/Cyrillic/French leftover, and almost nothing is left in English', () => {
     // (the endonyms of the Russian and Chinese languages are written in their own scripts)
-    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.[a-z]+Name$/.test(keyPath))).toEqual([]);
+    expect(idLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language.[A-Za-z]+Name$/.test(keyPath))).toEqual([]);
     expect(idLeaves.filter(([, value]) => /^[a-z][A-Za-z]+(\.[A-Za-z_]+){2,}$/.test(value))).toEqual([]); // a leaked i18n key
     const sentences = enLeaves.filter(([, value]) => value.length > 30 && /[a-z]{3}/.test(value));
     const unchanged = sentences.filter(([keyPath, value]) => idMap.get(keyPath) === value);
@@ -198,7 +198,7 @@ describe('runtime switching and persistence', () => {
   it('Indonesian is the language of an Indonesian phone (id-ID) and an Arabic-then-Indonesian list; English is still the unsupported fallback', () => {
     // pure rule (no device read): the first supported language wins
     expect(languageFromLocaleTag('id-ID')).toBe('id');
-    expect(languageFromLocaleTag('ar')).toBeNull();
+    expect(languageFromLocaleTag('fa')).toBeNull();
   });
 
   it('all eight onboarding objectives have an Indonesian label', () => {

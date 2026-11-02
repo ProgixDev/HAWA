@@ -80,7 +80,7 @@ describe('dictionary integrity', () => {
   it('bn.ts has exactly the same leaf paths as every other dictionary — sixteen-code parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6291);
+    expect(reference.length).toBe(6306);
     expect(paths(bn as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, ptPT]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -304,7 +304,7 @@ describe('runtime switching and persistence', () => {
   it('Bengali is the language of a Bangladeshi and of a West Bengal phone, and of an Arabic-then-Bengali list', () => {
     expect(languageFromLocaleTag('bn-BD')).toBe('bn');
     expect(languageFromLocaleTag('bn-IN')).toBe('bn');
-    expect(pickSupportedLanguage(['ar', 'bn-BD'])).toBe('bn');
+    expect(pickSupportedLanguage(['fa', 'bn-BD'])).toBe('bn');
   });
 
   it('all eight onboarding objectives have a Bengali label', () => {
