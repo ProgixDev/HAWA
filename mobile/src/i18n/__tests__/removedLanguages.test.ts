@@ -25,17 +25,18 @@ describe('removed languages (kmr, he)', () => {
     const boot = require('../appLanguage') as typeof import('../appLanguage');
     const prefs = require('../../state/themePreferences') as typeof import('../../state/themePreferences');
     await boot.initializeAppLanguage();
-    expect(prefs.getAppLanguage()).toBe('en');
-    expect(i18n.language).toBe('en');
+    // the test phone reports en-US, which is its own language since the en-US variant
+    expect(prefs.getAppLanguage()).toBe('en-US');
+    expect(i18n.language).toBe('en-US');
     expect(await AsyncStorage.getItem(KEY)).not.toBe(code);
   });
 
-  it('startup puts the native layout direction back to the defaults (no forced RTL, RTL allowed)', async () => {
+  it('startup writes the layout direction of the language in force (left-to-right: RTL not allowed, not forced; Arabic is the only right-to-left language)', async () => {
     const allow = jest.spyOn(I18nManager, 'allowRTL').mockImplementation(() => {});
     const force = jest.spyOn(I18nManager, 'forceRTL').mockImplementation(() => {});
     (require('../index') as typeof import('../index'));
     await (require('../appLanguage') as typeof import('../appLanguage')).initializeAppLanguage();
-    expect(allow).toHaveBeenCalledWith(true);
+    expect(allow).toHaveBeenCalledWith(false);
     expect(force).toHaveBeenCalledWith(false);
     allow.mockRestore();
     force.mockRestore();

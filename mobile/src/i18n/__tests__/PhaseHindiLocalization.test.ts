@@ -118,7 +118,7 @@ describe('dictionary integrity', () => {
 
   it('is real Hindi: Devanagari everywhere it should be, no raw key, no Chinese/Cyrillic, no Devanagari digits, no zero-width characters', () => {
     // (the endonyms of the Russian and Chinese languages are written in their own scripts)
-    expect(hiLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language\.[a-z]+Name$/.test(keyPath))).toEqual([]);
+    expect(hiLeaves.filter(([keyPath, value]) => /[一-鿿Ѐ-ӿ]/.test(value) && !/^appearance\.language.[A-Za-z]+Name$/.test(keyPath))).toEqual([]);
     expect(hiLeaves.filter(([, value]) => /^[a-z][A-Za-z]+(\.[A-Za-z_]+){2,}$/.test(value))).toEqual([]); // a leaked i18n key
     expect(hiLeaves.filter(([, value]) => /[०-९]/.test(value))).toEqual([]); // Western digits 0-9 only
     expect(hiLeaves.filter(([, value]) => INVISIBLE.test(value))).toEqual([]); // no ZWSP / BOM / line separators
@@ -265,7 +265,7 @@ describe('runtime switching and persistence', () => {
 
   it('Hindi is the language of a Hindi phone (hi-IN) and of an Arabic-then-Hindi list', () => {
     expect(languageFromLocaleTag('hi-IN')).toBe('hi');
-    expect(pickSupportedLanguage(['ar', 'hi-IN'])).toBe('hi');
+    expect(pickSupportedLanguage(['fa', 'hi-IN'])).toBe('hi');
   });
 
   it('all eight onboarding objectives have a Hindi label', () => {

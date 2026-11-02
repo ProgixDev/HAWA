@@ -545,8 +545,8 @@ describe('editorial content: library articles, pregnancy weeks, legal text', () 
   });
 
   it('legal placeholder text exists in Russian with the same sections as English', () => {
-    expect(Object.keys(TERMS).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
-    expect(Object.keys(PRIVACY).sort()).toEqual(['am', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ja', 'ka', 'kk', 'km', 'ko', 'ky', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'pa', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'si', 'sk', 'sl', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'zh']);
+    expect(Object.keys(TERMS).sort()).toEqual(['am', 'ar', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'ff', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ig', 'ja', 'ka', 'kab', 'kk', 'km', 'ko', 'ky', 'ln', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'om', 'pa', 'pl', 'pt-BR', 'pt-PT', 'rn', 'ro', 'ru', 'rw', 'si', 'sk', 'sl', 'sn', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'ti', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'xh', 'yo', 'zh', 'zh-Hant', 'zu']);
+    expect(Object.keys(PRIVACY).sort()).toEqual(['am', 'ar', 'az', 'bg', 'bn', 'bs', 'cs', 'da', 'de', 'el', 'en', 'es', 'ff', 'fi', 'fil', 'fr', 'gu', 'ha', 'hi', 'hr', 'hu', 'hy', 'id', 'ig', 'ja', 'ka', 'kab', 'kk', 'km', 'ko', 'ky', 'ln', 'lo', 'mr', 'ms', 'my', 'nb', 'ne', 'nl', 'om', 'pa', 'pl', 'pt-BR', 'pt-PT', 'rn', 'ro', 'ru', 'rw', 'si', 'sk', 'sl', 'sn', 'so', 'sq', 'sr', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'ti', 'tk', 'tr', 'uk', 'uz', 'vi', 'wo', 'xh', 'yo', 'zh', 'zh-Hant', 'zu']);
     expect(TERMS.ru).toHaveLength(TERMS.en.length);
     expect(PRIVACY.ru).toHaveLength(PRIVACY.en.length);
     TERMS.ru.concat(PRIVACY.ru).forEach(section => {
