@@ -31,7 +31,7 @@ type LegalSection = {title: string; body: string};
 // validation — it carries no clause beyond the English). Russian likewise carries the same
 // provisional placeholder text and no clause beyond the English. German (de) carries the same
 // provisional placeholder text as well, with no clause beyond the English. Simplified Chinese (zh), Indonesian (id) and Hindi (hi) likewise.
-type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo';
+type LegalLanguage = 'fr' | 'en' | 'es' | 'tr' | 'ru' | 'de' | 'zh' | 'zh-Hant' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo' | 'ar' | 'kab' | 'om' | 'ti' | 'rw' | 'rn' | 'ig' | 'yo' | 'zu' | 'xh' | 'sn' | 'ln' | 'ff';
 
 export const TERMS: Record<LegalLanguage, LegalSection[]> = {
   fr: [
@@ -39,6 +39,84 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Utilisation de l’application', body: 'AWA propose des outils de suivi personnel et de bien-être. Le contenu définitif décrivant les droits et responsabilités des utilisatrices sera ajouté après validation juridique.'},
     {title: 'Disponibilité du service', body: 'Les modalités définitives de disponibilité, de maintenance et d’évolution du service restent à valider.'},
     {title: 'Contact', body: 'Les coordonnées officielles seront ajoutées dès leur validation par l’équipe AWA.'},
+  ],
+  kab: [
+    {title: 'Iswi', body: 'Isemli-a yesskan taɣessa n wakud n tuqqna n tiwtilin n useqdec n AWA.'},
+    {title: 'Aseqdec n usnas', body: 'AWA d-yettak ifecka n uḍfar udmawan d tezmert. Agbur ufrin ara yesfeḍ izerfan d tegdilin n yiseqdacen ad yettwarnu ticki tfukk usentem usḍris.'},
+    {title: 'Tuƣalin n ugmuḍ', body: 'Tiwtilin tufrinin i yeqqnen ɣer tuɣalin, ameẓlu d usnerni n ugmuḍ mazal ttwaɛeddant ad ttwasentemant.'},
+    {title: 'Anermis', body: 'Isalan n unermis ofisyal ad ttwarnun ticki ad ttwasentmen sɣur tarbaɛt n AWA.'},
+  ],
+  om: [
+    {title: 'Kaayyoo', body: 'Sanadni kun gaggeessa yeroo muraasaaf ta\'e haala fayyadama AWA kan agarsiisu dha.'},
+    {title: 'Fayyadama appii', body: 'AWA meeshaalee hordoffii dhuunfaa fi gaarummaa ofii ni dhiyeessa. Qabiyyeen dhumaa mirgaa fi itti gaafatamummaa fayyadamtootaa ibsu, madaallii seeraa erga xumuramee booda ni dabalama.'},
+    {title: 'Argamuu tajaajilaa', body: 'Haalli dhumaa argamuu, suphaa fi jijjiirama tajaajilaa to\'atu ammallee ni mirkanaa\'a.'},
+    {title: 'Quunnamtii', body: 'Odeeffannoon quunnamtii sirrii hojjetaa AWA irraa erga mirkanaa\'ee booda ni dabalama.'},
+  ],
+  ti: [
+    {title: 'ዕላማ', body: 'እዚ ሰነድ ናይ AWA ግዝያዊ መዋቕር ቅጥዕታት ኣጠቓቕማ የቕርብ።'},
+    {title: 'ኣጠቓቕማ ኣፕሊኬሽን', body: 'AWA ውልቃዊ ምክትታልን ናይ ጽቡቕ ህላወ መሳርሒታትን የቕርብ። ሕጊታትን ሓላፍነታትን ተጠቀምቲ ዝገልጽ እቲ መወዳእታ ትሕዝቶ ሕጋዊ ምርግጋጽ ምስ ተፈጸመ ክውስኽ እዩ።'},
+    {title: 'ተረኽቢነት ኣገልግሎት', body: 'ንተረኽቢነት፣ ሕላዌን ምዕባለን እቲ ኣገልግሎት ዝቆጻጸሩ መወዳእታ ቅጥዕታት ገና ክረጋገጹ ኣለዎም።'},
+    {title: 'ርክብ', body: 'ወግዓዊ ዝርዝር ርክብ ብጉጅለ AWA ምስ ተረጋገጸ ክውስኽ እዩ።'},
+  ],
+  rw: [
+    {title: 'Intego', body: 'Iyi nyandiko igaragaza imiterere y\'agateganyo y\'amabwiriza yo gukoresha AWA.'},
+    {title: 'Gukoresha porogaramu', body: 'AWA itanga ibikoresho byo kwikurikirana no kwita ku mibereho myiza. Ibikubiyemo byanyuma bisobanura uburenganzira n\'inshingano by\'abakoresha bizongerwamo nyuma y\'uko isuzuma ry\'amategeko rirangira.'},
+    {title: 'Kuboneka kwa serivisi', body: 'Amabwiriza yanyuma agenga kuboneka, gusana no guhinduka kwa serivisi aracyategereje kwemezwa.'},
+    {title: 'Twandikire', body: 'Amakuru yemewe yo kuvugana natwe azongerwamo nyuma y\'uko ikipe ya AWA iyemeje.'},
+  ],
+  rn: [
+    {title: 'Intego', body: 'Iyi nyandiko yerekana imiterere y’agateganyo y’amategeko yo gukoresha AWA.'},
+    {title: 'Gukoresha porogaramu', body: 'AWA itanga ibikoresho vyo kwikurikirana no kwita ku mererwe myiza. Ibikubiyemwo bya nyuma bisobanura uburenganzira n’inshingano vy’abakoresha bizongerwamwo igihe ubwemeranya bw’amategeko buzoba burangiye.'},
+    {title: 'Kuboneka kwa serivisi', body: 'Amategeko ya nyuma agenga kuboneka, gukorerwa no guhinduka kwa serivisi aracari gutegerezwa kwemezwa.'},
+    {title: 'Kuvugana natwe', body: 'Amakuru yemewe yo kuvugana natwe azongerwamwo igihe itsinda rya AWA rizoba ryayemeje.'},
+  ],
+  ig: [
+    {title: 'Ebumnobi', body: 'Akwụkwọ a na-egosi nhazi nwa oge nke ụkpụrụ iji AWA.'},
+    {title: 'Iji ngwa a', body: 'AWA na-enye ngwa maka isoro onwe gị na maka ọdịmma. A ga-agbakwunye ọdịnaya ikpeazụ na-akọwa ikike na ọrụ ndị ọrụ ngwa mgbe nkwenye iwu gwụchara.'},
+    {title: 'Ịdị adị nke ọrụ ahụ', body: 'A ka ga-ekwenye ụkpụrụ ikpeazụ na-achịkwa ịdị adị nke ọrụ ahụ, nlekọta ya na mgbanwe ya.'},
+    {title: 'Kpọtụrụ anyị', body: 'A ga-agbakwunye ozi kọntaktị gọọmentị mgbe otu AWA kwenyechara ha.'},
+  ],
+  yo: [
+    {title: 'Èrò', body: 'Ìwé yìí ṣàfihàn ìgbékalẹ̀ ìgbà díẹ̀ ti àwọn òfin lílo AWA.'},
+    {title: 'Lílo ìṣàfilọ́lẹ̀ náà', body: 'AWA ń pèsè àwọn irinṣẹ́ ìtọpa ti ara ẹni àti ti àlàáfíà. A ó fi àkóónú ìkẹyìn tó ń ṣàpèjúwe àwọn ẹ̀tọ́ àti ojúṣe àwọn olùlò kún un lẹ́yìn tí ìfọwọ́sí òfin bá parí.'},
+    {title: 'Wíwà iṣẹ́ náà', body: 'A ṣì ní láti fìdí àwọn òfin ìkẹyìn tó ń ṣàkóso wíwà, ìtọ́jú, àti ìdàgbàsókè iṣẹ́ náà múlẹ̀.'},
+    {title: 'Ìbánisọ̀rọ̀', body: 'A ó fi àlàyé ìbánisọ̀rọ̀ osise kún un lẹ́yìn tí ẹgbẹ́ AWA bá ti fọwọ́ sí i.'},
+  ],
+  zu: [
+    {title: 'Inhloso', body: 'Leli dokhumenti lethula isakhiwo sesikhashana semigomo yokusetshenziswa ye-AWA.'},
+    {title: 'Ukusebenzisa i-application', body: 'I-AWA inikeza amathuluzi okulandelela nokuphila kahle komuntu siqu. Okuqukethwe kokugcina okuchaza amalungelo nezibopho zabasebenzisi kuzongezwa uma ukuqinisekiswa komthetho sekuphelile.'},
+    {title: 'Ukutholakala kwenkonzo', body: 'Imigomo yokugcina elawula ukutholakala, ukulungiswa nokuguquka kwenkonzo isazoqinisekiswa.'},
+    {title: 'Xhumana', body: 'Imininingwane esemthethweni yokuxhumana izongezwa uma iqinisekiswe yithimba le-AWA.'},
+  ],
+  xh: [
+    {title: 'Injongo', body: 'Esi sicatshulwa sibonisa ulwakhiwo lwexeshana lweemiqathango yokusetyenziswa kwe-AWA.'},
+    {title: 'Ukusetyenziswa kwesicelo', body: 'I-AWA ibonelela ngezixhobo zokuzilandelela nezokukhathalela impilo entle. Umxholo wokugqibela ochaza amalungelo noxanduva lwabasebenzisi uya kongezwa emva kokuba ukuqinisekiswa komthetho kugqityiwe.'},
+    {title: 'Ukufumaneka kwenkonzo', body: 'Iimiqathango zokugqibela ezilawula ukufumaneka, ukulungiswa nokuguquka kwenkonzo zisazakuqinisekiswa.'},
+    {title: 'Unxibelelwano', body: 'Iinkcukacha ezisemthethweni zonxibelelwano ziya kongezwa emva kokuba ziqinisekiswe liqela le-AWA.'},
+  ],
+  sn: [
+    {title: 'Chinangwa', body: 'Gwaro iri rinoratidza chimiro chekutanga chemitemo yekushandisa AWA.'},
+    {title: 'Kushandisa application', body: 'AWA inopa zvishandiso zvekuteverera hutano hwako nekuzvitarisira. Zvinyorwa zvekupedzisira zvine ropafadzo nemabasa evashandisi zvichawedzerwa kana kubvumidzwa pamutemo kwapera.'},
+    {title: 'Kuwanikwa kweservisi', body: 'Mitemo yekupedzisira inotarisana nekuwanikwa kweservisi, kugadziridzwa kwayo nekushanduka kwayo icharatidzwa.'},
+    {title: 'Kutaura nesu', body: 'Zvekutaura nesu zviri pamutemo zvichawedzerwa kana zvabvumidzwa neboka reAWA.'},
+  ],
+  ln: [
+    {title: 'Mokano', body: 'Ekomi oyo emonisi ndenge ya kobanda ya mibeko ya kosalela AWA.'},
+    {title: 'Kosalela application', body: 'AWA epesi bisaleli ya komilandela mpe ya malamu ya nzoto. Makambo ya suka oyo elobeli makoki mpe mikumba ya basaleli ekoyeisama sima ya kondimisama na mibeko.'},
+    {title: 'Kozwama ya service', body: 'Mibeko ya suka oyo etali kozwama ya service, kobongisa yango mpe ndenge ekobongwana ezali naino kondimisama.'},
+    {title: 'Kosolola na biso', body: 'Bansango ya semba mpo na kosolola na biso ekoyeisama sima ya kondimisama na etuluku ya AWA.'},
+  ],
+  ff: [
+    {title: 'Ko wadi', body: 'Binndol ndin hollii wuro dow sarti huutinirgo AWA ɗi ngonnduɗi tawi tawi.'},
+    {title: 'Huutinirgo app ndin', body: 'AWA okki kuutiniraaɗe ngam jaaɓnugo e reenugo ngoolu maa. Winndannde sakiiɗe ɗe ngonnduɗi, ko yiɗi e ko hakkiilo huutinooɓe, wonan ɓeydaama nde seedaago sariya timmi.'},
+    {title: 'Ngonka kuugal ndin', body: 'Sarti ɗi ngonnduɗi, ko faati e ndeenka, hesɗitinol e yaadugo kuugal ndin, tawaaki fotde yeeso.'},
+    {title: 'Jokkondiral', body: 'Limle jokkondiral jaɓaaɗe ɓeydaama nde tawaaɗe jaɓaama e kuutiniroowo AWA.'},
+  ],
+  ar: [
+    {title: 'الغرض', body: 'تعرض هذه الوثيقة البنية المؤقتة لشروط استخدام AWA.'},
+    {title: 'استخدام التطبيق', body: 'يقدّم AWA أدوات للمتابعة الشخصية والعناية بالصحة. وسيُضاف المحتوى النهائي الذي يوضح حقوق المستخدمات ومسؤولياتهن بعد اكتمال المراجعة القانونية.'},
+    {title: 'توفّر الخدمة', body: 'لا تزال الشروط النهائية المتعلقة بتوفّر الخدمة وصيانتها وتطويرها قيد التأكيد.'},
+    {title: 'التواصل', body: 'ستُضاف بيانات التواصل الرسمية بعد اعتمادها من فريق AWA.'},
   ],
   en: [
     {title: 'Purpose', body: 'This document presents the provisional structure of AWA’s terms of use.'},
@@ -87,6 +165,12 @@ export const TERMS: Record<LegalLanguage, LegalSection[]> = {
     {title: '应用的使用', body: 'AWA 提供个人记录与健康管理工具。说明用户权利与责任的正式内容，将在法律审核完成后补充。'},
     {title: '服务可用性', body: '关于服务可用性、维护与更新的正式条款仍有待确认。'},
     {title: '联系方式', body: '官方联系方式将在 AWA 团队确认后补充。'},
+  ],
+  'zh-Hant': [
+    {title: '目的', body: '本檔案為 AWA 使用條款的臨時結構。'},
+    {title: '應用的使用', body: 'AWA 提供個人記錄與健康管理工具。說明使用者權利與責任的正式內容，將在法律稽核完成後補充。'},
+    {title: '服務可用性', body: '關於服務可用性、維護與更新的正式條款仍有待確認。'},
+    {title: '聯絡方式', body: '官方聯絡方式將在 AWA 團隊確認後補充。'},
   ],
   id: [
     {title: 'Tujuan', body: 'Dokumen ini memuat struktur sementara ketentuan penggunaan aplikasi AWA.'},
@@ -409,6 +493,84 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: 'Tes droits', body: 'Les procédures permettant d’accéder, corriger ou supprimer les données seront détaillées dans la version validée.'},
     {title: 'Contact confidentialité', body: 'L’adresse officielle du responsable de la confidentialité sera ajoutée avant publication.'},
   ],
+  kab: [
+    {title: 'Isefka i yeqqnen', body: 'Aḥric-a ad d-yessemɣer s wudem ummid isefka i yettwaxdamen sɣur AWA d uswir-nsen, ticki tfukk usentem usḍris.'},
+    {title: 'Aklas d tɣellist', body: 'Isemli ufrin ad d-yesbeggen iswiren n uklas, n ukcam d tallit n uḥrez.'},
+    {title: 'Izerfan-ik', body: 'Iswiren n unekcum, n uswever neɣ n tukksa n yisefka-inek ad d-ttwabdarent deg lqem yettwasentmen.'},
+    {title: 'Anermis n tbaḍnit', body: 'Tansa tuffirt n unermis n unemhal n tbaḍnit ad tettwarna send usuffeɣ.'},
+  ],
+  om: [
+    {title: 'Daataa wal-qabate', body: 'Kutaan kun daataa AWA\'n hojjetamu fi kaayyoo isaa, madaallii seeraa erga xumuramee booda, sirriitti ni ibsa.'},
+    {title: 'Kuusuu fi nageenya', body: 'Sanadni dhumaa tooftaalee kuusuu, eegumsa fi turtii eegamu ni ibsa.'},
+    {title: 'Mirgoota kee', body: 'Adeemsi daataa kee argachuu, sirreessuu yookaan haquu gosa mirkanaa\'e keessatti bal\'inaan ni ibsama.'},
+    {title: 'Quunnamtii dhuunfaa', body: 'Teessoon quunnamtii sirrii itti gaafatamaa dhuunfummaa dura maxxansuu ni dabalama.'},
+  ],
+  ti: [
+    {title: 'እተመልከቱ ሓበሬታታት', body: 'እዚ ክፍሊ ሕጋዊ ምርግጋጽ ምስ ተፈጸመ እቲ AWA ዝሰርሖ ሓበሬታን ዕላማኡን ብትክክል ክገልጽ እዩ።'},
+    {title: 'ምዕቃብን ድሕንነትን', body: 'እቲ መወዳእታ ሰነድ ኣገባባት ምዕቃብ፣ ሓለዋታትን ግዜ ምዕቃብን ክገልጽ እዩ።'},
+    {title: 'መሰላትካ', body: 'ሓበሬታኻ ንምርካብ፣ ንምእራምን ንምድምሳስን ዝግበሩ መስርሓት ኣብቲ ዝተረጋገጸ ስሪት ብዝርዝር ክቐርብ እዩ።'},
+    {title: 'ርክብ ብዛዕባ ምስጢራዊነት', body: 'ወግዓዊ ኣድራሻ ርክብ ናይቲ ሓላፊ ምስጢራዊነት ቅድሚ ሕትመት ክውስኽ እዩ።'},
+  ],
+  rw: [
+    {title: 'Amakuru ajyanye', body: 'Iki gice kizasobanura neza amakuru atunganywa na AWA n\'impamvu yabyo, nyuma y\'uko isuzuma ry\'amategeko rirangira.'},
+    {title: 'Kubika no gucungira umutekano', body: 'Inyandiko yanyuma izagaragaza ingamba zo kubika, uburyo bwo kurinda n\'igihe amakuru abikwa.'},
+    {title: 'Uburenganzira bwawe', body: 'Uburyo bwo kugera ku makuru yawe, kuyakosora cyangwa kuyasiba buzasobanurwa mu nyandiko yemejwe.'},
+    {title: 'Kuvugana ku bijyanye n\'ibanga', body: 'Aderesi yemewe yo kuvugana n\'ushinzwe ibanga izongerwamo mbere yo gutangaza.'},
+  ],
+  rn: [
+    {title: 'Amakuru yerekeye', body: 'Iki gice kizosobanura neza amakuru atunganywa na AWA n’impamvu yabyo, igihe ubwemeranya bw’amategeko buzoba burangiye.'},
+    {title: 'Kubika n’umutekano', body: 'Inyandiko ya nyuma izosobanura ingingo zo kubika, uburyo bwo kurinda n’igihe amakuru abikwa.'},
+    {title: 'Uburenganzira bwawe', body: 'Uburyo bwo kugera ku makuru yawe, kuyakosora canke kuyasiba buzosobanurwa muri verisiyo yemejwe.'},
+    {title: 'Kuvugana ku buzima bwite', body: 'Aderese yemewe yo kuvugana n’ushinzwe ubuzima bwite izongerwamwo imbere yo gutangazwa.'},
+  ],
+  ig: [
+    {title: 'Data metụtara', body: 'Ngalaba a ga-akọwa nke ọma data AWA na-ahazi na ebumnobi ya, mgbe nkwenye iwu gwụchara.'},
+    {title: 'Nchekwa na nchekwa ọdịmma', body: 'Akwụkwọ ikpeazụ ga-akọwapụta usoro nchekwa, nchebe na ogologo oge a na-ekwu.'},
+    {title: 'Ikike gị', body: 'A ga-akọwa nke ọma usoro iji nweta, megharịa ma ọ bụ hichapụ data gị n\'ụdị a kwenyere.'},
+    {title: 'Kpọtụrụ maka nzuzo', body: 'A ga-agbakwunye adreesị kọntaktị gọọmentị nke onye na-elekọta nzuzo tupu e bipụta ya.'},
+  ],
+  yo: [
+    {title: 'Dátà tó kàn', body: 'Apá yìí yóò ṣàpèjúwe dátà tí AWA ń ṣiṣẹ́ lé àti ète rẹ̀ ní pàtó, lẹ́yìn tí ìfọwọ́sí òfin bá parí.'},
+    {title: 'Ìpamọ́ àti ààbò', body: 'Ìwé ìkẹyìn yóò sọ àwọn ìgbésẹ̀ ìpamọ́, àwọn ààbò, àti àkókò ìtọ́jú dátà.'},
+    {title: 'Àwọn ẹ̀tọ́ rẹ', body: 'A ó ṣàlàyé àwọn ìlànà fún wíwọlé, ṣíṣàtúnṣe, tàbí píparẹ́ dátà rẹ nínú ẹ̀yà tí a ti fọwọ́ sí.'},
+    {title: 'Ìbánisọ̀rọ̀ ìpamọ́', body: 'A ó fi àdírẹ́sì ìbánisọ̀rọ̀ osise ti olùṣọ́ ìpamọ́ kún un kí a tó tẹ̀ ẹ́ jáde.'},
+  ],
+  zu: [
+    {title: 'Idatha ehlobene', body: 'Lesi sigaba sizochaza ngokucacile idatha ehlelwa yi-AWA nenhloso yayo, uma ukuqinisekiswa komthetho sekuphelile.'},
+    {title: 'Ukugcinwa nokuphepha', body: 'Imibhalo yokugcina izobeka ngokucacile izindlela zokugcina, izivikelo nezikhathi zokugcinwa.'},
+    {title: 'Amalungelo akho', body: 'Izinqubo zokufinyelela, ukulungisa noma ukususa idatha yakho zizochazwa kabanzi enguqulweni eqinisekisiwe.'},
+    {title: 'Ukuxhumana ngobumfihlo', body: 'Ikheli lokuxhumana elisemthethweni lesikhulu sobumfihlo lizongezwa ngaphambi kokushicilelwa.'},
+  ],
+  xh: [
+    {title: 'Idatha ephambili', body: 'Eli candelo liya kuchaza ngokucacileyo idatha esetyenziswa yi-AWA nenjongo yayo, emva kokuba ukuqinisekiswa komthetho kugqityiwe.'},
+    {title: 'Ugcino nokhuseleko', body: 'Amaxwebhu okugqibela aya kuchaza amanyathelo okugcina, uthintelo neenkathi zokugcinwa.'},
+    {title: 'Amalungelo akho', body: 'Iinkqubo zokufikelela, zokulungisa okanye zokucima idatha yakho ziya kuchazwa ngokweenkcukacha kwinguqulelo eqinisekisiweyo.'},
+    {title: 'Unxibelelwano lwabucala', body: 'Idilesi esemthethweni yonxibelelwano yomphathi wabucala iya kongezwa phambi kokupapashwa.'},
+  ],
+  sn: [
+    {title: 'Data inobatanidzwa', body: 'Chikamu ichi chichatsanangura zvakajeka data inoshandiswa neAWA nechikonzero chayo, kana kubvumidzwa pamutemo kwapera.'},
+    {title: 'Kuchengetwa nekuchengetedzwa', body: 'Zvinyorwa zvekupedzisira zvichatsanangura matanho ekuchengeta, kuchengetedza nenguva yekuchengetwa kwedata.'},
+    {title: 'Kodzero dzako', body: 'Matanho ekuwana, kugadzirisa kana kudzima data yako achatsanangurwa muchinyorwa chakabvumidzwa.'},
+    {title: 'Kutaura nezvekuchengeta zvakavanzika', body: 'Kero yepamutemo yemubatiri wezvekuchengeta zvakavanzika ichawedzerwa risati raburitswa.'},
+  ],
+  ln: [
+    {title: 'Makambo oyo etali', body: 'Ndimbola oyo ekolimbola malamu makambo oyo AWA esalelaka mpe mpo na nini, sima ya kondimisama na mibeko.'},
+    {title: 'Kobomba mpe libateli', body: 'Mokanda ya suka ekolimbola ndenge ya kobomba, bibateli mpe ntango makambo ekobombama.'},
+    {title: 'Makoki na yo', body: 'Ndenge ya kotala, kobongisa to kolongola makambo na yo ekolimbolama na lolenge oyo endimisami.'},
+    {title: 'Kosolola mpo na bomizoto', body: 'Adresse ya semba ya mokambi ya bomizoto ekoyeisama liboso ya kobimisa yango.'},
+  ],
+  ff: [
+    {title: 'Kaalisi ɗi ngoodi', body: 'Bolle ndee hollan no feewi ko kaalisi AWA huutinirta e ngam ko, nde seedaago sariya timmi.'},
+    {title: 'Reenugo e kisal', body: 'Winndannde timmunde hollan no reenorta, no kisnorta e ɗuum ɗuum haa ɗum yahdata.'},
+    {title: 'Hakkeeji maa', body: 'Laawol ndiyam, hesɗitinol malla ittugo kaalisi maa ngam hollaama e bolle jaɓaaɗe.'},
+    {title: 'Jokkondiral suturaagu', body: 'Ɗerewol jokkondiral jaɓaangol ngam hoodere suturaagu ɓeydaama saa\'i mo ɗum yaltinaaka.'},
+  ],
+  ar: [
+    {title: 'البيانات المعنية', body: 'سيصف هذا القسم بدقة البيانات التي يعالجها AWA والغرض من معالجتها بعد اكتمال المراجعة القانونية.'},
+    {title: 'التخزين والأمان', body: 'ستحدد الوثيقة النهائية إجراءات التخزين وسبل الحماية ومدد الاحتفاظ بالبيانات.'},
+    {title: 'حقوقك', body: 'ستُفصَّل في النسخة المعتمدة إجراءات الاطلاع على بياناتك أو تصحيحها أو حذفها.'},
+    {title: 'التواصل بشأن الخصوصية', body: 'سيُضاف عنوان التواصل الرسمي للمسؤول عن الخصوصية قبل النشر.'},
+  ],
   en: [
     {title: 'Data concerned', body: 'This section will precisely describe the data processed by AWA and its purpose, once legal validation is complete.'},
     {title: 'Storage and security', body: 'The final documentation will specify the storage measures, protections, and retention periods.'},
@@ -456,6 +618,12 @@ export const PRIVACY: Record<LegalLanguage, LegalSection[]> = {
     {title: '存储与安全', body: '正式文件将说明存储措施、保护措施和保存期限。'},
     {title: '你的权利', body: '访问、更正或删除你的数据的方式，将在审核通过的版本中详细说明。'},
     {title: '隐私联系方式', body: '隐私负责人的官方联系地址将在发布前补充。'},
+  ],
+  'zh-Hant': [
+    {title: '涉及的資料', body: '法律稽核完成後，本部分將詳細說明 AWA 處理的資料及其用途。'},
+    {title: '儲存與安全', body: '正式檔案將說明儲存措施、保護措施和儲存期限。'},
+    {title: '你的權利', body: '訪問、更正或刪除你的資料的方式，將在稽核通過的版本中詳細說明。'},
+    {title: '隱私聯絡方式', body: '隱私負責人的官方聯絡地址將在釋出前補充。'},
   ],
   id: [
     {title: 'Data yang diproses', body: 'Bagian ini akan menjelaskan secara rinci data yang diproses oleh AWA beserta tujuannya, setelah validasi hukum selesai.'},
@@ -783,6 +951,20 @@ function resolveLegalLanguage(language: string): LegalLanguage {
   if (language === 'ru') {return 'ru';}
   if (language === 'de') {return 'de';}
   if (language === 'zh') {return 'zh';}
+  if (language === 'zh-Hant') {return 'zh-Hant';}
+  if (language === 'ar') {return 'ar';}
+  if (language === 'kab') {return 'kab';}
+  if (language === 'om') {return 'om';}
+  if (language === 'ti') {return 'ti';}
+  if (language === 'rw') {return 'rw';}
+  if (language === 'rn') {return 'rn';}
+  if (language === 'ig') {return 'ig';}
+  if (language === 'yo') {return 'yo';}
+  if (language === 'zu') {return 'zu';}
+  if (language === 'xh') {return 'xh';}
+  if (language === 'sn') {return 'sn';}
+  if (language === 'ln') {return 'ln';}
+  if (language === 'ff') {return 'ff';}
   if (language === 'id') {return 'id';}
   if (language === 'hi') {return 'hi';}
   if (language === 'sq') {return 'sq';}
