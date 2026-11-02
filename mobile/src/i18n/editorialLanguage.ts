@@ -3,9 +3,17 @@
 // Explicit opt-ins for the languages that have real editorial text; anything
 // else — an unrecognized or not-yet-loaded value included — resolves to
 // English, never to French or Spanish.
-export type EditorialLanguage = 'fr' | 'en' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo';
+export type EditorialLanguage = 'fr' | 'en' | 'en-US' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'zh-Hant' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo' | 'ar' | 'kab' | 'om' | 'ti' | 'rw' | 'rn' | 'ig' | 'yo' | 'zu' | 'xh' | 'sn' | 'ln' | 'ff';
 
 export function resolveEditorialLanguage(language: string | null | undefined): EditorialLanguage {
+  // Traditional Chinese (zh-Hant, zh-TW, zh-HK, zh-MO, zh-Hant-TW …) has its own 'zh-Hant' block; checked before the Simplified rule.
+  if (typeof language === 'string' && /^zh[-_](hant([-_](tw|hk|mo|cn))?|tw|hk|mo)$/i.test(language.trim())) {
+    return 'zh-Hant';
+  }
+  // American English (en-US, en_US) has its own 'en-US' variant over the 'en' block (US spellings); every other English tag is 'en'.
+  if (typeof language === 'string' && /^en([-_]latn)?[-_]us$/i.test(language.trim())) {
+    return 'en-US';
+  }
   // Simplified Chinese aliases (zh-CN, zh-Hans …) resolve to the canonical 'zh' block.
   if (typeof language === 'string' && /^zh([-_](cn|hans|sg|hans-cn|hans-sg))?$/i.test(language.trim())) {
     return 'zh';
@@ -209,6 +217,14 @@ export function resolveEditorialLanguage(language: string | null | undefined): E
   // Lao (lo, lo-LA) resolves to the canonical 'lo' block.
   if (typeof language === 'string' && /^lo([-_][a-z]{2})?$/i.test(language.trim())) {
     return 'lo';
+  }
+  // The twelve African languages (kab om ti rw rn ig yo zu xh sn ln ff, with any region / script subtags) resolve to their own block.
+  if (typeof language === 'string' && /^(kab|om|ti|rw|rn|ig|yo|zu|xh|sn|ln|ff)([-_][a-z0-9]+)*$/i.test(language.trim())) {
+    return language.trim().split(/[-_]/)[0].toLowerCase() as EditorialLanguage;
+  }
+  // Arabic (ar, ar-SA, ar-EG, ar-001, ar-Arab …) resolves to the canonical 'ar' block.
+  if (typeof language === 'string' && /^ar([-_][a-z0-9]+)*$/i.test(language.trim())) {
+    return 'ar';
   }
   // Portuguese: Brazil ('pt-BR', 'pt_BR', 'pt-Latn-BR') has its own variant over the Portugal text; Portugal, the bare 'pt' and the other
   // Portuguese-speaking countries resolve to 'pt-PT'.
