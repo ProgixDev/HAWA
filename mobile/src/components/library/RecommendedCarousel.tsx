@@ -125,7 +125,8 @@ function RecommendedCarousel({
         scrollEventThrottle={32}
         showsHorizontalScrollIndicator={false}
         snapToInterval={cardWidth + gap}
-        style={styles.scroll}>
+        // direction "ltr": the card index is read from contentOffset.x, which must keep growing to the right in a right-to-left layout too
+        style={[styles.scroll, styles.ltrAxis]}>
         {articles.map(article => (
           <RecommendedCard
             article={article}
@@ -167,6 +168,8 @@ const styles = StyleSheet.create({
   description: {marginTop: 4},
   seeAllButton: {alignSelf: 'flex-start', marginTop: 12},
   scroll: {marginTop: 16},
+  // card index = contentOffset.x / card width: the axis stays left to right in a right-to-left layout too
+  ltrAxis: {direction: 'ltr'},
   scrollContent: {paddingRight: 4},
   thumb: {height: 88, borderRadius: 12, alignItems: 'center', justifyContent: 'center'},
   bookmarkOverlay: {position: 'absolute', top: 8, right: 8},

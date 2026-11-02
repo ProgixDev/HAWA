@@ -945,7 +945,8 @@ function LibraryScreen({
             overScrollMode="never"
             scrollEnabled={tabsPlan.scrollable}
             showsHorizontalScrollIndicator={false}
-            style={styles.tabsScroll}>
+            // the active-tab pill (translateX) and scrollTo({x}) are computed from the left edge: the strip keeps a left-to-right axis in a right-to-left layout
+            style={[styles.tabsScroll, LTR_AXIS]}>
             <View style={styles.tabsContent}>
               {tabsPlan.itemWidth !== null ? (
                 <Animated.View
@@ -1476,6 +1477,9 @@ function LibraryScreen({
 // illustration — never from theme.isDark. The category badge and its text
 // are left untouched: badge already uses onPrimaryTextColor(theme) against
 // its OWN near-opaque background, which is already theme-correct.
+// the active-tab pill and scrollTo({x}) are computed from the left edge: the tab strip keeps a left-to-right axis in a right-to-left layout
+const LTR_AXIS = {direction: 'ltr'} as const;
+
 const FEATURED_CARD_IMAGE_BASE = '#EDE4D6';
 const FEATURED_CARD_TEXT = pickReadableTextColor(FEATURED_CARD_IMAGE_BASE);
 const FEATURED_CARD_TEXT_SECONDARY = interpolateHex(FEATURED_CARD_TEXT, '#FFFFFF', 0.25);
