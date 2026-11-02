@@ -25,6 +25,7 @@ import {AwaText} from '../../components/ui/AwaText';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {deriveAwaRoles} from '../../theme/semanticRoles';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
@@ -619,7 +620,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
               imageStyle={styles.heroImage}
               source={require('../../assets/images/symptoms-header-woman.png')}
               style={styles.hero}>
-              <View style={styles.heroCopy}>
+              <View style={[styles.heroCopy, journalHeroCopyRtl(28)]}>
                 <Text style={styles.heroTitle}>
                   {t('journalSymptoms.heroTitle')}
                 </Text>

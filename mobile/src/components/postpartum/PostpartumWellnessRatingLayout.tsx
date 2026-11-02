@@ -3,6 +3,7 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
+  I18nManager,
   Image,
   ImageSourcePropType,
   KeyboardAvoidingView,
@@ -282,6 +283,7 @@ export function PostpartumWellnessRatingLayout({
             } : undefined}
             style={[
               styles.hero,
+              I18nManager.isRTL && styles.heroLtrGeometry,
               banner && styles.heroBannerCard,
               {
                 opacity: entrance,
@@ -339,7 +341,7 @@ export function PostpartumWellnessRatingLayout({
               </View>
             ) : null}
             <View style={[styles.heroCopy, banner && styles.heroBannerCopy, banner && {width: banner.copyWidth}]}>
-              <View style={styles.heroKicker}>
+              <View style={[styles.heroKicker, I18nManager.isRTL && styles.heroKickerRtl]}>
                 <MaterialDesignIcons
                   color={theme.colors.primary}
                   name="heart-pulse"
@@ -530,6 +532,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 12,
     backgroundColor: withAlpha(theme.colors.surface, 0.7),
   },
+  // Right-to-left (Arabic): the photo, its fades and the copy column are laid out with explicit left / right geometry for a picture whose subject is on the
+  // RIGHT. The artwork is never mirrored, so the card keeps its left-to-right geometry (copy on the free left, woman on the right) and only the TEXT is
+  // right-aligned by its own script; the kicker (badge) reverses its icon / label order and sits at the right edge of the copy column.
+  heroLtrGeometry: {direction: 'ltr'},
+  heroKickerRtl: {flexDirection: 'row-reverse', alignSelf: 'flex-end'},
   heroTitle: {marginTop: 14, color: theme.colors.accent},
   heroText: {marginTop: 7, maxWidth: 190},
   // Banner mode (see `heroBanner`). The photo box is clipped to the right part of the card; the picture inside it is

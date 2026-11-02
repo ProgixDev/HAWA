@@ -43,6 +43,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
+import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import '../../i18n';
 
 // Category E — fixed visual island: this hero uses a real illustration
@@ -477,6 +478,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 styles.heroCopy,
                 isSmallScreen &&
                   styles.heroCopySmall,
+                journalHeroCopyRtl(isSmallScreen ? 13 : 18),
               ]}>
               <Text
                 style={[
