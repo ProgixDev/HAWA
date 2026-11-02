@@ -491,6 +491,670 @@ const CONTENT = withBrazilianPortuguese('Pms', {
       consultText: '如果症状非常严重并影响日常生活，可能是经前焦虑障碍（PMDD）。不要犹豫，请咨询医疗专业人员。',
       shareMessage: '经前期综合征（PMS）：更好地了解它 — AWA',
     },
+  'zh-Hant': {
+      badge: '週期與身心',
+      title: '經前症候群（PMS）：\n更好地瞭解它',
+      metaDuration: '閱讀約 4 分鐘',
+      metaValidated: '已審閱內容',
+      intro: '多達八成的女性會受到 PMS 的影響。疲倦、易怒、腹脹……瞭解它的成因並養成合適的習慣，可以大大改善每個月的這段時間。',
+      contentsTitle: '本文內容',
+      contents: [
+        '什麼是 PMS？',
+        '常見症狀',
+        '可能的成因',
+        '讓自己更舒服的小建議',
+        '何時去看醫生？',
+      ],
+      section1Body: '經前症候群包括一組身體和情緒方面的症狀，通常在月經來潮前 5 到 10 天出現，並在月經週期開始時消失。',
+      visual1Title: '與週期相關的階段',
+      visual1Text: '症狀在月經之前出現，通常在月經開始後緩解。',
+      tip1Title: '小提醒',
+      tip1Text: '症狀的強度和型別因人而異，不同週期之間也可能差別很大。',
+      symptoms: [
+        {
+          title: '情緒',
+          text: '易怒、焦慮、悲傷、情緒波動',
+        },
+        {
+          title: '身體',
+          text: '腹脹、疼痛、疲倦、頭痛',
+        },
+        {
+          title: '行為',
+          text: '想吃甜食、食慾變化、疲倦',
+        },
+        {
+          title: '睡眠',
+          text: '難以入睡或睡得不夠踏實',
+        },
+      ],
+      section3Body: '荷爾蒙的波動，尤其是黃體素和雌激素的變化，會影響大腦中的神經遞質（血清素、多巴胺），這可能解釋了 PMS 的情緒和身體症狀。',
+      tip2Title: '荷爾蒙起著關鍵作用',
+      tip2Text: '荷爾蒙波動可能影響情緒、精力、睡眠和某些身體感受。',
+      tips: [
+        {
+          title: '保持水分充足',
+          text: '喝足夠的水有助於減輕腹脹。',
+        },
+        {
+          title: '均衡飲食',
+          text: '多吃富含鎂、歐米伽-3 和 B 族維生素的食物。',
+        },
+        {
+          title: '保持活動',
+          text: '體育活動能釋放內啡肽，緩解壓力。',
+        },
+        {
+          title: '管理壓力',
+          text: '呼吸練習、冥想、寫日記……找到適合你的方式。',
+        },
+        {
+          title: '睡眠充足',
+          text: '高品質的睡眠有助於維持荷爾蒙平衡。',
+        },
+      ],
+      consultTitle: '何時應該尋求醫療建議？',
+      consultText: '如果症狀非常嚴重並影響日常生活，可能是經前焦慮障礙（PMDD）。不要猶豫，請諮詢醫療專業人員。',
+      shareMessage: '經前症候群（PMS）：更好地瞭解它 — AWA',
+    },
+  ar: {
+    badge: 'الدورة والراحة',
+    title: 'متلازمة ما قبل الحيض:\nفهم أفضل لها',
+    metaDuration: '4 د قراءة',
+    metaValidated: 'محتوى مراجَع',
+    intro:
+      'تصيب متلازمة ما قبل الحيض ما يصل إلى 8 من كل 10 نساء. إرهاق وتهيّج وانتفاخ… وفهم أسبابها واعتماد العادات المناسبة يمكن أن يحسّنا كثيرًا هذه الفترة من الشهر.',
+    contentsTitle: 'في هذا المقال',
+    contents: [
+      'ما هي متلازمة ما قبل الحيض؟',
+      'الأعراض الشائعة',
+      'الأسباب المحتملة',
+      'نصائح لتشعري بتحسن',
+      'متى تراجعين الطبيب؟',
+    ],
+    section1Body:
+      'تجمع متلازمة ما قبل الحيض أعراضًا جسدية ونفسية تظهر عادةً قبل الحيض بمدة 5 إلى 10 أيام وتزول مع بداية الدورة الشهرية.',
+    visual1Title: 'مرحلة مرتبطة بدورتك',
+    visual1Text:
+      'تظهر الأعراض قبل الحيض وتخف عادةً بعد بدايته.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'يمكن أن تختلف شدة الأعراض ونوعها اختلافًا كبيرًا من امرأة إلى أخرى، ومن دورة إلى أخرى.',
+    symptoms: [
+      {title: 'المشاعر', text: 'تهيّج، قلق، حزن، تقلب المزاج'},
+      {title: 'الجسد', text: 'انتفاخ، ألم، إرهاق، صداع'},
+      {title: 'السلوك', text: 'اشتهاء السكر، تغيّر الشهية، إرهاق'},
+      {title: 'النوم', text: 'صعوبة في النوم أو نوم أقل راحة'},
+    ],
+    section3Body:
+      'تؤثر التقلبات الهرمونية، خاصة في البروجسترون والإستروجين، في النواقل العصبية في الدماغ (السيروتونين والدوبامين)، وقد يفسّر ذلك الأعراض النفسية والجسدية لمتلازمة ما قبل الحيض.',
+    tip2Title: 'للهرمونات دور أساسي',
+    tip2Text:
+      'يمكن أن تؤثر التقلبات الهرمونية في المزاج والطاقة والنوم وبعض الأحاسيس الجسدية.',
+    tips: [
+      {title: 'حافظي على الترطيب', text: 'شرب كمية كافية من الماء يساعد على تقليل الانتفاخ.'},
+      {title: 'تناولي غذاءً متوازنًا', text: 'فضّلي الأطعمة الغنية بالمغنيسيوم وأوميغا 3 وفيتامينات ب.'},
+      {title: 'ابقي نشيطة', text: 'يُفرز النشاط البدني الإندورفين ويقلل التوتر.'},
+      {title: 'تعاملي مع توترك', text: 'تمارين التنفس، التأمل، الكتابة في اليوميات… ابحثي عمّا يناسبك.'},
+      {title: 'احصلي على قسط كافٍ من النوم', text: 'النوم الجيد يدعم التوازن الهرموني.'},
+    ],
+    consultTitle: 'متى ينبغي أن تطلبي المشورة الطبية؟',
+    consultText:
+      'إذا كانت الأعراض شديدة جدًا وتؤثر في حياتك اليومية، فقد يكون ذلك اضطراب ما قبل الحيض المزاجي (PMDD). لا تترددي في استشارة مختصة صحية.',
+    shareMessage: 'متلازمة ما قبل الحيض: فهم أفضل لها — AWA',
+  },
+  kab: {
+    badge: 'DDAWRA & ṢṢEḤḤA',
+    title: 'Aɣilif send tiregwa (PMS):\nad t-nefhem yelhan ugar',
+    metaDuration: 'Taɣuri n 4 n tisdidin',
+    metaValidated: 'Agbur yettwasenqed',
+    intro:
+      'PMS yettaɣ ɣer 8 seg 10 n tilawin ar tazwara. Leɛyaṭ, tuɣalin n uẓar, uḥulfu n uẓeṭṭa… Ad tfehmeḍ ssebbat-is u ad tsemreḍ iɣal yelhan zemren ad d-awin ameẓẓuy ameqqran i wakud-a n useggas.',
+    contentsTitle: 'Deg umagrad-a',
+    contents: [
+      'D acu i d PMS?',
+      'Tilɣa i d-yettuɣalen',
+      'Ssebbat izemren',
+      'Iwellihen i wakken ad tḥessed yelhan ugar',
+      'Melmi ara tẓerreḍ aṭṭbib?',
+    ],
+    section1Body:
+      'Aɣilif send tiregwa yesdukkel tilɣa tigarasanin d tilɣa n wul i d-yettbanen s wudem amagnu 5 ɣer 10 n wussan send tiregwa-ik u ttwaksen deg tazwara n ddawra n tiregwa.',
+    visual1Title: 'Aḥric yeqqnen ɣer ddawra-inek',
+    visual1Text:
+      'Tilɣa ttbanent send tiregwa-ik u ttnaqqasent s wudem amagnu mi ara tebdu.',
+    tip1Title: 'Yelha ad tessneḍ',
+    tip1Text:
+      'Azal d wanaw n tilɣa zemren ad ttemxalafen aṭas seg yiwet tmeṭṭut ɣer tayeḍ, u seg yiwen n uzray ɣer wayeḍ.',
+    symptoms: [
+      {title: 'Iwulmen', text: 'Aɣilif, uṭṭun, tamɣart, isnifilen n wul'},
+      {title: 'Ugris', text: 'Uḥulfu n uẓeṭṭa, lweǧɛ, leɛyaṭ, lweǧɛ n uqerruy'},
+      {title: 'Ugar', text: 'Ugar n usukkeṛ, isnifilen n ṭṭeɛm, leɛyaṭ'},
+      {title: 'Anẓar', text: 'Ugur n unẓar neɣ anẓar ur nelli ara d aṛṛaḥ'},
+    ],
+    section3Body:
+      'Isnifilen n yihurmunen, nezzeh d wid n progestérone d estrogène, ttɛeddin ɣef yineṭṭiqen n uqerruy (sérotonine, dopamine), ayen izmer ad d-yesseklen tilɣa n wul d tilɣa n ugris n PMS.',
+    tip2Title: 'Yihurmunen sɛan tamlilt tameqqrant',
+    tip2Text:
+      'Isnifilen n yihurmunen zemren ad ɛeṭṭlen ayen n wul, tazmert, anẓar d kra n yiḥulfawen n ugris.',
+    tips: [
+      {title: 'Sew aṭas n waman', text: 'Asew n waman yemkulen yettɛawan ad yeqqes uḥulfu n uẓeṭṭa.'},
+      {title: 'Ečč tuččit yemmendad', text: 'Fren iwlilen id-yessewten magnésium, omega-3 d tivitamines B.'},
+      {title: 'Ssiweḍ iseḥḥen', text: 'Tagnit n ugris tessuffeɣ endorphines u tessenqes aɣilif.'},
+      {title: 'Ḥkem deg uɣilif-ik', text: 'Ineɣman n unfas, anefsay, aɣmis… Af-d ayen i k-yelhan.'},
+      {title: 'Nnez s wudem yekfan', text: 'Anẓar yelhan yettɛawan deg umendad n yihurmunen.'},
+    ],
+    consultTitle: 'Melmi ara tsuteḍ tallalt n uṭṭbib?',
+    consultText:
+      'Ma yella tilɣa d tiqwayanin aṭas u ttɛeṭṭilent tudert-ik n yal ass, izmer ad yili d PMDD (ugur n wul send tiregwa). Ur tettaɛǧalt ara ad tmeslayeḍ d umaẓrag n ṣṣeḥḥa.',
+    shareMessage: 'Aɣilif send tiregwa (PMS): ad t-nefhem yelhan ugar — AWA',
+  },
+  om: {
+    badge: 'MARSAA FI NAGAA',
+    title: 'Sindirooma duraan laguu (PMS):\ngaarittii hubachuu',
+    metaDuration: 'Daqiiqaa 4 dubbisuu',
+    metaValidated: 'Qabiyyee madaalame',
+    intro:
+      'PMS dubartoota 10 keessaa hanga 8tti dhiibbaa geessisuu danda\'a. Dadhabbii, aaraa, garaa bobbaa\'uu… Sababoota isaa hubachuu fi gochaa sirrii hordofuun yeroo ji\'aa kana baay\'ee fooyyessuu danda\'a.',
+    contentsTitle: 'Barruu kana keessatti',
+    contents: [
+      'PMS maali?',
+      'Mallattoowwan baratamoo',
+      'Sababoota danda\'aman',
+      'Gorsa gaarii ta\'uuf',
+      'Yoom doktora argu?',
+    ],
+    section1Body:
+      'Sindiroomni duraan laguu mallattoo qaamaa fi miiraa walitti qabata, kan baay\'ee guyyaa 5 hanga 10 laguu dura mul\'atu, marsaa laguu jalqabaa irratti kan dhaabbatu.',
+    visual1Title: 'Sadarkaa marsaa kee waliin walqabate',
+    visual1Text:
+      'Mallattooleen laguu dura mul\'atu, yeroo baay\'ee laguun yeroo eegalu ni salphatu.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Cimina fi gosa mallattoowwanii dubartii dubartiitti, marsaa marsaatti illee baay\'ee garaagara ta\'uu danda\'a.',
+    symptoms: [
+      {title: 'Miira', text: 'Aaraa, yaaddoo, gadda, jijjiirama miiraa'},
+      {title: 'Qaamaa', text: 'Garaa bobbaa\'uu, dhukkubbii, dadhabbii, mataa dhukkubbii'},
+      {title: 'Amala', text: 'Shukkaara kajeelu, jijjiirama fedhii nyaataa, dadhabbii'},
+      {title: 'Rafuu', text: 'Rafuuf rakkoo ykn rafuu boqonnaa hin qabne'},
+    ],
+    section3Body:
+      'Jijjiiramni hormoonii, keessattuu progesterone fi estrogen, neurotransmitter sammuu (serotonin, dopamine) irratti dhiibbaa geessisa, kunis mallattoowwan miiraa fi qaamaa PMS ibsuu danda\'a.',
+    tip2Title: 'Hormoonii gahee ijoo qabu',
+    tip2Text:
+      'Jijjiiramni hormoonii miira, humna, rafuu fi miira qaamaa tokko tokko irratti dhiibbaa geessisuu danda\'a.',
+    tips: [
+      {title: 'Bishaan gahaa dhugi', text: 'Bishaan gahaa dhuguun garaa bobbaa\'uu hir\'isuuf ni gargaara.'},
+      {title: 'Nyaata madaalawaa nyaadhu', text: 'Nyaata magnesium, omega-3 fi vitamin B baay\'ee qabu filadhu.'},
+      {title: 'Sochii qabaadhu', text: 'Sochiin qaamaa endorphin gadhiisa, dhiphina hir\'isa.'},
+      {title: 'Dhiphina kee to\'adhu', text: 'Shaakala afuufuu, yaada qabsiisuu, barreessuu… Waan si fayyadu argadhu.'},
+      {title: 'Rafuu gahaa rafi', text: 'Rafuun qulqullina qabu madaalli hormoonii deeggara.'},
+    ],
+    consultTitle: 'Yoom gorsa yaalaa gaafachuu qabda?',
+    consultText:
+      'Mallattooleen yoo baay\'ee cimaa ta\'anii jireenya guyyaa guyyaa kee irratti dhiibbaa yoo geessisan, premenstrual dysphoric disorder (PMDD) ta\'uu danda\'a. Ogeessa fayyaa waliin mari\'achuuf hin shakkin.',
+    shareMessage: 'Sindirooma duraan laguu (PMS): gaarittii hubachuu — AWA',
+  },
+  ti: {
+    badge: 'ዑደትን ጽቡቕ ኩነታትን',
+    title: 'ቅድሚ ወርሓዊ ዓደት ሲንድሮም (PMS)፦\nብዝሓሸ ምርዳእ',
+    metaDuration: '4 ደቒቕ ንባብ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'PMS ክሳብ 8 ካብ 10 ደቀንስትዮ ይጸልወን። ድኻም፣ ቁጥዐ፣ ምንፋሕ ከብዲ… ምኽንያታቱ ምርዳእን ግቡእ ልምድታት ምኽታልን እዚ ግዜ ወርሒ ብብዙሕ ክሕይሽ ይኽእል።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    contents: [
+      'PMS እንታይ እዩ?',
+      'ልሙዳት ምልክታት',
+      'ዝኽኣሉ ምኽንያታት',
+      'ዝሓሸ ንምስማዕ ምኽሪታት',
+      'ሓኪም መዓስ ትርእይ?',
+    ],
+    section1Body:
+      'ቅድሚ ወርሓዊ ዓደት ሲንድሮም ኣካላውን ስምዒታውን ምልክታት ይእክብ፣ ብዙሕ ግዜ 5 ክሳብ 10 መዓልታት ቅድሚ ወርሓዊ ዓደትካ ይመጽእን ኣብ መጀመርታ ዑደት ወርሓዊ ዓደት ይሓልፍን።',
+    visual1Title: 'ምስ ዑደትካ ዝተኣሳሰር ደረጃ',
+    visual1Text:
+      'ምልክታት ቅድሚ ወርሓዊ ዓደትካ ይመጹ፣ ምስ ጀመረ ድማ ብዙሕ ግዜ ይቀልሉ።',
+    tip1Title: 'ጽቡቕ ምፍላጥ',
+    tip1Text:
+      'ጽዕንቱን ዓይነት ምልክታትን ካብ ሓንቲ ሰበይቲ ናብ ካልእ፣ ካብ ሓደ ዑደት ናብ ካልእ ድማ ብዙሕ ክፈላለ ይኽእል።',
+    symptoms: [
+      {title: 'ስምዒታት', text: 'ቁጥዐ፣ ጭንቀት፣ ሕዘን፣ ለውጢ ስምዒት'},
+      {title: 'ኣካላዊ', text: 'ምንፋሕ ከብዲ፣ ቃንዛ፣ ድኻም፣ ቃንዛ ርእሲ'},
+      {title: 'ባህሪ', text: 'ሽኮር ምምኳን፣ ለውጢ ሃንቀውታ መግቢ፣ ድኻም'},
+      {title: 'ድቃስ', text: 'ድቃስ ሽግር ወይ ዘይረፍቲ ድቃስ'},
+    ],
+    section3Body:
+      'ናይ ሆርሞን ምውጣእ ምውራድ፣ ብፍላይ ፕሮጀስትሮንን ኤስትሮጅንን፣ ንኒውሮትራንስሚተራት ሓንጎል (ሴሮቶኒን፣ ዶፓሚን) ይጸሉ፣ እዚ ንስምዒታውን ኣካላውን ምልክታት PMS ከብርህ ይኽእል።',
+    tip2Title: 'ሆርሞናት ቀንዲ ግደ ኣለዎም',
+    tip2Text:
+      'ናይ ሆርሞን ምውጣእ ምውራድ ንስምዒት፣ ሓይሊ፣ ድቃስን ገለ ኣካላዊ ስምዒታትን ክጸሉ ይኽእል።',
+    tips: [
+      {title: 'ማይ ብዝተኸፍአ ስተይ', text: 'ብዕቱብ ማይ ምስታይ ምንፋሕ ከብዲ ክውሕድ ይሕግዝ።'},
+      {title: 'ዝተመጣጠነ ኣመጋግባ ብላዕ', text: 'ብማግኒዚየም፣ ኦሜጋ-3ን ቫይታሚን B ሃብታም መግብታት ምረጽ።'},
+      {title: 'ንጡፍ ኩን', text: 'ኣካላዊ ንጥፈት ኢንዶርፊን የፍሪ ጭንቀት ድማ የውርድ።'},
+      {title: 'ጭንቀትካ ሓዝ', text: 'ልምምድ ምትንፋስ፣ ማሰላሰል፣ ጆርናል ምጽሓፍ… እቲ ንዓኻ ዝሰርሕ ድለ።'},
+      {title: 'ብዕቱብ ደቅስ', text: 'ጽቡቕ ድቃስ ናይ ሆርሞን ሚዛን ይድግፍ።'},
+    ],
+    consultTitle: 'ሕክምናዊ ምኽሪ መዓስ ትሓትት?',
+    consultText:
+      'ምልክታት ኣዝዮም ጽኑዓት እንተ ኾይኖምን መዓልታዊ ህይወትካ እንተ ጸሊዎምን፣ ቅድሚ ወርሓዊ ዓደት ዘሎ ዲስፎሪክ ሕማም (PMDD) ክኸውን ይኽእል። ምስ ጥዕና ሰራሕተኛ ምዝራብ ኣይትሰማማዕ።',
+    shareMessage: 'ቅድሚ ወርሓዊ ዓደት ሲንድሮም (PMS)፦ ብዝሓሸ ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'UKWEZI N’IMIBEREHO MYIZA',
+    title: 'Syndrome ibanziriza imihango (PMS):\nmuyisobanukirwe neza',
+    metaDuration: 'Isomwa mu minota 4',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro:
+      'PMS igera kuri 8 mu bagore 10. Kunanirwa, kurakara, inda yaguye… Gusobanukirwa impamvu zayo no gukurikiza imigenzo myiza bishobora kunoza cyane iki gihe cy’ukwezi.',
+    contentsTitle: 'Muri iyi nkuru',
+    contents: [
+      'PMS ni iki?',
+      'Ibimenyetso bisanzwe',
+      'Impamvu zishoboka',
+      'Inama zo kumererwa neza',
+      'Ni ryari ujya kwa muganga?',
+    ],
+    section1Body:
+      'Syndrome ibanziriza imihango ihuza ibimenyetso by’umubiri n’iby’umutima bigaragara akenshi iminsi 5 kugeza kuri 10 mbere y’imihango yawe kandi bikagenda mu ntangiriro y’ukwezi kw’imihango.',
+    visual1Title: 'Igihe gifitanye isano n’ukwezi kwawe',
+    visual1Text:
+      'Ibimenyetso bigaragara mbere y’imihango yawe kandi akenshi bigabanuka iyo itangiye.',
+    tip1Title: 'Ni byiza kubimenya',
+    tip1Text:
+      'Ubukana n’ubwoko bw’ibimenyetso bishobora gutandukana cyane ku mugore ku wundi, no hagati y’ukwezi n’ukundi.',
+    symptoms: [
+      {title: 'Amarangamutima', text: 'Kurakara, guhangayika, ishavu, guhindagurika kw’imitekerereze'},
+      {title: 'Umubiri', text: 'Inda yaguye, ububabare, kunanirwa, kuribwa umutwe'},
+      {title: 'Imyitwarire', text: 'Kwifuza isukari, guhinduka kw’ubushake bwo kurya, kunanirwa'},
+      {title: 'Gusinzira', text: 'Ingorane zo gusinzira cyangwa gusinzira nabi'},
+    ],
+    section3Body:
+      'Guhindagurika kw’imisemburo, cyane cyane progestérone na œstrogène, bigira ingaruka ku bimenyetso bitwara ubutumwa mu bwonko (sérotonine, dopamine), bishobora gusobanura ibimenyetso by’umutima n’iby’umubiri bya PMS.',
+    tip2Title: 'Imisemburo ifite uruhare rukomeye',
+    tip2Text:
+      'Guhindagurika kw’imisemburo bishobora kugira ingaruka ku mitekerereze, imbaraga, gusinzira n’ibyiyumviro bimwe by’umubiri.',
+    tips: [
+      {title: 'Komeza ugire amazi mu mubiri', text: 'Kunywa amazi ahagije bifasha kugabanya inda yaguye.'},
+      {title: 'Rya indyo yuzuye', text: 'Hitamo ibiribwa bikungahaye kuri magnésium, omega-3 na vitamine B.'},
+      {title: 'Komeza ukore imyitozo', text: 'Imyitozo ngororamubiri isohora endorphines kandi igabanya umunaniro w’umutima.'},
+      {title: 'Gabanya umunaniro w’umutima', text: 'Imyitozo yo guhumeka, kuzirikana, kwandika ibyo wiyumva… Shaka icyagukorera.'},
+      {title: 'Sinzira bihagije', text: 'Gusinzira neza bifasha kuringaniza imisemburo.'},
+    ],
+    consultTitle: 'Ni ryari ukwiye gusaba inama za muganga?',
+    consultText:
+      'Niba ibimenyetso bikomeye cyane kandi bigira ingaruka ku buzima bwawe bwa buri munsi, bishobora kuba ari premenstrual dysphoric disorder (PMDD). Ntutinye kujya kureba umuganga ushinzwe ubuzima.',
+    shareMessage: 'Syndrome ibanziriza imihango (PMS): muyisobanukirwe neza — AWA',
+  },
+  rn: {
+    badge: 'URUZINDUKO N\'UBUZIMA BWIZA',
+    title: 'Ibimenyetso bibanziriza imihango (PMS):\nbimenye neza',
+    metaDuration: 'Soma muminuta 4',
+    metaValidated: 'Ibikorwa vyasuzumwe',
+    intro:
+      'PMS ifata gushika ku bagore 8 kuri 10. Umunaniro, kurakara, inda ibyimbye… Kumenya ivyo biva no gushira mu ngiro ingeso nziza birashobora gutuma iki gihe c\'ukwezi kigenda neza cane.',
+    contentsTitle: 'Muri iyi nkuru',
+    contents: [
+      'PMS ni iki?',
+      'Ibimenyetso bikunze',
+      'Ivyaba bitera',
+      'Inama zo kwumva umerewe neza',
+      'Ni ryari wobona muganga?',
+    ],
+    section1Body:
+      'Ibimenyetso bibanziriza imihango bihuza ibimenyetso vy\'umubiri n\'vyo mu mutima bikunze kuboneka iminsi 5 gushika 10 imbere y\'imihango yawe bigashira mu ntango y\'uruzinduko rw\'imihango.',
+    visual1Title: 'Igihe gifatanye n\'uruzinduko rwawe',
+    visual1Text:
+      'Ibimenyetso biboneka imbere y\'imihango yawe kandi bikunze gutuma iyo itangiye.',
+    tip1Title: 'Ni vyiza kubimenya',
+    tip1Text:
+      'Ububasha n\'ubwoko bw\'ibimenyetso birashobora gutandukana cane hagati y\'umugore n\'uwundi, no hagati y\'uruzinduko n\'urundi.',
+    symptoms: [
+      {title: 'Amarangamutima', text: 'Kurakara, guhagarika umutima, agahinda, amarangamutima ahinduka'},
+      {title: 'Umubiri', text: 'Inda ibyimbye, ububabare, umunaniro, kuribwa umutwe'},
+      {title: 'Imyifatire', text: 'Kwifuza isukari, impinduka mu kurya, umunaniro'},
+      {title: 'Ibitotsi', text: 'Ingorane zo gusinzira canke ibitotsi bitaruhura'},
+    ],
+    section3Body:
+      'Impinduka za hormone, cane cane iza progestérone na œstrogène, zigira ingaruka ku bintu vyo mu bwonko bitwara amakuru (sérotonine, dopamine), bishobora gusobanura ibimenyetso vy\'amarangamutima n\'vy\'umubiri vya PMS.',
+    tip2Title: 'Hormone zigira uruhara rukomeye',
+    tip2Text:
+      'Impinduka za hormone zirashobora kugira ingaruka ku marangamutima, ku mbaraga, ku bitotsi no ku bimenyetso bimwebimwe vy\'umubiri.',
+    tips: [
+      {title: 'Nywa amazi ahagije', text: 'Kunywa amazi ahagije bifasha kugabanya inda ibyimbye.'},
+      {title: 'Rya ifunguro rirangwa n\'uburinganire', text: 'Hitamwo ibiryo bifise magnésium, omega-3 n\'ivitamini B nyinshi.'},
+      {title: 'Guma ukora imyitozo', text: 'Imyitozo y\'umubiri irekura endorphines kandi igabanya umunaniro wo mu mutima.'},
+      {title: 'Genzura umunaniro wo mu mutima', text: 'Imyitozo yo guhumeka, gutekereza utuje, kwandika ivyo wiyumvira… Shakashaka ico kigufasha.'},
+      {title: 'Sinzira bihagije', text: 'Ibitotsi vyiza bishigikira uburinganire bwa hormone.'},
+    ],
+    consultTitle: 'Ni ryari wosaba inama z\'ubuvuzi?',
+    consultText:
+      'Niba ibimenyetso bikomeye cane kandi bigira ingaruka ku buzima bwawe bwa buri musi, bishobora kuba ari PMDD (premenstrual dysphoric disorder). Ntutinye kubonana n\'umuhanga mu buvuzi.',
+    shareMessage: 'Ibimenyetso bibanziriza imihango (PMS): bimenye neza — AWA',
+  },
+  ig: {
+    badge: 'OKIRIKIRI NA ỌDỊMMA',
+    title: 'Premenstrual syndrome (PMS):\nịghọta ya nke ọma',
+    metaDuration: 'Nkeji 4 iji gụọ',
+    metaValidated: 'Ọdịnaya e nyochaworo',
+    intro:
+      'PMS na-emetụta ruo ụmụ nwanyị 8 n\'ime 10. Ike ọgwụgwụ, iwe iwe, afọ ufe… Ịghọta ihe kpatara ya na ịnabata omume ọma nwere ike imeziwanye oge a nke ọnwa nke ukwuu.',
+    contentsTitle: 'N\'edemede a',
+    contents: [
+      'Gịnị bụ PMS?',
+      'Afọ ndị a na-ahụkarị',
+      'Ihe nwere ike ịkpata ya',
+      'Ndụmọdụ iji nwee mmetụta ka mma',
+      'Mgbe ị kwesịrị ịhụ dọkịta?',
+    ],
+    section1Body:
+      'Premenstrual syndrome na-agbakọta afọ anụ ahụ na nke mmụọ nke na-apụtakarị ụbọchị 5 ruo 10 tupu nsọ ọnwa gị ma na-apụ n\'mmalite okirikiri nsọ ọnwa.',
+    visual1Title: 'Oge jikọtara na okirikiri gị',
+    visual1Text:
+      'Afọ na-apụta tupu nsọ ọnwa gị ma na-ebelatakarị mgbe ọ malitere.',
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Etu afọ siri ike na ụdị ha nwere ike ịdị iche nke ukwuu site n\'otu nwanyị gaa n\'onye ọzọ, na site n\'okirikiri gaa n\'okirikiri.',
+    symptoms: [
+      {title: 'Mmetụta mmụọ', text: 'Iwe iwe, nchegbu, ewuuwe, mgbanwe mmụọ'},
+      {title: 'Anụ ahụ', text: 'Afọ ufe, mgbu, ike ọgwụgwụ, isi ọwụwa'},
+      {title: 'Omume', text: 'Ọchịchọ shuga, mgbanwe agụụ nri, ike ọgwụgwụ'},
+      {title: 'Ụra', text: 'Nsogbu ụra ma ọ bụ ụra na-adịghị zuru ike'},
+    ],
+    section3Body:
+      'Mgbanwe hormone, karịsịa na progesterone na estrogen, na-emetụta neurotransmitters dị n\'ụbụrụ (serotonin, dopamine), nke nwere ike ịkọwa afọ mmụọ na nke anụ ahụ nke PMS.',
+    tip2Title: 'Hormone na-arụ ọrụ dị mkpa',
+    tip2Text:
+      'Mgbanwe hormone nwere ike imetụta mmụọ, ume, ụra, na mmetụta anụ ahụ ụfọdụ.',
+    tips: [
+      {title: 'Na-aṅụ mmiri', text: 'Ịṅụ mmiri zuru ezu na-enyere aka belata afọ ufe.'},
+      {title: 'Rie nri nwere nguzozi', text: 'Họrọ nri bara ụba na magnesium, omega-3, na vitamin B.'},
+      {title: 'Nọgide na-eme ihe', text: 'Mmega ahụ na-ewepụta endorphins ma na-ebelata nrụgide.'},
+      {title: 'Jikwaa nrụgide gị', text: 'Mmega iku ume, ntụgharị uche, ide akwụkwọ ntụkwasị… Chọpụta ihe na-arụ ọrụ maka gị.'},
+      {title: 'Hie ụra zuru ezu', text: 'Ụra dị mma na-akwado nguzozi hormone.'},
+    ],
+    consultTitle: 'Mgbe ị kwesịrị ịchọ ndụmọdụ dọkịta?',
+    consultText:
+      'Ọ bụrụ na afọ dị oke njọ ma na-emetụta ndụ gị kwa ụbọchị, ọ nwere ike ịbụ premenstrual dysphoric disorder (PMDD). Ekwela ka ụjọ gbochie gị ịkpọtụrụ onye ọrụ ahụike.',
+    shareMessage: 'Premenstrual syndrome (PMS): ịghọta ya nke ọma — AWA',
+  },
+  yo: {
+    badge: 'ÌYÍPO ÀTI ÀLÀÀFÍÀ',
+    title: 'Premenstrual syndrome (PMS):\nlóye rẹ̀ dáadáa',
+    metaDuration: 'Ìṣẹ́jú 4 láti kà',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro:
+      'PMS ń kan tó 8 nínú obìnrin mẹ́wàá. Àárẹ̀, ìbínú, ìwú ikùn… Mímọ ohun tó ń fà á àti gbígba àwọn àṣà tó tọ́ lè mú àkókò oṣù yìí sunwọ̀n sí i gan-an.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    contents: [
+      'Kí ni PMS?',
+      'Àwọn àmì tó wọ́pọ̀',
+      'Àwọn ohun tó lè fà á',
+      'Àwọn ìmọ̀ràn láti rí ara dá',
+      'Ìgbà wo ni o yẹ kí o rí dókítà?',
+    ],
+    section1Body:
+      'Premenstrual syndrome kó àwọn àmì ara àti ti ìmọ̀lára pọ̀ tí wọ́n sábà máa ń farahàn ní ọjọ́ 5 sí 10 ṣáájú nǹkan oṣù rẹ, tí wọ́n sì ń lọ ní ìbẹ̀rẹ̀ ìyípo oṣù.',
+    visual1Title: 'Àkókò tó so mọ́ ìyípo rẹ',
+    visual1Text:
+      'Àwọn àmì ń farahàn ṣáájú nǹkan oṣù rẹ, wọ́n sì sábà máa ń rọlẹ̀ nígbà tí ó bá bẹ̀rẹ̀.',
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Bí àwọn àmì ṣe le tó àti irú wọn lè yàtọ̀ gidigidi láti obìnrin kan sí òmíràn, àti láti ìyípo kan sí òmíràn.',
+    symptoms: [
+      {title: 'Ìmọ̀lára', text: 'Ìbínú, àníyàn, ìbànújẹ́, ìyípadà ìhùwàsí'},
+      {title: 'Ti ara', text: 'Ìwú ikùn, ìrora, àárẹ̀, ìfọ́rí'},
+      {title: 'Ìhùwàsí', text: 'Ìfẹ́ àwọn nǹkan dídùn, àyípadà ìfẹ́ oúnjẹ, àárẹ̀'},
+      {title: 'Oorun', text: 'Ìṣòro sísùn tàbí oorun tí kò dùn tó'},
+    ],
+    section3Body:
+      'Àwọn ìyípadà hormone, pàápàá progesterone àti estrogen, ń kan àwọn neurotransmitter ọpọlọ (serotonin, dopamine), èyí tó lè ṣàlàyé àwọn àmì ìmọ̀lára àti ti ara PMS.',
+    tip2Title: 'Àwọn hormone ní ipa pàtàkì',
+    tip2Text:
+      'Àwọn ìyípadà hormone lè kan ìhùwàsí, agbára, oorun, àti àwọn ìmọ̀lára ara kan.',
+    tips: [
+      {title: 'Máa mu omi tó tó', text: 'Mímu omi tó tó ń ṣèrànwọ́ láti dín ìwú ikùn kù.'},
+      {title: 'Jẹ oúnjẹ tó ní ìwọ̀ntúnwọ̀nsì', text: 'Fẹ́ràn àwọn oúnjẹ tó ní magnesium, omega-3 àti vitamin B lọ́pọ̀.'},
+      {title: 'Máa ṣiṣẹ́ ara', text: 'Iṣẹ́ ara ń tú endorphins jáde, ó sì ń dín másùnmáwo kù.'},
+      {title: 'Ṣàkóso másùnmáwo rẹ', text: 'Àwọn ìdárayá mímí, ìṣàrò, kíkọ àkọsílẹ̀… Wá ohun tó ṣiṣẹ́ fún ọ.'},
+      {title: 'Sùn tó', text: 'Oorun tó dára ń ṣèrànwọ́ fún ìwọ̀ntúnwọ̀nsì hormone.'},
+    ],
+    consultTitle: 'Ìgbà wo ni o yẹ kí o wá ìmọ̀ràn ìṣègùn?',
+    consultText:
+      'Tí àwọn àmì bá le gan-an tí wọ́n sì ń kan ìgbésí ayé ojoojúmọ́ rẹ, ó lè jẹ́ premenstrual dysphoric disorder (PMDD). Má ṣe lọ́ra láti bá ọ̀jọ̀gbọ́n ìlera sọ̀rọ̀.',
+    shareMessage: 'Premenstrual syndrome (PMS): lóye rẹ̀ dáadáa — AWA',
+  },
+  zu: {
+    badge: 'UMJIKELEZO NENHLALAKAHLE',
+    title: 'Isifo sangaphambi kwesikhathi (PMS):\nukusiqonda kangcono',
+    metaDuration: 'Imizuzu emi-4 yokufunda',
+    metaValidated: 'Okuphawulwe ngochwepheshe',
+    intro:
+      'I-PMS ithinta cishe abesifazane abayisi-8 kwabayi-10. Ukukhathala, ukucasuka, ukuvuvukala kwesisu… Ukuqonda izimbangela zayo nokulandela imikhuba efanele kungasithuthukisa kakhulu lesi sikhathi senyanga.',
+    contentsTitle: 'Kulesi sihloko',
+    contents: [
+      'Iyini i-PMS?',
+      'Izimpawu ezivamile',
+      'Izimbangela ezingaba khona',
+      'Amathiphu okuzizwa kangcono',
+      'Isikhathi sokubona udokotela?',
+    ],
+    section1Body:
+      'Isifo sangaphambi kwesikhathi sihlanganisa izimpawu zomzimba nezemizwa ezivame ukuvela izinsuku ezi-5 kuya kwezi-10 ngaphambi kwesikhathi sakho futhi zinyamalale ekuqaleni komjikelezo wokuya esikhathini.',
+    visual1Title: 'Isigaba esihlobene nomjikelezo wakho',
+    visual1Text:
+      'Izimpawu zivela ngaphambi kwesikhathi sakho futhi imvamisa ziyaphela uma siqala.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Amandla nohlobo lwezimpawu kungahluka kakhulu phakathi kwabesifazane, nasemjikelezweni oya komunye.',
+    symptoms: [
+      {title: 'Imizwa', text: 'Ukucasuka, ukukhathazeka, ukuzwa ubuhlungu enhliziyweni, ukushintshashintsha kwemizwa'},
+      {title: 'Umzimba', text: 'Ukuvuvukala kwesisu, ubuhlungu, ukukhathala, ikhanda elihlungu'},
+      {title: 'Ukuziphatha', text: 'Isifiso sezinto ezimnandi, izinguquko ekudleni, ukukhathala'},
+      {title: 'Ukulala', text: 'Ubunzima bokulala noma ukulala okungaphumuli kahle'},
+    ],
+    section3Body:
+      'Ukushintshashintsha kwamahomoni, ikakhulukazi i-progesterone ne-estrogen, kuthinta ama-neurotransmitter obuchopho (i-serotonin, i-dopamine), okungachaza izimpawu zemizwa nezomzimba ze-PMS.',
+    tip2Title: 'Amahomoni abamba iqhaza elikhulu',
+    tip2Text:
+      'Ukushintshashintsha kwamahomoni kungathinta isimo sengqondo, amandla, ukulala nemizwa ethile yomzimba.',
+    tips: [
+      {title: 'Hlala unamanzi emzimbeni', text: 'Ukuphuza amanzi anele kusiza ukunciphisa ukuvuvukala kwesisu.'},
+      {title: 'Dla ukudla okulinganiselayo', text: 'Khetha ukudla okunothile nge-magnesium, ama-omega-3 namavithamini e-B.'},
+      {title: 'Hlala unyakaza', text: 'Ukuzivivinya komzimba kukhipha ama-endorphin futhi kunciphisa ukucindezeleka.'},
+      {title: 'Phatha ukucindezeleka kwakho', text: 'Ukuvivinya ukuphefumula, ukucabanga ngokuthula, ukubhala ijenali… Thola lokho okukusebenzela.'},
+      {title: 'Lala ngokwanele', text: 'Ukulala kahle kusekela ibhalansi yamahomoni.'},
+    ],
+    consultTitle: 'Kufanele ucele ukweluleka kodokotela nini?',
+    consultText:
+      'Uma izimpawu zinamandla kakhulu futhi zithinta impilo yakho yansuku zonke, kungaba yi-premenstrual dysphoric disorder (PMDD). Ungangabazi ukubonana nochwepheshe wezempilo.',
+    shareMessage: 'Isifo sangaphambi kwesikhathi (PMS): ukusiqonda kangcono — AWA',
+  },
+  xh: {
+    badge: 'UMJIKELO NEMPILO',
+    title: 'I-syndrome yangaphambi kwexesha lenyanga (PMS):\nukuyiqonda ngcono',
+    metaDuration: 'Imizuzu emi-4 yokufunda',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro:
+      'I-PMS ichaphazela ukuya kumabhinqa ama-8 kwali-10. Ukudinwa, ukucaphuka, ukuqumba… Ukuqonda izizathu zayo nokwamkela izimilo ezifanelekileyo kunokuphucula kakhulu eli xesha lenyanga.',
+    contentsTitle: 'Kweli nqaku',
+    contents: [
+      'Yintoni i-PMS?',
+      'Iimpawu eziqhelekileyo',
+      'Izizathu ezinokubakho',
+      'Iingcebiso zokuziva ngcono',
+      'Xa kufuneka ubone igqirha?',
+    ],
+    section1Body:
+      'I-syndrome yangaphambi kwexesha lenyanga idibanisa iimpawu zomzimba neemvakalelo ezidla ngokuvela ngaphambi kweentsuku ezi-5 ukuya kwezi-10 zexesha lakho lenyanga kwaye ziphela ekuqaleni komjikelo wexesha lenyanga.',
+    visual1Title: 'Inqanaba elinxulumene nomjikelo wakho',
+    visual1Text:
+      'Iimpawu ziyavela ngaphambi kwexesha lakho lenyanga kwaye zidla ngokuncipha ekuqaleni kwalo.',
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'Ubukhulu nohlobo lweempawu zinokwahluka kakhulu phakathi komfazi nomnye, nakumjikelo nomnye.',
+    symptoms: [
+      {title: 'Iimvakalelo', text: 'Ukucaphuka, ukukhathazeka, ukudana, utshintsho lwemood'},
+      {title: 'Zomzimba', text: 'Ukuqumba, ubuhlungu, ukudinwa, iintloko ezibuhlungu'},
+      {title: 'Indlela yokuziphatha', text: 'Inkanuko yeswekile, utshintsho lwetakuxa kutyiwa, ukudinwa'},
+      {title: 'Ukulala', text: 'Ubunzima bokulala okanye ukulala ngokungaphumli kakhulu'},
+    ],
+    section3Body:
+      'Ukuguquguquka kwehomoni, ngakumbi kwi-progesterone ne-estrogen, kuchaphazela ii-neurotransmitters zobuchopho (serotonin, dopamine), nto leyo enokuchaza iimpawu zeemvakalelo nezomzimba ze-PMS.',
+    tip2Title: 'Ihomoni zidlala indima ephambili',
+    tip2Text:
+      'Ukuguquguquka kwehomoni kunokuchaphazela imood, amandla, ukulala, neemvakalelo ezithile zomzimba.',
+    tips: [
+      {title: 'Hlala useze amanzi', text: 'Ukusela amanzi anele kunceda ukunciphisa ukuqumba.'},
+      {title: 'Tya ukutya okulinganisiweyo', text: 'Khetha ukutya okuphezulu kwi-magnesium, i-omega-3, nee-vitamin B.'},
+      {title: 'Hlala usebenza', text: 'Umsebenzi womzimba ukhulula ii-endorphins kwaye unciphisa uxinzelelo.'},
+      {title: 'Lawula uxinzelelo lwakho', text: 'Imithambo yokuphefumla, ukucamngca, ukubhala ijenali… Fumana oko kukusebenzela.'},
+      {title: 'Lala ngokwaneleyo', text: 'Ukulala okumgangatho ophezulu kuxhasa ukulingana kwehomoni.'},
+    ],
+    consultTitle: 'Xa kufuneka ucele icebiso lezonyango?',
+    consultText:
+      'Ukuba iimpawu zinkulu kakhulu kwaye zichaphazela ubomi bakho bemihla ngemihla, kunokuba yi-premenstrual dysphoric disorder (PMDD). Ungathandabuzi ukubonana nechwephesha lezempilo.',
+    shareMessage: 'I-syndrome yangaphambi kwexesha lenyanga (PMS): ukuyiqonda ngcono — AWA',
+  },
+  sn: {
+    badge: 'CYCLE & KUGARA ZVAKANAKA',
+    title: 'Premenstrual syndrome (PMS):\nkuinzwisisa zvirinani',
+    metaDuration: 'Maminitsi 4 ekuverenga',
+    metaValidated: 'Zvakaongororwa',
+    intro:
+      'PMS inobata kusvika vakadzi 8 pane gumi. Kuneta, kutsamwa nekukurumidza, kuzvimba kwedumbu… Kunzwisisa zvinokonzera uye kutora maitiro akanaka kunogona kuvandudza zvikuru nguva iyi yemwedzi.',
+    contentsTitle: 'Mudzidziso uyu',
+    contents: [
+      'PMS chii?',
+      'Zviratidzo zvinowanzoitika',
+      'Zvingakonzera',
+      'Mazano ekunzwa zvirinani',
+      'Painofanira kuona chiremba?',
+    ],
+    section1Body:
+      'Premenstrual syndrome inounganidza zviratidzo zvemuviri nezvemanzwiro zvinowanzoonekwa mazuva 5 kusvika ku10 usatiwaenda kumwedzi uye zvinoenda pakutanga kwemenstrual cycle.',
+    visual1Title: 'Nguva yakabatana ne cycle yako',
+    visual1Text:
+      'Zviratidzo zvinoonekwa usati waenda kumwedzi uye zvinowanzorerukira kana wasvika.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Kusimba nemhando yezviratidzo zvinogona kusiyana zvikuru kubva kumukadzi kuenda kumukadzi, uye kubva pacycle imwe kuenda kune imwe.',
+    symptoms: [
+      {title: 'Manzwiro', text: 'Kutsamwa nekukurumidza, kunetseka, kusuruvara, shanduko dzemamood'},
+      {title: 'Zvemuviri', text: 'Kuzvimba kwedumbu, marwadzo, kuneta, kurwadza musoro'},
+      {title: 'Maitiro', text: 'Kuda zvinotapira, shanduko dzekudya, kuneta'},
+      {title: 'Kurara', text: 'Kuoma kurara kana kurara kusingazorodzi'},
+    ],
+    section3Body:
+      'Kusiyana kwehormone, kunyanya progesterone neestrogen, kunokanganisa neurotransmitters dzepfungwa (serotonin, dopamine), izvo zvinogona kutsanangura zviratidzo zvemanzwiro nezvemuviri zvePMS.',
+    tip2Title: 'Hormone dzinoita basa guru',
+    tip2Text:
+      'Kusiyana kwehormone kunogona kukanganisa mood, simba, kurara uye mamwe manzwiro emuviri.',
+    tips: [
+      {title: 'Nwa mvura yakakwana', text: 'Kunwa mvura inokwana kunobatsira kudzikisa kuzvimba kwedumbu.'},
+      {title: 'Dya zvakaringana', text: 'Sarudza zvokudya zvine magnesium, omega-3 nemavitamin B.'},
+      {title: 'Garira uchifamba', text: 'Kuita ekisesaizi kunoburitsa endorphins uye kunoderedza kushushikana.'},
+      {title: 'Bata kushushikana kwako', text: 'Maekisesaizi ekufema, kufungisisa, kunyora journal… Tsvaga icho chinokubatsira.'},
+      {title: 'Rara zvakakwana', text: 'Kurara kwakanaka kunotsigira kuenzana kwehormone.'},
+    ],
+    consultTitle: 'Painofanira kutsvaga zano rekurapa?',
+    consultText:
+      'Kana zviratidzo zvakanyanya uye zvichikanganisa hupenyu hwako hwezuva nezuva, zvingava premenstrual dysphoric disorder (PMDD). Usazengurira kuonana nemushandi wezvehutano.',
+    shareMessage: 'Premenstrual syndrome (PMS): kuinzwisisa zvirinani — AWA',
+  },
+  ln: {
+    badge: 'CYCLE & BOLAMU',
+    title: 'Bilembo liboso ya sanza (PMS):\nkoyeba yango malamu',
+    metaDuration: 'Mwa mokapo ya kotánga: 4 min',
+    metaValidated: 'Maloba etalelami',
+    intro:
+      'PMS esalaka likama na basi tii 8 na 10. Bolembu, nkanda ya noki, libumu etondi mopɛpɛ… Koyeba ntina na yango mpe kosala momeseno oyo ebongi ekoki kobongisa mingi ntango oyo ya sanza.',
+    contentsTitle: 'Na lisolo oyo',
+    contents: [
+      'PMS ezali nini?',
+      'Bilembo ya mbala mingi',
+      'Bantina oyo ekoki kozala',
+      'Toli mpo na komiyoka malamu',
+      'Ntango nini kokende epai ya monganga?',
+    ],
+    section1Body:
+      'PMS ezali liboke ya bilembo ya nzoto mpe ya motema oyo ebimaka mbala mingi mikolo 5 tii 10 liboso ya sanza na yo mpe esili na ebandeli ya cycle ya sanza.',
+    visual1Title: 'Ntango oyo ekangami na cycle na yo',
+    visual1Text:
+      'Bilembo ebimaka liboso ya sanza na yo mpe mbala mingi ekitaka ntango sanza ebandi.',
+    tip1Title: 'Eloko ya malamu koyeba',
+    tip1Text:
+      'Makasi mpe lolenge ya bilembo ekoki kokesena mingi uta mwasi na mwasi, mpe uta cycle na cycle.',
+    symptoms: [
+      {title: 'Mayoki ya motema', text: 'Nkanda ya noki, bobangi, mawa, bobongwani ya motema'},
+      {title: 'Nzoto', text: 'Libumu etondi mopɛpɛ, mpasi, bolembu, mpasi ya motó'},
+      {title: 'Momeseno', text: 'Mposa ya sukali, bobongwani ya mposa ya kolia, bolembu'},
+      {title: 'Mpɔngi', text: 'Mpasi ya kolala mpɔngi to mpɔngi oyo epesaka malamu te'},
+    ],
+    section3Body:
+      'Bobongwani ya ormɔne, mingi mingi ya progestérone mpe ya estrogène, esalaka likama na biloko ya ntɔngɔ ya mayele (serotonine, dopamine), oyo ekoki koyebisa bilembo ya motema mpe ya nzoto ya PMS.',
+    tip2Title: 'Ormɔne ezali na mosala ya ntina',
+    tip2Text:
+      'Bobongwani ya ormɔne ekoki kosala likama na motema, makasi, mpɔngi mpe bamayoki mosusu ya nzoto.',
+    tips: [
+      {title: 'Komela mai', text: 'Komela mai ya kokoka esalisaka kokitisa libumu oyo etondi mopɛpɛ.'},
+      {title: 'Lia bilei oyo ebongi', text: 'Pona bilei oyo ezali na magnezium, omega-3 mpe vitamine B.'},
+      {title: 'Zala na mosala', text: 'Misala ya nzoto ebimisaka endorfine mpe ekitisaka mpiko ya motema.'},
+      {title: 'Kokitisa mpiko ya motema', text: 'Kopema na ndenge ya mayele, kobondela motema, kokoma makanisi na yo… Luka oyo esalisaka yo.'},
+      {title: 'Lala mpɔngi ya kokoka', text: 'Mpɔngi ya malamu esungaka kolinga ormɔne.'},
+    ],
+    consultTitle: 'Ntango nini osengeli kosenga toli ya monganga?',
+    consultText:
+      'Soki bilembo ezali makasi mingi mpe esali likama na bomoi na yo ya mokolo na mokolo, ekoki kozala PMDD (premenstrual dysphoric disorder). Kobanga te kokende epai ya mosali ya mayele.',
+    shareMessage: 'Bilembo liboso ya sanza (PMS): koyeba yango malamu — AWA',
+  },
+  ff: {
+    badge: 'CYCLE & ÑAWNDU',
+    title: 'Premenstrual syndrome (PMS):\nfaamugo ɗum ɓuri',
+    metaDuration: 'Janngugo 4 miniti',
+    metaValidated: 'Ko ƴetti ndaarol',
+    intro:
+      'PMS sellan rewɓe haa 8 nder 10. Tiiɗɗam, ɓernde ɗaɓɓi, reedu ɗam… Faamugo sabaabuuji ɗin e ngaɗugo kuuɗe no haanani waawi wallugo no feewi nder wakkati ndu lebbi.',
+    contentsTitle: 'Nder ɗerewol ndin',
+    contents: [
+      'Ko ɗum PMS?',
+      'Alamaaji ɗi ngonnda',
+      'Sabaabuuji ɗi ngonnda',
+      'Anndinki ngam heɓugo ɓuri',
+      'Saa ngoye ma ndaara doktoor?',
+    ],
+    section1Body:
+      'Premenstrual syndrome ɗum ko alamaaji bandu e ɓernde ɗi feƴƴata ñalɗi 5 haa 10 adan menstruation maaɗa e ɗin ngaɗan ndeen menstruation fuɗɗi cycle.',
+    visual1Title: 'Wakkati hawti e cycle maaɗa',
+    visual1Text:
+      'Alamaaji ɗin feƴƴan adan menstruation maaɗa e ɗin hoosnan saa ɗum fuɗɗi.',
+    tip1Title: 'Ko mari njoɓdi',
+    tip1Text:
+      'Tiiɗɗam e leñol alamaaji ɗin waawi wayyude no feewi hakkunde debbo e debbo, e hakkunde cycle e cycle.',
+    symptoms: [
+      {title: 'Hakkilo', text: 'Ɓernde ɗaɓɓi, hulugo, tampere, wayrude hakkilo'},
+      {title: 'Bandu', text: 'Reedu ɗam, muusi, tiiɗɗam, muusi hoore'},
+      {title: 'Jikku', text: 'Yiɗde sukkar, wayrude yiɗde ñaamdu, tiiɗɗam'},
+      {title: 'Ɗaanaago', text: 'Caɗeele ɗaanaago walla ɗaanaago hoosaaki'},
+    ],
+    section3Body:
+      'Wayrude hormon, ko ɓuri progesterone e estrogen, sellan ko hoore hokkata habaru (serotonin, dopamine), ɗum waawi limtaago alamaaji ɓernde e bandu PMS.',
+    tip2Title: 'Hormon mari kuugal mawndi',
+    tip2Text:
+      'Wayrude hormon waawi sellude hakkilo, semmbe, ɗaanaago e nanugo bandu goɗɗo.',
+    tips: [
+      {title: 'Yoɓ ndiyam no yiɗi', text: 'Yoɓugo ndiyam hanki wallan ɓuri reedu ɗam.'},
+      {title: 'Ñaam ñaamdu hanaande', text: 'Suɓtu ñaamdu mari magnesium, omega-3 e vitamin B.'},
+      {title: 'Hoɗu e yaadu', text: 'Yaadu bandu yaltina endorphin e hoosnan hakkilo.'},
+      {title: 'Reentu hakkilo maaɗa', text: 'Fiilaaji heftugo hakkilo, meditation, winndugo ko nanii ma… Tawtu ko wallata ma.'},
+      {title: 'Ɗaan no yiɗi', text: 'Ɗaanaago ngaɗaango no haanani wallan wayrude hormon.'},
+    ],
+    consultTitle: 'Saa ngoye ma ƴami muuyugo doktoor?',
+    consultText:
+      'Si alamaaji ɗin tiiɗi no feewi e ɗin haɗi ma ngaɗugo kuuɗe ñalnde kala, ɗum waawi laatugo premenstrual dysphoric disorder (PMDD). Taa hulu ndaarugo goɗɗo anndiiɗo.',
+    shareMessage: 'Premenstrual syndrome (PMS): faamugo ɗum ɓuri — AWA',
+  },
   id: {
     badge: 'SIKLUS & KESEJAHTERAAN',
     title: 'Sindrom pramenstruasi (PMS):\nmemahaminya dengan lebih baik',

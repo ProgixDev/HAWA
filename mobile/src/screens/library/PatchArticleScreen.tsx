@@ -546,6 +546,839 @@ const CONTENT = withBrazilianPortuguese('Patch', {
       ],
       shareMessage: '避孕贴 — AWA',
     },
+  'zh-Hant': {
+      badge: '避孕貼',
+      title: '避孕貼',
+      metaDuration: '閱讀約 5 分鐘',
+      metaType: '文章',
+      metaLevel: '入門',
+      metaValidated: '經審閱的內容',
+      intro: '每週一次，是每日服藥之外的另一種選擇。',
+      contentsTitle: '本文內容',
+      topics: [
+        '避孕貼如何起作用',
+        '貼用時間安排',
+        '你需要了解的事',
+        '要點回顧',
+      ],
+      section1Body: '避孕貼通過皮膚持續釋放荷爾蒙，作用方式與複方避孕藥相似：抑制排卵，並使宮頸黏液變稠。',
+      tip1Title: '小提醒',
+      tip1Text: '它的主要優點是不需要每天服藥。',
+      section2Body: '避孕貼通常每週更換一次，連續三週，之後休息一週，不貼。',
+      applicationTips: [
+        '每次更換貼用的位置',
+        '檢查它是否仍然貼牢',
+        '貼在清潔、乾燥的皮膚上',
+      ],
+      sectionIntro: '使用前和使用期間需要了解的要點。',
+      facts: [
+        {
+          title: '每週更換',
+          text: '避孕貼每週更換一次。',
+        },
+        {
+          title: '皮膚乾燥',
+          text: '必須貼在清潔、乾燥的皮膚上。',
+        },
+        {
+          title: '保護',
+          text: '正確使用時，它會持續起效。',
+        },
+        {
+          title: '需要留意',
+          text: '有時會出現區域性刺激。',
+        },
+      ],
+      comparisonTitle: '優點與侷限',
+      advantageTitle: '優點',
+      advantages: [
+        '• 每週只需貼一次',
+        '• 無需每日服藥',
+        '• 荷爾蒙持續釋放',
+      ],
+      limitTitle: '侷限',
+      limits: [
+        '不能預防性傳播感染',
+        '可能引起皮膚刺激',
+        '需要按時更換',
+      ],
+      alertTitle: '請注意',
+      alertText: '貼用部位可能會出現輕微刺激。輪換貼用部位有助於減少這種情況。',
+      rememberTitle: '3 個要點',
+      remember: [
+        '每週更換一次避孕貼。',
+        '定期檢查它是否貼牢。',
+        '如有需要，請向醫療專業人員諮詢。',
+      ],
+      shareMessage: '避孕貼 — AWA',
+    },
+  ar: {
+    badge: 'لصقة منع الحمل',
+    title: 'لصقة\nمنع الحمل',
+    metaDuration: 'قراءة 5 دقائق',
+    metaType: 'مقال',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى مراجَع',
+    intro: 'بديل أسبوعي لحبوب منع الحمل اليومية.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'كيف تعمل اللصقة',
+      'جدول الاستخدام',
+      'ما يجب أن تعرفيه',
+      'أهم النقاط',
+    ],
+    section1Body:
+      'تطلق اللصقة الهرمونات باستمرار عبر الجلد، وتعمل بطريقة مشابهة لحبوب منع الحمل المركّبة: فهي تمنع الإباضة وتزيد كثافة مخاط عنق الرحم.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'ميزتها الرئيسية أنها لا تتطلب جرعة يومية.',
+    section2Body:
+      'تُستبدل اللصقة عمومًا مرة في الأسبوع لمدة ثلاثة أسابيع، يليها أسبوع بلا لصقة.',
+    applicationTips: [
+      'غيّري موضع اللصق في كل مرة',
+      'تأكدي من أنها ما زالت ملتصقة جيدًا',
+      'ضعيها على جلد نظيف وجاف',
+    ],
+    sectionIntro:
+      'أهم النقاط التي يجب معرفتها قبل الاستخدام وأثناءه.',
+    facts: [
+      {title: 'كل أسبوع', text: 'تُستبدل اللصقة مرة واحدة في الأسبوع.'},
+      {title: 'جلد جاف', text: 'يجب وضعها على جلد نظيف وجاف.'},
+      {title: 'الحماية', text: 'تعمل باستمرار عند استخدامها بشكل صحيح.'},
+      {title: 'انتبهي إلى', text: 'قد يحدث تهيّج موضعي أحيانًا.'},
+    ],
+    comparisonTitle: 'المزايا والحدود',
+    advantageTitle: 'المزايا',
+    advantages: [
+      '• لصقة واحدة في الأسبوع',
+      '• لا جرعة يومية',
+      '• إطلاق مستمر للهرمونات',
+    ],
+    limitTitle: 'الحدود',
+    limits: [
+      'لا تحمي من الأمراض المنقولة جنسيًا',
+      'قد تسبب تهيّجًا في الجلد',
+      'تتطلب الالتزام بجدول الاستبدال',
+    ],
+    alertTitle: 'تنبيه',
+    alertText:
+      'قد يظهر تهيّج خفيف في موضع اللصق. وتبديل مواضع اللصق قد يساعد على الحدّ منه.',
+    rememberTitle: '3 أمور أساسية',
+    remember: [
+      'بدّلي اللصقة كل أسبوع.',
+      'تحققي بانتظام من أنها ملتصقة جيدًا.',
+      'اطلبي مشورة مختص صحي عند الحاجة.',
+    ],
+    shareMessage: 'لصقة منع الحمل — AWA',
+  },
+  kab: {
+    badge: 'PATCH N TMERNA',
+    title: 'Patch\nn tmerna',
+    metaDuration: '5 n tesdatin n tɣuri',
+    metaType: 'Amagrad',
+    metaLevel: 'Anabdu',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Tarrayt n yal dduṛt deg wanda n ubufaru n yal ass.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Amek i yettxeddem patch',
+      'Amaraw n useqdec',
+      'D acu ilaqen ad teẓṛeḍ',
+      'Tiɣawsiwin tigejdanin',
+    ],
+    section1Body:
+      'Patch yessuffeɣ hormone s lehna seg tela, yettxeddem am ubufaru yeddukklen: yegg ovulation yettwaqqen, yessaɣen tidimt n ɛenq n tebburt.',
+    tip1Title: 'Ilaq ad teẓṛeḍ',
+    tip1Text:
+      'Lmeɛna-ines agejdan d ayen ur yessutur ara tuddsa n yal ass.',
+    section2Body:
+      'Patch yettwabeddel s waṭas yiwen n tikkelt deg dduṛt, ɣef tlata n yimalasen, sakin yiwen n yimalas war patch.',
+    applicationTips: [
+      'Beddel adig n useqdec yal tikkelt',
+      'Wali ma mazal yetteṭṭef mliḥ',
+      'Rnu-t ɣer uglim aydeg yeṭṭef, yeḥmu, ur d-yettili ara',
+    ],
+    sectionIntro:
+      'Ticraḍ igejdanin ilaqen ad teẓṛeḍ send d deg useqdec.',
+    facts: [
+      {title: 'Yal dduṛt', text: 'Patch yettwabeddel yiwen n tikkelt deg dduṛt.'},
+      {title: 'Aglim yeḥmu', text: 'Ilaq ad yettwarnu ɣer uglim aydeg yeṭṭef yeḥmu.'},
+      {title: 'Aḥrir', text: 'Yettxeddem war ma yeqqen mi ara yettwasseqdec akken ilaq.'},
+      {title: 'Ɣur-k', text: 'Aḥulfu n ugim zemrent ad d-yettilin kra n tikkal.'},
+    ],
+    comparisonTitle: 'Lmeɛna d tilisa',
+    advantageTitle: 'Lmeɛna',
+    advantages: [
+      '• Yiwen n useqdec deg dduṛt',
+      '• Ulac tuddsa n yal ass',
+      '• Tuffɣa n hormone war ma tbedd',
+    ],
+    limitTitle: 'Tilisa',
+    limits: [
+      'Ur yettḥerrez ara seg STI',
+      'Yezmer ad yeglu aḥulfu n uglim',
+      'Yessuter ad tḥerzeḍ amaraw n usnifel',
+    ],
+    alertTitle: 'Ɣur-k',
+    alertText:
+      'Aḥulfu meẓẓiyen yezmer ad d-yeḍru deg wadig n useqdec. Abeddel n yedgan n useqdec yezmer ad yeḥrez seg wannect-a.',
+    rememberTitle: '3 n tiɣawsiwin igejdanin',
+    remember: [
+      'Beddel patch yal dduṛt.',
+      'Wali s lmiḥ ma mazal yetteṭṭef mliḥ.',
+      'Suter tisutura n umaẓrag n lɛafit ma yella lazem.',
+    ],
+    shareMessage: 'Patch n tmerna — AWA',
+  },
+  om: {
+    badge: 'PAACHII ITTISA ULFAA',
+    title: 'Paachii\nittisa ulfaa',
+    metaDuration: 'Daqiiqaa 5 dubbisuuf',
+    metaType: 'Barruu',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee sakatta\'ame',
+    intro: 'Filannoo torbanitti piliii guyyaa guyyaa bakka bu\'u.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Paachiin akkamitti hojjeta',
+      'Sagantaa itti maxxansuu',
+      'Wanta beekuu qabdu',
+      'Ka\'umsa gurguddoo',
+    ],
+    section1Body:
+      'Paachiin hormoonii gogaa keessaan yeroo hunda gadi dhiisa; piliii walitti makame wajjin walfakkaatuun hojjeta: ovulation ni dhorka, dhangala\'aa garaa garaa ni cimsa.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Bu\'aan isaa inni ijoo guyyaa guyyaan qoricha fudhachuu hin barbaachisne.',
+    section2Body:
+      'Paachiin baay\'inaan torbanitti altokko jijjiiramee torban sadii, kana booda torban tokko paachii malee.',
+    applicationTips: [
+      'Bakka maxxansuu al kamiyyuu jijjiiri',
+      'Ammayyuu cimsee maxxanfamee jiraachuu isaa mirkaneessi',
+      'Gogaa qulqulluu fi gogaa irratti maxxansi',
+    ],
+    sectionIntro:
+      'Qabxiiwwan ijoo itti fayyadamuu dura fi yeroo itti fayyadamtu beekuu qabdu.',
+    facts: [
+      {title: 'Torban torbaniin', text: 'Paachiin torbanitti altokko jijjiirama.'},
+      {title: 'Gogaa goggogaa', text: 'Gogaa qulqulluu fi goggogaa irratti maxxanfamuu qaba.'},
+      {title: 'Eegumsa', text: 'Yoo sirriitti fayyadamame yeroo hunda hojjeta.'},
+      {title: 'Of eeggadhu', text: 'Yeroo tokko tokko bakka maxxanfameen dhukkubbii ykn nyaaphuun ta\'uu danda\'a.'},
+    ],
+    comparisonTitle: 'Bu\'aa fi daangaa',
+    advantageTitle: 'Bu\'aawwan',
+    advantages: [
+      '• Torbanitti maxxansuu altokko',
+      '• Guyyaa guyyaan qoricha hin fudhatamu',
+      '• Hormoonii yeroo hunda gadi dhiisuu',
+    ],
+    limitTitle: 'Daangaawwan',
+    limits: [
+      'Dhukkuba walqunnamtiin darbu irraa hin eegu',
+      'Gogaa nyaaphuu danda\'a',
+      'Sagantaa jijjiiruu hordofuu barbaada',
+    ],
+    alertTitle: 'Hubadhu',
+    alertText:
+      'Bakka maxxanfameen nyaaphuun salphaa mul\'achuu danda\'a. Bakka maxxansuu jijjiiruun kana hir\'isuuf gargaaruu danda\'a.',
+    rememberTitle: 'Wantoota ijoo 3',
+    remember: [
+      'Paachii torban torbaniin jijjiiri.',
+      'Yeroo yeroon, sirriitti maxxanfamaa jiraachuu isaa mirkaneessi.',
+      'Yoo barbaachise ogeessa fayyaa irraa gorsa gaafadhu.',
+    ],
+    shareMessage: 'Paachii ittisa ulfaa — AWA',
+  },
+  ti: {
+    badge: 'ናይ ምክልኻል ጥንሲ ፓች',
+    title: 'ናይ ምክልኻል ጥንሲ\nፓች',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaType: 'ዓንቀጽ',
+    metaLevel: 'መእተዊ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ካብ ዕለታዊ ኪኒ ሰሙናዊ ኣማራጺ።',
+    contentsTitle: 'ኣብዚ ዓንቀጽ',
+    topics: [
+      'ፓች ከመይ ይሰርሕ',
+      'ናይ ምቅማጥ ሰሌዳ',
+      'ክትፈልጢዮ ዘለኪ',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Body:
+      'ፓች ሆርሞናት ብቐጻልነት ብቆርበት ይሰዱ፣ ምስ ጽምዲ ኪኒ ብዝመሳሰል ኣገባብ ይሰርሕ፦ ኦቭዩሌሽን ይኽልክል ናይ ማህጸን ሙከስ ድማ የጠቅዕ።',
+    tip1Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip1Text:
+      'ቀንዲ ረብሓኡ ዕለታዊ ዶዝ ዘየድልይ ምዃኑ እዩ።',
+    section2Body:
+      'ፓች ብሓፈሻ ሓደ ሓደ ሰሙን ንሰለስተ ሰሙን ይቕየር፣ ድሕሪኡ ሓደ ሰሙን ብዘይ ፓች።',
+    applicationTips: [
+      'ነፍሲ ወከፍ ግዜ ቦታ ምቅማጥ ቀይሪ',
+      'ብጽኑዕ ከም ዝተጣበቐ ርግጸኛ ኩኒ',
+      'ኣብ ንጹህን ንጹፍ ቆርበት ቀምጢ',
+    ],
+    sectionIntro:
+      'ቅድሚ ኣጠቓቕማን ኣብ ግዜ ኣጠቓቕማን ክፍለጡ ዘለዎም ቀንዲ ነጥብታት።',
+    facts: [
+      {title: 'ነፍሲ ወከፍ ሰሙን', text: 'ፓች ሓደ ሓደ ሰሙን ይቕየር።'},
+      {title: 'ንጹፍ ቆርበት', text: 'ኣብ ንጹህን ንጹፍ ቆርበት ክቕመጥ ይግባእ።'},
+      {title: 'ምክልኻል', text: 'ብትክክል ምስ ዝውዕል ብቐጻልነት ይሰርሕ።'},
+      {title: 'ጥንቃቐ', text: 'ኣብ ቦታኡ ሓደ ሓደ ግዜ ምቁጥጣዕ ክኸውን ይኽእል።'},
+    ],
+    comparisonTitle: 'ረብሓታትን ደረጃታትን',
+    advantageTitle: 'ረብሓታት',
+    advantages: [
+      '• ኣብ ሰሙን ሓደ ምቅማጥ',
+      '• ዕለታዊ ዶዝ የለን',
+      '• ቀጻልነት ዘለዎ ሆርሞን ምውጻእ',
+    ],
+    limitTitle: 'ደረጃታት',
+    limits: [
+      'ካብ STI ኣይከላከልን',
+      'ናይ ቆርበት ምቁጥጣዕ ክፈጥር ይኽእል',
+      'ናይ ምቅያር ሰሌዳ ምስዓብ የድልይ',
+    ],
+    alertTitle: 'ጥንቃቐ',
+    alertText:
+      'ኣብ ቦታ ምቅማጥ ቀሊል ምቁጥጣዕ ክረአ ይኽእል። ቦታታት ምቅማጥ ምቅያር እዚ ንምድቓቕ ክሕግዝ ይኽእል።',
+    rememberTitle: '3 ኣገደስቲ',
+    remember: [
+      'ፓች ነፍሲ ወከፍ ሰሙን ቀይሪ።',
+      'ብቐጻልነት ጽቡቕ ከም ዝተጣበቐ ርኣዪ።',
+      'እንተ ኣድልዩ ሞያ ጥዕና ዘለዎ ሰብ ምኽሪ ሕተቲ።',
+    ],
+    shareMessage: 'ናይ ምክልኻል ጥንሲ ፓች — AWA',
+  },
+  rw: {
+    badge: 'PATCH YO KWIRINDA GUSAMA',
+    title: 'Patch yo\nkwirinda gusama',
+    metaDuration: 'Iminota 5 yo gusoma',
+    metaType: 'Inyandiko',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisobanuro byasuzumwe',
+    intro: 'Ubundi buryo bwa buri cyumweru busimbura ikinini cya buri munsi.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Uko patch ikora',
+      'Gahunda yo kuyifatisha',
+      'Icyo ugomba kumenya',
+      'Ingingo z\'ingenzi',
+    ],
+    section1Body:
+      'Patch irekura hormone ubudasiba binyuze mu ruhu, ikora ku buryo busa n\'ubw\'ikinini gihuriweho: ibuza ovulation kandi igakomeza ururenda rwo mu nkondo y\'umura.',
+    tip1Title: 'Byiza kumenya',
+    tip1Text:
+      'Akamaro kayo gakomeye ni uko itagusaba gufata doze buri munsi.',
+    section2Body:
+      'Patch akenshi ihindurwa rimwe mu cyumweru mu byumweru bitatu, hanyuma hagakurikiraho icyumweru kimwe nta patch.',
+    applicationTips: [
+      'Hindura aho uyifatishije buri gihe',
+      'Reba ko ikiri ifatanye neza',
+      'Ifatishe ku ruhu rusukuye kandi rwumutse',
+    ],
+    sectionIntro:
+      'Ingingo z\'ingenzi zo kumenya mbere no mu gihe cyo kuyikoresha.',
+    facts: [
+      {title: 'Buri cyumweru', text: 'Patch ihindurwa rimwe mu cyumweru.'},
+      {title: 'Ruhu rwumutse', text: 'Igomba gufatishwa ku ruhu rusukuye kandi rwumutse.'},
+      {title: 'Uburinzi', text: 'Ikora ubudasiba iyo ikoreshejwe neza.'},
+      {title: 'Itondere', text: 'Kurakara k\'ahantu hafatiye bishobora rimwe na rimwe kubaho.'},
+    ],
+    comparisonTitle: 'Ibyiza & imbibi',
+    advantageTitle: 'Ibyiza',
+    advantages: [
+      '• Ifatishwa rimwe mu cyumweru',
+      '• Nta doze ya buri munsi',
+      '• Irekura hormone ubudasiba',
+    ],
+    limitTitle: 'Imbibi',
+    limits: [
+      'Ntikurinda indwara zandurira mu mibonano mpuzabitsina',
+      'Ishobora gutera kurakara k\'uruhu',
+      'Isaba gukurikiza gahunda yo kuyisimbuza',
+    ],
+    alertTitle: 'Icyitonderwa',
+    alertText:
+      'Kurakara gake gushobora kugaragara aho yafatishijwe. Guhinduranya aho uyifatisha bishobora gufasha kubigabanya.',
+    rememberTitle: 'Ingingo 3 z\'ingenzi',
+    remember: [
+      'Hindura patch buri cyumweru.',
+      'Reba buri gihe ko ifatanye neza.',
+      'Saba inama umukozi w\'ubuzima niba bikenewe.',
+    ],
+    shareMessage: 'Patch yo kwirinda gusama — AWA',
+  },
+  rn: {
+    badge: 'PATCH YO KUDATWARA INDA',
+    title: 'Patch yo\nkudatwara inda',
+    metaDuration: 'Iminota 5 yo gusoma',
+    metaType: 'Inyandiko',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Amakuru yasuzumwe',
+    intro: 'Ubundi buryo bukoreshwa rimwe mu cumweru aho gukoresha ikinini cya buri munsi.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Uko patch ikora',
+      'Gahunda yo kuyishyira ku ruhu',
+      'Ibyo ukeneye kumenya',
+      'Ingenzi zo kwibuka',
+    ],
+    section1Body:
+      'Patch irekura imisemburo buri gihe binyuze mu ruhu, ikora mu buryo busa n\'ubw\'ikinini cyuzuye: irinda ovulation kandi igakomeza umusemburo wo mu muhogo w\'inda.',
+    tip1Title: 'Ni byiza kumenya',
+    tip1Text:
+      'Akamaro kayo kanini ni uko idasaba gufata umuti buri munsi.',
+    section2Body:
+      'Patch kenshi ihindurwa rimwe mu cumweru mu byumweru bitatu, hanyuma hagakurikira icumweru kimwe udafite patch.',
+    applicationTips: [
+      'Hindura aho uyishyira buri gihe',
+      'Reba ko ikiri ifatanye neza',
+      'Yishyire ku ruhu rusukuye kandi rwumutse',
+    ],
+    sectionIntro:
+      'Ingenzi zo kumenya mbere no mu gihe uyikoresha.',
+    facts: [
+      {title: 'Buri cumweru', text: 'Patch irahindurwa rimwe mu cumweru.'},
+      {title: 'Uruhu rwumutse', text: 'Igomba gushirwa ku ruhu rusukuye kandi rwumutse.'},
+      {title: 'Uburinzi', text: 'Ikora buri gihe iyo ikoreshejwe neza.'},
+      {title: 'Kwitondera', text: 'Uruhu rushobora rimwe na rimwe gutukura canke kwishima aho yashyizwe.'},
+    ],
+    comparisonTitle: 'Ibyiza & imbibi',
+    advantageTitle: 'Ibyiza',
+    advantages: [
+      '• Gushyira rimwe mu cumweru',
+      '• Nta muti wa buri munsi',
+      '• Kurekura imisemburo buri gihe',
+    ],
+    limitTitle: 'Imbibi',
+    limits: [
+      'Ntirinda indwara zandurira mu mibonano (IST)',
+      'Ishobora gutera uruhu kwishima',
+      'Isaba gukurikiza gahunda yo kuyihindura',
+    ],
+    alertTitle: 'Icitonderwa',
+    alertText:
+      'Uruhu rushobora kwishima gake aho patch yashyizwe. Guhinduranya aho uyishyira bishobora gufasha kubigabanya.',
+    rememberTitle: 'Ingenzi 3',
+    remember: [
+      'Hindura patch buri cumweru.',
+      'Reba buri gihe ko ifatanye neza.',
+      'Saba inama y\'umukozi w\'ubuzima niba bikenewe.',
+    ],
+    shareMessage: 'Patch yo kudatwara inda — AWA',
+  },
+  ig: {
+    badge: 'PATCH MGBOCHI IME',
+    title: 'Patch\nmgbochi ime',
+    metaDuration: 'Nkeji 5 ka ị gụọ',
+    metaType: 'Isiokwu',
+    metaLevel: 'Mmalite',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Nhọrọ kwa izu n\'ọnọdụ ọgwụ kwa ụbọchị.',
+    contentsTitle: 'Na isiokwu a',
+    topics: [
+      'Otú patch si arụ ọrụ',
+      'Usoro itinye ya',
+      'Ihe ị kwesịrị ịmara',
+      'Isi ihe ndị dị mkpa',
+    ],
+    section1Body:
+      'Patch na-ahapụ hormone mgbe niile site n\'akpụkpọ ahụ, na-arụ ọrụ n\'ụzọ yiri ọgwụ jikọtara: ọ na-egbochi ovulation ma na-eme ka mmiri ọnụ afọ ime ghọọ ihe siri ike.',
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Uru ya kachasị bụ na ọ naghị achọ ka ị ṅụọ ya kwa ụbọchị.',
+    section2Body:
+      'A na-agbanwekarị patch otu ugboro n\'izu maka izu atọ, mgbe ahụ izu otu na-enweghị patch.',
+    applicationTips: [
+      'Gbanwee ebe itinye ya oge ọ bụla',
+      'Lelee na ọ ka jikọtara nke ọma',
+      'Tinye ya n\'akpụkpọ ahụ dị ọcha, kpọrọ nkụ',
+    ],
+    sectionIntro:
+      'Isi ihe ndị ị kwesịrị ịmara tupu na n\'oge iji ya.',
+    facts: [
+      {title: 'Kwa izu', text: 'A na-agbanwe patch otu ugboro n\'izu.'},
+      {title: 'Akpụkpọ ahụ kpọrọ nkụ', text: 'A ga-etinye ya n\'akpụkpọ ahụ dị ọcha, kpọrọ nkụ.'},
+      {title: 'Nchebe', text: 'Ọ na-arụ ọrụ mgbe niile ma ọ bụrụ na a jiri ya nke ọma.'},
+      {title: 'Lebara anya', text: 'Mkpasu iwe n\'ebe ahụ nwere ike ime mgbe ụfọdụ.'},
+    ],
+    comparisonTitle: 'Uru na oke',
+    advantageTitle: 'Uru',
+    advantages: [
+      '• Otu itinye n\'izu',
+      '• Enweghị ọgwụ kwa ụbọchị',
+      '• Mwepụta hormone na-aga n\'ihu',
+    ],
+    limitTitle: 'Oke',
+    limits: [
+      'Ọ naghị echebe megide STI',
+      'Nwere ike ịkpata mkpasu iwe akpụkpọ ahụ',
+      'Chọrọ ịgbaso oge a na-agbanwe ya',
+    ],
+    alertTitle: 'Biko rịba ama',
+    alertText:
+      'Obere mkpasu iwe nwere ike ịpụta n\'ebe a tinyere ya. Ịgbanwe ebe itinye ya nwere ike inyere aka belata ya.',
+    rememberTitle: 'Ihe atọ dị mkpa',
+    remember: [
+      'Gbanwee patch kwa izu.',
+      'Lelee mgbe niile na ọ na-ejikọta nke ọma.',
+      'Jụọ ndụmọdụ n\'aka ọkachamara ahụike ma ọ bụrụ na ọ dị mkpa.',
+    ],
+    shareMessage: 'Patch mgbochi ime — AWA',
+  },
+  yo: {
+    badge: 'ÀLÀMÚ ÌDÈNÀ OYÚN',
+    title: 'Àlàmú\nìdènà oyún',
+    metaDuration: 'Kíkà ìṣẹ́jú 5',
+    metaType: 'Àpilẹ̀kọ',
+    metaLevel: 'Ìbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro: 'Ọ̀nà àmúlò ọ̀sẹ̀-ọ̀sẹ̀ dípò ègbògi ojoojúmọ́.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Bí àlàmú ṣe ń ṣiṣẹ́',
+      'Àkókò lílò rẹ̀',
+      'Ohun tí o nílò láti mọ̀',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Body:
+      'Àlàmú náà ń tú hormone jáde láìdúró nípasẹ̀ awọ ara, ó ń ṣiṣẹ́ ní ọ̀nà tó jọ ègbògi àpapọ̀: ó ń dènà ovulation, ó sì ń mú ìsàn inú obo dípọn.',
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Àǹfààní pàtàkì rẹ̀ ni pé kò nílò oògùn ojoojúmọ́.',
+    section2Body:
+      'A sábà máa ń pààrọ̀ àlàmú náà lẹ́ẹ̀kan ní ọ̀sẹ̀ kan fún ọ̀sẹ̀ mẹ́ta, lẹ́yìn náà ọ̀sẹ̀ kan láìsí àlàmú.',
+    applicationTips: [
+      'Pààrọ̀ ibi tí o lẹ̀ ẹ́ mọ́ ní ìgbà kọ̀ọ̀kan',
+      'Ṣàyẹ̀wò pé ó ṣì lẹ̀ mọ́ dáadáa',
+      'Lẹ̀ ẹ́ mọ́ awọ ara tó mọ́ tó sì gbẹ',
+    ],
+    sectionIntro:
+      'Àwọn kókó pàtàkì láti mọ̀ ṣáájú àti nígbà lílò.',
+    facts: [
+      {title: 'Ní ọ̀sẹ̀ kọ̀ọ̀kan', text: 'A máa ń pààrọ̀ àlàmú náà lẹ́ẹ̀kan ní ọ̀sẹ̀ kan.'},
+      {title: 'Awọ ara tó gbẹ', text: 'Ó gbọ́dọ̀ lẹ̀ mọ́ awọ ara tó mọ́ tó sì gbẹ.'},
+      {title: 'Ààbò', text: 'Ó ń ṣiṣẹ́ láìdúró nígbà tí a bá lò ó dáadáa.'},
+      {title: 'Máa ṣọ́ra', text: 'Ìbínú awọ ara lè ṣẹlẹ̀ nígbà míràn.'},
+    ],
+    comparisonTitle: 'Àǹfààní àti àwọn ààlà',
+    advantageTitle: 'Àwọn àǹfààní',
+    advantages: [
+      '• Lílò kan ní ọ̀sẹ̀ kan',
+      '• Kò sí oògùn ojoojúmọ́',
+      '• Hormone ń jáde láìdúró',
+    ],
+    limitTitle: 'Àwọn ààlà',
+    limits: [
+      'Kì í dáàbò bò lọ́wọ́ àwọn àrùn tí a ń kó nípa ìbálòpọ̀',
+      'Lè fa ìbínú awọ ara',
+      'Nílò títẹ̀lé àkókò pípààrọ̀',
+    ],
+    alertTitle: 'Jọ̀wọ́ ṣàkíyèsí',
+    alertText:
+      'Ìbínú díẹ̀ lè hàn ní ibi tí a lẹ̀ ẹ́ mọ́. Pípààrọ̀ ibi tí a lẹ̀ ẹ́ mọ́ lè ranni lọ́wọ́ láti dín èyí kù.',
+    rememberTitle: 'Àwọn nǹkan pàtàkì mẹ́ta',
+    remember: [
+      'Pààrọ̀ àlàmú náà ní ọ̀sẹ̀ kọ̀ọ̀kan.',
+      'Ṣàyẹ̀wò déédéé pé ó ń lẹ̀ mọ́ dáadáa.',
+      'Béèrè ìmọ̀ràn lọ́wọ́ òṣìṣẹ́ ìlera bí ó bá pọndandan.',
+    ],
+    shareMessage: 'Àlàmú ìdènà oyún — AWA',
+  },
+  zu: {
+    badge: 'IPHEJI LOKUVIKELA UKUKHULELWA',
+    title: 'Iphepha\nlokuvikela ukukhulelwa',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Isihloko',
+    metaLevel: 'Isiqalo',
+    metaValidated: 'Okubuyekeziwe',
+    intro: 'Enye indlela yeviki lonke esikhundleni sepilisi lansuku zonke.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Indlela iphepha elisebenza ngayo',
+      'Uhlelo lokulifaka',
+      'Okudingeka ukwazi',
+      'Amaphuzu abalulekile',
+    ],
+    section1Body:
+      'Iphepha likhulula ama-hormone njalo esikhumbeni, lisebenza ngendlela efana nepilisi elihlanganisiwe: livimbela ukukhipha iqanda futhi liqinisa ubumanzi bomlomo wesibeletho.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Inzuzo yalo eyinhloko ukuthi alidingi umthamo wansuku zonke.',
+    section2Body:
+      'Iphepha ngokuvamile lishintshwa kanye ngeviki izinsuku ezintathu, kulandelwe iviki elilodwa ngaphandle kwephepha.',
+    applicationTips: [
+      'Shintsha indawo oliphakamise kuyo njalo',
+      'Hlola ukuthi lisaqinile',
+      'Lifake esikhumbeni esihlanzekile, esomile',
+    ],
+    sectionIntro:
+      'Amaphuzu abalulekile ongawazi ngaphambi nangesikhathi sokusebenzisa.',
+    facts: [
+      {title: 'Njalo ngeviki', text: 'Iphepha lishintshwa kanye ngeviki.'},
+      {title: 'Isikhumba esomile', text: 'Kufanele lifakwe esikhumbeni esihlanzekile, esomile.'},
+      {title: 'Ukuvikeleka', text: 'Lisebenza njalo uma lisetshenziswa kahle.'},
+      {title: 'Qaphela', text: 'Ukucasuka endaweni okufakwe kuyo kungase kwenzeke ngezikhathi ezithile.'},
+    ],
+    comparisonTitle: 'Izinzuzo nemikhawulo',
+    advantageTitle: 'Izinzuzo',
+    advantages: [
+      '• Ukulifaka kanye ngeviki',
+      '• Akukho umthamo wansuku zonke',
+      '• Ukukhululwa njalo kwama-hormone',
+    ],
+    limitTitle: 'Imikhawulo',
+    limits: [
+      'Alivimbeli izifo ezithathelwana ngocansi',
+      'Lingabangela ukucasuka kwesikhumba',
+      'Lidinga ukulandela uhlelo lokushintsha',
+    ],
+    alertTitle: 'Qaphela',
+    alertText:
+      'Ukucasuka okuncane kungabonakala endaweni okufakwe kuyo. Ukushintshanisa izindawo zokufaka kungasiza ukukunciphisa.',
+    rememberTitle: 'Izinto ezi-3 ezibalulekile',
+    remember: [
+      'Shintsha iphepha njalo ngeviki.',
+      'Hlola njalo ukuthi lixamele kahle.',
+      'Cela iseluleko sochwepheshe wezempilo uma kudingeka.',
+    ],
+    shareMessage: 'Iphepha lokuvikela ukukhulelwa — AWA',
+  },
+  xh: {
+    badge: 'IPHETSHI YOKUTHINTELA INKULELO',
+    title: 'Iphetshi\nyokuthintela inkulelo',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaType: 'Inqaku',
+    metaLevel: 'Umqali',
+    metaValidated: 'Umxholo ohlaziyiweyo',
+    intro: 'Enye indlela yeveki ngeveki endaweni yepilisi yemihla ngemihla.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Indlela iphetshi esebenza ngayo',
+      'Ishedyuli yokufaka',
+      'Oko ufanele ukwazi',
+      'Eyona nto ibalulekileyo',
+    ],
+    section1Body:
+      'Iphetshi ikhupha iihomoni rhoqo ngolusu, isebenza ngendlela efana nepilisi edityanisiweyo: ithintela i-ovulation kwaye ikwenza ubumanzi bomlomo wesibeleko buqine.',
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'Ingenelo yayo ephambili kukuba ayifuni idosi yemihla ngemihla.',
+    section2Body:
+      'Iphetshi ngokuqhelekileyo itshintshwa kanye ngeveki kwiiveki ezintathu, kulandele iveki enye ngaphandle kwephetshi.',
+    applicationTips: [
+      'Tshintsha indawo yokufaka ngalo lonke ixesha',
+      'Jonga ukuba isanamathele ngokuqinileyo',
+      'Yifake kulusu olucocekileyo, olomileyo',
+    ],
+    sectionIntro:
+      'Iinkalo ezibalulekileyo zokwazi phambi nangexesha lokusetyenziswa.',
+    facts: [
+      {title: 'Veki nganye', text: 'Iphetshi itshintshwa kanye ngeveki.'},
+      {title: 'Ulusu olomileyo', text: 'Kufuneka ifakwe kulusu olucocekileyo, olomileyo.'},
+      {title: 'Ukhuseleko', text: 'Isebenza rhoqo xa isetyenziswa ngokufanelekileyo.'},
+      {title: 'Qaphela', text: 'Ukucaphuka kwendawo kunokwenzeka ngamanye amaxesha.'},
+    ],
+    comparisonTitle: 'Iingenelo nemida',
+    advantageTitle: 'Iingenelo',
+    advantages: [
+      '• Ukufaka kanye ngeveki',
+      '• Akukho dosi yemihla ngemihla',
+      '• Ukukhutshwa kweehomoni rhoqo',
+    ],
+    limitTitle: 'Imida',
+    limits: [
+      'Ayikhuseli kwizifo ezosulelwa ngokwesondo',
+      'Inokubangela ukucaphuka kolusu',
+      'Ifuna ukulandela ishedyuli yokutshintsha',
+    ],
+    alertTitle: 'Qaphela',
+    alertText:
+      'Ukucaphuka okuncinci kunokuvela kwindawo yokufaka. Ukutshintshatshintsha iindawo zokufaka kunokunceda ukukunciphisa oku.',
+    rememberTitle: 'Izinto ezi-3 ezibalulekileyo',
+    remember: [
+      'Tshintsha iphetshi veki nganye.',
+      'Jonga rhoqo ukuba inamathela kakuhle.',
+      'Cela ingcebiso kwingcali yezempilo ukuba kuyadingeka.',
+    ],
+    shareMessage: 'Iphetshi yokuthintela inkulelo — AWA',
+  },
+  sn: {
+    badge: 'PATCH YEKUDZIVIRIRA MIMBA',
+    title: 'Patch\nyekudzivirira mimba',
+    metaDuration: 'Maminitsi mashanu ekuverenga',
+    metaType: 'Chinyorwa',
+    metaLevel: 'Vanotanga',
+    metaValidated: 'Ruzivo rwakaongororwa',
+    intro: 'Imwe nzira yevhiki yokutsiva piritsi rezuva rimwe nerimwe.',
+    contentsTitle: 'Muchinyorwa ichi',
+    topics: [
+      'Madiro anoshanda patch',
+      'Chirongwa chekuiisa',
+      'Zvaunofanira kuziva',
+      'Zvinokosha zvekuyeuka',
+    ],
+    section1Body:
+      'Patch inoburitsa mahormone zvichienderera nepanhengo, ichishanda nenzira inofanana nepiritsi rakabatanidzwa: inodzivirira ovulation uye inoita kuti cervical mucus ive yakasimba.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Mubatsiro wayo mukuru ndewekuti haidi kunwiwa zuva nezuva.',
+    section2Body:
+      'Patch kazhinji inochinjwa kamwe pavhiki kwemavhiki matatu, ichitevedzwa nevhiki imwe isina patch.',
+    applicationTips: [
+      'Chinja nzvimbo yekuiisa nguva dzose',
+      'Tarisa kuti ichinamatirira zvakasimba',
+      'Iise pahunyanzvi hwakachena, hwakaoma',
+    ],
+    sectionIntro:
+      'Zvinhu zvakakosha zvekuziva usati watanga uye panguva yekushandisa.',
+    facts: [
+      {title: 'Vhiki rega rega', text: 'Patch inochinjwa kamwe pavhiki.'},
+      {title: 'Ganda rakaoma', text: 'Inofanira kuiswa pagunda rakachena, rakaoma.'},
+      {title: 'Kudzivirira', text: 'Inoshanda zvichienderera kana ichishandiswa nenzira yakarurama.'},
+      {title: 'Chekungwarira', text: 'Kuvhunduka kwegunda panzvimbo kunogona kuitika dzimwe nguva.'},
+    ],
+    comparisonTitle: 'Mabatsiro nezvipingamupinyi',
+    advantageTitle: 'Mabatsiro',
+    advantages: [
+      '• Kuiisa kamwe pavhiki',
+      '• Hapana kunwa kwezuva nezuva',
+      '• Kuburitswa kwemahormone zvichienderera',
+    ],
+    limitTitle: 'Zvipingamupinyi',
+    limits: [
+      'Haidzivirire kumatenda anotapurirwa pakurara pamwe chete (STIs)',
+      'Inogona kukonzera kuvhunduka kwegunda',
+      'Inoda kutevedzera chirongwa chekuchinja',
+    ],
+    alertTitle: 'Cherechedza',
+    alertText:
+      'Kuvhunduka kushoma kunogona kuoneka panzvimbo yekuiisa. Kuchinja nzvimbo dzekuiisa kunogona kubatsira kudzikamisa izvi.',
+    rememberTitle: 'Zvitatu zvakakosha',
+    remember: [
+      'Chinja patch vhiki rega rega.',
+      'Tarisa nguva dzose kuti ichinamatira zvakanaka.',
+      'Bvunza zano kunyanzvi yezvehutano kana zvichidiwa.',
+    ],
+    shareMessage: 'Patch yekudzivirira mimba — AWA',
+  },
+  ln: {
+    badge: 'PATCH YA KOPEKISA MIMBA',
+    title: 'Patch ya\nkopekisa mimba',
+    metaDuration: 'Mpe ya kotánga: min 5',
+    metaType: 'Lisolo',
+    metaLevel: 'Mobandi',
+    metaValidated: 'Maloba oyo ekomi na bokeba',
+    intro: 'Nzela mosusu ya poso na poso na esika ya pilile ya mokolo na mokolo.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Ndenge patch esalaka',
+      'Ntango ya kotya yango',
+      'Oyo osengeli koyeba',
+      'Makambo ya motuya',
+    ],
+    section1Body:
+      'Patch epesaka ba hormone ntango nyonso na nzela ya poso, na ndenge ekokani na pilile ya bosangisi: epekisaka ovulation mpe ekomisaka mukus ya kingo ya libumu makasi.',
+    tip1Title: 'Ezali malamu koyeba',
+    tip1Text:
+      'Litomba na yango ya monene ezali ete esengi dose ya mokolo na mokolo te.',
+    section2Body:
+      'Patch mbala mingi ebongolami mbala moko na poso mpo na maposo misato, sima poso moko kozanga patch.',
+    applicationTips: [
+      'Bongola esika ya kotya yango mbala nyonso',
+      'Tala soki ekangami naino malamu',
+      'Tya yango na poso ya pɛtɛɛ mpe ya kokauka',
+    ],
+    sectionIntro:
+      'Makambo ya motuya ya koyeba liboso mpe na ntango ya kosalela.',
+    facts: [
+      {title: 'Poso na poso', text: 'Patch ebongolami mbala moko na poso.'},
+      {title: 'Poso ya kokauka', text: 'Esengeli kotya yango na poso ya pɛtɛɛ mpe ya kokauka.'},
+      {title: 'Bobateli', text: 'Esalaka ntango nyonso soki esalelami malamu.'},
+      {title: 'Bokeba', text: 'Kosimba ya poso ekoki mbala mosusu kosalema.'},
+    ],
+    comparisonTitle: 'Litomba mpe bilembo ya kokitisa',
+    advantageTitle: 'Litomba',
+    advantages: [
+      '• Kotya mbala moko na poso',
+      '• Dose ya mokolo na mokolo te',
+      '• Kopesa hormone ntango nyonso',
+    ],
+    limitTitle: 'Bilembo ya kokitisa',
+    limits: [
+      'Ebatelaka na bokono ya bosangani ya nzoto te',
+      'Ekoki kosala ete poso esimba',
+      'Esengi kolanda ntango ya kobongola yango',
+    ],
+    alertTitle: 'Bokebi',
+    alertText:
+      'Kosimba moke ekoki kobima na esika ya kotya yango. Kobongola bisika ya kotya ekoki kosunga mpo na kokitisa yango.',
+    rememberTitle: 'Makambo 3 ya motuya',
+    remember: [
+      'Bongola patch poso na poso.',
+      'Tala na ntango nyonso soki ekangami malamu.',
+      'Senga toli ya moto ya mosala ya bokolongono soki esengeli.',
+    ],
+    shareMessage: 'Patch ya kopekisa mimba — AWA',
+  },
+  ff: {
+    badge: 'PATCH REENUGOL',
+    title: 'Patch\nreenugol',
+    metaDuration: 'Janngugol minit 5',
+    metaType: 'Winndannde',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Habaru ɗum ƴeewtaama',
+    intro: 'Laawol jumaa kala ɗum ɗon e pilule nyalaande kala.',
+    contentsTitle: 'E winndannde ndee',
+    topics: [
+      'No patch kuutiniraa',
+      'Wakkati hoosugol',
+      'Ko ɗum ɗon ɗum ɓesngu anndugo',
+      'Ko ɗum ɗon ɗum ɓesngu',
+    ],
+    section1Body:
+      'Patch ɗum ɗon yaltina hormones nder fuɗɗoode ɗum ɗon, ɗum ɗon kuugal bana pilule hawtunde: ɗum ɗon reeni ovulation e ɗum ɗon wontina cervical mucus.',
+    tip1Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip1Text:
+      'Ko ɗum ɗon ɓurii welugol maako ko ɗum ɗon ɗaɓɓitaa hoosugol nyalaande kala.',
+    section2Body:
+      'Patch ɗum ɗon wooɗa gooto jumaa kala ngam jumaa tati, caggal ɗuum jumaa gootoore alaa patch.',
+    applicationTips: [
+      'Wooɗu ɗoo ɗum ɗon hoosa fahin kala',
+      'Ƴeewndo ɗum ɗon ɗum ɗon tawtaa ko ɗum ɗon',
+      'Hoosu ɗum e fuuɗe laaɓɗum, ɗum ɗon wooɗa',
+    ],
+    sectionIntro:
+      'Takaaɗe ɓesngu ngam anndugo ko e ɗum ɗon e nder huutinirgol.',
+    facts: [
+      {title: 'Jumaa kala', text: 'Patch ɗum ɗon wooɗa gooto jumaa kala.'},
+      {title: 'Fuuɗe wooɗaa', text: 'Ɗum ɗon hoosa e fuuɗe laaɓɗum, wooɗaa.'},
+      {title: 'Reenugol', text: 'Ɗum ɗon kuugal nde fuu so ɗum ɗon huutinaama no haani.'},
+      {title: 'Reenu', text: 'Fuuɗe foti hawtude seɗɗa.'},
+    ],
+    comparisonTitle: 'Ko welii & ko ɗum ɗon',
+    advantageTitle: 'Ko welii',
+    advantages: [
+      '• Hoosugol gootol jumaa kala',
+      '• Alaa hoosugol nyalaande kala',
+      '• Yaltugol hormones ɗum ɗon',
+    ],
+    limitTitle: 'Ko ɗum ɗon',
+    limits: [
+      'Ɗum ɗon reeni STIs',
+      'Foti waɗude fuuɗe',
+      'Ɗaɓɓitii ɗum ɗon wooɗa wakkati wooɗugol',
+    ],
+    alertTitle: 'Hoolnu',
+    alertText:
+      'Fuuɗe seɗɗa foti hawtude e ɗoo ɗum ɗon hoosa. Wooɗugol ɗoo ɗum ɗon hoosa foti walliinde ma wontina ɗum.',
+    rememberTitle: 'Ko ɗum ɗon ɗum ɓesngu 3',
+    remember: [
+      'Wooɗu patch jumaa kala.',
+      'Ƴeewndo ɗum ɗon ɗum ɗon tawtaa no haani.',
+      'Ɗaɓɓitaa walliinde neɗɗo anndudo ɓanndu so ɗum ɗon ɗaɓɓitii.',
+    ],
+    shareMessage: 'Patch reenugol — AWA',
+  },
   id: {
     badge: 'KOYO KONTRASEPSI',
     title: 'Koyo\nkontrasepsi',

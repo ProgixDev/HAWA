@@ -996,6 +996,1660 @@ const CONTENT = withBrazilianPortuguese('BabyBlues', {
       shareTitle: '产后情绪低落与产后情绪健康',
       shareMessage: '产后情绪低落与产后情绪健康 — AWA\n\n一份帮助你了解分娩后常见情绪变化的指南。',
     },
+  'zh-Hant': {
+      badgeText: '產後 • 情緒健康',
+      title: '產後情緒低落\n與產後情緒健康',
+      subtitle: '瞭解分娩後情緒可能出現的變化，以及何時該尋求支援。',
+      metaItems: [
+        '閱讀約 10 分鐘',
+        '文章',
+        '入門',
+        '經審閱的內容',
+      ],
+      introTitle: '小提醒',
+      introText: '分娩後，有一段時間情緒變得格外敏感是很常見的。產後情緒低落通常是暫時的，但如果痛苦的感受持續不退或越來越強烈，就值得尋求專業人員的關注。',
+      contentsEyebrow: '指南',
+      contentsTitle: '本文內容',
+      contents: [
+        '瞭解產後情緒低落',
+        '最常見的表現',
+        '日常生活中有哪些幫助',
+        '產後情緒低落，還是產後憂鬱？',
+        '何時該尋求幫助',
+        '要點回顧',
+      ],
+      section1Kicker: '瞭解',
+      section1Title: '什麼是產後情緒低落？',
+      section1Body1: '產後情緒低落是指分娩後頭幾天裡可能出現的一段情緒波動期。荷爾蒙變化、疲憊、睡眠不足，以及對新階段的適應，都可能讓你變得更加敏感。',
+      section1Body2: '這不是失敗，也不意味著你不是一個好媽媽。每個人度過產後最初幾天的方式都不一樣。',
+      statTitle: '很常見的經歷',
+      statText: '產後情緒低落在分娩後很常見，通常幾天內會自行好轉。',
+      section2Kicker: '表現',
+      section2Title: '你可能會有的感受',
+      section2Body: '每個人的感受不盡相同。有些人主要感到疲憊和敏感，也有些人的情緒變化會更明顯。',
+      commonSigns: [
+        {
+          title: '容易動情',
+          description: '更容易哭泣，或者感覺特別敏感。',
+        },
+        {
+          title: '過度敏感',
+          description: '情緒可能顯得更強烈，而且變化很快。',
+        },
+        {
+          title: '情緒起伏',
+          description: '脆弱的感覺可能與心情舒暢的時刻交替出現。',
+        },
+        {
+          title: '疲憊',
+          description: '最初幾天積累的疲憊會放大情緒。',
+        },
+      ],
+      section3Kicker: '日常',
+      section3Title: '有哪些幫助',
+      section3Body: '這段時間裡，身體非常需要休息。一些簡單的小事就能讓日子過得更舒適。',
+      dailySupport: [
+        {
+          title: '休息',
+          description: '利用每一段空閒時間恢復體力。',
+        },
+        {
+          title: '接受幫助',
+          description: '不要猶豫，向身邊的人尋求支援。',
+        },
+        {
+          title: '規律喝水',
+          description: '全天保持充足的水分。',
+        },
+        {
+          title: '吃夠',
+          description: '儘量吃規律、簡單的飯菜。',
+        },
+      ],
+      quoteText: '「在產後尋求幫助，是照顧自己和寶寶的一種方式。」',
+      section4Kicker: '如何區分',
+      section4Title: '產後情緒低落，還是產後憂鬱？',
+      section4Body: '產後情緒低落通常持續時間短，並會逐漸好轉。產後憂鬱則不同：它可能持續更久、程度更重，並對日常生活造成明顯影響。',
+      compareTitle: '需要區分的兩種情況',
+      compareBabyBluesTitle: '產後情緒低落',
+      compareBabyBluesText: '通常持續時間短，在隨後的幾天裡逐漸好轉。',
+      comparePostpartumTitle: '產後憂鬱',
+      comparePostpartumText: '可能持續更久、逐漸加重，需要專業人員的支援。',
+      section5Kicker: '保持留意',
+      section5Title: '何時該尋求幫助？',
+      section5Body: '如果情緒上的痛苦沒有好轉、變得更強烈，或者開始讓日常生活更加吃力，請務必與醫療專業人員談一談。',
+      attentionTitle: '需要留意的警示訊號',
+      attentionSubtitle: '出現以下情況，請與專業人員談談…',
+      attentionSigns: [
+        '症狀持續超過兩週。',
+        '悲傷或焦慮變得更強烈。',
+        '照顧自己或寶寶變得困難。',
+        '出現明顯的痛苦感受。',
+      ],
+      professionalTitle: '你可以得到支援',
+      professionalText: '助產士、醫生、心理諮詢師或其他醫療專業人員可以傾聽你、評估你的情況，並提供合適的支援。',
+      tipTitle: '小提醒',
+      tipText: '產後的情緒並不能衡量你是不是一個好媽媽。你有權需要休息、被傾聽、被支援。',
+      section6Kicker: '要點',
+      section6Title: '要點回顧',
+      takeaways: [
+        '產後情緒低落在分娩後很常見。',
+        '疲憊和荷爾蒙變化都可能影響情緒。',
+        '身邊人的支援可以讓這段時期更輕鬆。',
+        '持續或明顯的痛苦值得接受專業評估。',
+      ],
+      disclaimerText: '本文僅供參考，不能替代個性化的醫療建議。如有疑慮或感到明顯的痛苦，請諮詢醫療專業人員。',
+      endText: '照顧好自己，也是產後的一部分。',
+      shareTitle: '產後情緒低落與產後情緒健康',
+      shareMessage: '產後情緒低落與產後情緒健康 — AWA\n\n一份幫助你瞭解分娩後常見情緒變化的指南。',
+    },
+  ar: {
+    badgeText: 'ما بعد الولادة • الصحة النفسية',
+    title: 'كآبة ما بعد الولادة العابرة\nوالصحة النفسية بعد الولادة',
+    subtitle:
+      'فهم ما قد يتغيّر نفسيًا بعد الولادة ومعرفة متى تطلبين الدعم.',
+    metaItems: ['10 دقائق للقراءة', 'مقال', 'مبتدئ', 'محتوى تمت مراجعته'],
+    introTitle: 'من الجيد أن تعرفي',
+    introText:
+      'من الشائع بعد الولادة أن تمرّي بفترة من الحساسية العاطفية المرتفعة. غالبًا ما تكون كآبة ما بعد الولادة العابرة مؤقتة، لكن الضيق الذي يستمر أو يشتدّ يستحق اهتمامًا من مختص.',
+    contentsEyebrow: 'دليل',
+    contentsTitle: 'في هذا المقال',
+    contents: [
+      'فهم كآبة ما بعد الولادة العابرة',
+      'أكثر العلامات شيوعًا',
+      'ما يساعد في الحياة اليومية',
+      'كآبة عابرة أم اكتئاب ما بعد الولادة؟',
+      'متى تطلبين المساعدة',
+      'أهم النقاط',
+    ],
+    section1Kicker: 'فهم',
+    section1Title: 'ما هي كآبة ما بعد الولادة العابرة؟',
+    section1Body1:
+      'كآبة ما بعد الولادة العابرة فترة من التغيّرات العاطفية قد تحدث في الأيام الأولى بعد الولادة. وقد تسهم في هذه الحساسية التغيّرات الهرمونية والتعب وقلة النوم والتكيّف مع هذه المرحلة الجديدة.',
+    section1Body2:
+      'هذا ليس فشلًا، ولا يعني أنكِ أمّ سيئة. كل امرأة تعيش الأيام الأولى بعد الولادة بطريقتها الخاصة.',
+    statTitle: 'تجربة شائعة',
+    statText:
+      'كآبة ما بعد الولادة العابرة شائعة بعد الولادة، وتميل إلى التحسّن من تلقاء نفسها خلال أيام قليلة.',
+    section2Kicker: 'العلامات',
+    section2Title: 'ما قد تشعرين به',
+    section2Body:
+      'تختلف التجارب من امرأة إلى أخرى. بعضهن يشعرن بالتعب والحساسية في الغالب، وأخريات قد تظهر عليهن تقلبات مزاجية أوضح.',
+    commonSigns: [
+      {
+        title: 'سرعة التأثر',
+        description: 'البكاء بسهولة أكبر أو الشعور بحساسية خاصة.',
+      },
+      {
+        title: 'فرط الحساسية',
+        description: 'قد تبدو المشاعر أقوى وتتغيّر بسرعة.',
+      },
+      {
+        title: 'تقلبات المزاج',
+        description:
+          'قد يتناوب الشعور بالهشاشة مع لحظات من الراحة والطمأنينة.',
+      },
+      {
+        title: 'التعب',
+        description: 'قد يضخّم التعب في الأيام الأولى المشاعر.',
+      },
+    ],
+    section3Kicker: 'يومًا بيوم',
+    section3Title: 'ما قد يساعد',
+    section3Body:
+      'في هذه الفترة تزداد الحاجة إلى الراحة. وقد تجعل أمور بسيطة صغيرة الأيام أكثر راحة.',
+    dailySupport: [
+      {
+        title: 'الراحة',
+        description: 'استغلال أي لحظة فراغ للتعافي.',
+      },
+      {
+        title: 'قبول المساعدة',
+        description: 'لا تترددي في طلب الدعم ممن حولك.',
+      },
+      {
+        title: 'شرب الماء بانتظام',
+        description: 'الحفاظ على ترطيب كافٍ للجسم على مدار اليوم.',
+      },
+      {
+        title: 'تناول طعام كافٍ',
+        description: 'تفضيل وجبات منتظمة وبسيطة.',
+      },
+    ],
+    quoteText:
+      '«طلب المساعدة بعد الولادة طريقة للعناية بنفسك وبطفلك.»',
+    section4Kicker: 'التمييز بينهما',
+    section4Title: 'كآبة عابرة أم اكتئاب ما بعد الولادة؟',
+    section4Body:
+      'كآبة ما بعد الولادة العابرة تكون عادةً قصيرة وتتحسن تدريجيًا. أما اكتئاب ما بعد الولادة فمختلف: قد يكون أكثر استمرارًا وأشدّ، وله أثر كبير على الحياة اليومية.',
+    compareTitle: 'حالتان يجب التمييز بينهما',
+    compareBabyBluesTitle: 'كآبة ما بعد الولادة العابرة',
+    compareBabyBluesText:
+      'غالبًا ما تكون قصيرة، مع تحسّن تدريجي خلال الأيام التالية.',
+    comparePostpartumTitle: 'اكتئاب ما بعد الولادة',
+    comparePostpartumText:
+      'قد يدوم وقتًا أطول، ويشتدّ، ويحتاج إلى دعم من مختص.',
+    section5Kicker: 'ابقي منتبهة',
+    section5Title: 'متى تطلبين المساعدة؟',
+    section5Body:
+      'من المهم التحدث إلى مختصة أو مختص في الرعاية الصحية إذا لم يتحسن الضيق النفسي، أو ازداد شدة، أو بدأ يصعّب حياتك اليومية.',
+    attentionTitle: 'علامات تستدعي الانتباه',
+    attentionSubtitle: 'تحدثي إلى مختص إذا…',
+    attentionSigns: [
+      'استمرت الأعراض أكثر من أسبوعين.',
+      'اشتدّ الحزن أو القلق.',
+      'صار من الصعب الاعتناء بنفسك أو بطفلك.',
+      'ظهر شعور كبير بالضيق.',
+    ],
+    professionalTitle: 'الدعم متاح',
+    professionalText:
+      'يمكن للقابلة أو الطبيبة أو الطبيب أو الأخصائية النفسية أو غيرهم من المختصين في الرعاية الصحية أن يستمعوا إليك ويقيّموا الوضع ويقدّموا الدعم المناسب.',
+    tipTitle: 'من الجيد أن تعرفي',
+    tipText:
+      'مشاعرك بعد الولادة ليست مقياسًا لمدى كونك أمًّا جيدة. من حقك أن تحتاجي إلى الراحة، وأن يُصغى إليك، وأن تُدعمي.',
+    section6Kicker: 'نقاط أساسية',
+    section6Title: 'أهم النقاط',
+    takeaways: [
+      'كآبة ما بعد الولادة العابرة شائعة بعد الولادة.',
+      'قد يؤثر التعب والتغيّرات الهرمونية في المزاج.',
+      'دعم من حولك قد يجعل هذه الفترة أسهل.',
+      'الضيق المستمر أو الكبير يستحق تقييمًا من مختص.',
+    ],
+    disclaimerText:
+      'هذا المقال للاطلاع فقط ولا يغني عن استشارة طبية مخصّصة لحالتك. إذا ساورك شك أو شعرتِ بضيق كبير، فتحدثي إلى مختص في الرعاية الصحية.',
+    endText: 'العناية بنفسك جزء من مرحلة ما بعد الولادة أيضًا.',
+    shareTitle: 'كآبة ما بعد الولادة العابرة والصحة النفسية بعد الولادة',
+    shareMessage:
+      'كآبة ما بعد الولادة العابرة والصحة النفسية بعد الولادة — AWA\n\nدليل لفهم التغيّرات النفسية الشائعة بعد الولادة.',
+  },
+  kab: {
+    badgeText: 'DEFFIR TLALIT • TIGEMMI N WUL',
+    title: 'Baby blues d tigemmi n wul\ndeffir tlalit',
+    subtitle:
+      'Ẓer acu i izemren ad yettbeddil deg wul deffir tlalit, tessneḍ melmi ara tessutureḍ tallelt.',
+    metaItems: ['10 n tesdatin n tɣuri', 'Amagrad', 'Anemhal', 'Agbur yettwasenqed'],
+    introTitle: 'Yelha ad tezwareḍ',
+    introText:
+      'Deffir tlalit, d ayen amagnu ad tḥuss s wul akk ugar. Baby blues, s umata, ur d-yettɛeṭṭil ara, maca ma yeqqim neɣ yettazzad usemmiḍ, yessefk ad tessuturd tallelt n unaẓur.',
+    contentsEyebrow: 'AMEZWARU',
+    contentsTitle: 'deg umagrad-a',
+    contents: [
+      'Tigzi n baby blues',
+      'Tiwsatin igerrzen',
+      'Ayen ara k-yeɛawnen yal ass',
+      'Baby blues neɣ tuddsa n deffir tlalit?',
+      'Melmi ara tessutureḍ tallelt',
+      'Tiktiwin ineggura',
+    ],
+    section1Kicker: 'TIGZI',
+    section1Title: 'D acu-t baby blues?',
+    section1Body1:
+      'Baby blues d aẓɣal n ubeddil n wul i izemren ad d-yeḍru deg ussan imezwura deffir tlalit. Ibeddilen n hormone, ṭṭṛaḥ, ɣilen n tuɣmest d usemras n ddeqs-a amaynut zemren akk ad d-sawḍen ɣer tuḥsest-a.',
+    section1Body2:
+      'Wagi mačči d ukkes n tezmert, ur yeɛni ara tella d yemma-s n uqcic ur ihelken ara. Yal yiwen yesɛa abrid-is deg ussan imezwura n deffir tlalit.',
+    statTitle: 'Tamsalt yettwaẓran',
+    statText:
+      'Baby blues yettwaẓran deffir tlalit, yettaɣ-d ad yelhu s timmad-is deg kra n wussan.',
+    section2Kicker: 'TIWSATIN',
+    section2Title: 'Ayen i izemren ad tḥussed',
+    section2Body:
+      'Ayen i d-yettwaẓran yettwanaw. Kra ttḥussen akkenni s ṭṭṛaḥ d tuḥsest, wiyaḍ zemren ad ɛerḍen ibeddilen n wul ugar.',
+    commonSigns: [
+      {
+        title: 'Tuḥsest n wul',
+        description: 'Tebkiḍ s lqella neɣ tḥussed s tuḥsest yezwiren.',
+      },
+      {
+        title: 'Tuḥsest yezwiren',
+        description: 'Iḥulfan zemren ad ḥussen d iqwayen u ad beddlen s lemɛna.',
+      },
+      {
+        title: 'Abeddil n wul',
+        description:
+          'Tuḥsest n ucebbub zemren ad tbeddel d tawsit n lehna.',
+      },
+      {
+        title: 'Ṭṭṛaḥ',
+        description: 'Ṭṭṛaḥ n wussan imezwura izemren ad yesseqweṛ iḥulfan.',
+      },
+    ],
+    section3Kicker: 'YAL ASS',
+    section3Title: 'Ayen i izemren ad yɛawen',
+    section3Body:
+      'Deg wakud-a, ilaq ad tnefseḍ aṭas. Tiɣawsiwin timecṭaḥ d tilemzit zemrent ad sselhint ussan.',
+    dailySupport: [
+      {
+        title: 'Anfas',
+        description: 'Seqdec ayen akk yellan n yimikan ilelliyen i usentem.',
+      },
+      {
+        title: 'Qbel tallelt',
+        description: 'Ur tettaggadeḍ ara ad tessutureḍ tallelt ɣer wid i k-yezzin.',
+      },
+      {
+        title: 'Swu s lmendad',
+        description: 'Qqim teswiḍ aman ilaqen deg wass.',
+      },
+      {
+        title: 'Ečč s waṭas',
+        description: 'Fren imensi ilelliyen yettwasnen.',
+      },
+    ],
+    quoteText:
+      '“Ad tessutureḍ tallelt deffir tlalit d abrid n tuɣǧa n yiman-ik d uqcic-ik amecṭuḥ.”',
+    section4Kicker: 'ASAKKEL',
+    section4Title: 'Baby blues neɣ tuddsa n deffir tlalit?',
+    section4Body:
+      'Baby blues, s umata, mecṭuḥ-it u yettlelli ɣef kra kra. Tuddsa n deffir tlalit temxalef: tezmer ad teqqim aṭas, ad tettazzad, ad tesɛu azal ameqqran ɣef tudert n yal ass.',
+    compareTitle: 'Sin n waddaden ilaqen ad ttwasefrqen',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Aṭas-nni d amecṭuḥ, yettlelli kra kra deg wussan i d-iteddun.',
+    comparePostpartumTitle: 'Tuddsa n deffir tlalit',
+    comparePostpartumText:
+      'Tezmer ad teqqim aṭas, ad tettazzad u ad teḥwaǧ tallelt n unaẓur.',
+    section5Kicker: 'ASEDDAR',
+    section5Title: 'Melmi ara tessutureḍ tallelt?',
+    section5Body:
+      'Yelha ad tmeslayeḍ d unaẓur n tezmert ma yella usemmiḍ n wul ur yelli ara, yettazzad neɣ yebda yessenhez tudert n yal ass.',
+    attentionTitle: 'Tiwsatin n useɣwen ilaqen ad tbeddeḍ',
+    attentionSubtitle: 'Mmeslay d unaẓur ma yella…',
+    attentionSigns: [
+      'Isenfaren qqimen ugar n sin n yimalasen.',
+      'Ubekki neɣ uḥezzeb ttazzad.',
+      'Yewɛer ad tḥerseḍ iman-ik neɣ uqcic-ik amecṭuḥ.',
+      'Tḥussed s usemmiḍ ameqqran.',
+    ],
+    professionalTitle: 'Tallelt llan',
+    professionalText:
+      'Tqabalt, aṭṭbib, anaẓur n tfekka neɣ unaẓur-nniḍen n tezmert zemren ad k-ssefhmen, ad ssenqden aḍris u ad k-fken tallelt tameɛqult.',
+    tipTitle: 'Yelha ad tezwareḍ',
+    tipText:
+      'Iḥulfan n deffir tlalit mačči d azal n wacu i telhid d yemma. Tesɛiḍ azref ad teḥwaǧeḍ anfas, ad k-sentemen u ad k-ɛawnen.',
+    section6Kicker: 'ISERKAN',
+    section6Title: 'Tiktiwin ineggura',
+    takeaways: [
+      'Baby blues yettwaẓran deffir tlalit.',
+      'Ṭṭṛaḥ d ibeddilen n hormone zemren ad ḥekmen ɣef ccḥal n wul.',
+      'Tallelt n wid i k-yezzin tezmer ad tselhu tallalt-a.',
+      'Usemmiḍ yeqqimen neɣ ameqqran yessefk ad yettwasenqed s unaẓur.',
+    ],
+    disclaimerText:
+      'Amagrad-a d i ussenfar kan, ur yettekkes ara tallelt n ṭṭbib. Ma tesɛiḍ ccek neɣ tḥussed s usemmiḍ ameqqran, mmeslay d unaẓur n tezmert.',
+    endText: 'Ad tḥerseḍ iman-ik daɣen d aḥric n deffir tlalit.',
+    shareTitle: 'Baby blues d tigemmi n wul deffir tlalit',
+    shareMessage:
+      'Baby blues d tigemmi n wul deffir tlalit — AWA\n\nAmenzu i usefhem n yibeddilen n wul yettwaẓran deffir tlalit.',
+  },
+  om: {
+    badgeText: 'DEESSUU BOODA • HAALA SAGANTAA',
+    title: 'Baby blues fi haala sagantaa\nyeroo deessuu booda',
+    subtitle:
+      'Waan sammuu keessatti yeroo deessuu booda jijjiiramuu danda\'u hubachuu fi yeroo deeggarsa gaafachuu qabdu beekuu.',
+    metaItems: ['Daqiiqaa 10 dubbisuuf', 'Barreeffama', 'Jalqabaaf', 'Qabiyyee ilaalame'],
+    introTitle: 'Beekuun gaarii dha',
+    introText:
+      'Erga deessee booda yeroo mudaa\'aan sammuu cimu keessa darbuun waan baratamaa dha. Baby blues yeroo baay\'ee yeroo muraasaaf kan turu dha; garuu dhiphachuun itti fufu ykn dabalu ogeessa fayyaa agarsiisuu barbaada.',
+    contentsEyebrow: 'QABXII',
+    contentsTitle: 'Barreeffama kana keessatti',
+    contents: [
+      'Baby blues hubachuu',
+      'Mallattoowwan baay\'ee beekaman',
+      'Waan guyyaa guyyaan gargaaru',
+      'Baby blues moo gaddaa deessuu booda?',
+      'Yeroo gargaarsa gaafatamu',
+      'Qabxiiwwan ijoo',
+    ],
+    section1Kicker: 'HUBACHUU',
+    section1Title: 'Baby blues maali?',
+    section1Body1:
+      'Baby blues jijjiirama sammuu guyyoota muraasa jalqabaa erga deessee booda mudachuu danda\'u dha. Jijjiirama hormoonii, dadhabbii, hirribni dhabamuu fi addunyaa haaraa kanaan wal baruun hunduu mudaa\'ummaa kanaaf sababa ta\'uu danda\'u.',
+    section1Body2:
+      'Kun kufaatii miti; haadha hamaa taatte jechuus miti. Nama hunduu guyyoota jalqabaa deessee booda karaa mataa isaatiin arga.',
+    statTitle: 'Muuxannoo baratamaa',
+    statText:
+      'Baby blues erga da\'umsaa booda baay\'ee mudata; guyyoota muraasa keessatti ofumaan fooyya\'a.',
+    section2Kicker: 'MALLATTOOWWAN',
+    section2Title: 'Waan itti dhaga\'amuu danda\'u',
+    section2Body:
+      'Waan namni itti dhaga\'amu garaagara. Gariin dadhabbii fi mudaa\'ummaa qofa itti dhaga\'ama; kaan immoo jijjiirama miira ifa ta\'e qabaachuu danda\'u.',
+    commonSigns: [
+      {
+        title: 'Miirri baay\'ee',
+        description: 'Salphaatti booyuu ykn addatti mudaa\'uu.',
+      },
+      {
+        title: 'Baay\'ee mudaa\'uu',
+        description: 'Miirri cimee dhaga\'amuu fi dafee jijjiiramuu danda\'a.',
+      },
+      {
+        title: 'Jijjiirama miira',
+        description:
+          'Miirri laafaa ta\'uu yeroo gammachuu waliin wal jijjiiruu danda\'a.',
+      },
+      {
+        title: 'Dadhabbii',
+        description: 'Dadhabbiin guyyoota jalqabaa miira dabaluu danda\'a.',
+      },
+    ],
+    section3Kicker: 'GUYYAA GUYYAAN',
+    section3Title: 'Waan gargaaru',
+    section3Body:
+      'Yeroo kana, boqonnaan baay\'ee barbaachisaa dha. Waan xixiqqaa salphaan guyyoota mijataa gochuu danda\'u.',
+    dailySupport: [
+      {
+        title: 'Boqochuu',
+        description: 'Yeroo bilisaa argatte hundumaa fayyadamuun deebi\'ee jabaachuu.',
+      },
+      {
+        title: 'Gargaarsa fudhachuu',
+        description: 'Namoota naannoo keetii jiran irraa deeggarsa gaafachuuf hin shakkin.',
+      },
+      {
+        title: 'Yeroo yeroon dhugu',
+        description: 'Guyyaa guutuu bishaan gahaa dhuguu.',
+      },
+      {
+        title: 'Gahaa nyaachuu',
+        description: 'Nyaata salphaa fi idilee filachuu.',
+      },
+    ],
+    quoteText:
+      '“Yeroo deessuu booda gargaarsa gaafachuun of eeggachuu fi daa\'ima kee eeggachuu dha.”',
+    section4Kicker: 'WAL IRRAA BAAFFACHUU',
+    section4Title: 'Baby blues moo gaddaa deessuu booda?',
+    section4Body:
+      'Baby blues yeroo baay\'ee gabaabaa dha; xiqqaa xiqqaadhaan fooyya\'a. Gaddi deessuu booda garaagara: yeroo dheeraa turuu, cimaa ta\'uu, jireenya guyyaa guyyaa irratti dhiibbaa guddaa geessisuu danda\'a.',
+    compareTitle: 'Haalawwan lama adda baasuu',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Yeroo baay\'ee gabaabaa dha; guyyoota itti aanan keessatti xiqqaa xiqqaadhaan fooyya\'a.',
+    comparePostpartumTitle: 'Gaddi deessuu booda',
+    comparePostpartumText:
+      'Yeroo dheeraa turuu, cimuu fi deeggarsa ogeessaa barbaaduu danda\'a.',
+    section5Kicker: 'OGUMMAA FAYYAA ILAALUU',
+    section5Title: 'Yoom gargaarsa gaafachuu qabdi?',
+    section5Body:
+      'Dhiphachuun sammuu yoo hin fooyya\'in, yoo cime, ykn jireenya guyyaa guyyaa rakkisaa gochuu yoo jalqabe ogeessa fayyaa waliin haasa\'uun barbaachisaa dha.',
+    attentionTitle: 'Mallattoowwan of eeggannoo',
+    attentionSubtitle: 'Ogeessa waliin haasa\'i yoo…',
+    attentionSigns: [
+      'Mallattoowwan torban lamaa ol turan.',
+      'Gaddi ykn yaaddoon cimaa ta\'e.',
+      'Of eeggachuun ykn daa\'ima kee eeggachuun rakkisaa ta\'e.',
+      'Dhiphachuun ulfaataan dhufe.',
+    ],
+    professionalTitle: 'Deeggarsi jira',
+    professionalText:
+      'Ogeessi da\'umsaa (midwife), doktarri, saayikoloojistiin ykn ogeessi fayyaa biraa si dhaggeeffachuu, haala ilaaluu fi deeggarsa mijataa kennuu danda\'a.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Miirri deessuu booda ulfaatina haadha gaarii taatu hin ibsu. Boqonnaa barbaaduuf, dhaggeeffatamuuf fi deeggaramuuf mirga qabda.',
+    section6Kicker: 'QABXII IJOO',
+    section6Title: 'Qabxiiwwan ijoo',
+    takeaways: [
+      'Baby blues erga deessee booda baay\'ee mudata.',
+      'Dadhabbiin fi jijjiiramni hormoonii miira irratti dhiibbaa geessisuu danda\'a.',
+      'Deeggarsi namoota naannoo keetii yeroo kana salphisuu danda\'a.',
+      'Dhiphachuun itti fufu ykn ulfaataa ta\'e ilaalcha ogeessaa barbaada.',
+    ],
+    disclaimerText:
+      'Barreeffamni kun odeeffannoof; gorsa fayyaa dhuunfaa bakka hin bu\'u. Yoo shakkite ykn dhiphachuun ulfaataan yoo si mudate ogeessa fayyaa waliin haasa\'i.',
+    endText: 'Of eeggachuunis kutaa yeroo deessuu booda ti.',
+    shareTitle: 'Baby blues fi haala sagantaa yeroo deessuu booda',
+    shareMessage:
+      'Baby blues fi haala sagantaa yeroo deessuu booda — AWA\n\nJijjiirama miira erga deessee booda baratamaa ta\'e hubachuuf qajeelfama.',
+  },
+  ti: {
+    badgeText: 'ድሕሪ ወሊድ • ስምዒታዊ ጥዕና',
+    title: 'ቤቢ ብሉስን ድሕሪ ወሊድ\nስምዒታዊ ጥዕናን',
+    subtitle:
+      'ድሕሪ ምውላድ ብስምዒት ክልወጥ ዝኽእል ነገራት ምርዳእን ደገፍ ክንሓትት ዘለና ግዜ ምፍላጥን።',
+    metaItems: ['10 ደቒቕ ንባብ', 'ጽሑፍ', 'ጀማሪ', 'ዝተገምገመ ትሕዝቶ'],
+    introTitle: 'ርዳእ እዚ',
+    introText:
+      'ድሕሪ ምውላድ ስምዒት ዝበዝሐሉ ግዜ ምሕላፍ ንቡር እዩ። ቤቢ ብሉስ ብሓፈሽኡ ግዝያዊ እዩ፣ ግን ዝቐጸለ ወይ ዝኸበደ ጭንቀት ሞያዊ ኣቓልቦ የድልዮ።',
+    contentsEyebrow: 'መምርሒ',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    contents: [
+      'ቤቢ ብሉስ ምርዳእ',
+      'ዝተኸፍተ ምልክታት',
+      'መዓልታዊ እንታይ ይሕግዝ',
+      'ቤቢ ብሉስ ወይስ ድሕሪ ወሊድ ጭንቀት?',
+      'ሓገዝ ክትሓትቲ ዘለኪ ግዜ',
+      'ቀንዲ ነጥብታት',
+    ],
+    section1Kicker: 'ምርዳእ',
+    section1Title: 'ቤቢ ብሉስ እንታይ እዩ?',
+    section1Body1:
+      'ቤቢ ብሉስ ድሕሪ ምውላድ ኣብ ቀዳሞት ዒቅባ መዓልታት ክረአ ዝኽእል ናይ ስምዒት ለውጢ እዩ። ለውጢ ሆርሞናት፣ ድኻም፣ ሕጽረት ድቃስን ምስዚ ሓድሽ ደረጃ ምልምዳውን ኩሉ ንዚ ተለዋዋጢ ስምዒት ኣበርክቶ ክገብሩ ይኽእሉ።',
+    section1Body2:
+      'እዚ ውድቀት ኣይኰነን፣ ኣዋልድ ድሕሪ ምውላድ ክፉእ ኢኺ ማለት እውን ኣይኰነን። ነፍስ ወከፍ ቀዳሞት መዓልታት ድሕሪ ወሊድ ብዘላ መንገዲ ትሕልፎ።',
+    statTitle: 'ልሙድ ተሞክሮ',
+    statText:
+      'ቤቢ ብሉስ ድሕሪ ምውላድ ልሙድ እዩ፣ ኣብ ውሽጢ ቁሩብ መዓልታት ባዕሉ ይሕሸል።',
+    section2Kicker: 'ምልክታት',
+    section2Title: 'እንታይ ክስምዐኪ ይኽእል',
+    section2Body:
+      'ተሞክሮ ሰባት ይፈላለ። ገሊኦም ብዋናነት ድኻምን ተነኳዒነትን ይስምዖም፣ ገሊኦም ድማ ዝረአ ለውጢ ስምዒት ክህልዎም ይኽእል።',
+    commonSigns: [
+      {
+        title: 'ስምዒታዊነት',
+        description: 'ብቐሊሉ ምብካይ ወይ ፍሉይ ተነኳዒነት ምስምማዕ።',
+      },
+      {
+        title: 'ልዕሊ ዓቐን ተነኳዒነት',
+        description: 'ስምዒታት ኣንጸላላይ ክስምዑ ብቕልጡፍ ድማ ክልወጡ ይኽእሉ።',
+      },
+      {
+        title: 'ለውጢ ስምዒት',
+        description:
+          'ናይ ድኽነት ስምዒት ምስ ናይ ጽቡቕ ስምዒት ግዜታት ክፈራረቕ ይኽእል።',
+      },
+      {
+        title: 'ድኻም',
+        description: 'ካብ ቀዳሞት መዓልታት ዝመጽእ ድኻም ስምዒታት የዕቢ።',
+      },
+    ],
+    section3Kicker: 'መዓልታዊ',
+    section3Title: 'እንታይ ክሕግዝ ይኽእል',
+    section3Body:
+      'ኣብዚ ግዜ ምዕራፍ ብዙሕ የድሊ። ንኣሽቱ ቀሊል ነገራት መዓልታት ምቹእ ክገብሩ ይኽእሉ።',
+    dailySupport: [
+      {
+        title: 'ምዕራፍ',
+        description: 'ዝረኸብኪዮ ነጻ ግዜ ንምሕዋይ ተጠቐሚ።',
+      },
+      {
+        title: 'ሓገዝ ምቕባል',
+        description: 'ካብቶም ዘለዉኪ ደገፍ ክትሓትቲ ኣይትሰቐቒ።',
+      },
+      {
+        title: 'ብተኸታታሊ ምስታይ',
+        description: 'ኣብ ዘለዎ መዓልቲ ብቑዕ ማይ ምስታይ።',
+      },
+      {
+        title: 'ብቑዕ ምብላዕ',
+        description: 'ተኸታታልን ቀሊልን መግቢ ምምራጽ።',
+      },
+    ],
+    quoteText:
+      '“ድሕሪ ወሊድ ሓገዝ ምሕታት ንርእስኺን ንጠዋይኪን ምሕላው እዩ።”',
+    section4Kicker: 'ምፍላይ',
+    section4Title: 'ቤቢ ብሉስ ወይስ ድሕሪ ወሊድ ጭንቀት?',
+    section4Body:
+      'ቤቢ ብሉስ ብሓፈሽኡ ሓጺር እዩ፣ ቀስ ብቀስ ድማ ይሕሸል። ድሕሪ ወሊድ ጭንቀት ግን ፍልይ እዩ፣ ዝያዳ ክቕጽል፣ ዝያዳ ክኸብድን ኣብ መዓልታዊ ህይወት ዓቢ ጽልዋ ክገብር ይኽእል።',
+    compareTitle: 'ክፍለዩ ዘለዎም ክልተ ኩነታት',
+    compareBabyBluesTitle: 'ቤቢ ብሉስ',
+    compareBabyBluesText:
+      'ብዙሕ ግዜ ሓጺር እዩ፣ ኣብ ዝቕጽሉ መዓልታት ቀስ ብቀስ ይሕሸል።',
+    comparePostpartumTitle: 'ድሕሪ ወሊድ ጭንቀት',
+    comparePostpartumText:
+      'ንነዊሕ ክቕጽል፣ ክኸብድን ሞያዊ ደገፍ ክሓትት ይኽእል።',
+    section5Kicker: 'ጥንቁቕ ምዃን',
+    section5Title: 'ሓገዝ መዓስ ትሓትቲ?',
+    section5Body:
+      'ስምዒታዊ ጭንቀት እንተዘይሓሸ፣ እንተኸቢዱ ወይ ህይወት እንተኣሸጋጊሩ ምስ ሞያዊ ጥዕና ሰራሒ ምዝራብ ኣገዳሲ እዩ።',
+    attentionTitle: 'ክጥንቀቕ ዘለዎ ምልክታት',
+    attentionSubtitle: 'እዚ እንተሎ ምስ ሞያዊ ተዛረቢ…',
+    attentionSigns: [
+      'ምልክታት ልዕሊ ክልተ ሰሙን ይጸንሑ።',
+      'ሓዘን ወይ ጭንቀት ይኸብድ።',
+      'ንርእስኺ ወይ ንህጻንኪ ምጥማት ይኸብድ።',
+      'ዓቢ ናይ ጭንቀት ስምዒት ይርአ።',
+    ],
+    professionalTitle: 'ደገፍ ኣሎ',
+    professionalText:
+      'ወላዲት ሓኪምቲ፣ ሓኪም፣ ሳይኮሎጂስት ወይ ካልእ ሞያዊ ጥዕና ሰራሒ ክሰምዐኪ፣ ኩነታት ክገምግም ተኸቲሉ ድማ ዝርከብ ደገፍ ክህበኪ ይኽእል።',
+    tipTitle: 'ርዳእ እዚ',
+    tipText:
+      'ድሕሪ ወሊድ ስምዒታት መለክዒ ክንደይ ጽቡቕ ኣደ ከም ዝኾንኪ ኣይኰኑን። ምዕራፍ ምድላይ፣ ክስማዕኪን ክድገፍኪን መሰል ኣለኪ።',
+    section6Kicker: 'ቀንዲ ነጥብታት',
+    section6Title: 'ቀንዲ ነጥብታት',
+    takeaways: [
+      'ቤቢ ብሉስ ድሕሪ ምውላድ ልሙድ እዩ።',
+      'ድኻምን ለውጢ ሆርሞናትን ባህሪ ክጸልው ይኽእሉ።',
+      'ካብቶም ዘለዉኪ ደገፍ እዚ ግዜ ቀሊል ክገብሮ ይኽእል።',
+      'ዝቐጸለ ወይ ዓቢ ጭንቀት ሞያዊ ግምገማ የድልዮ።',
+    ],
+    disclaimerText:
+      'እዚ ጽሑፍ ንሓበሬታ እዩ፣ ውልቃዊ ሕክምናዊ ምኽሪ ኣይትክእን። እንተተጠራጢርኪ ወይ ዓቢ ጭንቀት እንተሰሚዑኪ ምስ ሞያዊ ጥዕና ሰራሒ ተዘራረቢ።',
+    endText: 'ንርእስኺ ምጥማት እውን ኣካል ድሕሪ ወሊድ እዩ።',
+    shareTitle: 'ቤቢ ብሉስን ድሕሪ ወሊድ ስምዒታዊ ጥዕናን',
+    shareMessage:
+      'ቤቢ ብሉስን ድሕሪ ወሊድ ስምዒታዊ ጥዕናን — AWA\n\nድሕሪ ምውላድ ዝረአ ስምዒታዊ ለውጢ ንምርዳእ መምርሒ።',
+  },
+  rw: {
+    badgeText: 'NYUMA YO KUBYARA • UBUZIMA BWO MU MITWE',
+    title: 'Agahinda ko hakiri kubyara (baby blues)\nn’ubuzima bwo mu mutwe nyuma yo kubyara',
+    subtitle:
+      'Gusobanukirwa impinduka zishobora kuza mu mutima nyuma yo kubyara no kumenya igihe cyo gushaka ubufasha.',
+    metaItems: ['Iminota 10 yo gusoma', 'Inkuru', 'Ku batangiye', 'Ibikubiyemo byasuzumwe'],
+    introTitle: 'Ni byiza kubimenya',
+    introText:
+      'Nyuma yo kubyara, ni ibisanzwe kunyura mu gihe amarangamutima aba yiyongereye. Baby blues akenshi ni iy’igihe gito, ariko agahinda gakomeza cyangwa kiyongera gakwiye kwitabwaho n’umuganga.',
+    contentsEyebrow: 'INYIGISHO',
+    contentsTitle: 'Muri iyi nkuru',
+    contents: [
+      'Gusobanukirwa baby blues',
+      'Ibimenyetso bikunze kugaragara',
+      'Ibifasha mu buzima bwa buri munsi',
+      'Baby blues cyangwa agahinda gakabije nyuma yo kubyara?',
+      'Igihe cyo gusaba ubufasha',
+      'Ibyingenzi byo kwibuka',
+    ],
+    section1Kicker: 'GUSOBANUKIRWA',
+    section1Title: 'Baby blues ni iki?',
+    section1Body1:
+      'Baby blues ni igihe cy’impinduka mu marangamutima gishobora kubaho mu minsi mike ya mbere nyuma yo kubyara. Impinduka z’imisemburo, umunaniro, kubura ibitotsi no kumenyera iki gihe gishya byose bishobora gutuma wumva ibintu cyane.',
+    section1Body2:
+      'Si ukunanirwa kandi ntibivuze ko uri umubyeyi mubi. Buri wese anyura mu minsi ya mbere nyuma yo kubyara mu buryo bwe.',
+    statTitle: 'Ibisanzwe',
+    statText:
+      'Baby blues ni ikintu gikunze kubaho nyuma yo kubyara kandi akenshi kigenda gishira ubwacyo mu minsi mike.',
+    section2Kicker: 'IBIMENYETSO',
+    section2Title: 'Ibyo ushobora kumva',
+    section2Body:
+      'Ibyo abantu bumva biratandukanye. Bamwe bumva cyane umunaniro no gukozwa ibintu, abandi bakagira impinduka z’imitekerereze zigaragara cyane.',
+    commonSigns: [
+      {
+        title: 'Kurira vuba',
+        description: 'Kurira byoroshye cyangwa kumva ibintu cyane.',
+      },
+      {
+        title: 'Kumva ibintu birenze',
+        description: 'Amarangamutima ashobora kumvikana cyane kandi agahinduka vuba.',
+      },
+      {
+        title: 'Imitekerereze ihindagurika',
+        description:
+          'Kumva woroheje bishobora gusimburana n’akanya ko kumva umeze neza.',
+      },
+      {
+        title: 'Umunaniro',
+        description: 'Umunaniro wo mu minsi ya mbere ushobora kongera amarangamutima.',
+      },
+    ],
+    section3Kicker: 'BURI MUNSI',
+    section3Title: 'Ibyafasha',
+    section3Body:
+      'Muri iki gihe, gukenera kuruhuka ni ngombwa cyane. Ibintu bito kandi byoroshye bishobora gutuma iminsi irushaho koroha.',
+    dailySupport: [
+      {
+        title: 'Kuruhuka',
+        description: 'Koresha buri kanya k’ubusa kugira ngo ugarure imbaraga.',
+      },
+      {
+        title: 'Emera ubufasha',
+        description: 'Ntutinye gusaba ubufasha abakuri hafi.',
+      },
+      {
+        title: 'Kunywa buri gihe',
+        description: 'Gumana amazi ahagije umunsi wose.',
+      },
+      {
+        title: 'Kurya bihagije',
+        description: 'Hitamo amafunguro yoroheje kandi ya buri gihe.',
+      },
+    ],
+    quoteText:
+      '“Gusaba ubufasha nyuma yo kubyara ni uburyo bwo kwita ku buzima bwawe n’ubw’umwana wawe.”',
+    section4Kicker: 'KUBITANDUKANYA',
+    section4Title: 'Baby blues cyangwa agahinda gakabije nyuma yo kubyara?',
+    section4Body:
+      'Baby blues akenshi ntimara igihe kandi igenda ikira buhoro buhoro. Agahinda gakabije nyuma yo kubyara kaba gatandukanye: gashobora kumara igihe kirekire, kikaba gikomeye, kandi kikagira ingaruka zikomeye ku buzima bwa buri munsi.',
+    compareTitle: 'Ibihe bibiri byo gutandukanya',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Akenshi imara igihe gito, igakira buhoro buhoro mu minsi ikurikira.',
+    comparePostpartumTitle: 'Agahinda gakabije nyuma yo kubyara',
+    comparePostpartumText:
+      'Gashobora kumara igihe kirekire, kikiyongera, kandi gukenera ubufasha bw’umuganga.',
+    section5Kicker: 'KUBA MWIZE',
+    section5Title: 'Ni ryari ugomba gusaba ubufasha?',
+    section5Body:
+      'Ni ngombwa kuvugana n’umuganga niba agahinda katagabanuka, kiyongera, cyangwa gatangiye gutuma ubuzima bwa buri munsi bugorana.',
+    attentionTitle: 'Ibimenyetso by’ingenzi byo kwitondera',
+    attentionSubtitle: 'Vugana n’umuganga niba…',
+    attentionSigns: [
+      'Ibimenyetso bimara irenga ibyumweru bibiri.',
+      'Agahinda cyangwa impungenge byiyongera.',
+      'Bigorana kwiyitaho cyangwa kwita ku mwana wawe.',
+      'Wumva umutima uremerewe cyane.',
+    ],
+    professionalTitle: 'Ubufasha burahari',
+    professionalText:
+      'Umubyaza, muganga, umuhanga mu by’imitekerereze cyangwa undi muganga bashobora kukumva, gusuzuma uko ubayeho no kuguha ubufasha bukwiye.',
+    tipTitle: 'Ni byiza kubimenya',
+    tipText:
+      'Amarangamutima yo nyuma yo kubyara si igipimo cy’uko uri umubyeyi mwiza. Ufite uburenganzira bwo gukenera kuruhuka, kumvwa no gufashwa.',
+    section6Kicker: 'IBYINGENZI',
+    section6Title: 'Ibyingenzi byo kwibuka',
+    takeaways: [
+      'Baby blues ni ikintu gikunze kubaho nyuma yo kubyara.',
+      'Umunaniro n’impinduka z’imisemburo bishobora kugira ingaruka ku mitekerereze.',
+      'Ubufasha bw’abagukikije bushobora koroshya iki gihe.',
+      'Agahinda gakomeza cyangwa gakomeye gakwiye gusuzumwa n’umuganga.',
+    ],
+    disclaimerText:
+      'Iyi nkuru ni iy’amakuru gusa kandi ntisimbura inama z’umuganga zihariye. Niba ufite impungenge cyangwa umutima uremerewe cyane, vugana n’umuganga.',
+    endText: 'Kwiyitaho nabyo ni igice cy’igihe cyo nyuma yo kubyara.',
+    shareTitle: 'Agahinda ko hakiri kubyara (baby blues) n’ubuzima bwo mu mutwe nyuma yo kubyara',
+    shareMessage:
+      'Baby blues n’ubuzima bwo mu mutwe nyuma yo kubyara — AWA\n\nIgitabo gifasha gusobanukirwa impinduka z’amarangamutima zikunze kubaho nyuma yo kubyara.',
+  },
+  rn: {
+    badgeText: 'NYUMA YO KUBYARA • UBUZIMA BWO MU MUTIMA',
+    title: 'Baby blues n’ubuzima bwo mu mutima\nnyuma yo kubyara',
+    subtitle:
+      'Gusobanukirwa ivyo umutima ushobora guhinduka nyuma yo kubyara no kumenya igihe co gusaba ubufasha.',
+    metaItems: ['Iminuta 10 yo gusoma', 'Inkuru', 'Intangiriro', 'Ibikubiye vyasuzumwe'],
+    introTitle: 'Ni vyiza kubimenya',
+    introText:
+      'Nyuma yo kubyara, biramenyerewe ko umutima urushiriza kworoha mu gihe. Baby blues ikunze kuba iy’igihe gito, ariko agahinda gahoraho canke kariyongera gakwiye kwitabwaho n’abaganga.',
+    contentsEyebrow: 'UBUYOBOZI',
+    contentsTitle: 'Muri iyi nkuru',
+    contents: [
+      'Gusobanukirwa baby blues',
+      'Ibimenyetso bikunze kuboneka',
+      'Ivyoroshya iminsi',
+      'Baby blues canke agahinda ko nyuma yo kubyara?',
+      'Igihe co gusaba ubufasha',
+      'Ivyo kwibuka',
+    ],
+    section1Kicker: 'GUSOBANUKIRWA',
+    section1Title: 'Baby blues ni iki?',
+    section1Body1:
+      'Baby blues ni igihe c’impinduka zo mu mutima zishobora kuboneka mu minsi mikeya ya mbere nyuma yo kubyara. Impinduka za hormone, kunanirwa, kubura ibitiro n’ukumenyera iki gihe gishasha, vyose bishobora gutuma woroha mu mutima.',
+    section1Body2:
+      'Si ukunanirwa kandi ntibivuga ko uri umubyeyi mubi. Umuntu wese abayaho iminsi ya mbere nyuma yo kubyara mu buryo bwiwe.',
+    statTitle: 'Ikintu gikunze kuba',
+    statText:
+      'Baby blues irakunda nyuma yo kubyara kandi ikunze kugenda yonyine mu minsi mikeya.',
+    section2Kicker: 'IBIMENYETSO',
+    section2Title: 'Ivyo ushobora kwumva',
+    section2Body:
+      'Ivyo abantu bahura nabwo biratandukanye. Bamwe bumva cane kunanirwa no korohera mu mutima, abandi bakaba bashobora kugira impinduka z’akamoto zigaragara cane.',
+    commonSigns: [
+      {
+        title: 'Kurira vuba',
+        description: 'Kurira vuba canke kwumva woroshe cane mu mutima.',
+      },
+      {
+        title: 'Kworoha cane mu mutima',
+        description: 'Ivyiyumviro bishobora kwumvikana vyinshi kandi bigahinduka vuba.',
+      },
+      {
+        title: 'Impinduka z’akamoto',
+        description:
+          'Kwumva woroshe bishobora gukurikirwa n’ibihe vyo kwumva umeze neza.',
+      },
+      {
+        title: 'Kunanirwa',
+        description: 'Kunanirwa kwo mu minsi ya mbere kurashobora kwongera ivyiyumviro.',
+      },
+    ],
+    section3Kicker: 'MU MINSI YOSE',
+    section3Title: 'Ivyoshobora gufasha',
+    section3Body:
+      'Muri iki gihe, ukeneye kuruhuka cane. Ibintu bito kandi byoroshe bishobora gutuma iminsi yorohera.',
+    dailySupport: [
+      {
+        title: 'Kuruhuka',
+        description: 'Gukoresha ibihe vyose uronse bitari ibikorwa kugira ngo woroherwe.',
+      },
+      {
+        title: 'Kwemera ubufasha',
+        description: 'Ntugatinye gusaba ubufasha abakuri hafi.',
+      },
+      {
+        title: 'Kunywa kenshi',
+        description: 'Kuguma ufise amazi ahagije umusi wose.',
+      },
+      {
+        title: 'Kurya bihagije',
+        description: 'Guhitamwo amafunguro yoroshe kandi ategekanijwe.',
+      },
+    ],
+    quoteText:
+      '“Gusaba ubufasha nyuma yo kubyara ni uburyo bwo kwitwararika wewe n’umwana wawe.”',
+    section4Kicker: 'KUBIVUGURANYA',
+    section4Title: 'Baby blues canke agahinda ko nyuma yo kubyara?',
+    section4Body:
+      'Baby blues ikunze kuba iy’igihe gito kandi igenda iroroha buhorobuhoro. Agahinda ko nyuma yo kubyara kaba gatandukanye: gashobora kumara igihe kirekire, kakaba kanini kandi kagira ingaruka ikomeye ku buzima bwa buri musi.',
+    compareTitle: 'Ibihe bibiri bitandukanye',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Akenshi iba iy’igihe gito, igenda iroroha buhorobuhoro mu minsi ikurikira.',
+    comparePostpartumTitle: 'Agahinda ko nyuma yo kubyara',
+    comparePostpartumText:
+      'Gashobora kumara igihe kirekire, kakiyongera, kandi gakeneye ubufasha bw’abaganga.',
+    section5Kicker: 'GUKOMEZA KUMENYA',
+    section5Title: 'Ni ryari dusaba ubufasha?',
+    section5Body:
+      'Ni vyiza kuvugana n’umuganga niba agahinda katagabanuka, kariyongera, canke gatangiye gutuma ubuzima bwa buri musi bugora.',
+    attentionTitle: 'Ibimenyetso vyo kwitondera',
+    attentionSubtitle: 'Vugana n’umuganga niba…',
+    attentionSigns: [
+      'Ibimenyetso bimara irenga ibyumweru bibiri.',
+      'Agahinda canke uguhagarika umutima biriyongera.',
+      'Biba bigoye kwitwararika wewe canke umwana wawe.',
+      'Wumva agahinda gakomeye.',
+    ],
+    professionalTitle: 'Ubufasha burahari',
+    professionalText:
+      'Umubyaza, umuganga, umuhanga mu bwenge bw’umuntu canke undi muganga arashobora kugutega amatwi, agasuzuma ivyo urimwo, akaguha ubufasha bukwiye.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Ivyiyumviro vyo nyuma yo kubyara si ibipimo vy’uko uri umubyeyi mwiza. Ufise uburenganzira bwo gukenera kuruhuka, gutegwa amatwi no gufashwa.',
+    section6Kicker: 'INGENZI',
+    section6Title: 'Ivyo kwibuka',
+    takeaways: [
+      'Baby blues irakunda nyuma yo kubyara.',
+      'Kunanirwa n’impinduka za hormone bishobora kugira ingaruka ku mutima.',
+      'Ubufasha bw’abakuri hafi bushobora koroshya iki gihe.',
+      'Agahinda gahoraho canke gakomeye gakwiye gusuzumwa n’umuganga.',
+    ],
+    disclaimerText:
+      'Iyi nkuru ni iyo kumenyesha gusa kandi ntisubira mu cumbi inama z’umuganga zikureba wenyine. Niba ufise ugukeka canke wumva agahinda gakomeye, vugana n’umuganga.',
+    endText: 'Kwitwararika ni kimwe mu bigize igihe co nyuma yo kubyara.',
+    shareTitle: 'Baby blues n’ubuzima bwo mu mutima nyuma yo kubyara',
+    shareMessage:
+      'Baby blues n’ubuzima bwo mu mutima nyuma yo kubyara — AWA\n\nUbuyobozi bwo gusobanukirwa impinduka zo mu mutima zikunze kuboneka nyuma yo kubyara.',
+  },
+  ig: {
+    badgeText: 'MGBE ỊMỤSỊRỊ NWA • HEALTH NKE OBI',
+    title: 'Baby blues na health nke obi\nmgbe ịmụsịrị nwa',
+    subtitle:
+      'Ịghọta ihe nwere ike ịgbanwe n’obi mgbe ịmụsịrị nwa na ịmara mgbe ị ga-achọ enyemaka.',
+    metaItems: ['Nkeji 10 ka a na-agụ', 'Edemede', 'Maka ndị na-amalite', 'Ọdịnaya a nyochara'],
+    introTitle: 'Ọ dị mma ịmara',
+    introText:
+      'Mgbe ịmụsịrị nwa, ọ na-adịkarị na obi na-adị gị nro karịa ka ọ na-adị. Baby blues na-abụkarị nke nwa oge, mana mwute na-adịgide adịgide ma ọ bụ na-aka njọ kwesịrị ka ọkachamara lebara anya.',
+    contentsEyebrow: 'NDỤMỌDỤ',
+    contentsTitle: 'N’edemede a',
+    contents: [
+      'Ịghọta baby blues',
+      'Ihe ịrịba ama ndị a na-ahụkarị',
+      'Ihe na-enyere aka kwa ụbọchị',
+      'Baby blues ka ọ bụ postpartum depression?',
+      'Mgbe ị ga-arịọ enyemaka',
+      'Isi ihe ndị a ga-echeta',
+    ],
+    section1Kicker: 'ỊGHỌTA',
+    section1Title: 'Gịnị bụ baby blues?',
+    section1Body1:
+      'Baby blues bụ oge mgbanwe n’obi nke nwere ike ime n’ụbọchị ole na ole mbụ mgbe ịmụsịrị nwa. Mgbanwe hormone, ike ọgwụgwụ, enweghị ụra zuru oke, na ịmeghari na ọkwa ọhụrụ a nwere ike ịkwalite nro obi a.',
+    section1Body2:
+      'Nke a abụghị ọdịda, ọ pụtaghịkwa na ị bụ nne ọjọọ. Onye ọ bụla na-enweta ụbọchị ndị mbụ mgbe ịmụsịrị nwa n’ụzọ nke ya.',
+    statTitle: 'Ahụmahụ a na-ahụkarị',
+    statText:
+      'Baby blues na-adịkarị mgbe a mụsịrị nwa, ọ na-ebutekwa ndozi n’onwe ya n’ime ụbọchị ole na ole.',
+    section2Kicker: 'IHE NDỊ A NA-ARỊBA AMA',
+    section2Title: 'Ihe ị nwere ike inwe n’obi',
+    section2Body:
+      'Ihe mmadụ na-enwe na-adịgasị iche. Ụfọdụ na-enwekarị ike ọgwụgwụ na nro obi, ebe ndị ọzọ nwere ike inwe mgbanwe mmụọ doro anya karịa.',
+    commonSigns: [
+      {
+        title: 'Ịkwa akwa ngwa ngwa',
+        description: 'Ịkwa akwa n’ụzọ dị mfe ma ọ bụ inwe nro obi karịsịa.',
+      },
+      {
+        title: 'Nro obi dị oke',
+        description: 'Mmetụta nwere ike ịdị ike ma gbanwee ngwa ngwa.',
+      },
+      {
+        title: 'Mgbanwe mmụọ',
+        description:
+          'Mmetụta nke adịghị ike nwere ike ịgbanwe na oge nke ọdịmma.',
+      },
+      {
+        title: 'Ike ọgwụgwụ',
+        description: 'Ike ọgwụgwụ nke ụbọchị ndị mbụ nwere ike ịbawanye mmetụta.',
+      },
+    ],
+    section3Kicker: 'KWA ỤBỌCHỊ',
+    section3Title: 'Ihe nwere ike inye aka',
+    section3Body:
+      'N’oge a, mkpa izu ike dị ukwuu. Obere ihe dị mfe nwere ike ime ka ụbọchị dị gị mma.',
+    dailySupport: [
+      {
+        title: 'Ịmụkwa izu ike',
+        description: 'Iji oge ọ bụla ị nwere n’efu gbakee.',
+      },
+      {
+        title: 'Ịnabata enyemaka',
+        description: 'Ejila ihere rịọ ndị gbara gị gburugburu aka.',
+      },
+      {
+        title: 'Ịṅụ mmiri mgbe niile',
+        description: 'Ịnọgide na-aṅụ mmiri zuru oke n’ụbọchị niile.',
+      },
+      {
+        title: 'Iri nri zuru oke',
+        description: 'Ịhọrọ nri dị mfe nke a na-eri mgbe niile.',
+      },
+    ],
+    quoteText:
+      '“Ịrịọ enyemaka mgbe ịmụsịrị nwa bụ otu ụzọ isi lekọta onwe gị na nwa gị.”',
+    section4Kicker: 'ICHEKWA NKWEKỌRỊTA',
+    section4Title: 'Baby blues ka ọ bụ postpartum depression?',
+    section4Body:
+      'Baby blues na-abụkarị nke dị mkpirikpi ma na-ebelata nwayọọ nwayọọ. Postpartum depression dị iche: ọ nwere ike ịdịgide ogologo oge, dị ike karịa, ma metụta ndụ kwa ụbọchị nke ukwuu.',
+    compareTitle: 'Ọnọdụ abụọ ị ga-amata iche',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Na-abụkarị nke dị mkpirikpi, na-ebelata nwayọọ nwayọọ n’ụbọchị ndị na-esote.',
+    comparePostpartumTitle: 'Postpartum depression',
+    comparePostpartumText:
+      'Nwere ike ịdịgide ogologo oge, ịdịwanye ike, ma chọọ enyemaka ọkachamara.',
+    section5Kicker: 'ỊNỌ N’ỤZỌ NCHEBE',
+    section5Title: 'Kedu mgbe ị ga-arịọ enyemaka?',
+    section5Body:
+      'Ọ dị mkpa ịgwa ọkachamara n’ihe gbasara ahụike okwu ma ọ bụrụ na mwute obi adịghị ebelata, na-adịwanye ike, ma ọ bụ malite ime ka ndụ kwa ụbọchị sie ike.',
+    attentionTitle: 'Ihe ịrịba ama ịdọ aka ná ntị ị ga-achọpụta',
+    attentionSubtitle: 'Gwa ọkachamara ma ọ bụrụ na…',
+    attentionSigns: [
+      'Mgbaàmà na-adịgide ihe karịrị izu abụọ.',
+      'Mwute ma ọ bụ nchegbu na-adịwanye ike.',
+      'Ọ na-esiri gị ike ilekọta onwe gị ma ọ bụ nwa gị.',
+      'Mmetụta nke nsogbu dị oke na-apụta.',
+    ],
+    professionalTitle: 'Enyemaka dị',
+    professionalText:
+      'Midwife, dọkịta, onye ọkachamara n’ihe gbasara uche, ma ọ bụ onye ọkachamara ahụike ọzọ nwere ike ige gị ntị, nyochaa ọnọdụ ahụ, ma nye enyemaka kwesịrị ekwesị.',
+    tipTitle: 'Ọ dị mma ịmara',
+    tipText:
+      'Mmetụta obi mgbe ịmụsịrị nwa abụghị ihe e ji atụ ka ị si bụrụ nne dị mma. Ị nwere ikike ịchọ izu ike, ka a gee gị ntị, ma nyere gị aka.',
+    section6Kicker: 'ISI IHE NDỊ A',
+    section6Title: 'Isi ihe ndị a ga-echeta',
+    takeaways: [
+      'Baby blues na-adịkarị mgbe ịmụsịrị nwa.',
+      'Ike ọgwụgwụ na mgbanwe hormone nwere ike imetụta mmụọ.',
+      'Enyemaka sitere n’aka ndị gbara gị gburugburu nwere ike ime ka oge a dị mfe.',
+      'Mwute na-adịgide adịgide ma ọ bụ nke dị oke kwesịrị nyocha ọkachamara.',
+    ],
+    disclaimerText:
+      'Edemede a bụ maka ozi naanị, ọ naghị anọchi ndụmọdụ ahụike nke e nyere gị n’onwe gị. Ọ bụrụ na ị nwere obi abụọ ma ọ bụ na-enwe nsogbu obi dị oke, kwuo okwu na ọkachamara ahụike.',
+    endText: 'Ilekọta onwe gị bụkwa akụkụ nke oge mgbe ịmụsịrị nwa.',
+    shareTitle: 'Baby blues na health nke obi mgbe ịmụsịrị nwa',
+    shareMessage:
+      'Baby blues na health nke obi mgbe ịmụsịrị nwa — AWA\n\nNdụmọdụ iji ghọta mgbanwe obi ndị na-adịkarị mgbe a mụsịrị nwa.',
+  },
+  yo: {
+    badgeText: 'LẸ́YÌN ÌBÍMỌ • ÌLERA ỌKÀN',
+    title: 'Baby blues àti ìlera ọkàn\nlẹ́yìn ìbímọ',
+    subtitle:
+      'Òye ohun tó lè yí padà nínú ọkàn lẹ́yìn ìbímọ àti mímọ̀ ìgbà tí a ó wá ìrànlọ́wọ́.',
+    metaItems: ['Kíkà ní ìṣẹ́jú 10', 'Àpilẹ̀kọ', 'Olùbẹ̀rẹ̀', 'Àkóónú tí a ti àtúnyẹ̀wò'],
+    introTitle: 'Ohun tó yẹ kí o mọ̀',
+    introText:
+      'Lẹ́yìn ìbímọ, ó wọ́pọ̀ pé ọkàn obìnrin máa ń ní ìmọ̀lára tó pọ̀ sí i. Baby blues sábà máa ń jẹ́ ti ìgbà díẹ̀, ṣùgbọ́n ìbànújẹ́ tó bá wà fún ìgbà pípẹ́ tàbí tó ń pọ̀ sí i yẹ kí onímọ̀ ìlera wò ó.',
+    contentsEyebrow: 'ÌTỌ́SỌ́NÀ',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    contents: [
+      'Òye baby blues',
+      'Àwọn àmì tó wọ́pọ̀ jù',
+      'Ohun tó ń ranni lọ́wọ́ lójoojúmọ́',
+      'Baby blues tàbí ìsoríkọ́ lẹ́yìn ìbímọ?',
+      'Ìgbà tí o ó bèèrè fún ìrànlọ́wọ́',
+      'Àwọn kókó pàtàkì',
+    ],
+    section1Kicker: 'ÒYE',
+    section1Title: 'Kí ni baby blues?',
+    section1Body1:
+      'Baby blues jẹ́ àkókò ìyípadà nínú ọkàn tó lè ṣẹlẹ̀ ní ọjọ́ díẹ̀ àkọ́kọ́ lẹ́yìn ìbímọ. Ìyípadà hormone, àárẹ̀, àìsùn tó pọ̀ tó, àti bí a ṣe ń bá ipele tuntun yìí lò lè jẹ́ kí ọkàn rọ̀ ní irú ọ̀nà yìí.',
+    section1Body2:
+      'Èyí kì í ṣe ìkùnà, kò sì túmọ̀ sí pé ìwọ jẹ́ ìyá tí kò dára. Gbogbo obìnrin ló ń la ọjọ́ àkọ́kọ́ lẹ́yìn ìbímọ kọjá ní ọ̀nà tirẹ̀.',
+    statTitle: 'Ohun tó wọ́pọ̀',
+    statText:
+      'Baby blues wọ́pọ̀ lẹ́yìn ìbímọ, ó sì máa ń dára fúnra rẹ̀ láàárín ọjọ́ díẹ̀.',
+    section2Kicker: 'ÀWỌN ÀMÌ',
+    section2Title: 'Ohun tí o lè rí lára',
+    section2Body:
+      'Ohun tí àwọn obìnrin ń rí yàtọ̀ síra. Àwọn kan máa ń rí àárẹ̀ àti ọkàn tó rọ̀ jù, nígbà tí àwọn mìíràn lè ní ìyípadà ìwà tó hàn gbangba jù.',
+    commonSigns: [
+      {
+        title: 'Ọkàn tó rọ̀',
+        description: 'Ẹkún tó ń yá jù tàbí ọkàn tó rọ̀ jù.',
+      },
+      {
+        title: 'Ọkàn tó rọ̀ gidigidi',
+        description: 'Ìmọ̀lára lè le sí i, ó sì lè yí padà kíákíá.',
+      },
+      {
+        title: 'Ìyípadà ìwà',
+        description:
+          'Ìmọ̀lára àìlera lè máa yí padà pẹ̀lú àwọn àkókò ìdùnnú.',
+      },
+      {
+        title: 'Àárẹ̀',
+        description: 'Àárẹ̀ ọjọ́ àkọ́kọ́ lè jẹ́ kí ìmọ̀lára pọ̀ sí i.',
+      },
+    ],
+    section3Kicker: 'LÓJOOJÚMỌ́',
+    section3Title: 'Ohun tó lè ranni lọ́wọ́',
+    section3Body:
+      'Ní àkókò yìí, ìsinmi ṣe pàtàkì gan-an. Àwọn nǹkan kékeré tó rọrùn lè jẹ́ kí àwọn ọjọ́ rọrùn díẹ̀.',
+    dailySupport: [
+      {
+        title: 'Ìsinmi',
+        description: 'Lo àkókò òmìnira kọ̀ọ̀kan láti sinmi.',
+      },
+      {
+        title: 'Gba ìrànlọ́wọ́',
+        description: 'Má ṣe lọ́ra láti bèèrè ìrànlọ́wọ́ lọ́wọ́ àwọn tó yí ọ ká.',
+      },
+      {
+        title: 'Mímu omi déédéé',
+        description: 'Mu omi tó pọ̀ tó ní gbogbo ọjọ́.',
+      },
+      {
+        title: 'Jíjẹun tó tó',
+        description: 'Jẹ oúnjẹ tó rọrùn ní àkókò déédéé.',
+      },
+    ],
+    quoteText:
+      '“Bíbèèrè fún ìrànlọ́wọ́ lẹ́yìn ìbímọ jẹ́ ọ̀nà láti tọ́jú ara rẹ àti ọmọ rẹ.”',
+    section4Kicker: 'MÍMỌ̀ WỌ́N YÀTỌ̀',
+    section4Title: 'Baby blues tàbí ìsoríkọ́ lẹ́yìn ìbímọ?',
+    section4Body:
+      'Baby blues sábà máa ń jẹ́ ti ìgbà kúkúrú, ó sì ń dára díẹ̀díẹ̀. Ìsoríkọ́ lẹ́yìn ìbímọ yàtọ̀: ó lè pẹ́ jù, le jù, kí ó sì ní ipa ńlá lórí ìgbésí ayé ojoojúmọ́.',
+    compareTitle: 'Ipò méjì tó yẹ kí a mọ̀ yàtọ̀',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Ó sábà máa ń jẹ́ ti ìgbà kúkúrú, ó sì ń dára díẹ̀díẹ̀ láàárín ọjọ́ tó tẹ̀lé e.',
+    comparePostpartumTitle: 'Ìsoríkọ́ lẹ́yìn ìbímọ',
+    comparePostpartumText:
+      'Ó lè pẹ́ jù, le sí i, ó sì lè nílò ìrànlọ́wọ́ onímọ̀ ìlera.',
+    section5Kicker: 'MÁ ṢE GBÀGBÉ',
+    section5Title: 'Ìgbà wo ni kí n bèèrè fún ìrànlọ́wọ́?',
+    section5Body:
+      'Ó ṣe pàtàkì láti bá onímọ̀ ìlera sọ̀rọ̀ tí ìbànújẹ́ ọkàn kò bá dára, tó bá ń le sí i, tàbí tó bá bẹ̀rẹ̀ sí í mú ìgbésí ayé ojoojúmọ́ le.',
+    attentionTitle: 'Àwọn àmì ìkìlọ̀ láti kíyèsí',
+    attentionSubtitle: 'Bá onímọ̀ ìlera sọ̀rọ̀ tí…',
+    attentionSigns: [
+      'Àwọn àmì bá wà fún ju ọ̀sẹ̀ méjì lọ.',
+      'Ìbànújẹ́ tàbí àníyàn bá ń le sí i.',
+      'Ó bá ṣòro láti tọ́jú ara rẹ tàbí ọmọ rẹ.',
+      'Ìmọ̀lára ìrora ọkàn ńlá bá yọjú.',
+    ],
+    professionalTitle: 'Ìrànlọ́wọ́ wà',
+    professionalText:
+      'Agbẹ̀bí, dókítà, onímọ̀ nípa ọkàn, tàbí onímọ̀ ìlera mìíràn lè gbọ́ tìrẹ, ṣe àyẹ̀wò ipò náà, kí ó sì fún ọ ní ìrànlọ́wọ́ tó yẹ.',
+    tipTitle: 'Ohun tó yẹ kí o mọ̀',
+    tipText:
+      'Ìmọ̀lára lẹ́yìn ìbímọ kì í ṣe ìwọ̀n bí o ṣe jẹ́ ìyá rere. O ní ẹ̀tọ́ láti nílò ìsinmi, láti gbọ́, àti láti ní ìrànlọ́wọ́.',
+    section6Kicker: 'ÀWỌN KÓKÓ',
+    section6Title: 'Àwọn kókó pàtàkì',
+    takeaways: [
+      'Baby blues wọ́pọ̀ lẹ́yìn ìbímọ.',
+      'Àárẹ̀ àti ìyípadà hormone lè ní ipa lórí ìwà.',
+      'Ìrànlọ́wọ́ látọ̀dọ̀ àwọn tó yí ọ ká lè jẹ́ kí àkókò yìí rọrùn.',
+      'Ìrora ọkàn tó pẹ́ tàbí tó pọ̀ yẹ kí onímọ̀ ìlera yẹ̀ wò.',
+    ],
+    disclaimerText:
+      'Àpilẹ̀kọ yìí wà fún ìmọ̀ nìkan, kò sì rọ́pò ìmọ̀ràn ìṣègùn tó bá ọ pàtó. Tí o bá ń ṣiyèméjì tàbí tí o bá ń ní ìrora ọkàn ńlá, bá onímọ̀ ìlera sọ̀rọ̀.',
+    endText: 'Títọ́jú ara rẹ náà jẹ́ apá kan ìgbà lẹ́yìn ìbímọ.',
+    shareTitle: 'Baby blues àti ìlera ọkàn lẹ́yìn ìbímọ',
+    shareMessage:
+      'Baby blues àti ìlera ọkàn lẹ́yìn ìbímọ — AWA\n\nÌtọ́sọ́nà láti lóye àwọn ìyípadà ọkàn tó wọ́pọ̀ lẹ́yìn ìbímọ.',
+  },
+  zu: {
+    badgeText: 'NGEMVA KOKUBELETHA • IMPILO YEMIZWA',
+    title: 'I-baby blues nempilo yemizwa\nngemva kokubeletha',
+    subtitle:
+      'Ukuqonda ukuthi yini engashintsha emizweni ngemva kokubeletha nokwazi ukuthi ucela kanjani usizo.',
+    metaItems: ['Imizuzu eyi-10 yokufunda', 'Isihloko', 'Okwabaqalayo', 'Okuqulunqwe kabusha'],
+    introTitle: 'Kuhle ukwazi',
+    introText:
+      'Ngemva kokubeletha, kuvamile ukuba nesikhathi lapho imizwa yenza uzizwe uthintheka kakhulu. I-baby blues imvamisa iba isikhashana, kodwa ukucindezeleka okuqhubekayo noma okukhulayo kudinga ukunakwa ngochwepheshe.',
+    contentsEyebrow: 'ISIKHOKHELO',
+    contentsTitle: 'Kulesi sihloko',
+    contents: [
+      'Ukuqonda i-baby blues',
+      'Izimpawu ezivame kakhulu',
+      'Okusizayo losuku nosuku',
+      'I-baby blues noma ukucindezeleka ngemva kokubeletha?',
+      'Ukuthi ucela nini usizo',
+      'Okubalulekile ongakukhumbula',
+    ],
+    section1Kicker: 'UKUQONDA',
+    section1Title: 'Iyini i-baby blues?',
+    section1Body1:
+      'I-baby blues isikhathi sezinguquko zemizwa okungenzeka sibe khona emalangeni ambalwa okuqala ngemva kokubeletha. Ukushintsha kwama-hormone, ukukhathala, ukuntuleka kokulala, nokujwayela leli leveli elisha kungaba nesandla kulokhu kuthinteka.',
+    section1Body2:
+      'Lokhu akuyona ukwehluleka futhi akusho ukuthi ungumama ongalungile. Wonke umuntu uhlangabezana nezinsuku zokuqala ngemva kokubeletha ngendlela yakhe.',
+    statTitle: 'Okuhlangenwe nakho okuvamile',
+    statText:
+      'I-baby blues ivamile ngemva kokubeletha futhi imvamisa iyaphila yodwa emalangeni ambalwa.',
+    section2Kicker: 'IZIMPAWU',
+    section2Title: 'Okungenzeka ukuzwe',
+    section2Body:
+      'Okuhlangenwe nakho kuyahlukahluka. Abanye bazwa kakhulu ukukhathala nokuthinteka, kanti abanye bangaba nezinguquko zemizwa ezibonakala kakhulu.',
+    commonSigns: [
+      {
+        title: 'Ukuba nemizwa kakhulu',
+        description: 'Ukukhala kalula noma ukuzwa uthintheka ngokukhethekile.',
+      },
+      {
+        title: 'Ukuthinteka ngokweqile',
+        description: 'Imizwa ingazwakala inamandla kakhulu futhi ishintshe ngokushesha.',
+      },
+      {
+        title: 'Ukushintsha kwemizwa',
+        description:
+          'Ukuzizwa uthambile kungashintshana nezikhathi zokuzizwa kahle.',
+      },
+      {
+        title: 'Ukukhathala',
+        description: 'Ukukhathala kwezinsuku zokuqala kungandisa imizwa.',
+      },
+    ],
+    section3Kicker: 'LOSUKU NOSUKU',
+    section3Title: 'Okungasiza',
+    section3Body:
+      'Kulesi sikhathi, isidingo sokuphumula siyikhulu. Izinto ezincane nezilula zingenza izinsuku zibe lula kakhulu.',
+    dailySupport: [
+      {
+        title: 'Ukuphumula',
+        description: 'Sebenzisa noma yisiphi isikhathi esikhululekile ukuze uphinde ube namandla.',
+      },
+      {
+        title: 'Ukwamukela usizo',
+        description: 'Ungabazi ukucela ukwesekwa kulabo abakuzungezile.',
+      },
+      {
+        title: 'Ukuphuza njalo',
+        description: 'Ukuphuza amanzi anele usuku lonke.',
+      },
+      {
+        title: 'Ukudla ngokwanele',
+        description: 'Khetha ukudla okulula nokujwayelekile.',
+      },
+    ],
+    quoteText:
+      '“Ukucela usizo ngemva kokubeletha kuyindlela yokuzinakekela wena nengane yakho.”',
+    section4Kicker: 'UKUHLANGANISA NOKUHLUKANISA',
+    section4Title: 'I-baby blues noma ukucindezeleka ngemva kokubeletha?',
+    section4Body:
+      'I-baby blues imvamisa iba isikhashana futhi iyalunga kancane kancane. Ukucindezeleka ngemva kokubeletha kuhlukile: kungaqhubeka isikhathi eside, kube namandla kakhulu, futhi kube nomthelela omkhulu empilweni yansuku zonke.',
+    compareTitle: 'Izimo ezimbili okufanele zihlukaniswe',
+    compareBabyBluesTitle: 'I-baby blues',
+    compareBabyBluesText:
+      'Imvamisa iba isikhashana, ilunga kancane kancane emalangeni alandelayo.',
+    comparePostpartumTitle: 'Ukucindezeleka ngemva kokubeletha',
+    comparePostpartumText:
+      'Kungaqhubeka isikhathi eside, kukhule, futhi kudinge ukwesekwa ngochwepheshe.',
+    section5Kicker: 'BUKELA NGOKUQEQESHA',
+    section5Title: 'Ucela nini usizo?',
+    section5Body:
+      'Kubalulekile ukukhuluma nochwepheshe wezempilo uma ukucindezeleka kwemizwa kungalungi, kuba namandla kakhulu, noma kuqala ukwenza impilo yansuku zonke ibe nzima.',
+    attentionTitle: 'Izimpawu zokuxwayisa okufanele ziqashelwe',
+    attentionSubtitle: 'Khuluma nochwepheshe uma…',
+    attentionSigns: [
+      'Izimpawu ziqhubeka ngaphezu kwamaviki amabili.',
+      'Usizi noma ukukhathazeka kuba namandla kakhulu.',
+      'Kuba nzima ukuzinakekela wena noma ingane yakho.',
+      'Kuvela umuzwa omkhulu wokucindezeleka.',
+    ],
+    professionalTitle: 'Usizo luyatholakala',
+    professionalText:
+      'Umbelethisi, udokotela, usokhaya wengqondo, noma omunye uchwepheshe wezempilo angakulalela, ahlole isimo, futhi akunike ukwesekwa okufanele.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Imizwa yangemva kokubeletha akusona isilinganiso sokuthi ungumama omuhle kangakanani. Unelungelo lokudinga ukuphumula, lokulalelwa, nelokwesekwa.',
+    section6Kicker: 'AMAQHUBA ABALULEKILE',
+    section6Title: 'Okubalulekile ongakukhumbula',
+    takeaways: [
+      'I-baby blues ivamile ngemva kokubeletha.',
+      'Ukukhathala nezinguquko zama-hormone kungathinta isimo sengqondo.',
+      'Ukwesekwa yilabo abakuzungezile kungenza lesi sikhathi sibe lula.',
+      'Ukucindezeleka okuqhubekayo noma okukhulu kudinga ukuhlolwa ngochwepheshe.',
+    ],
+    disclaimerText:
+      'Lesi sihloko siwukwazisa kuphela futhi asithathi indawo yeseluleko sezokwelapha esikuphathelene wena. Uma unokungabaza noma unokucindezeleka okukhulu, khuluma nochwepheshe wezempilo.',
+    endText: 'Ukuzinakekela wena nakho kuyingxenye yesikhathi sangemva kokubeletha.',
+    shareTitle: 'I-baby blues nempilo yemizwa ngemva kokubeletha',
+    shareMessage:
+      'I-baby blues nempilo yemizwa ngemva kokubeletha — AWA\n\nIsikhokelo sokuqonda izinguquko zemizwa ezivamile ngemva kokubeletha.',
+  },
+  xh: {
+    badgeText: 'EMVA KOKUBELETHA • IMPILO YEMIVA',
+    title: 'I-baby blues kunye nempilo\nyemiva emva kokubeletha',
+    subtitle:
+      'Ukuqonda oko kunokutshintsha ngokwemiva emva kokubeletha nokwazi ixesha lokucela inkxaso.',
+    metaItems: ['Imizuzu eli-10 yokufunda', 'Inqaku', 'Abaqalayo', 'Umxholo ohlolwe ngabantu'],
+    introTitle: 'Kuhle ukwazi',
+    introText:
+      'Emva kokubeletha, kuqhelekile ukudlula kwixesha apho imiva ivuka ngokukhulu. I-baby blues idla ngokuba yexeshana, kodwa ukudandatheka okuqhubekayo okanye okuya kukhula kufanele kujongwe yingcali.',
+    contentsEyebrow: 'ISIKHOKELO',
+    contentsTitle: 'Kweli nqaku',
+    contents: [
+      'Ukuqonda i-baby blues',
+      'Iimpawu eziqhelekileyo',
+      'Okunceda imihla ngemihla',
+      'I-baby blues okanye ukudakumba emva kokubeletha?',
+      'Ixesha lokucela uncedo',
+      'Amanqaku aphambili',
+    ],
+    section1Kicker: 'UKUQONDA',
+    section1Title: 'Yintoni i-baby blues?',
+    section1Body1:
+      'I-baby blues lixesha lotshintsho lwemiva olunokwenzeka kwiintsuku ezimbalwa zokuqala emva kokubeletha. Utshintsho lwehomoni, ukudinwa, ukungalali kakuhle, nokuzijongela kweli nqanaba elitsha zonke zinokubangela oku kuvuka kwemiva.',
+    section1Body2:
+      'Oku akuyonto yokuthotyelwa kwaye akuthethi ukuba ungumama ombi. Wonke umntu uzibona iintsuku zokuqala emva kokubeletha ngendlela yakhe.',
+    statTitle: 'Into eqhelekileyo',
+    statText:
+      'I-baby blues iqhelekile emva kokubeletha kwaye idla ngokuncipha yodwa kwiintsuku ezimbalwa.',
+    section2Kicker: 'IIMPAWU',
+    section2Title: 'Oko unokukuva',
+    section2Body:
+      'Oko abantu bakuvayo kuyahluka. Abanye bakuva ikakhulu ukudinwa nokuvuka kwemiva, ngoxa abanye banokuba notshintsho olubonakalayo kwimeko yengqondo.',
+    commonSigns: [
+      {
+        title: 'Ukulila lula',
+        description: 'Ukulila lula okanye ukuvuka kwemiva ngakumbi.',
+      },
+      {
+        title: 'Ukuvuka kakhulu kwemiva',
+        description: 'Imvakalelo inokuvakala inamandla ngakumbi kwaye itshintshe ngokukhawuleza.',
+      },
+      {
+        title: 'Utshintsho lwemeko yengqondo',
+        description:
+          'Imvakalelo yokuba buthathaka inokutshintshana namaxesha okuva ubuhle.',
+      },
+      {
+        title: 'Ukudinwa',
+        description: 'Ukudinwa kwiintsuku zokuqala kunokwenza imivakalelo ibe nkulu.',
+      },
+    ],
+    section3Kicker: 'IMIHLA NGEMIHLA',
+    section3Title: 'Okunokunceda',
+    section3Body:
+      'Kweli xesha, isidingo sokuphumla sikhulu. Izinto ezincinci nezilula zinokwenza iintsuku zibe lula.',
+    dailySupport: [
+      {
+        title: 'Ukuphumla',
+        description: 'Ukusebenzisa naliphi na ixesha elikhululekileyo ukuze uphile.',
+      },
+      {
+        title: 'Ukwamkela uncedo',
+        description: 'Musa ukunqena ukucela inkxaso kwabo bakungqongileyo.',
+      },
+      {
+        title: 'Ukusela rhoqo',
+        description: 'Ukuhlala unamanzi anele emzimbeni imini yonke.',
+      },
+      {
+        title: 'Ukutya ngokwaneleyo',
+        description: 'Khetha ukutya okulula nokuqhelekileyo.',
+      },
+    ],
+    quoteText:
+      '“Ukucela uncedo emva kokubeletha yindlela yokuzinyamekela wena nosana lwakho.”',
+    section4Kicker: 'UKUKWAHLULA',
+    section4Title: 'I-baby blues okanye ukudakumba emva kokubeletha?',
+    section4Body:
+      'I-baby blues idla ngokuba yexeshana kwaye iyaphucuka kancinci kancinci. Ukudakumba emva kokubeletha kwahlukile: kunokuqhubeka ixesha elide, kube nzima ngakumbi, kwaye kube nempembelelo enkulu kubomi bemihla ngemihla.',
+    compareTitle: 'Iimeko ezimbini ekufuneka zahlulwe',
+    compareBabyBluesTitle: 'I-baby blues',
+    compareBabyBluesText:
+      'Idla ngokuba yexeshana, iphucuka kancinci kwiintsuku ezilandelayo.',
+    comparePostpartumTitle: 'Ukudakumba emva kokubeletha',
+    comparePostpartumText:
+      'Kunokuhlala ixesha elide, kukhule, kwaye kufune inkxaso yengcali.',
+    section5Kicker: 'UKUHLALA UVUKILE',
+    section5Title: 'Ixesha lokucela uncedo?',
+    section5Body:
+      'Kubalulekile ukuthetha nengcali yezempilo ukuba ukudandatheka kwemiva akuphuculi, kuya kukhula, okanye kuqala ukwenza ubomi bemihla ngemihla bube nzima.',
+    attentionTitle: 'Iimpawu zesilumkiso ekufuneka ujonge',
+    attentionSubtitle: 'Thetha nengcali ukuba…',
+    attentionSigns: [
+      'Iimpawu zihlala ngaphezu kweeveki ezimbini.',
+      'Usizi okanye unxunguphalo luya lukhula.',
+      'Kuba nzima ukuzinyamekela okanye ukunyamekela usana lwakho.',
+      'Kuvela imvakalelo enkulu yokudandatheka.',
+    ],
+    professionalTitle: 'Inkxaso iyafumaneka',
+    professionalText:
+      'Umbelekisi, gqirha, ingcali yengqondo, okanye enye ingcali yezempilo inokukumamela, ihlole imeko, kwaye ikunike inkxaso efanelekileyo.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Imivakalelo yemva kokubeletha ayisiyo mlinganiselo wokuba ungumama olungileyo kangakanani. Unelungelo lokufuna ukuphumla, lokumamelwa, nelokuxhaswa.',
+    section6Kicker: 'AMANQAKU AMNYAMA',
+    section6Title: 'Amanqaku aphambili',
+    takeaways: [
+      'I-baby blues iqhelekile emva kokubeletha.',
+      'Ukudinwa notshintsho lwehomoni kunokuchaphazela imeko yengqondo.',
+      'Inkxaso evela kwabo bakungqongileyo inokwenza eli xesha libe lula.',
+      'Ukudandatheka okuqhubekayo okanye okukhulu kufanele kuhlolwe yingcali.',
+    ],
+    disclaimerText:
+      'Eli nqaku lenzelwe ukwazisa kwaye aliyithatheli indawo iseluleko sezonyango esikulungeleyo wena. Ukuba uyathandabuza okanye unengxaki enkulu yokudandatheka, thetha nengcali yezempilo.',
+    endText: 'Ukuzinyamekela nawe sisiqendu sexesha emva kokubeletha.',
+    shareTitle: 'I-baby blues kunye nempilo yemiva emva kokubeletha',
+    shareMessage:
+      'I-baby blues kunye nempilo yemiva emva kokubeletha — AWA\n\nIsikhokelo sokuqonda utshintsho lwemiva oluqhelekileyo emva kokubeletha.',
+  },
+  sn: {
+    badgeText: 'MUSHURE MEKUBEREKA • HUPENYU HWEPAMUTSARA',
+    title: 'Baby blues nehutano hwepamutsara\nmushure mekubereka',
+    subtitle:
+      'Kunzwisisa zvinogona kushanduka pamutsara mushure mekubereka uye kuziva nguva yekutsvaga rubatsiro.',
+    metaItems: ['Maminetsi gumi ekuverenga', 'Chinyorwa', 'Anotangira', 'Zvakatariswa'],
+    introTitle: 'Zvakanaka kuziva',
+    introText:
+      'Mushure mekubereka, zvakajairika kupfuura nenguva yekunzwa zvakanyanya pamutsara. Baby blues inowanzoenda, asi kushungurudzika kunoramba kuripo kana kuwedzera kunofanira kuonekwa nemunhu ane unyanzvi.',
+    contentsEyebrow: 'CHINDIRO',
+    contentsTitle: 'Muchinyorwa chino',
+    contents: [
+      'Kunzwisisa baby blues',
+      'Zviratidzo zvakajairika',
+      'Zvinobatsira zuva nezuva',
+      'Baby blues here kana kuora mwoyo mushure mekubereka?',
+      'Nguva yekukumbira rubatsiro',
+      'Zvakakosha zvekuyeuka',
+    ],
+    section1Kicker: 'KUNZWISISA',
+    section1Title: 'Baby blues chii?',
+    section1Body1:
+      'Baby blues inguva yekushanduka kwemanzwiro inogona kuitika mumazuva mashoma ekutanga mushure mekubereka. Kushanduka kwema hormone, kuneta, kushaya hope, nekujaira nhanho itsva iyi zvose zvinogona kukonzera kunzwa kwakadaro.',
+    section1Body2:
+      'Uku hakusi kukundikana uye hazvirevi kuti uri mubereki wakashata. Munhu wose anopfuura nemazuva ekutanga mushure mekubereka nenzira yake.',
+    statTitle: 'Chiitiko chakajairika',
+    statText:
+      'Baby blues yakajairika mushure mekubereka uye inowanzoita nani pachayo mukati memazuva mashoma.',
+    section2Kicker: 'ZVIRATIDZO',
+    section2Title: 'Zvaunogona kunzwa',
+    section2Body:
+      'Zvinoitika zvinosiyana nemunhu. Vamwe vanonyanya kunzwa kuneta nekunzwa zvakanyanya, vamwe vanogona kuva nekushanduka kwemufambiro wemanzwiro kunooneka.',
+    commonSigns: [
+      {
+        title: 'Kunzwa zvakanyanya',
+        description: 'Kuchema nyore kana kunzwa uchishungurudzika zvikuru.',
+      },
+      {
+        title: 'Kunzwa zvakanyanya',
+        description: 'Manzwiro anogona kunzwika sakasimba uye achichinja nekukurumidza.',
+      },
+      {
+        title: 'Kushanduka kwemufambiro wemanzwiro',
+        description:
+          'Kunzwa wakapfava kunogona kutsiviwa nenguva dzekunzwa wakanaka.',
+      },
+      {
+        title: 'Kuneta',
+        description: 'Kuneta kwemazuva ekutanga kunogona kuwedzera manzwiro.',
+      },
+    ],
+    section3Kicker: 'ZUVA NEZUVA',
+    section3Title: 'Zvingabatsira',
+    section3Body:
+      'Panguva ino, kudiwa kwekuzorora kwakakura. Zvinhu zvidiki zvakareruka zvinogona kuita kuti mazuva ave nyore.',
+    dailySupport: [
+      {
+        title: 'Kuzorora',
+        description: 'Shandisa nguva dzose dzisina basa kuti uve nesimba.',
+      },
+      {
+        title: 'Kugamuchira rubatsiro',
+        description: 'Usatya kukumbira rubatsiro kune vakakukomberedza.',
+      },
+      {
+        title: 'Kunwa nguva dzose',
+        description: 'Kuramba uchinwa mvura yakakwana zuva rose.',
+      },
+      {
+        title: 'Kudya zvakakwana',
+        description: 'Sarudza chikafu chakareruka uye chinodyiwa nguva dzose.',
+      },
+    ],
+    quoteText:
+      '“Kukumbira rubatsiro mushure mekubereka inzira yekuzvichengeta iwe nemwana wako.”',
+    section4Kicker: 'KUSIYANISA',
+    section4Title: 'Baby blues here kana kuora mwoyo mushure mekubereka?',
+    section4Body:
+      'Baby blues inowanzova pfupi uye inoitika zvishoma nezvishoma. Kuora mwoyo mushure mekubereka kwakasiyana: kunogona kuramba kuripo kwenguva refu, kunosimba, uye kunokanganisa hupenyu hwezuva nezuva zvikuru.',
+    compareTitle: 'Mamiriro maviri anofanira kusiyaniswa',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Kazhinji ipfupi, ichiita nani zvishoma nezvishoma mumazuva anotevera.',
+    comparePostpartumTitle: 'Kuora mwoyo mushure mekubereka',
+    comparePostpartumText:
+      'Kunogona kuramba kwenguva refu, kuwedzera, uye kuda rubatsiro rwemunhu ane unyanzvi.',
+    section5Kicker: 'ITA CHENJERO',
+    section5Title: 'Nguva yekukumbira rubatsiro?',
+    section5Body:
+      'Zvakakosha kutaura nemunhu ane unyanzvi muutano kana kushungurudzika kwepamutsara kusingaiti nani, kuchiwedzera, kana kuchiita kuti hupenyu hwezuva nezuva huome.',
+    attentionTitle: 'Zviratidzo zvekuchenjerera',
+    attentionSubtitle: 'Taura nemunhu ane unyanzvi kana…',
+    attentionSigns: [
+      'Zviratidzo zvichiramba kwemavhiki anopfuura maviri.',
+      'Kusuwa kana kunetseka kunowedzera.',
+      'Zvinova zvakaoma kuzvichengeta iwe kana kuchengeta mwana wako.',
+      'Kunzwa kushungurudzika kukuru kunoonekwa.',
+    ],
+    professionalTitle: 'Rubatsiro ruripo',
+    professionalText:
+      'Mukoti, chiremba, chiremba wepamutsara, kana mumwe munhu ane unyanzvi muutano anogona kukunzwa, kuongorora mamiriro, uye kukupa rubatsiro rwakakodzera.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Manzwiro emushure mekubereka haasi chiyero chekuti uri mubereki akanaka sei. Une kodzero yekuda kuzorora, kunzwikwa, uye kubatsirwa.',
+    section6Kicker: 'MAPOINT AKAKOSHA',
+    section6Title: 'Zvakakosha zvekuyeuka',
+    takeaways: [
+      'Baby blues yakajairika mushure mekubereka.',
+      'Kuneta nekushanduka kwema hormone kunogona kukanganisa mufambiro wemanzwiro.',
+      'Rubatsiro rwevakakukomberedza runogona kuita kuti nguva ino ive nyore.',
+      'Kushungurudzika kunoramba kuripo kana kukuru kunofanira kuongororwa nemunhu ane unyanzvi.',
+    ],
+    disclaimerText:
+      'Chinyorwa chino chiri chekuzivisa chete uye hachitsivi zano rekurapa rakakodzera iwe. Kana uine mubvunzo kana uchinzwa kushungurudzika kukuru, taura nemunhu ane unyanzvi muutano.',
+    endText: 'Kuzvichengeta kuri chikamu chemushure mekubereka.',
+    shareTitle: 'Baby blues nehutano hwepamutsara mushure mekubereka',
+    shareMessage:
+      'Baby blues nehutano hwepamutsara mushure mekubereka — AWA\n\nGwara rekunzwisisa kushanduka kwepamutsara kwakajairika mushure mekubereka.',
+  },
+  ln: {
+    badgeText: 'NSIMA YA KOBOTA • BOLAMU YA MOTEMA',
+    title: 'Baby blues mpe bolamu ya motema\nnsima ya kobota',
+    subtitle:
+      'Kososola makambo oyo ekoki kobongwana na motema nsima ya kobota mpe koyeba ntango ya kosenga lisalisi.',
+    metaItems: ['Minitɛ 10 ya kotánga', 'Lisolo', 'Ya ebandeli', 'Makambo oyo ekomami malamu'],
+    introTitle: 'Ezali malamu koyeba',
+    introText:
+      'Nsima ya kobota, ezali ya kati ya motuya ete motema ya mwasi ekóma na bokasi mingi. Baby blues ezalaka mbala mingi ya ntango moke, kasi mawa oyo ekoumela to ekómaka makasi esengi lisalisi ya moto oyo ayebi mosala.',
+    contentsEyebrow: 'NDAKO YA KOYEBISA',
+    contentsTitle: 'Na lisolo oyo',
+    contents: [
+      'Kososola baby blues',
+      'Bilembo oyo eyaka mingi',
+      'Oyo ekoki kosalisa mokolo na mokolo',
+      'Baby blues to depression nsima ya kobota?',
+      'Ntango ya kosenga lisalisi',
+      'Makambo ya ntina',
+    ],
+    section1Kicker: 'KOSOSOLA',
+    section1Title: 'Baby blues ezali nini?',
+    section1Body1:
+      'Baby blues ezali ntango ya mbongwana ya motema oyo ekoki koya na mikolo ya liboso nsima ya kobota. Mbongwana ya hormone, kilo, kozanga mpɛndɛ mpe kosala na bomoi ya sika, nyonso ekoki kosalisa na yango.',
+    section1Body2:
+      'Oyo ezali kolonga te mpe elobi te ete ozali mama mabe. Moto na moto ayokaka mikolo ya liboso nsima ya kobota na lolenge na ye.',
+    statTitle: 'Likambo oyo eyaka mingi',
+    statText:
+      'Baby blues eyaka mingi nsima ya kobota mpe ebandaka kobongwana na yango moko na mikolo moke.',
+    section2Kicker: 'BILEMBO',
+    section2Title: 'Oyo okoki koyoka',
+    section2Body:
+      'Oyo bato bayokaka ekeseni. Basusu bayokaka mingi kilo mpe motema ya mokemoke, basusu bakoki kozala na mbongwana ya motema oyo emonanaka mingi.',
+    commonSigns: [
+      {
+        title: 'Kolela mbala na mbala',
+        description: 'Kolela noki to koyoka motema ya mokemoke mingi.',
+      },
+      {
+        title: 'Motema ya mokemoke mingi',
+        description: 'Makanisi ya motema ekoki koyokana makasi mpe kobongwana noki.',
+      },
+      {
+        title: 'Mbongwana ya motema',
+        description:
+          'Koyoka ete ozali na bolembu ekoki kozala elongo na ntango ya bolamu.',
+      },
+      {
+        title: 'Kilo',
+        description: 'Kilo ya mikolo ya liboso ekoki kobakisa makanisi ya motema.',
+      },
+    ],
+    section3Kicker: 'MOKOLO NA MOKOLO',
+    section3Title: 'Oyo ekoki kosalisa',
+    section3Body:
+      'Na ntango oyo, esengeli mingi kopema. Makambo mike mpe ya pɛtɛɛ ekoki kosala ete mikolo ezala malamu.',
+    dailySupport: [
+      {
+        title: 'Kopema',
+        description: 'Kozwa ntango nyonso ya bopɛtɛ mpo na kozongela makasi.',
+      },
+      {
+        title: 'Kondima lisalisi',
+        description: 'Kobanga te kosɛnga lisungi epai ya bato bazali pene na yo.',
+      },
+      {
+        title: 'Komela mai mbala na mbala',
+        description: 'Komela mai ya mingi na mokolo mobimba.',
+      },
+      {
+        title: 'Kolia ndenge esengeli',
+        description: 'Kolia bilei ya pɛtɛɛ mpe na ntango.',
+      },
+    ],
+    quoteText:
+      '“Kosɛnga lisalisi nsima ya kobota ezali ndenge moko ya kobatela yo moko mpe mwana na yo.”',
+    section4Kicker: 'KOKEND KO KOKESENISA',
+    section4Title: 'Baby blues to depression nsima ya kobota?',
+    section4Body:
+      'Baby blues ezalaka mbala mingi ya ntango moke mpe ebongaka malembe malembe. Depression nsima ya kobota ezali ekeseni: ekoki koumela mingi, kozala makasi koleka, mpe kobebisa mosala ya mokolo na mokolo.',
+    compareTitle: 'Makambo mibale ya kokesenisa',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Mbala mingi ya ntango moke, mpe ebongaka malembe malembe na mikolo oyo ekoya.',
+    comparePostpartumTitle: 'Depression nsima ya kobota',
+    comparePostpartumText:
+      'Ekoki koumela mingi, kokóma makasi, mpe kosenga lisalisi ya moto oyo ayebi mosala.',
+    section5Kicker: 'KOZALA NA BOMANGO',
+    section5Title: 'Ntango nini kosɛnga lisalisi?',
+    section5Body:
+      'Ezali na ntina kosolola na moto ya mosala ya bolamu soki mawa ya motema ebongi te, ekómi makasi, to ebandi kokómisa bomoi ya mokolo na mokolo mpasi.',
+    attentionTitle: 'Bilembo ya kokeba na yango',
+    attentionSubtitle: 'Solola na moto ya mosala soki…',
+    attentionSigns: [
+      'Bilembo ekoumela koleka poso mibale.',
+      'Mawa to bobangi ekómi makasi.',
+      'Ekómi mpasi kobatela yo moko to mwana na yo.',
+      'Koyoka mpasi ya motema ya makasi.',
+    ],
+    professionalTitle: 'Lisalisi ezali',
+    professionalText:
+      'Sage-femme, monganga, psychologue to moto mosusu ya mosala ya bolamu akoki koyoka yo, kotala makambo mpe kopesa lisalisi oyo ebongi.',
+    tipTitle: 'Ezali malamu koyeba',
+    tipText:
+      'Makanisi ya motema nsima ya kobota ezali kati ya kopesa ndenge ozali mama malamu te. Ozali na nzela ya kosenga kopema, koyokama mpe kosalisama.',
+    section6Kicker: 'MAKAMBO YA NTINA',
+    section6Title: 'Makambo ya ntina',
+    takeaways: [
+      'Baby blues eyaka mingi nsima ya kobota.',
+      'Kilo mpe mbongwana ya hormone ekoki kosala ete motema ebongwana.',
+      'Lisungi ya bato bazali pene na yo ekoki kosala ete ntango oyo ezala pɛtɛɛ.',
+      'Mawa ya motema oyo ekoumela to ezali makasi esengi ete moto ya mosala ayekola yango.',
+    ],
+    disclaimerText:
+      'Lisolo oyo ezali mpo na koyebisa kaka mpe ebimisi toli ya monganga te. Soki ozali na ntembe to ozali na mawa makasi, solola na moto ya mosala ya bolamu.',
+    endText: 'Kobatela yo moko mpe ezali eteni ya nsima ya kobota.',
+    shareTitle: 'Baby blues mpe bolamu ya motema nsima ya kobota',
+    shareMessage:
+      'Baby blues mpe bolamu ya motema nsima ya kobota — AWA\n\nBuku ya kososola mbongwana ya motema oyo eyaka mingi nsima ya kobota.',
+  },
+  ff: {
+    badgeText: 'CAGGAL JIBINAADE • ENNDI HAANDE',
+    title: 'Baby blues e enndi haande\ncaggal jibinaade',
+    subtitle:
+      'Faamugo ko ɓeydaari e haande caggal jibinaade e anndugo he mo haani ɗaɓɓitaago walliinde.',
+    metaItems: ['Ɗaɓɓitaago minti 10', 'Winndannde', 'Fuɗɗoode', 'Ko nastii ndikkaama'],
+    introTitle: 'Ko haani anndugo',
+    introText:
+      'Caggal jibinaade, ko foti no wayi ko ɓiɗɗo ɓuuɓri ko haande. Baby blues ko ɗum yeeso saa\'i seɗɗa, kono tampere ko yaaɗi walla ko ɓeydi haani ndaarana jaɓɓitaago.',
+    contentsEyebrow: 'JAAYNGOL',
+    contentsTitle: 'Nder winndannde ndee',
+    contents: [
+      'Faamugo baby blues',
+      'Maandeeji ɓurɗi tawaade',
+      'Ko walliiɗi nyalaade kala',
+      'Baby blues malla depression caggal jibinaade?',
+      'Soosa ɗaɓɓitaago walliinde',
+      'Ko haani hoyrude',
+    ],
+    section1Kicker: 'FAAMUGO',
+    section1Title: 'Baby blues ko ɗume?',
+    section1Body1:
+      'Baby blues ko jonta haande waaway wonde nder nyalɗe seɗɗa ɓurɗe adannde caggal jibinaade. Ɓeydaare hormone, tampere, ndaneego e wonde e ngonka kesum ɗum fuu waaway wallude e ɗuum.',
+    section1Body2:
+      'Ɗuum wonaa jaaɓaare, wonaa wi\'ugo a ɓurɗo ɓi\'o fii mo ngaɗaa baaba. Kala gooto o yiɗi nyalɗe adannde caggal jibinaade e laawol makko.',
+    statTitle: 'Ko nastii ndikkaama',
+    statText:
+      'Baby blues ko nastii caggal jibinaade e ɗum no moƴƴa ko hoore mayɗum nder nyalɗe seɗɗa.',
+    section2Kicker: 'MAANDEEJI',
+    section2Title: 'Ko a waaway hoosugo',
+    section2Body:
+      'Ko yimɓe tawata yaahotaa. Woɗɓe ngoosi tampere e hoosugo semmbe, woɗɓe ngoosi wayrugo haande ɓurngo yiyeede.',
+    commonSigns: [
+      {
+        title: 'Woyugo',
+        description: 'Woyugo ɓurngo yoo hoosugo semmbe.',
+      },
+      {
+        title: 'Hoosugo ɓurngo',
+        description: 'Haande ngaree ɓeydude e wayrude ɓaawo.',
+      },
+      {
+        title: 'Wayrugo haande',
+        description:
+          'Hoosugo lobbal ngaree wayrude e saa\'i weeɓaare.',
+      },
+      {
+        title: 'Tampere',
+        description: 'Tampere nyalɗe adannde waaway ɓeydugo haande.',
+      },
+    ],
+    section3Kicker: 'NYALAADE KALA',
+    section3Title: 'Ko waaway walliinde',
+    section3Body:
+      'Nder ɗum, ko ɗaɓɓitaago hoyrude ɓuuɓri. Kuuje pamaaje, ɓoyɗe, ngaree moƴƴinude nyalɗe.',
+    dailySupport: [
+      {
+        title: 'Hoyrugo',
+        description: 'Hoyrugo nder saa\'i bannge fuu ngam haɓɓugo semmbe.',
+      },
+      {
+        title: 'Jaɓugo walliinde',
+        description: 'Hoosa ɗaɓɓitaago walliinde e ɓe ngonɗi e maaɗa.',
+      },
+      {
+        title: 'Yarugo ndiyam',
+        description: 'Yarugo ndiyam ɓuri nder nyalaade fuu.',
+      },
+      {
+        title: 'Nyaamugo',
+        description: 'Nyaamugo nyaamdu laaɓiɗu, ɓoyɗu, nder saa\'i ngoodi.',
+      },
+    ],
+    quoteText:
+      '“Ɗaɓɓitaago walliinde caggal jibinaade ko laawol reenugo hoore maaɗa e ɓiɗɗo maaɗa.”',
+    section4Kicker: 'SAƁUGO ɓe',
+    section4Title: 'Baby blues malla depression caggal jibinaade?',
+    section4Body:
+      'Baby blues ko ɗum yeeso saa\'i seɗɗa e ɗum moƴƴa ɓoyɗum. Depression caggal jibinaade ko feere: waaway yaaɗugo, ɓeydugo, e wonugo tampere mawnde e nyalɗe fuu.',
+    compareTitle: 'Ngonka ɗiɗi ɗi haani saɓugo',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Ko ɗum yeeso saa\'i seɗɗa, e moƴƴere ɓoyɗere nder nyalɗe ɗe tokkata.',
+    comparePostpartumTitle: 'Depression caggal jibinaade',
+    comparePostpartumText:
+      'Waaway yaaɗugo, ɓeydugo, e ɗaɓɓitaago walliinde jaɓɓitaaɗo.',
+    section5Kicker: 'WOODUGO',
+    section5Title: 'Hoode ɗaɓɓitaago walliinde?',
+    section5Body:
+      'Ko moƴƴi haala e jaɓɓitaaɗo cellal si tampere haande ɗum moƴƴaaki, ɗum ɓeydi, malla ɗum fuɗɗi hoyrugo nyalɗe tampere.',
+    attentionTitle: 'Maandeeji ɗi haani raarugo',
+    attentionSubtitle: 'Haala e jaɓɓitaaɗo si…',
+    attentionSigns: [
+      'Maandeeji ɗin ngoni ɓuri ɗiɗi ɓalɗe.',
+      'Woyugo malla hoosugo ɓeydi.',
+      'Ɗum wonti saɗugo reenugo hoore maaɗa malla ɓiɗɗo maaɗa.',
+      'Hoosugo tampere mawnde yaltii.',
+    ],
+    professionalTitle: 'Walliinde woodi',
+    professionalText:
+      'Jibinoowo, dokteer, psychologue malla jaɓɓitaaɗo cellal feere waaway nanugo, ndaarugo ngonka, e hokkugo walliinde moƴƴunde.',
+    tipTitle: 'Ko haani anndugo',
+    tipText:
+      'Haande caggal jibinaade wonaa fuɗɗoode ndeye ɓi\'o a ngaɗaa baaba moƴƴo. A woodi hakkilo ngaɗa ɗaɓɓitaago hoyrude, nanugo, e walliinde.',
+    section6Kicker: 'ƊUUM HAANI',
+    section6Title: 'Ko haani hoyrude',
+    takeaways: [
+      'Baby blues ko nastii caggal jibinaade.',
+      'Tampere e wayrude hormone ngaree wayrugo haande.',
+      'Walliinde ko ngonɗi e maaɗa ngaree moƴƴinude nyalɗe ɗee.',
+      'Tampere jaɓɓitaaɗe malla mawnde haani ndaarana jaɓɓitaaɗo cellal.',
+    ],
+    disclaimerText:
+      'Winndannde ndee ko ngam anndinde e wonaa ɓesdugo ndaarugo dokteer. Si a woodi hesitude malla tampere mawnde, haala e jaɓɓitaaɗo cellal.',
+    endText: 'Reenugo hoore maaɗa ko ɗuum fuu caggal jibinaade.',
+    shareTitle: 'Baby blues e enndi haande caggal jibinaade',
+    shareMessage:
+      'Baby blues e enndi haande caggal jibinaade — AWA\n\nPaltirgel faamugo wayrude haande ɗe ngonata caggal jibinaade.',
+  },
   id: {
     badgeText: 'PASCAPERSALINAN • KESEHATAN EMOSIONAL',
     title: 'Baby blues dan kesehatan emosional\npascapersalinan',

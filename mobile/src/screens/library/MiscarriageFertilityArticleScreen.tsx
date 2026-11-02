@@ -634,6 +634,1046 @@ const CONTENT = withBrazilianPortuguese('MiscarriageFertility', {
       disclaimerText: '科普内容。本文不能替代个性化的医疗建议。你的医生或助产士始终是了解你具体情况的参考。',
       shareMessage: '失去宝宝之后的生育力与再次备孕 — AWA',
     },
+  'zh-Hant': {
+      badge: '流產之後 • 生育力',
+      title: '失去寶寶之後的生育力與再次備孕',
+      metaDuration: '閱讀約 6 分鐘',
+      metaType: '指南',
+      metaLevel: '進階',
+      metaValidated: '科普內容',
+      intro: '何時、如何考慮再次備孕，按自己的節奏，懷著信心。',
+      contentsTitle: '本文內容',
+      topics: [
+        '生育力的恢復',
+        '專業人員通常怎麼說',
+        '按自己的節奏，感到準備好了',
+        '能讓你安心的隨訪',
+        '要點回顧',
+      ],
+      body1: '早期流產之後，生育力通常最早在下一個週期就會恢復。甚至在月經明顯恢復之前，就可能已經排卵。',
+      infoTitle: '重點',
+      infoText: '根據失去寶寶時所處的階段不同，身體恢復所需的時間可能會略有差異。',
+      body2: '許多專業人員認為，不必等上好幾個週期再備孕，除非你的醫生或助產士另有建議。',
+      compareEarlyTitle: '早期流產',
+      compareEarlyText: '生育力往往恢復得很快，最早在下一個週期就會恢復。',
+      compareLateTitle: '較晚期流產',
+      compareLateText: '醫療團隊可能會建議稍長一些的恢復時間。',
+      body3: '身體和情緒上都感到準備好了，始終是最重要的指引，遠比任何理論上的時間表更重要。',
+      readinessPoints: [
+        {
+          title: '情緒上',
+          text: '內心感到準備好了，和身體恢復同樣重要。',
+        },
+        {
+          title: '身體上',
+          text: '月經週期規律、身體狀態良好，都是不錯的參考。',
+        },
+        {
+          title: '與伴侶或身邊的人一起',
+          text: '和伴侶聊一聊，有助於你們以同樣的步調往前走。',
+        },
+      ],
+      body4: '再次備孕之前，去醫院就診一次，可以讓你更安心地向前走：',
+      followUpSteps: [
+        {
+          title: '回顧梳理',
+          text: '和專業人員聊一聊，可以重新回顧所發生的事。',
+        },
+        {
+          title: '必要時做評估',
+          text: '視情況，可能會建議做一些進一步的檢查。',
+        },
+        {
+          title: '再次嘗試',
+          text: '之後，隨訪可以在你再次備孕時從容地陪伴你。',
+        },
+      ],
+      tipTitle: '小提醒',
+      tipText: '單次流產通常並不說明存在生育力方面的問題。關於你個人的疑問，醫療團隊始終是最合適的解答者。',
+      summaryPoints: [
+        '早期流產之後，生育力通常最早在下一個週期就會恢復。',
+        '許多專業人員認為，不必等上好幾個週期，除非另有建議。',
+        '身體和情緒上都感到準備好了，始終是最重要的指引。',
+        '醫學隨訪可以在你再次備孕之前支援並安撫你。',
+      ],
+      disclaimerText: '科普內容。本文不能替代個性化的醫療建議。你的醫生或助產士始終是瞭解你具體情況的參考。',
+      shareMessage: '失去寶寶之後的生育力與再次備孕 — AWA',
+    },
+  ar: {
+    badge: 'بعد الإجهاض • الخصوبة',
+    title: 'الخصوبة ومحاولة الحمل مجددًا بعد فقدان الحمل',
+    metaDuration: 'قراءة في 6 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'متوسط',
+    metaValidated: 'محتوى للاطلاع',
+    intro:
+      'متى وكيف تفكرين في محاولة الحمل مجددًا، بوتيرتك الخاصة وبكل ثقة.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'عودة الخصوبة',
+      'ما يقوله المختصون عمومًا',
+      'الشعور بالاستعداد، بوتيرتك الخاصة',
+      'متابعة قد تطمئنك',
+      'أهم النقاط',
+    ],
+    body1:
+      'تعود الخصوبة عادةً منذ الدورة التي تلي الإجهاض المبكر. بل قد تحدث الإباضة قبل أن يعود الحيض بشكل ظاهر.',
+    infoTitle: 'أهم ما يجب معرفته',
+    infoText:
+      'بحسب مرحلة الفقدان، قد تختلف مدة التعافي الجسدي قليلًا من حالة إلى أخرى.',
+    body2:
+      'يرى كثير من المختصين أنه لا داعي لانتظار عدة دورات قبل المحاولة مجددًا، ما لم يوصِ طبيبك أو قابلتك بغير ذلك.',
+    compareEarlyTitle: 'فقدان مبكر',
+    compareEarlyText:
+      'تعود الخصوبة غالبًا بسرعة، منذ الدورة التالية.',
+    compareLateTitle: 'فقدان متأخر',
+    compareLateText:
+      'قد يوصي الفريق الطبي بمدة تعافٍ أطول قليلًا.',
+    body3:
+      'يبقى الشعور بالاستعداد، جسديًا وعاطفيًا، أهم دليل — أكثر بكثير من أي مدة نظرية.',
+    readinessPoints: [
+      {
+        title: 'عاطفيًا',
+        text: 'الشعور بالاستعداد في داخلك يهمّ بقدر التعافي الجسدي.',
+      },
+      {
+        title: 'جسديًا',
+        text: 'الدورة المنتظمة والشعور بالعافية مؤشران جيدان.',
+      },
+      {
+        title: 'كزوجين أو بالدعم',
+        text: 'الحديث مع شريكك قد يساعدكما على التقدّم بالوتيرة نفسها.',
+      },
+    ],
+    body4:
+      'قبل المحاولة مجددًا، قد يساعدك موعد طبي على المضي بقدر أكبر من الطمأنينة:',
+    followUpSteps: [
+      {
+        title: 'تقييم الوضع',
+        text: 'تتيح لك المحادثة مع مختص مراجعة ما حدث.',
+      },
+      {
+        title: 'فحوصات عند الحاجة',
+        text: 'بحسب الحالة، قد تُقترح فحوصات إضافية.',
+      },
+      {
+        title: 'محاولة جديدة',
+        text: 'يمكن للمتابعة بعد ذلك أن ترافقك بهدوء أثناء المحاولة مجددًا.',
+      },
+    ],
+    tipTitle: 'من المفيد أن تعرفي',
+    tipText:
+      'الإجهاض المعزول لا يدل عمومًا على مشكلة في الخصوبة. ويبقى فريقك الطبي أقدر على الإجابة عن أسئلتك الشخصية.',
+    summaryPoints: [
+      'تعود الخصوبة عادةً منذ الدورة التي تلي الإجهاض المبكر.',
+      'يرى كثير من المختصين أنه لا داعي لانتظار عدة دورات، ما لم يُنصح بغير ذلك.',
+      'يبقى الشعور بالاستعداد، جسديًا وعاطفيًا، أهم دليل.',
+      'يمكن للمتابعة الطبية أن تدعمك وتطمئنك قبل المحاولة مجددًا.',
+    ],
+    disclaimerText:
+      'محتوى للاطلاع. لا يغني هذا المقال عن مشورة طبية مخصّصة. ويبقى طبيبك أو قابلتك المرجع لحالتك.',
+    shareMessage: 'الخصوبة ومحاولة الحمل مجددًا بعد فقدان الحمل — AWA',
+  },
+  kab: {
+    badge: 'DEFFIR TUQQNA N TIGZI • TAYERZA',
+    title: 'Tayerza d usnulfu n usmekti mbeɛd tuqqna',
+    metaDuration: '6 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Amzun',
+    metaValidated: 'Agbur n isallen',
+    intro:
+      'Melmi d amek ara tettxemmimeḍ ad d-tɛawdeḍ, s lḥal-ik u s ttkal ummid.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Tuɣalin n tyerza',
+      'D acu i d-qqarent s wudem amatu imusnawen',
+      'Ma tḥessseḍ iman-ik yeheyya, s lḥal-ik',
+      'Adfar ara k-yessetṭamnen',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    body1:
+      'Tayerza tettuɣal s wudem amatu seg uzray i d-yetteddun mbeɛd tuqqna tamezwarut n tigzi. Ovulation tezmer ad tt-ḍru uqbel ad d-yuɣal lḥiḍ-ik s wudem ibanen.',
+    infoTitle: 'Ayen yesɛan azal',
+    infoText:
+      'Almend n uswir n tuqqna, akud n usirem n tfelwit izmer ad yemgarad cwiṭ seg yiwet n tmeslayt ɣer tayeḍ.',
+    body2:
+      'Aṭas n yimusnawen ttwalin belli ulac ilaq ad tṛaǧuḍ aṭas n yizray uqbel ad tɛerḍeḍ i tikkelt-nniḍen, ala ma yella ṭṭbib neɣ tamaɣart n tezmert yeqqar-ak-d akken ur tellim.',
+    compareEarlyTitle: 'Tuqqna tamezwarut',
+    compareEarlyText:
+      'Tayerza ttuɣal s tazzla, seg uzray i d-yetteddun.',
+    compareLateTitle: 'Tuqqna i d-yettbanen mbeɛd',
+    compareLateText:
+      'Akud ɣezzifen cwiṭ n usirem izmer ad yettwaqbel sɣur tarbaɛt n tezmert.',
+    body3:
+      'Aḥsas yeheyya, deg ugris d wul, yeqqim d ubrid ameqqran akk — ugar n yal akud n tidet.',
+    readinessPoints: [
+      {
+        title: 'S wul',
+        text: 'Aḥsas yeheyya deg wul-ik yesɛa azal am usirem n ugris.',
+      },
+      {
+        title: 'S ugris',
+        text: 'Azray amagnu d lḥal n lehna d icerṭen yelhan.',
+      },
+      {
+        title: 'D tayeḍ neɣ s uɛawen',
+        text: 'Tameslayt d umdan-ik tezmer ad k-yeɛawen ad tkemmleḍ s uɣbel yiwen.',
+      },
+    ],
+    body4:
+      'Uqbel ad tɛawdeḍ, asmekti n tezmert izmer ad k-yeɛawen ad tkemmleḍ s lehna ugar:',
+    followUpSteps: [
+      {
+        title: 'Tamuɣli tummidt',
+        text: 'Tameslayt d umusnaw tezmer ad k-teǧǧ ad tuɣaleḍ ɣer wayen yeḍran.',
+      },
+      {
+        title: 'Asenqed ma ilaq',
+        text: 'Almend n waddad, zemrent ad d-ttwaqeblent isenqden-nniḍen.',
+      },
+      {
+        title: 'Tarmit tamaynut',
+        text: 'Adfar izmer ad k-yeɛawen s lehna deg usmekti-ik amaynut.',
+      },
+    ],
+    tipTitle: 'Yelha ad teɛlmeḍ',
+    tipText:
+      'Tuqqna yiwet kan s wudem amatu ur tebbi ara ugur n tyerza. Tarbaɛt-ik n tezmert tettqim d tin yelhan akk i teglen isteqsiyen-ik udmawanen.',
+    summaryPoints: [
+      'Tayerza tettuɣal s wudem amatu seg uzray i d-yetteddun mbeɛd tuqqna tamezwarut n tigzi.',
+      'Aṭas n yimusnawen ttwalin belli ulac ilaq ad tṛaǧuḍ aṭas n yizray, ala ma yella tettwaqqar-ak akken ur tellim.',
+      'Aḥsas yeheyya, deg ugris d wul, yeqqim d ubrid ameqqran akk.',
+      'Adfar n tezmert izmer ad k-yeɛawen u ad k-yessetṭamen uqbel ad tɛawdeḍ.',
+    ],
+    disclaimerText:
+      'Agbur n isallen. Amagrad-a ur yettnefsu ara amusnaw n tezmert i yiman-ik. Ṭṭbib-ik neɣ tamaɣart n tezmert qqimen d tamawt i waddad-ik.',
+    shareMessage: 'Tayerza d usnulfu n usmekti mbeɛd tuqqna — AWA',
+  },
+  om: {
+    badge: 'DHALUU BOODA • DHALUU',
+    title: 'Dandeettii da\'uu fi deebi\'ee yaaluu erga dhabamsiisee booda',
+    metaDuration: 'Daqiiqaa 6 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Giddugaleessa',
+    metaValidated: 'Qabiyyee odeeffannoo',
+    intro:
+      'Yoom fi akkamitti deebi\'ee yaaluu yaaduu, saffisa kee mataa keetiin fi amantaa guutuun.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Deebi\'uu dandeettii da\'uu',
+      'Ogeeyyiin yeroo baay\'ee maal jedhu',
+      'Saffisa kee mataa keetiin qophaa\'uu',
+      'Hordoffii si tasgabbeessuu danda\'u',
+      'Qabxiilee ijoo',
+    ],
+    body1:
+      'Dandeettii da\'uu yeroo baay\'ee marsaa dhabamsiisuu jalqabaa itti aanu keessatti deebi\'a. Ovulation laguun kee ifatti osoo hin deebi\'in dura illee ta\'uu danda\'a.',
+    infoTitle: 'Qabxii ijoo',
+    infoText:
+      'Sadarkaa dhabamsiisuu irratti hundaa\'uun, yeroon deebi\'ee fayyuu qaamaa haala irraa gara haalaatti xiqqoo garaagara ta\'uu danda\'a.',
+    body2:
+      'Ogeeyyiin baay\'een deebi\'ee yaaluu dura marsaa baay\'ee eegu hin barbaachisu jedhanii yaadu, doktora kee ykn ogeessi dhalaa kan biraa yoo gorse malee.',
+    compareEarlyTitle: 'Dhabamsiisuu jalqabaa',
+    compareEarlyText:
+      'Dandeettii da\'uu yeroo baay\'ee dafee deebi\'a, marsaa itti aanu irraa eegalee.',
+    compareLateTitle: 'Dhabamsiisuu booda',
+    compareLateText:
+      'Gareen yaalaa yeroo deebi\'ee fayyuu xiqqoo dheeraa gorsuu danda\'a.',
+    body3:
+      'Qophaa\'uu, qaamaan fi miiraan, qajeelfama caalaa barbaachisaa ta\'ee hafa — yeroo yaadaa kamiyyuu caalaa.',
+    readinessPoints: [
+      {
+        title: 'Miiraan',
+        text: 'Of keessatti qophaa\'uu deebi\'ee fayyuu qaamaa dandeettii wal fakkaatu qaba.',
+      },
+      {
+        title: 'Qaamaan',
+        text: 'Marsaa sirrii fi miira gaarummaa agarsiistoota gaarii dha.',
+      },
+      {
+        title: 'Akka dhiirsaa fi niitiitti ykn deggersa waliin',
+        text: 'Hiriyaa kee wajjin haasa\'uun saffisa wal fakkaatuun fuulduratti deemuuf si gargaara.',
+      },
+    ],
+    body4:
+      'Deebi\'ee yaaluu dura, beellamni yaalaa nageenya guddaa waliin fuulduratti deemuuf si gargaaruu danda\'a:',
+    followUpSteps: [
+      {
+        title: 'Haala madaaluu',
+        text: 'Mariin ogeessa wajjin waan ta\'e deebi\'ee ilaaluuf si dandeessisa.',
+      },
+      {
+        title: 'Qorannoo yoo barbaachise',
+        text: 'Haala irratti hundaa\'uun, qorannoowwan dabalataa dhiyaachuu danda\'u.',
+      },
+      {
+        title: 'Yaalii haaraa',
+        text: 'Hordoffiin booda tasgabbiin deebi\'ee yaaluu kee irratti si deggeruu danda\'a.',
+      },
+    ],
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Dhabamsiisni tokko qofa yeroo baay\'ee rakkoo dandeettii da\'uu hin agarsiisu. Gareen yaalaa kee gaaffilee dhuunfaa kee deebisuuf iddoo gaarii irra jira.',
+    summaryPoints: [
+      'Dandeettii da\'uu yeroo baay\'ee marsaa dhabamsiisuu jalqabaa itti aanu keessatti deebi\'a.',
+      'Ogeeyyiin baay\'een marsaa baay\'ee eegu hin barbaachisu jedhanii yaadu, yoo kan biraa hin gorsamne.',
+      'Qophaa\'uu, qaamaan fi miiraan, qajeelfama caalaa barbaachisaa ta\'ee hafa.',
+      'Hordoffiin yaalaa deebi\'ee yaaluu dura si deggeruu fi si tasgabbeessuu danda\'a.',
+    ],
+    disclaimerText:
+      'Qabiyyee odeeffannoo. Barruun kun gorsa fayyaa dhuunfaa bakka hin bu\'u. Doktora kee ykn ogeessi dhalaa haala keetiif madda ta\'ee hafa.',
+    shareMessage: 'Dandeettii da\'uu fi deebi\'ee yaaluu erga dhabamsiisee booda — AWA',
+  },
+  ti: {
+    badge: 'ድሕሪ ምጥንፋእ • ፍርያም',
+    title: 'ድሕሪ ምጥፋእ ጥንስቲ ፍርያምን ዳግም ምፍታንን',
+    metaDuration: '6 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ማእከላይ',
+    metaValidated: 'ሓበሬታዊ ትሕዝቶ',
+    intro:
+      'ዳግም ንምፍታን መዓስን ከመይን ምሕሳብ፡ ብናይ ባዕልኺ ፍጥነትን ምሉእ ምትእምማንን።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ምምላስ ፍርያም',
+      'ሰራሕተኛታት ብሓፈሻ እንታይ ይብሉ',
+      'ዝተዳለኻ ምስምዓይ፡ ብናይ ባዕልኺ ፍጥነት',
+      'ዘጸናንዓኪ ክትትል',
+      'ቀንዲ ነጥብታት',
+    ],
+    body1:
+      'ፍርያም ድሕሪ ቀደም ምጥፋእ ጥንስቲ ብዝቕጽል ዑደት ብዙሓት ግዜ ይምለስ። ኦቭዩሌሽን ወርሓዊ ደምኪ ብግልጺ ከይተመልሰ እውን ክኸውን ይኽእል።',
+    infoTitle: 'ቀንዲ ነጥቢ',
+    infoText:
+      'ከከም ደረጃ ምጥፋእ፡ ናይ ኣካል ምሕዋይ ግዜ ካብ ሓደ ኩነታት ናብ ካልእ ቁሩብ ክፍለ ይኽእል።',
+    body2:
+      'ብዙሓት ሰራሕተኛታት ዶክተርኪ ወይ ሚድዋይፍ ካልእ እንተ ዘይመኸሩ፡ ዳግም ቅድሚ ምፍታን ብዙሓት ዑደታት ምጽባይ ኣየድልን ይብሉ።',
+    compareEarlyTitle: 'ቀዳማይ ምጥፋእ',
+    compareEarlyText:
+      'ፍርያም ብዙሓት ግዜ ቀልጢፉ፡ ካብ ዝቕጽል ዑደት ጀሚሩ ይምለስ።',
+    compareLateTitle: 'ደሓር ምጥፋእ',
+    compareLateText:
+      'ሕክምናዊ ጉጅለ ቁሩብ ነዊሕ ናይ ምሕዋይ ግዜ ክመኽር ይኽእል።',
+    body3:
+      'ብኣካልን ብስምዒትን ምድላው ምስምዓይ፡ ካብ ዝኾነ ቴዎሪያዊ ግዜ ኣዝዩ ንላዕሊ፡ ዝያዳ ኣገዳሲ መምርሒ ይቕጽል።',
+    readinessPoints: [
+      {
+        title: 'ብስምዒት',
+        text: 'ኣብ ውሽጥኺ ምድላው ምስምዓይ ከም ኣካላዊ ምሕዋይ ማዕረ ኣገዳሲ እዩ።',
+      },
+      {
+        title: 'ብኣካል',
+        text: 'ዝማዕሩ ዑደትን ደሓን ምስምዓይን ጽቡቓት ሕብሪ እዮም።',
+      },
+      {
+        title: 'ከም ጽምዲ ወይ ምስ ድጋፍ',
+        text: 'ምስ መቕርብኺ ብዛዕባኡ ምዝራብ ብሓደ ፍጥነት ንቕድሚት ንምኻድ ይሕግዝ።',
+      },
+    ],
+    body4:
+      'ዳግም ቅድሚ ምፍታን፡ ሕክምናዊ ቆጸራ ብዝያዳ ሰላም ንቕድሚት ንምኻድ ክሕግዝ ይኽእል፡',
+    followUpSteps: [
+      {
+        title: 'ምግምጋም',
+        text: 'ምስ ሰራሕተኛ ዝግበር ዝርርብ ነቲ ዝኸደ ዳግም ንምርኣይ የኽእል።',
+      },
+      {
+        title: 'እንተ ኣድልዩ ግምገማ',
+        text: 'ከከም ኩነታት ተወሳኺ ምርመራታት ክቐርቡ ይኽእሉ።',
+      },
+      {
+        title: 'ሓድሽ ፈተነ',
+        text: 'ድሕሪኡ ክትትል ዳግም ኣብ ምፍታን ብሰላም ክድግፈኪ ይኽእል።',
+      },
+    ],
+    tipTitle: 'ከተፍልጥዮ ዘለካ',
+    tipText:
+      'ዝተነጸለ ምጥፋእ ጥንስቲ ብሓፈሻ ጸገም ፍርያም ኣይሕብርን። ሕክምናዊ ጉጅለኺ ንውልቃዊ ሕቶታትኪ ንምምላስ ዝበለጸ ቦታ ኣለዎ።',
+    summaryPoints: [
+      'ፍርያም ድሕሪ ቀደም ምጥፋእ ጥንስቲ ብዝቕጽል ዑደት ብዙሓት ግዜ ይምለስ።',
+      'ብዙሓት ሰራሕተኛታት ካልእ እንተ ዘይተመኸረ ብዙሓት ዑደታት ምጽባይ ኣየድልን ይብሉ።',
+      'ብኣካልን ብስምዒትን ምድላው ምስምዓይ ዝያዳ ኣገዳሲ መምርሒ ይቕጽል።',
+      'ሕክምናዊ ክትትል ዳግም ቅድሚ ምፍታን ክድግፈኪን የጸናንዓኪን ይኽእል።',
+    ],
+    disclaimerText:
+      'ሓበሬታዊ ትሕዝቶ። እዚ ጽሑፍ ውልቃዊ ሕክምናዊ ምኽሪ ኣይትካእልን። ዶክተርኪ ወይ ሚድዋይፍ ንኩነትኪ መወከሲ ይቕጽል።',
+    shareMessage: 'ድሕሪ ምጥፋእ ጥንስቲ ፍርያምን ዳግም ምፍታንን — AWA',
+  },
+  rw: {
+    badge: 'NYUMA YO GUTWITA INDA ISENYUKA • UBUREREKE',
+    title: 'Uburereke no kongera kugerageza nyuma yo gutakaza inda',
+    metaDuration: 'Gusoma: iminota 6',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibikubiyemo by\'amakuru',
+    intro:
+      'Igihe n\'uburyo bwo gutekereza ku kongera kugerageza, ku muvuduko wawe kandi ufite icyizere cyuzuye.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Kugaruka kw\'uburereke',
+      'Icyo abahanga bakunze kuvuga',
+      'Kumva witeguye, ku muvuduko wawe',
+      'Ukurikiranwa ushobora kugutuza',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    body1:
+      'Uburereke bukunze kugaruka kuva ku ruhererekane rukurikira gutakaza inda hakiri kare. Ovulation ishobora no kubaho mbere y\'uko imihango yawe igaragara.',
+    infoTitle: 'Icyingenzi cyo kwibuka',
+    infoText:
+      'Bitewe n\'icyiciro inda yatakariyemo, igihe cyo gukira mu buryo bw\'umubiri gishobora gutandukana gato hagati y\'imiterere imwe n\'indi.',
+    body2:
+      'Abahanga benshi bemeza ko nta mpamvu yo gutegereza ibyiciro by\'uruhererekane byinshi mbere yo kongera kugerageza, keretse muganga wawe cyangwa umubyaza akugiriye inama zinyuranye.',
+    compareEarlyTitle: 'Gutakaza inda hakiri kare',
+    compareEarlyText:
+      'Uburereke akenshi bugaruka vuba, kuva ku ruhererekane rukurikira.',
+    compareLateTitle: 'Gutakaza inda nyuma',
+    compareLateText:
+      'Itsinda ry\'abaganga rishobora kugusaba igihe kirekire gato cyo gukira.',
+    body3:
+      'Kumva witeguye, mu buryo bw\'umubiri n\'amarangamutima, bikomeza kuba ikiyobora cy\'ingenzi — kurusha igihe icyo ari cyo cyose cya gihanga.',
+    readinessPoints: [
+      {
+        title: 'Mu marangamutima',
+        text: 'Kumva witeguye imbere muri wowe bifite akamaro nk\'ak\'gukira mu buryo bw\'umubiri.',
+      },
+      {
+        title: 'Mu buryo bw\'umubiri',
+        text: 'Uruhererekane ruhoraho no kumva umeze neza ni ibimenyetso byiza.',
+      },
+      {
+        title: 'Nk\'abashakanye cyangwa ufite inkunga',
+        text: 'Kubiganiraho n\'uwo mubana bishobora kugufasha gukomeza ku muvuduko umwe.',
+      },
+    ],
+    body4:
+      'Mbere yo kongera kugerageza, gahunda yo kubonana na muganga ishobora kugufasha gukomeza ufite amahoro menshi:',
+    followUpSteps: [
+      {
+        title: 'Gusuzuma uko bimeze',
+        text: 'Ikiganiro n\'umuhanga kigufasha gusubiramo ibyabaye.',
+      },
+      {
+        title: 'Isuzuma niba bikenewe',
+        text: 'Bitewe n\'imiterere, hashobora gutangwa ibindi bizamini.',
+      },
+      {
+        title: 'Kongera kugerageza',
+        text: 'Ukurikiranwa ashobora gukomeza kugushyigikira utuje mu kongera kugerageza.',
+      },
+    ],
+    tipTitle: 'Byiza kumenya',
+    tipText:
+      'Gutakaza inda rimwe gusa muri rusange ntibigaragaza ikibazo cy\'uburereke. Itsinda ry\'abaganga bawe ni ryo rishobora gusubiza neza ibibazo byawe bwite.',
+    summaryPoints: [
+      'Uburereke bukunze kugaruka kuva ku ruhererekane rukurikira gutakaza inda hakiri kare.',
+      'Abahanga benshi bemeza ko nta mpamvu yo gutegereza ibyiciro by\'uruhererekane byinshi, keretse hatanzwe izindi nama.',
+      'Kumva witeguye, mu buryo bw\'umubiri n\'amarangamutima, bikomeza kuba ikiyobora cy\'ingenzi.',
+      'Ukurikiranwa n\'abaganga ashobora kugushyigikira no kugutuza mbere yo kongera kugerageza.',
+    ],
+    disclaimerText:
+      'Ibikubiyemo by\'amakuru. Iyi nkuru ntisimbura inama z\'ubuvuzi zihariye. Muganga wawe cyangwa umubyaza akomeza kuba ishingiro ry\'imiterere yawe.',
+    shareMessage: 'Uburereke no kongera kugerageza nyuma yo gutakaza inda — AWA',
+  },
+  rn: {
+    badge: 'NYUMA Y\'INDA YAKUWEMWO • UBUBYAZI',
+    title: 'Ububyazi no kugerageza kandi nyuma y\'igihombo',
+    metaDuration: 'Iminota 6 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Hagati',
+    metaValidated: 'Ibikubiyemwo vyo kumenyesha',
+    intro:
+      'Igihe n\'uburyo bwo gutekereza ku kugerageza kandi, ku muvuduko wawe n\'ufise icizere cuzuye.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'Isubira ry\'ububyazi',
+      'Ivyo abahinga bavuga muri rusangi',
+      'Kumva witeguye, ku muvuduko wawe',
+      'Gukurikiranwa gushobora kugarurira amahoro',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    body1:
+      'Ububyazi busanzwe busubira hakiri kare nko mu ruziga rukurikira inda yakuwemwo hakiri kare. Ovulation irashobora no kuba imihango yawe itaragaragara.',
+    infoTitle: 'Icingenzi co kwibuka',
+    infoText:
+      'Bitewe n\'igice c\'igihombo, igihe co koroherwa mu mubiri gishobora gutandukana gatoyi hagati y\'ikibazo n\'ikindi.',
+    body2:
+      'Abahinga benshi bafata ko nta mpamvu yo gutegereza inzira zitari nke imbere yo kugerageza kandi, keretse umuganga wawe canke umubyaza akugiriye inama itandukanye.',
+    compareEarlyTitle: 'Igihombo co hakiri kare',
+    compareEarlyText:
+      'Ububyazi kenshi busubira vuba, nko mu ruziga rukurikira.',
+    compareLateTitle: 'Igihombo c\'inyuma',
+    compareLateText:
+      'Igihe kirushiriza kuba kirekire co koroherwa gishobora gusabwa n\'ikipe y\'ubuvuzi.',
+    body3:
+      'Kumva witeguye, mu mubiri no mu marangamutima, bigumya kuba icerekezo gikuru — kuruta igihe cose co mu nyigisho.',
+    readinessPoints: [
+      {
+        title: 'Mu marangamutima',
+        text: 'Kumva witeguye muri wewe ubwawe ni ngombwa nka kumwe no koroherwa kw\'umubiri.',
+      },
+      {
+        title: 'Mu mubiri',
+        text: 'Uruziga rusanzwe n\'ukumva umerewe neza ni ibimenyetso vyiza.',
+      },
+      {
+        title: 'Nk\'abubatse canke hamwe n\'ugushigikirwa',
+        text: 'Kuvugana n\'uwo muri kumwe bishobora kugufasha gutera imbere ku muvuduko umwe.',
+      },
+    ],
+    body4:
+      'Imbere yo kugerageza kandi, kubonana na muganga bishobora kugufasha gutera imbere ufise amahoro menshi:',
+    followUpSteps: [
+      {
+        title: 'Gusuzuma uko bimeze',
+        text: 'Ikiganiro n\'umuhinga kigufasha gusubira ku vyabaye.',
+      },
+      {
+        title: 'Isuzuma nimba bikenewe',
+        text: 'Bitewe n\'ukuntu bimeze, ibindi bizamini bishobora gutangwa.',
+      },
+      {
+        title: 'Igerageza rishasha',
+        text: 'Gukurikiranwa noneho kurashobora kugushigikira utuje ukigerageza kandi.',
+      },
+    ],
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Inda imwe yakuwemwo isanzwe itavuga ikibazo c\'ububyazi. Ikipe yawe y\'ubuvuzi igumya kuba yo ibereye cane gusubiza ibibazo vyawe bwite.',
+    summaryPoints: [
+      'Ububyazi busanzwe busubira hakiri kare nko mu ruziga rukurikira inda yakuwemwo hakiri kare.',
+      'Abahinga benshi bafata ko nta mpamvu yo gutegereza inzira zitari nke, keretse bagiriwe inama itandukanye.',
+      'Kumva witeguye, mu mubiri no mu marangamutima, bigumya kuba icerekezo gikuru.',
+      'Gukurikiranwa n\'ubuvuzi bishobora kugushigikira no kugarurira amahoro imbere yo kugerageza kandi.',
+    ],
+    disclaimerText:
+      'Ibikubiyemwo vyo kumenyesha. Iyi ngingo ntisubira inama z\'ubuvuzi zihariye. Umuganga wawe canke umubyaza agumya kuba icerekezo c\'ukuntu uri.',
+    shareMessage: 'Ububyazi no kugerageza kandi nyuma y\'igihombo — AWA',
+  },
+  ig: {
+    badge: 'MGBE ỌPỤPỤ IME • ỌMỤMỤ',
+    title: 'Ọmụmụ na ịnwale ọzọ mgbe mfu',
+    metaDuration: 'Nkeji 6 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Ọkwa etiti',
+    metaValidated: 'Ọdịnaya ozi',
+    intro:
+      'Mgbe na etu ị ga-esi tụlee ịnwale ọzọ, n\'ọsọ nke gị na n\'obi ike zuru oke.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Ọlọghachi nke ọmụmụ',
+      'Ihe ndị ọkachamara na-ekwukarị',
+      'Inwe mmetụta na ị dịla njikere, n\'ọsọ nke gị',
+      'Nlekọta nwere ike iche obi sie gị ike',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    body1:
+      'Ọmụmụ na-alọghachikarị ngwa ngwa dị ka usoro nsọ na-esote ọpụpụ ime n\'oge mbụ. Ovulation nwere ike ime tupu nsọ gị alọghachi n\'ụzọ a na-ahụ anya.',
+    infoTitle: 'Isi ihe ịcheta',
+    infoText:
+      'Dabere n\'ọkwa mfu ahụ, oge ịgbake anụ ahụ nwere ike ịdịgasị obere site n\'ọnọdụ ruo ọnọdụ.',
+    body2:
+      'Ọtụtụ ndị ọkachamara na-ewere na ọ dịghị mkpa ichere ọtụtụ usoro nsọ tupu ịnwale ọzọ, ọ bụrụ na dọkịta ma ọ bụ onye na-agba nne ọrụ adụọla ọdụ ọzọ.',
+    compareEarlyTitle: 'Mfu n\'oge mbụ',
+    compareEarlyText:
+      'Ọmụmụ na-alọghachikarị ngwa ngwa, ọbụna n\'usoro nsọ na-esote.',
+    compareLateTitle: 'Mfu n\'oge dị ogologo',
+    compareLateText:
+      'Otu ndị ahụike nwere ike ịtụ aro oge ịgbake dị ogologo ntakịrị.',
+    body3:
+      'Inwe mmetụta na ị dịla njikere, n\'anụ ahụ na n\'mmụọ, ka bụ nduzi kacha mkpa — karịa oge ọ bụla e kwuru n\'echiche.',
+    readinessPoints: [
+      {
+        title: 'N\'mmụọ',
+        text: 'Inwe mmetụta na ị dịla njikere n\'ime onwe gị dị mkpa dị ka ịgbake anụ ahụ.',
+      },
+      {
+        title: 'N\'anụ ahụ',
+        text: 'Usoro nsọ dị n\'usoro na mmetụta ọdịmma bụ ihe ngosi ọma.',
+      },
+      {
+        title: 'Ịnọ abụọ ma ọ bụ site n\'enyemaka',
+        text: 'Ikwu maka ya na onye mmekọ gị nwere ike inyere unu aka ịga n\'ihu n\'otu ọsọ.',
+      },
+    ],
+    body4:
+      'Tupu ịnwale ọzọ, oge nleta ahụike nwere ike inyere gị aka ịga n\'ihu n\'udo karị:',
+    followUpSteps: [
+      {
+        title: 'Ịtụle ọnọdụ',
+        text: 'Mkparịta ụka na onye ọkachamara na-enyere gị aka ịlaghachi n\'ihe mere.',
+      },
+      {
+        title: 'Nyocha ma ọ bụrụ na ọ dị mkpa',
+        text: 'Dabere n\'ọnọdụ, a nwere ike ịtụ aro nnwale ndị ọzọ.',
+      },
+      {
+        title: 'Ọnwale ọhụrụ',
+        text: 'Nlekọta nwere ike mgbe ahụ ịkwado gị n\'udo ka ị na-anwale ọzọ.',
+      },
+    ],
+    tipTitle: 'Ihe ọ dị mma ịma',
+    tipText:
+      'Otu ọpụpụ ime dịpụrụ adịpụ anaghị egosi nsogbu ọmụmụ n\'ozuzu. Otu ndị ahụike gị ka kacha mma ịza ajụjụ nke gị.',
+    summaryPoints: [
+      'Ọmụmụ na-alọghachikarị ngwa ngwa dị ka usoro nsọ na-esote ọpụpụ ime n\'oge mbụ.',
+      'Ọtụtụ ndị ọkachamara na-ewere na ọ dịghị mkpa ichere ọtụtụ usoro nsọ, ọ bụrụ na a dụọla ọdụ ọzọ.',
+      'Inwe mmetụta na ị dịla njikere, n\'anụ ahụ na n\'mmụọ, ka bụ nduzi kacha mkpa.',
+      'Nlekọta ahụike nwere ike ịkwado gị ma mee ka obi sie gị ike tupu ịnwale ọzọ.',
+    ],
+    disclaimerText:
+      'Ọdịnaya ozi. Isiokwu a anaghị anọchi ndụmọdụ ahụike nke e ji mee gị. Dọkịta gị ma ọ bụ onye na-agba nne ọrụ ka bụ ihe nrụtụ aka maka ọnọdụ gị.',
+    shareMessage: 'Ọmụmụ na ịnwale ọzọ mgbe mfu — AWA',
+  },
+  yo: {
+    badge: 'LẸ́YÌN ÌṢẸ́YUN • ÌBÍMỌ',
+    title: 'Ìbímọ àti gbígbìyànjú lẹ́ẹ̀kan sí i lẹ́yìn àdánù',
+    metaDuration: 'Ìṣẹ́jú 6 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Àárín',
+    metaValidated: 'Àkóónú fún ìmọ̀',
+    intro:
+      'Ìgbà àti bí a ṣe lè ronú nípa gbígbìyànjú lẹ́ẹ̀kan sí i, ní ìwọ̀n ìrìn rẹ àti pẹ̀lú ìgboyà kíkún.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Ìpadàbọ̀ ìbímọ',
+      'Ohun tí àwọn ọ̀jọ̀gbọ́n sábà máa ń sọ',
+      'Rírí ara rẹ gẹ́gẹ́ bí ẹni tó ti ṣetán, ní ìwọ̀n ìrìn rẹ',
+      'Ìtọ́jú ìtẹ̀síwájú tó lè tù ọ́ nínú',
+      'Àwọn kókó pàtàkì',
+    ],
+    body1:
+      'Ìbímọ sábà máa ń padà bọ̀ ní kété ìyípo tó tẹ̀lé ìṣẹ́yun àkọ́kọ́. Ovulation tilẹ̀ lè ṣẹlẹ̀ kí nǹkan oṣù rẹ tó padà ní ojú kedere.',
+    infoTitle: 'Kókó pàtàkì',
+    infoText:
+      'Gẹ́gẹ́ bí ìpele àdánù náà, àkókò ìgbàpadà ara lè yàtọ̀ díẹ̀ láti ipò kan sí òmíràn.',
+    body2:
+      'Ọ̀pọ̀ ọ̀jọ̀gbọ́n rò pé kò sí ìdí láti dúró fún ìyípo púpọ̀ kí a tó tún gbìyànjú, àyàfi tí dókítà tàbí agbẹ̀bí rẹ bá gbà ọ́ nímọ̀ràn yàtọ̀.',
+    compareEarlyTitle: 'Àdánù ní ìbẹ̀rẹ̀',
+    compareEarlyText:
+      'Ìbímọ sábà máa ń padà bọ̀ kíákíá, ní kété ìyípo tó kàn.',
+    compareLateTitle: 'Àdánù lẹ́yìn náà',
+    compareLateText:
+      'Ẹgbẹ́ oníṣègùn lè dábàá àkókò ìgbàpadà tó gùn díẹ̀ sí i.',
+    body3:
+      'Rírí ara rẹ gẹ́gẹ́ bí ẹni tó ti ṣetán, ní ti ara àti ti ẹ̀dùn ọkàn, ṣì jẹ́ atọ́nà pàtàkì jù — ó ju àkókò àròjinlẹ̀ èyíkéyìí lọ.',
+    readinessPoints: [
+      {
+        title: 'Ní ti ẹ̀dùn ọkàn',
+        text: 'Rírí ara rẹ gẹ́gẹ́ bí ẹni tó ti ṣetán nínú ara rẹ ṣe pàtàkì bí ìgbàpadà ara ṣe ṣe pàtàkì.',
+      },
+      {
+        title: 'Ní ti ara',
+        text: 'Ìyípo déédé àti ìmọ̀lára àlàáfíà jẹ́ àwọn àmì rere.',
+      },
+      {
+        title: 'Gẹ́gẹ́ bí tọkọtaya tàbí pẹ̀lú ìtìlẹ́yìn',
+        text: 'Bíbá partner rẹ sọ̀rọ̀ nípa rẹ̀ lè ràn yín lọ́wọ́ láti tẹ̀síwájú ní ìṣísẹ̀ kan náà.',
+      },
+    ],
+    body4:
+      'Ṣáájú kí o tó tún gbìyànjú, ìpàdé oníṣègùn lè ràn ọ́ lọ́wọ́ láti tẹ̀síwájú pẹ̀lú ìbàlẹ̀ ọkàn tó pọ̀ sí i:',
+    followUpSteps: [
+      {
+        title: 'Ṣíṣe àyẹ̀wò gbogbogbò',
+        text: 'Ìjíròrò pẹ̀lú ọ̀jọ̀gbọ́n ń jẹ́ kí o tún wo ohun tó ṣẹlẹ̀.',
+      },
+      {
+        title: 'Àgbéyẹ̀wò tí ó bá yẹ',
+        text: 'Gẹ́gẹ́ bí ipò náà, a lè dábàá àwọn ìdánwò afikún.',
+      },
+      {
+        title: 'Ìgbìyànjú tuntun',
+        text: 'Ìtọ́jú ìtẹ̀síwájú lè wá tì ọ́ lẹ́yìn ní ìbàlẹ̀ ọkàn bí o ṣe ń gbìyànjú lẹ́ẹ̀kan sí i.',
+      },
+    ],
+    tipTitle: 'Ohun tó dára láti mọ̀',
+    tipText:
+      'Ìṣẹ́yun kan ṣoṣo kì í sábà fi ìṣòro ìbímọ hàn. Ẹgbẹ́ oníṣègùn rẹ ni ó dára jù láti dáhùn àwọn ìbéèrè ara ẹni rẹ.',
+    summaryPoints: [
+      'Ìbímọ sábà máa ń padà bọ̀ ní kété ìyípo tó tẹ̀lé ìṣẹ́yun àkọ́kọ́.',
+      'Ọ̀pọ̀ ọ̀jọ̀gbọ́n rò pé kò sí ìdí láti dúró fún ìyípo púpọ̀, àyàfi tí a bá gbani nímọ̀ràn yàtọ̀.',
+      'Rírí ara rẹ gẹ́gẹ́ bí ẹni tó ti ṣetán, ní ti ara àti ti ẹ̀dùn ọkàn, ṣì jẹ́ atọ́nà pàtàkì jù.',
+      'Ìtọ́jú ìtẹ̀síwájú oníṣègùn lè tì ọ́ lẹ́yìn, kí ó sì tù ọ́ nínú ṣáájú kí o tó tún gbìyànjú.',
+    ],
+    disclaimerText:
+      'Àkóónú fún ìmọ̀. Àpilẹ̀kọ yìí kò rọ́pò ìmọ̀ràn oníṣègùn tó jẹ mọ́ ẹni. Dókítà tàbí agbẹ̀bí rẹ ṣì jẹ́ ìtọ́kasí fún ipò rẹ.',
+    shareMessage: 'Ìbímọ àti gbígbìyànjú lẹ́ẹ̀kan sí i lẹ́yìn àdánù — AWA',
+  },
+  zu: {
+    badge: 'NGEMVA KOKUPHUPHUMA KWESISU • UKUZALA',
+    title: 'Ukuzala nokuzama futhi ngemva kokulahlekelwa',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Eliphakathi',
+    metaValidated: 'Okuqukethwe okunikeza ulwazi',
+    intro:
+      'Ukuthi ucabange nini nokuthi ucabange kanjani ngokuzama futhi, ngejubane lakho nangokuzethemba okugcwele.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ukubuya kokuzala',
+      'Lokho ochwepheshe abavame ukukusho',
+      'Ukuzizwa ulungele, ngejubane lakho',
+      'Ukunakekelwa kokulandelela okungakuqinisekisa',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    body1:
+      'Ukuzala ngokuvamile kubuya ngokushesha emjikelezweni olandela ukuphuphuma kwesisu kwangaphambili. I-ovulation ingenzeka ngisho nangaphambi kokuthi isikhathi sakho sibonakale sibuya.',
+    infoTitle: 'Okubalulekile ukukhumbula',
+    infoText:
+      'Kuye ngesigaba sokulahlekelwa, isikhathi sokululama komzimba singahluka kancane kusukela esimweni kuya kwesinye.',
+    body2:
+      'Ochwepheshe abaningi bacabanga ukuthi akudingeki ukulinda imijikelezo eminingana ngaphambi kokuzama futhi, ngaphandle kokuthi udokotela wakho noma umbelethisi akweluleke ngenye indlela.',
+    compareEarlyTitle: 'Ukulahlekelwa kwangaphambili',
+    compareEarlyText:
+      'Ukuzala kuvame ukubuya ngokushesha, kusukela emjikelezweni olandelayo.',
+    compareLateTitle: 'Ukulahlekelwa kwangemuva',
+    compareLateText:
+      'Isikhathi esihamba isikhathi eside kancane sokululama singanconywa yithimba lezokwelapha.',
+    body3:
+      'Ukuzizwa ulungele, ngokomzimba nangokwemizwa, kuhlala kuyisiholi esibaluleke kakhulu — ngaphezu kakhulu kunanoma yisiphi isikhathi sethiyori.',
+    readinessPoints: [
+      {
+        title: 'Ngokwemizwa',
+        text: 'Ukuzizwa ulungele ngaphakathi kubaluleke njengokululama komzimba.',
+      },
+      {
+        title: 'Ngokomzimba',
+        text: 'Umjikelezo ohlelekile nomuzwa wokuphila kahle kuyizikhombisi ezinhle.',
+      },
+      {
+        title: 'Njengababili noma ngosekelo',
+        text: 'Ukukhuluma ngakho nozakwenu kungakusiza niqhubeke ngejubane elifanayo.',
+      },
+    ],
+    body4:
+      'Ngaphambi kokuzama futhi, ukubonana nodokotela kungakusiza uqhubeke ngokuthula kwengqondo okukhulu:',
+    followUpSteps: [
+      {
+        title: 'Ukubheka isimo',
+        text: 'Ingxoxo nochwepheshe ikuvumela ukubuyekeza okwenzekile.',
+      },
+      {
+        title: 'Ukuhlolwa uma kudingeka',
+        text: 'Kuye ngesimo, ukuhlolwa okwengeziwe kungaphakanyiswa.',
+      },
+      {
+        title: 'Umzamo omusha',
+        text: 'Ukunakekelwa kokulandelela kungakweseka ngokuthula njengoba uzama futhi.',
+      },
+    ],
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukuphuphuma kwesisu okukodwa ngokuvamile akukhombisi inkinga yokuzala. Ithimba lakho lezokwelapha lihlala lilungele kakhulu ukuphendula imibuzo yakho siqu.',
+    summaryPoints: [
+      'Ukuzala ngokuvamile kubuya ngokushesha emjikelezweni olandela ukuphuphuma kwesisu kwangaphambili.',
+      'Ochwepheshe abaningi bacabanga ukuthi akudingeki ukulinda imijikelezo eminingana, ngaphandle uma kululeke ngenye indlela.',
+      'Ukuzizwa ulungele, ngokomzimba nangokwemizwa, kuhlala kuyisiholi esibaluleke kakhulu.',
+      'Ukulandelela kwezokwelapha kungakweseka futhi kukuqinisekise ngaphambi kokuzama futhi.',
+    ],
+    disclaimerText:
+      'Okuqukethwe okunikeza ulwazi. Lesi sihloko asithathi indawo yeseluleko sezokwelapha esikhethekile kuwe. Udokotela wakho noma umbelethisi uhlala eyisethenjwa ngesimo sakho.',
+    shareMessage: 'Ukuzala nokuzama futhi ngemva kokulahlekelwa — AWA',
+  },
+  xh: {
+    badge: 'EMVA KOKUPHUMA KWESISU • UKUZALA',
+    title: 'Ukuzala nokuzama kwakhona emva kokulahlekelwa',
+    metaDuration: 'Imizuzu emi-6 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Ephakathi',
+    metaValidated: 'Ulwazi',
+    intro:
+      'Nini nangendlela yokucinga ngokuzama kwakhona, ngejubane lakho nangentembelo epheleleyo.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Ukubuya kokuzala',
+      'Oko iingcali zihlala ziluthetha',
+      'Ukuziva ulungile, ngejubane lakho',
+      'Ukulandelwa okunokukuthomalalisa',
+      'Eyona nto ibalulekileyo',
+    ],
+    body1:
+      'Ukuzala kudla ngokubuya kwangomjikelo olandela ukuphuma kwesisu kwangoko. I-ovulation inokwenzeka kwanangaphambi kokuba ixesha lakho lokuya exesheni libonakale libuya.',
+    infoTitle: 'Eyona nto ibalulekileyo',
+    infoText:
+      'Ngokuxhomekeke kwinqanaba lokulahlekelwa, ixesha lokuphola komzimba linokwahluka kancinci komnye umzekelo ukuya komnye.',
+    body2:
+      'Iingcali ezininzi ziqinisekile ukuba akukho mfuneko yokulinda imijikelo emininzi phambi kokuzama kwakhona, ngaphandle kokuba ugqirha wakho okanye umbelekisi ecebisa ngenye indlela.',
+    compareEarlyTitle: 'Ukulahlekelwa kwangoko',
+    compareEarlyText:
+      'Ukuzala kudla ngokubuya ngokukhawuleza, kwangomjikelo olandelayo.',
+    compareLateTitle: 'Ukulahlekelwa kamva',
+    compareLateText:
+      'Ixesha elide kancinci lokuphola linokucetyiswa liqela lezonyango.',
+    body3:
+      'Ukuziva ulungile, ngokomzimba nangokwemizwa, kusengowona mkhokeli ubalulekileyo — kakhulu ngaphezu nawuphi na umlinganiselo wexesha wethiyori.',
+    readinessPoints: [
+      {
+        title: 'Ngokwemizwa',
+        text: 'Ukuziva ulungile ngaphakathi kubalulekile njengokuphola komzimba.',
+      },
+      {
+        title: 'Ngokomzimba',
+        text: 'Umjikelo oqhelekileyo kunye nemvakalelo yempilo entle zizalathisi ezilungileyo.',
+      },
+      {
+        title: 'Njengetshomi okanye ngenkxaso',
+        text: 'Ukuthetha ngayo nozalana nawe kunganceda niqhubele phambili ngesantya esifanayo.',
+      },
+    ],
+    body4:
+      'Phambi kokuzama kwakhona, idinga lezonyango linganceda uqhubele phambili ngoxolo olungakumbi:',
+    followUpSteps: [
+      {
+        title: 'Ukuhlola imeko',
+        text: 'Incoko nengcali ikuvumela ukuba uphinde ujonge okwenzekileyo.',
+      },
+      {
+        title: 'Uhlolo ukuba kuyafuneka',
+        text: 'Ngokuxhomekeke kwimeko, uvavanyo olongezelelweyo lunokunikelwa.',
+      },
+      {
+        title: 'Ukuzama okutsha',
+        text: 'Ukulandelwa kunokuba kukuxhase ngokuzolileyo xa uzama kwakhona.',
+      },
+    ],
+    tipTitle: 'Kulungile ukwazi',
+    tipText:
+      'Ukuphuma kwesisu okunye ngokubanzi akuthethi ingxaki yokuzala. Iqela lakho lezonyango lisafanele ngakumbi ukuphendula imibuzo yakho.',
+    summaryPoints: [
+      'Ukuzala kudla ngokubuya kwangomjikelo olandela ukuphuma kwesisu kwangoko.',
+      'Iingcali ezininzi ziqinisekile ukuba akukho mfuneko yokulinda imijikelo emininzi, ngaphandle kokuba kucetyiswe ngenye indlela.',
+      'Ukuziva ulungile, ngokomzimba nangokwemizwa, kusengowona mkhokeli ubalulekileyo.',
+      'Ukulandelwa kwezonyango kunganceda kwaye kukuthomalalise phambi kokuzama kwakhona.',
+    ],
+    disclaimerText:
+      'Ulwazi. Eli nqaku alithatheli indawo yecebiso lezonyango lomntu ngamnye. Ugqirha wakho okanye umbelekisi sisalathiso semeko yakho.',
+    shareMessage: 'Ukuzala nokuzama kwakhona emva kokulahlekelwa — AWA',
+  },
+  sn: {
+    badge: 'MUSHURE MENHUMBU YAPERA • KUBEREKA',
+    title: 'Kubereka nekuedza zvakare mushure mekurasikirwa',
+    metaDuration: 'Kuverenga kwemaminetsi 6',
+    metaType: 'Gwaro',
+    metaLevel: 'Epakati',
+    metaValidated: 'Zvinyorwa zvekuziva',
+    intro:
+      'Rinhi nenzira yekufunga nezvekuedza zvakare, nekumhanya kwako uye nekuvimba kwakazara.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Kudzoka kwekubereka',
+      'Zvinowanzotaurwa nenyanzvi',
+      'Kunzwa wakagadzirira, nekumhanya kwako',
+      'Kutarisirwa kunogona kukunyaradza',
+      'Zvakakosha kuyeuka',
+    ],
+    body1:
+      'Kubereka kunowanzodzoka kubva pacycle inotevera nhumbu yakapera nokukurumidza. Ovulation inogona kunyange kuitika kuenda kwako kumwedzi kusati kwadzoka zvinooneka.',
+    infoTitle: 'Zvakakosha kuyeuka',
+    infoText:
+      'Zvichienderana nenhanho yekurasikirwa, nguva yekupora kwemuviri inogona kusiyana zvishoma kubva pamamiriro kuenda kune mumwe.',
+    body2:
+      'Nyanzvi dzakawanda dzinofunga kuti hapana chikonzero chekumirira macycle akati wandei usati waedza zvakare, kunze kwekunge chiremba kana mukoti wako akurudzira zvimwe.',
+    compareEarlyTitle: 'Kurasikirwa kwekutanga',
+    compareEarlyText:
+      'Kubereka kunowanzodzoka nokukurumidza, kubva pacycle inotevera.',
+    compareLateTitle: 'Kurasikirwa kwekuma gare gare',
+    compareLateText:
+      'Nguva yakareba zvishoma yekupora inogona kukurudzirwa neboka rekurapa.',
+    body3:
+      'Kunzwa wakagadzirira, mumuviri nemumanzwiro, kunoramba kuri gwara rakakosha zvikuru — kupfuura nguva ipi neipi yepfungwa.',
+    readinessPoints: [
+      {
+        title: 'Mumanzwiro',
+        text: 'Kunzwa wakagadzirira mukati mako kunokosha sekupora kwemuviri.',
+      },
+      {
+        title: 'Mumuviri',
+        text: 'Cycle inorongeka nemanzwiro ekunaka zviratidzo zvakanaka.',
+      },
+      {
+        title: 'Senhengo mbiri kana nerutsigiro',
+        text: 'Kutaura nemurume wako kunogona kukubatsira kufambira mberi nekumhanya kwakafanana.',
+      },
+    ],
+    body4:
+      'Usati waedza zvakare, kuonana nechiremba kunogona kukubatsira kufambira mberi nerunyararo rwakawanda:',
+    followUpSteps: [
+      {
+        title: 'Kutarisa mamiriro',
+        text: 'Kukurukura nenyanzvi kunokubvumira kudzokorora zvakaitika.',
+      },
+      {
+        title: 'Kuongororwa kana kuchidiwa',
+        text: 'Zvichienderana nemamiriro, matesti akawedzera anogona kupihwa.',
+      },
+      {
+        title: 'Kuedza kutsva',
+        text: 'Kutarisirwa kunogona kukutsigira zvinyoro painotevera kuedza zvakare.',
+      },
+    ],
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Nhumbu imwe chete yakapera inowanzoreva kuti hapana dambudziko rekubereka. Boka rako rekurapa ndiro rinokwanisa zvakanyanya kupindura mibvunzo yako.',
+    summaryPoints: [
+      'Kubereka kunowanzodzoka kubva pacycle inotevera nhumbu yakapera nokukurumidza.',
+      'Nyanzvi dzakawanda dzinofunga kuti hapana chikonzero chekumirira macycle akati wandei, kunze kwekunge wakurudzirwa zvimwe.',
+      'Kunzwa wakagadzirira, mumuviri nemumanzwiro, kunoramba kuri gwara rakakosha zvikuru.',
+      'Kutarisirwa nechiremba kunogona kukutsigira nekukunyaradza usati waedza zvakare.',
+    ],
+    disclaimerText:
+      'Zvinyorwa zvekuziva chete. Chinyorwa ichi hachitsiviri zano rekurapwa rakakodzera iwe. Chiremba kana mukoti wako ndiye anoramba ari sosi yemamiriro ako.',
+    shareMessage: 'Kubereka nekuedza zvakare mushure mekurasikirwa — AWA',
+  },
+  ln: {
+    badge: 'SIMA YA KOBOMBA ZEMI • BOMEMI',
+    title: 'Bomemi mpe komeka lisusu sima ya kobungisa',
+    metaDuration: 'Miniti 6 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya katikati',
+    metaValidated: 'Makambo ya koyebisa',
+    intro:
+      'Ntango nini mpe ndenge nini ya kokanisa komeka lisusu, na lombangu na yo mpe na motema pɛtɛɛ.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Kozonga ya bomemi',
+      'Oyo bato ya mosala balobaka mbala mingi',
+      'Koyoka ete ozali pene, na lombangu na yo',
+      'Bandeko oyo ekoki kopesa yo kimia',
+      'Makambo ya kokanisa',
+    ],
+    body1:
+      'Bomemi ezongaka mbala mingi uta na cycle oyo elandi sima ya kobomba zemi ya ebandeli. Ovulation ekoki mpe kosalema liboso sanza na yo emonana polele.',
+    infoTitle: 'Eloko ya kokanisa',
+    infoText:
+      'Engebene na etape ya kobungisa, ntango ya kozongela nzoto ekoki kokeseni moke uta likambo moko tii mosusu.',
+    body2:
+      'Bato mingi ya mosala bakanisaka ete esengeli te kozela ba cycle mingi liboso ya komeka lisusu, longola soki monganga na yo to sage-femme alobi ndenge mosusu.',
+    compareEarlyTitle: 'Kobungisa ya ebandeli',
+    compareEarlyText:
+      'Bomemi ezongaka mbala mingi noki, uta na cycle oyo elandi.',
+    compareLateTitle: 'Kobungisa ya sima',
+    compareLateText:
+      'Ntango ya kozongela ya molai moke ekoki kolimbolama na etuluku ya monganga.',
+    body3:
+      'Koyoka ete ozali pene, na nzoto mpe na motema, ezali naino litambwisi ya ntina koleka — mingi koleka ntango ya nzela ya makanisi.',
+    readinessPoints: [
+      {
+        title: 'Na motema',
+        text: 'Koyoka ete ozali pene na kati na yo ezali na ntina lokola kozongela nzoto.',
+      },
+      {
+        title: 'Na nzoto',
+        text: 'Cycle ya molɔngɔ mpe koyoka malamu ezali bilembo ya malamu.',
+      },
+      {
+        title: 'Lokola libala to na lisungi',
+        text: 'Kolobela yango na partenaire na yo ekoki kosalisa bino kokende liboso na lombangu moko.',
+      },
+    ],
+    body4:
+      'Liboso ya komeka lisusu, rendez-vous ya monganga ekoki kosalisa yo kokende liboso na kimia ya motema koleka:',
+    followUpSteps: [
+      {
+        title: 'Kotala makambo',
+        text: 'Kosolola na moto ya mosala epesi nzela ya kotala lisusu oyo esalemaki.',
+      },
+      {
+        title: 'Kotala soki esengeli',
+        text: 'Engebene na likambo, ba test mosusu ekoki kopesama.',
+      },
+      {
+        title: 'Komeka ya sika',
+        text: 'Bandeko ekoki sima kosunga yo na kimia ntango ozali komeka lisusu.',
+      },
+    ],
+    tipTitle: 'Eloko ya koyeba',
+    tipText:
+      'Kobomba zemi mbala moko kaka elakisi mbala mingi te ete ezali likambo ya bomemi. Etuluku ya monganga na yo azali naino na esika ya malamu mpo na koyanola mituna na yo ya moto.',
+    summaryPoints: [
+      'Bomemi ezongaka mbala mingi uta na cycle oyo elandi sima ya kobomba zemi ya ebandeli.',
+      'Bato mingi ya mosala bakanisaka ete esengeli te kozela ba cycle mingi, longola soki balobi ndenge mosusu.',
+      'Koyoka ete ozali pene, na nzoto mpe na motema, ezali naino litambwisi ya ntina koleka.',
+      'Bandeko ya monganga ekoki kosunga mpe kopesa yo kimia liboso ya komeka lisusu.',
+    ],
+    disclaimerText:
+      'Makambo ya koyebisa. Lisolo oyo etɛlɛmi na esika ya toli ya monganga oyo ebongi na yo moko te. Monganga na yo to sage-femme azali naino esika ya kotala mpo na likambo na yo.',
+    shareMessage: 'Bomemi mpe komeka lisusu sima ya kobungisa — AWA',
+  },
+  ff: {
+    badge: 'CAGGAL HOYRE HOWRE • HAWTERE',
+    title: 'Hawtere e ɗaɓɓitugo caggal hoyre',
+    metaDuration: 'Janngugol minti 6',
+    metaType: 'Jannginoore',
+    metaLevel: 'Hakkunde',
+    metaValidated: 'Anndinde tan',
+    intro:
+      'Ndey e no hakkilaade dow ɗaɓɓitugo, bana yahde maaɗa e bernde laaɓɗe.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'Ruttugo hawtere',
+      'Ko mo hesɗitini ɗum wi\'i nder feere',
+      'Hakkilaade ko a hawti, bana yahde maaɗa',
+      'Raarugo ɗum waawi yoofugo bernde maaɗa',
+      'Ko ɗum ɓuri fuu',
+    ],
+    body1:
+      'Hawtere ɗum ɗon ruttita ko foti nder doggol lewru ɗi ɗon ara caggal hoyre howre adda. Ovulation ɗum waawi waɗude adda ndiyam lewru ruttii e ko ɗum yiyee.',
+    infoTitle: 'Ko ɗum ɓuri fuu',
+    infoText:
+      'Bana wakkati hoyre waɗi, wakkati sellugo ɓanndu ɗum waawi waylude seɗɗa e gooto haa gooto.',
+    body2:
+      'Mo hesɗitini ɗum ɗuuɗɗo ɗon hakkilii ko walaa ko haani sabugo doggol lewru ɗuuɗɗe adda ɗaɓɓitugo, si dokotoro maaɗa malla mo hesɗitini ɗum wi\'i feere.',
+    compareEarlyTitle: 'Hoyre adda',
+    compareEarlyText:
+      'Hawtere ɗum ɗon ruttita gaaw, ko foti nder doggol lewru ɗi ɗon ara.',
+    compareLateTitle: 'Hoyre caggal',
+    compareLateText:
+      'Wakkati sellugo ɓuri juuɗude ɗum waawi wonde ko ɗum ɗon wi\'ee e koɗolle dokotoro.',
+    body3:
+      'Hakkilaade ko a hawti, nder ɓanndu e nder bernde, ɗum wooɗi ko ɓuri moyyude — ɓuri ko wakkati ɗum ɗon wi\'ee.',
+    readinessPoints: [
+      {
+        title: 'Nder bernde',
+        text: 'Hakkilaade ko a hawti nder hoore maaɗa ɗum ɓuri huutinaade bana sellugo ɓanndu.',
+      },
+      {
+        title: 'Nder ɓanndu',
+        text: 'Doggol lewru ɗum ɗon yaha moyyere e hakkilaade sella ko ɓaleeji moyyi.',
+      },
+      {
+        title: 'Bana kawtal malla e wallugo',
+        text: 'Haalaade dow ɗum e gorko maaɗa ɗum waawi wallude ma yahde e yeeso gooto.',
+      },
+    ],
+    body4:
+      'Adda ɗaɓɓitugo, yahde e dokotoro ɗum waawi wallude ma yahde e hakkilo ɓuri seɗɗa:',
+    followUpSteps: [
+      {
+        title: 'Hawtugo ko ɗum waɗi',
+        text: 'Haalaade e mo hesɗitini ɗum ɗum yaha ma tinndinde ko ɗum waɗi.',
+      },
+      {
+        title: 'Ndaaruwol to ɗum haani',
+        text: 'Bana ko woni e maaɗa, ndaaruwol feere ɗum waawi hokkeede.',
+      },
+      {
+        title: 'Ɗaɓɓitugo hesere',
+        text: 'Raarugo ɗum waawi wallude ma bannda tampude to a ɗon ɗaɓɓita.',
+      },
+    ],
+    tipTitle: 'Ɗum ɓuri nafugo anndude',
+    tipText:
+      'Hoyre howre gooto ɗum wi\'ataa ko caɗeele hawtere. Koɗolle dokotoro maaɗa ɗum ɓuri moyyude ngam jaabugo naamne maaɗa.',
+    summaryPoints: [
+      'Hawtere ɗum ɗon ruttita ko foti nder doggol lewru ɗi ɗon ara caggal hoyre howre adda.',
+      'Mo hesɗitini ɗum ɗuuɗɗo ɗon hakkilii ko walaa ko haani sabugo doggol lewru ɗuuɗɗe, si ɗum wi\'i feere.',
+      'Hakkilaade ko a hawti, nder ɓanndu e nder bernde, ɗum wooɗi ko ɓuri moyyude.',
+      'Raarugo dokotoro ɗum waawi wallude ma e yoofugo bernde maaɗa adda ɗaɓɓitugo.',
+    ],
+    disclaimerText:
+      'Anndinde tan. Winndannde ndee ɗum sirtaaka jaabawol dokotoro ngam hoore maaɗa. Dokotoro maaɗa malla mo hesɗitini ɗum ɗum ko ɗum wooɗi ngam nyannde maaɗa.',
+    shareMessage: 'Hawtere e ɗaɓɓitugo caggal hoyre — AWA',
+  },
   id: {
     badge: 'SETELAH KEGUGURAN • KESUBURAN',
     title: 'Kesuburan dan mencoba hamil lagi setelah kehilangan',

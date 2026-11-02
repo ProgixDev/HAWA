@@ -383,6 +383,604 @@ const CONTENT = withBrazilianPortuguese('ChildbirthPrep', {
       tipText: '做好准备并不意味着掌控一切：更重要的是让自己有办法更有信心、更少不确定地迎接那一天。',
       shareMessage: '从容准备迎接分娩 — AWA',
     },
+  'zh-Hant': {
+      badge: '懷孕 • 分娩',
+      title: '從容準備\n迎接分娩',
+      metaDuration: '閱讀約 7 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已審閱內容',
+      intro: '三個支柱，幫助你更有信心地迎接重要的那一天。',
+      contentsTitle: '本文內容',
+      topics: [
+        '分三步做好準備',
+        '你的待產包',
+        '寫下你的分娩計劃',
+        '值得注意',
+        '需要記住的',
+      ],
+      prepSteps: [
+        '分娩準備課程',
+        '呼吸與放鬆技巧',
+        '孕 8 個月前備好待產包',
+      ],
+      body1: '分娩準備課程可以幫助你瞭解產程的各個階段，以及在那一天能支援你的呼吸技巧。',
+      body2: '在孕 8 個月前備好待產包，可以免去臨近時的慌亂。待產包通常包括：',
+      bagItems: [
+        '身份證件和你的孕期檔案本',
+        '你和寶寶的舒適衣物',
+        '洗漱用品和產婦衛生棉',
+        '寶寶出院回家穿的衣服',
+      ],
+      birthPlanPoints: [
+        '你對疼痛管理的偏好',
+        '你希望誰在產程中陪伴',
+        '你對肌膚接觸的期望',
+      ],
+      neutralText: '一份簡單的分娩計劃，可以幫助你向醫療團隊表達自己的意願，同時保持開放的心態：實際的過程可能會因具體情況而改變。',
+      tipTitle: '小提醒',
+      tipText: '做好準備並不意味著掌控一切：更重要的是讓自己有辦法更有信心、更少不確定地迎接那一天。',
+      shareMessage: '從容準備迎接分娩 — AWA',
+    },
+  ar: {
+    badge: 'الحمل • الولادة',
+    title: 'الاستعداد بهدوء\nللولادة',
+    metaDuration: '7 دقائق للقراءة',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى تمت مراجعته',
+    intro: 'ثلاث ركائز لتستقبلي اليوم الكبير بثقة أكبر.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'الاستعداد في 3 خطوات',
+      'حقيبة المستشفى',
+      'كتابة خطة الولادة',
+      'جدير بالملاحظة',
+      'ما يجب تذكّره',
+    ],
+    prepSteps: [
+      'دروس التحضير للولادة',
+      'تقنيات التنفس والاسترخاء',
+      'حقيبة المستشفى جاهزة بحلول الشهر الثامن',
+    ],
+    body1:
+      'تساعدك دروس التحضير للولادة على فهم مراحل المخاض وتقنيات التنفس التي ستدعمك في اليوم الكبير.',
+    body2:
+      'تجهيز حقيبة المستشفى بحلول الشهر الثامن يوفّر عليك توتر اللحظة الأخيرة. وعادةً تتضمن:',
+    bagItems: [
+      'وثائق الهوية ودفتر متابعة الحمل',
+      'ملابس مريحة لك وللطفل',
+      'أدوات النظافة الشخصية وفوط ما بعد الولادة',
+      'ملابس للطفل ليخرج بها إلى البيت',
+    ],
+    birthPlanPoints: [
+      'تفضيلاتك في التعامل مع الألم',
+      'من تودّين حضوره أثناء المخاض',
+      'توقعاتك بشأن التلامس الجلدي المباشر',
+    ],
+    neutralText:
+      'تساعدك خطة ولادة بسيطة على مشاركة رغباتك مع الفريق الطبي، مع بقائك منفتحة: فقد يتغير سير الأحداث الفعلي بحسب الوضع.',
+    tipTitle: 'من الجيد أن تعرفي',
+    tipText:
+      'الاستعداد لا يعني التحكم في كل شيء: بل هو في الأساس منح نفسك الوسائل لتستقبلي اليوم الكبير بثقة أكبر وغموض أقل.',
+    shareMessage: 'الاستعداد بهدوء للولادة — AWA',
+  },
+  kab: {
+    badge: 'LḤEMLA • TLALIT',
+    title: 'Ttheggu s lehna\ni tlalit',
+    metaDuration: '7 n tesdatin n tɣuri',
+    metaType: 'Amawal',
+    metaLevel: 'Amagrad',
+    metaValidated: 'Agbur yettwasenqed',
+    intro: 'Kraḍ n tmedditin i uqeṛṛeb n wass ameqqran s tkeyyest ugar.',
+    contentsTitle: 'deg umagrad-a',
+    topics: [
+      'Aheggi deg 3 n yisurifen',
+      'Tqeffalt-ik n uspitar',
+      'Aru aɣawas-ik n tlalit',
+      'Ayen ilaqen ad d-tbeddeḍ',
+      'Ayen ilaqen ad tiktiḍ',
+    ],
+    prepSteps: [
+      'Iselmaden n uheggi i tlalit',
+      'Tiyuga n tfsut d usenfas',
+      'Tqeffalt n uspitar d tahegga uqbel ayyur wis 8',
+    ],
+    body1:
+      'Iselmaden n uheggi i tlalit ttɛawanen ad tfehmeḍ isurifen n tlalit d tiyuga n tfsut ara k-ɛawnen deg wass ameqqran.',
+    body2:
+      'Aheggi n tqeffalt n uspitar uqbel ayyur wis 8 yessenqes uḥezzeb n tegara. S umata tesɛa:',
+    bagItems: [
+      'Isemmaden n tmagit d ktab n lḥemla-k',
+      'Ilebsan yelhan i kečč d uqcic amecṭuḥ',
+      'Lǧerrayat n tgemmi d tiqeffalin n deffir tlalit',
+      'Alebsu i uqcic amecṭuḥ i tuɣalin ɣer wexxam',
+    ],
+    birthPlanPoints: [
+      'Ayen tebɣiḍ i usenqes n ṭṭṛaḥ',
+      'Win tebɣiḍ ad yili yidek deg tlalit',
+      'Ayen tettṛaǧuḍ ɣef umennuɣ n tzeddigt ɣer tzeddigt',
+    ],
+    neutralText:
+      'Aɣawas afessas n tlalit ɛawen ad tbeṭṭuḍ tinniyin-ik d uɣref n ṭṭbib, u ad teqqimeḍ d tamsalt ldin: tuɣalin n tmenzayt tezmer ad tbeddel ɣef waddad.',
+    tipTitle: 'Yelha ad tezwareḍ',
+    tipText:
+      'Aheggi ur yeɛni ara ad tḥekmeḍ ɣef yal ayen: d ayen ad tefkeḍ iman-ik ineggura i uqeṛṛeb n wass ameqqran s tkeyyest ugar u s wugur n uḥezzeb.',
+    shareMessage: 'Ttheggu s lehna i tlalit — AWA',
+  },
+  om: {
+    badge: 'ULFAA • DA\'UMSA',
+    title: 'Da\'umsaaf\nhaala tasgabbaa\'een qophaa\'uu',
+    metaDuration: 'Daqiiqaa 7 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaaf',
+    metaValidated: 'Qabiyyee ilaalame',
+    intro: 'Utubaawwan sadi guyyaa guddaa amantaa caalaan simachuuf.',
+    contentsTitle: 'Barreeffama kana keessatti',
+    topics: [
+      'Tarkaanfii 3 keessatti qophaa\'uu',
+      'Boorsaa hospitaalaa kee',
+      'Karoora da\'umsaa barreessuu',
+      'Hubachuu qabdu',
+      'Waan yaadannoo qabdu',
+    ],
+    prepSteps: [
+      'Barnoota qophii da\'umsaa',
+      'Teknikoota hafuura fudhachuu fi boqonnaa',
+      'Boorsaan hospitaalaa ji\'a 8ffaatti qophaa\'e',
+    ],
+    body1:
+      'Barnoonni qophii da\'umsaa sadarkaa dhukkubbii da\'umsaa fi teknikoota hafuura fudhachuu guyyaa guddaa sana si deeggaru hubachuuf si gargaara.',
+    body2:
+      'Boorsaa hospitaalaa ji\'a 8ffaatti qopheessuun yaaddoo yeroo dhumaa si hira. Yeroo baay\'ee kanneen armaan gadii of keessaa qaba:',
+    bagItems: [
+      'Waraqaa eenyummaa fi kitaaba galmee ulfaa kee',
+      'Uffata mijataa ofii fi daa\'imaaf',
+      'Meeshaa qulqullina fi paadii deessuu booda',
+      'Uffata daa\'imni mana deebi\'uuf uffatu',
+    ],
+    birthPlanPoints: [
+      'Filannoo kee ilaalchisee to\'annoo dhukkubbii',
+      'Eenyu yeroo dhukkubbii da\'umsaa bira akka jiraatu barbaaddu',
+      'Eegumsa kee ilaalchisee qaama-qaamatti wal tuquu',
+    ],
+    neutralText:
+      'Karoorri da\'umsaa salphaan fedhii kee garee fayyaa waliin qooddachuuf si gargaara, garuu yaada banaa qabaachuu: adeemsi dhugaa haala irratti hundaa\'ee jijjiiramuu danda\'a.',
+    tipTitle: 'Beekuun gaarii dha',
+    tipText:
+      'Qophaa\'uun hunda to\'achuu jechuu miti: kan caalu guyyaa guddaa sana amantaa caalaa fi mirkaneeffachuu xiqqaadhaan simachuuf mala of kennuu dha.',
+    shareMessage: 'Da\'umsaaf haala tasgabbaa\'een qophaa\'uu — AWA',
+  },
+  ti: {
+    badge: 'ጥንሲ • ምውላድ',
+    title: 'ንምውላድ ብርጋኣት\nምድላው',
+    metaDuration: '7 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro: 'ንዓቢ መዓልቲ ብዝያዳ ትምክሕቲ ንምቅራብ ሰለስተ ዓምዲ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ኣብ 3 ስጉምትታት ምድላው',
+      'ቦርሳ ሆስፒታልኪ',
+      'መደብ ምውላድኪ ምጽሓፍ',
+      'ኣቓልቦ ዝግብኦ',
+      'ክትዝክሪዮ ዘለኪ',
+    ],
+    prepSteps: [
+      'ክፍሊ ምድላው ንምውላድ',
+      'ምስትንፋስን ምዕራፍን ቴክኒካት',
+      'ቦርሳ ሆስፒታል ክሳብ ወርሒ 8 ድልውቲ',
+    ],
+    body1:
+      'ክፍሊ ምድላው ንምውላድ ደረጃታት ምጥቃዕን ኣብ ዓቢ መዓልቲ ዝድግፉኪ ቴክኒካት ምስትንፋስን ክትርድኢ ይሕግዘኪ።',
+    body2:
+      'ቦርሳ ሆስፒታልኪ ክሳብ ወርሒ 8 ምድላው ናይ መወዳእታ ደቒቕ ጭንቀት የድሕነኪ። ብሓፈሽኡ እዚ ይሓዝል፦',
+    bagItems: [
+      'መንነት ሰነዳትን መዝገብ ጥንስኺን',
+      'ንስኺን ንህጻንን ምቹእ ክዳውንቲ',
+      'ናይ ንጽህና ኣቕሑትን ድሕሪ ወሊድ ፓድታትን',
+      'ህጻን ናብ ቤት ክምለስ ዝኽደን ክዳን',
+    ],
+    birthPlanPoints: [
+      'ኣብ ምምሕዳር ቃንዛ ምርጫታትኪ',
+      'ኣብ ግዜ ምጥቃዕ ክህልውኪ ዝደለኽዮም ሰባት',
+      'ብዛዕባ ኣካል ምስ ኣካል ርክብ ተስፋታትኪ',
+    ],
+    neutralText:
+      'ቀሊል መደብ ምውላድ ድሌታትኪ ምስ ሕክምናዊ ጉጅለ ንምክፋል ይሕግዝ፣ ግን ክፉት ምሕሳብ ሓዚ፦ ሓቀኛ ኣካይዳ ከም ኩነታት ክልወጥ ይኽእል።',
+    tipTitle: 'ርዳእ እዚ',
+    tipText:
+      'ምድላው ኩሉ ምቁጽጻር ማለት ኣይኰነን፦ ብዋናነት ንዓቢ መዓልቲ ብዝያዳ ትምክሕትን ውሑድ ዘይርግጸኛነትን ንምቅራብ ዓቕሚ ንርእስኺ ምሃብ እዩ።',
+    shareMessage: 'ንምውላድ ብርጋኣት ምድላው — AWA',
+  },
+  rw: {
+    badge: 'INDA • KUBYARA',
+    title: 'Kwitegura kubyara\nutuje',
+    metaDuration: 'Iminota 7 yo gusoma',
+    metaType: 'Igitabo',
+    metaLevel: 'Ku batangiye',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro: 'Inkingi eshatu zo kwegera umunsi ukomeye wizeye kurushaho.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Kwitegura mu ntambwe 3',
+      'Igikapu cyawe cy’ibitaro',
+      'Kwandika gahunda yawe yo kubyara',
+      'Icyitonderwa',
+      'Ibyo kwibuka',
+    ],
+    prepSteps: [
+      'Amasomo yo kwitegura kubyara',
+      'Uburyo bwo guhumeka no kuruhuka',
+      'Igikapu cy’ibitaro cyiteguye mu kwezi kwa 8',
+    ],
+    body1:
+      'Amasomo yo kwitegura kubyara agufasha gusobanukirwa ibyiciro by’ibise n’uburyo bwo guhumeka buzagufasha ku munsi ukomeye.',
+    body2:
+      'Gutegura igikapu cy’ibitaro mu kwezi kwa 8 bikurinda guhangayika mu minota ya nyuma. Akenshi kirimo:',
+    bagItems: [
+      'Ibyangombwa n’igitabo cyawe cy’inda',
+      'Imyenda yoroshye yawe n’iy’umwana',
+      'Ibikoresho by’isuku n’ibitambaro byo nyuma yo kubyara',
+      'Imyenda y’umwana yo gutahana',
+    ],
+    birthPlanPoints: [
+      'Ibyo ukunda ku bijyanye no kugabanya ububabare',
+      'Abo wifuza ko baba bahari mu gihe cy’ibise',
+      'Ibyo witeze ku gukozanyaho uruhu n’uruhu',
+    ],
+    neutralText:
+      'Gahunda yoroshye yo kubyara igufasha kubwira abaganga ibyo wifuza, ukomeza kuba witeguye: uko bigenda mu by’ukuri bishobora guhinduka bitewe n’uko bimeze.',
+    tipTitle: 'Ni byiza kubimenya',
+    tipText:
+      'Kwitegura ntibivuze kugenzura byose: ahanini ni ukwiha uburyo bwo kwegera umunsi ukomeye wizeye kurushaho kandi udashidikanya cyane.',
+    shareMessage: 'Kwitegura kubyara utuje — AWA',
+  },
+  rn: {
+    badge: 'INDA • KUBYARA',
+    title: 'Kwitegura kubyara\nutuje',
+    metaDuration: 'Iminuta 7 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibikubiye vyasuzumwe',
+    intro: 'Inkingi zitatu zo kwegera umusi ukomeye wizeye kuruta.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Kwitegura mu ntambwe 3',
+      'Isakoshi yawe y’ibitaro',
+      'Kwandika gahunda yawe yo kubyara',
+      'Ivyo kwitwararika',
+      'Ivyo kwibuka',
+    ],
+    prepSteps: [
+      'Amasomo yo kwitegura kubyara',
+      'Uburyo bwo guhumeka no kuruhuka',
+      'Isakoshi y’ibitaro yiteguye mu kwezi ka 8',
+    ],
+    body1:
+      'Amasomo yo kwitegura kubyara agufasha gusobanukirwa intambwe zo kubyara n’uburyo bwo guhumeka buzagufasha kuri wa musi ukomeye.',
+    body2:
+      'Gutegura isakoshi y’ibitaro mu kwezi ka 8 bigukiza guhagarika umutima mu minota ya nyuma. Ubusanzwe irimwo:',
+    bagItems: [
+      'Ibiranga umuntu n’agatabo kawe k’inda',
+      'Imyambaro yorohera wewe n’umwana',
+      'Ibikoresho vy’isuku n’ibitambaro vyo nyuma yo kubyara',
+      'Imyambaro y’umwana yo gutahana',
+    ],
+    birthPlanPoints: [
+      'Ivyo wifuza ku bijanye no gucunga ububabare',
+      'Abo wifuza ko bamwe baba bahari igihe cyo kubyara',
+      'Ivyo witeze ku bijanye no gukorana uruhu ku ruhu n’umwana',
+    ],
+    neutralText:
+      'Gahunda yoroshe yo kubyara igufasha kumenyesha ivyo wifuza itsinda ry’abaganga, ukaguma kandi witeguye guhinduka: uko ibintu bigenda vyose bishobora guhinduka bitewe n’ibihe.',
+    tipTitle: 'Ni vyiza kubimenya',
+    tipText:
+      'Kwitegura ntibivuga kugenzura vyose: ni ukwiha uburyo bwo kwegera umusi ukomeye wizeye kuruta kandi udafise ugukeka kwinshi.',
+    shareMessage: 'Kwitegura kubyara utuje — AWA',
+  },
+  ig: {
+    badge: 'IME • ỊMỤ NWA',
+    title: 'Ịkwadebe n’udo\nmaka ịmụ nwa',
+    metaDuration: 'Nkeji 7 ka a na-agụ',
+    metaType: 'Ntuziaka',
+    metaLevel: 'Maka ndị na-amalite',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro: 'Ogidi atọ iji nwee obi ike ịbanye n’ụbọchị ukwu ahụ.',
+    contentsTitle: 'N’edemede a',
+    topics: [
+      'Ịkwadebe n’nzọụkwụ 3',
+      'Akpa gị maka ụlọ ọgwụ',
+      'Ide atụmatụ ọmụmụ gị',
+      'Ihe kwesịrị ịrịba ama',
+      'Ihe ị ga-echeta',
+    ],
+    prepSteps: [
+      'Klaasị nkwadebe maka ịmụ nwa',
+      'Usoro iku ume na izu ike',
+      'Akpa ụlọ ọgwụ dị njikere tupu ọnwa nke 8',
+    ],
+    body1:
+      'Klaasị nkwadebe maka ịmụ nwa na-enyere gị aka ịghọta ọkwa nke ihe mgbu ịmụ nwa na usoro iku ume ga-akwado gị n’ụbọchị ukwu ahụ.',
+    body2:
+      'Ịkwado akpa ụlọ ọgwụ gị tupu ọnwa nke 8 na-echebe gị n’nrụgide nke oge ikpeazụ. Ọ na-agụnyekarị:',
+    bagItems: [
+      'Akwụkwọ njirimara na akwụkwọ ime gị',
+      'Uwe dị mma maka gị na nwa',
+      'Ngwaọrụ ịdị ọcha na pad maka mgbe ịmụsịrị nwa',
+      'Uwe nwa ga-eyi mgbe ọ na-ala',
+    ],
+    birthPlanPoints: [
+      'Ihe ị chọrọ banyere ijikwa mgbu',
+      'Onye ị chọrọ ka ọ nọ gị nso n’oge ihe mgbu ịmụ nwa',
+      'Ihe ị tụrụ anya ya banyere ịnọ n’ahụ n’ahụ na nwa',
+    ],
+    neutralText:
+      'Atụmatụ ọmụmụ dị mfe na-enyere gị aka ịkọrọ ndị otu ahụike ihe ị chọrọ, ma na-enyere gị aka ịnọgide na-anabata: ihe ga-eme n’ezie nwere ike ịgbanwe dabere n’ọnọdụ.',
+    tipTitle: 'Ọ dị mma ịmara',
+    tipText:
+      'Ịkwadebe apụtaghị ijikwa ihe niile: ọ bụ karịsịa inye onwe gị ụzọ iji banye n’ụbọchị ukwu ahụ n’obi ike karịa na enweghị obi abụọ.',
+    shareMessage: 'Ịkwadebe n’udo maka ịmụ nwa — AWA',
+  },
+  yo: {
+    badge: 'OYÚN • ÌBÍMỌ',
+    title: 'Ṣíṣe ìmúrasílẹ̀ pẹ̀lú\nàlàáfíà fún ìbímọ',
+    metaDuration: 'Kíkà ní ìṣẹ́jú 7',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti àtúnyẹ̀wò',
+    intro: 'Òpó mẹ́ta láti sún mọ́ ọjọ́ ńlá náà pẹ̀lú ìgbẹ́kẹ̀lé tó pọ̀ sí i.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Ìmúrasílẹ̀ ní ìgbésẹ̀ mẹ́ta',
+      'Àpò ilé ìwòsàn rẹ',
+      'Kíkọ ètò ìbímọ rẹ',
+      'Ohun tó yẹ kí a kíyèsí',
+      'Ohun tó yẹ kí o ranti',
+    ],
+    prepSteps: [
+      'Àwọn kíláàsì ìmúrasílẹ̀ fún ìbímọ',
+      'Àwọn ọ̀nà mímí àti ìsinmi',
+      'Àpò ilé ìwòsàn ti ṣetán ní oṣù kẹjọ',
+    ],
+    body1:
+      'Àwọn kíláàsì ìmúrasílẹ̀ fún ìbímọ ń ràn ọ́ lọ́wọ́ láti lóye àwọn ìpele ìrọbí àti àwọn ọ̀nà mímí tí yóò ràn ọ́ lọ́wọ́ ní ọjọ́ ńlá náà.',
+    body2:
+      'Pípèsè àpò ilé ìwòsàn rẹ ní oṣù kẹjọ ń gbà ọ́ lọ́wọ́ ìdààmú ìṣẹ́jú ìkẹyìn. Ó sábà máa ń ní:',
+    bagItems: [
+      'Àwọn ìwé ìdánimọ̀ àti ìwé ìtọ́jú oyún rẹ',
+      'Aṣọ tó rọrùn fún ìwọ àti ọmọ',
+      'Àwọn ohun ìmọ́tótó àti pádì fún lẹ́yìn ìbímọ',
+      'Aṣọ fún ọmọ láti wọ̀ nígbà tí ẹ bá ń lọ sílé',
+    ],
+    birthPlanPoints: [
+      'Ohun tí o fẹ́ nípa ṣíṣàkóso ìrora',
+      'Àwọn tí o fẹ́ kí ó wà pẹ̀lú rẹ nígbà ìrọbí',
+      'Ohun tí o retí nípa fífi awọ ara kan ara ọmọ',
+    ],
+    neutralText:
+      'Ètò ìbímọ tó rọrùn ń ràn ọ́ lọ́wọ́ láti sọ ohun tí o fẹ́ fún ẹgbẹ́ ìṣègùn, nígbà tí o sì ń múra sílẹ̀ fún ìyípadà: bí nǹkan ṣe lọ gan-an lè yí padà ní ìbámu pẹ̀lú ipò.',
+    tipTitle: 'Ohun tó yẹ kí o mọ̀',
+    tipText:
+      'Ìmúrasílẹ̀ kò túmọ̀ sí ṣíṣàkóso ohun gbogbo: pàápàá jùlọ ó jẹ́ fífún ara rẹ ní ọ̀nà láti sún mọ́ ọjọ́ ńlá náà pẹ̀lú ìgbẹ́kẹ̀lé tó pọ̀ sí i àti àìdánilójú tó kéré.',
+    shareMessage: 'Ṣíṣe ìmúrasílẹ̀ pẹ̀lú àlàáfíà fún ìbímọ — AWA',
+  },
+  zu: {
+    badge: 'UKUKHULELWA • UKUBELETHA',
+    title: 'Ukulungiselela\nukubeletha ngokuthula',
+    metaDuration: 'Imizuzu eyi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Okwabaqalayo',
+    metaValidated: 'Okuqulunqwe kabusha',
+    intro: 'Izinsika ezintathu zokusondela osukwini olukhulu ngokuzethemba okwengeziwe.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ukulungiselela ngezinyathelo ezi-3',
+      'Isikhwama sakho sasesibhedlela',
+      'Ukubhala uhlelo lwakho lokubeletha',
+      'Okufanele kuqashelwe',
+      'Okufanele ukhumbule',
+    ],
+    prepSteps: [
+      'Amakilasi okulungiselela ukubeletha',
+      'Amasu okuphefumula nokuphumula',
+      'Isikhwama sasesibhedlela silungile ngenyanga yesi-8',
+    ],
+    body1:
+      'Amakilasi okulungiselela ukubeletha akusiza uqonde izigaba zokubeletha namasu okuphefumula azokwesekela osukwini olukhulu.',
+    body2:
+      'Ukulungiselela isikhwama sakho sasesibhedlela ngenyanga yesi-8 kukonga ukucindezeleka kwesikhashana sokugcina. Imvamisa siqukethe:',
+    bagItems: [
+      'Imibhalo yokuhlonza nencwadi yakho yokulandelela ukukhulelwa',
+      'Izingubo ezikhululekile zakho nezengane',
+      'Izidingo zokuhlanza nama-pad angemva kokubeletha',
+      'Ingubo yengane yokuya ekhaya',
+    ],
+    birthPlanPoints: [
+      'Ezikuthandayo ekulawuleni ubuhlungu',
+      'Ofuna abe khona ngesikhathi sokubeletha',
+      'Okulindele mayelana nokuthintana kwesikhumba ngesikhumba',
+    ],
+    neutralText:
+      'Uhlelo lokubeletha olulula lusiza ukwabelana ngezifiso zakho neqembu lezokwelapha, kuyilapho uhlala unengqondo evulekile: indlela izinto ezenzeka ngayo ngempela ingashintsha kuye ngesimo.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukulungiselela akusho ukulawula yonke into: kuwukuzinika izindlela zokusondela osukwini olukhulu ngokuzethemba okwengeziwe nokungabaza okuncane.',
+    shareMessage: 'Ukulungiselela ukubeletha ngokuthula — AWA',
+  },
+  xh: {
+    badge: 'UKUKHULELWA • UKUBELETHA',
+    title: 'Ukulungiselela\nukubeletha ngokuzola',
+    metaDuration: 'Imizuzu esi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Umxholo ohlolwe ngabantu',
+    intro: 'Izinsika ezintathu zokujongana nosuku olukhulu ngokuzithemba ngakumbi.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Ukulungiselela ngamanyathelo ama-3',
+      'Ingxowa yakho yasesibhedlela',
+      'Ukubhala isicwangciso sakho sokubeletha',
+      'Kufaneleka ukuqaphela',
+      'Okufanele ukukhumbule',
+    ],
+    prepSteps: [
+      'Iiklasi zokulungiselela ukubeletha',
+      'Iindlela zokuphefumla nokuphumla',
+      'Ingxowa yasesibhedlela ilungile ngenyanga yesi-8',
+    ],
+    body1:
+      'Iiklasi zokulungiselela ukubeletha zinceda ukuqonda amanqanaba okubeletha nezindlela zokuphefumla ezizakukuxhasa ngosuku olukhulu.',
+    body2:
+      'Ukupakisha ingxowa yakho yasesibhedlela ngenyanga yesi-8 kukusindisa uxinzelelo lwemizuzu yokugqibela. Idla ngokubandakanya:',
+    bagItems: [
+      'Amaxwebhu okuchonga nencwadi yakho yokukhulelwa',
+      'Impahla enenkululeko kuwe nosana',
+      'Izinto zococeko neepad zasemva kokubeletha',
+      'Impahla yosana yokuya ekhaya',
+    ],
+    birthPlanPoints: [
+      'Ukhetho lwakho lokulawula iintlungu',
+      'Abo ungathanda ukuba babekhona ngexesha lokubeletha',
+      'Iinkolelo zakho malunga nokudibana kolusu nolusu',
+    ],
+    neutralText:
+      'Isicwangciso esilula sokubeletha sinceda ukwabelana ngezinto ozifunayo neqela lezonyango, ngoxa uhlala ungavalekanga: ukuhamba kwezinto ngokwenene kunokutshintsha ngokwemeko.',
+    tipTitle: 'Kuhle ukwazi',
+    tipText:
+      'Ukulungiselela akuthethi ukulawula yonke into: kukukunika izixhobo zokujongana nosuku olukhulu ngokuzithemba ngakumbi nokungaqinisekanga kancinci.',
+    shareMessage: 'Ukulungiselela ukubeletha ngokuzola — AWA',
+  },
+  sn: {
+    badge: 'PAMUVIRI • KUBEREKA',
+    title: 'Kugadzirira nokunyarara\nkubereka',
+    metaDuration: 'Maminetsi manomwe ekuverenga',
+    metaType: 'Gwara',
+    metaLevel: 'Anotangira',
+    metaValidated: 'Zvakatariswa',
+    intro: 'Nheyo nhatu dzekusvika zuva guru nechivimbo chakawanda.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Kugadzirira munhanho 3',
+      'Bhegi rako rechipatara',
+      'Kunyora hurongwa hwako hwekubereka',
+      'Zvakakodzera kucherechedza',
+      'Zvekuyeuka',
+    ],
+    prepSteps: [
+      'Makirasi ekugadzirira kubereka',
+      'Nzira dzekufema nekuzorora',
+      'Bhegi rechipatara rakagadzirira pamwedzi wechisere',
+    ],
+    body1:
+      'Makirasi ekugadzirira kubereka anokubatsira kunzwisisa nhanho dzekusununguka nenzira dzekufema dzichakutsigira pazuva guru.',
+    body2:
+      'Kugadzira bhegi rako rechipatara pamwedzi wechisere kunokuponesa kushushikana kwekupedzisira. Kazhinji rinosanganisira:',
+    bagItems: [
+      'Magwaro ekuzivikanwa nebhuku rako rekuchengetwa pamuviri',
+      'Hembe dzinonyaradza dzako nedzemwana',
+      'Zvekuzvisukurudza nemapadhi emushure mekubereka',
+      'Hembe yemwana yekudzoka nayo kumba',
+    ],
+    birthPlanPoints: [
+      'Zvaunoda pakubata kurwadza',
+      'Vaunoda kuvapo panguva yekusununguka',
+      'Zvaunotarisira pamusoro pekubatana kwematehwe nematehwe',
+    ],
+    neutralText:
+      'Hurongwa hwakareruka hwekubereka hunokubatsira kugovana zvaunoda neboka rechiremba, uchiramba wakazaruka: zvichaitika zvinogona kuchinja zvichienderana nemamiriro.',
+    tipTitle: 'Zvakanaka kuziva',
+    tipText:
+      'Kugadzirira hakurevi kudzora zvose: ndezvekuzvipa nzira dzekusvika zuva guru nechivimbo chakawanda nekusaziva kushoma.',
+    shareMessage: 'Kugadzirira nokunyarara kubereka — AWA',
+  },
+  ln: {
+    badge: 'ZEMI • KOBOTA',
+    title: 'Komibongisa na kimia\nmpo na kobota',
+    metaDuration: 'Minitɛ 7 ya kotánga',
+    metaType: 'Buku ya bokambi',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo oyo ekomami malamu',
+    intro: 'Misolo misato mpo na kokóta na mokolo monene na elikya mingi.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Komibongisa na matambe 3',
+      'Sakɔ na yo ya lopitalo',
+      'Kokoma plan na yo ya kobota',
+      'Ezali malamu kotala',
+      'Oyo osengeli kokanisa',
+    ],
+    prepSteps: [
+      'Mateya ya komibongisa mpo na kobota',
+      'Mayele ya mpema mpe ya kopema',
+      'Sakɔ ya lopitalo ebongisami na sanza ya 8',
+    ],
+    body1:
+      'Mateya ya komibongisa mpo na kobota esalisaka yo ososola matambe ya kobota mpe mayele ya mpema oyo ekosalisa yo na mokolo monene.',
+    body2:
+      'Kobongisa sakɔ na yo ya lopitalo na sanza ya 8 ekitisaka mpasi ya ntango ya nsuka. Mbala mingi ezali na kati:',
+    bagItems: [
+      'Mikanda ya kokesenisa yo mpe buku na yo ya zemi',
+      'Bilamba ya pɛtɛɛ mpo na yo mpe mwana',
+      'Biloko ya bopɛtɛ mpe ba pad ya nsima ya kobota',
+      'Bilamba mpo na mwana ya kozonga na ndako',
+    ],
+    birthPlanPoints: [
+      'Mposa na yo mpo na kobatela mpasi',
+      'Nani olingi azala pene na yo na ntango ya kobota',
+      'Mposa na yo mpo na kosangana nzoto na nzoto na mwana',
+    ],
+    neutralText:
+      'Plan ya kobota ya pɛtɛɛ esalisaka yo opesa mposa na yo na bato ya monganga, kasi bozala na motema ya kofungwama: makambo ekoki kobongwana kolanda likambo.',
+    tipTitle: 'Ezali malamu koyeba',
+    tipText:
+      'Komibongisa elakisi kokanga nyonso te: mingi mingi ezali kopesa yo nzela ya kokóta na mokolo monene na elikya mingi mpe na ntembe moke.',
+    shareMessage: 'Komibongisa na kimia mpo na kobota — AWA',
+  },
+  ff: {
+    badge: 'REEDU • JIBINAADE',
+    title: 'Taaskugo e hoyrude\nngam jibinaade',
+    metaDuration: 'Ɗaɓɓitaago minti 7',
+    metaType: 'Paltirgel',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko nastii ndikkaama',
+    intro: 'Ɗaɗi tato ngam yaadugo e nyalaade mawnde e hoore ɓurnde.',
+    contentsTitle: 'Nder winndannde ndee',
+    topics: [
+      'Taaskugo nder laawol 3',
+      'Saaku maaɗa ngam asiteer',
+      'Winndugo birth plan maaɗa',
+      'Ko haani maandaade',
+      'Ko haani hoyrude',
+    ],
+    prepSteps: [
+      'Ekkitaago taaskugo jibinaade',
+      'Laawol foofugo e hoyrugo',
+      'Saaku asiteer timmi haa lewru 8',
+    ],
+    body1:
+      'Ekkitaago taaskugo jibinaade walla maaɗa faamugo laawol jibinaade e laawol foofugo ɗin ngaree walla maaɗa nyalaade mawnde.',
+    body2:
+      'Taaskugo saaku asiteer haa lewru 8 ɓesdi tampere saa\'i timmi. Ɗum saa\'i feere woodi:',
+    bagItems: [
+      'Takkaadu anndinoore e takkaadu reedu maaɗa',
+      'Taguuji moƴƴi ngam maaɗa e ɓiɗɗo',
+      'Kuuje laaɓugo e coofi caggal jibinaade',
+      'Ngaayka ɓiɗɗo ngam yaadugo galle',
+    ],
+    birthPlanPoints: [
+      'Ko yiɗuɗon ngam ɓesdugo muusal',
+      'Ko yiɗuɗon wonugo e maaɗa saa\'i jibinaade',
+      'Ko yiɗuɗon fii hawtugo ɓanndu e ɓanndu',
+    ],
+    neutralText:
+      'Birth plan pamaru walla maaɗa anndinugo jaɓɓitaaɓe yiɗde maaɗa, kono ɗum haani ɗon wonoo ɓaleeri: ko waɗetee waaway wayrugo e ngonka.',
+    tipTitle: 'Ko haani anndugo',
+    tipText:
+      'Taaskugo wonaa dañugo fuu: ɗum ko hokkugo hoore maaɗa semmbe ngam yaadugo nyalaade mawnde e hoore ɓurnde e hesitude ɓesdunde.',
+    shareMessage: 'Taaskugo e hoyrude ngam jibinaade — AWA',
+  },
   id: {
     badge: 'KEHAMILAN • PERSALINAN',
     title: 'Mempersiapkan persalinan\ndengan tenang',

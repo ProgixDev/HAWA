@@ -610,6 +610,1042 @@ const CONTENT = withBrazilianPortuguese('MenopauseTransition', {
       tip3Text: '围绝经期和绝经是自然的阶段，而不是疾病。有许多办法可以帮你更舒适地度过这一过渡期：医疗专业人员仍然是最好的依靠，可以根据你的情况做出调整。',
       shareMessage: '了解绝经过渡期 — AWA',
     },
+  'zh-Hant': {
+      badge: '圍停經期與停經',
+      title: '瞭解停經過渡期',
+      metaDuration: '閱讀約 10 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '已審閱內容',
+      intro: '在月經停止前的數年裡，身體會逐漸發生哪些變化，以及如何更清晰地面對這一階段。',
+      contentsTitle: '本文內容',
+      topics: [
+        '圍停經期與停經：定義',
+        '越來越不規律的週期',
+        '睡眠與情緒',
+        '親密生活與陰道乾澀',
+        '體重與代謝',
+        '關於停經的常見誤解',
+        '正常症狀與需要留意的訊號',
+        '日常實用小建議',
+        '要點回顧',
+      ],
+      h1: '1. 圍停經期與停經：定義',
+      body1a: '圍停經期是指停經之前的荷爾蒙過渡階段：它可能提前數年開始，通常從四十歲左右起，雌激素水平會不規則地波動。',
+      body1b: '停經則是一個明確的時間點：在連續 12 個月沒有月經、且沒有其他原因的情況下才能確認。在法國，平均停經年齡約為 51 歲，但這個年齡因人而異。',
+      tip1Title: '小提醒',
+      tip1Text: '每位女性經歷這一過渡期的方式都不同，無論是持續時間還是症狀的強度。坦然地談論它，有助於你更好地做好準備。',
+      h2: '2. 越來越不規律的週期',
+      body2: '圍停經期最早的訊號之一，往往是週期節奏的變化：週期可能變短、變長、間隔更遠，或者每個月的經量都不一樣。',
+      alert1Title: '請注意',
+      alert1Text: '經量非常大、出血間隔非常近，或者在停經一年後又出血，都需要尋求醫療建議，因為這些不屬於過渡期的典型表現。',
+      h3: '3. 睡眠與情緒',
+      body3a: '雌激素和黃體素的下降與波動可能擾亂睡眠（入睡困難、夜間醒來），並可能伴隨易怒、焦慮或異常的情緒波動。',
+      body3b: '這些變化有真實的生物學原因：它們既不是意志力不足，也不是單純的心理問題。',
+      h4: '4. 親密生活與陰道乾澀',
+      body4: '雌激素下降可能導致陰道乾澀，有時會在性生活中造成不適或疼痛。性慾也可能發生變化，有的人增強，有的人減弱，因人而異。',
+      tip2Title: '小提醒',
+      tip2Text: '有一些簡單的辦法（潤滑劑、陰道保溼劑、區域性治療）：和醫療專業人員聊一聊，可以幫你找到合適的方案，不必有顧慮。',
+      h5: '5. 體重與代謝',
+      body5: '這一時期代謝可能會略微減慢，脂肪分佈也傾向於向腹部集中。這些變化很常見，並不單單取決於意志力。',
+      h6: '6. 關於停經的常見誤解',
+      myths: [
+        '停經「是突然發生的」——實際上，在此之前會有數年的過渡期（圍停經期）',
+        '所有人的症狀都很嚴重——症狀的強度因人而異，差別很大',
+        '什麼都做不了——有許多方法，無論是荷爾蒙類還是非荷爾蒙類，都可以緩解令人困擾的症狀',
+        '親密生活就此結束——它會發生變化，但只要適當調整，依然完全可能並且令人滿足',
+      ],
+      h7: '7. 正常症狀與需要留意的訊號',
+      body7: '這裡描述的絕大多數變化都是過渡期的正常表現。不過，有些訊號需要及時就醫。',
+      alert2Title: '出現以下情況請就醫',
+      alert2Text: '確認停經後出血、異常的盆腔疼痛、明顯影響日常生活的症狀，或任何持續存在的疑慮。',
+      h8: '8. 日常實用小建議',
+      dailyHabits: [
+        '富含鈣和膳食纖維的飲食',
+        '規律的體育活動',
+        '穩定的睡眠作息',
+        '每天留出放鬆的時間',
+      ],
+      h9: '9. 要點回顧',
+      tip3Title: '小提醒',
+      tip3Text: '圍停經期和停經是自然的階段，而不是疾病。有許多辦法可以幫你更舒適地度過這一過渡期：醫療專業人員仍然是最好的依靠，可以根據你的情況做出調整。',
+      shareMessage: '瞭解停經過渡期 — AWA',
+    },
+  ar: {
+    badge: 'ما قبل انقطاع الطمث وانقطاع الطمث',
+    title: 'فهم مرحلة انقطاع الطمث الانتقالية',
+    metaDuration: 'قراءة في 10 دقائق',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى مُراجَع',
+    intro:
+      'ما الذي يتغيّر تدريجيًا قبل سنوات من توقف الحيض، وكيف تتعاملين مع هذه المرحلة بوضوح أكبر.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما قبل انقطاع الطمث وانقطاع الطمث: تعريفات',
+      'دورات تزداد عدم انتظام',
+      'النوم والمزاج',
+      'العلاقة الحميمة وجفاف المهبل',
+      'الوزن والأيض',
+      'خرافات شائعة عن انقطاع الطمث',
+      'أعراض طبيعية وعلامات تستدعي الانتباه',
+      'نصائح عملية للحياة اليومية',
+      'أهم النقاط',
+    ],
+    h1: '1. ما قبل انقطاع الطمث وانقطاع الطمث: تعريفات',
+    body1a:
+      'يشير ما قبل انقطاع الطمث إلى المرحلة الانتقالية الهرمونية التي تسبق انقطاع الطمث: فقد تبدأ قبل ذلك بعدة سنوات، عمومًا بدءًا من سنوات الأربعين، مع تقلّب مستويات الإستروجين بشكل غير منتظم.',
+    body1b:
+      'أما انقطاع الطمث فهو لحظة محددة: يُؤكَّد بعد 12 شهرًا متتاليًا دون حيض ودون أي سبب آخر. وفي فرنسا يحدث في المتوسط حول سن 51، مع أن هذا السن يتفاوت طبيعيًا من امرأة إلى أخرى.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'كل امرأة تعيش هذه المرحلة الانتقالية بطريقتها، سواء في مدتها أو في شدة الأعراض. والحديث عنها بصراحة يساعدك على التهيؤ لها بشكل أفضل.',
+    h2: '2. دورات تزداد عدم انتظام',
+    body2:
+      'من أولى علامات ما قبل انقطاع الطمث غالبًا تغيّر إيقاع الدورة: فقد تصبح الدورات أقصر أو أطول أو أكثر تباعدًا، أو يختلف تدفّق الدم من شهر إلى آخر.',
+    alert1Title: 'يرجى الانتباه',
+    alert1Text:
+      'النزف الغزير جدًا، أو النزف المتقارب جدًا، أو النزف الذي يحدث بعد سنة دون حيض يستدعي مشورة طبية، لأنها لا تُعدّ علامات نموذجية لهذه المرحلة الانتقالية.',
+    h3: '3. النوم والمزاج',
+    body3a:
+      'قد يؤدي انخفاض الإستروجين والبروجسترون وتقلّبهما إلى اضطراب النوم (صعوبة النوم، الاستيقاظ أثناء الليل)، وقد يصاحبه تهيّج وقلق وتقلبات مزاجية غير معتادة.',
+    body3b:
+      'لهذه التغيّرات تفسير بيولوجي حقيقي: فهي لا تعكس ضعف إرادة ولا مشكلة نفسية معزولة.',
+    h4: '4. العلاقة الحميمة وجفاف المهبل',
+    body4:
+      'قد يؤدي انخفاض الإستروجين إلى جفاف المهبل، مما يسبب أحيانًا انزعاجًا أو ألمًا أثناء الجماع. وقد تتغيّر الرغبة أيضًا، فتزداد أو تقلّ بحسب المرأة.',
+    tip2Title: 'من المفيد أن تعرفي',
+    tip2Text:
+      'توجد حلول بسيطة (المزلقات والمرطبات المهبلية والعلاجات الموضعية): والتحدث إلى مختص في الرعاية الصحية يساعدك على إيجاد الحل المناسب، دون حرج.',
+    h5: '5. الوزن والأيض',
+    body5:
+      'قد يتباطأ الأيض قليلًا في هذه الفترة، وتميل الدهون إلى التوزّع نحو البطن. هذه التغيّرات شائعة ولا تعتمد على قوة الإرادة وحدها.',
+    h6: '6. خرافات شائعة عن انقطاع الطمث',
+    myths: [
+      'انقطاع الطمث «يحدث دفعة واحدة» — في الواقع تسبقه عدة سنوات من المرحلة الانتقالية (ما قبل انقطاع الطمث)',
+      'كل الأعراض شديدة عند الجميع — بل تتفاوت شدتها كثيرًا من امرأة إلى أخرى',
+      'لا يمكن فعل شيء — بل توجد حلول كثيرة، هرمونية وغير هرمونية، لتخفيف الأعراض المزعجة',
+      'الحياة الحميمة تنتهي — بل تتغيّر، لكنها تبقى ممكنة ومُرضية تمامًا مع التعديلات المناسبة',
+    ],
+    h7: '7. أعراض طبيعية وعلامات تستدعي الانتباه',
+    body7:
+      'الغالبية العظمى من التغيّرات الموصوفة هنا مظاهر طبيعية لهذه المرحلة الانتقالية. ومع ذلك، فبعض العلامات تستدعي عناية طبية عاجلة.',
+    alert2Title: 'راجعي الطبيب إذا',
+    alert2Text:
+      'حدث نزف بعد تأكّد انقطاع الطمث، أو ألم حوضي غير معتاد، أو أعراض تعطّل الحياة اليومية بشكل كبير، أو أي شك مستمر.',
+    h8: '8. نصائح عملية للحياة اليومية',
+    dailyHabits: [
+      'غذاء غني بالكالسيوم والألياف',
+      'نشاط بدني منتظم',
+      'روتين نوم ثابت',
+      'لحظات استرخاء يومية',
+    ],
+    h9: '9. أهم النقاط',
+    tip3Title: 'من المفيد أن تعرفي',
+    tip3Text:
+      'ما قبل انقطاع الطمث وانقطاع الطمث مرحلتان طبيعيتان، وليسا مرضًا. وتوجد حلول كثيرة تساعدك على عبور هذه المرحلة بقدر أكبر من الراحة: ويبقى المختص في الرعاية الصحية أفضل مرجع لتكييفها مع وضعك.',
+    shareMessage: 'فهم مرحلة انقطاع الطمث الانتقالية — AWA',
+  },
+  kab: {
+    badge: 'PERIMENOPAUSE & MÉNOPAUSE',
+    title: 'Fehm asenfar ɣer ménopause',
+    metaDuration: '10 n tesdidin n tɣuri',
+    metaType: 'Amusnaw',
+    metaLevel: 'Anagar',
+    metaValidated: 'Agbur yettwaɛass',
+    intro:
+      'D acu ibeddlen s leḥnana, iseggasen uqbel ad ɛekkun izray, d amek ara tkecmeḍ ɣer uswir-a s tmuɣli tafessast ugar.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Perimenopause d ménopause: tifessarin',
+      'Izray ur nelli ara d imagnuyen ugar d ugar',
+      'Tuyaḍ d tikli',
+      'Tudert tuffirt d uɣaṛ n tgellit',
+      'Tazmert d lmetabolisme',
+      'Tiktiwin ur nelli ara d tisaḍnin ɣef ménopause',
+      'Tizmilin timagnuyin d tamezwarut ara twalid',
+      'Tanaṣiḥin n yal ass',
+      'Ayen ilaqen ad tettɛassed',
+    ],
+    h1: '1. Perimenopause d ménopause: tifessarin',
+    body1a:
+      'Perimenopause d akud n usenfar n iḥormonen i yettwabdan uqbel ménopause: yezmer ad yebdu kra n yiseggasen uqbel, s wudem amatu seg tmeṛṛa n iseggasen, mi ara ttbeddilent aswiren n estrogène s wudem ur nelli ara d amagnu.',
+    body1b:
+      'Ménopause, deg ubrid-nniḍen, d lawan ibanen: yettwabeggen mbeɛd 12 n wayyuren yettemcaren war lḥiḍ, war ssebba-nniḍen. Deg Fransa, tettili s wudem amatu ɣer leɛmer n 51 n iseggasen, maca leɛmer-a yemgarad s wudem amagnu seg yiwet ɣer tayeḍ.',
+    tip1Title: 'Yelha ad teɛlmeḍ',
+    tip1Text:
+      'Yal tamttut tettɛedday deg usenfar-a s wudem yemgaraden, deg wakud d tazmert n tizmilin. Tameslayt ɣef waya s lḥal tettak-ak-d tallelt ad tt-tessneḍ uqbel.',
+    h2: '2. Izray ur nelli ara d imagnuyen ugar d ugar',
+    body2:
+      'Yiwen seg yimezwura n tizmilin n perimenopause d abeddel n tikli n uzray: izray zemrent ad uɣalen d imecṭuḥen, d iseggwanen, d ibaɛden, neɣ s uzray yemgaraden seg yiwen ayyur ɣer wayeḍ.',
+    alert1Title: 'Ɛiwen',
+    alert1Text:
+      'Azray ameqqran aṭas, azray i d-yeḍran qrib aṭas, neɣ azray i d-yeḍran mbeɛd useggas war lḥiḍ ssutrent tamawt n umusnaw, acku ur ttwaḥsaben ara d tizmilin imagnuyen n usenfar.',
+    h3: '3. Tuyaḍ d tikli',
+    body3a:
+      'Unqis d usenfal n estrogène d progestérone zemrent ad ssenfalent tuyaḍ (tuyaḍ n tazwara, ussenyef deg yiḍ) u zemrent ad ddint d usari, ukkaḍ, neɣ isenfal n tikli ur nelli ara d imagnuyen.',
+    body3b:
+      'Isenfal-a sɛan tifrat n tbyolujit tideț: ur d-ttbeggnen ara ulac n tuffirt n ulawi, neɣ ugur n tkunwit weḥd-s.',
+    h4: '4. Tudert tuffirt d uɣaṛ n tgellit',
+    body4:
+      'Unqis n estrogène yezmer ad d-yeǧǧ aɣaṛ n tgellit, kra tikwal d wulawi neɣ aṭṭan deg tudert tuffirt. Tebɣest tezmer daɣen ad tbeddel, ad tt-tneḥreḍ neɣ ad tt-tnaqseḍ, almend n tmettut.',
+    tip2Title: 'Yelha ad teɛlmeḍ',
+    tip2Text:
+      'Llan tifrat fessusen (lubrifiants, imiqqasen n tgellit, ddwa n wadeg): tameslayt d umusnaw n tezmert tezmer ad k-yeɛawen ad tafeḍ tifrat ilaqen, war tabu.',
+    h5: '5. Tazmert d lmetabolisme',
+    body5:
+      'Lmetabolisme yezmer ad iqqim cwiṭ deg wakud-a, u usuffeɣ n tfelwit yettwali ad iddu ɣer uɣaṛ. Isenfal-a d imatuten u ur sɛin ara ssebba n tuyaḍ kan.',
+    h6: '6. Tiktiwin ur nelli ara d tisaḍnin ɣef ménopause',
+    myths: [
+      'Ménopause “tettili d tikkelt” — s tidet, tettwazwar sɣur aṭas n yiseggasen n usenfar (perimenopause)',
+      'Tizmilin akk d timeqqranin i yal yiwet — tazmert-nsent temgarad aṭas seg yiwet ɣer tayeḍ',
+      'Ulac ayen izemren ad yettwaxdem — llan aṭas n tifrat, s iḥormonen neɣ war iḥormonen, i usefsu n tizmilin yeččuren',
+      'Tudert tuffirt tettwaqqen — tettbeddil, maca tezmer ad tili tameqqrant u d tameǧǧuht s yisenfal ilaqen',
+    ],
+    h7: '7. Tizmilin timagnuyin d tamezwarut ara twalid',
+    body7:
+      'Tuget n yisenfal i d-yettwabeggen dagi d timagnuyin n usenfar. Maca, kra n tizmilin ssutrent tamawt n umusnaw s uzrir.',
+    alert2Title: 'Ẓer ṭṭbib ma',
+    alert2Text:
+      'Azray mbeɛd ménopause yettwabeggnen, aṭṭan ur nelli ara d amagnu deg uɣaṛ n tmeẓẓit, tizmilin ɛekkunt tudert n yal ass s wudem ameqqran, neɣ ccek yettṛajun.',
+    h8: '8. Tanaṣiḥin n yal ass',
+    dailyHabits: [
+      'Tuččit teččuren s calcium d fibres',
+      'Armad aɣaṛ s lḥal',
+      'Tikli tazzayt n tuyaḍ',
+      'Iseqqaren n lehna n yal ass',
+    ],
+    h9: '9. Ayen ilaqen ad tettɛassed',
+    tip3Title: 'Yelha ad teɛlmeḍ',
+    tip3Text:
+      'Perimenopause d ménopause d iswiren imagnuyen, ur d-llin ara d aṭṭan. Llan aṭas n tifrat i k-yeɛawnen ad tɛeddiḍ deg usenfar-a s lehna ugar: amusnaw n tezmert yeqqim d win i k-yeqqnen akk akken ad tent-yessawaḍ ɣer waddad-ik.',
+    shareMessage: 'Fehm asenfar ɣer ménopause — AWA',
+  },
+  om: {
+    badge: 'LAGUU DHAABBACHUU FI DURAA',
+    title: 'Jijjiirama laguu dhaabbachuu hubachuu',
+    metaDuration: 'Daqiiqaa 10 dubbisuu',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee sakatta\'amee',
+    intro:
+      'Maal suuta jijjiirama, waggoota laguun dhaabbachuu dura, fi sadarkaa kana ifaa caalaa akkamitti dhiyeessuu.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Laguu dhaabbachuu duraa fi laguu dhaabbachuu: hiika',
+      'Marsaa baay\'ee sirrii hin taane',
+      'Hirriba fi miira',
+      'Wal qunnamtii fi gogiinsa qaama dhokataa',
+      'Ulfaatina fi metabolism',
+      'Soba baramoo waa\'ee laguu dhaabbachuu',
+      'Mallattoowwan idilee fi mallattoowwan hubachuu',
+      'Gorsa hojii irra oolu guyyaa guyyaa',
+      'Qabxiilee ijoo',
+    ],
+    h1: '1. Laguu dhaabbachuu duraa fi laguu dhaabbachuu: hiika',
+    body1a:
+      'Laguu dhaabbachuu duraan yeroo jijjiirama hormoonii laguu dhaabbachuu dura ta\'u dha: waggoota baay\'ee dura eegaluu danda\'a, yeroo baay\'ee umurii afurtamaa irraa eegalee, sadarkaan estrogen sirrii hin taaneen jijjiiramaa.',
+    body1b:
+      'Laguu dhaabbachuun, faallaa kanaan, yeroo addaa tokko dha: ji\'oota 12 walitti aanan laguu malee, sababa biraa malee, mirkanaa\'a. Faransaay keessatti, giddugaleessaan umurii 51 naannoo ta\'a, garuu umuriin kun uumamaan dubartii irraa dubartiitti garaagara.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Dubartiin hundi jijjiirama kana garaagaraan mudhata, turtii fi cimina mallattoo lamaanuu keessatti. Banaatti dubbachuun caalaatti dursanii beekuuf si gargaara.',
+    h2: '2. Marsaa baay\'ee sirrii hin taane',
+    body2:
+      'Mallattoo jalqabaa laguu dhaabbachuu duraa keessaa tokko yeroo baay\'ee jijjiirama sirna marsaa dha: marsaan gabaabbachuu, dheeraachuu, fageenyaan ba\'uu, ykn dhangala\'aan ji\'a irraa ji\'atti garaagarummaa qabaachuu danda\'a.',
+    alert1Title: 'Of eeggannoo godhi',
+    alert1Text:
+      'Dhiigni baay\'ee baay\'ate, dhiigni wal-bira dhiyoo ta\'e, ykn dhiigni waggaa tokko laguu malee booda ta\'u gorsa fayyaa barbaada, sababni isaas kunneen mallattoo idilee jijjiirama kanaa hin jedhaman.',
+    h3: '3. Hirriba fi miira',
+    body3a:
+      'Gadi bu\'uu fi jijjiirama estrogen fi progesterone hirriba (hirribaan gale, halkan dammaquu) rakkisuu danda\'a, dallansuu, yaaddoo, ykn jijjiirama miira addaa waliin ta\'uu danda\'a.',
+    body3b:
+      'Jijjiiramni kun ibsa baayolojii dhugaa qaba: fedhii dhabuu ykn rakkoo xiin-sammuu adda ta\'e hin agarsiisan.',
+    h4: '4. Wal qunnamtii fi gogiinsa qaama dhokataa',
+    body4:
+      'Gadi bu\'uun estrogen gogiinsa qaama dhokataa fiduu danda\'a, yeroo tokko tokko yeroo wal qunnamtii mijataa dhabuu ykn dhukkubbii fida. Fedhiin illee dubartii irratti hundaa\'uun dabaluu ykn hir\'achuu danda\'a.',
+    tip2Title: 'Beekuun gaarii dha',
+    tip2Text:
+      'Furmaanni salphaan ni jira (lubricant, moisturizer qaama dhokataa, yaala naannoo): ogeessa fayyaa wajjin haasa\'uun furmaata sirrii argachuuf, dhoksaa malee, si gargaaruu danda\'a.',
+    h5: '5. Ulfaatina fi metabolism',
+    body5:
+      'Metabolism yeroo kanatti xiqqoo suuta ta\'uu danda\'a, dhangala\'aan cooma garaa tarkaanfachuuf deema. Jijjiiramni kun baramaa dha, fedhii qofa irratti hin hundaa\'u.',
+    h6: '6. Soba baramoo waa\'ee laguu dhaabbachuu',
+    myths: [
+      'Laguu dhaabbachuun "si\'a tokkotti ta\'a" — dhugaa irratti, waggoota baay\'ee jijjiirama (laguu dhaabbachuu duraa) dura jira',
+      'Mallattoowwan hundi nama hundumaaf cimaa dha — cimina isaanii dubartii irraa dubartiitti baay\'ee garaagara',
+      'Homtu hin hojjetamu — mallattoowwan si rakkisan hir\'isuuf furmaanni hedduun, hormoonii ykn hormoonii hin taane, ni jira',
+      'Jireenyi wal qunnamtii ni dhumata — ni jijjiirama, garuu sirreeffama sirrii waliin guutuu fi gammachiisaa ta\'ee hafuu danda\'a',
+    ],
+    h7: '7. Mallattoowwan idilee fi mallattoowwan hubachuu',
+    body7:
+      'Jijjiirama as ibsame hedduun mul\'ata idilee jijjiirama sanaati. Haa ta\'u malee, mallattoowwan tokko tokko si\'a tokkotti yaala fayyaa barbaadu.',
+    alert2Title: 'Doktora argadhu yoo',
+    alert2Text:
+      'Laguu dhaabbachuun erga mirkanaa\'ee booda dhiigni, dhukkubbii mudhii addaa, mallattoowwan jireenya guyyaa guyyaa guddaa rakkisan, ykn shakkii itti fufiinsa qabu.',
+    h8: '8. Gorsa hojii irra oolu guyyaa guyyaa',
+    dailyHabits: [
+      'Nyaata calcium fi fiber baay\'ee qabu',
+      'Hojii qaamaa yeroo hundaa',
+      'Sirna hirribaa tasgabbaa\'e',
+      'Yeroo boqonnaa guyyaa guyyaa',
+    ],
+    h9: '9. Qabxiilee ijoo',
+    tip3Title: 'Beekuun gaarii dha',
+    tip3Text:
+      'Laguu dhaabbachuu duraa fi laguu dhaabbachuun sadarkaa uumamaati, dhukkuba miti. Furmaanni baay\'een jijjiirama kana caalaatti mijataadhaan darbuuf si gargaaru ni jiru: ogeessi fayyaa haala keetiif sirreessuuf madda gaarii ta\'ee hafa.',
+    shareMessage: 'Jijjiirama laguu dhaabbachuu hubachuu — AWA',
+  },
+  ti: {
+    badge: 'ቅድሚ ሜኖፓውዝን ሜኖፓውዝን',
+    title: 'ምሕላፍ ናብ ሜኖፓውዝ ምርዳእ',
+    metaDuration: '10 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'ጀማሪ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'ቅድሚ ወርሓዊ ደም ምቁራጽ ዓመታት ቀስ ብቀስ እንታይ ይቕየር፡ ከምኡውን ነዚ ደረጃ ብዝያዳ ንጽህና ከመይ ትቀርብዮ።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ቅድሚ ሜኖፓውዝን ሜኖፓውዝን፡ ትርጉማት',
+      'ዝያዳ ዘይማዕሩ ዑደታት',
+      'ድቃስን ኣተሓሳስባን',
+      'ቀረባ ርክብን ናይ ሴት ኣካል ድርቀትን',
+      'ክብደትን ሜታቦሊዝምን',
+      'ብዛዕባ ሜኖፓውዝ ልሙዳት ጌጋ ኣተሓሳስባታት',
+      'ንቡር ምልክታትን ክትከታተልዮም ዘለዉ ምልክታትን',
+      'ተግባራዊ መዓልታዊ ምኽርታት',
+      'ቀንዲ ነጥብታት',
+    ],
+    h1: '1. ቅድሚ ሜኖፓውዝን ሜኖፓውዝን፡ ትርጉማት',
+    body1a:
+      'ቅድሚ ሜኖፓውዝ ነቲ ሜኖፓውዝ ዝቕድም ሆርሞናዊ ናይ ምሕላፍ እዋን የመልክት፡ ብዙሓት ዓመታት ቅድሚኡ ክጅምር ይኽእል፡ ብሓፈሻ ካብ ኣርብዓታት ጀሚሩ፡ ደረጃ ኤስትሮጅን ብዘይማዕሩ ክዋዥዕ።',
+    body1b:
+      'ሜኖፓውዝ ግን ፍሉይ ነጥቢ ግዜ እዩ፡ ብዘይ ካልእ ምኽንያት 12 ተኸታታሊ ኣዋርሕ ወርሓዊ ደም ምስ ዘይመጸ ይረጋገጽ። ኣብ ፈረንሳ ብማእከላይ ኣብ ከባቢ 51 ዓመት ይኸውን፡ እዚ ዕድመ ግን ብተፈጥሮ ካብ ሰበይቲ ናብ ሰበይቲ ይፈላለ።',
+    tip1Title: 'ከተፍልጥዮ ዘለካ',
+    tip1Text:
+      'ነፍሲ ወከፍ ሰበይቲ ነዚ ምሕላፍ ብዝተፈለየ ኣገባብ ትገጥሞ፡ ብግዜን ብብርቱዕነት ምልክታትን። ብግልጺ ምዝራብ ብዝበለጸ ንምጽባይ ይሕግዝ።',
+    h2: '2. ዝያዳ ዘይማዕሩ ዑደታት',
+    body2:
+      'ሓደ ካብ ቀዳሞት ምልክታት ቅድሚ ሜኖፓውዝ ብዙሓት ግዜ ለውጢ ሪትሚ ዑደት እዩ፡ ዑደታት ሓጸርቲ፡ ነዋሕቲ፡ ዝያዳ ዝተነጸሉ፡ ወይ ካብ ወርሒ ናብ ወርሒ ዝተፈለየ ፍሰት ክህልዎም ይኽእሉ።',
+    alert1Title: 'ብጥንቃቐ ርአዪ',
+    alert1Text:
+      'ኣዝዩ ብዙሕ ደም፡ ኣዝዩ ብቐረባ ዝርከብ ደም፡ ወይ ድሕሪ ሓደ ዓመት ብዘይ ወርሓዊ ደም ዝኸውን ደም ሕክምናዊ ምኽሪ የድልዩ፡ ምኽንያቱ እዚ ናይ ምሕላፍ ልሙድ ምልክታት ኣይኮኑን።',
+    h3: '3. ድቃስን ኣተሓሳስባን',
+    body3a:
+      'ምንካይን ምዝውዋዕን ኤስትሮጅንን ፕሮጀስትሮንን ድቃስ (ምድቃስ፡ ኣብ ለይቲ ምንቃሕ) ክዕንቅፉ ይኽእሉ፡ ቁጥዐ፡ ጭንቀት ወይ ዘይልሙድ ለውጢ ኣተሓሳስባ ክስዕቡ ይኽእሉ።',
+    body3b:
+      'እዞም ለውጥታት ሓቀኛ ባዮሎጂያዊ መብርሂ ኣለዎም፡ ዘይምህላው ድሌት ወይ ንበይኑ ዝተነጸለ ስነ-ኣእምሮኣዊ ጸገም ኣይኮኑን።',
+    h4: '4. ቀረባ ርክብን ናይ ሴት ኣካል ድርቀትን',
+    body4:
+      'ምንካይ ኤስትሮጅን ናይ ሴት ኣካል ድርቀት ክፈጥር ይኽእል፡ ሓሓደ ግዜ ኣብ እዋን ጾታዊ ርክብ ምቾት ዘይምህላው ወይ ቁርቁስ የምጽእ። ድሌት እውን ከከም ሰበይቲ ክውስኽ ወይ ክንክይ ይኽእል።',
+    tip2Title: 'ከተፍልጥዮ ዘለካ',
+    tip2Text:
+      'ቀለልቲ መፍትሒታት ኣለዉ (ለብሪካንታት፡ ናይ ሴት ኣካል ማይስቸራይዘራት፡ ከባብያዊ ሕክምናታት)፡ ምስ ሰራሕተኛ ጥዕና ምዝራብ ብዘይ ክልኩል ቅኑዕ መፍትሒ ንምርካብ ክሕግዘኪ ይኽእል።',
+    h5: '5. ክብደትን ሜታቦሊዝምን',
+    body5:
+      'ሜታቦሊዝም ኣብዚ እዋን ቁሩብ ክንኪ ይኽእል፡ ስብሒ ድማ ናብ ከብዲ ክሰጋገር ይደሊ። እዞም ለውጥታት ልሙዳት እዮም ኣብ ድሌት ጥራይ ድማ ኣይምርኮሱን።',
+    h6: '6. ብዛዕባ ሜኖፓውዝ ልሙዳት ጌጋ ኣተሓሳስባታት',
+    myths: [
+      'ሜኖፓውዝ "ብሓደ ጊዜ ይኸውን" — ብሓቂ ቅድሚኡ ብዙሓት ዓመታት ምሕላፍ (ቅድሚ ሜኖፓውዝ) ኣሎ',
+      'ኩሎም ምልክታት ንኹሉ ብርቱዓት እዮም — ብርቱዕነቶም ካብ ሰበይቲ ናብ ሰበይቲ ብዙሕ ይፈላለ',
+      'ዝግበር የለን — ዘሸግሩ ምልክታት ንምፍዋስ ብዙሓት መፍትሒታት፡ ሆርሞናዊ ወይ ዘይሆርሞናዊ፡ ኣለዉ',
+      'ቀረባ ህይወት ይውዳእ — ይቕየር፡ ግን ምስ ቅኑዕ ምትዕርራያት ምሉእ ዝከኣልን ዘዕግብን ይኸውን',
+    ],
+    h7: '7. ንቡር ምልክታትን ክትከታተልዮም ዘለዉ ምልክታትን',
+    body7:
+      'እቶም ኣብዚ ዝተገልጹ ለውጥታት ዝበዝሑ ንቡር ምርኣይ ናይቲ ምሕላፍ እዮም። እንተኾነ ገለ ምልክታት ቅልጡፍ ሕክምናዊ ኣቓልቦ የድልዩ።',
+    alert2Title: 'ዶክተር እዩ ዘድሊ እንተ',
+    alert2Text:
+      'ድሕሪ ዝተረጋገጸ ሜኖፓውዝ ደም፡ ዘይልሙድ ቁርቁስ ሕቖ፡ መዓልታዊ ህይወት ብዓቢ ዝበላሽዉ ምልክታት፡ ወይ ቀጻሊ ጥርጣረ።',
+    h8: '8. ተግባራዊ መዓልታዊ ምኽርታት',
+    dailyHabits: [
+      'ብካልስየምን ፋይበርን ሃብታም መግቢ',
+      'ቀዋሚ ኣካላዊ ንጥፈት',
+      'ርጉእ ናይ ድቃስ ልምዲ',
+      'መዓልታዊ ግዜ ዕረፍቲ',
+    ],
+    h9: '9. ቀንዲ ነጥብታት',
+    tip3Title: 'ከተፍልጥዮ ዘለካ',
+    tip3Text:
+      'ቅድሚ ሜኖፓውዝን ሜኖፓውዝን ተፈጥሮኣዊ ደረጃታት እዮም፡ ሕማም ኣይኮኑን። ነዚ ምሕላፍ ብዝያዳ ምቾት ንምሕላፍ ብዙሓት መፍትሒታት ኣለዉ፡ ሰራሕተኛ ጥዕና ድማ ንኩነታትኪ ንምምዕዋይ ዝበለጸ ምንጪ ይቕጽል።',
+    shareMessage: 'ምሕላፍ ናብ ሜኖፓውዝ ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Gusobanukirwa igihe cyo kwimukira muri menopause',
+    metaDuration: 'Gusoma: iminota 10',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Utangiye',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro:
+      'Ibihinduka buhoro buhoro, imyaka mbere y\'uko imihango ihagarara, n\'uko wakwegera iki cyiciro ufite ubusobanuro burushijeho.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Perimenopause na menopause: ibisobanuro',
+      'Uruhererekane rurushaho kudasanzwa',
+      'Ibitotsi n\'imyumvire',
+      'Ubwiru bw\'abashakanye no kuma kw\'igitsina',
+      'Ibiro na metabolism',
+      'Imyumvire itari yo isanzwe kuri menopause',
+      'Ibimenyetso bisanzwe n\'ibimenyetso byo kwitondera',
+      'Inama zifatika za buri munsi',
+      'Iby\'ingenzi byo kwibuka',
+    ],
+    h1: '1. Perimenopause na menopause: ibisobanuro',
+    body1a:
+      'Perimenopause ni igihe cyo kwimuka kw\'imisemburo kibanziriza menopause: gishobora gutangira imyaka myinshi mbere, muri rusange guhera ku myaka mirongo ine, aho urugero rwa estrogen ruhindagurika mu buryo budahoraho.',
+    body1b:
+      'Menopause, ku rundi ruhande, ni akanya kihariye: yemezwa nyuma y\'amezi 12 akurikiranye nta mihango, nta yindi mpamvu. Mu Bufaransa, iba ahagana ku myaka 51 ugereranyije, nubwo iyo myaka ihinduka mu buryo karemano hagati y\'umugore n\'undi.',
+    tip1Title: 'Byiza kumenya',
+    tip1Text:
+      'Buri mugore anyura muri iki gihe cyo kwimuka mu buryo bwe, haba mu gihe imara no mu bukana bw\'ibimenyetso. Kubiganiraho ku mugaragaro bigufasha kubyitegura neza.',
+    h2: '2. Uruhererekane rurushaho kudasanzwa',
+    body2:
+      'Kimwe mu bimenyetso bya mbere bya perimenopause akenshi ni impinduka mu muvuduko w\'uruhererekane: uruhererekane rushobora kuba rugufi, rurerure, rutandukanye cyane, cyangwa rugira amaraso atandukanye kuva ku kwezi ujya ku kundi.',
+    alert1Title: 'Icyitonderwa',
+    alert1Text:
+      'Kuva amaraso menshi cyane, kuva amaraso yegeranye cyane, cyangwa kuva amaraso nyuma y\'umwaka nta mihango bisaba inama z\'abaganga, kuko ibi bitafatwa nk\'ibimenyetso bisanzwe by\'iki gihe cyo kwimuka.',
+    h3: '3. Ibitotsi n\'imyumvire',
+    body3a:
+      'Kumanuka no guhindagurika kwa estrogen na progesterone bishobora guhungabanya ibitotsi (gusinzira, gukanguka nijoro) kandi bishobora guherekezwa no kurakara, guhangayika, cyangwa guhindagurika kudasanzwe kw\'imyumvire.',
+    body3b:
+      'Izi mpinduka zifite ubusobanuro nyabwo bw\'ibinyabuzima: ntizigaragaza kubura ubushake cyangwa ikibazo cyo mu mutwe cyihariye.',
+    h4: '4. Ubwiru bw\'abashakanye no kuma kw\'igitsina',
+    body4:
+      'Kugabanuka kwa estrogen bishobora gutera kuma kw\'igitsina, rimwe na rimwe bigatera kutamererwa neza cyangwa ububabare mu gihe cyo gutera akabariro. Ubushake na bwo bushobora guhinduka, bukiyongera cyangwa bukagabanuka, bitewe n\'umugore.',
+    tip2Title: 'Byiza kumenya',
+    tip2Text:
+      'Hari ibisubizo byoroshye (amavuta yorohereza, amavuta atuma igitsina gitoha, imiti yo hanze): kuganira n\'umuhanga mu buzima bishobora kugufasha kubona igisubizo gikwiye, nta bwoba.',
+    h5: '5. Ibiro na metabolism',
+    body5:
+      'Metabolism ishobora kugabanya umuvuduko gato muri iki gihe, kandi ikwirakwira ry\'ibinure rikunze kwerekeza ku nda. Izi mpinduka ni zisanzwe kandi ntizishingira ku bushake gusa.',
+    h6: '6. Imyumvire itari yo isanzwe kuri menopause',
+    myths: [
+      'Menopause "ibaho icyarimwe" — mu by\'ukuri, ibanzirizwa n\'imyaka myinshi yo kwimuka (perimenopause)',
+      'Ibimenyetso byose ni bikomeye kuri bose — ubukana bwabyo butandukana cyane hagati y\'abagore',
+      'Nta cyo wakora — hari ibisubizo byinshi, bikoresha imisemburo cyangwa bitayikoresha, byo koroshya ibimenyetso bibangamira',
+      'Ubuzima bw\'abashakanye burarangira — burahinduka, ariko bukomeza gushoboka kandi bukanezeza hamwe n\'impinduka zikwiye',
+    ],
+    h7: '7. Ibimenyetso bisanzwe n\'ibimenyetso byo kwitondera',
+    body7:
+      'Impinduka nyinshi zivugwa hano ni ibigaragaza bisanzwe by\'iki gihe cyo kwimuka. Icyakora, ibimenyetso bimwe bisaba ubuvuzi bwihuse.',
+    alert2Title: 'Reba muganga niba',
+    alert2Text:
+      'Kuva amaraso nyuma ya menopause yemejwe, ububabare budasanzwe bwo mu nda yo hasi, ibimenyetso bibangamira cyane ubuzima bwa buri munsi, cyangwa gushidikanya kwose guhoraho.',
+    h8: '8. Inama zifatika za buri munsi',
+    dailyHabits: [
+      'Imirire irimo calcium na fibre nyinshi',
+      'Imyitozo ngororamubiri ihoraho',
+      'Gahunda ihamye y\'ibitotsi',
+      'Ibihe bya buri munsi byo kuruhuka',
+    ],
+    h9: '9. Iby\'ingenzi byo kwibuka',
+    tip3Title: 'Byiza kumenya',
+    tip3Text:
+      'Perimenopause na menopause ni ibyiciro karemano, si indwara. Hari ibisubizo byinshi bigufasha kunyura muri iki gihe cyo kwimuka neza: umuhanga mu buzima akomeza kuba isoko nziza yo kubihuza n\'imiterere yawe.',
+    shareMessage: 'Gusobanukirwa igihe cyo kwimukira muri menopause — AWA',
+  },
+  rn: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Gusobanukirwa inzibacyuho ya menopause',
+    metaDuration: 'Iminota 10 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisuzumwe',
+    intro:
+      'Ivyo bihinduka buhorobuhoro, imyaka imihango itarahagarara, n\'ukuntu wogera kuri iki gice ufise ubusobanuro burushirije.',
+    contentsTitle: 'Muri iyi ngingo',
+    topics: [
+      'Perimenopause na menopause: ibisobanuro',
+      'Inzira zirushiriza kutaba zisanzwe',
+      'Ugusinzira n\'umutima',
+      'Imibonano no kwuma kw\'igitsina',
+      'Ibiro na metabolism',
+      'Ivyiyumviro bitari ukuri bikunze ku bya menopause',
+      'Ibimenyetso bisanzwe n\'ibimenyetso vyo kwitaho',
+      'Impanuro zifatika za buri musi',
+      'Ivyingenzi vyo kwibuka',
+    ],
+    h1: '1. Perimenopause na menopause: ibisobanuro',
+    body1a:
+      'Perimenopause ni igihe c\'inzibacyuho ya hormone kibanziriza menopause: gishobora gutangura imyaka myinshi imbere, isanzwe kuva mu myaka mirongo ine, urugero rwa estrogen ruhinduka-hinduka bidasanzwe.',
+    body1b:
+      'Menopause, naho, ni akanya kazwi: yemezwa nyuma y\'amezi 12 akurikirana nta mihango, nta kindi gitera. Mu Bufaransa, iza ahagana mu myaka 51 ku rugero, naho iyi myaka itandukana mu buryo bw\'umuhango hagati y\'umugore n\'uwundi.',
+    tip1Title: 'Ni vyiza kubimenya',
+    tip1Text:
+      'Buri mugore aca muri iyi nzibacyuho mu buryo butandukanye, mu gihe imara no mu bukomere bw\'ibimenyetso. Kubivugako ku mugaragaro bigufasha kubyitegura neza.',
+    h2: '2. Inzira zirushiriza kutaba zisanzwe',
+    body2:
+      'Kimwe mu bimenyetso vya mbere vya perimenopause kenshi ni impinduka mu muvuduko w\'uruziga: inzira zishobora kuba ngufi, ndende, zitandukanijwe cane, canke kugira amaraso atandukanye ukwezi ku kundi.',
+    alert1Title: 'Rabira',
+    alert1Text:
+      'Kuva amaraso kwinshi cane, kuva amaraso kuba hafi cane, canke kuva amaraso nyuma y\'umwaka nta mihango bisaba inama z\'ubuvuzi, kuko bidafatwa nk\'ibimenyetso bisanzwe vy\'inzibacyuho.',
+    h3: '3. Ugusinzira n\'umutima',
+    body3a:
+      'Kugabanuka no guhinduka-hinduka kwa estrogen na progesterone bishobora guhungabanya ugusinzira (kubona ibitotsi, gukanguka mu ijoro) kandi bishobora kuherekezwa n\'uburakari, guhangayika, canke impinduka z\'umutima zidasanzwe.',
+    body3b:
+      'Izi mpinduka zifise isobanuro nyaryo rya biyoloji: ntizerekana kubura ubushake canke ikibazo c\'imitekerereze cihariye.',
+    h4: '4. Imibonano no kwuma kw\'igitsina',
+    body4:
+      'Kugabanuka kwa estrogen kurashobora gutera kwuma kw\'igitsina, rimwe na rimwe bigatera ukutamererwa neza canke ububabare mu gihe c\'imibonano. Ubushake bushobora kandi guhinduka, bukiyongera canke bukagabanuka, bitewe n\'umugore.',
+    tip2Title: 'Ni vyiza kubimenya',
+    tip2Text:
+      'Ibisubizo byoroshe birahari (amavuta yo koroshya, ayo gutuma igitsina gitose, imiti yo mu karere): kuvugana n\'umuhinga mu vy\'ubuzima bishobora kugufasha kubona igisubizo gikwiye, nta kujijinganya.',
+    h5: '5. Ibiro na metabolism',
+    body5:
+      'Metabolism ishobora gutinda gatoyi muri iki gihe, kandi ukuntu ibinure bigabanijwe gukunda kwerekeza ku nda. Izi mpinduka ni zisanzwe kandi ntizishingiye ku bushake gusa.',
+    h6: '6. Ivyiyumviro bitari ukuri bikunze ku bya menopause',
+    myths: [
+      'Menopause "iza icarimwe" — mu vy\'ukuri, ibanzirizwa n\'imyaka myinshi y\'inzibacyuho (perimenopause)',
+      'Ibimenyetso vyose bikomeye kuri bose — ukomera kwabyo gutandukana cane hagati y\'umugore n\'uwundi',
+      'Nta co wokora — ibisubizo vyinshi, vya hormone canke ata, birahari kugira ngo bigabanye ibimenyetso bibangamira',
+      'Ubuzima bw\'imibonano burarangira — buhinduka, ariko bugumya gushoboka rwose kandi bugatanga umunezero iyo hakozwe ivyo bikwiye',
+    ],
+    h7: '7. Ibimenyetso bisanzwe n\'ibimenyetso vyo kwitaho',
+    body7:
+      'Impinduka nyinshi cane zasobanuwe hano ni ibigaragaza bisanzwe vy\'inzibacyuho. Ariko, ibimenyetso bimwebimwe bisaba kwitabwaho vuba n\'ubuvuzi.',
+    alert2Title: 'Raba muganga nimba',
+    alert2Text:
+      'Kuva amaraso nyuma ya menopause yemejwe, ububabare budasanzwe mu nda yo hasi, ibimenyetso bihungabanya cane ubuzima bwa buri musi, canke amakenga yose adahera.',
+    h8: '8. Impanuro zifatika za buri musi',
+    dailyHabits: [
+      'Imirire ikungahaye kuri calcium na fibre',
+      'Imyitozo y\'umubiri buri kanya',
+      'Akamenyero gashikamye k\'ugusinzira',
+      'Ibihe vyo kuruhuka buri musi',
+    ],
+    h9: '9. Ivyingenzi vyo kwibuka',
+    tip3Title: 'Ni vyiza kubimenya',
+    tip3Text:
+      'Perimenopause na menopause ni ibice vy\'umuhango, si indwara. Ibisubizo vyinshi birahari kugira ngo bigufashe gucamwo iyi nzibacyuho neza: umuhinga mu vy\'ubuzima agumya kuba isoko nziza yo kubihuza n\'ukuntu uri.',
+    shareMessage: 'Gusobanukirwa inzibacyuho ya menopause — AWA',
+  },
+  ig: {
+    badge: 'PERIMENOPAUSE NA MENOPAUSE',
+    title: 'Ịghọta mgbanwe menopause',
+    metaDuration: 'Nkeji 10 ọgụgụ',
+    metaType: 'Nduzi',
+    metaLevel: 'Onye mbido',
+    metaValidated: 'Ọdịnaya a nyochara',
+    intro:
+      'Ihe na-agbanwe nwayọọ nwayọọ, afọ tupu nsọ akwụsị, na etu esi abịaru oge a nso n\'ụzọ doro anya karị.',
+    contentsTitle: 'N\'isiokwu a',
+    topics: [
+      'Perimenopause na menopause: nkọwa',
+      'Usoro nsọ na-adịchaghị n\'usoro',
+      'Ụra na mmụọ',
+      'Mmekọahụ na ọgọ akọrọ',
+      'Ibu na metabolism',
+      'Akụkọ ụgha a na-ahụkarị banyere menopause',
+      'Mgbaàmà nkịtị na ihe ịrịba ama ị ga-elebara anya',
+      'Ndụmọdụ bara uru kwa ụbọchị',
+      'Isi ihe ndị ị ga-eburu',
+    ],
+    h1: '1. Perimenopause na menopause: nkọwa',
+    body1a:
+      'Perimenopause na-ezo aka n\'oge mgbanwe hormone nke na-abụ ụzọ tupu menopause: ọ nwere ike ịmalite ọtụtụ afọ tupu mgbe ahụ, n\'ozuzu site n\'afọ iri anọ gaa n\'ihu, ọkwa estrogen na-agbanwe agbanwe n\'ụzọ na-adịghị n\'usoro.',
+    body1b:
+      'Menopause, n\'aka nke ọzọ, bụ otu oge kpọmkwem: a na-ekwenye ya mgbe ọnwa 12 n\'usoro gasịrị n\'enweghị nsọ, n\'enweghị ihe ọzọ na-akpata ya. Na France, ọ na-eme n\'ozuzu gburugburu afọ 51, ọ bụ ezie na afọ a na-adịgasị n\'ụzọ okike site na nwanyị ruo nwanyị.',
+    tip1Title: 'Ihe ọ dị mma ịma',
+    tip1Text:
+      'Nwanyị ọ bụla na-enwe mgbanwe a n\'ụzọ dị iche, n\'ogologo oge na n\'ike mgbaàmà. Ikwu maka ya n\'ihu ọha na-enyere gị aka ịkwadebe maka ya nke ọma.',
+    h2: '2. Usoro nsọ na-adịchaghị n\'usoro',
+    body2:
+      'Otu n\'ime ihe ịrịba ama mbụ nke perimenopause bụ mgbanwe n\'ọsọ usoro nsọ: usoro nsọ nwere ike ịkpụ, ịdị ogologo, ịdị anya, ma ọ bụ inwe ọbara dị iche site n\'otu ọnwa ruo nke ọzọ.',
+    alert1Title: 'Biko cheta',
+    alert1Text:
+      'Ọbara na-eju nke ukwuu, ọbara na-apụta nso nso n\'ime onwe ya, ma ọ bụ ọbara na-apụta mgbe otu afọ gasịrị n\'enweghị nsọ chọrọ ndụmọdụ ahụike, ebe ndị a abụghị ihe ịrịba ama a na-ewere dị ka nkịtị nke mgbanwe.',
+    h3: '3. Ụra na mmụọ',
+    body3a:
+      'Ibelata na mgbanwe nke estrogen na progesterone nwere ike ịkpaghasị ụra (ịrahụ ụra, itetawa n\'abalị) ma nwee ike iso ya iwe, nchegbu, ma ọ bụ mgbanwe mmụọ na-adịghị ahụkebe.',
+    body3b:
+      'Mgbanwe ndị a nwere nkọwa dị adị nke ndụ: ha na-egosighị enweghị ike nkwa ma ọ bụ nsogbu mmụọ dịpụrụ adịpụ.',
+    h4: '4. Mmekọahụ na ọgọ akọrọ',
+    body4:
+      'Ibelata estrogen nwere ike ibute ọgọ akọrọ, mgbe ụfọdụ na-akpata erughị ala ma ọ bụ mgbu n\'oge mmekọahụ. Agụụ nwekwara ike ịgbanwe, ma ịrị elu ma ọ bụ ịdaba, dabere na nwanyị.',
+    tip2Title: 'Ihe ọ dị mma ịma',
+    tip2Text:
+      'Ngwọta dị mfe dị (mmanụ nsị, mmiri na-eme ka ọgọ dị nro, ọgwụgwọ n\'ime ebe ahụ): ikwu okwu na onye ọrụ ahụike nwere ike inyere gị aka ịchọta ngwọta kwesịrị ekwesị, n\'enweghị nsọ.',
+    h5: '5. Ibu na metabolism',
+    body5:
+      'Metabolism nwere ike ịdị nwayọọ ntakịrị n\'oge a, ma nkesa abụba na-agbanwekarị gaa n\'afọ. Mgbanwe ndị a bụ ihe a na-ahụkarị ma ha adabereghị naanị n\'ike nkwa.',
+    h6: '6. Akụkọ ụgha a na-ahụkarị banyere menopause',
+    myths: [
+      'Menopause "na-eme n\'otu mgbe" — n\'eziokwu, ọtụtụ afọ nke mgbanwe (perimenopause) na-bu ya ụzọ',
+      'Mgbaàmà niile siri ike maka onye ọ bụla — ike ha na-adịgasị nke ukwuu site na nwanyị ruo nwanyị',
+      'Enweghị ihe a pụrụ ime — ọtụtụ ngwọta, hormone ma ọ bụ na-abụghị, dị iji belata mgbaàmà na-ewute',
+      'Ndụ mmekọahụ na-eru ná ọgwụgwụ — ọ na-agbanwe, mana ọ ka nwere ike ịdị kpam kpam ma nwee afọ ojuju site n\'ịhazi kwesịrị ekwesị',
+    ],
+    h7: '7. Mgbaàmà nkịtị na ihe ịrịba ama ị ga-elebara anya',
+    body7:
+      'Ọtụtụ n\'ime mgbanwe ndị akọwara ebe a bụ ngosipụta nkịtị nke mgbanwe. Ma, ihe ịrịba ama ụfọdụ chọrọ nlebara anya ahụike ngwa ngwa.',
+    alert2Title: 'Hụ dọkịta ma ọ bụrụ na',
+    alert2Text:
+      'Ọbara mgbe menopause gasịrị, mgbu pelvic na-adịghị ahụkebe, mgbaàmà na-akpaghasị ndụ kwa ụbọchị nke ukwuu, ma ọ bụ obi abụọ ọ bụla na-adịgide.',
+    h8: '8. Ndụmọdụ bara uru kwa ụbọchị',
+    dailyHabits: [
+      'Nri nwere calcium na fiber ọtụtụ',
+      'Mmega ahụ mgbe niile',
+      'Usoro ụra guzosiri ike',
+      'Oge izu ike kwa ụbọchị',
+    ],
+    h9: '9. Isi ihe ndị ị ga-eburu',
+    tip3Title: 'Ihe ọ dị mma ịma',
+    tip3Text:
+      'Perimenopause na menopause bụ ọkwa okike, ọ bụghị ọrịa. Ọtụtụ ngwọta dị iji nyere gị aka ịgafe mgbanwe a n\'ụzọ dị mma karị: onye ọrụ ahụike ka bụ isi iyi kacha mma iji mee ha kwekọọ n\'ọnọdụ gị.',
+    shareMessage: 'Ịghọta mgbanwe menopause — AWA',
+  },
+  yo: {
+    badge: 'PERIMENOPAUSE ÀTI MENOPAUSE',
+    title: 'Òye ìyípadà sí menopause',
+    metaDuration: 'Ìṣẹ́jú 10 láti kà',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Olùbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú tí a ti yẹ̀ wò',
+    intro:
+      'Ohun tó ń yípadà díẹ̀díẹ̀, ọdún púpọ̀ ṣáájú kí nǹkan oṣù tó dúró, àti bí a ṣe lè sún mọ́ ìpele yìí pẹ̀lú ìmọ́lẹ̀ tó pọ̀ sí i.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Perimenopause àti menopause: ìtumọ̀',
+      'Ìyípo nǹkan oṣù tó ń di aláìtọ̀nà sí i',
+      'Oorun àti ìṣesí',
+      'Ìbálòpọ̀ àti ìgbẹ ọ̀nà obìnrin',
+      'Ìwúwo àti metabolism',
+      'Àwọn ìtàn àròsọ tó wọ́pọ̀ nípa menopause',
+      'Àwọn àmì déédé àti àwọn àmì tí ó yẹ kí o kíyèsí',
+      'Àwọn ìmọ̀ràn gbígbéṣẹ́ ojoojúmọ́',
+      'Àwọn kókó pàtàkì',
+    ],
+    h1: '1. Perimenopause àti menopause: ìtumọ̀',
+    body1a:
+      'Perimenopause tọ́ka sí àkókò ìyípadà hormone tó ṣáájú menopause: ó lè bẹ̀rẹ̀ ní ọdún púpọ̀ ṣáájú, ní gbogbogbò láti àwọn ọdún ogoji rẹ síwájú, pẹ̀lú ìwọ̀n estrogen tí ń gòkè-sọ̀kalẹ̀ láìtọ̀nà.',
+    body1b:
+      'Menopause, ní ọ̀nà kejì, jẹ́ àkókò pàtó kan: a ń fìdí rẹ̀ múlẹ̀ lẹ́yìn oṣù 12 tẹ̀léra láìsí nǹkan oṣù, láìsí ìdí mìíràn. Ní Faransé, ó máa ń ṣẹlẹ̀ ní àpapọ̀ ní nǹkan bí ọmọ ọdún 51, bí ó tilẹ̀ jẹ́ pé ọjọ́ orí yìí ń yàtọ̀ láti obìnrin sí obìnrin.',
+    tip1Title: 'Ohun tó dára láti mọ̀',
+    tip1Text:
+      'Obìnrin kọ̀ọ̀kan ló ń ní ìrírí ìyípadà yìí lọ́nà tó yàtọ̀, ní gígùn àkókò àti ní agbára àwọn àmì. Sísọ̀rọ̀ nípa rẹ̀ ní gbangba ń ràn ọ́ lọ́wọ́ láti retí rẹ̀ dáadáa.',
+    h2: '2. Ìyípo nǹkan oṣù tó ń di aláìtọ̀nà sí i',
+    body2:
+      'Ọ̀kan lára àwọn àmì àkọ́kọ́ ti perimenopause ni àyípadà nínú ìṣísẹ̀ ìyípo nǹkan oṣù: ìyípo lè kúrú, gùn, jìnnà síra, tàbí kí ìṣàn yàtọ̀ láti oṣù kan sí òmíràn.',
+    alert1Title: 'Jọ̀wọ́ kíyèsí',
+    alert1Text:
+      'Ẹ̀jẹ̀ tó pọ̀ gan-an, ẹ̀jẹ̀ tó ń wá ní àkókò tó súnmọ́ ara wọn gan-an, tàbí ẹ̀jẹ̀ tó ń wá lẹ́yìn ọdún kan láìsí nǹkan oṣù nílò ìmọ̀ràn oníṣègùn, nítorí wọn kì í ṣe àwọn àmì ìyípadà tó wọ́pọ̀.',
+    h3: '3. Oorun àti ìṣesí',
+    body3a:
+      'Ìdínkù àti ìgòkè-ìsọ̀kalẹ̀ estrogen àti progesterone lè da oorun rú (bíbẹ̀rẹ̀ oorun, jíjí lóru), ó sì lè wà pẹ̀lú ìbínú, àníyàn, tàbí àwọn àyípadà ìṣesí tí kò wọ́pọ̀.',
+    body3b:
+      'Àwọn àyípadà wọ̀nyí ní àlàyé nípa ìbílẹ̀ ara tòótọ́: wọn kò fi àìní ìpinnu hàn tàbí ìṣòro ọkàn kan ṣoṣo.',
+    h4: '4. Ìbálòpọ̀ àti ìgbẹ ọ̀nà obìnrin',
+    body4:
+      'Ìdínkù estrogen lè fa ìgbẹ ọ̀nà obìnrin, tí nígbà míì ń fa àìtùnú tàbí ìrora nígbà ìbálòpọ̀. Ìfẹ́ náà lè yípadà, kí ó pọ̀ sí i tàbí kí ó dín kù, gẹ́gẹ́ bí obìnrin kọ̀ọ̀kan.',
+    tip2Title: 'Ohun tó dára láti mọ̀',
+    tip2Text:
+      'Àwọn ojútùú rọrùn wà (àwọn lubricant, àwọn moisturizer ọ̀nà obìnrin, àwọn ìtọ́jú ibi kan): bíbá ọ̀jọ̀gbọ́n ìlera sọ̀rọ̀ lè ràn ọ́ lọ́wọ́ láti rí ojútùú tó tọ́, láìsí ìtìjú.',
+    h5: '5. Ìwúwo àti metabolism',
+    body5:
+      'Metabolism lè rọra dín kù díẹ̀ ní àkókò yìí, ọ̀rá ara sì máa ń yí sí ikùn. Àwọn àyípadà wọ̀nyí wọ́pọ̀, wọn kò sì dá lórí ìpinnu nìkan.',
+    h6: '6. Àwọn ìtàn àròsọ tó wọ́pọ̀ nípa menopause',
+    myths: [
+      'Menopause "ń ṣẹlẹ̀ lẹ́ẹ̀kan náà" — ní òtítọ́, ọdún púpọ̀ ti ìyípadà (perimenopause) ló ṣáájú rẹ̀',
+      'Gbogbo àwọn àmì lágbára fún gbogbo ènìyàn — agbára wọn yàtọ̀ gan-an láti obìnrin sí obìnrin',
+      'Kò sí ohun tí a lè ṣe — ọ̀pọ̀ ojútùú, pẹ̀lú hormone tàbí láìsí i, wà láti mú àwọn àmì tó ń yọni lẹ́nu fúyẹ́',
+      'Ìgbésí ayé ìbálòpọ̀ dópin — ó ń yípadà, ṣùgbọ́n ó ṣì ṣeé ṣe pátápátá, ó sì ń tẹ́ni lọ́rùn pẹ̀lú àwọn àtúnṣe tó tọ́',
+    ],
+    h7: '7. Àwọn àmì déédé àti àwọn àmì tí ó yẹ kí o kíyèsí',
+    body7:
+      'Ọ̀pọ̀ jù lọ àwọn àyípadà tí a ṣàpèjúwe níbí jẹ́ àwọn ìfarahàn déédé ti ìyípadà náà. Síbẹ̀, àwọn àmì kan nílò àfiyèsí oníṣègùn ní kíákíá.',
+    alert2Title: 'Lọ rí dókítà tí',
+    alert2Text:
+      'Ẹ̀jẹ̀ lẹ́yìn tí a ti jẹ́rìí menopause, ìrora ìbàdí tí kò wọ́pọ̀, àwọn àmì tó ń da ìgbésí ayé ojoojúmọ́ rú gan-an, tàbí ìṣiyèméjì èyíkéyìí tí kò lọ.',
+    h8: '8. Àwọn ìmọ̀ràn gbígbéṣẹ́ ojoojúmọ́',
+    dailyHabits: [
+      'Oúnjẹ tó ní calcium àti okun púpọ̀',
+      'Ìṣeré ara déédé',
+      'Àṣà oorun tó dúró déédé',
+      'Àwọn àkókò ìsinmi lójoojúmọ́',
+    ],
+    h9: '9. Àwọn kókó pàtàkì',
+    tip3Title: 'Ohun tó dára láti mọ̀',
+    tip3Text:
+      'Perimenopause àti menopause jẹ́ àwọn ìpele àdánidá, kì í ṣe àìsàn. Ọ̀pọ̀ ojútùú wà láti ràn ọ́ lọ́wọ́ láti la ìyípadà yìí kọjá ní ìtùnú sí i: ọ̀jọ̀gbọ́n ìlera ṣì jẹ́ orísun tó dára jù láti ṣe wọ́n bá ipò rẹ mu.',
+    shareMessage: 'Òye ìyípadà sí menopause — AWA',
+  },
+  zu: {
+    badge: 'UKUDLULELA EKUPHELENI KOKUYA ESIKHATHINI',
+    title: 'Ukuqonda ukudlulela ekupheleni kokuya esikhathini',
+    metaDuration: 'Imizuzu eyi-10 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Ongaqalayo',
+    metaValidated: 'Okuqukethwe okubuyekeziwe',
+    intro:
+      'Yini eshintsha kancane kancane, iminyaka ngaphambi kokuthi izikhathi ziphele, nokuthi ungasondela kanjani kulesi sigaba ngokucacile kakhulu.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ukudlulela ekupheleni kokuya esikhathini nokuphela kokuya esikhathini: izincazelo',
+      'Imijikelezo engahleleki kakhulu',
+      'Ukulala nemizwa',
+      'Ukuzwana nokomisa kwesithandwa',
+      'Isisindo nokusebenza komzimba',
+      'Izinganekwane ezivamile ngokuphela kokuya esikhathini',
+      'Izimpawu ezijwayelekile nezimpawu zokubheka',
+      'Amathiphu asebenzayo ansuku zonke',
+      'Okubalulekile okufanele ukukhumbule',
+    ],
+    h1: '1. Ukudlulela ekupheleni kokuya esikhathini nokuphela kokuya esikhathini: izincazelo',
+    body1a:
+      'Ukudlulela ekupheleni kokuya esikhathini kubhekisela esikhathini sokudlulela kwama-hormone esandulela ukuphela kokuya esikhathini: kungaqala iminyaka eminingana ngaphambili, ngokuvamile kusukela eminyakeni yamashumi amane, kanti amazinga e-estrogen ashintshashintsha ngokungahleleki.',
+    body1b:
+      'Ukuphela kokuya esikhathini, ngakolunye uhlangothi, kuyisikhathi esithile: kuqinisekiswa ngemva kwezinyanga eziyi-12 ezilandelanayo ngaphandle kokuya esikhathini, ngaphandle kwenye imbangela. EFrance, kwenzeka ngokwesilinganiso cishe eminyakeni engu-51, nakuba leli gama lihluka ngokwemvelo phakathi kwabesifazane.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Wonke owesifazane uhlangabezana nalokhu kudlulela ngendlela ehlukile, kokubili ngobude nangobukhulu bezimpawu. Ukukhuluma ngakho ngokukhululekile kukusiza ukulungiselela kangcono.',
+    h2: '2. Imijikelezo engahleleki kakhulu',
+    body2:
+      'Esinye sezimpawu zokuqala zokudlulela ekupheleni kokuya esikhathini kuvame ukuba ushintsho esigqini somjikelezo: imijikelezo ingaba mifushane, mide, ihlukane kakhulu, noma ibe nokuhamba okuhlukile inyanga ngenyanga.',
+    alert1Title: 'Qaphela',
+    alert1Text:
+      'Ukopha okukhulu kakhulu, ukopha okwenzeka kusondelene kakhulu, noma ukopha okwenzeka ngemva konyaka ungayi esikhathini kudinga iseluleko sezokwelapha, njengoba lezi zingathathwa njengezimpawu ezijwayelekile zokudlulela.',
+    h3: '3. Ukulala nemizwa',
+    body3a:
+      'Ukwehla nokushintshashintsha kwe-estrogen ne-progesterone kungaphazamisa ukulala (ukulala ubuthongo, ukuvuka ebusuku) futhi kungahambisana nokucasuka, ukukhathazeka, noma ushintsho lwemizwa olungajwayelekile.',
+    body3b:
+      'Lezi zinguquko zinencazelo yangempela yebhayoloji: aziboniseli ukuntula amandla okuzimisela noma inkinga yengqondo ehlukile.',
+    h4: '4. Ukuzwana nokomisa kwesithandwa',
+    body4:
+      'Ukwehla kwe-estrogen kungaholela ekomisweni kwesithandwa, kwesinye isikhathi kubangele ukungakhululeki noma ubuhlungu ngesikhathi sokuzalana. Isifiso naso singashintsha, sikhuphuke noma sehle, kuye ngowesifazane.',
+    tip2Title: 'Kuhle ukwazi',
+    tip2Text:
+      'Izixazululo ezilula zikhona (ama-lubricant, izinto zokumanzisa isithandwa, ukwelashwa kwendawo): ukukhuluma nochwepheshe wezempilo kungakusiza uthole isixazululo esifanele, ngaphandle kwenhloni.',
+    h5: '5. Isisindo nokusebenza komzimba',
+    body5:
+      'Ukusebenza komzimba kungehla kancane ngalesi sikhathi, futhi ukusatshalaliswa kwamafutha kuvame ukuya esiswini. Lezi zinguquko ziyajwayelekile futhi azincikile kuphela emandleni okuzimisela.',
+    h6: '6. Izinganekwane ezivamile ngokuphela kokuya esikhathini',
+    myths: [
+      'Ukuphela kokuya esikhathini "kwenzeka kanyekanye" — empeleni, kunesandulelwa iminyaka eminingana yokudlulela (ukudlulela ekupheleni kokuya esikhathini)',
+      'Zonke izimpawu zinzima kubo bonke — ubukhulu bazo buhluka kakhulu phakathi kwabesifazane',
+      'Akukho okungenziwa — izixazululo eziningi, ezinama-hormone noma ezingenawo, zikhona ukunciphisa izimpawu ezikhathazayo',
+      'Impilo yobuhlobo iyaphela — iyashintsha, kodwa ihlala ingenzeka ngokuphelele futhi iyanelisa ngezilungiso ezifanele',
+    ],
+    h7: '7. Izimpawu ezijwayelekile nezimpawu zokubheka',
+    body7:
+      'Iningi lezinguquko ezichazwe lapha ziyizimpawu ezijwayelekile zokudlulela. Nokho, ezinye izimpawu zidinga ukunakekelwa ngokwezokwelapha masinyane.',
+    alert2Title: 'Bona udokotela uma',
+    alert2Text:
+      'Ukopha ngemva kokuqinisekiswa kokuphela kokuya esikhathini, ubuhlungu be-pelvis obungajwayelekile, izimpawu eziphazamisa kakhulu impilo yansuku zonke, noma noma yikuphi ukungabaza okuqhubekayo.',
+    h8: '8. Amathiphu asebenzayo ansuku zonke',
+    dailyHabits: [
+      'Ukudla okunothile nge-calcium nentambo',
+      'Ukuzivocavoca njalo',
+      'Umkhuba wokulala ozinzile',
+      'Izikhathi zansuku zonke zokuphumula',
+    ],
+    h9: '9. Okubalulekile okufanele ukukhumbule',
+    tip3Title: 'Kuhle ukwazi',
+    tip3Text:
+      'Ukudlulela ekupheleni kokuya esikhathini nokuphela kokuya esikhathini kuyizigaba zemvelo, akusona isifo. Izixazululo eziningi zikhona zokukusiza udlule kulokhu kudlulela ngokukhululeka kakhulu: uchwepheshe wezempilo uhlala eyisisetshenziswa esingcono kakhulu sokuzivumelanisa nesimo sakho.',
+    shareMessage: 'Ukuqonda ukudlulela ekupheleni kokuya esikhathini — AWA',
+  },
+  xh: {
+    badge: 'I-PERIMENOPAUSE NE-MENOPAUSE',
+    title: 'Ukuyiqonda inguquko ye-menopause',
+    metaDuration: 'Imizuzu eli-10 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Ulwazi oluhlolisisiweyo',
+    intro:
+      'Oko kutshintsha kancinci, iminyaka ngaphambi kokuba ixesha lokuya exesheni liyeke, nendlela yokujongana nesi sigaba ngokucacileyo ngakumbi.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'I-perimenopause ne-menopause: iinkcazo',
+      'Imijikelo engaqhelekanga ngakumbi',
+      'Isiqaqa nemizwa',
+      'Ubudlelwane bomyeni nomfazi nokoma kwesini sasetyhini',
+      'Ubunzima nokutshintsha kokutya komzimba',
+      'Iintsomi eziqhelekileyo ngemenopause',
+      'Iimpawu eziqhelekileyo kunye nemiqondiso yokuqaphela',
+      'Amacebiso asebenzayo emihla ngemihla',
+      'Eyona nto ibalulekileyo',
+    ],
+    h1: '1. I-perimenopause ne-menopause: iinkcazo',
+    body1a:
+      'I-perimenopause ibhekisa kwixesha lenguquko yeehomoni elandulela i-menopause: inokuqala iminyaka emininzi kwangaphambili, ngokubanzi ukusuka kwiminyaka engamashumi amane ukuya phambili, kunye namanqanaba e-estrogen aguquguquka ngokungaqhelekanga.',
+    body1b:
+      'I-menopause, ngakolunye uhlangothi, yindawo ethile yexesha: iqinisekiswa emva kweenyanga ezili-12 ezilandelelanayo ngaphandle kokuya exesheni, ngaphandle komnye umbangela. EFrance, yenzeka ngokomyinge malunga neminyaka engama-51, nangona le minyaka ihluka ngokwendalo komnye umfazi ukuya komnye.',
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'Umfazi ngamnye uyiva ngokwahlukileyo le nguquko, kwixesha nasebukhulu beempawu. Ukuthetha ngayo ngokuphandle kukunceda uyilindele ngcono.',
+    h2: '2. Imijikelo engaqhelekanga ngakumbi',
+    body2:
+      'Enye yeempawu zokuqala ze-perimenopause idla ngokuba kukutshintsha kwesantya somjikelo: imijikelo inokuba mifutshane, mide, ityhalelekile, okanye ibe nokuhamba kokopha okwahlukileyo inyanga ngenyanga.',
+    alert1Title: 'Nceda uqaphele',
+    alert1Text:
+      'Ukopha okukhulu kakhulu, ukopha okwenzeka kusondelelene kakhulu, okanye ukopha okwenzeka emva konyaka ungayanga exesheni kufuna icebiso lezonyango, kuba ezi azithathwa njengeempawu eziqhelekileyo zenguquko.',
+    h3: '3. Isiqaqa nemizwa',
+    body3a:
+      'Ukwehla nokuguquguquka kwe-estrogen ne-progesterone kunokuphazamisa isiqaqa (ukulala nokuvuka ebusuku) kwaye kunokuhamba nokucaphuka, ukhathazeko, okanye utshintsho lwemizwa olungaqhelekanga.',
+    body3b:
+      'Olu tshintsho lunesizathu sendalo esiyinyani: alubonisi ukunqongophala kwamandla okuzimisela okanye ingxaki yengqondo yodwa.',
+    h4: '4. Ubudlelwane bomyeni nomfazi nokoma kwesini sasetyhini',
+    body4:
+      'Ukwehla kwe-estrogen kunokukhokelela ekomeni kwesini sasetyhini, ngamanye amaxesha kubangele ukungakhululeki okanye intlungu ngexesha lesondo. Umnqweno nawo unokutshintsha, unyuke okanye wehle, ngokwomfazi.',
+    tip2Title: 'Kulungile ukwazi',
+    tip2Text:
+      'Kukho izisombululo ezilula (iilubricants, iimoisturizer zesini sasetyhini, unyango lwasekhaya): ukuthetha nengcali yezempilo kunganceda ufumane isisombululo esifanelekileyo, ngaphandle kokuzithoba.',
+    h5: '5. Ubunzima nokutshintsha kokutya komzimba',
+    body5:
+      'Ukutshintsha kokutya komzimba kunokucotha kancinci ngeli xesha, kwaye ukwabiwa kwamafutha kuthanda ukuya esiswini. Olu tshintsho luqhelekile kwaye aluxhomekekanga kwamandla okuzimisela kuphela.',
+    h6: '6. Iintsomi eziqhelekileyo ngemenopause',
+    myths: [
+      'I-menopause "yenzeka kanye ngequbuliso" — enyanisweni, ilandelwa yiminyaka emininzi yenguquko (i-perimenopause)',
+      'Zonke iimpawu zinzima kumntu wonke — ubukhulu bazo buyahluka kakhulu komfazi ukuya komnye',
+      'Akukho nto inokwenziwa — izisombululo ezininzi, ezeehomoni okanye ezingezizo, zikhona zokunceda iimpawu ezikhathazayo',
+      'Ubomi bobudlelwane buyaphela — buyatshintsha, kodwa buseyinto enokwenzeka ngokupheleleyo nenomtsalane ngokulungiswa okufanelekileyo',
+    ],
+    h7: '7. Iimpawu eziqhelekileyo kunye nemiqondiso yokuqaphela',
+    body7:
+      'Uninzi lwenguquko echazwe apha ziindlela eziqhelekileyo zenguquko. Noko ke, ezinye iimpawu zifuna ingqwalaselo yezonyango ngokukhawuleza.',
+    alert2Title: 'Bona gqirha ukuba',
+    alert2Text:
+      'Ukopha emva kokuqinisekiswa kwe-menopause, intlungu engaqhelekanga yenyongo, iimpawu eziphazamisa kakhulu ubomi bemihla ngemihla, okanye nawuphi na ukrokrelo oluqhubekayo.',
+    h8: '8. Amacebiso asebenzayo emihla ngemihla',
+    dailyHabits: [
+      'Ukutya okuncinci kwekhalsiyam nefayibha',
+      'Umthambo womzimba rhoqo',
+      'Isiqhelo sesiqaqa esizinzileyo',
+      'Amaxesha ansuku zonke okuphumla',
+    ],
+    h9: '9. Eyona nto ibalulekileyo',
+    tip3Title: 'Kulungile ukwazi',
+    tip3Text:
+      'I-perimenopause ne-menopause ngamanqanaba endalo, ayisiyo isifo. Izisombululo ezininzi zikhona zokunceda uthabathe le nguquko ngokulula ngakumbi: ingcali yezempilo isengowona mthombo ungcono wokuzilungisa kwimeko yakho.',
+    shareMessage: 'Ukuyiqonda inguquko ye-menopause — AWA',
+  },
+  sn: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Kunzwisisa kuchinjira kumenopause',
+    metaDuration: 'Kuverenga kwemaminetsi 10',
+    metaType: 'Gwaro',
+    metaLevel: 'Anotanga',
+    metaValidated: 'Zvakaongororwa',
+    intro:
+      'Zvinochinja zvishoma nezvishoma, makore kuenda kumwedzi kusati kwapera, uye nzira yekusvika panhanho iyi nekujeka kukuru.',
+    contentsTitle: 'Muchinyorwa chino',
+    topics: [
+      'Perimenopause ne menopause: tsananguro',
+      'Macycle asingarongeki zvakanyanya',
+      'Kurara nemamiriro emwoyo',
+      'Hukama hwemuchato nekuoma kwevhazhina',
+      'Huremu nemetabolism',
+      'Ngano dzinowanzoitika pamusoro pe menopause',
+      'Zviratidzo zvakajairika nezviratidzo zvekutarisa',
+      'Mazano ekushandisa ezuva nezuva',
+      'Zvakakosha kuyeuka',
+    ],
+    h1: '1. Perimenopause ne menopause: tsananguro',
+    body1a:
+      'Perimenopause inoreva nguva yekuchinjira kwema hormone iri pamberi pe menopause: inogona kutanga makore akati wandei kare, kazhinji kubva pamakore ako makumi mana, nemwero we estrogen uchikwira nekudzika zvisina kurongeka.',
+    body1b:
+      'Menopause, kune rimwe divi, iboka renguva chairo: inosimbiswa mushure memwedzi 12 inoteverana usina kuenda kumwedzi, pasina chimwe chikonzero. MuFrance, inoitika pazera rinenge makore 51, kunyange zera iri richisiyana zvechisikirwo kubva kumukadzi kuenda kune mumwe.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Mukadzi wese anoona kuchinjira uku zvakasiyana, kubva panguva kusvika pakusimba kwezviratidzo. Kutaura pachena nezvazvo kunokubatsira kuzvitarisira zviri nani.',
+    h2: '2. Macycle asingarongeki zvakanyanya',
+    body2:
+      'Chimwe chezviratidzo zvekutanga zve perimenopause kazhinji ishanduko mukurongeka kwecycle: macycle anogona kuva mapfupi, marefu, akasiyaniswa zvakanyanya, kana kuva neropa rakasiyana kubva mwedzi kuenda kumwedzi.',
+    alert1Title: 'Ziva izvi',
+    alert1Text:
+      'Ropa rakawanda kwazvo, ropa rinoitika rakaswederana zvikuru, kana ropa rinoitika mushure megore usina kuenda kumwedzi zvinoda zano rekurapwa, nokuti hazvizi zviratidzo zvakajairika zvekuchinjira.',
+    h3: '3. Kurara nemamiriro emwoyo',
+    body3a:
+      'Kudzika nekukwira kwe estrogen ne progesterone kunogona kukanganisa kurara (kunetseka kurara, kumuka husiku) uye kunogona kuperekedzwa nekutsamwa, kunetseka, kana kushanduka kwemamiriro emwoyo kusina kujairika.',
+    body3b:
+      'Shanduko idzi dzine tsananguro yechokwadi yemuviri: hadzireve kushaya kuda kana dambudziko rega repfungwa.',
+    h4: '4. Hukama hwemuchato nekuoma kwevhazhina',
+    body4:
+      'Kudzika kwe estrogen kunogona kutungamira kukuoma kwevhazhina, dzimwe nguva kuchikonzera kusanyaradzwa kana kurwadziwa panguva yehukama. Kuda kunogonawo kuchinja, kuwedzera kana kudzikira, zvichienderana nemukadzi.',
+    tip2Title: 'Zvakanaka kuziva',
+    tip2Text:
+      'Mhinduro dzakareruka dziripo (lubricants, vaginal moisturizers, kurapwa kwenzvimbo imwe chete): kutaura nenyanzvi yezveutano kunogona kukubatsira kuwana mhinduro yakakodzera, pasina kunyara.',
+    h5: '5. Huremu nemetabolism',
+    body5:
+      'Metabolism inogona kunonoka zvishoma panguva ino, uye kugoverwa kwemafuta kunowanzoenda kudumbu. Shanduko idzi dzakajairika uye hadzizoenderani nekuda kwega.',
+    h6: '6. Ngano dzinowanzoitika pamusoro pe menopause',
+    myths: [
+      'Menopause "inoitika pakarepo" — chaizvo, inotangirwa nemakore akati wandei ekuchinjira (perimenopause)',
+      'Zviratidzo zvose zvakasimba kune wese — kusimba kwazvo kunosiyana zvakanyanya kubva kumukadzi kuenda kune mumwe',
+      'Hapana chingaitwe — mhinduro dzakawanda, dzine hormone kana dzisina, dziripo kuderedza zviratidzo zvinonetsa',
+      'Hupenyu hwemuchato hunopera — hunochinja, asi hunoramba huchigoneka uye hunogutsa nekugadzirisa kwakakodzera',
+    ],
+    h7: '7. Zviratidzo zvakajairika nezviratidzo zvekutarisa',
+    body7:
+      'Shanduko dzakawanda dzakatsanangurwa pano dzakajairika dzekuchinjira. Zvisinei, zviratidzo zvimwe zvinoda kutariswa nechiremba nekukurumidza.',
+    alert2Title: 'Ona chiremba kana',
+    alert2Text:
+      'Kubuda ropa mushure me menopause yakasimbiswa, kurwadziwa kusina kujairika mudumbu repazasi, zviratidzo zvinokanganisa hupenyu hwezuva nezuva zvakanyanya, kana kusava nechokwadi kunoramba kuripo.',
+    h8: '8. Mazano ekushandisa ezuva nezuva',
+    dailyHabits: [
+      'Kudya kune calcium nefiber yakawanda',
+      'Kuita zviitiko zvemuviri nguva dzose',
+      'Tsika yakagadzikana yekurara',
+      'Nguva dzekuzorora dzezuva nezuva',
+    ],
+    h9: '9. Zvakakosha kuyeuka',
+    tip3Title: 'Zvakanaka kuziva',
+    tip3Text:
+      'Perimenopause ne menopause nhanho dzechisikirwo, kwete chirwere. Mhinduro dzakawanda dziripo dzekukubatsira kupfuura kuchinjira uku nekunyaradzwa kukuru: nyanzvi yezveutano ndiyo inoramba iri sosi yakanakisa yekuzvigadzirisa kumamiriro ako.',
+    shareMessage: 'Kunzwisisa kuchinjira kumenopause — AWA',
+  },
+  ln: {
+    badge: 'PERIMENOPAUSE MPE MENOPAUSE',
+    title: 'Kososola ntango ya kokɔta na menopause',
+    metaDuration: 'Miniti 10 ya kotánga',
+    metaType: 'Malako',
+    metaLevel: 'Ya ebandeli',
+    metaValidated: 'Makambo oyo etalelami',
+    intro:
+      'Nini ebongwanaka moke moke, mbula mingi liboso sanza esila, mpe ndenge nini ya kokɔta na ntango oyo na bopɛtɛ mingi.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Perimenopause mpe menopause: bolimbolami',
+      'Ba cycle oyo esalaka ndenge moko te mingi',
+      'Mpɔngi mpe motema',
+      'Bolingo mpe kokauka ya libumu',
+      'Kilo mpe metabolisme',
+      'Makambo ya lokuta oyo elobami mingi na ntina ya menopause',
+      'Bilembo ya malamu mpe bilembo ya kotala',
+      'Malako ya mosala ya mokolo na mokolo',
+      'Makambo ya kokanisa',
+    ],
+    h1: '1. Perimenopause mpe menopause: bolimbolami',
+    body1a:
+      'Perimenopause elimboli ntango ya mbongwana ya hormone oyo eyaka liboso ya menopause: ekoki kobanda mbula mingi liboso, mbala mingi uta mbula ya tuku minei, na ndenge ya estrogen oyo ebongwanaka na molɔngɔ te.',
+    body1b:
+      'Menopause, na ngambo mosusu, ezali ntango ya mpenza: eyebani sima ya sanza 12 elandanaka kozanga sanza, kozanga ntina mosusu. Na France, eyaka na kati-kati zingazinga ya mbula 51, atako mbula oyo ekeseni na mwasi na mwasi.',
+    tip1Title: 'Eloko ya koyeba',
+    tip1Text:
+      'Mwasi na mwasi ayokaka ntango oyo ya kokɔta na ndenge ekeseni, na ntango mpe na makasi ya bilembo. Kolobela yango polele esalisi yo kobongisa yo malamu.',
+    h2: '2. Ba cycle oyo esalaka ndenge moko te mingi',
+    body2:
+      'Moko na bilembo ya liboso ya perimenopause ezali mbala mingi mbongwana ya molɔngɔ ya cycle: ba cycle ekoki kokóma mikuse, milai, ekabwana mingi, to kozala na makila ekeseni uta sanza moko tii mosusu.',
+    alert1Title: 'Tala malamu',
+    alert1Text:
+      'Makila mingi mpenza, makila oyo ebimaka pene mingi na mosusu, to makila oyo ebimi sima ya mbula moko kozanga sanza esengi toli ya monganga, mpo bilembo oyo etalelami te lokola bilembo ya ndenge ya mbongwana.',
+    h3: '3. Mpɔngi mpe motema',
+    body3a:
+      'Kokita mpe mbongwana ya estrogen mpe progesterone ekoki kobebisa mpɔngi (kolala, kolamuka na butu) mpe ekoki kozala elongo na nkanda, kobanga, to mbongwana ya motema ya ekeseni.',
+    body3b:
+      'Mbongwana oyo ezali na ntina ya solo ya nzoto: elimboli kozanga makasi ya motema te to likambo ya kokanisa kaka moko te.',
+    h4: '4. Bolingo mpe kokauka ya libumu',
+    body4:
+      'Kokita ya estrogen ekoki komema kokauka ya libumu, mbala mosusu ememaka mpasi na ntango ya boyokani ya bolingo. Mposa ekoki mpe kobongwana, kotombwama to kokita, engebene na mwasi.',
+    tip2Title: 'Eloko ya koyeba',
+    tip2Text:
+      'Ba solution ya pɛtɛɛ ezali (ba lubrifiant, biloko ya kopesa mai na libumu, ba traitement ya esika): kolobela na moto ya mosala ya lisano ekoki kosalisa yo kozwa oyo ebongi, kozanga nsɔni.',
+    h5: '5. Kilo mpe metabolisme',
+    body5:
+      'Metabolisme ekoki kokita moke na ntango oyo, mpe ndenge mafuta ebombami ekoki kobongwana epai ya libumu. Mbongwana oyo ezali ya mbala mingi mpe etalelaka kaka makasi ya mokano te.',
+    h6: '6. Makambo ya lokuta oyo elobami mingi na ntina ya menopause',
+    myths: [
+      'Menopause "eyaka mbala moko" — na solo, eyaka sima ya mbula mingi ya mbongwana (perimenopause)',
+      'Bilembo nyonso ezali makasi mpo na bato nyonso — makasi na yango ekeseni mingi na mwasi na mwasi',
+      'Eloko moko te ekoki kosalema — ba solution mingi, ya hormone to te, ezali mpo na kokitisa bilembo oyo ezali kotungisa',
+      'Bomoi ya bolingo esilaka — ebongwanaka, kasi ekoba kozala possible mpe na esengo na ba ajustement oyo ebongi',
+    ],
+    h7: '7. Bilembo ya malamu mpe bilembo ya kotala',
+    body7:
+      'Mingi na mbongwana oyo elimbolami awa ezali bilembo ya malamu ya ntango ya kokɔta. Nzokande, bilembo mosusu esengi lisalisi ya monganga noki.',
+    alert2Title: 'Kende epai ya monganga soki',
+    alert2Text:
+      'Makila sima ya menopause eyebani, mpasi ya ekeseni na nse ya libumu, bilembo oyo ebebisi mingi bomoi ya mokolo na mokolo, to ntembe nyonso oyo esilaka te.',
+    h8: '8. Malako ya mosala ya mokolo na mokolo',
+    dailyHabits: [
+      'Kolia oyo ezali na calcium mpe fibre mingi',
+      'Misala ya nzoto mbala na mbala',
+      'Momesano ya mpɔngi oyo ebongwanaka te',
+      'Ntango ya kopema mokolo na mokolo',
+    ],
+    h9: '9. Makambo ya kokanisa',
+    tip3Title: 'Eloko ya koyeba',
+    tip3Text:
+      'Perimenopause mpe menopause ezali ba etape ya bomoto, bokono te. Ba solution mingi ezali mpo na kosalisa yo kokɔta na ntango oyo na kimia koleka: moto ya mosala ya lisano azali naino esika ya malamu mpo na kobongisa yango na likambo na yo.',
+    shareMessage: 'Kososola ntango ya kokɔta na menopause — AWA',
+  },
+  ff: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Faamugo yahde e menopause',
+    metaDuration: 'Janngugol minti 10',
+    metaType: 'Jannginoore',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Ko ndaaraa',
+    intro:
+      'Ko ɗum ɗon wayla seɗɗa seɗɗa, duuɓi adda lewru ndi ɗon hodda, e no ɗum yaha nder wakkati ndin e hakkilo ɓuri laaɓi.',
+    contentsTitle: 'Nder ɗuuɗal ndeen',
+    topics: [
+      'Perimenopause e menopause: ko ɗum woni',
+      'Doggol lewru ɗon ɓuri waylude',
+      'Dewgal e hakkilaade',
+      'Njaŋgu e wulde ɗam ɗon ɗaɗa nder ɓanndu',
+      'Ɓanndu e metabolism',
+      'Fenaande ɗuuɗɗe dow menopause',
+      'Ɓaleeji normal e ɓaleeji ko haani raarude',
+      'Ndaaneeji nyannde nyannde',
+      'Ko ɗum ɓuri fuu',
+    ],
+    h1: '1. Perimenopause e menopause: ko ɗum woni',
+    body1a:
+      'Perimenopause ko wakkati hormone ɗon wayla adda menopause: ɗum waawi fuɗɗude duuɓi ɗuuɗɗi adda, ko foti e duuɓi tettapol, e estrogen ɗon waylude ko wonaa bana kala wakkati.',
+    body1b:
+      'Menopause, nder feere, ko nyannde gooto: ɗum ɗon tabbitaa caggal lewru 12 ɗi ɗon jokka bannda ndiyam lewru, walaa sabaabu feere. Nder Farayse, ɗum ɗon wara ko foti nder duuɓi 51, kono duuɓi ndin ɗon wayla kala debbo.',
+    tip1Title: 'Ɗum ɓuri nafugo anndude',
+    tip1Text:
+      'Kala debbo ɗon yaha nder wakkati ndin feere, nder mawnude e nder ɓaleeji. Haalaade dow ɗum bannda ɗaɗugo ɗum wallay ma hawtugo ɗum moyyere.',
+    h2: '2. Doggol lewru ɗon ɓuri waylude',
+    body2:
+      'Gooto e ɓaleeji artuɗi perimenopause ko waylude no doggol lewru ɗon yaha: lewru ɗum waawi wonde ɓuri juuɗude, ɓuri juuɗude, ɓuri woɗɗude, malla ɗum ɗuuɗal feere lewru haa lewru.',
+    alert1Title: 'Jaabawol',
+    alert1Text:
+      'Ndiyam ɗuuɗɗam masin, ndiyam ɗam ɗon wara ɗam ɗon ɓuri seɗɗa e feere, malla ndiyam ɗam ɗon wara caggal hitaande bannda lewru yiɗaa ɗum haani ɗaɓɓude wallu dokotoro, ngam ɗum wonaa ɓaleeji normal nder yahde ndin.',
+    h3: '3. Dewgal e hakkilaade',
+    body3a:
+      'Hoodugo e waylude estrogen e progesterone ɗum waawi wallita dewgal (ñaawude dewgal, wilude nder jemma) e ɗum waawi wondude e hoyre, hakkilo, malla waylude hakkilaade ko wonaa ko foti.',
+    body3b:
+      'Waylude ɗin mari sabaabu ɓanndu anndiraaɗum: ɗum wonaa ko ɗum ɗon ɗaɓɓa hakkilo malla caɗeele hakkilaade gooto tan.',
+    h4: '4. Njaŋgu e wulde ɗam ɗon ɗaɗa nder ɓanndu',
+    body4:
+      'Hoodugo estrogen ɗum waawi waɗugo wulde ɗam ɗon ɗaɗa nder ɓanndu, saa\'i feere ɗum waɗa caɗeele malla muusu to gorko e debbo ɗon jooɗi. Yiɗde ɗum waawi waylude, ɗum ɓeydi malla ɗum hoodi, bana debbo.',
+    tip2Title: 'Ɗum ɓuri nafugo anndude',
+    tip2Text:
+      'Feere pamarɗe woodi (lubricant, moisturizer, nafoore ndee ɗum ɗon huutinee ko nder): haalaade e mo hesɗitini ɗum ɗum waawi wallude ma tawugo feere moyyere, bannda haya.',
+    h5: '5. Ɓanndu e metabolism',
+    body5:
+      'Metabolism ɗum waawi hoodude seɗɗa nder wakkati ndin, e nebam ɗum ɗon yaha haa reedu. Waylude ndin ɗum ɗuuɗi, ɗum ɗon jokka hakkilo tan.',
+    h6: '6. Fenaande ɗuuɗɗe dow menopause',
+    myths: [
+      'Menopause "ɗum ɗon wara fu gooto" — nder goonga, ɗum ɗon adda duuɓi ɗuuɗɗi ɗi yahde (perimenopause)',
+      'Ɓaleeji fu ɗum tiiɗɗe kala goɗɗo — mawnude maɗɗum ɗon wayla masin kala debbo',
+      'Walaa ko waawi waɗugo — feere ɗuuɗɗe, hormone malla wonaa hormone, woodi ngam raarugo ɓaleeji ɗi ɗon hoyra',
+      'Njaŋgu ɗon ɗum jokka — ɗum ɗon wayla, kono ɗum ɗon wonda e moyyere e huutinaade ndaaneeji moyyi',
+    ],
+    h7: '7. Ɓaleeji normal e ɓaleeji ko haani raarude',
+    body7:
+      'Waylude ɗuuɗɗe ɗe ɗum winndi ɗoo ko ɗum normal nder yahde ndin. Kono ɓaleeji seɗɗa ɗum haani wallu dokotoro gaaw.',
+    alert2Title: 'Yah e dokotoro to',
+    alert2Text:
+      'Ndiyam caggal menopause tabbitaaɗum, muusu hesere nder reedu, ɓaleeji ɗi ɗon wallita nyannde maaɗa masin, malla hoyre kala ɗum jokkii.',
+    h8: '8. Ndaaneeji nyannde nyannde',
+    dailyHabits: [
+      'Ñaamdu ɗum heewi calcium e fiber',
+      'Huuɗe ɓanndu wakkati',
+      'Dewgal ɗum ɗon wooɗa',
+      'Wakkati sellugo kala nyannde',
+    ],
+    h9: '9. Ko ɗum ɓuri fuu',
+    tip3Title: 'Ɗum ɓuri nafugo anndude',
+    tip3Text:
+      'Perimenopause e menopause ko wakkati anndiraaɗum, wonaa ñawu. Feere ɗuuɗɗe woodi ngam wallude ma yahde e wakkati ndin sella: mo hesɗitini ɗum ɗum ɓuri moyyude ngam hawtugo ɗum e ko ɗum woni e maaɗa.',
+    shareMessage: 'Faamugo yahde e menopause — AWA',
+  },
   id: {
     badge: 'PERIMENOPAUSE & MENOPAUSE',
     title: 'Memahami masa transisi menopause',

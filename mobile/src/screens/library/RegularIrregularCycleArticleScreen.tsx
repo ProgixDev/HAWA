@@ -476,6 +476,755 @@ const CONTENT = withBrazilianPortuguese('RegularIrregularCycle', {
       ],
       shareMessage: '周期规律还是不规律：有什么区别？ — AWA',
     },
+  'zh-Hant': {
+      badge: '週期與月經',
+      title: '週期規律還是不規律：\n有什麼區別？',
+      metaDuration: '閱讀約 5 分鐘',
+      metaValidated: '已稽核內容',
+      intro: '每個月經週期都是獨特的。瞭解什麼算「正常」，可以幫你更細緻地關注自己的健康，並發現可能的失衡。',
+      contentsTitle: '本文內容',
+      topics: [
+        '規律的月經週期：是什麼樣的？',
+        '不規律的週期：意味著什麼？',
+        '週期不規律的可能原因',
+        '什麼時候應該看醫生？',
+        '讓週期更平穩的小建議',
+      ],
+      section1Body: '週期長度在 21 到 35 天之間，且相鄰週期之間相差不到 7 天，通常被認為是規律的。',
+      section1VisualTitle: '較為穩定的節律',
+      section1VisualText: '最重要的是，在數月的時間裡觀察你自己的節律。',
+      tip1Title: '小提醒',
+      tip1Text: '每個女性都不一樣。重要的是瞭解自己的節律和它正常的變化範圍。',
+      section2Body: '週期長度經常變化或難以預測（相差超過 7 天），通常被認為是不規律的。它可能表現為週期很短、週期很長，或沒有排卵。',
+      section2VisualTitle: '更明顯的變化',
+      section2VisualText: '這些差異可能是暫時的，也可能持續數個週期。',
+      alertTitle: '請注意',
+      alertText: '暫時的不規律可能是正常的（壓力、荷爾蒙變化、疲勞……）。但如果持續存在，就有必要查明原因。',
+      causes: [
+        '壓力與焦慮',
+        '荷爾蒙失衡',
+        '睡眠不足與疲勞',
+        '體重過低或過高',
+        '多囊性卵巢症候群（PCOS）或其他疾病',
+      ],
+      checklist: [
+        '超過 3 個月沒有月經（懷孕或哺乳期除外）',
+        '週期很長（超過 90 天）或很短（少於 21 天）',
+        '劇烈疼痛，影響正常生活',
+        '出血量很大或不規則',
+        '正在備孕，而且似乎沒有排卵',
+      ],
+      advice: [
+        '均衡飲食',
+        '充足飲水',
+        '體育活動',
+        '管理壓力',
+        '優質睡眠',
+      ],
+      shareMessage: '週期規律還是不規律：有什麼區別？ — AWA',
+    },
+  ar: {
+    badge: 'الدورة والحيض',
+    title: 'دورة منتظمة أو غير منتظمة:\nما الفرق؟',
+    metaDuration: 'قراءة 5 دقائق',
+    metaValidated: 'محتوى مراجَع',
+    intro:
+      'كل دورة شهرية فريدة. وفهم ما يُعدّ «طبيعيًا» قد يساعدك على متابعة صحتك عن كثب وملاحظة أي اختلالات محتملة.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'الدورة الشهرية المنتظمة: ما هي؟',
+      'الدورة غير المنتظمة: ماذا تعني؟',
+      'الأسباب المحتملة لعدم انتظام الدورة',
+      'متى يجب أن تراجعي الطبيب؟',
+      'نصائح لدورة أكثر توازنًا',
+    ],
+    section1Body:
+      'تُعدّ الدورة منتظمة عندما يتراوح طولها بين 21 و35 يومًا، مع فرق يقل عن 7 أيام بين دورة وأخرى.',
+    section1VisualTitle: 'إيقاع ثابت نسبيًا',
+    section1VisualText:
+      'الأهم هو مراقبة إيقاعك الخاص على مدى الأشهر.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'كل امرأة مختلفة. المهم أن تعرفي إيقاعك الخاص وتفاوتاته الطبيعية.',
+    section2Body:
+      'تُعدّ الدورة غير منتظمة عندما يتفاوت طولها كثيرًا أو بشكل غير متوقع (فرق يزيد على 7 أيام). وقد يظهر ذلك في دورات قصيرة جدًا أو طويلة جدًا أو غياب الإباضة.',
+    section2VisualTitle: 'تفاوتات أوضح',
+    section2VisualText:
+      'قد تكون هذه الاختلافات مؤقتة أو تستمر على مدى عدة دورات.',
+    alertTitle: 'يرجى الانتباه',
+    alertText:
+      'قد يكون عدم الانتظام المؤقت طبيعيًا (التوتر، والتغيّرات الهرمونية، والإرهاق…). لكن إذا استمر، فمن المهم البحث عن السبب.',
+    causes: [
+      'التوتر والقلق',
+      'اختلالات هرمونية',
+      'قلة النوم والإرهاق',
+      'وزن منخفض جدًا أو مرتفع جدًا',
+      'متلازمة تكيّس المبايض أو حالات طبية أخرى',
+    ],
+    checklist: [
+      'انقطاع الحيض لأكثر من 3 أشهر (خارج الحمل والرضاعة)',
+      'دورات طويلة جدًا (أكثر من 90 يومًا) أو قصيرة جدًا (أقل من 21 يومًا)',
+      'ألم شديد يمنعك من عيش حياتك بشكل طبيعي',
+      'نزف غزير جدًا أو غير منتظم',
+      'إذا كنتِ تحاولين الحمل ويبدو أن الإباضة غائبة',
+    ],
+    advice: [
+      'نظام غذائي متوازن',
+      'ترطيب كافٍ',
+      'نشاط بدني',
+      'إدارة التوتر',
+      'نوم جيد',
+    ],
+    shareMessage: 'دورة منتظمة أو غير منتظمة: ما الفرق؟ — AWA',
+  },
+  kab: {
+    badge: 'DDAWRA & TIREGWA',
+    title: 'Ddawra tamagnut neɣ ur nelli ara d tamagnut:\nd acu i d amgirred?',
+    metaDuration: 'Taɣuri n 5 n tisdidin',
+    metaValidated: 'Agbur yettwasenqed',
+    intro:
+      'Yal ddawra n tiregwa tbedd s timmad-is. Ma tfehmeḍ acu ttwaḥsaben d “amagnu” yettɛawan ad tḍefreḍ ṣṣeḥḥa-inek ugar u ad tafeḍ ayen izmer ad yili d ugur.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'Ddawra n tiregwa tamagnut: d acu-t?',
+      'Ddawra ur nelli ara d tamagnut: acu i d-tsemmal?',
+      'Ssebbat izemren n ddawra ur nelli ara d tamagnut',
+      'Melmi ara tẓerreḍ aṭṭbib?',
+      'Iwellihen i ddawra yelhan ugar',
+    ],
+    section1Body:
+      'Ddawra ttwaḥsab d tamagnut ma yella teɣzi-s temxalef gar 21 d 35 n wussan, s umgirred ur tezdi ara 7 n wussan seg yiwet ddawra ɣer tayeḍ.',
+    section1VisualTitle: 'Agmuḍ yeqqwan s wudem amatu',
+    section1VisualText:
+      'Ayen yelhan d ad tɛassed agmuḍ-ik deg wayyuren.',
+    tip1Title: 'Yelha ad tessneḍ',
+    tip1Text:
+      'Yal tameṭṭut temxalaf. Ayen yelhan d ad tessneḍ agmuḍ-ik d yisnifilen-is imagnuyen.',
+    section2Body:
+      'Ddawra ttwaḥsab ur nelli ara d tamagnut ma yella teɣzi-s temxalef s waṭas neɣ ur nelli ara d ayen yettwaẓran (amgirred n ugar n 7 n wussan). Waya izmer ad yettban deg ddurat imecṭuḥen aṭas, ddurat ɣezzifen aṭas, neɣ ulac ovulation.',
+    section2VisualTitle: 'Isnifilen ittwaẓran ugar',
+    section2VisualText:
+      'Imgirred-a zemren ad ilin n lweqt kan neɣ ad kemmlen deg waṭas n ddurat.',
+    alertTitle: 'Ur tettuḍeḍ ara',
+    alertText:
+      'Ddawra ur nelli ara d tamagnut n lweqt kan tezmer ad tili d tamagnut (aɣilif, isnifilen n yihurmunen, leɛyaṭ…). Maca ma tkemmel, yelha ad tnadiḍ ssebba.',
+    causes: [
+      'Aɣilif & uṭṭun',
+      'Ur nelli ara d amagnu n yihurmunen',
+      'Ulac anẓar & leɛyaṭ',
+      'Azal ameẓẓyan aṭas neɣ ameqqran aṭas',
+      'PCOS neɣ tuffiwin-nniḍen n ṣṣeḥḥa',
+    ],
+    checklist: [
+      'Ulac tiregwa deg ugar n 3 n wayyuren (ɣer berra n lḥemla/uẓẓal)',
+      'Ddurat ɣezzifen aṭas (ugar n 90 n wussan) neɣ ddurat imecṭuḥen aṭas (ddaw 21 n wussan)',
+      'Lweǧɛ ameqqran i k-yeǧǧan ur tettidireḍ ara s wudem amagnu',
+      'Idammen ameqqran aṭas neɣ ur nelli ara d imagnuyen',
+      'Ma yella tettɛeddiḍ ad d-tawiḍ lḥemla u ovulation tettban ur tella ara',
+    ],
+    advice: [
+      'Tuččit yemxalfen',
+      'Asew yekfan n waman',
+      'Tagnit n ugris',
+      'Aḥkem deg uɣilif',
+      'Anẓar yelhan',
+    ],
+    shareMessage: 'Ddawra tamagnut neɣ ur nelli ara d tamagnut: d acu i d amgirred? — AWA',
+  },
+  om: {
+    badge: 'MARSAA FI LAGUU',
+    title: 'Marsaa sirrii ykn sirrii hin taane:\ngaraagarummaan isaa maali?',
+    metaDuration: 'Daqiiqaa 5 dubbisuu',
+    metaValidated: 'Qabiyyee madaalame',
+    intro:
+      'Marsaan laguu hundi kan adda. “Baratamaa” jedhamee ilaalamu hubachuun fayyaa kee caalaatti hordofuu fi madaallii dogoggoraa tokko tokko arguuf si gargaaruu danda\'a.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Marsaan laguu sirrii: maali?',
+      'Marsaa sirrii hin taane: maal jechuu?',
+      'Sababoota marsaa sirrii hin taane danda\'aman',
+      'Yoom doktora argu qabda?',
+      'Gorsa marsaa madaalawaa ta\'uuf',
+    ],
+    section1Body:
+      'Marsaan yeroo dheerinni isaa guyyaa 21 fi 35 gidduutti garaagara ta\'u, marsaa tokko irraa gara kan biraatti garaagarummaan guyyaa 7 gadi ta\'u sirrii jedhamee ilaalama.',
+    section1VisualTitle: 'Sirna ammoo kan adda hin ta\'in',
+    section1VisualText:
+      'Waan baay\'ee murteessu ji\'oota keessatti sirna kee mataa kee ilaaluu dha.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Dubartiin hundi garaagara. Waan murteessu sirna kee mataa kee fi jijjiirama baratamaa isaa beekuu dha.',
+    section2Body:
+      'Marsaan yeroo dheerinni isaa yeroo baay\'ee ykn hin eegamne garaagara ta\'u (garaagarummaa guyyaa 7 ol) sirrii hin taane jedhamee ilaalama. Kun marsaa baay\'ee gabaabaa, marsaa baay\'ee dheeraa, ykn ovulation dhabamuun mul\'achuu danda\'a.',
+    section2VisualTitle: 'Garaagarummaa caalaatti mul\'atu',
+    section2VisualText:
+      'Garaagarummaan kun yeroo muraasaaf ta\'uu ykn marsaa baay\'ee irratti turuu danda\'a.',
+    alertTitle: 'Hubadhu',
+    alertText:
+      'Sirrii dhabuun yeroo muraasaaf baratamaa ta\'uu danda\'a (dhiphina, jijjiirama hormoonii, dadhabbii…). Garuu yoo itti fufe, sababa isaa barbaaduun barbaachisaa dha.',
+    causes: [
+      'Dhiphina fi yaaddoo',
+      'Madaallii hormoonii dogoggoraa',
+      'Rafuu dhabuu fi dadhabbii',
+      'Ulfinni baay\'ee gadi ykn baay\'ee ol',
+      'PCOS ykn rakkoo yaalaa biraa',
+    ],
+    checklist: [
+      'Laguun ji\'a 3 ol dhabamuu (ulfaa/hoosisuu alatti)',
+      'Marsaa baay\'ee dheeraa (guyyaa 90 ol) ykn baay\'ee gabaabaa (guyyaa 21 gadi)',
+      'Dhukkubbii cimaan jireenya baratamaa si gufachiisu',
+      'Dhiiga baay\'ee ykn sirrii hin taane',
+      'Yoo ulfaa ta\'uuf yaaltee ovulation hin jiru fakkaate',
+    ],
+    advice: [
+      'Nyaata madaalawaa',
+      'Bishaan gahaa dhuguu',
+      'Sochii qaamaa',
+      'Dhiphina to\'achuu',
+      'Rafuu qulqullina qabu',
+    ],
+    shareMessage: 'Marsaa sirrii ykn sirrii hin taane: garaagarummaan isaa maali? — AWA',
+  },
+  ti: {
+    badge: 'ዑደትን ወርሓዊ ዓደትን',
+    title: 'ወትሩ ወይ ዘይወትሩ ዑደት፦\nእንታይ እዩ ፍልልዮም?',
+    metaDuration: '5 ደቒቕ ንባብ',
+    metaValidated: 'ዝተገምገመ ትሕዝቶ',
+    intro:
+      'ነፍሲ ወከፍ ወርሓዊ ዑደት ፍሉይ እዩ። “ልሙድ” ዝብሃል ምርዳእ ጥዕናኺ ብዝቐረበ ንምክትታልን ዝኽእሉ ዘይምምጣንን ንምልላይን ክሕግዝ ይኽእል።',
+    contentsTitle: 'ኣብዚ ጽሑፍ',
+    topics: [
+      'ወትሩ ወርሓዊ ዑደት፦ እንታይ እዩ?',
+      'ዘይወትሩ ዑደት፦ እንታይ ማለት እዩ?',
+      'ናይ ዘይወትሩ ዑደት ዝኽኣሉ ምኽንያታት',
+      'ሓኪም መዓስ ትርእይ?',
+      'ንዝሓሸ ሚዛን ዑደት ምኽሪታት',
+    ],
+    section1Body:
+      'ዑደት ወትሩ ተባሂሉ ይሕሰብ ንውሓቱ ኣብ መንጎ 21ን 35ን መዓልታት ምስ ዝኸውን፣ ካብ ሓደ ዑደት ናብ ካልእ ድማ ካብ 7 መዓልታት ትሕቲ ፍልልይ ምስ ዘለዎ።',
+    section1VisualTitle: 'ዳርጋ ቀጻሊ ቅኑዕ',
+    section1VisualText:
+      'እቲ ዝዓበየ ነገር ኣብ ዓመታት ባዕልኻ ቅኑዕካ ምዕዛብ እዩ።',
+    tip1Title: 'ጽቡቕ ምፍላጥ',
+    tip1Text:
+      'ነፍሲ ወከፍ ሰበይቲ ዝተፈለየት እያ። እቲ ዘገድስ ባዕልኻ ቅኑዕካን ልሙድ ለውጥታቱን ምፍላጥ እዩ።',
+    section2Body:
+      'ዑደት ዘይወትሩ ተባሂሉ ይሕሰብ ንውሓቱ ብዙሕ ግዜ ወይ ብዘይተጸበናዮ መንገዲ ምስ ዝቕየር (ልዕሊ 7 መዓልታት ፍልልይ)። እዚ ኣዝዮም ሓጸርቲ ዑደታት፣ ኣዝዮም ነዊሕቲ ዑደታት፣ ወይ ኦቭዩሌሽን ዘይምህላው ኮይኑ ክርአ ይኽእል።',
+    section2VisualTitle: 'ዝያዳ ርኡይ ለውጥታት',
+    section2VisualText:
+      'እዞም ፍልልያት ግዜያዊ ክኾኑ ወይ ኣብ ብዙሓት ዑደታት ክቕጽሉ ይኽእሉ።',
+    alertTitle: 'ተዓዘብ',
+    alertText:
+      'ግዜያዊ ዘይወትሩ ልሙድ ክኸውን ይኽእል (ጭንቀት፣ ናይ ሆርሞን ለውጥታት፣ ድኻም…)። ግን እንተ ቀጺሉ፣ ምኽንያቱ ምርምር ኣገዳሲ እዩ።',
+    causes: [
+      'ጭንቀትን ሻቕሎትን',
+      'ናይ ሆርሞን ዘይምሚዛን',
+      'ድቃስ ሕጽረትን ድኻምን',
+      'ኣዝዩ ትሑት ወይ ልዑል ክብደት',
+      'PCOS ወይ ካልኦት ሕክምናዊ ኩነታት',
+    ],
+    checklist: [
+      'ልዕሊ 3 ኣዋርሕ ወርሓዊ ዓደት ዘይምርኣይ (ካብ ጥንሲ/ጥባ ምጥባው ወጻኢ)',
+      'ኣዝዮም ነዊሕቲ ዑደታት (ልዕሊ 90 መዓልታት) ወይ ኣዝዮም ሓጸርቲ ዑደታት (ትሕቲ 21 መዓልታት)',
+      'ብልሙድ ከይትነብር ዘይፈቅድ ጽኑዕ ቃንዛ',
+      'ኣዝዩ ብዙሕ ወይ ዘይወትሩ ደም ምፍሳስ',
+      'ንምጥንሳስ እንተ ትፍትኒ ኦቭዩሌሽን ዘየለ ዝመስል እንተ ኮይኑ',
+    ],
+    advice: [
+      'ዝተመጣጠነ ኣመጋግባ',
+      'ግቡእ ማይ ምስታይ',
+      'ኣካላዊ ንጥፈት',
+      'ጭንቀት ምሕዛል',
+      'ጽቡቕ ድቃስ',
+    ],
+    shareMessage: 'ወትሩ ወይ ዘይወትሩ ዑደት፦ እንታይ እዩ ፍልልዮም? — AWA',
+  },
+  rw: {
+    badge: 'UKWEZI N’IMIHANGO',
+    title: 'Ukwezi gutunganye cyangwa kudatunganye:\nitandukaniro ni irihe?',
+    metaDuration: 'Isomwa mu minota 5',
+    metaValidated: 'Ibikubiyemo byasuzumwe',
+    intro:
+      'Buri kwezi kw’imihango kuratandukanye. Gusobanukirwa icyitwa “gisanzwe” bishobora kugufasha gukurikirana ubuzima bwawe neza no kubona ibishobora kuba bidatunganye.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Ukwezi kw’imihango gutunganye: ni iki?',
+      'Ukwezi kudatunganye: bisobanura iki?',
+      'Impamvu zishoboka z’ukwezi kudatunganye',
+      'Ni ryari ukwiye kujya kwa muganga?',
+      'Inama z’ukwezi kuringaniye kurushaho',
+    ],
+    section1Body:
+      'Ukwezi kubarwa nk’igutunganye iyo uburebure bwako buri hagati y’iminsi 21 na 35, n’itandukaniro riri munsi y’iminsi 7 hagati y’ukwezi n’ukundi.',
+    section1VisualTitle: 'Uburyo bumeze neza',
+    section1VisualText:
+      'Icy’ingenzi ni ukwitegereza uburyo bwawe mu mezi.',
+    tip1Title: 'Ni byiza kubimenya',
+    tip1Text:
+      'Buri mugore aratandukanye. Icy’ingenzi ni ukumenya uburyo bwawe n’impinduka zabwo zisanzwe.',
+    section2Body:
+      'Ukwezi kubarwa nk’igudatunganye iyo uburebure bwako buhinduka kenshi cyangwa mu buryo butateganywa (itandukaniro ry’iminsi irenga 7). Bishobora kugaragara nk’ukwezi kugufi cyane, ukwezi kurekire cyane, cyangwa kudahari kwa ovulation.',
+    section2VisualTitle: 'Impinduka zigaragara cyane',
+    section2VisualText:
+      'Aya matandukaniro ashobora kuba by’agateganyo cyangwa agakomeza mu mezi menshi.',
+    alertTitle: 'Icyitonderwa',
+    alertText:
+      'Kudatunganya by’agateganyo bishobora kuba bisanzwe (umunaniro w’umutima, impinduka z’imisemburo, kunanirwa…). Ariko niba bikomeza, ni ngombwa gushaka impamvu.',
+    causes: [
+      'Umunaniro w’umutima n’impungenge',
+      'Imisemburo itaringaniye',
+      'Kubura ibitotsi no kunanirwa',
+      'Ibiro biri hasi cyane cyangwa hejuru cyane',
+      'PCOS cyangwa izindi ndwara',
+    ],
+    checklist: [
+      'Nta mihango mu gihe kirenga amezi 3 (hanze yo gutwita/konsa)',
+      'Ukwezi kurekire cyane (kurenga iminsi 90) cyangwa kugufi cyane (munsi y’iminsi 21)',
+      'Ububabare bukomeye bugutesha kubaho mu buryo busanzwe',
+      'Kuva amaraso menshi cyane cyangwa adahoraho',
+      'Niba ugerageza gusama kandi ovulation isa nk’itabaho',
+    ],
+    advice: [
+      'Indyo yuzuye',
+      'Kunywa amazi ahagije',
+      'Imyitozo ngororamubiri',
+      'Kugenzura umunaniro w’umutima',
+      'Gusinzira neza',
+    ],
+    shareMessage: 'Ukwezi gutunganye cyangwa kudatunganye: itandukaniro ni irihe? — AWA',
+  },
+  rn: {
+    badge: 'URUZINDUKO N\'IMIHANGO',
+    title: 'Uruzinduko ruhoraho canke rudahoraho:\nni irihe tandukaniro?',
+    metaDuration: 'Soma muminuta 5',
+    metaValidated: 'Ibikorwa vyasuzumwe',
+    intro:
+      'Uruzinduko rw\'imihango rwose ruratandukanye. Gusobanukirwa icitwa “gisanzwe” bishobora kugufasha gukurikirana ubuzima bwawe neza no kubona ukudahwana gushoboka.',
+    contentsTitle: 'Muri iyi nkuru',
+    topics: [
+      'Uruzinduko rw\'imihango ruhoraho: ni iki?',
+      'Uruzinduko rudahoraho: bisobanura iki?',
+      'Ivyoba bitera uruzinduko rudahoraho',
+      'Ni ryari wobona muganga?',
+      'Impanuro z\'uruzinduko ruhwanye neza',
+    ],
+    section1Body:
+      'Uruzinduko ruraharurwa nk\'uruhoraho iyo uburebure bwarwo buri hagati y\'iminsi 21 na 35, n\'itandukaniro riri munsi y\'iminsi 7 hagati y\'uruzinduko n\'urundi.',
+    section1VisualTitle: 'Ingene bigenda bisa n\'ibihora',
+    section1VisualText:
+      'Icingenzi ni ukwitegereza ingene ugenda wowe uko amezi ahita.',
+    tip1Title: 'Ni vyiza kubimenya',
+    tip1Text:
+      'Umugore wese aratandukanye. Icingenzi ni ukumenya ingene ugenda wowe n\'impinduka zisanzwe zawo.',
+    section2Body:
+      'Uruzinduko ruraharurwa nk\'urudahoraho iyo uburebure bwarwo butandukana kenshi canke mu buryo budateganijwe (itandukaniro rirenga iminsi 7). Bishobora kugaragara nk\'inzinduko ngufi cane, ndende cane, canke kutagira ovulation.',
+    section2VisualTitle: 'Impinduka zigaragara cane',
+    section2VisualText:
+      'Ayo matandukaniro ashobora kuba y\'igihe gito canke agakomeza mu nzinduko nyinshi.',
+    alertTitle: 'Ibuka',
+    alertText:
+      'Ukudahoraho kw\'igihe gito gushobora kuba gusanzwe (umunaniro wo mu mutima, impinduka za hormone, umunaniro w\'umubiri…). Ariko iyo gukomeje, ni ngirakamaro gushakisha igitera.',
+    causes: [
+      'Umunaniro wo mu mutima n\'impungenge',
+      'Ukudahwana kwa hormone',
+      'Kubura ibitotsi n\'umunaniro',
+      'Uburemere buri hasi cane canke buri hejuru cane',
+      'PCOS canke izindi ndwara',
+    ],
+    checklist: [
+      'Kutagira imihango amezi arenga 3 (hatarimwo igihe co gutwita/konsa)',
+      'Inzinduko ndende cane (iminsi irenga 90) canke ngufi cane (iminsi iri munsi ya 21)',
+      'Ububabare bukomeye bukubuza kubaho bisanzwe',
+      'Kuva amaraso menshi cane canke adahoraho',
+      'Niba ugerageza gutwita kandi ovulation isa nk\'itaba',
+    ],
+    advice: [
+      'Ifunguro rirangwa n\'uburinganire',
+      'Kunywa amazi ahagije',
+      'Imyitozo y\'umubiri',
+      'Kugenzura umunaniro wo mu mutima',
+      'Ibitotsi vyiza',
+    ],
+    shareMessage: 'Uruzinduko ruhoraho canke rudahoraho: ni irihe tandukaniro? — AWA',
+  },
+  ig: {
+    badge: 'OKIRIKIRI NA NSỌ ỌNWA',
+    title: 'Okirikiri nkịtị ma ọ bụ nke na-adịghị nkịtị:\nkedu ọdịiche?',
+    metaDuration: 'Nkeji 5 iji gụọ',
+    metaValidated: 'Ọdịnaya e nyochaworo',
+    intro:
+      'Okirikiri nsọ ọnwa ọ bụla pụrụ iche. Ịghọta ihe a na-ewere dị ka “nkịtị” nwere ike inyere gị aka soro ahụike gị nke ọma ma chọpụta ihe na-adịghị nguzozi.',
+    contentsTitle: 'N\'edemede a',
+    topics: [
+      'Okirikiri nsọ ọnwa nkịtị: gịnị bụ ya?',
+      'Okirikiri na-adịghị nkịtị: gịnị pụtara?',
+      'Ihe nwere ike ịkpata okirikiri na-adịghị nkịtị',
+      'Mgbe ị kwesịrị ịhụ dọkịta?',
+      'Ndụmọdụ maka okirikiri nwere nguzozi karịa',
+    ],
+    section1Body:
+      'A na-ewere okirikiri dị ka nke nkịtị mgbe ogologo ya dị n\'etiti ụbọchị 21 na 35, na ọdịiche na-erughị ụbọchị 7 site n\'otu okirikiri gaa n\'ozizi ọzọ.',
+    section1VisualTitle: 'Usoro na-adịgide adịgide',
+    section1VisualText:
+      'Ihe kacha mkpa bụ ilebara anya n\'usoro nke gị n\'ọnwa ndị na-aga.',
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Nwanyị ọ bụla dị iche. Ihe dị mkpa bụ ịmara usoro nke gị na mgbanwe ya nkịtị.',
+    section2Body:
+      'A na-ewere okirikiri dị ka nke na-adịghị nkịtị mgbe ogologo ya na-agbanwe ugboro ugboro ma ọ bụ n\'ụzọ a na-apụghị ịkọ (ọdịiche karịrị ụbọchị 7). Nke a nwere ike ipụta dị ka okirikiri dị mkpụmkpụ nke ukwuu, ogologo nke ukwuu, ma ọ bụ enweghị ovulation.',
+    section2VisualTitle: 'Mgbanwe ndị a na-ahụ nke ọma karịa',
+    section2VisualText:
+      'Ọdịiche ndị a nwere ike ịbụ nwa oge ma ọ bụ ịdịgide n\'ọtụtụ okirikiri.',
+    alertTitle: 'Biko cheta',
+    alertText:
+      'Ịdị na-adịghị nkịtị nwa oge nwere ike ịbụ nkịtị (nrụgide, mgbanwe hormone, ike ọgwụgwụ…). Mana ọ bụrụ na ọ na-adịgide, ọ dị mkpa ịchọpụta ihe kpatara ya.',
+    causes: [
+      'Nrụgide na nchegbu',
+      'Enweghị nguzozi hormone',
+      'Ụkọ ụra na ike ọgwụgwụ',
+      'Ibu dị ala nke ukwuu ma ọ bụ dị elu nke ukwuu',
+      'PCOS ma ọ bụ ọnọdụ ahụike ndị ọzọ',
+    ],
+    checklist: [
+      'Enweghị nsọ ọnwa karịa ọnwa 3 (n\'èzí ime/inyere nwa ara)',
+      'Okirikiri ogologo nke ukwuu (karịa ụbọchị 90) ma ọ bụ mkpụmkpụ nke ukwuu (erughị ụbọchị 21)',
+      'Mgbu dị ukwuu nke na-egbochi gị ibi ndụ nkịtị',
+      'Ọbara dị ukwuu nke ukwuu ma ọ bụ na-adịghị nkịtị',
+      'Ọ bụrụ na ị na-anwa ịtụrụ ime ma ovulation dị ka ọ na-adịghị',
+    ],
+    advice: [
+      'Nri nwere nguzozi',
+      'Ịṅụ mmiri zuru ezu',
+      'Mmega ahụ',
+      'Ijikwa nrụgide',
+      'Ụra dị mma',
+    ],
+    shareMessage: 'Okirikiri nkịtị ma ọ bụ nke na-adịghị nkịtị: kedu ọdịiche? — AWA',
+  },
+  yo: {
+    badge: 'ÌYÍPO ÀTI NǸKAN OṢÙ',
+    title: 'Ìyípo oṣù tó tọ́ tàbí tí kò tọ́:\nkí ni ìyàtọ̀?',
+    metaDuration: 'Ìṣẹ́jú 5 láti kà',
+    metaValidated: 'Àkóónú tí a ti yẹ̀wò',
+    intro:
+      'Ìyípo oṣù kọ̀ọ̀kan yàtọ̀. Mímọ ohun tí a kà sí “déédéé” lè ràn ọ́ lọ́wọ́ láti tọpinpin ìlera rẹ ní pẹrẹu àti láti kíyèsí àìwọ́ntúnwọ̀nsì tó ṣeé ṣe.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Ìyípo oṣù tó tọ́: kí ni?',
+      'Ìyípo oṣù tí kò tọ́: kí ni ó túmọ̀ sí?',
+      'Àwọn ohun tó lè fa ìyípo oṣù tí kò tọ́',
+      'Ìgbà wo ni o yẹ kí o rí dókítà?',
+      'Àwọn ìmọ̀ràn fún ìyípo oṣù tó ní ìwọ̀ntúnwọ̀nsì sí i',
+    ],
+    section1Body:
+      'A kà ìyípo oṣù sí èyí tó tọ́ nígbà tí gígùn rẹ̀ bá wà láàrín ọjọ́ 21 àti 35, pẹ̀lú ìyàtọ̀ tí kò tó ọjọ́ 7 láti ìyípo kan sí òmíràn.',
+    section1VisualTitle: 'Ìlù tó dúró ṣinṣin',
+    section1VisualText:
+      'Ohun tó ṣe pàtàkì jù ni kíkíyèsí ìlù tìrẹ ní àwọn oṣù tó ń lọ.',
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Obìnrin kọ̀ọ̀kan yàtọ̀. Ohun tó ṣe pàtàkì ni mímọ ìlù tìrẹ àti àwọn ìyàtọ̀ rẹ̀ tó jẹ́ déédéé.',
+    section2Body:
+      'A kà ìyípo oṣù sí èyí tí kò tọ́ nígbà tí gígùn rẹ̀ bá ń yàtọ̀ nígbà gbogbo tàbí lọ́nà tí a kò lè sọ tẹ́lẹ̀ (ìyàtọ̀ tó ju ọjọ́ 7 lọ). Èyí lè hàn bí ìyípo kúkúrú gan-an, ìyípo gígùn gan-an, tàbí àìsí ovulation.',
+    section2VisualTitle: 'Àwọn ìyàtọ̀ tó hàn gbangba sí i',
+    section2VisualText:
+      'Àwọn ìyàtọ̀ wọ̀nyí lè jẹ́ fún ìgbà díẹ̀ tàbí kí wọ́n tẹ̀síwájú ní ọ̀pọ̀ ìyípo.',
+    alertTitle: 'Jọ̀wọ́ kíyèsí',
+    alertText:
+      'Àìtọ́ fún ìgbà díẹ̀ lè jẹ́ àbáyọ (másùnmáwo, àyípadà hormone, àárẹ̀…). Ṣùgbọ́n tí ó bá ń tẹ̀síwájú, ó ṣe pàtàkì láti wá ohun tó fà á.',
+    causes: [
+      'Másùnmáwo àti àníyàn',
+      'Àìwọ́ntúnwọ̀nsì hormone',
+      'Àìsùn tó àti àárẹ̀',
+      'Ìwúwo ara tó kéré jù tàbí tó pọ̀ jù',
+      'PCOS tàbí àwọn àìsàn mìíràn',
+    ],
+    checklist: [
+      'Kò sí nǹkan oṣù fún ju oṣù 3 lọ (yàtọ̀ sí oyún/fífún ọmọ lọ́mú)',
+      'Ìyípo gígùn gan-an (tó ju ọjọ́ 90 lọ) tàbí ìyípo kúkúrú gan-an (tó kéré sí ọjọ́ 21)',
+      'Ìrora líle tó ń dí ọ lọ́wọ́ láti gbé ìgbésí ayé déédéé',
+      'Ẹ̀jẹ̀ tó pọ̀ gan-an tàbí tí kò tọ́',
+      'Tí o bá ń gbìyànjú láti lóyún tí ovulation sì dà bí ẹni pé kò sí',
+    ],
+    advice: [
+      'Oúnjẹ tó ní ìwọ̀ntúnwọ̀nsì',
+      'Mímu omi tó tó',
+      'Iṣẹ́ ara',
+      'Ṣíṣàkóso másùnmáwo',
+      'Oorun tó dára',
+    ],
+    shareMessage: 'Ìyípo oṣù tó tọ́ tàbí tí kò tọ́: kí ni ìyàtọ̀? — AWA',
+  },
+  zu: {
+    badge: 'UMJIKELEZO NESIKHATHI',
+    title: 'Umjikelezo ohleliwe noma ongahleliwe:\nkuhluke kanjani?',
+    metaDuration: 'Imizuzu emi-5 yokufunda',
+    metaValidated: 'Okuphawulwe ngochwepheshe',
+    intro:
+      'Umjikelezo ngamunye wokuya esikhathini ukhethekile. Ukuqonda lokho okubhekwa “njengokujwayelekile” kungakusiza ulandelele impilo yakho kahle futhi ubone ukungalingani okungaba khona.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Umjikelezo ohleliwe wokuya esikhathini: uyini?',
+      'Umjikelezo ongahleliwe: usho ukuthini?',
+      'Izimbangela ezingaba khona zomjikelezo ongahleliwe',
+      'Isikhathi sokubona udokotela?',
+      'Amathiphu omjikelezo olinganiselayo kakhulu',
+    ],
+    section1Body:
+      'Umjikelezo ubhekwa njengohleliwe uma ubude bawo buhluka phakathi kwezinsuku ezingu-21 nangu-35, ngomehluko ongaphansi kwezinsuku ezi-7 kusuka emjikelezweni oya komunye.',
+    section1VisualTitle: 'Ukuhamba okuzinzile',
+    section1VisualText:
+      'Okubalulekile kakhulu ukubuka ukuhamba kwakho phakathi nezinyanga.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Owesifazane ngamunye uhlukile. Okubalulekile ukwazi ukuhamba kwakho nokuhluka kwakho okujwayelekile.',
+    section2Body:
+      'Umjikelezo ubhekwa njengongahleliwe uma ubude bawo buhluka kaningi noma ngokungalindelekile (umehluko wezinsuku ezingaphezu kwezi-7). Lokhu kungabonakala njengemijikelezo emifushane kakhulu, emide kakhulu, noma ukungabi khona kwe-ovulation.',
+    section2VisualTitle: 'Ukuhluka okubonakala kakhulu',
+    section2VisualText:
+      'Lokhu kuhluka kungaba okwesikhashana noma kuqhubeke imijikelezo eminingana.',
+    alertTitle: 'Qaphela',
+    alertText:
+      'Ukungahleleki kwesikhashana kungaba okujwayelekile (ukucindezeleka, izinguquko zamahomoni, ukukhathala…). Kodwa uma kuqhubeka, kubalulekile ukucwaninga imbangela.',
+    causes: [
+      'Ukucindezeleka nokukhathazeka',
+      'Ukungalingani kwamahomoni',
+      'Ukungalali ngokwanele nokukhathala',
+      'Isisindo esiphansi kakhulu noma esiphezulu kakhulu',
+      'I-PCOS noma ezinye izimo zezokwelapha',
+    ],
+    checklist: [
+      'Akukho sikhathi isikhathi esingaphezu kwezinyanga ezi-3 (ngaphandle kokukhulelwa/ukuncelisa)',
+      'Imijikelezo emide kakhulu (ngaphezu kwezinsuku ezingu-90) noma emifushane kakhulu (ngaphansi kwezinsuku ezingu-21)',
+      'Ubuhlungu obukhulu obukuvimbela ukuphila kahle',
+      'Ukopha okukhulu kakhulu noma okungahleliwe',
+      'Uma uzama ukukhulelwa futhi i-ovulation ibonakala ingekho',
+    ],
+    advice: [
+      'Ukudla okulinganiselayo',
+      'Ukuphuza amanzi anele',
+      'Ukuzivivinya komzimba',
+      'Ukuphatha ukucindezeleka',
+      'Ukulala kahle',
+    ],
+    shareMessage: 'Umjikelezo ohleliwe noma ongahleliwe: kuhluke kanjani? — AWA',
+  },
+  xh: {
+    badge: 'UMJIKELO NEXESHA LENYANGA',
+    title: 'Umjikelo ongaguqukiyo okanye ongaqhelekanga:\nwahluke njani?',
+    metaDuration: 'Imizuzu eyi-5 yokufunda',
+    metaValidated: 'Umxholo ohlolwe',
+    intro:
+      'Umjikelo wenyanga ngamnye wodwa. Ukuqonda oko kubalwa “kuqhelekile” kunganceda ukulandelela impilo yakho ngokusondeleyo nokubona ukungalingani okunokubakho.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Umjikelo wenyanga ongaguqukiyo: uyintoni?',
+      'Umjikelo ongaqhelekanga: kuthetha ntoni?',
+      'Izizathu ezinokubakho zomjikelo ongaqhelekanga',
+      'Kufuneka ubone gqirha nini?',
+      'Iingcebiso zomjikelo olinganayo ngakumbi',
+    ],
+    section1Body:
+      'Umjikelo ubalwa njengongaguqukiyo xa ubude bawo busuka kwiintsuku ezi-21 ukuya kwezi-35, ngomahluko ongaphantsi kweentsuku ezi-7 phakathi komjikelo ngamnye.',
+    section1VisualTitle: 'Isantya esilingeneyo',
+    section1VisualText:
+      'Okubaluleke kakhulu kukujonga isantya sakho ngeenyanga.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Umfazi ngamnye wahlukile. Okubalulekileyo kukwazi isantya sakho notshintsho lwaso oluqhelekileyo.',
+    section2Body:
+      'Umjikelo ubalwa njengongaqhelekanga xa ubude bawo butshintsha rhoqo okanye ngokungalindelekanga (umahluko weentsuku ezingaphezu kwezi-7). Oku kunokubonakala njengemijikelo emifutshane kakhulu, emide kakhulu, okanye ukungabikho kwe-ovulation.',
+    section2VisualTitle: 'Utshintsho olubonakala ngakumbi',
+    section2VisualText:
+      'Ezi ngxaki zomahluko zinokuba zexeshana okanye zihlale kwimijikelo emininzi.',
+    alertTitle: 'Nceda uqaphele',
+    alertText:
+      'Ukungaqhelekanga okwexeshana kunokuba kuqhelekile (uxinzelelo, utshintsho lwe-hormone, ukudinwa…). Kodwa ukuba kuyaqhubeka, kubalulekile ukukhangela unobangela.',
+    causes: [
+      'Uxinzelelo nenkxalabo',
+      'Ukungalingani kwe-hormone',
+      'Ukungalali kakuhle nokudinwa',
+      'Isisindo esiphantsi kakhulu okanye esiphezulu kakhulu',
+      'I-PCOS okanye ezinye iimeko zezonyango',
+    ],
+    checklist: [
+      'Akukho xesha lenyanga ngaphezu kweenyanga ezi-3 (ngaphandle kokumitha/ukonga)',
+      'Imijikelo emide kakhulu (ngaphezu kweentsuku ezingama-90) okanye emifutshane kakhulu (ngaphantsi kweentsuku ezi-21)',
+      'Intlungu enamandla ekuthintela ukuba uphile ngokuqhelekileyo',
+      'Ukopha okuninzi kakhulu okanye okungaqhelekanga',
+      'Ukuba uzama ukukhawula kwaye i-ovulation ibonakala ingekho',
+    ],
+    advice: [
+      'Ukutya okulinganayo',
+      'Ukusela ngokwaneleyo',
+      'Umsebenzi womzimba',
+      'Ukulawula uxinzelelo',
+      'Ukulala kakuhle',
+    ],
+    shareMessage: 'Umjikelo ongaguqukiyo okanye ongaqhelekanga: wahluke njani? — AWA',
+  },
+  sn: {
+    badge: 'CYCLE & KUENDA KUMWEDZI',
+    title: 'Cycle inorongeka kana isingarongeki:\nkusiyana kuri kupi?',
+    metaDuration: 'Maminitsi 5 ekuverenga',
+    metaValidated: 'Zvakaongororwa',
+    intro:
+      'Menstrual cycle yega yega yakasiyana. Kunzwisisa zvinonzi “zvakajairika” kunogona kukubatsira kutevedzera hutano hwako zvakanyanya uye kuona kusaenzana kunogona kuvapo.',
+    contentsTitle: 'Mudzidziso uyu',
+    topics: [
+      'Menstrual cycle inorongeka: chii?',
+      'Cycle isingarongeki: zvinoreva chii?',
+      'Zvinogona kukonzera cycle isingarongeki',
+      'Painofanira kuona chiremba?',
+      'Mazano ecycle yakaenzana zvirinani',
+    ],
+    section1Body:
+      'Cycle inonzi inorongeka kana kureba kwayo kuchisiyana pakati pemazuva 21 ne35, nekusiyana kwakaderera kumazuva 7 kubva pacycle imwe kuenda kune imwe.',
+    section1VisualTitle: 'Kurira kwakaenzana zvakanaka',
+    section1VisualText:
+      'Chakanyanya kukosha kucherechedza kurira kwako pachako mumwedzi yose.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Mukadzi wega wega akasiyana. Chakakosha ndechekuziva kurira kwako pachako nekusiyana kwako kwakajairika.',
+    section2Body:
+      'Cycle inonzi isingarongeki kana kureba kwayo kuchisiyana kazhinji kana zvisingafungidzirwi (kusiyana kunopfuura mazuva 7). Izvi zvinogona kuoneka secycle pfupi zvikuru, cycle refu zvikuru, kana kushaikwa kwe ovulation.',
+    section2VisualTitle: 'Kusiyana kunoonekwa zvakanyanya',
+    section2VisualText:
+      'Kusiyana uku kunogona kuva kwenguva pfupi kana kuramba kuripo mumacycle akati wandei.',
+    alertTitle: 'Cherechedza',
+    alertText:
+      'Kusarongeka kwenguva pfupi kunogona kuva kwakajairika (kushushikana, shanduko dzehormone, kuneta…). Asi kana kuchiramba kuripo, zvakakosha kutsvaga kukonzera.',
+    causes: [
+      'Kushushikana & kunetseka',
+      'Kusaenzana kwehormone',
+      'Kushaya kurara & kuneta',
+      'Huremu hwakaderera kana hwakawandisa',
+      'PCOS kana dzimwe nhosva dzekurapa',
+    ],
+    checklist: [
+      'Kusaenda kumwedzi kwemwedzi inopfuura 3 (kunze kwepamuviri/kupa mukaka)',
+      'Macycle marefu zvikuru (anopfuura mazuva 90) kana mapfupi zvikuru (anosvika mazuva 21)',
+      'Marwadzo makuru anokudzivisa kurarama zvakajairika',
+      'Kubuda ropa kwakawanda zvikuru kana kusingarongeki',
+      'Kana uri kuedza kuva nepamuviri uye ovulation ichiratidzika kushaikwa',
+    ],
+    advice: [
+      'Kudya zvakaringana',
+      'Kunwa mvura inokwana',
+      'Kuita ekisesaizi',
+      'Kubata kushushikana',
+      'Kurara kwakanaka',
+    ],
+    shareMessage: 'Cycle inorongeka kana isingarongeki: kusiyana kuri kupi? — AWA',
+  },
+  ln: {
+    badge: 'CYCLE & SANZA',
+    title: 'Cycle ya ntango nyonso to ya ndenge nyonso te:\nbokeseni ezali nini?',
+    metaDuration: 'Mwa mokapo ya kotánga: 5 min',
+    metaValidated: 'Maloba etalelami',
+    intro:
+      'Cycle ya sanza nyonso ezali ya ndenge na yango. Koyeba oyo ekanisami “ya kawaida” ekoki kosalisa yo kolanda malamu bolamu ya nzoto na yo mpe komona bobongisi oyo ekoki kozala te.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Cycle ya sanza ya ntango nyonso: ezali nini?',
+      'Cycle ya ndenge nyonso te: elakisi nini?',
+      'Bantina oyo ekoki kozala ya cycle ya ndenge nyonso te',
+      'Ntango nini kokende epai ya monganga?',
+      'Toli mpo na cycle oyo ebongisami malamu',
+    ],
+    section1Body:
+      'Cycle ekanisami ya ntango nyonso soki molai na yango ekesenaka kati na mikolo 21 mpe 35, na bokeseni ya mikolo 7 te uta cycle na cycle.',
+    section1VisualTitle: 'Ndenge ya kawaida mpenza',
+    section1VisualText:
+      'Eloko ya ntina eleki ezali kotala ndenge na yo na sanza.',
+    tip1Title: 'Eloko ya malamu koyeba',
+    tip1Text:
+      'Mwasi na mwasi ekeseni. Eloko ya ntina ezali koyeba ndenge na yo mpe bobongwani na yango ya kawaida.',
+    section2Body:
+      'Cycle ekanisami ya ndenge nyonso te soki molai na yango ekesenaka mbala mingi to na ndenge ya kozela te (bokeseni ya mikolo koleka 7). Yango ekoki komonana na cycle mokuse mingi, cycle molai mingi, to kozanga ovulation.',
+    section2VisualTitle: 'Bobongwani oyo emonani mingi',
+    section2VisualText:
+      'Bokeseni oyo ekoki kozala ya mwa ntango to kokoba na cycle mingi.',
+    alertTitle: 'Yeba',
+    alertText:
+      'Cycle ya ndenge nyonso te ya mwa ntango ekoki kozala ya kawaida (mpiko ya motema, bobongwani ya ormɔne, bolembu…). Kasi soki ekoki kokoba, ezali ntina koluka ntina na yango.',
+    causes: [
+      'Mpiko ya motema mpe bobangi',
+      'Bozangi ndenge ya ormɔne',
+      'Mpɔngi moke mpe bolembu',
+      'Bozito moke mingi to mingi mingi',
+      'PCOS to mpasi mosusu ya nzoto',
+    ],
+    checklist: [
+      'Sanza moko te koleka sanza 3 (libanda ya zemi/kopesa mabɛle)',
+      'Cycle molai mingi (mikolo koleka 90) to mokuse mingi (mikolo koleka 21 te)',
+      'Mpasi makasi oyo ekangi yo kozala na bomoi ya kawaida',
+      'Makila mingi mingi to ya ndenge nyonso te',
+      'Soki ozali koluka zemi mpe ovulation emonani te',
+    ],
+    advice: [
+      'Bilei oyo ebongi',
+      'Komela mai ya kokoka',
+      'Misala ya nzoto',
+      'Kokonza mpiko ya motema',
+      'Mpɔngi ya malamu',
+    ],
+    shareMessage: 'Cycle ya ntango nyonso to ya ndenge nyonso te: bokeseni ezali nini? — AWA',
+  },
+  ff: {
+    badge: 'CYCLE & MENSTRUATION',
+    title: 'Cycle nannduɗum walla wayrotooɗum:\nko feerol?',
+    metaDuration: 'Janngugo 5 miniti',
+    metaValidated: 'Ko ƴetti ndaarol',
+    intro:
+      'Cycle menstruation kala ko feere. Faamugo ko ndaaretee “nannduɗum” waawi wallugo ma ndaarugo ñawndu maaɗa ɓuri e tawtugo wayrude ɗin ngonnda.',
+    contentsTitle: 'Nder ɗerewol ndin',
+    topics: [
+      'Cycle menstruation nannduɗum: ko ɗum?',
+      'Cycle wayrotooɗum: ko ɗum hollata?',
+      'Sabaabuuji ɗi ngonnda ngam cycle wayrotooɗum',
+      'Saa ngoye ma ndaara doktoor?',
+      'Anndinki ngam cycle ɓuri hoosugo',
+    ],
+    section1Body:
+      'Cycle ndaaretee nannduɗum saa juutaare mum wayyi hakkunde ñalɗi 21 e 35, e feerol ɓuri ñalɗi 7 hakkunde cycle e cycle.',
+    section1VisualTitle: 'Wakkati nannduɗum seɗɗa',
+    section1VisualText:
+      'Ko ɓuri laaɓtugo ko ndaarugo wakkati maaɗa nder lebbi.',
+    tip1Title: 'Ko mari njoɓdi',
+    tip1Text:
+      'Debbo kala ko feere. Ko laaɓi ko anndugo wakkati maaɗa e no wayyata e ɗum nanndi.',
+    section2Body:
+      'Cycle ndaaretee wayrotooɗum saa juutaare mum wayyi ɗuuɗɗum walla salaa anndugo (feerol ɓurɗo ñalɗi 7). Ɗum waawi feƴƴude e cycle gaɗɗa no feewi, cycle juutɗe no feewi, walla walaa ovulation.',
+    section2VisualTitle: 'Wayrude ɓurude',
+    section2VisualText:
+      'Feerol ɗin waawi laatugo saa seɗɗa walla jokkude nder cycle ɗuuɗɗe.',
+    alertTitle: 'Anndu ɗum',
+    alertText:
+      'Wayrude saa seɗɗa waawi laatugo nannduɗum (tiiɗɗam hakkilo, wayrude hormon, tiiɗɗam…). Kono si ɗum jokkoti, ɗum ko nafugo ndaarugo sabaabu.',
+    causes: [
+      'Tiiɗɗam hakkilo & hulugo',
+      'Ɓoosugo hormon',
+      'Ɗaanaago seɗɗa & tiiɗɗam',
+      'Ɓooyaare gaɗɗa walla ɓurɗa',
+      'PCOS walla ñawndu feere',
+    ],
+    checklist: [
+      'Menstruation walaa ɓuri lebbi 3 (salaa reedu/hunnugo ɓiɗɗo)',
+      'Cycle juutɗe no feewi (ɓuri ñalɗi 90) walla cycle gaɗɗe no feewi (ɓoyi ñalɗi 21)',
+      'Muusi tiiɗɗi ɗi haɗan ma ngurndan no yiɗi',
+      'Yiiɗam ɗuuɗam no feewi walla wayrotooɗam',
+      'Si ɗon yiɗi reedu e ovulation yiyaaka',
+    ],
+    advice: [
+      'Ñaamdu hanaande',
+      'Yoɓugo ndiyam hanaani',
+      'Yaadu bandu',
+      'Reentugo tiiɗɗam hakkilo',
+      'Ɗaanaago moƴƴo',
+    ],
+    shareMessage: 'Cycle nannduɗum walla wayrotooɗum: ko feerol? — AWA',
+  },
   id: {
     badge: 'SIKLUS & HAID',
     title: 'Siklus teratur atau tidak teratur:\napa bedanya?',

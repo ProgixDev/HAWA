@@ -709,6 +709,1195 @@ const CONTENT = withBrazilianPortuguese('PcosHormonalAcne', {
       finalNoteText: '本文仅供一般性参考，不能替代医生的诊疗。如有疑问或症状持续，请咨询医疗专业人员。',
       shareMessage: '了解激素性痤疮 — AWA',
     },
+  'zh-Hant': {
+      badge: 'PCOS • 荷爾蒙性痤瘡',
+      title: '瞭解\n荷爾蒙性痤瘡',
+      metaDuration: '閱讀約 7 分鐘',
+      metaType: '指南',
+      metaLevel: '入門',
+      metaValidated: '科普內容',
+      intro: '為什麼多囊性卵巢症候群（PCOS）可能伴隨荷爾蒙性痤瘡，如何識別它，以及哪些方法可能有助於改善。',
+      introSecondary: '它影響著許多女性，既不是不夠清潔，也不是無法避免：瞭解它的成因，有助於更好地應對。',
+      contentsTitle: '本文內容',
+      topics: [
+        '什麼是荷爾蒙性痤瘡？',
+        '為什麼 PCOS 可能引起痤瘡？',
+        '如何識別荷爾蒙性痤瘡',
+        '荷爾蒙性痤瘡與月經週期',
+        '哪些方法可能有幫助',
+        '什麼時候該看醫生？',
+        '要點回顧',
+      ],
+      h1: '什麼是荷爾蒙性痤瘡？',
+      body1a: '荷爾蒙性痤瘡是一種與荷爾蒙波動或失衡直接相關的痤瘡，尤其與雄性素有關。與青春期常見的痤瘡不同，它常常出現在成年女性身上，可能在青春期之後持續存在或新出現。',
+      body1b: '它的特點還包括出現的位置、深度，以及即使堅持規律護膚，仍傾向於在同一部位反覆出現。',
+      tip1Title: '小提醒',
+      tip1Text: '荷爾蒙性痤瘡與不夠清潔無關：更頻繁地洗臉並不能讓它消失，甚至可能刺激皮膚。',
+      h2Title: '為什麼 PCOS 可能引起痤瘡？',
+      body2: '在 PCOS 中，雄性素相對偏多會刺激皮脂腺，使其分泌更多皮脂。有些人的皮膚對這些荷爾蒙也更敏感，這就解釋了為什麼即使化驗沒有測出明顯失衡，痤瘡也可能比較明顯。',
+      neutralText: '這與意志力無關：這種敏感性因人而異，也不取決於你的生活習慣。',
+      h3Title: '如何識別荷爾蒙性痤瘡',
+      body3: '有些特徵經常出現，但並非每次都有：',
+      recognizeSigns: [
+        '多位於面部下半部分：下頜線、下巴',
+        '更深的、有時會疼痛的痘痘',
+        '常常在同一部位反覆出現',
+        '紅腫或痘印持續不退',
+      ],
+      h4Title: '荷爾蒙性痤瘡與月經週期',
+      body4: '荷爾蒙性痤瘡可能在整個週期中起伏變化。許多女性會發現，在月經來潮前幾天痤瘡加重，此時黃體素上升後又急劇下降，會暫時刺激皮脂分泌。',
+      highlightTitle: '記錄你的爆痘情況',
+      highlightText: '記下痘痘出現的時間與週期的關係，可以幫助你和皮膚科醫生更好地瞭解其中的荷爾蒙關聯。',
+      h5Title: '哪些方法可能有幫助',
+      body5a: '一些簡單的護膚習慣有助於減少爆痘，但單靠它們不一定能完全消除痤瘡：',
+      careHabits: [
+        '早晚溫和清潔皮膚',
+        '避免使用刺激性強或過度去脂的產品',
+        '每天做好防曬',
+        '避免擠壓或摳抓痘痘',
+      ],
+      body5b: '根據具體情況，皮膚科醫生或婦科醫生可能會建議使用外用藥物（乳膏、凝膠），必要時也可能建議使用合適的荷爾蒙類治療。',
+      alertTitle: '請勿自行用藥',
+      alertText: '荷爾蒙性痤瘡的治療（外用或荷爾蒙類）必須由醫療專業人員開具處方並進行監測，尤其是當你有備孕打算時。',
+      h6Title: '什麼時候該看醫生？',
+      body6: '在以下情況下，醫生的建議尤其有幫助：',
+      consultReasons: [
+        '已進行合適的護理，痤瘡仍持續存在',
+        '痘痘疼痛或位置較深（結節、囊腫）',
+        '痤瘡嚴重，或迅速加重',
+        '留下了逐漸固定的痘印或疤痕',
+      ],
+      h7Title: '要點回顧',
+      summaryTitle: '核心要點',
+      keyPoints: [
+        '荷爾蒙性痤瘡有明確的成因，與雄性素有關。',
+        '它常出現在面部下半部分，月經來潮前可能加重。',
+        '它既不是不夠清潔，也不是無法避免。',
+        '溫和的護理，以及必要時合適的治療，可以帶來改善。',
+        '如果持續不退，皮膚科醫生或婦科醫生可以為你提供幫助。',
+      ],
+      finalNoteTitle: '幫助你更好理解的指南',
+      finalNoteText: '本文僅供一般性參考，不能替代醫生的診療。如有疑問或症狀持續，請諮詢醫療專業人員。',
+      shareMessage: '瞭解荷爾蒙性痤瘡 — AWA',
+    },
+  ar: {
+    badge: 'متلازمة تكيّس المبايض • حب الشباب الهرموني',
+    title: 'فهم\nحب الشباب الهرموني',
+    metaDuration: '7 دقائق للقراءة',
+    metaType: 'دليل',
+    metaLevel: 'مبتدئ',
+    metaValidated: 'محتوى تثقيفي',
+    intro:
+      'لماذا قد يظهر حب الشباب الهرموني مع متلازمة تكيّس المبايض، وكيف تتعرفين عليه، وما الحلول التي قد تساعد في التعامل معه.',
+    introSecondary:
+      'يصيب كثيرًا من النساء، وليس ناتجًا عن قلة النظافة ولا أمرًا محتومًا: وفهم أصله يساعد على التعامل معه بشكل أفضل.',
+    contentsTitle: 'في هذا المقال',
+    topics: [
+      'ما هو حب الشباب الهرموني؟',
+      'لماذا قد تسبّب متلازمة تكيّس المبايض حب الشباب؟',
+      'كيف تتعرفين على حب الشباب الهرموني',
+      'حب الشباب الهرموني والدورة الشهرية',
+      'ما الذي قد يساعد',
+      'متى تراجعين الطبيب؟',
+      'أهم النقاط',
+    ],
+    h1: 'ما هو حب الشباب الهرموني؟',
+    body1a:
+      'حب الشباب الهرموني نوع من حب الشباب مرتبط مباشرة بتقلبات هرمونية أو باختلال، خاصة في الأندروجينات. وعلى خلاف حب الشباب المعتاد في المراهقة، فهو يصيب غالبًا النساء البالغات، وقد يستمر أو يظهر بعد تلك المرحلة.',
+    body1b:
+      'ويتميّز أيضًا بموضعه وعمقه وميله إلى الظهور من جديد في المواضع نفسها رغم الالتزام بروتين عناية منتظم بالبشرة.',
+    tip1Title: 'من المفيد أن تعرفي',
+    tip1Text:
+      'حب الشباب الهرموني لا علاقة له بقلة النظافة: فغسل وجهك مرات أكثر لا يزيله، وقد يهيّج البشرة أيضًا.',
+    h2Title: 'لماذا قد تسبّب متلازمة تكيّس المبايض حب الشباب؟',
+    body2:
+      'في متلازمة تكيّس المبايض، تحفّز زيادة نسبية في الأندروجينات الغدد الدهنية، فتنتج مزيدًا من الدهون. كما أن بعض أنواع البشرة أكثر حساسية لهذه الهرمونات، وهذا يفسّر أن حب الشباب قد يكون واضحًا حتى دون اختلال كبير تقيسه التحاليل المخبرية.',
+    neutralText:
+      'هذا ليس مسألة قوة إرادة: فهذه الحساسية تختلف من امرأة إلى أخرى ولا تتعلق بعاداتك في نمط الحياة.',
+    h3Title: 'كيف تتعرفين على حب الشباب الهرموني',
+    body3:
+      'تتكرر بعض الخصائص غالبًا، وإن لم يكن ذلك دائمًا:',
+    recognizeSigns: [
+      'أسفل الوجه: خط الفك والذقن',
+      'بثور أعمق، وأحيانًا مؤلمة',
+      'يعاود الظهور غالبًا في المواضع نفسها',
+      'احمرار أو آثار تدوم',
+    ],
+    h4Title: 'حب الشباب الهرموني والدورة الشهرية',
+    body4:
+      'قد يتقلب حب الشباب الهرموني على مدار الدورة. وتلاحظ كثير من النساء ازدياده في الأيام التي تسبق الحيض، حين يرتفع البروجسترون ثم ينخفض بشكل حاد، مما يحفّز إنتاج الدهون مؤقتًا.',
+    highlightTitle: 'تتبّعي فترات ازدياده',
+    highlightText:
+      'تدوين وقت ظهور البثور بالنسبة لدورتك قد يساعدك أنتِ وطبيبة الجلدية على فهم الصلة الهرمونية بشكل أفضل.',
+    h5Title: 'ما الذي قد يساعد',
+    body5a:
+      'بعض عادات العناية البسيطة قد تساعد على الحد من ازدياده، دون أن تزيله تمامًا بمفردها:',
+    careHabits: [
+      'نظّفي بشرتك بلطف صباحًا ومساءً',
+      'تجنّبي المنتجات القاسية أو التي تجرّد البشرة من زيوتها',
+      'احمي بشرتك من الشمس يوميًا',
+      'تجنّبي عصر البثور أو العبث بها',
+    ],
+    body5b:
+      'حسب الحالة، قد تقترح طبيبة الجلدية أو طبيبة النساء علاجات موضعية (كريمات، جل) أو، عند الحاجة، علاجًا هرمونيًا مناسبًا.',
+    alertTitle: 'لا تعالجي نفسك بنفسك',
+    alertText:
+      'يجب أن يصف مختص في الرعاية الصحية علاجات حب الشباب الهرموني (الموضعية أو الهرمونية) وأن يتابعها، خاصة إذا كنتِ ترغبين في الحمل.',
+    h6Title: 'متى تراجعين الطبيب؟',
+    body6:
+      'تكون المشورة الطبية مفيدة بشكل خاص في بعض الحالات:',
+    consultReasons: [
+      'حب شباب يستمر رغم العناية المناسبة',
+      'بثور مؤلمة أو عميقة (عقيدات، أكياس)',
+      'حب شباب شديد أو يزداد سوءًا بسرعة',
+      'آثار أو ندوب بدأت تستقر',
+    ],
+    h7Title: 'أهم النقاط',
+    summaryTitle: 'النقاط الأساسية',
+    keyPoints: [
+      'لحب الشباب الهرموني سبب يمكن تحديده، وهو مرتبط بالأندروجينات.',
+      'يصيب غالبًا أسفل الوجه، وقد يزداد قبل الحيض.',
+      'ليس ناتجًا عن قلة النظافة، ولا أمرًا محتومًا.',
+      'العناية اللطيفة، وعند الحاجة علاج مناسب، قد تحسّنه.',
+      'يمكن لطبيبة الجلدية أو طبيبة النساء مرافقتك إذا استمر.',
+    ],
+    finalNoteTitle: 'دليل لفهم أفضل',
+    finalNoteText:
+      'هذا المقال للمعلومات العامة فقط ولا يغني عن الاستشارة الطبية. وإذا ساورك شك أو استمرت الأعراض، فاطلبي مشورة مختص في الرعاية الصحية.',
+    shareMessage: 'فهم حب الشباب الهرموني — AWA',
+  },
+  kab: {
+    badge: 'PCOS • ACNE N HORMONE',
+    title: 'Fhem\nacne n hormone',
+    metaDuration: '7 n tesdatin n tɣuri',
+    metaType: 'Amnir',
+    metaLevel: 'Anabdu',
+    metaValidated: 'Agbur n uselmed',
+    intro:
+      'Ayɣer i izemren acne n hormone ad d-yili d PCOS, amek ara t-tessneḍ, d acu n tiririn i izemren ad ɛawnent ad tt-tḥekmeḍ.',
+    introSecondary:
+      'Yettwali aṭas n tilawin, mačči d aṭṭbib n tazmert neɣ d ayen ur nezmir ara ad nbeddel: ma tfehmeḍ ansa d-tekka, ad tt-tḥekmeḍ akken ilaq.',
+    contentsTitle: 'Deg umagrad-a',
+    topics: [
+      'D acu i d acne n hormone?',
+      'Ayɣer i izemren PCOS ad d-yawi acne?',
+      'Amek ara tessneḍ acne n hormone',
+      'Acne n hormone d cycle n lḥiḍ',
+      'D acu i izemren ad ɛawen',
+      'Melmi ara twaliḍ aṭṭbib?',
+      'Tiɣawsiwin tigejdanin',
+    ],
+    h1: 'D acu i d acne n hormone?',
+    body1a:
+      'Acne n hormone d anaw n acne yeqqnen ɣer usnifel n hormone neɣ ur yelli ara d amaḍal, s wudem uslig deg androgène. Ur yelli ara am acne amatu n tegrawt, s waṭas yettwali tilawin timeqqranin, yezmer ad yettqimen neɣ ad d-yeḍru seld aswir-a.',
+    body1b:
+      'Yettemgarad daɣen s wadig-is, s lɛumq-is, d tikli-is n tuɣalin deg yiwen n wadig ɣas ma yettwaxdem usegmi amaḍal n uglim.',
+    tip1Title: 'Ilaq ad teẓṛeḍ',
+    tip1Text:
+      'Acne n hormone ur yeqqnen ara ɣer ukkes n ṭṭhara: asfaḍ n udem aṭas ur yeḥkem ara, yezmer ad yessemɣer aglim.',
+    h2Title: 'Ayɣer i izemren PCOS ad d-yawi acne?',
+    body2:
+      'Deg PCOS, aṭaṭ amassan n androgène yessemɣer tigeddiwin n wuɣen, ad snernint aṭaṭ n wuɣen. Kra n yiglimen ttwalin ugar n hormone-a, ayen i d-yessefhamen ayɣer i izemren acne ad yili d ameqqran ula d war usnifel ameqqran yettwasnen deg laboratwar.',
+    neutralText:
+      'Wagi mačči d tamsalt n lebɣi: tamentilt-a tettemgarad seg yiwen ɣer wayeḍ, ur tettɛalaq ara ɣer iɛadaten n tudert-ik.',
+    h3Title: 'Amek ara tessneḍ acne n hormone',
+    body3:
+      'Kra n ticraḍ ttuɣalen s waṭas, maca ur d-ttuɣalen ara yal tikkelt:',
+    recognizeSigns: [
+      'Adwa n wudem n ddaw: tasga n tgemmi, ɣer tbuqqect',
+      'Ibuqqes yellan d imeqqranen, kra n tikkal ttḥeṛṛiqen',
+      'S waṭas ttuɣalen deg yiwen n wadig',
+      'Azegzaw neɣ izemmi i yettqimen',
+    ],
+    h4Title: 'Acne n hormone d cycle n lḥiḍ',
+    body4:
+      'Acne n hormone yezmer ad yettbeddil deg cycle. Aṭas n tilawin ttwalint ad yettwali ugar deg wussan send lḥiḍ, mi ara yettalay progestérone sakin ad d-yenqes s tezmert, ayen yessnernayen cwiṭ n wuɣen.',
+    highlightTitle: 'Ad tḥerzeḍ ticraḍ n ugar',
+    highlightText:
+      'Ma truẓeḍ melmi i d-ttbeggnen ibuqqes almend n cycle-ik, ad yaweḍ ad tfehmeḍ assaɣ n hormone d aṭṭbib n uglim.',
+    h5Title: 'D acu i izemren ad ɛawen',
+    body5a:
+      'Kra n iɛadaten tilemmasin n uḥerrez zemrent ad ɛawnent ad tḥekmeḍ ugar, war ma ten-yekkes akk s wudem ameẓẓuɣ:',
+    careHabits: [
+      'Sfaḍ aglim-ik s lehna s ṣṣbaḥ d tmeddit',
+      'Ur tseqdac ara imsulta tiḥeṛṛiqin neɣ yessekksen aṭas n yiglimen',
+      'Ḥrez aglim-ik seg yiṭij yal ass',
+      'Ur tkeččem ara neɣ ur tessuffeɣeḍ ara ibuqqes',
+    ],
+    body5b:
+      'Almend n tmeẓẓi, aṭṭbib n uglim neɣ n tegnikulujt zemren ad d-snernin ddwa n ddaw (crèmes, gels) neɣ, ma yelzem, ddwa n hormone yelhan.',
+    alertTitle: 'Ur tesseqdac ara ddwa s yiman-ik',
+    alertText:
+      'Ddwa n acne n hormone (ddaw neɣ n hormone) ilaq ad yettwaru yettwaḥerrez sɣur umaẓrag n lɛafit, s wudem uslig ma tebɣiḍ ad tmerneḍ.',
+    h6Title: 'Melmi ara twaliḍ aṭṭbib?',
+    body6:
+      'Tanṣiḥt n ṭṭbib telha s wudem uslig deg kra n tallunin:',
+    consultReasons: [
+      'Acne i yettqimen ɣas ma yettwaxdem usegmi ilhan',
+      'Ibuqqes ittḥeṛṛiqen neɣ yellan d imeqqranen (nodules, kystes)',
+      'Acne iweɛren neɣ i ineggan s tazmert',
+      'Izemmi neɣ iḍuḍen i yeqqimen',
+    ],
+    h7Title: 'Tiɣawsiwin tigejdanin',
+    summaryTitle: 'Ticraḍ igejdanen',
+    keyPoints: [
+      'Acne n hormone sɛa ssebba yettwasnen, yeqqnen ɣer androgène.',
+      'S waṭas yettwali deg udem n ddaw, yezmer ad yeqqim ugar send lḥiḍ.',
+      'Ur yelli ara d ukkes n ṭṭhara, ur yelli ara d ayen ur nezmir ara ad nbeddel.',
+      'Asegmi amaḍal d wanaw yelhan n ddwa zemren ad ssemɣren.',
+      'Aṭṭbib n uglim neɣ n tegnikulujt zemren ad k-ɛawen ma yeqqim.',
+    ],
+    finalNoteTitle: 'Amagrad i usefhem ilhan',
+    finalNoteText:
+      'Amagrad-a yettunefk kan i talɣut tamatut, ur d-yettɛawad ara tamsawalt d ṭṭbib. Ma tesɛiḍ ccek neɣ ma ticraḍ qqimen, suter tanṣiḥt n umaẓrag n lɛafit.',
+    shareMessage: 'Fhem acne n hormone — AWA',
+  },
+  om: {
+    badge: 'PCOS • UJUMMOO HORMOONII',
+    title: 'Ujummoo hormoonii\nhubachuu',
+    metaDuration: 'Daqiiqaa 7 dubbisuuf',
+    metaType: 'Qajeelfama',
+    metaLevel: 'Jalqabaa',
+    metaValidated: 'Qabiyyee barnootaa',
+    intro:
+      'Maaliif ujummoo hormoonii PCOS wajjin mul\'achuu danda\'a, akkamitti adda baasuu, fi furmaanni isa to\'achuuf gargaaru maal.',
+    introSecondary:
+      'Dubartoota hedduu irratti ta\'a; dhiyeessii qulqullina dhabuu ykn wanta hin oolle miti: madda isaa hubachuun caalaatti to\'achuuf gargaara.',
+    contentsTitle: 'Barruu kana keessatti',
+    topics: [
+      'Ujummoon hormoonii maali?',
+      'Maaliif PCOS ujummoo fida?',
+      'Ujummoo hormoonii akkamitti adda baasuu',
+      'Ujummoo hormoonii fi marsaan laguu',
+      'Maal gargaaruu danda\'a',
+      'Yoom doktora ilaaluu?',
+      'Ka\'umsa gurguddoo',
+    ],
+    h1: 'Ujummoon hormoonii maali?',
+    body1a:
+      'Ujummoon hormoonii ujummoo kallattiin jijjiirama hormoonii ykn jeequmsa, keessumaa androjiinii waliin walqabatu dha. Ujummoo dargaggummaa baratamaa irraa adda ta\'uun, yeroo baay\'ee dubartoota ga\'eessa irratti mul\'ata, yeroo sana booda itti fufuu ykn mul\'achuu danda\'a.',
+    body1b:
+      'Iddoo isaatiin, gadi fageenya isaatiin, fi iddoo wal-fakkaatu irratti deebi\'ee mul\'achuu isaatiin, kunuunsa gogaa idilee sirriitti hordofamu iyyuu yoo ta\'e adda baafama.',
+    tip1Title: 'Beekuun gaarii dha',
+    tip1Text:
+      'Ujummoon hormoonii qulqullina dhabuu waliin hin walqabatu: fuula yeroo baay\'ee dhiqachuun hin dhabamsiisu, gogaa illee dhukkubsuu danda\'a.',
+    h2Title: 'Maaliif PCOS ujummoo fida?',
+    body2:
+      'PCOS keessatti, androjiinii dabalataan wal-qabsiisaa gadaa coomaa kakaasa, sana booda coomaa caalaatti oomishu. Gogaan tokko tokko hormoonii kanaaf caalaatti miira qaba, kunis ujummoon laaboraatorii keessatti jeequmsa guddaa malee illee cimaa ta\'uu akka danda\'u ibsa.',
+    neutralText:
+      'Kun humna fedhii miti: miirri kun nama irraa gara namaatti garaagarummaa qaba, amala jireenya keetii irrattis hin hundaa\'u.',
+    h3Title: 'Ujummoo hormoonii akkamitti adda baasuu',
+    body3:
+      'Amaloonni tokko tokko yeroo baay\'ee deebi\'u, yeroo hunda garuu miti:',
+    recognizeSigns: [
+      'Fuula gadii: gara jawline, gamaa',
+      'Bubbuleen gadi fagoo, yeroo tokko tokko dhukkubbii qabu',
+      'Yeroo baay\'ee iddoo wal-fakkaatu irratti deebi\'ee mul\'ata',
+      'Diimina ykn mallattoo itti fufu',
+    ],
+    h4Title: 'Ujummoo hormoonii fi marsaan laguu',
+    body4:
+      'Ujummoon hormoonii marsaa guutuu keessatti jijjiiramuu danda\'a. Dubartoonni hedduun guyyoota laguu dura ujummoon dabalaa akka dhufu hubatu; yeroo progesteroonii ol ba\'ee sana booda cimaa gadi bu\'u, yeroo muraasaaf oomisha coomaa kakaasa.',
+    highlightTitle: 'Yeroo dabalaa kee hordofuu',
+    highlightText:
+      'Yeroo bubbuleen marsaa kee wajjin walbira qabamee mul\'atu galmeessuun, ati fi doktora gogaa kee hariiroo hormoonii caalaatti akka hubattan gargaara.',
+    h5Title: 'Maal gargaaruu danda\'a',
+    body5a:
+      'Amaloota kunuunsa salphaa muraasni dabalaa daangessuuf gargaaruu danda\'u, ofumaan guutummaatti hin dhabamsiisan:',
+    careHabits: [
+      'Gogaa kee ganama fi galgala laaffisaan qulqulleessi',
+      'Oomishawwan jabaa ykn gogaa gogsan irraa fagaadhu',
+      'Guyyaa guyyaan gogaa kee aduu irraa eegi',
+      'Bubbuleewwan cuphuu ykn qoruu irraa of eeggadhu',
+    ],
+    body5b:
+      'Akka haalaatti, doktorri gogaa ykn gaayinekooloojistiin yaalii gogaa irratti dhaaba (kireemii, jeelii) ykn, yoo barbaachise, yaalii hormoonii mijaa\'aa yaada dhiheessuu danda\'a.',
+    alertTitle: 'Ofii yaaluu hin godhin',
+    alertText:
+      'Yaaliin ujummoo hormoonii (gogaa irratti ykn hormoonii) ogeessa fayyaatiin ajajamuu fi hordofamuu qaba, keessumaa yoo ulfa fudhachuu abdii qabaatte.',
+    h6Title: 'Yoom doktora ilaaluu?',
+    body6:
+      'Gorsi fayyaa haala tokko tokko keessatti keessumaa gargaara:',
+    consultReasons: [
+      'Ujummoon kunuunsa mijaa\'aa waliin illee itti fufu',
+      'Bubbuleen dhukkubbii ykn gadi fagoo (nodule, sisti)',
+      'Ujummoo cimaa ykn saffisaan hammaachaa deemu',
+      'Mallattoo ykn madaa jabaatee kan fedhii',
+    ],
+    h7Title: 'Ka\'umsa gurguddoo',
+    summaryTitle: 'Qabxiiwwan ijoo',
+    keyPoints: [
+      'Ujummoon hormoonii sababa adda baafamuu danda\'u qaba, androjiinii waliin walqabatu.',
+      'Yeroo baay\'ee fuula gadii irratti mul\'ata, laguu dura hammaachuu danda\'a.',
+      'Qulqullina dhabuu miti, wanta hin oolles miti.',
+      'Kunuunsi laafaan, yoo barbaachise yaalii mijaa\'aan, fooyyessuu danda\'a.',
+      'Doktorri gogaa ykn gaayinekooloojistiin yoo itti fufe si deeggaruu danda\'a.',
+    ],
+    finalNoteTitle: 'Qajeelfama caalaatti hubachuuf',
+    finalNoteText:
+      'Barruun kun odeeffannoo waliigalaaf qofa; mariin fayyaa hin bakka bu\'u. Yoo shakkite ykn mallattoon itti fufe, ogeessa fayyaa irraa gorsa gaafadhu.',
+    shareMessage: 'Ujummoo hormoonii hubachuu — AWA',
+  },
+  ti: {
+    badge: 'PCOS • ናይ ሆርሞን ብጉር',
+    title: 'ናይ ሆርሞን ብጉር\nምርዳእ',
+    metaDuration: '7 ደቒቕ ንባብ',
+    metaType: 'መምርሒ',
+    metaLevel: 'መእተዊ',
+    metaValidated: 'ትምህርታዊ ትሕዝቶ',
+    intro:
+      'ናይ ሆርሞን ብጉር ስለምንታይ ምስ PCOS ክረአ ይኽእል፣ ከመይ ከም እትፈልጥዮ፣ ከምኡውን እንታይ ፍታሕ ንምቁጽጻሩ ክሕግዝ ይኽእል።',
+    introSecondary:
+      'ብዙሓት ደቂ ኣንስትዮ ይጸልዎም ናይ ሕጽረት ጽሬት ወይ ዘይተርፍ ነገር ድማ ኣይኮነን፦ መበቆሉ ምርዳእ ዝበለጸ ንምቁጽጻሩ ይሕግዝ።',
+    contentsTitle: 'ኣብዚ ዓንቀጽ',
+    topics: [
+      'ናይ ሆርሞን ብጉር እንታይ እዩ?',
+      'PCOS ስለምንታይ ብጉር ክፈጥር ይኽእል?',
+      'ናይ ሆርሞን ብጉር ከመይ ንፈልጥ',
+      'ናይ ሆርሞን ብጉርን ወርሓዊ ዑደትን',
+      'እንታይ ክሕግዝ ይኽእል',
+      'መዓስ ሓኪም ክርአ?',
+      'ቀንዲ ነጥብታት',
+    ],
+    h1: 'ናይ ሆርሞን ብጉር እንታይ እዩ?',
+    body1a:
+      'ናይ ሆርሞን ብጉር ብቐጥታ ምስ ናይ ሆርሞን ለውጥታት ወይ ዘይሚዛናዊነት፣ ብፍላይ ኣብ ኣንድሮጅናት፣ ዝተኣሳሰረ ዓይነት ብጉር እዩ። ካብ ዝተለምደ ናይ ንእስነት ብጉር ብዝፍለ፣ ብዙሕ ግዜ ዓበይቲ ደቂ ኣንስትዮ ይጸልዎም ድሕሪ እቲ ግዜ ክቕጽል ወይ ክረአ ይኽእል።',
+    body1b:
+      'ብቦታኡ፣ ብዕምቆቱን ብጽቡቕ ዝተኸተለ ንቡር ናይ ቆርበት ክንክን እኳ እንተ ኣሎ ኣብ ተመሳሳሊ ቦታታት ዳግማይ ናይ ምርኣይ ባህርዩን እውን ይፍለ።',
+    tip1Title: 'ምፍላጥ ጽቡቕ እዩ',
+    tip1Text:
+      'ናይ ሆርሞን ብጉር ምስ ሕጽረት ጽሬት ኣይተኣሳሰርን፦ ገጽኪ ብዝያዳ ምሕጻብ ኣየጥፍኦን፣ ንቆርበት እውን ከቑጥዕ ይኽእል።',
+    h2Title: 'PCOS ስለምንታይ ብጉር ክፈጥር ይኽእል?',
+    body2:
+      'ኣብ PCOS፣ ዝበዝሐ ኣንድሮጅን ንናይ ስብሒ እጢታት የነቅሕ፣ ድሕሪኡ ዝበዝሐ ስብሒ የፍርያ። ገለ ቆርበት ንእዚ ሆርሞናት ዝያዳ ተነኳኢ እዩ፣ እዚ ድማ ኣብ ላቦራቶሪ ዓቢ ዘይሚዛናዊነት ከይተለኸየ እውን ብጉር ብርቱዕ ክኸውን ዘፍልጥ እዩ።',
+    neutralText:
+      'እዚ ናይ ድልየት ሓይሊ ጉዳይ ኣይኮነን፦ እዚ ተነኳኢነት ካብ ሰብ ናብ ሰብ ይፈላለ ኣብ ዕለታዊ ልምድታትኪ ድማ ኣይምርኮስን።',
+    h3Title: 'ናይ ሆርሞን ብጉር ከመይ ንፈልጥ',
+    body3:
+      'ገለ ባህርያት ብዙሕ ግዜ ይድገሙ፣ ኩሉ ግዜ ግን ኣይኮነን፦',
+    recognizeSigns: [
+      'ታሕተዋይ ገጽ፦ መንከስ፣ ኣገጭ',
+      'ዝያዳ ዕሙቕ፣ ሓደ ሓደ ግዜ ቃንዛ ዘለዎ ብጉር',
+      'ብዙሕ ግዜ ኣብ ተመሳሳሊ ቦታታት ዳግማይ ይረአ',
+      'ዝቕጽል ቀይሕነት ወይ ምልክታት',
+    ],
+    h4Title: 'ናይ ሆርሞን ብጉርን ወርሓዊ ዑደትን',
+    body4:
+      'ናይ ሆርሞን ብጉር ኣብ ዑደት ብዘመናት ክፈላለ ይኽእል። ብዙሓት ደቂ ኣንስትዮ ቅድሚ ወርሓዊ ደመን ኣብ መዓልታት ፕሮጀስትሮን ምስ ዝልዕል ድሕሪኡ ድማ ብሃንደበት ምስ ዝወርድ ዝጎደለ ምንቅስቓስ ይርእያ፣ ንግዝያዊ ምፍራይ ስብሒ የነቅሕ።',
+    highlightTitle: 'ናይ ምርኣይ ግዜታትኪ ምክትታል',
+    highlightText:
+      'ብጉር ምስ ዑደትኪ ኣብ እንታይ ግዜ ከም ዝረአ ምጽሓፍ ንዓኺን ንሓኪም ቆርበትን ነቲ ናይ ሆርሞን ርክብ ዝበለጸ ንኽትርድኡ ክሕግዝ ይኽእል።',
+    h5Title: 'እንታይ ክሕግዝ ይኽእል',
+    body5a:
+      'ውሑዳት ቀለልቲ ናይ ክንክን ልምድታት ምርኣይ ንምጉዳል ክሕግዙ ይኽእሉ፣ ባዕሎም ግን ኣይደምስሱዎን፦',
+    careHabits: [
+      'ቆርበትኪ ንግሆን ምሸትን ብልስሉስ ኣጽሪ',
+      'ብርቱዓት ወይ ዘደንግዩ ምህርትታት ተወግዲ',
+      'ቆርበትኪ ኩሉ መዓልቲ ካብ ጸሓይ ሓልዊ',
+      'ብጉር ምጭፍላቕ ወይ ምስሓብ ተወግዲ',
+    ],
+    body5b:
+      'ከከም ኩነታት፣ ሓኪም ቆርበት ወይ ሓኪም ሴቶት ወቅታዊ ሕክምናታት (ክሬም፣ ጀል) ወይ እንተ ኣድልዩ ዝግባእ ናይ ሆርሞን ሕክምና ክሕብር ይኽእል።',
+    alertTitle: 'ባዕሊ ሕክምና ኣይትገብሪ',
+    alertText:
+      'ንናይ ሆርሞን ብጉር ዝኾኑ ሕክምናታት (ወቅታዊ ወይ ናይ ሆርሞን) ብሞያ ጥዕና ዘለዎ ሰብ ክእዘዙን ክክታተሉን ይግባእ፣ ብፍላይ ክትጠንሲ እንተ ትጽቢ።',
+    h6Title: 'መዓስ ሓኪም ክርአ?',
+    body6:
+      'ሓኪማዊ ምኽሪ ኣብ ገለ ኩነታት ብፍላይ ጠቓሚ እዩ፦',
+    consultReasons: [
+      'ብዝግባእ ክንክን እኳ እንተ ተገብረ ዝቕጽል ብጉር',
+      'ቃንዛ ዘለዎ ወይ ዕሙቕ ብጉር (ኖዱልን ሲስትን)',
+      'ብርቱዕ ብጉር ወይ ብቕልጡፍ ዝኸፍእ ብጉር',
+      'ዝኣተዉ ምልክታት ወይ ጠባሳታት',
+    ],
+    h7Title: 'ቀንዲ ነጥብታት',
+    summaryTitle: 'ኣገደስቲ ነጥብታት',
+    keyPoints: [
+      'ናይ ሆርሞን ብጉር ምስ ኣንድሮጅናት ዝተኣሳሰረ ዝፍለጥ ምኽንያት ኣለዎ።',
+      'ብዙሕ ግዜ ንታሕተዋይ ገጽ ይጸልዎ ቅድሚ ወርሓዊ ደምኪ ድማ ክኸፍእ ይኽእል።',
+      'ሕጽረት ጽሬት ወይ ዘይተርፍ ነገር ኣይኮነን።',
+      'ልስሉስ ክንክንን እንተ ኣድልዩ ዝግባእ ሕክምናን ክሕግዝ ይኽእል።',
+      'እንተ ቀጺሉ ሓኪም ቆርበት ወይ ሓኪም ሴቶት ክድግፈኪ ይኽእል።',
+    ],
+    finalNoteTitle: 'ዝበለጸ ንምርዳእ መምርሒ',
+    finalNoteText:
+      'እዚ ዓንቀጽ ንሓፈሻዊ ሓበሬታ ጥራይ እዩ ሓኪማዊ ምርመራ ድማ ኣይትክእን። እንተ ተጠራጢርኪ ወይ ምልክታት እንተ ቀጺሉ፣ ሞያ ጥዕና ዘለዎ ሰብ ምኽሪ ሕተቲ።',
+    shareMessage: 'ናይ ሆርሞን ብጉር ምርዳእ — AWA',
+  },
+  rw: {
+    badge: 'PCOS • IBIHERI BYA HORMONE',
+    title: 'Gusobanukirwa\nibiheri bya hormone',
+    metaDuration: 'Iminota 7 yo gusoma',
+    metaType: 'Igitabo cy\'inama',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Ibisobanuro by\'inyigisho',
+    intro:
+      'Impamvu ibiheri bya hormone bishobora kuza muri PCOS, uko wabimenya, n\'ibisubizo bishobora gufasha kubigenzura.',
+    introSecondary:
+      'Bigera ku bagore benshi kandi si ukubura isuku cyangwa ikidashoboka kwirinda: gusobanukirwa inkomoko yabyo bifasha kubigenzura neza.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Ibiheri bya hormone ni iki?',
+      'Kuki PCOS ishobora gutera ibiheri?',
+      'Uko wamenya ibiheri bya hormone',
+      'Ibiheri bya hormone n\'ukwezi k\'imihango',
+      'Ibishobora gufasha',
+      'Ni ryari ujya kwa muganga?',
+      'Ingingo z\'ingenzi',
+    ],
+    h1: 'Ibiheri bya hormone ni iki?',
+    body1a:
+      'Ibiheri bya hormone ni ubwoko bw\'ibiheri bufitanye isano itaziguye n\'ihindagurika rya hormone cyangwa uburimbane budahari, cyane cyane muri androgens. Bitandukanye n\'ibiheri bisanzwe by\'ubuto, akenshi bigera ku bagore bakuze kandi bishobora gukomeza cyangwa kugaragara nyuma y\'icyo gihe.',
+    body1b:
+      'Bimenyekana kandi n\'aho biri, uburebure bwabyo, n\'ubushobozi bwabyo bwo kugaruka ahantu hamwe nubwo wakurikije neza gahunda yo kwita ku ruhu.',
+    tip1Title: 'Byiza kumenya',
+    tip1Text:
+      'Ibiheri bya hormone ntibifitanye isano no kubura isuku: koza mu maso kenshi ntibituma bishira, kandi bishobora no kurakaza uruhu.',
+    h2Title: 'Kuki PCOS ishobora gutera ibiheri?',
+    body2:
+      'Muri PCOS, androgens nyinshi ugereranyije zikangura imitsi itanga amavuta y\'uruhu, yo ikora amavuta menshi. Uruhu rumwe kandi rworoshye kurushaho kuri izi hormone, bisobanura impamvu ibiheri bishobora kuba byinshi nubwo nta burimbane bukomeye bupimwe muri laboratwari.',
+    neutralText:
+      'Si ikibazo cy\'ubushake: uku koroha gutandukana ku muntu ku wundi kandi ntigushingira ku migirire yawe.',
+    h3Title: 'Uko wamenya ibiheri bya hormone',
+    body3:
+      'Ibimenyetso bimwe bikunze kugaruka, nubwo bitaba buri gihe:',
+    recognizeSigns: [
+      'Mu maso hasi: ku nsi y\'urwasaya, ku gahanga k\'urwasaya',
+      'Ibiheri birebire, rimwe na rimwe bibabaza',
+      'Akenshi bigaruka ahantu hamwe',
+      'Gutukura cyangwa ibimenyetso bigumaho',
+    ],
+    h4Title: 'Ibiheri bya hormone n\'ukwezi k\'imihango',
+    body4:
+      'Ibiheri bya hormone bishobora guhindagurika mu kwezi kose. Abagore benshi babona kwiyongera mu minsi mbere y\'imihango, igihe progesterone izamutse hanyuma ikamanuka cyane, ikangura by\'agateganyo ikorwa ry\'amavuta y\'uruhu.',
+    highlightTitle: 'Gukurikirana igihe bizamo',
+    highlightText:
+      'Kwandika igihe ibiheri bigaragara ugereranyije n\'ukwezi kwawe bishobora kugufasha wowe na muganga w\'uruhu gusobanukirwa neza isano na hormone.',
+    h5Title: 'Ibishobora gufasha',
+    body5a:
+      'Imigirire mike yoroshye yo kwita ku ruhu ishobora gufasha kugabanya ibiheri, nubwo bitabikuraho byose ubwabyo:',
+    careHabits: [
+      'Oza uruhu rwawe buhoro mu gitondo na nimugoroba',
+      'Irinde ibicuruzwa bikarishye cyangwa bikuramo amavuta yose',
+      'Rinda uruhu rwawe izuba buri munsi',
+      'Irinde gukanda cyangwa gusukura ibiheri',
+    ],
+    body5b:
+      'Bitewe n\'imimerere, muganga w\'uruhu cyangwa w\'indwara z\'abagore ashobora kugusaba imiti yo kwisiga (amavuta, gels) cyangwa, niba bikenewe, umuti wa hormone ukwiye.',
+    alertTitle: 'Ntukivurire',
+    alertText:
+      'Imiti y\'ibiheri bya hormone (yo kwisiga cyangwa ya hormone) igomba kwandikwa no gukurikiranwa n\'umukozi w\'ubuzima, cyane cyane niba wizeye gusama.',
+    h6Title: 'Ni ryari ujya kwa muganga?',
+    body6:
+      'Inama z\'abaganga zifasha cyane mu mimerere imwe:',
+    consultReasons: [
+      'Ibiheri bikomeza nubwo wita ku ruhu mu buryo bukwiye',
+      'Ibiheri bibabaza cyangwa birebire (ibibyimba, cysts)',
+      'Ibiheri bikomeye cyangwa byiyongera vuba',
+      'Ibimenyetso cyangwa inkovu zitangiye kuguma',
+    ],
+    h7Title: 'Ingingo z\'ingenzi',
+    summaryTitle: 'Iby\'ingenzi',
+    keyPoints: [
+      'Ibiheri bya hormone bifite impamvu ishobora kumenyekana, ifitanye isano na androgens.',
+      'Akenshi bigera mu maso hasi kandi bishobora kwiyongera mbere y\'imihango yawe.',
+      'Si ukubura isuku cyangwa ikidashoboka kwirinda.',
+      'Kwita ku ruhu buhoro na, niba bikenewe, umuti ukwiye bishobora kubigabanya.',
+      'Muganga w\'uruhu cyangwa w\'indwara z\'abagore ashobora kugufasha niba bikomeje.',
+    ],
+    finalNoteTitle: 'Igitabo cyo gusobanukirwa neza',
+    finalNoteText:
+      'Iyi nyandiko ni iy\'ibisobanuro rusange gusa kandi ntisimbura kujya kwa muganga. Niba ushidikanya cyangwa ibimenyetso bikomeje, saba inama umukozi w\'ubuzima.',
+    shareMessage: 'Gusobanukirwa ibiheri bya hormone — AWA',
+  },
+  rn: {
+    badge: 'PCOS • IBIHERI BY\'IMISEMBURO',
+    title: 'Gusobanukirwa\nibiheri by\'imisemburo',
+    metaDuration: 'Iminota 7 yo gusoma',
+    metaType: 'Ubuyobozi',
+    metaLevel: 'Intangiriro',
+    metaValidated: 'Amakuru yo kwigisha',
+    intro:
+      'Impamvu ibiheri by\'imisemburo bishobora kuza muri PCOS, uko wabimenya, n\'ibisubizo bishobora gufasha kubicunga.',
+    introSecondary:
+      'Bigira ingaruka ku bagore benshi kandi si ukubura isuku cangwa ikidashobora kwirindwa: gusobanukirwa inkomoko yabyo bifasha kubicunga neza.',
+    contentsTitle: 'Muri iyi nyandiko',
+    topics: [
+      'Ibiheri by\'imisemburo ni iki?',
+      'Kubera iki PCOS ishobora gutera ibiheri?',
+      'Uko wamenya ibiheri by\'imisemburo',
+      'Ibiheri by\'imisemburo na cycle y\'imihango',
+      'Ibishobora gufasha',
+      'Ni ryari kubona muganga?',
+      'Ingenzi zo kwibuka',
+    ],
+    h1: 'Ibiheri by\'imisemburo ni ubwoko bw\'ibiheri bufitanye isano itaziguye n\'ihinduka canke ihungabana ry\'imisemburo, cane cane androgènes. Bitandukanye n\'ibiheri bisanzwe by\'ubugimbi, kenshi bigira ingaruka ku bagore bakuze kandi bishobora gukomeza canke kuza nyuma y\'icyo gihe.',
+    body1a:
+      'Binatandukanywa n\'aho biri, uburebure bwabyo, n\'uko bikunda kugaruka ahantu hamwe nubwo wakurikije neza gahunda isanzwe yo kwita ku ruhu.',
+    body1b:
+      'Ni byiza kumenya',
+    tip1Title: 'Ibiheri by\'imisemburo ntibifitanye isano no kubura isuku: koza mu maso kenshi ntibituma bishira, kandi bishobora no gutuma uruhu rwishima.',
+    tip1Text:
+      'Kubera iki PCOS ishobora gutera ibiheri?',
+    h2Title: 'Muri PCOS, androgènes nyinshi ugereranije zitera ibice bitanga amavuta y\'uruhu gukora byinshi, bityo bigatanga amavuta menshi. Uruhu rumwe kandi rwumva cane iyi misemburo, ibisobanura impamvu ibiheri bishobora kuba bikomeye nubwo nta ihungabana rikomeye ripimwe muri laboratwari.',
+    body2:
+      'Si ikibazo cy\'imbaraga z\'umutima: uku kumva ni ukwa buri muntu kandi ntigushingiye ku ngeso zawe z\'imibereho.',
+    neutralText:
+      'Uko wamenya ibiheri by\'imisemburo',
+    h3Title: 'Ibimenyetso bimwe kenshi biragaruka, nubwo bitaba buri gihe:',
+    body3:
+      'Igice cyo hasi cy\'isura: urwasaya, akananwa',
+    recognizeSigns: [
+      'Ibiheri byimbitse, rimwe na rimwe bibabaza',
+      'Kenshi bigaruka ahantu hamwe',
+      'Gutukura canke ibimenyetso bidashira',
+      'Ibiheri by\'imisemburo na cycle y\'imihango',
+    ],
+    h4Title: 'Ibiheri by\'imisemburo bishobora guhinduka mu cycle yose. Abagore benshi babona kwiyongera mu minsi imbere y\'imihango, igihe progestérone izamutse hanyuma ikagwa cane, igatera by\'akanya gato amavuta y\'uruhu kwiyongera.',
+    body4:
+      'Gukurikirana igihe bizamukira',
+    highlightTitle: 'Kwandika igihe ibiheri bigaragara ugereranije na cycle yawe bishobora kugufasha wowe na dermatologue wawe gusobanukirwa neza isano y\'imisemburo.',
+    highlightText:
+      'Ibishobora gufasha',
+    h5Title: 'Ingeso nke zoroheje zo kwita ku ruhu zishobora gufasha kugabanya kwiyongera, nubwo zitabivanaho zonyine:',
+    body5a:
+      'Sukura uruhu rwawe buhoro mu gitondo no ku mugoroba',
+    careHabits: [
+      'Irinde ibicuruzwa bikarishye canke bikuraho amavuta yose',
+      'Rinda uruhu rwawe izuba buri munsi',
+      'Irinde gukanda canke gukorora ibiheri',
+      'Bitewe n\'uko bimeze, dermatologue canke gynécologue ashobora gutanga imiti yo gusiga (amavuta, gels) canke, niba bikenewe, imiti y\'imisemburo ikwiye.',
+    ],
+    body5b:
+      'Ntukivurire wenyine',
+    alertTitle: 'Imiti y\'ibiheri by\'imisemburo (yo gusiga canke y\'imisemburo) igomba gutegekwa no gukurikiranwa n\'umukozi w\'ubuzima, cane cane niba wizeye gusama.',
+    alertText:
+      'Ni ryari kubona muganga?',
+    h6Title: 'Inama y\'abaganga ifasha cane cane mu bihe bimwe:',
+    body6:
+      'Ibiheri bikomeza nubwo wita ku ruhu mu buryo bukwiye',
+    consultReasons: [
+      'Ibiheri bibabaza canke byimbitse (nodules, kystes)',
+      'Ibiheri bikomeye canke birushaho gukomera vuba',
+      'Ibimenyetso canke inkovu zitangiye gutura',
+      'Ingenzi zo kwibuka',
+    ],
+    h7Title: 'Ingenzi z\'ingenzi',
+    summaryTitle: 'Ibiheri by\'imisemburo bifite impamvu imenyekana, ifitanye isano na androgènes.',
+    keyPoints: [
+      'Kenshi bigira ingaruka ku gice cyo hasi cy\'isura kandi bishobora gukomera imbere y\'imihango yawe.',
+      'Si ukubura isuku cangwa ikidashobora kwirindwa.',
+      'Kwita ku ruhu buhoro na, niba bikenewe, ubuvuzi bukwiye bishobora kubigabanya.',
+      'Dermatologue canke gynécologue ashobora kugushigikira niba bikomeje.',
+      'Ubuyobozi bwo gusobanukirwa neza',
+    ],
+    finalNoteTitle: 'Iyi nyandiko ni iyo kumenyesha muri rusangi kandi ntisimbura inama y\'abaganga. Niba ushidikanya canke ibimenyetso bikomeje, saba inama y\'umukozi w\'ubuzima.',
+    finalNoteText:
+      'Gusobanukirwa ibiheri by\'imisemburo — AWA',
+    shareMessage: 'Gusobanukirwa ibiheri vya hormone — AWA',
+  },
+  ig: {
+    badge: 'PCOS • PIMPLES HORMONE',
+    title: 'Ịghọta\npimples hormone',
+    metaDuration: 'Nkeji 7 ka ị gụọ',
+    metaType: 'Ntụziaka',
+    metaLevel: 'Mmalite',
+    metaValidated: 'Ọdịnaya mmụta',
+    intro:
+      'Ihe mere pimples hormone nwere ike ịpụta na PCOS, otú esi amata ya, na ihe ndị nwere ike inye aka ijikwa ya.',
+    introSecondary:
+      'Ọ na-emetụta ọtụtụ ụmụ nwanyị ma abụghị enweghị ịdị ọcha ma ọ bụ ihe a na-apụghị izere: ịghọta mmalite ya na-enyere aka ijikwa ya nke ọma.',
+    contentsTitle: 'Na isiokwu a',
+    topics: [
+      'Gịnị bụ pimples hormone?',
+      'Gịnị mere PCOS nwere ike ịkpata pimples?',
+      'Otú esi amata pimples hormone',
+      'Pimples hormone na usoro ọnwa',
+      'Ihe nwere ike inye aka',
+      'Mgbe ị ga-ahụ dọkịta?',
+      'Isi ihe ndị dị mkpa',
+    ],
+    h1: 'Gịnị bụ pimples hormone?',
+    body1a:
+      'Pimples hormone bụ ụdị pimples jikọtara ozugbo na mgbanwe hormone ma ọ bụ adịghị nguzozi, karịsịa n\'androgen. N\'adịghị ka pimples nkịtị nke ntorobịa, ọ na-emetụta ụmụ nwanyị toro eto ma nwee ike ịdịgide ma ọ bụ pụta mgbe oge ahụ gasịrị.',
+    body1b:
+      'A na-amakwa ya site n\'ebe ọ dị, ịdị omimi ya, na ọchịchọ ya ịpụtaghachi n\'otu ebe n\'agbanyeghị usoro ịkwado akpụkpọ ahụ nke a na-agbaso nke ọma.',
+    tip1Title: 'Ọ dị mma ịmara',
+    tip1Text:
+      'Pimples hormone ejikọtaghị na enweghị ịdị ọcha: ịsa ihu gị ugboro ugboro anaghị eme ka ọ pụọ, ọ nwekwara ike ime ka akpụkpọ ahụ were iwe.',
+    h2Title: 'Gịnị mere PCOS nwere ike ịkpata pimples?',
+    body2:
+      'Na PCOS, androgen karịrị ókè n\'ụzọ ụfọdụ na-akpali glands sebaceous, nke mgbe ahụ na-emepụta sebum karịa. Akpụkpọ ahụ ụfọdụ na-enwekwa mmetụta karịa maka hormone ndị a, nke na-akọwa ihe mere pimples nwere ike ịdị ukwuu ọbụna na-enweghị adịghị nguzozi dị ukwuu a tụrụ n\'ime laabu.',
+    neutralText:
+      'Nke a abụghị okwu nke ike uche: mmetụta a dị iche site n\'onye ruo n\'onye ma ọ dabereghị n\'àgwà ndụ gị.',
+    h3Title: 'Otú esi amata pimples hormone',
+    body3:
+      'Ụfọdụ àgwà na-apụtaghachikarị, ọ bụ ezie na ọ bụghị mgbe niile:',
+    recognizeSigns: [
+      'Akụkụ ala nke ihu: agba, ọnụ agba',
+      'Pimples ndị dị omimi, mgbe ụfọdụ na-egbu mgbu',
+      'Na-apụtaghachikarị n\'otu ebe',
+      'Ọbara ọbara ma ọ bụ ntụpọ na-adịgide',
+    ],
+    h4Title: 'Pimples hormone na usoro ọnwa',
+    body4:
+      'Pimples hormone nwere ike ịgbagharị n\'usoro ọnwa niile. Ọtụtụ ụmụ nwanyị na-ahụ mmụba n\'ụbọchị ndị tupu nsọ ọnwa ha, mgbe progesterone na-arị elu wee daa nke ukwuu, na-akpali mmepụta sebum nwa oge.',
+    highlightTitle: 'Ịdekọ mgbe pimples na-apụta',
+    highlightText:
+      'Ịdekọ mgbe pimples na-apụta n\'usoro ọnwa gị nwere ike inyere gị na dọkịta akpụkpọ ahụ gị aka ịghọta njikọ hormone nke ọma.',
+    h5Title: 'Ihe nwere ike inye aka',
+    body5a:
+      'Àgwà nlekọta dị mfe ole na ole nwere ike inyere aka belata mmụba, na-emeghị ka ha pụọ kpam kpam n\'onwe ha:',
+    careHabits: [
+      'Sachaa akpụkpọ ahụ gị nwayọọ n\'ụtụtụ na n\'anyasị',
+      'Zere ngwaahịa siri ike ma ọ bụ na-ewepụ mmanụ akpụkpọ ahụ n\'ụzọ siri ike',
+      'Chebe akpụkpọ ahụ gị n\'anyanwụ kwa ụbọchị',
+      'Zere ịpịa ma ọ bụ ịkpụpụ pimples',
+    ],
+    body5b:
+      'Dabere n\'ọnọdụ, dọkịta akpụkpọ ahụ ma ọ bụ gynecologist nwere ike ịtụ aro ọgwụgwọ a na-etinye n\'elu akpụkpọ ahụ (cream, gel) ma ọ bụ, ma ọ bụrụ na ọ dị mkpa, ọgwụgwọ hormone kwesịrị ekwesị.',
+    alertTitle: 'Ọ dịghị ịgwọ onwe gị',
+    alertText:
+      'Ọgwụgwọ maka pimples hormone (nke a na-etinye n\'elu ma ọ bụ nke hormone) ga-esi n\'aka ọkachamara ahụike nye ya ma lekọta ya, karịsịa ma ọ bụrụ na ị na-atụ anya ịtụrụ ime.',
+    h6Title: 'Mgbe ị ga-ahụ dọkịta?',
+    body6:
+      'Ndụmọdụ dọkịta bara uru karịsịa n\'ọnọdụ ụfọdụ:',
+    consultReasons: [
+      'Pimples na-adịgide n\'agbanyeghị nlekọta kwesịrị ekwesị',
+      'Pimples na-egbu mgbu ma ọ bụ dị omimi (nodules, cysts)',
+      'Pimples siri ike ma ọ bụ nke na-akawanye njọ ngwa ngwa',
+      'Ntụpọ ma ọ bụ ọnya na-anọgide',
+    ],
+    h7Title: 'Isi ihe ndị dị mkpa',
+    summaryTitle: 'Isi ihe ndị dị mkpa',
+    keyPoints: [
+      'Pimples hormone nwere ihe kpatara nke a pụrụ ịchọpụta, nke jikọtara na androgen.',
+      'Ọ na-emetụta akụkụ ala nke ihu ma nwee ike ịka njọ tupu nsọ ọnwa gị.',
+      'Ọ abụghị enweghị ịdị ọcha ma ọ bụ ihe a na-apụghị izere.',
+      'Nlekọta dị nro na, ma ọ bụrụ na ọ dị mkpa, ọgwụgwọ kwesịrị ekwesị nwere ike imeziwanye ya.',
+      'Dọkịta akpụkpọ ahụ ma ọ bụ gynecologist nwere ike inyere gị aka ma ọ bụrụ na ọ na-adịgide.',
+    ],
+    finalNoteTitle: 'Ntụziaka maka ịghọta nke ọma',
+    finalNoteText:
+      'Isiokwu a bụ naanị maka ozi n\'ozuzu ma ọ naghị anọchi nzukọ dọkịta. Ọ bụrụ na ị nwere obi abụọ ma ọ bụ mgbaàmà na-adịgide, jụọ ndụmọdụ n\'aka ọkachamara ahụike.',
+    shareMessage: 'Ịghọta pimples hormone — AWA',
+  },
+  yo: {
+    badge: 'PCOS • ÌBÁJẸ́ OJÚ TÓ JẸ MỌ́ HORMONE',
+    title: 'Lílóye\nìbájẹ́ ojú tó jẹ mọ́ hormone',
+    metaDuration: 'Kíkà ìṣẹ́jú 7',
+    metaType: 'Ìtọ́sọ́nà',
+    metaLevel: 'Ìbẹ̀rẹ̀',
+    metaValidated: 'Àkóónú ẹ̀kọ́',
+    intro:
+      'Ìdí tí ìbájẹ́ ojú tó jẹ mọ́ hormone fi lè hàn pẹ̀lú PCOS, bí a ṣe lè dá a mọ̀, àti àwọn ojútùú tó lè ran ìtọ́jú rẹ̀ lọ́wọ́.',
+    introSecondary:
+      'Ó kàn ọ̀pọ̀ obìnrin, kì í sì í ṣe àìmọ́ tàbí ohun tí kò lè yẹra fún: lílóye orísun rẹ̀ ń ranni lọ́wọ́ láti tọ́jú rẹ̀ dáadáa.',
+    contentsTitle: 'Nínú àpilẹ̀kọ yìí',
+    topics: [
+      'Kí ni ìbájẹ́ ojú tó jẹ mọ́ hormone?',
+      'Ṣé PCOS lè fa ìbájẹ́ ojú?',
+      'Bí a ṣe lè dá ìbájẹ́ ojú tó jẹ mọ́ hormone mọ̀',
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone àti àyípo nǹkan oṣù',
+      'Ohun tó lè ranni lọ́wọ́',
+      'Ìgbà wo ni kí n rí dókítà?',
+      'Àwọn kókó pàtàkì',
+    ],
+    h1: 'Kí ni ìbájẹ́ ojú tó jẹ mọ́ hormone?',
+    body1a:
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone jẹ́ irú ìbájẹ́ ojú tó jẹ mọ́ taara pẹ̀lú ìyípadà hormone tàbí àìwọ́ntúnwọ̀nsì, ní pàtàkì nínú androgen. Yàtọ̀ sí ìbájẹ́ ojú àwọn ọ̀dọ́ tó wọ́pọ̀ jù, ó sábà máa ń kan àwọn obìnrin àgbà, ó sì lè wà títí tàbí hàn lẹ́yìn àkókò yẹn.',
+    body1b:
+      'A tún dá a mọ̀ nípasẹ̀ ibi tó wà, jíjìn rẹ̀, àti ìtẹ̀sí rẹ̀ láti tún hàn ní ibi kan náà láìka ìtọ́jú awọ ara déédéé tí a tẹ̀ lé dáadáa sí.',
+    tip1Title: 'Ó dára láti mọ̀',
+    tip1Text:
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone kò jẹ mọ́ àìmọ́: fífọ ojú rẹ ní ìgbà púpọ̀ kò mú un kúrò, ó sì lè bí awọ ara nínú pàápàá.',
+    h2Title: 'Ṣé PCOS lè fa ìbájẹ́ ojú?',
+    body2:
+      'Nínú PCOS, androgen tó pọ̀ jù lọ́nà ìbátan ń mú àwọn ẹ̀jẹ̀ sebaceous ṣiṣẹ́, tí ó sì ń mú sebum púpọ̀ jáde. Awọ ara kan tún ní ìmọ̀lára jù sí àwọn hormone wọ̀nyí, èyí tó ṣàlàyé ìdí tí ìbájẹ́ ojú fi lè hàn gbangba kódà láìsí àìwọ́ntúnwọ̀nsì ńlá tí a wọ̀n ní yàrá.',
+    neutralText:
+      'Èyí kì í ṣe ọ̀ràn agbára ìfẹ́: ìmọ̀lára yìí yàtọ̀ láti ẹnì kan sí òmíràn, kò sì sinmi lórí àwọn ìṣe ìgbésí ayé rẹ.',
+    h3Title: 'Bí a ṣe lè dá ìbájẹ́ ojú tó jẹ mọ́ hormone mọ̀',
+    body3:
+      'Àwọn ànímọ́ kan sábà máa ń tún hàn, bó tilẹ̀ jẹ́ pé kì í ṣe nígbà gbogbo:',
+    recognizeSigns: [
+      'Ìsàlẹ̀ ojú: ẹ̀gbẹ́ àgbọ̀n, àgbọ̀n',
+      'Egbò tó jinlẹ̀ jù, tó ń dùn nígbà míràn',
+      'Ó sábà máa ń tún hàn ní ibi kan náà',
+      'Pupa tàbí àmì tó ń wà títí',
+    ],
+    h4Title: 'Ìbájẹ́ ojú tó jẹ mọ́ hormone àti àyípo nǹkan oṣù',
+    body4:
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone lè yípadà ní gbogbo àyípo. Ọ̀pọ̀ obìnrin ń ṣàkíyèsí ìgbóná rẹ̀ ní àwọn ọjọ́ ṣáájú nǹkan oṣù, nígbà tí progesterone ń gòkè tí ó sì ń sọ̀kalẹ̀ lójijì, tí ó ń mú ìṣẹ̀dá sebum ṣiṣẹ́ fún ìgbà díẹ̀.',
+    highlightTitle: 'Títọpa àwọn ìgbóná rẹ̀',
+    highlightText:
+      'Kíkọ àkókò tí egbò bá hàn ní ìbámu pẹ̀lú àyípo rẹ lè ran ìwọ àti dókítà awọ ara rẹ lọ́wọ́ láti lóye ìsopọ̀ hormone dáadáa.',
+    h5Title: 'Ohun tó lè ranni lọ́wọ́',
+    body5a:
+      'Àwọn ìṣe ìtọ́jú rírọrùn díẹ̀ lè ranni lọ́wọ́ láti dín ìgbóná rẹ̀ kù, láìmú un kúrò pátápátá fúnra wọn:',
+    careHabits: [
+      'Fọ awọ ara rẹ pẹ̀lẹ́ ní òwúrọ̀ àti ní alẹ́',
+      'Yẹra fún àwọn ọjà líle tàbí tó ń gbẹ awọ ara',
+      'Dáàbò bo awọ ara rẹ lọ́wọ́ oòrùn lójoojúmọ́',
+      'Yẹra fún fífún tàbí fífọ́ àwọn egbò',
+    ],
+    body5b:
+      'Gẹ́gẹ́ bí ipò ṣe rí, dókítà awọ ara tàbí dókítà obìnrin lè dábàá àwọn ìtọ́jú tí a fi sí awọ ara (ìpara, gel) tàbí, bí ó bá pọndandan, ìtọ́jú hormone tó yẹ.',
+    alertTitle: 'Má ṣe fi oògùn tọ́jú ara rẹ',
+    alertText:
+      'Àwọn ìtọ́jú ìbájẹ́ ojú tó jẹ mọ́ hormone (èyí tí a fi sí awọ ara tàbí ti hormone) gbọ́dọ̀ jẹ́ èyí tí òṣìṣẹ́ ìlera kọ àti tó ń ṣọ́, ní pàtàkì bí o bá ń retí láti lóyún.',
+    h6Title: 'Ìgbà wo ni kí n rí dókítà?',
+    body6:
+      'Ìmọ̀ràn ìṣègùn ṣe pàtàkì ní pàtàkì ní àwọn ipò kan:',
+    consultReasons: [
+      'Ìbájẹ́ ojú tó ń wà títí láìka ìtọ́jú tó yẹ sí',
+      'Egbò tó ń dùn tàbí tó jinlẹ̀ (nodule, cyst)',
+      'Ìbájẹ́ ojú líle tàbí èyí tó ń burú sí i kíákíá',
+      'Àmì tàbí àpá tó ń fìdí múlẹ̀',
+    ],
+    h7Title: 'Àwọn kókó pàtàkì',
+    summaryTitle: 'Àwọn kókó pàtàkì',
+    keyPoints: [
+      'Ìbájẹ́ ojú tó jẹ mọ́ hormone ní ìdí tí a lè dá mọ̀, tó jẹ mọ́ androgen.',
+      'Ó sábà máa ń kan ìsàlẹ̀ ojú, ó sì lè burú sí i ṣáájú nǹkan oṣù rẹ.',
+      'Kì í ṣe àìmọ́, bẹ́ẹ̀ ni kì í ṣe ohun tí kò lè yẹra fún.',
+      'Ìtọ́jú pẹ̀lẹ́ àti, bí ó bá pọndandan, ìtọ́jú tó yẹ lè mú un sunwọ̀n sí i.',
+      'Dókítà awọ ara tàbí dókítà obìnrin lè ràn ọ́ lọ́wọ́ bí ó bá ń wà títí.',
+    ],
+    finalNoteTitle: 'Ìtọ́sọ́nà fún òye tó dára jù',
+    finalNoteText:
+      'Àpilẹ̀kọ yìí wà fún ìfitónilétí gbogbogbò nìkan, kò sì rọ́pò ìbẹ̀wò sí dókítà. Bí o bá ṣiyèméjì tàbí tí àwọn àmì bá ń wà títí, wá ìmọ̀ràn lọ́dọ̀ òṣìṣẹ́ ìlera.',
+    shareMessage: 'Lílóye ìbájẹ́ ojú tó jẹ mọ́ hormone — AWA',
+  },
+  zu: {
+    badge: 'PCOS • IZINYOSI ZAMA-HORMONE',
+    title: 'Ukuqonda\nizinyosi zama-hormone',
+    metaDuration: 'Imizuzu eyi-7 yokufunda',
+    metaType: 'Umhlahlandlela',
+    metaLevel: 'Isiqalo',
+    metaValidated: 'Okwemfundo',
+    intro:
+      'Kungani izinyosi zama-hormone zingavela ne-PCOS, indlela yokuzibona, nokuthi yiziphi izixazululo ezingasiza ukuzilawula.',
+    introSecondary:
+      'Zithinta abesifazane abaningi futhi azibangelwa ukuntuleka kwenhlanzeko noma azigwemeki: ukuqonda isiqalo sazo kusiza ukuzilawula kangcono.',
+    contentsTitle: 'Kulesi sihloko',
+    topics: [
+      'Ziyini izinyosi zama-hormone?',
+      'Kungani i-PCOS ingabangela izinyosi?',
+      'Indlela yokubona izinyosi zama-hormone',
+      'Izinyosi zama-hormone nomjikelezo wokuya esikhathini',
+      'Okungasiza',
+      'Uma kufanele ubone udokotela?',
+      'Amaphuzu abalulekile',
+    ],
+    h1: 'Ziyini izinyosi zama-hormone?',
+    body1a:
+      'Izinyosi zama-hormone uhlobo lwezinyosi oluhlobene ngokuqondile nokushintshashintsha kwama-hormone noma ukungalingani, ikakhulukazi kuma-androgen. Ngokungafani nezinyosi ezijwayelekile zobusha, zivame ukuthinta abesifazane abadala futhi zingaqhubeka noma zivele ngemva kwalesi sikhathi.',
+    body1b:
+      'Zihlukaniswa futhi ngendawo, ukujula, nokuthambekela kokuphinda zivele ezindaweni ezifanayo naphezu kwenqubo yokunakekela isikhumba elandelwa kahle.',
+    tip1Title: 'Kuhle ukwazi',
+    tip1Text:
+      'Izinyosi zama-hormone azihlobene nokuntuleka kwenhlanzeko: ukugeza ubuso kaningi akuzenzi zinyamalale, futhi kungase futhi kucasule isikhumba.',
+    h2Title: 'Kungani i-PCOS ingabangela izinyosi?',
+    body2:
+      'Ku-PCOS, ukweqile okuhlobene kwama-androgen kushukumisa izindlala zamafutha, ezibe sezikhiqiza amafutha amaningi. Esinye isikhumba siphinde sizwele kakhulu kulawa ma-hormone, okuchaza ukuthi kungani izinyosi zingaba zinkulu ngisho nangaphandle kokungalingani okukhulu okulinganiswe elabhorethri.',
+    neutralText:
+      'Lokhu akulona udaba lwamandla okuzikhandla: lokhu kuzwela kuhluka komunye nomunye futhi akuncikile ezinhlotsheni zakho zokuphila.',
+    h3Title: 'Indlela yokubona izinyosi zama-hormone',
+    body3:
+      'Izimpawu ezithile zivame ukubuya, nakuba zingabuyi njalo:',
+    recognizeSigns: [
+      'Ingxenye engezansi yobuso: umhlathi, ikhanda',
+      'Izinyosi ezijule kakhulu, ngezinye izikhathi ezibuhlungu',
+      'Zivame ukuphinda zivele ezindaweni ezifanayo',
+      'Ububomvu noma amabala aqhubekayo',
+    ],
+    h4Title: 'Izinyosi zama-hormone nomjikelezo wokuya esikhathini',
+    body4:
+      'Izinyosi zama-hormone zingashintshashintsha emjikelezweni wonke. Abesifazane abaningi baqaphela ukwanda ezinsukwini ezandulela isikhathi sabo, lapho i-progesterone ikhuphuka bese ihla kakhulu, ishukumisa okwesikhashana ukukhiqizwa kwamafutha.',
+    highlightTitle: 'Ukulandelela ukwanda kwakho',
+    highlightText:
+      'Ukuqaphela ukuthi izinyosi zivela nini maqondana nomjikelezo wakho kungakusiza wena nodokotela wesikhumba nibone kangcono ukuxhumana kwama-hormone.',
+    h5Title: 'Okungasiza',
+    body5a:
+      'Imikhuba embalwa elula yokunakekela ingasiza ukunciphisa ukwanda, ngaphandle kokuzisusa ngokuphelele yodwa:',
+    careHabits: [
+      'Geza isikhumba sakho ngobumnene ekuseni nakusihlwa',
+      'Gwema imikhiqizo eqinile noma eyomisayo',
+      'Vikela isikhumba sakho elangeni nsuku zonke',
+      'Gwema ukucindezela noma ukuxwaya izinyosi',
+    ],
+    body5b:
+      'Ngokuya ngesimo, udokotela wesikhumba noma ongoti wesifazane angaphakamisa ukwelashwa okwenziwa esikhumbeni (amakhilimu, ama-gel) noma, uma kudingeka, ukwelashwa kwama-hormone okufanele.',
+    alertTitle: 'Ungazelaphi',
+    alertText:
+      'Ukwelashwa kwezinyosi zama-hormone (ngokwesikhumba noma ngama-hormone) kufanele kunikezwe futhi kubhekwe uchwepheshe wezempilo, ikakhulukazi uma unethemba lokukhulelwa.',
+    h6Title: 'Uma kufanele ubone udokotela?',
+    body6:
+      'Iseluleko sezokwelapha siwusizo ikakhulukazi ezimeni ezithile:',
+    consultReasons: [
+      'Izinyosi eziqhubeka naphezu kokunakekelwa okufanele',
+      'Izinyosi ezibuhlungu noma ezijulile (ama-nodule, ama-cyst)',
+      'Izinyosi ezinzima noma ezimbi ngokushesha',
+      'Amabala noma izibazi ezihlala',
+    ],
+    h7Title: 'Amaphuzu abalulekile',
+    summaryTitle: 'Amaphuzu abalulekile',
+    keyPoints: [
+      'Izinyosi zama-hormone zinesizathu esikhonjiwe, esihlobene nama-androgen.',
+      'Zivame ukuthinta ingxenye engezansi yobuso futhi zingaba zimbi ngaphambi kwesikhathi sakho.',
+      'Azibangelwa ukuntuleka kwenhlanzeko futhi azigwemeki.',
+      'Ukunakekelwa okuthambile futhi, uma kudingeka, ukwelashwa okufanele kungazithuthukisa.',
+      'Udokotela wesikhumba noma ongoti wesifazane angakusekela uma ziqhubeka.',
+    ],
+    finalNoteTitle: 'Umhlahlandlela wokuqonda kangcono',
+    finalNoteText:
+      'Lesi sihloko sesolwazi jikelele kuphela futhi asithathi isikhundla sokubonana nodokotela. Uma unokungabaza noma uma izimpawu ziqhubeka, cela iseluleko kochwepheshe wezempilo.',
+    shareMessage: 'Ukuqonda izinyosi zama-hormone — AWA',
+  },
+  xh: {
+    badge: 'I-PCOS • I-ACNE YEEHOMONI',
+    title: 'Ukuyiqonda\ni-acne yeehomoni',
+    metaDuration: 'Imizuzu eyi-7 yokufunda',
+    metaType: 'Isikhokelo',
+    metaLevel: 'Abaqalayo',
+    metaValidated: 'Umxholo wemfundo',
+    intro:
+      'Kutheni i-acne yeehomoni inokuvela nge-PCOS, indlela yokuyiqaphela, nezisombululo ezinokunceda ukuyilawula.',
+    introSecondary:
+      'Ichaphazela abafazi abaninzi kwaye ayikukungabi nococeko okanye into engenakuphepheka: ukuqonda imvelaphi yayo kunceda ukuyilawula ngcono.',
+    contentsTitle: 'Kweli nqaku',
+    topics: [
+      'Yintoni i-acne yeehomoni?',
+      'Kutheni i-PCOS inokubangela i-acne?',
+      'Indlela yokuqaphela i-acne yeehomoni',
+      'I-acne yeehomoni nomjikelo wokuya exesheni',
+      'Okunokunceda',
+      'Xa kufuneka ubone gqirha?',
+      'Eyona nto ibalulekileyo',
+    ],
+    h1: 'Yintoni i-acne yeehomoni?',
+    body1a:
+      'I-acne yeehomoni luhlobo lwe-acne exhumene ngqo nokuguquguquka kweehomoni okanye ukungalingani, ngakumbi kwii-androgen. Ngokungafaniyo ne-acne eqhelekileyo yobutsha, idla ngokuchaphazela abafazi abakhulileyo kwaye inokuqhubeka okanye ivele emva kweli xesha.',
+    body1b:
+      'Ikwahluka ngendawo, nobunzulu, nothando lokubuya kwiindawo ezifanayo nangona kulandelwa isiqhelo esifanelekileyo sokukhathalela isikhumba.',
+    tip1Title: 'Kulungile ukwazi',
+    tip1Text:
+      'I-acne yeehomoni ayinxulumananga nokunqongophala kococeko: ukuhlamba ubuso rhoqo ngakumbi akuyenzi iphele, kwaye kunokucaphukisa isikhumba.',
+    h2Title: 'Kutheni i-PCOS inokubangela i-acne?',
+    body2:
+      'Kwi-PCOS, ukugqitha okuhlobene kwee-androgen kuvuselela imithambo yeoli yesikhumba, ethi emva koko ivelise ioli eninzi. Esinye isikhumba sikwakhathazeka ngakumbi kule hormone, nto leyo echaza ukuba i-acne inokuba nkulu nangaphandle kokungalingani okukhulu okulinganiswe kwilabhoratri.',
+    neutralText:
+      'Oku akukho mbandela wamandla okuzimisela: olu ntlonti luyahluka komnye umntu ukuya komnye kwaye aluxhomekekanga kwizinto ozenzayo ekuphileni.',
+    h3Title: 'Indlela yokuqaphela i-acne yeehomoni',
+    body3:
+      'Iimpawu ezithile zidla ngokuphindaphinda, nangona kungahleli rhoqo:',
+    recognizeSigns: [
+      'Ingingqi esezantsi yobuso: umda wesilevu, isilevu',
+      'Izikhwehlelo ezinzulu, ngamanye amaxesha ezibuhlungu',
+      'Idla ngokubuya kwiindawo ezifanayo',
+      'Ubomvu okanye imikhondo eqhubekayo',
+    ],
+    h4Title: 'I-acne yeehomoni nomjikelo wokuya exesheni',
+    body4:
+      'I-acne yeehomoni inokuguquguquka kulo lonke umjikelo. Abafazi abaninzi baqaphela ukwanda kweentsuku ngaphambi kwexesha lokuya exesheni, xa i-progesterone inyuka kwaye ize yehle kakhulu, ivuselele okwethutyana ukwenziwa kweoli.',
+    highlightTitle: 'Ukulandelela ukwanda kwayo',
+    highlightText:
+      'Ukubhala ukuba izikhwehlelo zivela nini ngokunxulumene nomjikelo wakho kunganceda wena nogqirha wesikhumba niqonde ngcono unxulumano lweehomoni.',
+    h5Title: 'Okunokunceda',
+    body5a:
+      'Iziqhelo ezimbalwa ezilula zokukhathalela zinganceda ukunciphisa ukwanda, ngaphandle kokuyicima ngokupheleleyo ngokwazo:',
+    careHabits: [
+      'Hlamba isikhumba sakho ngobunono ekuseni nangokuhlwa',
+      'Phepha iimveliso ezinamandla okanye ezomisayo',
+      'Khusela isikhumba sakho elangeni imihla le',
+      'Phepha ukucudisa okanye ukukrwela izikhwehlelo',
+    ],
+    body5b:
+      'Ngokuxhomekeke kwimeko, ugqirha wesikhumba okanye ugqirha wabasetyhini unokucebisa unyango lwangaphandle (ikhrim, ijeli) okanye, ukuba kuyimfuneko, unyango olufanelekileyo lweehomoni.',
+    alertTitle: 'Musa ukuzinyanga',
+    alertText:
+      'Unyango lwe-acne yeehomoni (lwangaphandle okanye lweehomoni) kufuneka lumiselwe kwaye lujongwe yingcali yezempilo, ngakumbi ukuba unethemba lokukhulelwa.',
+    h6Title: 'Xa kufuneka ubone gqirha?',
+    body6:
+      'Icebiso lezonyango luluncedo ngakumbi kwiimeko ezithile:',
+    consultReasons: [
+      'I-acne eqhubekayo nangona kukho unyango olufanelekileyo',
+      'Izikhwehlelo ezibuhlungu okanye ezinzulu (ii-nodule, ii-cyst)',
+      'I-acne enzima okanye eya isiba mbi ngokukhawuleza',
+      'Imikhondo okanye izibazi ezizinzileyo',
+    ],
+    h7Title: 'Eyona nto ibalulekileyo',
+    summaryTitle: 'Iingongoma ezibalulekileyo',
+    keyPoints: [
+      'I-acne yeehomoni inesizathu esinokuchongwa, esinxulumene nee-androgen.',
+      'Idla ngokuchaphazela ingingqi esezantsi yobuso kwaye inokuba mbi ngaphambi kwexesha lokuya exesheni.',
+      'Ayikukungabi nococeko okanye into engenakuphepheka.',
+      'Unyango olunobunono kwaye, ukuba kuyimfuneko, unyango olufanelekileyo lunokuyiphucula.',
+      'Ugqirha wesikhumba okanye ugqirha wabasetyhini unokukuxhasa ukuba iyaqhubeka.',
+    ],
+    finalNoteTitle: 'Isikhokelo sokuqonda ngcono',
+    finalNoteText:
+      'Eli nqaku lolwazi jikelele kuphela kwaye alithatheli indawo yophando lwezonyango. Ukuba uyakrokrela okanye iimpawu ziyaqhubeka, cela icebiso kwingcali yezempilo.',
+    shareMessage: 'Ukuyiqonda i-acne yeehomoni — AWA',
+  },
+  sn: {
+    badge: 'PCOS • MAPUNDU EMAHORMONE',
+    title: 'Kunzwisisa\nmapundu emahormone',
+    metaDuration: 'Maminitsi manomwe ekuverenga',
+    metaType: 'Nhungamiro',
+    metaLevel: 'Vanotanga',
+    metaValidated: 'Zvinyorwa zvekudzidzisa',
+    intro:
+      'Nei mapundu emahormone achigona kuuya ne PCOS, madiro ekuaziva, uye mhinduro dzinogona kubatsira kuaitisa.',
+    introSecondary:
+      'Anokanganisa vakadzi vakawanda uye haasi kushaya kuchenesa kana chinhu chisingadzivisiki: kunzwisisa kwaanobva kunobatsira kuaitisa zvirinani.',
+    contentsTitle: 'Muchinyorwa ichi',
+    topics: [
+      'Mapundu emahormone chii?',
+      'Nei PCOS ichigona kukonzera mapundu?',
+      'Madiro ekuziva mapundu emahormone',
+      'Mapundu emahormone nekutenderera kwekuenda kumwedzi',
+      'Zvinogona kubatsira',
+      'Painofanira kuonekwa chiremba?',
+      'Zvinokosha zvekuyeuka',
+    ],
+    h1: 'Mapundu emahormone chii?',
+    body1a:
+      'Mapundu emahormone rudzi rwemapundu rwakabatana zvakananga nekusiyana kwemahormone kana kusaenzana, kunyanya mu androgens. Zvakasiyana nemapundu akajairika ehujaya, anowanzokanganisa vakadzi vakuru uye anogona kuramba kana kuuya mushure menguva iyoyo.',
+    body1b:
+      'Anosiyaniswawo nenzvimbo yawo, kudzika kwawo, uye kuita kuti adzoke panzvimbo imwe chete kunyange pakatevedzwa nzira yakarurama yekuchengeta ganda.',
+    tip1Title: 'Zvakanaka kuziva',
+    tip1Text:
+      'Mapundu emahormone haabatanidzwi nekushaya kuchenesa: kushamba kumeso kazhinji hakuaiti kuti aende, uye kunogona kuvhundutsa ganda.',
+    h2Title: 'Nei PCOS ichigona kukonzera mapundu?',
+    body2:
+      'Mu PCOS, androgens dzakanyanya zvishoma dzinomutsa sebaceous glands, dzinobva dzaita sebum yakawanda. Mamwe magundu anonyanya kunzwa mahormone aya, zvinotsanangura kuti nei mapundu angava akanyanya kunyange pasina kusaenzana kukuru kunoonekwa mu lab.',
+    neutralText:
+      'Izvi hazvisi nyaya yesimba rekuda: kunzwa uku kunosiyana kubva kumunhu kuenda kumunhu uye hakutsamiri tsika dzako dzehupenyu.',
+    h3Title: 'Madiro ekuziva mapundu emahormone',
+    body3:
+      'Zvimwe zvinhu zvinowanzodzokororwa, kunyange zvisiri nguva dzose:',
+    recognizeSigns: [
+      'Kumeso kwepazasi: rutivi rwemuromo, chirevo',
+      'Mapundu akadzika, dzimwe nguva anorwadza',
+      'Anowanzodzoka panzvimbo imwe chete',
+      'Kutsvuka kana mavara anoramba aripo',
+    ],
+    h4Title: 'Mapundu emahormone nekutenderera kwekuenda kumwedzi',
+    body4:
+      'Mapundu emahormone anogona kusiyana mukati mekutenderera. Vakadzi vakawanda vanocherechedza kuwedzera mumazuva asati aenda kumwedzi, apo progesterone inokwira ipapo ichiwira zvikuru, ichimutsa kugadzirwa kwe sebum kwenguva pfupi.',
+    highlightTitle: 'Kutevera kuwedzera kwemapundu ako',
+    highlightText:
+      'Kunyora kuti mapundu anoonekwa rinhi zvichienderana nekutenderera kwako kunogona kubatsira iwe nechiremba wezvegunda kunzwisisa zvirinani hukama hwemahormone.',
+    h5Title: 'Zvinogona kubatsira',
+    body5a:
+      'Tsika shoma dzakareruka dzekuchengeta ganda dzinogona kubatsira kudzikamisa kuwedzera, asi dzoga dzisingaaite kuti apere zvachose:',
+    careHabits: [
+      'Chenesa ganda rako zvinyoronyoro mangwanani nemanheru',
+      'Dzivisa zvigadzirwa zvakasimba kana zvinotorera mafuta',
+      'Dzivirira ganda rako kubva kuzuva zuva rimwe nerimwe',
+      'Dzivisa kudzvanya kana kubvuta mapundu',
+    ],
+    body5b:
+      'Zvichienderana nemamiriro, chiremba wezvegunda kana gynecologist anogona kukurudzira kurapwa kunoiswa pagunda (cream, gel) kana, kana zvichidiwa, kurapwa kwemahormone kunokodzera.',
+    alertTitle: 'Usazvirape wega',
+    alertText:
+      'Kurapwa kwemapundu emahormone (kunoiswa pagunda kana kwemahormone) kunofanira kupiwa nekutariswa nenyanzvi yezvehutano, kunyanya kana uchitarisira kubata mimba.',
+    h6Title: 'Painofanira kuonekwa chiremba?',
+    body6:
+      'Zano rechiremba rinobatsira zvikuru mune mamwe mamiriro:',
+    consultReasons: [
+      'Mapundu anoramba aripo kunyange pakashandiswa kuchengetwa kwakakodzera',
+      'Mapundu anorwadza kana akadzika (nodules, cysts)',
+      'Mapundu akaipa zvikuru kana anowedzera nekukurumidza',
+      'Mavara kana zvironda zviri kugara',
+    ],
+    h7Title: 'Zvinokosha zvekuyeuka',
+    summaryTitle: 'Mapoinzi akakosha',
+    keyPoints: [
+      'Mapundu emahormone ane chikonzero chinoonekwa, chinobatana ne androgens.',
+      'Anowanzokanganisa kumeso kwepazasi uye anogona kuwedzera usati waenda kumwedzi.',
+      'Haasi kushaya kuchenesa kana chinhu chisingadzivisiki.',
+      'Kuchengeta kwakareruka uye, kana zvichidiwa, kurapwa kunokodzera kunogona kuaitisa kuti ave nani.',
+      'Chiremba wezvegunda kana gynecologist anogona kukutsigira kana achiramba aripo.',
+    ],
+    finalNoteTitle: 'Nhungamiro yekunzwisisa zvirinani',
+    finalNoteText:
+      'Chinyorwa ichi chekupa ruzivo rwakazara chete uye hachitsivi kuenda kuchiremba. Kana uine mubvunzo kana zviratidzo zvichiramba zvichivapo, tsvaga zano kunyanzvi yezvehutano.',
+    shareMessage: 'Kunzwisisa mapundu emahormone — AWA',
+  },
+  ln: {
+    badge: 'PCOS • BOUTON YA HORMONE',
+    title: 'Kososola\nbouton ya hormone',
+    metaDuration: 'Mpe ya kotánga: min 7',
+    metaType: 'Mokanda ya litambwisi',
+    metaLevel: 'Mobandi',
+    metaValidated: 'Maloba ya koteya',
+    intro:
+      'Mpo na nini bouton ya hormone ekoki kobima na PCOS, ndenge ya koyeba yango, mpe nzela nini ekoki kosunga mpo na kokamba yango.',
+    introSecondary:
+      'Ekómelaka basi mingi mpe ezali kozanga bopeto te to likambo oyo ekoki kolongwa te: kososola ebandeli na yango esungaka kokamba yango malamu.',
+    contentsTitle: 'Na lisolo oyo',
+    topics: [
+      'Bouton ya hormone ezali nini?',
+      'Mpo na nini PCOS ekoki kobimisa bouton?',
+      'Ndenge ya koyeba bouton ya hormone',
+      'Bouton ya hormone mpe sanza',
+      'Nini ekoki kosunga',
+      'Ntango nini osengeli kotala monganga?',
+      'Makambo ya motuya',
+    ],
+    h1: 'Bouton ya hormone ezali?',
+    body1a:
+      'Bouton ya hormone ezali lolenge ya bouton oyo etali mbala moko bobongwani to bokesani ya hormone, mingi mingi ya androgène. Na bokesani na bouton ya mbala mingi ya bomwana, ekómelaka mbala mingi basi ya mikolo mpe ekoki kotikala to kobima sima ya ntango wana.',
+    body1b:
+      'Ekesanaka mpe na esika na yango, bozindo na yango, mpe mposa na yango ya kobima lisusu na bisika moko atako bobateli ya poso ya ntango nyonso elandami malamu.',
+    tip1Title: 'Ezali malamu koyeba',
+    tip1Text:
+      'Bouton ya hormone etali kozanga bopeto te: kosukola elongi mbala mingi ekolongola yango te, mpe ekoki mpe kosilisa poso.',
+    h2Title: 'Mpo na nini PCOS ekoki kobimisa bouton?',
+    body2:
+      'Na PCOS, androgène mingi koleka ekotisaka misala ya bisika ya mafuta ya poso, oyo sima ebimisaka sebum mingi. Poso mosusu ezali mpe na mosunga makasi na ba hormone oyo, yango elimboli mpo na nini bouton ekoki kozala makasi atako bokesani monene etalisami na laboratoire te.',
+    neutralText:
+      'Oyo ezali likambo ya molende te: mosunga oyo ekesanaka na moto na moto mpe etali momeseno ya bomoi na yo te.',
+    h3Title: 'Ndenge ya koyeba bouton ya hormone',
+    body3:
+      'Bilembo mosusu ezongelaka mbala mingi, atako ntango nyonso te:',
+    recognizeSigns: [
+      'Nse ya elongi: mokuwa ya monoko, mokɔnɔ',
+      'Bouton ya bozindo, mbala mosusu ya mpasi',
+      'Ebimaka lisusu mbala mingi na bisika moko',
+      'Motane to bilembo oyo etikalaka',
+    ],
+    h4Title: 'Bouton ya hormone mpe sanza',
+    body4:
+      'Bouton ya hormone ekoki kokesana na boumeli ya sanza. Basi mingi bamonaka kopusa na mikolo liboso ya sanza, ntango progestérone etombwaka sima ekitaka makasi, yango ekotisaka mpo na ntango moke ebimi ya sebum.',
+    highlightTitle: 'Kolanda bopusi na yo',
+    highlightText:
+      'Kokoma ntango bouton ebimi na kotalela sanza na yo ekoki kosunga yo mpe dermatologue na yo kososola boyokani ya hormone malamu.',
+    h5Title: 'Nini ekoki kosunga',
+    body5a:
+      'Momeseno mwa ndambo ya bobateli ya pɛtɛɛ ekoki kosunga mpo na kokitisa bopusi, kozanga kolongola yango mobimba na yango moko:',
+    careHabits: [
+      'Sukola poso na yo na boboto ntɔngɔ mpe mpokwa',
+      'Kokima biloko ya makasi to oyo ekaukisaka poso',
+      'Bateli poso na yo na moi mokolo na mokolo',
+      'Kokima kopikola to kolongola bouton',
+    ],
+    body5b:
+      'Engebene na likambo, dermatologue to gynécologue akoki kopesa toli ya bakisi ya kotya na poso (crème, gel) to, soki esengeli, bobateli ya hormone oyo ebongi.',
+    alertTitle: 'Komibikisa te',
+    alertText:
+      'Bakisi ya bouton ya hormone (ya kotya na poso to ya hormone) esengeli kopesama mpe kolandama na moto ya mosala ya bokolongono, mingi mingi soki ozali na elikya ya kozwa mimba.',
+    h6Title: 'Ntango nini osengeli kotala monganga?',
+    body6:
+      'Toli ya monganga esungaka mingi na makambo mosusu:',
+    consultReasons: [
+      'Bouton oyo etikali atako bobateli oyo ebongi',
+      'Bouton ya mpasi to ya bozindo (nodule, kisto)',
+      'Bouton ya makasi to oyo ekómi mabe noki',
+      'Bilembo to mapota oyo etikali',
+    ],
+    h7Title: 'Makambo ya motuya',
+    summaryTitle: 'Makambo ya mbango',
+    keyPoints: [
+      'Bouton ya hormone ezali na ebandeli oyo eyebani, oyo etali androgène.',
+      'Ebimaka mbala mingi na nse ya elongi mpe ekoki kokóma mabe liboso ya sanza na yo.',
+      'Ezali kozanga bopeto te to likambo oyo ekoki kolongwa te.',
+      'Bobateli ya boboto mpe, soki esengeli, bakisi oyo ebongi ekoki kobongisa yango.',
+      'Dermatologue to gynécologue akoki kosunga yo soki etikali.',
+    ],
+    finalNoteTitle: 'Litambwisi mpo na kososola malamu',
+    finalNoteText:
+      'Lisolo oyo ezali mpo na boyebisi ya mobimba kaka mpe ekotɛlɛmaka na kotala monganga te. Soki ozali na ntembe to bilembo etikali, senga toli epai ya moto ya mosala ya bokolongono.',
+    shareMessage: 'Kososola bouton ya hormone — AWA',
+  },
+  ff: {
+    badge: 'PCOS • ACNE HORMONES',
+    title: 'Faamugol\nacne hormones',
+    metaDuration: 'Janngugol minit 7',
+    metaType: 'Ɗaɓɓitaaji',
+    metaLevel: 'Fuɗɗoode',
+    metaValidated: 'Habaru janngugol',
+    intro:
+      'Ko waɗi acne hormones foti wontude e PCOS, no anndiraa, e ko foti walliinde ngam reenugol maako.',
+    introSecondary:
+      'Ɗum ɗon wooɗa e rewbe ɗuuɗi e ɗum ɗon sabu alaa laabugol walla ko ɗum ɗon yaadaaɗum: faamugol sabaabu maako ɗum ɗon walliidi reenugol ɓurii.',
+    contentsTitle: 'E winndannde ndee',
+    topics: [
+      'Ɗume woni acne hormones?',
+      'Ko waɗi PCOS foti wontina acne?',
+      'No acne hormones anndiraa',
+      'Acne hormones e ciklu menstruation',
+      'Ko foti walliinde',
+      'Nde ƴeewndaade doktoor?',
+      'Ko ɗum ɗon ɗum ɓesngu',
+    ],
+    h1: 'Ɗume woni acne hormones?',
+    body1a:
+      'Acne hormones ko acne hawtaaɗum e wooɗal walla wooɗaaɗum hormones, ko ɗuuɗi androgens. Bannjo acne ɗum ɗon e sukaaɓe, ɗum ɗon wooɗa e rewbe mawɓe e foti jooɗude walla wontude caggal ngoo wakkati.',
+    body1b:
+      'Ɗum ɗon feerteede e ɗoo ɗum ɗon wooɗa, e fuɗɗoode maako, e ruttugol maako e ɗoo gootoo hay so a ɗon reeni fuuɗe no haani.',
+    tip1Title: 'Ɗum ɗon ɗum ɓesngu',
+    tip1Text:
+      'Acne hormones ɗum ɗon hawtaaki e alaa laabugol: lawgol yeeso ɓurii ɗum ɗon waɗa ɗum ɗon accude, e foti sattude fuuɗe.',
+    h2Title: 'Ko waɗi PCOS foti wontina acne?',
+    body2:
+      'E PCOS, androgens ɗuuɗal seɗɗa ɗum ɗon wuurta sebaceous glands, ɗe ɗon ƴeewa sebum ɗuuɗal. Fuuɗe feere ɗum ɗon welii hormones ɗii, ko ɗum ɗon waɗi acne foti wontude mawɗum hay so wooɗal mawngal ɗum ɗon yi’aaka e laboratoire.',
+    neutralText:
+      'Ɗum ɗon ko semmbe hakkilo: ngoo welaaɗum ɗum ɗon wooɗa e neɗɗo e neɗɗo e ɗum ɗon hawtaaki e nguurndam maaɗa.',
+    h3Title: 'No acne hormones anndiraa',
+    body3:
+      'Takaaɗe feere ɗum ɗon fahin fahin, kono ɗum ɗon kala:',
+    recognizeSigns: [
+      'Yeeso ley: jaw, ɗuuɗal',
+      'Fuuɗe ɗum ɗon tilsii, ko ɗuuɗi naawgol',
+      'Ɗum ɗon wontii ɗoo gootoo',
+      'Ɗum ɗon wontii ɗiɗɗa walla takaaɗe jooɗɗe',
+    ],
+    h4Title: 'Acne hormones e ciklu menstruation',
+    body4:
+      'Acne hormones foti wooɗude e nder ciklu. Rewbe ɗuuɗi ɗon yi’a ɗum ɗon ɗuuɗi nyalaaji ado menstruation, nde progesterone ɗum ɗon yaara e caggal ɗuum ɗum ɗon wontii seɗɗa, ɗum ɗon wuurta sebum seɗɗa.',
+    highlightTitle: 'Ƴeewndo ɗum ɗon wooɗa',
+    highlightText:
+      'Winndugol nde fuuɗe ɗon ngaari e ciklu maaɗa walliidi ma e doktoor fuuɗe maaɗa faamugo hawtugol hormones.',
+    h5Title: 'Ko foti walliinde',
+    body5a:
+      'Kuuje seɗɗa reenugol fuuɗe foti walliinde wontinugo acne, bannjo ɗum ɗon sooynaa ɗum ko hoore maako:',
+    careHabits: [
+      'Laabu fuuɗe maaɗa no haani subaka e fajiri',
+      'Taa huutina safaara semmbe',
+      'Reenu fuuɗe maaɗa e naange nyalaande kala',
+      'Taa hiisa walla ƴeɓɓa fuuɗe',
+    ],
+    body5b:
+      'Ko ɗuuɗi e ngonka, doktoor fuuɗe walla gynécologue foti hokkude safaara fuuɗe (crème, gel) walla, so ɗum ɗon haani, safaara hormones ɗum ɗon.',
+    alertTitle: 'Taa huutina safaara maaɗa hoore',
+    alertText:
+      'Safaara acne hormones (fuuɗe walla hormones) ɗum ɗon hokkeede e ƴeewndeede e neɗɗo anndudo ɓanndu, ko ɗuuɗi so a yiɗi heɓugo pellital.',
+    h6Title: 'Nde ƴeewndaade doktoor?',
+    body6:
+      'Walliinde doktoor ɗum ɗon welii ko ɗuuɗi e ngonka feere:',
+    consultReasons: [
+      'Acne ɗum ɗon jooɗa hay so ƴeewndo ɗum ɗon sooynaaɗum',
+      'Fuuɗe naawɗe walla tilsiiɗe (nodules, cysts)',
+      'Acne mawɗum walla ɗum ɗon ɗuuɗi yaawi',
+      'Takaaɗe walla maaje ɗe ɗon jooɗa',
+    ],
+    h7Title: 'Ko ɗum ɗon ɗum ɓesngu',
+    summaryTitle: 'Ko ɓesngu',
+    keyPoints: [
+      'Acne hormones ɗum ɗon mari sabaabu anndaaɗum, hawtaaɗum e androgens.',
+      'Ɗum ɗon wooɗa e yeeso ley e foti ɗuuɗude ado menstruation maaɗa.',
+      'Ɗum ɗon sabu alaa laabugol walla ko ɗum ɗon yaadaaɗum.',
+      'Reenugol sooynaaɗum e, so ɗum ɗon haani, safaara ɗum ɗon e ngonka foti sooynude ɗum.',
+      'Doktoor fuuɗe walla gynécologue foti walliinde ma so ɗum ɗon jooɗa.',
+    ],
+    finalNoteTitle: 'Hokkitaare ngam faamugo ɓurugo',
+    finalNoteText:
+      'Winndannde ndee ɗum ɗon anndinirɗum tan e ɗum ɗon wuurta ƴeewndo doktoor. So a ɗon sikke walla alamaaji ɗon jooɗa, ɗaɓɓitaa jamaa neɗɗo anndudo ɓanndu.',
+    shareMessage: 'Faamugol acne hormones — AWA',
+  },
   id: {
     badge: 'PCOS • JERAWAT HORMONAL',
     title: 'Memahami\njerawat hormonal',
