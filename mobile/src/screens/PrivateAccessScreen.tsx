@@ -34,7 +34,6 @@ import {
 } from '../services/privateSectionAuth';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
 
@@ -58,24 +57,6 @@ const KEYS = [
   '0',
   'delete',
 ] as const;
-
-const LETTERS: Record<string, string> = {
-  '2': 'ABC',
-  '3': 'DEF',
-  '4': 'GHI',
-  '5': 'JKL',
-  '6': 'MNO',
-  '7': 'PQRS',
-  '8': 'TUV',
-  '9': 'WXYZ',
-};
-
-const purposeCopyOf = (t: (key: string) => string): Record<PrivateAccessPurpose, string> => ({
-  miscarriagePersonalNotes:
-    t('privateAccess.purposeMiscarriagePersonalNotes'),
-  pregnancyMedicalInformation:
-    t('privateAccess.purposePregnancyMedicalInformation'),
-});
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -174,7 +155,6 @@ function KeypadKey({
   compact,
   icon,
   label,
-  letters,
   onPress,
   theme,
   styles,
@@ -183,7 +163,6 @@ function KeypadKey({
   compact: boolean;
   icon?: IconName;
   label?: string;
-  letters?: string;
   onPress: () => void;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
@@ -260,12 +239,6 @@ function KeypadKey({
             <Text style={styles.number}>
               {label}
             </Text>
-
-            {letters ? (
-              <Text style={styles.letters}>
-                {letters}
-              </Text>
-            ) : null}
           </>
         )}
       </Animated.View>
@@ -282,7 +255,6 @@ export default function PrivateAccessScreen({
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const PURPOSE_COPY = purposeCopyOf(t);
 
   const insets = useSafeAreaInsets();
   const {height, width} = useWindowDimensions();
@@ -634,26 +606,6 @@ export default function PrivateAccessScreen({
             <AwaText
               colorRole="onSurfaceVariant"
               style={
-                styles.subtitle
-              }
-              variant="bodyMedium">
-              {t('privateAccess.subtitle')}
-            </AwaText>
-            <AwaText
-              emphasized
-              style={
-                styles.purposeLine
-              }
-              variant="bodyMedium">
-              {
-                PURPOSE_COPY[
-                  purpose
-                ]
-              }
-            </AwaText>
-            <AwaText
-              colorRole="onSurfaceVariant"
-              style={
                 styles.instruction
               }
               variant="bodySmall">
@@ -780,9 +732,6 @@ export default function PrivateAccessScreen({
                   compact={compact}
                   key={key}
                   label={key}
-                  letters={
-                    LETTERS[key]
-                  }
                   onPress={() =>
                     enter(key)
                   }
@@ -793,37 +742,6 @@ export default function PrivateAccessScreen({
               );
             })}
           </View>
-
-          <AwaCard
-            padding="compact"
-            style={[
-              styles.privacyCard,
-              compact &&
-                styles.privacyCardCompact,
-            ]}
-            variant="filled">
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="shield-check-outline"
-              size={22}
-            />
-            <View
-              style={
-                styles.privacyCopy
-              }>
-              <AwaText variant="titleSmall">
-                {t('privateAccess.privacyCardTitle')}
-              </AwaText>
-              <AwaText
-                colorRole="onSurfaceVariant"
-                style={
-                  styles.privacyText
-                }
-                variant="bodySmall">
-                {t('privateAccess.privacyCardText')}
-              </AwaText>
-            </View>
-          </AwaCard>
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -39,6 +39,7 @@ import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaText} from '../components/ui/AwaText';
 
 type Props =
@@ -88,20 +89,7 @@ function SecurityOption({
           styles.optionCompact,
       ]}
       variant="filled">
-      <View
-        style={[
-          styles.iconBox,
-          value &&
-            styles.iconBoxActive,
-          compact &&
-            styles.iconBoxCompact,
-        ]}>
-        <MaterialDesignIcons
-          color={theme.colors.primary}
-          name={icon}
-          size={compact ? 23 : 26}
-        />
-      </View>
+      <GlassIcon icon={icon} size={compact ? 48 : 54} />
 
       <View
         style={
@@ -333,52 +321,6 @@ function SecuritySetupScreen({
         </View>
 
         {/* ==========================================
-            SECURITY STATUS
-        ========================================== */}
-
-        <AwaCard
-          padding="compact"
-          style={[
-            styles.statusCard,
-            compact &&
-              styles.statusCardCompact,
-          ]}
-          variant="filled">
-          <MaterialDesignIcons
-            color={theme.colors.success}
-            name="shield-check-outline"
-            size={22}
-          />
-
-          <View
-            style={
-              styles.statusCopy
-            }>
-            <AwaText variant="titleSmall">
-              {t('securitySetup.statusCardTitle')}
-            </AwaText>
-
-            <AwaText
-              colorRole="onSurfaceVariant"
-              style={styles.statusText}
-              variant="bodySmall">
-              {enabledCount === 0
-                ? t('securitySetup.statusNoneActive')
-                : t('securitySetup.statusActiveCount', {count: enabledCount})}
-            </AwaText>
-          </View>
-
-          <View
-            style={
-              styles.statusCounter
-            }>
-            <AwaText colorRole="onPrimaryContainer" emphasized variant="labelMedium">
-              {enabledCount}/3
-            </AwaText>
-          </View>
-        </AwaCard>
-
-        {/* ==========================================
             OPTIONS
         ========================================== */}
 
@@ -386,9 +328,20 @@ function SecuritySetupScreen({
           style={
             styles.sectionHeading
           }>
-          <AwaText accessibilityRole="header" variant="titleMedium">
-            {t('securitySetup.sectionTitle')}
-          </AwaText>
+          <View style={styles.sectionTitleRow}>
+            <AwaText accessibilityRole="header" variant="titleMedium">
+              {t('securitySetup.sectionTitle')}
+            </AwaText>
+
+            <View
+              style={
+                styles.statusCounter
+              }>
+              <AwaText colorRole="onPrimaryContainer" emphasized variant="labelMedium">
+                {enabledCount}/3
+              </AwaText>
+            </View>
+          </View>
 
           <AwaText
             colorRole="onSurfaceVariant"
@@ -475,45 +428,6 @@ function SecuritySetupScreen({
             value={notifications}
           />
         </View>
-
-        {/* ==========================================
-            PRIVATE INFO
-        ========================================== */}
-
-        <AwaCard
-          padding="compact"
-          style={[
-            styles.info,
-            compact &&
-              styles.infoCompact,
-          ]}
-          variant="filled">
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="shield-check-outline"
-            size={
-              compact
-                ? 21
-                : 24
-            }
-          />
-
-          <View
-            style={
-              styles.infoCopy
-            }>
-            <AwaText variant="titleSmall">
-              {t('securitySetup.infoTitle')}
-            </AwaText>
-
-            <AwaText
-              colorRole="onSurfaceVariant"
-              style={styles.infoText}
-              variant="bodySmall">
-              {t('securitySetup.infoText')}
-            </AwaText>
-          </View>
-        </AwaCard>
 
         <View
           style={
@@ -651,6 +565,11 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 12,
       paddingHorizontal: 4,
     },
+    sectionTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
     sectionSubtitle: {
       marginTop: 4,
     },
@@ -674,31 +593,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     optionCompact: {
       minHeight: 76,
     },
-    iconBox: {
-      width: 55,
-      height: 55,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      borderRadius: 16,
-      backgroundColor:
-        theme.colors.primarySoft,
-    },
-
-    iconBoxActive: {
-      borderWidth: 1,
-      borderColor:
-        withAlpha(theme.colors.primary, 0.12),
-      backgroundColor:
-        withAlpha(theme.colors.primary, 0.16),
-    },
-
-    iconBoxCompact: {
-      width: 48,
-      height: 48,
-      borderRadius: 16,
-    },
-
     optionCopy: {
       flex: 1,
       minWidth: 0,

@@ -58,8 +58,6 @@ describe('TEST 1 — Privacy screen, English default', () => {
     expect(texts).toContain('Full control');
     expect(texts).toContain('No external export');
     expect(texts).toContain('Encrypted and anonymized');
-    expect(texts).toContain('Our commitment');
-    expect(texts).toContain('You stay free');
     expect(texts).toContain('Next');
 
     // No known hardcoded French string remains.
@@ -85,8 +83,6 @@ describe('TEST 2 — Privacy screen, explicit French', () => {
     expect(texts).toContain('Contrôle absolu');
     expect(texts).toContain('Aucune exportation');
     expect(texts).toContain('Données chiffrées et anonymisées');
-    expect(texts).toContain('Notre engagement');
-    expect(texts).toContain('Tu restes libre');
     expect(texts).toContain('Suivant');
   });
 });

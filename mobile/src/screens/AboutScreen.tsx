@@ -1,9 +1,6 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import {
   Image,
-  Linking,
-  Modal,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -22,7 +19,6 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaInfoRow} from '../components/ui/AwaInfoRow';
@@ -72,30 +68,6 @@ function AboutRow({
   );
 }
 
-type ValueBlockProps = {
-  icon: IconName;
-  title: string;
-  text: string;
-  last?: boolean;
-};
-
-function ValueBlock({
-  icon,
-  title,
-  text,
-  last,
-}: ValueBlockProps) {
-  return (
-    <AwaInfoRow
-      icon={icon}
-      iconTone="primary"
-      last={last}
-      subtitle={text}
-      title={title}
-    />
-  );
-}
-
 export default function AboutScreen({
   navigation,
 }: Props): React.JSX.Element {
@@ -107,54 +79,6 @@ export default function AboutScreen({
   const {width, height} = useWindowDimensions();
 
   const compact = width < 360 || height < 700;
-
-  const [modal, setModal] = useState<
-    'version' | 'team' | null
-  >(null);
-
-  const [toast, setToast] = useState('');
-
-  const showToast = (message: string) => {
-    setToast(message);
-
-    setTimeout(() => {
-      setToast('');
-    }, 2300);
-  };
-
-  const openLink = async (
-    type: 'website' | 'email',
-  ) => {
-    const target =
-      type === 'website'
-        ? APP_METADATA.websiteUrl
-        : APP_METADATA.contactEmail
-          ? `mailto:${APP_METADATA.contactEmail}`
-          : undefined;
-
-    if (!target) {
-      showToast(
-        type === 'website'
-          ? t('about.linkUnavailable')
-          : t('about.emailNotConfigured'),
-      );
-      return;
-    }
-
-    try {
-      if (await Linking.canOpenURL(target)) {
-        await Linking.openURL(target);
-      } else {
-        showToast(
-          type === 'website'
-            ? t('about.linkUnavailable')
-            : t('about.emailAppUnavailable'),
-        );
-      }
-    } catch {
-      showToast(t('about.linkOpenFailed'));
-    }
-  };
 
   return (
     <SafeAreaView
@@ -237,91 +161,6 @@ export default function AboutScreen({
           </View>
           </AwaCard>
         </Animated.View>
-        {/* APPLICATION INFORMATION */}
-
-        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
-          {t('about.sectionAppInfo')}
-        </AwaText>
-
-        <Animated.View
-          entering={FadeInUp.delay(130).duration(420)}>
-          <AwaCard padding="none" style={styles.card} variant="filled">
-          <AboutRow
-            icon="cellphone"
-            label={t('about.rowVersion')}
-            onPress={() => setModal('version')}
-            value={`${APP_METADATA.version} (${APP_METADATA.buildNumber})`}
-          />
-
-          <AboutRow
-            icon="calendar-month-outline"
-            label={t('about.rowPublicationDate')}
-            value={
-              APP_METADATA.publicationDate ??
-              t('about.rowPublicationDateEmpty')
-            }
-          />
-
-          <AboutRow
-            icon="shield-outline"
-            label={t('about.rowDesignedWith')}
-            onPress={() => setModal('team')}
-            value={t('about.rowDesignedWithValue')}
-          />
-
-          <AboutRow
-            icon="web"
-            label={t('about.rowWebsite')}
-            onPress={() => openLink('website')}
-            value={
-              APP_METADATA.websiteUrl ??
-              t('about.rowWebsiteEmpty')
-            }
-          />
-
-          <AboutRow
-            icon="email-outline"
-            label={t('about.rowEmail')}
-            last
-            onPress={() => openLink('email')}
-            value={
-              APP_METADATA.contactEmail ??
-              t('about.rowEmailEmpty')
-            }
-          />
-          </AwaCard>
-        </Animated.View>
-
-        {/* ABOUT */}
-
-        <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
-          {t('about.sectionAbout')}
-        </AwaText>
-
-        <Animated.View
-          entering={FadeInUp.delay(190).duration(420)}>
-          <AwaCard padding="none" style={styles.card} variant="filled">
-          <ValueBlock
-            icon="hand-heart-outline"
-            text={t('about.missionText')}
-            title={t('about.missionTitle')}
-          />
-
-          <ValueBlock
-            icon="lock-outline"
-            text={t('about.privacyValueText')}
-            title={t('about.privacyValueTitle')}
-          />
-
-          <ValueBlock
-            icon="leaf"
-            last
-            text={t('about.valuesText')}
-            title={t('about.valuesTitle')}
-          />
-          </AwaCard>
-        </Animated.View>
-
         {/* LEGAL */}
 
         <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">
@@ -353,123 +192,7 @@ export default function AboutScreen({
           />
           </AwaCard>
         </Animated.View>
-        {/* COMMUNITY */}
-
-        <AwaCard padding="default" style={styles.community} variant="filled">
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="leaf"
-            size={34}
-          />
-
-          <View style={styles.communityCopy}>
-            <AwaText colorRole="primary" style={styles.communityTitle} variant="titleSmall">
-              {t('about.communityTitle')}
-            </AwaText>
-
-            <AwaText colorRole="onSurfaceVariant" style={styles.communityText} variant="bodySmall">
-              {t('about.communityText')}
-            </AwaText>
-          </View>
-
-          </AwaCard>
       </ScrollView>
-
-      {/* MODAL */}
-
-      <Modal
-        animationType="fade"
-        onRequestClose={() => setModal(null)}
-        statusBarTranslucent
-        transparent
-        visible={modal !== null}>
-        <View style={styles.modalRoot}>
-          <Pressable
-            onPress={() => setModal(null)}
-            style={styles.backdrop}
-          />
-
-          <Animated.View
-            entering={FadeInUp.springify()}
-            style={[
-              styles.sheet,
-              {
-                paddingBottom: Math.max(
-                  insets.bottom,
-                  18,
-                ),
-              },
-            ]}>
-            <View style={styles.handle} />
-
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name={
-                modal === 'version'
-                  ? 'information-outline'
-                  : 'heart-outline'
-              }
-              size={32}
-              style={styles.modalIcon}
-            />
-
-            <AwaText style={styles.sheetTitle} variant="titleLarge">
-              {modal === 'version'
-                ? t('about.versionModalTitle')
-                : t('about.teamModalTitle')}
-            </AwaText>
-
-            {modal === 'version' ? (
-              <>
-                <AwaText colorRole="onSurfaceVariant" style={styles.sheetText} variant="bodyMedium">
-                  {t('about.versionLabel', {version: APP_METADATA.version})}
-                </AwaText>
-
-                <AwaText colorRole="onSurfaceVariant" style={styles.sheetText} variant="bodyMedium">
-                  {t('about.buildLabel', {build: APP_METADATA.buildNumber})}
-                </AwaText>
-              </>
-            ) : (
-              <AwaText colorRole="onSurfaceVariant" style={styles.teamText} variant="bodyMedium">
-                {t('about.teamText')}
-              </AwaText>
-            )}
-
-            <AwaButton
-              fullWidth
-              label={t('about.close')}
-              onPress={() => setModal(null)}
-              size="large"
-              style={styles.done}
-            />
-          </Animated.View>
-        </View>
-      </Modal>
-
-      {/* TOAST */}
-
-      {toast ? (
-        <Animated.View
-          entering={FadeInUp.springify()}
-          style={[
-            styles.toast,
-            {
-              bottom:
-                Math.max(insets.bottom, 18) +
-                12,
-            },
-          ]}>
-          <MaterialDesignIcons
-            color={onPrimaryTextColor(theme)}
-            name="information-outline"
-            size={17}
-          />
-
-          <AwaText style={styles.toastText} variant="bodySmall">
-            {toast}
-          </AwaText>
-        </Animated.View>
-      ) : null}
     </SafeAreaView>
   );
 }

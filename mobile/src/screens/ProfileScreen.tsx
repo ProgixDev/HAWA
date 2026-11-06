@@ -35,7 +35,6 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
 import { getFloatingTabBarClearance, getTopPadding } from '../theme/spacing';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
-import {hasPremiumArticles} from '../data/libraryContent';
 
 import {
   getCycleObservationStartedAt,
@@ -115,23 +114,19 @@ import { lockIntimacy } from '../state/privateSectionAuthStore';
 import { switchToObjective } from '../services/objectiveSwitch';
 import { deleteManagedProfileCompletely } from '../services/managedProfileDeletion';
 import {
-  ensureAnonymousAccount,
-  getAnonymousAccount,
-  getPrivacySecuritySettings,
   isBiometricEnabled,
   isPinEnabled,
   loadSecurityPreferences,
   subscribePrivacySecuritySettings,
   subscribeSecurityPreferences,
-  type AnonymousAccountInfo,
 } from '../state/securityPreferences';
 import {
   getCachedPersonalInformation,
   loadPersonalInformation,
   updatePersonalInformation,
 } from '../state/personalInformationStore';
-import AnonymousProfileIcon from '../components/profile/AnonymousProfileIcon';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {PremiumPromoCard} from '../components/premium/PremiumPromoCard';
 
 import {getDemoPartnerState} from '../state/awaADeuxDemoStore';
 import {awaADeuxEntryRoute} from './awaADeux/awaADeuxNavigation';
@@ -157,6 +152,7 @@ import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfi
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaButton} from '../components/ui/AwaButton';
+import {SettingsCard} from '../components/profile/SettingsCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {ObjectiveIcon} from '../components/onboarding/ObjectiveIcon';
 import {AwaText} from '../components/ui/AwaText';
@@ -341,22 +337,22 @@ function objectivesList(t: (key: string) => string): Array<{
 function spiritualFeatures(t: (key: string) => string) {
   return [
     {
-      icon: '🗓️',
+      icon: 'calendar-month-outline' as const,
       label: t('profile.spiritualMarkers.hijriCalendar.label'),
       description: t('profile.spiritualMarkers.hijriCalendar.description'),
     },
     {
-      icon: '🤲',
+      icon: 'hands-pray' as const,
       label: t('profile.spiritualMarkers.prayersPurity.label'),
       description: t('profile.spiritualMarkers.prayersPurity.description'),
     },
     {
-      icon: '🌙',
+      icon: 'moon-waning-crescent' as const,
       label: t('profile.spiritualMarkers.fasting.label'),
       description: t('profile.spiritualMarkers.fasting.description'),
     },
     {
-      icon: '🔔',
+      icon: 'bell-outline' as const,
       label: t('profile.spiritualMarkers.prayerReminders.label'),
       description: t('profile.spiritualMarkers.prayerReminders.description'),
     },
@@ -434,10 +430,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
   // away and back.
   const {t} = useTranslation();
   const {isPremium} = usePremium();
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
-  const pressScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     Animated.spring(entrance, {
@@ -448,24 +441,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
       useNativeDriver: true,
     }).start();
   }, [entrance]);
-
-  const handlePressIn = () => {
-    Animated.spring(pressScale, {
-      toValue: 0.988,
-      damping: 18,
-      stiffness: 260,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const handlePressOut = () => {
-    Animated.spring(pressScale, {
-      toValue: 1,
-      damping: 16,
-      stiffness: 240,
-      useNativeDriver: true,
-    }).start();
-  };
 
   const entranceTranslateY = entrance.interpolate({
     inputRange: [0, 1],
@@ -478,68 +453,18 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
         opacity: entrance,
         transform: [
           {translateY: entranceTranslateY},
-          {scale: Animated.multiply(pressScale, entrance)},
+          {scale: entrance.interpolate({inputRange: [0, 1], outputRange: [0.985, 1]})},
         ],
       }}>
-      <Pressable
+      <PremiumPromoCard
         accessibilityHint={t('profile.premiumCard.accessibilityHint')}
         accessibilityLabel={t('profile.premiumCard.accessibilityLabel')}
-        accessibilityRole="button"
+        buttonLabel={isPremium ? t('profile.premiumCard.activeSubscription') : t('profile.premiumCard.discoverPremium')}
         onPress={onPress}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        style={styles.premiumCard}>
-        <View style={styles.premiumHeaderRow}>
-          <View style={styles.premiumCrownWrap}>
-            <MaterialDesignIcons color="#FFD85F" name="crown" size={25} />
-          </View>
-
-          <View style={styles.premiumCopy}>
-            {/* Same key as the Premium sheet's hero title: one localized product title on every Premium surface. */}
-            <Text style={styles.premiumTitle}>{t('premium.sheet.heroTitle')}</Text>
-            <Text style={styles.premiumSubtitle}>
-              {isPremium
-                ? t('profile.premiumCard.activeSubtitle')
-                : t('profile.premiumCard.inactiveSubtitle')}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.premiumFeaturesGrid}>
-          {[
-            t('profile.premiumCard.features.advancedStatistics'),
-            t('profile.premiumCard.features.pdfCsvExport'),
-            t('profile.premiumCard.features.unlimitedHistory'),
-            // Only advertised while at least one guide is really Premium-gated
-            // (see hasPremiumArticles) — same rule as the Premium sheet.
-            ...(hasPremiumArticles() ? [t('profile.premiumCard.features.inDepthEducationalContent')] : []),
-            t('profile.premiumCard.features.additionalThemes')
-          ].map(item => (
-            <View key={item} style={styles.premiumFeature}>
-              <View style={styles.premiumCheckCircle}>
-                <MaterialDesignIcons color="#FFFFFF" name="check" size={12} />
-              </View>
-              <Text style={styles.premiumFeatureText}>{item}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View style={styles.premiumButton}>
-  <View style={styles.premiumButtonContent}>
-    <MaterialDesignIcons
-      color={isPremium ? '#4F9185' : '#D5A928'}
-      name={isPremium ? 'check-decagram' : 'crown'}
-      size={20}
-    />
-
-    <Text style={styles.premiumButtonText}>
-      {isPremium ? t('profile.premiumCard.activeSubscription') : t('profile.premiumCard.discoverPremium')}
-    </Text>
-  </View>
-
-</View>
-
-      </Pressable>
+        // Same key as the Premium sheet's hero title: one localized product title on every Premium surface.
+        subtitle={isPremium ? t('profile.premiumCard.activeSubtitle') : t('profile.premiumCard.inactiveSubtitle')}
+        title={t('premium.sheet.heroTitle')}
+      />
     </Animated.View>
   );
 }
@@ -552,7 +477,6 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
 type MenuTone =
   | 'default'
   | 'personal'
-  | 'anonymous'
   | 'objective'
   | 'health'
   | 'security'
@@ -571,111 +495,16 @@ type MenuRowProps = {
 };
 
 // PHASE E2 — kept as fixed literals, deliberately NOT theme-driven. Each
-// Settings category (personal/anonymous/objective/health/security/backup/
-// about/support) has its own fixed action-identity color, the same
-// "Category E" convention as the Journal/Statistics quick-action accents
-// on every migrated dashboard — intentionally distinct regardless of the
-// active app palette. See PHASE E2 report.
-const MENU_TONES: Record<
-  MenuTone,
-  {iconBackground: string; iconColor: string; accent: string}
-> = {
-  default: {
-    iconBackground: '#F1EBF9',
-    iconColor: '#6949BE',
-    accent: '#8B6CC7',
-  },
-  personal: {
-    iconBackground: '#EEE8FB',
-    iconColor: '#6848C6',
-    accent: '#8060C6',
-  },
-  anonymous: {
-    iconBackground: '#F2ECFA',
-    iconColor: '#7354AF',
-    accent: '#8A70BD',
-  },
-  objective: {
-    iconBackground: '#F8EDF4',
-    iconColor: '#A85C80',
-    accent: '#C2799A',
-  },
-  health: {
-    iconBackground: '#ECF4F1',
-    iconColor: '#4F8177',
-    accent: '#69A094',
-  },
-  security: {
-    iconBackground: '#EDF1F7',
-    iconColor: '#566B8E',
-    accent: '#7185A6',
-  },
-  backup: {
-    iconBackground: '#EEF3FA',
-    iconColor: '#5B79A9',
-    accent: '#7793BD',
-  },
-  about: {
-    iconBackground: '#F3EFF8',
-    iconColor: '#755B9A',
-    accent: '#927BB2',
-  },
-  support: {
-    iconBackground: '#EDF5F4',
-    iconColor: '#4D817A',
-    accent: '#6C9E97',
-  },
-};
-
-// Calls useAwaTheme() directly — same reasoning as StatCard (many call
-// sites per render). MENU_TONES (iconBackground/iconColor/accent) is
-// intentionally left untouched: each Settings category's own fixed
-// action-identity color, not a decorative role — see PHASE E2 report.
+// One entry of the settings lists: a SettingsCard (same look for every category).
 function MenuRow({
   icon,
   title,
   subtitle,
   status,
   onPress,
-  tone = 'default',
 }: MenuRowProps): React.JSX.Element {
-  const palette = MENU_TONES[tone];
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-
-  return (
-    <Pressable
-      accessibilityLabel={title}
-      accessibilityRole="button"
-      onPress={onPress}
-      style={({pressed}) => [
-        styles.menuRow,
-        pressed && styles.menuRowPressed,
-      ]}>
-      <View
-        pointerEvents="none"
-        style={[styles.menuAccent, {backgroundColor: palette.accent}]}
-      />
-
-      <View
-        style={[
-          styles.menuIcon,
-          {backgroundColor: palette.iconBackground},
-        ]}>
-        <MaterialDesignIcons color={palette.iconColor} name={icon} size={20} />
-      </View>
-
-      <View style={styles.menuCopy}>
-        <AwaText emphasized variant="titleSmall">{title}</AwaText>
-        <AwaText colorRole="onSurfaceVariant" style={styles.menuSubtitle} variant="bodySmall">{subtitle}</AwaText>
-        {status ? <AwaText colorRole="primary" emphasized style={styles.menuStatus} variant="labelMedium">{status}</AwaText> : null}
-      </View>
-
-      <View style={styles.menuChevron}>
-        <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={19} />
-      </View>
-    </Pressable>
-  );
+  // Every settings entry is the same SettingsCard (components/profile/SettingsCard.tsx): icon in a glass circle, title + description, chevron.
+  return <SettingsCard description={subtitle} icon={icon} onPress={onPress} status={status} title={title} />;
 }
 
 /**
@@ -1175,24 +1004,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   }, []);
 
   /* ========================================================
-   * ANONYMOUS MODE
-   *
-   * Single source of truth: state/securityPreferences.ts (same store
-   * AnonymousModeScreen/PrivacySecurityScreen already read/write). No
-   * separate anonymous-profile state is kept — ProfileScreen only mirrors
-   * it locally so the JSX below can branch on it.
+   * APP LOCK — mirrored locally for the PIN / biometrics recommendation card.
+   * Single source of truth: state/securityPreferences.ts.
    * ======================================================== */
 
-  const [anonymousMode, setAnonymousMode] = useState(
-    () => getPrivacySecuritySettings().anonymousMode,
-  );
   const [securityLocked, setSecurityLocked] = useState(
     () => isPinEnabled() || isBiometricEnabled(),
   );
-  const [anonymousAccount, setAnonymousAccount] =
-    useState<AnonymousAccountInfo | null>(getAnonymousAccount);
-  const [accountInfoModalVisible, setAccountInfoModalVisible] =
-    useState(false);
   // Read-only "Informations personnelles" for a managed (daughter) profile —
   // resolves ONLY activeManagedProfile's own firstName/birthDate/photo, never
   // the mother's PersonalInformationScreen (which is her own name/email/DOB).
@@ -1200,7 +1018,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     useState(false);
 
   const refreshSecurity = useCallback(() => {
-    setAnonymousMode(getPrivacySecuritySettings().anonymousMode);
     setSecurityLocked(isPinEnabled() || isBiometricEnabled());
   }, []);
 
@@ -1224,33 +1041,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     }, [refreshSecurity]),
   );
 
-  // The identifier is generated once by AnonymousModeCreatingScreen when
-  // the mode is first activated; this only hydrates the already-persisted
-  // value (e.g. after an app restart, when the in-memory cache is empty).
-  useEffect(() => {
-    let active = true;
-    if (anonymousMode && !anonymousAccount) {
-      ensureAnonymousAccount().then(value => {
-        if (active) {
-          setAnonymousAccount(value);
-        }
-      });
-    }
-    return () => {
-      active = false;
-    };
-  }, [anonymousMode, anonymousAccount]);
-
   /* ========================================================
-   * PROFILE PHOTO (normal mode) / ANONYMOUS PROFILE ICON (anonymous mode)
+   * PROFILE PHOTO
    *
-   * Normal mode reuses the SAME store PersonalInformationScreen already
-   * writes to (state/personalInformationStore.ts's avatarUri) — no second
-   * copy of the photo. Anonymous mode shows a fixed, neutral silhouette
-   * (components/profile/AnonymousProfileIcon.tsx) that reads no stored
-   * data at all — it never shows the real photo and cannot be edited,
-   * satisfying the "never show the real photo while anonymous" rule
-   * structurally rather than by an extra runtime check.
+   * Reuses the SAME store PersonalInformationScreen already writes to
+   * (state/personalInformationStore.ts's avatarUri) — no second copy of
+   * the photo.
    * ======================================================== */
 
   const [photoUri, setPhotoUri] = useState<string | null>(
@@ -1273,12 +1069,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   );
 
   const choosePhoto = async (useCamera: boolean) => {
-    // Anonymous mode has no avatar editing at all (no camera, no gallery): the badge that opens this sheet is not rendered
-    // either; this guard keeps the real profile photo untouched even if the sheet were reached some other way.
-    if (anonymousMode) {
-      setPhotoSheetVisible(false);
-      return;
-    }
     try {
       const result = useCamera
         ? await launchCamera({mediaType: 'photo', quality: 0.8})
@@ -1303,10 +1093,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   };
 
   const removePhoto = async () => {
-    if (anonymousMode) {
-      setPhotoSheetVisible(false);
-      return;
-    }
     try {
       const updated = await updatePersonalInformation({avatarUri: undefined});
       setPhotoUri(updated.avatarUri ?? null);
@@ -1522,10 +1308,11 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </Text>
             </View>
 
-            <AwaIconButton
+            <AwaButton
               accessibilityLabel={t('profile.managedProfiles.sheetTitle')}
-              icon="account-multiple-plus-outline"
+              label={t('profile.managedProfiles.sheetTitle')}
               onPress={() => setManageProfilesVisible(true)}
+              size="compact"
               variant="outlined"
             />
           </View>
@@ -1553,8 +1340,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       }
                       style={styles.avatar}
                     />
-                  ) : anonymousMode ? (
-                    <AnonymousProfileIcon size={64} />
                   ) : photoUri ? (
                     <Image
                       accessibilityIgnoresInvertColors
@@ -1572,11 +1357,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
                   {/* No photo-edit badge for a managed profile — her photo is only ever
                       set from the daughter-creation flow / a future edit screen, never
-                      from here (this pressable edits the MOTHER's own avatarUri).
-                      None in anonymous mode either: the anonymous avatar shown above is
-                      fixed, with no way to add or change it (no camera, no gallery, no
-                      avatar picker). */}
-                  {isManagedProfileActive || anonymousMode ? null : (
+                      from here (this pressable edits the MOTHER's own avatarUri). */}
+                  {isManagedProfileActive ? null : (
                     <Pressable
                       accessibilityLabel={t('profile.editAvatarAccessibility')}
                       hitSlop={8}
@@ -1597,13 +1379,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.identity}>
                 <View style={styles.identityEyebrowRow}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name={isManagedProfileActive ? 'account-child-outline' : anonymousMode ? 'incognito' : 'account-outline'}
-                    size={13}
-                  />
                   <Text style={styles.identityEyebrow}>
-                    {isManagedProfileActive ? t('profile.managedProfileEyebrow') : anonymousMode ? t('profile.privateModeEyebrow') : t('profile.myProfileEyebrow')}
+                    {isManagedProfileActive ? t('profile.managedProfileEyebrow') : t('profile.myProfileEyebrow')}
                   </Text>
                 </View>
 
@@ -1613,19 +1390,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       <Text style={styles.name}>{activeManagedProfile?.firstName}</Text>
                     </View>
                     <Text style={styles.identitySubtitle}>{t('profile.managedProfiles.myDaughter')}</Text>
-                  </>
-                ) : anonymousMode ? (
-                  <>
-                    <View style={styles.identityMainLine}>
-                      <Text style={styles.identityTitle}>{t('profile.anonymousMode.title')}</Text>
-                      <View style={styles.activeBadge}>
-                        <View style={styles.activeDot} />
-                        <Text style={styles.activeBadgeText}>{t('profile.spiritualMarkers.active')}</Text>
-                      </View>
-                    </View>
-                    <Text style={styles.identitySubtitle}>
-                      {t('profile.anonymousMode.identityHiddenSubtitle')}
-                    </Text>
                   </>
                 ) : (
                   <>
@@ -1654,14 +1418,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   </>
                 )}
 
-                <View style={styles.identityPrivacyPill}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="shield-check-outline"
-                    size={13}
-                  />
-                  <Text style={styles.identityPrivacyText}>{t('profile.dataProtected')}</Text>
-                </View>
               </View>
             </View>
           </View>
@@ -1964,30 +1720,16 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               onPress={() =>
                 isManagedProfileActive
                   ? setManagedProfileInfoModalVisible(true)
-                  : anonymousMode
-                    ? setAccountInfoModalVisible(true)
-                    : navigation.navigate('PersonalInformation')
+                  : navigation.navigate('PersonalInformation')
               }
               subtitle={
                 isManagedProfileActive
                   ? t('profile.personalInfo.daughterSubtitle')
-                  : anonymousMode
-                    ? t('profile.personalInfo.anonymousSubtitle')
-                    : t('profile.personalInfo.ownerSubtitle')
+                  : t('profile.personalInfo.ownerSubtitle')
               }
-              title={anonymousMode && !isManagedProfileActive ? t('profile.personalInfo.accountInfoTitle') : t('profile.personalInfo.title')}
+              title={t('profile.personalInfo.title')}
               tone="personal"
             />
-
-            {anonymousMode && !isManagedProfileActive ? (
-              <MenuRow
-                icon="incognito"
-                onPress={() => navigation.navigate('AnonymousMode')}
-                subtitle={t('profile.anonymousMode.manageSubtitle')}
-                title={t('profile.anonymousMode.title')}
-                tone="anonymous"
-              />
-            ) : null}
 
             <MenuRow
               icon="target"
@@ -1997,14 +1739,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               tone="objective"
             />
 
-            <MenuRow
-              icon="heart-pulse"
-              onPress={() => navigation.navigate('GeneralHealth')}
-              subtitle={t('profile.generalHealthSubtitle')}
-              title={t('profile.generalHealthTitle')}
-              tone="health"
-            />
-
             {/* Post-onboarding configuration rows (M11). Each one opens the SAME
                 screen the onboarding chain uses, in {mode:'edit'}: prefilled from
                 the current store, saves only its own group, then goBack() —
@@ -2012,7 +1746,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             {effectiveObjective === 'cycle' ? (
               <>
                 <MenuRow
-                  icon="sync"
+                  icon="calendar-month-outline"
                   onPress={() =>
                     isManagedProfileActive
                       ? openCycleDurationEditor()
@@ -2034,7 +1768,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   tone="default"
                 />
                 <MenuRow
-                  icon="chart-timeline-variant"
+                  icon="chart-line"
                   onPress={() =>
                     isManagedProfileActive
                       ? openRegularityEditor()
@@ -2364,14 +2098,14 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             ) : null}
 
             <MenuRow
-              icon="palette"
+              icon="palette-outline"
               onPress={() => navigation.navigate('Appearance')}
               subtitle={t('profile.appearanceSubtitle')}
               title={t('appearance.headerTitle')}
               tone="default"
             />
 
-            {/* Account-level, owner-only (PIN/biométrie/mode discret/mode anonyme/
+            {/* Account-level, owner-only (PIN/biométrie/mode discret/
                 suppression de compte all belong to the mother's authenticated AWA
                 account/device — a managed daughter is not an independent account,
                 see CLAUDE.md §4). Hidden entirely (not disabled) for a managed
@@ -2379,7 +2113,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 the mother's own settings are completely untouched. */}
             {!isManagedProfileActive ? (
               <MenuRow
-                icon="shield-lock-outline"
+                icon="shield-check-outline"
                 onPress={() => navigation.navigate('PrivacySecurity')}
                 subtitle={t('profile.privacySecuritySubtitle')}
                 title={t('profile.privacySecurityTitle')}
@@ -2421,9 +2155,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             </>
           ) : null}
 
-          {/* Only shown while anonymous AND genuinely unprotected — once
-              PIN/biométrie is on, this card disappears rather than nag. */}
-          {anonymousMode && !securityLocked ? (
+          {/* Only shown while genuinely unprotected — once PIN/biométrie is on, this card disappears rather than nag. */}
+          {!securityLocked ? (
             <Pressable
               accessibilityRole="button"
               onPress={() => navigation.navigate('PrivacySecurity')}
@@ -2480,15 +2213,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   !spiritualEnabled && styles.spiritualIconCircleDisabled,
                 ]}
               >
-                <Text
-                  style={[
-                    styles.moonEmoji,
-
-                    !spiritualEnabled && styles.emojiDisabled,
-                  ]}
-                >
-                  🌙
-                </Text>
+                <MaterialDesignIcons
+                  color={theme.colors.primary}
+                  name="moon-waning-crescent"
+                  size={22}
+                  style={!spiritualEnabled && styles.emojiDisabled}
+                />
               </View>
 
               <View style={styles.spiritualCopy}>
@@ -2548,15 +2278,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     !spiritualEnabled && styles.spiritualMiniFeatureDisabled,
                   ]}
                 >
-                  <Text
-                    style={[
-                      styles.spiritualMiniEmoji,
-
-                      !spiritualEnabled && styles.emojiDisabled,
-                    ]}
-                  >
-                    {feature.icon}
-                  </Text>
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name={feature.icon}
+                    size={18}
+                    style={[styles.spiritualMiniIcon, !spiritualEnabled && styles.emojiDisabled]}
+                  />
 
                   <Text
                     style={[
@@ -2599,7 +2326,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             />
 
             <MenuRow
-              icon="lifebuoy"
+              icon="headset"
               onPress={() => navigation.navigate('HelpSupport')}
               subtitle={t('profile.helpSupportSubtitle')}
               title={t('profile.helpSupportTitle')}
@@ -2607,27 +2334,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             />
           </View>
 
-          {anonymousMode ? (
-            <AwaButton
-              accessibilityLabel={t('profile.anonymousMode.exit')}
-              fullWidth
-              icon="incognito"
-              label={t('profile.anonymousMode.exit')}
-              onPress={() => navigation.navigate('AnonymousMode')}
-              style={styles.accountButton}
-              variant="outlined"
-            />
-          ) : (
-            <AwaButton
-              accessibilityLabel={t('profile.signOut')}
-              fullWidth
-              icon="logout"
-              label={t('profile.signOut')}
-              onPress={confirmSignOut}
-              style={styles.accountButton}
-              variant="destructive"
-            />
-          )}
+          <AwaButton
+            accessibilityLabel={t('profile.signOut')}
+            fullWidth
+            icon="logout"
+            label={t('profile.signOut')}
+            onPress={confirmSignOut}
+            style={styles.accountButton}
+            variant="destructive"
+          />
         </ScrollView>
         <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
 
@@ -2691,9 +2406,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   style={[styles.objectiveOption, !isManagedProfileActive && styles.objectiveOptionActive]}
                 >
                   <View style={styles.profileRowAvatarWrap}>
-                    {anonymousMode ? (
-                      <AnonymousProfileIcon size={44} />
-                    ) : photoUri ? (
+                    {photoUri ? (
                       <Image
                         accessibilityIgnoresInvertColors
                         resizeMode="cover"
@@ -2716,7 +2429,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                         !isManagedProfileActive && styles.objectiveOptionTitleActive,
                       ]}
                     >
-                      {anonymousMode ? t('profile.anonymousMode.title') : firstName || t('profile.notProvided')}
+                      {firstName || t('profile.notProvided')}
                     </Text>
 
                     <Text style={styles.objectiveOptionSubtitle}>{t('profile.managedProfiles.myProfile')}</Text>
@@ -2934,7 +2647,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.spiritualSheetTitleIcon}>
-                  <Text style={styles.spiritualHeaderEmoji}>🌙</Text>
+                  <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={23} />
                 </View>
 
                 <View style={styles.sheetHeaderCopy}>
@@ -3129,15 +2842,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                             styles.spiritualFeatureIconDisabled,
                         ]}
                       >
-                        <Text
-                          style={[
-                            styles.spiritualFeatureEmoji,
-
-                            !spiritualEnabled && styles.emojiDisabled,
-                          ]}
-                        >
-                          {feature.icon}
-                        </Text>
+                        <MaterialDesignIcons
+                          color={theme.colors.primary}
+                          name={feature.icon}
+                          size={22}
+                          style={!spiritualEnabled && styles.emojiDisabled}
+                        />
                       </View>
 
                       <View style={styles.spiritualFeatureCopy}>
@@ -3204,95 +2914,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   style={styles.doneButton}
                 />
               </ScrollView>
-            </View>
-          </View>
-        </Modal>
-
-        {/* =====================================================
-            ACCOUNT INFO MODAL (Anonymous Mode)
-        ===================================================== */}
-
-        <Modal
-          animationType="fade"
-          onRequestClose={() => setAccountInfoModalVisible(false)}
-          statusBarTranslucent
-          transparent
-          visible={accountInfoModalVisible}
-        >
-          <View style={styles.modalOverlay}>
-            <Pressable
-              onPress={() => setAccountInfoModalVisible(false)}
-              style={StyleSheet.absoluteFill}
-            />
-
-            <View style={styles.objectiveSheet}>
-              <View style={styles.sheetHandle} />
-
-              <View style={styles.sheetHeader}>
-                <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>{t('profile.accountInfoModal.title')}</Text>
-
-                  <Text style={styles.sheetSubtitle}>
-                    {t('profile.accountInfoModal.subtitle')}
-                  </Text>
-                </View>
-
-                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setAccountInfoModalVisible(false)} />
-              </View>
-
-              <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
-                <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.anonymousMode')}</Text>
-                  <Text style={styles.accountInfoValue}>{t('profile.accountInfoModal.enabledValue')}</Text>
-                </View>
-
-                <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.anonymousId')}</Text>
-                  <Text style={styles.accountInfoValue}>{anonymousAccount?.id ?? '—'}</Text>
-                </View>
-
-                <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.createdOn')}</Text>
-                  <Text style={styles.accountInfoValue}>
-                    {(() => {
-                      if (!anonymousAccount) {
-                        return '—';
-                      }
-                      // createdAt is a full ISO timestamp (see
-                      // securityPreferences.ts) — a plain validity check is
-                      // enough, no date-only noon anchor needed here.
-                      const created = new Date(anonymousAccount.createdAt);
-                      return Number.isNaN(created.getTime())
-                        ? '—'
-                        : formatFullDate(created);
-                    })()}
-                  </Text>
-                </View>
-
-                <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.security')}</Text>
-                  <Text style={styles.accountInfoValue}>
-                    {securityLocked ? t('profile.accountInfoModal.pinBiometry') : t('profile.accountInfoModal.notConfigured')}
-                  </Text>
-                </View>
-
-                <View style={[styles.accountInfoRow, styles.accountInfoRowLast]}>
-                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.sync')}</Text>
-                  <Text style={styles.accountInfoValue}>{t('profile.accountInfoModal.localOnly')}</Text>
-                </View>
-
-                <View style={styles.spiritualInfoBox}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="information-outline"
-                    size={19}
-                  />
-
-                  <Text style={styles.spiritualInfoText}>
-                    {t('profile.accountInfoModal.dataPrivateInfo')}
-                  </Text>
-                </View>
-              </View>
             </View>
           </View>
         </Modal>
@@ -4311,10 +3932,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surfaceSecondary,
   },
 
-  moonEmoji: {
-    fontSize: 22,
-  },
-
   emojiDisabled: {
     opacity: 0.32,
   },
@@ -4398,9 +4015,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: withAlpha(theme.colors.textMuted, 0.12),
   },
 
-  spiritualMiniEmoji: {
+  spiritualMiniIcon: {
     width: 28,
-    fontSize: 17,
   },
 
   spiritualMiniText: {
@@ -4732,10 +4348,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primarySoft,
   },
 
-  spiritualHeaderEmoji: {
-    fontSize: 23,
-  },
-
   spiritualSheetContent: {
     paddingTop: 2,
   },
@@ -4904,10 +4516,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   spiritualFeatureIconDisabled: {
     backgroundColor: withAlpha(theme.colors.textMuted, 0.14),
-  },
-
-  spiritualFeatureEmoji: {
-    fontSize: 22,
   },
 
   spiritualFeatureCopy: {

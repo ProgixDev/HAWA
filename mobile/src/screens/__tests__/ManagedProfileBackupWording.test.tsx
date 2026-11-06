@@ -67,9 +67,9 @@ describe('BackupDataScreen — managed daughter profile wording, never hardcoded
     expect(texts).toContain('Les données de Lina, toujours en sécurité 💜');
     expect(texts).toContain('Sauvegarder les données de Lina');
     expect(texts).toContain('Restaurer les données de Lina');
-    expect(texts).toContain('Télécharger les données de Lina');
-    expect(texts).toContain('Exporter les données de Lina');
-    expect(texts).toContain('Supprimer les données de Lina');
+    // data management (download / export / delete) now lives in "Mes données", not on this page
+    expect(texts).not.toContain('Télécharger les données de Lina');
+    expect(texts).not.toContain('Supprimer les données de Lina');
     expect(texts).not.toContain('Exporter mes données'); // the owner's own wording never leaks in
   });
 
@@ -85,9 +85,10 @@ describe('BackupDataScreen — managed daughter profile wording, never hardcoded
     expect(texts).toContain('Tes données, toujours en sécurité 💜');
     expect(texts).toContain('Sauvegarder maintenant');
     expect(texts).toContain('Restaurer une sauvegarde');
-    expect(texts).toContain('Exporter mes données');
-    expect(texts).toContain('Télécharger mes données');
-    expect(texts).toContain('Supprimer mes données');
+    // data management lives in "Mes données" now
+    expect(texts).not.toContain('Exporter mes données');
+    expect(texts).not.toContain('Télécharger mes données');
+    expect(texts).not.toContain('Supprimer mes données');
   });
 });
 

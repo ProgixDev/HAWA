@@ -14,12 +14,17 @@ import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaTextField} from '../components/ui/AwaTextField';
-import {isIncludedInBackup} from '../services/storageKeyClassifier';
 import {cancelAllLocalNotifications} from '../services/pregnancyNotifications';
 import {suspendBulkReminderResync} from '../services/reminderResyncGate';
 import {resetAllOwnerStoresToDefaults} from '../state/ownerStoreRegistry';
 import {foldForConfirmation} from '../utils/textCase';
+import {getAccountState, isAccountUiActive, signOutAccount, subscribeAccountState} from '../state/accountState';
+import {ONLINE_BACKUP_ENABLED} from '../config/features';
+import {buildPortableDataJson, buildPortableDataJsonForProfile} from '../services/backupService';
+import {getActiveProfileIdentity} from '../state/activeProfileStore';
+import {SettingsRow, SettingsScreenLayout} from './PrivacySecuritySubScreens';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
   const {t} = useTranslation();
@@ -41,42 +46,119 @@ function Shell({title, navigation, children}: {title: string; navigation: {goBac
   );
 }
 
-async function readAwaData() {
-  const keys = (await AsyncStorage.getAllKeys()).filter(isIncludedInBackup);
-  const pairs = await Promise.all(keys.map(async key => [key, await AsyncStorage.getItem(key)] as const));
-  return Object.fromEntries(pairs);
-}
-
+// "Mes données": two states driven by ONE condition (isAccountUiActive = ONLINE_BACKUP_ENABLED && signed in).
+//   no account (today, always): the "Compte" card with "Créer un compte", view / export, and "Supprimer mes données" (local wipe)
+//   signed in (only with the flag on): the account card (e-mail, "Connecté", last backup), view / export / sign out, "Supprimer mon compte"
+// Viewing and exporting reuse the existing DataExport screen and the JSON share; deleting reuses DeleteAccount (its typed confirmation).
 export function DataManagementScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'DataManagement'>) {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const [count, setCount] = useState(0);
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    readAwaData().then(data => setCount(Object.keys(data).length));
-  }, []);
+  const [account, setAccount] = useState(getAccountState);
+  useEffect(() => subscribeAccountState(() => setAccount(getAccountState())), []);
+  const signedIn = isAccountUiActive(account);
+
+  // A daughter's profile exports and erases ONLY her own data (the profile-aware builders and DeleteTrackedData, exactly what the Sauvegarde
+  // page offered); the owner exports everything and erases everything (DeleteAccount: wipes this phone).
+  const activeIdentity = getActiveProfileIdentity();
   const exportData = async () => {
-    const data = await readAwaData();
-    await Share.share({title: t('dataPrivacy.management.exportShareTitle'), message: JSON.stringify(data, null, 2)});
+    const message = activeIdentity.isManagedProfile
+      ? await buildPortableDataJsonForProfile(activeIdentity.id)
+      : await buildPortableDataJson();
+    await Share.share({title: t('dataPrivacy.management.exportShareTitle'), message});
   };
+
+  const lastBackup = account.lastBackupAt
+    ? account.lastBackupAt.toLocaleString(i18n.language, {dateStyle: 'medium', timeStyle: 'short'})
+    : null;
+
   return (
-    <Shell navigation={navigation} title={t('privacySecurity.dataManagementTitle')}>
-      <AwaCard padding="default" style={styles.hero} variant="filled">
-        <MaterialDesignIcons color={theme.colors.primary} name="database-lock-outline" size={35} />
-        <AwaText style={styles.heroTitle} variant="titleLarge">{t('dataPrivacy.management.heroTitle')}</AwaText>
-        <AwaText colorRole="onSurfaceVariant" style={styles.text} variant="bodySmall">{t('dataPrivacy.management.storageCount', {count})}</AwaText>
-      </AwaCard>
-      <AwaCard onPress={exportData} padding="default" style={styles.action} variant="filled">
-        <MaterialDesignIcons color={theme.colors.primary} name="export-variant" size={22} />
-        <View style={styles.actionCopy}>
-          <AwaText variant="titleSmall">{t('dataPrivacy.management.exportTitle')}</AwaText>
-          <AwaText colorRole="onSurfaceVariant" style={styles.text} variant="bodySmall">{t('dataPrivacy.management.exportDescription')}</AwaText>
+    <SettingsScreenLayout
+      onBack={navigation.goBack}
+      subtitle={signedIn
+        ? t('dataManagement.subtitleSignedIn', {defaultValue: 'Sauvegardées sur ton compte'})
+        : t('dataManagement.subtitleLocal', {defaultValue: 'Tout reste sur ton téléphone'})}
+      title={t('dataManagement.title', {defaultValue: 'Mes données'})}>
+      <View accessibilityLabel={t('dataManagement.accountTitle', {defaultValue: 'Compte'})} style={styles.accountCard}>
+        <View style={styles.accountTop}>
+          <GlassIcon icon={signedIn ? 'account-check-outline' : 'account-outline'} />
+          <View style={styles.accountCopy}>
+            <AwaText emphasized variant="titleSmall">{t('dataManagement.accountTitle', {defaultValue: 'Compte'})}</AwaText>
+            <AwaText colorRole="onSurfaceVariant" style={styles.accountSubtitle} variant="bodySmall">
+              {signedIn ? account.email : t('dataManagement.noAccount', {defaultValue: 'Aucun compte'})}
+            </AwaText>
+          </View>
+          {signedIn ? (
+            <View style={styles.connectedBadge}>
+              <AwaText colorRole="primary" emphasized variant="labelMedium">{t('dataManagement.connected', {defaultValue: 'Connecté'})}</AwaText>
+            </View>
+          ) : null}
         </View>
-      </AwaCard>
-      <AwaButton fullWidth label={t('dataPrivacy.management.deletionInfoButton')} onPress={() => setMessage(t('dataPrivacy.management.deletionInfoMessage'))} variant="tonal" />
-      {message ? <AwaText colorRole="onSurfaceVariant" style={styles.notice} variant="bodySmall">{message}</AwaText> : null}
-    </Shell>
+
+        {signedIn ? (
+          lastBackup ? (
+            <AwaText colorRole="onSurfaceVariant" style={styles.accountNote} variant="bodySmall">
+              {t('dataManagement.lastBackup', {defaultValue: 'Dernière sauvegarde :'})} {lastBackup}
+            </AwaText>
+          ) : null
+        ) : (
+          <>
+            <AwaButton
+              accessibilityLabel={t('dataManagement.createAccount', {defaultValue: 'Créer un compte'})}
+              fullWidth
+              label={t('dataManagement.createAccount', {defaultValue: 'Créer un compte'})}
+              onPress={() => navigation.navigate('Registration')}
+              size="large"
+              style={styles.createButton}
+            />
+            {/* An online backup does not exist yet: this promise only appears once the feature flag is on. */}
+            {ONLINE_BACKUP_ENABLED ? (
+              <AwaText colorRole="onSurfaceVariant" style={styles.accountNote} variant="bodySmall">
+                {t('dataManagement.createAccountHint', {defaultValue: 'Pour sauvegarder tes données en ligne.'})}
+              </AwaText>
+            ) : null}
+          </>
+        )}
+      </View>
+
+      <View style={styles.group}>
+        <SettingsRow
+          icon="database-eye-outline"
+          onPress={() => navigation.navigate('DataExport')}
+          subtitle={t('dataManagement.viewSubtitle', {defaultValue: 'Ce qui est enregistré'})}
+          title={t('dataManagement.viewTitle', {defaultValue: 'Voir mes données'})}
+        />
+        <SettingsRow
+          icon="export-variant"
+          onPress={exportData}
+          subtitle={t('dataManagement.exportSubtitle', {defaultValue: 'Une copie dans un fichier'})}
+          title={t('dataManagement.exportTitle', {defaultValue: 'Exporter mes données'})}
+        />
+        {signedIn ? (
+          <SettingsRow
+            icon="logout"
+            onPress={signOutAccount}
+            subtitle={t('dataManagement.signOutSubtitle', {defaultValue: 'Les données restent sur ce téléphone'})}
+            title={t('dataManagement.signOut', {defaultValue: 'Se déconnecter'})}
+          />
+        ) : null}
+      </View>
+
+      {/* The irreversible action: the same card as the others (red icon), a little apart; its confirmation is the existing DeleteAccount screen. */}
+      <View style={styles.dangerBlock}>
+        <SettingsRow
+          danger
+          icon="delete-outline"
+          onPress={() => navigation.navigate(activeIdentity.isManagedProfile ? 'DeleteTrackedData' : 'DeleteAccount')}
+          subtitle={signedIn
+            ? t('dataManagement.deleteAccountSubtitle', {defaultValue: 'Compte et données, définitivement'})
+            : t('dataManagement.deleteDataSubtitle', {defaultValue: 'Effacer tout de ce téléphone'})}
+          title={signedIn
+            ? t('dataManagement.deleteAccountTitle', {defaultValue: 'Supprimer mon compte'})
+            : t('dataManagement.deleteDataTitle', {defaultValue: 'Supprimer mes données'})}
+        />
+      </View>
+    </SettingsScreenLayout>
   );
 }
 
@@ -114,7 +196,9 @@ export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootSta
     navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
   };
   return (
-    <Shell navigation={navigation} title={t('privacySecurity.deleteAccountTitle')}>
+    <Shell
+      navigation={navigation}
+      title={isAccountUiActive() ? t('privacySecurity.deleteAccountTitle') : t('dataManagement.deleteDataTitle', {defaultValue: 'Supprimer mes données'})}>
       <AwaCard padding="default" style={styles.warning} variant="filled">
         <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={35} />
         <AwaText colorRole="error" style={styles.warningTitle} variant="titleLarge">{t('dataPrivacy.deleteAccount.warningTitle')}</AwaText>
@@ -153,6 +237,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     action: {flexDirection: 'row', alignItems: 'center'},
     actionCopy: {flex: 1, marginLeft: 12},
     notice: {textAlign: 'center'},
+    group: {gap: 8},
+    accountCard: {
+      padding: 14,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.12),
+      backgroundColor: theme.colors.surface,
+    },
+    accountTop: {flexDirection: 'row', alignItems: 'center'},
+    accountCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
+    accountSubtitle: {marginTop: 3},
+    connectedBadge: {paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
+    createButton: {marginTop: 14},
+    accountNote: {marginTop: 10, textAlign: 'center'},
+    dangerBlock: {marginTop: 12},
     // Destructive-action warning card — theme.colors.danger throughout,
     // preserving semantic identity (Step 15). Never becomes theme.primary.
     warning: {alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.28), backgroundColor: withAlpha(theme.colors.danger, 0.05)},

@@ -24,9 +24,10 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaText} from '../components/ui/AwaText';
 import {
   getCyclePreferences,
@@ -263,18 +264,6 @@ type SummaryRow = {
   tone: 'purple' | 'rose' | 'blue' | 'green';
 };
 
-// Per-row category-identity accent palette — each tone is a fixed decorative
-// color deliberately independent of the active theme (mirrors how a
-// list-item's own category color is treated elsewhere in the app), so it is
-// NOT sourced from theme tokens even though 'purple' happens to be close to
-// the app's own brand primary.
-const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
-  purple: '#6B4BC4',
-  rose: '#C2568B',
-  blue: '#3E7BC4',
-  green: '#3FA372',
-};
-
 function SummaryScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -323,7 +312,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
   const location = getSelectedLocation();
 
   const objectiveRow: SummaryRow = {
-    icon: 'calendar-heart',
+    icon: 'calendar-heart-outline',
     label: t('onboarding.summary.rows.objective'),
     value: objectiveLabels[objective],
     route: 'Objective',
@@ -405,7 +394,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       spiritualRow,
       locationRow,
       {
-        icon: 'human-pregnant',
+        icon: 'baby-face-outline',
         label: t('onboarding.summary.rows.datingMethod'),
         value: DATING_METHOD_LABELS[dating.method],
         route: 'PregnancyDatingSetup',
@@ -572,7 +561,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     const rows: SummaryRow[] = [objectiveRow, spiritualRow];
     if (spiritualEnabled && location) {rows.push(locationRow);}
     rows.push(
-      {icon:'calendar-clock',label:t('onboarding.summary.rows.tryingDuration'),value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : notProvidedMasc,route:'ConceptionTryingDuration',tone:'rose'},
+      {icon:'calendar-clock-outline',label:t('onboarding.summary.rows.tryingDuration'),value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : notProvidedMasc,route:'ConceptionTryingDuration',tone:'rose'},
       {icon:'target',label:t('onboarding.summary.rows.ovulationAwareness'),value:conception.ovulationAwareness ? OVULATION_AWARENESS_LABELS[conception.ovulationAwareness] : notProvidedMasc,route:'ConceptionOvulationAwareness',tone:'purple'},
       {icon:'chart-timeline-variant',label:t('onboarding.summary.rows.indicators'),value:summarizeSelection(t, conception.indicators.map(id => INDICATOR_LABELS[id]),4,t('onboarding.summary.rows.allIndicators')),route:'ConceptionIndicators',tone:'blue'},
       {icon:'bell-ring-outline',label:t('onboarding.summary.rows.reminders'),value:summarizeSelection(t, (Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),5,t('onboarding.summary.rows.allReminders')),route:'ConceptionReminders',tone:'green'},
@@ -603,7 +592,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
     rows.push(
       {
-        icon: 'calendar-heart',
+        icon: 'calendar-heart-outline',
         label: t('onboarding.summary.rows.miscarriageDate'),
         value: miscarriageDate ? formatSummaryDate(miscarriageDate) : notProvidedFem,
         route: 'MiscarriageDate',
@@ -1021,17 +1010,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                     isSmallScreen && styles.infoCardSmall,
                   ]}
                   variant="filled">
-                  <View
-                    style={[
-                      styles.iconWrap,
-                      styles[`iconWrap_${row.tone}`],
-                    ]}>
-                    <MaterialDesignIcons
-                      color={TONE_ICON_COLOR[row.tone]}
-                      name={row.icon}
-                      size={26}
-                    />
-                  </View>
+                  <GlassIcon icon={row.icon} size={48} />
 
                   <View style={styles.infoCopy}>
                     <AwaText
@@ -1226,33 +1205,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   infoCardSmall: {
     minHeight: 120,
-  },
-
-  // Per-row category-identity accent backgrounds — fixed decorative tints
-  // paired with TONE_ICON_COLOR above (same "leave verbatim" exception),
-  // kept independent of the active theme.
-  iconWrap: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  iconWrap_purple: {
-    backgroundColor: '#EEE8FB',
-  },
-
-  iconWrap_rose: {
-    backgroundColor: '#FBEAF1',
-  },
-
-  iconWrap_blue: {
-    backgroundColor: '#E8F0FC',
-  },
-
-  iconWrap_green: {
-    backgroundColor: '#E8F7EF',
   },
 
   infoCopy: {

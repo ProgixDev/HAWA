@@ -11,7 +11,6 @@ import {resolveAwaTheme} from '../../theme/awaThemeTokens';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../state/themePreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {getCyclePreferences, hydrateCyclePreferences, setCyclePreferences, setSelectedObjective} from '../../state/onboardingPreferences';
 import {seedManagedProfileCycleIfNeeded} from '../../state/managedProfileCycleSeed';
 import {updatePersonalInformation} from '../../state/personalInformationStore';
@@ -66,10 +65,6 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
-  // Every test starts from the normal (non-anonymous) identity — the
-  // anonymousMode flag lives in a module-level singleton
-  // (state/securityPreferences.ts) that otherwise leaks between tests.
-  updatePrivacySecuritySettings({anonymousMode: false});
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   // PHASE 7M: the app's default language is now English (not French) — this
@@ -224,20 +219,6 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     expect(texts).not.toContain('Ma fille');
     const radio = renderer.root.findAll(node => node.props.accessibilityRole === 'radio')[0];
     expect(radio.props.accessibilityState).toEqual({checked: true});
-    await updatePersonalInformation({firstName: ''});
-  });
-
-  it('shows "Mode Anonyme" instead of the real name when anonymous mode is on (never leaks identity)', async () => {
-    await updatePersonalInformation({firstName: 'Nourhene'});
-    updatePrivacySecuritySettings({anonymousMode: true});
-    const renderer = await renderScreen();
-    await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
-    });
-    const texts = textsOf(renderer);
-    expect(texts).toContain('Mode Anonyme');
-    expect(texts).not.toContain('Nourhene');
-    updatePrivacySecuritySettings({anonymousMode: false});
     await updatePersonalInformation({firstName: ''});
   });
 
@@ -671,55 +652,6 @@ describe('ProfileScreen — "Se déconnecter" confirmation dialog', () => {
     const {renderer} = await renderScreenForLogout();
     expect(renderer.root.findAll(node => node.props.children === 'Apparence').length).toBeGreaterThan(0);
     expect(renderer.root.findAll(node => node.props.children === 'Confidentialité & Sécurité').length).toBeGreaterThan(0);
-  });
-});
-
-/* ============================================================
-   IDENTITY MODE — normal vs anonymous. ProfileScreen already branches its
-   entire identity presentation on securityPreferences.ts's single
-   `anonymousMode` flag (the same one AnonymousModeScreen/
-   AnonymousModeCreatingScreen/PrivacySecurityScreen already read/write) —
-   these tests verify that existing branch, plus that AuthScreen/
-   RegistrationScreen's normal-entry bypass now clears it so a previous
-   Anonymous Mode session doesn't leak into a later normal profile.
-============================================================ */
-
-describe('ProfileScreen — identity mode reacts to securityPreferences.anonymousMode', () => {
-  it('normal mode: does not show "Mode Anonyme" or the anonymous eyebrow/avatar', async () => {
-    const renderer = await renderScreen();
-    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
-    expect(renderer.root.findAll(node => node.props.children === 'MODE PRIVÉ').length).toBe(0);
-    expect(renderer.root.findAll(node => node.props.children === 'MON PROFIL').length).toBeGreaterThan(0);
-    expect(renderer.root.findAll(node => node.props.children === 'Informations personnelles').length).toBeGreaterThan(0);
-  });
-
-  it('anonymous mode: shows "Mode Anonyme" clearly and hides the normal personal-information entry point', async () => {
-    updatePrivacySecuritySettings({anonymousMode: true});
-    const renderer = await renderScreen();
-    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBeGreaterThan(0);
-    expect(renderer.root.findAll(node => node.props.children === 'MODE PRIVÉ').length).toBeGreaterThan(0);
-    expect(renderer.root.findAll(node => node.props.children === 'Ton identité réelle reste masquée').length).toBeGreaterThan(0);
-    // The normal "Informations personnelles" entry point (real name/email
-    // editor) must not be reachable from the anonymous identity block —
-    // only its anonymous counterpart, "Informations du compte".
-    expect(renderer.root.findAll(node => node.props.children === 'Informations personnelles').length).toBe(0);
-    expect(renderer.root.findAll(node => node.props.children === 'Informations du compte').length).toBeGreaterThan(0);
-  });
-
-  it('switching anonymousMode while ProfileScreen is mounted flips the presentation live (no remount needed)', async () => {
-    const renderer = await renderScreen();
-    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
-
-    await act(async () => {
-      updatePrivacySecuritySettings({anonymousMode: true});
-    });
-    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBeGreaterThan(0);
-
-    await act(async () => {
-      updatePrivacySecuritySettings({anonymousMode: false});
-    });
-    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
-    expect(renderer.root.findAll(node => node.props.children === 'MON PROFIL').length).toBeGreaterThan(0);
   });
 });
 

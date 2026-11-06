@@ -58,22 +58,6 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer) =>
 const findByA11y = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAll(node => node.type === Pressable && node.props.accessibilityLabel === label)[0];
 
-const pressByLabel = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
-  const target = renderer.root.findAllByType(Text).find(node => [node.props.children].flat(Infinity).join('') === label);
-  let node: ReactTestRenderer.ReactTestInstance | null = target?.parent ?? null;
-  while (node) {
-    if (node.type === Pressable && typeof node.props.onPress === 'function') {
-      await act(async () => {
-        node!.props.onPress();
-      });
-      await settle();
-      return;
-    }
-    node = node.parent;
-  }
-  throw new Error(`no pressable ancestor for "${label}"`);
-};
-
 beforeEach(async () => {
   await resetAppLanguageForTests();
   // PHASE 7M: the app's default language is now English (not French) — this
@@ -93,15 +77,12 @@ afterEach(async () => {
 });
 
 describe('TEST 8 — AboutScreen ordinary visible UI renders correctly in FR', () => {
-  it('header, section titles and legal rows all render in French', async () => {
+  it('header and legal rows render in French', async () => {
     const renderer = await renderScreen();
     const texts = textsOf(renderer);
     expect(texts).toContain('À propos de AWA');
-    expect(texts).toContain('Informations de l’application');
-    expect(texts).toContain('À propos');
     expect(texts).toContain('Mentions légales');
     expect(texts).toContain('Conditions d’utilisation');
-    expect(texts).toContain('Notre mission');
   });
 });
 
@@ -118,11 +99,8 @@ describe('TEST 9 — the same mounted AboutScreen switches to natural English', 
 
     const texts = textsOf(renderer);
     expect(texts).toContain('About AWA');
-    expect(texts).toContain('App information');
-    expect(texts).toContain('About');
     expect(texts).toContain('Legal');
     expect(texts).toContain('Terms of Use');
-    expect(texts).toContain('Our mission');
     expect(texts).not.toContain('À propos de AWA');
     expect(texts).not.toContain('Mentions légales');
   });
@@ -140,17 +118,6 @@ describe('TEST 10 — AboutScreen accessibility switches FR -> EN', () => {
     await settle();
     expect(findByA11y(renderer, 'Back')).toBeTruthy();
     expect(findByA11y(renderer, 'Retour')).toBeUndefined();
-  });
-
-  it('the version/team modal and toast messages translate', async () => {
-    await setAppLanguage('en');
-    await i18n.changeLanguage('en');
-    const renderer = await renderScreen();
-    await pressByLabel(renderer, 'Version');
-    const texts = textsOf(renderer);
-    expect(texts.some(text => text.includes(`Version ${APP_METADATA.version}`))).toBe(true);
-    expect(texts.some(text => text.includes(`Build ${APP_METADATA.buildNumber}`))).toBe(true);
-    expect(findByA11y(renderer, 'Close') ?? texts.includes('Close')).toBeTruthy();
   });
 });
 

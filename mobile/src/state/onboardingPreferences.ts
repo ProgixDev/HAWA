@@ -316,22 +316,16 @@ export const getSelectedObjective = getActiveObjective;
 /* ============================================================
    ONBOARDING COMPLETION — a persistent, device-local record that the
    REQUIRED onboarding journey (Welcome → Objective → objective-specific
-   setup → Auth/Anonymous Mode → entering the app) was genuinely finished at
+   setup → Auth → entering the app) was genuinely finished at
    least once. Deliberately separate from `activeObjective` (which a
    completed user can freely change later from Settings without that ever
    re-triggering onboarding) and from feature-scoped provenance flags like
    `hasConfirmedSpiritualMarkersChoice`/`hasConfirmedCycleData` (each of
    those only proves ONE narrow sub-answer was made deliberately, never that
-   the whole journey was completed). THE only legitimate place to call
-   setHasCompletedOnboarding(true) is AnonymousModeSuccessScreen.tsx's
-   `finish()` for a fresh setup from AuthScreen (it replaced
-   AnonymousAvatarCustomizerScreen.tsx's `enterApp()` when anonymous mode lost
-   its avatar step) — the single real convergence point every onboarding path
-   reaches today (Auth/Registration cannot complete it themselves: no
-   backend account/session exists yet, see CLAUDE.md). If a real backend
-   registration/login path is added later, its own successful-completion
-   boundary must call this too — never invent a second, parallel completion
-   concept for it.
+   the whole journey was completed). It is recorded at the single convergence point every onboarding path reaches: entering the app
+   from AuthScreen ("Se connecter" / "Continuer sans compte") or RegistrationScreen ("Créer mon compte"). An account is optional, so
+   none of them needs one; a real backend login / registration must call this at its own successful-completion boundary too — never
+   invent a second, parallel completion concept for it.
 ============================================================ */
 
 const ONBOARDING_COMPLETED_STORAGE_KEY = '@hawa/has-completed-onboarding';

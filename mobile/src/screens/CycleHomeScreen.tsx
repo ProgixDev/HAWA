@@ -569,6 +569,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             <ObjectiveArticlesSection
               objective="cycle"
               onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
               onSeeAll={() => navigation.navigate('Library')}
             />
           ) : null}

@@ -3,7 +3,6 @@ import ReactTestRenderer, {act} from 'react-test-renderer';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import GeneralHealthScreen from '../GeneralHealthScreen';
 import HelpSupportScreen from '../HelpSupportScreen';
 import {FAQScreen} from '../SupportResourcesScreens';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
@@ -27,18 +26,6 @@ function withProviders(children: React.ReactNode) {
       <AwaThemeProvider>{children}</AwaThemeProvider>
     </SafeAreaProvider>
   );
-}
-
-async function renderGeneralHealth() {
-  const navigation = {navigate: jest.fn(), goBack: jest.fn()} as never;
-  let renderer!: ReactTestRenderer.ReactTestRenderer;
-  await act(async () => {
-    renderer = ReactTestRenderer.create(
-      withProviders(<GeneralHealthScreen navigation={navigation} route={{key: 'test', name: 'GeneralHealth'}} />),
-    );
-  });
-  activeRenderers.push(renderer);
-  return renderer;
 }
 
 async function renderHelpSupport() {
@@ -81,26 +68,6 @@ beforeEach(async () => {
 afterEach(() => {
   act(() => {
     activeRenderers.splice(0).forEach(renderer => renderer.unmount());
-  });
-});
-
-describe('GeneralHealthScreen — "Objectifs de santé" hidden for a managed daughter profile', () => {
-  it('is not rendered for a daughter, with no empty gap, but is unchanged for the owner', async () => {
-    const hanane = await addManagedProfile({type: 'daughter', firstName: 'Hanane', birthDate: '2013-01-01', hasHadFirstPeriod: false});
-
-    await setActiveProfileId(hanane.id);
-    const daughterRenderer = await renderGeneralHealth();
-    const daughterTexts = textsOf(daughterRenderer);
-    expect(daughterTexts).not.toContain('Objectifs de santé');
-    expect(daughterTexts).not.toContain('Mon objectif actuel');
-    // The rest of Santé générale is untouched for her.
-    expect(daughterTexts).toContain('Tu peux modifier toutes ces informations à tout moment.');
-
-    await setActiveProfileId(OWNER_PROFILE_ID);
-    const ownerRenderer = await renderGeneralHealth();
-    const ownerTexts = textsOf(ownerRenderer);
-    expect(ownerTexts).toContain('Objectifs de santé');
-    expect(ownerTexts).toContain('Mon objectif actuel');
   });
 });
 

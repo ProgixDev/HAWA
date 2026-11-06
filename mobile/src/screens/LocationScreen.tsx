@@ -16,7 +16,7 @@ import {
   View,
   type NativeSyntheticEvent,
 } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation, {type GeolocationResponse} from '@react-native-community/geolocation';
 import {
   Camera,
   Map as MapLibreMap,
@@ -51,7 +51,6 @@ import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
-const LOCATION_TARGET = require('../assets/images/location-target.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 type Feedback = {kind: 'error' | 'info'; text: string} | null;
@@ -82,6 +81,10 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const mapLanguage = mapLanguageFor(normalizeAppLanguage(i18n.language) ?? getAppLanguage());
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  // When the camera was last moved by the app itself (a picked search result, "use my location"). The map reports its end as an "idle"
+  // event, and on some devices that event is flagged as a user interaction: re-geocoding it would replace the place she just chose by
+  // the nearest locality (the search field said "Grand Londres" while the card said "Aldersbrook").
+  const programmaticMoveAt = useRef(0);
   const reverseRequest = useRef(0);
   // Guards against a race: if she searches, drags the map, or taps the GPS
   // button WHILE the initial suggestion is still resolving (saved location/
@@ -183,27 +186,31 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     };
   }, []);
 
-  const reverseGeocode = useCallback(async (latitude: number, longitude: number) => {
+  const reverseGeocode = useCallback(async (latitude: number, longitude: number): Promise<MapPlace | null> => {
     const requestId = ++reverseRequest.current;
     setResolving(true);
     setFeedback(null);
     try {
       const place = await mapProvider.reverseGeocode(latitude, longitude, {language: mapLanguage});
-      if (requestId !== reverseRequest.current) {return;}
+      if (requestId !== reverseRequest.current) {return null;}
       if (place) {
+        // The provider returns the locality's own centre; the point asked about (the marker / the GPS fix) is what is selected and saved.
+        const located: MapPlace = {...place, latitude, longitude};
         userChangedLocation.current = true;
-        setSelectedLocation(place);
-        setInitialCenter(current => current ?? [place.longitude, place.latitude]);
-      } else {
-        setSelectedLocation(null);
-        setFeedback({kind: 'info', text: t('location.noCityFoundHere')});
+        setSelectedLocation(located);
+        setInitialCenter(current => current ?? [longitude, latitude]);
+        return located;
       }
+      setSelectedLocation(null);
+      setFeedback({kind: 'info', text: t('location.noCityFoundHere')});
+      return null;
     } catch (error) {
-      if (requestId !== reverseRequest.current) {return;}
+      if (requestId !== reverseRequest.current) {return null;}
       setFeedback({
         kind: 'error',
         text: geocodingErrorMessage(error, t),
       });
+      return null;
     } finally {
       if (requestId === reverseRequest.current) {setResolving(false);}
     }
@@ -289,6 +296,10 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     // the still-pending initial resolution) after this explicit choice.
     setResolving(false);
     Keyboard.dismiss();
+    // A new explicit choice also cancels a pending re-geocode of an earlier map move.
+    if (reverseTimer.current) {clearTimeout(reverseTimer.current);}
+    reverseRequest.current += 1;
+    programmaticMoveAt.current = Date.now();
     cameraRef.current?.easeTo({
       center: [place.longitude, place.latitude],
       zoom: 12,
@@ -298,6 +309,8 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
   const handleMapIdle = (event: NativeSyntheticEvent<ViewStateChangeEvent>) => {
     if (!IS_MAPS_CONFIGURED || !event.nativeEvent.userInteraction) {return;}
+    // The app's own camera move (and its settling) is not a user choice.
+    if (Date.now() - programmaticMoveAt.current < 2500) {return;}
     const [longitude, latitude] = event.nativeEvent.center;
     if (reverseTimer.current) {clearTimeout(reverseTimer.current);}
     reverseTimer.current = setTimeout(() => reverseGeocode(latitude, longitude), 550);
@@ -312,16 +325,16 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
         );
       });
     }
-    const result = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: t('location.gps.permissionTitle'),
-        message: t('location.gps.permissionMessage'),
-        buttonPositive: t('location.gps.permissionAllow'),
-        buttonNegative: t('location.gps.permissionDeny'),
-      },
-    );
-    return result === PermissionsAndroid.RESULTS.GRANTED;
+    const {ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION} = PermissionsAndroid.PERMISSIONS;
+    const isGranted = (status: string) => status === PermissionsAndroid.RESULTS.GRANTED;
+    // Already allowed (from an earlier visit or the system settings): no dialog.
+    if ((await PermissionsAndroid.check(ACCESS_FINE_LOCATION)) || (await PermissionsAndroid.check(ACCESS_COARSE_LOCATION))) {
+      return true;
+    }
+    // Android 12+ shows "precise / approximate": choosing "approximate" grants ONLY the coarse permission, which asking for the fine
+    // one alone reports as a refusal. Ask for both and accept either.
+    const result = await PermissionsAndroid.requestMultiple([ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION]);
+    return isGranted(result[ACCESS_FINE_LOCATION]) || isGranted(result[ACCESS_COARSE_LOCATION]);
   };
 
   const useCurrentLocation = async () => {
@@ -329,27 +342,56 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       setFeedback({kind: 'info', text: t('location.gps.configureMapKeyFirst')});
       return;
     }
+    if (locating) {return;}
     setLocating(true);
     setFeedback(null);
     const granted = await requestLocationPermission();
     if (!granted) {
+      // Refused: nothing else changes, she keeps searching or moving the map by hand.
       setLocating(false);
       setFeedback({kind: 'error', text: t('location.gps.permissionDeniedError')});
       return;
     }
     setLocationPermission(true);
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        cameraRef.current?.easeTo({center: [longitude, latitude], zoom: 13, duration: 700});
-        reverseGeocode(latitude, longitude).finally(() => setLocating(false));
-      },
-      () => {
-        setLocating(false);
-        setFeedback({kind: 'error', text: t('location.gps.positionUnavailable')});
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
+    if (Platform.OS === 'android') {
+      // Read the position from the Android system location service itself: the Google Play Services provider is absent on some
+      // phones (Huawei without Google services), where "use my location" then never answered.
+      Geolocation.setRNConfiguration({skipPermissionRequests: false, locationProvider: 'android'});
+    }
+    const readPosition = (options: {enableHighAccuracy: boolean; timeout: number; maximumAge: number}) =>
+      new Promise<GeolocationResponse>((resolve, reject) => Geolocation.getCurrentPosition(resolve, reject, options));
+    try {
+      // A quick network / last-known fix first (works indoors and answers in a second or two); the precise GPS fix only if it fails.
+      let position: GeolocationResponse;
+      try {
+        position = await readPosition({enableHighAccuracy: false, timeout: 12000, maximumAge: 60000});
+      } catch (firstError) {
+        // A refusal or a disabled location service will not change with a second try.
+        const code = (firstError as {code?: number} | null)?.code;
+        if (code === 1 || code === 2) {throw firstError;}
+        position = await readPosition({enableHighAccuracy: true, timeout: 20000, maximumAge: 10000});
+      }
+      const {latitude, longitude} = position.coords;
+      programmaticMoveAt.current = Date.now();
+      cameraRef.current?.easeTo({center: [longitude, latitude], zoom: 13, duration: 700});
+      const place = await reverseGeocode(latitude, longitude);
+      if (place) {
+        // The search field shows the detected place, like after picking a suggestion.
+        setQuery(`${place.city}, ${place.country}`);
+        setShowSuggestions(false);
+        setSuggestions([]);
+        Keyboard.dismiss();
+      }
+    } catch (error) {
+      // GeolocationError codes: 1 permission denied, 2 position unavailable (location service off), 3 timeout.
+      const code = (error as {code?: number} | null)?.code;
+      setFeedback({
+        kind: 'error',
+        text: t(code === 1 ? 'location.gps.permissionDeniedError' : code === 3 ? 'location.gps.timeout' : 'location.gps.positionUnavailable'),
+      });
+    } finally {
+      setLocating(false);
+    }
   };
 
   const handleNext = async () => {
@@ -482,11 +524,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                 value={displayedQuery}
               />
               {searching ? <ActivityIndicator color={theme.colors.primary} size="small" /> : null}
-              <Pressable accessibilityLabel={t('location.useMyLocation')} hitSlop={12} onPress={useCurrentLocation}>
+              <Pressable accessibilityLabel={t('location.useMyLocation')} accessibilityRole="button" disabled={locating} hitSlop={12} onPress={useCurrentLocation}>
                 {locating ? (
                   <ActivityIndicator color={theme.colors.primary} size="small" />
                 ) : (
-                  <Image source={LOCATION_TARGET} style={styles.targetImage} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="crosshairs-gps" size={24} />
                 )}
               </Pressable>
             </View>
@@ -546,10 +588,13 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
           <AwaCard padding="compact" style={styles.locationCard} variant="filled">
             <Image source={LOCATION_PIN} style={styles.locationPin} />
             <View style={styles.locationCopy}>
-              <AwaText variant="titleMedium">
+              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('location.selectedTitle')}</AwaText>
+              <AwaText numberOfLines={2} style={styles.locationName} variant="titleMedium">
                 {resolving || localizing ? t('location.resolvingLocation') : selectedText ?? t('location.noPositionSelected')}
               </AwaText>
-              <AwaText colorRole="onSurfaceVariant" style={styles.locationHint} variant="bodySmall">{selectedLocation?.timezone ?? t('location.positionSelectedOnMap')}</AwaText>
+              {selectedLocation && !resolving && !localizing ? (
+                <AwaText colorRole="onSurfaceVariant" style={styles.locationHint} variant="bodySmall">{t('location.selectedHint')}</AwaText>
+              ) : null}
             </View>
             {resolving || localizing ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
               <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
@@ -597,7 +642,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     searchArea: {zIndex: 10},
     searchBox: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 16, gap: 8},
     input: {flex: 1, minWidth: 0, minHeight: 50, color: theme.colors.text, fontSize: 14},
-    targetImage: {width: 26, height: 26},
     suggestions: {position: 'absolute', top: 54, right: 0, left: 0, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.surface, elevation: 6},
     suggestion: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border, paddingHorizontal: 16, gap: 10},
     suggestionPin: {width: 18, height: 22},
@@ -614,10 +658,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     mapUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28},
     mapUnavailableTitle: {marginTop: 8, textAlign: 'center'},
     mapUnavailableText: {marginTop: 4, textAlign: 'center'},
-    locationCard: {minHeight: 64, flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingHorizontal: 16},
+    locationCard: {minHeight: 72, flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingHorizontal: 16},
+    locationName: {marginTop: 2},
     locationPin: {width: 25, height: 30},
     locationCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    locationHint: {marginTop: 2},
+    locationHint: {marginTop: 4},
     checkCircle: {width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primary},
     errorText: {marginTop: 8, textAlign: 'center'},
     infoText: {marginTop: 8, textAlign: 'center'},

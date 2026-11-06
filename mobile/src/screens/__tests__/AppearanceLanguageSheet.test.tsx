@@ -131,6 +131,32 @@ describe('the language sheet offers the 75 supported languages only', () => {
   });
 });
 
+describe('following the phone has no card of its own: the phone language is the selected card', () => {
+  it('while AWA follows the phone, the card of the phone language is selected, and applying it keeps AWA following the phone', async () => {
+    await resetAppLanguageForTests();
+    await i18n.changeLanguage('en');
+    const renderer = await renderScreen(); // nothing stored: automatic mode, the (mocked) phone resolves to English
+    await openSheet(renderer);
+    expect(radioLabels(renderer)).toEqual(SELF_LABELS); // no extra "Automatique" card
+    expect(radio(renderer, 'English').props.accessibilityState).toEqual({checked: true});
+    await apply(renderer);
+    expect(await AsyncStorage.getItem('@awa/appearance/language-mode-v1')).not.toBe('manual');
+  });
+
+  it('choosing another card is a manual choice, stored as such', async () => {
+    await resetAppLanguageForTests();
+    await i18n.changeLanguage('en');
+    const renderer = await renderScreen();
+    await openSheet(renderer);
+    await act(async () => {
+      radio(renderer, 'Español').props.onPress();
+    });
+    await apply(renderer);
+    expect(await AsyncStorage.getItem('@awa/appearance/language-mode-v1')).toBe('manual');
+    expect(await AsyncStorage.getItem(KEY)).toBe('es');
+  });
+});
+
 describe('unrelated Appearance functionality is untouched', () => {
   it('the Light / Dark / System theme-mode selector keeps its own "System" option', async () => {
     const renderer = await renderScreen();
@@ -162,7 +188,10 @@ describe('choosing a language', () => {
     });
     await apply(renderer);
     expect(getAppLanguage()).toBe(language);
-    expect(await AsyncStorage.getItem(KEY)).toBe(language);
+    // English is the language already in force (AWA follows the phone): applying it changes nothing and keeps following the phone
+    if (language !== 'en') {
+      expect(await AsyncStorage.getItem(KEY)).toBe(language);
+    }
   });
 
   it('dismissing the sheet without applying changes nothing', async () => {

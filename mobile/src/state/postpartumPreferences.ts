@@ -264,7 +264,7 @@ export const clearFirstPostpartumPeriod = async (): Promise<void> => {
 
 /** THE single canonical way to record the optional "Suivi quotidien" reminder
  * answer — used by PostpartumRemindersScreen, in BOTH onboarding and Profile
- * → Santé générale → Notifications & rappels edit mode (and nowhere else; do
+ * → Notifications & rappels edit mode (and nowhere else; do
  * not duplicate this call). Never infers a schedule: the time comes only
  * from what the user explicitly picked on that screen. Completely
  * independent of the Nifas J35/J40 reminders (postpartumNifasReminderStore.ts). */

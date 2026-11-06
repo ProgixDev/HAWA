@@ -15,7 +15,6 @@ import InlineCalendarPickerModal from '../../components/onboarding/InlineCalenda
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {getActiveObjective, setActiveObjective, setSelectedObjective} from '../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
 import i18n from '../../i18n';
 import {setAppLanguage} from '../../state/themePreferences';
@@ -303,7 +302,6 @@ describe('H12 — entry points', () => {
 
   it('Profile (objective loss) exposes the three rows with the current value and navigates in edit mode', async () => {
     await setSelectedObjective('loss');
-    updatePrivacySecuritySettings({anonymousMode: false});
     await seed({bleedingStatus: 'variable', cycleReturnStatus: 'unknown', tryingAgainStatus: 'soon'});
     const navigate = jest.fn();
     let renderer!: ReactTestRenderer.ReactTestRenderer;
@@ -349,7 +347,6 @@ describe('H12 — entry points', () => {
 
   it('Profile does not show the loss rows for another objective', async () => {
     await setSelectedObjective('postpartum');
-    updatePrivacySecuritySettings({anonymousMode: false});
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
       renderer = ReactTestRenderer.create(

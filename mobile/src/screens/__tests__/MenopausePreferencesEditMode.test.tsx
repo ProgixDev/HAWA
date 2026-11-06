@@ -13,7 +13,6 @@ import MenopauseLabTrackingScreen from '../MenopauseLabTrackingScreen';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 import {
@@ -237,7 +236,6 @@ describe('E — edit mode returns to the previous screen and keeps history', () 
 describe('Profile — every Menopause preference has an edit entry point (edit mode)', () => {
   beforeAll(async () => {
     await setSelectedObjective('menopause');
-    updatePrivacySecuritySettings({anonymousMode: false});
   });
   afterAll(async () => {
     await setSelectedObjective('cycle');

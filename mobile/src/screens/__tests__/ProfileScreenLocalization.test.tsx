@@ -10,7 +10,6 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {setMenopauseStage} from '../../state/menopausePreferences';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
@@ -72,7 +71,6 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   await AsyncStorage.clear();
   await resetAppLanguageForTests();
-  updatePrivacySecuritySettings({anonymousMode: false});
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
 });
@@ -176,47 +174,26 @@ describe('ProfileScreen — localization (managed profiles)', () => {
   });
 });
 
-// LOCALIZATION FIX — the avatar-edit button's accessibilityLabel was a
-// hardcoded French ternary (never routed through t()), so a screen reader
-// always announced French regardless of the app language. Now localized via
-// profile.editAvatarAccessibility. Anonymous mode no longer has an avatar button at all
-// (AnonymousModeAvatarLock.test.tsx), so only the normal-mode button is announced; the
-// anonymous-mode label key stays in every dictionary but is never rendered.
+// LOCALIZATION FIX — the avatar-edit button's accessibilityLabel was a hardcoded French ternary (never routed through t()), so a screen
+// reader always announced French regardless of the app language. Now localized via profile.editAvatarAccessibility.
 describe('ProfileScreen — localization (avatar-edit accessibility)', () => {
-  it('announces the French label in French on the normal avatar button, and renders no avatar button in anonymous mode', async () => {
+  it('announces the French label in French on the avatar button', async () => {
     await setAppLanguage('fr');
     const renderer = await renderScreen();
     expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBeGreaterThan(0);
-
-    updatePrivacySecuritySettings({anonymousMode: true});
-    const anonymousRenderer = await renderScreen();
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBe(0);
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBe(0);
   });
 
-  it('announces the English label in English, never the French one, on the normal avatar button; none in anonymous mode', async () => {
+  it('announces the English label in English, never the French one', async () => {
     await setAppLanguage('en');
     const renderer = await renderScreen();
     expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Change profile photo').length).toBeGreaterThan(0);
     expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBe(0);
-
-    updatePrivacySecuritySettings({anonymousMode: true});
-    const anonymousRenderer = await renderScreen();
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Customize my anonymous avatar').length).toBe(0);
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Change profile photo').length).toBe(0);
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBe(0);
   });
 
-  it('announces the Spanish label in Spanish, never the French one, on the normal avatar button; none in anonymous mode', async () => {
+  it('announces the Spanish label in Spanish, never the French one', async () => {
     await setAppLanguage('es');
     const renderer = await renderScreen();
     expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Cambiar la foto de perfil').length).toBeGreaterThan(0);
     expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Changer la photo de profil').length).toBe(0);
-
-    updatePrivacySecuritySettings({anonymousMode: true});
-    const anonymousRenderer = await renderScreen();
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personalizar mi avatar anónimo').length).toBe(0);
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Cambiar la foto de perfil').length).toBe(0);
-    expect(anonymousRenderer.root.findAll(node => node.props.accessibilityLabel === 'Personnaliser mon avatar anonyme').length).toBe(0);
   });
 });

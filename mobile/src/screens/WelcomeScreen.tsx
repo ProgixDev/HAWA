@@ -25,11 +25,11 @@ import {AwaButton} from '../components/ui/AwaButton';
 import {AwaText} from '../components/ui/AwaText';
 
 // Phase 3 pilot, Welcome redesign (reference mock supplied by the product owner): a calm first screen made of the AWA
-// lockup, one sentence, and two stacked buttons, with the hero in the upper part of the space above them. Design-system rules
+// lockup, one sentence, and two stacked buttons, grouped and vertically centred in the safe area. Design-system rules
 // applied: Material 3 type roles (AwaText), the shared AwaButton in its 56 dp large height, colour roles from the
 // resolved theme, no hardcoded colours or font sizes.
 //
-// Three sections (upper hero, flexible space, lower buttons) live inside a ScrollView whose content grows to at least
+// Two sections (branding block, buttons; a fixed gap between them) live inside a ScrollView whose content grows to at least
 // the viewport, so the layout is identical when it fits and scrolls instead of clipping on a short phone or with a
 // large font scale. The lockup is ONE heading for screen readers (a composed label built from the same three
 // translations), not three separate texts.
@@ -47,15 +47,11 @@ const BUTTON_MAX_WIDTH = 360;
 const BUTTON_GAP = 16;
 const BUTTON_SIDE_PADDING = 24;
 const SCREEN_MARGIN = 24;
-/** The action group floats above the system bar by 9% of the screen height (clamped), so it is never glued to the bottom. */
-const BOTTOM_LIFT_RATIO = 0.09;
-const BOTTOM_LIFT_MIN = 48;
-const BOTTOM_LIFT_MAX = 80;
 /** Button label size (sp) of the shared primary-action label. One constant feeds both the label style and the width
  * estimate below, so a long translation still fits. The weight (700) comes from the same shared token. */
 const LABEL_FONT_SIZE = AWA_PRIMARY_ACTION_LABEL.fontSize;
-/** Places the lockup around the upper quarter of the usable screen while adapting to phone height. */
-const HERO_TOP_SPACING_RATIO = 0.14;
+/** Space between the branding block (lockup, divider, description) and the action buttons. */
+const HERO_TO_ACTIONS_GAP = awaSpace.s48;
 
 /** Rough label width (dp) at `size` sp: hanzi are square, capitals wider, the rest averaged. Used only to widen the
  * buttons for long translations (e.g. German "Ich habe bereits ein Konto"), never to shrink them. */
@@ -70,7 +66,7 @@ function estimateLabelWidth(label: string, size: number): number {
 
 function WelcomeScreen({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
-  const {height, width} = useWindowDimensions();
+  const {width} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -97,10 +93,6 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
 
   const safeTopSpacing = Math.max(insets.top, awaSpace.s8);
   const safeBottomSpacing = Math.max(insets.bottom, awaSpace.s16);
-  const availableHeight = Math.max(height - safeTopSpacing - safeBottomSpacing, 0);
-  const heroTopSpacing = Math.max(awaSpace.s24, Math.round(availableHeight * HERO_TOP_SPACING_RATIO));
-  const bottomLift = Math.min(BOTTOM_LIFT_MAX, Math.max(BOTTOM_LIFT_MIN, Math.round(height * BOTTOM_LIFT_RATIO)));
-  const bottomSpacing = safeBottomSpacing + bottomLift;
 
   /* ============================================================
      ANIMATIONS (title and actions entrance)
@@ -166,10 +158,10 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
       <SafeAreaView style={styles.safeArea}>
         <ScrollView
           bounces={false}
-          contentContainerStyle={[styles.page, {paddingTop: safeTopSpacing}]}
+          contentContainerStyle={[styles.page, {paddingTop: safeTopSpacing, paddingBottom: safeBottomSpacing}]}
           showsVerticalScrollIndicator={false}>
-          {/* A height-relative offset keeps the hero in the upper quarter across Android phone sizes. */}
-          <View style={[styles.heroRegion, {paddingTop: heroTopSpacing}]}>
+          {/* Branding block and actions form one group centred in the safe area; a fixed gap separates them. */}
+          <View style={styles.heroRegion}>
             <Animated.View style={[styles.hero, titleStyle]}>
               <View
                 accessibilityLabel={lockupLabel}
@@ -216,9 +208,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
             </Animated.View>
           </View>
 
-          <View style={styles.middleSpacer} />
-
-          <Animated.View style={[styles.actions, {paddingBottom: bottomSpacing}, actionsStyle]}>
+          <Animated.View style={[styles.actions, actionsStyle]}>
             <AwaButton
               accessibilityLabel={startLabel}
               hitSlop={buttonHitSlop}
@@ -260,20 +250,16 @@ function createStyles(theme: ResolvedAwaTheme) {
       flex: 1,
     },
 
-    // ScrollView content container: at least one viewport tall (`flexGrow`), so the flexible spacer still pushes the
-    // buttons to the bottom when everything fits, and the content scrolls when it does not.
+    // ScrollView content container: at least one viewport tall (`flexGrow`) and vertically centred, so the group is
+    // balanced when it fits and simply scrolls when it does not (short phone, large font scale).
     page: {
       flexGrow: 1,
+      justifyContent: 'center',
       paddingHorizontal: 18,
     },
 
     heroRegion: {
       justifyContent: 'flex-start',
-    },
-
-    middleSpacer: {
-      flex: 1,
-      minHeight: awaSpace.s24,
     },
 
     hero: {
@@ -310,7 +296,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     brandDivider: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 8,
+      marginTop: awaSpace.s16,
     },
 
     brandDividerLine: {
@@ -329,12 +315,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     subtitle: {
       maxWidth: 260,
-      marginTop: 8,
+      marginTop: awaSpace.s16,
       textAlign: 'center',
     },
 
     actions: {
       alignItems: 'center',
+      marginTop: HERO_TO_ACTIONS_GAP,
     },
 
     buttonLabel: {

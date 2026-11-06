@@ -73,9 +73,8 @@ describe('BackupDataScreen — language switch', () => {
     expect(enTexts).toContain('Your data, always safe 💜');
     expect(enTexts).toContain('Back up now');
     expect(enTexts).toContain('Restore a backup');
-    expect(enTexts).toContain('Download my data');
-    expect(enTexts).toContain('Export my data');
-    expect(enTexts).toContain('Delete my data');
+    expect(enTexts).not.toContain('Download my data'); // data management lives in "Mes données" now
+    expect(enTexts).not.toContain('Delete my data');
     expect(enTexts).not.toContain('Sauvegarder maintenant');
   });
 });
