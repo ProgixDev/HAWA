@@ -186,7 +186,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
     </Pressable>
   );
 
-  // Profile → Santé générale → Notifications & rappels gets a distinct,
+  // Profile → Notifications & rappels gets a distinct,
   // sober settings-style presentation (same visual language as
   // PrivacySecurityScreen.tsx / ConceptionOnboardingScreens.tsx's own edit
   // branch: flat background, compact header, one card with switch rows) —

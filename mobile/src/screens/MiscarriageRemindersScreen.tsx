@@ -187,9 +187,6 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
 
           <AwaCard padding="none" variant="filled" style={editStyles.card}>
             <View style={editStyles.row}>
-              <View style={editStyles.rowIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={18} />
-              </View>
               <View style={editStyles.rowCopy}>
                 <AwaText variant="labelMedium">{t('miscarriageReminders.dailyTracking')}</AwaText>
                 <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={editStyles.rowSubtitle}>
@@ -285,15 +282,12 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
 
           <AwaCard padding="none" variant="filled" style={styles.card}>
             <View style={styles.cardTopRow}>
-              <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={22} />
-              </View>
               <View style={styles.cardCopy}>
                 {/* Scheduled-notification title/body preview — same keys
                     scheduleLocalNotification() actually uses in
                     miscarriageReminderScheduling.ts, so this card can never
                     disagree with what the real notification will say. */}
-                <AwaText variant="titleSmall">{miscarriageDailyTrackingNotificationTitle(t)}</AwaText>
+                <AwaText variant="titleSmall">{miscarriageDailyTrackingNotificationTitle(t).replace(/s*[🌀-🫿☀-➿]️?/gu, '')}</AwaText>
                 <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.cardDescription}>{miscarriageDailyTrackingNotificationBody(t)}</AwaText>
               </View>
               <AwaSwitch
