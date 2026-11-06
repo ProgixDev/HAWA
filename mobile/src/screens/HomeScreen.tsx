@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {StyleSheet, View} from 'react-native';
 
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
 import PregnancyDashboard from '../components/pregnancy/PregnancyDashboard';
@@ -9,6 +10,7 @@ import ContraceptionDashboard from '../components/contraception/ContraceptionDas
 import MenopauseDashboard from '../components/menopause/MenopauseDashboard';
 import IrregularDashboard from '../components/irregular/IrregularDashboard';
 import CycleHomeScreen from './CycleHomeScreen';
+import BackupReminderCard from '../components/home/BackupReminderCard';
 import { PostpartumSuccessToast } from '../components/postpartum/PostpartumSuccessToast';
 import {
   getActiveObjective,
@@ -20,7 +22,7 @@ import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileSto
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-function HomeScreen(props: Props): React.JSX.Element {
+function HomeDashboards(props: Props): React.JSX.Element {
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
   const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
 
@@ -86,6 +88,19 @@ function HomeScreen(props: Props): React.JSX.Element {
   }
 
   return <CycleHomeScreen {...props} />;
+}
+
+const homeStyles = StyleSheet.create({root: {flex: 1}});
+
+// The objective's dashboard, plus (above the tab bar, and only when the online backup feature is on and nobody is signed in) the
+// "Sauvegarde tes données" reminder.
+function HomeScreen(props: Props): React.JSX.Element {
+  return (
+    <View style={homeStyles.root}>
+      <HomeDashboards {...props} />
+      <BackupReminderCard />
+    </View>
+  );
 }
 
 export default HomeScreen;

@@ -75,7 +75,7 @@ describe('HomeHeader — theme reactivity', () => {
   });
 });
 
-describe('QuickActionsGrid — theme reactivity and preserved per-action colors', () => {
+describe('QuickActionsGrid — theme reactivity and one icon tone for every action', () => {
   const items: QuickActionItem[] = [
     {key: 'a', icon: 'heart-outline', iconColor: '#FF00AA', iconBg: '#FFEAF6', label: 'Action A'},
     {key: 'b', icon: 'run', iconColor: '#00AA55', iconBg: '#E8FFF2', label: 'Action B'},
@@ -94,16 +94,12 @@ describe('QuickActionsGrid — theme reactivity and preserved per-action colors'
     expect(flattenStyle(title.props.style).color).toBe('#3B3A2E'); // sage-serenity text
   });
 
-  it('never recolors the caller-supplied per-action icon colors', async () => {
+  it('draws every action icon in the same theme tone, ignoring the colours the caller supplies', async () => {
     const renderer = await renderWithProviders(<QuickActionsGrid items={items} />);
-    const iconA = renderer.root.findAll(node => node.props.name === 'heart-outline')[0];
-    expect(iconA.props.color).toBe('#FF00AA');
-
-    await act(async () => {
-      await setSelectedThemeId('ocean-calm');
-    });
-
-    expect(iconA.props.color).toBe('#FF00AA');
+    const icons = items.map(item => renderer.root.findAll(node => node.props.name === item.icon)[0]);
+    const colors = new Set(icons.map(icon => icon.props.color));
+    expect(colors.size).toBe(1);
+    expect(colors.has('#FF00AA')).toBe(false);
   });
 });
 
@@ -210,7 +206,7 @@ describe('SpiritualGuidanceCard — "Voir mes repères" removed, card/title/cont
 describe('ObjectiveArticlesSection — theme reactivity', () => {
   it('generic chrome (see-all link) responds to palette changes, article artwork untouched', async () => {
     const renderer = await renderWithProviders(
-      <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onSeeAll={() => {}} />,
+      <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onOpenCategory={() => {}} onSeeAll={() => {}} />,
     );
     // Material 3 migration: the label is now an AwaText, so the first match is the composite; the host Text (last match) carries the resolved style.
     const seeAll = renderer.root.findAll(node => node.props.children === 'Voir tout').slice(-1)[0];
@@ -240,7 +236,7 @@ describe('ObjectiveArticlesSection — theme reactivity', () => {
   // "recommended articles" reads of the same library data.
   it('article titles switch to English with the app language, id/order unchanged', async () => {
     const renderer = await renderWithProviders(
-      <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onSeeAll={() => {}} />,
+      <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onOpenCategory={() => {}} onSeeAll={() => {}} />,
     );
     const frTitle = renderer.root.findAll(
       node => node.props.children === 'Comprendre ton cycle menstruel',
