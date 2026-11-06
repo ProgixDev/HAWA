@@ -943,6 +943,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
             <ObjectiveArticlesSection
               objective="postpartum"
               onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
               onSeeAll={() => navigation.navigate('Library')}
             />
           </Animated.View>

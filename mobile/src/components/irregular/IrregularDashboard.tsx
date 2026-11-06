@@ -479,6 +479,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
           <ObjectiveArticlesSection
             objective="irregular"
             onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
         </ScrollView>

@@ -2,8 +2,6 @@ import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
-  Image,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -55,8 +53,7 @@ import {getConceptionJournalItems} from '../../config/conceptionJournalConfig';
 import {getConceptionPreferences, hydrateConceptionPreferences, subscribeConceptionPreferences} from '../../state/conceptionPreferences';
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {displayUpperCase} from '../../utils/textCase';
-import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
-import {getLibraryArticles, type LibraryArticle} from '../../data/libraryContent';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
 import {
   computeCyclePredictionStatus,
@@ -270,14 +267,6 @@ function FertilityRing({
   );
 }
 
-const ARTICLE_IMAGES: Record<string, ReturnType<typeof require>> = {
-  fertility: require('../../assets/images/library/category-fertility.png'),
-  ovulation: require('../../assets/images/library/category-fertility.png'),
-  basalTemperature: require('../../assets/images/library/category-hormonal.png'),
-  cervicalMucus: require('../../assets/images/library/flow-texture-mucus.png'),
-  lhTests: require('../../assets/images/library/category-hormonal.png'),
-};
-
 function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
@@ -451,16 +440,6 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
     // Contraception D2, Irregular D3 — never theme-driven).
     {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: t('cycleHome.quickActions.statistics'), onPress: () => navigation.navigate('Statistics')},
   ];
-
-  // Real, existing library articles for the 'conceive' objective — same
-  // data/route ArticleReader already uses elsewhere.
-  const articles = useMemo(() => {
-    const recommendedIds = getLibraryConfigForObjective('conceive').recommendedArticleIds;
-    const byId = new Map(getLibraryArticles(t).map(article => [article.id, article]));
-    return recommendedIds
-      .map(id => byId.get(id))
-      .filter((article): article is LibraryArticle => Boolean(article));
-  }, [t]);
 
   const animatedStyle = {
     opacity: entrance,
@@ -653,7 +632,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           {advice && hasConfirmedCycleData ? (
             <View style={styles.adviceCard}>
               <View style={styles.adviceIcon}>
-                <AwaText variant="bodyLarge">🌸</AwaText>
+                <MaterialDesignIcons color={theme.colors.primary} name="flower-outline" size={20} />
               </View>
               <View style={styles.adviceCopy}>
                 <AwaText variant="labelMedium">{t('conceiveDashboard.adviceCard.title')}</AwaText>
@@ -683,31 +662,12 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             />
           ) : null}
 
-          <AwaCard padding="none" variant="filled" style={styles.articlesCard}>
-            <View style={styles.articlesHeader}>
-              <AwaText variant="titleMedium">{t('objectiveArticles.title')}</AwaText>
-              <Pressable accessibilityRole="button" hitSlop={8} onPress={() => navigation.navigate('Library')}>
-                <AwaText variant="labelMedium" style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</AwaText>
-              </Pressable>
-            </View>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.articlesRow}>
-              {articles.map(article => (
-                <Pressable
-                  accessibilityLabel={article.title}
-                  accessibilityRole="button"
-                  key={article.id}
-                  onPress={() => navigation.navigate('ArticleReader', {articleId: article.id})}
-                  style={({pressed}) => [styles.articleTile, pressed && styles.pressed]}>
-                  <Image resizeMode="cover" source={ARTICLE_IMAGES[article.categoryId] ?? ARTICLE_IMAGES.fertility} style={styles.articleImage} />
-                  <AwaText variant="labelSmall" numberOfLines={2} style={styles.articleTileTitle}>{article.title}</AwaText>
-                  <View style={styles.articleTileMetaRow}>
-                    <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
-                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</AwaText>
-                  </View>
-                </Pressable>
-              ))}
-            </ScrollView>
-          </AwaCard>
+          <ObjectiveArticlesSection
+            objective="conceive"
+            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
+            onSeeAll={() => navigation.navigate('Library')}
+          />
         </ScrollView>
       </SafeAreaView>
 
@@ -976,22 +936,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   adviceSubtitle: {marginTop: 3, color: adviceSubtitleColor},
   adviceText: {marginTop: 3},
 
-  articlesCard: {marginTop: 16, paddingVertical: 16, paddingLeft: 16},
-  articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-  articlesSeeAll: {color: PURPLE},
-  articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
-  articleTile: {
-    width: 140,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: homeRadii.quickAction,
-    backgroundColor: theme.colors.surface,
-    overflow: 'hidden',
-    paddingBottom: 10,
-  },
-  articleImage: {width: '100%', height: 76},
-  articleTileTitle: {marginTop: 8, marginHorizontal: 9},
-  articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
   pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
 
   });

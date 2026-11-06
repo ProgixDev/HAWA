@@ -15,6 +15,8 @@ import {
   View,
 } from 'react-native';
 
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+
 import {colors} from '../../theme/colors';
 import {spacing} from '../../theme/spacing';
 import {AwaText} from '../ui/AwaText';
@@ -39,7 +41,7 @@ type PhaseConfig = {
   label: string;
   activeColor: string;
   centerColor: string;
-  symbol: string;
+  symbol: React.ComponentProps<typeof MaterialDesignIcons>['name'];
 };
 
 const PHASES: Record<CyclePhase, PhaseConfig> = {
@@ -47,49 +49,49 @@ const PHASES: Record<CyclePhase, PhaseConfig> = {
     label: 'Phase menstruelle',
     activeColor: '#D97A83',
     centerColor: '#F8DCDD',
-    symbol: '✿',
+    symbol: 'water-outline',
   },
 
   follicular: {
     label: 'Phase folliculaire',
     activeColor: colors.muted,
     centerColor: '#EFE6FA',
-    symbol: '❀',
+    symbol: 'flower-outline',
   },
 
   fertile: {
     label: 'Fenêtre fertile',
     activeColor: '#8B6FD1',
     centerColor: '#EFE6FA',
-    symbol: '✤',
+    symbol: 'flower-tulip-outline',
   },
 
   ovulation: {
     label: 'Ovulation',
     activeColor: colors.primary,
     centerColor: '#EFE6FA',
-    symbol: '✿',
+    symbol: 'flower-outline',
   },
 
   luteal: {
     label: 'Phase lutéale',
     activeColor: '#D8B05A',
     centerColor: '#F7EEDC',
-    symbol: '✦',
+    symbol: 'weather-night',
   },
 
   pregnancy: {
     label: 'Grossesse',
     activeColor: '#B97B88',
     centerColor: '#F8E4E6',
-    symbol: '♡',
+    symbol: 'heart-outline',
   },
 
   postpartum: {
     label: 'Post-partum',
     activeColor: '#9C8AC2',
     centerColor: '#EFE6FA',
-    symbol: '❦',
+    symbol: 'sprout-outline',
   },
 };
 
@@ -466,11 +468,9 @@ function CycleStatusCardComponent({
                     config.centerColor,
                 },
               ]}>
-              <Animated.Text
+              <Animated.View
                 style={[
-                  styles.flower,
                   {
-                    color: config.activeColor,
                     opacity: flowerEntrance,
                     transform: [
                       {
@@ -483,8 +483,8 @@ function CycleStatusCardComponent({
                     ],
                   },
                 ]}>
-                {config.symbol}
-              </Animated.Text>
+                <MaterialDesignIcons color={config.activeColor} name={config.symbol} size={30} />
+              </Animated.View>
             </View>
           </View>
         </ImageBackground>
@@ -690,10 +690,6 @@ const styles = StyleSheet.create({
     borderRadius: 33,
   },
 
-  flower: {
-    fontSize: 29,
-    lineHeight: 34,
-  },
 });
 
 export const CycleStatusCard = memo(

@@ -9,7 +9,6 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import {pickReadableTextColor} from '../../../theme/awaThemeTokens';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import MenopauseDashboard from '../MenopauseDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
@@ -134,14 +133,10 @@ describe('MenopauseDashboard — true black', () => {
   });
 });
 
-describe('MenopauseDashboard — "Mon étape" stage icons readable in dark mode', () => {
-  // The 3 stage-option icons render at size=22 (PremiumChoiceCard's own
-  // fixed icon size) — the dashboard also reuses these exact icon names
-  // elsewhere at other sizes (the 82px decorative hero flower, the 14px
-  // stage-badge glyph, the progress-ring center icon), so filtering on
-  // size=22 is what uniquely picks out the "Mon étape" sheet's own icons.
+describe('MenopauseDashboard — "Mon étape" stage icons', () => {
+  // The 3 stage-option icons render at size 24 inside a 48 dp glass circle (PremiumChoiceCard -> GlassIcon). The dashboard reuses
+  // these icon names elsewhere at other sizes (hero flower, stage badge, progress ring), so size 24 picks out the sheet's own icons.
   const STAGE_OPTION_ICON_NAMES = ['weather-sunset', 'flower-outline', 'help-circle-outline'];
-  const LIGHT_TINTS = ['#FDF0E4', '#E7F0E8', '#EFE7F4'];
 
   async function openStageModal(renderer: ReactTestRenderer.ReactTestRenderer) {
     const editButton = renderer.root.findAll(
@@ -152,47 +147,23 @@ describe('MenopauseDashboard — "Mon étape" stage icons readable in dark mode'
     });
   }
 
-  function findStageOptionIcon(renderer: ReactTestRenderer.ReactTestRenderer, iconName: string) {
-    return renderer.root.findAll(node => node.props.name === iconName && node.props.size === 22)[0];
-  }
+  const stageIcons = (renderer: ReactTestRenderer.ReactTestRenderer) =>
+    STAGE_OPTION_ICON_NAMES.map(name => renderer.root.findAll(node => node.props.name === name && node.props.size === 24)[0]);
 
-  it('light mode keeps each option\'s own distinct pastel chip and the original uniform primary icon color (no regression)', async () => {
+  it('every stage icon sits in the same glass circle and the same primary tone (no per-option colour), in light and dark', async () => {
     const renderer = await renderDashboard();
     await openStageModal(renderer);
 
-    const boxes = STAGE_OPTION_ICON_NAMES.map(name => {
-      const icon = findStageOptionIcon(renderer, name);
-      return {icon, box: flattenStyle(icon.parent!.props.style)};
-    });
-
-    boxes.forEach(({box}, i) => expect(box.backgroundColor).toBe(LIGHT_TINTS[i]));
-    boxes.forEach(({icon}) => expect(icon.props.color).toBe('#6D4AE8'));
-    expect(new Set(boxes.map(({box}) => box.backgroundColor)).size).toBe(3);
-  });
-
-  it('dark mode never reuses the light pastel chip, derives a readable icon color from the real resulting background, and keeps each option visually distinct', async () => {
-    const renderer = await renderDashboard();
-    await openStageModal(renderer);
-
-    await act(async () => {
-      await setAppearanceMode('dark');
-    });
-
-    const boxes = STAGE_OPTION_ICON_NAMES.map(name => {
-      const icon = findStageOptionIcon(renderer, name);
-      return {icon, box: flattenStyle(icon.parent!.props.style)};
-    });
-
-    boxes.forEach(({box}, i) => {
-      expect(box.backgroundColor).not.toBe(LIGHT_TINTS[i]);
-      expect(box.backgroundColor).not.toBe('#FFFFFF');
-    });
-
-    boxes.forEach(({icon, box}) => {
-      expect(icon.props.color).toBe(pickReadableTextColor(box.backgroundColor as string));
-    });
-
-    expect(new Set(boxes.map(({box}) => box.backgroundColor)).size).toBe(3);
+    for (const mode of ['light', 'dark'] as const) {
+      await act(async () => {
+        await setAppearanceMode(mode);
+      });
+      const icons = stageIcons(renderer);
+      icons.forEach(icon => expect(icon).toBeDefined());
+      const fills = icons.map(icon => flattenStyle(icon.parent!.props.style).backgroundColor);
+      expect(new Set(fills).size).toBe(1);
+      expect(new Set(icons.map(icon => icon.props.color)).size).toBe(1);
+    }
   });
 });
 

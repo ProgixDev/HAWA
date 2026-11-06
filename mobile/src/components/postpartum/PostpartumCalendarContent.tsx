@@ -73,7 +73,7 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaIconButton} from '../ui/AwaIconButton';
 import {AwaText} from '../ui/AwaText';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
+import CalendarFilterChips from '../calendar/CalendarFilterChips';
 
 // Postpartum Calendar — a dedicated content branch for the ONE global
 // Calendar tab (see ObjectiveAwareCalendarScreen.tsx). Same premium HAWA
@@ -256,9 +256,12 @@ function PostpartumCalendarContent(): React.JSX.Element {
   }, [today]);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
-  const [visibleFilters, setVisibleFilters] = useState<
-    Set<PostpartumCalendarCategory>
-  >(() => new Set(CATEGORY_KEYS));
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<Set<PostpartumCalendarCategory>>(() => new Set());
+  const visibleFilters = useMemo<Set<PostpartumCalendarCategory>>(
+    () => (selectedFilters.size === 0 ? new Set(CATEGORY_KEYS) : selectedFilters),
+    [selectedFilters],
+  );
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
 
   // Canonical delivery date — src/state/postpartumPreferences.ts, the same
@@ -418,7 +421,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
     Boolean(deliveryDate) && sameDay(selectedDate, deliveryDate as Date);
 
   const toggleFilter = (key: PostpartumCalendarCategory) => {
-    setVisibleFilters(current => {
+    setSelectedFilters(current => {
       const next = new Set(current);
       if (next.has(key)) {
         next.delete(key);
@@ -498,20 +501,14 @@ function PostpartumCalendarContent(): React.JSX.Element {
           <View style={styles.header}>
             <View style={styles.headerCopy}>
               <AwaText variant="headlineSmall" style={styles.title}>{t('postpartumCalendar.header.title')}</AwaText>
-              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('postpartumCalendar.header.subtitle')}</AwaText>
             </View>
-
-            <HeaderAction
-              icon="tune-variant"
-              label={t('calendar.filters')}
-              onPress={() => setSheet('filters')}
-            />
-            <HeaderAction
-              icon="format-list-bulleted"
-              label={t('calendar.legend')}
-              onPress={() => setSheet('legend')}
-            />
           </View>
+
+          <CalendarFilterChips
+            chips={CATEGORY_KEYS.map(key => ({key, label: categoryMeta[key].label}))}
+            onToggle={key => toggleFilter(key as PostpartumCalendarCategory)}
+            selected={selectedFilters}
+          />
 
           {/* CALENDAR CARD */}
           <View style={styles.calendarCard}>

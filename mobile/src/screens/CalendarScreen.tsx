@@ -13,8 +13,8 @@ import SelectedDayCard from '../components/calendar/SelectedDayCard';
 import PredictionsCard from '../components/calendar/PredictionsCard';
 import CycleTimelineCard, {type TimelineStep} from '../components/calendar/CycleTimelineCard';
 import MonthHistoryStrip from '../components/calendar/MonthHistoryStrip';
-import FiltersSheet from '../components/calendar/FiltersSheet';
-import LegendSheet from '../components/calendar/LegendSheet';
+import CalendarFilterChips from '../components/calendar/CalendarFilterChips';
+import {OPTIONS as FILTER_OPTIONS} from '../components/calendar/FiltersSheet';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {homeColors} from '../components/home/homeTheme';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -29,8 +29,6 @@ import {recordManagedProfileFirstPeriod} from '../state/managedProfileCycleSeed'
 import {withResolvedIntimacyForDisplay, withResolvedIntimacyForDisplayMany} from '../services/privateJournalEncryption';
 import {
   DEFAULT_CALENDAR_FILTERS,
-  loadCalendarFilters,
-  saveCalendarFilters,
   type CalendarFilterKey,
   type CalendarFilters,
 } from '../state/calendarFilters';
@@ -86,9 +84,14 @@ function CalendarScreen(_: Props): React.JSX.Element {
   // purple). Only a real tap on a day flips this to true.
   const [hasUserSelectedDate, setHasUserSelectedDate] = useState(false);
   const [displayMode, setDisplayMode] = useState<CalendarDisplayMode>('double');
-  const [filters, setFilters] = useState<CalendarFilters>(DEFAULT_CALENDAR_FILTERS);
-  const [filtersVisible, setFiltersVisible] = useState(false);
-  const [legendVisible, setLegendVisible] = useState(false);
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<ReadonlySet<string>>(() => new Set());
+  const filters = useMemo<CalendarFilters>(
+    () => selectedFilters.size === 0
+      ? DEFAULT_CALENDAR_FILTERS
+      : (Object.fromEntries(Object.keys(DEFAULT_CALENDAR_FILTERS).map(key => [key, selectedFilters.has(key)])) as CalendarFilters),
+    [selectedFilters],
+  );
   const [journalFlagsByDate, setJournalFlagsByDate] = useState<Record<string, DayJournalFlags>>({});
   const [selectedEntry, setSelectedEntry] = useState<DailyJournalEntry | undefined>(undefined);
   const [editingPeriod, setEditingPeriod] = useState(false);
@@ -145,14 +148,6 @@ function CalendarScreen(_: Props): React.JSX.Element {
     return () => {mounted = false; unsubscribe();};
   }, []);
 
-  useEffect(() => {
-    let mounted = true;
-    loadCalendarFilters().then(loaded => {
-      if (mounted) {setFilters(loaded);}
-    });
-    return () => {mounted = false;};
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
@@ -200,12 +195,17 @@ function CalendarScreen(_: Props): React.JSX.Element {
   );
 
   const toggleFilter = (key: CalendarFilterKey) => {
-    setFilters(current => {
-      const next = {...current, [key]: !current[key]};
-      saveCalendarFilters(next);
+    setSelectedFilters(current => {
+      const next = new Set(current);
+      if (next.has(key)) {next.delete(key);} else {next.add(key);}
       return next;
     });
   };
+
+  // "Vie intime" is not part of a managed (daughter) profile's cycle tracking: no chip for it.
+  const filterChips = FILTER_OPTIONS
+    .filter(option => !(activeIdentity.isManagedProfile && option.key === 'intimacy'))
+    .map(option => ({key: option.key, label: t(option.labelKey)}));
 
   // "Historique illimité" — going backward (offset < 0) is the only
   // direction that can leave the FREE history window; forward navigation
@@ -532,10 +532,9 @@ function CalendarScreen(_: Props): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[styles.scrollContent, {paddingBottom: getFloatingTabBarClearance(insets.bottom, editingPeriod ? 132 : 24)}]}
           showsVerticalScrollIndicator={false}>
-          <CalendarHeader
-            onPressFilters={() => setFiltersVisible(true)}
-            onPressLegend={() => setLegendVisible(true)}
-          />
+          <CalendarHeader />
+
+          <CalendarFilterChips chips={filterChips} onToggle={key => toggleFilter(key as CalendarFilterKey)} selected={selectedFilters} />
 
           <MonthCalendarCard
             basics={basics}
@@ -605,15 +604,6 @@ function CalendarScreen(_: Props): React.JSX.Element {
           <MonthHistoryStrip onSelectMonth={handleSelectHistoryMonth} periodHistory={recordedPeriods} visibleMonth={visibleMonth} />
         </ScrollView>
 
-        <FiltersSheet
-          filters={filters}
-          hideIntimacy={activeIdentity.isManagedProfile}
-          onClose={() => setFiltersVisible(false)}
-          onToggle={toggleFilter}
-          visible={filtersVisible}
-        />
-
-        <LegendSheet onClose={() => setLegendVisible(false)} showSpiritualMarkers={spiritualMarkersEnabled} visible={legendVisible} />
         {editingPeriod ? (
           <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}>
             <View style={styles.editBarCopy}>

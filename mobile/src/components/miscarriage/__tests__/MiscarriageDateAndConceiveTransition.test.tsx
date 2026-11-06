@@ -17,7 +17,6 @@ import {
   setCyclePreferences,
   setSelectedObjective,
 } from '../../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
 import {
   getMiscarriagePreferences,
   setMiscarriagePreferences,
@@ -239,7 +238,6 @@ describe('G — correcting an existing loss date', () => {
 
   it('Profile "Date de la fausse couche" opens the date screen in edit mode', async () => {
     await setSelectedObjective('loss');
-    updatePrivacySecuritySettings({anonymousMode: false});
     const navigate = jest.fn();
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {

@@ -65,7 +65,7 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaSwitch} from '../ui/AwaSwitch';
 import {AwaText} from '../ui/AwaText';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
+import CalendarFilterChips from '../calendar/CalendarFilterChips';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -286,11 +286,22 @@ function IrregularCalendarContent(): React.JSX.Element {
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
   }, []);
 
-  const [filters, setFilters] = useState<IrregularCalendarFilters>(DEFAULT_CALENDAR_FILTERS);
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<ReadonlySet<string>>(() => new Set());
+  const filters = useMemo<IrregularCalendarFilters>(
+    () => selectedFilters.size === 0
+      ? DEFAULT_CALENDAR_FILTERS
+      : (Object.fromEntries(Object.keys(DEFAULT_CALENDAR_FILTERS).map(key => [key, selectedFilters.has(key)])) as IrregularCalendarFilters),
+    [selectedFilters],
+  );
   const [sheet, setSheet] = useState<CalendarSheetMode>(null);
 
   const toggleFilter = useCallback((key: keyof IrregularCalendarFilters) => {
-    setFilters(current => ({...current, [key]: !current[key]}));
+    setSelectedFilters(current => {
+      const next = new Set(current);
+      if (next.has(key as string)) {next.delete(key as string);} else {next.add(key as string);}
+      return next;
+    });
   }, []);
 
   const [entriesByDate, setEntriesByDate] = useState<Record<string, IrregularJournalEntry>>(
@@ -406,12 +417,18 @@ function IrregularCalendarContent(): React.JSX.Element {
           <View style={styles.header}>
             <View style={styles.headerCopy}>
               <AwaText variant="headlineSmall" style={styles.title}>{t('irregularCalendar.title')}</AwaText>
-              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('irregularCalendar.subtitle')}</AwaText>
             </View>
-
-            <HeaderAction icon="tune-variant" label={t('irregularCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label={t('irregularCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
+
+          <IrregularCalendarSheet
+            filters={filters}
+            inline
+            mode={null}
+            onClose={() => setSheet(null)}
+            onToggle={toggleFilter}
+            selectedKeys={selectedFilters}
+            spiritualMarkersEnabled={spiritualMarkersEnabled}
+          />
 
           {/* MONTH CARD */}
           <AwaCard padding="none" variant="filled" style={styles.card}>
@@ -878,11 +895,15 @@ function SelectedRow({
    three different marker sets.
 ============================================================ */
 
+const EMPTY_SELECTION: ReadonlySet<string> = new Set();
+
 function IrregularCalendarSheet({
   mode,
   onClose,
   onToggle,
   filters,
+  inline,
+  selectedKeys,
   spiritualMarkersEnabled,
 }: {
   mode: CalendarSheetMode;
@@ -890,6 +911,9 @@ function IrregularCalendarSheet({
   onToggle: (key: keyof IrregularCalendarFilters) => void;
   filters: IrregularCalendarFilters;
   spiritualMarkersEnabled: boolean;
+  /** Renders only the category chips (the calendar screen's filter row) instead of the modal. */
+  inline?: boolean;
+  selectedKeys?: ReadonlySet<string>;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -936,6 +960,16 @@ function IrregularCalendarSheet({
     title: categoryLabel[category],
     description: categoryCopy[category].legendDescription,
   }));
+
+  if (inline) {
+    return (
+      <CalendarFilterChips
+        chips={[...trackingFilterRows, ...(spiritualMarkersEnabled ? spiritualFilterRows : [])].map(row => ({key: String(row.key), label: row.title}))}
+        onToggle={key => onToggle(key as keyof IrregularCalendarFilters)}
+        selected={selectedKeys ?? EMPTY_SELECTION}
+      />
+    );
+  }
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>
