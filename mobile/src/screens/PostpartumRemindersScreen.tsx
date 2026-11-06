@@ -146,7 +146,7 @@ function PostpartumRemindersScreen({navigation, route}: Props): React.JSX.Elemen
     goToNext();
   };
 
-  // Profile → Santé générale → Notifications & rappels gets a distinct,
+  // Profile → Notifications & rappels gets a distinct,
   // sober settings-style presentation (same visual language as
   // PrivacySecurityScreen.tsx / MenopauseRemindersScreen.tsx's own edit
   // branch: flat background, compact header, one card with a switch row) —

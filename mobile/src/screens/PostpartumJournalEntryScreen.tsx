@@ -19,8 +19,6 @@ import {
   PostpartumJournalCard,
 } from '../components/postpartum/PostpartumCycleStyleJournalLayout';
 import {
-  HERO_BANNER_FATIGUE,
-  HERO_BANNER_RECOVERY,
   PostpartumWellnessRatingLayout,
   type WellnessRatingOption,
 } from '../components/postpartum/PostpartumWellnessRatingLayout';
@@ -79,14 +77,14 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 // DATA-BEARING keys — NOT display-only text. These keys are POSTPARTUM_MOOD_OPTIONS'
 // exact raw French label strings (see postpartumJournalConfig.ts), used here purely
-// to look up an emoji; they must stay French and untranslated so the lookup keeps
+// to look up an icon; they must stay French and untranslated so the lookup keeps
 // matching the DATA-BEARING option values rendered below.
-const MOOD_EMOJI: Record<string, string> = {
-  'Très difficile': '😣',
-  Difficile: '😟',
-  Neutre: '😐',
-  Bien: '🙂',
-  'Très bien': '😊',
+const MOOD_ICONS: Record<string, IconName> = {
+  'Très difficile': 'emoticon-cry-outline',
+  Difficile: 'emoticon-sad-outline',
+  Neutre: 'emoticon-neutral-outline',
+  Bien: 'emoticon-outline',
+  'Très bien': 'emoticon-happy-outline',
 };
 
 // Humeur: the 5 mood cards share ONE row whenever each card can be at least MOOD_MIN_CARD_WIDTH dp wide (every phone
@@ -512,9 +510,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       <PostpartumCycleStyleJournalLayout
         dateLabel={dateLabel}
         error={error}
-        heroImage={require('../assets/images/mood-header-woman.png')}
-        heroText={t('postpartumJournalEntry.mood.heroText')}
-        heroTitle={t('postpartumJournalEntry.mood.heroTitle')}
         onSave={save}
         onClear={onClear}
         saving={saving}
@@ -535,9 +530,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       <PostpartumCycleStyleJournalLayout
         dateLabel={dateLabel}
         error={error}
-        heroImage={require('../assets/images/sleep-header-woman.png')}
-        heroText={t('postpartumJournalEntry.sleep.heroText')}
-        heroTitle={t('postpartumJournalEntry.sleep.heroTitle')}
         onSave={save}
         onClear={onClear}
         saving={saving}
@@ -561,10 +553,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.fatigue.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
-        heroBanner={HERO_BANNER_FATIGUE}
-        heroImage={require('../assets/images/postpartum/postpartum-fatigue.png')}
-        heroText={t('postpartumJournalEntry.fatigue.heroText')}
-        heroTitle={t('postpartumJournalEntry.fatigue.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setFatigue}
@@ -584,10 +572,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.pain.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
-        heroBanner
-        heroImage={require('../assets/images/postpartum/postpartum-pain.png')}
-        heroText={t('postpartumJournalEntry.pain.heroText')}
-        heroTitle={t('postpartumJournalEntry.pain.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setPain}
@@ -607,10 +591,6 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         adviceTitle={t('postpartumJournalEntry.physicalRecovery.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
-        heroBanner={HERO_BANNER_RECOVERY}
-        heroImage={require('../assets/images/postpartum/postpartum-recovery.png')}
-        heroText={t('postpartumJournalEntry.physicalRecovery.heroText')}
-        heroTitle={t('postpartumJournalEntry.physicalRecovery.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setPhysicalRecovery}
@@ -894,7 +874,7 @@ function MoodContent({
                     active && styles.emojiCircleActive,
                   ]}
                 >
-                  <AwaText variant="titleLarge">{MOOD_EMOJI[option]}</AwaText>
+                  <MaterialDesignIcons color={theme.colors.primary} name={MOOD_ICONS[option]} size={26} />
                 </View>
                 <Text
                   adjustsFontSizeToFit
