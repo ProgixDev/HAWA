@@ -14,7 +14,6 @@ import PregnancyTrackingPreferencesScreen from '../PregnancyTrackingPreferencesS
 import ProfileScreen from '../../ProfileScreen';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
 import {
   getPregnancyDating,
   getPregnancyTrackingPreferences,
@@ -250,7 +249,6 @@ describe('Profile / Dashboard entry points are edit mode', () => {
     ['Préférences de suivi', 'PregnancyTrackingPreferences'],
   ])('Profile "%s" opens %s in edit mode', async (title, route) => {
     await setSelectedObjective('pregnancy');
-    updatePrivacySecuritySettings({anonymousMode: false});
     const navigate = jest.fn();
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {

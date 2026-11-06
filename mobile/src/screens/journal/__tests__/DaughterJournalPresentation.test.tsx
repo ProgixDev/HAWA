@@ -107,7 +107,8 @@ type Case = {
   name: string;
   render: () => React.JSX.Element;
   /** French text only the mother's presentation shows (illustrated hero / encouragement copy). */
-  ownerOnlyText: string;
+  /** null when the mother's screen no longer has any copy of its own (the illustrated hero cards were removed). */
+  ownerOnlyText: string | null;
   /** Title the daughter's screen shows, with her first name. */
   daughterTitle: string;
   /** True when the mother's version draws an ImageBackground hero. */
@@ -115,11 +116,11 @@ type Case = {
 };
 
 const CASES: Case[] = [
-  {name: 'Symptômes', render: () => <JournalSymptomsScreen />, ownerOnlyText: 'Écoute ton corps', daughterTitle: 'Symptômes de Lina', imageHero: true},
-  {name: 'Humeur', render: () => <JournalMoodScreen />, ownerOnlyText: 'Écoute-toi avec bienveillance.', daughterTitle: 'Humeur de Lina', imageHero: true},
-  {name: 'Activité physique', render: () => <JournalActivityScreen />, ownerOnlyText: 'Bouge pour ton bien-être ✦', daughterTitle: 'Activité physique de Lina', imageHero: true},
-  {name: 'Sommeil', render: () => <JournalSleepScreen />, ownerOnlyText: 'Prends soin de ton repos, ton corps te remercie. ♡', daughterTitle: 'Sommeil de Lina', imageHero: true},
-  {name: 'Notes', render: () => <JournalNoteScreen />, ownerOnlyText: 'Ton espace rien qu’à toi ♡', daughterTitle: 'Observations de Lina', imageHero: true},
+  {name: 'Symptômes', render: () => <JournalSymptomsScreen />, ownerOnlyText: null, daughterTitle: 'Symptômes de Lina', imageHero: false},
+  {name: 'Humeur', render: () => <JournalMoodScreen />, ownerOnlyText: 'Prends un moment pour reconnaître\nce que tu ressens.', daughterTitle: 'Humeur de Lina', imageHero: false},
+  {name: 'Activité physique', render: () => <JournalActivityScreen />, ownerOnlyText: null, daughterTitle: 'Activité physique de Lina', imageHero: false},
+  {name: 'Sommeil', render: () => <JournalSleepScreen />, ownerOnlyText: null, daughterTitle: 'Sommeil de Lina', imageHero: false},
+  {name: 'Notes', render: () => <JournalNoteScreen />, ownerOnlyText: null, daughterTitle: 'Observations de Lina', imageHero: false},
   {name: 'Hydratation', render: () => <HydrationScreen />, ownerOnlyText: 'Bouteille et verre d’eau', daughterTitle: 'Hydratation de Lina', imageHero: false},
   {name: 'Flux menstruel', render: () => <MenstrualFlowScreen />, ownerOnlyText: 'Comment est ton flux aujourd’hui ?', daughterTitle: 'Flux menstruel de Lina', imageHero: false},
 ];
@@ -131,7 +132,9 @@ const ownerOnlyPresent = (renderer: ReactTestRenderer.ReactTestRenderer, text: s
 describe.each(CASES)('$name', ({render, ownerOnlyText, daughterTitle, imageHero}) => {
   it("the mother's screen is unchanged: illustrated presentation, no daughter wording", async () => {
     const renderer = await renderScreen(render());
-    expect(ownerOnlyPresent(renderer, ownerOnlyText)).toBe(true);
+    if (ownerOnlyText) {
+      expect(ownerOnlyPresent(renderer, ownerOnlyText)).toBe(true);
+    }
     if (imageHero) {
       expect(hasHero(renderer)).toBe(true);
     }
@@ -141,7 +144,9 @@ describe.each(CASES)('$name', ({render, ownerOnlyText, daughterTitle, imageHero}
   it("the daughter's screen drops the illustration and names her", async () => {
     await activateDaughter();
     const renderer = await renderScreen(render());
-    expect(ownerOnlyPresent(renderer, ownerOnlyText)).toBe(false);
+    if (ownerOnlyText) {
+      expect(ownerOnlyPresent(renderer, ownerOnlyText)).toBe(false);
+    }
     expect(hasHero(renderer)).toBe(false);
     expect(allTexts(renderer)).toContain(daughterTitle);
   });
@@ -158,7 +163,7 @@ describe('profile switching', () => {
       await setActiveProfileId(OWNER_PROFILE_ID);
     });
     await settle();
-    expect(hasHero(renderer)).toBe(true);
+    expect(allTexts(renderer)).not.toContain('Humeur de Lina');
     expect(allTexts(renderer).some(text => text.includes(NAME))).toBe(false);
   });
 

@@ -111,7 +111,6 @@ describe('JournalSymptomsScreen — localization (chrome AND symptom/location di
   it('renders chrome and the picklist display labels in English; the French originals are gone from the rendered text', async () => {
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen(<JournalSymptomsScreen />));
-    expect(texts).toContain('Listen to your body');
     expect(texts).toContain('Symptoms felt');
     expect(texts).toContain('Intensity');
     expect(texts.some(text => text.includes('Location'))).toBe(true);

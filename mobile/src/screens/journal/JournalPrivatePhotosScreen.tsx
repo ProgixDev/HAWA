@@ -171,7 +171,12 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
         ? await launchCamera({mediaType: 'photo', quality: 0.8})
         : await launchImageLibrary({mediaType: 'photo', quality: 0.8, selectionLimit: 1});
       if (result.didCancel) {return;}
-      if (result.errorCode) {setPickerError(pickerErrorMessage(result.errorCode)); return;}
+      if (result.errorCode) {
+        // The native reason (e.g. "Unsupported file type", no activity to handle the intent) is appended so a failure that only shows up on some
+        // phones' galleries can be told apart from a denied permission.
+        setPickerError(`${pickerErrorMessage(result.errorCode)}${result.errorMessage ? ` (${result.errorMessage})` : ''}`);
+        return;
+      }
       const asset = result.assets?.[0];
       const uri = asset?.uri;
       if (!uri) {setPickerError(pickerErrorMessage('others')); return;}
@@ -191,8 +196,8 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
         setDraftPhotos(current => [...current, {id, uri, addedAt}]);
         assetHintsRef.current[id] = {mimeType: asset.type, fileName: asset.fileName};
       }
-    } catch {
-      setPickerError(pickerErrorMessage('others'));
+    } catch (pickError) {
+      setPickerError(`${pickerErrorMessage('others')}${pickError instanceof Error && pickError.message ? ` (${pickError.message})` : ''}`);
     } finally {
       setBusy(false);
     }
@@ -316,23 +321,20 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
             onPress={navigation.goBack}
           />
           <View style={styles.headerCopy}>
-            <AwaText variant="headlineSmall">{t('journalNote.privatePhotosTitle')}</AwaText>
+            <AwaText variant="titleLarge">{t('journalNote.privatePhotosTitle')}</AwaText>
             <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{dateLabel}</AwaText>
           </View>
-          <AwaButton accessibilityLabel={t('journalPrivatePhotos.hide')} icon="eye-off-outline" label={t('journalPrivatePhotos.hide')} onPress={mask} size="compact" variant="outlined" />
+          <AwaIconButton accessibilityLabel={t('journalPrivatePhotos.hide')} icon="eye-off-outline" onPress={mask} />
         </View>
 
         <Animated.View style={[styles.flex, {opacity: entrance, transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [10, 0]})}]}]}>
           <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 22}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <AwaText colorRole="onSurfaceVariant" variant="bodyMedium">{t('journalPrivatePhotos.subtitle')}</AwaText>
-
             <View style={styles.photoCard}>
               <View style={styles.photoCardHeader}>
                 <View style={styles.photoCardHeaderIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={19} />
                 </View>
                 <View style={styles.photoCardHeaderCopy}>
-                  <Text style={styles.photoCardEyebrow}>{t('journalPrivatePhotos.privateSpaceEyebrow')}</Text>
                   <Text style={styles.photoCardTitle}>{t('journalPrivatePhotos.myPhotos')}</Text>
                 </View>
                 <View style={styles.counterPill}>
@@ -352,13 +354,6 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
                       </View>
                     </View>
                     <Text style={styles.emptyTitle}>{t('journalPrivatePhotos.addAPrivatePhoto')}</Text>
-                    <Text style={styles.emptyText}>{t('journalPrivatePhotos.emptyStateText')}</Text>
-                  </View>
-
-                  <View style={styles.choiceDivider}>
-                    <View style={styles.choiceDividerLine} />
-                    <Text style={styles.choiceDividerText}>{t('journalPrivatePhotos.chooseASource')}</Text>
-                    <View style={styles.choiceDividerLine} />
                   </View>
 
                   <SourceCard disabled={busy} icon="image-multiple-outline" label={t('journalPrivatePhotos.gallery')} onPress={() => pick(false)} subtitle={t('journalPrivatePhotos.chooseFromGallery')} tone="purple" />
@@ -386,13 +381,6 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
                   <Text style={styles.pickerErrorText}>{pickerError}</Text>
                 </View>
               ) : null}
-            </View>
-
-            <View style={styles.security}>
-              <View style={styles.securityIcon}>
-                <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
-              </View>
-              <Text style={styles.securityText}>{t('journalPrivatePhotos.securityText')}</Text>
             </View>
 
             <AwaButton

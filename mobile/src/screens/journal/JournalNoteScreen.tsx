@@ -5,7 +5,6 @@ import {
   Alert,
   Animated,
   Easing,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -27,7 +26,6 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -325,30 +323,6 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          {daughter ? null : (
-          <ImageBackground
-            imageStyle={styles.heroImage}
-            source={require('../../assets/images/notes-header-woman.png')}
-            style={[
-              styles.hero,
-              isSmallScreen && styles.heroSmall,
-              isVerySmallScreen && styles.heroVerySmall,
-            ]}>
-            <View
-              style={[
-                styles.heroCopy,
-                isSmallScreen && styles.heroCopySmall,
-                journalHeroCopyRtl(isSmallScreen ? 13 : 17),
-              ]}>
-              <Text style={styles.heroTitle}>{t('journalNote.heroTitle')}</Text>
-              <Text style={styles.heroText}>{t('journalNote.heroText')}</Text>
-              <View style={styles.privateBadge}>
-                <MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="lock" size={15} />
-                <Text style={styles.privateBadgeText}>{t('journalNote.privateBadge')}</Text>
-              </View>
-            </View>
-          </ImageBackground>
-          )}
 
           <AwaCard padding="default" variant="outlined" style={styles.card}>
             <View style={styles.sectionHeader}>
