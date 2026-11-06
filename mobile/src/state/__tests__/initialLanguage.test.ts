@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// The app language. At the FIRST launch (nothing usable stored) AWA reads the phone's preferred languages once: the first
-// supported one is used, English when none is, and the result is stored as the user's language. From then on the stored
-// language is the only source of truth: a manual choice in Appearance replaces it, and the phone's language is never read
-// again, so changing it later cannot override it. The device's language list is mocked; storage is the shared in-memory
-// mock, so a fresh module registry (jest.resetModules) models an app restart on the same stored data.
+// The app language has two modes. AUTOMATIC (the default): AWA follows the phone — its preferred languages are read at every launch (and whenever
+// the app returns to the foreground), the first supported one is used, English when none is. MANUAL: the language picked in Appearance is kept and
+// the phone is never consulted. An install from before the modes (a stored language, no stored mode) is classified once: equal to what the phone
+// resolves to -> automatic, different -> manual. The device's language list is mocked; storage is the shared in-memory mock, so a fresh module
+// registry (jest.resetModules) models an app restart on the same stored data.
 
 const mockDevice: {tags: unknown; fail: boolean; delayMs: number; reads: number} = {tags: ['en-US'], fail: false, delayMs: 0, reads: 0};
 
@@ -24,6 +24,7 @@ jest.mock('../../utils/deviceLanguage', () => ({
 type Prefs = typeof import('../themePreferences');
 const KEY = '@awa/appearance/language-v1';
 const MODE_KEY = '@awa/appearance/mode-v1';
+const LANGUAGE_MODE_KEY = '@awa/appearance/language-mode-v1';
 const TRUE_BLACK_KEY = '@awa/appearance/true-black-v1';
 const THEME_KEY = '@awa/appearance/theme-v1';
 const ALL_LANGUAGES = ['fr', 'en', 'es', 'it', 'tr', 'ru', 'de', 'zh', 'id', 'hi', 'sq', 'ja', 'ko', 'pt-PT', 'pt-BR', 'bn', 'da'] as const;
@@ -157,22 +158,22 @@ describe('first launch (nothing stored): the phone language is resolved once and
     },
   );
 
-  it('a Japanese first-launch language survives restarts and a later phone-language change', async () => {
+  it('an automatic Japanese language follows a later phone-language change at the next launch', async () => {
     mockDevice.tags = ['ja-JP'];
     let app = startApp();
     await app.hydrateAppearancePreferences();
     expect(app.getAppLanguage()).toBe('ja');
+    expect(app.getAppLanguageMode()).toBe('auto');
     mockDevice.tags = ['fr-FR'];
-    for (let launch = 0; launch < 3; launch += 1) {
-      app = startApp();
-      await app.hydrateAppearancePreferences();
-      expect(app.getAppLanguage()).toBe('ja');
-      expect(mockDevice.reads).toBe(0); // the stored language is final: the phone is not asked
-    }
+    app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('fr');
+    expect(mockDevice.reads).toBe(1); // read again at the launch
   });
 
-  it('a stored explicit language is never replaced by a Japanese phone', async () => {
+  it('an explicit (manual) language is never replaced by a Japanese phone', async () => {
     await AsyncStorage.setItem(KEY, 'de');
+    await AsyncStorage.setItem(LANGUAGE_MODE_KEY, 'manual');
     mockDevice.tags = ['ja-JP'];
     const app = startApp();
     await app.hydrateAppearancePreferences();
@@ -192,26 +193,26 @@ describe('first launch (nothing stored): the phone language is resolved once and
     },
   );
 
-  it('a Bengali first-launch language survives restarts and a later phone-language change (a manual choice is kept)', async () => {
+  it('a Bengali automatic language follows the phone; a manual choice is then kept', async () => {
     mockDevice.tags = ['bn-BD'];
     let app = startApp();
     await app.hydrateAppearancePreferences();
     expect(app.getAppLanguage()).toBe('bn');
     mockDevice.tags = ['fr-FR'];
-    for (let launch = 0; launch < 3; launch += 1) {
-      app = startApp();
-      await app.hydrateAppearancePreferences();
-      expect(app.getAppLanguage()).toBe('bn');
-      expect(mockDevice.reads).toBe(0); // the stored language is final: the phone is not asked
-    }
-    await app.setAppLanguage('fr');
     app = startApp();
     await app.hydrateAppearancePreferences();
     expect(app.getAppLanguage()).toBe('fr');
+    await app.setAppLanguage('bn');
+    mockDevice.tags = ['es-ES'];
+    app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('bn'); // manual: the phone no longer matters
+    expect(mockDevice.reads).toBe(0);
   });
 
-  it('a stored explicit language is never replaced by a Bengali phone, and a stored bn is read back as bn', async () => {
+  it('an explicit language is never replaced by a Bengali phone, and a stored bn is read back as bn', async () => {
     await AsyncStorage.setItem(KEY, 'de');
+    await AsyncStorage.setItem(LANGUAGE_MODE_KEY, 'manual');
     mockDevice.tags = ['bn-BD'];
     let app = startApp();
     await app.hydrateAppearancePreferences();
@@ -227,22 +228,20 @@ describe('first launch (nothing stored): the phone language is resolved once and
     }
   });
 
-  it('a Hindi first-launch language survives restarts and a later phone-language change', async () => {
+  it('an automatic Hindi language follows a later phone-language change', async () => {
     mockDevice.tags = ['hi-IN'];
     let app = startApp();
     await app.hydrateAppearancePreferences();
     expect(app.getAppLanguage()).toBe('hi');
     mockDevice.tags = ['fr-FR'];
-    for (let launch = 0; launch < 3; launch += 1) {
-      app = startApp();
-      await app.hydrateAppearancePreferences();
-      expect(app.getAppLanguage()).toBe('hi');
-      expect(mockDevice.reads).toBe(0); // the stored language is final: the phone is not asked
-    }
+    app = startApp();
+    await app.hydrateAppearancePreferences();
+    expect(app.getAppLanguage()).toBe('fr');
   });
 
-  it('a stored explicit language is never replaced by a Hindi phone', async () => {
+  it('an explicit (manual) language is never replaced by a Hindi phone', async () => {
     await AsyncStorage.setItem(KEY, 'de');
+    await AsyncStorage.setItem(LANGUAGE_MODE_KEY, 'manual');
     mockDevice.tags = ['hi-IN'];
     const app = startApp();
     await app.hydrateAppearancePreferences();
@@ -322,8 +321,8 @@ describe('a phone language that cannot be read is not frozen as the app language
   });
 });
 
-describe('an established app language is never overridden by the phone', () => {
-  it('the phone is read once: later launches use the stored language and never ask the phone', async () => {
+describe('the automatic mode follows the phone', () => {
+  it('the phone is read again at every launch', async () => {
     mockDevice.tags = ['fr-FR'];
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
@@ -332,28 +331,65 @@ describe('an established app language is never overridden by the phone', () => {
     prefs = startApp(); // restart
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('fr');
-    expect(mockDevice.reads).toBe(0);
+    expect(mockDevice.reads).toBe(1);
   });
 
-  it('changing the phone language afterwards (to another supported one, then to an unsupported one) changes nothing', async () => {
+  it('changing the phone language (to another supported one, then to an unsupported one) is followed at the next launch', async () => {
     mockDevice.tags = ['fr-FR'];
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('fr');
 
-    for (const tags of [['en-US'], ['es-ES'], ['fa-IR'], ['zh-CN']]) {
-      mockDevice.tags = tags;
+    for (const [tags, expected] of [[['en-US'], 'en-US'], [['es-ES'], 'es'], [['ar-DZ'], 'ar'], [['fa-IR'], 'en'], [['zh-CN'], 'zh'], [['pt-BR'], 'pt-BR']] as const) {
+      mockDevice.tags = [...tags];
       prefs = startApp(); // every launch after the phone was switched
       await prefs.hydrateAppearancePreferences();
-      expect(prefs.getAppLanguage()).toBe('fr');
-      expect(await AsyncStorage.getItem(KEY)).toBe('fr');
+      expect(prefs.getAppLanguage()).toBe(expected);
+      expect(await AsyncStorage.getItem(KEY)).toBe(expected); // the cache follows
     }
   });
 
-  it('there is no way to follow the phone any more: no "system" preference API is exported', () => {
+  it('while the app stays open, refreshAppLanguageFromDevice applies a phone-language change once, and tells the listeners once', async () => {
+    mockDevice.tags = ['fr-FR'];
+    const prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    const listener = jest.fn();
+    prefs.subscribeThemePreferences(listener);
+
+    expect(await prefs.refreshAppLanguageFromDevice()).toBe(false); // nothing changed: no notification
+    expect(listener).not.toHaveBeenCalled();
+
+    mockDevice.tags = ['en-GB'];
+    expect(await prefs.refreshAppLanguageFromDevice()).toBe(true);
+    expect(prefs.getAppLanguage()).toBe('en');
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(await prefs.refreshAppLanguageFromDevice()).toBe(false);
+  });
+
+  it('a phone that cannot be read leaves the language as it is', async () => {
+    mockDevice.tags = ['fr-FR'];
+    const prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    mockDevice.fail = true;
+    expect(await prefs.refreshAppLanguageFromDevice()).toBe(false);
+    expect(prefs.getAppLanguage()).toBe('fr');
+  });
+
+  it('an unsupported regional variant resolves to the supported base language, and an unsupported language to English', async () => {
+    mockDevice.tags = ['fr-CH'];
+    let prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(prefs.getAppLanguage()).toBe('fr');
+    mockDevice.tags = ['af-ZA'];
+    prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(prefs.getAppLanguage()).toBe('en');
+  });
+
+  it('exports the mode API', () => {
     const prefs = startApp() as Record<string, unknown>;
-    for (const removed of ['getAppLanguagePreference', 'setAppLanguagePreference', 'getSystemLanguage', 'refreshSystemLanguage']) {
-      expect(prefs[removed]).toBeUndefined();
+    for (const name of ['getAppLanguageMode', 'setAppLanguageAuto', 'refreshAppLanguageFromDevice']) {
+      expect(typeof prefs[name]).toBe('function');
     }
   });
 });
@@ -418,15 +454,62 @@ describe('a manual choice', () => {
   });
 });
 
+describe('manual and automatic modes together', () => {
+  it('a manual Spanish stays Spanish when the phone changes to French (also relaunched, also refreshed while open)', async () => {
+    mockDevice.tags = ['en-GB'];
+    let prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    await prefs.setAppLanguage('es');
+    expect(prefs.getAppLanguageMode()).toBe('manual');
+    mockDevice.tags = ['fr-FR'];
+    expect(await prefs.refreshAppLanguageFromDevice()).toBe(false);
+    expect(prefs.getAppLanguage()).toBe('es');
+    prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(prefs.getAppLanguage()).toBe('es');
+    expect(prefs.getAppLanguageMode()).toBe('manual');
+    expect(mockDevice.reads).toBe(0);
+  });
+
+  it('going back to Automatique follows the current phone language, and keeps following it', async () => {
+    mockDevice.tags = ['en-GB'];
+    let prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    await prefs.setAppLanguage('es');
+    mockDevice.tags = ['fr-FR'];
+    await prefs.setAppLanguageAuto();
+    expect(prefs.getAppLanguageMode()).toBe('auto');
+    expect(prefs.getAppLanguage()).toBe('fr');
+    expect(await AsyncStorage.getItem(LANGUAGE_MODE_KEY)).toBe('auto');
+
+    mockDevice.tags = ['it-IT'];
+    prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(prefs.getAppLanguage()).toBe('it');
+    expect(prefs.getAppLanguageMode()).toBe('auto');
+  });
+
+  it('a detected language is not mistaken for a manual choice: an automatic install never becomes manual by itself', async () => {
+    mockDevice.tags = ['fr-FR'];
+    let prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(await AsyncStorage.getItem(LANGUAGE_MODE_KEY)).toBe('auto');
+    prefs = startApp();
+    await prefs.hydrateAppearancePreferences();
+    expect(prefs.getAppLanguageMode()).toBe('auto');
+  });
+});
+
 describe('existing installs: what was stored before', () => {
-  it.each(ALL_LANGUAGES)('a stored %s is the user\'s language: it stays, the phone is not asked, storage is untouched', async stored => {
+  it.each(ALL_LANGUAGES)('a stored %s (no mode yet) stays as it is at the update: kept as a choice, or automatic when it is the phone language', async stored => {
     await AsyncStorage.setItem(KEY, stored);
     mockDevice.tags = ['ja-JP'];
     const prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe(stored);
-    expect(mockDevice.reads).toBe(0);
+    expect(mockDevice.reads).toBe(1);
     expect(await AsyncStorage.getItem(KEY)).toBe(stored);
+    expect(prefs.getAppLanguageMode()).toBe(stored === 'ja' ? 'auto' : 'manual');
   });
 
   it('a stored Simplified Chinese alias is kept as her language and rewritten under the canonical code', async () => {
@@ -439,20 +522,20 @@ describe('existing installs: what was stored before', () => {
       await Promise.resolve();
     }
     expect(await AsyncStorage.getItem(KEY)).toBe('zh');
-    expect(mockDevice.reads).toBe(0);
+    expect(prefs.getAppLanguageMode()).toBe('manual'); // different from the French phone: a choice
   });
 
-  it('an install left on the removed "System default" option has no stored value: it gets the phone language, stored once', async () => {
+  it('an install left on the removed "System default" option has no stored value: it follows the phone, now and later', async () => {
     mockDevice.tags = ['es-ES'];
     let prefs = startApp();
     await prefs.hydrateAppearancePreferences();
     expect(prefs.getAppLanguage()).toBe('es');
     expect(await AsyncStorage.getItem(KEY)).toBe('es');
 
-    mockDevice.tags = ['it-IT']; // the phone is switched later: the stored Spanish stays
+    mockDevice.tags = ['it-IT']; // the phone is switched later: automatic mode follows it
     prefs = startApp();
     await prefs.hydrateAppearancePreferences();
-    expect(prefs.getAppLanguage()).toBe('es');
+    expect(prefs.getAppLanguage()).toBe('it');
   });
 
   it.each(['system', 'System', 'klingon', '', ' '])('a stored %j is not a language: it is replaced by the language the phone resolves to', async legacy => {
@@ -489,11 +572,11 @@ describe('existing installs: what was stored before', () => {
     expect(await AsyncStorage.getItem(TRUE_BLACK_KEY)).toBe('true');
   });
 
-  it('the first launch writes only the language key', async () => {
+  it('the first launch writes only the language and its mode', async () => {
     mockDevice.tags = ['fr-FR'];
     const prefs = startApp();
     await prefs.hydrateAppearancePreferences();
-    const keys = (await AsyncStorage.getAllKeys()).filter(key => key.startsWith('@awa/appearance/'));
-    expect(keys).toEqual([KEY]);
+    const keys = (await AsyncStorage.getAllKeys()).filter(key => key.startsWith('@awa/appearance/')).sort();
+    expect(keys).toEqual([KEY, LANGUAGE_MODE_KEY].sort());
   });
 });
