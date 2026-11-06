@@ -1,7 +1,7 @@
 import {useToday} from '../../hooks/useToday';
 import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
+import {Animated, Easing, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -12,7 +12,6 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {presentSaveFailure} from '../../services/saveFailure';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -99,23 +98,23 @@ const ACTIVITIES: Array<{
 const FEELINGS = [
   {
     label: 'Très fatiguée',
-    emoji: '🥵',
+    icon: 'emoticon-sick-outline' as const,
   },
   {
     label: 'Fatiguée',
-    emoji: '😓',
+    icon: 'emoticon-sad-outline' as const,
   },
   {
     label: 'Neutre',
-    emoji: '😐',
+    icon: 'emoticon-neutral-outline' as const,
   },
   {
     label: 'Bien',
-    emoji: '🙂',
+    icon: 'emoticon-outline' as const,
   },
   {
     label: 'Très bien',
-    emoji: '🤩',
+    icon: 'emoticon-excited-outline' as const,
   },
 ];
 
@@ -411,28 +410,6 @@ export default function JournalActivityScreen(): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-
-          {/* HERO — IMAGE CONSERVÉE (not shown for a daughter's journal) */}
-          {daughter ? null : (
-          <ImageBackground
-            imageStyle={styles.heroImage}
-            source={require('../../assets/images/activity-header-woman.png')}
-            style={styles.hero}>
-
-            <View style={[styles.heroCopy, journalHeroCopyRtl(15)]}>
-
-              <Text style={styles.heroTitle}>
-                {t('journalActivity.heroTitle')}
-              </Text>
-
-              <Text style={styles.heroText}>
-                {t('journalActivity.heroText')}
-              </Text>
-
-            </View>
-
-          </ImageBackground>
-          )}
 
           {/* TYPE D'ACTIVITÉ */}
           <AwaCard padding="compact" variant="outlined">
@@ -820,9 +797,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
                         styles.feelingSelected,
                     ]}>
 
-                    <Text style={styles.emoji}>
-                      {item.emoji}
-                    </Text>
+                    <MaterialDesignIcons
+                      color={active ? theme.colors.primary : theme.colors.textMuted}
+                      name={item.icon}
+                      size={22}
+                    />
 
                     <Text
                       style={[
@@ -1461,10 +1440,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   feelingSelected: {
     borderColor: theme.colors.primary,
     backgroundColor: theme.colors.primarySoft,
-  },
-
-  emoji: {
-    fontSize: 20,
   },
 
   feelingText: {

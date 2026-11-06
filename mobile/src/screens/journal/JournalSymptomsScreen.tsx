@@ -1,7 +1,7 @@
 import {useToday} from '../../hooks/useToday';
 import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions, type ImageSourcePropType} from 'react-native';
+import {Animated, Easing, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions, type ImageSourcePropType} from 'react-native';
 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {
@@ -25,7 +25,6 @@ import {AwaText} from '../../components/ui/AwaText';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {deriveAwaRoles} from '../../theme/semanticRoles';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
@@ -614,24 +613,6 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          {/* HERO (not shown for a daughter's journal) */}
-          {daughter ? null : (
-            <ImageBackground
-              imageStyle={styles.heroImage}
-              source={require('../../assets/images/symptoms-header-woman.png')}
-              style={styles.hero}>
-              <View style={[styles.heroCopy, journalHeroCopyRtl(28)]}>
-                <Text style={styles.heroTitle}>
-                  {t('journalSymptoms.heroTitle')}
-                </Text>
-
-                <Text style={styles.heroSubtitle}>
-                  {t('journalSymptoms.heroSubtitle')}
-                </Text>
-              </View>
-            </ImageBackground>
-          )}
-
           {/* SYMPTÔMES */}
           <AwaCard padding="compact" variant="outlined">
             <View style={styles.symptomsHeader}>

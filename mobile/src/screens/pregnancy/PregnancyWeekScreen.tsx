@@ -407,27 +407,7 @@ export default function PregnancyWeekScreen({
           }
         />
 
-        <View
-          style={
-            styles.headerCopy
-          }>
-          <AwaText variant="headlineSmall">
-            {t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}
-          </AwaText>
-
-          <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-            {displayedWeek === actualPregnancyWeek
-              ? t('pregnancyWeekScreen.header.gestationalAge', {
-                  weeks: status.gestationalWeeks,
-                  days: status.gestationalDays,
-                  trimester: formatPregnancyTrimester(status.trimester),
-                })
-              : t('pregnancyWeekScreen.header.educationalContext', {
-                  context: viewedWeekContext,
-                  week: actualPregnancyWeek,
-                })}
-          </AwaText>
-        </View>
+        <View style={styles.headerCopy} />
 
         <View
           style={
@@ -446,7 +426,18 @@ export default function PregnancyWeekScreen({
         />
         <View style={styles.weekBrowserCopy}>
           <Text style={styles.weekBrowserTitle}>{t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}</Text>
-          <Text style={styles.weekBrowserContext}>{viewedWeekContext}</Text>
+          <Text style={styles.weekBrowserContext}>
+            {displayedWeek === actualPregnancyWeek
+              ? t('pregnancyWeekScreen.header.gestationalAge', {
+                  weeks: status.gestationalWeeks,
+                  days: status.gestationalDays,
+                  trimester: formatPregnancyTrimester(status.trimester),
+                })
+              : t('pregnancyWeekScreen.header.educationalContext', {
+                  context: viewedWeekContext,
+                  week: actualPregnancyWeek,
+                })}
+          </Text>
         </View>
         <AwaIconButton
           accessibilityLabel={t('pregnancyWeekScreen.header.nextWeek')}

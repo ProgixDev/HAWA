@@ -348,7 +348,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       await savePregnancyWeight(entry);
       setTodayEntry(entry);
       setSheetVisible(false);
-      saveToast.show(t('pregnancyWeight.saveToast.savedTitle'), t('pregnancyWeight.saveToast.savedMessage'));
+      saveToast.show(t('pregnancyWeight.saveToast.savedTitle'), t('pregnancyWeight.saveToast.savedMessage'), navigation.goBack);
     } catch (saveError) {
       presentSaveFailure(saveError);
     } finally {

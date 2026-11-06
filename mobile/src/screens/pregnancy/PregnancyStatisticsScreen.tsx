@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
+import Svg, {Circle, Line, Path} from 'react-native-svg';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
@@ -321,10 +322,10 @@ function EmptyState({
 function SectionHeader({
   icon,
   title,
-  subtitle,
 }: {
   icon: IconName;
   title: string;
+  /** Accepted for the existing call sites; sub-titles are no longer shown (they only repeated the title). */
   subtitle?: string;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
@@ -353,11 +354,6 @@ function SectionHeader({
           {title}
         </AwaText>
 
-        {subtitle ? (
-          <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.cardSubtitle}>
-            {subtitle}
-          </AwaText>
-        ) : null}
       </View>
     </View>
   );
@@ -457,15 +453,10 @@ function WellnessCard({
           <MaterialDesignIcons
             color={theme.colors.primary}
             name={icon}
-            size={21}
+            size={26}
           />
         </View>
 
-        <MaterialDesignIcons
-          color={theme.colors.textMuted}
-          name="chart-line"
-          size={16}
-        />
       </View>
 
       <Text
@@ -496,78 +487,95 @@ function WellnessCard({
 }
 
 /* ============================================================
-   WEIGHT CHART BAR
+   WEIGHT STATISTICS
 ============================================================ */
 
-function WeightBar({
-  entry,
+const formatWeightChange = (value: number): string =>
+  value === 0 ? `0 kg` : `${value > 0 ? '+' : '−'}${Math.abs(value).toLocaleString(appLocale())} kg`;
+
+function WeightStat({label, value}: {label: string; value: string}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  return (
+    <View style={styles.weightStat}>
+      <Text style={styles.weightStatLabel}>{label}</Text>
+      <Text style={styles.weightStatValue}>{value}</Text>
+    </View>
+  );
+}
+
+/* ============================================================
+   WEIGHT CURVE
+============================================================ */
+
+function WeightCurve({
+  entries,
   min,
   max,
 }: {
-  entry: PregnancyWeightEntry;
+  entries: readonly PregnancyWeightEntry[];
   min: number;
   max: number;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const span = Math.max(
-    max - min,
-    0.4,
-  );
-
-  const relative =
-    (entry.valueKg -
-      min) /
-    span;
-
-  const height =
-    28 +
-    relative * 72;
+  const [width, setWidth] = useState(0);
+  const height = 150;
+  const padX = 14;
+  const padTop = 14;
+  const padBottom = 14;
+  const span = Math.max(max - min, 0.4);
+  const points = entries.map((entry, index) => ({
+    x: padX + (entries.length === 1 ? 0.5 : index / (entries.length - 1)) * Math.max(width - padX * 2, 1),
+    y: padTop + (entries.length === 1 ? 0.5 : 1 - (entry.valueKg - min) / span) * (height - padTop - padBottom),
+    entry,
+  }));
+  const line = points.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
+  const area = points.length > 1 ? `${line} L${points[points.length - 1].x.toFixed(1)} ${height - padBottom} L${points[0].x.toFixed(1)} ${height - padBottom} Z` : '';
+  const first = entries[0];
+  const last = entries[entries.length - 1];
 
   return (
-    <View
-      style={
-        styles.barColumn
-      }>
-      <Text
-        numberOfLines={1}
-        style={
-          styles.barValue
-        }>
-        {entry.valueKg.toLocaleString(
-          appLocale(),
-        )}
-      </Text>
-
-      <View
-        style={
-          styles.barTrack
-        }>
-        <View
-          style={[
-            styles.barFill,
-            {
-              height: `${Math.min(
-                100,
-                Math.max(
-                  28,
-                  height,
-                ),
-              )}%`,
-            },
-          ]}
-        />
+    <View style={styles.weightCurve}>
+      <View onLayout={event => setWidth(event.nativeEvent.layout.width)} style={{height}}>
+        {width > 0 ? (
+          <Svg height={height} width={width}>
+            {[0, 0.5, 1].map(ratio => (
+              <Line
+                key={ratio}
+                stroke={withAlpha(theme.colors.primary, 0.12)}
+                strokeWidth={1}
+                x1={padX}
+                x2={width - padX}
+                y1={padTop + ratio * (height - padTop - padBottom)}
+                y2={padTop + ratio * (height - padTop - padBottom)}
+              />
+            ))}
+            {area ? <Path d={area} fill={withAlpha(theme.colors.primary, 0.12)} /> : null}
+            <Path d={line} fill="none" stroke={theme.colors.primary} strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} />
+            {points.map((point, index) => (
+              <Circle
+                cx={point.x}
+                cy={point.y}
+                fill={index === points.length - 1 ? theme.colors.primary : theme.colors.surface}
+                key={point.entry.date}
+                r={index === points.length - 1 ? 5 : 3.5}
+                stroke={theme.colors.primary}
+                strokeWidth={2}
+              />
+            ))}
+          </Svg>
+        ) : null}
       </View>
 
-      <Text
-        numberOfLines={1}
-        style={
-          styles.barDate
-        }>
-        {dateLabel(
-          entry.date,
-        )}
-      </Text>
+      <View style={styles.weightCurveAxis}>
+        <Text style={styles.barDate}>
+          {`${first.valueKg.toLocaleString(appLocale())} kg · ${dateLabel(first.date)}`}
+        </Text>
+        <Text style={styles.barDate}>
+          {`${last.valueKg.toLocaleString(appLocale())} kg · ${dateLabel(last.date)}`}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -926,77 +934,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
     trackingDates.size;
 
   /* ==========================================================
-     COMPLETE DAYS — a Pregnancy day is only "complete" once all
-     5 canonical Daily Journal categories have a real saved entry
-     (symptoms/weight/mood/sleep/medicalInfo) — see
-     isPregnancyTrackingCategoryCompleted, the same source of truth
-     used by the Dashboard's "Suivi du jour" completion count.
-  ========================================================== */
-
-  const completeDays =
-    useMemo(() => {
-      let count = 0;
-
-      trackingDates.forEach(
-        date => {
-          const hasSymptoms =
-            symptoms.some(
-              item =>
-                item.date ===
-                date,
-            );
-
-          const hasWeight =
-            weights.some(
-              item =>
-                item.date ===
-                date,
-            );
-
-          const dailyEntry =
-            periodEntries.find(
-              entry =>
-                entry.date ===
-                date,
-            );
-
-          const hasMood =
-            Boolean(
-              dailyEntry?.mood,
-            );
-
-          const hasSleep =
-            Boolean(
-              dailyEntry?.sleep,
-            );
-
-          const hasMedicalInfo =
-            medicalInfoDatesInPeriod.includes(
-              date,
-            );
-
-          if (
-            hasSymptoms &&
-            hasWeight &&
-            hasMood &&
-            hasSleep &&
-            hasMedicalInfo
-          ) {
-            count += 1;
-          }
-        },
-      );
-
-      return count;
-    }, [
-      trackingDates,
-      symptoms,
-      weights,
-      periodEntries,
-      medicalInfoDatesInPeriod,
-    ]);
-
-  /* ==========================================================
      SYMPTOMS
   ========================================================== */
 
@@ -1047,9 +984,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
         );
     }, [symptoms]);
 
-  const mostFrequentSymptom =
-    symptomCounts[0];
-
   const maxSymptomCount =
     Math.max(
       ...symptomCounts.map(
@@ -1079,6 +1013,29 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       ? latestWeight.valueKg -
         previousWeight.valueKg
       : undefined;
+
+  // Whole-history trend (first to latest recorded measurement, whatever period is selected). Nothing is shown for a single
+  // measurement, and the weekly average only once the two measurements are at least a week apart (a shorter span would
+  // extrapolate a misleading weekly rate).
+  const weightTrend = useMemo(() => {
+    const all = [...state.weights].sort((a, b) => a.date.localeCompare(b.date));
+    if (all.length < 2) {
+      return undefined;
+    }
+    const first = all[0];
+    const last = all[all.length - 1];
+    const days = Math.round(
+      (new Date(`${last.date}T12:00:00`).getTime() - new Date(`${first.date}T12:00:00`).getTime()) / 86400000,
+    );
+    if (days < 1) {
+      return undefined;
+    }
+    const change = last.valueKg - first.valueKg;
+    return {
+      total: Math.round(change * 10) / 10,
+      perWeek: days >= 7 ? Math.round((change / (days / 7)) * 10) / 10 : undefined,
+    };
+  }, [state.weights]);
 
   const visibleWeightChart =
     weights.slice(-8);
@@ -1240,28 +1197,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
      MEDICAL INFORMATION — presence/history only, never an average
      or a score (a free-text note has neither).
   ========================================================== */
-
-  const hasMedicalInfoInPeriod =
-    medicalInfoDatesInPeriod.length >
-    0;
-
-  const hasAppointmentsInPeriod =
-    appointmentCount +
-      examCount >
-    0;
-
-  // "Détails du suivi" renders sleep, then medical info, then
-  // appointments/exams — only the last row actually shown should draw
-  // without a bottom border.
-  const isSleepRowLast =
-    sleepEntries.length >
-      0 &&
-    !hasMedicalInfoInPeriod &&
-    !hasAppointmentsInPeriod;
-
-  const isMedicalInfoRowLast =
-    hasMedicalInfoInPeriod &&
-    !hasAppointmentsInPeriod;
 
   /* ==========================================================
      PERIOD COVERAGE — the real Pregnancy tracking-start anchor is
@@ -2007,9 +1942,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 {t('pregnancyStatistics.overview.sectionTitle')}
               </AwaText>
 
-              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionDescription}>
-                {t('pregnancyStatistics.overview.sectionDescription')}
-              </AwaText>
             </View>
           </View>
 
@@ -2031,19 +1963,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             />
 
             <KpiCard
-              icon="calendar-star"
-              label={t('pregnancyStatistics.overview.completeDays')}
-              value={
-                completeDays >
-                0
-                  ? String(
-                      completeDays,
-                    )
-                  : '—'
-              }
-            />
-
-            <KpiCard
               icon="scale-bathroom"
               label={t('pregnancyStatistics.overview.lastWeight')}
               value={
@@ -2053,17 +1972,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     )} kg`
                   : '—'
               }
-            />
-
-            <KpiCard
-              icon="heart-pulse"
-              label={t('pregnancyStatistics.overview.topSymptom')}
-              value={
-                mostFrequentSymptom
-                  ? journalOptionLabel('pregnancySymptom', mostFrequentSymptom.name, t)
-                  : t('pregnancyStatistics.overview.noData')
-              }
-              wide
             />
           </View>
 
@@ -2189,8 +2097,29 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   </View>
                 </View>
 
-                {weights.length <
-                2 ? (
+                {weightTrend ? (
+                  <View style={styles.weightStats}>
+                    <WeightStat
+                      label={t('pregnancyStatistics.weight.sinceFirst')}
+                      value={formatWeightChange(weightTrend.total)}
+                    />
+                    {weightTrend.perWeek !== undefined ? (
+                      <WeightStat
+                        label={t('pregnancyStatistics.weight.averagePerWeek')}
+                        value={formatWeightChange(weightTrend.perWeek)}
+                      />
+                    ) : null}
+                  </View>
+                ) : null}
+
+                {weights.length < 2 ? (
+                  <>
+                    <WeightCurve
+                      entries={visibleWeightChart}
+                      max={maxWeight}
+                      min={minWeight}
+                    />
+
                   <View
                     style={
                       styles.hintCard
@@ -2210,6 +2139,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       {t('pregnancyStatistics.weight.addAnotherHint')}
                     </Text>
                   </View>
+                  </>
                 ) : (
                   <>
                     <View
@@ -2236,29 +2166,11 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       </Text>
                     </View>
 
-                    <View
-                      style={
-                        styles.weightChart
-                      }>
-                      {visibleWeightChart.map(
-                        entry => (
-                          <WeightBar
-                            entry={
-                              entry
-                            }
-                            key={
-                              entry.date
-                            }
-                            max={
-                              maxWeight
-                            }
-                            min={
-                              minWeight
-                            }
-                          />
-                        ),
-                      )}
-                    </View>
+                    <WeightCurve
+                      entries={visibleWeightChart}
+                      max={maxWeight}
+                      min={minWeight}
+                    />
 
                     <View
                       style={
@@ -2468,7 +2380,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 {symptomCounts
                   .slice(
                     0,
-                    6,
+                    3,
                   )
                   .map(
                     (
@@ -2491,7 +2403,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                             index ===
                               symptomCounts.slice(
                                 0,
-                                6,
+                                3,
                               )
                                 .length -
                                 1 &&
@@ -2654,11 +2566,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 {t('pregnancyStatistics.wellness.sectionTitle')}
               </AwaText>
 
-              <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionDescription}>
-                {showLongitudinalView
-                  ? t('pregnancyStatistics.wellness.subtitleLongitudinal')
-                  : t('pregnancyStatistics.wellness.subtitleDefault')}
-              </AwaText>
             </View>
           </View>
 
@@ -2830,144 +2737,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               </View>
             </AwaCard>
           ) : null}
-
-          {/* ==================================================
-              DETAILS IF DATA EXISTS
-          =================================================== */}
-
-          {(sleepEntries.length >
-            0 ||
-            hasMedicalInfoInPeriod ||
-            hasAppointmentsInPeriod) && (
-            <AwaCard padding="default" variant="outlined" style={styles.card}>
-              <SectionHeader
-                icon="chart-box-outline"
-                subtitle={t('pregnancyStatistics.details.sectionSubtitle')}
-                title={t('pregnancyStatistics.details.sectionTitle')}
-              />
-
-              {sleepEntries.length >
-              0 ? (
-                <DetailRow
-                  icon="weather-night"
-                  label={t('pregnancyStatistics.details.sleepLabel')}
-                  last={
-                    isSleepRowLast
-                  }
-                  value={
-                    averageSleepMinutes !==
-                    undefined
-                      ? t('pregnancyStatistics.details.sleepAverage', {
-                          duration: formatDurationMinutes(
-                            averageSleepMinutes,
-                            t,
-                          ),
-                        })
-                      : t('pregnancyStatistics.wellness.sleepTracked', {
-                          count: sleepEntries.length,
-                        })
-                  }
-                />
-              ) : null}
-
-              {hasMedicalInfoInPeriod ? (
-                <DetailRow
-                  icon="clipboard-pulse-outline"
-                  label={t('pregnancyStatistics.details.medicalInfoLabel')}
-                  last={
-                    isMedicalInfoRowLast
-                  }
-                  value={
-                    medicalInfoDatesInPeriod.length ===
-                    1
-                      ? t('pregnancyStatistics.details.medicalInfoLogged', {
-                          date: dateLabel(
-                            medicalInfoDatesInPeriod[0],
-                          ),
-                        })
-                      : t('pregnancyStatistics.details.medicalInfoDaysLogged', {
-                          count: medicalInfoDatesInPeriod.length,
-                        })
-                  }
-                />
-              ) : null}
-
-              {hasAppointmentsInPeriod ? (
-                <DetailRow
-                  icon="calendar-check-outline"
-                  label={t('pregnancyStatistics.details.medicalFollowUpLabel')}
-                  last
-                  value={formatMedicalSummary(
-                    appointmentCount,
-                    examCount,
-                    t,
-                  )}
-                />
-              ) : null}
-
-              {showLongitudinalView &&
-              monthlyBreakdown.some(
-                month =>
-                  month.appointmentCount +
-                    month.examCount >
-                  0,
-              ) ? (
-                <View
-                  style={
-                    styles.monthList
-                  }>
-                  <Text
-                    style={
-                      styles.monthListTitle
-                    }>
-                    {t('pregnancyStatistics.monthlyEvolutionTitle')}
-                  </Text>
-
-                  {monthlyBreakdown
-                    .filter(
-                      month =>
-                        month.appointmentCount +
-                          month.examCount >
-                        0,
-                    )
-                    .map(month => (
-                      <View
-                        key={
-                          month.monthKey
-                        }
-                        style={
-                          styles.monthItem
-                        }>
-                        <View
-                          style={
-                            styles.monthTop
-                          }>
-                          <Text
-                            style={
-                              styles.monthLabel
-                            }>
-                            {
-                              month.monthLabel
-                            }
-                          </Text>
-
-                          <Text
-                            style={
-                              styles.monthMeta
-                            }>
-                            {formatMedicalSummary(
-                              month.appointmentCount,
-                              month.examCount,
-                              t,
-                            )}
-                          </Text>
-                        </View>
-                      </View>
-                    ))}
-                </View>
-              ) : null}
-            </AwaCard>
-          )}
         </ScrollView>
       </SafeAreaView>
 
@@ -2982,64 +2751,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
         }
       />
     </LinearGradient>
-  );
-}
-
-/* ============================================================
-   DETAIL ROW
-============================================================ */
-
-function DetailRow({
-  icon,
-  label,
-  value,
-  last,
-}: {
-  icon: IconName;
-  label: string;
-  value: string;
-  last?: boolean;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <View
-      style={[
-        styles.detailRow,
-
-        last &&
-          styles.lastRow,
-      ]}>
-      <View
-        style={
-          styles.detailIcon
-        }>
-        <MaterialDesignIcons
-          color={theme.colors.primary}
-          name={icon}
-          size={18}
-        />
-      </View>
-
-      <View
-        style={
-          styles.detailCopy
-        }>
-        <Text
-          style={
-            styles.detailLabel
-          }>
-          {label}
-        </Text>
-
-        <Text
-          style={
-            styles.detailValue
-          }>
-          {value}
-        </Text>
-      </View>
-    </View>
   );
 }
 
@@ -3640,6 +3351,44 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontSize: 11,
   },
 
+  weightStats: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 10,
+  },
+
+  weightStat: {
+    flex: 1,
+    minWidth: 0,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.12),
+    borderRadius: 12,
+    backgroundColor: theme.colors.surfaceSecondary,
+  },
+
+  weightStatLabel: {
+    color: theme.colors.textSecondary,
+    fontSize: 11.5,
+  },
+
+  weightStatValue: {
+    marginTop: 4,
+    color: theme.colors.text,
+    fontSize: 18,
+    fontWeight: '800',
+  },
+
+  weightCurve: {
+    marginTop: 6,
+  },
+
+  weightCurveAxis: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+
   weightChart: {
     height: 150,
 
@@ -3960,8 +3709,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   wellnessIcon: {
-    width: 38,
-    height: 38,
+    width: 48,
+    height: 48,
 
     alignItems: 'center',
     justifyContent: 'center',
@@ -3973,13 +3722,13 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   wellnessValue: {
-    marginTop: 11,
+    marginTop: 12,
 
     color:
-      theme.colors.accent,
+      theme.colors.text,
 
-    fontSize: 17,
-    lineHeight: 21,
+    fontSize: 24,
+    lineHeight: 30,
     fontWeight: '800',
   },
 
@@ -3987,10 +3736,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginTop: 2,
 
     color:
-      theme.colors.accent,
+      theme.colors.textSecondary,
 
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 12.5,
+    fontWeight: '600',
   },
 
   wellnessSupporting: {

@@ -1,11 +1,11 @@
-import {useToday} from '../../hooks/useToday';
+import {useJournalDay} from '../../hooks/useJournalDay';
+import {JournalDaySwitcher} from '../../components/journal/JournalDaySwitcher';
 import {useDaughterJournal} from '../../hooks/useDaughterJournal';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
   Animated,
   Easing,
-  ImageBackground,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -43,7 +43,6 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import '../../i18n';
 
 // Category E — fixed visual island: this hero uses a real illustration
@@ -93,19 +92,13 @@ const QUALITIES = [
   },
 ];
 
+// "Fatigue au réveil": four levels. 'Reposée' / 'Moyenne' / 'Fatiguée' are the legacy stored values (shown as Non / Moyenne / Beaucoup),
+// 'Non' and 'Légère' / 'Beaucoup' are written by this screen; journalOptionLabel maps every one of them to a translation.
 const FEELINGS = [
-  {
-    label: 'Reposée',
-    icon: 'emoticon-happy-outline',
-  },
-  {
-    label: 'Moyenne',
-    icon: 'emoticon-neutral-outline',
-  },
-  {
-    label: 'Fatiguée',
-    icon: 'emoticon-sad-outline',
-  },
+  {label: 'Non'},
+  {label: 'Légère'},
+  {label: 'Moyenne'},
+  {label: 'Beaucoup'},
 ];
 
 type TimeField = 'bedtime' | 'wakeTime';
@@ -160,7 +153,10 @@ export default function JournalSleepScreen(): React.JSX.Element {
   // Re-evaluated when the local day changes / the app returns to the
   // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
   // always saves to the CURRENT day, never to the day the screen opened.
-  const {today, todayKey} = useToday();
+  // The entry can be filled in for a previous day too (arrows next to the date): `today` / `todayKey` below are the DAY BEING EDITED.
+  const journalDay = useJournalDay();
+  const today = journalDay.day;
+  const todayKey = journalDay.dayKey;
 
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -189,8 +185,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
   const [bedtime, setBedtime] = useState('22:45');
   const [wakeTime, setWakeTime] = useState('07:15');
   const [quality, setQuality] = useState('Bonne');
-  const [awakenings, setAwakenings] = useState(1);
-  const [feeling, setFeeling] = useState('Reposée');
+  const [awakenings, setAwakenings] = useState<number | undefined>(undefined);
+  const [feeling, setFeeling] = useState('Non');
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
   // M25: true only while a saved sleep entry exists for today (shows "Effacer").
@@ -259,6 +255,14 @@ export default function JournalSleepScreen(): React.JSX.Element {
   // own. The note is already decrypted by getJournalEntry().
   useEffect(() => {
     let mounted = true;
+    // Another day: start from the defaults (a day with nothing saved must not show the previous day's values).
+    setBedtime('22:45');
+    setWakeTime('07:15');
+    setQuality('Bonne');
+    setAwakenings(undefined);
+    setFeeling('Non');
+    setNote('');
+    setHasSaved(false);
     getJournalEntry(todayKey).then(entry => {
       const saved = entry?.sleep;
       if (!mounted || !saved) {
@@ -278,7 +282,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
         setAwakenings(saved.awakenings);
       }
       if (saved.wakeFeeling) {
-        setFeeling(saved.wakeFeeling);
+        // Entries saved before the four-level scale: Reposée = Non, Fatiguée = Beaucoup.
+        setFeeling(saved.wakeFeeling === 'Reposée' ? 'Non' : saved.wakeFeeling === 'Fatiguée' ? 'Beaucoup' : saved.wakeFeeling);
       }
       setNote(saved.note ?? '');
     });
@@ -429,9 +434,15 @@ export default function JournalSleepScreen(): React.JSX.Element {
               {tx('dailyJournalSheet.items.sleep.title', 'titles.sleep')}
             </AwaText>
 
-            <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="bodySmall">
-              {cycleDay !== null ? t('journalSleep.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
-            </AwaText>
+            <JournalDaySwitcher
+              canGoNext={journalDay.canGoNext}
+              canGoPrevious={journalDay.canGoPrevious}
+              label={cycleDay !== null ? t('journalSleep.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
+              nextDay={journalDay.nextDay}
+              onNext={journalDay.goNext}
+              onPrevious={journalDay.goPrevious}
+              previousDay={journalDay.previousDay}
+            />
           </View>
 
           <AwaIconButton
@@ -460,47 +471,6 @@ export default function JournalSleepScreen(): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          {daughter ? null : (
-          <ImageBackground
-            imageStyle={styles.heroImage}
-            source={require('../../assets/images/sleep-header-woman.png')}
-            style={[
-              styles.hero,
-
-              isSmallScreen &&
-                styles.heroSmall,
-
-              isVerySmallScreen &&
-                styles.heroVerySmall,
-            ]}>
-            <View
-              style={[
-                styles.heroCopy,
-                isSmallScreen &&
-                  styles.heroCopySmall,
-                journalHeroCopyRtl(isSmallScreen ? 13 : 18),
-              ]}>
-              <Text
-                style={[
-                  styles.heroTitle,
-                  isSmallScreen &&
-                    styles.heroTitleSmall,
-                ]}>
-                {t('journalSleep.heroTitle')}
-              </Text>
-
-              <Text
-                style={[
-                  styles.heroText,
-                  isSmallScreen &&
-                    styles.heroTextSmall,
-                ]}>
-                {t('journalSleep.heroText')}
-              </Text>
-            </View>
-          </ImageBackground>
-          )}
-
           <Card>
             <Heading
               icon="weather-night"
@@ -569,17 +539,6 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 </View>
               </View>
 
-              <View style={styles.verticalLine} />
-
-              <View style={styles.goal}>
-                <Text style={styles.smallLabel}>
-                  {t('journalSleep.recommendedGoal')}
-                </Text>
-
-                <Text style={styles.goalValue}>
-                  {t('journalSleep.recommendedGoalValue')}
-                </Text>
-              </View>
             </View>
           </Card>
 
@@ -618,7 +577,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                         styles.selected,
                     ]}>
                     <MaterialDesignIcons
-                      color={item.color}
+                      color={active ? theme.colors.primary : theme.colors.textSecondary}
                       name={item.icon as never}
                       size={
                         isSmallScreen ? 23 : 27
@@ -634,131 +593,36 @@ export default function JournalSleepScreen(): React.JSX.Element {
             </View>
           </Card>
 
-          <View
-            style={[
-              styles.twoColumns,
+          <Card>
+            <Heading
+              icon="weather-sunset-up"
+              title={t('journalSleep.wakeFatigueTitle')}
+            />
 
-              (isSmallScreen || daughter) &&
-                styles.twoColumnsSmall,
-            ]}>
-            <Card style={daughter ? undefined : styles.halfCard}>
-              <Heading
-                icon="alarm"
-                title={t('journalSleep.awakeningsTitle')}
-                subtitle={tx('journalSleep.awakeningsSubtitle', 'sleep.awakeningsSubtitle')}
-              />
+            <View style={styles.feelingRow}>
+              {FEELINGS.map(item => {
+                const active = feeling === item.label;
 
-              <View style={styles.counterRow}>
-                <Pressable
-                  accessibilityLabel={t('journalSleep.decreaseAwakenings')}
-                  onPress={() =>
-                    setAwakenings(value =>
-                      Math.max(0, value - 1),
-                    )
-                  }
-                  hitSlop={8}
-                  style={styles.roundButton}>
-                  <Text style={styles.sign}>−</Text>
-                </Pressable>
-
-                <View style={styles.counterCopy}>
-                  <Text style={styles.count}>
-                    {awakenings}
-                  </Text>
-
-                  <Text style={styles.countLabel}>
-                    {t('journalSleep.timesThisNight')}
-                  </Text>
-                </View>
-
-                <Pressable
-                  accessibilityLabel={t('journalSleep.increaseAwakenings')}
-                  onPress={() =>
-                    setAwakenings(value =>
-                      Math.min(20, value + 1),
-                    )
-                  }
-                  hitSlop={8}
-                  style={styles.roundButton}>
-                  <Text style={styles.sign}>+</Text>
-                </Pressable>
-              </View>
-
-              {daughter ? null : (
-              <View style={styles.tip}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="weather-night"
-                  size={21}
-                />
-
-                <Text style={styles.tipText}>
-                  {t('journalSleep.awakeningsTip')}
-                </Text>
-              </View>
-              )}
-            </Card>
-
-            <Card style={daughter ? undefined : styles.halfCard}>
-              <Heading
-                icon="weather-sunset-up"
-                title={t('journalSleep.wakeFeelingTitle')}
-                subtitle={tx('journalSleep.wakeFeelingSubtitle', 'sleep.wakeFeelingSubtitle')}
-              />
-
-              <View style={styles.feelingRow}>
-                {FEELINGS.map(item => {
-                  const active =
-                    feeling === item.label;
-
-                  return (
-                    <Pressable
-                      accessibilityLabel={t('journalSleep.wakeFeelingAccessibility', {label: journalOptionLabel('cycleSleepFeeling', item.label, t)})}
-                      accessibilityRole="radio"
-                      accessibilityState={{checked: active}}
-                      key={item.label}
-                      onPress={() =>
-                        setFeeling(item.label)
-                      }
-                      style={[
-                        styles.feeling,
-                        active &&
-                          styles.selected,
-                      ]}>
-                      <MaterialDesignIcons
-                        color={
-                          active
-                            ? theme.colors.primary
-                            : theme.colors.textSecondary
-                        }
-                        name={item.icon as never}
-                        size={27}
-                      />
-
-                      <Text
-                        style={styles.choiceText}>
-                        {journalOptionLabel('cycleSleepFeeling', item.label, t)}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-
-              {daughter ? null : (
-              <View style={styles.tip}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="heart"
-                  size={22}
-                />
-
-                <Text style={styles.tipText}>
-                  {t('journalSleep.wakeFeelingTip')}
-                </Text>
-              </View>
-              )}
-            </Card>
-          </View>
+                return (
+                  <Pressable
+                    accessibilityLabel={t('journalSleep.wakeFatigueAccessibility', {label: journalOptionLabel('cycleSleepFeeling', item.label, t)})}
+                    accessibilityRole="radio"
+                    accessibilityState={{checked: active}}
+                    key={item.label}
+                    onPress={() => setFeeling(item.label)}
+                    style={[
+                      styles.feeling,
+                      active &&
+                        styles.selected,
+                    ]}>
+                    <Text style={[styles.choiceText, active && styles.feelingTextActive]}>
+                      {journalOptionLabel('cycleSleepFeeling', item.label, t)}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </Card>
 
           <Card>
             <Heading
@@ -784,20 +648,11 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 {note.length} / 300
               </Text>
 
-              {daughter ? null : (
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="sprout"
-                size={37}
-                style={styles.leaf}
-              />
-              )}
             </View>
           </Card>
 
           <AwaButton
             fullWidth
-            icon="content-save"
             label={saving ? t('periodStartSheet.saving') : t('common.save')}
             loading={saving}
             onPress={save}
@@ -1160,6 +1015,17 @@ function createStyles(theme: ResolvedAwaTheme) {
   // Category E — fixed visual island (see SLEEP_HERO_* constants above):
   // this hero uses a real illustration image with calibrated overlay text,
   // so it stays untouched by theming.
+  heroPlain: {
+    paddingHorizontal: 12,
+    paddingTop: 4,
+    paddingBottom: 6,
+  },
+
+  feelingTextActive: {
+    color: theme.colors.primary,
+    fontWeight: '700',
+  },
+
   hero: {
     minHeight: 150,
     justifyContent: 'center',

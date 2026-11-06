@@ -48,7 +48,6 @@ const ALL_OFF = {
   hideNotificationPreview: false,
   intimacyProtection: true,
   privateContentProtection: true,
-  anonymousMode: false,
 };
 
 const FUTURE_DATE = new Date(Date.now() + 60 * 60 * 1000);

@@ -4,7 +4,6 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -26,7 +25,6 @@ import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
@@ -84,7 +82,6 @@ const SYMPTOM_ICONS: Record<string, IconName> = {
   'Troubles du sommeil': 'weather-night',
 };
 
-const HERO_IMAGE = require('../../assets/images/symptoms-header-woman.png');
 
 export default function PregnancySymptomsScreen(): React.JSX.Element {
   const {t} = useTranslation();
@@ -212,20 +209,9 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           <Animated.View style={entranceStyle}>
-            <ImageBackground imageStyle={styles.heroImage} resizeMode="cover" source={HERO_IMAGE} style={styles.hero}>
-              <View style={[styles.heroCopy, journalHeroCopyRtl(28)]}>
-                <Text style={styles.heroTitle}>{t('pregnancySymptoms.hero.title')}</Text>
-                <Text style={styles.heroSubtitle}>{t('pregnancySymptoms.hero.subtitle')}</Text>
-              </View>
-            </ImageBackground>
-
             <AwaCard padding="compact" variant="outlined" style={styles.card}>
               <View style={styles.symptomsHeader}>
-                <View style={styles.headingIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="clipboard-pulse-outline" size={18} />
-                </View>
                 <View style={styles.headingCopy}>
-                  <Text style={styles.sectionTitle}>{t('pregnancySymptoms.section.title')}</Text>
                   <Text style={styles.sectionSubtitle}>{t('pregnancySymptoms.section.subtitle')}</Text>
                 </View>
                 <View style={styles.countBadge}>

@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -10,32 +9,32 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {getBottomPadding, spacing} from '../../theme/spacing';
+import {getBottomPadding, spacing, TOP_SPACING_EXTRA} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
 import {AwaText} from '../../components/ui/AwaText';
+import {AWA_DISPLAY_FONT} from '../../theme/awaTypography';
 import PregnancyEventForm, {TYPE_LABELS, fromISODate} from '../../components/pregnancy/PregnancyEventForm';
 import {
-  deletePregnancyMedicalEvent,
   getPregnancyMedicalEvents,
   type PregnancyMedicalEvent,
   type PregnancyMedicalEventType,
 } from '../../state/pregnancyMedicalEventsStore';
-import {cancelEventReminder} from '../../utils/pregnancyEventReminders';
 import {hydratePregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
 import {dateFormatLocale} from '../../utils/cycleMath';
-import {presentSaveFailure} from '../../services/saveFailure';
 
-// Legacy combined "browse every Rendez-vous/Examen" list + generic
-// type-togglable form. No navigation call in the app reaches this screen
+// "Mes rendez-vous": the list of every medical appointment and exam ("À venir" sorted by date, then "Passés"), a fixed "Ajouter un RDV"
+// button, and the type-togglable form (Rendez-vous / Examen) that adds, edits or deletes one. The store keeps a LIST of events
+// (state/pregnancyMedicalEventsStore.ts), so several appointments are possible. Originally a combined browse list + generic form. No navigation call in the app reaches this screen
 // without an `eventId`/`initialType` any more — Dashboard and Calendar now
 // go straight to the dedicated PregnancyAppointmentScreen.tsx/
 // PregnancyExamScreen.tsx (see their own headers), which lock the type and
@@ -56,6 +55,7 @@ function sortEvents(events: PregnancyMedicalEvent[]): PregnancyMedicalEvent[] {
 }
 
 function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -151,33 +151,36 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
     [cameDirectlyToForm, navigation],
   );
 
-  const removeEvent = (id: string, eventType: PregnancyMedicalEventType) => {
-    Alert.alert(
-      eventType === 'exam' ? 'Supprimer cet examen ?' : 'Supprimer ce rendez-vous ?',
-      'Cette action supprimera également le rappel associé.',
-      [
-        {text: 'Annuler', style: 'cancel'},
-        {
-          text: 'Supprimer',
-          style: 'destructive',
-          onPress: async () => {
-            let next: PregnancyMedicalEvent[];
-            try {
-              next = await deletePregnancyMedicalEvent(id);
-            } catch (saveError) {
-              presentSaveFailure(saveError);
-              return;
-            }
-            setEvents(sortEvents(next));
-            cancelEventReminder(id, {dismissDisplayed: true});
-          },
-        },
-      ],
-    );
-  };
-
   const editingEvent = editingId ? events.find(item => item.id === editingId) : undefined;
-  const headerTitle = view === 'list' ? 'Rendez-vous et examens' : editingId ? 'Modifier l’événement' : 'Ajouter un événement';
+  const headerTitle = editingId ? 'Modifier l’événement' : 'Ajouter un événement';
+  const todayISO = new Date().toLocaleDateString('en-CA');
+  const upcoming = events.filter(event => event.date >= todayISO);
+  const past = events.filter(event => event.date < todayISO).reverse();
+
+  const renderRow = (event: PregnancyMedicalEvent, last: boolean, muted: boolean) => (
+    <Pressable
+      accessibilityLabel={`${event.title}. ${TYPE_LABELS[event.type]}, ${formatLongDate(fromISODate(event.date))}${event.time ? `, ${event.time}` : ''}`}
+      accessibilityRole="button"
+      key={event.id}
+      onPress={() => startEdit(event)}
+      style={({pressed}) => [styles.row, !last && styles.rowDivider, pressed && styles.pressed]}>
+      <View style={[styles.rowIcon, muted && styles.rowMuted]}>
+        <MaterialDesignIcons
+          color={muted ? theme.colors.textMuted : theme.colors.primary}
+          name={event.type === 'exam' ? 'stethoscope' : 'calendar-month-outline'}
+          size={20}
+        />
+      </View>
+      <View style={styles.rowCopy}>
+        <Text numberOfLines={2} style={[styles.rowTitle, muted && styles.rowTitleMuted]}>{event.title}</Text>
+        <Text style={styles.rowMeta}>
+          {TYPE_LABELS[event.type]} · {formatLongDate(fromISODate(event.date))}
+          {event.time ? `, ${event.time}` : ''}
+        </Text>
+      </View>
+      <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
+    </Pressable>
+  );
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
@@ -189,12 +192,20 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
             icon="arrow-left"
             onPress={handleBack}
           />
-          <AwaText variant="headlineSmall" style={styles.headerTitle}>{headerTitle}</AwaText>
-          <View style={styles.headerSpacer} />
+          {view === 'list' ? (
+            <View style={styles.headerCopy}>
+              <Text accessibilityRole="header" style={styles.screenTitle}>{t('pregnancyAppointmentsList.title', {defaultValue: 'Mes rendez-vous'})}</Text>
+              <Text style={styles.screenSubtitle}>{t('pregnancyAppointmentsList.subtitle', {defaultValue: 'Rendez-vous et examens médicaux'})}</Text>
+            </View>
+          ) : (
+            <>
+              <AwaText variant="headlineSmall" style={styles.headerTitle}>{headerTitle}</AwaText>
+              <View style={styles.headerSpacer} />
+            </>
+          )}
         </View>
-
         <ScrollView
-          contentContainerStyle={[styles.content, {paddingBottom: getBottomPadding(insets.bottom, spacing.lg) + 80}]}
+          contentContainerStyle={[styles.content, {paddingBottom: getBottomPadding(insets.bottom, spacing.lg) + (view === 'list' ? 96 : 80)}]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           {view === 'form' ? (
@@ -205,65 +216,46 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
               onTypeChange={setType}
               type={type}
             />
+          ) : events.length === 0 ? (
+            <View style={styles.empty}>
+              <View style={styles.emptyIcon}>
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={34} />
+              </View>
+              <AwaText variant="titleMedium" style={styles.emptyTitle}>Aucun rendez-vous enregistré</AwaText>
+              <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>
+                Ajoute un rendez-vous ou un examen pour le retrouver ici, sur ton tableau de bord et dans ton calendrier.
+              </AwaText>
+            </View>
           ) : (
             <>
-              <AwaButton
-                fullWidth
-                icon="plus"
-                label="Ajouter un événement"
-                onPress={() => resetForm('appointment')}
-                size="large"
-              />
-
-              {events.length === 0 ? (
-                <View style={styles.empty}>
-                  <View style={styles.emptyIcon}>
-                    <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={34} />
-                  </View>
-                  <AwaText variant="titleMedium" style={styles.emptyTitle}>Aucun rendez-vous enregistré</AwaText>
-                  <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.emptyText}>
-                    Ajoute un rendez-vous ou un examen pour le retrouver ici, sur ton tableau de bord et dans ton calendrier.
-                  </AwaText>
-                </View>
-              ) : (
-                <View style={styles.list}>
-                  {events.map(event => (
-                    <Pressable
-                      accessibilityLabel={`Modifier ${event.title}`}
-                      accessibilityRole="button"
-                      key={event.id}
-                      onPress={() => startEdit(event)}
-                      style={({pressed}) => [styles.row, pressed && styles.pressed]}>
-                      <View style={styles.rowIcon}>
-                        <MaterialDesignIcons
-                          color={theme.colors.primary}
-                          name={event.type === 'appointment' ? 'calendar-heart' : 'clipboard-pulse-outline'}
-                          size={19}
-                        />
-                      </View>
-                      <View style={styles.rowCopy}>
-                        <Text style={styles.rowTitle}>{event.title}</Text>
-                        <Text style={styles.rowMeta}>
-                          {TYPE_LABELS[event.type]} · {formatLongDate(fromISODate(event.date))}
-                          {event.time ? ` · ${event.time}` : ''}
-                        </Text>
-                        {event.practitioner ? <Text style={styles.rowMeta}>{event.practitioner}</Text> : null}
-                      </View>
-                      <Pressable
-                        accessibilityLabel={`Supprimer ${event.title}`}
-                        accessibilityRole="button"
-                        hitSlop={8}
-                        onPress={() => removeEvent(event.id, event.type)}
-                        style={styles.rowDelete}>
-                        <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={18} />
-                      </Pressable>
-                    </Pressable>
-                  ))}
-                </View>
-              )}
+              {upcoming.length > 0 ? (
+                <>
+                  <Text accessibilityRole="header" style={styles.sectionTitle}>{t('pregnancyAppointmentsList.upcoming', {defaultValue: 'À venir'})}</Text>
+                  <View style={styles.card}>{upcoming.map((event, index) => renderRow(event, index === upcoming.length - 1, false))}</View>
+                </>
+              ) : null}
+              {past.length > 0 ? (
+                <>
+                  <Text accessibilityRole="header" style={[styles.sectionTitle, styles.sectionTitleMuted]}>{t('pregnancyAppointmentsList.past', {defaultValue: 'Passés'})}</Text>
+                  <View style={[styles.card, styles.cardMuted]}>{past.map((event, index) => renderRow(event, index === past.length - 1, true))}</View>
+                </>
+              ) : null}
             </>
           )}
         </ScrollView>
+
+        {view === 'list' ? (
+          <View style={[styles.bottomBar, {paddingBottom: Math.max(insets.bottom, 12) + 4}]}>
+            <AwaButton
+              accessibilityLabel={t('pregnancyDashboard.appointments.addAppointment', {defaultValue: 'Ajouter un RDV'})}
+              fullWidth
+              icon="plus"
+              label={t('pregnancyDashboard.appointments.addAppointment', {defaultValue: 'Ajouter un RDV'})}
+              onPress={() => resetForm('appointment')}
+              size="large"
+            />
+          </View>
+        ) : null}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -273,7 +265,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
   safeArea: {flex: 1, backgroundColor: theme.colors.background},
   flex: {flex: 1},
-  header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: spacing.sm},
+  header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: TOP_SPACING_EXTRA},
   headerTitle: {flex: 1, marginHorizontal: 10, textAlign: 'center'},
   headerSpacer: {width: 40},
   content: {paddingHorizontal: spacing.md, paddingTop: spacing.sm},
@@ -285,23 +277,28 @@ function createStyles(theme: ResolvedAwaTheme) {
   emptyTitle: {marginTop: 13, textAlign: 'center'},
   emptyText: {marginTop: 8, textAlign: 'center'},
 
-  list: {marginTop: 18, gap: 10},
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
+  headerCopy: {flex: 1, minWidth: 0, marginLeft: 10},
+  screenTitle: {color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 24, lineHeight: 30, fontWeight: '600'},
+  screenSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
+  sectionTitle: {marginTop: 18, marginBottom: 8, marginLeft: 4, color: theme.colors.text, fontSize: 14, fontWeight: '700'},
+  sectionTitleMuted: {color: theme.colors.textMuted},
+  card: {
+    overflow: 'hidden',
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 12,
+    borderColor: withAlpha(theme.colors.primary, 0.12),
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 13,
-    paddingVertical: 12,
   },
-  rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 19, backgroundColor: theme.colors.primarySoft},
-  rowCopy: {flex: 1, minWidth: 0},
-  rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
-  rowMeta: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
-  rowDelete: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: withAlpha(theme.colors.danger, 0.1)},
+  cardMuted: {opacity: 0.8},
+  row: {minHeight: 64, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10},
+  rowDivider: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
+  rowIcon: {width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 10, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
+  rowMuted: {backgroundColor: withAlpha(theme.colors.textMuted, 0.14)},
+  rowCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
+  rowTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 18, fontWeight: '600'},
+  rowTitleMuted: {color: theme.colors.textSecondary},
+  rowMeta: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
+  bottomBar: {paddingHorizontal: spacing.md, paddingTop: 10, backgroundColor: theme.colors.background},
   });
 }
 

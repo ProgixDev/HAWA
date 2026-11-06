@@ -1,6 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
+import {Animated, Easing, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -12,7 +12,6 @@ import {presentSaveFailure} from '../../services/saveFailure';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {JOURNAL_HERO_INK} from '../../components/journal/journalHeroInk';
-import {journalHeroCopyRtl} from '../../components/journal/journalHeroRtl';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
@@ -284,14 +283,10 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           icon="chevron-left"
           onPress={navigation.goBack}
         />
-        <View style={styles.headerCopy}><View style={styles.titleRow}><AwaText variant="headlineSmall">{t('journalIntimacy.title')}</AwaText><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><AwaText colorRole="onSurfaceVariant" variant="bodySmall">{cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}</AwaText></View>
-        <AwaButton accessibilityLabel={t('journalIntimacy.hideAndLock')} icon="eye-off-outline" label={t('journalPrivatePhotos.hide')} onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} size="compact" variant="outlined" />
+        <View style={styles.headerCopy}><AwaText variant="titleLarge">{t('journalIntimacy.title')}</AwaText><AwaText colorRole="onSurfaceVariant" variant="bodySmall">{cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}</AwaText></View>
+        <AwaIconButton accessibilityLabel={t('journalIntimacy.hideAndLock')} icon="eye-off-outline" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} />
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-        <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
-          <View style={[styles.heroCopy, journalHeroCopyRtl(16)]}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={JOURNAL_HERO_INK.accent} name="information-outline" size={17} /></View></View>
-        </ImageBackground>
-
         <View style={styles.privateArea}>
           {corrupted ? (
             <View style={styles.noReportMessage}>
@@ -426,7 +421,6 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           </Card>
         </View>
 
-        <View style={styles.security}><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={22} /><Text style={styles.securityText}>{t('journalIntimacy.securityText')}</Text><MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.5)} name="shield-lock-outline" size={26} /></View>
         <AwaButton
           accessibilityLabel={t('journalIntimacy.saveIntimacy')}
           icon="lock-outline"
