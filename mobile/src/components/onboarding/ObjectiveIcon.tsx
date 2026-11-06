@@ -14,12 +14,12 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export const OBJECTIVE_ICONS: Readonly<Record<ObjectiveId, IconName>> = {
   cycle: 'calendar-month-outline',
-  conceive: 'dna',
+  conceive: 'heart-plus-outline',
   contraception: 'plus-circle-outline',
   irregular: 'chart-line-variant',
   menopause: 'face-woman-shimmer-outline',
-  pregnancy: 'human-pregnant',
-  postpartum: 'human-female-girl',
+  pregnancy: 'baby-face-outline',
+  postpartum: 'baby-bottle-outline',
   loss: 'sprout-outline',
 };
 

@@ -70,20 +70,20 @@ import {recoverInterruptedManagedProfileDeletions} from './src/services/managedP
 import {recoverInterruptedRestore} from './src/services/restoreJournal';
 import {runStructuredMigration} from './src/services/structuredDataMigration';
 import {getAppLanguage, hydrateAppearancePreferences, subscribeThemePreferences} from './src/state/themePreferences';
-import {initializeAppLanguage} from './src/i18n/appLanguage';
+import {initializeAppLanguage, refreshLanguageFromDevice} from './src/i18n/appLanguage';
 import {LayoutDirectionRestartPrompt} from './src/components/appearance/LayoutDirectionRestartPrompt';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
 import {requiresAppLock} from './src/state/securityPreferences';
 import {migrateLegacyPlainNotes} from './src/services/privateNotesEncryption';
+import {removeAnonymousModeLeftovers} from './src/state/migrations/removeAnonymousMode';
 import {initializePremium} from './src/services/purchaseService';
 import {restorePendingObjectiveSetupOnStartup} from './src/services/objectiveSwitch';
 import {migrateLegacyPlainMiscarriageNotes} from './src/state/miscarriageJournalStore';
 import {migrateLegacyPlainPostpartumMoodNotes} from './src/state/postpartumJournalStore';
 import {migrateLegacyPlainPregnancyNotes} from './src/state/pregnancyJournalStore';
 import {migrateLegacyPlainPregnancyMedicalEventNotes} from './src/state/pregnancyMedicalEventsStore';
-import {migrateLegacyPlainGeneralHealthNotes} from './src/state/generalHealthStore';
 import {migrateLegacyPlainPersonalInformation} from './src/state/personalInformationStore';
 import {migrateLegacyPlainIrregularNotes} from './src/state/irregularJournalStore';
 import {migrateLegacyPlainMenopauseNotes} from './src/state/menopauseJournalStore';
@@ -92,6 +92,9 @@ import {migrateLegacyPlainContraceptionNotes} from './src/state/contraceptionJou
 import {migrateLegacyPlainPostpartumLochiaNotes} from './src/state/postpartumLochiaStore';
 import {migrateLegacyPlainPregnancyCustomReminders} from './src/state/pregnancyCustomRemindersStore';
 import {migrateLegacyPlainPregnancyHealthReminders} from './src/state/pregnancyHealthRemindersStore';
+
+// One-time removal of what the old "Mode anonyme" left in storage (idempotent; see the file's own comment).
+removeAnonymousModeLeftovers().catch(() => {});
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -123,7 +126,6 @@ migrateLegacyPlainMiscarriageNotes().catch(() => {});
 migrateLegacyPlainPostpartumMoodNotes().catch(() => {});
 migrateLegacyPlainPregnancyNotes().catch(() => {});
 migrateLegacyPlainPregnancyMedicalEventNotes().catch(() => {});
-migrateLegacyPlainGeneralHealthNotes().catch(() => {});
 migrateLegacyPlainPersonalInformation().catch(() => {});
 migrateLegacyPlainIrregularNotes().catch(() => {});
 migrateLegacyPlainMenopauseNotes().catch(() => {});
@@ -413,6 +415,8 @@ function App(): React.JSX.Element {
       if (isBiometricPromptActive()) {return;}
       if (state === 'active') {
         setPrivacyCover(false);
+        // automatic language mode: the phone's language may have been changed while AWA was in the background (no-op otherwise)
+        refreshLanguageFromDevice().catch(() => {});
         if (backgroundedAt.current && Date.now() - backgroundedAt.current >= AUTO_LOCK_TIMEOUT_MS && requiresAppLock()) {lockApp();}
         backgroundedAt.current = null;
         reconcileInAppNotifications().catch(() => {});

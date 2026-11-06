@@ -10,6 +10,7 @@ import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaText} from '../ui/AwaText';
+import {GlassIcon} from '../ui/GlassIcon';
 import {
   applyVisibleOrderToFullOrder,
   filterQuickActionsForSpiritualMarkers,
@@ -23,19 +24,18 @@ import {
   subscribeSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
 
-// PHASE C — `item.iconColor`/`item.iconBg` are supplied by the CALLING
-// objective dashboard, one pair per action, encoding that action's own
-// category identity (e.g. a specific tint per action type). This component
-// never owns those colors and must not recolor them — only its own generic
-// card/border/label/shadow/"customize" chrome is migrated here.
+// Every action's icon is drawn the same way, in every objective: a glass circle in the theme's primary tone (GlassIcon). The
+// `iconColor`/`iconBg` the dashboards still pass are ignored — a per-action colour made some tiles (Journal quotidien, Statistiques) stand
+// out from the others.
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export type QuickActionItem = {
   key: string;
   icon: IconName;
-  iconColor: string;
-  iconBg: string;
+  /** Ignored (see above); kept so the dashboards that still pass them compile unchanged. */
+  iconColor?: string;
+  iconBg?: string;
   label: string;
   onPress?: () => void;
 };
@@ -110,9 +110,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
           <MaterialDesignIcons color={theme.colors.textMuted} name="dots-vertical" size={14} />
         </Pressable>
 
-        <View style={[styles.iconCircle, {backgroundColor: item.iconBg}]}>
-          <MaterialDesignIcons color={item.iconColor} name={item.icon} size={20} />
-        </View>
+        <GlassIcon icon={item.icon} size={44} />
 
         <AwaText style={styles.tileLabel} variant="labelMedium">{item.label}</AwaText>
       </Pressable>

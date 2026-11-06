@@ -55,11 +55,6 @@ import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
 import PinConfirmScreen from '../screens/PinConfirmScreen';
 import PinManagementScreen from '../screens/PinManagementScreen';
-import AnonymousModeScreen from '../screens/AnonymousModeScreen';
-import AnonymousModeLimitationsScreen from '../screens/AnonymousModeLimitationsScreen';
-import AnonymousModeCreatingScreen from '../screens/AnonymousModeCreatingScreen';
-import AnonymousModeSuccessScreen from '../screens/AnonymousModeSuccessScreen';
-import AnonymousAvatarCustomizerScreen from '../screens/AnonymousAvatarCustomizerScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
 import DiscreetLauncherScreen from '../screens/DiscreetLauncherScreen';
 import MainTabNavigator, { type MainTabParamList } from './MainTabNavigator';
@@ -83,7 +78,6 @@ import PrivateIntimacyPinScreen from '../screens/journal/PrivateIntimacyPinScree
 import PrivateIntimacyFaceIdScreen from '../screens/journal/PrivateIntimacyFaceIdScreen';
 import JournalPrivatePhotosScreen from '../screens/journal/JournalPrivatePhotosScreen';
 import PersonalInformationScreen from '../screens/PersonalInformationScreen';
-import GeneralHealthScreen from '../screens/GeneralHealthScreen';
 import AboutScreen from '../screens/AboutScreen';
 import {
   PrivacyPolicyScreen,
@@ -104,6 +98,11 @@ import type { ContraceptionJournalCategory } from '../config/contraceptionJourna
 import type { MenopauseJournalCategory } from '../state/menopauseJournalStore';
 import AppearanceScreen from '../screens/AppearanceScreen';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
+import {
+  AppLockSettingsScreen,
+  DiscretionSettingsScreen,
+  ProtectedContentSettingsScreen,
+} from '../screens/PrivacySecuritySubScreens';
 import {
   DataManagementScreen,
   DeleteAccountScreen,
@@ -153,15 +152,6 @@ import ManagedProfileCycleSetupScreen from '../screens/managedProfile/ManagedPro
 import ManagedProfileSuccessScreen from '../screens/managedProfile/ManagedProfileSuccessScreen';
 import { navigationRef } from './navigationRef';
 import { cancelPendingObjectiveSetup, getPendingObjectiveSetup } from '../state/objectiveSetupFlow';
-
-// Where the Anonymous Mode flow was entered from — lets the shared screens
-// (AnonymousMode → …Limitations → …Creating → …Success → AnonymousAvatarCustomizer)
-// behave correctly for both entry points without duplicating any of them:
-// 'auth' = fresh setup straight from AuthScreen, ends by entering MainTabs;
-// 'settings' (the default when the param is omitted, e.g. from
-// PrivacySecurityScreen's existing "Mode anonyme" row) = managing an
-// already-completed onboarding, ends by returning to that settings screen.
-export type AnonymousFlowSource = 'auth' | 'settings';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -225,11 +215,6 @@ export type RootStackParamList = {
   PinSetup: {mode?: 'create' | 'change' | 'disable'; returnTo?: 'previous' | 'onboarding'} | undefined;
   PinConfirm: {returnTo: 'previous' | 'onboarding'};
   PinManagement: undefined;
-  AnonymousMode: {source?: AnonymousFlowSource} | undefined;
-  AnonymousModeLimitations: {source?: AnonymousFlowSource} | undefined;
-  AnonymousModeCreating: {source?: AnonymousFlowSource} | undefined;
-  AnonymousModeSuccess: {source?: AnonymousFlowSource} | undefined;
-  AnonymousAvatarCustomizer: {source?: AnonymousFlowSource} | undefined;
   FaceIdSetup: {action?: 'enable' | 'manage'} | undefined;
   DiscreetLauncher: undefined;
   MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
@@ -253,7 +238,6 @@ export type RootStackParamList = {
   PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes' | 'export'} | undefined;
   PrivatePhotoEntry: undefined;
   PersonalInformation: undefined;
-  GeneralHealth: undefined;
   About: undefined;
   TermsOfUse: undefined;
   PrivacyPolicy: undefined;
@@ -264,6 +248,9 @@ export type RootStackParamList = {
   WhatsNew: undefined;
   Appearance: undefined;
   PrivacySecurity: undefined;
+  AppLockSettings: undefined;
+  DiscretionSettings: undefined;
+  ProtectedContentSettings: undefined;
   DataManagement: undefined;
   DeleteAccount: undefined;
   BackupData: undefined;
@@ -286,7 +273,7 @@ export type RootStackParamList = {
   // pops back here after a successful unlock — see replaceWithIntimacyDestination.
   DataExport: {sensitiveUnlockToken?: number} | undefined;
   DeleteTrackedData: undefined;
-  Library: undefined;
+  Library: {categoryId?: string} | undefined;
   FeaturedArticles: undefined;
   ArticleReader: { articleId: string };
   PrayerTimes: undefined;
@@ -478,11 +465,6 @@ function AppNavigator({
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
         <Stack.Screen name="PinConfirm" component={PinConfirmScreen} />
         <Stack.Screen name="PinManagement" component={PinManagementScreen} />
-        <Stack.Screen name="AnonymousMode" component={AnonymousModeScreen} />
-        <Stack.Screen name="AnonymousModeLimitations" component={AnonymousModeLimitationsScreen} />
-        <Stack.Screen name="AnonymousModeCreating" component={AnonymousModeCreatingScreen} />
-        <Stack.Screen name="AnonymousModeSuccess" component={AnonymousModeSuccessScreen} />
-        <Stack.Screen name="AnonymousAvatarCustomizer" component={AnonymousAvatarCustomizerScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
         <Stack.Screen name="DiscreetLauncher" component={DiscreetLauncherScreen} />
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />
@@ -533,7 +515,6 @@ function AppNavigator({
           name="PersonalInformation"
           component={PersonalInformationScreen}
         />
-        <Stack.Screen name="GeneralHealth" component={GeneralHealthScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="TermsOfUse" component={TermsOfUseScreen} />
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
@@ -547,6 +528,9 @@ function AppNavigator({
           name="PrivacySecurity"
           component={PrivacySecurityScreen}
         />
+        <Stack.Screen name="AppLockSettings" component={AppLockSettingsScreen} />
+        <Stack.Screen name="DiscretionSettings" component={DiscretionSettingsScreen} />
+        <Stack.Screen name="ProtectedContentSettings" component={ProtectedContentSettingsScreen} />
         <Stack.Screen name="DataManagement" component={DataManagementScreen} />
         <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
         <Stack.Screen name="BackupData" component={BackupDataScreen} />

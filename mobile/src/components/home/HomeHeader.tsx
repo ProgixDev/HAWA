@@ -91,7 +91,7 @@ function HomeHeader({
 
         {firstName.trim().length > 0 && (
           <AwaText numberOfLines={2} style={styles.name} variant="headlineSmall">
-            {firstName} 🌸
+            {firstName}
           </AwaText>
         )}
 

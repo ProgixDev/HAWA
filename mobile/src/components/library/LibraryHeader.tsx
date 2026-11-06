@@ -32,7 +32,7 @@ function LibraryHeader({searchQuery, onChangeSearch, onPressFilters, activeFilte
             Bibliothèque
           </AwaText>
           <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">
-            Apprends, comprends et prends soin de toi 💜
+            Apprends, comprends et prends soin de toi
           </AwaText>
         </View>
       </View>

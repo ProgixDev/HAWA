@@ -33,39 +33,13 @@ import {getMenopausePreferences} from '../state/menopausePreferences';
 import {requirePrivateAccess} from './privateAccess';
 import {usePregnancyTrackingPreferences} from '../hooks/usePregnancyTrackingPreferences';
 import '../i18n';
-import type {PregnancyTrackingPreference} from '../state/pregnancyPreferences';
+import {PREGNANCY_JOURNAL_ITEMS} from '../config/pregnancyJournalItems';
+import PregnancyPlusMenuSheet from '../components/pregnancy/PregnancyPlusMenuSheet';
+import PregnancyJournalSheet from '../components/pregnancy/PregnancyJournalSheet';
 
-// Pregnancy's own "Journal quotidien" content — same shared sheet chrome as
-// Cycle (see DailyJournalSheet.tsx), only the 5 required categories differ
-// (Symptômes ressentis / Poids / Humeur / Sommeil / Informations médicales
-// personnelles). Humeur/Sommeil intentionally reuse the exact same shared
-// MoodEntry/SleepEntry screens Cycle uses — this is pre-existing Pregnancy
-// behavior (unchanged by this task); see the final report for the
-// cross-objective-storage caveat that comes with reusing them.
-//
-// PHASE 7H: a function (not a static array), same convention as
-// getCycleJournalItems() — called fresh on every render so title/subtitle
-// stay in sync with the active app language instead of a French-only
-// module-level snapshot (this was a genuine, standalone gap: every sibling
-// objective's own *_JOURNAL_ITEMS config already followed this pattern).
-function pregnancyJournalItems(t: (key: string) => string): Array<{
-  route: Extract<keyof RootStackParamList, 'PregnancySymptoms' | 'PregnancyWeight' | 'MoodEntry' | 'SleepEntry' | 'PregnancyMedicalInformation'>;
-  icon: string;
-  title: string;
-  subtitle: string;
-  tint: string;
-  /** The tracking-preference id (pregnancyPreferences.ts) that controls
-   * whether this category is offered in the CURRENT journal. */
-  preferenceKey: PregnancyTrackingPreference;
-}> {
-  return [
-    {route: 'PregnancySymptoms', icon: 'heart-pulse', title: t('dailyJournalSheet.pregnancyItems.symptoms.title'), subtitle: t('dailyJournalSheet.pregnancyItems.symptoms.subtitle'), tint: '#E9DFFF', preferenceKey: 'symptoms'},
-    {route: 'PregnancyWeight', icon: 'scale-bathroom', title: t('dailyJournalSheet.pregnancyItems.weight.title'), subtitle: t('dailyJournalSheet.pregnancyItems.weight.subtitle'), tint: '#DDEEFF', preferenceKey: 'weight'},
-    {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: t('dailyJournalSheet.pregnancyItems.mood.title'), subtitle: t('dailyJournalSheet.pregnancyItems.mood.subtitle'), tint: '#F9DDE8', preferenceKey: 'mood'},
-    {route: 'SleepEntry', icon: 'weather-night', title: t('dailyJournalSheet.pregnancyItems.sleep.title'), subtitle: t('dailyJournalSheet.pregnancyItems.sleep.subtitle'), tint: '#E8DDF8', preferenceKey: 'sleep'},
-    {route: 'PregnancyMedicalInformation', icon: 'shield-lock-outline', title: t('dailyJournalSheet.pregnancyItems.medicalInfo.title'), subtitle: t('dailyJournalSheet.pregnancyItems.medicalInfo.subtitle'), tint: '#F3ECFB', preferenceKey: 'medicalInfo'},
-  ];
-}
+// Pregnancy's "Journal du jour" categories (Symptômes / Poids / Humeur / Sommeil / Infos médicales) live in config/pregnancyJournalItems.ts,
+// shared with the home screen's "Suivi du jour". Humeur/Sommeil intentionally reuse the exact same shared MoodEntry/SleepEntry screens Cycle
+// uses — pre-existing Pregnancy behavior.
 
 export type MainTabParamList = {
   CycleHome: undefined;
@@ -100,6 +74,11 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
   const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
   const pregnancyTracking = usePregnancyTrackingPreferences();
+  // Pregnancy's "+" opens a two-choice menu first ("Remplir le journal du jour" / "Ajouter un RDV médical"); the journal sheet follows.
+  const [pregnancyStage, setPregnancyStage] = useState<'menu' | 'journal'>('menu');
+  useEffect(() => {
+    if (!visible) {setPregnancyStage('menu');}
+  }, [visible]);
 
   useEffect(() => {
     let active = true;
@@ -120,45 +99,38 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
   // its own ready-made onPress (close + navigate), so this is the only place
   // that needs to know about route params per objective.
   if (effectiveObjective === 'pregnancy') {
-    // Only the categories the user chose to track (tracking preferences) are
-    // offered NOW; recorded history is never affected. Nothing selected → one
-    // action that opens the preference screen in edit mode.
-    const trackedPregnancyItems = pregnancyJournalItems(t).filter(item => pregnancyTracking.has(item.preferenceKey));
-    const pregnancyActions: JournalSheetAction[] = trackedPregnancyItems.map(item => ({
-      key: item.route,
-      icon: item.icon,
-      title: item.title,
-      subtitle: item.subtitle,
-      tint: item.tint,
-      onPress: () => {
-        close();
-        if (item.route === 'PregnancyMedicalInformation') {
-          requirePrivateAccess(navigation, 'pregnancyMedicalInformation');
-          return;
-        }
-        navigation.navigate(item.route);
-      },
-    }));
-    if (pregnancyActions.length === 0) {
-      pregnancyActions.push({
-        key: 'PregnancyTrackingPreferences',
-        icon: 'tune-variant',
-        title: t('dailyJournalSheet.chooseTrackingTitle'),
-        subtitle: t('dailyJournalSheet.chooseTrackingSubtitle'),
-        tint: '#E9DFFF',
-        onPress: () => {
-          close();
-          navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'});
-        },
-      });
-    }
+    // Only the categories the user chose to track (tracking preferences) are offered NOW; recorded history is never affected. Nothing
+    // selected → the sheet offers the preference screen in edit mode instead.
+    const trackedPregnancyItems = PREGNANCY_JOURNAL_ITEMS.filter(item => pregnancyTracking.has(item.preferenceKey));
     return (
-      <DailyJournalSheet
-        actions={pregnancyActions}
-        onClose={close}
-        subtitle={t('dailyJournalSheet.pregnancySubtitle')}
-        visible={visible}
-      />
+      <>
+        <PregnancyPlusMenuSheet
+          onAppointment={() => {
+            close();
+            navigation.navigate('PregnancyAppointments', {initialType: 'appointment'});
+          }}
+          onClose={close}
+          onJournal={() => setPregnancyStage('journal')}
+          visible={visible && pregnancyStage === 'menu'}
+        />
+        <PregnancyJournalSheet
+          items={trackedPregnancyItems}
+          onChooseTracking={() => {
+            close();
+            navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'});
+          }}
+          onClose={close}
+          onOpenItem={item => {
+            close();
+            if (item.route === 'PregnancyMedicalInformation') {
+              requirePrivateAccess(navigation, 'pregnancyMedicalInformation');
+              return;
+            }
+            navigation.navigate(item.route);
+          }}
+          visible={visible && pregnancyStage === 'journal'}
+        />
+      </>
     );
   }
 
