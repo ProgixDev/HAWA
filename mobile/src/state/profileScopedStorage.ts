@@ -2,7 +2,7 @@ import {OWNER_PROFILE_ID} from './activeProfileStore';
 
 // One tiny, shared helper used by every profile-scoped health store
 // (confirmedPeriodHistoryStore.ts, dailyJournalStore.ts, the cyclePreferences/
-// periodEndDateTime keys inside onboardingPreferences.ts, generalHealthStore.ts,
+// periodEndDateTime keys inside onboardingPreferences.ts,
 // qadaaStore.ts, qadaaLedgerStore.ts) so they all use the SAME scoping strategy
 // instead of each inventing its own (per this feature's own "don't create a
 // different scoping strategy for every store" requirement).

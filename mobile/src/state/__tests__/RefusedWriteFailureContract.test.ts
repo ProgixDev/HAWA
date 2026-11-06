@@ -32,7 +32,6 @@ const M = {
   postpartumJournal: () => require('../postpartumJournalStore') as typeof import('../postpartumJournalStore'),
   lochia: () => require('../postpartumLochiaStore') as typeof import('../postpartumLochiaStore'),
   miscarriageJournal: () => require('../miscarriageJournalStore') as typeof import('../miscarriageJournalStore'),
-  generalHealth: () => require('../generalHealthStore') as typeof import('../generalHealthStore'),
   personalInfo: () => require('../personalInformationStore') as typeof import('../personalInformationStore'),
 };
 
@@ -221,16 +220,6 @@ const CASES: Case[] = [
     view: async () => ({manual: M.ledger().getQadaaLedger().manualEntries.map(entry => entry.id)}),
     edit: async () => M.ledger().addManualQadaaEntry({id: 'manual-2', quantity: 2}),
     edited: v => v.manual.includes('manual-2'),
-  },
-  {
-    family: 'general health: measurements', key: '@awa/general-health/v1',
-    seed: async () => {
-      await M.generalHealth().updateGeneralHealth({heightCm: 171, weightKg: 58, bloodType: 'B-'});
-    },
-    read: async () => M.generalHealth().loadGeneralHealth(),
-    view: async () => ({profile: M.generalHealth().getCachedGeneralHealth()}),
-    edit: async () => M.generalHealth().updateGeneralHealth({weightKg: 59}),
-    edited: v => v.profile.weightKg === 59,
   },
   {
     family: 'personal information', key: '@hawa/personal-information/v1',

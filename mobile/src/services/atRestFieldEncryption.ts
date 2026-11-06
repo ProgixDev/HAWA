@@ -6,7 +6,7 @@ import {getOrCreateAesKey, requireExistingAesKey} from './secureAesKeyStore';
 // Generalizes the exact AES-256-GCM cipher plumbing already proven by
 // privateNotesEncryption.ts / privateJournalEncryption.ts / privatePhotoEncryption.ts
 // (see secureAesKeyStore.ts) so each additional objective store (miscarriage/
-// pregnancy/postpartum/general-health/personal-information journals) doesn't
+// pregnancy/postpartum/personal-information journals) doesn't
 // need to hand-roll its own copy of this plumbing. The per-domain isolation
 // those files' own comments describe ("a future rotation/wipe of one domain
 // must never affect the other") is preserved because every caller still
