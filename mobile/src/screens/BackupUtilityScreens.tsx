@@ -47,6 +47,7 @@ import {buildExportFilename, purgeMedicalExportCache, shareExportFile} from '../
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {AwaButton} from '../components/ui/AwaButton';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
 import {
@@ -757,6 +758,7 @@ export function DataExportScreen({
       }
       theme={theme}
       title={activeIdentity.isManagedProfile ? t('backupUtility.export.titleDaughter', {firstName: daughterFirstName}) : t('backupUtility.export.titleOwner')}>
+      {isPremium ? (
       <View
         style={
           backupStyles.exportHero
@@ -798,6 +800,7 @@ export function DataExportScreen({
           </Text>
         </View>
       </View>
+      ) : null}
 
       {isPremium ? (
       <>
@@ -1093,49 +1096,19 @@ export function DataExportScreen({
       ) : null}
       </>
       ) : (
-        <PremiumExportLockedCard onUpgrade={() => setPremiumVisible(true)} styles={backupStyles} theme={theme} />
+        <PremiumExportLockedCard onUpgrade={() => setPremiumVisible(true)} styles={backupStyles} />
       )}
-
-      {!isPremium ? (
-        <View style={backupStyles.privacyPriorityCard}>
-          <View style={backupStyles.privacyPriorityIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={23} />
-          </View>
-          <View style={backupStyles.privacyPriorityCopy}>
-            <Text style={backupStyles.privacyPriorityTitle}>{t('backupUtility.export.privacyPriorityTitle')}</Text>
-            <Text style={backupStyles.privacyPriorityDescription}>{t('backupUtility.export.privacyPriorityDescription')}</Text>
-          </View>
-        </View>
-      ) : null}
 
       <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
     </Shell>
   );
 }
 
-function PremiumExportBenefit({icon, title, description, theme, styles: benefitStyles}: {icon: IconName; title: string; description: string; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
-  return (
-    <View style={benefitStyles.premiumBenefitRow}>
-      <View style={benefitStyles.premiumBenefitIcon}>
-        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
-      </View>
-      <View style={benefitStyles.premiumBenefitCopy}>
-        <Text style={benefitStyles.premiumBenefitTitle}>{title}</Text>
-        <Text style={benefitStyles.premiumBenefitDescription}>{description}</Text>
-      </View>
-    </View>
-  );
-}
-
-function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUpgrade: () => void; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
+function PremiumExportLockedCard({onUpgrade, styles: lockedStyles}: {onUpgrade: () => void; styles: ReturnType<typeof createStyles>}) {
   const {t} = useTranslation();
   return (
     <View style={lockedStyles.premiumExportCard}>
-      <View style={lockedStyles.premiumLockHalo}>
-        <View style={lockedStyles.premiumLockHexagon}>
-          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock-outline" size={27} />
-        </View>
-      </View>
+      <GlassIcon icon="lock-outline" size={52} />
 
       <View style={lockedStyles.premiumPill}>
         <Text style={lockedStyles.premiumPillText}>{t('backupUtility.export.premium.pill')}</Text>
@@ -1145,43 +1118,6 @@ function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUp
       <Text style={lockedStyles.premiumExportDescription}>
         {t('backupUtility.export.premium.description')}
       </Text>
-
-      <View style={lockedStyles.premiumDividerRow}>
-        <View style={lockedStyles.premiumDivider} />
-        <MaterialDesignIcons color={theme.colors.primary} name="crown" size={21} />
-        <View style={lockedStyles.premiumDivider} />
-      </View>
-
-      <View style={lockedStyles.premiumBenefits}>
-        <PremiumExportBenefit
-          description={t('backupUtility.export.premium.benefit1Description')}
-          icon="file-document-outline"
-          styles={lockedStyles}
-          theme={theme}
-          title={t('backupUtility.export.premium.benefit1Title')}
-        />
-        <PremiumExportBenefit
-          description={t('backupUtility.export.premium.benefit2Description')}
-          icon="history"
-          styles={lockedStyles}
-          theme={theme}
-          title={t('backupUtility.export.premium.benefit2Title')}
-        />
-        <PremiumExportBenefit
-          description={t('backupUtility.export.premium.benefit3Description')}
-          icon="shield-check-outline"
-          styles={lockedStyles}
-          theme={theme}
-          title={t('backupUtility.export.premium.benefit3Title')}
-        />
-        <PremiumExportBenefit
-          description={t('backupUtility.export.premium.benefit4Description')}
-          icon="chart-box-outline"
-          styles={lockedStyles}
-          theme={theme}
-          title={t('backupUtility.export.premium.benefit4Title')}
-        />
-      </View>
 
       <AwaButton
         fullWidth

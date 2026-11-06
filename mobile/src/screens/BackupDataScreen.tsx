@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Modal, Pressable, ScrollView, Share, StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {Modal, Pressable, ScrollView, StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
@@ -8,7 +8,7 @@ import {useTranslation} from 'react-i18next';
 import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {backupNow, backupNowForProfile, buildPortableDataJson, buildPortableDataJsonForProfile, formatBytes, getBackupSnapshot, getBackupSnapshotForProfile, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
+import {backupNow, backupNowForProfile, formatBytes, getBackupSnapshot, getBackupSnapshotForProfile, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
 import {dateFormatLocale} from '../utils/cycleMath';
 
@@ -19,30 +19,27 @@ import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaSwitch} from '../components/ui/AwaSwitch';
 import {AwaText} from '../components/ui/AwaText';
+import {SettingsCard} from '../components/profile/SettingsCard';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BackupData'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 function DataRow({
-  icon, title, subtitle, onPress, last, danger, badge, theme, styles,
+  icon, title, subtitle, onPress, danger, theme,
 }: {
-  icon: IconName; title: string; subtitle: string; onPress: () => void; last?: boolean;
-  danger?: boolean; badge?: string; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
+  icon: IconName; title: string; subtitle: string; onPress: () => void;
+  danger?: boolean; theme: ResolvedAwaTheme;
+  /** Accepted for the existing call sites (the rows used to be styled here). */
+  styles?: unknown; last?: boolean; badge?: string;
 }) {
   return (
-    <Pressable onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && styles.pressed]}>
-      <View style={[styles.rowIcon, danger && styles.dangerIcon]}>
-        <MaterialDesignIcons color={danger ? theme.colors.danger : theme.colors.primary} name={icon} size={19} />
-      </View>
-      <View style={styles.rowCopy}>
-        <View style={styles.rowTitleLine}>
-          <AwaText colorRole={danger ? 'error' : 'onSurface'} emphasized style={styles.rowTitle} variant="titleSmall">{title}</AwaText>
-          {badge ? <View style={styles.badge}><AwaText colorRole="primary" emphasized variant="labelSmall">{badge}</AwaText></View> : null}
-        </View>
-        <AwaText colorRole="onSurfaceVariant" style={styles.rowSubtitle} variant="bodySmall">{subtitle}</AwaText>
-      </View>
-      <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-    </Pressable>
+    <SettingsCard
+      description={subtitle}
+      icon={icon}
+      iconColor={danger ? theme.colors.danger : undefined}
+      onPress={onPress}
+      title={title}
+    />
   );
 }
 
@@ -98,18 +95,6 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     setSettings(next);
     await saveBackupSettings(next);
   };
-  const download = async () => {
-    const message = activeIdentity.isManagedProfile
-      ? await buildPortableDataJsonForProfile(activeIdentity.id)
-      : await buildPortableDataJson();
-    await Share.share({
-      title: activeIdentity.isManagedProfile
-        ? t('backupData.shareTitleDaughter', {firstName: daughterFirstName})
-        : t('backupData.shareTitleOwner'),
-      message,
-    });
-  };
-
   // snapshot is parsed straight from AsyncStorage JSON (getBackupSnapshot) —
   // an older/differently-shaped backup blob could carry a missing or
   // malformed createdAt, which used to crash this screen via
@@ -142,54 +127,37 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           </View>
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(70).duration(420)}>
-          <AwaCard style={styles.intro} variant="filled">
-            <MaterialDesignIcons color={theme.colors.primary} name="cloud-lock-outline" size={28} />
-            <View style={styles.introCopy}>
-              <AwaText variant="titleSmall">{t('backupData.introTitle')}</AwaText>
-              <AwaText colorRole="onSurfaceVariant" style={styles.introText} variant="bodySmall">{t('backupData.introText')}</AwaText>
-            </View>
-          </AwaCard>
-        </Animated.View>
-
-        <AwaText style={styles.sectionTitle} variant="titleMedium">{t('backupData.sectionSecureBackup')}</AwaText>
         <Animated.View entering={FadeInUp.delay(130).duration(420)}>
           <AwaCard style={styles.backupCard}>
-          <Pressable onPress={() => setSettingsOpen(true)} style={({pressed}) => [styles.backupTop, pressed && styles.pressed]}>
-            <View style={styles.backupCopy}>
-              <View style={styles.statusLine}>
-                <AwaText emphasized variant="titleSmall">{settings.enabled ? t('backupData.statusEnabled') : t('backupData.statusDisabled')}</AwaText>
-                <View style={styles.localBadge}><AwaText colorRole="success" emphasized variant="labelSmall">{t('backupData.localCopyBadge')}</AwaText></View>
+            <Pressable onPress={() => setSettingsOpen(true)} style={({pressed}) => [styles.backupTop, pressed && styles.pressed]}>
+              <AwaText emphasized style={styles.statusTitle} variant="titleMedium">
+                {settings.enabled ? t('backupData.statusEnabled') : t('backupData.statusDisabled')}
+              </AwaText>
+              <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
+            </Pressable>
+
+            <View style={styles.statRow}>
+              <View style={styles.stat}>
+                <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('backupData.lastBackupLabel')}</AwaText>
+                <AwaText emphasized style={styles.statValue} variant="titleSmall">{backupDate}</AwaText>
               </View>
-              <AwaText colorRole="onSurfaceVariant" style={styles.metaLabel} variant="bodySmall">{t('backupData.lastBackupLabel')}</AwaText>
-              <AwaText emphasized style={styles.metaValue} variant="bodyMedium">{backupDate}</AwaText>
-              <AwaText colorRole="onSurfaceVariant" style={styles.metaLabel} variant="bodySmall">{t('backupData.dataSizeLabel')}</AwaText>
-              <AwaText emphasized style={styles.metaValue} variant="bodyMedium">{snapshot ? formatBytes(snapshot.sizeBytes) : '—'}</AwaText>
+              <View style={styles.stat}>
+                <AwaText colorRole="onSurfaceVariant" variant="labelMedium">{t('backupData.dataSizeLabel')}</AwaText>
+                <AwaText emphasized style={styles.statValue} variant="titleSmall">{snapshot ? formatBytes(snapshot.sizeBytes) : '—'}</AwaText>
+              </View>
             </View>
-            <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-          </Pressable>
-          <View style={styles.separator} />
-          <View style={styles.backupAction}>
-            <View style={styles.actionCopy}>
-              <AwaText emphasized variant="titleSmall">
-                {activeIdentity.isManagedProfile
-                  ? t('backupData.backupNowTitleDaughter', {firstName: daughterFirstName})
-                  : t('backupData.backupNowTitleOwner')}
-              </AwaText>
-              <AwaText colorRole="onSurfaceVariant" style={styles.actionText} variant="bodySmall">
-                {activeIdentity.isManagedProfile
-                  ? t('backupData.backupNowTextDaughter', {firstName: daughterFirstName})
-                  : t('backupData.backupNowTextOwner')}
-              </AwaText>
-            </View>
+
             <AwaButton
               disabled={backingUp}
-              label={t('backupData.backupButton')}
+              fullWidth
+              label={activeIdentity.isManagedProfile
+                ? t('backupData.backupNowTitleDaughter', {firstName: daughterFirstName})
+                : t('backupData.backupNowTitleOwner')}
               loading={backingUp}
               onPress={runBackup}
-              size="compact"
+              size="large"
+              style={styles.backupButton}
             />
-          </View>
           </AwaCard>
         </Animated.View>
 
@@ -212,51 +180,8 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           title={t('portableBackup.entryTitle')}
         />
 
-        <AwaText style={styles.sectionTitle} variant="titleMedium">
-          {activeIdentity.isManagedProfile
-            ? t('backupData.sectionManageDaughter', {firstName: daughterFirstName})
-            : t('backupData.sectionManageOwner')}
-        </AwaText>
-        <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-          <DataRow
-            icon="download-outline" onPress={download} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile
-              ? t('backupData.downloadSubtitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.downloadSubtitleOwner')}
-            title={activeIdentity.isManagedProfile
-              ? t('backupData.downloadTitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.downloadTitleOwner')}
-          />
-          <DataRow
-            badge="PDF / CSV" icon="file-export-outline" onPress={() => navigation.navigate('DataExport')} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile
-              ? t('backupData.exportSubtitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.exportSubtitleOwner')}
-            title={activeIdentity.isManagedProfile
-              ? t('backupData.exportTitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.exportTitleOwner')}
-          />
-          <DataRow
-            danger last icon="delete-outline" onPress={() => navigation.navigate('DeleteTrackedData')} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile
-              ? t('backupData.deleteSubtitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.deleteSubtitleOwner')}
-            title={activeIdentity.isManagedProfile
-              ? t('backupData.deleteTitleDaughter', {firstName: daughterFirstName})
-              : t('backupData.deleteTitleOwner')}
-          />
-        </Animated.View>
-
-        <View style={styles.info}>
-          <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} />
-          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('backupData.infoText')}</AwaText>
-        </View>
-
         {/* Private photo FILES are not part of any backup (only their paths are) — said here as well as in the portable backup. */}
-        <View style={styles.info}>
-          <MaterialDesignIcons color={theme.colors.primary} name="image-off-outline" size={21} />
-          <AwaText colorRole="onSurfaceVariant" style={styles.infoText} variant="bodySmall">{t('portableBackup.photosNote')}</AwaText>
-        </View>
+        <AwaText colorRole="onSurfaceVariant" style={styles.footnote} variant="bodySmall">{t('portableBackup.photosNote')}</AwaText>
       </ScrollView>
 
       <Modal animationType="slide" onRequestClose={() => setSettingsOpen(false)} statusBarTranslucent transparent visible={settingsOpen}>
@@ -317,7 +242,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     introText: {marginTop: 4},
     sectionTitle: {marginTop: 4},
     backupCard: {},
-    backupTop: {flexDirection: 'row', alignItems: 'center'},
+    backupTop: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    statusTitle: {flex: 1},
+    statRow: {flexDirection: 'row', gap: 10, marginTop: 14},
+    stat: {flex: 1, minWidth: 0, padding: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.12), borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary},
+    statValue: {marginTop: 4},
+    backupButton: {marginTop: 14},
+    footnote: {marginTop: 4, textAlign: 'center'},
     backupCopy: {flex: 1, minWidth: 0, marginRight: 12},
     statusLine: {flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8},
     // Generic "on/enabled" status — theme.colors.success.
@@ -328,7 +259,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     backupAction: {flexDirection: 'row', alignItems: 'center'},
     actionCopy: {flex: 1, minWidth: 0, marginRight: 12},
     actionText: {marginTop: 4},
-    card: {overflow: 'hidden', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12, backgroundColor: theme.colors.surface, paddingHorizontal: 12},
+    card: {gap: 8},
     row: {
       minHeight: 65, flexDirection: 'row', alignItems: 'center', borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 12,

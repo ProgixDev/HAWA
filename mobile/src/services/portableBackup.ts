@@ -97,6 +97,7 @@ const FIELD_ENCRYPTION_SERVICES: readonly string[] = [
   'com.hawa.private.intimacy.encryption-key',
   'com.hawa.private.daily-journal.encryption-key',
   'com.hawa.private.contraception-journal.encryption-key',
+  // Legacy (Santé générale was removed): kept so a backup of a device that still holds an old record carries its key.
   'com.hawa.private.general-health.encryption-key',
   'com.hawa.private.irregular-journal.encryption-key',
   'com.hawa.private.menopause-journal.encryption-key',
