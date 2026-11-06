@@ -1147,7 +1147,6 @@ describe('ManagedProfile flow — isolation guards (static source scan)', () => 
     'confirmedPeriodHistoryStore',
     'dailyJournalStore',
     'personalInformationStore',
-    'generalHealthStore',
   ];
 
   it.each(screenFiles)('%s never references AWA à deux partner concepts', fileName => {

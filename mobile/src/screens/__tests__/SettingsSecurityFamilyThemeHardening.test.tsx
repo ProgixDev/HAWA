@@ -14,12 +14,11 @@ import i18n from '../../i18n';
 
 import PinManagementScreen from '../PinManagementScreen';
 import DiscreetLauncherScreen from '../DiscreetLauncherScreen';
-import AnonymousModeScreen from '../AnonymousModeScreen';
 import AboutScreen from '../AboutScreen';
 import {TermsOfUseScreen} from '../LegalDocumentScreen';
 import {FAQScreen} from '../SupportResourcesScreens';
 
-// Settings/Security/PIN/FaceID/Anonymous/Privacy family theme migration.
+// Settings/Security/PIN/FaceID/Privacy family theme migration.
 // Mirrors the established pattern from
 // src/components/journal/__tests__/JournalFamilyThemeHardening.test.tsx and
 // src/components/calendar/__tests__/CalendarFamilyThemeHardening.test.tsx:
@@ -120,12 +119,6 @@ const SETTINGS_SECURITY_SOURCE_FILES: Array<[string, string]> = [
   ['FaceIdSetupScreen', '../FaceIdSetupScreen.tsx'],
   ['DiscreetLauncherScreen', '../DiscreetLauncherScreen.tsx'],
   ['PrivacyScreen', '../PrivacyScreen.tsx'],
-  ['AnonymousModeScreen', '../AnonymousModeScreen.tsx'],
-  ['AnonymousModeLimitationsScreen', '../AnonymousModeLimitationsScreen.tsx'],
-  ['AnonymousModeCreatingScreen', '../AnonymousModeCreatingScreen.tsx'],
-  ['AnonymousModeSuccessScreen', '../AnonymousModeSuccessScreen.tsx'],
-  ['AnonymousAvatarCustomizerScreen', '../AnonymousAvatarCustomizerScreen.tsx'],
-  ['GeneralHealthScreen', '../GeneralHealthScreen.tsx'],
   ['AboutScreen', '../AboutScreen.tsx'],
   ['LegalDocumentScreen (TermsOfUse/PrivacyPolicy)', '../LegalDocumentScreen.tsx'],
   ['SupportResourcesScreens (FAQ/FAQDetail/Guides/WhatsNew)', '../SupportResourcesScreens.tsx'],
@@ -158,7 +151,7 @@ describe('Settings/Security family — static appearance-resolution guard', () =
 /* ============================================================
    RUNTIME THEME PROPAGATION — a representative, reliably-renderable
    screen per family (no route params, no privacy-gating): PIN (C),
-   Anonymous Mode (E), Discreet launcher (F), and the paramless
+   Discreet launcher (F), and the paramless
    Secondary-Settings/info screens (A) including one export from each of
    the two multi-export shared files.
 ============================================================ */
@@ -167,7 +160,6 @@ type SettingsCase = {name: string; render: () => React.ReactElement};
 
 const SCREENS: SettingsCase[] = [
   {name: 'PIN — PinManagementScreen', render: () => <PinManagementScreen navigation={{} as any} route={{} as any} />},
-  {name: 'Anonymous Mode — AnonymousModeScreen', render: () => <AnonymousModeScreen navigation={{} as any} route={{params: undefined} as any} />},
   {name: 'Discreet launcher — DiscreetLauncherScreen', render: () => <DiscreetLauncherScreen navigation={{} as any} route={{} as any} />},
   {name: 'Secondary Settings — AboutScreen', render: () => <AboutScreen navigation={{} as any} route={{} as any} />},
   {name: 'Secondary Settings (shared file) — TermsOfUseScreen', render: () => <TermsOfUseScreen navigation={{} as any} route={{} as any} />},

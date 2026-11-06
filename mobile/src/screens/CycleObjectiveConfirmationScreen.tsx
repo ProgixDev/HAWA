@@ -27,8 +27,6 @@ import {buildObjectiveConfirmationContent} from '../data/objectiveConfirmationCo
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaButton} from '../components/ui/AwaButton';
-import {AwaCard} from '../components/ui/AwaCard';
-import {AwaText} from '../components/ui/AwaText';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -49,6 +47,10 @@ function CycleObjectiveConfirmationScreen({
     () => buildObjectiveConfirmationContent(t)[objective],
     [t, objective],
   );
+
+  // The translated titles end with an emoji ("Parfait ! 🎉"): the screen shows the plain text, in line with the line-icon language of the
+  // onboarding. The translations themselves are untouched.
+  const title = content.title.replace(/[\s\u2600-\u27BF\uFE0F\u200D\u{1F300}-\u{1FAFF}]+$/u, '');
 
   /*
    * The "loss" objective uses a calmer animation:
@@ -73,9 +75,6 @@ function CycleObjectiveConfirmationScreen({
     useRef(new Animated.Value(0)).current;
 
   const descriptionAnim =
-    useRef(new Animated.Value(0)).current;
-
-  const detailAnim =
     useRef(new Animated.Value(0)).current;
 
   const buttonAnim =
@@ -104,7 +103,6 @@ function CycleObjectiveConfirmationScreen({
           checkAnim.setValue(1);
           titleAnim.setValue(1);
           descriptionAnim.setValue(1);
-          detailAnim.setValue(1);
           buttonAnim.setValue(1);
 
           return;
@@ -193,16 +191,6 @@ function CycleObjectiveConfirmationScreen({
             ),
 
             Animated.timing(
-              detailAnim,
-              {
-                toValue: 1,
-                duration: 370,
-                easing: easeOut,
-                useNativeDriver: true,
-              },
-            ),
-
-            Animated.timing(
               buttonAnim,
               {
                 toValue: 1,
@@ -224,7 +212,6 @@ function CycleObjectiveConfirmationScreen({
     buttonAnim,
     checkAnim,
     descriptionAnim,
-    detailAnim,
     gentle,
     pageAnim,
     successAnim,
@@ -366,31 +353,6 @@ function CycleObjectiveConfirmationScreen({
     ],
   };
 
-  const detailStyle = {
-    opacity: detailAnim,
-
-    transform: [
-      {
-        translateY:
-          detailAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [13, 0],
-          }),
-      },
-
-      {
-        scale:
-          detailAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [
-              0.985,
-              1,
-            ],
-          }),
-      },
-    ],
-  };
-
   const buttonStyle = {
     opacity: buttonAnim,
 
@@ -511,9 +473,7 @@ function CycleObjectiveConfirmationScreen({
                           }>
                           <MaterialDesignIcons
                             color={
-                              gentle
-                                ? theme.colors.primary
-                                : theme.colors.success
+                              theme.colors.primary
                             }
                             name={
                               gentle
@@ -542,11 +502,11 @@ function CycleObjectiveConfirmationScreen({
                   styles.title,
                   titleStyle,
                 ]}>
-                {content.title}
+                {title}
               </Animated.Text>
 
               {/* =============================================
-                  DESCRIPTION
+                  ONE SHORT SENTENCE
               ============================================= */}
 
               <Animated.Text
@@ -554,27 +514,8 @@ function CycleObjectiveConfirmationScreen({
                   styles.lead,
                   descriptionStyle,
                 ]}>
-                {content.description}
+                {t('objectiveConfirmation.changeAnytime')}
               </Animated.Text>
-
-              {/* =============================================
-                  NEXT STEP
-                  BORDER KEPT — NO WHITE BACKGROUND
-              ============================================= */}
-
-              <Animated.View
-                style={[
-                  styles.detailCard,
-                  detailStyle,
-                ]}>
-                <AwaCard padding="default" variant="filled">
-                  <AwaText
-                    colorRole="onSurfaceVariant"
-                    variant="bodyMedium">
-                    {content.nextStep}
-                  </AwaText>
-                </AwaCard>
-              </Animated.View>
             </View>
 
             {/* ===============================================
@@ -714,19 +655,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderRadius: 38,
 
-      shadowColor:
-        theme.shadow.shadowColor,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.12,
-
-      shadowRadius: 12,
-
-      elevation: 4,
       backgroundColor: theme.colors.surface,
     },
 
@@ -772,18 +700,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       textAlign: 'center',
     },
-
-    /* ========================================================
-       NEXT STEP
-    ======================================================== */
-
-    detailCard: {
-      width: '100%',
-
-      marginTop: 27,
-    },
-
-
 
     /* ========================================================
        CTA

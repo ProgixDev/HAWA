@@ -10,7 +10,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
-import {getPrivacySecuritySettings, updatePrivacySecuritySettings} from '../../state/securityPreferences';
+import {getHasCompletedOnboarding} from '../../state/onboardingPreferences';
 
 import AuthScreen from '../AuthScreen';
 import RegistrationScreen from '../RegistrationScreen';
@@ -94,9 +94,6 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
-  // anonymousMode is a module-level singleton (state/securityPreferences.ts)
-  // that otherwise leaks between tests.
-  updatePrivacySecuritySettings({anonymousMode: false});
   // PHASE 7M: the app's default language is now English (not French) — this
   // file's assertions ('Créer mon compte', 'Se connecter', etc.) were written
   // against the French default. Pinning French here preserves every test's
@@ -324,13 +321,11 @@ describe('Auth family — form/behavior untouched', () => {
 ============================================================ */
 
 describe('RegistrationScreen — accessibility parity with AuthScreen (Phase 3 fix)', () => {
-  it('password and confirm-password visibility toggles each expose a distinguishing accessibilityLabel and role', async () => {
+  it('the password visibility toggle exposes a distinguishing accessibilityLabel and role (the form has no confirm-password field any more)', async () => {
     const renderer = await renderScreen(RegistrationScreen, 'Registration');
     const passwordToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Mot de passe'});
     expect(passwordToggle.props.accessibilityRole).toBe('button');
-
-    const confirmToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Confirmer le mot de passe'});
-    expect(confirmToggle.props.accessibilityRole).toBe('button');
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'Afficher : Confirmer le mot de passe'})).toHaveLength(0);
   });
 
   it('tapping a visibility toggle flips its label between Afficher/Masquer', async () => {
@@ -473,8 +468,7 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     }
   });
 
-  it('Login: "Se connecter" clears a stale anonymousMode left over from a previous Anonymous Mode session', async () => {
-    updatePrivacySecuritySettings({anonymousMode: true});
+  it('Login: "Se connecter" enters the app and records that onboarding is complete', async () => {
     const renderer = await renderScreen(AuthScreen, 'Auth');
 
     const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
@@ -483,11 +477,10 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     });
 
     expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-    expect(getPrivacySecuritySettings().anonymousMode).toBe(false);
+    expect(getHasCompletedOnboarding()).toBe(true);
   });
 
-  it('Registration: the final "Créer mon compte" CTA clears a stale anonymousMode left over from a previous Anonymous Mode session', async () => {
-    updatePrivacySecuritySettings({anonymousMode: true});
+  it('Registration: the final "Créer mon compte" CTA enters the app and records that onboarding is complete', async () => {
     const renderer = await renderScreen(RegistrationScreen, 'Registration');
 
     const submitLabel = renderer.root.findAllByProps({children: 'Créer mon compte'})[0];
@@ -496,7 +489,7 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     });
 
     expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-    expect(getPrivacySecuritySettings().anonymousMode).toBe(false);
+    expect(getHasCompletedOnboarding()).toBe(true);
   });
 
   it('navigation does not loop back to Auth after entering MainTabs (no auth guard re-routes)', async () => {

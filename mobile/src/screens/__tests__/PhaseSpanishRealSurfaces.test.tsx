@@ -179,7 +179,6 @@ jest.mock('../../state/securityPreferences', () => {
       hideNotificationPreview: false,
       intimacyProtection: true,
       privateContentProtection: true,
-      anonymousMode: false,
     }),
   };
 });
@@ -268,7 +267,6 @@ beforeEach(async () => {
     hideNotificationPreview: false,
     intimacyProtection: true,
     privateContentProtection: true,
-    anonymousMode: false,
   });
 });
 
@@ -306,12 +304,13 @@ describe('PART A/2 — Home (CycleHomeScreen) renders genuine Spanish', () => {
 });
 
 describe('PART A/3 — Calendar (CalendarScreen, via the shared CalendarHeader) renders genuine Spanish', () => {
-  it('shows the Spanish calendar subtitle "Sigue tu ciclo con toda sencillez ✨"', async () => {
+  it('shows the Spanish calendar title, without the old subtitle', async () => {
     await switchToSpanish();
     const renderer = await renderScreen(
       <CalendarScreen navigation={{navigate: jest.fn()} as never} route={{key: 'k', name: 'Calendar'} as never} />,
     );
-    expect(textsOf(renderer)).toContain('Sigue tu ciclo con toda sencillez ✨');
+    expect(textsOf(renderer)).toContain('Calendario');
+    expect(textsOf(renderer)).not.toContain('Sigue tu ciclo con toda sencillez ✨');
   });
 
   // SPANISH CALENDAR / DATE LOCALIZATION — the month header and weekday row
@@ -540,7 +539,6 @@ describe('PART A/17 — Notification copy (pregnancyNotifications.ts) resolves g
       hideNotificationPreview: false,
       intimacyProtection: true,
       privateContentProtection: true,
-      anonymousMode: false,
     });
 
     // The REAL scheduleLocalNotification (not mocked in this file) — only

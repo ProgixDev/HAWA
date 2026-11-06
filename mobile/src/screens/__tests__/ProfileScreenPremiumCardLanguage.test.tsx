@@ -10,7 +10,6 @@ import ProfileScreen from '../ProfileScreen';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppLanguage, setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {resetActiveProfileForTests} from '../../state/activeProfileStore';
 import {hasPremiumArticles} from '../../data/libraryContent';
@@ -93,7 +92,6 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
-  updatePrivacySecuritySettings({anonymousMode: false});
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   await selectLanguage('fr');

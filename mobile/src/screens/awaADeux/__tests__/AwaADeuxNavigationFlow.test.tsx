@@ -25,7 +25,6 @@ import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, setSharingToggle} from '../../../
 import {clearAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
-import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
 import i18n from '../../../i18n';
 
@@ -192,7 +191,6 @@ beforeEach(async () => {
   for (const key of SHARING_KEYS) {await setSharingToggle(key, DEFAULT_SHARING_TOGGLES[key]);}
   await setSelectedObjective('cycle');
   resetPremiumStateForTests();
-  updatePrivacySecuritySettings({anonymousMode: false});
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);

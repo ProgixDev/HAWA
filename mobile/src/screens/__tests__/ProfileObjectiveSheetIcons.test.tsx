@@ -10,7 +10,6 @@ import ProfileScreen from '../ProfileScreen';
 import {OBJECTIVE_ICONS} from '../../components/onboarding/ObjectiveIcon';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../state/themePreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {getActiveObjective, setSelectedObjective, type ObjectiveId} from '../../state/onboardingPreferences';
 import {resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {resetActiveProfileForTests} from '../../state/activeProfileStore';
@@ -73,7 +72,6 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
-  updatePrivacySecuritySettings({anonymousMode: false});
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   await setAppLanguage('fr');

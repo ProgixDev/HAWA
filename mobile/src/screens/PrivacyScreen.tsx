@@ -20,17 +20,18 @@ import {
 } from '../theme/awaThemeTokens';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaText} from '../components/ui/AwaText';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-type Guarantee = {icon: IconName; titleKey: string; descriptionKey: string};
+type Guarantee = {icon: IconName; titleKey: string};
 
 const guarantees: Guarantee[] = [
-  {icon: 'cash-off', titleKey: 'privacyScreen.guarantees.noResaleTitle', descriptionKey: 'privacyScreen.guarantees.noResaleDescription'},
-  {icon: 'lock-outline', titleKey: 'privacyScreen.guarantees.fullControlTitle', descriptionKey: 'privacyScreen.guarantees.fullControlDescription'},
-  {icon: 'database-lock-outline', titleKey: 'privacyScreen.guarantees.noExportTitle', descriptionKey: 'privacyScreen.guarantees.noExportDescription'},
-  {icon: 'shield-lock-outline', titleKey: 'privacyScreen.guarantees.encryptedTitle', descriptionKey: 'privacyScreen.guarantees.encryptedDescription'},
+  {icon: 'cash-off', titleKey: 'privacyScreen.guarantees.noResaleTitle'},
+  {icon: 'lock-outline', titleKey: 'privacyScreen.guarantees.fullControlTitle'},
+  {icon: 'database-lock-outline', titleKey: 'privacyScreen.guarantees.noExportTitle'},
+  {icon: 'shield-lock-outline', titleKey: 'privacyScreen.guarantees.encryptedTitle'},
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Privacy'>;
@@ -80,21 +81,11 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
             {guarantees.map((item, index) => (
               <View key={item.titleKey}>
                 <View style={styles.guaranteeRow}>
-                  <View style={styles.iconContainer}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name={item.icon}
-                      size={28}
-                    />
-                  </View>
+                  <GlassIcon icon={item.icon} size={48} />
 
                   <View style={styles.guaranteeCopy}>
                     <AwaText variant="titleSmall">
                       {t(item.titleKey)}
-                    </AwaText>
-
-                    <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-                      {t(item.descriptionKey)}
                     </AwaText>
                   </View>
                 </View>
@@ -104,83 +95,6 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
                 ) : null}
               </View>
             ))}
-          </AwaCard>
-
-          <AwaCard style={styles.commitmentCard} variant="filled">
-            <View style={styles.commitmentHeader}>
-              <View style={styles.commitmentIcon}>
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="shield-check-outline"
-                  size={28}
-                />
-              </View>
-
-              <View style={styles.commitmentCopy}>
-                <AwaText variant="titleMedium">
-                  {t('privacyScreen.commitmentTitle')}
-                </AwaText>
-
-                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-                  {t('privacyScreen.commitmentSubtitle')}
-                </AwaText>
-              </View>
-            </View>
-
-            <View style={styles.commitmentList}>
-              <View style={styles.commitmentItem}>
-                <View style={styles.bulletSlot}>
-                  <View style={styles.bullet} />
-                </View>
-                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
-                  {t('privacyScreen.commitmentFullControl')}
-                </AwaText>
-              </View>
-              <View style={styles.commitmentItem}>
-                <View style={styles.bulletSlot}>
-                  <View style={styles.bullet} />
-                </View>
-                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
-                  {t('privacyScreen.commitmentNoExport')}
-                </AwaText>
-              </View>
-              <View style={styles.commitmentItem}>
-                <View style={styles.bulletSlot}>
-                  <View style={styles.bullet} />
-                </View>
-                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
-                  {t('privacyScreen.commitmentNoInternalAccess')}
-                </AwaText>
-              </View>
-              <View style={styles.commitmentItem}>
-                <View style={styles.bulletSlot}>
-                  <View style={styles.bullet} />
-                </View>
-                <AwaText colorRole="onSurfaceVariant" style={styles.commitmentText} variant="bodyMedium">
-                  {t('privacyScreen.commitmentIdentityEncrypted')}
-                </AwaText>
-              </View>
-            </View>
-          </AwaCard>
-
-          <AwaCard padding="compact" style={styles.preferenceCard} variant="filled">
-            <View>
-              <MaterialDesignIcons
-                color={theme.colors.primary}
-                name="account-cog-outline"
-                size={28}
-              />
-            </View>
-
-            <View style={styles.preferenceCopy}>
-              <AwaText variant="titleSmall">
-                {t('privacyScreen.freedomTitle')}
-              </AwaText>
-
-              <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-                {t('privacyScreen.freedomText')}
-              </AwaText>
-            </View>
           </AwaCard>
 
           <View style={styles.spacer} />
@@ -242,18 +156,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   guaranteeRow: {
-    minHeight: 84,
+    minHeight: 60,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-  },
-
-  iconContainer: {
-    width: 48,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   guaranteeCopy: {

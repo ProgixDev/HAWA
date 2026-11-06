@@ -57,6 +57,7 @@ import {
 
 import {
   getAppLanguage,
+  getAppLanguageMode,
   setAppLanguage,
   setAppearanceMode,
   setSelectedThemeId,
@@ -1058,6 +1059,7 @@ function LanguageBottomSheet({
   theme,
 }: {
   visible: boolean;
+  /** The language in force (while AWA follows the phone this is the phone's language, so its card is the selected one). */
   currentLanguage: AwaAppLanguage;
   onClose: () => void;
   onApply: (language: AwaAppLanguage) => void;
@@ -1203,17 +1205,23 @@ export default function AppearanceScreen({
   // already live in — already hydrated by AwaThemeProvider's own
   // hydrateAppearancePreferences() call before this screen can mount.
   const [appLanguage, setAppLanguageState] = useState<AwaAppLanguage>(getAppLanguage);
+  const [languageMode, setLanguageModeState] = useState(getAppLanguageMode);
   const [languageSheetVisible, setLanguageSheetVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = subscribeThemePreferences(() => {
       setAppLanguageState(getAppLanguage());
+      setLanguageModeState(getAppLanguageMode());
     });
     return unsubscribe;
   }, []);
 
   const handleApplyLanguage = (language: AwaAppLanguage): void => {
-    setAppLanguage(language).catch(() => {});
+    // While AWA follows the phone, its language's card is already the selected one: applying that same card changes nothing and keeps AWA
+    // following the phone. Any other card is a deliberate choice (manual mode).
+    if (!(languageMode === 'auto' && language === appLanguage)) {
+      setAppLanguage(language).catch(() => {});
+    }
     setLanguageSheetVisible(false);
   };
 

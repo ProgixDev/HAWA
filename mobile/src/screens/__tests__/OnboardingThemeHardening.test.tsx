@@ -213,7 +213,7 @@ describe('ObjectiveScreen — resolved global theme', () => {
 
   it('lists the eight objectives with their outlined icons, coloured from the theme', async () => {
     const renderer = await renderScreen(() => <ObjectiveScreen navigation={{} as any} route={{params: undefined} as any} />);
-    const names = ['calendar-month-outline', 'dna', 'plus-circle-outline', 'chart-line-variant', 'face-woman-shimmer-outline', 'human-pregnant', 'human-female-girl', 'sprout-outline'];
+    const names = ['calendar-month-outline', 'heart-plus-outline', 'plus-circle-outline', 'chart-line-variant', 'face-woman-shimmer-outline', 'baby-face-outline', 'baby-bottle-outline', 'sprout-outline'];
     const icons = names.map(name => renderer.root.findAll(node => node.props.name === name && node.props.size === 26)[0]);
     icons.forEach(icon => expect(icon).toBeDefined());
     const before = icons[0].props.color as string;

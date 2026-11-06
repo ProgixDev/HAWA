@@ -97,11 +97,17 @@ export function getTrueBlackEnabled(): boolean {
 export type AwaAppLanguage = 'fr' | 'en' | 'en-US' | 'es' | 'it' | 'tr' | 'ru' | 'de' | 'zh' | 'zh-Hant' | 'id' | 'hi' | 'sq' | 'ja' | 'ko' | 'pt-PT' | 'pt-BR' | 'bn' | 'da' | 'sv' | 'nb' | 'pl' | 'uk' | 'cs' | 'sk' | 'hu' | 'ro' | 'bg' | 'sr' | 'hr' | 'bs' | 'sl' | 'ne' | 'si' | 'th' | 'vi' | 'uz' | 'az' | 'ka' | 'hy' | 'tg' | 'ky' | 'tk' | 'ms' | 'so' | 'sw' | 'kk' | 'wo' | 'ha' | 'am' | 'nl' | 'fi' | 'el' | 'fil' | 'ta' | 'te' | 'mr' | 'gu' | 'pa' | 'my' | 'km' | 'lo' | 'ar' | 'kab' | 'om' | 'ti' | 'rw' | 'rn' | 'ig' | 'yo' | 'zu' | 'xh' | 'sn' | 'ln' | 'ff';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
-// FIRST LAUNCH: with no stored language AWA detects the phone's preferred language ONCE (see hydrateAppearancePreferences),
-// uses it when it is one of the thirteen supported languages, English otherwise, and stores the result as the user's language.
-// From then on the stored value is the only source of truth: the phone's language is never read again, so changing it later
-// never overrides the language AWA already has. English is the fallback of that one detection, not a second mode.
-// The paragraph below is the earlier (PHASE 7M) rule and still describes what a stored value does.
+const LANGUAGE_MODE_STORAGE_KEY = '@awa/appearance/language-mode-v1';
+// TWO MODES (languageMode, stored under LANGUAGE_MODE_STORAGE_KEY):
+//   'auto'   — AWA follows the phone. The phone's preferred languages are read again at EVERY launch and whenever the app comes back to the
+//              foreground (refreshAppLanguageFromDevice, see i18n/appLanguage.ts), resolved against the supported languages (regional variants
+//              included, English when none matches) and applied. The resolved language is also written under LANGUAGE_STORAGE_KEY, but only as
+//              a cache: it is what AWA shows if the phone cannot be read in time, never a choice of the user.
+//   'manual' — the language the user picked in Appearance (setAppLanguage). It is persisted and never overwritten by the phone's language.
+// Choosing "Automatique" in Appearance goes back to 'auto' (setAppLanguageAuto).
+// An install from before the two modes (a stored language and no stored mode) is classified once: when the stored language is what the phone
+// resolves to now it was the detected one (the old first-launch detection) and becomes 'auto'; when it differs it is treated as a deliberate
+// choice and becomes 'manual', so nobody's language changes under them at the update.
 // PHASE 7M: English is now AWA's default/fallback language — a brand-new
 // install, or any install with no (or an invalid) persisted value, must land
 // on English, never French. French remains fully supported: an explicitly
@@ -495,11 +501,11 @@ export function pickSupportedLanguage(tags: readonly unknown[]): AwaAppLanguage 
   return DEFAULT_APP_LANGUAGE;
 }
 
-// The app language is ONE value, persisted under LANGUAGE_STORAGE_KEY: the language the user picked in the Appearance
-// language sheet, or — until she picks one — the language resolved from the phone at the first launch and stored then.
-// There is no "follow the system" mode: the phone's language is consulted only when nothing usable is stored.
+// The app language is ONE value (appLanguage) plus the mode that says who decides it (languageMode, see the comment on the keys above).
 let appLanguage: AwaAppLanguage = DEFAULT_APP_LANGUAGE;
-// True once setAppLanguage() ran in this session: a manual choice that lands while the first-launch detection is still
+export type AwaLanguageMode = 'auto' | 'manual';
+let languageMode: AwaLanguageMode = 'auto';
+// True once setAppLanguage() ran in this session: a manual choice that lands while the start-up detection is still
 // being read must not be overwritten by the detection's result.
 let appLanguageChosen = false;
 
@@ -540,36 +546,47 @@ export function hydrateAppearancePreferences(): Promise<void> {
       AsyncStorage.getItem(MODE_STORAGE_KEY),
       AsyncStorage.getItem(TRUE_BLACK_STORAGE_KEY),
       AsyncStorage.getItem(LANGUAGE_STORAGE_KEY),
+      AsyncStorage.getItem(LANGUAGE_MODE_STORAGE_KEY),
     ])
-      .then(async ([storedMode, storedTrueBlack, storedLanguage]) => {
+      .then(async ([storedMode, storedTrueBlack, storedLanguage, storedMode2]) => {
         if (isValidAppearanceMode(storedMode)) {
           appearanceMode = storedMode;
         }
         trueBlackEnabled = storedTrueBlack === 'true';
-        // A stored language is the user's language: it is used as it is and the phone is never asked. Nothing usable stored
-        // — a first launch, an install that left the (removed) "System default" option on, which was never a stored value but
-        // the absence of one, or a value that is not a supported language (a legacy 'system' marker, junk) — is resolved
-        // now, ONCE: the phone's first supported preferred language, English when none is supported, and stored as the
-        // user's language. Her other settings are not touched, and nothing here triggers onboarding.
+        const storedLanguageMode = storedMode2 === 'auto' || storedMode2 === 'manual' ? storedMode2 : null;
         const normalized = normalizeAppLanguage(storedLanguage);
-        if (normalized) {
-          if (!appLanguageChosen) {
-            appLanguage = normalized;
-          }
+        if (appLanguageChosen) {
+          // a manual choice landed while the stores were being read: it wins, and is already persisted by setAppLanguage()
+        } else if (storedLanguageMode === 'manual' && normalized) {
+          languageMode = 'manual';
+          appLanguage = normalized;
           if (normalized !== storedLanguage) {
             // an alias (zh-CN / zh-Hans): keep the preference, rewrite it under the canonical code
             AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, normalized).catch(() => {});
           }
         } else {
-          // Resolved BEFORE this promise settles, so whoever awaits the hydration (the app's start-up gate) renders its
-          // first screen already in the right language.
+          // The phone is asked (before this promise settles, so the start-up gate renders its first screen in the right language).
           const detected = await detectSystemLanguage();
           if (!appLanguageChosen) {
-            appLanguage = detected ?? DEFAULT_APP_LANGUAGE;
-            // Only a phone language that WAS read is stored. A read that failed or timed out says nothing about the phone:
-            // English is used for this session but not frozen as her language, so the next launch detects again.
-            if (detected !== null) {
-              await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, detected).catch(() => {});
+            if (storedLanguageMode === null && normalized && detected !== normalized) {
+              // from before the two modes, and not what the phone resolves to: a deliberate choice — kept as it is
+              languageMode = 'manual';
+              appLanguage = normalized;
+              await AsyncStorage.setItem(LANGUAGE_MODE_STORAGE_KEY, 'manual').catch(() => {});
+              if (normalized !== storedLanguage) {
+                await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, normalized).catch(() => {});
+              }
+            } else {
+              languageMode = 'auto';
+              // A read that failed or timed out says nothing about the phone: the cached language (else English) is used for this
+              // session and the next launch detects again.
+              appLanguage = detected ?? normalized ?? DEFAULT_APP_LANGUAGE;
+              if (storedLanguageMode !== 'auto') {
+                await AsyncStorage.setItem(LANGUAGE_MODE_STORAGE_KEY, 'auto').catch(() => {});
+              }
+              if (detected !== null && detected !== storedLanguage) {
+                await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, detected).catch(() => {});
+              }
             }
           }
         }
@@ -597,19 +614,68 @@ export async function setTrueBlackEnabled(enabled: boolean): Promise<void> {
   await AsyncStorage.setItem(TRUE_BLACK_STORAGE_KEY, enabled ? 'true' : 'false').catch(() => {});
 }
 
-/** The user's choice: persisted, and the language AWA keeps from now on, whatever the phone's language does. */
+/** The user's choice: switches to the manual mode, persisted, and the language AWA keeps from now on, whatever the phone's language does. */
 export async function setAppLanguage(language: AwaAppLanguage): Promise<void> {
   appLanguageChosen = true;
+  languageMode = 'manual';
   appLanguage = language;
   notify();
-  await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language).catch(() => {});
+  await Promise.all([
+    AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language).catch(() => {}),
+    AsyncStorage.setItem(LANGUAGE_MODE_STORAGE_KEY, 'manual').catch(() => {}),
+  ]);
+}
+
+export function getAppLanguageMode(): AwaLanguageMode {
+  return languageMode;
+}
+
+let deviceRefresh: Promise<boolean> | null = null;
+
+/**
+ * Re-reads the phone's language and applies it. Does nothing in the manual mode. Returns true when the app language changed. One read at a
+ * time; an unreadable phone changes nothing; the language is only written / notified when it really differs, so a refresh that finds the same
+ * language costs no re-render.
+ */
+export function refreshAppLanguageFromDevice(): Promise<boolean> {
+  if (languageMode !== 'auto') {
+    return Promise.resolve(false);
+  }
+  if (!deviceRefresh) {
+    deviceRefresh = (async () => {
+      const detected = await detectSystemLanguage();
+      // the mode may have become manual while the phone was being read
+      if (languageMode !== 'auto' || detected === null || detected === appLanguage) {
+        return false;
+      }
+      appLanguage = detected;
+      notify();
+      await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, detected).catch(() => {});
+      return true;
+    })().finally(() => {
+      deviceRefresh = null;
+    });
+  }
+  return deviceRefresh;
+}
+
+/** Back to the automatic mode: AWA follows the phone again, starting now. */
+export async function setAppLanguageAuto(): Promise<void> {
+  appLanguageChosen = false;
+  languageMode = 'auto';
+  notify();
+  await AsyncStorage.setItem(LANGUAGE_MODE_STORAGE_KEY, 'auto').catch(() => {});
+  await refreshAppLanguageFromDevice();
 }
 
 /** Test-only reset — mirrors the reset helpers other AsyncStorage-backed
  * stores in this codebase expose for test isolation. */
 export async function resetAppLanguageForTests(): Promise<void> {
   appLanguageChosen = false;
+  languageMode = 'auto';
+  deviceRefresh = null;
   appLanguage = DEFAULT_APP_LANGUAGE;
   notify();
   await AsyncStorage.removeItem(LANGUAGE_STORAGE_KEY).catch(() => {});
+  await AsyncStorage.removeItem(LANGUAGE_MODE_STORAGE_KEY).catch(() => {});
 }

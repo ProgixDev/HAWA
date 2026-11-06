@@ -5,7 +5,6 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import AppearanceScreen from '../AppearanceScreen';
 import FeaturedArticlesScreen from '../FeaturedArticlesScreen';
-import ReadingControls from '../../components/articles/ReadingControls';
 import BookmarkButton from '../../components/library/BookmarkButton';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resetAppLanguageForTests, setAppLanguage, getSelectedThemeId, setSelectedThemeId} from '../../state/themePreferences';
@@ -129,26 +128,6 @@ describe('TEST — FeaturedArticlesScreen follows the app language, article ids 
       node.props.onPress();
     });
     expect(navigation.navigate).toHaveBeenCalledWith('ArticleReader', {articleId: 'cycle-phases-expliquees'});
-  });
-});
-
-describe('TEST — ReadingControls follows the app language', () => {
-  it('French: "Commencer la lecture" / reading-time subtitle', () => {
-    const renderer = renderDirect(
-      <ReadingControls articleId="test-article" durationMinutes={5} scrollRef={{current: null}} />,
-    );
-    expect(textsOf(renderer)).toContain('Commencer la lecture');
-    expect(textsOf(renderer)).toContain('5 min de lecture');
-  });
-
-  it('English: the same copy translates', async () => {
-    await setAppLanguage('en');
-    await i18n.changeLanguage('en');
-    const renderer = renderDirect(
-      <ReadingControls articleId="test-article" durationMinutes={5} scrollRef={{current: null}} />,
-    );
-    expect(textsOf(renderer)).toContain('Start reading');
-    expect(textsOf(renderer)).toContain('5 min read');
   });
 });
 

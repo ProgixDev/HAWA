@@ -113,10 +113,10 @@ describe('PrivacySecurityScreen — resolved global theme', () => {
     expect(statusBar().props.barStyle).toBe('light-content');
   });
 
-  it('preserves the destructive "Delete my account" row', async () => {
+  it('lists "Mes données" (view, export and deletion moved into that screen)', async () => {
     const renderer = await renderWithNavigation(PrivacySecurityScreen);
-    // Default app language is English (Phase 7M); this row is i18n-driven.
-    expect(renderer.root.findAll(node => node.props.children === 'Delete my account').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Mes données').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Delete my account').length).toBe(0);
   });
 });
 
@@ -195,8 +195,8 @@ describe('DataManagementScreen / DeleteAccountScreen — resolved global theme, 
   it('DataManagementScreen renders with resolved theme', async () => {
     const navigation = {goBack: jest.fn()};
     const renderer = await renderStandalone(DataManagementScreen as never, navigation);
-    // Default app language is English (Phase 7M) — title is now i18n-driven.
-    expect(renderer.root.findAll(node => node.props.children === 'Data management').length).toBeGreaterThan(0);
+    // The "Mes données" screen's wording is French (passed with a French defaultValue, not yet in the dictionaries).
+    expect(renderer.root.findAll(node => node.props.children === 'Mes données').length).toBeGreaterThan(0);
   });
 
   it('DeleteAccountScreen preserves the DELETE confirmation and stays destructive', async () => {
@@ -220,20 +220,15 @@ describe('DataPrivacyScreens — FR/EN/ES localization (destructive confirmation
     await i18n.changeLanguage('en');
   });
 
-  it('DataManagementScreen renders fully in French, English and Spanish, never leaking another language', async () => {
-    for (const [language, title, hero, exportTitle] of [
-      ['fr', 'Gestion des données', 'Tes données AWA', 'Exporter mes données'],
-      ['en', 'Data management', 'Your AWA data', 'Export my data'],
-      ['es', 'Gestión de datos', 'Tus datos AWA', 'Exportar mis datos'],
-    ] as const) {
-      await setAppLanguage(language);
-      await i18n.changeLanguage(language);
-      const renderer = await renderStandalone(DataManagementScreen as never, {goBack: jest.fn()});
-      const texts = renderer.root.findAllByType(require('react-native').Text).map(node => [node.props.children].flat(Infinity).join(''));
-      expect(texts).toContain(title);
-      expect(texts).toContain(hero);
-      expect(texts).toContain(exportTitle);
-    }
+  it('"Mes données" without an account: local-only wording, no online-backup promise while the feature flag is off', async () => {
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+    const renderer = await renderStandalone(DataManagementScreen as never, {goBack: jest.fn(), navigate: jest.fn()});
+    const texts = renderer.root.findAllByType(require('react-native').Text).map(node => [node.props.children].flat(Infinity).join(''));
+    expect(texts).toEqual(expect.arrayContaining(['Mes données', 'Tout reste sur ton téléphone', 'Aucun compte', 'Voir mes données', 'Exporter mes données', 'Supprimer mes données']));
+    expect(texts).not.toContain('Pour sauvegarder tes données en ligne.');
+    expect(texts).not.toContain('Se déconnecter');
+    expect(texts).not.toContain('Supprimer mon compte');
   });
 
   it.each([

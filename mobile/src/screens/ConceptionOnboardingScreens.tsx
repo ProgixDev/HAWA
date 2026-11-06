@@ -39,6 +39,7 @@ import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaSwitch} from '../components/ui/AwaSwitch';
+import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaText} from '../components/ui/AwaText';
 
 /* ============================================================
@@ -168,10 +169,6 @@ function indicatorOptionsFor(t: (key: string) => string): Array<{
 // (product decision) — "Rapports" itself is still tracked in the Journal
 // quotidien exactly as before, this only removes its automatic reminder.
 //
-// NOTE (theme migration): `accent`/`background` below are a deliberate
-// per-item DECORATIVE icon-tint palette (category-identity accents) — left
-// as fixed literals verbatim per the theme-migration rules, never mapped to
-// theme tokens.
 // fertileWindow/estimatedOvulation/dailyJournal/temperature/lhTest labels
 // reuse the canonical cyclePhase.fertile / journalCycleEvolution.phase.ovulation
 // / cycleHome.quickActions.dailyJournal / journalTemperature.title /
@@ -183,8 +180,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
   description: string;
   detail: string;
   icon: IconName;
-  accent: string;
-  background: string;
 }> {
   return [
     {
@@ -193,8 +188,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
       description: t('conceptionOnboarding.reminders.options.fertileWindow.description'),
       detail: t('conceptionOnboarding.reminders.options.fertileWindow.detail'),
       icon: 'sprout',
-      accent: '#D94D91',
-      background: '#FCE8F2',
     },
     {
       id: 'estimated_ovulation',
@@ -202,8 +195,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
       description: t('conceptionOnboarding.reminders.options.estimatedOvulation.description'),
       detail: t('conceptionOnboarding.reminders.options.estimatedOvulation.detail'),
       icon: 'target',
-      accent: '#C94A93',
-      background: '#FBE9F4',
     },
     {
       id: 'daily_journal',
@@ -211,8 +202,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
       description: t('conceptionOnboarding.reminders.options.dailyJournal.description'),
       detail: t('conceptionOnboarding.reminders.options.dailyJournal.detail'),
       icon: 'notebook-outline',
-      accent: '#6949BE',
-      background: '#EFE7FB',
     },
     {
       id: 'temperature',
@@ -220,8 +209,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
       description: t('conceptionOnboarding.reminders.options.temperature.description'),
       detail: t('conceptionOnboarding.reminders.options.temperature.detail'),
       icon: 'thermometer',
-      accent: '#8B6FD1',
-      background: '#EEE7FA',
     },
     {
       id: 'lh_test',
@@ -229,8 +216,6 @@ function reminderOptionsFor(t: (key: string) => string): Array<{
       description: t('conceptionOnboarding.reminders.options.lhTest.description'),
       detail: t('conceptionOnboarding.reminders.options.lhTest.detail'),
       icon: 'test-tube',
-      accent: '#8C5A9E',
-      background: '#F3E9F7',
     },
   ];
 }
@@ -730,7 +715,7 @@ export function ConceptionRemindersScreen({
     }
   };
 
-  // Profile → Santé générale → Notifications & rappels gets a distinct,
+  // Profile → Notifications & rappels gets a distinct,
   // sober settings-style presentation (same visual language as
   // PrivacySecurityScreen.tsx: flat background, compact header, one card
   // with SafeAreaView-aware switch rows) — NOT the premium onboarding Shell
@@ -765,9 +750,7 @@ export function ConceptionRemindersScreen({
               <View
                 key={item.id}
                 style={[editStyles.row, index < reminderOptions.length - 1 && editStyles.rowBorder]}>
-                <View style={[editStyles.rowIcon, {backgroundColor: item.background}]}>
-                  <MaterialDesignIcons color={item.accent} name={item.icon} size={18} />
-                </View>
+                <GlassIcon icon={item.icon} size={40} />
                 <View style={editStyles.rowCopy}>
                   <AwaText style={editStyles.rowTitle} variant="titleSmall">{item.label}</AwaText>
                   <AwaText colorRole="onSurfaceVariant" style={editStyles.rowSubtitle} variant="bodySmall">{item.description}</AwaText>
@@ -819,28 +802,8 @@ export function ConceptionRemindersScreen({
                 styles.reminderCard,
                 enabled && styles.reminderCardActive,
               ]}>
-              <View
-                style={[
-                  styles.reminderAccent,
-                  {backgroundColor: item.accent},
-                  !enabled && styles.reminderAccentInactive,
-                ]}
-              />
               <View style={styles.reminderTopRow}>
-                <View
-                  style={[
-                    styles.reminderIcon,
-                    {
-                      backgroundColor:
-                        item.background,
-                    },
-                  ]}>
-                  <MaterialDesignIcons
-                    color={item.accent}
-                    name={item.icon}
-                    size={25}
-                  />
-                </View>
+                <GlassIcon icon={item.icon} size={48} />
 
                 <View style={styles.reminderCopy}>
                   <Text
@@ -919,14 +882,7 @@ export function ConceptionRemindersScreen({
       {/* PRIVACY */}
 
       <View style={styles.privacyReminderCard}>
-        <View
-          style={styles.privacyReminderIcon}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="shield-check-outline"
-            size={25}
-          />
-        </View>
+        <GlassIcon icon="shield-check-outline" size={48} />
 
         <View style={styles.privacyReminderCopy}>
           <Text
@@ -1096,7 +1052,6 @@ function createEditStyles(theme: ResolvedAwaTheme) {
     card: {overflow: 'hidden', paddingHorizontal: 16},
     row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
     rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
-    rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 12},
     rowCopy: {flex: 1, minWidth: 0},
     rowTitle: {},
     rowSubtitle: {marginTop: 3},
@@ -1350,34 +1305,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 4,
     },
 
-    reminderAccent: {
-      position: 'absolute',
-      top: 16,
-      bottom: 16,
-      left: 0,
-      width: 4,
-      borderTopRightRadius: 4,
-      borderBottomRightRadius: 4,
-    },
-
-    reminderAccentInactive: {
-      opacity: 0.22,
-    },
-
     reminderTopRow: {
       flexDirection: 'row',
       alignItems: 'center',
-    },
-
-    reminderIcon: {
-      width: 54,
-      height: 54,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.surface, 0.75),
-      borderRadius: 12,
     },
 
     reminderCopy: {
@@ -1473,16 +1403,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       shadowOpacity: 0.04,
       shadowRadius: 8,
       elevation: 1,
-    },
-
-    privacyReminderIcon: {
-      width: 46,
-      height: 46,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-      backgroundColor: withAlpha(theme.colors.success, 0.16),
     },
 
     privacyReminderCopy: {

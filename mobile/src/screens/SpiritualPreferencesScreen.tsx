@@ -5,7 +5,6 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -23,14 +22,14 @@ import {
   setSpiritualMarkersEnabled,
 } from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import type {AwaRoles} from '../theme/semanticRoles';
 import {useAwaTokens} from '../theme/useAwaTokens';
 import {presentSaveFailure} from '../services/saveFailure';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaText} from '../components/ui/AwaText';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-const featureIcons = ['🗓️', '🤲', '🌙', '🔔'];
 const featureLabelKeys = [
   'onboarding.spiritual.featureHijri',
   'onboarding.spiritual.featurePrayers',
@@ -46,7 +45,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
   const {theme} = useAwaTheme();
   const {roles} = useAwaTokens();
   const styles = useMemo(() => createStyles(theme, roles), [theme, roles]);
-  const features = featureIcons.map((icon, index) => ({icon, label: t(featureLabelKeys[index])}));
+  const features = featureLabelKeys.map(key => ({label: t(key)}));
   // null = no explicit choice yet (brand-new users start here — never
   // silently treated as true or false). Pre-fills her real answer if she's
   // already confirmed one before (e.g. navigating back), instead of
@@ -193,9 +192,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
                 {t('onboarding.spiritual.enable')}
               </AwaText>
               {isYes && (
-                <View style={styles.checkCircle}>
-                  <Text style={styles.check}>✓</Text>
-                </View>
+                <MaterialDesignIcons color={theme.colors.primary} name="check" size={22} />
               )}
             </Pressable>
 
@@ -219,30 +216,18 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
                 {t('onboarding.spiritual.disable')}
               </AwaText>
               {isNo && (
-                <View style={styles.checkCircle}>
-                  <Text style={styles.check}>✓</Text>
-                </View>
+                <MaterialDesignIcons color={theme.colors.primary} name="check" size={22} />
               )}
             </Pressable>
           </View>
 
           <View style={styles.features}>
+            <AwaText colorRole="onSurfaceVariant" style={styles.featuresLabel} variant="labelMedium">
+              {t('onboarding.spiritual.includesLabel')}
+            </AwaText>
             {features.map(feature => (
-              <View
-                key={feature.label}
-                accessibilityState={{ disabled: isNo }}
-                style={[
-                  styles.featureCard,
-                  isNo && styles.featureCardDisabled,
-                ]}
-              >
-                <View
-                  style={[styles.iconBox, isNo && styles.iconBoxDisabled]}
-                >
-                  <Text style={[styles.icon, isNo && styles.iconDisabled]}>
-                    {feature.icon}
-                  </Text>
-                </View>
+              <View key={feature.label} accessibilityState={{ disabled: isNo }} style={styles.featureRow}>
+                <View style={[styles.featureDot, isNo && styles.featureDotDisabled]} />
                 <AwaText
                   style={[
                     styles.featureText,
@@ -271,7 +256,6 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
 }
 
 function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
-  const onPrimary = onPrimaryTextColor(theme);
   return StyleSheet.create({
     background: { flex: 1, backgroundColor: theme.colors.background },
 
@@ -329,45 +313,28 @@ function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles) {
       marginLeft: spacing.md,
     },
     choiceTextActive: { color: roles.onPrimaryContainer },
-    checkCircle: {
-      width: 28,
-      height: 28,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 14,
-      backgroundColor: theme.colors.primary,
-    },
-    check: { color: onPrimary, fontSize: 18, fontWeight: '700' },
     pressed: { opacity: 0.82 },
-    features: { gap: 7, marginTop: spacing.md },
-    featureCard: {
-      minHeight: 52,
+    // A plain list under a small muted heading: hairline separators, no card borders, no icons. It only lists what the
+    // spiritual markers include and dims when they are switched off.
+    features: { marginTop: spacing.lg },
+    featuresLabel: { marginBottom: spacing.sm },
+    featureRow: {
+      minHeight: 48,
       flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, 0.14),
-      borderRadius: 16,
-      backgroundColor: withAlpha(theme.colors.surface, 0.84),
-      paddingHorizontal: 16,
-      paddingVertical: 8,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: theme.colors.border,
+      paddingVertical: 10,
     },
-    featureCardDisabled: {
-      borderColor: withAlpha(theme.colors.textMuted, 0.2),
-      backgroundColor: withAlpha(theme.colors.surfaceSecondary, 0.8),
+    featureDot: {
+      width: 6,
+      height: 6,
+      marginHorizontal: 8,
+      borderRadius: 3,
+      backgroundColor: withAlpha(theme.colors.textMuted, 0.7),
     },
-    iconBox: {
-      width: 38,
-      height: 38,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginRight: spacing.md,
-      borderRadius: 12,
-      backgroundColor: withAlpha(theme.colors.primarySoft, 0.82),
-    },
-    iconBoxDisabled: { backgroundColor: theme.colors.surfaceSecondary },
-    icon: { fontSize: 21 },
-    iconDisabled: { opacity: 0.32 },
-    featureText: { flex: 1 },
+    featureDotDisabled: { backgroundColor: withAlpha(theme.colors.textMuted, 0.35) },
+    featureText: { flex: 1, marginLeft: spacing.sm },
     featureTextDisabled: { color: theme.colors.textMuted },
     nextButton: {marginTop: spacing.md},
   });

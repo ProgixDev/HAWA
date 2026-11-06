@@ -12,7 +12,6 @@ import {setIrregularPreferences} from '../../state/irregularPreferences';
 import {saveIrregularJournalEntry} from '../../state/irregularJournalStore';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {addDays} from '../../utils/cycleMath';
 import {setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
@@ -79,7 +78,6 @@ async function recordPeriodDay(offsetDays: number) {
 
 beforeEach(async () => {
   resetPremiumStateForTests();
-  updatePrivacySecuritySettings({anonymousMode: false});
   await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
   await setSelectedObjective('irregular');

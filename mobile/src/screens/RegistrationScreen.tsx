@@ -9,12 +9,13 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
 import {updatePersonalInformation} from '../state/personalInformationStore';
-import {updatePrivacySecuritySettings} from '../state/securityPreferences';
+import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import type {AwaRoles} from '../theme/semanticRoles';
 import {useAwaTokens} from '../theme/useAwaTokens';
 import {presentSaveFailure} from '../services/saveFailure';
+import {syncLocalDataToAccount} from '../services/accountSync';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
@@ -48,30 +49,22 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const compact = height < 700;
-  const [firstName, setFirstName] = useState(''); const [lastName, setLastName] = useState(''); const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); const [confirmation, setConfirmation] = useState(''); const [passwordVisible, setPasswordVisible] = useState(false); const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [firstName, setFirstName] = useState(''); const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''); const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [confirmationError, setConfirmationError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const rules = useMemo(() => [{label: t('auth.registration.ruleMinLength'), valid: password.length >= 8}, {label: t('auth.registration.ruleDigit'), valid: /\d/.test(password)}, {label: t('auth.registration.ruleUppercase'), valid: /[A-Z]/.test(password)}, {label: t('auth.registration.ruleSpecialChar'), valid: /[^A-Za-z0-9]/.test(password)}], [password, t]);
   const allRulesValid = rules.every(rule => rule.valid);
 
   // TEMP FRONTEND-ONLY AUTH BYPASS:
-  // Replace with real authentication once backend auth is connected. The
-  // single place the final "Créer mon compte" CTA enters the main app. Also
-  // clears anonymousMode (state/securityPreferences.ts — the same flag
-  // ProfileScreen/AnonymousMode already read/write) so registering a normal
-  // account after a previous Anonymous Mode session (e.g. via "Créer un
-  // compte" on AnonymousModeScreen's own "Désactiver le mode Anonyme" card)
-  // doesn't leave ProfileScreen stuck showing the anonymous identity.
-  // emailError/passwordError/confirmationError state (and the Field/JSX
-  // that render them) are left in place, unused for now, so real validation
-  // drops back in cleanly once a backend exists — only isValidEmail's
-  // import was removed since it became genuinely unused here.
+  // Replace with real authentication once backend auth is connected. The single place the final "Créer mon compte" CTA enters the main
+  // app. Entering the app is the end of onboarding, so it is recorded here (otherwise the next launch would show Welcome again).
+  // emailError/passwordError state (and the Field/JSX that render them) are left in place, unused for now, so real validation drops
+  // back in cleanly once a backend exists.
   const enterMainApp = () => {
-    updatePrivacySecuritySettings({anonymousMode: false});
+    setHasCompletedOnboarding(true).catch(() => {});
     navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
@@ -82,9 +75,10 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       setSubmitting(true);
       const trimmedFirstName = firstName.trim();
       // Only persists her chosen display name (same canonical store
-      // NameOnboardingScreen/PersonalInformationScreen use) — anonymousMode
-      // itself is cleared by enterMainApp() above, not here.
+      // NameOnboardingScreen/PersonalInformationScreen use).
       if (trimmedFirstName) {await updatePersonalInformation({firstName: trimmedFirstName});}
+      // TODO(backend): attach the data already on the phone to the new account (does nothing today).
+      await syncLocalDataToAccount();
       enterMainApp();
     } catch (saveError) {
       presentSaveFailure(saveError);
@@ -110,10 +104,8 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       </View>
       <View style={styles.form}>
         <Field icon="account-outline" label={t('auth.registration.firstNameLabel')} onChangeText={setFirstName} placeholder={t('auth.registration.firstNamePlaceholder')} styles={styles} t={t} theme={theme} value={firstName} />
-        <Field icon="account-outline" label={t('auth.registration.lastNameLabel')} onChangeText={setLastName} placeholder={t('auth.registration.lastNamePlaceholder')} styles={styles} t={t} theme={theme} value={lastName} />
         <Field error={emailError} icon="email-outline" keyboardType="email-address" label={t('auth.registration.emailLabel')} onChangeText={value => {setEmail(value); setEmailError(''); setInfoMessage('');}} placeholder={t('auth.registration.emailPlaceholder')} styles={styles} t={t} theme={theme} value={email} />
         <Field error={passwordError} icon="lock-outline" label={t('auth.registration.passwordLabel')} onChangeText={value => {setPassword(value); setPasswordError(''); setInfoMessage('');}} onToggle={() => setPasswordVisible(v => !v)} placeholder={t('auth.registration.passwordPlaceholder')} secure styles={styles} t={t} theme={theme} value={password} visible={passwordVisible} />
-        <Field error={confirmationError} icon="lock-outline" label={t('auth.registration.confirmPasswordLabel')} onChangeText={value => {setConfirmation(value); setConfirmationError(''); setInfoMessage('');}} onToggle={() => setConfirmationVisible(v => !v)} placeholder={t('auth.registration.confirmPasswordPlaceholder')} secure styles={styles} t={t} theme={theme} value={confirmation} visible={confirmationVisible} />
       </View>
       <View style={styles.hint}>
         <MaterialDesignIcons color={allRulesValid ? theme.colors.primary : theme.colors.textMuted} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />

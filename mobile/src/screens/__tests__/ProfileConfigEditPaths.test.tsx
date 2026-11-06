@@ -21,7 +21,6 @@ import {
 import {getConfirmedPeriodHistory, recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
 import {getIrregularPreferences, setIrregularPreferences} from '../../state/irregularPreferences';
 import {getContraceptionPreferences, setContraceptionPreferences} from '../../state/contraceptionPreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 
@@ -132,7 +131,6 @@ const dayKey = (date: Date) => date.toLocaleDateString('en-CA');
 beforeEach(async () => {
   visited.length = 0;
   resetPremiumStateForTests();
-  updatePrivacySecuritySettings({anonymousMode: false});
   // PHASE 7M: the app's default language is now English (not French) — this
   // file's button-label/accessibility-label assertions were written against
   // the French default. Pinning French explicitly here preserves every

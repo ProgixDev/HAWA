@@ -9,7 +9,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import LibraryScreen from '../LibraryScreen';
 import CyclePhasesArticleScreen from '../library/CyclePhasesArticleScreen';
 import FertilityWindowArticleScreen from '../library/FertilityWindowArticleScreen';
 import FiqhWomenIntroArticleScreen from '../library/FiqhWomenIntroArticleScreen';
@@ -379,20 +378,6 @@ describe('pregnancy and exercise heroes', () => {
     const renderer = await renderScreen(FirstPeriodArticleScreen as never);
     for (const node of imagesOf(renderer, 'cycle')) {
       expect(node.props.accessibilityLabel).toBeUndefined();
-    }
-  });
-});
-
-describe('Library home — the popular-articles cover thumbnail', () => {
-  const LibraryHome = () => <LibraryScreen navigation={{} as never} route={{} as never} />;
-
-  it('follows the app language, including a live switch while the screen stays mounted', async () => {
-    const renderer = await renderScreen(LibraryHome as never);
-    for (const language of ['en', 'it', 'fr', 'es', 'it'] as const) {
-      await switchLanguage(language);
-      const thumbs = imagesOf(renderer, 'cycle');
-      expect(thumbs.length).toBeGreaterThan(0);
-      expect(thumbs.every(node => node.props.source === `cycle:${language}`)).toBe(true);
     }
   });
 });

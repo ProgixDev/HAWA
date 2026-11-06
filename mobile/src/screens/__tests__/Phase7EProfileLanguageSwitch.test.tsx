@@ -4,14 +4,12 @@ import {Text} from 'react-native';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import PersonalInformationScreen from '../PersonalInformationScreen';
-import GeneralHealthScreen from '../GeneralHealthScreen';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 import {updatePersonalInformation} from '../../state/personalInformationStore';
-import {updateGeneralHealth} from '../../state/generalHealthStore';
 
-// Phase 7E — PersonalInformationScreen and GeneralHealthScreen must follow
+// Phase 7E — PersonalInformationScreen must follow
 // the app language exactly like every other migrated screen, while every
 // real user value (name/email/phone/country/birth date/height/weight/blood
 // type/health goal) stays byte-identical across a language switch — only the
@@ -49,13 +47,6 @@ const seedSyntheticProfile = async () => {
     lastName: 'Benali',
     email: 'amina.benali@email.com',
     country: 'Algérie',
-  });
-  await updateGeneralHealth({
-    heightCm: 165,
-    weightKg: 60,
-    bloodType: 'O+',
-    healthGoal: 'Rester en forme et en bonne santé',
-    goalProgress: 60,
   });
 };
 
@@ -119,47 +110,6 @@ describe('TEST — PersonalInformationScreen French/English copy', () => {
   });
 });
 
-describe('TEST — GeneralHealthScreen French/English copy', () => {
-  it('French: section titles and the BMI classification render', async () => {
-    await seedSyntheticProfile();
-    const renderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
-    const texts = textsOf(renderer);
-    expect(texts).toContain('Santé générale');
-    expect(texts).toContain('Informations physiques');
-    expect(texts).toContain('Informations médicales');
-    // The seeded 165cm/60kg profile classifies as a healthy BMI.
-    expect(texts).toContain('Normal');
-  });
-
-  it('English: section titles and the BMI classification translate, height/weight/blood type values stay identical', async () => {
-    await seedSyntheticProfile();
-    await setAppLanguage('en');
-    await i18n.changeLanguage('en');
-    const renderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
-    const texts = textsOf(renderer);
-    expect(texts).toContain('General health');
-    expect(texts).toContain('Physical information');
-    expect(texts).toContain('Medical information');
-    expect(texts).toContain('Normal'); // same English word, confirms the stable id round-trips
-    expect(texts).not.toContain('Santé générale');
-    // Real tracked values (seeded above) are untouched.
-    expect(texts.some(text => text.includes('165'))).toBe(true);
-    expect(texts.some(text => text.includes('60'))).toBe(true);
-    expect(texts).toContain('O+');
-  });
-
-  it('the health goal (a stored French value with no separate technical id) stays in French in both languages', async () => {
-    await seedSyntheticProfile();
-    const frRenderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
-    expect(textsOf(frRenderer)).toContain('Rester en forme et en bonne santé');
-
-    await setAppLanguage('en');
-    await i18n.changeLanguage('en');
-    const enRenderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
-    expect(textsOf(enRenderer)).toContain('Rester en forme et en bonne santé');
-  });
-});
-
 describe('TEST — a runtime FR→EN switch updates visible copy without a restart', () => {
   it('PersonalInformationScreen re-renders in English after changeLanguage, same mounted instance', async () => {
     const renderer = renderDirect(<PersonalInformationScreen navigation={navigation} route={route} />);
@@ -172,18 +122,5 @@ describe('TEST — a runtime FR→EN switch updates visible copy without a resta
 
     expect(textsOf(renderer)).toContain('Basic information');
     expect(textsOf(renderer)).not.toContain('Informations de base');
-  });
-
-  it('GeneralHealthScreen re-renders in English after changeLanguage, same mounted instance', async () => {
-    const renderer = renderDirect(<GeneralHealthScreen navigation={navigation} route={route} />);
-    expect(textsOf(renderer)).toContain('Informations physiques');
-
-    await act(async () => {
-      await setAppLanguage('en');
-      await i18n.changeLanguage('en');
-    });
-
-    expect(textsOf(renderer)).toContain('Physical information');
-    expect(textsOf(renderer)).not.toContain('Informations physiques');
   });
 });

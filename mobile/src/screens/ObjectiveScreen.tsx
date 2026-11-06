@@ -4,6 +4,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -44,7 +45,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Objective'>;
 function ObjectiveScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
+  const {height, fontScale} = useWindowDimensions();
+  // short screen or enlarged system font: the rows and gaps tighten so the title, the 8 choices and the button all fit
+  const dense = height < 720 || fontScale > 1.15;
+  const styles = useMemo(() => createStyles(theme, dense), [theme, dense]);
   const {t} = useTranslation();
   const [selectedId, setSelectedId] = useState('cycle');
 
@@ -74,11 +78,18 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
           barStyle={theme.statusBarStyle}
           translucent
         />
-        <ScrollView contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
+        <View style={[styles.page, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]}>
           <AwaText accessibilityRole="header" style={styles.title} variant="headlineMedium">
             {t('objectiveScreen.title')}
           </AwaText>
 
+          {/* The list takes the free height. It only scrolls if it truly cannot fit (very small screen / huge font): the button below stays put. */}
+          <ScrollView
+            bounces={false}
+            contentContainerStyle={styles.listContent}
+            overScrollMode="never"
+            showsVerticalScrollIndicator={false}
+            style={styles.listScroll}>
           <View style={styles.list}>
             {objectives.map(objective => {
               const selected = objective.id === selectedId;
@@ -105,6 +116,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
               );
             })}
           </View>
+          </ScrollView>
 
           <AwaButton
             fullWidth
@@ -113,13 +125,13 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
             size="large"
             style={styles.nextButton}
           />
-        </ScrollView>
+        </View>
       </View>
     </LinearGradient>
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme) {
+function createStyles(theme: ResolvedAwaTheme, dense: boolean) {
   return StyleSheet.create({
     background: {flex: 1, backgroundColor: theme.colors.background},
 
@@ -128,19 +140,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
 
     safeArea: {flex: 1},
-    content: {
-      flexGrow: 1,
-      justifyContent: 'center',
+    page: {
+      flex: 1,
       paddingHorizontal: spacing.lg,
-      paddingBottom: spacing.md,
     },
     title: {
-      marginBottom: spacing.lg,
+      marginBottom: dense ? spacing.sm : spacing.md,
       textAlign: 'center',
     },
-    list: {gap: 7},
+    listScroll: {flex: 1},
+    listContent: {flexGrow: 1, justifyContent: 'center'},
+    list: {gap: dense ? 6 : 8},
     option: {
-      minHeight: 52,
+      minHeight: dense ? 46 : 52,
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
@@ -149,7 +161,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.surface, 0.88),
       paddingHorizontal: 16,
       // DESIGN.md: a long label (DE/TR/RU) that wraps to two lines must never touch the card edge.
-      paddingVertical: 12,
+      paddingVertical: dense ? 8 : 12,
     },
     optionSelected: {borderColor: theme.colors.primary, backgroundColor: withAlpha(theme.colors.primarySoft, 0.96)},
     optionPressed: {opacity: 0.78},
@@ -172,7 +184,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     icon: {marginHorizontal: 12},
     optionLabel: {flex: 1},
-    nextButton: {marginTop: spacing.md},
+    nextButton: {marginTop: dense ? spacing.sm : spacing.md},
   });
 }
 

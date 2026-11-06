@@ -16,7 +16,6 @@ import PostpartumCycleReturnScreen from '../PostpartumCycleReturnScreen';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
-import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {
   clearFirstPostpartumPeriod,
   confirmDelivery,
@@ -260,7 +259,6 @@ describe('D — edit mode returns to the normal app flow', () => {
     ['Retour du cycle', 'PostpartumCycleReturn', undefined],
   ])('Profile "%s" opens %s', async (title, route, params) => {
     await setSelectedObjective('postpartum');
-    updatePrivacySecuritySettings({anonymousMode: false});
     const navigate = jest.fn();
     let renderer!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
