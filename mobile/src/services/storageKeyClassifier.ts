@@ -56,6 +56,7 @@ const PROFILE_REGISTRY_BASES = new Set([
 const PREFERENCE_PREFIXES = [
   '@awa/appearance/',
   '@awa/security/',
+  '@awa/account/',
   '@hawa/language',
   '@hawa/theme',
   '@hawa/app-lock',

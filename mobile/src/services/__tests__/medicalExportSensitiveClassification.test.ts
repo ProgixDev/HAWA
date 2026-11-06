@@ -52,7 +52,7 @@ import i18n from '../../i18n';
 //   menopause notes                          menopauseJournalStore       menopause 'notes' (yes)
 //   menopause treatmentNote                  menopauseJournalStore       menopause 'treatment' (yes)
 // Not exported at all (no reader): pregnancy custom/health reminders,
-// generalHealth.medicalNotes, personalInformation, private photos.
+// personalInformation, private photos.
 
 const now = new Date('2026-08-25T12:00:00');
 const DATE = '2026-08-20';

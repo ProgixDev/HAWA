@@ -50,7 +50,6 @@ const M = {
   nifas: () => require('../postpartumNifasReminderStore') as typeof import('../postpartumNifasReminderStore'),
   miscarriagePrefs: () => require('../miscarriagePreferences') as typeof import('../miscarriagePreferences'),
   miscarriageJournal: () => require('../miscarriageJournalStore') as typeof import('../miscarriageJournalStore'),
-  generalHealth: () => require('../generalHealthStore') as typeof import('../generalHealthStore'),
   personalInfo: () => require('../personalInformationStore') as typeof import('../personalInformationStore'),
 };
 
@@ -518,17 +517,6 @@ const CASES: StoreCase[] = [
     hasSeed: v => v.objective !== 'cycle', // 'cycle' is the default
     write: async () => {
       await M.onboarding().setActiveObjective('conceive');
-    },
-  },
-  {
-    objective: 'all (general health)', store: 'generalHealthStore', key: '@awa/general-health/v1',
-    seed: async () => {
-      await M.generalHealth().updateGeneralHealth({heightCm: 171, weightKg: 58, bloodType: 'B-', allergies: ['Pénicilline']});
-    },
-    view: async () => ({profile: await M.generalHealth().loadGeneralHealth()}),
-    hasSeed: v => v.profile.bloodType === 'B-' && v.profile.allergies.length === 1,
-    write: async () => {
-      await M.generalHealth().updateGeneralHealth({weightKg: 59});
     },
   },
   {

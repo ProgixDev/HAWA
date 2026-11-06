@@ -40,7 +40,6 @@ describe('sensitive stores never swallow a failed or refused write', () => {
         'miscarriageJournalStore.ts',
         'contraceptionJournalStore.ts',
         'menopauseJournalStore.ts',
-        'generalHealthStore.ts',
         'personalInformationStore.ts',
         'qadaaLedgerStore.ts',
       ]),

@@ -4,8 +4,6 @@ import {hasBiometricCredential, hasStoredPin} from '../services/appSecurityServi
 const PIN_ENABLED_KEY = '@hawa/security/pin-enabled';
 const BIOMETRIC_ENABLED_KEY = '@hawa/security/biometric-enabled';
 const SETTINGS_KEY = '@awa/security/settings-v1';
-const ANONYMOUS_ID_KEY = '@hawa/security/anonymous-id';
-const ANONYMOUS_CREATED_AT_KEY = '@hawa/security/anonymous-created-at';
 
 export type PrivacySecuritySettings = {
   discreetMode: boolean;
@@ -13,7 +11,6 @@ export type PrivacySecuritySettings = {
   hideNotificationPreview: boolean;
   intimacyProtection: boolean;
   privateContentProtection: boolean;
-  anonymousMode: boolean;
 };
 
 const DEFAULT_SETTINGS: PrivacySecuritySettings = {
@@ -22,11 +19,18 @@ const DEFAULT_SETTINGS: PrivacySecuritySettings = {
   hideNotificationPreview: false,
   intimacyProtection: true,
   privateContentProtection: true,
-  // Anonymous Mode is opt-in — activated only through the explicit
-  // AnonymousMode → Limitations → Creating → Success flow, never on by
-  // default for a fresh install.
-  anonymousMode: false,
 };
+
+/** Only the known settings are taken from the stored JSON: an old field (the removed `anonymousMode`) is dropped instead of being carried
+ * into memory and written back, and a wrongly typed value falls back to its default. */
+function sanitizeSettings(stored: unknown): PrivacySecuritySettings {
+  const source = stored && typeof stored === 'object' ? (stored as Record<string, unknown>) : {};
+  const next = {...DEFAULT_SETTINGS};
+  (Object.keys(DEFAULT_SETTINGS) as Array<keyof PrivacySecuritySettings>).forEach(key => {
+    if (typeof source[key] === 'boolean') {next[key] = source[key] as boolean;}
+  });
+  return next;
+}
 
 let pinEnabled = false;
 let biometricEnabled = false;
@@ -105,10 +109,7 @@ export function loadSecurityPreferences(): Promise<void> {
       biometricEnabled = lockEnforced(storedBiometric, biometricCredential);
       if (storedSettings) {
         try {
-          privacySettings = {
-            ...DEFAULT_SETTINGS,
-            ...JSON.parse(storedSettings),
-          };
+          privacySettings = sanitizeSettings(JSON.parse(storedSettings));
         } catch {}
       }
       notifySecurity();
@@ -158,59 +159,3 @@ export const subscribePrivacySecuritySettings = (
     settingsListeners.delete(listener);
   };
 };
-
-/* ============================================================
- * ANONYMOUS ACCOUNT IDENTITY
- *
- * A stable, purely local identifier for the anonymous profile — generated
- * once (the first time Anonymous Mode is actually activated) and persisted,
- * never regenerated on re-render or app restart. Deliberately kept in this
- * file rather than a separate store: it's part of the same local privacy/
- * security state as `anonymousMode` itself, not a second source of truth.
- * ============================================================ */
-
-export type AnonymousAccountInfo = {
-  id: string;
-  createdAt: string;
-};
-
-let anonymousAccount: AnonymousAccountInfo | null = null;
-let anonymousAccountPromise: Promise<AnonymousAccountInfo> | null = null;
-
-const randomSegment = (): string =>
-  Math.random().toString(36).slice(2, 6).toUpperCase();
-
-/** Synchronous read of whatever is currently cached in memory (may be null before hydration). */
-export const getAnonymousAccount = (): AnonymousAccountInfo | null => anonymousAccount;
-
-/**
- * Creates (once) or loads the persisted anonymous identifier. Safe to call
- * repeatedly — every caller after the first resolves the same cached value,
- * so it never regenerates an already-existing identifier.
- */
-export function ensureAnonymousAccount(): Promise<AnonymousAccountInfo> {
-  if (anonymousAccount) {
-    return Promise.resolve(anonymousAccount);
-  }
-  if (!anonymousAccountPromise) {
-    anonymousAccountPromise = (async () => {
-      const [storedId, storedCreatedAt] = await Promise.all([
-        AsyncStorage.getItem(ANONYMOUS_ID_KEY).catch(() => null),
-        AsyncStorage.getItem(ANONYMOUS_CREATED_AT_KEY).catch(() => null),
-      ]);
-      if (storedId && storedCreatedAt) {
-        anonymousAccount = {id: storedId, createdAt: storedCreatedAt};
-        return anonymousAccount;
-      }
-      const id = `AWA-${randomSegment()}-${randomSegment()}`;
-      const createdAt = new Date().toISOString();
-      await Promise.all([
-        AsyncStorage.setItem(ANONYMOUS_ID_KEY, id).catch(() => {}),
-        AsyncStorage.setItem(ANONYMOUS_CREATED_AT_KEY, createdAt).catch(() => {}),
-      ]);
-      anonymousAccount = {id, createdAt};
-      return anonymousAccount;
-    })();
-  }
-  return anonymousAccountPromise;
-}

@@ -19,7 +19,6 @@ import {isEncryptedFieldPayload} from '../../services/atRestFieldEncryption';
 const FIELD_SERVICES = {
   daily: 'com.hawa.private.daily-journal.encryption-key',
   contraception: 'com.hawa.private.contraception-journal.encryption-key',
-  general: 'com.hawa.private.general-health.encryption-key',
   irregular: 'com.hawa.private.irregular-journal.encryption-key',
   menopause: 'com.hawa.private.menopause-journal.encryption-key',
   miscarriage: 'com.hawa.private.miscarriage-journal.encryption-key',
@@ -139,35 +138,6 @@ const CASES: Case[] = [
     clear: async () => {
       const s = require('../contraceptionJournalStore') as typeof import('../contraceptionJournalStore');
       await s.clearContraceptionJournalField(DAY, 'notes');
-    },
-  },
-  {
-    name: 'generalHealthStore (medicalNotes)',
-    service: FIELD_SERVICES.general,
-    key: '@awa/general-health/v1',
-    sealed: json => json.medicalNotes,
-    seed: async () => {
-      const s = require('../generalHealthStore') as typeof import('../generalHealthStore');
-      await s.loadGeneralHealth();
-      await s.updateGeneralHealth({medicalNotes: SECRET, heightCm: 165});
-    },
-    read: async () => {
-      const s = require('../generalHealthStore') as typeof import('../generalHealthStore');
-      return (await s.loadGeneralHealth()).medicalNotes;
-    },
-    saveOther: async () => {
-      const s = require('../generalHealthStore') as typeof import('../generalHealthStore');
-      await s.loadGeneralHealth();
-      // The form hands the whole profile back, its (unreadable, so blank) notes included.
-      await s.updateGeneralHealth({weightKg: 62, medicalNotes: ''});
-    },
-    type: async text => {
-      const s = require('../generalHealthStore') as typeof import('../generalHealthStore');
-      await s.updateGeneralHealth({medicalNotes: text});
-    },
-    clear: async () => {
-      const s = require('../generalHealthStore') as typeof import('../generalHealthStore');
-      await s.updateGeneralHealth({medicalNotes: ''});
     },
   },
   {

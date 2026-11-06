@@ -43,7 +43,6 @@ export const STRUCTURED_ENCRYPTED_BASES: readonly string[] = [
   // owner-only (global keys)
   'awa:qadaa:progress:v1',
   '@hawa/qadaa-post-ramadan-reminder/v1',
-  '@awa/general-health/v1',
   '@hawa/personal-information/v1',
   '@hawa/pregnancy-dating',
   '@hawa/pregnancy-tracking-preferences',
