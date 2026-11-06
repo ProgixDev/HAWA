@@ -80,7 +80,7 @@ describe('dictionary integrity', () => {
   it('bn.ts has exactly the same leaf paths as every other dictionary — sixteen-code parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6306);
+    expect(reference.length).toBe(6143);
     expect(paths(bn as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, ptPT]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);

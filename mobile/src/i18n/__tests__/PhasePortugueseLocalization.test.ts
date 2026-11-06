@@ -97,7 +97,7 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   it('ptPT.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6306);
+    expect(reference.length).toBe(6143);
     expect(paths(ptPT as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, ko, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -204,7 +204,7 @@ describe('Portugal dictionary integrity (pt-PT)', () => {
   });
 
   it('the article category tabs are short single-line labels', () => {
-    for (const key of ['all', 'medical', 'religious', 'featured']) {
+    for (const key of ['all', 'medical', 'religious', 'favorites']) {
       for (const language of ['pt-PT', 'pt-BR'] as const) {
         const label = tOf(`library.screen.tabs.${key}`, language);
         expect(label.length).toBeLessThanOrEqual(14);

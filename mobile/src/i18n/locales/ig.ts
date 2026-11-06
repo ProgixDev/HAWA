@@ -365,7 +365,8 @@ export const ig = {
   objectiveArticles: {
     title: 'Iji nyere gị aka',
     seeAll: 'Lee ha niile',
-    readingMinutes: 'Nkeji {{count}} ọgụgụ'
+    readingMinutes: 'Nkeji {{count}} ọgụgụ',
+    latestTitle: 'Isiokwu ndị ọhụrụ'
   },
   spiritualGuidance: {
     title: 'Akara ime mmụọ',
@@ -607,6 +608,8 @@ export const ig = {
     timesThisNight: 'ugboro n\'abalị a',
     awakeningsTip: 'Ọ bụ ihe nkịtị ịteta ugboro ole na ole.\nAhụ gị na-ahazi onwe ya nwayọọ nwayọọ.',
     wakeFeelingTitle: 'Otu ahụ dị mgbe ị tetara',
+    wakeFatigueTitle: 'Ike ọgwụgwụ',
+    wakeFatigueAccessibility: 'Ike ọgwụgwụ: {{label}}',
     wakeFeelingSubtitle: 'Kedu ka ahụ dị gị mgbe ị tetara?',
     wakeFeelingAccessibility: 'Otu ahụ dị mgbe ị tetara: {{label}}',
     wakeFeelingTip: 'Gee ahụ gị ntị ma kwe ka onwe gị\nzuru ike ma ịchọrọ ya.',
@@ -1467,13 +1470,8 @@ export const ig = {
     cycleLengthLabel: 'Ogologo usoro',
     cycleRegularityLabel: 'Otú usoro si adị n’usoro',
     dataProtected: 'Data echekwara',
-    disabledSingular: 'Emechiri',
-    editAnonymousAvatarAccessibility: 'Hazie avatar m na-amaghị aha',
-    editAvatarAccessibility: 'Gbanwee foto profaịlụ',
-    editProfile: 'Dezie profaịlụ',
-    generalHealthSubtitle: 'Ibu, ogologo, ụdị ọbara, ọrịa…',
-    generalHealthTitle: 'Ahụike n’ozuzu',
-    headerSubtitle: 'Chịkwaa ozi na ihe ịhọrọ gị',
+    disabledSingular: 'Emechiri',    editAvatarAccessibility: 'Gbanwee foto profaịlụ',
+    editProfile: 'Dezie profaịlụ',headerSubtitle: 'Chịkwaa ozi na ihe ịhọrọ gị',
     helpSupportSubtitle: 'Ajụjụ a na-ajụkarị, ịkọ nsogbu na ịkpọtụrụ anyị',
     helpSupportTitle: 'Enyemaka na nkwado',
     hijriDateLabel: 'Ụbọchị Hijri',
@@ -1501,28 +1499,7 @@ export const ig = {
     signOut: 'Pụọ',
     cycle: {
       remindersSubtitle: 'Oge nsọ, akwụkwọ ndekọ kwa ụbọchị, ovulation na oge ịtụrụ ime'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID na-amaghị aha',
-      anonymousMode: 'Ọnọdụ na-amaghị aha',
-      createdOn: 'Emepụtara na',
-      dataPrivateInfo: 'Data gị na-anọ nkeonwe n’ekwentị a, a naghị ekekọrịta ya na ngwaọrụ ndị ọzọ.',
-      enabledValue: 'Emeghere',
-      localOnly: 'N’ekwentị naanị',
-      notConfigured: 'Ahazibeghị',
-      pinBiometry: 'PIN / Biometrics',
-      security: 'Nchekwa',
-      subtitle: 'Profaịlụ gị na-amaghị aha enweghị ozi ọ bụla nwere ike igosi onye ị bụ.',
-      sync: 'Nkwekọrịta',
-      title: 'Ozi akaụntụ'
-    },
-    anonymousMode: {
-      exit: 'Pụọ n’ọnọdụ na-amaghị aha',
-      identityHiddenSubtitle: 'Ezoro onye ị bụ n’ezie',
-      manageSubtitle: 'Chịkwaa njirimara nkeonwe gị na nhọrọ na-amaghị aha',
-      title: 'Ọnọdụ na-amaghị aha'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Okpomọkụ, mmiri ọnụ ụlọ ọmụmụ, ule LH, mmekọ',
       indicatorsTitle: 'Ihe ndị a na-esochi',
       manageReminders: 'Chịkwaa ncheta m maka ịtụrụ ime',
@@ -1657,10 +1634,7 @@ export const ig = {
       subtitle: 'Ụbọchị ole ka oge nsọ ya na-adịkarị?',
       title: 'Ogologo oge nsọ'
     },
-    personalInfo: {
-      accountInfoTitle: 'Ozi akaụntụ',
-      anonymousSubtitle: 'Akaụntụ echekwara na-amaghị aha',
-      daughterSubtitle: 'Aha mbụ, ụbọchị ọmụmụ…',
+    personalInfo: {daughterSubtitle: 'Aha mbụ, ụbọchị ọmụmụ…',
       ownerSubtitle: 'Aha, email, ụbọchị ọmụmụ…',
       title: 'Ozi nkeonwe'
     },
@@ -4062,6 +4036,8 @@ export const ig = {
       lastMeasurementLabel: 'Nha ikpeazụ',
       sincePrevious: 'kemgbe nke gara aga',
       addAnotherHint: 'Tinye nha ọzọ ka ị hụ ọgba aghara gị.',
+      sinceFirst: 'Site na nlele mbụ',
+      averagePerWeek: 'Nkezi kwa izu',
       recentMeasurements: 'Nha ndị ọhụrụ',
       valuesCount_one: 'uru {{count}}',
       valuesCount_other: 'uru {{count}}',
@@ -5461,6 +5437,7 @@ export const ig = {
     closeBackdropLabel: 'Mechie ịdọ aka na ntị'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Ị nwere ike ịgbanwe ebumnuche gị n’oge ọ bụla.',
     cycle: {
       title: 'Ọ dị mma! 🎉',
       description: 'Ị họọla nleba anya okirikiri nsọ ọnwa nkịtị.',
@@ -6563,7 +6540,7 @@ export const ig = {
         all: 'Niile',
         medical: 'Ahụike',
         religious: 'Okpukpe',
-        featured: 'Ndị a họpụtara'
+        favorites: 'Ndị a họrọ'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const ig = {
     resolvingLocation: 'Na-achọ ebe ị nọ…',
     noPositionSelected: 'Ahọrọghị ebe',
     positionSelectedOnMap: 'Ahọrọla ebe n\'maapụ',
+    selectedTitle: 'Ebe ahọrọla',
+    selectedHint: 'A ga-eji ebe a gbakọọ oge ekpere gị.',
     noCityFoundHere: 'Achọtaghị obodo n\'ebe a.',
     noResultsFound: 'Achọtaghị ihe ọ bụla.',
     mapsNotConfigured: 'Hazie igodo maapụ iji mee ka maapụ rụọ ọrụ.',
@@ -7209,7 +7188,8 @@ export const ig = {
       permissionDeny: 'Ekwena',
       configureMapKeyFirst: 'Buru ụzọ hazie igodo maapụ.',
       permissionDeniedError: 'Kwe ka ebe ị nọ pụta n\'Ntọala iji jiri ebe ị nọ.',
-      positionUnavailable: 'Ebe ị nọ adịghị. Lelee na GPS na-agba.'
+      positionUnavailable: 'Ebe ị nọ adịghị. Lelee na GPS na-agba.',
+      timeout: 'Ịchọta ebe ị nọ were oge buru ibu. lelee signal ma ọ bụ GPS, nwaa ọzọ.'
     },
     errors: {
       generic: 'Enweghị ike ịmata ebe a ugbu a.',
@@ -7260,9 +7240,10 @@ export const ig = {
     },
     spiritual: {
       title: 'Ị chọrọ ka anyị gbanye\nakara okpukpe?',
-      subtitle: 'Kalenda Hijri, ekpere, ibu ọnụ, ọnọdụ nsọ…\nỊ nwere ike ịgbanwe nhọrọ a n\'oge ọ bụla.',
+      subtitle: 'Ị nwere ike ịgbanwe nhọrọ a n\'oge ọ bụla.',
       enable: 'Ee, gbanye ya',
       disable: 'Mba, ọ bụghị ugbu a',
+      includesLabel: 'Ihe ọ na-emepe',
       featureHijri: 'Kalenda Hijri',
       featurePrayers: 'Ekpere na ọnọdụ nsọ',
       featureFasting: 'Ibu ọnụ (Ramadan, ụbọchị ịkwụghachi)',
@@ -7427,16 +7408,14 @@ export const ig = {
       orContinueWith: 'ma ọ bụ gaa n\'ihu na',
       continueWithGoogle: 'Gaa n\'ihu na Google',
       continueWithApple: 'Gaa n\'ihu na Apple',
-      continueWithEmail: 'Gaa n\'ihu na adreesị email',
-      useAnonymousMode: 'Jiri AWA n\'ọnọdụ amaghị aha',
-      anonymousMode: 'Ọnọdụ amaghị aha',
-      legalTerms: 'Usoro Ojiji na Iwu Nzuzo anyị.',
+      continueWithEmail: 'Gaa n\'ihu na adreesị email',legalTerms: 'Usoro Ojiji na Iwu Nzuzo anyị.',
       createAccount: 'Mepụta akaụntụ m'
     },
     login: {
       tagline: 'Maka ndụ nke nwere nhazi,\nn\'ọkwa ọ bụla.',
       emailPlaceholder: 'Adreesị email',
       passwordPlaceholder: 'Okwuntughe',
+      passwordFieldPlaceholder: 'Tinye paswọọdụ gị',
       forgotPassword: 'Chefuo okwuntughe?',
       submit: 'Banye',
       legalPrefix: 'Site n\'ịga n\'ihu, ị kwenyere na'
@@ -7479,112 +7458,7 @@ export const ig = {
       helpModalCta: 'Aghọtara m',
       helpModalCloseAccessibility: 'Mechie'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Ọnọdụ amaghị aha',
-      headerSubtitle: 'Nzuzo',
-      illustrationA11y: 'Eserese ọnọdụ amaghị aha',
-      activeTitle: 'Ọnọdụ amaghị aha na-arụ ọrụ',
-      activeSubtitle: 'Profaịlụ gị anaghị ejikọ na njirimara gị ọ bụrụ na ọnọdụ a na-arụ ọrụ.',
-      nothingKeptTitle: 'A naghị edebe ihe ọ bụla',
-      nothingKeptSubtitle: 'Ozi a adịghị ejikọ na profaịlụ gị amaghị aha.',
-      retentionEmail: 'Email',
-      retentionName: 'Aha',
-      retentionTechnical: 'Njirimara teknụzụ',
-      notRetained: 'A naghị edebe',
-      appLockA11y: 'Mkpọchi ngwa',
-      appLockTitle: 'Mkpọchi ngwa',
-      appLockText: 'Koodu PIN ma ọ bụ biometrics mgbe a na-emeghe AWA',
-      appLockEnabled: 'Na-arụ ọrụ',
-      appLockDisabled: 'Anaghị arụ ọrụ',
-      disableTitle: 'Gbanyụọ ọnọdụ amaghị aha',
-      disableText: 'Iji pụọ n\'ọnọdụ amaghị aha, ị nwere ike imepụta akaụntụ ma jikọọ adreesị email ma ọ bụ ID.',
-      pitchTitle: 'Jiri AWA n\'ọnọdụ amaghị aha',
-      pitchSubtitle: 'Nwee oghere AWA gị na-ejikọghị njirimara gị na profaịlụ gị.',
-      identityPrivateTitle: 'Njirimara gị na-abụ nzuzo',
-      identityPrivateSubtitle: 'Ozi nwere ike ịmata gị adịghị mkpa iji jiri ọnọdụ a.',
-      privacyRowName: 'Achọghị aha',
-      privacyRowEmail: 'Achọghị adreesị email',
-      privacyRowAccount: 'Enweghị akaụntụ Google ma ọ bụ Apple e jikọtara',
-      privacyRowProfile: 'Profaịlụ ejikọghị na njirimara gị',
-      infoTitle: 'Ọ ga-adị mma ịma',
-      infoText: 'Ụfọdụ atụmatụ akaụntụ, sync, ma ọ bụ nweghachi nwere ike ịbụ ihe e gbochiri n\'ọnọdụ amaghị aha.',
-      recommendedProtectionTitle: 'Nchebe a na-akwado',
-      recommendedProtectionText: 'Ị ga-enwe ike ichebe ịbanye na AWA site na koodu PIN gị ma ọ bụ biometrics.',
-      continueInAnonymousMode: 'Gaa n\'ihu n\'ọnọdụ amaghị aha'
-    },
-    limitations: {
-      headerTitle: 'Tupu ị gaa n\'ihu',
-      headerSubtitle: 'Ọnọdụ amaghị aha',
-      title: 'Tupu ị gaa n\'ihu',
-      subtitle: 'N\'ọnọdụ amaghị aha, ụfọdụ atụmatụ metụtara akaụntụ ga-adị oke ma ọ bụ ghara ịdị.',
-      recoveryTitle: 'Nweghachi akaụntụ',
-      recoveryText: 'Ma ọ bụrụ na enweghị adreesị email e jikọtara, nweghachi ịbanye n\'akaụntụ gị nwere ike ịdị oke.',
-      syncTitle: 'Sync',
-      syncText: 'Ụfọdụ data nwere ike ghara ịbụ sync na ngwaọrụ gị ndị ọzọ.',
-      communicationsTitle: 'Ozi',
-      communicationsText: 'AWA agaghị enwe ike izipu gị email metụtara akaụntụ gị amaghị aha.',
-      securityTitle: 'Nchekwa a na-akwado',
-      securityText: 'Anyị na-akwado ịgbanye koodu PIN ma ọ bụ biometrics iji chebe ịbanye na AWA.',
-      acknowledgeLabel: 'Aghọtara m etu ọnọdụ amaghị aha si arụ ọrụ.',
-      activate: 'Gbanye ọnọdụ amaghị aha'
-    },
-    creating: {
-      headerTitle: 'Na-emepụta oghere gị',
-      loaderA11y: 'Na-emepụta oghere gị amaghị aha',
-      step1: 'Na-akwadebe oghere gị',
-      step2: 'Na-ahazi nzuzo',
-      step3: 'Na-ejedebe',
-      creatingTitle: 'Na-emepụta oghere gị amaghị aha',
-      creatingSubtitle: 'AWA na-akwadebe oghere nzuzo gị ma na-ewepụ profaịlụ gị n\'ozi na-amata gị.',
-      errorTitle: 'Enweghị ike imecha ịgbanye ya',
-      errorSubtitle: 'Ihe jisiri ike. Ị nwere ike ịnwale ọzọ.',
-      retry: 'Nwaa ọzọ',
-      loaderLabel: 'Biko chere',
-      loaderCaption: 'Nke a ga-ewe naanị obere oge.',
-      protectionTitle: 'Na-echebe njirimara gị',
-      protectionSubtitle: 'AWA na-akwadebe oghere gị ma na-eme ihe nzuzo ị họọrọ.',
-      warning: 'Emechiela ngwa ka a na-akwadebe oghere gị.'
-    },
-    success: {
-      headerTitle: 'Ọnọdụ amaghị aha',
-      title: 'Ọnọdụ amaghị aha na-arụ ọrụ',
-      subtitle: 'Profaịlụ gị ejikọghị na njirimara gị ugbu a. Jiri AWA na nzuzo zuru ezu.',
-      cardTitle: 'Oghere gị dị njikere',
-      cardSubtitle: 'Ị nwere ike ịgbanyụ ọnọdụ amaghị aha n\'oge ọ bụla site na Nzuzo & nchekwa.',
-      continue: 'Gaa n\'ihu',
-      finish: 'Emechala'
-    },
-    avatar: {
-      headerTitle: 'Hazie avatar m',
-      eyebrow: 'PROFAỊLỤ GỊ AMAGHỊ AHA',
-      title: 'Mepụta avatar yiri gị',
-      subtitle: 'Naanị họrọ ụdị na agba. Achọghị foto nke gị.',
-      privateProfile: 'Profaịlụ nzuzo',
-      colorSectionTitle: 'Họrọ agba',
-      colorSectionDescription: 'Họrọ agba maka avatar gị.',
-      colorSwatchA11y: 'Agba {{color}}',
-      styleSectionTitle: 'Họrọ ụdị gị',
-      styleSectionDescription: 'Ị nwere ike ịgbanwe ya ma emechaa site na profaịlụ gị.',
-      infoTitle: 'Nzuzo gị bụ ihe mbụ',
-      infoText: 'Avatar a na-edochi foto gị mgbe ọnọdụ amaghị aha na-arụ ọrụ. Ejighị foto n\'ezie maka profaịlụ gị.',
-      saveAndContinue: 'Chekwaa ma gaa n\'ihu',
-      later: 'Ma emechaa',
-      saveChanges: 'Chekwaa mgbanwe'
-    },
-    avatarStyles: {
-      hijab: 'Avatar nwere hijab',
-      glasses: 'Avatar nwere enyo anya',
-      hat: 'Avatar nwere okpu',
-      minimal: 'Avatar dị mfe',
-      headscarfGlasses: 'Avatar nwere akwa isi na enyo anya',
-      silhouetteHat: 'Ụdị ahụ nwere okpu mara mma',
-      turban: 'Avatar nwere turban',
-      shortHair: 'Avatar nwere ntutu mkpụmkpụ'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN ezighi ezi. Nwaa ọzọ.',
     genericError: 'Ihe jisiri ike. Nwaa ọzọ.',
     codesDontMatch: 'Koodu ndị a adịghị otu. Malitegharịa.',
@@ -7664,7 +7538,7 @@ export const ig = {
   privacySecurity: {
     backA11y: 'Laghachi',
     title: 'Nzuzo & Nchekwa',
-    subtitle: 'Data gị, nzuzo gị, nhọrọ gị 💜',
+    subtitle: 'Data gị, nzuzo gị, nhọrọ gị',
     introTitle: 'Ị nọ n\'ọchịchị 🔒',
     introText: 'Jikwaa nzuzo data gị ma họrọ nchebe kwesịrị gị.',
     sectionAccess: 'Ịbanye na nchebe',
@@ -7686,10 +7560,7 @@ export const ig = {
     intimacySubtitle: 'Kpọchie akụkụ Ndụ Nzuzo',
     privateContentTitle: 'Nchebe Ndetu / Foto Nzuzo',
     privateContentSubtitle: 'Kpọchie ndetu na foto nke gị',
-    sectionAccount: 'Akaụntụ na data',
-    anonymousTitle: 'Ọnọdụ amaghị aha',
-    anonymousSubtitle: 'Jiri ngwa na-ekekọrịtaghị njirimara gị',
-    dataManagementTitle: 'Njikwa data',
+    sectionAccount: 'Akaụntụ na data',dataManagementTitle: 'Njikwa data',
     dataManagementSubtitle: 'Lelee, bupụ, ma ọ bụ hichapụ data gị',
     deleteAccountTitle: 'Hichapụ akaụntụ m',
     deleteAccountSubtitle: 'Hichapụ akaụntụ na data gị kpamkpam',
@@ -7930,76 +7801,7 @@ export const ig = {
       doubleLabel: 'Abụọ ha',
       doubleDetail: 'Gregorian + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Ahụike n’ozuzu',
-    subtitle: 'Ozi ahụike gị niile n’otu ebe',
-    privacyTitle: 'Ozi gị bụ nzuzo',
-    privacyText: 'A na-eji ya mee ka nsochi AWA gị dabara gị, ị nwekwara ike ịgbanwe ya n’oge ọ bụla.',
-    physicalSectionTitle: 'Ozi gbasara ahụ',
-    physicalSectionSubtitle: 'Ihe ndị bụ isi e ji tụọ gị',
-    heightLabel: 'Ogologo',
-    weightLabel: 'Ibu ugbu a',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Ụdị ọbara',
-    lastUpdateLabel: 'Mmelite ikpeazụ',
-    medicalSectionTitle: 'Ozi ahụike',
-    medicalSectionSubtitle: 'Ozi dị mkpa ị kwesịrị inwe n’aka',
-    chronicConditionsTitle: 'Ọrịa na-adịgide adịgide',
-    chronicConditionsHelper: 'Pịa ka ị tinye ma ọ bụ dezie',
-    chronicConditionsEmpty: 'Enweghị ọrịa na-adịgide adịgide edepụtara',
-    treatmentsTitle: 'Ọgwụgwọ ị na-eme ugbu a',
-    treatmentsHelper: 'Aha, ọnụọgụ ma ọ bụ ugboro ole',
-    treatmentsEmpty: 'Enweghị ọgwụgwọ edepụtara',
-    allergiesTitle: 'Allergy',
-    allergiesHelper: 'Ọgwụ, nri ma ọ bụ ihe ọzọ',
-    allergiesEmpty: 'Enweghị allergy edepụtara',
-    notesTitle: 'Ndetu ahụike',
-    notesHelper: 'Ozi ọ bụla ọzọ gbasara gị',
-    notesEmpty: 'Enweghị ndetu ahụike agbakwunyere',
-    goalsSectionTitle: 'Ebumnuche ahụike',
-    goalsSectionSubtitle: 'Ebumnuche gị ugbu a',
-    currentGoalLabel: 'Ebumnuche m ugbu a',
-    inProgress: 'Na-aga n’ihu',
-    infoCardText: 'Ị nwere ike ịgbanwe ozi a niile n’oge ọ bụla.',
-    toastUpdated: 'Emelitela ozi',
-    errors: {
-      invalidPositiveValue: 'Tinye uru ziri ezi karịrị efu.',
-      invalidHeight: 'Tinye ogologo n’agbata 80 na 250 cm.',
-      invalidWeight: 'Tinye ibu n’agbata 20 na 400 kg.',
-      treatmentNameRequired: 'Tinye aha ọgwụgwọ ahụ.'
-    },
-    editHeightTitle: 'Dezie ogologo m',
-    editWeightTitle: 'Dezie ibu m',
-    updateInfoSubtitle: 'Melite ozi a.',
-    heightInCm: 'Ogologo n’ime centimita',
-    weightInKg: 'Ibu n’ime kilogram',
-    bloodTypeSheetTitle: 'Ụdị ọbara',
-    bloodTypeSheetSubtitle: 'Họrọ ụdị ọbara gị ma ọ bụrụ na ị maara ya.',
-    conditionsSheetSubtitle: 'Họrọ ọrịa ọ bụla ị maara. Ị nwere ike ịhọrọ ọtụtụ.',
-    allergiesSheetSubtitle: 'Họrọ allergy ọ bụla ị maara. Ị nwere ike ịhọrọ ọtụtụ.',
-    otherInfoLabel: 'Ozi ndị ọzọ',
-    otherInfoPlaceholder: 'Tinye ozi ndị ọzọ (nhọrọ)',
-    treatmentsSheetSubtitle: 'Tinye ọgwụgwọ ị na-eji ugbu a.',
-    newTreatmentLabel: 'Ọgwụgwọ ọhụrụ',
-    treatmentPlaceholder: 'Ọmụmaatụ: Iron 20 mg, kwa ụtụtụ',
-    addTreatmentAccessibility: 'Tinye ọgwụgwọ',
-    treatmentsAddedTitle: 'Ọgwụgwọ agbakwunyere',
-    noTreatmentAdded: 'Enweghị ọgwụgwọ agbakwunyere.',
-    notesSheetSubtitle: 'Tinye naanị ozi ị chọrọ idebe.',
-    notesPlaceholder: 'Tinye ozi dị gị mkpa ebe a...',
-    goalSheetTitle: 'Ebumnuche ahụike m',
-    goalSheetSubtitle: 'Họrọ ebumnuche kacha dabara n’nsochi gị ugbu a.',
-    personalProgressLabel: 'Ọganihu nke gị:',
-    bmiClasses: {
-      insufficientData: 'Data ezughị oke',
-      underweight: 'Ibu dị ntakịrị',
-      normal: 'Nkịtị',
-      overweight: 'Ibu karịrị oke',
-      obese: 'Ibu dị oke ukwuu'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Dị nro ma dakọtara',
     "lavender-night": 'Mara mma ma na-eme udo',
     "rose-quartz": 'Dị nro ma dị ka nwanyị',
@@ -8579,7 +8381,10 @@ export const ig = {
     cycleSleepFeeling: {
       rested: 'Zuru ike',
       average: 'Nkezi',
-      tired: 'Ike gwụrụ'
+      tired: 'Ike gwụrụ',
+      none: 'Mba',
+      light: 'Nta',
+      aLot: 'Ike',
     },
     cycleActivityType: {
       walking: 'Ije ije',

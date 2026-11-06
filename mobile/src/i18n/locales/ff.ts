@@ -365,7 +365,8 @@ export const ff = {
   objectiveArticles: {
     title: 'Ngam wallugo ma',
     seeAll: 'Ndaar fof',
-    readingMinutes: 'Minit {{count}} ngam tokkugo'
+    readingMinutes: 'Minit {{count}} ngam tokkugo',
+    latestTitle: 'Winndannde keso'
   },
   spiritualGuidance: {
     title: 'Maandeeji diina',
@@ -607,6 +608,8 @@ export const ff = {
     timesThisNight: 'sooni nder jemma ndee',
     awakeningsTip: 'Finugo seɗɗa ko ɗum nde\'i.\nɓanndu maa ɗon hesɗita hoore mum seɗɗa seɗɗa.',
     wakeFeelingTitle: 'Hoolaare nde a fini',
+    wakeFatigueTitle: 'Tampere',
+    wakeFatigueAccessibility: 'Tampere: {{label}}',
     wakeFeelingSubtitle: 'No hoolaa nde a fini?',
     wakeFeelingAccessibility: 'Hoolaare nde a fini: {{label}}',
     wakeFeelingTip: 'Heɓu ɓanndu maa e accu hoore maa\nnyaamu si a hoolaa ko ɗaɓɓi.',
@@ -1467,13 +1470,8 @@ export const ff = {
     cycleLengthLabel: 'Juutaago siklu',
     cycleRegularityLabel: 'Siklu e ngoodi na?',
     dataProtected: 'Data kisanaama',
-    disabledSingular: 'Maaytaama',
-    editAnonymousAvatarAccessibility: 'Waylu avatar am suuɗɗo',
-    editAvatarAccessibility: 'Waylu foto profil',
-    editProfile: 'Waylu profil',
-    generalHealthSubtitle: 'Ladde, juutaago, ɓaleeri ƴiiƴam, ñawu…',
-    generalHealthTitle: 'Cellal ngenndi',
-    headerSubtitle: 'Hoodu ko jowi maa e ko yiɗaa',
+    disabledSingular: 'Maaytaama',    editAvatarAccessibility: 'Waylu foto profil',
+    editProfile: 'Waylu profil',headerSubtitle: 'Hoodu ko jowi maa e ko yiɗaa',
     helpSupportSubtitle: 'Ƴami, habaru ko wooni e sarɗugo',
     helpSupportTitle: 'Walliinde e gaɗa',
     hijriDateLabel: 'Nyalaade Hijri',
@@ -1501,28 +1499,7 @@ export const ff = {
     signOut: 'Yaltu',
     cycle: {
       remindersSubtitle: 'Mense, jaŋtirgel nyalaade, ovulation e nyalɗe ɓiɗɗo'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID suuɗɗo',
-      anonymousMode: 'Mod suuɗɗo',
-      createdOn: 'Waɗaama nyalaade',
-      dataPrivateInfo: 'Data maa ena suuɗi e telefon ndee, e mooftaaka e telefonji goɗɗi.',
-      enabledValue: 'Hurminaama',
-      localOnly: 'Telefon ndee tan',
-      notConfigured: 'Waɗaaka',
-      pinBiometry: 'PIN / Biometri',
-      security: 'Kisal',
-      subtitle: 'Profil maa suuɗɗo walaa habaru ko waawi anndingo ma.',
-      sync: 'Sinkron',
-      title: 'Habaru kontu'
-    },
-    anonymousMode: {
-      exit: 'Yaltu e mod suuɗɗo',
-      identityHiddenSubtitle: 'Innde maa goonga ena suuɗi',
-      manageSubtitle: 'Hoodu ko maa suuɗɗo e suɓte suuɗɗe',
-      title: 'Mod suuɗɗo'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Danndaare, ɓuuɓri sinndu, test LH, ko wonnde e maa',
       indicatorsTitle: 'Maandeeji jaŋtaaɗi',
       manageReminders: 'Hoodu fahin-miɗi ɓiɗɗo am',
@@ -1657,10 +1634,7 @@ export const ff = {
       subtitle: 'Nyalɗe soomi mense maajo ena wuuri?',
       title: 'Juutaago mense'
     },
-    personalInfo: {
-      accountInfoTitle: 'Habaru kontu',
-      anonymousSubtitle: 'Kontu kisanaaɗo e suuɗaaɗo',
-      daughterSubtitle: 'Innde, nyalaade danyeede…',
+    personalInfo: {daughterSubtitle: 'Innde, nyalaade danyeede…',
       ownerSubtitle: 'Innde, imel, nyalaade danyeede…',
       title: 'Habaru jeyaaŋnge'
     },
@@ -4062,6 +4036,8 @@ export const ff = {
       lastMeasurementLabel: 'Fettirgol cakitaangol',
       sincePrevious: 'diga ngol adanngol',
       addAnotherHint: 'Ɓeydu fettirgol feere ngam yi\'ugo yahdu maa.',
+      sinceFirst: 'Diga ko ɓeydaari adii',
+      averagePerWeek: 'Moyenne ko yontere',
       recentMeasurements: 'Fettirɗe cakitaaɗe',
       valuesCount_one: 'Ɓesngu {{count}}',
       valuesCount_other: 'Ɓesnguuji {{count}}',
@@ -5461,6 +5437,7 @@ export const ff = {
     closeBackdropLabel: 'Uddu hakkil'
   },
   objectiveConfirmation: {
+    changeAnytime: 'A waaway sannjugo objectifs maa wakkati kala.',
     cycle: {
       title: 'Moyyere! 🎉',
       description: 'A suɓii raaru cycle ngam fuu.',
@@ -6563,7 +6540,7 @@ export const ff = {
         all: 'Fuu',
         medical: 'Safrirgol',
         religious: 'Diine',
-        featured: 'Suɓaaɗe'
+        favorites: 'Ɓe njaɓɗi'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const ff = {
     resolvingLocation: 'Ɗon ɗaɓɓitoo nokku maa…',
     noPositionSelected: 'Alaa nokku suɓaama',
     positionSelectedOnMap: 'Nokku suɓaama e kaartu',
+    selectedTitle: 'Nokkuure suɓaande',
+    selectedHint: 'Nokkuure ɗuum waawan ko ngam hitaade sa’i juulirde maaɗa.',
     noCityFoundHere: 'Alaa wuro tawaa ɗoo.',
     noResultsFound: 'Alaa ko tawaa.',
     mapsNotConfigured: 'Waɗu kiilu kaartu ngam uddugo kaartu.',
@@ -7209,7 +7188,8 @@ export const ff = {
       permissionDeny: 'Salaa',
       configureMapKeyFirst: 'Adii waɗu kiilu kaartu.',
       permissionDeniedError: 'Accu nokku e Settings ngam kuutinirgo nokku maa.',
-      positionUnavailable: 'Nokku walaa. Raarit GPS maa ɗon uddii.'
+      positionUnavailable: 'Nokku walaa. Raarit GPS maa ɗon uddii.',
+      timeout: 'Ɗaɓɓitaade nokkuure ɗuum nanndi ko duumi. Ndaaru siggiinal ko GPS, nden fuɗɗu fahin.'
     },
     errors: {
       generic: 'Waawaa anndugo nokku ɗoo jooni.',
@@ -7260,9 +7240,10 @@ export const ff = {
     },
     spiritual: {
       title: 'A yiɗi uddugo\nmaandeeji diine?',
-      subtitle: 'Kalandar Hijri, juulde, sawm, laaɓal…\nFotay ɗaa wutta suɓngo ngoo kala.',
+      subtitle: 'Fotay ɗaa wutta suɓngo ngoo kala.',
       enable: 'Eey, uddit',
       disable: 'Alaa, wanaa jooni',
+      includesLabel: 'Ko ɗum hollata',
       featureHijri: 'Kalandar Hijri',
       featurePrayers: 'Juulde e laaɓal',
       featureFasting: 'Sawm (Ramadan, nyalɗe qada)',
@@ -7427,16 +7408,14 @@ export const ff = {
       orContinueWith: 'malla jokku e',
       continueWithGoogle: 'Jokku e Google',
       continueWithApple: 'Jokku e Apple',
-      continueWithEmail: 'Jokku e e-mail',
-      useAnonymousMode: 'Kuutinir AWA ko suuɗaaɗum',
-      anonymousMode: 'Laawol suuɗaaɗum',
-      legalTerms: 'Laawol kuutinirgol e hisnugol suuɗu amen.',
+      continueWithEmail: 'Jokku e e-mail',legalTerms: 'Laawol kuutinirgol e hisnugol suuɗu amen.',
       createAccount: 'Waɗu konto am'
     },
     login: {
       tagline: 'Ngam wuurugo e hoyre,\ngaɗa kala.',
       emailPlaceholder: 'E-mail',
       passwordPlaceholder: 'Koode',
+      passwordFieldPlaceholder: 'Winndu mot de passe maa',
       forgotPassword: 'A yejjitii koode?',
       submit: 'Naatu',
       legalPrefix: 'Nde ɗaa jokki, ɗaa waawi e'
@@ -7479,112 +7458,7 @@ export const ff = {
       helpModalCta: 'Mi faami',
       helpModalCloseAccessibility: 'Maɗɗu'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Laawol suuɗaaɗum',
-      headerSubtitle: 'Suuɗu',
-      illustrationA11y: 'Natal laawol suuɗaaɗum',
-      activeTitle: 'Laawol suuɗaaɗum ɗon jippinii',
-      activeSubtitle: 'Profil maa ɗon seerti e innde maa tuma laawol ngoo ɗon jippinii.',
-      nothingKeptTitle: 'Alaa ko hisnaama',
-      nothingKeptSubtitle: 'Humpito ndee haɓɓaaka e profil maa suuɗaaɗum.',
-      retentionEmail: 'E-mail',
-      retentionName: 'Innde',
-      retentionTechnical: 'Maandeeji teknik',
-      notRetained: 'Hisnaaka',
-      appLockA11y: 'Gaddol app',
-      appLockTitle: 'Gaddol app',
-      appLockText: 'PIN malla biometri nde ɗaa udditii AWA',
-      appLockEnabled: 'Ɗon jippinii',
-      appLockDisabled: 'Ɗon maayi',
-      disableTitle: 'Maaya laawol suuɗaaɗum',
-      disableText: 'Ngam yaltugo laawol suuɗaaɗum, fotay ɗaa waɗa konto e haɓɓugo e-mail malla ID.',
-      pitchTitle: 'Kuutinir AWA ko suuɗaaɗum',
-      pitchSubtitle: 'Kuutinir nokku AWA maa bannda haɓɓugo innde maa e profil maa.',
-      identityPrivateTitle: 'Innde maa ɗon suuɗii',
-      identityPrivateSubtitle: 'Humpito anndinirta ma hoyaaka ngam kuutinirgo laawol ngoo.',
-      privacyRowName: 'Innde hoyaaka',
-      privacyRowEmail: 'E-mail hoyaaka',
-      privacyRowAccount: 'Alaa konto Google malla Apple haɓɓaaɗum',
-      privacyRowProfile: 'Profil seerti e innde maa',
-      infoTitle: 'Ko ɗon moƴƴi anndugo',
-      infoText: 'Kuugal konto, sync malla wutteragol ɗon mbaawi lutta seɗɗa e laawol suuɗaaɗum.',
-      recommendedProtectionTitle: 'Hisnugol jantaaɗum',
-      recommendedProtectionText: 'Fotay ɗaa hisna naatugol AWA e PIN maa malla biometri.',
-      continueInAnonymousMode: 'Jokku e laawol suuɗaaɗum'
-    },
-    limitations: {
-      headerTitle: 'Adii ɗaa jokkata',
-      headerSubtitle: 'Laawol suuɗaaɗum',
-      title: 'Adii ɗaa jokkata',
-      subtitle: 'E laawol suuɗaaɗum, kuugal konto feere ɗon lutta malla ɗon walaa.',
-      recoveryTitle: 'Wutteragol konto',
-      recoveryText: 'Bannda e-mail haɓɓaaɗum, wutteragol naatugol e konto maa fotay lutta.',
-      syncTitle: 'Sync',
-      syncText: 'Data feere fotay ngaddaa e telefon maa feere.',
-      communicationsTitle: 'Tawtoreeji',
-      communicationsText: 'AWA waawataa neldugo ma e-mail ngam konto maa suuɗaaɗum.',
-      securityTitle: 'Hisnugol jantaaɗum',
-      securityText: 'En ndaarii ɗaa jippina PIN malla biometri ngam hisnugol naatugol AWA.',
-      acknowledgeLabel: 'Mi faami no laawol suuɗaaɗum kuutinirtee.',
-      activate: 'Jippin laawol suuɗaaɗum'
-    },
-    creating: {
-      headerTitle: 'Ɗon waɗa nokku maa',
-      loaderA11y: 'Ɗon waɗa nokku maa suuɗaaɗum',
-      step1: 'Ɗon taskana nokku maa',
-      step2: 'Ɗon waɗa suuɗu',
-      step3: 'Ɗon timma',
-      creatingTitle: 'Ɗon waɗa nokku maa suuɗaaɗum',
-      creatingSubtitle: 'AWA ɗon taskana nokku maa suuɗaaɗum e seerta profil maa e humpito anndinirta ma.',
-      errorTitle: 'Jippingol timmaaki',
-      errorSubtitle: 'Ko woni waɗii. Fotay ɗaa haɓɓitina.',
-      retry: 'Haɓɓitin fahin',
-      loaderLabel: 'Reeno seɗɗa',
-      loaderCaption: 'Ɗum nanndi seɗɗa tan.',
-      protectionTitle: 'Ɗon hisna innde maa',
-      protectionSubtitle: 'AWA ɗon taskana nokku maa e kuutinirgol suɓtal suuɗu maa.',
-      warning: 'Ƴakkaa app ndee tuma nokku maa ɗon taskee.'
-    },
-    success: {
-      headerTitle: 'Laawol suuɗaaɗum',
-      title: 'Laawol suuɗaaɗum ɗon jippinii',
-      subtitle: 'Profil maa jooni seerti e innde maa. Kuutinir AWA bannda ɗemngal suuɗu.',
-      cardTitle: 'Nokku maa taskii',
-      cardSubtitle: 'Fotay ɗaa maaya laawol suuɗaaɗum kala e Suuɗu & hisnugol.',
-      continue: 'Jokku',
-      finish: 'Timmi'
-    },
-    avatar: {
-      headerTitle: 'Waɗu avatar am',
-      eyebrow: 'PROFIL MAA SUUƊAAƊUM',
-      title: 'Waɗu avatar nanndi e maa',
-      subtitle: 'Suɓtu sifaa e boɗeejo tan. Alaa foto maa ɗaɓɓaaka.',
-      privateProfile: 'Profil suuɗaaɗum',
-      colorSectionTitle: 'Suɓtu boɗeejo',
-      colorSectionDescription: 'Suɓtu boɗeejo avatar maa.',
-      colorSwatchA11y: 'Boɗeejo {{color}}',
-      styleSectionTitle: 'Suɓtu sifaa maa',
-      styleSectionDescription: 'Fotay ɗaa wutta ɗum e profil maa.',
-      infoTitle: 'Suuɗu maa ko adannde',
-      infoText: 'Avatar ndee wuurtay foto maa tuma laawol suuɗaaɗum ɗon jippinii. Alaa foto goonga kuutinirtee ngam profil maa.',
-      saveAndContinue: 'Hisnu e jokku',
-      later: 'E ɓaawo',
-      saveChanges: 'Hisnu wutteegol'
-    },
-    avatarStyles: {
-      hijab: 'Avatar e hijab',
-      glasses: 'Avatar e lunet',
-      hat: 'Avatar e kuufi',
-      minimal: 'Avatar ɓooyɗum',
-      headscarfGlasses: 'Avatar e fuulaare e lunet',
-      silhouetteHat: 'Natal ɓanndu e kuufi moƴƴum',
-      turban: 'Avatar e turban',
-      shortHair: 'Avatar e sunɗe pamarɗe'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN wooɗaa. Haɓɓitin.',
     genericError: 'Ko woni waɗii. Haɓɓitin.',
     codesDontMatch: 'Koode ɗiin ngaddaaki. Fuɗɗu fahin.',
@@ -7664,8 +7538,8 @@ export const ff = {
   privacySecurity: {
     backA11y: 'Rutto',
     title: 'Suuɗu & Hisnugol',
-    subtitle: 'Data maa, suuɗu maa, suɓtal maa 💜',
-    introTitle: 'Ko maa tan ɗon hakkilii 🔒',
+    subtitle: 'Data maa, suuɗu maa, suɓtal maa',
+    introTitle: 'Ko maa tan ɗon hakkilii',
     introText: 'Hakkil suuɗu data maa e suɓtu hisnugol ngol ɗaa yiɗi.',
     sectionAccess: 'Naatugo e hisnugol',
     pinTitle: 'PIN',
@@ -7686,10 +7560,7 @@ export const ff = {
     intimacySubtitle: 'Gad tummbude Wuro suuɗaaɗo',
     privateContentTitle: 'Hisnugol Winndooje / Fotooji suuɗaaɗi',
     privateContentSubtitle: 'Gad winndooje e fotooji maa',
-    sectionAccount: 'Konto e data',
-    anonymousTitle: 'Laawol suuɗaaɗum',
-    anonymousSubtitle: 'Kuutinir app bannda hollugol innde maa',
-    dataManagementTitle: 'Hakkil data',
+    sectionAccount: 'Konto e data',dataManagementTitle: 'Hakkil data',
     dataManagementSubtitle: 'Yiʼu, yaltin malla ittu data maa',
     deleteAccountTitle: 'Ittu konto am',
     deleteAccountSubtitle: 'Ittu konto e data maa haa abada',
@@ -7930,76 +7801,7 @@ export const ff = {
       doubleLabel: 'Ɗiɗi',
       doubleDetail: 'Gregorien + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Cellal ngal fuu',
-    subtitle: 'Habaruuji cellal maaɗa fuu e nokku gooto',
-    privacyTitle: 'Habaruuji maaɗa ngoni sirru',
-    privacyText: 'Ɗi kuutiniree ngam yaajnude AWA e ko hawti e maaɗa, e ɗi ɓeydi wakkati kala.',
-    physicalSectionTitle: 'Habaruuji ɓanndu',
-    physicalSectionSubtitle: 'Fennooji maaɗa gedɗi',
-    heightLabel: 'Toowngu',
-    weightLabel: 'Ɗoyngol ko woni jooni',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Sifaa ɗiyam',
-    lastUpdateLabel: 'Hesɗitinaama sakitiiki',
-    medicalSectionTitle: 'Habaruuji safrirgo',
-    medicalSectionSubtitle: 'Habaruuji ɗi ɗon nafa e ɗi hoorɗa',
-    chronicConditionsTitle: 'Ɗowrooji ɗi ngaddata',
-    chronicConditionsHelper: 'Taaskaa ngam ɓeydaade malla wo’’indirde',
-    chronicConditionsEmpty: 'Ɗowroore ngaddata walaa winndaama',
-    treatmentsTitle: 'Safrirgooji ko woni jooni',
-    treatmentsHelper: 'Innde, ɓeydaare, malla foti',
-    treatmentsEmpty: 'Safrirgo walaa winndaama',
-    allergiesTitle: 'Allergiji',
-    allergiesHelper: 'Dabare, ñaamdu, malla goɗɗo feere',
-    allergiesEmpty: 'Allergi walaa winndaama',
-    notesTitle: 'Winndannde safrirgo',
-    notesHelper: 'Habaruuji feere kala haa’i e maaɗa',
-    notesEmpty: 'Winndannde safrirgo walaa ɓeydaama',
-    goalsSectionTitle: 'Ko ɗaɓɓutaa ngam cellal',
-    goalsSectionSubtitle: 'Ko ɗaɓɓutaa jooni',
-    currentGoalLabel: 'Ko ɗaɓɓutoomi jooni',
-    inProgress: 'E yahda',
-    infoCardText: 'A waawi wo’’indirde habaruuji ɗin fuu wakkati kala.',
-    toastUpdated: 'Habaruuji hesɗitinaama',
-    errors: {
-      invalidPositiveValue: 'Winndu lammba keewngal moƴƴungal.',
-      invalidHeight: 'Winndu toowngu hakkunde 80 e 250 cm.',
-      invalidWeight: 'Winndu ɗoyngol hakkunde 20 e 400 kg.',
-      treatmentNameRequired: 'Winndu innde safrirgo.'
-    },
-    editHeightTitle: 'Wo’’indir toowngu am',
-    editWeightTitle: 'Wo’’indir ɗoyngol am',
-    updateInfoSubtitle: 'Hesɗitin habaruuji ɗin.',
-    heightInCm: 'Toowngu e santimeetar',
-    weightInKg: 'Ɗoyngol e kilo',
-    bloodTypeSheetTitle: 'Sifaa ɗiyam',
-    bloodTypeSheetSubtitle: 'Suɓtu sifaa ɗiyam maaɗa si a anndi.',
-    conditionsSheetSubtitle: 'Suɓtu ɗowrooji ɗi a anndi. A waawi suɓtaade feere.',
-    allergiesSheetSubtitle: 'Suɓtu allergiji ɗi a anndi. A waawi suɓtaade feere.',
-    otherInfoLabel: 'Habaruuji feere',
-    otherInfoPlaceholder: 'Ɓeydu habaruuji feere (ɗum ngalaa wajibi)',
-    treatmentsSheetSubtitle: 'Ɓeydu safrirgooji ɗi a ɗon yarda jooni.',
-    newTreatmentLabel: 'Safrirgo kesum',
-    treatmentPlaceholder: 'Wuro: Fer 20 mg, nyalaade kala jemma',
-    addTreatmentAccessibility: 'Ɓeydu safrirgo',
-    treatmentsAddedTitle: 'Safrirgooji ɓeydaaɗi',
-    noTreatmentAdded: 'Safrirgo walaa ɓeydaama.',
-    notesSheetSubtitle: 'Ɓeydu tan habaruuji ɗi a yiɗi hoorude.',
-    notesPlaceholder: 'Winndu habaruuji ɗi tiiɗi ɗo...',
-    goalSheetTitle: 'Ko ɗaɓɓutoomi ngam cellal',
-    goalSheetSubtitle: 'Suɓtu ko ɗaɓɓutaa ngam ko a ɗon hawta jooni.',
-    personalProgressLabel: 'Yaadu ma:',
-    bmiClasses: {
-      insufficientData: 'Habaruuji ɗi ngonaa ɗuuɗɗum',
-      underweight: 'Ɗoyngol famɗi',
-      normal: 'Ko foti',
-      overweight: 'Ɗoyngol ɓurdi',
-      obese: 'Ɗoyngol ɓurdi ɗuuɗɗum'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Boɗɗum e jam',
     "lavender-night": 'Moƴƴum e boɗɗum',
     "rose-quartz": 'Boɗɗum, ko debbo',
@@ -8579,7 +8381,10 @@ export const ff = {
     cycleSleepFeeling: {
       rested: 'Mi timmi',
       average: 'Hakkunde',
-      tired: 'Mi tampi'
+      tired: 'Mi tampi',
+      none: 'Aa',
+      light: 'Famɗɗum',
+      aLot: 'Semmbiɗum',
     },
     cycleActivityType: {
       walking: 'Yahugo',

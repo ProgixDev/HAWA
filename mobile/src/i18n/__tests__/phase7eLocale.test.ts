@@ -4,7 +4,7 @@ import {resetAppLanguageForTests} from '../../state/themePreferences';
 
 // Phase 7E (Profile / General Health / Personal Information / Appearance /
 // Library chrome residual localization) — dictionary-level coverage for the
-// `personalInformation.*`, `generalHealth.*` and `appearanceThemes.*`
+// `personalInformation.*` and `appearanceThemes.*`
 // namespaces, plus the `library.featured.*` / `library.readingControls.*`
 // keys merged into the pre-existing `library` namespace.
 
@@ -26,13 +26,6 @@ describe('TEST — Phase 7E dictionary French byte-identical to the original har
     ['personalInformation.timeFormatLabel', 'Format de l’heure'],
     ['personalInformation.calendars.doubleLabel', 'Double'],
     ['personalInformation.toastUpdated', 'Informations mises à jour ✓'],
-    ['generalHealth.title', 'Santé générale'],
-    ['generalHealth.physicalSectionTitle', 'Informations physiques'],
-    ['generalHealth.medicalSectionTitle', 'Informations médicales'],
-    ['generalHealth.goalsSectionTitle', 'Objectifs de santé'],
-    ['generalHealth.bmiClasses.normal', 'Normal'],
-    ['generalHealth.bmiClasses.insufficientData', 'Données insuffisantes'],
-    ['generalHealth.toastUpdated', 'Informations mises à jour'],
     ['appearanceThemes.awa-original', 'Doux et harmonieux'],
     ['appearanceThemes.midnight', 'Profond et sophistiqué'],
     ['library.featured.momentBadge', 'ARTICLE DU MOMENT'],
@@ -53,7 +46,6 @@ describe('TEST — Phase 7E dictionary English coverage', () => {
 
   const namespaces: Array<[string, Record<string, unknown>]> = [
     ['personalInformation', fr.personalInformation],
-    ['generalHealth', fr.generalHealth],
     ['appearanceThemes', fr.appearanceThemes],
   ];
 
@@ -88,10 +80,4 @@ describe('TEST — COUNTRIES/CONDITIONS/ALLERGIES/GOALS stay outside the diction
     expect((fr.personalInformation as Record<string, unknown>).countries).toBeUndefined();
   });
 
-  it('generalHealth has no conditions/allergies/goals namespace — the stored value IS the display string', () => {
-    const dict = fr.generalHealth as Record<string, unknown>;
-    expect(dict.conditions).toBeUndefined();
-    expect(dict.allergies).toBeUndefined();
-    expect(dict.goals).toBeUndefined();
-  });
 });

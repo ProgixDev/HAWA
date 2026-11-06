@@ -368,7 +368,8 @@ export const rn = {
   objectiveArticles: {
     title: 'Kugira turagufashe',
     seeAll: 'Raba vyose',
-    readingMinutes: 'Iminota {{count}} yo gusoma'
+    readingMinutes: 'Iminota {{count}} yo gusoma',
+    latestTitle: 'Ingingo nshasha'
   },
   spiritualGuidance: {
     title: 'Ibimenyetso vy\'ukwemera',
@@ -614,6 +615,8 @@ export const rn = {
     timesThisNight: 'incuro muri iri joro',
     awakeningsTip: 'Ni ibisanzwe kubura incuro zimwezimwe.\nUmubiri wawe uriyagura buhorobuhoro.',
     wakeFeelingTitle: 'Ukuntu wiyumva ubwo ubuye',
+    wakeFatigueTitle: 'Umunaniro',
+    wakeFatigueAccessibility: 'Umunaniro: {{label}}',
     wakeFeelingSubtitle: 'Wiyumva gute ubwo ubuye?',
     wakeFeelingAccessibility: 'Ukuntu wiyumva ubwo ubuye: {{label}}',
     wakeFeelingTip: 'Wumve umubiri wawe maze wiyemerere\nkuruhuka nimba wumva ubikeneye.',
@@ -1489,13 +1492,8 @@ export const rn = {
     cycleLengthLabel: 'Imisi y\'uruziga',
     cycleRegularityLabel: 'Ingene uruziga rwubahiriza',
     dataProtected: 'Amakuru arakingiwe',
-    disabledSingular: 'Vyazimye',
-    editAnonymousAvatarAccessibility: 'Hindura ishusho yanje y\'ibanga',
-    editAvatarAccessibility: 'Hindura ifoto ya profil',
-    editProfile: 'Hindura profil',
-    generalHealthSubtitle: 'Ibiro, uburebure, ubwoko bw\'amaraso, indwara…',
-    generalHealthTitle: 'Ubuzima muri rusangi',
-    headerSubtitle: 'Rongora amakuru yawe n\'ivyo ukunda',
+    disabledSingular: 'Vyazimye',    editAvatarAccessibility: 'Hindura ifoto ya profil',
+    editProfile: 'Hindura profil',headerSubtitle: 'Rongora amakuru yawe n\'ivyo ukunda',
     helpSupportSubtitle: 'Ibibazo bikunze kubazwa, kumenyesha ikibazo no kuduhamagara',
     helpSupportTitle: 'Infashanyo',
     hijriDateLabel: 'Itariki ya Hijri',
@@ -1523,28 +1521,7 @@ export const rn = {
     signOut: 'Sohoka',
     cycle: {
       remindersSubtitle: 'Imihango, ikayi y\'umusi, ovulation n\'igihe c\'uburumbuke'
-    },
-    accountInfoModal: {
-      anonymousId: 'Indangamuntu y\'ibanga',
-      anonymousMode: 'Uburyo bw\'ibanga',
-      createdOn: 'Yaremwe ku wa',
-      dataPrivateInfo: 'Amakuru yawe aguma ari ibanga kuri iyi telefone kandi ntiyoherezwa ku zindi.',
-      enabledValue: 'Vyaka',
-      localOnly: 'Kuri iyi telefone gusa',
-      notConfigured: 'Ntivyateguwe',
-      pinBiometry: 'PIN / Biometrie',
-      security: 'Umutekano',
-      subtitle: 'Profil yawe y\'ibanga nta makuru ibamo yotuma bakumenya.',
-      sync: 'Guhuza amakuru',
-      title: 'Amakuru ya konte'
-    },
-    anonymousMode: {
-      exit: 'Sohoka mu buryo bw\'ibanga',
-      identityHiddenSubtitle: 'Uwo uri mu vy\'ukuri aguma yihishe',
-      manageSubtitle: 'Rongora indangamuntu yawe y\'ibanga n\'ivyo wahisemwo',
-      title: 'Uburyo bw\'ibanga'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Ubushuhe, cervical mucus, ikizamini ca LH, kwegeranira',
       indicatorsTitle: 'Ibimenyetso bikurikiranwa',
       manageReminders: 'Rongora ivyibutso vyanje vyo gusama',
@@ -1681,10 +1658,7 @@ export const rn = {
       subtitle: 'Imihango yiwe imara imisi ingahe mu busanzwe?',
       title: 'Imisi y\'imihango'
     },
-    personalInfo: {
-      accountInfoTitle: 'Amakuru ya konte',
-      anonymousSubtitle: 'Konte ikingiwe kandi y\'ibanga',
-      daughterSubtitle: 'Izina, itariki yavukiyeko…',
+    personalInfo: {daughterSubtitle: 'Izina, itariki yavukiyeko…',
       ownerSubtitle: 'Izina, imeri, itariki wavukiyeko…',
       title: 'Amakuru bwite'
     },
@@ -4117,6 +4091,8 @@ export const rn = {
       lastMeasurementLabel: 'Igipimo giheruka',
       sincePrevious: 'kuva ku ciheruka',
       addAnotherHint: 'Ongeraho ikindi gipimo kugira ngo ubone uko bigenda.',
+      sinceFirst: 'Kuva ku gupima ubwa mbere',
+      averagePerWeek: 'Impuzandengo ku cumweru',
       recentMeasurements: 'Ibipimo biheruka',
       valuesCount_one: 'agaciro {{count}}',
       valuesCount_other: 'uduciro {{count}}',
@@ -5532,6 +5508,7 @@ export const rn = {
     closeBackdropLabel: 'Funga iburira'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Urashobora guhindura intumbero zawe igihe cose.',
     cycle: {
       title: 'Vyiza cane! 🎉',
       description: 'Wahisemwo gukurikirana imihango mu buryo busanzwe.',
@@ -6634,7 +6611,7 @@ export const rn = {
         all: 'Vyose',
         medical: 'Ubuvuzi',
         religious: 'Iyobokamana',
-        featured: 'Vyatoranijwe'
+        favorites: 'Ivyo nkunda'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7267,6 +7244,8 @@ export const rn = {
     resolvingLocation: 'Turarondera aho uri…',
     noPositionSelected: 'Nta hantu hahiswemwo',
     positionSelectedOnMap: 'Ahantu hahiswemwo ku karata',
+    selectedTitle: 'Ahantu wahisemo',
+    selectedHint: 'Aha hantu hazokoreshwa mu kubara ibihe vyawe vyo gusenga.',
     noCityFoundHere: 'Nta mugi uboneka hano.',
     noResultsFound: 'Nta bisubizo vyabonetse.',
     mapsNotConfigured: 'Tegura urufunguzo rw\'ikarata kugira ikarata ikore.',
@@ -7283,7 +7262,8 @@ export const rn = {
       permissionDeny: 'Anka',
       configureMapKeyFirst: 'Banza utegure urufunguzo rw\'ikarata.',
       permissionDeniedError: 'Emera kubona aho uri mu Igenamiterere kugira ukoreshe aho uri.',
-      positionUnavailable: 'Aho uri ntiharaboneka. Raba ko GPS ifunguye.'
+      positionUnavailable: 'Aho uri ntiharaboneka. Raba ko GPS ifunguye.',
+      timeout: 'Kumenya aho uri vyafashe igihe kirekire. Raba signali canke GPS, uronke wongere ugerageze.'
     },
     errors: {
       generic: 'Ntivyashobotse kumenya aha hantu ubu.',
@@ -7334,9 +7314,10 @@ export const rn = {
     },
     spiritual: {
       title: 'Urashaka gufungura\nibimenyetso vy\'ukwemera?',
-      subtitle: 'Kalendari ya Hijri, amasengesho, ugusiba, ukwera…\nUrashobora kuhindura igihe cose.',
+      subtitle: 'Urashobora kuhindura igihe cose.',
       enable: 'Ego, fungura',
       disable: 'Oya, ntiharyo',
+      includesLabel: 'Ivyo bifungura',
       featureHijri: 'Kalendari ya Hijri',
       featurePrayers: 'Amasengesho n\'ukwera',
       featureFasting: 'Ugusiba (Ramadan, imisi yo kwiyishurira)',
@@ -7501,16 +7482,14 @@ export const rn = {
       orContinueWith: 'canke ukomeze na',
       continueWithGoogle: 'Komeza na Google',
       continueWithApple: 'Komeza na Apple',
-      continueWithEmail: 'Komeza n\'aderese ya e-mail',
-      useAnonymousMode: 'Koresha AWA mu buryo butazwi',
-      anonymousMode: 'Uburyo butazwi',
-      legalTerms: 'Amategeko yo gukoresha n\'Amategeko y\'ibanga.',
+      continueWithEmail: 'Komeza n\'aderese ya e-mail',legalTerms: 'Amategeko yo gukoresha n\'Amategeko y\'ibanga.',
       createAccount: 'Fungura konti yanje'
     },
     login: {
       tagline: 'Ku buzima buringaniye,\nmu ntambwe zose.',
       emailPlaceholder: 'Aderese ya e-mail',
       passwordPlaceholder: 'Ijambo ry\'ibanga',
+      passwordFieldPlaceholder: 'Andika ijambo ry’ibanga ryawe',
       forgotPassword: 'Wibagiye ijambo ry\'ibanga?',
       submit: 'Kwinjira',
       legalPrefix: 'Mu gukomeza, wemeye'
@@ -7553,112 +7532,7 @@ export const rn = {
       helpModalCta: 'Nasobanukiwe',
       helpModalCloseAccessibility: 'Funga'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Uburyo butazwi',
-      headerSubtitle: 'Ibanga',
-      illustrationA11y: 'Ishusho y\'uburyo butazwi',
-      activeTitle: 'Uburyo butazwi bufunguye',
-      activeSubtitle: 'Profile yawe iguma itaboshwe n\'uwo uri we igihe ubu buryo bukora.',
-      nothingKeptTitle: 'Nta kibitswe',
-      nothingKeptSubtitle: 'Aya makuru ntaboshwe kuri profile yawe itazwi.',
-      retentionEmail: 'E-mail',
-      retentionName: 'Izina',
-      retentionTechnical: 'Ibimenyetso vya tekiniki',
-      notRetained: 'Ntibibitswe',
-      appLockA11y: 'Gufunga porogaramu',
-      appLockTitle: 'Gufunga porogaramu',
-      appLockText: 'Ikode ya PIN canke biometrie igihe ufunguye AWA',
-      appLockEnabled: 'Bifunguye',
-      appLockDisabled: 'Biraziritswe',
-      disableTitle: 'Zimya uburyo butazwi',
-      disableText: 'Kugira usohoke mu buryo butazwi, urashobora gufungura konti ukayihuza n\'aderese ya e-mail canke indangamuntu.',
-      pitchTitle: 'Koresha AWA mu buryo butazwi',
-      pitchSubtitle: 'Koresha ahawe muri AWA utaboshe uwo uri we kuri profile yawe.',
-      identityPrivateTitle: 'Uwo uri we aguma ari ibanga',
-      identityPrivateSubtitle: 'Amakuru yoshobora kukumenyesha ntakenewe mu gukoresha ubu buryo.',
-      privacyRowName: 'Nta zina rikenewe',
-      privacyRowEmail: 'Nta aderese ya e-mail ikenewe',
-      privacyRowAccount: 'Nta konti ya Google canke Apple ihujwe',
-      privacyRowProfile: 'Profile itaboshwe n\'uwo uri we',
-      infoTitle: 'Ni vyiza kubimenya',
-      infoText: 'Ibikorwa bimwebimwe vya konti, vyo guhuza canke vyo kugarura vyoshobora kugabanuka mu buryo butazwi.',
-      recommendedProtectionTitle: 'Irinda risabwa',
-      recommendedProtectionText: 'Uzoshobora kurinda kwinjira muri AWA ukoresheje ikode yawe ya PIN canke biometrie.',
-      continueInAnonymousMode: 'Komeza mu buryo butazwi'
-    },
-    limitations: {
-      headerTitle: 'Imbere yo gukomeza',
-      headerSubtitle: 'Uburyo butazwi',
-      title: 'Imbere yo gukomeza',
-      subtitle: 'Mu buryo butazwi, ibikorwa bimwebimwe bijanye na konti bizogabanuka canke ntibizoboneka.',
-      recoveryTitle: 'Kugarura konti',
-      recoveryText: 'Udafise aderese ya e-mail ihujwe, kugarura kwinjira muri konti yawe birashobora kugabanuka.',
-      syncTitle: 'Guhuza',
-      syncText: 'Amakuru amwe ashobora kutaja ku zindi telefone zawe.',
-      communicationsTitle: 'Itumanaho',
-      communicationsText: 'AWA ntizoshobora kugutumira e-mail zijanye na konti yawe itazwi.',
-      securityTitle: 'Umutekano usabwa',
-      securityText: 'Turagusavye gufungura ikode ya PIN canke biometrie kugira urinde kwinjira muri AWA.',
-      acknowledgeLabel: 'Nasobanukiwe ingene uburyo butazwi bukora.',
-      activate: 'Fungura uburyo butazwi'
-    },
-    creating: {
-      headerTitle: 'Turiko turema ahawe',
-      loaderA11y: 'Turiko turema ahawe hatazwi',
-      step1: 'Turiko duteguye ahawe',
-      step2: 'Turiko dutegura ibanga',
-      step3: 'Turiko turangiza',
-      creatingTitle: 'Turiko turema ahawe hatazwi',
-      creatingSubtitle: 'AWA iriko iratunganya ahawe hari ibanga, kandi iriko iratandukanya profile yawe n\'amakuru yakumenyesha.',
-      errorTitle: 'Ntivyashobotse kurangiza gufungura',
-      errorSubtitle: 'Hari ikitagenze neza. Urashobora kugerageza kandi.',
-      retry: 'Ongera ugerageze',
-      loaderLabel: 'Tegereza',
-      loaderCaption: 'Bizofata akanya gato gusa.',
-      protectionTitle: 'Turiko turinda uwo uri we',
-      protectionSubtitle: 'AWA iriko iratunganya ahawe ikurikije ibanga wahisemwo.',
-      warning: 'Ntufunge porogaramu mu gihe ahawe haratunganywa.'
-    },
-    success: {
-      headerTitle: 'Uburyo butazwi',
-      title: 'Uburyo butazwi bufunguye',
-      subtitle: 'Profile yawe ubu ntiboshwe n\'uwo uri we. Koresha AWA ufise ibanga ryuzuye.',
-      cardTitle: 'Ahawe haraboneka',
-      cardSubtitle: 'Urashobora kuzimya uburyo butazwi igihe cose mu Ibanga n\'umutekano.',
-      continue: 'Komeza',
-      finish: 'Vyarangiye'
-    },
-    avatar: {
-      headerTitle: 'Tunganya avatar yanje',
-      eyebrow: 'PROFILE YAWE ITAZWI',
-      title: 'Rema avatar imeze nkawe',
-      subtitle: 'Hitamwo gusa ishusho n\'ibara. Nta shusho yawe bwite ikenewe.',
-      privateProfile: 'Profile y\'ibanga',
-      colorSectionTitle: 'Hitamwo ibara',
-      colorSectionDescription: 'Hitamwo ibara rya avatar yawe.',
-      colorSwatchA11y: 'Ibara {{color}}',
-      styleSectionTitle: 'Hitamwo ishusho yawe',
-      styleSectionDescription: 'Uzoshobora kuyihindura inyuma muri profile yawe.',
-      infoTitle: 'Ibanga ryawe ni ryo rya mbere',
-      infoText: 'Iyi avatar isimbura ifoto yawe mu gihe uburyo butazwi bukora. Nta foto nyakuri ikoreshwa kuri profile yawe.',
-      saveAndContinue: 'Bika ukomeze',
-      later: 'Inyuma',
-      saveChanges: 'Bika ivyahinduwe'
-    },
-    avatarStyles: {
-      hijab: 'Avatar ifise hijab',
-      glasses: 'Avatar ifise amadarubindi',
-      hat: 'Avatar ifise ingofero',
-      minimal: 'Avatar yoroshe',
-      headscarfGlasses: 'Avatar ifise igitambaro n\'amadarubindi',
-      silhouetteHat: 'Igishusho gifise ingofero nziza',
-      turban: 'Avatar ifise turban',
-      shortHair: 'Avatar ifise imisatsi mikeya'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN si yo. Ongera ugerageze.',
     genericError: 'Hari ikitagenze neza. Ongera ugerageze.',
     codesDontMatch: 'Amakode ntahuye. Subira gutangura.',
@@ -7738,8 +7612,8 @@ export const rn = {
   privacySecurity: {
     backA11y: 'Subira inyuma',
     title: 'Ibanga n\'Umutekano',
-    subtitle: 'Amakuru yawe, ibanga ryawe, ico wahisemwo 💜',
-    introTitle: 'Ni wewe ugenga 🔒',
+    subtitle: 'Amakuru yawe, ibanga ryawe, ico wahisemwo',
+    introTitle: 'Ni wewe ugenga',
     introText: 'Cunga ibanga ry\'amakuru yawe, uhitemwo irinda rikubereye.',
     sectionAccess: 'Kwinjira n\'irinda',
     pinTitle: 'Ikode ya PIN',
@@ -7760,10 +7634,7 @@ export const rn = {
     intimacySubtitle: 'Funga igice c\'Ubuzima bw\'ubwiru',
     privateContentTitle: 'Irinda ry\'Inyandiko / Amafoto bwite',
     privateContentSubtitle: 'Funga inyandiko n\'amafoto vyawe bwite',
-    sectionAccount: 'Konti n\'amakuru',
-    anonymousTitle: 'Uburyo butazwi',
-    anonymousSubtitle: 'Koresha porogaramu utavuze uwo uri we',
-    dataManagementTitle: 'Gucunga amakuru',
+    sectionAccount: 'Konti n\'amakuru',dataManagementTitle: 'Gucunga amakuru',
     dataManagementSubtitle: 'Raba, sohora canke usibe amakuru yawe',
     deleteAccountTitle: 'Siba konti yanje',
     deleteAccountSubtitle: 'Siba burundu konti n\'amakuru vyawe',
@@ -8006,76 +7877,7 @@ export const rn = {
       doubleLabel: 'Zose uko ari zibiri',
       doubleDetail: 'Gregori + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Ubuzima muri rusangi',
-    subtitle: 'Amakuru yose y’ubuzima bwawe ahantu hamwe',
-    privacyTitle: 'Amakuru yawe ni ibanga',
-    privacyText: 'Akoreshwa mu gutunganya ukwiyibutsa kwawe muri AWA kandi ushobora kuyahindura igihe cose.',
-    physicalSectionTitle: 'Amakuru y’umubiri',
-    physicalSectionSubtitle: 'Ibipimo vyawe nyamukuru',
-    heightLabel: 'Uburebure',
-    weightLabel: 'Ibiro ufise ubu',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Ubwoko bw’amaraso',
-    lastUpdateLabel: 'Vyavuguruwe ubwa nyuma',
-    medicalSectionTitle: 'Amakuru y’ubuvuzi',
-    medicalSectionSubtitle: 'Amakuru y’ingenzi yo kugumana',
-    chronicConditionsTitle: 'Indwara zihoraho',
-    chronicConditionsHelper: 'Ndaba ngo wongereho canke uhindure',
-    chronicConditionsEmpty: 'Nta ndwara ihoraho yanditswe',
-    treatmentsTitle: 'Imiti ufata ubu',
-    treatmentsHelper: 'Izina, urugero canke inshuro',
-    treatmentsEmpty: 'Nta muti wanditswe',
-    allergiesTitle: 'Alerujiyo',
-    allergiesHelper: 'Imiti, ibiryo canke ibindi',
-    allergiesEmpty: 'Nta alerujiyo yanditswe',
-    notesTitle: 'Inyandiko z’ubuvuzi',
-    notesHelper: 'Andi makuru yawe bwite yose',
-    notesEmpty: 'Nta nyandiko y’ubuvuzi yongeweko',
-    goalsSectionTitle: 'Intumbero z’ubuzima',
-    goalsSectionSubtitle: 'Intumbero yawe ubu',
-    currentGoalLabel: 'Intumbero yanje ubu',
-    inProgress: 'Biraraba',
-    infoCardText: 'Ushobora guhindura aya makuru yose igihe cose.',
-    toastUpdated: 'Amakuru yavuguruwe',
-    errors: {
-      invalidPositiveValue: 'Andika agaciro kemewe karenze zero.',
-      invalidHeight: 'Andika uburebure buri hagati ya 80 na 250 cm.',
-      invalidWeight: 'Andika ibiro biri hagati ya 20 na 400 kg.',
-      treatmentNameRequired: 'Andika izina ry’umuti.'
-    },
-    editHeightTitle: 'Hindura uburebure bwanje',
-    editWeightTitle: 'Hindura ibiro vyanje',
-    updateInfoSubtitle: 'Vugurura aya makuru.',
-    heightInCm: 'Uburebure muri santimetero',
-    weightInKg: 'Ibiro muri kilo',
-    bloodTypeSheetTitle: 'Ubwoko bw’amaraso',
-    bloodTypeSheetSubtitle: 'Hitamwo ubwoko bw’amaraso yawe nimba ubuzi.',
-    conditionsSheetSubtitle: 'Hitamwo indwara uzi ko ufise. Ushobora gutoranya nyinshi.',
-    allergiesSheetSubtitle: 'Hitamwo alerujiyo uzi ko ufise. Ushobora gutoranya nyinshi.',
-    otherInfoLabel: 'Andi makuru',
-    otherInfoPlaceholder: 'Ongeraho andi makuru (si ngombwa)',
-    treatmentsSheetSubtitle: 'Ongeraho imiti ufata ubu.',
-    newTreatmentLabel: 'Umuti mushasha',
-    treatmentPlaceholder: 'Nk’urugero: Fer 20 mg, buri gitondo',
-    addTreatmentAccessibility: 'Ongeraho umuti',
-    treatmentsAddedTitle: 'Imiti yongeweko',
-    noTreatmentAdded: 'Nta muti wongeweko.',
-    notesSheetSubtitle: 'Ongeraho gusa amakuru ushaka kugumana.',
-    notesPlaceholder: 'Andika hano amakuru yawe y’ingenzi...',
-    goalSheetTitle: 'Intumbero yanje y’ubuzima',
-    goalSheetSubtitle: 'Hitamwo intumbero ikwiranye n’ukwiyibutsa kwawe ubu.',
-    personalProgressLabel: 'Aho ugeze:',
-    bmiClasses: {
-      insufficientData: 'Amakuru ntahagije',
-      underweight: 'Ibiro biri hasi',
-      normal: 'Bisanzwe',
-      overweight: 'Ibiro biri hejuru',
-      obese: 'Umubyibuho ukabije'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Woroshe kandi uhuje',
     "lavender-night": 'Mwiza kandi ushira umutima hamwe',
     "rose-quartz": 'Woroshe kandi w’abakobwa',
@@ -8667,7 +8469,10 @@ export const rn = {
     cycleSleepFeeling: {
       rested: 'Naruhutse',
       average: 'Hagati',
-      tired: 'Nananiwe'
+      tired: 'Nananiwe',
+      none: 'Oya',
+      light: 'Bikeya',
+      aLot: 'Bikomeye',
     },
     cycleActivityType: {
       walking: 'Gutembera',

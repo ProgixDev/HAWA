@@ -365,7 +365,8 @@ export const sn = {
   objectiveArticles: {
     title: 'Kukutsigira',
     seeAll: 'Ona zvese',
-    readingMinutes: 'Maminetsi {{count}} ekuverenga'
+    readingMinutes: 'Maminetsi {{count}} ekuverenga',
+    latestTitle: 'Zvinyorwa zvichangobuda'
   },
   spiritualGuidance: {
     title: 'Zviratidzo zvemweya',
@@ -607,6 +608,8 @@ export const sn = {
     timesThisNight: 'nguva husiku huno',
     awakeningsTip: 'Zvakajairika kumuka kashoma.\nMuviri wako unozvigadzirisa zvishoma nezvishoma.',
     wakeFeelingTitle: 'Manzwiro pakumuka',
+    wakeFatigueTitle: 'Kuneta',
+    wakeFatigueAccessibility: 'Kuneta: {{label}}',
     wakeFeelingSubtitle: 'Unonzwa sei paunomuka?',
     wakeFeelingAccessibility: 'Manzwiro pakumuka: {{label}}',
     wakeFeelingTip: 'Teerera muviri wako uye zvibvumire\nkuzorora kana uchizvida.',
@@ -1467,13 +1470,8 @@ export const sn = {
     cycleLengthLabel: 'Kureba kwe cycle',
     cycleRegularityLabel: 'Kuenderana kwe cycle',
     dataProtected: 'Data yakachengetedzwa',
-    disabledSingular: 'Yakadzimwa',
-    editAnonymousAvatarAccessibility: 'Gadzirisa avatar yangu isina zita',
-    editAvatarAccessibility: 'Shandura mufananidzo wa profile',
-    editProfile: 'Gadzirisa profile',
-    generalHealthSubtitle: 'Kurema, kureba, rudzi rweropa, zvirwere…',
-    generalHealthTitle: 'Utano hwakazara',
-    headerSubtitle: 'Ronga ruzivo rwako nezvaunosarudza',
+    disabledSingular: 'Yakadzimwa',    editAvatarAccessibility: 'Shandura mufananidzo wa profile',
+    editProfile: 'Gadzirisa profile',headerSubtitle: 'Ronga ruzivo rwako nezvaunosarudza',
     helpSupportSubtitle: 'Mibvunzo inowanzobvunzwa, kuzivisa dambudziko nekubata',
     helpSupportTitle: 'Rubatsiro',
     hijriDateLabel: 'Zuva re Hijri',
@@ -1501,28 +1499,7 @@ export const sn = {
     signOut: 'Buda',
     cycle: {
       remindersSubtitle: 'Kuenda kumwedzi, journal yezuva nezuva, ovulation nenguva yekubata nhumbu'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID isina zita',
-      anonymousMode: 'Mode isina zita',
-      createdOn: 'Yakagadzirwa pa',
-      dataPrivateInfo: 'Data yako inogara yakavanzika pafoni iyi uye haiendi kune dzimwe mafoni.',
-      enabledValue: 'Yakavhurwa',
-      localOnly: 'Pafoni chete',
-      notConfigured: 'Hazvina kugadziriswa',
-      pinBiometry: 'PIN / Biometrics',
-      security: 'Kuchengeteka',
-      subtitle: 'Profile yako isina zita haina ruzivo rungakuzivisa.',
-      sync: 'Sync',
-      title: 'Ruzivo rwe account'
-    },
-    anonymousMode: {
-      exit: 'Buda mu mode isina zita',
-      identityHiddenSubtitle: 'Kuziva kwako chaiko kunoramba kwakavanzika',
-      manageSubtitle: 'Ronga kuzivikanwa kwako kwakavanzika nezvinosarudzwa zvisina zita',
-      title: 'Mode Isina Zita'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Kupisa kwemuviri, cervical mucus, LH test, hukama hwepamoyo',
       indicatorsTitle: 'Zviratidzo zvinotevedzwa',
       manageReminders: 'Ronga zviyeuchidzo zvangu zvekubata nhumbu',
@@ -1657,10 +1634,7 @@ export const sn = {
       subtitle: 'Kuenda kwake kumwedzi kunowanzoita mazuva mangani?',
       title: 'Mazuva ekuenda kumwedzi'
     },
-    personalInfo: {
-      accountInfoTitle: 'Ruzivo rwe account',
-      anonymousSubtitle: 'Account yakachengetedzwa isina zita',
-      daughterSubtitle: 'Zita, zuva rekuberekwa…',
+    personalInfo: {daughterSubtitle: 'Zita, zuva rekuberekwa…',
       ownerSubtitle: 'Zita, email, zuva rekuberekwa…',
       title: 'Ruzivo rwako'
     },
@@ -4062,6 +4036,8 @@ export const sn = {
       lastMeasurementLabel: 'Kuyera kwekupedzisira',
       sincePrevious: 'kubva pane rapfuura',
       addAnotherHint: 'Wedzera rimwe kuyera kuti uone mafambiro ako.',
+      sinceFirst: 'Kubva pakuyerwa kwekutanga',
+      averagePerWeek: 'Avhareji pasvondo',
       recentMeasurements: 'Kuyera kwazvino',
       valuesCount_one: 'kukosha {{count}}',
       valuesCount_other: 'kukosha {{count}}',
@@ -5461,6 +5437,7 @@ export const sn = {
     closeBackdropLabel: 'Vhara yambiro'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Unogona kushandura zvinangwa zvako chero nguva.',
     cycle: {
       title: 'Zvakanaka! 🎉',
       description: 'Wasarudza kuteverera denderedzwa rakajairika.',
@@ -6563,7 +6540,7 @@ export const sn = {
         all: 'Zvose',
         medical: 'Zvekuchiremba',
         religious: 'Zvekunamata',
-        featured: 'Zvakasarudzwa'
+        favorites: 'Zvaunofarira'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const sn = {
     resolvingLocation: 'Tiri kutsvaga nzvimbo yako…',
     noPositionSelected: 'Hakuna nzvimbo yasarudzwa',
     positionSelectedOnMap: 'Nzvimbo yasarudzwa pamepu',
+    selectedTitle: 'Nzvimbo yasarudzwa',
+    selectedHint: 'Nzvimbo iyi ichashandiswa kuverenga nguva dzako dzekunamata.',
     noCityFoundHere: 'Hakuna guta rakawanikwa panzvimbo iyi.',
     noResultsFound: 'Hapana chakawanikwa.',
     mapsNotConfigured: 'Gadzira kiyi yemepu kuti mepu ishande.',
@@ -7209,7 +7188,8 @@ export const sn = {
       permissionDeny: 'Kanza',
       configureMapKeyFirst: 'Tanga wagadzira kiyi yemepu.',
       permissionDeniedError: 'Bvumidza kuwana nzvimbo muSettings kuti ushandise nzvimbo yako.',
-      positionUnavailable: 'Nzvimbo haisipo. Tarisa kuti GPS yakavhurwa.'
+      positionUnavailable: 'Nzvimbo haisipo. Tarisa kuti GPS yakavhurwa.',
+      timeout: 'Kutsvaga nzvimbo kutorera nguva refu. Tarisa chiratidzo kana GPS, wozoyedza zvakare.'
     },
     errors: {
       generic: 'Nzvimbo iyi haigoni kuzivikanwa parizvino.',
@@ -7260,9 +7240,10 @@ export const sn = {
     },
     spiritual: {
       title: 'Ungada here kuvhura\nzviratidzo zvekunamata?',
-      subtitle: 'Karenda yeHijri, mudzidzisi wemanamato, kuzvidzora, mamiriro eutsvene…\nUnogona kuchinja sarudzo iyi chero nguva.',
+      subtitle: 'Unogona kuchinja sarudzo iyi chero nguva.',
       enable: 'Hongu, vhura',
       disable: 'Kwete, kwete parizvino',
+      includesLabel: 'Zvinovhurwa',
       featureHijri: 'Karenda yeHijri',
       featurePrayers: 'Salat & mamiriro eutsvene',
       featureFasting: 'Sawm (Ramadan, qada)',
@@ -7427,16 +7408,14 @@ export const sn = {
       orContinueWith: 'kana enderera ne',
       continueWithGoogle: 'Enderera neGoogle',
       continueWithApple: 'Enderera neApple',
-      continueWithEmail: 'Enderera ne email address',
-      useAnonymousMode: 'Shandisa AWA usingazivikanwi',
-      anonymousMode: 'Anonymous mode',
-      legalTerms: 'Mitemo yekushandisa neMutemo wedu weKuvanzika.',
+      continueWithEmail: 'Enderera ne email address',legalTerms: 'Mitemo yekushandisa neMutemo wedu weKuvanzika.',
       createAccount: 'Gadzira akaunzi yangu'
     },
     login: {
       tagline: 'Kuti hupenyu huenzane,\nnhanho imwe neimwe.',
       emailPlaceholder: 'Email address',
       passwordPlaceholder: 'Password',
+      passwordFieldPlaceholder: 'Isa password yako',
       forgotPassword: 'Waakanganwa password?',
       submit: 'Pinda',
       legalPrefix: 'Pakuenderera, unobvumirana ne'
@@ -7479,112 +7458,7 @@ export const sn = {
       helpModalCta: 'Ndazvinzwa',
       helpModalCloseAccessibility: 'Vhara'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Anonymous mode',
-      headerSubtitle: 'Kuvanzika',
-      illustrationA11y: 'Mufananidzo we anonymous mode',
-      activeTitle: 'Anonymous Mode yakavhurwa',
-      activeSubtitle: 'Profile yako haisungirirwi nezita rako kana mode iyi ichishanda.',
-      nothingKeptTitle: 'Hapana chinochengetwa',
-      nothingKeptSubtitle: 'Ruzivo urwu harusungirirwi ne profile yako isingazivikanwi.',
-      retentionEmail: 'Email',
-      retentionName: 'Zita',
-      retentionTechnical: 'Zviziviso zvetekinoroji',
-      notRetained: 'Hazvichengetwi',
-      appLockA11y: 'Kukiya app',
-      appLockTitle: 'Kukiya app',
-      appLockText: 'PIN kana biometrics pakuvhura AWA',
-      appLockEnabled: 'Yakavhurwa',
-      appLockDisabled: 'Yakavharwa',
-      disableTitle: 'Vhara Anonymous mode',
-      disableText: 'Kuti ubude mu anonymous mode, unogona kugadzira akaunzi uye ukasunga email address kana ID.',
-      pitchTitle: 'Shandisa AWA usingazivikanwi',
-      pitchSubtitle: 'Farira nzvimbo yako yeAWA pasina kusunga zita rako ne profile yako.',
-      identityPrivateTitle: 'Zita rako rinoramba rakavanzika',
-      identityPrivateSubtitle: 'Ruzivo rungakuzivisa harudiwi kushandisa mode iyi.',
-      privacyRowName: 'Hapana zita rinodiwa',
-      privacyRowEmail: 'Hapana email address inodiwa',
-      privacyRowAccount: 'Hapana akaunzi yeGoogle kana Apple yakasungirirwa',
-      privacyRowProfile: 'Profile haisungirirwi nezita rako',
-      infoTitle: 'Zvakanaka kuziva',
-      infoText: 'Zvimwe zvinhu zveakaunzi, sync kana kudzorera zvinogona kuvharirwa mu anonymous mode.',
-      recommendedProtectionTitle: 'Kudzivirira kunokurudzirwa',
-      recommendedProtectionText: 'Uchakwanisa kudzivirira kupinda muAWA ne PIN kana biometrics.',
-      continueInAnonymousMode: 'Enderera mu anonymous mode'
-    },
-    limitations: {
-      headerTitle: 'Usati waenderera mberi',
-      headerSubtitle: 'Anonymous mode',
-      title: 'Usati waenderera mberi',
-      subtitle: 'Mu anonymous mode, zvimwe zvinhu zvine chekuita neakaunzi zvichaderedzwa kana kusavapo.',
-      recoveryTitle: 'Kudzorera akaunzi',
-      recoveryText: 'Pasina email address yakasungirirwa, kudzorera kupinda muakaunzi yako kunogona kuvharirwa.',
-      syncTitle: 'Sync',
-      syncText: 'Dzimwe data dzinogona kusaenderana pamafoni ako mamwe.',
-      communicationsTitle: 'Mashoko',
-      communicationsText: 'AWA haizokwanise kukutumira maemail ane chekuita neakaunzi yako isingazivikanwi.',
-      securityTitle: 'Kuchengetedza kunokurudzirwa',
-      securityText: 'Tinokurudzira kuvhura PIN kana biometrics kudzivirira kupinda muAWA.',
-      acknowledgeLabel: 'Ndinonzwisisa kuti anonymous mode inoshanda sei.',
-      activate: 'Vhura anonymous mode'
-    },
-    creating: {
-      headerTitle: 'Tiri kugadzira nzvimbo yako',
-      loaderA11y: 'Tiri kugadzira nzvimbo yako isingazivikanwi',
-      step1: 'Tiri kugadzirira nzvimbo yako',
-      step2: 'Tiri kugadzira kuvanzika',
-      step3: 'Tiri kupedza',
-      creatingTitle: 'Tiri kugadzira nzvimbo yako isingazivikanwi',
-      creatingSubtitle: 'AWA iri kugadzirira nzvimbo yako yakavanzika uye ichibvisa profile yako pazviziviso zvinokuzivisa.',
-      errorTitle: 'Kuvhura hakuna kupera',
-      errorSubtitle: 'Pane chakaenda zvisina kunaka. Unogona kuedza zvakare.',
-      retry: 'Edza zvakare',
-      loaderLabel: 'Ngwarira kumirira',
-      loaderCaption: 'Zvichatora nguva pfupi chete.',
-      protectionTitle: 'Tiri kudzivirira zita rako',
-      protectionSubtitle: 'AWA iri kugadzirira nzvimbo yako ichiisa zvaunoda pakuvanzika.',
-      warning: 'Usavhara app nzvimbo yako ichiri kugadzirirwa.'
-    },
-    success: {
-      headerTitle: 'Anonymous mode',
-      title: 'Anonymous mode yakavhurwa',
-      subtitle: 'Profile yako yava kusasungirirwa nezita rako. Farira AWA uine kuvanzika kwakakwana.',
-      cardTitle: 'Nzvimbo yako yakagadzirira',
-      cardSubtitle: 'Unogona kuvhara anonymous mode chero nguva kubva muKuvanzika & kuchengetedza.',
-      continue: 'Enderera',
-      finish: 'Zvaitwa'
-    },
-    avatar: {
-      headerTitle: 'Gadzira avatar yangu',
-      eyebrow: 'PROFILE YAKO ISINGAZIVIKANWI',
-      title: 'Gadzira avatar inofanana newe',
-      subtitle: 'Sarudza chete mufananidzo neruvara. Hapana mufananidzo wako unodiwa.',
-      privateProfile: 'Profile yakavanzika',
-      colorSectionTitle: 'Sarudza ruvara',
-      colorSectionDescription: 'Sarudza ruvara rwe avatar yako.',
-      colorSwatchA11y: 'Ruvara {{color}}',
-      styleSectionTitle: 'Sarudza mufananidzo wako',
-      styleSectionDescription: 'Unogona kuchinja gare gare kubva kuprofile yako.',
-      infoTitle: 'Kuvanzika kwako kunotanga',
-      infoText: 'Avatar iyi inotsiva mufananidzo wako anonymous mode ichishanda. Hapana mufananidzo chaiwo unoshandiswa pa profile yako.',
-      saveAndContinue: 'Chengeta uye uenderere',
-      later: 'Gare gare',
-      saveChanges: 'Chengeta shanduko'
-    },
-    avatarStyles: {
-      hijab: 'Avatar ine hijab',
-      glasses: 'Avatar ine magirazi',
-      hat: 'Avatar ine ngowani',
-      minimal: 'Avatar yakapfava',
-      headscarfGlasses: 'Avatar ine dhuku nemagirazi',
-      silhouetteHat: 'Mumvuri une ngowani yakanaka',
-      turban: 'Avatar ine turban',
-      shortHair: 'Avatar ine vhudzi pfupi'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN haina kururama. Edza zvakare.',
     genericError: 'Pane chakaenda zvisina kunaka. Edza zvakare.',
     codesDontMatch: 'Makodhi haafanani. Tanga patsva.',
@@ -7664,8 +7538,8 @@ export const sn = {
   privacySecurity: {
     backA11y: 'Dzokera',
     title: 'Kuvanzika & Kuchengetedza',
-    subtitle: 'Data yako, kuvanzika kwako, sarudzo yako 💜',
-    introTitle: 'Iwe ndiwe unotonga 🔒',
+    subtitle: 'Data yako, kuvanzika kwako, sarudzo yako',
+    introTitle: 'Iwe ndiwe unotonga',
     introText: 'Bata kuvanzika kwe data yako uye usarudze kudzivirirwa kwakakukodzera.',
     sectionAccess: 'Kupinda nekudzivirira',
     pinTitle: 'PIN',
@@ -7686,10 +7560,7 @@ export const sn = {
     intimacySubtitle: 'Kiya chikamu cheHupenyu Hwepedyo',
     privateContentTitle: 'Kudzivirira Manotsi / Mifananidzo Yakavanzika',
     privateContentSubtitle: 'Kiya manotsi nemifananidzo yako',
-    sectionAccount: 'Akaunzi ne data',
-    anonymousTitle: 'Anonymous mode',
-    anonymousSubtitle: 'Shandisa app usingazivikanwi',
-    dataManagementTitle: 'Kubata data',
+    sectionAccount: 'Akaunzi ne data',dataManagementTitle: 'Kubata data',
     dataManagementSubtitle: 'Ona, export kana kudzima data yako',
     deleteAccountTitle: 'Dzima akaunzi yangu',
     deleteAccountSubtitle: 'Dzima akaunzi yako ne data zvachose',
@@ -7930,76 +7801,7 @@ export const sn = {
       doubleLabel: 'Zvose',
       doubleDetail: 'Gregorian + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Hutano hwakazara',
-    subtitle: 'Ruzivo rwako rwose rwehutano panzvimbo imwe',
-    privacyTitle: 'Ruzivo rwako nderwakavanzika',
-    privacyText: 'Runoshandiswa kuita kuti kuteedzera kwako mu AWA kukwane newe uye unogona kuruchinja chero nguva.',
-    physicalSectionTitle: 'Ruzivo rwemuviri',
-    physicalSectionSubtitle: 'Miyero yako huru',
-    heightLabel: 'Kureba',
-    weightLabel: 'Kurema kwazvino',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Rudzi rweropa',
-    lastUpdateLabel: 'Zvakavandudzwa kekupedzisira',
-    medicalSectionTitle: 'Ruzivo rwezvokurapa',
-    medicalSectionSubtitle: 'Ruzivo rwakakosha rwokuramba rune',
-    chronicConditionsTitle: 'Zvirwere zvinogara',
-    chronicConditionsHelper: 'Dzvanya kuti uwedzere kana kugadzirisa',
-    chronicConditionsEmpty: 'Hapana chirwere chinogara chakanyorwa',
-    treatmentsTitle: 'Kurapwa kwazvino',
-    treatmentsHelper: 'Zita, mwero kana kuti kangani',
-    treatmentsEmpty: 'Hapana kurapwa kwakanyorwa',
-    allergiesTitle: 'Allergy',
-    allergiesHelper: 'Mishonga, zvokudya kana zvimwe',
-    allergiesEmpty: 'Hapana allergy yakanyorwa',
-    notesTitle: 'Zvinyorwa zvezvokurapa',
-    notesHelper: 'Chero ruzivo rwumwe rwako',
-    notesEmpty: 'Hapana chinyorwa chezvokurapa chakawedzerwa',
-    goalsSectionTitle: 'Zvinangwa zvehutano',
-    goalsSectionSubtitle: 'Chinangwa chako chazvino',
-    currentGoalLabel: 'Chinangwa changu chazvino',
-    inProgress: 'Zviri kufambira mberi',
-    infoCardText: 'Unogona kuchinja ruzivo urwu rwose chero nguva.',
-    toastUpdated: 'Ruzivo rwavandudzwa',
-    errors: {
-      invalidPositiveValue: 'Isa nhamba chaiyo inopfuura zero.',
-      invalidHeight: 'Isa kureba pakati pe80 ne250 cm.',
-      invalidWeight: 'Isa kurema pakati pe20 ne400 kg.',
-      treatmentNameRequired: 'Isa zita rekurapwa.'
-    },
-    editHeightTitle: 'Gadzirisa kureba kwangu',
-    editWeightTitle: 'Gadzirisa kurema kwangu',
-    updateInfoSubtitle: 'Vandudza ruzivo urwu.',
-    heightInCm: 'Kureba mu centimeter',
-    weightInKg: 'Kurema mu kilogram',
-    bloodTypeSheetTitle: 'Rudzi rweropa',
-    bloodTypeSheetSubtitle: 'Sarudza rudzi rweropa rako kana uchiruziva.',
-    conditionsSheetSubtitle: 'Sarudza zvirwere zvaunoziva. Unogona kusarudza zvakawanda.',
-    allergiesSheetSubtitle: 'Sarudza allergy dzaunoziva. Unogona kusarudza dzakawanda.',
-    otherInfoLabel: 'Ruzivo rumwe',
-    otherInfoPlaceholder: 'Wedzera ruzivo rumwe (hazvisi zvekumanikidzwa)',
-    treatmentsSheetSubtitle: 'Wedzera kurapwa kwaunotora parizvino.',
-    newTreatmentLabel: 'Kurapwa kutsva',
-    treatmentPlaceholder: 'Semuenzaniso: Iron 20 mg, mangwanani ose',
-    addTreatmentAccessibility: 'Wedzera kurapwa',
-    treatmentsAddedTitle: 'Kurapwa kwakawedzerwa',
-    noTreatmentAdded: 'Hapana kurapwa kwakawedzerwa.',
-    notesSheetSubtitle: 'Wedzera chete ruzivo rwaunoda kuchengeta.',
-    notesPlaceholder: 'Wedzera ruzivo rwako rwakakosha pano...',
-    goalSheetTitle: 'Chinangwa changu chehutano',
-    goalSheetSubtitle: 'Sarudza chinangwa chinokodzera kuteedzera kwako kwazvino.',
-    personalProgressLabel: 'Kufambira mberi kwako:',
-    bmiClasses: {
-      insufficientData: 'Ruzivo harwukwani',
-      underweight: 'Kurema kuri pasi',
-      normal: 'Zvakajairika',
-      overweight: 'Kurema kwakawandisa',
-      obese: 'Kuwandisa kurema zvakanyanya'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Zvinyoro uye zvakadzikama',
     "lavender-night": 'Zvakanaka uye zvinotsanangudza mwoyo',
     "rose-quartz": 'Zvinyoro uye zvehukadzi',
@@ -8579,7 +8381,10 @@ export const sn = {
     cycleSleepFeeling: {
       rested: 'Wazorora',
       average: 'Zvepakati',
-      tired: 'Waneta'
+      tired: 'Waneta',
+      none: 'Kwete',
+      light: 'Zvishoma',
+      aLot: 'Zvakasimba',
     },
     cycleActivityType: {
       walking: 'Kufamba',

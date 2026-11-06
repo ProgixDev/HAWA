@@ -82,7 +82,7 @@ describe('dictionary integrity', () => {
   it('ko.ts has exactly the same leaf paths as every other dictionary — fifteen-language parity, no missing, no extra', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBe(6306);
+    expect(reference.length).toBe(6143);
     expect(paths(ko as AnyRecord)).toEqual(reference);
     for (const dictionary of [fr, es, itDictionary, tr, de, zh, id, hi, sq, ja, bn]) {
       expect(paths(dictionary as AnyRecord)).toEqual(reference);
@@ -310,7 +310,7 @@ describe('runtime switching and persistence', () => {
   });
 
   it('the article category tabs are short single-line labels', () => {
-    for (const key of ['all', 'medical', 'religious', 'featured']) {
+    for (const key of ['all', 'medical', 'religious', 'favorites']) {
       const label = tOf(`library.screen.tabs.${key}`, 'ko');
       expect(label.length).toBeLessThanOrEqual(6);
       expect(label).not.toContain('\n');
