@@ -93,7 +93,7 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaIconButton} from '../ui/AwaIconButton';
 import {AwaText} from '../ui/AwaText';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
+import CalendarFilterChips from '../calendar/CalendarFilterChips';
 
 // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
 // literals, exactly the pre-existing values this file already used (via
@@ -199,11 +199,22 @@ function ContraceptionCalendarContent(): React.JSX.Element {
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
   }, []);
 
-  const [filters, setFilters] = useState<ContraceptionCalendarFilters>(DEFAULT_CALENDAR_FILTERS);
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<ReadonlySet<string>>(() => new Set());
+  const filters = useMemo<ContraceptionCalendarFilters>(
+    () => selectedFilters.size === 0
+      ? DEFAULT_CALENDAR_FILTERS
+      : (Object.fromEntries(Object.keys(DEFAULT_CALENDAR_FILTERS).map(key => [key, selectedFilters.has(key)])) as ContraceptionCalendarFilters),
+    [selectedFilters],
+  );
   const [sheet, setSheet] = useState<CalendarSheetMode>(null);
 
   const toggleFilter = useCallback((key: keyof ContraceptionCalendarFilters) => {
-    setFilters(current => ({...current, [key]: !current[key]}));
+    setSelectedFilters(current => {
+      const next = new Set(current);
+      if (next.has(key as string)) {next.delete(key as string);} else {next.add(key as string);}
+      return next;
+    });
   }, []);
 
   const [contraception, setContraception] = useState(getContraceptionPreferences);
@@ -453,12 +464,20 @@ function ContraceptionCalendarContent(): React.JSX.Element {
           <View style={styles.header}>
             <View style={styles.headerCopy}>
               <AwaText variant="headlineSmall" style={styles.title}>{t('contraceptionCalendar.title')}</AwaText>
-              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('contraceptionCalendar.subtitle')}</AwaText>
             </View>
-
-            <HeaderAction icon="tune-variant" label={t('contraceptionCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label={t('contraceptionCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
+
+          <ContraceptionCalendarSheet
+            filters={filters}
+            inline
+            mode={null}
+            onClose={() => setSheet(null)}
+            onToggle={toggleFilter}
+            selectedKeys={selectedFilters}
+            spiritualMarkersEnabled={spiritualMarkersEnabled}
+            isEventMethod={isEventMethod}
+            methodEventTypes={methodEventTypes}
+          />
 
           {/* MONTH CARD */}
           <AwaCard padding="none" variant="filled" style={styles.card}>
@@ -966,11 +985,15 @@ function LegendItem({
    classification — only whether a marker already computed above is drawn.
 ============================================================ */
 
+const EMPTY_SELECTION: ReadonlySet<string> = new Set();
+
 function ContraceptionCalendarSheet({
   mode,
   onClose,
   onToggle,
   filters,
+  inline,
+  selectedKeys,
   spiritualMarkersEnabled,
   isEventMethod,
   methodEventTypes,
@@ -982,6 +1005,9 @@ function ContraceptionCalendarSheet({
   spiritualMarkersEnabled: boolean;
   isEventMethod: boolean;
   methodEventTypes: ContraceptionEventType[];
+  /** Renders only the category chips (the calendar screen's filter row) instead of the modal. */
+  inline?: boolean;
+  selectedKeys?: ReadonlySet<string>;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -1061,6 +1087,16 @@ function ContraceptionCalendarSheet({
         {icon: 'clock-alert' as const, color: WARNING, title: t('contraceptionCalendar.legendRows.lateTitle'), description: t('contraceptionCalendar.legendRows.lateDescription')},
         {icon: 'alert-circle' as const, color: DANGER, title: t('contraceptionCalendar.legendRows.missedTitle'), description: t('contraceptionCalendar.legendRows.missedDescription')},
       ];
+
+  if (inline) {
+    return (
+      <CalendarFilterChips
+        chips={[...trackingFilterRows, ...(spiritualMarkersEnabled ? spiritualFilterRows : [])].map(row => ({key: String(row.key), label: row.title}))}
+        onToggle={key => onToggle(key as keyof ContraceptionCalendarFilters)}
+        selected={selectedKeys ?? EMPTY_SELECTION}
+      />
+    );
+  }
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>

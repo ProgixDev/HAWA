@@ -83,6 +83,7 @@ import {formatHijriDate} from '../../utils/cycleMath';
 
 import '../../i18n';
 import {presentSaveFailure} from '../../services/saveFailure';
+import {GlassIcon} from '../ui/GlassIcon';
 import {AwaText} from '../ui/AwaText';
 import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
@@ -718,9 +719,6 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
   const currentStageIcon =
     currentStage?.icon ?? 'flower-outline';
 
-  const currentStageTint =
-    currentStage?.tint ?? '#EEE5FB';
-
   /* ================================================================
    * RENDER
    * ================================================================ */
@@ -873,21 +871,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   styles.stageBody,
                   pressed && styles.stageBodyPressed,
                 ]}>
-                <View
-                  style={[
-                    styles.stageIconHalo,
-                    // currentStageTint stays a fixed literal (see PHASE D8
-                    // report — STAGE_OPTIONS.tint classification).
-                    {backgroundColor: currentStageTint},
-                  ]}>
-                  <View style={styles.stageIconBox}>
-                    <MaterialDesignIcons
-                      color={theme.colors.primary}
-                      name={currentStageIcon}
-                      size={25}
-                    />
-                  </View>
-                </View>
+                <GlassIcon icon={currentStageIcon} size={52} />
 
                 <View style={styles.flexOne}>
                   <AwaText variant="labelSmall" colorRole="onSurfaceVariant">
@@ -1104,6 +1088,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
           <ObjectiveArticlesSection
             objective="menopause"
             onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
         </ScrollView>
@@ -1495,32 +1480,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   stageBodyPressed: {
     backgroundColor: theme.colors.surfaceSecondary,
-  },
-
-  stageIconHalo: {
-    width: 55,
-    height: 55,
-
-    flexShrink: 0,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    marginRight: 13,
-
-    borderRadius: 12,
-  },
-
-  stageIconBox: {
-    width: 42,
-    height: 42,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 16,
-
-    backgroundColor: withAlpha(theme.colors.surface, 0.72),
   },
 
 

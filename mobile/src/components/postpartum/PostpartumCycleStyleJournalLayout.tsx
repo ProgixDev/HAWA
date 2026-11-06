@@ -3,8 +3,6 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
-  I18nManager,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -46,11 +44,6 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Props = {
   title: string;
   dateLabel: string;
-  /** Small icon tile above the hero title; omitted: no tile (the Humeur screen shows none). */
-  heroIcon?: IconName;
-  heroImage: number;
-  heroTitle: string;
-  heroText: string;
   saving?: boolean;
   error?: string;
   onSave: () => void;
@@ -62,10 +55,6 @@ type Props = {
 export function PostpartumCycleStyleJournalLayout({
   title,
   dateLabel,
-  heroIcon,
-  heroImage,
-  heroTitle,
-  heroText,
   saving,
   error,
   onSave,
@@ -130,22 +119,6 @@ export function PostpartumCycleStyleJournalLayout({
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           <Animated.View style={entranceStyle}>
-            <ImageBackground
-              imageStyle={styles.heroImage}
-              resizeMode="cover"
-              source={heroImage}
-              style={styles.hero}>
-              <View style={[styles.heroContent, I18nManager.isRTL && styles.heroContentRtl]}>
-                {heroIcon ? (
-                  <View style={styles.heroIconCircle}>
-                    <MaterialDesignIcons color={theme.colors.primary} name={heroIcon} size={24} />
-                  </View>
-                ) : null}
-                <AwaText variant="titleMedium" style={[styles.heroTitle, !heroIcon && styles.heroTitleNoIcon]}>{heroTitle}</AwaText>
-                <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroText}>{heroText}</AwaText>
-              </View>
-            </ImageBackground>
-
             <View style={styles.body}>{children}</View>
 
             {error ? <AwaText variant="bodySmall" colorRole="error" accessibilityRole="alert" style={styles.error}>{error}</AwaText> : null}

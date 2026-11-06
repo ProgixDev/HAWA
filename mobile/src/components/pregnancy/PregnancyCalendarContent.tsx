@@ -78,7 +78,6 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaIconButton} from '../ui/AwaIconButton';
 import {AwaSwitch} from '../ui/AwaSwitch';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
 
 /* ============================================================
    CALENDAR MODES
@@ -363,120 +362,73 @@ function buildDailyItems(
           'exam',
     );
 
-  const appointmentValue =
-    appointments.length
-      ? appointments
-          .map(
-            event =>
-              `${event.title}${
-                'time' in
-                  event &&
-                event.time
-                  ? ` · ${event.time}`
-                  : ''
-              }`,
-          )
-          .join(' • ')
-      : filterMeta
-          .appointments.empty;
+  const items: DailyInfoItem[] = [];
 
-  return [
-    {
+  if (symptomEntry?.symptoms.length) {
+    items.push({
       key: 'symptoms',
-      label:
-        filterMeta.symptoms
-          .label,
-      value:
-        symptomEntry
-          ?.symptoms.length
-          ? symptomEntry.symptoms
-              .map(symptom => journalOptionLabel('pregnancySymptom', symptom, t))
-              .join(', ')
-          : filterMeta
-              .symptoms.empty,
-      icon:
-        filterMeta.symptoms
-          .icon,
-    },
+      label: filterMeta.symptoms.label,
+      value: symptomEntry.symptoms.map(symptom => journalOptionLabel('pregnancySymptom', symptom, t)).join(', '),
+      icon: filterMeta.symptoms.icon,
+    });
+  }
 
-    {
+  if (weightEntry) {
+    items.push({
       key: 'weight',
-      label:
-        filterMeta.weight
-          .label,
-      value: weightEntry
-        ? `${new Intl.NumberFormat(dateFormatLocale()).format(weightEntry.valueKg)} kg`
-        : filterMeta.weight
-            .empty,
-      icon:
-        filterMeta.weight
-          .icon,
-    },
+      label: filterMeta.weight.label,
+      value: `${new Intl.NumberFormat(dateFormatLocale()).format(weightEntry.valueKg)} kg`,
+      icon: filterMeta.weight.icon,
+    });
+  }
 
-    {
+  if (daily?.mood) {
+    items.push({
       key: 'mood',
-      label:
-        filterMeta.mood
-          .label,
-      value: daily?.mood
-        ? moodLabels[
-            daily.mood.level
-          ]
-        : filterMeta.mood
-            .empty,
-      icon:
-        filterMeta.mood
-          .icon,
-    },
+      label: filterMeta.mood.label,
+      value: moodLabels[daily.mood.level],
+      icon: filterMeta.mood.icon,
+    });
+  }
 
-    {
+  const sleepValue =
+    daily?.sleep?.duration ??
+    (daily?.sleep?.quality ? journalOptionLabel('cycleSleepQuality', daily.sleep.quality, t) : undefined);
+  if (sleepValue) {
+    items.push({
       key: 'sleep',
-      label:
-        filterMeta.sleep
-          .label,
-      value:
-        daily?.sleep
-          ?.duration ??
-        (daily?.sleep?.quality
-          ? journalOptionLabel('cycleSleepQuality', daily.sleep.quality, t)
-          : undefined) ??
-        filterMeta.sleep
-          .empty,
-      icon:
-        filterMeta.sleep
-          .icon,
-    },
+      label: filterMeta.sleep.label,
+      value: sleepValue,
+      icon: filterMeta.sleep.icon,
+    });
+  }
 
-    {
-      // Medical-information content is private (see
-      // PregnancyMedicalInformationScreen.tsx, behind requirePrivateAccess).
-      // The Calendar may only ever reveal WHETHER an entry exists for this
-      // date, never `medicalEntry.note` itself — do not read `.note` here.
+  if (medicalEntry) {
+    // Medical-information content is private (see
+    // PregnancyMedicalInformationScreen.tsx, behind requirePrivateAccess).
+    // The Calendar may only ever reveal WHETHER an entry exists for this
+    // date, never `medicalEntry.note` itself — do not read `.note` here.
+    items.push({
       key: 'medical',
-      label:
-        filterMeta.medical
-          .label,
-      value: medicalEntry
-        ? t('pregnancyCalendar.dailyInfo.recorded')
-        : t('pregnancyCalendar.dailyInfo.notRecorded'),
-      icon:
-        filterMeta.medical
-          .icon,
-    },
+      label: filterMeta.medical.label,
+      value: t('pregnancyCalendar.dailyInfo.recorded'),
+      icon: filterMeta.medical.icon,
+    });
+  }
 
-    {
+  if (appointments.length) {
+    items.push({
       key: 'appointments',
-      label:
-        filterMeta.appointments
-          .label,
-      value:
-        appointmentValue,
-      icon:
-        filterMeta.appointments
-          .icon,
+      label: filterMeta.appointments.label,
+      value: appointments
+        .map(event => `${event.title}${'time' in event && event.time ? ` · ${event.time}` : ''}`)
+        .join(' • '),
+      icon: filterMeta.appointments.icon,
       wide: true,
-    },
-  ];
+    });
+  }
+
+  return items;
 }
 
 function isEventVisible(
@@ -598,15 +550,16 @@ function PregnancyCalendarContent(): React.JSX.Element {
   >(null);
 
   const [
-    visibleFilters,
-    setVisibleFilters,
+    selectedFilters,
+    setSelectedFilters,
   ] = useState<
     Set<FilterKey>
-  >(
-    () =>
-      new Set(
-        FILTER_KEYS,
-      ),
+  >(() => new Set());
+
+  // No chip selected = every category is shown (the default); otherwise only the selected ones.
+  const visibleFilters = useMemo(
+    () => (selectedFilters.size === 0 ? new Set<FilterKey>(FILTER_KEYS) : selectedFilters),
+    [selectedFilters],
   );
 
   const [
@@ -883,7 +836,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
   const toggleFilter = (
     key: FilterKey,
   ) => {
-    setVisibleFilters(
+    setSelectedFilters(
       current => {
         const next =
           new Set(current);
@@ -963,34 +916,29 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 {t('pregnancyCalendar.title')}
               </Text>
 
-              <Text
-                style={
-                  styles.subtitle
-                }>
-                {t('pregnancyCalendar.subtitle')}
-              </Text>
             </View>
-
-            <HeaderAction
-              icon="tune-variant"
-              label={t('pregnancyCalendar.filtersLabel')}
-              onPress={() =>
-                setSheet(
-                  'filters',
-                )
-              }
-            />
-
-            <HeaderAction
-              icon="format-list-bulleted"
-              label={t('pregnancyCalendar.legendLabel')}
-              onPress={() =>
-                setSheet(
-                  'legend',
-                )
-              }
-            />
           </View>
+
+          {/* FILTER CHIPS: tap to filter, several can be on at once; none selected = everything is shown. */}
+          <ScrollView
+            contentContainerStyle={styles.chipRow}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.chipScroll}>
+            {FILTER_KEYS.map(key => {
+              const active = selectedFilters.has(key);
+              return (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{selected: active}}
+                  key={key}
+                  onPress={() => toggleFilter(key)}
+                  style={[styles.chip, active && styles.chipActive]}>
+                  <Text style={[styles.chipText, active && styles.chipTextActive]}>{filterMetaFor(t)[key].label}</Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
 
           {/* ====================================================
               CALENDAR CARD
@@ -1432,32 +1380,11 @@ function PregnancyCalendarContent(): React.JSX.Element {
               </View>
             </View>
 
-            {/* PREGNANCY INFO */}
-
-            <View
-              style={
-                styles.pregnancyGrid
-              }>
-              <PregnancyInfo
-                label={t('pregnancyCalendar.selectedCard.weekLabel')}
-                value={pregnancyStatus.configured ? t('pregnancyCalendar.selectedCard.weekValue', {week: pregnancyStatus.week}) : t('pregnancyCalendar.selectedCard.notConfigured')}
-              />
-
-              <PregnancyInfo
-                label={t('pregnancyCalendar.selectedCard.gestationLabel')}
-                value={
-                  pregnancyStatus.configured
-                    ? t('pregnancyCalendar.selectedCard.gestationValue', {weeks: pregnancyStatus.gestationalWeeks, days: pregnancyStatus.gestationalDays})
-                    : t('pregnancyCalendar.selectedCard.notConfigured')
-                }
-              />
-
-              <PregnancyInfo
-                label={t('pregnancyCalendar.selectedCard.trimesterLabel')}
-                value={pregnancyStatus.configured ? formatPregnancyTrimester(pregnancyStatus.trimester) : t('pregnancyCalendar.selectedCard.notConfigured')}
-                wide
-              />
-            </View>
+            {pregnancyStatus.configured ? (
+              <Text style={styles.gestationLine}>
+                {t('pregnancyCalendar.selectedCard.gestationValue', {weeks: pregnancyStatus.gestationalWeeks, days: pregnancyStatus.gestationalDays})}
+              </Text>
+            ) : null}
 
             {/* DAILY INFO */}
 
@@ -1538,6 +1465,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               UPCOMING
           ===================================================== */}
 
+          {upcomingEvents.length > 0 ? (
           <AwaCard padding="default" variant="outlined" style={styles.upcomingCard}>
             <Text
               style={
@@ -1545,12 +1473,6 @@ function PregnancyCalendarContent(): React.JSX.Element {
               }>
               {t('pregnancyCalendar.upcoming.title')}
             </Text>
-
-            {upcomingEvents.length === 0 ? (
-              <Text style={styles.upcomingEmpty}>
-                {t('pregnancyCalendar.upcoming.empty')}
-              </Text>
-            ) : null}
 
             {upcomingEvents.map(
               (
@@ -1670,6 +1592,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               },
             )}
           </AwaCard>
+          ) : null}
         </ScrollView>
 
         {/* ======================================================
@@ -1701,42 +1624,6 @@ function PregnancyCalendarContent(): React.JSX.Element {
 /* ============================================================
    PREGNANCY INFO
 ============================================================ */
-
-function PregnancyInfo({
-  label,
-  value,
-  wide,
-}: {
-  label: string;
-  value: string;
-  wide?: boolean;
-}): React.JSX.Element {
-  const {theme} = useAwaTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
-  return (
-    <View
-      style={[
-        styles.pregnancyInfo,
-
-        wide &&
-          styles.pregnancyInfoWide,
-      ]}>
-      <Text
-        style={
-          styles.pregnancyInfoLabel
-        }>
-        {label}
-      </Text>
-
-      <Text
-        style={
-          styles.pregnancyInfoValue
-        }>
-        {value}
-      </Text>
-    </View>
-  );
-}
 
 /* ============================================================
    HEADER ACTION
@@ -2687,6 +2574,40 @@ function createStyles(theme: ResolvedAwaTheme) {
       fontSize: 11,
     },
 
+    chipScroll: {
+      flexGrow: 0,
+      marginBottom: 10,
+    },
+    chipRow: {
+      gap: 8,
+      paddingRight: 4,
+    },
+    chip: {
+      minHeight: 34,
+      justifyContent: 'center',
+      paddingHorizontal: 14,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.2),
+      borderRadius: 17,
+      backgroundColor: 'transparent',
+    },
+    chipActive: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    chipText: {
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+    },
+    chipTextActive: {
+      color: theme.colors.primary,
+      fontWeight: '700',
+    },
+    gestationLine: {
+      marginTop: 10,
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+    },
     pregnancyGrid: {
       flexDirection: 'row',
 

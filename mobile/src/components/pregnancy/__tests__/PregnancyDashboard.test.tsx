@@ -171,8 +171,8 @@ describe('PregnancyDashboard — Premium fallback', () => {
   });
 });
 
-describe('PregnancyDashboard — Appointment/Exam navigate independently, no shared segmented-selector route', () => {
-  it('"Prochain RDV" navigates to the dedicated PregnancyAppointment route (never the combined PregnancyAppointments form)', async () => {
+describe('PregnancyDashboard — one "Prochain RDV" card', () => {
+  it('with no appointment the card (and its "Ajouter un RDV" button) opens the add form on the appointments screen', async () => {
     const navigate = jest.fn();
     let renderer: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
@@ -198,86 +198,33 @@ describe('PregnancyDashboard — Appointment/Exam navigate independently, no sha
     await act(async () => {
       card.props.onPress();
     });
+    expect(navigate).toHaveBeenCalledWith('PregnancyAppointments', {initialType: 'appointment'});
 
-    expect(navigate).toHaveBeenCalledWith('PregnancyAppointment', expect.objectContaining({}));
-    expect(navigate).not.toHaveBeenCalledWith('PregnancyAppointments', expect.anything());
-    const [, params] = navigate.mock.calls[0];
-    expect(params).not.toHaveProperty('initialType');
+    navigate.mockClear();
+    const add = renderer!.root.findAll(node => node.props.accessibilityLabel === 'Ajouter un RDV' && typeof node.props.onPress === 'function')[0];
+    await act(async () => {
+      add.props.onPress();
+    });
+    expect(navigate).toHaveBeenCalledWith('PregnancyAppointments', {initialType: 'appointment'});
   });
 
-  it('"Prochain examen" navigates to the dedicated PregnancyExam route (never the combined PregnancyAppointments form)', async () => {
-    const navigate = jest.fn();
-    let renderer: ReactTestRenderer.ReactTestRenderer;
-    await act(async () => {
-      renderer = ReactTestRenderer.create(
-        <SafeAreaProvider initialMetrics={TEST_METRICS}>
-          <AwaThemeProvider>
-            <JournalSheetProvider>
-              <NavigationContainer ref={navRef}>
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                  <Stack.Screen name="Test">
-                    {() => <PregnancyDashboard navigation={{navigate} as never} route={{key: 'test', name: 'CycleHome'}} />}
-                  </Stack.Screen>
-                </Stack.Navigator>
-              </NavigationContainer>
-            </JournalSheetProvider>
-          </AwaThemeProvider>
-        </SafeAreaProvider>,
-      );
-    });
-    activeRenderers.push(renderer!);
-
-    const card = renderer!.root.findAll(node => node.props.accessibilityLabel === 'Prochain examen')[0];
-    await act(async () => {
-      card.props.onPress();
-    });
-
-    expect(navigate).toHaveBeenCalledWith('PregnancyExam', expect.objectContaining({}));
-    expect(navigate).not.toHaveBeenCalledWith('PregnancyAppointments', expect.anything());
-    const [, params] = navigate.mock.calls[0];
-    expect(params).not.toHaveProperty('initialType');
+  it('there is no separate "Prochain examen" card any more', async () => {
+    const renderer = await renderDashboard();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Prochain examen').length).toBe(0);
   });
 });
 
-describe('PregnancyDashboard — empty-state text is fully visible, never ellipsis-truncated', () => {
-  // No appointment/exam is seeded anywhere in this suite's beforeEach, so
-  // both AppointmentCard instances render their empty-state message by
-  // default — exactly the "Aucun rendez-vous prévu"/"Aucun examen prévu"
-  // case this task fixes.
-
-  it('renders the complete "Aucun rendez-vous prévu" string, not a shortened or pre-ellipsized variant', async () => {
+describe('PregnancyDashboard — empty state of the appointment card', () => {
+  // No appointment/exam is seeded in this suite's beforeEach, so the card shows its empty state: a button, never "Aucun RDV prévu".
+  it('shows an "Ajouter un RDV" button instead of a "no appointment" sentence', async () => {
     const renderer = await renderDashboard();
-    const textNode = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
-    expect(textNode).toBeDefined();
-  });
-
-  it('renders the complete "Aucun examen prévu" string, not a shortened or pre-ellipsized variant', async () => {
-    const renderer = await renderDashboard();
-    const textNode = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
-    expect(textNode).toBeDefined();
-  });
-
-  it('the empty-state Text elements never set numberOfLines (no 1-line truncation cap)', async () => {
-    const renderer = await renderDashboard();
-
-    const appointmentText = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
-    const examText = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
-
-    expect(appointmentText.props.numberOfLines).toBeUndefined();
-    expect(examText.props.numberOfLines).toBeUndefined();
-  });
-
-  it('does not disable font scaling on the empty-state text (allowFontScaling must not be set to false)', async () => {
-    const renderer = await renderDashboard();
-    const appointmentText = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
-    const examText = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
-    expect(appointmentText.props.allowFontScaling).not.toBe(false);
-    expect(examText.props.allowFontScaling).not.toBe(false);
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Ajouter un RDV' && typeof node.props.onPress === 'function').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Aucun examen prévu').length).toBe(0);
   });
 
   it('static guard: no numberOfLines={1} is applied to AppointmentCard\'s line Text elements', () => {
-    // Fails loudly if a future edit reintroduces a hard 1-line cap on the
-    // appointment/exam card's date/time/title/empty-state lines.
+    // Fails loudly if a future edit reintroduces a hard 1-line cap on the appointment card's title / date lines.
     const source = fs.readFileSync(path.resolve(__dirname, '../PregnancyDashboard.tsx'), 'utf8');
     const appointmentCardFn = source.slice(source.indexOf('function AppointmentCard'));
     expect(appointmentCardFn).not.toMatch(/numberOfLines=\{1\}/);

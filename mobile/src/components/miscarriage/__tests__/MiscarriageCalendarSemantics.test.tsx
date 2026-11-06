@@ -156,17 +156,6 @@ describe('M35 — "Reprise des essais" is a dated value on the Loss Calendar, ne
     await selectDay(renderer, 15);
     expect(hasTryingValue(renderer)).toBe(false);
   });
-
-  it('the filter/legend wording describes the dated journal answer, not a global status', async () => {
-    const renderer = await renderCalendar();
-    await act(async () => {
-      renderer.root
-        .findAll(node => typeof node.props.onPress === 'function' && node.props.accessibilityLabel === 'Filtres')[0]
-        .props.onPress();
-    });
-    await settle();
-    expect(textsOf(renderer).some(text => text.includes('enregistrée dans ton journal ce jour-là'))).toBe(true);
-  });
 });
 
 describe('M36 — the Calendar does not treat a legacy invalid cycle-return date as an event', () => {

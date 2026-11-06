@@ -26,7 +26,8 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type FilterOption = {key: CalendarFilterKey; icon: IconName; labelKey: string};
 
-const OPTIONS: FilterOption[] = [
+/** The category filters of the Cycle calendar, in display order (also the labels of its filter chips). */
+export const OPTIONS: FilterOption[] = [
   {key: 'rules', icon: 'water', labelKey: 'calendar.legendPeriod'},
   {key: 'symptoms', icon: 'heart-outline', labelKey: 'dailyJournal.symptoms'},
   {key: 'mood', icon: 'emoticon-happy-outline', labelKey: 'dailyJournal.mood'},

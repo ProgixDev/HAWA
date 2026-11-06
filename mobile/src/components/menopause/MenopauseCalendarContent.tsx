@@ -73,7 +73,7 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaSwitch} from '../ui/AwaSwitch';
 import {AwaText} from '../ui/AwaText';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
+import CalendarFilterChips from '../calendar/CalendarFilterChips';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -258,11 +258,22 @@ function MenopauseCalendarContent(): React.JSX.Element {
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
   }, []);
 
-  const [filters, setFilters] = useState<MenopauseCalendarFilters>(DEFAULT_CALENDAR_FILTERS);
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<ReadonlySet<string>>(() => new Set());
+  const filters = useMemo<MenopauseCalendarFilters>(
+    () => selectedFilters.size === 0
+      ? DEFAULT_CALENDAR_FILTERS
+      : (Object.fromEntries(Object.keys(DEFAULT_CALENDAR_FILTERS).map(key => [key, selectedFilters.has(key)])) as MenopauseCalendarFilters),
+    [selectedFilters],
+  );
   const [sheet, setSheet] = useState<CalendarSheetMode>(null);
 
   const toggleFilter = useCallback((key: keyof MenopauseCalendarFilters) => {
-    setFilters(current => ({...current, [key]: !current[key]}));
+    setSelectedFilters(current => {
+      const next = new Set(current);
+      if (next.has(key as string)) {next.delete(key as string);} else {next.add(key as string);}
+      return next;
+    });
   }, []);
 
   const [preferences, setPreferences] = useState<MenopausePreferences>(getMenopausePreferences);
@@ -397,12 +408,19 @@ function MenopauseCalendarContent(): React.JSX.Element {
           <View style={styles.header}>
             <View style={styles.headerCopy}>
               <AwaText variant="headlineSmall" style={styles.title}>{t('menopauseCalendar.title')}</AwaText>
-              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>{t('menopauseCalendar.subtitle')}</AwaText>
             </View>
-
-            <HeaderAction icon="tune-variant" label={t('menopauseCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label={t('menopauseCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
+
+          <MenopauseCalendarSheet
+            filters={filters}
+            inline
+            mode={null}
+            onClose={() => setSheet(null)}
+            onToggle={toggleFilter}
+            selectedKeys={selectedFilters}
+            spiritualMarkersEnabled={spiritualMarkersEnabled}
+            visibleCategories={visibleCategories}
+          />
 
           {/* MONTH CARD */}
           <AwaCard padding="none" variant="filled" style={styles.card}>
@@ -824,11 +842,15 @@ function SelectedRow({
    describe three different marker sets.
 ============================================================ */
 
+const EMPTY_SELECTION: ReadonlySet<string> = new Set();
+
 function MenopauseCalendarSheet({
   mode,
   onClose,
   onToggle,
   filters,
+  inline,
+  selectedKeys,
   spiritualMarkersEnabled,
   visibleCategories,
 }: {
@@ -838,6 +860,9 @@ function MenopauseCalendarSheet({
   filters: MenopauseCalendarFilters;
   spiritualMarkersEnabled: boolean;
   visibleCategories: MenopauseJournalCategory[];
+  /** Renders only the category chips (the calendar screen's filter row) instead of the modal. */
+  inline?: boolean;
+  selectedKeys?: ReadonlySet<string>;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -882,6 +907,16 @@ function MenopauseCalendarSheet({
     title: MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category,
     description: categoryCopy[category].legendDescription,
   }));
+
+  if (inline) {
+    return (
+      <CalendarFilterChips
+        chips={[...trackingFilterRows, ...(spiritualMarkersEnabled ? spiritualFilterRows : [])].map(row => ({key: String(row.key), label: row.title}))}
+        onToggle={key => onToggle(key as keyof MenopauseCalendarFilters)}
+        selected={selectedKeys ?? EMPTY_SELECTION}
+      />
+    );
+  }
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>

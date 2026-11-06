@@ -69,7 +69,7 @@ import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaIconButton} from '../ui/AwaIconButton';
 import {AwaText} from '../ui/AwaText';
-import {CalendarHeaderAction as HeaderAction} from '../calendar/CalendarHeaderAction';
+import CalendarFilterChips from '../calendar/CalendarFilterChips';
 
 // Miscarriage Calendar — a dedicated content branch for the ONE global
 // Calendar tab (see ObjectiveAwareCalendarScreen.tsx), structurally modeled
@@ -329,9 +329,12 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   }, [today]);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
-  const [visibleFilters, setVisibleFilters] = useState<
-    Set<MiscarriageJournalCategory>
-  >(() => new Set(CATEGORY_KEYS));
+  // Category chips: a tap selects / clears a category, several at once; with none selected every category is shown.
+  const [selectedFilters, setSelectedFilters] = useState<Set<MiscarriageJournalCategory>>(() => new Set());
+  const visibleFilters = useMemo<Set<MiscarriageJournalCategory>>(
+    () => (selectedFilters.size === 0 ? new Set(CATEGORY_KEYS) : selectedFilters),
+    [selectedFilters],
+  );
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
 
   // Canonical miscarriage onboarding data — same source the Dashboard/
@@ -471,7 +474,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
     sameDay(selectedDate, firstReturnedPeriodDate as Date);
 
   const toggleFilter = (key: MiscarriageJournalCategory) => {
-    setVisibleFilters(current => {
+    setSelectedFilters(current => {
       const next = new Set(current);
       if (next.has(key)) {
         next.delete(key);
@@ -538,22 +541,14 @@ function MiscarriageCalendarContent(): React.JSX.Element {
           <View style={styles.header}>
             <View style={styles.headerCopy}>
               <AwaText variant="headlineSmall" style={styles.title}>{t('calendar.title')}</AwaText>
-              <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.subtitle}>
-                {t('miscarriageCalendar.subtitle')}
-              </AwaText>
             </View>
-
-            <HeaderAction
-              icon="tune-variant"
-              label={t('calendar.filters')}
-              onPress={() => setSheet('filters')}
-            />
-            <HeaderAction
-              icon="format-list-bulleted"
-              label={t('calendar.legend')}
-              onPress={() => setSheet('legend')}
-            />
           </View>
+
+          <CalendarFilterChips
+            chips={CATEGORY_KEYS.map(key => ({key, label: CATEGORY_META[key].label}))}
+            onToggle={key => toggleFilter(key as MiscarriageJournalCategory)}
+            selected={selectedFilters}
+          />
 
           {/* CALENDAR CARD */}
           <View style={styles.calendarCard}>

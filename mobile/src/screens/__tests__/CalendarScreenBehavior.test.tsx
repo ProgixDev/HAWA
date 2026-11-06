@@ -166,8 +166,10 @@ describe('CalendarScreen — localization (English)', () => {
     const texts = textsOf(renderer);
     // CalendarHeader.
     expect(texts).toContain('Calendar');
-    expect(texts).toContain('Filters');
-    expect(texts).toContain('Legend');
+    // the filters are category chips now (no Filters / Legend buttons)
+    expect(texts).toContain('Period');
+    expect(texts).not.toContain('Filters');
+    expect(texts).not.toContain('Legend');
     // PredictionsCard / CycleTimelineCard / MonthHistoryStrip.
     expect(texts).toContain('Personalized predictions');
     expect(texts).toContain('Your cycle timeline');

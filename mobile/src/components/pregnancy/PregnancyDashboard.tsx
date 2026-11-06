@@ -32,6 +32,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import {PREGNANCY_JOURNAL_ITEMS, type PregnancyJournalItemKey} from '../../config/pregnancyJournalItems';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import { getFloatingTabBarClearance } from '../../theme/spacing';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
@@ -71,7 +72,7 @@ import {
   type PregnancyJournalState,
 } from '../../state/pregnancyJournalStore';
 import {
-  getNextUpcomingEvent,
+  getUpcomingEvents,
   getPregnancyMedicalEvents,
   type PregnancyMedicalEvent,
 } from '../../state/pregnancyMedicalEventsStore';
@@ -101,54 +102,13 @@ const WOMAN = require('../../assets/images/pregnancy/pregnancy-woman-week18.png'
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+// The same 5 categories (and the same icons and screens) as the "Journal du jour" sheet of the "+": one shared table,
+// config/pregnancyJournalItems.ts. "Suivi du jour" offers the ones the user chose in her tracking preferences (Hydratation/Activité/
+// Notes/RDV were never part of the Journal quotidien and never appear here), plus any category that already has an entry today, so
+// recorded data is never hidden by a later preference change. History is untouched either way.
+type DailyItemPreferenceKey = PregnancyJournalItemKey;
 
-type Route =
-  | 'MoodEntry'
-  | 'SleepEntry'
-  | 'PregnancyWeight'
-  | 'PregnancySymptoms'
-  | 'PregnancyMedicalInformation';
-
-// The same 5 categories as the Pregnancy Daily Journal (see
-// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx). "Suivi du jour" offers the
-// ones the user chose in her tracking preferences (Hydratation/Activité/
-// Notes/RDV were never part of the Journal quotidien and never appear here),
-// plus any category that already has an entry today, so recorded data is
-// never hidden by a later preference change. History is untouched either way.
-type DailyItemPreferenceKey = 'symptoms' | 'weight' | 'mood' | 'sleep' | 'medicalInfo';
-
-const DAILY_ITEMS: Array<{
-  icon: IconName;
-  route: Route;
-  preferenceKey: DailyItemPreferenceKey;
-}> = [
-  {
-    icon: 'clipboard-pulse-outline',
-    route: 'PregnancySymptoms',
-    preferenceKey: 'symptoms',
-  },
-  {
-    icon: 'scale-bathroom',
-    route: 'PregnancyWeight',
-    preferenceKey: 'weight',
-  },
-  {
-    icon: 'heart-outline',
-    route: 'MoodEntry',
-    preferenceKey: 'mood',
-  },
-  {
-    icon: 'weather-night',
-    route: 'SleepEntry',
-    preferenceKey: 'sleep',
-  },
-  {
-    icon: 'shield-lock-outline',
-    route: 'PregnancyMedicalInformation',
-    preferenceKey: 'medicalInfo',
-  },
-];
+const DAILY_ITEMS = PREGNANCY_JOURNAL_ITEMS;
 
 // Display-only labels for "Suivi du jour"'s items — DAILY_ITEMS only ever
 // uses these 5 of the 9 PregnancyTrackingPreference values (Hydratation/
@@ -352,13 +312,9 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
     [dailyItems, isCategoryDoneToday],
   );
 
-  const nextAppointment = useMemo(
-    () => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
-    [medicalEvents, todayKey],
-  );
-  const nextExam = useMemo(
-    () => getNextUpcomingEvent(medicalEvents, 'exam', new Date()),
+  // One card for the next medical event, whichever it is (appointment or exam): the two cards used to say the same thing twice.
+  const nextEvent = useMemo(
+    () => getUpcomingEvents(medicalEvents, new Date())[0],
     // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
     [medicalEvents, todayKey],
   );
@@ -763,62 +719,34 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
           )}
 
           {/* =======================================================
-              RDV + EXAMEN
+              PROCHAIN RENDEZ-VOUS
           ======================================================== */}
 
-          <View
-            style={[
-              styles.appointmentRow,
-              veryCompact && styles.appointmentRowVeryCompact,
-            ]}
-          >
+          <View style={styles.appointmentRow}>
             <AppointmentCard
-              icon="calendar-month-outline"
-              label={t('pregnancyDashboard.appointments.nextAppointmentLabel')}
-              lines={
-                nextAppointment
-                  ? [
-                      new Intl.DateTimeFormat(dateFormatLocale(), {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                      }).format(new Date(`${nextAppointment.date}T12:00:00`)),
-                      nextAppointment.time ?? '',
-                      nextAppointment.title,
-                      nextAppointment.practitioner ?? '',
-                    ].filter(Boolean)
-                  : [t('pregnancyDashboard.appointments.noAppointmentScheduled')]
+              addLabel={t('pregnancyDashboard.appointments.addAppointment', {defaultValue: 'Ajouter un RDV'})}
+              event={
+                nextEvent
+                  ? {
+                      title: nextEvent.title,
+                      meta: `${
+                        nextEvent.type === 'exam'
+                          ? t('pregnancyDashboard.appointments.typeExam', {defaultValue: 'Examen'})
+                          : t('pregnancyDashboard.appointments.typeAppointment', {defaultValue: 'Rendez-vous'})
+                      } · ${new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long', day: 'numeric', month: 'long'}).format(
+                        new Date(`${nextEvent.date}T12:00:00`),
+                      )}${nextEvent.time ? `, ${nextEvent.time}` : ''}`,
+                    }
+                  : null
               }
-              onPress={() =>
-                navigation.navigate('PregnancyAppointment', {
-                  eventId: nextAppointment?.id,
-                })
+              label={t('pregnancyDashboard.appointments.nextAppointmentShort', {defaultValue: 'Prochain RDV'})}
+              onAdd={() => navigation.navigate('PregnancyAppointments', {initialType: 'appointment'})}
+              onOpen={() =>
+                nextEvent
+                  ? navigation.navigate('PregnancyAppointments')
+                  : navigation.navigate('PregnancyAppointments', {initialType: 'appointment'})
               }
-              styles={styles}
-              theme={theme}
-            />
-
-            <AppointmentCard
-              icon="medical-bag"
-              label={t('pregnancyDashboard.appointments.nextExamLabel')}
-              lines={
-                nextExam
-                  ? [
-                      new Intl.DateTimeFormat(dateFormatLocale(), {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                      }).format(new Date(`${nextExam.date}T12:00:00`)),
-                      nextExam.time ?? '',
-                      nextExam.title,
-                    ].filter(Boolean)
-                  : [t('pregnancyDashboard.appointments.noExamScheduled')]
-              }
-              onPress={() =>
-                navigation.navigate('PregnancyExam', {
-                  eventId: nextExam?.id,
-                })
-              }
+              seeAllLabel={t('pregnancyDashboard.appointments.seeAll', {defaultValue: 'Voir tous mes rendez-vous'})}
               styles={styles}
               theme={theme}
             />
@@ -970,6 +898,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
           <ObjectiveArticlesSection
             objective="pregnancy"
             onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
         </ScrollView>
@@ -1044,25 +973,32 @@ function UnconfiguredPregnancyCard({
 ============================================================ */
 
 function AppointmentCard({
-  icon,
+  addLabel,
+  event,
   label,
-  lines,
-  onPress,
+  onAdd,
+  onOpen,
+  seeAllLabel,
   theme,
   styles,
 }: {
-  icon: IconName;
+  /** Label of the button shown when there is no upcoming appointment. */
+  addLabel: string;
+  /** The next appointment or exam, or null. */
+  event: {title: string; meta: string} | null;
   label: string;
-  lines: readonly string[];
-  onPress: () => void;
+  onAdd: () => void;
+  /** The whole card: the list of appointments (or the add form when there is none). */
+  onOpen: () => void;
+  seeAllLabel: string;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
-      accessibilityLabel={label}
+      accessibilityLabel={event ? `${label}. ${event.title}. ${event.meta}` : label}
       accessibilityRole="button"
-      onPress={onPress}
+      onPress={onOpen}
       style={({ pressed }) => [
         styles.appointmentCard,
         pressed && styles.pressed,
@@ -1072,39 +1008,43 @@ function AppointmentCard({
         <View style={styles.appointmentIcon}>
           <MaterialDesignIcons
             color={theme.colors.primary}
-            name={icon}
-            size={24}
+            name="calendar-month-outline"
+            size={22}
           />
         </View>
 
-        <View style={styles.appointmentChevron}>
-          <MaterialDesignIcons
-            color={theme.colors.primary}
-            name="chevron-right"
-            size={18}
-          />
-        </View>
+        <Text style={styles.appointmentLabel}>{label}</Text>
       </View>
 
       <View style={styles.appointmentCopy}>
-        <Text style={styles.appointmentLabel}>{label}</Text>
+        {event ? (
+          <>
+            <Text style={styles.appointmentMain}>{event.title}</Text>
+            <Text style={styles.appointmentLine}>{event.meta}</Text>
 
-        {/* No numberOfLines cap — the empty-state messages ("Aucun
-            rendez-vous prévu"/"Aucun examen prévu") and real event
-            titles/dates must never be ellipsis-truncated on a narrow card;
-            they wrap onto a second line instead. appointmentCard only sets
-            a minHeight, so it grows to fit wrapped text cleanly. */}
-        {lines.map((line, index) => (
-          <Text
-            key={`${line}-${index}`}
-            style={[
-              styles.appointmentLine,
-              index === 0 && styles.appointmentMain,
-            ]}
-          >
-            {line}
-          </Text>
-        ))}
+            <Pressable
+              accessibilityLabel={seeAllLabel}
+              accessibilityRole="button"
+              hitSlop={8}
+              onPress={onOpen}
+              style={styles.appointmentSeeAll}
+            >
+              <MaterialDesignIcons color={theme.colors.primary} name="format-list-bulleted" size={16} />
+              <Text style={styles.appointmentSeeAllText}>{seeAllLabel}</Text>
+            </Pressable>
+          </>
+        ) : (
+          <AwaButton
+            accessibilityLabel={addLabel}
+            fullWidth
+            icon="plus"
+            label={addLabel}
+            onPress={onAdd}
+            size="compact"
+            style={styles.appointmentAdd}
+            variant="tonal"
+          />
+        )}
       </View>
     </Pressable>
   );
@@ -1604,9 +1544,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     flex: 1,
 
     minWidth: 0,
-    minHeight: 160,
 
-    padding: 13,
+    padding: 16,
 
     borderRadius: 12,
     borderWidth: 1,
@@ -1618,43 +1557,54 @@ function createStyles(theme: ResolvedAwaTheme) {
   appointmentTop: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    gap: 12,
   },
 
   appointmentIcon: {
-    width: 44,
-    height: 44,
+    width: 40,
+    height: 40,
 
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 16,
+    borderRadius: 12,
 
     backgroundColor: theme.colors.primarySoft,
   },
 
-  appointmentChevron: {
-    width: 30,
-    height: 30,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 15,
-
-    backgroundColor: theme.colors.primarySoft,
+  appointmentAdd: {
+    marginTop: 0,
   },
 
   appointmentCopy: {
     minWidth: 0,
 
-    marginTop: 10,
+    marginTop: 14,
   },
 
   appointmentLabel: {
-    color: theme.colors.textSecondary,
+    flex: 1,
 
-    fontSize: 11.5,
+    color: theme.colors.text,
+
+    fontSize: 15,
+    fontWeight: '700',
+  },
+
+  appointmentSeeAll: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 6,
+
+    marginTop: 12,
+  },
+
+  appointmentSeeAllText: {
+    color: theme.colors.primary,
+
+    fontSize: 12,
+    fontWeight: '600',
   },
 
   appointmentLine: {

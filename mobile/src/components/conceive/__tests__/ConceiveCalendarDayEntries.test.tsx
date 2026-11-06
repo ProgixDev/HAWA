@@ -68,7 +68,8 @@ async function renderCalendar() {
 }
 
 const rowByLabelPrefix = (renderer: ReactTestRenderer.ReactTestRenderer, prefix: string) =>
-  renderer.root.findAllByType(Pressable).find(node => String(node.props.accessibilityLabel ?? '').startsWith(prefix));
+  // the category filter chips share these labels: a chip carries a selected state, a day row does not
+  renderer.root.findAllByType(Pressable).find(node => node.props.accessibilityState?.selected === undefined && String(node.props.accessibilityLabel ?? '').startsWith(prefix));
 
 beforeEach(async () => {
   await AsyncStorage.clear();
