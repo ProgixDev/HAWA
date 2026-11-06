@@ -365,7 +365,8 @@ export const kab = {
   objectiveArticles: {
     title: 'I ak-d-yettɛawnen',
     seeAll: 'Wali akk',
-    readingMinutes: '{{count}} n tesdidin n tɣuri'
+    readingMinutes: '{{count}} n tesdidin n tɣuri',
+    latestTitle: 'Imagraden imaynuten'
   },
   spiritualGuidance: {
     title: 'Timerniyin n tideț',
@@ -607,6 +608,8 @@ export const kab = {
     timesThisNight: 'n tikkal deg yiḍ-a',
     awakeningsTip: 'Ɣef lǧism yezmer ad d-yeqqim kra n tikkal.\nLǧism-ik yeḥrez iman-is s wudem aleɣwa.',
     wakeFeelingTitle: 'Ahlil mi d-tkecmeḍ',
+    wakeFatigueTitle: 'Taɛeyyit',
+    wakeFatigueAccessibility: 'Taɛeyyit: {{label}}',
     wakeFeelingSubtitle: 'Amek tḥulfuḍ mi d-tkecmeḍ?',
     wakeFeelingAccessibility: 'Ahlil mi d-tkecmeḍ: {{label}}',
     wakeFeelingTip: 'Ɣer lǧism-ik, eǧǧ iman-ik\nad ṛuḥen ma tḥulfuḍ ilaq.',
@@ -1467,13 +1470,8 @@ export const kab = {
     cycleLengthLabel: 'Tanzagt n lcycle',
     cycleRegularityLabel: 'Tamagnut n lcycle',
     dataProtected: 'Isefka ttwaḥrasen',
-    disabledSingular: 'Yensa',
-    editAnonymousAvatarAccessibility: 'Wennez avatar-iw udrig',
-    editAvatarAccessibility: 'Beddel tawlaft n umaɣnu',
-    editProfile: 'Ẓreg amaɣnu',
-    generalHealthSubtitle: 'Aɣbel, teɣ̣zi, anaw n idammen, izamulen…',
-    generalHealthTitle: 'Tazmert tamatut',
-    headerSubtitle: 'Sefrek talɣut-ik d ufran-ik',
+    disabledSingular: 'Yensa',    editAvatarAccessibility: 'Beddel tawlaft n umaɣnu',
+    editProfile: 'Ẓreg amaɣnu',headerSubtitle: 'Sefrek talɣut-ik d ufran-ik',
     helpSupportSubtitle: 'Isteqsiyen, ssewḥel n ugur d unermis',
     helpSupportTitle: 'Tallelt & asekyed',
     hijriDateLabel: 'Azemz Hijri',
@@ -1501,28 +1499,7 @@ export const kab = {
     signOut: 'Ffeɣ',
     cycle: {
       remindersSubtitle: 'Lḥid, imagraw n yal ass, ovulation d uzmez n lxṣuba'
-    },
-    accountInfoModal: {
-      anonymousId: 'Asulay udrig',
-      anonymousMode: 'Askar udrig',
-      createdOn: 'Yettwarna deg',
-      dataPrivateInfo: 'Isefka-ik qqimen d tuffirt ɣef tmacint-agi, ur ttemyigawen ara d tmacinin-nniḍen.',
-      enabledValue: 'Yettwarmed',
-      localOnly: 'Adigan kan',
-      notConfigured: 'Ur yettwasbadu ara',
-      pinBiometry: 'PIN / Biometrics',
-      security: 'Aɣellsan',
-      subtitle: 'Amaɣnu-ik udrig ur yesɛi ara talɣut i izemren ad k-isseqdec.',
-      sync: 'Amyigew',
-      title: 'Talɣut n umiḍan'
-    },
-    anonymousMode: {
-      exit: 'Ffeɣ seg uskar udrig',
-      identityHiddenSubtitle: 'Tamagit-ik tidet qqimen tuffirt',
-      manageSubtitle: 'Sefrek tamagit-ik tuffirt d ufranen udrigen',
-      title: 'Askar Udrig'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Ssemda, ṛṭuba n unyir, iɣerbalen LH, tamyigawt',
       indicatorsTitle: 'Inifasen yettwaḍfaren',
       manageReminders: 'Sefrek ismekti-iw n usi n tadist',
@@ -1657,10 +1634,7 @@ export const kab = {
       subtitle: 'Acḥal n wussan i d-yettɣimi lḥid-is s lɛadat?',
       title: 'Tanzagt n lḥid'
     },
-    personalInfo: {
-      accountInfoTitle: 'Talɣut n umiḍan',
-      anonymousSubtitle: 'Amiḍan yettwaḥrasen yerna udrig',
-      daughterSubtitle: 'Isem amezwaru, azemz n tlalit…',
+    personalInfo: {daughterSubtitle: 'Isem amezwaru, azemz n tlalit…',
       ownerSubtitle: 'Isem, imayl, azemz n tlalit…',
       title: 'Talɣut tudmawant'
     },
@@ -4062,6 +4036,8 @@ export const kab = {
       lastMeasurementLabel: 'Tazmert taneggarut',
       sincePrevious: 'seg tin yezrin',
       addAnotherHint: 'Rnu tazmert nniḍen i wakken ad twaliḍ tinezzayin-ik.',
+      sinceFirst: 'Seg umesmuzzu amezwaru',
+      averagePerWeek: 'Amedya n yal dduṛt',
       recentMeasurements: 'Tizemmar timaynutin',
       valuesCount_one: '{{count}} n wazal',
       valuesCount_other: '{{count}} n yizalen',
@@ -5461,6 +5437,7 @@ export const kab = {
     closeBackdropLabel: 'Mdel ineɣmas'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Tzemreḍ ad tbeddleḍ iswiyen-im melmi i tebɣiḍ.',
     cycle: {
       title: 'Ihi! 🎉',
       description: 'Tferneḍ aḍfar aklasik n ddawra.',
@@ -6563,7 +6540,7 @@ export const kab = {
         all: 'Akk',
         medical: 'Ṭṭb',
         religious: 'Ṛuḥani',
-        featured: 'I d-yettwabeqqen'
+        favorites: 'Inurifen'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const kab = {
     resolvingLocation: 'Anadi n umḍiq-nnem…',
     noPositionSelected: 'Ulac amḍiq i yettwafernen',
     positionSelectedOnMap: 'Amḍiq yettwafren ɣef tmeɣrit',
+    selectedTitle: 'Adig yettwafren',
+    selectedHint: 'Adig-a ad yettwasqedec i usiḍen n yimuren n tikli n tẓallit-ik.',
     noCityFoundHere: 'Ulac tamdint deg wanda-agi.',
     noResultsFound: 'Ulac igmad.',
     mapsNotConfigured: 'Seggem tasarut n tmeɣrit i wakken ad tt-id-terreḍ.',
@@ -7209,7 +7188,8 @@ export const kab = {
       permissionDeny: 'Ɣef',
       configureMapKeyFirst: 'Seggem tasarut n tmeɣrit send.',
       permissionDeniedError: 'Eǧǧ anekcum ɣer umḍiq deg Yiɣewwaren i useqdec n umḍiq-nnem.',
-      positionUnavailable: 'Amḍiq ulac-it. Senqed ma yella GPS yermed.'
+      positionUnavailable: 'Amḍiq ulac-it. Senqed ma yella GPS yermed.',
+      timeout: 'Anadi n wadig yeṭṭef aṭas n wakud. Senqed asignal neɣ GPS, sakin ɛreḍ tikelt-nniḍen.'
     },
     errors: {
       generic: 'Ur nezmir ara ad nissin amḍiq-agi tura.',
@@ -7260,9 +7240,10 @@ export const kab = {
     },
     spiritual: {
       title: 'Tebɣiḍ ad termdeḍ\nimarkaten n tezmert n ddin?',
-      subtitle: 'Awal n Hijri, ṣṣlat, ṣṣyam, addad n tazmert…\nTzemreḍ ad tbeddleḍ afran-agi melmi i tebɣiḍ.',
+      subtitle: 'Tzemreḍ ad tbeddleḍ afran-agi melmi i tebɣiḍ.',
       enable: 'Ih, rmed',
       disable: 'Ala, mačči tura',
+      includesLabel: 'Ayen ara yermed',
       featureHijri: 'Awal n Hijri',
       featurePrayers: 'Ṣṣlat & addad n tazmert',
       featureFasting: 'Ṣṣyam (Ramadan, qada)',
@@ -7427,16 +7408,14 @@ export const kab = {
       orContinueWith: 'neɣ kemmel s',
       continueWithGoogle: 'Kemmel s Google',
       continueWithApple: 'Kemmel s Apple',
-      continueWithEmail: 'Kemmel s tansa n e-mail',
-      useAnonymousMode: 'Seqdec AWA deg uskar udrig',
-      anonymousMode: 'Askar udrig',
-      legalTerms: 'Tiwtilin n useqdec d Tasertit n tuffirt-nneɣ.',
+      continueWithEmail: 'Kemmel s tansa n e-mail',legalTerms: 'Tiwtilin n useqdec d Tasertit n tuffirt-nneɣ.',
       createAccount: 'Arnu amiḍan-inu'
     },
     login: {
       tagline: 'I tudert s lehna,\nyal aqeddic.',
       emailPlaceholder: 'Tansa n e-mail',
       passwordPlaceholder: 'Awal uffir',
+      passwordFieldPlaceholder: 'Sekcem awal-ik uffir',
       forgotPassword: 'Tettuḍ awal uffir?',
       submit: 'Kcem',
       legalPrefix: 'Ma tkemmleḍ, tqebleḍ'
@@ -7479,112 +7458,7 @@ export const kab = {
       helpModalCta: 'Fhimeɣ',
       helpModalCloseAccessibility: 'Mdel'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Askar udrig',
-      headerSubtitle: 'Tuffirt',
-      illustrationA11y: 'Tugna n uskar udrig',
-      activeTitle: 'Askar udrig yermed',
-      activeSubtitle: 'Amaɣnu-nnem yeqqim ur yeqqin ara ɣer yisem-nnem aṭas deg wakud n uskar-agi.',
-      nothingKeptTitle: 'Ulac ayen yettwaḥrezen',
-      nothingKeptSubtitle: 'Talɣut-agi ur teqqin ara ɣer umaɣnu-nnem udrig.',
-      retentionEmail: 'E-mail',
-      retentionName: 'Isem',
-      retentionTechnical: 'Isulayen n tiknikt',
-      notRetained: 'Ur yettwaḥrez ara',
-      appLockA11y: 'Taskelt n usnas',
-      appLockTitle: 'Taskelt n usnas',
-      appLockText: 'Tangalt PIN neɣ biometrics mi ara teldiḍ AWA',
-      appLockEnabled: 'Yermed',
-      appLockDisabled: 'Ur yermid ara',
-      disableTitle: 'Sens askar udrig',
-      disableText: 'I tuffɣa seg uskar udrig, tzemreḍ ad tarnuḍ amiḍan u ad tqeblḍ tansa n e-mail neɣ asulay.',
-      pitchTitle: 'Seqdec AWA deg uskar udrig',
-      pitchSubtitle: 'Seqdec amkan-nnem AWA war ma teqqneḍ timagit-nnem ɣer umaɣnu.',
-      identityPrivateTitle: 'Timagit-nnem teqqim d tuffirt',
-      identityPrivateSubtitle: 'Talɣut ara kem-iggin ur tettwasra ara i useqdec n uskar-agi.',
-      privacyRowName: 'Ulac isem i yettwasran',
-      privacyRowEmail: 'Ulac tansa n e-mail i yettwasran',
-      privacyRowAccount: 'Ulac amiḍan Google neɣ Apple yeqqnen',
-      privacyRowProfile: 'Amaɣnu ur yeqqin ara ɣer timagit-nnem',
-      infoTitle: 'Yelha ad teẓred',
-      infoText: 'Kra n tmahilin n umiḍan, n usenkez neɣ n uraru zemren ad ttwasexfen deg uskar udrig.',
-      recommendedProtectionTitle: 'Aḥraz yettwaḥettemen',
-      recommendedProtectionText: 'Tzemreḍ ad teḥrezeḍ anekcum ɣer AWA s tangalt PIN neɣ biometrics.',
-      continueInAnonymousMode: 'Kemmel deg uskar udrig'
-    },
-    limitations: {
-      headerTitle: 'send ad tkemmleḍ',
-      headerSubtitle: 'Askar udrig',
-      title: 'send ad tkemmleḍ',
-      subtitle: 'Deg uskar udrig, kra n tmahilin yeqqnen ɣer umiḍan ad ttwasexfent neɣ ur llint ara.',
-      recoveryTitle: 'Uraru n umiḍan',
-      recoveryText: 'War tansa n e-mail yeqqnen, uraru n unekcum ɣer umiḍan-nnem yezmer ad yettwasexfi.',
-      syncTitle: 'Asenkez',
-      syncText: 'Kra n yisefka zemren ur ttwasenkzen ara deg yibenkan-nnem-nniḍen.',
-      communicationsTitle: 'Anermis',
-      communicationsText: 'AWA ur tezmir ara ad ak-d-tazen e-mail yeqqnen ɣer umiḍan-nnem udrig.',
-      securityTitle: 'Aɣellsan yettwaḥettemen',
-      securityText: 'Nḥettem ad termdeḍ tangalt PIN neɣ biometrics i uḥraz n unekcum ɣer AWA.',
-      acknowledgeLabel: 'Fhimeɣ amek iteddu uskar udrig.',
-      activate: 'Rmed askar udrig'
-    },
-    creating: {
-      headerTitle: 'Tarnit n umkan-nnem',
-      loaderA11y: 'Tarnit n umkan-nnem udrig',
-      step1: 'Asewjed n umkan-nnem',
-      step2: 'Asewjed n tuffirt',
-      step3: 'Taggara',
-      creatingTitle: 'Tarnit n umkan-nnem udrig',
-      creatingSubtitle: 'AWA tewjed amkan-nnem uffir u teḥbes tuqqna n umaɣnu-nnem ɣer talɣut ara kem-iggin.',
-      errorTitle: 'Ur izmir ara ad yekfu ukkez',
-      errorSubtitle: 'Yella wayen ur nteddu ara. Tzemreḍ ad tɛerḍeḍ tikelt-nniḍen.',
-      retry: 'Ɛreḍ tikelt-nniḍen',
-      loaderLabel: 'Ṛǧu cwiṭ',
-      loaderCaption: 'Ad yeṭṭef kra n wakud kan.',
-      protectionTitle: 'Aḥraz n timagit-nnem',
-      protectionSubtitle: 'AWA tewjed amkan-nnem u tseqdac ayen i tferneḍ n tuffirt.',
-      warning: 'Ur tmedlen ara asnas ma mazal amkan-nnem yettwaweǧǧed.'
-    },
-    success: {
-      headerTitle: 'Askar udrig',
-      title: 'Askar udrig yermed',
-      subtitle: 'Amaɣnu-nnem ur yeqqin ara tura ɣer timagit-nnem. Seqdec AWA s tuffirt temmedt.',
-      cardTitle: 'Amkan-nnem yewjed',
-      cardSubtitle: 'Tzemreḍ ad tessenseḍ askar udrig melmi i tebɣiḍ seg Tuffirt & aɣellsan.',
-      continue: 'Kemmel',
-      finish: 'Yekfa'
-    },
-    avatar: {
-      headerTitle: 'Sagen avatar-inu',
-      eyebrow: 'AMAƔNU-NNEM UDRIG',
-      title: 'Arnu avatar i kem-yettemcabin',
-      subtitle: 'Fren kan aṭṭan d yini. Ulac tawlaft tudmawant i yettwasran.',
-      privateProfile: 'Amaɣnu uffir',
-      colorSectionTitle: 'Fren ini',
-      colorSectionDescription: 'Fren ini i avatar-nnem.',
-      colorSwatchA11y: 'Ini {{color}}',
-      styleSectionTitle: 'Fren aṭṭan-nnem',
-      styleSectionDescription: 'Tzemreḍ ad t-tbeddleḍ mbeɛd seg umaɣnu-nnem.',
-      infoTitle: 'Tuffirt-nnem d tamezwarut',
-      infoText: 'Avatar-agi ad yeddu deg ubdil n tawlaft-nnem deg wakud n uskar udrig. Ulac tawlaft tidet i yettwaseqdacen i umaɣnu-nnem.',
-      saveAndContinue: 'Sekles u kemmel',
-      later: 'Mbeɛd',
-      saveChanges: 'Sekles ibeddlen'
-    },
-    avatarStyles: {
-      hijab: 'Avatar s ḥijab',
-      glasses: 'Avatar s tnaẓrin',
-      hat: 'Avatar s tcacit',
-      minimal: 'Avatar afessas',
-      headscarfGlasses: 'Avatar s ṭṭarbuš d tnaẓrin',
-      silhouetteHat: 'Rrsem s tcacit tafessast',
-      turban: 'Avatar s turban',
-      shortHair: 'Avatar s yiseɣwan imecṭuḥen'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN ur iṣeḥḥ ara. Ɛreḍ tikelt-nniḍen.',
     genericError: 'Yella wayen ur nteddu ara. Ɛreḍ tikelt-nniḍen.',
     codesDontMatch: 'Tingalin ur mṣadent ara. Bdu i tikelt-nniḍen.',
@@ -7664,8 +7538,8 @@ export const kab = {
   privacySecurity: {
     backA11y: 'Uɣal',
     title: 'Tuffirt & aɣellsan',
-    subtitle: 'Isefka-nnem, tuffirt-nnem, afran-nnem 💜',
-    introTitle: 'Telliḍ d tilelli 🔒',
+    subtitle: 'Isefka-nnem, tuffirt-nnem, afran-nnem',
+    introTitle: 'Telliḍ d tilelli',
     introText: 'Sefrek tuffirt n yisefka-nnem u fren iḥrazen i k-yelhan.',
     sectionAccess: 'Anekcum d uḥraz',
     pinTitle: 'Tangalt PIN',
@@ -7686,10 +7560,7 @@ export const kab = {
     intimacySubtitle: 'Sekkel aḥric n Tudert tusligt',
     privateContentTitle: 'Aḥraz n Tizmilin / Tiwlafin tusligin',
     privateContentSubtitle: 'Sekkel tizmilin d tiwlafin-nnem tudmawanin',
-    sectionAccount: 'Amiḍan d yisefka',
-    anonymousTitle: 'Askar udrig',
-    anonymousSubtitle: 'Seqdec asnas war ma tbeṭṭuḍ timagit-nnem',
-    dataManagementTitle: 'Asefrek n yisefka',
+    sectionAccount: 'Amiḍan d yisefka',dataManagementTitle: 'Asefrek n yisefka',
     dataManagementSubtitle: 'Wali, sifeḍ neɣ kkes isefka-nnem',
     deleteAccountTitle: 'Kkes amiḍan-inu',
     deleteAccountSubtitle: 'Kkes i lebda amiḍan-nnem d yisefka-nnem',
@@ -7930,76 +7801,7 @@ export const kab = {
       doubleLabel: 'Sin-nsent',
       doubleDetail: 'Grigoryan + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Tazmert tamatut',
-    subtitle: 'Talɣut meṛṛa ɣef tezmert-ik deg yiwen n wadeg',
-    privacyTitle: 'Talɣut-ik d tuffirt',
-    privacyText: 'Tettwaseqdac i usentel n uḍfar-ik deg AWA, tzemreḍ ad tt-tbeddleḍ melmi i tebɣiḍ.',
-    physicalSectionTitle: 'Talɣut tafizikit',
-    physicalSectionSubtitle: 'Tisekkilin-ik timaynutin',
-    heightLabel: 'Teɣzi',
-    weightLabel: 'Aẓayer n tura',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Anaw n idmawen',
-    lastUpdateLabel: 'Aleqqem aneggaru',
-    medicalSectionTitle: 'Talɣut tadawant',
-    medicalSectionSubtitle: 'Talɣut igerrzen ad tili ɣer-k',
-    chronicConditionsTitle: 'Isuḍaf iqburen',
-    chronicConditionsHelper: 'Senned i usnekcem neɣ abeddel',
-    chronicConditionsEmpty: 'Ulac asuḍaf aqbur yettwaskcem',
-    treatmentsTitle: 'Iwellihen n tura',
-    treatmentsHelper: 'Isem, tayunt, neɣ tuɣalin',
-    treatmentsEmpty: 'Ulac aɛlaj yettwaskcem',
-    allergiesTitle: 'Tilerɣiyin',
-    allergiesHelper: 'Isdawen, imekli, neɣ wayeḍ',
-    allergiesEmpty: 'Ulac tilerɣit yettwaskcem',
-    notesTitle: 'Tizmilin tadawanin',
-    notesHelper: 'Yal talɣut-nniḍen tuffirt',
-    notesEmpty: 'Ulac tazmilt tadawant yettwarnan',
-    goalsSectionTitle: 'Isaḍsan n tezmert',
-    goalsSectionSubtitle: 'Aɣbalu-ik uslig n tura',
-    currentGoalLabel: 'Aɣbalu-inu n tura',
-    inProgress: 'Mazal',
-    infoCardText: 'Tzemreḍ ad tbeddleḍ talɣut-a meṛṛa melmi i tebɣiḍ.',
-    toastUpdated: 'Talɣut tettwaleqqem',
-    errors: {
-      invalidPositiveValue: 'Sekcem azal ameɣtu ameṣfi.',
-      invalidHeight: 'Sekcem teɣzi gar 80 d 250 cm.',
-      invalidWeight: 'Sekcem aẓayer gar 20 d 400 kg.',
-      treatmentNameRequired: 'Sekcem isem n uɛlaj.'
-    },
-    editHeightTitle: 'Beddel teɣzi-inu',
-    editWeightTitle: 'Beddel aẓayer-inu',
-    updateInfoSubtitle: 'Leqqem talɣut-a.',
-    heightInCm: 'Teɣzi s santimitr',
-    weightInKg: 'Aẓayer s kilu',
-    bloodTypeSheetTitle: 'Anaw n idmawen',
-    bloodTypeSheetSubtitle: 'Fren anaw n idmawen-ik ma teẓriḍ-it.',
-    conditionsSheetSubtitle: 'Fren isuḍaf i tessnen. Tzemreḍ ad tferneḍ aṭas.',
-    allergiesSheetSubtitle: 'Fren tilerɣiyin i tessnen. Tzemreḍ ad tferneḍ aṭas.',
-    otherInfoLabel: 'Talɣut-nniḍen',
-    otherInfoPlaceholder: 'Rnu talɣut-nniḍen (d afrayan)',
-    treatmentsSheetSubtitle: 'Rnu iwellihen i tettawiḍ tura.',
-    newTreatmentLabel: 'Aɛlaj amaynut',
-    treatmentPlaceholder: 'Amedya: Fer 20 mg, yal ṣṣbeḥ',
-    addTreatmentAccessibility: 'Rnu aɛlaj',
-    treatmentsAddedTitle: 'Iwellihen yettwarnan',
-    noTreatmentAdded: 'Ulac aɛlaj yettwarnan.',
-    notesSheetSubtitle: 'Rnu kan talɣut i tebɣiḍ ad tt-tqeṛṛeḍ.',
-    notesPlaceholder: 'Rnu dagi talɣut-ik taxatart...',
-    goalSheetTitle: 'Aɣbalu-inu n tezmert',
-    goalSheetSubtitle: 'Fren aɣbalu i yewwin akk ɣer uḍfar-ik n tura.',
-    personalProgressLabel: 'Aseqdec-inu:',
-    bmiClasses: {
-      insufficientData: 'Isefka ur ttekfin ara',
-      underweight: 'Aẓayer meẓẓiyen',
-      normal: 'Amagnu',
-      overweight: 'Aẓayer ugar',
-      obese: 'Aẓayer ameqqran aṭas'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Lǧaṛ d usaḍuf',
     "lavender-night": 'Iẓẓem d usaḍuf',
     "rose-quartz": 'Aleɣwan d tilawin',
@@ -8579,7 +8381,10 @@ export const kab = {
     cycleSleepFeeling: {
       rested: 'Rtaḥeɣ',
       average: 'Amagnu',
-      tired: 'Ɛeyyaɣ'
+      tired: 'Ɛeyyaɣ',
+      none: 'Ala',
+      light: 'Aleɣwa',
+      aLot: 'Yewɛer',
     },
     cycleActivityType: {
       walking: 'Tikli',

@@ -378,7 +378,8 @@ export const ar = {
   objectiveArticles: {
     title: 'لمرافقتك',
     seeAll: 'عرض الكل',
-    readingMinutes: 'قراءة {{count}} د'
+    readingMinutes: 'قراءة {{count}} د',
+    latestTitle: 'أحدث المقالات'
   },
   spiritualGuidance: {
     title: 'العلامات الروحية',
@@ -636,6 +637,8 @@ export const ar = {
     timesThisNight: 'مرات هذه الليلة',
     awakeningsTip: 'من الطبيعي أن تستيقظي بضع مرات.\nيضبط جسمك نفسه تدريجيًا.',
     wakeFeelingTitle: 'الشعور عند الاستيقاظ',
+    wakeFatigueTitle: 'الإرهاق',
+    wakeFatigueAccessibility: 'الإرهاق: {{label}}',
     wakeFeelingSubtitle: 'كيف تشعرين عند الاستيقاظ؟',
     wakeFeelingAccessibility: 'الشعور عند الاستيقاظ: {{label}}',
     wakeFeelingTip: 'أصغي إلى جسمك واسمحي لنفسك\nبالراحة إن شعرتِ بحاجتك إليها.',
@@ -1556,13 +1559,8 @@ export const ar = {
     cycleLengthLabel: 'طول الدورة',
     cycleRegularityLabel: 'انتظام الدورة',
     dataProtected: 'البيانات محمية',
-    disabledSingular: 'معطّل',
-    editAnonymousAvatarAccessibility: 'تخصيص صورتي الرمزية المجهولة',
-    editAvatarAccessibility: 'تغيير صورة الملف الشخصي',
-    editProfile: 'تعديل الملف الشخصي',
-    generalHealthSubtitle: 'الوزن والطول وفصيلة الدم والحالات الصحية…',
-    generalHealthTitle: 'الصحة العامة',
-    headerSubtitle: 'أدِيري معلوماتك وتفضيلاتك',
+    disabledSingular: 'معطّل',    editAvatarAccessibility: 'تغيير صورة الملف الشخصي',
+    editProfile: 'تعديل الملف الشخصي',headerSubtitle: 'أدِيري معلوماتك وتفضيلاتك',
     helpSupportSubtitle: 'الأسئلة الشائعة والإبلاغ عن مشكلة والتواصل',
     helpSupportTitle: 'المساعدة والدعم',
     hijriDateLabel: 'التاريخ الهجري',
@@ -1590,28 +1588,7 @@ export const ar = {
     signOut: 'تسجيل الخروج',
     cycle: {
       remindersSubtitle: 'الحيض واليوميات والإباضة وفترة الخصوبة'
-    },
-    accountInfoModal: {
-      anonymousId: 'المعرّف المجهول',
-      anonymousMode: 'الوضع المجهول',
-      createdOn: 'تاريخ الإنشاء',
-      dataPrivateInfo: 'بياناتك تبقى خاصة على هذا الجهاز ولا تتم مزامنتها مع أجهزة أخرى.',
-      enabledValue: 'مفعّل',
-      localOnly: 'محلي فقط',
-      notConfigured: 'غير مُعدّ',
-      pinBiometry: 'رمز PIN / القياسات الحيوية',
-      security: 'الأمان',
-      subtitle: 'ملفك الشخصي المجهول لا يحتوي على أي معلومات قد تدل على هويتك.',
-      sync: 'المزامنة',
-      title: 'معلومات الحساب'
-    },
-    anonymousMode: {
-      exit: 'الخروج من الوضع المجهول',
-      identityHiddenSubtitle: 'هويتك الحقيقية تبقى مخفية',
-      manageSubtitle: 'أدِيري هويتك الخاصة وخيارات الوضع المجهول',
-      title: 'الوضع المجهول'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'الحرارة ومخاط عنق الرحم واختبارات LH والعلاقة الحميمة',
       indicatorsTitle: 'المؤشرات المتتبَّعة',
       manageReminders: 'إدارة تذكيرات الحمل الخاصة بي',
@@ -1754,10 +1731,7 @@ export const ar = {
       subtitle: 'كم يوم يستمر حيضها عادةً؟',
       title: 'مدة الحيض'
     },
-    personalInfo: {
-      accountInfoTitle: 'معلومات الحساب',
-      anonymousSubtitle: 'حساب محمي ومجهول',
-      daughterSubtitle: 'الاسم الأول، تاريخ الميلاد…',
+    personalInfo: {daughterSubtitle: 'الاسم الأول، تاريخ الميلاد…',
       ownerSubtitle: 'الاسم، البريد الإلكتروني، تاريخ الميلاد…',
       title: 'المعلومات الشخصية'
     },
@@ -4283,6 +4257,8 @@ export const ar = {
       lastMeasurementLabel: 'آخر قياس',
       sincePrevious: 'منذ القياس السابق',
       addAnotherHint: 'أضيفي قياسًا آخر لترَي اتجاهك.',
+      sinceFirst: 'منذ أول قياس',
+      averagePerWeek: 'المتوسط الأسبوعي',
       recentMeasurements: 'القياسات الأخيرة',
       valuesCount_one: '{{count}} قيمة',
       valuesCount_other: '{{count}} قيمة',
@@ -5746,6 +5722,7 @@ export const ar = {
     closeBackdropLabel: 'إغلاق التنبيه'
   },
   objectiveConfirmation: {
+    changeAnytime: 'يمكنكِ تغيير أهدافكِ في أي وقت.',
     cycle: {
       title: 'رائع! 🎉',
       description: 'لقد اخترتِ متابعة الدورة الكلاسيكية.',
@@ -6848,7 +6825,7 @@ export const ar = {
         all: 'الكل',
         medical: 'طبية',
         religious: 'دينية',
-        featured: 'مميزة'
+        favorites: 'المفضلة'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7490,6 +7467,8 @@ export const ar = {
     resolvingLocation: 'جارٍ تحديد موقعك…',
     noPositionSelected: 'لم يتم اختيار موقع',
     positionSelectedOnMap: 'تم اختيار الموقع على الخريطة',
+    selectedTitle: 'الموقع المحدد',
+    selectedHint: 'سيُستخدم هذا الموقع لحساب مواقيت صلاتك.',
     noCityFoundHere: 'لا توجد مدينة في هذا المكان.',
     noResultsFound: 'لا توجد نتائج.',
     mapsNotConfigured: 'اضبطي مفتاح الخريطة لتفعيلها.',
@@ -7506,7 +7485,8 @@ export const ar = {
       permissionDeny: 'رفض',
       configureMapKeyFirst: 'اضبطي مفتاح الخريطة أولًا.',
       permissionDeniedError: 'اسمحي بالوصول إلى الموقع من الإعدادات لاستخدام موقعك.',
-      positionUnavailable: 'الموقع غير متاح. تأكدي من تشغيل GPS.'
+      positionUnavailable: 'الموقع غير متاح. تأكدي من تشغيل GPS.',
+      timeout: 'استغرق تحديد الموقع وقتًا طويلًا. تحقّقي من الإشارة أو GPS ثم أعيدي المحاولة.'
     },
     errors: {
       generic: 'تعذّر تحديد هذا الموقع حاليًا.',
@@ -7557,9 +7537,10 @@ export const ar = {
     },
     spiritual: {
       title: 'هل تودّين تفعيل\nالمؤشرات الروحية؟',
-      subtitle: 'التقويم الهجري، الصلوات، الصيام، حالة الطهارة…\nيمكنك تغيير هذا الاختيار في أي وقت.',
+      subtitle: 'يمكنك تغيير هذا الاختيار في أي وقت.',
       enable: 'نعم، فعّلي',
       disable: 'لا، ليس الآن',
+      includesLabel: 'ما الذي يفعّله',
       featureHijri: 'التقويم الهجري',
       featurePrayers: 'الصلوات وحالة الطهارة',
       featureFasting: 'الصيام (رمضان وأيام القضاء)',
@@ -7724,16 +7705,14 @@ export const ar = {
       orContinueWith: 'أو تابعي عبر',
       continueWithGoogle: 'المتابعة عبر Google',
       continueWithApple: 'المتابعة عبر Apple',
-      continueWithEmail: 'المتابعة بعنوان بريد إلكتروني',
-      useAnonymousMode: 'استخدام AWA في الوضع المجهول',
-      anonymousMode: 'الوضع المجهول',
-      legalTerms: 'شروط الاستخدام وسياسة الخصوصية.',
+      continueWithEmail: 'المتابعة بعنوان بريد إلكتروني',legalTerms: 'شروط الاستخدام وسياسة الخصوصية.',
       createAccount: 'إنشاء حسابي'
     },
     login: {
       tagline: 'لحياة متوازنة،\nفي كل خطوة.',
       emailPlaceholder: 'البريد الإلكتروني',
       passwordPlaceholder: 'كلمة المرور',
+      passwordFieldPlaceholder: 'أدخلي كلمة المرور',
       forgotPassword: 'نسيتِ كلمة المرور؟',
       submit: 'تسجيل الدخول',
       legalPrefix: 'بمتابعتك، فإنك توافقين على'
@@ -7776,112 +7755,7 @@ export const ar = {
       helpModalCta: 'فهمت',
       helpModalCloseAccessibility: 'إغلاق'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'الوضع المجهول',
-      headerSubtitle: 'الخصوصية',
-      illustrationA11y: 'رسم توضيحي للوضع المجهول',
-      activeTitle: 'الوضع المجهول مفعّل',
-      activeSubtitle: 'يبقى ملفك الشخصي منفصلًا عن هويتك ما دام هذا الوضع مفعّلًا.',
-      nothingKeptTitle: 'لا يُحتفظ بشيء',
-      nothingKeptSubtitle: 'هذه المعلومات غير مرتبطة بملفك الشخصي المجهول.',
-      retentionEmail: 'البريد الإلكتروني',
-      retentionName: 'الاسم',
-      retentionTechnical: 'المعرّفات التقنية',
-      notRetained: 'لا يُحتفظ به',
-      appLockA11y: 'قفل التطبيق',
-      appLockTitle: 'قفل التطبيق',
-      appLockText: 'رمز PIN أو القياسات الحيوية عند فتح AWA',
-      appLockEnabled: 'مفعّل',
-      appLockDisabled: 'معطّل',
-      disableTitle: 'إيقاف الوضع المجهول',
-      disableText: 'للخروج من الوضع المجهول، يمكنك إنشاء حساب وربطه ببريد إلكتروني أو بمعرّف.',
-      pitchTitle: 'استخدمي AWA في الوضع المجهول',
-      pitchSubtitle: 'استمتعي بمساحتك في AWA دون ربط هويتك بملفك الشخصي.',
-      identityPrivateTitle: 'تبقى هويتك خاصة',
-      identityPrivateSubtitle: 'لا حاجة إلى معلومات قد تكشف هويتك لاستخدام هذا الوضع.',
-      privacyRowName: 'لا حاجة إلى اسم',
-      privacyRowEmail: 'لا حاجة إلى بريد إلكتروني',
-      privacyRowAccount: 'لا يوجد حساب Google أو Apple مرتبط',
-      privacyRowProfile: 'ملف شخصي منفصل عن هويتك',
-      infoTitle: 'من المفيد أن تعرفي',
-      infoText: 'قد تكون بعض ميزات الحساب أو المزامنة أو الاسترداد محدودة في الوضع المجهول.',
-      recommendedProtectionTitle: 'الحماية الموصى بها',
-      recommendedProtectionText: 'ستتمكنين من حماية الوصول إلى AWA برمز PIN أو بالقياسات الحيوية.',
-      continueInAnonymousMode: 'المتابعة في الوضع المجهول'
-    },
-    limitations: {
-      headerTitle: 'قبل المتابعة',
-      headerSubtitle: 'الوضع المجهول',
-      title: 'قبل المتابعة',
-      subtitle: 'في الوضع المجهول، ستكون بعض الميزات المتعلقة بالحساب محدودة أو غير متاحة.',
-      recoveryTitle: 'استرداد الحساب',
-      recoveryText: 'من دون بريد إلكتروني مرتبط، قد يكون استرداد الوصول إلى حسابك محدودًا.',
-      syncTitle: 'المزامنة',
-      syncText: 'قد لا تتم مزامنة بعض البيانات مع أجهزتك الأخرى.',
-      communicationsTitle: 'المراسلات',
-      communicationsText: 'لن يتمكن AWA من إرسال رسائل بريد إلكتروني متعلقة بحسابك المجهول.',
-      securityTitle: 'الأمان الموصى به',
-      securityText: 'ننصحك بتفعيل رمز PIN أو القياسات الحيوية لحماية الوصول إلى AWA.',
-      acknowledgeLabel: 'أفهم كيف يعمل الوضع المجهول.',
-      activate: 'تفعيل الوضع المجهول'
-    },
-    creating: {
-      headerTitle: 'إنشاء مساحتك',
-      loaderA11y: 'جارٍ إنشاء مساحتك المجهولة',
-      step1: 'تجهيز مساحتك',
-      step2: 'إعداد الخصوصية',
-      step3: 'اللمسات الأخيرة',
-      creatingTitle: 'جارٍ إنشاء مساحتك المجهولة',
-      creatingSubtitle: 'يجهّز AWA مساحتك الخاصة ويفصل ملفك الشخصي عن معلوماتك التعريفية.',
-      errorTitle: 'تعذّر إكمال التفعيل',
-      errorSubtitle: 'حدث خطأ ما. يمكنك المحاولة مجددًا.',
-      retry: 'حاولي مجددًا',
-      loaderLabel: 'يُرجى الانتظار',
-      loaderCaption: 'لن يستغرق الأمر سوى لحظات.',
-      protectionTitle: 'حماية هويتك',
-      protectionSubtitle: 'يجهّز AWA مساحتك مع تطبيق تفضيلات الخصوصية الخاصة بك.',
-      warning: 'لا تغلقي التطبيق أثناء تجهيز مساحتك.'
-    },
-    success: {
-      headerTitle: 'الوضع المجهول',
-      title: 'الوضع المجهول مفعّل',
-      subtitle: 'أصبح ملفك الشخصي منفصلًا عن هويتك. استمتعي بـAWA بخصوصية كاملة.',
-      cardTitle: 'مساحتك جاهزة',
-      cardSubtitle: 'يمكنك إيقاف الوضع المجهول في أي وقت من الخصوصية والأمان.',
-      continue: 'متابعة',
-      finish: 'تم'
-    },
-    avatar: {
-      headerTitle: 'تخصيص صورتي الرمزية',
-      eyebrow: 'ملفك الشخصي المجهول',
-      title: 'أنشئي صورة رمزية تشبهك',
-      subtitle: 'اختاري ببساطة نمطًا ولونًا. لا حاجة إلى صورة شخصية.',
-      privateProfile: 'ملف شخصي خاص',
-      colorSectionTitle: 'اختاري لونًا',
-      colorSectionDescription: 'اختاري درجة اللون لصورتك الرمزية.',
-      colorSwatchA11y: 'اللون {{color}}',
-      styleSectionTitle: 'اختاري نمطك',
-      styleSectionDescription: 'يمكنك تغييره لاحقًا من ملفك الشخصي.',
-      infoTitle: 'خصوصيتك أولًا',
-      infoText: 'تحل هذه الصورة الرمزية محل صورتك ما دام الوضع المجهول مفعّلًا. لا تُستخدم أي صورة حقيقية لملفك الشخصي.',
-      saveAndContinue: 'حفظ ومتابعة',
-      later: 'لاحقًا',
-      saveChanges: 'حفظ التغييرات'
-    },
-    avatarStyles: {
-      hijab: 'صورة رمزية بحجاب',
-      glasses: 'صورة رمزية بنظارات',
-      hat: 'صورة رمزية بقبعة',
-      minimal: 'صورة رمزية بسيطة',
-      headscarfGlasses: 'صورة رمزية بوشاح ونظارات',
-      silhouetteHat: 'ظلّ بقبعة أنيقة',
-      turban: 'صورة رمزية بعمامة',
-      shortHair: 'صورة رمزية بشعر قصير'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'رمز PIN غير صحيح. حاولي مجددًا.',
     genericError: 'حدث خطأ ما. حاولي مجددًا.',
     codesDontMatch: 'الرمزان غير متطابقين. ابدئي من جديد.',
@@ -7961,8 +7835,8 @@ export const ar = {
   privacySecurity: {
     backA11y: 'رجوع',
     title: 'الخصوصية والأمان',
-    subtitle: 'بياناتك وخصوصيتك واختيارك 💜',
-    introTitle: 'أنتِ المتحكّمة 🔒',
+    subtitle: 'بياناتك وخصوصيتك واختيارك',
+    introTitle: 'أنتِ المتحكّمة',
     introText: 'تحكّمي في خصوصية بياناتك واختاري الحمايات التي تناسبك.',
     sectionAccess: 'الوصول والحماية',
     pinTitle: 'رمز PIN',
@@ -7983,10 +7857,7 @@ export const ar = {
     intimacySubtitle: 'قفل قسم الحياة الحميمة',
     privateContentTitle: 'حماية الملاحظات والصور الخاصة',
     privateContentSubtitle: 'قفل ملاحظاتك وصورك الشخصية',
-    sectionAccount: 'الحساب والبيانات',
-    anonymousTitle: 'الوضع المجهول',
-    anonymousSubtitle: 'استخدمي التطبيق دون مشاركة هويتك',
-    dataManagementTitle: 'إدارة البيانات',
+    sectionAccount: 'الحساب والبيانات',dataManagementTitle: 'إدارة البيانات',
     dataManagementSubtitle: 'عرض بياناتك أو تصديرها أو حذفها',
     deleteAccountTitle: 'حذف حسابي',
     deleteAccountSubtitle: 'حذف حسابك وبياناتك نهائيًا',
@@ -8235,76 +8106,7 @@ export const ar = {
       doubleLabel: 'كلاهما',
       doubleDetail: 'الميلادي + الهجري'
     }
-  },
-  generalHealth: {
-    title: 'الصحة العامة',
-    subtitle: 'جميع معلوماتك الصحية في مكان واحد',
-    privacyTitle: 'معلوماتك خاصة',
-    privacyText: 'تُستخدم لتخصيص متابعتك في AWA ويمكن تغييرها في أي وقت.',
-    physicalSectionTitle: 'المعلومات الجسدية',
-    physicalSectionSubtitle: 'قياساتك الأساسية',
-    heightLabel: 'الطول',
-    weightLabel: 'الوزن الحالي',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'فصيلة الدم',
-    lastUpdateLabel: 'آخر تحديث',
-    medicalSectionTitle: 'المعلومات الطبية',
-    medicalSectionSubtitle: 'معلومات مهمة تحتفظين بها في متناول يدك',
-    chronicConditionsTitle: 'الأمراض المزمنة',
-    chronicConditionsHelper: 'اضغطي للإضافة أو التعديل',
-    chronicConditionsEmpty: 'لم يتم إدخال أي مرض مزمن',
-    treatmentsTitle: 'العلاجات الحالية',
-    treatmentsHelper: 'الاسم أو الجرعة أو عدد المرات',
-    treatmentsEmpty: 'لم يتم إدخال أي علاج',
-    allergiesTitle: 'الحساسية',
-    allergiesHelper: 'أدوية أو أطعمة أو غير ذلك',
-    allergiesEmpty: 'لم يتم إدخال أي حساسية',
-    notesTitle: 'ملاحظات طبية',
-    notesHelper: 'أي معلومات شخصية إضافية',
-    notesEmpty: 'لم تتم إضافة أي ملاحظة طبية',
-    goalsSectionTitle: 'الأهداف الصحية',
-    goalsSectionSubtitle: 'هدفك الشخصي الحالي',
-    currentGoalLabel: 'هدفي الحالي',
-    inProgress: 'قيد التنفيذ',
-    infoCardText: 'يمكنك تغيير كل هذه المعلومات في أي وقت.',
-    toastUpdated: 'تم تحديث المعلومات',
-    errors: {
-      invalidPositiveValue: 'أدخلي قيمة موجبة صالحة.',
-      invalidHeight: 'أدخلي طولًا بين 80 و250 سم.',
-      invalidWeight: 'أدخلي وزنًا بين 20 و400 كغ.',
-      treatmentNameRequired: 'أدخلي اسم العلاج.'
-    },
-    editHeightTitle: 'تعديل طولي',
-    editWeightTitle: 'تعديل وزني',
-    updateInfoSubtitle: 'حدّثي هذه المعلومات.',
-    heightInCm: 'الطول بالسنتيمتر',
-    weightInKg: 'الوزن بالكيلوغرام',
-    bloodTypeSheetTitle: 'فصيلة الدم',
-    bloodTypeSheetSubtitle: 'اختاري فصيلة دمك إن كنتِ تعرفينها.',
-    conditionsSheetSubtitle: 'اختاري الحالات المعروفة لديك. يمكنك اختيار أكثر من واحدة.',
-    allergiesSheetSubtitle: 'اختاري أنواع الحساسية المعروفة لديك. يمكنك اختيار أكثر من واحد.',
-    otherInfoLabel: 'معلومات أخرى',
-    otherInfoPlaceholder: 'أضيفي معلومات أخرى (اختياري)',
-    treatmentsSheetSubtitle: 'أضيفي العلاجات التي تتناولينها حاليًا.',
-    newTreatmentLabel: 'علاج جديد',
-    treatmentPlaceholder: 'مثال: حديد 20 ملغ، كل صباح',
-    addTreatmentAccessibility: 'إضافة علاج',
-    treatmentsAddedTitle: 'العلاجات المضافة',
-    noTreatmentAdded: 'لم تتم إضافة أي علاج.',
-    notesSheetSubtitle: 'أضيفي فقط المعلومات التي ترغبين في الاحتفاظ بها.',
-    notesPlaceholder: 'أضيفي معلوماتك المهمة هنا...',
-    goalSheetTitle: 'هدفي الصحي',
-    goalSheetSubtitle: 'اختاري الهدف الأنسب لمتابعتك الحالية.',
-    personalProgressLabel: 'التقدّم الشخصي:',
-    bmiClasses: {
-      insufficientData: 'بيانات غير كافية',
-      underweight: 'نقص الوزن',
-      normal: 'طبيعي',
-      overweight: 'زيادة الوزن',
-      obese: 'سمنة'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'ناعم ومتناغم',
     "lavender-night": 'أنيق ومهدّئ',
     "rose-quartz": 'ناعم وأنثوي',
@@ -8940,7 +8742,10 @@ export const ar = {
     cycleSleepFeeling: {
       rested: 'مرتاحة',
       average: 'عادي',
-      tired: 'متعبة'
+      tired: 'متعبة',
+      none: 'لا',
+      light: 'خفيفة',
+      aLot: 'قوية',
     },
     cycleActivityType: {
       walking: 'المشي',

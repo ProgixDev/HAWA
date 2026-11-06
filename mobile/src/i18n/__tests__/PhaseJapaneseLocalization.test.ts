@@ -315,7 +315,7 @@ describe('runtime switching and persistence', () => {
   });
 
   it('the article category tabs are short single-line labels', () => {
-    for (const key of ['all', 'medical', 'religious', 'featured']) {
+    for (const key of ['all', 'medical', 'religious', 'favorites']) {
       const label = tOf(`library.screen.tabs.${key}`, 'ja');
       expect(label.length).toBeLessThanOrEqual(4);
       expect(label).not.toContain('\n');

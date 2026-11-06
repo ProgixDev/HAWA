@@ -724,9 +724,7 @@ export const daChunk2 = {
     cycleLengthLabel: 'Cykluslængde',
     cycleRegularityLabel: 'Cyklusregelmæssighed',
     dataProtected: 'Data beskyttet',
-    disabledSingular: 'Deaktiveret',
-    editAnonymousAvatarAccessibility: 'Tilpas min anonyme avatar',
-    editAvatarAccessibility: 'Skift profilbillede',
+    disabledSingular: 'Deaktiveret',    editAvatarAccessibility: 'Skift profilbillede',
     editProfile: 'Rediger profil',
     generalHealthSubtitle: 'Vægt, højde, blodtype, tilstande…',
     generalHealthTitle: 'Generel sundhed',
@@ -759,31 +757,7 @@ export const daChunk2 = {
 
     cycle: {
       remindersSubtitle: 'Menstruationer, daglig journal, ægløsning og fertilt vindue',
-    },
-
-    accountInfoModal: {
-      anonymousId: 'Anonymt ID',
-      anonymousMode: 'Anonym tilstand',
-      createdOn: 'Oprettet den',
-      dataPrivateInfo: 'Dine data forbliver private på denne enhed og synkroniseres ikke med andre enheder.',
-      enabledValue: 'Aktiveret',
-      localOnly: 'Kun lokalt',
-      notConfigured: 'Ikke konfigureret',
-      pinBiometry: 'PIN / Biometri',
-      security: 'Sikkerhed',
-      subtitle: 'Din anonyme profil indeholder ingen oplysninger, der kan identificere dig.',
-      sync: 'Synkronisering',
-      title: 'Kontooplysninger',
-    },
-
-    anonymousMode: {
-      exit: 'Forlad anonym tilstand',
-      identityHiddenSubtitle: 'Din rigtige identitet forbliver skjult',
-      manageSubtitle: 'Administrer din private identitet og anonyme muligheder',
-      title: 'Anonym tilstand',
-    },
-
-    conceive: {
+    },    conceive: {
       indicatorsSubtitle: 'Temperatur, livmoderhalssekret, LH-tests, intimitet',
       indicatorsTitle: 'Sporede indikatorer',
       manageReminders: 'Administrer mine undfangelsespåmindelser',
@@ -930,10 +904,7 @@ export const daChunk2 = {
       title: 'Menstruationslængde',
     },
 
-    personalInfo: {
-      accountInfoTitle: 'Kontooplysninger',
-      anonymousSubtitle: 'Beskyttet og anonym konto',
-      daughterSubtitle: 'Fornavn, fødselsdato…',
+    personalInfo: {daughterSubtitle: 'Fornavn, fødselsdato…',
       ownerSubtitle: 'Navn, e-mail, fødselsdato…',
       title: 'Personlige oplysninger',
     },

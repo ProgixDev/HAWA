@@ -365,7 +365,8 @@ export const ln = {
   objectiveArticles: {
     title: 'Mpo na kosunga yo',
     seeAll: 'Tala nyonso',
-    readingMinutes: 'Minute {{count}} ya kotánga'
+    readingMinutes: 'Minute {{count}} ya kotánga',
+    latestTitle: 'Masolo ya sika'
   },
   spiritualGuidance: {
     title: 'Bilembo ya molimo',
@@ -607,6 +608,8 @@ export const ln = {
     timesThisNight: 'mbala butu oyo',
     awakeningsTip: 'Kolamuka mbala moke ezali likambo ya ntango nyonso.\nNzoto na yo ebongisaka yango moke moke.',
     wakeFeelingTitle: 'Mayoki ntango ya kolamuka',
+    wakeFatigueTitle: 'Bolembu',
+    wakeFatigueAccessibility: 'Bolembu: {{label}}',
     wakeFeelingSubtitle: 'Oyokaka boni ntango olamuki?',
     wakeFeelingAccessibility: 'Mayoki ntango ya kolamuka: {{label}}',
     wakeFeelingTip: 'Yoka nzoto na yo mpe pesa yo moko\nkopema soki oyoki esengeli.',
@@ -1467,13 +1470,8 @@ export const ln = {
     cycleLengthLabel: 'Boniboni ya cycle',
     cycleRegularityLabel: 'Bokokani ya cycle',
     dataProtected: 'Ba données ebatelami',
-    disabledSingular: 'Ekangami',
-    editAnonymousAvatarAccessibility: 'Bongisa avatar na ngai ya sekele',
-    editAvatarAccessibility: 'Bongola foto ya profil',
-    editProfile: 'Bongisa profil',
-    generalHealthSubtitle: 'Kilo, bosanda, groupe ya makila, ba maladi…',
-    generalHealthTitle: 'Santé ya mobimba',
-    headerSubtitle: 'Bongisa ba informations mpe ba préférences na yo',
+    disabledSingular: 'Ekangami',    editAvatarAccessibility: 'Bongola foto ya profil',
+    editProfile: 'Bongisa profil',headerSubtitle: 'Bongisa ba informations mpe ba préférences na yo',
     helpSupportSubtitle: 'Ba mituna, koyebisa likambo mpe kosolola na biso',
     helpSupportTitle: 'Lisalisi',
     hijriDateLabel: 'Mokolo ya Hijri',
@@ -1501,28 +1499,7 @@ export const ln = {
     signOut: 'Bimá',
     cycle: {
       remindersSubtitle: 'Ba sanza, journal ya mokolo, ovulation mpe eleko ya kobota'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID ya sekele',
-      anonymousMode: 'Mode ya sekele',
-      createdOn: 'Esalemi na',
-      dataPrivateInfo: 'Ba données na yo etikali na sekele na téléphone oyo mpe ekei na ba appareil mosusu te.',
-      enabledValue: 'Ezali',
-      localOnly: 'Na téléphone kaka',
-      notConfigured: 'Ebongisami te',
-      pinBiometry: 'PIN / Biométrie',
-      security: 'Libateli',
-      subtitle: 'Profil na yo ya sekele ezali na ebandeli moko te oyo ekoki kolakisa yo nani.',
-      sync: 'Synchronisation',
-      title: 'Ba informations ya compte'
-    },
-    anonymousMode: {
-      exit: 'Bimá na mode ya sekele',
-      identityHiddenSubtitle: 'Nani ozali ya solo etikali na sekele',
-      manageSubtitle: 'Bongisa bozwi na yo ya sekele mpe ba option ya sekele',
-      title: 'Mode ya sekele'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Température, mucus ya col, ba test LH, boyokani',
       indicatorsTitle: 'Ba indicateur elandami',
       manageReminders: 'Bongisa ba mokundoli na ngai ya kozwa zemi',
@@ -1657,10 +1634,7 @@ export const ln = {
       subtitle: 'Sanza na ye ezalaka mikolo boni mbala mingi?',
       title: 'Boniboni ya sanza'
     },
-    personalInfo: {
-      accountInfoTitle: 'Ba informations ya compte',
-      anonymousSubtitle: 'Compte ebatelami mpe ya sekele',
-      daughterSubtitle: 'Nkombo, mokolo ya mbotama…',
+    personalInfo: {daughterSubtitle: 'Nkombo, mokolo ya mbotama…',
       ownerSubtitle: 'Nkombo, email, mokolo ya mbotama…',
       title: 'Ba informations ya moto'
     },
@@ -4062,6 +4036,8 @@ export const ln = {
       lastMeasurementLabel: 'Bopimeli ya nsuka',
       sincePrevious: 'uta oyo eleká',
       addAnotherHint: 'Tia bopimeli mosusu mpo na komona ndenge ebongwanaka.',
+      sinceFirst: 'Banda na mesure ya liboso',
+      averagePerWeek: 'Moyenne na poso',
       recentMeasurements: 'Bopimeli ya sika',
       valuesCount_one: 'motango {{count}}',
       valuesCount_other: 'motango {{count}}',
@@ -5461,6 +5437,7 @@ export const ln = {
     closeBackdropLabel: 'Kanga likebisi'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Okoki kobongola ba objectifs na yo ntango nyonso.',
     cycle: {
       title: 'Malamu mingi! 🎉',
       description: 'Opónaki kolanda cycle ya momeseno.',
@@ -6563,7 +6540,7 @@ export const ln = {
         all: 'Nyonso',
         medical: 'Ya monganga',
         religious: 'Ya losambo',
-        featured: 'Oyo eponami'
+        favorites: 'Oyo olingi'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const ln = {
     resolvingLocation: 'Tozali koluka esika ozali…',
     noPositionSelected: 'Esika eponami te',
     positionSelectedOnMap: 'Esika eponami na karte',
+    selectedTitle: 'Esika oponi',
+    selectedHint: 'Esika oyo ekosalelama mpo na kotanga bangonga na yo ya losambo.',
     noCityFoundHere: 'Engumba emonani te na esika oyo.',
     noResultsFound: 'Eloko emonani te.',
     mapsNotConfigured: 'Bongisa fungola ya karte mpo na kosala karte.',
@@ -7209,7 +7188,8 @@ export const ln = {
       permissionDeny: 'Lieka',
       configureMapKeyFirst: 'Liboso bongisa fungola ya karte.',
       permissionDeniedError: 'Pesa nzela ya esika na Settings mpo na kosalela esika na yo.',
-      positionUnavailable: 'Esika emonani te. Tala soko GPS ezali kosala.'
+      positionUnavailable: 'Esika emonani te. Tala soko GPS ezali kosala.',
+      timeout: 'Koluka esika ezwaki ntango milayi. Tala signale to GPS, sima meka lisusu.'
     },
     errors: {
       generic: 'Tokoki koyeba esika oyo sikoyo te.',
@@ -7260,9 +7240,10 @@ export const ln = {
     },
     spiritual: {
       title: 'Olingi kofungola\nbilembo ya molimo?',
-      subtitle: 'Kalandrié ya Hijri, mabondeli, kokila, pɛto ya molimo…\nOkoki kobongola ponaponi oyo ntango nyonso.',
+      subtitle: 'Okoki kobongola ponaponi oyo ntango nyonso.',
       enable: 'Iyo, fungola',
       disable: 'Te, naino te',
+      includesLabel: 'Oyo ekobanda',
       featureHijri: 'Kalandrié ya Hijri',
       featurePrayers: 'Mabondeli mpe pɛto ya molimo',
       featureFasting: 'Kokila (Ramadan, mikolo ya qada)',
@@ -7427,16 +7408,14 @@ export const ln = {
       orContinueWith: 'to kokoba na',
       continueWithGoogle: 'Koba na Google',
       continueWithApple: 'Koba na Apple',
-      continueWithEmail: 'Koba na adrɛsi ya imɛlɛ',
-      useAnonymousMode: 'Salela AWA na ndenge ya nkombo ezanga',
-      anonymousMode: 'Ndenge ya nkombo ezanga',
-      legalTerms: 'Mibeko ya kosalela mpe Politiki na biso ya sekele.',
+      continueWithEmail: 'Koba na adrɛsi ya imɛlɛ',legalTerms: 'Mibeko ya kosalela mpe Politiki na biso ya sekele.',
       createAccount: 'Sala konti na ngai'
     },
     login: {
       tagline: 'Mpo na bomoi ya malamu,\nelongo na yo na etape nyonso.',
       emailPlaceholder: 'Adrɛsi ya imɛlɛ',
       passwordPlaceholder: 'Mot de passe',
+      passwordFieldPlaceholder: 'Tia mot de passe na yo',
       forgotPassword: 'Obosani mot de passe?',
       submit: 'Kota',
       legalPrefix: 'Soko okobi, ondimi'
@@ -7479,112 +7458,7 @@ export const ln = {
       helpModalCta: 'Nasosoli',
       helpModalCloseAccessibility: 'Kanga'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Ndenge ya nkombo ezanga',
-      headerSubtitle: 'Sekele',
-      illustrationA11y: 'Elilingi ya ndenge ya nkombo ezanga',
-      activeTitle: 'Ndenge ya nkombo ezanga efungwami',
-      activeSubtitle: 'Profil na yo ekangami te na nkombo na yo ntango ndenge oyo ezali kosala.',
-      nothingKeptTitle: 'Eloko moko te ebombami',
-      nothingKeptSubtitle: 'Makambo oyo ekangami te na profil na yo ya nkombo ezanga.',
-      retentionEmail: 'Imɛlɛ',
-      retentionName: 'Nkombo',
-      retentionTechnical: 'Bilembo ya tɛknik',
-      notRetained: 'Ebombami te',
-      appLockA11y: 'Kokanga app',
-      appLockTitle: 'Kokanga app',
-      appLockText: 'Kode PIN to biometrie ntango ofungoli AWA',
-      appLockEnabled: 'Efungwami',
-      appLockDisabled: 'Efungwami te',
-      disableTitle: 'Kanga ndenge ya nkombo ezanga',
-      disableText: 'Mpo na kobima na ndenge ya nkombo ezanga, okoki kosala konti mpe kokanga adrɛsi ya imɛlɛ to ID.',
-      pitchTitle: 'Salela AWA na ndenge ya nkombo ezanga',
-      pitchSubtitle: 'Salela esika na yo ya AWA na kokanga nkombo na yo na profil te.',
-      identityPrivateTitle: 'Nkombo na yo ezali sekele',
-      identityPrivateSubtitle: 'Makambo oyo ekoki koyebisa yo ezali na ntina te mpo na kosalela ndenge oyo.',
-      privacyRowName: 'Nkombo esengeli te',
-      privacyRowEmail: 'Adrɛsi ya imɛlɛ esengeli te',
-      privacyRowAccount: 'Konti ya Google to Apple ekangami te',
-      privacyRowProfile: 'Profil ekangami te na nkombo na yo',
-      infoTitle: 'Eloko ya malamu koyeba',
-      infoText: 'Misala mosusu ya konti, sync, to kozongisa ekoki kozala na ndelo na ndenge ya nkombo ezanga.',
-      recommendedProtectionTitle: 'Libateli oyo tokanisi',
-      recommendedProtectionText: 'Okoki kobatela kokota na AWA na kode PIN to biometrie.',
-      continueInAnonymousMode: 'Koba na ndenge ya nkombo ezanga'
-    },
-    limitations: {
-      headerTitle: 'Liboso ya kokoba',
-      headerSubtitle: 'Ndenge ya nkombo ezanga',
-      title: 'Liboso ya kokoba',
-      subtitle: 'Na ndenge ya nkombo ezanga, misala mosusu ya konti ekozala na ndelo to ekozala te.',
-      recoveryTitle: 'Kozongisa konti',
-      recoveryText: 'Soki adrɛsi ya imɛlɛ ekangami te, kozongisa nzela ya konti na yo ekoki kozala na ndelo.',
-      syncTitle: 'Sync',
-      syncText: 'Makambo mosusu ekoki kokende te na biloko na yo mosusu.',
-      communicationsTitle: 'Bansango',
-      communicationsText: 'AWA ekoki kotinda yo imɛlɛ te mpo na konti na yo ya nkombo ezanga.',
-      securityTitle: 'Libateli oyo tokanisi',
-      securityText: 'Tokanisi ete ofungola kode PIN to biometrie mpo na kobatela kokota na AWA.',
-      acknowledgeLabel: 'Nasosoli ndenge ya nkombo ezanga ezali kosala.',
-      activate: 'Fungola ndenge ya nkombo ezanga'
-    },
-    creating: {
-      headerTitle: 'Tozali kosala esika na yo',
-      loaderA11y: 'Tozali kosala esika na yo ya nkombo ezanga',
-      step1: 'Tozali kobongisa esika na yo',
-      step2: 'Tozali kobongisa sekele',
-      step3: 'Tozali kosukisa',
-      creatingTitle: 'Tozali kosala esika na yo ya nkombo ezanga',
-      creatingSubtitle: 'AWA ezali kobongisa esika na yo ya sekele mpe kolongola profil na yo na makambo oyo ekoki koyebisa yo.',
-      errorTitle: 'Tokokisi kofungola te',
-      errorSubtitle: 'Likambo ebimi. Okoki komeka lisusu.',
-      retry: 'Meka lisusu',
-      loaderLabel: 'Zela kaka',
-      loaderCaption: 'Ekozwa kaka ntango moke.',
-      protectionTitle: 'Tozali kobatela nkombo na yo',
-      protectionSubtitle: 'AWA ezali kobongisa esika na yo mpe kosalela maponi na yo ya sekele.',
-      warning: 'Kanga app te ntango esika na yo ezali kobongisama.'
-    },
-    success: {
-      headerTitle: 'Ndenge ya nkombo ezanga',
-      title: 'Ndenge ya nkombo ezanga efungwami',
-      subtitle: 'Profil na yo ekangami lisusu te na nkombo na yo. Salela AWA na sekele mobimba.',
-      cardTitle: 'Esika na yo ebongisami',
-      cardSubtitle: 'Okoki kokanga ndenge ya nkombo ezanga ntango nyonso na Sekele & libateli.',
-      continue: 'Koba',
-      finish: 'Esili'
-    },
-    avatar: {
-      headerTitle: 'Bongisa avatar na ngai',
-      eyebrow: 'PROFIL NA YO YA NKOMBO EZANGA',
-      title: 'Sala avatar oyo ekokani na yo',
-      subtitle: 'Pona kaka ndenge mpe langi. Foto na yo esengeli te.',
-      privateProfile: 'Profil ya sekele',
-      colorSectionTitle: 'Pona langi',
-      colorSectionDescription: 'Pona langi ya avatar na yo.',
-      colorSwatchA11y: 'Langi {{color}}',
-      styleSectionTitle: 'Pona ndenge na yo',
-      styleSectionDescription: 'Okoki kobongola yango sima na profil na yo.',
-      infoTitle: 'Sekele na yo ezali na liboso',
-      infoText: 'Avatar oyo ekozwa esika ya foto na yo ntango ndenge ya nkombo ezanga ezali kosala. Foto ya solo esalelami te mpo na profil na yo.',
-      saveAndContinue: 'Bomba mpe koba',
-      later: 'Sima',
-      saveChanges: 'Bomba bobongoli'
-    },
-    avatarStyles: {
-      hijab: 'Avatar na hijab',
-      glasses: 'Avatar na bilongi ya miso',
-      hat: 'Avatar na ngala',
-      minimal: 'Avatar ya pɛto',
-      headscarfGlasses: 'Avatar na lipeto mpe bilongi ya miso',
-      silhouetteHat: 'Elilingi na ngala ya kitoko',
-      turban: 'Avatar na turban',
-      shortHair: 'Avatar na nsuki mokuse'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN ezali malamu te. Meka lisusu.',
     genericError: 'Likambo ebimi. Meka lisusu.',
     codesDontMatch: 'Bikode ekokani te. Banda lisusu.',
@@ -7664,8 +7538,8 @@ export const ln = {
   privacySecurity: {
     backA11y: 'Zonga',
     title: 'Sekele & libateli',
-    subtitle: 'Makambo na yo, sekele na yo, ponaponi na yo 💜',
-    introTitle: 'Ozali na bokonzi 🔒',
+    subtitle: 'Makambo na yo, sekele na yo, ponaponi na yo',
+    introTitle: 'Ozali na bokonzi',
     introText: 'Bongisa sekele ya makambo na yo mpe pona libateli oyo ebongi na yo.',
     sectionAccess: 'Kokota mpe libateli',
     pinTitle: 'Kode PIN',
@@ -7686,10 +7560,7 @@ export const ln = {
     intimacySubtitle: 'Kanga eteni ya Bomoi ya kati',
     privateContentTitle: 'Libateli ya Mikanda / Bafoto ya sekele',
     privateContentSubtitle: 'Kanga mikanda mpe bafoto na yo ya ngai moko',
-    sectionAccount: 'Konti mpe makambo',
-    anonymousTitle: 'Ndenge ya nkombo ezanga',
-    anonymousSubtitle: 'Salela app kopesa nkombo na yo te',
-    dataManagementTitle: 'Bokambi ya makambo',
+    sectionAccount: 'Konti mpe makambo',dataManagementTitle: 'Bokambi ya makambo',
     dataManagementSubtitle: 'Tala, export, to longola makambo na yo',
     deleteAccountTitle: 'Longola konti na ngai',
     deleteAccountSubtitle: 'Longola libela konti mpe makambo na yo',
@@ -7930,76 +7801,7 @@ export const ln = {
       doubleLabel: 'Nyonso mibale',
       doubleDetail: 'Gregorien + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Nzoto malamu',
-    subtitle: 'Bansango nyonso ya nzoto na yo esika moko',
-    privacyTitle: 'Bansango na yo ezali ya kobombama',
-    privacyText: 'Esalelami mpo na kobongisa boyekoli na yo na AWA, mpe okoki kobongola yango ntango nyonso.',
-    physicalSectionTitle: 'Bansango ya nzoto',
-    physicalSectionSubtitle: 'Bimekano na yo ya liboso',
-    heightLabel: 'Molai',
-    weightLabel: 'Kilo ya sikoyo',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Lolenge ya makila',
-    lastUpdateLabel: 'Ebongisami nsuka',
-    medicalSectionTitle: 'Bansango ya monganga',
-    medicalSectionSubtitle: 'Bansango ya motuya oyo osengeli kobomba',
-    chronicConditionsTitle: 'Maladi ya ntango molai',
-    chronicConditionsHelper: 'Fina mpo na kobakisa to kobongola',
-    chronicConditionsEmpty: 'Maladi ya ntango molai ekomami te',
-    treatmentsTitle: 'Bakisi ya sikoyo',
-    treatmentsHelper: 'Nkombo, mwa ndambo, to mbala boni',
-    treatmentsEmpty: 'Bakisi ekomami te',
-    allergiesTitle: 'Allergie',
-    allergiesHelper: 'Nkisi, bilei, to makambo mosusu',
-    allergiesEmpty: 'Allergie ekomami te',
-    notesTitle: 'Makomi ya monganga',
-    notesHelper: 'Bansango mosusu ya ye moko',
-    notesEmpty: 'Likomi ya monganga ebakisami te',
-    goalsSectionTitle: 'Mikano ya nzoto malamu',
-    goalsSectionSubtitle: 'Mokano na yo ya sikoyo',
-    currentGoalLabel: 'Mokano na ngai ya sikoyo',
-    inProgress: 'Ezali kokende',
-    infoCardText: 'Okoki kobongola bansango oyo nyonso ntango nyonso.',
-    toastUpdated: 'Bansango ebongisami',
-    errors: {
-      invalidPositiveValue: 'Koma motango oyo ebongi mpe monene na zero.',
-      invalidHeight: 'Koma molai ya kati na 80 mpe 250 cm.',
-      invalidWeight: 'Koma kilo ya kati na 20 mpe 400 kg.',
-      treatmentNameRequired: 'Koma nkombo ya nkisi.'
-    },
-    editHeightTitle: 'Bongola molai na ngai',
-    editWeightTitle: 'Bongola kilo na ngai',
-    updateInfoSubtitle: 'Bongisa makambo oyo.',
-    heightInCm: 'Molai na sentimetele',
-    weightInKg: 'Kilo na kilogramo',
-    bloodTypeSheetTitle: 'Lolenge ya makila',
-    bloodTypeSheetSubtitle: 'Pona lolenge ya makila na yo soki oyebi yango.',
-    conditionsSheetSubtitle: 'Pona maladi oyo oyebi. Okoki kopona mingi.',
-    allergiesSheetSubtitle: 'Pona allergie oyo oyebi. Okoki kopona mingi.',
-    otherInfoLabel: 'Bansango mosusu',
-    otherInfoPlaceholder: 'Bakisa bansango mosusu (soki olingi)',
-    treatmentsSheetSubtitle: 'Bakisa bakisi oyo ozali kosalela sikoyo.',
-    newTreatmentLabel: 'Nkisi ya sika',
-    treatmentPlaceholder: 'Ndakisa: Fer 20 mg, tongo nyonso',
-    addTreatmentAccessibility: 'Bakisa nkisi',
-    treatmentsAddedTitle: 'Bakisi ebakisami',
-    noTreatmentAdded: 'Nkisi ebakisami te.',
-    notesSheetSubtitle: 'Bakisa kaka bansango oyo olingi kobomba.',
-    notesPlaceholder: 'Koma awa bansango na yo ya motuya...',
-    goalSheetTitle: 'Mokano na ngai ya nzoto malamu',
-    goalSheetSubtitle: 'Pona mokano oyo ebongi mingi na boyekoli na yo ya sikoyo.',
-    personalProgressLabel: 'Bokoli na ngai:',
-    bmiClasses: {
-      insufficientData: 'Bansango ekoki te',
-      underweight: 'Kilo moke',
-      normal: 'Malamu',
-      overweight: 'Kilo mingi',
-      obese: 'Kilo mingi koleka'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Pɛtɛɛ mpe ya boyokani',
     "lavender-night": 'Kitoko mpe ya kopema',
     "rose-quartz": 'Pɛtɛɛ mpe ya mwasi',
@@ -8579,7 +8381,10 @@ export const ln = {
     cycleSleepFeeling: {
       rested: 'Napemi',
       average: 'Ya kati',
-      tired: 'Nalembi'
+      tired: 'Nalembi',
+      none: 'Te',
+      light: 'Moke',
+      aLot: 'Makasi',
     },
     cycleActivityType: {
       walking: 'Kotambola',

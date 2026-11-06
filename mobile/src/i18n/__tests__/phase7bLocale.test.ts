@@ -2,9 +2,9 @@ import i18n from '../index';
 import {fr} from '../locales/fr';
 import {resetAppLanguageForTests} from '../../state/themePreferences';
 
-// Phase 7B (first-run / onboarding / authentication / anonymous mode)
-// localization — dictionary-level coverage for the `onboarding`, `auth` and
-// `anonymous` namespaces added to src/i18n/locales/{fr,en}.ts, plus the
+// Phase 7B (first-run / onboarding / authentication)
+// localization — dictionary-level coverage for the `onboarding` and `auth`
+// namespaces added to src/i18n/locales/{fr,en}.ts, plus the
 // `common.yes`/`common.no`/`common.dateToCheck` additions reused across them.
 
 beforeEach(async () => {
@@ -34,11 +34,6 @@ describe('TEST 1 — Phase 7B dictionary French byte-identical to the original h
     ['auth.registration.toggleVisibilityLabel', '{{action}} : {{label}}'],
     ['auth.forgotPassword.emailRequiredError', 'Entre ton adresse e-mail.'],
     ['auth.forgotPassword.emailInvalidError', 'Entre une adresse e-mail valide.'],
-    ['anonymous.mode.headerTitle', 'Mode anonyme'],
-    ['anonymous.limitations.activate', 'Activer le mode anonyme'],
-    ['anonymous.creating.step1', 'Préparation de ton espace'],
-    ['anonymous.success.title', 'Mode anonyme activé'],
-    ['anonymous.avatarStyles.hijab', 'Avatar avec hijab'],
     ['common.yes', 'Oui'],
     ['common.no', 'Non'],
     ['common.dateToCheck', 'Date à vérifier'],
@@ -56,8 +51,7 @@ describe('TEST 2 — Phase 7B dictionary English coverage', () => {
 
   const onboardingKeys = keyPaths(fr.onboarding, 'onboarding');
   const authKeys = keyPaths(fr.auth, 'auth');
-  const anonymousKeys = keyPaths(fr.anonymous, 'anonymous');
-  const allKeys = [...onboardingKeys, ...authKeys, ...anonymousKeys];
+  const allKeys = [...onboardingKeys, ...authKeys];
 
   it('covers every Phase 7B screen namespace', () => {
     ['splash', 'welcome', 'name', 'spiritual', 'summary'].forEach(namespace => {
@@ -65,9 +59,6 @@ describe('TEST 2 — Phase 7B dictionary English coverage', () => {
     });
     ['shared', 'login', 'registration', 'forgotPassword'].forEach(namespace => {
       expect(authKeys.some(key => key.startsWith(`auth.${namespace}.`))).toBe(true);
-    });
-    ['mode', 'limitations', 'creating', 'success', 'avatar', 'avatarStyles'].forEach(namespace => {
-      expect(anonymousKeys.some(key => key.startsWith(`anonymous.${namespace}.`))).toBe(true);
     });
   });
 

@@ -365,7 +365,8 @@ export const zu = {
   objectiveArticles: {
     title: 'Ukukusekela',
     seeAll: 'Buka konke',
-    readingMinutes: 'Imizuzu engu-{{count}} yokufunda'
+    readingMinutes: 'Imizuzu engu-{{count}} yokufunda',
+    latestTitle: 'Izindatshana zakamuva'
   },
   spiritualGuidance: {
     title: 'Izimpawu zokomoya',
@@ -607,6 +608,8 @@ export const zu = {
     timesThisNight: 'izikhathi kulobu busuku',
     awakeningsTip: 'Kujwayelekile ukuvuka kaningana.\nUmzimba wakho uyazilungisa kancane kancane.',
     wakeFeelingTitle: 'Ukuzizwa ekuvukeni',
+    wakeFatigueTitle: 'Ukukhathala',
+    wakeFatigueAccessibility: 'Ukukhathala: {{label}}',
     wakeFeelingSubtitle: 'Uzizwa kanjani lapho uvuka?',
     wakeFeelingAccessibility: 'Ukuzizwa ekuvukeni: {{label}}',
     wakeFeelingTip: 'Lalela umzimba wakho futhi uzivumele\nuphumule uma uzizwa udinga.',
@@ -1467,13 +1470,8 @@ export const zu = {
     cycleLengthLabel: 'Ubude bomjikelezo',
     cycleRegularityLabel: 'Ukujwayeleka komjikelezo',
     dataProtected: 'Idatha ivikelekile',
-    disabledSingular: 'Ivaliwe',
-    editAnonymousAvatarAccessibility: 'Enza ngendlela oyithandayo isithombe sami esingaziwa',
-    editAvatarAccessibility: 'Shintsha isithombe sephrofayela',
-    editProfile: 'Hlela iphrofayela',
-    generalHealthSubtitle: 'Isisindo, ubude, uhlobo lwegazi, izimo…',
-    generalHealthTitle: 'Impilo jikelele',
-    headerSubtitle: 'Phatha ulwazi lwakho nezinketho zakho',
+    disabledSingular: 'Ivaliwe',    editAvatarAccessibility: 'Shintsha isithombe sephrofayela',
+    editProfile: 'Hlela iphrofayela',headerSubtitle: 'Phatha ulwazi lwakho nezinketho zakho',
     helpSupportSubtitle: 'Imibuzo evame ukubuzwa, ukubika inkinga nokuxhumana',
     helpSupportTitle: 'Usizo nosekelo',
     hijriDateLabel: 'Usuku lwe-Hijri',
@@ -1501,28 +1499,7 @@ export const zu = {
     signOut: 'Phuma',
     cycle: {
       remindersSubtitle: 'Izikhathi, ijenali yansuku zonke, i-ovulation nesikhathi sokukhulelwa'
-    },
-    accountInfoModal: {
-      anonymousId: 'I-ID engaziwa',
-      anonymousMode: 'Imodi engaziwa',
-      createdOn: 'Kudalwe ngomhla we',
-      dataPrivateInfo: 'Idatha yakho ihlala iyimfihlo kule foni futhi ayivumelaniswa nezinye izinsiza.',
-      enabledValue: 'Ivuliwe',
-      localOnly: 'Kule foni kuphela',
-      notConfigured: 'Akusethiwe',
-      pinBiometry: 'I-PIN / I-biometrics',
-      security: 'Ukuphepha',
-      subtitle: 'Iphrofayela yakho engaziwa ayinalo ulwazi olungakuhlonza.',
-      sync: 'Ukuvumelanisa',
-      title: 'Ulwazi lwe-akhawunti'
-    },
-    anonymousMode: {
-      exit: 'Phuma kumodi engaziwa',
-      identityHiddenSubtitle: 'Ubuwena bangempela buhlala bufihliwe',
-      manageSubtitle: 'Phatha ubuwena bakho obuyimfihlo nezinketho zokungaziwa',
-      title: 'Imodi Engaziwa'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Izinga lokushisa, umcako wesibeletho, izivivinyo ze-LH, ubuhlobo',
       indicatorsTitle: 'Izinkomba ezilandelwayo',
       manageReminders: 'Phatha izikhumbuzo zami zokukhulelwa',
@@ -1657,10 +1634,7 @@ export const zu = {
       subtitle: 'Isikhathi sakhe sivame ukuthatha izinsuku ezingaki?',
       title: 'Ubude besikhathi'
     },
-    personalInfo: {
-      accountInfoTitle: 'Ulwazi lwe-akhawunti',
-      anonymousSubtitle: 'I-akhawunti evikelekile nengaziwa',
-      daughterSubtitle: 'Igama, usuku lokuzalwa…',
+    personalInfo: {daughterSubtitle: 'Igama, usuku lokuzalwa…',
       ownerSubtitle: 'Igama, i-imeyili, usuku lokuzalwa…',
       title: 'Ulwazi lomuntu siqu'
     },
@@ -4062,6 +4036,8 @@ export const zu = {
       lastMeasurementLabel: 'Ukulinganisa kokugcina',
       sincePrevious: 'selokhu kwangaphambilini',
       addAnotherHint: 'Engeza okunye ukulinganisa ukuze ubone isitayela sakho.',
+      sinceFirst: 'Kusukela ekulinganisweni kokuqala',
+      averagePerWeek: 'Isilinganiso ngesonto',
       recentMeasurements: 'Ukulinganisa kwakamuva',
       valuesCount_one: 'inani elingu-{{count}}',
       valuesCount_other: 'amanani angu-{{count}}',
@@ -5461,6 +5437,7 @@ export const zu = {
     closeBackdropLabel: 'Vala isixwayiso'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Ungashintsha izinhloso zakho noma nini.',
     cycle: {
       title: 'Kuhle kakhulu! 🎉',
       description: 'Ukhethe ukulandela umjikelezo ojwayelekile.',
@@ -6563,7 +6540,7 @@ export const zu = {
         all: 'Konke',
         medical: 'Ezokwelashwa',
         religious: 'Ezenkolo',
-        featured: 'Ezikhethiwe'
+        favorites: 'Izintandokazi'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const zu = {
     resolvingLocation: 'Iyayithola indawo yakho…',
     noPositionSelected: 'Ayikho indawo ekhethiwe',
     positionSelectedOnMap: 'Indawo ekhethwe emephini',
+    selectedTitle: 'Indawo ekhethiwe',
+    selectedHint: 'Le ndawo izosetshenziselwa ukubala izikhathi zakho zomthandazo.',
     noCityFoundHere: 'Alikho idolobha elitholakele kule ndawo.',
     noResultsFound: 'Ayikho imiphumela etholakele.',
     mapsNotConfigured: 'Setha ukhiye wemephu ukuze uvule imephu.',
@@ -7209,7 +7188,8 @@ export const zu = {
       permissionDeny: 'Yenqaba',
       configureMapKeyFirst: 'Qala usethe ukhiye wemephu.',
       permissionDeniedError: 'Vumela ukufinyelela endaweni kuzilungiselelo ukuze usebenzise indawo yakho.',
-      positionUnavailable: 'Indawo ayitholakali. Hlola ukuthi i-GPS ivuliwe.'
+      positionUnavailable: 'Indawo ayitholakali. Hlola ukuthi i-GPS ivuliwe.',
+      timeout: 'Ukuthola indawo kuthathe isikhathi eside kakhulu. Hlola isignali noma i-GPS, bese uzama futhi.'
     },
     errors: {
       generic: 'Asikwazanga ukuyibona le ndawo okwamanje.',
@@ -7260,9 +7240,10 @@ export const zu = {
     },
     spiritual: {
       title: 'Ungathanda yini ukuvula\nizimpawu zenkolo?',
-      subtitle: 'Ikhalenda le-Hijri, imithandazo, ukuzila ukudla, isimo sokuhlambuluka…\nUngashintsha lokhu kukhetha noma inini.',
+      subtitle: 'Ungashintsha lokhu kukhetha noma inini.',
       enable: 'Yebo, vula',
       disable: 'Cha, hhayi manje',
+      includesLabel: 'Okuvulwa yilokhu',
       featureHijri: 'Ikhalenda le-Hijri',
       featurePrayers: 'Imithandazo nesimo sokuhlambuluka',
       featureFasting: 'Ukuzila ukudla (Ramadan, izinsuku zokufeza)',
@@ -7427,16 +7408,14 @@ export const zu = {
       orContinueWith: 'noma qhubeka nge-',
       continueWithGoogle: 'Qhubeka nge-Google',
       continueWithApple: 'Qhubeka nge-Apple',
-      continueWithEmail: 'Qhubeka ngeleli-imeyili',
-      useAnonymousMode: 'Sebenzisa i-AWA ngemodi engaziwa',
-      anonymousMode: 'Imodi engaziwa',
-      legalTerms: 'Imigomo yokusebenzisa kanye Nenqubomgomo yethu yobumfihlo.',
+      continueWithEmail: 'Qhubeka ngeleli-imeyili',legalTerms: 'Imigomo yokusebenzisa kanye Nenqubomgomo yethu yobumfihlo.',
       createAccount: 'Dala i-akhawunti yami'
     },
     login: {
       tagline: 'Ngempilo elinganiselekile,\nesinyathelweni ngasinye.',
       emailPlaceholder: 'Ikheli le-imeyili',
       passwordPlaceholder: 'Iphasiwedi',
+      passwordFieldPlaceholder: 'Faka iphasiwedi yakho',
       forgotPassword: 'Ukhohlwe iphasiwedi?',
       submit: 'Ngena',
       legalPrefix: 'Ngokuqhubeka, uyavuma'
@@ -7479,112 +7458,7 @@ export const zu = {
       helpModalCta: 'Ngiyezwa',
       helpModalCloseAccessibility: 'Vala'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Imodi engaziwa',
-      headerSubtitle: 'Ubumfihlo',
-      illustrationA11y: 'Isithombe semodi engaziwa',
-      activeTitle: 'Imodi engaziwa ivuliwe',
-      activeSubtitle: 'Iphrofayela yakho ihlala inganxuswanga nobuwena kuyilapho le modi isebenza.',
-      nothingKeptTitle: 'Akukho okugcinwayo',
-      nothingKeptSubtitle: 'Lolu lwazi alunxuswanga neprofayela yakho engaziwa.',
-      retentionEmail: 'I-imeyili',
-      retentionName: 'Igama',
-      retentionTechnical: 'Izihlonzi zobuchwepheshe',
-      notRetained: 'Akugcinwa',
-      appLockA11y: 'Ukukhiya i-app',
-      appLockTitle: 'Ukukhiya i-app',
-      appLockText: 'Ikhodi ye-PIN noma i-biometrics lapho uvula i-AWA',
-      appLockEnabled: 'Kuvuliwe',
-      appLockDisabled: 'Kuvaliwe',
-      disableTitle: 'Vala imodi engaziwa',
-      disableText: 'Ukuze uphume kumodi engaziwa, ungadala i-akhawunti futhi uxhumanise ikheli le-imeyili noma i-ID.',
-      pitchTitle: 'Sebenzisa i-AWA ngemodi engaziwa',
-      pitchSubtitle: 'Jabulela isikhala sakho se-AWA ngaphandle kokuxhumanisa ubuwena neprofayela yakho.',
-      identityPrivateTitle: 'Ubuwena buhlala buyimfihlo',
-      identityPrivateSubtitle: 'Ulwazi olungakubona aludingeki ukuze usebenzise le modi.',
-      privacyRowName: 'Akudingeki igama',
-      privacyRowEmail: 'Akudingeki ikheli le-imeyili',
-      privacyRowAccount: 'Ayikho i-akhawunti ye-Google noma ye-Apple exhunyiwe',
-      privacyRowProfile: 'Iphrofayela ayixhumene nobuwena',
-      infoTitle: 'Kuhle ukwazi',
-      infoText: 'Ezinye izici ze-akhawunti, ukuvumelanisa noma ukubuyisa zingase zikhawulelwe kumodi engaziwa.',
-      recommendedProtectionTitle: 'Ukuvikeleka okuncomelwayo',
-      recommendedProtectionText: 'Uzokwazi ukuvikela ukufinyelela ku-AWA nge-PIN yakho noma i-biometrics.',
-      continueInAnonymousMode: 'Qhubeka ngemodi engaziwa'
-    },
-    limitations: {
-      headerTitle: 'Ngaphambi kokuqhubeka',
-      headerSubtitle: 'Imodi engaziwa',
-      title: 'Ngaphambi kokuqhubeka',
-      subtitle: 'Kumodi engaziwa, ezinye izici ezihlobene ne-akhawunti zizokhawulelwa noma zingatholakali.',
-      recoveryTitle: 'Ukubuyisa i-akhawunti',
-      recoveryText: 'Ngaphandle kwekheli le-imeyili elixhunyiwe, ukubuyisa ukufinyelela ku-akhawunti yakho kungakhawulelwa.',
-      syncTitle: 'Ukuvumelanisa',
-      syncText: 'Enye idatha ingase ingavumelaniseki kwamanye amadivayisi akho.',
-      communicationsTitle: 'Ukuxhumana',
-      communicationsText: 'I-AWA ngeke ikwazi ukukuthumelela ama-imeyili ahlobene ne-akhawunti yakho engaziwa.',
-      securityTitle: 'Ukuphepha okuncomelwayo',
-      securityText: 'Sincoma ukuvula ikhodi ye-PIN noma i-biometrics ukuvikela ukufinyelela ku-AWA.',
-      acknowledgeLabel: 'Ngiyaqonda ukuthi imodi engaziwa isebenza kanjani.',
-      activate: 'Vula imodi engaziwa'
-    },
-    creating: {
-      headerTitle: 'Iyakha isikhala sakho',
-      loaderA11y: 'Iyakha isikhala sakho esingaziwa',
-      step1: 'Ilungisa isikhala sakho',
-      step2: 'Isetha ubumfihlo',
-      step3: 'Iyaphetha',
-      creatingTitle: 'Iyakha isikhala sakho esingaziwa',
-      creatingSubtitle: 'I-AWA ilungisa isikhala sakho esiyimfihlo futhi inqamula iphrofayela yakho olwazini olukubonayo.',
-      errorTitle: 'Ayikwazanga ukuqedela ukuvula',
-      errorSubtitle: 'Kukhona okungahambanga kahle. Ungazama futhi.',
-      retry: 'Zama futhi',
-      loaderLabel: 'Sicela ulinde',
-      loaderCaption: 'Kuzothatha isikhashana nje.',
-      protectionTitle: 'Iyakuvikela ubuwena',
-      protectionSubtitle: 'I-AWA ilungisa isikhala sakho ngenkathi isebenzisa okuthandwayo kwakho kobumfihlo.',
-      warning: 'Ungayivali i-app ngenkathi isikhala sakho silungiswa.'
-    },
-    success: {
-      headerTitle: 'Imodi engaziwa',
-      title: 'Imodi engaziwa ivuliwe',
-      subtitle: 'Iphrofayela yakho manje ayixhumene nobuwena. Jabulela i-AWA unobumfihlo obuphelele.',
-      cardTitle: 'Isikhala sakho sesilungile',
-      cardSubtitle: 'Ungavala imodi engaziwa noma inini ku-Bumfihlo nokuphepha.',
-      continue: 'Qhubeka',
-      finish: 'Kuphelile'
-    },
-    avatar: {
-      headerTitle: 'Hlela isithombe sami',
-      eyebrow: 'IPHROFAYELA YAKHO ENGAZIWA',
-      title: 'Yakha isithombe esifana nawe',
-      subtitle: 'Khetha nje isitayela nombala. Akudingeki isithombe sakho.',
-      privateProfile: 'Iphrofayela eyimfihlo',
-      colorSectionTitle: 'Khetha umbala',
-      colorSectionDescription: 'Khetha umbala wesithombe sakho.',
-      colorSwatchA11y: 'Umbala {{color}}',
-      styleSectionTitle: 'Khetha isitayela sakho',
-      styleSectionDescription: 'Ungasishintsha kamuva kuphrofayela yakho.',
-      infoTitle: 'Ubumfihlo bakho buza kuqala',
-      infoText: 'Lesi sithombe sithatha isikhundla sesithombe sakho ngenkathi imodi engaziwa isebenza. Alukho isithombe sangempela esisetshenziswa kuphrofayela yakho.',
-      saveAndContinue: 'Gcina uqhubeke',
-      later: 'Kamuva',
-      saveChanges: 'Gcina izinguquko'
-    },
-    avatarStyles: {
-      hijab: 'Isithombe nge-hijab',
-      glasses: 'Isithombe ngezibuko',
-      hat: 'Isithombe ngesigqoko',
-      minimal: 'Isithombe esilula',
-      headscarfGlasses: 'Isithombe ngesikhafu nezibuko',
-      silhouetteHat: 'Isithunzi sesigqoko esihle',
-      turban: 'Isithombe nge-turban',
-      shortHair: 'Isithombe sezinwele ezimfushane'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'I-PIN ayilungile. Zama futhi.',
     genericError: 'Kukhona okungahambanga kahle. Zama futhi.',
     codesDontMatch: 'Amakhodi awafani. Qala phansi.',
@@ -7664,8 +7538,8 @@ export const zu = {
   privacySecurity: {
     backA11y: 'Emuva',
     title: 'Ubumfihlo nokuphepha',
-    subtitle: 'Idatha yakho, ubumfihlo bakho, ukukhetha kwakho 💜',
-    introTitle: 'Wena unguzibuse 🔒',
+    subtitle: 'Idatha yakho, ubumfihlo bakho, ukukhetha kwakho',
+    introTitle: 'Wena unguzibuse',
     introText: 'Phatha ubumfihlo bedatha yakho futhi ukhethe ukuvikelwa okukufanele.',
     sectionAccess: 'Ukufinyelela nokuvikelwa',
     pinTitle: 'Ikhodi ye-PIN',
@@ -7686,10 +7560,7 @@ export const zu = {
     intimacySubtitle: 'Khiya isigaba sempilo eseduze',
     privateContentTitle: 'Ukuvikelwa kwamanothi / izithombe eziyimfihlo',
     privateContentSubtitle: 'Khiya amanothi nezithombe zakho siqu',
-    sectionAccount: 'I-akhawunti nedatha',
-    anonymousTitle: 'Imodi engaziwa',
-    anonymousSubtitle: 'Sebenzisa i-app ngaphandle kokwabelana ngobuwena',
-    dataManagementTitle: 'Ukuphatha idatha',
+    sectionAccount: 'I-akhawunti nedatha',dataManagementTitle: 'Ukuphatha idatha',
     dataManagementSubtitle: 'Buka, thumela, noma susa idatha yakho',
     deleteAccountTitle: 'Susa i-akhawunti yami',
     deleteAccountSubtitle: 'Susa unomphela i-akhawunti yakho nedatha',
@@ -7930,76 +7801,7 @@ export const zu = {
       doubleLabel: 'Zombili',
       doubleDetail: 'IGregorian + IHijri'
     }
-  },
-  generalHealth: {
-    title: 'Impilo yonke',
-    subtitle: 'Lonke ulwazi lwakho lwezempilo endaweni eyodwa',
-    privacyTitle: 'Ulwazi lwakho luyimfihlo',
-    privacyText: 'Lusetshenziselwa ukwenza ukulandelela kwakho kwe-AWA kukulungele futhi lungashintshwa noma yinini.',
-    physicalSectionTitle: 'Ulwazi lomzimba',
-    physicalSectionSubtitle: 'Izilinganiso zakho eziyinhloko',
-    heightLabel: 'Ubude',
-    weightLabel: 'Isisindo samanje',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Uhlobo lwegazi',
-    lastUpdateLabel: 'Kubuyekezwe kokugcina',
-    medicalSectionTitle: 'Ulwazi lwezokwelapha',
-    medicalSectionSubtitle: 'Ulwazi olubalulekile okufanele ube nalo eduze',
-    chronicConditionsTitle: 'Izifo ezingapheli',
-    chronicConditionsHelper: 'Thinta ukuze ufake noma uguqule',
-    chronicConditionsEmpty: 'Akukho sifo esingapheli esifakiwe',
-    treatmentsTitle: 'Ukwelashwa kwamanje',
-    treatmentsHelper: 'Igama, umthamo, noma kangaki',
-    treatmentsEmpty: 'Akukho kwelashwa okufakiwe',
-    allergiesTitle: 'Ukungezwani komzimba',
-    allergiesHelper: 'Imithi, ukudla, noma okunye',
-    allergiesEmpty: 'Akukho ukungezwani okufakiwe',
-    notesTitle: 'Amanothi ezokwelapha',
-    notesHelper: 'Noma yimuphi omunye ulwazi lwakho',
-    notesEmpty: 'Akukho nothi lezokwelapha elifakiwe',
-    goalsSectionTitle: 'Izinhloso zezempilo',
-    goalsSectionSubtitle: 'Inhloso yakho yamanje',
-    currentGoalLabel: 'Inhloso yami yamanje',
-    inProgress: 'Iyaqhubeka',
-    infoCardText: 'Ungashintsha lonke lolu lwazi noma yinini.',
-    toastUpdated: 'Ulwazi lubuyekeziwe',
-    errors: {
-      invalidPositiveValue: 'Faka inani elivumelekile elingaphezu kwezero.',
-      invalidHeight: 'Faka ubude phakathi kuka-80 no-250 cm.',
-      invalidWeight: 'Faka isisindo phakathi kuka-20 no-400 kg.',
-      treatmentNameRequired: 'Faka igama lokwelashwa.'
-    },
-    editHeightTitle: 'Guqula ubude bami',
-    editWeightTitle: 'Guqula isisindo sami',
-    updateInfoSubtitle: 'Buyekeza lolu lwazi.',
-    heightInCm: 'Ubude ngamasentimitha',
-    weightInKg: 'Isisindo ngamakhilogremu',
-    bloodTypeSheetTitle: 'Uhlobo lwegazi',
-    bloodTypeSheetSubtitle: 'Khetha uhlobo lwegazi lakho uma lwaziwa.',
-    conditionsSheetSubtitle: 'Khetha izifo ozaziyo. Ungakhetha eziningi.',
-    allergiesSheetSubtitle: 'Khetha ukungezwani okwaziwayo. Ungakhetha okuningi.',
-    otherInfoLabel: 'Olunye ulwazi',
-    otherInfoPlaceholder: 'Faka olunye ulwazi (akuphoqelekile)',
-    treatmentsSheetSubtitle: 'Faka ukwelashwa okuthathayo manje.',
-    newTreatmentLabel: 'Ukwelashwa okusha',
-    treatmentPlaceholder: 'Isib. Insimbi 20 mg, njalo ekuseni',
-    addTreatmentAccessibility: 'Faka ukwelashwa',
-    treatmentsAddedTitle: 'Ukwelashwa okufakiwe',
-    noTreatmentAdded: 'Akukho kwelashwa okufakiwe.',
-    notesSheetSubtitle: 'Faka kuphela ulwazi ofuna ukulugcina.',
-    notesPlaceholder: 'Faka ulwazi lwakho olubalulekile lapha...',
-    goalSheetTitle: 'Inhloso yami yezempilo',
-    goalSheetSubtitle: 'Khetha inhloso ehambisana kakhulu nokulandelela kwakho kwamanje.',
-    personalProgressLabel: 'Inqubekela phambili yakho:',
-    bmiClasses: {
-      insufficientData: 'Imininingwane ayanele',
-      underweight: 'Isisindo esincane',
-      normal: 'Evamile',
-      overweight: 'Isisindo esiphezulu',
-      obese: 'Ukukhuluphala ngokweqile'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Buthaka futhi buyahambisana',
     "lavender-night": 'Buhle futhi buyaduduza',
     "rose-quartz": 'Buthaka futhi bunobuntombazane',
@@ -8579,7 +8381,10 @@ export const zu = {
     cycleSleepFeeling: {
       rested: 'Ngiphumulile',
       average: 'Kuphakathi',
-      tired: 'Ngikhathele'
+      tired: 'Ngikhathele',
+      none: 'Cha',
+      light: 'Okuncane',
+      aLot: 'Okukhulu',
     },
     cycleActivityType: {
       walking: 'Ukuhamba',

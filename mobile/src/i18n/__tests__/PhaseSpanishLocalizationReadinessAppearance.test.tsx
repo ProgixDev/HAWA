@@ -106,15 +106,16 @@ afterEach(async () => {
 });
 
 describe('TEST — AppearanceScreen "Langue de l\'application" selector (cases 10-15)', () => {
-  it('10. With nothing stored AWA is in English (the fallback): the row names only that language and the English card is the selected one', async () => {
+  it('10. With nothing stored AWA follows the phone (automatic mode): the card of the phone language is the selected one, there is no extra card', async () => {
     const renderer = await renderScreen();
     expect(getAppLanguage()).toBe('en');
-    // the row's own subtitle names the language in force — there is no "System default ·" prefix any more
+    // the row's own subtitle names the language in force
     expect(textsOf(renderer)).toContain('English');
     expect(textsOf(renderer)).not.toContain('System default · English');
 
     await openLanguageSheet(renderer);
     expect(radios(renderer, 'System default')).toHaveLength(0);
+    expect(radios(renderer, 'Automatique')).toHaveLength(0);
     expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
     expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: false});
     expect(radios(renderer, 'Español')[0].props.accessibilityState).toEqual({checked: false});

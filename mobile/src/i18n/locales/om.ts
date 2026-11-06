@@ -365,7 +365,8 @@ export const om = {
   objectiveArticles: {
     title: 'Si deeggaruuf',
     seeAll: 'Hunda ilaali',
-    readingMinutes: 'Daqiiqaa {{count}} dubbisuuf'
+    readingMinutes: 'Daqiiqaa {{count}} dubbisuuf',
+    latestTitle: 'Barruulee dhiyoo'
   },
   spiritualGuidance: {
     title: 'Mallattoolee ruuhaa',
@@ -607,6 +608,8 @@ export const om = {
     timesThisNight: 'altokko halkan kana',
     awakeningsTip: 'Altokko muraasa dammaquun waan idaa dha.\nQaamni kee suuta of sirreessa.',
     wakeFeelingTitle: 'Miira yeroo dammaqtu',
+    wakeFatigueTitle: 'Dadhabbii',
+    wakeFatigueAccessibility: 'Dadhabbii: {{label}}',
     wakeFeelingSubtitle: 'Yeroo dammaqxu akkam dhagahamta?',
     wakeFeelingAccessibility: 'Miira yeroo dammaqtu: {{label}}',
     wakeFeelingTip: 'Qaama kee dhaggeeffadhu, yoo barbaadde\nof boqochiisi.',
@@ -1467,13 +1470,8 @@ export const om = {
     cycleLengthLabel: 'Dheerina marsaa',
     cycleRegularityLabel: 'Idilummaa marsaa',
     dataProtected: 'Daataan eegameera',
-    disabledSingular: 'Cufamaa',
-    editAnonymousAvatarAccessibility: 'Avatar maqaa-dhoksaa koo sirreessi',
-    editAvatarAccessibility: 'Suuraa piroofayilii jijjiiri',
-    editProfile: 'Piroofayilii sirreessi',
-    generalHealthSubtitle: 'Ulfaatina, dheerina, gosa dhiigaa, dhukkuba…',
-    generalHealthTitle: 'Fayyaa waliigalaa',
-    headerSubtitle: 'Odeeffannoo fi filannoo kee bulchi',
+    disabledSingular: 'Cufamaa',    editAvatarAccessibility: 'Suuraa piroofayilii jijjiiri',
+    editProfile: 'Piroofayilii sirreessi',headerSubtitle: 'Odeeffannoo fi filannoo kee bulchi',
     helpSupportSubtitle: 'Gaaffiiwwan, rakkoo gabaasuu fi quunnamtii',
     helpSupportTitle: 'Gargaarsa',
     hijriDateLabel: 'Guyyaa Hijri',
@@ -1501,28 +1499,7 @@ export const om = {
     signOut: 'Ba\'i',
     cycle: {
       remindersSubtitle: 'Laguu, galmee guyyaa, ovulation fi yeroo ulfa\'uuf mijataa'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID maqaa-dhoksaa',
-      anonymousMode: 'Haalaa maqaa-dhoksaa',
-      createdOn: 'Uumame guyyaa',
-      dataPrivateInfo: 'Daataan kee meeshaa kana irratti dhuunfaa ta\'ee tura, meeshaalee biroo wajjin hin walsimu.',
-      enabledValue: 'Banamaa',
-      localOnly: 'Naannoo qofa',
-      notConfigured: 'Hin qindaa\'ne',
-      pinBiometry: 'PIN / Biometrics',
-      security: 'Nageenya',
-      subtitle: 'Piroofayiliin maqaa-dhoksaa kee odeeffannoo si beeksisu hin qabu.',
-      sync: 'Walsimsiisuu',
-      title: 'Odeeffannoo akaawuntii'
-    },
-    anonymousMode: {
-      exit: 'Haalaa maqaa-dhoksaa keessaa ba\'i',
-      identityHiddenSubtitle: 'Eenyummaan kee dhugaa dhokataa tura',
-      manageSubtitle: 'Eenyummaa dhuunfaa fi filannoo maqaa-dhoksaa bulchi',
-      title: 'Haalaa Maqaa-dhoksaa'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Ho\'a qaamaa, mucus garaa da\'umsaa, qorannoo LH, wal-qunnamtii',
       indicatorsTitle: 'Agarsiistota hordofaman',
       manageReminders: 'Yaadachiisa ulfa\'uu koo bulchi',
@@ -1657,10 +1634,7 @@ export const om = {
       subtitle: 'Laguun ishee idileetti guyyaa meeqa turaa?',
       title: 'Dheerina laguu'
     },
-    personalInfo: {
-      accountInfoTitle: 'Odeeffannoo akaawuntii',
-      anonymousSubtitle: 'Akaawuntii eegame fi maqaa-dhoksaa',
-      daughterSubtitle: 'Maqaa, guyyaa dhaloota…',
+    personalInfo: {daughterSubtitle: 'Maqaa, guyyaa dhaloota…',
       ownerSubtitle: 'Maqaa, email, guyyaa dhaloota…',
       title: 'Odeeffannoo dhuunfaa'
     },
@@ -4062,6 +4036,8 @@ export const om = {
       lastMeasurementLabel: 'Safartuu isa dhumaa',
       sincePrevious: 'isa duraan darbe irraa',
       addAnotherHint: 'Adeemsa kee argachuuf safartuu biraa dabali.',
+      sinceFirst: 'Madaallii jalqabaa irraa',
+      averagePerWeek: 'Giddugaleessa torbaanitti',
       recentMeasurements: 'Safartuuwwan dhiyoo',
       valuesCount_one: 'Gatiin {{count}}',
       valuesCount_other: 'Gatiiwwan {{count}}',
@@ -5461,6 +5437,7 @@ export const om = {
     closeBackdropLabel: 'Akeekkachiisa cufuu'
   },
   objectiveConfirmation: {
+    changeAnytime: 'Kaayyoo kee yeroo kamiyyuu geeddarachuu dandeessa.',
     cycle: {
       title: 'Baay\'ee gaarii! 🎉',
       description: 'Hordoffii marsaa idilee filatteetta.',
@@ -6563,7 +6540,7 @@ export const om = {
         all: 'Hunda',
         medical: 'Yaalaa',
         religious: 'Amantii',
-        featured: 'Filatamaa'
+        favorites: 'Kanneen jaallatamanii'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const om = {
     resolvingLocation: 'Iddoo kee barbaadaa jira…',
     noPositionSelected: 'Iddoon hin filatamne',
     positionSelectedOnMap: 'Iddoon kaartaa irratti filatameera',
+    selectedTitle: 'Iddoo filatame',
+    selectedHint: 'Iddoon kun yeroo salaata kee herreguuf ni fayyadama.',
     noCityFoundHere: 'Iddoo kana irratti magaalaan hin argamne.',
     noResultsFound: 'Bu\'aan hin argamne.',
     mapsNotConfigured: 'Kaartaa banuuf furtuu kaartaa qindeessi.',
@@ -7209,7 +7188,8 @@ export const om = {
       permissionDeny: 'Dhoorgi',
       configureMapKeyFirst: 'Dura furtuu kaartaa qindeessi.',
       permissionDeniedError: 'Iddoo kee fayyadamuuf Settings keessatti iddoo argachuu hayyami.',
-      positionUnavailable: 'Iddoon hin argamu. GPS banamuu isaa mirkaneeffadhu.'
+      positionUnavailable: 'Iddoon hin argamu. GPS banamuu isaa mirkaneeffadhu.',
+      timeout: 'Iddoo barbaaduun yeroo dheeraa fudhate. Mallattoo ykn GPS ilaali, deebi’ii yaali.'
     },
     errors: {
       generic: 'Amma iddoo kana adda baasuun hin danda\'amne.',
@@ -7260,9 +7240,10 @@ export const om = {
     },
     spiritual: {
       title: 'Mallattoolee\nafuuraa banuu barbaaddaa?',
-      subtitle: 'Kaalandarii Hijrii, salaata, soomaa, haala qulqullina…\nFilannoo kana yeroo kamiyyuu jijjiiruu dandeessa.',
+      subtitle: 'Filannoo kana yeroo kamiyyuu jijjiiruu dandeessa.',
       enable: 'Eeyyee, banii',
       disable: 'Lakki, amma miti',
+      includesLabel: 'Wanta banu',
       featureHijri: 'Kaalandarii Hijrii',
       featurePrayers: 'Salaata fi haala qulqullina',
       featureFasting: 'Soomaa (Ramadaan, guyyoota qadaa)',
@@ -7427,16 +7408,14 @@ export const om = {
       orContinueWith: 'ykn kanaan itti fufi',
       continueWithGoogle: 'Google\'n itti fufi',
       continueWithApple: 'Apple\'n itti fufi',
-      continueWithEmail: 'Teessoo email\'n itti fufi',
-      useAnonymousMode: 'AWA haala maqaa malee fayyadami',
-      anonymousMode: 'Haala maqaa malee',
-      legalTerms: 'Haala Fayyadamaa fi Imaammata Dhoksaa keenya.',
+      continueWithEmail: 'Teessoo email\'n itti fufi',legalTerms: 'Haala Fayyadamaa fi Imaammata Dhoksaa keenya.',
       createAccount: 'Akkaawuntii koo uumi'
     },
     login: {
       tagline: 'Jireenya madaalawaaf,\ntarkaanfii hundaa irratti.',
       emailPlaceholder: 'Teessoo email',
       passwordPlaceholder: 'Jecha icciitii',
+      passwordFieldPlaceholder: 'Jecha iccitii kee galchi',
       forgotPassword: 'Jecha icciitii irraanfatte?',
       submit: 'Seeni',
       legalPrefix: 'Itti fufuun kee, kanatti waliigalta:'
@@ -7479,112 +7458,7 @@ export const om = {
       helpModalCta: 'Hubadheera',
       helpModalCloseAccessibility: 'Cufi'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Haala maqaa malee',
-      headerSubtitle: 'Dhoksaa',
-      illustrationA11y: 'Fakkii haala maqaa malee',
-      activeTitle: 'Haalli maqaa malee banameera',
-      activeSubtitle: 'Haalli kun hojii irra yeroo jiru piroofaayilii kee eenyummaa kee irraa citeera.',
-      nothingKeptTitle: 'Homtuu hin kuufamu',
-      nothingKeptSubtitle: 'Odeeffannoon kun piroofaayilii kee maqaa malee wajjin hin wal-qabatu.',
-      retentionEmail: 'Email',
-      retentionName: 'Maqaa',
-      retentionTechnical: 'Eenyummaa teknikaa',
-      notRetained: 'Hin kuufamu',
-      appLockA11y: 'Cufaa appii',
-      appLockTitle: 'Cufaa appii',
-      appLockText: 'Yeroo AWA banamu koodii PIN ykn biometrics',
-      appLockEnabled: 'Banameera',
-      appLockDisabled: 'Cufameera',
-      disableTitle: 'Haala maqaa malee cufi',
-      disableText: 'Haala maqaa malee keessaa bahuuf, akkaawuntii uumuudhaan teessoo email ykn ID walitti hidhuu dandeessa.',
-      pitchTitle: 'AWA haala maqaa malee fayyadami',
-      pitchSubtitle: 'Eenyummaa kee piroofaayilii keetii waliin osoo hin walitti hidhin iddoo AWA kee fayyadami.',
-      identityPrivateTitle: 'Eenyummaan kee dhoksaa ta\'ee hafa',
-      identityPrivateSubtitle: 'Haala kana fayyadamuuf odeeffannoon si adda baasu hin barbaachisu.',
-      privacyRowName: 'Maqaan hin barbaachisu',
-      privacyRowEmail: 'Teessoon email hin barbaachisu',
-      privacyRowAccount: 'Akkaawuntiin Google ykn Apple hin hidhamne',
-      privacyRowProfile: 'Piroofaayiliin eenyummaa kee irraa citeera',
-      infoTitle: 'Beekuun gaarii dha',
-      infoText: 'Tajaajilawwan akkaawuntii, walsimsiisuu ykn deebisanii argachuu tokko tokko haala maqaa malee keessatti daangeffamuu danda\'u.',
-      recommendedProtectionTitle: 'Eegumsa kan gorfamu',
-      recommendedProtectionText: 'Koodii PIN ykn biometrics keetiin AWA seenuu eegachuu dandeessa.',
-      continueInAnonymousMode: 'Haala maqaa malee itti fufi'
-    },
-    limitations: {
-      headerTitle: 'Osoo itti hin fufin',
-      headerSubtitle: 'Haala maqaa malee',
-      title: 'Osoo itti hin fufin',
-      subtitle: 'Haala maqaa malee keessatti tajaajilawwan akkaawuntii wajjin wal-qabatan tokko tokko ni daangeffamu ykn hin argaman.',
-      recoveryTitle: 'Akkaawuntii deebisanii argachuu',
-      recoveryText: 'Teessoon email walitti hidhame yoo hin jiraanne, akkaawuntii kee deebisanii argachuun daangeffamuu danda\'a.',
-      syncTitle: 'Walsimsiisuu',
-      syncText: 'Deetaan tokko tokko meeshaalee kee biroo irratti hin walsimsiifamu ta\'uu danda\'a.',
-      communicationsTitle: 'Ergaa',
-      communicationsText: 'AWA akkaawuntii kee maqaa malee ilaalchisee email sif erguu hin danda\'u.',
-      securityTitle: 'Nageenya kan gorfamu',
-      securityText: 'AWA seenuu eegachuuf koodii PIN ykn biometrics banuu si gorsina.',
-      acknowledgeLabel: 'Haalli maqaa malee akkamitti akka hojjetu hubadheera.',
-      activate: 'Haala maqaa malee bani'
-    },
-    creating: {
-      headerTitle: 'Iddoo kee uumaa jira',
-      loaderA11y: 'Iddoo kee maqaa malee uumaa jira',
-      step1: 'Iddoo kee qopheessaa jira',
-      step2: 'Dhoksaa qindeessaa jira',
-      step3: 'Xumuraa jira',
-      creatingTitle: 'Iddoo kee maqaa malee uumaa jira',
-      creatingSubtitle: 'AWA iddoo kee dhuunfaa qopheessaa, piroofaayilii kee odeeffannoo si adda baasu irraa citaa jira.',
-      errorTitle: 'Banuun hin xumuramne',
-      errorSubtitle: 'Wanti tokko dogoggore. Irra deebi\'ii yaaluu dandeessa.',
-      retry: 'Irra deebi\'i yaali',
-      loaderLabel: 'Maaloo eegi',
-      loaderCaption: 'Yeroo muraasa qofa fudhata.',
-      protectionTitle: 'Eenyummaa kee eegaa jira',
-      protectionSubtitle: 'AWA filannoo dhoksaa kee hojii irra oolchaa iddoo kee qopheessaa jira.',
-      warning: 'Iddoon kee osoo qophaa\'aa jiruu appii hin cufin.'
-    },
-    success: {
-      headerTitle: 'Haala maqaa malee',
-      title: 'Haalli maqaa malee banameera',
-      subtitle: 'Piroofaayiliin kee amma eenyummaa kee irraa citeera. AWA dhoksaa guutuun fayyadami.',
-      cardTitle: 'Iddoon kee qophaa\'eera',
-      cardSubtitle: 'Haala maqaa malee yeroo kamiyyuu Dhoksaa fi nageenya irraa cufuu dandeessa.',
-      continue: 'Itti fufi',
-      finish: 'Xumurameera'
-    },
-    avatar: {
-      headerTitle: 'Fakkii koo ofii koo tolchi',
-      eyebrow: 'PIROOFAAYILII KEE MAQAA MALEE',
-      title: 'Fakkii si fakkaatu uumi',
-      subtitle: 'Bifa fi halluu qofa filadhu. Suuraan dhuunfaa hin barbaachisu.',
-      privateProfile: 'Piroofaayilii dhoksaa',
-      colorSectionTitle: 'Halluu filadhu',
-      colorSectionDescription: 'Halluu fakkii keetii filadhu.',
-      colorSwatchA11y: 'Halluu {{color}}',
-      styleSectionTitle: 'Bifa kee filadhu',
-      styleSectionDescription: 'Booda piroofaayilii keetii jijjiiruu dandeessa.',
-      infoTitle: 'Dhoksaan kee dursa',
-      infoText: 'Fakkiin kun yeroo haalli maqaa malee banamee jiru suuraa kee bakka bu\'a. Suuraan dhdhugaa piroofaayilii keetiif hin fayyadamu.',
-      saveAndContinue: 'Olkaa\'ii itti fufi',
-      later: 'Booda',
-      saveChanges: 'Jijjiirama olkaa\'i'
-    },
-    avatarStyles: {
-      hijab: 'Fakkii hijaabii qabu',
-      glasses: 'Fakkii ijaa qabu',
-      hat: 'Fakkii kofiyaa qabu',
-      minimal: 'Fakkii salphaa',
-      headscarfGlasses: 'Fakkii mufaa mata fi ijaa qabu',
-      silhouetteHat: 'Fakkii gaaddisaa kofiyaa bareedaa qabu',
-      turban: 'Fakkii tarbaanii qabu',
-      shortHair: 'Fakkii rifeensa gabaabaa qabu'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN sirrii miti. Irra deebi\'i yaali.',
     genericError: 'Wanti tokko dogoggore. Irra deebi\'i yaali.',
     codesDontMatch: 'Koodiiwwan wal hin gitan. Irra deebi\'ii jalqabi.',
@@ -7664,7 +7538,7 @@ export const om = {
   privacySecurity: {
     backA11y: 'Duubatti',
     title: 'Dhoksaa fi Nageenya',
-    subtitle: 'Deetaan kee, dhoksaan kee, filannoon kee 💜',
+    subtitle: 'Deetaan kee, dhoksaan kee, filannoon kee',
     introTitle: 'To\'annoon kee harka kee jira 🔒',
     introText: 'Dhoksaa deetaa kee to\'adhu, eegumsa si fayyu filadhu.',
     sectionAccess: 'Seenuu fi eegumsa',
@@ -7686,10 +7560,7 @@ export const om = {
     intimacySubtitle: 'Kutaa Jireenya Dhoksaa cufi',
     privateContentTitle: 'Eegumsa Yaadannoo / Suuraa Dhuunfaa',
     privateContentSubtitle: 'Yaadannoo fi suuraa dhuunfaa kee cufi',
-    sectionAccount: 'Akkaawuntii fi deetaa',
-    anonymousTitle: 'Haala maqaa malee',
-    anonymousSubtitle: 'Eenyummaa kee osoo hin qooddatin appii fayyadami',
-    dataManagementTitle: 'To\'annoo deetaa',
+    sectionAccount: 'Akkaawuntii fi deetaa',dataManagementTitle: 'To\'annoo deetaa',
     dataManagementSubtitle: 'Deetaa kee ilaali, export godhi ykn haqi',
     deleteAccountTitle: 'Akkaawuntii koo haqi',
     deleteAccountSubtitle: 'Akkaawuntii fi deetaa kee yeroo hundaaf haqi',
@@ -7930,76 +7801,7 @@ export const om = {
       doubleLabel: 'Lamaanuu',
       doubleDetail: 'Gregorian + Hijraa'
     }
-  },
-  generalHealth: {
-    title: 'Fayyaa waliigalaa',
-    subtitle: 'Odeeffannoon fayyaa kee hunda iddoo tokkotti',
-    privacyTitle: 'Odeeffannoon kee dhoksaadha',
-    privacyText: 'Hordoffii AWA kee siif mijeessuuf ooluun, yeroo barbaadde hundatti jijjiiramuu danda’a.',
-    physicalSectionTitle: 'Odeeffannoo qaamaa',
-    physicalSectionSubtitle: 'Safartuuwwan kee ijoo',
-    heightLabel: 'Dheerina',
-    weightLabel: 'Ulfaatina yeroo ammaa',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Gosa dhiigaa',
-    lastUpdateLabel: 'Yeroo dhumaa haaromfame',
-    medicalSectionTitle: 'Odeeffannoo yaalaa',
-    medicalSectionSubtitle: 'Odeeffannoo barbaachisaa dhiyoo qabamu',
-    chronicConditionsTitle: 'Dhukkuboota yeroo dheeraa',
-    chronicConditionsHelper: 'Dabaluuf ykn gulaaluuf tuqi',
-    chronicConditionsEmpty: 'Dhukkubni yeroo dheeraa hin galmoofne',
-    treatmentsTitle: 'Yaalii yeroo ammaa',
-    treatmentsHelper: 'Maqaa, hamma ykn irra deddeebi’uu',
-    treatmentsEmpty: 'Yaaliin hin galmoofne',
-    allergiesTitle: 'Alarjii',
-    allergiesHelper: 'Qoricha, nyaata ykn kan biraa',
-    allergiesEmpty: 'Alarjiin hin galmoofne',
-    notesTitle: 'Yaadannoo yaalaa',
-    notesHelper: 'Odeeffannoo dhuunfaa dabalataa kamiyyuu',
-    notesEmpty: 'Yaadannoon yaalaa hin dabalamne',
-    goalsSectionTitle: 'Kaayyoo fayyaa',
-    goalsSectionSubtitle: 'Kaayyoo kee dhuunfaa yeroo ammaa',
-    currentGoalLabel: 'Kaayyoo koo yeroo ammaa',
-    inProgress: 'Adeemsarra jira',
-    infoCardText: 'Odeeffannoo kana hunda yeroo barbaadde jijjiiruu dandeessa.',
-    toastUpdated: 'Odeeffannoon haaromfameera',
-    errors: {
-      invalidPositiveValue: 'Gatii sirrii fi kan zeeroo ol galchi.',
-      invalidHeight: 'Dheerina 80 fi 250 cm gidduu galchi.',
-      invalidWeight: 'Ulfaatina 20 fi 400 kg gidduu galchi.',
-      treatmentNameRequired: 'Maqaa yaalii galchi.'
-    },
-    editHeightTitle: 'Dheerina koo gulaali',
-    editWeightTitle: 'Ulfaatina koo gulaali',
-    updateInfoSubtitle: 'Odeeffannoo kana haaromsi.',
-    heightInCm: 'Dheerina santiimitiraan',
-    weightInKg: 'Ulfaatina kiiloogiraamiin',
-    bloodTypeSheetTitle: 'Gosa dhiigaa',
-    bloodTypeSheetSubtitle: 'Yoo beektu gosa dhiigaa kee filadhu.',
-    conditionsSheetSubtitle: 'Dhukkuboota beekamanii filadhu. Hedduu filachuu dandeessa.',
-    allergiesSheetSubtitle: 'Alarjii beekamaa filadhu. Hedduu filachuu dandeessa.',
-    otherInfoLabel: 'Odeeffannoo biraa',
-    otherInfoPlaceholder: 'Odeeffannoo biraa dabali (filannoo)',
-    treatmentsSheetSubtitle: 'Yaalii yeroo ammaa fudhattu dabali.',
-    newTreatmentLabel: 'Yaalii haaraa',
-    treatmentPlaceholder: 'Fknf: Ayiranii 20 mg, ganama hunda',
-    addTreatmentAccessibility: 'Yaalii dabali',
-    treatmentsAddedTitle: 'Yaaliin dabalame',
-    noTreatmentAdded: 'Yaaliin hin dabalamne.',
-    notesSheetSubtitle: 'Odeeffannoo qabachuu barbaaddu qofa dabali.',
-    notesPlaceholder: 'Odeeffannoo kee barbaachisaa asitti dabali...',
-    goalSheetTitle: 'Kaayyoo fayyaa koo',
-    goalSheetSubtitle: 'Kaayyoo hordoffii kee yeroo ammaa irra caalaa ta’u filadhu.',
-    personalProgressLabel: 'Tarkaanfii dhuunfaa:',
-    bmiClasses: {
-      insufficientData: 'Daataan gahaa miti',
-      underweight: 'Ulfaatina gadi aanaa',
-      normal: 'Idilee',
-      overweight: 'Ulfaatina ol aanaa',
-      obese: 'Oboo'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Laafaa fi walsimu',
     "lavender-night": 'Bareedaa fi tasgabbeessaa',
     "rose-quartz": 'Laafaa fi dubartummaa',
@@ -8579,7 +8381,10 @@ export const om = {
     cycleSleepFeeling: {
       rested: 'Boqochuu',
       average: 'Giddugaleessa',
-      tired: 'Dadhabuu'
+      tired: 'Dadhabuu',
+      none: 'Lakki',
+      light: 'Salphaa',
+      aLot: 'Cimaa',
     },
     cycleActivityType: {
       walking: 'Adeemuu',

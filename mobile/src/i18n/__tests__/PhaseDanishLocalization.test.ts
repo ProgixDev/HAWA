@@ -56,7 +56,7 @@ describe('dictionary integrity', () => {
   it('da.ts has exactly the same leaf paths as en.ts (key parity, no missing, no extra)', () => {
     const paths = (dictionary: AnyRecord) => leaves(dictionary).map(([keyPath]) => keyPath).sort();
     const reference = paths(en as AnyRecord);
-    expect(reference.length).toBeGreaterThanOrEqual(6247);
+    expect(reference.length).toBeGreaterThanOrEqual(6143);
     expect(paths(da as AnyRecord)).toEqual(reference);
     expect(new Set(reference).size).toBe(reference.length);
   });

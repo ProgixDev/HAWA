@@ -365,7 +365,8 @@ export const ti = {
   objectiveArticles: {
     title: 'ንምድጋፍኪ',
     seeAll: 'ኩሉ ርአ',
-    readingMinutes: '{{count}} ደቒቕ ንባብ'
+    readingMinutes: '{{count}} ደቒቕ ንባብ',
+    latestTitle: 'ናይ ቀረባ ጽሑፋት'
   },
   spiritualGuidance: {
     title: 'መንፈሳዊ ምልክታት',
@@ -607,6 +608,8 @@ export const ti = {
     timesThisNight: 'ግዜ ኣብዚ ለይቲ',
     awakeningsTip: 'ገለ ግዜ ምትካል ልሙድ እዩ።\nኣካልኪ ቀስ ብቐስ ባዕሉ ይስርዕ።',
     wakeFeelingTitle: 'ስምዒት ምስ ትትክሊ',
+    wakeFatigueTitle: 'ድኻም',
+    wakeFatigueAccessibility: 'ድኻም: {{label}}',
     wakeFeelingSubtitle: 'ምስ ትትክሊ ከመይ ይስምዓኪ?',
     wakeFeelingAccessibility: 'ስምዒት ምስ ትትክሊ: {{label}}',
     wakeFeelingTip: 'ንኣካልኪ ስምዒ፣ ምስ ዘድልየኪ እውን\nንባዕልኪ ዕረፍቲ ሃቢ።',
@@ -1467,13 +1470,8 @@ export const ti = {
     cycleLengthLabel: 'ንውሓት ዑደት',
     cycleRegularityLabel: 'ስርዓታዊነት ዑደት',
     dataProtected: 'ዳታ ተሓልዩ',
-    disabledSingular: 'ጠፊኡ',
-    editAnonymousAvatarAccessibility: 'ስም ዘይብል ስእለይ ኣብጽሕ',
-    editAvatarAccessibility: 'ስእሊ ፕሮፋይል ቀይር',
-    editProfile: 'ፕሮፋይል ኣዐርይ',
-    generalHealthSubtitle: 'ክብደት፣ ቁመት፣ ዓይነት ደም፣ ሕማማት…',
-    generalHealthTitle: 'ሓፈሻዊ ጥዕና',
-    headerSubtitle: 'ሓበሬታኺን ምርጫታትኪን ኣመሓድሪ',
+    disabledSingular: 'ጠፊኡ',    editAvatarAccessibility: 'ስእሊ ፕሮፋይል ቀይር',
+    editProfile: 'ፕሮፋይል ኣዐርይ',headerSubtitle: 'ሓበሬታኺን ምርጫታትኪን ኣመሓድሪ',
     helpSupportSubtitle: 'ናይ ብዙሕ ግዜ ሕቶታት፣ ጸገም ምሕባርን ምርኻብን',
     helpSupportTitle: 'ሓገዝን ደገፍን',
     hijriDateLabel: 'ሂጅሪ ዕለት',
@@ -1501,28 +1499,7 @@ export const ti = {
     signOut: 'ውጻእ',
     cycle: {
       remindersSubtitle: 'ወርሓዊ ደም፣ መዓልታዊ መዝገብ፣ ኦቭዩሌሽንን ፍርያም ግዜን'
-    },
-    accountInfoModal: {
-      anonymousId: 'ስም ዘይብሉ መለለዪ',
-      anonymousMode: 'ስም ዘይብሉ ኩነታት',
-      createdOn: 'ዝተፈጥረሉ ዕለት',
-      dataPrivateInfo: 'ዳታኺ ኣብዚ መሳርሒ ብሕታዊ እዩ ዝጸንሕ፣ ናብ ካልኦት መሳርሕታት ኣይሰማዕምን።',
-      enabledValue: 'ተኸፊቱ',
-      localOnly: 'ኣብዚ መሳርሒ ጥራይ',
-      notConfigured: 'ኣይተቐመጠን',
-      pinBiometry: 'PIN / ባዮሜትሪክ',
-      security: 'ድሕነት',
-      subtitle: 'ስም ዘይብል ፕሮፋይልኪ ንዓኺ ዝፈልጥ ሓበሬታ የብሉን።',
-      sync: 'ምስማዕ',
-      title: 'ሓበሬታ ኣካውንት'
-    },
-    anonymousMode: {
-      exit: 'ካብ ስም ዘይብሉ ኩነታት ውጻእ',
-      identityHiddenSubtitle: 'ሓቀኛ መንነትኪ ተሸፊኑ ይጸንሕ',
-      manageSubtitle: 'ብሕታዊ መንነትኪን ስም ዘይብሉ ምርጫታትን ኣመሓድሪ',
-      title: 'ስም ዘይብሉ ኩነታት'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'ሙቐት፣ ናይ ማህጸን ፈሳሲ፣ LH ፈተናታት፣ ቅርበት',
       indicatorsTitle: 'ዝካታተሉ ምልክታት',
       manageReminders: 'ምዝኽኻራት ጥንሲይ ኣመሓድር',
@@ -1657,10 +1634,7 @@ export const ti = {
       subtitle: 'ወርሓዊ ደማ ብልሙድ ክንደይ መዓልታት ትጸንሕ?',
       title: 'ንውሓት ወርሓዊ ደም'
     },
-    personalInfo: {
-      accountInfoTitle: 'ሓበሬታ ኣካውንት',
-      anonymousSubtitle: 'ዝተሓለወን ስም ዘይብሉን ኣካውንት',
-      daughterSubtitle: 'ሽም፣ ዕለት ልደት…',
+    personalInfo: {daughterSubtitle: 'ሽም፣ ዕለት ልደት…',
       ownerSubtitle: 'ሽም፣ ኢሜይል፣ ዕለት ልደት…',
       title: 'ውልቃዊ ሓበሬታ'
     },
@@ -4062,6 +4036,8 @@ export const ti = {
       lastMeasurementLabel: 'ናይ መወዳእታ ልክዕ',
       sincePrevious: 'ካብቲ ዝቕድሞ',
       addAnotherHint: 'ለውጥኪ ንምርኣይ ካልእ ልክዕ ወስኺ።',
+      sinceFirst: 'ካብ መጀመርታ ቆጸራ',
+      averagePerWeek: 'ኣማእከላይ ብሰሙን',
       recentMeasurements: 'ቀረባ ልክዕታት',
       valuesCount_one: '{{count}} ዋጋ',
       valuesCount_other: '{{count}} ዋጋታት',
@@ -5461,6 +5437,7 @@ export const ti = {
     closeBackdropLabel: 'ኣጠንቀቕታ ዕጸው'
   },
   objectiveConfirmation: {
+    changeAnytime: 'ዕላማታትኪ ኣብ ዝኾነ ግዜ ክትቅይሪ ትኽእሊ ኢኺ።',
     cycle: {
       title: 'ፍጹም! 🎉',
       description: 'ባህላዊ ምክትታል ዑደት መሪጽኪ።',
@@ -6563,7 +6540,7 @@ export const ti = {
         all: 'ኩሉ',
         medical: 'ሕክምናዊ',
         religious: 'ሃይማኖታዊ',
-        featured: 'ፍሉይ'
+        favorites: 'ተመራጭ'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const ti = {
     resolvingLocation: 'ቦታኺ ይደሊ ኣሎ…',
     noPositionSelected: 'ቦታ ኣይተመርጸን',
     positionSelectedOnMap: 'ኣብ ካርታ ቦታ ተመሪጹ',
+    selectedTitle: 'ዝተመርጸ ቦታ',
+    selectedHint: 'እዚ ቦታ እዚ ሰዓት ጸሎትካ ንምስላው ክጥቀምሉ እዩ።',
     noCityFoundHere: 'ኣብዚ ቦታ ከተማ ኣይተረኽበን።',
     noResultsFound: 'ውጽኢት ኣይተረኽበን።',
     mapsNotConfigured: 'ካርታ ንምስራሕ መፍትሕ ካርታ ኣዳልዊ።',
@@ -7209,7 +7188,8 @@ export const ti = {
       permissionDeny: 'ኣይትፍቀድ',
       configureMapKeyFirst: 'ቅድም መፍትሕ ካርታ ኣዳልዊ።',
       permissionDeniedError: 'ቦታኺ ንምጥቃም ኣብ ቅጥዕታት ንቦታ ፍቐዲ።',
-      positionUnavailable: 'ቦታ የለን። GPS ከም ዝነጥፈ ኣረጋግጺ።'
+      positionUnavailable: 'ቦታ የለን። GPS ከም ዝነጥፈ ኣረጋግጺ።',
+      timeout: 'ቦታ ምፍላጥ ነዊሕ ግዜ ወሲዱ። ምልክት ወይ GPS ርአዮ፣ ደጊምካ ፈትን።'
     },
     errors: {
       generic: 'ሕጂ ነዚ ቦታ ክፍለጥ ኣይተኻእለን።',
@@ -7260,9 +7240,10 @@ export const ti = {
     },
     spiritual: {
       title: 'መንፈሳዊ ምልክታት\nክንጥፉ ትደልዪ ዲኺ?',
-      subtitle: 'ሂጅሪ ካላንደር፣ ጸሎታት፣ ጾም፣ ኩነታት ጽሬት…\nኣብ ዝደለኺዎ ግዜ ክትቅይርዮ ትኽእሊ።',
+      subtitle: 'ኣብ ዝደለኺዎ ግዜ ክትቅይርዮ ትኽእሊ።',
       enable: 'እወ፣ ኣንጥፍ',
       disable: 'ኣይፋል፣ ሕጂ ኣይኮነን',
+      includesLabel: 'እንታይ የንቀሳቅስ',
       featureHijri: 'ሂጅሪ ካላንደር',
       featurePrayers: 'ጸሎታትን ኩነታት ጽሬትን',
       featureFasting: 'ጾም (ረመዳን፣ ቃዳእ መዓልታት)',
@@ -7427,16 +7408,14 @@ export const ti = {
       orContinueWith: 'ወይ ብዚ ቀጽሊ',
       continueWithGoogle: 'ብ Google ቀጽሊ',
       continueWithApple: 'ብ Apple ቀጽሊ',
-      continueWithEmail: 'ብኢመይል ኣድራሻ ቀጽሊ',
-      useAnonymousMode: 'AWA ብዘይ ስም ተጠቐሚ',
-      anonymousMode: 'ዘይፍለጥ ኣገባብ',
-      legalTerms: 'ውዕል ኣጠቓቕማን ፖሊሲ ብሕትውናናን።',
+      continueWithEmail: 'ብኢመይል ኣድራሻ ቀጽሊ',legalTerms: 'ውዕል ኣጠቓቕማን ፖሊሲ ብሕትውናናን።',
       createAccount: 'ሕሳበይ ፍጠር'
     },
     login: {
       tagline: 'ንሚዛናዊ ህይወት፣\nኣብ ነፍሲ ወከፍ ስጉምቲ።',
       emailPlaceholder: 'ኢመይል ኣድራሻ',
       passwordPlaceholder: 'ቃል ምስጢር',
+      passwordFieldPlaceholder: 'ቃል ምስጢርካ ኣእቱ',
       forgotPassword: 'ቃል ምስጢር ረሲዕኪ?',
       submit: 'እቶ',
       legalPrefix: 'ብምቕጻልኪ ምስ ዝስዕብ ትሰማምዒ:'
@@ -7479,112 +7458,7 @@ export const ti = {
       helpModalCta: 'ተረዲኡኒ',
       helpModalCloseAccessibility: 'ዕጸዊ'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'ዘይፍለጥ ኣገባብ',
-      headerSubtitle: 'ብሕትውና',
-      illustrationA11y: 'ስእሊ ናይ ዘይፍለጥ ኣገባብ',
-      activeTitle: 'ዘይፍለጥ ኣገባብ ንጡፍ እዩ',
-      activeSubtitle: 'እዚ ኣገባብ ክሳብ ዝንጥፍ ፕሮፋይልኪ ካብ መንነትኪ ዝተፈለየ ይኸውን።',
-      nothingKeptTitle: 'ዝኾነ ኣይሕለወን',
-      nothingKeptSubtitle: 'እዚ ሓበሬታ ምስ ዘይፍለጥ ፕሮፋይልኪ ኣይተኣሳሰረን።',
-      retentionEmail: 'ኢመይል',
-      retentionName: 'ስም',
-      retentionTechnical: 'ቴክኒካዊ መለለዪታት',
-      notRetained: 'ኣይሕለወን',
-      appLockA11y: 'መቑሸሊ ኣፕ',
-      appLockTitle: 'መቑሸሊ ኣፕ',
-      appLockText: 'AWA ክትከፍቲ ኮድ PIN ወይ ባዮሜትሪክ',
-      appLockEnabled: 'ንጡፍ',
-      appLockDisabled: 'ዘይንጡፍ',
-      disableTitle: 'ዘይፍለጥ ኣገባብ ኣጥፍእ',
-      disableText: 'ካብ ዘይፍለጥ ኣገባብ ንምውጻእ ሕሳብ ፈጢርኪ ኢመይል ኣድራሻ ወይ መለለዪ ከተላግቢ ትኽእሊ።',
-      pitchTitle: 'AWA ብዘይ ስም ተጠቐሚ',
-      pitchSubtitle: 'መንነትኪ ምስ ፕሮፋይልኪ ከይተላገብኪ ኣብ AWA ተጠቐሚ።',
-      identityPrivateTitle: 'መንነትኪ ብሕታዊ ይተርፍ',
-      identityPrivateSubtitle: 'ነዚ ኣገባብ ንምጥቃም ንዓኺ ዝፈልጥ ሓበሬታ ኣየድልን።',
-      privacyRowName: 'ስም ኣየድልን',
-      privacyRowEmail: 'ኢመይል ኣድራሻ ኣየድልን',
-      privacyRowAccount: 'ሕሳብ Google ወይ Apple ኣይተላገበን',
-      privacyRowProfile: 'ፕሮፋይል ካብ መንነትኪ ዝተፈለየ',
-      infoTitle: 'ክትፈልጥዮ ዝግባእ',
-      infoText: 'ገለ ናይ ሕሳብ፣ ምስምስዳር ወይ ምምላስ ኣገልግሎታት ኣብ ዘይፍለጥ ኣገባብ ክገደብ ይኽእል።',
-      recommendedProtectionTitle: 'ዝተመረጸ ሓለዋ',
-      recommendedProtectionText: 'ንኣገባብ AWA ብኮድ PIN ወይ ብባዮሜትሪክ ክትሕልውዮ ትኽእሊ።',
-      continueInAnonymousMode: 'ብዘይፍለጥ ኣገባብ ቀጽሊ'
-    },
-    limitations: {
-      headerTitle: 'ቅድሚ ምቕጻልኪ',
-      headerSubtitle: 'ዘይፍለጥ ኣገባብ',
-      title: 'ቅድሚ ምቕጻልኪ',
-      subtitle: 'ኣብ ዘይፍለጥ ኣገባብ ገለ ምስ ሕሳብ ዝተኣሳሰሩ ኣገልግሎታት ክገደቡ ወይ ክሳብ ክሰዓሩ ይኽእሉ።',
-      recoveryTitle: 'ምምላስ ሕሳብ',
-      recoveryText: 'ብዘይ ዝተላገበ ኢመይል ኣድራሻ ናብ ሕሳብኪ ምምላስ ክገደብ ይኽእል።',
-      syncTitle: 'ምስምስዳር',
-      syncText: 'ገለ ሓበሬታ ኣብ ካልኦት መሳርሒታትኪ ክይስምስድ ይኽእል።',
-      communicationsTitle: 'ርክባት',
-      communicationsText: 'AWA ምስ ዘይፍለጥ ሕሳብኪ ዝተኣሳሰሩ ኢመይላት ክሰድደልኪ ኣይክእልን።',
-      securityTitle: 'ዝተመረጸ ድሕነት',
-      securityText: 'ንAWA ንምሕላው ኮድ PIN ወይ ባዮሜትሪክ ክትጥቀሚ ንመክረኪ።',
-      acknowledgeLabel: 'ዘይፍለጥ ኣገባብ ከመይ ከም ዝሰርሕ ተረዲኡኒ።',
-      activate: 'ዘይፍለጥ ኣገባብ ኣንጥፍ'
-    },
-    creating: {
-      headerTitle: 'ቦታኺ ይፍጠር ኣሎ',
-      loaderA11y: 'ዘይፍለጥ ቦታኺ ይፍጠር ኣሎ',
-      step1: 'ቦታኺ ይዳሎ ኣሎ',
-      step2: 'ብሕትውና ይቆጸር ኣሎ',
-      step3: 'ይውዳእ ኣሎ',
-      creatingTitle: 'ዘይፍለጥ ቦታኺ ይፍጠር ኣሎ',
-      creatingSubtitle: 'AWA ብሕታዊ ቦታኺ የዳሉ ኣሎ፣ ፕሮፋይልኪ ካብ መለለዪ ሓበሬታኺ ድማ የፍልዮ ኣሎ።',
-      errorTitle: 'ምንጣፍ ክውዳእ ኣይተኻእለን',
-      errorSubtitle: 'ገለ ጌጋ ተፈጢሩ። ደጊምኪ ክትፍትኒ ትኽእሊ።',
-      retry: 'ደጊምኪ ፈትኒ',
-      loaderLabel: 'ጽናሒ በሊ',
-      loaderCaption: 'ቁሩብ ግዜ ጥራይ ይወስድ።',
-      protectionTitle: 'መንነትኪ ይሕሎ ኣሎ',
-      protectionSubtitle: 'AWA ምርጫታት ብሕትውናኺ እናተግበረ ቦታኺ የዳሉ ኣሎ።',
-      warning: 'ቦታኺ ክሳብ ዝድሎ ኣፕ ኣይትዕጽዊ።'
-    },
-    success: {
-      headerTitle: 'ዘይፍለጥ ኣገባብ',
-      title: 'ዘይፍለጥ ኣገባብ ንጡፍ እዩ',
-      subtitle: 'ፕሮፋይልኪ ሕጂ ካብ መንነትኪ ዝተፈለየ እዩ። ምሉእ ብሕትውና AWA ተጠቐሚ።',
-      cardTitle: 'ቦታኺ ድሉው እዩ',
-      cardSubtitle: 'ዘይፍለጥ ኣገባብ ኣብ ዝደለኺዎ ግዜ ካብ ብሕትውናን ድሕነትን ከተጥፍእዮ ትኽእሊ።',
-      continue: 'ቀጽሊ',
-      finish: 'ተወዲኡ'
-    },
-    avatar: {
-      headerTitle: 'ኣቫታረይ ኣዳሉ',
-      eyebrow: 'ዘይፍለጥ ፕሮፋይልኪ',
-      title: 'ንዓኺ ዝመስል ኣቫታር ፍጠሪ',
-      subtitle: 'ቅርጺን ሕብርን ጥራይ ምረጺ። ውልቃዊ ስእሊ ኣየድልን።',
-      privateProfile: 'ብሕታዊ ፕሮፋይል',
-      colorSectionTitle: 'ሕብሪ ምረጺ',
-      colorSectionDescription: 'ንኣቫታርኪ ዝኸውን ሕብሪ ምረጺ።',
-      colorSwatchA11y: 'ሕብሪ {{color}}',
-      styleSectionTitle: 'ቅርጽኪ ምረጺ',
-      styleSectionDescription: 'ድሒሩ ካብ ፕሮፋይልኪ ክትቅይርዮ ትኽእሊ።',
-      infoTitle: 'ብሕትውናኺ ቀዳምነት ኣለዎ',
-      infoText: 'እዚ ኣቫታር ዘይፍለጥ ኣገባብ ክሳብ ዝንጥፍ ንስእልኪ ይትክእ። ንፕሮፋይልኪ ሓቀኛ ስእሊ ኣይውዕልን።',
-      saveAndContinue: 'ዕቀቢ ቀጽሊ',
-      later: 'ድሒሩ',
-      saveChanges: 'ለውጢ ዕቀቢ'
-    },
-    avatarStyles: {
-      hijab: 'ኣቫታር ምስ ሂጃብ',
-      glasses: 'ኣቫታር ምስ መነጽር',
-      hat: 'ኣቫታር ምስ ቆብዕ',
-      minimal: 'ቀሊል ኣቫታር',
-      headscarfGlasses: 'ኣቫታር ምስ ሻሽን መነጽርን',
-      silhouetteHat: 'ጽላል ምስ ጽቡቕ ቆብዕ',
-      turban: 'ኣቫታር ምስ ጥምጣም',
-      shortHair: 'ኣቫታር ምስ ሓጺር ጸጉሪ'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN ጌጋ እዩ። ደጊምኪ ፈትኒ።',
     genericError: 'ገለ ጌጋ ተፈጢሩ። ደጊምኪ ፈትኒ።',
     codesDontMatch: 'ኮዳት ኣይተመሳሰሉን። ካብ መጀመርታ ጀምሪ።',
@@ -7664,8 +7538,8 @@ export const ti = {
   privacySecurity: {
     backA11y: 'ተመለስ',
     title: 'ብሕትውናን ድሕነትን',
-    subtitle: 'ሓበሬታኺ፣ ብሕትውናኺ፣ ምርጫኺ 💜',
-    introTitle: 'ቁጽጽር ኣብ ዓኺ እዩ 🔒',
+    subtitle: 'ሓበሬታኺ፣ ብሕትውናኺ፣ ምርጫኺ',
+    introTitle: 'ቁጽጽር ኣብ ዓኺ እዩ',
     introText: 'ብሕትውና ሓበሬታኺ መሓድሪ እሞ ንዓኺ ዝሰማማዕ ሓለዋ ምረጺ።',
     sectionAccess: 'ምእታውን ሓለዋን',
     pinTitle: 'ኮድ PIN',
@@ -7686,10 +7560,7 @@ export const ti = {
     intimacySubtitle: 'ክፍሊ ብሕታዊ ህይወት ቑሸሊ',
     privateContentTitle: 'ሓለዋ ብሕታዊ መዘኽከሪታትን ስእልታትን',
     privateContentSubtitle: 'ውልቃዊ መዘኽከሪታትኪን ስእልታትኪን ቑሸሊ',
-    sectionAccount: 'ሕሳብን ሓበሬታን',
-    anonymousTitle: 'ዘይፍለጥ ኣገባብ',
-    anonymousSubtitle: 'መንነትኪ ብዘይምክፋል ኣፕ ተጠቐሚ',
-    dataManagementTitle: 'ምምሕዳር ሓበሬታ',
+    sectionAccount: 'ሕሳብን ሓበሬታን',dataManagementTitle: 'ምምሕዳር ሓበሬታ',
     dataManagementSubtitle: 'ሓበሬታኺ ርኣዪ፣ ኣውጽኢ ወይ ሰርዚ',
     deleteAccountTitle: 'ሕሳበይ ሰርዝ',
     deleteAccountSubtitle: 'ሕሳብኪን ሓበሬታኺን ንሓዋሩ ሰርዚ',
@@ -7930,76 +7801,7 @@ export const ti = {
       doubleLabel: 'ክልቲኦም',
       doubleDetail: 'ግሪጎርያዊ + ሂጅሪ'
     }
-  },
-  generalHealth: {
-    title: 'ሓፈሻዊ ጥዕና',
-    subtitle: 'ኩሉ ናይ ጥዕናኺ ሓበሬታ ኣብ ሓደ ቦታ',
-    privacyTitle: 'ሓበሬታኺ ምስጢራዊ እዩ',
-    privacyText: 'ናይ AWA ክትትልኪ ንኽቕየር ይጥቀመሉ፡ ከምኡውን ኣብ ዝኾነ ግዜ ክትቅይርዮ ትኽእሊ።',
-    physicalSectionTitle: 'ኣካላዊ ሓበሬታ',
-    physicalSectionSubtitle: 'ቀንዲ መለክዒታትኪ',
-    heightLabel: 'ቁመት',
-    weightLabel: 'ህሉው ክብደት',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'ዓይነት ደም',
-    lastUpdateLabel: 'ናይ መወዳእታ ምሕዳስ',
-    medicalSectionTitle: 'ሕክምናዊ ሓበሬታ',
-    medicalSectionSubtitle: 'ኣብ ዓቅሊ ክህሉ ዘለዎ ኣገዳሲ ሓበሬታ',
-    chronicConditionsTitle: 'ነዊሕ ግዜ ዝጸንሑ ሕማማት',
-    chronicConditionsHelper: 'ንምውሳኽ ወይ ንምእራም ጥዕ',
-    chronicConditionsEmpty: 'ዝኾነ ነዊሕ ግዜ ዝጸንሐ ሕማም ኣይተኣተወን',
-    treatmentsTitle: 'ህሉው ሕክምና',
-    treatmentsHelper: 'ሽም፣ መጠን፣ ወይ ብዝፍትን ግዜ',
-    treatmentsEmpty: 'ዝኾነ ሕክምና ኣይተኣተወን',
-    allergiesTitle: 'ኣለርጂታት',
-    allergiesHelper: 'መድሃኒት፣ መግቢ፣ ወይ ካልእ',
-    allergiesEmpty: 'ዝኾነ ኣለርጂ ኣይተኣተወን',
-    notesTitle: 'ሕክምናዊ መዘኻኸሪታት',
-    notesHelper: 'ዝኾነ ተወሳኺ ውልቃዊ ሓበሬታ',
-    notesEmpty: 'ዝኾነ ሕክምናዊ መዘኻኸሪ ኣይተወሰኸን',
-    goalsSectionTitle: 'ዕላማታት ጥዕና',
-    goalsSectionSubtitle: 'ህሉው ውልቃዊ ዕላማኺ',
-    currentGoalLabel: 'ህሉው ዕላማይ',
-    inProgress: 'ኣብ ምኽኣል',
-    infoCardText: 'ነዚ ኩሉ ሓበሬታ ኣብ ዝኾነ ግዜ ክትቅይርዮ ትኽእሊ።',
-    toastUpdated: 'ሓበሬታ ተሓድሱ',
-    errors: {
-      invalidPositiveValue: 'ቅኑዕ ሱር ዋጋ የእቱ።',
-      invalidHeight: 'ኣብ መንጎ 80 ን 250 ሴ.ሜ ዝርከብ ቁመት የእቱ።',
-      invalidWeight: 'ኣብ መንጎ 20 ን 400 ኪ.ግ ዝርከብ ክብደት የእቱ።',
-      treatmentNameRequired: 'ሽም ሕክምና የእቱ።'
-    },
-    editHeightTitle: 'ቁመተይ ኣርምዕ',
-    editWeightTitle: 'ክብደተይ ኣርምዕ',
-    updateInfoSubtitle: 'ነዚ ሓበሬታ ሓድስዮ።',
-    heightInCm: 'ቁመት ብሴንቲሜተር',
-    weightInKg: 'ክብደት ብኪሎግራም',
-    bloodTypeSheetTitle: 'ዓይነት ደም',
-    bloodTypeSheetSubtitle: 'እንተ ትፈልጢ ዓይነት ደምኪ ሕረዪ።',
-    conditionsSheetSubtitle: 'ዝፈልጥኪዎም ሕማማት ሕረዪ። ብዙሓት ክትመርጺ ትኽእሊ።',
-    allergiesSheetSubtitle: 'ዝፈልጥኪዎም ኣለርጂታት ሕረዪ። ብዙሓት ክትመርጺ ትኽእሊ።',
-    otherInfoLabel: 'ካልእ ሓበሬታ',
-    otherInfoPlaceholder: 'ካልእ ሓበሬታ ወስኽ (ኣማራጺ)',
-    treatmentsSheetSubtitle: 'ሕጂ እትወስዲዎም ሕክምናታት ወስኪ።',
-    newTreatmentLabel: 'ሓድሽ ሕክምና',
-    treatmentPlaceholder: 'ንኣብነት፦ ኣይረን 20 ፣ ድሕሪ ንግሆ',
-    addTreatmentAccessibility: 'ሕክምና ወስኽ',
-    treatmentsAddedTitle: 'ዝተወስኹ ሕክምናታት',
-    noTreatmentAdded: 'ዝኾነ ሕክምና ኣይተወሰኸን።',
-    notesSheetSubtitle: 'ክትዕቅብዮ እትደልዪ ሓበሬታ ጥራይ ወስኪ።',
-    notesPlaceholder: 'ኣገዳሲ ሓበሬታኺ ኣብዚ ወስኪ...',
-    goalSheetTitle: 'ዕላማ ጥዕናይ',
-    goalSheetSubtitle: 'ን ህሉው ክትትልኪ ዝበለጸ ዝኸውን ዕላማ ሕረዪ።',
-    personalProgressLabel: 'ውልቃዊ ምዕባለ፦',
-    bmiClasses: {
-      insufficientData: 'ዘይኣክል ሓበሬታ',
-      underweight: 'ትሑት ክብደት',
-      normal: 'ንቡር',
-      overweight: 'ልዕሊ ዝደሊ ክብደት',
-      obese: 'ብዙሕ ክብደት'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'ልሙድን ስሩዕን',
     "lavender-night": 'ደስ ዝብልን ህዱእን',
     "rose-quartz": 'ልሙድን ሰበይታዊን',
@@ -8579,7 +8381,10 @@ export const ti = {
     cycleSleepFeeling: {
       rested: 'ዕረፍቲ ዘለዎ',
       average: 'ማእከላይ',
-      tired: 'ደኺሙ'
+      tired: 'ደኺሙ',
+      none: 'ኣይፋል',
+      light: 'ቀሊል',
+      aLot: 'ሓያል',
     },
     cycleActivityType: {
       walking: 'ምኽኣል ብእግሪ',

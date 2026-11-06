@@ -365,7 +365,8 @@ export const yo = {
   objectiveArticles: {
     title: 'Láti ràn ọ́ lọ́wọ́',
     seeAll: 'Wo gbogbo rẹ̀',
-    readingMinutes: 'ìṣẹ́jú {{count}} láti kà'
+    readingMinutes: 'ìṣẹ́jú {{count}} láti kà',
+    latestTitle: 'Àwọn àpilẹ̀kọ tuntun'
   },
   spiritualGuidance: {
     title: 'Àwọn àmì ẹ̀sìn',
@@ -607,6 +608,8 @@ export const yo = {
     timesThisNight: 'ìgbà ní alẹ́ yìí',
     awakeningsTip: 'Ó wọ́pọ̀ láti jí ní ìgbà díẹ̀.\nÀra rẹ ń ṣe ìwọ̀ntúnwọ̀nsì ara rẹ díẹ̀díẹ̀.',
     wakeFeelingTitle: 'Bí ara ṣe rí nígbà jíjí',
+    wakeFatigueTitle: 'Àárẹ̀',
+    wakeFatigueAccessibility: 'Àárẹ̀: {{label}}',
     wakeFeelingSubtitle: 'Báwo ni ara rẹ ṣe rí nígbà tí o jí?',
     wakeFeelingAccessibility: 'Bí ara ṣe rí nígbà jíjí: {{label}}',
     wakeFeelingTip: 'Fetí sí ara rẹ, kí o sì gba ara rẹ láàyè\nláti sinmi tí o bá rí i pé o nílò rẹ̀.',
@@ -1467,13 +1470,8 @@ export const yo = {
     cycleLengthLabel: 'Gígùn àyípo',
     cycleRegularityLabel: 'Ìgbà déédéé àyípo',
     dataProtected: 'Ìsọfúnni wà ní ààbò',
-    disabledSingular: 'Ti pa',
-    editAnonymousAvatarAccessibility: 'Ṣe àwòrán àìdámọ̀ mi bí mo ti fẹ́',
-    editAvatarAccessibility: 'Yí fọ́tò profaili padà',
-    editProfile: 'Ṣàtúnṣe profaili',
-    generalHealthSubtitle: 'Ìwúwo, gíga, irú ẹ̀jẹ̀, àwọn àìsàn…',
-    generalHealthTitle: 'Ìlera gbogbogbò',
-    headerSubtitle: 'Ṣàkóso ìsọfúnni àti àwọn ìfẹ́ rẹ',
+    disabledSingular: 'Ti pa',    editAvatarAccessibility: 'Yí fọ́tò profaili padà',
+    editProfile: 'Ṣàtúnṣe profaili',headerSubtitle: 'Ṣàkóso ìsọfúnni àti àwọn ìfẹ́ rẹ',
     helpSupportSubtitle: 'Àwọn ìbéèrè, ròyìn ìṣòro àti kàn sí wa',
     helpSupportTitle: 'Ìrànlọ́wọ́ àti àtìlẹ́yìn',
     hijriDateLabel: 'Ọjọ́ Hijri',
@@ -1501,28 +1499,7 @@ export const yo = {
     signOut: 'Jáde',
     cycle: {
       remindersSubtitle: 'Nǹkan oṣù, ìwé ìgbàsílẹ̀ ojoojúmọ́, ovulation àti àkókò ìbímọ'
-    },
-    accountInfoModal: {
-      anonymousId: 'ID àìdámọ̀',
-      anonymousMode: 'Ipò àìdámọ̀',
-      createdOn: 'A ṣẹ̀dá ní',
-      dataPrivateInfo: 'Ìsọfúnni rẹ wà ní àṣírí lórí ẹ̀rọ yìí, a kò sì fi ṣọ̀kan pẹ̀lú àwọn ẹ̀rọ mìíràn.',
-      enabledValue: 'Ti tan',
-      localOnly: 'Lórí ẹ̀rọ yìí nìkan',
-      notConfigured: 'A kò tíì ṣètò',
-      pinBiometry: 'PIN / Biometrics',
-      security: 'Ààbò',
-      subtitle: 'Profaili àìdámọ̀ rẹ kò ní ìsọfúnni kankan tí ó lè dá ọ mọ̀.',
-      sync: 'Ìṣọ̀kan ìsọfúnni',
-      title: 'Ìsọfúnni àkáǹtì'
-    },
-    anonymousMode: {
-      exit: 'Jáde kúrò ní ipò àìdámọ̀',
-      identityHiddenSubtitle: 'Ẹni tí o jẹ́ gan-an wà ní àṣírí',
-      manageSubtitle: 'Ṣàkóso ẹni àṣírí rẹ àti àwọn àṣàyàn àìdámọ̀',
-      title: 'Ipò Àìdámọ̀'
-    },
-    conceive: {
+    },conceive: {
       indicatorsSubtitle: 'Ìgbóná ara, cervical mucus, àyẹ̀wò LH, ìbálòpọ̀',
       indicatorsTitle: 'Àwọn àmì tí a ń tọ́pa',
       manageReminders: 'Ṣàkóso àwọn ìrántí ìgbìyànjú oyún mi',
@@ -1657,10 +1634,7 @@ export const yo = {
       subtitle: 'Ọjọ́ mélòó ni nǹkan oṣù rẹ̀ máa ń gbà ní gbogbo ìgbà?',
       title: 'Gígùn nǹkan oṣù'
     },
-    personalInfo: {
-      accountInfoTitle: 'Ìsọfúnni àkáǹtì',
-      anonymousSubtitle: 'Àkáǹtì tí a dáàbò bò tí kò sì ní orúkọ',
-      daughterSubtitle: 'Orúkọ àkọ́kọ́, ọjọ́ ìbí…',
+    personalInfo: {daughterSubtitle: 'Orúkọ àkọ́kọ́, ọjọ́ ìbí…',
       ownerSubtitle: 'Orúkọ, email, ọjọ́ ìbí…',
       title: 'Ìsọfúnni ti ara ẹni'
     },
@@ -4062,6 +4036,8 @@ export const yo = {
       lastMeasurementLabel: 'Ìwọ̀n tó kẹ́yìn',
       sincePrevious: 'láti ìgbà tó ṣáájú',
       addAnotherHint: 'Fi ìwọ̀n mìíràn kún un láti rí ìyípadà rẹ.',
+      sinceFirst: 'Láti ìwọ̀n àkọ́kọ́',
+      averagePerWeek: 'Àpapọ̀ ní ọ̀sẹ̀ kan',
       recentMeasurements: 'Àwọn ìwọ̀n àìpẹ́',
       valuesCount_one: 'iye {{count}}',
       valuesCount_other: 'iye {{count}}',
@@ -5461,6 +5437,7 @@ export const yo = {
     closeBackdropLabel: 'Padé ìkìlọ̀'
   },
   objectiveConfirmation: {
+    changeAnytime: 'O lè yí àfojúsùn rẹ padà nígbàkúgbà.',
     cycle: {
       title: 'Dáadáa! 🎉',
       description: 'O ti yan ìtọpinpin ìyípo oṣù àtètèkọ́ṣe.',
@@ -6563,7 +6540,7 @@ export const yo = {
         all: 'Gbogbo',
         medical: 'Ìṣègùn',
         religious: 'Ẹ̀sìn',
-        featured: 'Àṣàyàn'
+        favorites: 'Àwọn ààyò'
       },
       categoryTiles: {
         firstPeriod: {
@@ -7193,6 +7170,8 @@ export const yo = {
     resolvingLocation: 'Ń wá ibùdó rẹ…',
     noPositionSelected: 'A kò yan ibùdó kankan',
     positionSelectedOnMap: 'A yan ibùdó lórí àwòrán ilẹ̀',
+    selectedTitle: 'Ibi tí a yàn',
+    selectedHint: 'A ó lo ipò yìí láti ṣírò àkókò àdúrà rẹ.',
     noCityFoundHere: 'A kò rí ìlú kankan níbí.',
     noResultsFound: 'A kò rí àbájáde kankan.',
     mapsNotConfigured: 'Ṣètò kọ́kọ́rọ́ àwòrán ilẹ̀ láti mú àwòrán ilẹ̀ ṣiṣẹ́.',
@@ -7209,7 +7188,8 @@ export const yo = {
       permissionDeny: 'Kọ̀',
       configureMapKeyFirst: 'Kọ́kọ́ ṣètò kọ́kọ́rọ́ àwòrán ilẹ̀.',
       permissionDeniedError: 'Gba ìwọlé sí ibùdó láàyè nínú Settings láti lo ibùdó rẹ.',
-      positionUnavailable: 'Ibùdó kò sí. Ṣàyẹ̀wò pé GPS ti tàn.'
+      positionUnavailable: 'Ibùdó kò sí. Ṣàyẹ̀wò pé GPS ti tàn.',
+      timeout: 'Wíwá ibi tí o wà gba àkókò gígùn jù. Ṣàyẹ̀wò ìsọfúnni tàbí GPS, kí o tún gbìyànjú.'
     },
     errors: {
       generic: 'A kò lè mọ ibùdó yìí ní àkókò yìí.',
@@ -7260,9 +7240,10 @@ export const yo = {
     },
     spiritual: {
       title: 'Ṣé o fẹ́ mú àwọn àmì\nẹ̀mí ṣiṣẹ́?',
-      subtitle: 'Kàlẹ́ńdà Hijri, àdúrà, ààwẹ̀, ipò ìmọ́…\nO lè yí yíyàn yìí padà nígbàkúgbà.',
+      subtitle: 'O lè yí yíyàn yìí padà nígbàkúgbà.',
       enable: 'Bẹ́ẹ̀ ni, mú ṣiṣẹ́',
       disable: 'Rárá, kì í ṣe báyìí',
+      includesLabel: 'Ohun tó ń mú ṣiṣẹ́',
       featureHijri: 'Kàlẹ́ńdà Hijri',
       featurePrayers: 'Àdúrà àti ipò ìmọ́',
       featureFasting: 'Ààwẹ̀ (Ramadan, ọjọ́ ìsanpadà)',
@@ -7427,16 +7408,14 @@ export const yo = {
       orContinueWith: 'tàbí tẹ̀síwájú pẹ̀lú',
       continueWithGoogle: 'Tẹ̀síwájú pẹ̀lú Google',
       continueWithApple: 'Tẹ̀síwájú pẹ̀lú Apple',
-      continueWithEmail: 'Tẹ̀síwájú pẹ̀lú àdírẹ́sì ímeèlì',
-      useAnonymousMode: 'Lo AWA ní ipò aláìlórúkọ',
-      anonymousMode: 'Ipò aláìlórúkọ',
-      legalTerms: 'Àwọn Ìlànà Lílò àti Ìlànà Àṣírí wa.',
+      continueWithEmail: 'Tẹ̀síwájú pẹ̀lú àdírẹ́sì ímeèlì',legalTerms: 'Àwọn Ìlànà Lílò àti Ìlànà Àṣírí wa.',
       createAccount: 'Ṣí àkọọ́lẹ̀ mi'
     },
     login: {
       tagline: 'Fún ìgbésí ayé tó ní ìdọ́gba,\nní gbogbo ìgbésẹ̀.',
       emailPlaceholder: 'Àdírẹ́sì ímeèlì',
       passwordPlaceholder: 'Ọ̀rọ̀ aṣínà',
+      passwordFieldPlaceholder: 'Tẹ ọ̀rọ̀ aṣínà rẹ sí',
       forgotPassword: 'Ṣé o gbàgbé ọ̀rọ̀ aṣínà?',
       submit: 'Wọlé',
       legalPrefix: 'Nípa títẹ̀síwájú, o gbà pẹ̀lú'
@@ -7479,112 +7458,7 @@ export const yo = {
       helpModalCta: 'Mo ti gbọ́',
       helpModalCloseAccessibility: 'Padé'
     }
-  },
-  anonymous: {
-    mode: {
-      headerTitle: 'Ipò aláìlórúkọ',
-      headerSubtitle: 'Àṣírí',
-      illustrationA11y: 'Àwòrán ipò aláìlórúkọ',
-      activeTitle: 'Ipò aláìlórúkọ wà ní títàn',
-      activeSubtitle: 'Profile rẹ kò ní jẹ́ mímọ̀ mọ́ ẹni tí ìwọ jẹ́ nígbà tí ipò yìí bá ń ṣiṣẹ́.',
-      nothingKeptTitle: 'A kò pa nǹkankan mọ́',
-      nothingKeptSubtitle: 'A kò so ìwífún yìí mọ́ profile aláìlórúkọ rẹ.',
-      retentionEmail: 'Ímeèlì',
-      retentionName: 'Orúkọ',
-      retentionTechnical: 'Àwọn àmì ìdánimọ̀ ẹ̀rọ',
-      notRetained: 'A kò pa á mọ́',
-      appLockA11y: 'Ìtìpa ohun èlò',
-      appLockTitle: 'Ìtìpa ohun èlò',
-      appLockText: 'Kóòdù PIN tàbí biometrics nígbà tí a bá ṣí AWA',
-      appLockEnabled: 'Ó wà ní títàn',
-      appLockDisabled: 'Ó wà ní pípa',
-      disableTitle: 'Pa ipò aláìlórúkọ',
-      disableText: 'Láti jáde kúrò ní ipò aláìlórúkọ, o lè ṣí àkọọ́lẹ̀ kan kí o sì so àdírẹ́sì ímeèlì tàbí ID kan mọ́ ọn.',
-      pitchTitle: 'Lo AWA ní ipò aláìlórúkọ',
-      pitchSubtitle: 'Gbádùn àyè AWA rẹ láìsí pé o so ẹni tí ìwọ jẹ́ mọ́ profile rẹ.',
-      identityPrivateTitle: 'Ẹni tí ìwọ jẹ́ wà ní àṣírí',
-      identityPrivateSubtitle: 'A kò nílò ìwífún tó lè dá ọ mọ̀ láti lo ipò yìí.',
-      privacyRowName: 'A kò nílò orúkọ',
-      privacyRowEmail: 'A kò nílò àdírẹ́sì ímeèlì',
-      privacyRowAccount: 'A kò so àkọọ́lẹ̀ Google tàbí Apple kankan mọ́',
-      privacyRowProfile: 'Profile kò ní ìsopọ̀ pẹ̀lú ẹni tí ìwọ jẹ́',
-      infoTitle: 'Ohun tó dára láti mọ̀',
-      infoText: 'Àwọn ẹ̀yà àkọọ́lẹ̀, ìsopọ̀ ìwífún, tàbí ìgbàpadà kan lè ní ààlà ní ipò aláìlórúkọ.',
-      recommendedProtectionTitle: 'Ààbò tí a dámọ̀ràn',
-      recommendedProtectionText: 'O lè dáàbò bo ìwọlé sí AWA pẹ̀lú kóòdù PIN rẹ tàbí biometrics.',
-      continueInAnonymousMode: 'Tẹ̀síwájú ní ipò aláìlórúkọ'
-    },
-    limitations: {
-      headerTitle: 'Kí o tó tẹ̀síwájú',
-      headerSubtitle: 'Ipò aláìlórúkọ',
-      title: 'Kí o tó tẹ̀síwájú',
-      subtitle: 'Ní ipò aláìlórúkọ, àwọn ẹ̀yà tó jẹ mọ́ àkọọ́lẹ̀ kan yóò ní ààlà tàbí kí wọ́n má sí.',
-      recoveryTitle: 'Ìgbàpadà àkọọ́lẹ̀',
-      recoveryText: 'Láìsí àdírẹ́sì ímeèlì tí a so mọ́ ọn, gbígba àkọọ́lẹ̀ rẹ padà lè ní ààlà.',
-      syncTitle: 'Ìsopọ̀ ìwífún',
-      syncText: 'Àwọn ìwífún kan lè má dé sórí àwọn ẹ̀rọ rẹ mìíràn.',
-      communicationsTitle: 'Ìbánisọ̀rọ̀',
-      communicationsText: 'AWA kò ní lè fi ímeèlì tó jẹ mọ́ àkọọ́lẹ̀ aláìlórúkọ rẹ ránṣẹ́ sí ọ.',
-      securityTitle: 'Ààbò tí a dámọ̀ràn',
-      securityText: 'A gbà ọ́ nímọ̀ràn láti mú kóòdù PIN tàbí biometrics ṣiṣẹ́ láti dáàbò bo ìwọlé sí AWA.',
-      acknowledgeLabel: 'Mo lóye bí ipò aláìlórúkọ ṣe ń ṣiṣẹ́.',
-      activate: 'Mú ipò aláìlórúkọ ṣiṣẹ́'
-    },
-    creating: {
-      headerTitle: 'Ń ṣẹ̀dá àyè rẹ',
-      loaderA11y: 'Ń ṣẹ̀dá àyè aláìlórúkọ rẹ',
-      step1: 'Ń múra àyè rẹ sílẹ̀',
-      step2: 'Ń ṣètò àṣírí',
-      step3: 'Ó fẹ́rẹ̀ parí',
-      creatingTitle: 'Ń ṣẹ̀dá àyè aláìlórúkọ rẹ',
-      creatingSubtitle: 'AWA ń múra àyè àṣírí rẹ sílẹ̀, ó sì ń ya profile rẹ kúrò lára ìwífún tó lè dá ọ mọ̀.',
-      errorTitle: 'A kò lè parí ìmúṣiṣẹ́',
-      errorSubtitle: 'Nǹkan kan kò lọ bó ṣe yẹ. O lè gbìyànjú lẹ́ẹ̀kan sí i.',
-      retry: 'Gbìyànjú lẹ́ẹ̀kan sí i',
-      loaderLabel: 'Jọ̀wọ́ dúró',
-      loaderCaption: 'Kò ní pẹ́.',
-      protectionTitle: 'Ń dáàbò bo ẹni tí ìwọ jẹ́',
-      protectionSubtitle: 'AWA ń múra àyè rẹ sílẹ̀ nígbà tó ń lo àwọn ìfẹ́ àṣírí rẹ.',
-      warning: 'Má ṣe pa ohun èlò náà nígbà tí a ń múra àyè rẹ sílẹ̀.'
-    },
-    success: {
-      headerTitle: 'Ipò aláìlórúkọ',
-      title: 'Ipò aláìlórúkọ wà ní títàn',
-      subtitle: 'Profile rẹ kò ní ìsopọ̀ pẹ̀lú ẹni tí ìwọ jẹ́ mọ́. Gbádùn AWA pẹ̀lú àṣírí pípé.',
-      cardTitle: 'Àyè rẹ ti ṣetán',
-      cardSubtitle: 'O lè pa ipò aláìlórúkọ nígbàkúgbà láti Àṣírí àti ààbò.',
-      continue: 'Tẹ̀síwájú',
-      finish: 'Ti parí'
-    },
-    avatar: {
-      headerTitle: 'Ṣe avatar mi ní àdáni',
-      eyebrow: 'PROFILE ALÁÌLÓRÚKỌ RẸ',
-      title: 'Ṣẹ̀dá avatar tó jọ ọ́',
-      subtitle: 'Kàn yan ìrísí àti àwọ̀. A kò nílò fọ́tò ara ẹni.',
-      privateProfile: 'Profile àṣírí',
-      colorSectionTitle: 'Yan àwọ̀',
-      colorSectionDescription: 'Yan àwọ̀ fún avatar rẹ.',
-      colorSwatchA11y: 'Àwọ̀ {{color}}',
-      styleSectionTitle: 'Yan ìrísí rẹ',
-      styleSectionDescription: 'O lè yí i padà lẹ́yìn náà láti inú profile rẹ.',
-      infoTitle: 'Àṣírí rẹ ló kọ́kọ́ jẹ wá lógún',
-      infoText: 'Avatar yìí rọ́pò fọ́tò rẹ nígbà tí ipò aláìlórúkọ bá wà ní títàn. A kò lo fọ́tò gidi kankan fún profile rẹ.',
-      saveAndContinue: 'Fipamọ́, kí o sì tẹ̀síwájú',
-      later: 'Lẹ́yìn náà',
-      saveChanges: 'Fi àwọn àyípadà pamọ́'
-    },
-    avatarStyles: {
-      hijab: 'Avatar pẹ̀lú hijab',
-      glasses: 'Avatar pẹ̀lú awò ojú',
-      hat: 'Avatar pẹ̀lú fìlà',
-      minimal: 'Avatar tó rọrùn',
-      headscarfGlasses: 'Avatar pẹ̀lú ìborí orí àti awò ojú',
-      silhouetteHat: 'Òjìji pẹ̀lú fìlà tó yangàn',
-      turban: 'Avatar pẹ̀lú gèlè',
-      shortHair: 'Avatar pẹ̀lú irun kúkúrú'
-    }
-  },
-  security: {
+  },  security: {
     incorrectCode: 'PIN kò tọ̀nà. Gbìyànjú lẹ́ẹ̀kan sí i.',
     genericError: 'Nǹkan kan kò lọ bó ṣe yẹ. Gbìyànjú lẹ́ẹ̀kan sí i.',
     codesDontMatch: 'Àwọn kóòdù kò dọ́gba. Bẹ̀rẹ̀ lẹ́ẹ̀kan sí i.',
@@ -7664,8 +7538,8 @@ export const yo = {
   privacySecurity: {
     backA11y: 'Padà',
     title: 'Àṣírí àti Ààbò',
-    subtitle: 'Ìwífún rẹ, àṣírí rẹ, yíyàn rẹ 💜',
-    introTitle: 'Ìwọ ni o ń darí 🔒',
+    subtitle: 'Ìwífún rẹ, àṣírí rẹ, yíyàn rẹ',
+    introTitle: 'Ìwọ ni o ń darí',
     introText: 'Ṣàkóso àṣírí ìwífún rẹ, kí o sì yan àwọn ààbò tó bá ọ mu.',
     sectionAccess: 'Ìwọlé àti ààbò',
     pinTitle: 'Kóòdù PIN',
@@ -7686,10 +7560,7 @@ export const yo = {
     intimacySubtitle: 'Tì apá Ìgbésí ayé ìbálòpọ̀',
     privateContentTitle: 'Ààbò Àkọsílẹ̀ / Fọ́tò àṣírí',
     privateContentSubtitle: 'Tì àwọn àkọsílẹ̀ àti fọ́tò ara ẹni rẹ',
-    sectionAccount: 'Àkọọ́lẹ̀ àti ìwífún',
-    anonymousTitle: 'Ipò aláìlórúkọ',
-    anonymousSubtitle: 'Lo ohun èlò náà láìsọ ẹni tí ìwọ jẹ́',
-    dataManagementTitle: 'Ìṣàkóso ìwífún',
+    sectionAccount: 'Àkọọ́lẹ̀ àti ìwífún',dataManagementTitle: 'Ìṣàkóso ìwífún',
     dataManagementSubtitle: 'Wo, kó jáde, tàbí pa ìwífún rẹ rẹ́',
     deleteAccountTitle: 'Pa àkọọ́lẹ̀ mi rẹ́',
     deleteAccountSubtitle: 'Pa àkọọ́lẹ̀ àti ìwífún rẹ rẹ́ pátápátá',
@@ -7930,76 +7801,7 @@ export const yo = {
       doubleLabel: 'Méjèèjì',
       doubleDetail: 'Gregorian + Hijri'
     }
-  },
-  generalHealth: {
-    title: 'Ìlera gbogbogbò',
-    subtitle: 'Gbogbo ìwífún ìlera rẹ ní ibi kan',
-    privacyTitle: 'Àṣírí ni ìwífún rẹ',
-    privacyText: 'A ń lò ó láti ṣe àkọsílẹ̀ AWA rẹ ní ọ̀nà tí ó bá ọ mu, o sì lè yí i padà nígbàkúùgbà.',
-    physicalSectionTitle: 'Ìwífún nípa ara',
-    physicalSectionSubtitle: 'Àwọn ìwọ̀n pàtàkì rẹ',
-    heightLabel: 'Gíga',
-    weightLabel: 'Ìwọ̀n ara lọ́wọ́lọ́wọ́',
-    bmiLabel: 'BMI',
-    bloodTypeLabel: 'Irú ẹ̀jẹ̀',
-    lastUpdateLabel: 'Àtúnṣe ìkẹyìn',
-    medicalSectionTitle: 'Ìwífún nípa ìṣègùn',
-    medicalSectionSubtitle: 'Ìwífún pàtàkì láti ní lọ́wọ́',
-    chronicConditionsTitle: 'Àìsàn onígbàgbà',
-    chronicConditionsHelper: 'Tẹ̀ láti fi kún tàbí yípadà',
-    chronicConditionsEmpty: 'A kò kọ àìsàn onígbàgbà kankan sílẹ̀',
-    treatmentsTitle: 'Ìtọ́jú lọ́wọ́lọ́wọ́',
-    treatmentsHelper: 'Orúkọ, ìwọ̀n oògùn, tàbí ìgbà tí a ń lò ó',
-    treatmentsEmpty: 'A kò kọ ìtọ́jú kankan sílẹ̀',
-    allergiesTitle: 'Aleji',
-    allergiesHelper: 'Oògùn, oúnjẹ, tàbí òmíràn',
-    allergiesEmpty: 'A kò kọ aleji kankan sílẹ̀',
-    notesTitle: 'Àkọsílẹ̀ ìṣègùn',
-    notesHelper: 'Ìwífún ara ẹni mìíràn',
-    notesEmpty: 'A kò fi àkọsílẹ̀ ìṣègùn kankan kún un',
-    goalsSectionTitle: 'Àfojúsùn ìlera',
-    goalsSectionSubtitle: 'Àfojúsùn rẹ lọ́wọ́lọ́wọ́',
-    currentGoalLabel: 'Àfojúsùn mi lọ́wọ́lọ́wọ́',
-    inProgress: 'Ó ń lọ lọ́wọ́',
-    infoCardText: 'O lè yí gbogbo ìwífún yìí padà nígbàkúùgbà.',
-    toastUpdated: 'A ti ṣe àtúnṣe ìwífún',
-    errors: {
-      invalidPositiveValue: 'Fi iye tó tọ́ tí ó ju òdo lọ sílẹ̀.',
-      invalidHeight: 'Fi gíga láàrín 80 àti 250 cm sílẹ̀.',
-      invalidWeight: 'Fi ìwọ̀n láàrín 20 àti 400 kg sílẹ̀.',
-      treatmentNameRequired: 'Kọ orúkọ ìtọ́jú náà.'
-    },
-    editHeightTitle: 'Ṣàtúnṣe gíga mi',
-    editWeightTitle: 'Ṣàtúnṣe ìwọ̀n ara mi',
-    updateInfoSubtitle: 'Ṣàtúnṣe ìwífún yìí.',
-    heightInCm: 'Gíga ní sẹ́ǹtímítà',
-    weightInKg: 'Ìwọ̀n ara ní kìlógíráàmù',
-    bloodTypeSheetTitle: 'Irú ẹ̀jẹ̀',
-    bloodTypeSheetSubtitle: 'Yan irú ẹ̀jẹ̀ rẹ tí o bá mọ̀ ọ́n.',
-    conditionsSheetSubtitle: 'Yan àwọn àìsàn tí o mọ̀. O lè yan ju ọ̀kan lọ.',
-    allergiesSheetSubtitle: 'Yan àwọn aleji tí o mọ̀. O lè yan ju ọ̀kan lọ.',
-    otherInfoLabel: 'Ìwífún mìíràn',
-    otherInfoPlaceholder: 'Fi ìwífún mìíràn kún un (àṣàyàn)',
-    treatmentsSheetSubtitle: 'Fi àwọn ìtọ́jú tí ò ń lò lọ́wọ́lọ́wọ́ kún un.',
-    newTreatmentLabel: 'Ìtọ́jú tuntun',
-    treatmentPlaceholder: 'Àpẹẹrẹ: Iron 20 mg, ní àràárọ̀ gbogbo',
-    addTreatmentAccessibility: 'Fi ìtọ́jú kún un',
-    treatmentsAddedTitle: 'Àwọn ìtọ́jú tí a fi kún un',
-    noTreatmentAdded: 'A kò fi ìtọ́jú kankan kún un.',
-    notesSheetSubtitle: 'Fi ìwífún tí o fẹ́ pamọ́ nìkan kún un.',
-    notesPlaceholder: 'Kọ ìwífún pàtàkì rẹ síbí...',
-    goalSheetTitle: 'Àfojúsùn ìlera mi',
-    goalSheetSubtitle: 'Yan àfojúsùn tí ó bá àkọsílẹ̀ rẹ lọ́wọ́lọ́wọ́ mu jù.',
-    personalProgressLabel: 'Ìlọsíwájú ara ẹni:',
-    bmiClasses: {
-      insufficientData: 'Ìwífún kò tó',
-      underweight: 'Ìwọ̀n ara kéré jù',
-      normal: 'Déédé',
-      overweight: 'Ìwọ̀n ara pọ̀ jù',
-      obese: 'Sanra jọ̀kọ̀tọ̀'
-    }
-  },
-  appearanceThemes: {
+  },  appearanceThemes: {
     "awa-original": 'Ìrọ̀rùn àti ìṣọ̀kan',
     "lavender-night": 'Ẹlẹ́wà àti ìtùnú',
     "rose-quartz": 'Ìrọ̀rùn àti ti obìnrin',
@@ -8579,7 +8381,10 @@ export const yo = {
     cycleSleepFeeling: {
       rested: 'Ara balẹ̀',
       average: 'Déédé',
-      tired: 'Àárẹ̀ mú mi'
+      tired: 'Àárẹ̀ mú mi',
+      none: 'Rárá',
+      light: 'Fúyẹ́',
+      aLot: 'Líle',
     },
     cycleActivityType: {
       walking: 'Rírìn',
