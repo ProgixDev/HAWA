@@ -238,7 +238,7 @@ describe('Premium affordance on cards and lists', () => {
         renderer = ReactTestRenderer.create(
           <SafeAreaProvider initialMetrics={TEST_METRICS}>
             <AwaThemeProvider>
-              <ObjectiveArticlesSection objective={objective} onOpenArticle={onOpenArticle} onSeeAll={jest.fn()} />
+              <ObjectiveArticlesSection objective={objective} onOpenArticle={onOpenArticle} onOpenCategory={jest.fn()} onSeeAll={jest.fn()} />
             </AwaThemeProvider>
           </SafeAreaProvider>,
         );

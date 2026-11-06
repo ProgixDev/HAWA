@@ -3801,11 +3801,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   relatedRow: {gap: 12, paddingHorizontal: 20, paddingTop: 16, paddingBottom: 4},
   relatedCard: {
     width: 230,
-    minHeight: 105,
+    height: 112,
     flexDirection: 'row',
     overflow: 'hidden',
   },
-  relatedImage: {width: 80, alignSelf: 'stretch'},
+  relatedImage: {width: 80, height: '100%'},
   relatedCopy: {flex: 1, padding: 12},
   relatedMeta: {marginTop: 8},
   });

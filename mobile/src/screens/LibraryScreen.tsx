@@ -6,10 +6,7 @@ import React, {
   useState,
 } from 'react';
 import {
-  Animated,
-  Easing,
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   StatusBar,
@@ -24,13 +21,11 @@ import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
-import {CYCLE_PHASES_HERO, resolveEditorialImage} from '../i18n/editorialImages';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
   getLibraryArticles,
   LIBRARY_ARTICLES,
-  type LibraryArticle,
   type LibraryCategoryId,
   type TranslateFn,
 } from '../data/libraryContent';
@@ -41,7 +36,6 @@ import {
 } from '../state/onboardingPreferences';
 import {
   getLibraryConfigForObjective,
-  OBJECTIVE_LABELS,
   type LibraryGroupId,
 } from '../data/libraryObjectiveConfig';
 import {
@@ -56,16 +50,13 @@ import {
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {lowerCaseFor} from '../utils/textCase';
-import {libraryTabScrollOffset, planLibraryTabs} from './libraryTabsLayout';
 import {AwaButton} from '../components/ui/AwaButton';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
-import {AwaCard} from '../components/ui/AwaCard';
 import BookmarkButton from '../components/library/BookmarkButton';
+import {getArticleThumbnail} from '../data/libraryCovers';
+import LibraryCategorySheet from '../components/library/LibraryCategorySheet';
 import {
-  interpolateHex,
-  onPrimaryTextColor,
-  pickReadableTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
@@ -105,109 +96,6 @@ const ART = {
   calendar: require('../assets/images/library/pregnancy.png'),
 } satisfies Record<string, ImageSourcePropType>;
 
-// Thumbnail shown for an article outside "À la une"
-const getArticleThumbnail = (
-  categoryId: LibraryCategoryId,
-): ImageSourcePropType => {
-  switch (categoryId) {
-    case 'cycle':
-      return ART.phases;
-
-    case 'nutrition':
-      return ART.nutrition;
-
-    case 'flow':
-      return ART.flow;
-
-    case 'pain':
-      return ART.pain;
-
-    case 'symptoms':
-      return ART.symptoms;
-
-    case 'cervicalMucus':
-      return ART.cervicalMucus;
-
-    case 'fertility':
-    case 'ovulation':
-    case 'basalTemperature':
-    case 'lhTests':
-    case 'conceptionTips':
-      return ART.fertility;
-
-    case 'birthControlPills':
-    case 'patch':
-    case 'ring':
-    case 'hormonalTreatments':
-    case 'missedPills':
-    case 'sideEffects':
-      return ART.hormonal;
-
-    case 'pcos':
-    case 'hormones':
-    case 'acne':
-      return ART.sopk;
-
-    case 'weight':
-      return ART.balance;
-
-    case 'exercise':
-      return ART.exercise;
-
-    case 'sleep':
-      return ART.sleep;
-
-    case 'emotionalHealth':
-      return ART.postpartum;
-
-    case 'pregnancyWeekly':
-    case 'babyDevelopment':
-    case 'childbirthPrep':
-      return ART.pregnancy;
-
-    case 'medicalExams':
-      return ART.calendar;
-
-    case 'postpartumRecovery':
-    case 'lochia':
-    case 'nifas':
-    case 'breastfeeding':
-      return ART.postpartum;
-
-    case 'menopause':
-    case 'hotFlashes':
-    case 'bones':
-    case 'treatments':
-      return ART.lifestyle;
-
-    case 'mood':
-    case 'hydration':
-      return ART.cycle;
-
-    case 'physicalRecoveryLoss':
-    case 'emotionalRecoveryLoss':
-    case 'fertilityAfterLoss':
-      return ART.miscarriage;
-
-    case 'firstPeriod':
-      return ART.flower;
-
-    case 'fiqhWomen':
-    case 'menstruationPurity':
-    case 'istihada':
-    case 'nifasFiqh':
-    case 'ramadan':
-    case 'fastingQadaa':
-    case 'prayerDuringMenstruation':
-    case 'returningToPrayer':
-    case 'religiousFaq':
-      return ART.spiritual;
-
-    default:
-      return ART.flower;
-  }
-};
-
 type Props = NativeStackScreenProps<
   RootStackParamList,
   'Library'
@@ -217,7 +105,7 @@ type TabId =
   | 'all'
   | 'medical'
   | 'religious'
-  | 'featured';
+  | 'favorites';
 
 function getTabs(t: TranslateFn): {
   id: TabId;
@@ -241,9 +129,9 @@ function getTabs(t: TranslateFn): {
       icon: 'moon-waning-crescent',
     },
     {
-      id: 'featured',
-      label: t('library.screen.tabs.featured'),
-      icon: 'star-outline',
+      id: 'favorites',
+      label: t('library.screen.tabs.favorites'),
+      icon: 'bookmark-outline',
     },
   ];
 }
@@ -409,64 +297,14 @@ function getCategories(t: TranslateFn): CategoryCard[] {
   }));
 }
 
-// Each entry's own translated title (library.articles.<id>.title) is
-// identical to the underlying article's title — see articleById — so it is
-// looked up from there rather than duplicated as a separate literal here.
-const POPULAR = [
-  {
-    id: 'cycle-phases-expliquees',
-    image: CYCLE_PHASES_HERO,
-    duration: 6,
-  },
-  {
-    id: 'flow-comprendre-flux',
-    image: ART.flow,
-    duration: 5,
-  },
-  {
-    id: 'nutrition-conception-fertilite',
-    image: ART.nutrition,
-    duration: 4,
-  },
-];
-
-function SectionTitle({
-  title,
-  action,
-  onPress,
-  styles,
-}: {
-  title: string;
-  action?: string;
-  onPress?: () => void;
-  styles: ReturnType<typeof createStyles>;
-}) {
-  const {t} = useTranslation();
-
-  return (
-    <View style={styles.sectionHeading}>
-      <AwaText style={styles.sectionTitle} variant="titleMedium">
-        {title}
-      </AwaText>
-
-      {action ? (
-        <AwaButton
-          accessibilityLabel={t('library.screen.sectionActionA11y', {action, title})}
-          hitSlop={10}
-          label={action}
-          onPress={onPress}
-          size="compact"
-          variant="text"
-        />
-      ) : null}
-    </View>
-  );
-}
+// Articles listed before "Voir tout" asks for more.
+const PAGE_SIZE = 20;
 
 function LibraryScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(
     () => createStyles(theme),
@@ -481,27 +319,6 @@ function LibraryScreen({
 
   const scrollRef = useRef<ScrollView>(null);
 
-  const tabProgress = useRef(
-    new Animated.Value(0),
-  ).current;
-
-  const objectiveFade = useRef(
-    new Animated.Value(1),
-  ).current;
-
-  const [tabsWidth, setTabsWidth] = useState(0);
-
-  // Natural single-line width of each tab (icon + label + padding), measured on a hidden row, so no label ever has to wrap: see
-  // libraryTabsLayout.ts. Re-measured whenever the labels change (language) or the font scale changes (the row is re-laid out).
-  const [tabNaturalWidths, setTabNaturalWidths] = useState<number[]>([]);
-
-  const tabScrollRef = useRef<ScrollView>(null);
-
-  const tabsPlan = useMemo(
-    () => planLibraryTabs({containerWidth: tabsWidth, naturalWidths: tabNaturalWidths, count: tabs.length}),
-    [tabsWidth, tabNaturalWidths, tabs.length],
-  );
-
   const [objective, setObjective] =
     useState<ObjectiveId>(
       () => getSelectedObjective(),
@@ -515,15 +332,15 @@ function LibraryScreen({
   const [activeTab, setActiveTab] =
     useState<TabId>('all');
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryCard | null>(null);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>(() =>
+    route.params?.categoryId ? [route.params.categoryId] : [],
+  );
 
-  const [searchOpen, setSearchOpen] =
-    useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const [search, setSearch] = useState('');
 
-  const [showAll, setShowAll] = useState(false);
+  const [limit, setLimit] = useState(PAGE_SIZE);
 
   const [bookmarks, setBookmarks] =
     useState<Set<string>>(new Set());
@@ -537,42 +354,6 @@ function LibraryScreen({
       );
     }, []),
   );
-
-  useEffect(() => {
-    const index = tabs.findIndex(
-      tab => tab.id === activeTab,
-    );
-
-    Animated.timing(tabProgress, {
-      toValue: Math.max(index, 0),
-      duration: 260,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: true,
-    }).start();
-  }, [activeTab, tabProgress, tabs]);
-
-  // A scrolling strip keeps the active tab in view.
-  useEffect(() => {
-    if (!tabsPlan.scrollable || tabsPlan.itemWidth === null || tabsPlan.contentWidth === null) {
-      return;
-    }
-    const index = Math.max(tabs.findIndex(tab => tab.id === activeTab), 0);
-    tabScrollRef.current?.scrollTo({
-      x: libraryTabScrollOffset({index, itemWidth: tabsPlan.itemWidth, innerWidth: tabsPlan.innerWidth, contentWidth: tabsPlan.contentWidth}),
-      animated: true,
-    });
-  }, [activeTab, tabs, tabsPlan]);
-
-  useEffect(() => {
-    objectiveFade.setValue(0);
-
-    Animated.timing(objectiveFade, {
-      toValue: 1,
-      duration: 360,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: true,
-    }).start();
-  }, [objective, objectiveFade]);
 
   useEffect(() => {
     let mounted = true;
@@ -605,17 +386,6 @@ function LibraryScreen({
     [t],
   );
 
-  const articleById = useMemo(
-    () =>
-      new Map(
-        translatedArticles.map(article => [
-          article.id,
-          article,
-        ]),
-      ),
-    [translatedArticles],
-  );
-
   const libraryConfig = useMemo(
     () =>
       getLibraryConfigForObjective(
@@ -623,24 +393,6 @@ function LibraryScreen({
       ),
     [objective],
   );
-
-  const recommendedArticles = useMemo(
-    () =>
-      libraryConfig.recommendedArticleIds
-        .map(id => articleById.get(id))
-        .filter(
-          (
-            article,
-          ): article is LibraryArticle =>
-            Boolean(article),
-        ),
-    [articleById, libraryConfig],
-  );
-
-  const featuredArticle =
-    articleById.get(
-      libraryConfig.featuredArticleId,
-    ) ?? recommendedArticles[0];
 
   const objectiveArticles = useMemo(() => {
     const priority = new Map(
@@ -671,13 +423,6 @@ function LibraryScreen({
 
         if (
           religious &&
-          activeTab !== 'religious'
-        ) {
-          return false;
-        }
-
-        if (
-          religious &&
           !spiritualEnabled
         ) {
           return false;
@@ -698,17 +443,18 @@ function LibraryScreen({
         }
 
         if (
-          activeTab === 'featured' &&
-          article.id !==
-            'cycle-phases-expliquees'
+          activeTab === 'favorites' &&
+          !bookmarks.has(article.id)
         ) {
           return false;
         }
 
         if (
-          selectedCategory &&
-          !selectedCategory.articleCategoryIds.includes(
-            article.categoryId,
+          selectedCategoryIds.length > 0 &&
+          !categories.some(
+            category =>
+              selectedCategoryIds.includes(category.id) &&
+              category.articleCategoryIds.includes(article.categoryId),
           )
         ) {
           return false;
@@ -724,10 +470,11 @@ function LibraryScreen({
     );
   }, [
     activeTab,
+    bookmarks,
     categories,
     objectiveArticles,
     search,
-    selectedCategory,
+    selectedCategoryIds,
     spiritualEnabled,
   ]);
 
@@ -756,25 +503,10 @@ function LibraryScreen({
     spiritualEnabled,
   ]);
 
-  const visibleCategories =
-    orderedCategories.filter(
-      category => {
-        if (activeTab === 'medical') {
-          return (
-            category.contentType === 'medical'
-          );
-        }
-
-        if (activeTab === 'religious') {
-          return (
-            category.contentType ===
-            'religious'
-          );
-        }
-
-        return true;
-      },
-    );
+  const categoryLabelFor = (articleCategoryId: LibraryCategoryId) =>
+    categories
+      .find(category => category.articleCategoryIds.includes(articleCategoryId))
+      ?.label.replace('\n', ' ') ?? '';
 
   const openArticle = (id: string) =>
     navigation.navigate('ArticleReader', {
@@ -791,34 +523,7 @@ function LibraryScreen({
     );
   };
 
-  const chooseCategory = (
-    category: CategoryCard,
-  ) => {
-    setSelectedCategory(category);
-
-    setActiveTab(
-      category.contentType === 'religious'
-        ? 'religious'
-        : 'medical',
-    );
-
-    setShowAll(true);
-
-    requestAnimationFrame(() => {
-      scrollRef.current?.scrollToEnd({
-        animated: true,
-      });
-    });
-  };
-
   const chooseTab = (tab: TabId) => {
-    if (tab === 'featured') {
-      navigation.navigate(
-        'FeaturedArticles',
-      );
-      return;
-    }
-
     if (
       tab === 'religious' &&
       !spiritualEnabled
@@ -827,8 +532,7 @@ function LibraryScreen({
     }
 
     setActiveTab(tab);
-    setSelectedCategory(null);
-    setShowAll(tab === 'religious');
+    setLimit(PAGE_SIZE);
   };
 
   return (
@@ -850,6 +554,7 @@ function LibraryScreen({
             ),
             paddingBottom: getBottomPadding(
               insets.bottom,
+              32,
             ),
           },
         ]}
@@ -859,594 +564,155 @@ function LibraryScreen({
           <AwaIconButton
             accessibilityLabel={t('library.screen.backA11y')}
             icon="chevron-left"
-            onPress={() =>
-              navigation.goBack()
-            }
+            onPress={() => navigation.goBack()}
             variant="tonal"
           />
 
-          <View style={styles.headerCopy}>
-            <AwaText variant="headlineMedium">
-              {t('library.screen.title')}
-            </AwaText>
+          <Text accessibilityRole="header" numberOfLines={1} style={styles.title}>
+            {t('library.screen.title')}
+          </Text>
+        </View>
 
-            <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">
-              {t('library.screen.subtitle')}
-            </AwaText>
-          </View>
+        <View style={styles.searchField}>
+          <MaterialDesignIcons color={theme.colors.textMuted} name="magnify" size={20} />
 
-          <AwaIconButton
+          <TextInput
             accessibilityLabel={t('library.screen.searchA11y')}
-            icon={searchOpen ? 'close' : 'magnify'}
-            onPress={() =>
-              setSearchOpen(value => !value)
-            }
-            selected={searchOpen}
-            variant="tonal"
+            onChangeText={value => {
+              setSearch(value);
+              setLimit(PAGE_SIZE);
+            }}
+            placeholder={t('library.screen.searchPlaceholder')}
+            placeholderTextColor={theme.colors.textMuted}
+            returnKeyType="search"
+            style={styles.searchInput}
+            value={search}
           />
+
+          {search ? (
+            <Pressable
+              accessibilityLabel={t('library.screen.emptyReset')}
+              hitSlop={10}
+              onPress={() => setSearch('')}>
+              <MaterialDesignIcons color={theme.colors.textMuted} name="close-circle" size={18} />
+            </Pressable>
+          ) : null}
+
+          <Pressable
+            accessibilityLabel={t('library.screen.categoriesTitle')}
+            hitSlop={8}
+            onPress={() => setSheetOpen(true)}
+            style={styles.filterButton}>
+            <MaterialDesignIcons color={theme.colors.textSecondary} name="tune-variant" size={22} />
+            {selectedCategoryIds.length > 0 ? <View style={styles.filterDot} /> : null}
+          </Pressable>
         </View>
 
-        {searchOpen ? (
-          <View style={styles.searchField}>
-            <MaterialDesignIcons
-              color={theme.colors.textMuted}
-              name="magnify"
-              size={19}
-            />
+        <View accessibilityRole="tablist" style={styles.tabsRow}>
+          {tabs.map(tab => {
+            const selected = activeTab === tab.id;
 
-            <TextInput
-              autoFocus
-              onChangeText={setSearch}
-              placeholder={t('library.screen.searchPlaceholder')}
-              placeholderTextColor={theme.colors.textMuted}
-              style={styles.searchInput}
-              value={search}
-            />
-          </View>
-        ) : null}
-
-        <View
-          onLayout={event =>
-            setTabsWidth(
-              event.nativeEvent.layout.width,
-            )
-          }
-          style={styles.tabs}>
-          {/* Hidden measuring row: the natural one-line width of every tab (widest weight), never shown or announced. */}
-          <View
-            accessibilityElementsHidden
-            importantForAccessibility="no-hide-descendants"
-            pointerEvents="none"
-            style={styles.tabMeasureRow}>
-            {tabs.map((tab, index) => (
-              <View
+            return (
+              <Pressable
                 key={tab.id}
-                onLayout={event => {
-                  const width = event.nativeEvent.layout.width;
-                  setTabNaturalWidths(previous =>
-                    previous[index] !== undefined && Math.abs(previous[index] - width) < 0.5
-                      ? previous
-                      : Object.assign([...previous], {[index]: width}),
-                  );
-                }}
-                style={styles.tabMeasureItem}>
-                <MaterialDesignIcons name={tab.icon as any} size={14} color="transparent" />
-                <AwaText emphasized numberOfLines={1} style={styles.tabText} variant="labelMedium">
+                accessibilityRole="tab"
+                accessibilityState={{selected}}
+                onPress={() => chooseTab(tab.id)}
+                style={styles.tab}>
+                <Text
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.8}
+                  numberOfLines={1}
+                  style={[styles.tabText, selected && styles.tabTextActive]}>
                   {tab.label}
-                </AwaText>
-              </View>
-            ))}
-          </View>
-
-          <ScrollView
-            ref={tabScrollRef}
-            bounces={false}
-            horizontal
-            overScrollMode="never"
-            scrollEnabled={tabsPlan.scrollable}
-            showsHorizontalScrollIndicator={false}
-            // the active-tab pill (translateX) and scrollTo({x}) are computed from the left edge: the strip keeps a left-to-right axis in a right-to-left layout
-            style={[styles.tabsScroll, LTR_AXIS]}>
-            <View style={styles.tabsContent}>
-              {tabsPlan.itemWidth !== null ? (
-                <Animated.View
-                  pointerEvents="none"
-                  style={[
-                    styles.tabIndicator,
-                    {
-                      width: tabsPlan.itemWidth,
-
-                      transform: [
-                        {
-                          translateX: tabProgress.interpolate({
-                            inputRange: tabs.map((_tab, index) => index),
-                            outputRange: tabs.map((_tab, index) => index * (tabsPlan.itemWidth as number)),
-                          }),
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              ) : null}
-
-              {tabs.map(tab => {
-                const active = activeTab === tab.id;
-
-                return (
-                  <Pressable
-                    key={tab.id}
-                    accessibilityRole="tab"
-                    accessibilityState={{
-                      selected: active,
-                    }}
-                    onPress={() => chooseTab(tab.id)}
-                    style={({pressed}) => [
-                      styles.tab,
-                      tabsPlan.itemWidth !== null ? {width: tabsPlan.itemWidth} : styles.tabFlexible,
-                      pressed && styles.tabPressed,
-                    ]}>
-                    <MaterialDesignIcons
-                      name={tab.icon as any}
-                      size={14}
-                      color={
-                        active
-                          ? onPrimaryTextColor(theme)
-                          : theme.colors.textSecondary
-                      }
-                    />
-
-                    <AwaText
-                      color={
-                        active
-                          ? onPrimaryTextColor(theme)
-                          : theme.colors.textSecondary
-                      }
-                      emphasized={active}
-                      numberOfLines={1}
-                      style={styles.tabText}
-                      variant="labelMedium">
-                      {tab.label}
-                    </AwaText>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </ScrollView>
+                </Text>
+                <View style={[styles.tabUnderline, selected && styles.tabUnderlineActive]} />
+              </Pressable>
+            );
+          })}
         </View>
 
-        <SectionTitle
-          title={t('library.screen.categoriesTitle')}
-          action={t('library.screen.seeAll')}
-          onPress={() => {
-            setActiveTab('all');
-            setSelectedCategory(null);
-            setShowAll(true);
-          }}
-          styles={styles}
-        />
-
-        <Animated.View
-          style={[
-            styles.categoryGrid,
-            {
-              opacity: objectiveFade,
-            },
-          ]}>
-          {visibleCategories.map(
-            category => {
-              const selected =
-                selectedCategory?.id ===
-                category.id;
-
-              return (
+        {selectedCategoryIds.length > 0 ? (
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.chipRow}
+            showsHorizontalScrollIndicator={false}
+            style={styles.chipScroll}>
+            {orderedCategories
+              .filter(category => selectedCategoryIds.includes(category.id))
+              .map(category => (
                 <Pressable
                   key={category.id}
                   accessibilityRole="button"
-                  accessibilityState={{
-                    selected,
-                  }}
-                  onPress={() =>
-                    chooseCategory(
-                      category,
-                    )
-                  }
-                  style={({pressed}) => [
-                    styles.categoryCard,
-                    selected &&
-                      styles.categoryCardActive,
-                    pressed &&
-                      styles.categoryCardPressed,
-                  ]}>
-                  <View
-                    style={[
-                      styles.categoryAccent,
-                      selected &&
-                        styles.categoryAccentActive,
-                    ]}
-                  />
-
-                  <View
-                    style={
-                      styles.categoryTopRow
-                    }>
-                    <View
-                      style={[
-                        styles.categoryImageWrap,
-                        selected &&
-                          styles.categoryImageWrapActive,
-                      ]}>
-                      <Image
-                        source={
-                          category.image
-                        }
-                        resizeMode="cover"
-                        style={
-                          styles.categoryImage
-                        }
-                      />
-                    </View>
-
-                    <View
-                      style={[
-                        styles.categoryCountPill,
-                        selected &&
-                          styles.categoryCountPillActive,
-                      ]}>
-                      <Text
-                        style={[
-                          styles.categoryCountPillText,
-                          selected &&
-                            styles.categoryCountPillTextActive,
-                        ]}>
-                        {category.count}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={
-                      styles.categoryTextBlock
-                    }>
-                    <Text
-                      style={[
-                        styles.categoryLabel,
-                        selected &&
-                          styles.categoryLabelActive,
-                      ]}>
-                      {category.label.replace(
-                        '\n',
-                        ' ',
-                      )}
-                    </Text>
-
-                    <View
-                      style={
-                        styles.categoryMetaRow
-                      }>
-                      <Text
-                        style={[
-                          styles.categoryCount,
-                          selected &&
-                            styles.categoryCountActive,
-                        ]}>
-                        {t('library.screen.articlesLabel')}
-                      </Text>
-
-                      <MaterialDesignIcons
-                        name="chevron-right"
-                        size={13}
-                        color={
-                          selected
-                            ? theme.colors.primary
-                            : theme.colors.textSecondary
-                        }
-                      />
-                    </View>
-                  </View>
-                </Pressable>
-              );
-            },
-          )}
-        </Animated.View>
-
-        {activeTab !== 'religious' ? (
-          <>
-            <SectionTitle
-              title={t('library.screen.recommendedTitle')}
-              styles={styles}
-            />
-
-            <Text
-              style={
-                styles.objectiveLabel
-              }>
-              {t('library.screen.currentObjective')}{' '}
-              {OBJECTIVE_LABELS[
-                objective
-              ]}
-            </Text>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={
-                false
-              }
-              contentContainerStyle={
-                styles.recommendedRow
-              }>
-              {recommendedArticles.map(
-                article => (
-                  <AwaCard
-                    key={article.id}
-                    onPress={() =>
-                      openArticle(
-                        article.id,
-                      )
-                    }
-                    padding="none"
-                    style={
-                      styles.recommendedCard
-                    }
-                    variant="filled">
-                    <Image
-                      source={getArticleThumbnail(
-                        article.categoryId,
-                      )}
-                      style={
-                        styles.recommendedImage
-                      }
-                    />
-
-                    <AwaText
-                      emphasized
-                      style={
-                        styles.recommendedTitle
-                      }
-                      variant="labelMedium">
-                      {article.title}
-                    </AwaText>
-
-                    <AwaText
-                      colorRole="onSurfaceVariant"
-                      style={
-                        styles.recommendedMeta
-                      }
-                      variant="labelSmall">
-                      {t('library.screen.durationMin', {count: article.durationMinutes})}
-                    </AwaText>
-                  </AwaCard>
-                ),
-              )}
-            </ScrollView>
-
-            <SectionTitle
-              title={t('library.screen.featuredTitle')}
-              styles={styles}
-            />
-
-            <Pressable
-              onPress={() =>
-                featuredArticle &&
-                openArticle(
-                  featuredArticle.id,
-                )
-              }
-              style={
-                styles.featuredCard
-              }>
-              <ImageBackground
-                source={ART.featured}
-                imageStyle={
-                  styles.featuredImage
-                }
-                style={
-                  styles.featuredBackground
-                }>
-                <View
-                  style={
-                    styles.featuredCopy
-                  }>
-                  <View
-                    style={styles.badge}>
-                    <Text
-                      style={
-                        styles.badgeText
-                      }>
-                      {t('library.screen.featuredBadge')}
-                    </Text>
-                  </View>
-
-                  <Text
-                    numberOfLines={3}
-                    style={
-                      styles.featuredTitle
-                    }>
-                    {featuredArticle?.title}
+                  onPress={() => setSelectedCategoryIds(ids => ids.filter(id => id !== category.id))}
+                  style={styles.chip}>
+                  <Text numberOfLines={1} style={styles.chipText}>
+                    {category.label.replace('\n', ' ')}
                   </Text>
-
-                  <View
-                    style={
-                      styles.durationRow
-                    }>
-                    <MaterialDesignIcons
-                      color={styles.durationText.color}
-                      name="clock-outline"
-                      size={13}
-                    />
-
-                    <Text
-                      style={
-                        styles.durationText
-                      }>
-                      {t('library.screen.durationMinRead', {count: featuredArticle?.durationMinutes ?? 6})}
-                    </Text>
-                  </View>
-
-                  <View
-                    style={
-                      styles.readRow
-                    }>
-                    <Text
-                      style={
-                        styles.readText
-                      }>
-                      {t('library.screen.readArticle')}
-                    </Text>
-
-                  </View>
-                </View>
-              </ImageBackground>
-            </Pressable>
-          </>
+                  <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={14} />
+                </Pressable>
+              ))}
+          </ScrollView>
         ) : null}
-
-        <SectionTitle
-          title={
-            selectedCategory?.label.replace(
-              '\n',
-              ' ',
-            ) ??
-            (activeTab === 'religious'
-              ? t('library.screen.spiritualSectionTitle')
-              : t('library.screen.popularSectionTitle'))
-          }
-          action={t('library.screen.seeAll')}
-          onPress={() =>
-            setShowAll(true)
-          }
-          styles={styles}
-        />
 
         {activeTab === 'religious' ? (
           <View style={styles.infoBox}>
-            <MaterialDesignIcons
-              color={theme.colors.warning}
-              name="information-outline"
-              size={17}
-            />
+            <MaterialDesignIcons color={theme.colors.warning} name="information-outline" size={17} />
 
-            <AwaText
-              style={styles.infoText}
-              variant="bodySmall">
+            <AwaText style={styles.infoText} variant="bodySmall">
               {t('library.screen.religiousInfo')}
             </AwaText>
           </View>
         ) : null}
 
-        {(search.trim() ||
-          selectedCategory ||
-          showAll ||
-          activeTab === 'religious'
-          ? filteredArticles
-              .slice(
-                0,
-                showAll ? 12 : 3,
-              )
-              .map(article => ({
-                article,
-                image:
-                  getArticleThumbnail(
-                    article.categoryId,
-                  ),
-              }))
-          : POPULAR.map(item => ({
-              article:
-                articleById.get(
-                  item.id,
-                ),
-              image: item.image,
-              duration: item.duration,
-            })).filter(
-              item => item.article,
-            )
-        ).map((item, index) => {
-          const article =
-            item.article as LibraryArticle;
+        {filteredArticles.slice(0, limit).map(article => (
+          <Pressable
+            key={article.id}
+            accessibilityRole="button"
+            onPress={() => openArticle(article.id)}
+            style={({pressed}) => [styles.articleRow, pressed && styles.categoryCardPressed]}>
+            <Image resizeMode="cover" source={getArticleThumbnail(article.categoryId, article.id)} style={styles.articleThumb} />
 
-          const title = article.title;
+            <View style={styles.articleCopy}>
+              <AwaText colorRole="onSurfaceVariant" numberOfLines={1} variant="labelMedium">
+                {categoryLabelFor(article.categoryId)}
+              </AwaText>
 
-          const duration =
-            'duration' in item &&
-            item.duration
-              ? item.duration
-              : article.durationMinutes;
+              <AwaText emphasized numberOfLines={2} style={styles.articleTitle} variant="titleSmall">
+                {article.title}
+              </AwaText>
 
-          return (
-            <Pressable
-              key={`${article.id}-${index}`}
-              onPress={() =>
-                openArticle(
-                  article.id,
-                )
-              }
-              style={
-                styles.articleRow
-              }>
-              <Image
-                source={resolveEditorialImage(item.image, i18n.language)}
-                style={
-                  styles.articleThumb
-                }
-              />
+              <View style={styles.durationRow}>
+                <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={12} />
 
-              <View
-                style={styles.articleCopy}>
-                <AwaText
-                  emphasized
-                  numberOfLines={2}
-                  style={
-                    styles.articleTitle
-                  }
-                  variant="titleSmall">
-                  {title}
+                <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
+                  {t('library.screen.durationMinRead', {count: article.durationMinutes})}
                 </AwaText>
-
-                <View
-                  style={
-                    styles.durationRow
-                  }>
-                  <MaterialDesignIcons
-                    color={theme.colors.textSecondary}
-                    name="clock-outline"
-                    size={12}
-                  />
-
-                  <AwaText
-                    colorRole="onSurfaceVariant"
-                    variant="bodySmall">
-                    {t('library.screen.durationMinRead', {count: duration})}
-                  </AwaText>
-                </View>
               </View>
+            </View>
 
-              <BookmarkButton
-                active={bookmarks.has(article.id)}
-                onPress={() =>
-                  toggleSaved(
-                    article.id,
-                  )
-                }
-                size="small"
-              />
-            </Pressable>
-          );
-        })}
-
-        {filteredArticles.length === 0 &&
-        (search ||
-          selectedCategory) ? (
-          <View
-            style={styles.emptyState}>
-            <MaterialDesignIcons
-              color={theme.colors.primary}
-              name="book-search-outline"
-              size={26}
+            <BookmarkButton
+              active={bookmarks.has(article.id)}
+              onPress={() => toggleSaved(article.id)}
             />
+          </Pressable>
+        ))}
 
-            <AwaText
-              emphasized
-              style={styles.emptyTitle}
-              variant="titleSmall">
+        {filteredArticles.length > limit ? (
+          <AwaButton
+            label={t('library.screen.seeAll')}
+            onPress={() => setLimit(value => value + PAGE_SIZE)}
+            size="compact"
+            style={styles.moreAction}
+            variant="text"
+          />
+        ) : null}
+
+        {filteredArticles.length === 0 ? (
+          <View style={styles.emptyState}>
+            <MaterialDesignIcons color={theme.colors.primary} name="book-search-outline" size={26} />
+
+            <AwaText emphasized style={styles.emptyTitle} variant="titleSmall">
               {t('library.screen.emptyTitle')}
             </AwaText>
 
@@ -1454,7 +720,8 @@ function LibraryScreen({
               label={t('library.screen.emptyReset')}
               onPress={() => {
                 setSearch('');
-                setSelectedCategory(null);
+                setSelectedCategoryIds([]);
+                setActiveTab('all');
               }}
               size="compact"
               style={styles.emptyAction}
@@ -1463,38 +730,22 @@ function LibraryScreen({
           </View>
         ) : null}
       </ScrollView>
+
+      <LibraryCategorySheet
+        onApply={ids => {
+          setSelectedCategoryIds(ids);
+          setLimit(PAGE_SIZE);
+        }}
+        onClose={() => setSheetOpen(false)}
+        options={orderedCategories.map(category => ({id: category.id, label: category.label.replace('\n', ' ')}))}
+        selectedIds={selectedCategoryIds}
+        visible={sheetOpen}
+      />
     </View>
   );
 }
 
-// The "À la une" featured card's ImageBackground (featured-cycle.png) is a
-// warm, always-pale photograph, independent of the active AWA theme — its
-// title/metadata must never be theme.colors.text/textSecondary, which
-// become LIGHT colors in Dark mode (correct for a dark surface) and vanish
-// against this always-light photo. Derived via the existing
-// pickReadableTextColor helper against a hex representative of the photo's
-// own tone — the same technique already used for "Retour du cycle"'s hero
-// illustration — never from theme.isDark. The category badge and its text
-// are left untouched: badge already uses onPrimaryTextColor(theme) against
-// its OWN near-opaque background, which is already theme-correct.
-// the active-tab pill and scrollTo({x}) are computed from the left edge: the tab strip keeps a left-to-right axis in a right-to-left layout
-const LTR_AXIS = {direction: 'ltr'} as const;
-
-const FEATURED_CARD_IMAGE_BASE = '#EDE4D6';
-const FEATURED_CARD_TEXT = pickReadableTextColor(FEATURED_CARD_IMAGE_BASE);
-const FEATURED_CARD_TEXT_SECONDARY = interpolateHex(FEATURED_CARD_TEXT, '#FFFFFF', 0.25);
-
 function createStyles(theme: ResolvedAwaTheme) {
-  // The CTA keeps the app's own brand-accent hue rather than the same
-  // near-black as the title — but theme.colors.primary is only readable
-  // here as-is while it is ALREADY a dark tone on its own (checked via
-  // pickReadableTextColor against theme.colors.primary itself, never
-  // theme.isDark): a Dark-variant primary (light, meant for dark surfaces)
-  // is darkened toward black at a fixed ratio instead, preserving its hue.
-  const primaryIsDarkEnoughForFeaturedCard = pickReadableTextColor(theme.colors.primary) === '#FFFFFF';
-  const featuredCtaColor = primaryIsDarkEnoughForFeaturedCard
-    ? theme.colors.primary
-    : interpolateHex(theme.colors.primary, '#000000', 0.55);
 
   return StyleSheet.create({
     screen: {
@@ -1508,30 +759,28 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     headerRow: {
       flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 12,
     },
 
-    headerCopy: {
+    // serif, one line, about 28 px
+    title: {
       flex: 1,
-      marginLeft: 10,
-      paddingTop: 1,
-    },
-
-    subtitle: {
-      marginTop: 4,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 28,
+      lineHeight: 34,
+      fontWeight: '700',
     },
 
     searchField: {
-      minHeight: 48,
+      minHeight: 52,
       marginTop: 16,
       paddingHorizontal: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
+      borderRadius: 26,
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     searchInput: {
@@ -1542,385 +791,126 @@ function createStyles(theme: ResolvedAwaTheme) {
       fontSize: 14,
     },
 
-    tabs: {
-      minHeight: 48,
-      marginTop: 17,
-      padding: 3,
-      flexDirection: 'row',
+    filterButton: {
+      marginLeft: 8,
+      width: 32,
+      height: 32,
       alignItems: 'center',
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surfaceSecondary,
-      overflow: 'hidden',
+      justifyContent: 'center',
     },
 
-    tabsScroll: {
-      flex: 1,
-      alignSelf: 'stretch',
-    },
-
-    tabsContent: {
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      minHeight: 40,
-    },
-
-    tabMeasureRow: {
+    filterDot: {
       position: 'absolute',
-      top: 0,
-      left: 0,
-      width: 4000,
-      flexDirection: 'row',
-      opacity: 0,
-    },
-
-    tabMeasureItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 4,
-      paddingHorizontal: 4,
-      paddingVertical: 4,
-    },
-
-    tabFlexible: {
-      flex: 1,
-    },
-
-    tabIndicator: {
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      bottom: 0,
-      borderRadius: 12,
+      top: 3,
+      right: 3,
+      width: 9,
+      height: 9,
+      borderRadius: 5,
       backgroundColor: theme.colors.primary,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.12,
-      shadowRadius: 5,
-      elevation: 2,
+    },
+
+    // type tabs: four equal columns, text only, a 3 px bar under the active one (no fill, no container)
+    tabsRow: {
+      marginTop: 14,
+      flexDirection: 'row',
     },
 
     tab: {
-      alignSelf: 'stretch',
-      minHeight: 40,
-      zIndex: 2,
-      flexDirection: 'row',
+      flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
-      gap: 4,
-      paddingHorizontal: 4,
-      paddingVertical: 4,
-    },
-
-    tabPressed: {
-      opacity: 0.72,
     },
 
     tabText: {
-      // one line, never shrunk: the tab is as wide as its label (libraryTabsLayout.ts)
-      flexShrink: 0,
-      textAlign: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 14,
+      fontWeight: '600',
     },
 
-    sectionHeading: {
-      marginTop: 21,
-      marginBottom: 10,
+    tabTextActive: {
+      color: theme.colors.primary,
+    },
+
+    tabUnderline: {
+      alignSelf: 'stretch',
+      height: 3,
+      borderRadius: 2,
+      backgroundColor: 'transparent',
+    },
+
+    tabUnderlineActive: {
+      backgroundColor: theme.colors.primary,
+    },
+
+    chipScroll: {
+      marginTop: 12,
+      marginHorizontal: -18,
+    },
+
+    chipRow: {
+      gap: 8,
+      paddingHorizontal: 18,
+    },
+
+    chip: {
+      height: 32,
+      paddingHorizontal: 12,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      gap: 6,
+      borderRadius: 16,
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
-    sectionTitle: {
-      flexShrink: 1,
-    },
-
-    objectiveLabel: {
-      marginTop: -5,
-      marginBottom: 10,
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-    },
-
-    recommendedRow: {
-      gap: 9,
-      paddingBottom: 3,
-    },
-
-    recommendedCard: {
-      width: 140,
-      minHeight: 154,
-      overflow: 'hidden',
-    },
-
-    recommendedImage: {
-      width: '100%',
-      height: 72,
-    },
-
-    recommendedTitle: {
-      paddingHorizontal: 12,
-      marginTop: 8,
-    },
-
-    recommendedMeta: {
-      paddingHorizontal: 12,
-      marginTop: 4,
-      marginBottom: 12,
-    },
-
-    categoryGrid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: 8,
-    },
-
-    categoryCard: {
-      width: '31.6%',
-      minHeight: 108,
-      overflow: 'hidden',
-      paddingHorizontal: 12,
-      paddingTop: 12,
-      paddingBottom: 12,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-      shadowColor: theme.shadow.shadowColor,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.03,
-      shadowRadius: 5,
-      elevation: 1,
-    },
-
-    categoryCardActive: {
-      // No dedicated "active border" token exists yet — closest available
-      // token is `primary` softened with alpha, matching the original
-      // literal's mid-tone lavender-gray read.
-      borderColor: withAlpha(theme.colors.primary, 0.35),
-      backgroundColor: theme.colors.primarySoft,
-      shadowOpacity: 0.055,
-      elevation: 2,
+    chipText: {
+      color: theme.colors.text,
+      fontSize: 13,
+      fontWeight: '600',
     },
 
     categoryCardPressed: {
       opacity: 0.84,
-      transform: [
-        {
-          scale: 0.985,
-        },
-      ],
-    },
-
-    categoryAccent: {
-      position: 'absolute',
-      top: 0,
-      left: 13,
-      right: 13,
-      height: 2,
-      borderBottomLeftRadius: 2,
-      borderBottomRightRadius: 2,
-      backgroundColor: theme.colors.border,
-    },
-
-    categoryAccentActive: {
-      backgroundColor: theme.colors.primary,
-    },
-
-    categoryTopRow: {
-      width: '100%',
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-    },
-
-    categoryImageWrap: {
-      width: 43,
-      height: 43,
-      overflow: 'hidden',
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surfaceSecondary,
-    },
-
-    categoryImageWrapActive: {
-      borderColor: withAlpha(theme.colors.primary, 0.35),
-      backgroundColor: theme.colors.primarySoft,
-    },
-
-    categoryImage: {
-      width: '100%',
-      height: '100%',
-    },
-
-    categoryCountPill: {
-      minWidth: 25,
-      minHeight: 21,
-      paddingHorizontal: 6,
-      borderRadius: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surfaceSecondary,
-    },
-
-    categoryCountPillActive: {
-      borderColor: withAlpha(theme.colors.primary, 0.35),
-      backgroundColor: theme.colors.primarySoft,
-    },
-
-    categoryCountPillText: {
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      fontWeight: '800',
-    },
-
-    categoryCountPillTextActive: {
-      color: theme.colors.primary,
-    },
-
-    categoryTextBlock: {
-      flex: 1,
-      width: '100%',
-      marginTop: 7,
-    },
-
-    categoryLabel: {
-      minHeight: 27,
-      color: theme.colors.text,
-      fontSize: 11,
-      lineHeight: 16,
-      fontWeight: '700',
-    },
-
-    categoryLabelActive: {
-      color: theme.colors.accent,
-    },
-
-    categoryMetaRow: {
-      marginTop: 3,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
-
-    categoryCount: {
-      color: theme.colors.textSecondary,
-      fontSize: 11,
-      fontWeight: '500',
-    },
-
-    categoryCountActive: {
-      color: theme.colors.textSecondary,
-    },
-
-    featuredCard: {
-      minHeight: 150,
-      overflow: 'hidden',
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surfaceSecondary,
-    },
-
-    featuredBackground: {
-      flex: 1,
-      justifyContent: 'center',
-    },
-
-    featuredImage: {
-      borderRadius: 12,
-    },
-
-    featuredCopy: {
-      width: '60%',
-      paddingLeft: 16,
-      paddingRight: 8,
-    },
-
-    badge: {
-      alignSelf: 'flex-start',
-      paddingHorizontal: 8,
-      paddingVertical: 4,
-      borderRadius: 8,
-      backgroundColor: withAlpha(theme.colors.primary, 0.92),
-    },
-
-    badgeText: {
-      color: onPrimaryTextColor(theme),
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 0.3,
-    },
-
-    featuredTitle: {
-      marginTop: 9,
-      // Fixed, image-derived literal on purpose: this sits on top of a
-      // fixed photographic ImageBackground (ART.featured), not a
-      // theme-driven surface — see FEATURED_CARD_TEXT above. No text shadow
-      // (DESIGN.md): the title colour is contrast-checked against the photo base.
-      color: FEATURED_CARD_TEXT,
-      fontSize: 18,
-      lineHeight: 24,
-      fontWeight: '700',
-    },
-
-    durationRow: {
-      marginTop: 6,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 4,
-    },
-
-    durationText: {
-      color: FEATURED_CARD_TEXT_SECONDARY,
-      fontSize: 11,
-      fontWeight: '500',
-    },
-
-    readRow: {
-      marginTop: 10,
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5,
-    },
-
-    readText: {
-      color: featuredCtaColor,
-      fontSize: 11,
-      fontWeight: '700',
+      transform: [{scale: 0.985}],
     },
 
     articleRow: {
-      minHeight: 70,
-      paddingVertical: 7,
+      minHeight: 96,
+      marginTop: 16,
       flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: theme.colors.border,
     },
 
     articleThumb: {
-      width: 56,
-      height: 56,
-      borderRadius: 12,
+      width: 80,
+      height: 80,
+      borderRadius: 14,
       backgroundColor: theme.colors.surfaceSecondary,
     },
 
     articleCopy: {
       flex: 1,
-      paddingHorizontal: 12,
+      minWidth: 0,
+      paddingLeft: 12,
+      paddingRight: 8,
     },
 
-    articleTitle: {flexShrink: 1},
+    articleTitle: {
+      marginTop: 2,
+      flexShrink: 1,
+    },
+
+    durationRow: {
+      marginTop: 4,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+
+    moreAction: {
+      marginTop: 12,
+      alignSelf: 'center',
+    },
 
     infoBox: {
       marginBottom: 8,
