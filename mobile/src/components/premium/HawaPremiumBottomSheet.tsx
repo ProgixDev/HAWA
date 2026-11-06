@@ -476,23 +476,6 @@ export function HawaPremiumBottomSheet({
                   ]}>
                   {t('premium.sheet.heroTitle')}
                 </Text>
-
-                {!isVeryCompact ? (
-                  <View style={styles.premiumBadge}>
-                    <MaterialDesignIcons
-                      color={COLORS.gold}
-                      name="star-four-points"
-                      size={9}
-                    />
-
-                    <Text
-                      style={
-                        styles.premiumBadgeText
-                      }>
-                      {t('premium.sheet.heroBadge')}
-                    </Text>
-                  </View>
-                ) : null}
               </View>
 
               <Text
@@ -546,10 +529,6 @@ export function HawaPremiumBottomSheet({
           <View style={styles.introRow}>
 
             <View style={styles.introCopy}>
-              <Text style={styles.eyebrow}>
-                {t('premium.sheet.introEyebrow')}
-              </Text>
-
               <Text
                 style={[
                   styles.sectionTitle,

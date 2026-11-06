@@ -8,7 +8,7 @@ import {useTranslation} from 'react-i18next';
 import {AnimatedTabItem} from './AnimatedTabItem';
 import type {PartnerMainTabParamList} from '../../navigation/PartnerMainTabNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // The partner's tab bar — visually the same "floating pill" as the main user's
 // CustomBottomTabBar.tsx (same AnimatedTabItem, same theme tokens, same shadow/radius),
@@ -19,7 +19,7 @@ import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaTheme
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 const tabMetaOf = (t: (key: string) => string): Record<keyof PartnerMainTabParamList, {icon: IconName; label: string}> => ({
-  PartnerHome: {icon: 'home-variant', label: t('navigation.home')},
+  PartnerHome: {icon: 'home', label: t('navigation.home')},
   PartnerCalendar: {icon: 'calendar-month-outline', label: t('navigation.calendar')},
   PartnerAdvice: {icon: 'hand-heart-outline', label: t('awaADeux.partnerSide.tabs.advice')},
   PartnerProfile: {icon: 'account-outline', label: t('navigation.profile')},
@@ -30,7 +30,6 @@ function PartnerBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
-  const onPill = pickReadableTextColor(theme.colors.accent);
   const TAB_META = useMemo(() => tabMetaOf(t), [t]);
 
   return (
@@ -46,7 +45,7 @@ function PartnerBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.
           return (
             <AnimatedTabItem
               focused={isFocused}
-              icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={24} />}
+              icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : theme.colors.textSecondary} name={meta.icon} size={24} />}
               key={route.key}
               label={meta.label}
               onPress={onPress}
@@ -75,7 +74,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       justifyContent: 'space-around' as const,
       marginHorizontal: 10,
       borderRadius: 34,
-      backgroundColor: theme.colors.accent,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.28),
+      backgroundColor: theme.colors.surface,
       paddingHorizontal: 7,
       elevation: 8,
     },

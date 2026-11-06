@@ -39,7 +39,7 @@ export function getBottomPadding(insetsBottom: number, extra: number = spacing.m
 // ReadingControls bar (src/components/articles/ReadingControls.tsx) never
 // overlaps the end of the article. Kept in one place so every article
 // screen scrolls its last paragraph fully clear of the bar.
-export const READING_CONTROLS_SPACE = 170;
+export const READING_CONTROLS_SPACE = 24;
 
 // Mirrors the floating bottom tab bar's own occupied footprint
 // (src/components/navigation/CustomBottomTabBar.tsx: `bottomBar` height 58,

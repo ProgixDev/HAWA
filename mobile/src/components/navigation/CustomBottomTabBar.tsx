@@ -14,14 +14,14 @@ import {AnimatedTabItem} from './AnimatedTabItem';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import type {MainTabParamList} from '../../navigation/MainTabNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 const TAB_ICONS: Record<keyof MainTabParamList, IconName> = {
-  CycleHome: 'home-variant',
+  CycleHome: 'home',
   Calendar: 'calendar-month-outline',
-  Statistics: 'chart-donut',
+  Statistics: 'chart-bar',
   Profile: 'account-outline',
 };
 
@@ -72,7 +72,7 @@ function CentralAddButton({theme, styles}: {theme: ResolvedAwaTheme; styles: Ret
             {rotate: plusMotion.interpolate({inputRange: [0, 1], outputRange: ['0deg', '45deg']})},
           ],
         }}>
-        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={24} />
+        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={28} />
       </Animated.View>
     </Pressable>
   );
@@ -83,10 +83,6 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const tabMeta = useTabMeta();
-  // The pill's fill is theme.colors.accent (see createStyles) — inactive
-  // icons sit directly on it, so their color must read against THAT fill,
-  // not a fixed light literal.
-  const onPill = pickReadableTextColor(theme.colors.accent);
 
   const renderTab = (routeIndex: number) => {
     const route = state.routes[routeIndex];
@@ -103,7 +99,7 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
     return (
       <AnimatedTabItem
         focused={isFocused}
-        icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : onPill} name={meta.icon} size={24} />}
+        icon={<MaterialDesignIcons color={isFocused ? theme.colors.primary : theme.colors.textSecondary} name={meta.icon} size={24} />}
         key={route.key}
         label={meta.label}
         onPress={onPress}
@@ -121,7 +117,9 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
       <View style={styles.bottomBar}>
         {renderTab(0)}
         {renderTab(1)}
-        <CentralAddButton styles={styles} theme={theme} />
+        <View style={styles.addSlot}>
+          <CentralAddButton styles={styles} theme={theme} />
+        </View>
         {renderTab(2)}
         {renderTab(3)}
       </View>
@@ -131,19 +129,18 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
+  // Room above the bar for the raised "+" button (the area is transparent and box-none, so it never blocks touches).
   bottomBarArea: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
     backgroundColor: 'transparent',
-    paddingTop: 4,
+    paddingTop: 28,
   },
 
-  // A deliberately deep, saturated "floating pill" — sourced from
-  // theme.colors.accent (the app's "deep brand" token, used elsewhere for
-  // serif headings/CTAs) so it shifts hue per Premium palette and adapts
-  // its lightness for Dark/True Black, instead of a fixed purple.
+  // The floating pill: the theme surface with a hairline primary border (light: white / lavender, dark: deep surface), so it follows
+  // light, dark and the Premium palettes instead of a fixed purple fill.
   bottomBar: {
     height: 58,
     flexDirection: 'row',
@@ -151,20 +148,34 @@ function createStyles(theme: ResolvedAwaTheme) {
     justifyContent: 'space-around',
     marginHorizontal: 10,
     borderRadius: 34,
-    backgroundColor: theme.colors.accent,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.28),
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 7,
     elevation: 8,
   },
 
-  addButton: {
-    width: 48,
-    height: 48,
+  addSlot: {
+    width: 64,
+    height: 58,
     alignItems: 'center',
     justifyContent: 'center',
-    // DESIGN.md floating action control: square-rounded (16) instead of a perfect circle.
-    borderRadius: 16,
+  },
+
+  // A round button that rises above the bar, with a soft ring in the primary colour.
+  addButton: {
+    position: 'absolute',
+    top: -14,
+    left: 3,
+    width: 58,
+    height: 58,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 29,
+    borderWidth: 4,
+    borderColor: withAlpha(theme.colors.primary, 0.3),
     backgroundColor: theme.colors.primary,
-    elevation: 4,
+    elevation: 6,
   },
 
   pressed: {

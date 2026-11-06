@@ -4,6 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {AwaText} from '../ui/AwaText';
+import {GlassIcon} from '../ui/GlassIcon';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // Shared selectable option card for the single-choice onboarding steps
@@ -17,12 +18,10 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = {
   icon: IconName;
-  iconTint: string;
-  /** Overrides the icon glyph color (defaults to `theme.colors.primary`).
-   * Lets a caller keep this shared component's own theme-resolution rules
-   * untouched while still supplying a background-appropriate icon color for
-   * an `iconTint` it has itself adapted for a specific surface (e.g. a
-   * dark-mode-tinted chip) — see MenopauseDashboard's "Mon étape" sheet. */
+  /** Ignored: every icon now sits in the same glass circle (GlassIcon), in the theme's primary tone. Kept so the callers that still
+   * pass a per-option tint compile unchanged. */
+  iconTint?: string;
+  /** Ignored, like `iconTint`. */
   iconColor?: string;
   title: string;
   subtitle: string;
@@ -41,8 +40,6 @@ type Props = {
 
 function PremiumChoiceCard({
   icon,
-  iconTint,
-  iconColor,
   title,
   subtitle,
   selected,
@@ -64,9 +61,7 @@ function PremiumChoiceCard({
         pressed && styles.pressed,
       ]}>
       <View style={styles.row}>
-        <View style={[styles.iconBox, {backgroundColor: iconTint}]}>
-          <MaterialDesignIcons color={iconColor ?? theme.colors.primary} name={icon} size={22} />
-        </View>
+        <GlassIcon icon={icon} size={48} />
 
         <View style={styles.copy}>
           <AwaText style={styles.title} variant="titleSmall">{title}</AwaText>
@@ -105,14 +100,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.primarySoft,
     },
     row: {flexDirection: 'row', alignItems: 'center'},
-    iconBox: {
-      width: 46,
-      height: 46,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-    },
     copy: {flex: 1, minWidth: 0, marginHorizontal: 12},
     title: {},
     subtitle: {marginTop: 2},
