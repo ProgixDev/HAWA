@@ -100,8 +100,12 @@ const SLUGS: Record<JournalOptionNamespace, Record<string, string>> = {
     'Excellente': 'excellent',
   },
   cycleSleepFeeling: {
-    'Reposée': 'rested',
+    'Non': 'none',
+    'Légère': 'light',
     'Moyenne': 'average',
+    'Beaucoup': 'aLot',
+    // Entries saved before the four-level "Fatigue au réveil" scale.
+    'Reposée': 'rested',
     'Fatiguée': 'tired',
   },
   cycleActivityType: {

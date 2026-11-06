@@ -1,163 +1,196 @@
 import React, {useMemo} from 'react';
-import {Image, Pressable, ScrollView, StyleSheet, Text, View, type ImageSourcePropType} from 'react-native';
+import {Image, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
 import type {ObjectiveId} from '../../state/onboardingPreferences';
 import '../../i18n';
-import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
-import {getLibraryArticles, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
+import {getLibraryConfigForObjective, type LibraryGroupId} from '../../data/libraryObjectiveConfig';
+import {getArticleThumbnail, getGroupCover} from '../../data/libraryCovers';
+import {getLibraryArticles, type LibraryArticle} from '../../data/libraryContent';
 import {ArticlePremiumBadge} from '../library/ArticlePremiumBadge';
-import {homeRadii} from './homeTheme';
 import {AwaButton} from '../ui/AwaButton';
-import {AwaCard} from '../ui/AwaCard';
 import {AwaText} from '../ui/AwaText';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {AWA_DISPLAY_FONT} from '../../theme/awaTypography';
 
-// "Pour t'accompagner" — the exact same contextual-article section already
-// built (inline) in ConceiveDashboard.tsx, extracted here so every other
-// objective Dashboard can reuse the identical visual language instead of
-// hand-copying it. Conceive's own Dashboard is intentionally left untouched
-// (it is the reference implementation) — this component is only wired into
-// the other 6 Dashboards.
+// "Pour t'accompagner" (the article categories of the objective, in the order its Library configuration gives them) and
+// "Derniers articles" (the newest articles first, then the objective's curated ones). Shared by every objective Dashboard.
 //
-// Article data always comes from the canonical Library source
-// (libraryContent.ts's LIBRARY_ARTICLES) via the existing per-objective
-// curation (libraryObjectiveConfig.ts's getLibraryConfigForObjective) —
-// never a second/duplicated article list. A missing id is silently
-// filtered out (never a fabricated placeholder); if that leaves zero real
-// articles for an objective, the whole section renders nothing rather than
-// showing an empty/fake card.
-//
-// PHASE C — chrome only (card/border/text/shadow) is theme-driven; the
-// article thumbnail illustrations below are never recolored.
+// Data always comes from the canonical Library source (libraryContent.ts + libraryObjectiveConfig.ts), never a second list.
+// Covers come from src/assets/images/cover through data/libraryCovers.ts. A missing id is silently filtered out; with no real
+// article at all the "Derniers articles" block renders nothing rather than an empty card.
 
-// One shared thumbnail per Library categoryId, reusing only existing
-// illustration assets (no new image was created for this task) — the same
-// "closest matching existing category image" convention already used by
-// ConceiveDashboard.tsx's own ARTICLE_IMAGES map, extended to cover every
-// categoryId referenced by any objective's recommendedArticleIds.
-const CATEGORY_IMAGES: Partial<Record<LibraryCategoryId, ImageSourcePropType>> = {
-  cycle: require('../../assets/images/library/category-cycle.png'),
-  symptoms: require('../../assets/images/library/category-cycle.png'),
-  flow: require('../../assets/images/library/flow-texture-fluid.png'),
-  pain: require('../../assets/images/library/pain-hero.png'),
-
-  fertility: require('../../assets/images/library/category-fertility.png'),
-  ovulation: require('../../assets/images/library/category-fertility.png'),
-  fertilityAfterLoss: require('../../assets/images/library/category-fertility.png'),
-  basalTemperature: require('../../assets/images/library/category-hormonal.png'),
-  cervicalMucus: require('../../assets/images/library/flow-texture-mucus.png'),
-  lhTests: require('../../assets/images/library/category-hormonal.png'),
-
-  hormonalTreatments: require('../../assets/images/library/category-hormonal.png'),
-  birthControlPills: require('../../assets/images/library/category-hormonal.png'),
-  missedPills: require('../../assets/images/library/category-hormonal.png'),
-  patch: require('../../assets/images/library/category-hormonal.png'),
-  ring: require('../../assets/images/library/category-hormonal.png'),
-  hormones: require('../../assets/images/library/category-hormonal.png'),
-  menopause: require('../../assets/images/library/category-hormonal.png'),
-  hotFlashes: require('../../assets/images/library/category-hormonal.png'),
-
-  pregnancyWeekly: require('../../assets/images/library/category-pregnancy.png'),
-  babyDevelopment: require('../../assets/images/library/category-pregnancy.png'),
-  medicalExams: require('../../assets/images/library/category-pregnancy.png'),
-  nutrition: require('../../assets/images/library/nutrition-hero.png'),
-
-  sleep: require('../../assets/images/library/category-lifestyle.png'),
-  lochia: require('../../assets/images/library/category-lifestyle.png'),
-  postpartumRecovery: require('../../assets/images/library/category-lifestyle.png'),
-  breastfeeding: require('../../assets/images/library/category-lifestyle.png'),
-  emotionalHealth: require('../../assets/images/library/category-lifestyle.png'),
-  physicalRecoveryLoss: require('../../assets/images/library/category-lifestyle.png'),
-  emotionalRecoveryLoss: require('../../assets/images/library/category-lifestyle.png'),
-  bones: require('../../assets/images/library/category-lifestyle.png'),
-};
-const FALLBACK_IMAGE: ImageSourcePropType = require('../../assets/images/library/category-cycle.png');
+const LATEST_COUNT = 3;
 
 type Props = {
   objective: ObjectiveId;
-  /** Bound by the caller to its own already-correctly-typed `navigation`
-   * object — this component never takes `navigation` directly, the same
-   * way QuickActionsGrid takes per-item `onPress` callbacks rather than a
-   * navigation prop (composite tab/stack navigation prop types otherwise
-   * don't structurally satisfy a plain `NavigationProp<RootStackParamList>`
-   * parameter — a real TypeScript constraint, not a style choice). */
+  /** Bound by the caller to its own already-correctly-typed `navigation` object (composite navigation prop types do not
+   * structurally satisfy a plain `NavigationProp<RootStackParamList>` parameter). */
   onOpenArticle: (articleId: string) => void;
+  /** Opens the Library with this category already ticked. */
+  onOpenCategory: (groupId: LibraryGroupId) => void;
   onSeeAll: () => void;
 };
 
-function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): React.JSX.Element | null {
+function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color, tile}: {
+  /** Puts the icon in a soft rounded tile (the "Derniers articles" header). */
+  tile?: boolean;
+  title: string;
+  icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
+  onSeeAll: () => void;
+  styles: ReturnType<typeof createStyles>;
+  seeAllLabel: string;
+  color: string;
+}) {
+  return (
+    <View style={styles.header}>
+      {tile ? (
+        <View style={styles.iconTile}>
+          <MaterialDesignIcons color={color} name={icon} size={24} />
+        </View>
+      ) : (
+        <MaterialDesignIcons color={color} name={icon} size={28} />
+      )}
+      <Text accessibilityRole="header" adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.headerTitle}>{title}</Text>
+      <View style={styles.seeAll}>
+        <AwaButton hitSlop={8} label={seeAllLabel} onPress={onSeeAll} size="compact" variant="text" />
+      </View>
+    </View>
+  );
+}
+
+function ObjectiveArticlesSection({objective, onOpenArticle, onOpenCategory, onSeeAll}: Props): React.JSX.Element | null {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const articles = useMemo(() => {
-    const recommendedIds = getLibraryConfigForObjective(objective).recommendedArticleIds;
+  const groups = useMemo(() => getLibraryConfigForObjective(objective).categoryOrder, [objective]);
+
+  // The objective's own curated articles (never a second list), the newly published ones first.
+  const latest = useMemo(() => {
     const byId = new Map(getLibraryArticles(t).map(article => [article.id, article]));
-    return recommendedIds
+    return getLibraryConfigForObjective(objective).recommendedArticleIds
       .map(id => byId.get(id))
-      .filter((article): article is LibraryArticle => Boolean(article));
+      .filter((article): article is LibraryArticle => Boolean(article))
+      .map((article, index) => ({article, index}))
+      .sort((x, y) => Number(Boolean(y.article.isNew)) - Number(Boolean(x.article.isNew)) || x.index - y.index)
+      .slice(0, LATEST_COUNT)
+      .map(item => item.article);
   }, [objective, t]);
 
-  if (articles.length === 0) {
-    return null;
-  }
+  const seeAll = t('objectiveArticles.seeAll');
 
   return (
-    <AwaCard padding="none" style={styles.articlesCard}>
-      <View style={styles.articlesHeader}>
-        <AwaText style={styles.articlesTitle} variant="titleMedium">{t('objectiveArticles.title')}</AwaText>
-        <AwaButton
-          hitSlop={8}
-          label={t('objectiveArticles.seeAll')}
-          onPress={onSeeAll}
-          size="compact"
-          variant="text"
-        />
-      </View>
-      <ScrollView contentContainerStyle={styles.articlesRow} horizontal showsHorizontalScrollIndicator={false}>
-        {articles.map(article => (
-          <Pressable
-            accessibilityLabel={article.title}
-            accessibilityRole="button"
-            key={article.id}
-            onPress={() => onOpenArticle(article.id)}
-            style={({pressed}) => [styles.articleTile, pressed && styles.pressed]}>
-            <Image resizeMode="cover" source={CATEGORY_IMAGES[article.categoryId] ?? FALLBACK_IMAGE} style={styles.articleImage} />
-            <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
-            <ArticlePremiumBadge article={article} />
-            <View style={styles.articleTileMetaRow}>
-              <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
-              <Text style={styles.articleTileMeta}>{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</Text>
-            </View>
-          </Pressable>
-        ))}
+    <View style={styles.root}>
+      <SectionHeader
+        color={theme.colors.primary}
+        icon="flower-outline"
+        onSeeAll={onSeeAll}
+        seeAllLabel={seeAll}
+        styles={styles}
+        title={t('objectiveArticles.title')}
+      />
+
+      <ScrollView contentContainerStyle={styles.tiles} horizontal showsHorizontalScrollIndicator={false} style={styles.tilesScroll}>
+        {groups.map(groupId => {
+          const label = t(`library.screen.categoryTiles.${groupId}.label`).replace('\n', ' ');
+
+          return (
+            <Pressable
+              accessibilityLabel={label}
+              accessibilityRole="button"
+              key={groupId}
+              onPress={() => onOpenCategory(groupId)}
+              style={({pressed}) => [styles.tile, pressed && styles.pressed]}>
+              <Image resizeMode="cover" source={getGroupCover(groupId)} style={styles.tileImage} />
+              <View style={styles.tileLabelWrap}>
+                <Text numberOfLines={2} style={styles.tileLabel}>{label}</Text>
+              </View>
+            </Pressable>
+          );
+        })}
       </ScrollView>
-    </AwaCard>
+
+      {latest.length > 0 ? (
+        <>
+          <SectionHeader
+            color={theme.colors.primary}
+            icon="newspaper-variant-outline"
+            onSeeAll={onSeeAll}
+            seeAllLabel={seeAll}
+            styles={styles}
+            tile
+            title={t('objectiveArticles.latestTitle')}
+          />
+
+          {latest.map(article => (
+            <Pressable
+              accessibilityLabel={article.title}
+              accessibilityRole="button"
+              key={article.id}
+              onPress={() => onOpenArticle(article.id)}
+              style={({pressed}) => [styles.row, pressed && styles.pressed]}>
+              <View style={styles.rowImageBox}>
+                <Image resizeMode="cover" source={getArticleThumbnail(article.categoryId, article.id)} style={styles.rowImage} />
+              </View>
+
+              <View style={styles.rowCopy}>
+                <Text numberOfLines={2} style={styles.rowTitle}>{article.title}</Text>
+                <ArticlePremiumBadge article={article} />
+                <View style={styles.rowMeta}>
+                  <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={14} />
+                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
+                    {t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}
+                  </AwaText>
+                </View>
+              </View>
+
+              <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} style={styles.chevron} />
+            </Pressable>
+          ))}
+        </>
+      ) : null}
+    </View>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
-    articlesCard: {marginTop: 16, paddingVertical: 16, paddingLeft: 16},
-    articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-    articlesTitle: {flexShrink: 1},
-    articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
-    articleTile: {
-      width: 140,
+    // the bottom margin keeps the last card clear of the raised "+" button of the floating tab bar
+    root: {marginTop: 24, marginBottom: 24},
+    header: {flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 4},
+    iconTile: {width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.colors.primary, 0.18)},
+    seeAll: {flexShrink: 0, flexDirection: 'row', alignItems: 'center', marginRight: -4},
+    headerTitle: {flex: 1, flexShrink: 1, minWidth: 0, color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 19, lineHeight: 26, fontWeight: '600'},
+
+    tilesScroll: {marginTop: 14, marginHorizontal: -16},
+    tiles: {gap: 10, paddingHorizontal: 16, paddingBottom: 4},
+    tile: {width: 112, borderRadius: 18, overflow: 'hidden', backgroundColor: theme.colors.surface},
+    tileImage: {width: '100%', height: 104},
+    tileLabelWrap: {minHeight: 46, paddingHorizontal: 8, paddingVertical: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.colors.primary, 0.14)},
+    tileLabel: {color: theme.colors.text, fontSize: 13, lineHeight: 16, fontWeight: '600', textAlign: 'center'},
+
+    // compact horizontal card: fixed height, fixed 110 x 110 image box, flexible text
+    row: {
+      marginTop: 14,
+      height: 120,
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 5,
+      borderRadius: 20,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      borderRadius: homeRadii.quickAction,
-      backgroundColor: theme.colors.surface,
+      backgroundColor: withAlpha(theme.colors.surface, 0.6),
       overflow: 'hidden',
-      paddingBottom: 10,
     },
-    articleImage: {width: '100%', height: 76},
-    articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: theme.colors.text, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
-    articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
-    articleTileMeta: {color: theme.colors.textSecondary, fontSize: 11},
+    rowImageBox: {width: 110, height: 110, borderRadius: 16, overflow: 'hidden', backgroundColor: theme.colors.surfaceSecondary},
+    rowImage: {width: '100%', height: '100%'},
+    rowCopy: {flex: 1, flexShrink: 1, minWidth: 0, paddingLeft: 12, paddingRight: 4, justifyContent: 'center'},
+    rowTitle: {flexShrink: 1, color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 17, lineHeight: 22, fontWeight: '600'},
+    rowMeta: {marginTop: 8, flexDirection: 'row', alignItems: 'center', gap: 6},
+    chevron: {marginHorizontal: 8, alignSelf: 'center'},
     pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
   });
 }

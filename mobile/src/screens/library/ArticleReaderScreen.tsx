@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Image,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -45,6 +46,7 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {getArticleThumbnail} from '../../data/libraryCovers';
 import FlowMenstrualArticleScreen from './FlowMenstrualArticleScreen';
 import CycleVitalSignArticleScreen from './CycleVitalSignArticleScreen';
 import FirstPeriodArticleScreen from './FirstPeriodArticleScreen';
@@ -353,6 +355,12 @@ function GenericArticleReaderScreen({
             },
           ]}
         >
+          <Image
+            resizeMode="cover"
+            source={getArticleThumbnail(article.categoryId, article.id)}
+            style={styles.heroImage}
+          />
+
           <AwaIconButton
             accessibilityLabel={t('library.reader.back')}
             icon="chevron-left"
@@ -366,13 +374,6 @@ function GenericArticleReaderScreen({
             tone="light"
           />
 
-          <View style={styles.heroIconWrap}>
-            <MaterialDesignIcons
-              color={tint.fg}
-              name={category?.icon ?? 'book-open-page-variant-outline'}
-              size={44}
-            />
-          </View>
         </View>
 
         <View style={styles.body}>
@@ -401,21 +402,12 @@ function GenericArticleReaderScreen({
           <AwaText style={styles.title} variant="headlineSmall" weight="700">{article.title}</AwaText>
 
           <View style={styles.metaRow}>
-            <MaterialDesignIcons
-              color={theme.colors.textSecondary}
-              name="clock-outline"
-              size={13}
-            />
-            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-              {t('library.reader.durationMinutes', {count: article.durationMinutes})}
-            </AwaText>
-            <AwaText colorRole="onSurfaceVariant" variant="bodySmall">•</AwaText>
             <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{typeLabel(article.type, t)}</AwaText>
             <AwaText colorRole="onSurfaceVariant" variant="bodySmall">•</AwaText>
             <AwaText colorRole="onSurfaceVariant" variant="bodySmall">{levelLabel(article.level, t)}</AwaText>
           </View>
 
-          <AwaText emphasized style={styles.summary} variant="titleMedium">{article.summary}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" style={styles.summary} variant="bodyLarge">{article.summary}</AwaText>
 
           <View style={styles.divider} />
 
@@ -460,19 +452,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     safeArea: { flex: 1, backgroundColor: theme.colors.background },
     scroll: { flex: 1 },
     hero: {
+      minHeight: 240,
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'space-between',
+      overflow: 'hidden',
+      borderBottomLeftRadius: 28,
+      borderBottomRightRadius: 28,
       paddingHorizontal: 16,
-      paddingVertical: 20,
+      paddingBottom: 20,
     },
-    heroIconWrap: {
-      position: 'absolute',
-      right: 24,
-      bottom: -10,
-      opacity: 0.5,
+    heroImage: {
+      ...StyleSheet.absoluteFillObject,
+      width: '100%',
+      height: '100%',
     },
-    body: { paddingHorizontal: 20, paddingTop: 20 },
+    body: { paddingHorizontal: 20, paddingTop: 22 },
     pillRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
     categoryPill: {
       alignSelf: 'flex-start',
@@ -518,7 +513,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       marginBottom: 4,
     },
     paragraph: {
-      marginTop: 16,
+      marginTop: 18,
+      lineHeight: 28,
     },
     missingContainer: {
       flex: 1,
