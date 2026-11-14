@@ -34,6 +34,13 @@ import {
 export const STRUCTURED_ENCRYPTED_BASES: readonly string[] = [
   // profile-scoped
   '@hawa/daily-journal/v1',
+  '@hawa/daily-journal/v1/conceive',
+  '@hawa/daily-journal/v1/contraception',
+  '@hawa/daily-journal/v1/irregular',
+  '@hawa/daily-journal/v1/menopause',
+  '@hawa/daily-journal/v1/pregnancy',
+  '@hawa/daily-journal/v1/postpartum',
+  '@hawa/daily-journal/v1/loss',
   '@hawa/confirmed-period-history',
   '@hawa/cycle-preferences',
   '@hawa/period-end-datetime',

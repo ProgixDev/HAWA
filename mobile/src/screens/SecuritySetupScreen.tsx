@@ -41,6 +41,8 @@ import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaSwitch} from '../components/ui/AwaSwitch';
 import {GlassIcon} from '../components/ui/GlassIcon';
 import {AwaText} from '../components/ui/AwaText';
+import {PinSheet, type PinSheetMode} from '../components/security/PinSheet';
+import {useBiometricToggle} from '../components/security/useBiometricToggle';
 
 type Props =
   NativeStackScreenProps<
@@ -190,6 +192,10 @@ function SecuritySetupScreen({
         .discreetNotifications,
     );
 
+  // The PIN is created / removed in a bottom sheet instead of separate pages.
+  const [pinSheetMode, setPinSheetMode] = useState<PinSheetMode>('create');
+  const [pinSheetOpen, setPinSheetOpen] = useState(false);
+
   const refresh =
     useCallback(() => {
       setPin(
@@ -205,6 +211,8 @@ function SecuritySetupScreen({
           .discreetNotifications,
       );
     }, []);
+
+  const {error: biometryError, toggle: toggleBiometry} = useBiometricToggle(refresh);
 
   useEffect(() => {
     loadSecurityPreferences().then(
@@ -361,19 +369,10 @@ function SecuritySetupScreen({
             compact={compact}
             description={t('securitySetup.pinDescription')}
             icon="dialpad"
-            onValueChange={value =>
-              navigation.navigate(
-                'PinSetup',
-                {
-                  mode: value
-                    ? 'create'
-                    : 'disable',
-
-                  returnTo:
-                    'onboarding',
-                },
-              )
-            }
+            onValueChange={value => {
+              setPinSheetMode(value ? 'create' : 'disable');
+              setPinSheetOpen(true);
+            }}
             styles={styles}
             t={t}
             theme={theme}
@@ -385,16 +384,7 @@ function SecuritySetupScreen({
             compact={compact}
             description={t('securitySetup.biometricsDescription')}
             icon="fingerprint"
-            onValueChange={value =>
-              navigation.navigate(
-                'FaceIdSetup',
-                {
-                  action: value
-                    ? 'enable'
-                    : 'manage',
-                },
-              )
-            }
+            onValueChange={toggleBiometry}
             styles={styles}
             t={t}
             theme={theme}
@@ -429,6 +419,12 @@ function SecuritySetupScreen({
           />
         </View>
 
+        {biometryError ? (
+          <AwaText accessibilityLiveRegion="polite" colorRole="error" style={styles.biometryError} variant="bodySmall">
+            {biometryError}
+          </AwaText>
+        ) : null}
+
         <View
           style={
             styles.buttonGap
@@ -453,6 +449,13 @@ function SecuritySetupScreen({
           style={styles.continueButton}
         />
       </ScrollView>
+
+      <PinSheet
+        mode={pinSheetMode}
+        onClose={() => setPinSheetOpen(false)}
+        onDone={refresh}
+        visible={pinSheetOpen}
+      />
     </LinearGradient>
   );
 }
@@ -645,6 +648,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     /* ==============================================
        BUTTON
     ============================================== */
+
+    biometryError: {
+      marginTop: 10,
+      textAlign: 'center',
+    },
 
     buttonGap: {
       flex: 1,

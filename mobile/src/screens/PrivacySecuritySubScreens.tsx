@@ -11,11 +11,11 @@ import {
   getPrivacySecuritySettings,
   isBiometricEnabled,
   isPinEnabled,
+  isPrivateBiometricEnabled,
   loadSecurityPreferences,
   updatePrivacySecuritySettings,
   type PrivacySecuritySettings,
 } from '../state/securityPreferences';
-import {getAvailableBiometry} from '../services/appSecurityService';
 import {getLauncherIdentity} from '../services/discreetLauncher';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -24,6 +24,9 @@ import {AwaSwitch} from '../components/ui/AwaSwitch';
 import {AwaText} from '../components/ui/AwaText';
 import {GlassIcon} from '../components/ui/GlassIcon';
 import {SettingsCard} from '../components/profile/SettingsCard';
+import {PinSheet, type PinSheetMode} from '../components/security/PinSheet';
+import {useBiometricToggle} from '../components/security/useBiometricToggle';
+import {usePrivateBiometricToggle} from '../components/security/usePrivateBiometricToggle';
 
 // The Confidentialité & Sécurité sub-screens (the main screen lists five entries; every one of the eleven settings is reachable here):
 //   AppLockSettings        PIN code, biometrics
@@ -42,12 +45,14 @@ export function usePrivacySettings() {
   const [settings, setSettings] = useState<PrivacySecuritySettings>(getPrivacySecuritySettings());
   const [pin, setPin] = useState(isPinEnabled());
   const [bio, setBio] = useState(isBiometricEnabled());
+  const [privateBio, setPrivateBio] = useState(isPrivateBiometricEnabled());
   const [discreetIcon, setDiscreetIcon] = useState(false);
 
   const refresh = useCallback(() => {
     setSettings(getPrivacySecuritySettings());
     setPin(isPinEnabled());
     setBio(isBiometricEnabled());
+    setPrivateBio(isPrivateBiometricEnabled());
     getLauncherIdentity().then(identity => setDiscreetIcon(identity === 'discreet')).catch(() => {});
   }, []);
 
@@ -59,7 +64,7 @@ export function usePrivacySettings() {
   const change = <K extends keyof PrivacySecuritySettings>(key: K, value: PrivacySecuritySettings[K]) =>
     setSettings(updatePrivacySecuritySettings({[key]: value}));
 
-  return {settings, pin, bio, discreetIcon, change};
+  return {settings, pin, bio, privateBio, discreetIcon, change, refresh};
 }
 
 /* ----------------------------------------------------------------------------------------------- shared building blocks */
@@ -156,14 +161,15 @@ export function SettingsScreenLayout({
 
 export function AppLockSettingsScreen({navigation}: SubScreenProps<'AppLockSettings'>): React.JSX.Element {
   const {t} = useTranslation();
-  const {pin, bio} = usePrivacySettings();
-  const [biometryLabel, setBiometryLabel] = useState(t('biometrics.genericLabel'));
-
-  useEffect(() => {
-    getAvailableBiometry().then(value => {
-      if (value) {setBiometryLabel(value.label);}
-    }).catch(() => {});
-  }, []);
+  const {pin, bio, refresh} = usePrivacySettings();
+  const {label: biometryLabel, error: biometryError, toggle: toggleBiometry} = useBiometricToggle(refresh);
+  // The PIN is created / changed / removed in a bottom sheet, not on separate pages.
+  const [pinSheetMode, setPinSheetMode] = useState<PinSheetMode>('create');
+  const [pinSheetOpen, setPinSheetOpen] = useState(false);
+  const openPinSheet = (mode: PinSheetMode) => {
+    setPinSheetMode(mode);
+    setPinSheetOpen(true);
+  };
 
   return (
     <SettingsScreenLayout
@@ -172,23 +178,37 @@ export function AppLockSettingsScreen({navigation}: SubScreenProps<'AppLockSetti
       title={t('privacySecurity.v2.appLockTitle', {defaultValue: 'Verrouillage de l’appli'})}>
       <SettingsGroupCard>
         <SettingsRow
-          active={pin}
           icon="lock-outline"
-          onPress={() => navigation.navigate('PinManagement')}
-          status={pin ? t('privacySecurity.statusOn') : t('privacySecurity.statusOff')}
+          onToggle={value => openPinSheet(value ? 'create' : 'disable')}
           subtitle={pin ? t('privacySecurity.pinSubtitleOn') : t('privacySecurity.pinSubtitleOff')}
           title={t('privacySecurity.pinTitle')}
+          toggle={pin}
         />
+        {pin ? (
+          <SettingsRow
+            icon="dialpad"
+            onPress={() => openPinSheet('change')}
+            title={t('pinManagement.changePin')}
+          />
+        ) : null}
         <SettingsRow
-          active={bio}
           icon="fingerprint"
           last
-          onPress={() => navigation.navigate('FaceIdSetup', {action: bio ? 'manage' : 'enable'})}
-          status={bio ? t('privacySecurity.statusOnFeminine') : t('privacySecurity.statusOffFeminine')}
+          onToggle={toggleBiometry}
           subtitle={bio ? t('privacySecurity.biometrySubtitleOn') : t('privacySecurity.biometrySubtitleOff')}
           title={biometryLabel}
+          toggle={bio}
         />
       </SettingsGroupCard>
+      {biometryError ? (
+        <AwaText accessibilityLiveRegion="polite" colorRole="error" variant="bodySmall">{biometryError}</AwaText>
+      ) : null}
+      <PinSheet
+        mode={pinSheetMode}
+        onClose={() => setPinSheetOpen(false)}
+        onDone={refresh}
+        visible={pinSheetOpen}
+      />
     </SettingsScreenLayout>
   );
 }
@@ -239,7 +259,8 @@ export function DiscretionSettingsScreen({navigation}: SubScreenProps<'Discretio
 
 export function ProtectedContentSettingsScreen({navigation}: SubScreenProps<'ProtectedContentSettings'>): React.JSX.Element {
   const {t} = useTranslation();
-  const {settings, change} = usePrivacySettings();
+  const {settings, privateBio, change, refresh} = usePrivacySettings();
+  const {error: privateBiometryError, toggle: togglePrivateBiometry} = usePrivateBiometricToggle(refresh);
 
   return (
     <SettingsScreenLayout
@@ -257,13 +278,23 @@ export function ProtectedContentSettingsScreen({navigation}: SubScreenProps<'Pro
         />
         <SettingsRow
           icon="image-lock-outline"
-          last
           onToggle={value => change('privateContentProtection', value)}
           subtitle={t('privacySecurity.privateContentSubtitle')}
           title={t('privacySecurity.privateContentTitle')}
           toggle={settings.privateContentProtection}
         />
+        <SettingsRow
+          icon="fingerprint"
+          last
+          onToggle={togglePrivateBiometry}
+          subtitle={t('privacySecurity.privateBiometricSubtitle')}
+          title={t('privacySecurity.privateBiometricTitle')}
+          toggle={privateBio}
+        />
       </SettingsGroupCard>
+      {privateBiometryError ? (
+        <AwaText accessibilityLiveRegion="polite" colorRole="error" variant="bodySmall">{privateBiometryError}</AwaText>
+      ) : null}
     </SettingsScreenLayout>
   );
 }

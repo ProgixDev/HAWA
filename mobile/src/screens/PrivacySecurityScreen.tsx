@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {ScrollView, StatusBar, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -10,6 +10,8 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
+import {setCrashReportsEnabled} from '../services/sentry';
+import {isCrashReportsGranted, loadCrashReportsChoice, subscribeCrashReportsChoice} from '../state/crashReportsPreferences';
 import {SettingsGroupCard, SettingsRow, usePrivacySettings} from './PrivacySecuritySubScreens';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivacySecurity'>;
@@ -27,6 +29,15 @@ export default function PrivacySecurityScreen({navigation}: Props): React.JSX.El
   const {width, height} = useWindowDimensions();
   const compact = width < 360 || height < 700;
   const {settings, pin, bio, discreetIcon} = usePrivacySettings();
+  const [crashReports, setCrashReports] = useState(isCrashReportsGranted());
+  useEffect(() => {
+    const sync = () => setCrashReports(isCrashReportsGranted());
+    loadCrashReportsChoice().then(sync);
+    return subscribeCrashReportsChoice(sync);
+  }, []);
+  const toggleCrashReports = useCallback((enabled: boolean) => {
+    setCrashReportsEnabled(enabled).catch(() => {});
+  }, []);
 
   const appLockOn = pin || bio;
   const discretionCount = [settings.discreetMode, settings.discreetNotifications, settings.hideNotificationPreview, discreetIcon].filter(Boolean).length;
@@ -92,6 +103,13 @@ export default function PrivacySecurityScreen({navigation}: Props): React.JSX.El
             onPress={() => navigation.navigate('DataManagement')}
             subtitle={t('privacySecurity.v2.myDataSubtitle', {defaultValue: 'Exporter, supprimer, compte'})}
             title={t('privacySecurity.v2.myDataTitle', {defaultValue: 'Mes données'})}
+          />
+          <SettingsRow
+            icon="shield-bug-outline"
+            onToggle={toggleCrashReports}
+            subtitle={t('privacySecurity.crashReports.subtitle')}
+            title={t('privacySecurity.crashReports.title')}
+            toggle={crashReports}
           />
         </SettingsGroupCard>
 

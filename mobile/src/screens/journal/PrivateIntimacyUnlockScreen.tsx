@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {isBiometricEnabled, loadSecurityPreferences} from '../../state/securityPreferences';
+import {isPrivateBiometricEnabled, loadSecurityPreferences} from '../../state/securityPreferences';
 import {isIntimacyUnlocked, replaceWithIntimacyDestination} from '../../state/privateSectionAuthStore';
 import {getBiometryLabel, getBiometryType, hasPrivatePin} from '../../services/privateSectionAuth';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -64,7 +64,7 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   useEffect(() => {
     if (isIntimacyUnlocked()) {replaceWithIntimacyDestination(navigation, target); return;}
     Promise.all([loadSecurityPreferences(), getBiometryType(), hasPrivatePin()]).then(([, type, hasPin]) => {
-      setBiometryAvailable(Boolean(type) && isBiometricEnabled());
+      setBiometryAvailable(Boolean(type) && isPrivateBiometricEnabled());
       setBiometryLabel(getBiometryLabel(type));
       setPinConfigured(hasPin);
     }).catch(() => {

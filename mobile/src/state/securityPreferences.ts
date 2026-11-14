@@ -3,6 +3,9 @@ import {hasBiometricCredential, hasStoredPin} from '../services/appSecurityServi
 
 const PIN_ENABLED_KEY = '@hawa/security/pin-enabled';
 const BIOMETRIC_ENABLED_KEY = '@hawa/security/biometric-enabled';
+// The biometric unlock of the private sections is its OWN setting, independent from the app lock's. Absent = off: nobody gets it switched on by an
+// update (turning it on creates a new credential, which needs her fingerprint or face).
+const PRIVATE_BIOMETRIC_ENABLED_KEY = '@hawa/security/private-biometric-enabled';
 const SETTINGS_KEY = '@awa/security/settings-v1';
 
 export type PrivacySecuritySettings = {
@@ -34,6 +37,7 @@ function sanitizeSettings(stored: unknown): PrivacySecuritySettings {
 
 let pinEnabled = false;
 let biometricEnabled = false;
+let privateBiometricEnabled = false;
 let loadPromise: Promise<void> | null = null;
 let privacySettings = { ...DEFAULT_SETTINGS };
 const settingsListeners = new Set<() => void>();
@@ -96,9 +100,10 @@ function lockEnforced(persisted: boolean | null, credential: CredentialCheck): b
 export function loadSecurityPreferences(): Promise<void> {
   if (!loadPromise) {
     loadPromise = (async () => {
-      const [storedPin, storedBiometric, storedSettings] = await Promise.all([
+      const [storedPin, storedBiometric, storedPrivateBiometric, storedSettings] = await Promise.all([
         readFlag(PIN_ENABLED_KEY),
         readFlag(BIOMETRIC_ENABLED_KEY),
+        readFlag(PRIVATE_BIOMETRIC_ENABLED_KEY),
         AsyncStorage.getItem(SETTINGS_KEY).catch(() => null),
       ]);
       const [pinCredential, biometricCredential] = await Promise.all([
@@ -107,6 +112,7 @@ export function loadSecurityPreferences(): Promise<void> {
       ]);
       pinEnabled = lockEnforced(storedPin, pinCredential);
       biometricEnabled = lockEnforced(storedBiometric, biometricCredential);
+      privateBiometricEnabled = storedPrivateBiometric === true;
       if (storedSettings) {
         try {
           privacySettings = sanitizeSettings(JSON.parse(storedSettings));
@@ -133,6 +139,15 @@ export const setBiometricEnabled = async (enabled: boolean): Promise<void> => {
 };
 
 export const isBiometricEnabled = (): boolean => biometricEnabled;
+
+export const setPrivateBiometricEnabled = async (enabled: boolean): Promise<void> => {
+  privateBiometricEnabled = enabled;
+  await AsyncStorage.setItem(PRIVATE_BIOMETRIC_ENABLED_KEY, enabled ? 'true' : 'false');
+  notifySecurity();
+};
+
+/** The biometric key of the private sections (PIN screens of Vie intime, pregnancy medical information, miscarriage notes, private photos). */
+export const isPrivateBiometricEnabled = (): boolean => privateBiometricEnabled;
 export const requiresAppLock = (): boolean => pinEnabled || biometricEnabled;
 export const subscribeSecurityPreferences = (listener: () => void): (() => void) => {securityListeners.add(listener); return () => securityListeners.delete(listener);};
 

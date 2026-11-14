@@ -1,10 +1,13 @@
+import {AppState} from 'react-native';
 import * as Keychain from 'react-native-keychain';
 import i18n from '../i18n';
+import {assertPinNotLocked, recordPinFailure, recordPinSuccess} from './pinAttemptLimiter';
 
 export const PIN_LENGTH = 4;
 const PIN_SERVICE = 'com.hawa.app-lock.pin';
 const BIOMETRIC_SERVICE = 'com.hawa.app-lock.biometric';
 let pendingPin: string | null = null;
+let confirming = false;
 let biometricPromptActive = false;
 
 export type BiometryCapability = {type: Keychain.BIOMETRY_TYPE; label: string; actionLabel: string};
@@ -28,21 +31,43 @@ export function beginPinSetup(pin: string): boolean {
 
 export function cancelPinSetup(): void {pendingPin = null;}
 
+// The code awaiting its confirmation only lives in memory for as long as she is on the setup screen: leaving the app forgets it, so coming back
+// requires typing it again. Never while a save is in flight — that attempt clears it itself, once it is over.
+AppState.addEventListener('change', state => {
+  if (state === 'background' && !confirming) {pendingPin = null;}
+});
+
 export async function confirmAndSavePin(confirmation: string): Promise<'success' | 'mismatch' | 'missing'> {
   const candidate = pendingPin;
   if (!candidate) {return 'missing';}
   if (candidate !== confirmation) {pendingPin = null; return 'mismatch';}
-  const stored = await Keychain.setGenericPassword('awa-pin', candidate, {service: PIN_SERVICE, accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY});
-  pendingPin = null;
-  return stored ? 'success' : 'missing';
+  confirming = true;
+  try {
+    const stored = await Keychain.setGenericPassword('awa-pin', candidate, {service: PIN_SERVICE, accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY});
+    return stored ? 'success' : 'missing';
+  } finally {
+    // Cleared once the attempt is over, however it ended (stored, refused, or an exception) and never before the await: a failed save must not
+    // leave a code behind that a later confirmation could save without it being typed again.
+    pendingPin = null;
+    confirming = false;
+  }
 }
 
 export async function hasStoredPin(): Promise<boolean> {return Boolean(await Keychain.getGenericPassword({service: PIN_SERVICE}));}
 export async function hasBiometricCredential(): Promise<boolean> {return Keychain.hasGenericPassword({service: BIOMETRIC_SERVICE});}
 
+// Throws PinLockedError while the wait that follows repeated wrong entries is running (see pinAttemptLimiter.ts). Only a wrong entry against an
+// EXISTING PIN is counted: with no PIN stored there is nothing to guess, and a Keychain error says nothing about the code that was typed.
 export async function verifyPin(pin: string): Promise<boolean> {
+  await assertPinNotLocked('appLock');
   const credential = await Keychain.getGenericPassword({service: PIN_SERVICE});
-  return Boolean(credential && credential.password === pin);
+  const ok = Boolean(credential && credential.password === pin);
+  if (ok) {
+    await recordPinSuccess('appLock');
+  } else if (credential) {
+    await recordPinFailure('appLock');
+  }
+  return ok;
 }
 
 export async function disableStoredPin(pin: string): Promise<boolean> {

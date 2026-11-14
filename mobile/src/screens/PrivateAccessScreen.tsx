@@ -20,7 +20,7 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import type {PrivateAccessPurpose} from '../navigation/privateAccess';
 import {
-  isBiometricEnabled,
+  isPrivateBiometricEnabled,
   loadSecurityPreferences,
 } from '../state/securityPreferences';
 import {
@@ -36,6 +36,9 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
+import {PinVerifyingNotice} from '../components/security/PinVerifyingNotice';
+import {usePinLockout} from '../components/security/usePinLockout';
+import {PinLockedError} from '../services/pinAttemptLimiter';
 
 const PIN_LENGTH = 6;
 
@@ -285,6 +288,11 @@ export default function PrivateAccessScreen({
   >('default');
 
   const [busy, setBusy] = useState(false);
+  // from the moment the sixth digit is typed until the code has been checked or saved (the derivation takes ~0.5 s, ~1.1 s on its first call)
+  const [verifyingPin, setVerifyingPin] = useState(false);
+  // The wait that follows repeated wrong codes (persisted: closing the app does not skip it).
+  const lockout = usePinLockout('privateSection');
+  const refreshLockout = lockout.refresh;
 
   const [biometryType, setBiometryType] =
     useState<Keychain.BIOMETRY_TYPE | null>(
@@ -325,7 +333,7 @@ export default function PrivateAccessScreen({
 
         setBiometryReady(
           Boolean(type) &&
-            isBiometricEnabled(),
+            isPrivateBiometricEnabled(),
         );
       })
       .catch(() => {
@@ -384,8 +392,9 @@ export default function PrivateAccessScreen({
           return;
         }
 
+        // the fifth wrong code in a row starts a wait: then the wait message replaces "incorrect code"
         fail(
-          t('security.incorrectCode'),
+          (await refreshLockout()) > 0 ? '' : t('security.incorrectCode'),
         );
 
         return;
@@ -415,12 +424,18 @@ export default function PrivateAccessScreen({
       await savePrivatePin(value);
 
       succeed();
-    } catch {
-      fail(
-        t('security.genericError'),
-      );
+    } catch (submitError) {
+      if (submitError instanceof PinLockedError) {
+        await refreshLockout().catch(() => 0);
+        fail('');
+      } else {
+        fail(
+          t('security.genericError'),
+        );
+      }
     } finally {
       setBusy(false);
+      setVerifyingPin(false);
     }
   };
 
@@ -460,7 +475,9 @@ export default function PrivateAccessScreen({
   ) => {
     if (
       busy ||
+      verifyingPin ||
       checkingPin ||
+      lockout.locked ||
       tone === 'success'
     ) {
       return;
@@ -491,6 +508,8 @@ export default function PrivateAccessScreen({
     if (
       next.length === PIN_LENGTH
     ) {
+      // shown at once, so the label is painted before the derivation starts; it also locks the keypad during the short delay below
+      setVerifyingPin(true);
       setTimeout(() => {
         submitPin(next);
       }, 120);
@@ -645,13 +664,17 @@ export default function PrivateAccessScreen({
             )}
           </Animated.View>
 
-          <AwaText
-            accessibilityLiveRegion="polite"
-            colorRole="error"
-            style={styles.error}
-            variant="bodySmall">
-            {error || ' '}
-          </AwaText>
+          {verifyingPin && (pinConfigured || firstPin) && tone !== 'success' ? (
+            <PinVerifyingNotice />
+          ) : (
+            <AwaText
+              accessibilityLiveRegion="polite"
+              colorRole="error"
+              style={styles.error}
+              variant="bodySmall">
+              {lockout.locked ? t('security.tooManyAttempts', {minutes: lockout.minutes}) : error || ' '}
+            </AwaText>
+          )}
 
           <View
             style={[

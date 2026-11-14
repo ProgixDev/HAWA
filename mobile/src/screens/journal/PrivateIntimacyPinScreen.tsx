@@ -10,7 +10,10 @@ import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privat
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
+import {PinVerifyingNotice} from '../../components/security/PinVerifyingNotice';
 import {AwaText} from '../../components/ui/AwaText';
+import {usePinLockout} from '../../components/security/usePinLockout';
+import {PinLockedError} from '../../services/pinAttemptLimiter';
 import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
@@ -30,7 +33,12 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
   const [pin, setPin] = useState('');
   const [first, setFirst] = useState('');
   const [error, setError] = useState('');
+  // from the sixth digit until the code is checked or saved (PBKDF2: ~0.5 s, ~1.1 s on the first call): shows the notice and locks the keypad
+  const [verifying, setVerifying] = useState(false);
   const shake = useRef(new Animated.Value(0)).current;
+  // The wait that follows repeated wrong codes (persisted: closing the app does not skip it).
+  const lockout = usePinLockout('privateSection');
+  const refreshLockout = lockout.refresh;
 
   useEffect(() => {
     hasPrivatePin().then(setConfigured).catch(() => setConfigured(false));
@@ -46,25 +54,36 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
     try {
       if (configured) {
         if (await verifyPrivatePin(value)) {unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);}
-        else {fail(t('privateIntimacyPin.incorrectCode'));}
+        else {fail((await refreshLockout()) > 0 ? '' : t('privateIntimacyPin.incorrectCode'));}
         return;
       }
       if (!first) {setFirst(value); setPin(''); setError(t('privateIntimacyPin.confirmNewCode')); return;}
       if (first !== value) {setFirst(''); fail(t('privateIntimacyPin.codesDontMatch')); return;}
       await savePrivatePin(value); unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);
     } catch (err) {
+      if (err instanceof PinLockedError) {
+        await refreshLockout().catch(() => 0);
+        fail('');
+        return;
+      }
       console.error('[PrivateIntimacyPin] verify/save failed', err);
       fail(t('privateIntimacyPin.genericError'));
+    } finally {
+      setVerifying(false);
     }
   };
 
   const enter = (key: typeof KEYS[number]) => {
+    if (lockout.locked || verifying) {return;}
     if (key === 'delete') {setPin(v => v.slice(0, -1)); return;}
     if (key === 'empty' || pin.length >= 6) {return;}
     const next = `${pin}${key}`;
     setPin(next);
     setError('');
-    if (next.length === 6) {setTimeout(() => complete(next), 120);}
+    if (next.length === 6) {
+      setVerifying(true); // painted before the derivation starts, and locks the keypad during the delay below
+      setTimeout(() => complete(next), 120);
+    }
   };
 
   const content = (
@@ -97,7 +116,7 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
             <Animated.View accessibilityLabel={t('privateIntimacyPin.digitsEntered', {count: pin.length})} style={[styles.dots, {transform: [{translateX: shake}]}]}>
               {[0, 1, 2, 3, 4, 5].map(index => <View key={index} style={[styles.dot, index < pin.length && styles.dotFilled]} />)}
             </Animated.View>
-            <Text accessibilityLiveRegion="polite" style={styles.error}>{error || ' '}</Text>
+            {verifying && (configured || first) ? <PinVerifyingNotice /> : <Text accessibilityLiveRegion="polite" style={styles.error}>{lockout.locked ? t('security.tooManyAttempts', {minutes: lockout.minutes}) : error || ' '}</Text>}
           </View>
 
           <View style={styles.gapLarge} />

@@ -21,11 +21,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 
 import {PinKeypad} from '../components/security/PinKeypad';
+import {usePinLockout} from '../components/security/usePinLockout';
+import {PinLockedError} from '../services/pinAttemptLimiter';
 
 import {
   authenticateBiometric,
   getAvailableBiometry,
   PIN_LENGTH,
+  verifyPin,
   type BiometryCapability,
 } from '../services/appSecurityService';
 
@@ -89,6 +92,10 @@ export default function AppLockScreen(): React.JSX.Element {
     biometricBusy,
     setBiometricBusy,
   ] = useState(false);
+
+  // The wait that follows repeated wrong codes (persisted: closing the app does not skip it).
+  const lockout = usePinLockout('appLock');
+  const refreshLockout = lockout.refresh;
 
   const requested =
     useRef(false);
@@ -207,30 +214,30 @@ export default function AppLockScreen(): React.JSX.Element {
     verifying.current =
       true;
 
-    import(
-      '../services/appSecurityService'
-    )
-      .then(
-        ({
-          verifyPin,
-        }) =>
-          verifyPin(pin),
-      )
-      .then(ok => {
+    verifyPin(pin)
+      .then(async ok => {
         if (ok) {
           unlockApp();
         } else {
+          // the fifth wrong code in a row starts a wait: then the wait message replaces "incorrect code"
+          const remaining = await refreshLockout();
+
           setError(
-            t('security.incorrectCode'),
+            remaining > 0 ? '' : t('security.incorrectCode'),
           );
 
           setPin('');
         }
       })
-      .catch(() => {
-        setError(
-          t('appLock.pinVerifyError'),
-        );
+      .catch(async verifyError => {
+        if (verifyError instanceof PinLockedError) {
+          await refreshLockout().catch(() => 0);
+          setError('');
+        } else {
+          setError(
+            t('appLock.pinVerifyError'),
+          );
+        }
 
         setPin('');
       })
@@ -238,7 +245,10 @@ export default function AppLockScreen(): React.JSX.Element {
         verifying.current =
           false;
       });
-  }, [pin, t]);
+  }, [pin, t, refreshLockout]);
+
+  // While a wait is running the message says how long is left, in place of any other error.
+  const shownError = lockout.locked ? t('security.tooManyAttempts', {minutes: lockout.minutes}) : error;
 
   return (
     <LinearGradient
@@ -355,7 +365,7 @@ export default function AppLockScreen(): React.JSX.Element {
               ERROR
           ================================================== */}
 
-          {error ? (
+          {shownError ? (
             <View
               accessibilityRole="alert"
               style={
@@ -375,7 +385,7 @@ export default function AppLockScreen(): React.JSX.Element {
                   styles.errorText
                 }
                 variant="bodySmall">
-                {error}
+                {shownError}
               </AwaText>
             </View>
           ) : null}
@@ -427,7 +437,8 @@ export default function AppLockScreen(): React.JSX.Element {
                       styles.keypadAreaCompact,
                   ]}>
                   <PinKeypad
-                    error={error}
+                    disabled={lockout.locked}
+                    error={shownError}
                     onChange={value => {
                       setError('');
                       setPin(value);
