@@ -21,6 +21,7 @@ import '../../i18n';
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import type {CyclePhase} from '../home/CycleStatusCard';
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
@@ -54,7 +55,7 @@ import {getConceptionPreferences, hydrateConceptionPreferences, subscribeConcept
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {displayUpperCase} from '../../utils/textCase';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
-import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 import {
   computeCyclePredictionStatus,
   currentPeriodLength,
@@ -668,6 +669,8 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </SafeAreaView>
 
@@ -720,7 +723,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   scrollContent: {
     paddingHorizontal: 16,
-    paddingTop: TOP_SPACING_EXTRA,
+    paddingTop: 0, // HomeHeader already reserves the top inset and its own gap
     paddingBottom: 22,
   },
 

@@ -32,6 +32,7 @@ import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
@@ -1019,6 +1020,8 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
               onSeeAll={() => navigation.navigate('Library')}
             />
           </Animated.View>
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </SafeAreaView>
 

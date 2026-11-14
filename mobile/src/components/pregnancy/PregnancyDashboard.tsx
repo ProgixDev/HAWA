@@ -28,6 +28,7 @@ import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { requirePrivateAccess } from '../../navigation/privateAccess';
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
@@ -901,6 +902,8 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </SafeAreaView>
 

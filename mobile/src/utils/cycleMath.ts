@@ -1038,6 +1038,24 @@ export const estimateFertilityDates = (
   return {fertileStart: start, fertileEnd: end, ovulation};
 };
 
+export type CycleFertilityRange = {fertileStart: Date; fertileEnd: Date; ovulationStart: Date; ovulationEnd: Date};
+
+/** For a variable cycle ('window' mode) only: a WIDE range for the fertile window and for ovulation, derived from the same
+ * next-period window (never a single date — estimateFertilityDates stays null there). Ovulation is placed ~14 days before the
+ * period, so it spans the next-period window shifted back; the fertile window is that range widened by 5 days before and 1 day
+ * after. Null when the range is already behind us (late period) or the status is not a window. Descriptive only. */
+export const estimateFertilityRange = (status: CyclePredictionStatus, today: Date): CycleFertilityRange | null => {
+  if (status.mode !== 'window') {return null;}
+  // same project formula as ovulationDayFor: ovulation falls this many days before the next period (14)
+  const daysBeforePeriod = IRREGULAR_WINDOW_MIN_DAYS - (ovulationDayFor(IRREGULAR_WINDOW_MIN_DAYS) - 1);
+  const ovulationStart = addDays(status.windowStart, -daysBeforePeriod);
+  const ovulationEnd = addDays(status.windowEnd, -daysBeforePeriod);
+  const fertileStart = addDays(ovulationStart, -5);
+  const fertileEnd = addDays(ovulationEnd, 1);
+  if (startOfDay(today).getTime() > fertileEnd.getTime()) {return null;}
+  return {fertileStart, fertileEnd, ovulationStart, ovulationEnd};
+};
+
 export type AverageCycleDisplay = {label: string; value: string; subtitle: string};
 
 /** The "average cycle length" tile shown by Dashboard, Calendar and Profile.

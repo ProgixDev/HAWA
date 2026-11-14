@@ -37,6 +37,7 @@ import {
 } from '../../theme/awaThemeTokens';
 
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
@@ -1091,6 +1092,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
             onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </SafeAreaView>
 

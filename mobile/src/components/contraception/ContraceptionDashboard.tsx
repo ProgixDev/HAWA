@@ -31,6 +31,7 @@ import {withAlpha, type ResolvedAwaTheme, softTone} from '../../theme/awaThemeTo
 import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
@@ -1978,6 +1979,8 @@ function ContraceptionDashboard({
             onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
 
         <Modal

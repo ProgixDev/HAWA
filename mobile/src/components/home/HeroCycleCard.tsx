@@ -177,7 +177,6 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
   const ringColor = PHASE_INSIGHTS[phase].ringColor;
   const clampedEnergyLevel = moodEntry ? String(Math.min(5, Math.max(1, Math.round(moodEntry.energy)))) : null;
   const insight = {
-    label: t(`cyclePhase.${phase}`),
     message: t(`cycleHome.phase.${phase}.message`),
     energy: clampedEnergyLevel ? t(`cycleHome.energyLevel.${clampedEnergyLevel}`) : t(`cycleHome.phase.${phase}.energy`),
     mood: moodEntry ? t(`cycleHome.mood.${moodEntry.level}`) : t(`cycleHome.phase.${phase}.mood`),
@@ -214,14 +213,14 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
       }}>
       <AwaCard padding="none" style={styles.card}>
       <View style={styles.topRow}>
-        <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={insight.label} ringColor={ringColor} />
+        <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={null} ringColor={ringColor} />
 
         <View style={styles.todayColumn}>
           <View style={styles.todayHeader}>
             <AwaText variant="titleMedium">{t('cycleHome.todayLabel')}</AwaText>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
           </View>
-          <AwaText colorRole="onSurfaceVariant" style={styles.todayMessage} variant="bodyMedium">{insight.message}</AwaText>
+          <AwaText colorRole="onSurfaceVariant" numberOfLines={2} style={styles.todayMessage} variant="bodyMedium">{insight.message}</AwaText>
         </View>
       </View>
 

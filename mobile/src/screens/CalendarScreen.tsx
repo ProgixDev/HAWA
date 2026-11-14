@@ -167,7 +167,8 @@ function CalendarScreen(_: Props): React.JSX.Element {
             map[entry.date] = {
               mood: Boolean(entry.mood),
               notes: Boolean(entry.note) || Boolean(entry.encryptedNote),
-              symptoms: Boolean(entry.symptoms),
+              // the symptoms dot means symptoms were recorded: an explicit "no symptoms" (empty list) is not one
+              symptoms: Boolean(entry.symptoms?.names?.length),
               activity: Boolean(entry.activity),
               sleep: Boolean(entry.sleep),
               hydration: Boolean(entry.hydration),

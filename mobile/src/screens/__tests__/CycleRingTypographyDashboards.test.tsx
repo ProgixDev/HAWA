@@ -58,20 +58,20 @@ const COPY = {
   it: {caption: 'Giorno del ciclo', phases: ['Fase mestruale', 'Fase follicolare', 'Finestra fertile', 'Ovulazione', 'Fase luteale'], day4: 'Fase mestruale', day8: 'Fase follicolare'},
 } as const;
 
-/** The three ring texts of a rendered dashboard, found by what they say — their drawn styles, captured at once. */
+/** The two ring texts of a rendered dashboard (caption + day number), found by what they say — their drawn styles, captured at once. The phase NAME is no
+ * longer drawn inside the owner/daughter ring (HeroCycleCard passes phaseLabel={null}; only its day-by-day message remains), so it is returned only to check that it is really absent. */
 function ringTexts(renderer: ReactTestRenderer.ReactTestRenderer, language: keyof typeof COPY, day: number, phase: string) {
   const plan = planCycleRingText({size: 116, caption: COPY[language].caption, phaseLabels: COPY[language].phases});
   const texts = renderer.root.findAllByType(Text);
   const caption = texts.find(node => textOf(node) === COPY[language].caption)!;
   const number = texts.find(node => textOf(node) === String(day) && styleOf(node).fontSize === plan.number.fontSize)!;
-  const phaseText = texts.find(node => node.props.accessibilityLabel === phase)!;
+  const phaseInRing = texts.find(node => node.props.accessibilityLabel === phase);
   return {
     plan,
     caption: styleOf(caption),
     number: styleOf(number),
-    phaseText: styleOf(phaseText),
-    phaseContent: textOf(phaseText),
-    allowFontScaling: [caption, number, phaseText].map(node => node.props.allowFontScaling),
+    phaseInRing,
+    allowFontScaling: [caption, number].map(node => node.props.allowFontScaling),
   };
 }
 
@@ -123,26 +123,28 @@ describe.each(Object.keys(COPY) as Array<keyof typeof COPY>)('main and daughter 
     await seedManagedProfileCycleIfNeeded(daughter.id);
     const child = ringTexts(await renderDashboard(), language, day, phase);
 
-    for (const part of ['caption', 'number', 'phaseText'] as const) {
-      expect([language, part, child[part]]).toEqual([language, part, owner[part]]);
+    // Same typography. The colour is left out of the comparison on purpose: the daughter's space has its own rose palette, so the ring text colour differs.
+    const typography = ({color: _color, ...rest}: Record<string, unknown>) => rest;
+    for (const part of ['caption', 'number'] as const) {
+      expect([language, part, typography(child[part])]).toEqual([language, part, typography(owner[part])]);
     }
-    expect(child.phaseContent).toBe(owner.phaseContent);
+    expect(child.phaseInRing).toBeUndefined();
     // and it is the planned, smaller-than-11 caption: nothing is left at the old 11 / 9.5
     expect(owner.caption.fontSize).toBe(owner.plan.caption.fontSize);
     expect(owner.caption.fontSize as number).toBeLessThan(11);
-    expect(owner.phaseText.fontSize).toBe(owner.plan.phase.fontSize);
-    expect(owner.phaseContent).toBe(owner.plan.phaseLines[phase].join('\n'));
+    expect(owner.number.fontSize).toBe(owner.plan.number.fontSize);
+    expect(owner.phaseInRing).toBeUndefined(); // the phase is not drawn in the ring any more
     await setActiveProfileId(OWNER_PROFILE_ID);
   });
 });
 
 describe('the ring stays readable on the system font sizes', () => {
-  it('draws its three texts without font scaling, so a large system font cannot push them out of the disc', async () => {
+  it('draws its two texts without font scaling, so a large system font cannot push them out of the disc', async () => {
     await setAppLanguage('fr');
     await i18n.changeLanguage('fr');
     jest.setSystemTime(new Date(2026, 8, 4, 10, 0, 0));
     await setCyclePreferences({lastPeriodStart: new Date(2026, 8, 1), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
     const {allowFontScaling} = ringTexts(await renderDashboard(), 'fr', 4, 'Phase menstruelle');
-    expect(allowFontScaling).toEqual([false, false, false]);
+    expect(allowFontScaling).toEqual([false, false]);
   });
 });

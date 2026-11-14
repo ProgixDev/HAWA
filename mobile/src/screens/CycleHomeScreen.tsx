@@ -22,6 +22,7 @@ import {AwaButton} from '../components/ui/AwaButton';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme, softTone, withAlpha} from '../theme/awaThemeTokens';
 import HomeHeader from '../components/home/HomeHeader';
+import DiscoverSection from '../components/home/DiscoverSection';
 import HeroCycleCard from '../components/home/HeroCycleCard';
 import CycleOverviewCard, {type OverviewItem} from '../components/home/CycleOverviewCard';
 import QuickActionsGrid, {type QuickActionItem} from '../components/home/QuickActionsGrid';
@@ -56,7 +57,7 @@ import {recordManagedProfileFirstPeriod} from '../state/managedProfileCycleSeed'
 import {withResolvedIntimacyForDisplay} from '../services/privateJournalEncryption';
 import {withResolvedNoteForDisplay} from '../services/privateNotesEncryption';
 import type {DailyJournalEntry} from '../types/journal';
-import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
+import {getFloatingTabBarClearance} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {
   computeCyclePredictionStatus,
@@ -66,6 +67,7 @@ import {
   diffDays,
   effectiveRegularityFor,
   estimateFertilityDates,
+  estimateFertilityRange,
   formatDateRange,
   formatHijriDate,
   formatShortDate,
@@ -311,12 +313,18 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // "Cycle variable" only describes an irregular cycle; elsewhere the dates are
   // simply not estimable yet.
   const notEstimableSubtitle = predictionStatus.mode === 'window' ? t('cycleHome.variableCycle') : t('cycleHome.insufficientData');
+  // A variable cycle gets a WIDE range (never a single date) labelled "Cycle variable" instead of "Non estimable".
+  const fertilityRange = fertility ? null : estimateFertilityRange(predictionStatus, today);
   const fertileTile = fertility
     ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.fertileStart, today))})}
-    : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
+    : fertilityRange
+      ? {value: formatDateRange(fertilityRange.fertileStart, fertilityRange.fertileEnd), subtitle: t('cycleHome.variableCycle')}
+      : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
   const ovulationTile = fertility
     ? {value: formatShortDate(fertility.ovulation), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.ovulation, today))})}
-    : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
+    : fertilityRange
+      ? {value: formatDateRange(fertilityRange.ovulationStart, fertilityRange.ovulationEnd), subtitle: t('cycleHome.variableCycle')}
+      : {value: t('cycleHome.notEstimable'), subtitle: notEstimableSubtitle};
 
   const overviewItems: OverviewItem[] = [
     {
@@ -452,7 +460,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               window, ovulation, average length) is cycle-derived, and there is
               no real cycle data yet to summarise. */}
           {!isPreFirstPeriodDaughter && cycleDataReady && !noRecordedPeriod ? (
-            <CycleOverviewCard items={overviewItems} onPressMore={() => navigation.navigate('Calendar')} />
+            <CycleOverviewCard items={overviewItems} />
           ) : null}
 
           {isPreFirstPeriodDaughter ? (
@@ -573,6 +581,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               onSeeAll={() => navigation.navigate('Library')}
             />
           ) : null}
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </SafeAreaView>
 
@@ -613,7 +623,8 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     scrollContent: {
       paddingHorizontal: 16,
-      paddingTop: TOP_SPACING_EXTRA,
+      // no extra top padding: HomeHeader already reserves the status bar inset plus its own gap (a further 32 left a big empty band)
+      paddingTop: 0,
       paddingBottom: 22,
     },
 

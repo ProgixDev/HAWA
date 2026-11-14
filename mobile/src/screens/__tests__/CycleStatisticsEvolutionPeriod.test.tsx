@@ -135,7 +135,13 @@ describe('Cycle Statistics - evolution rows use real data and the selected perio
     // 3 mois: July + September, month by month (chip text is "<label> · <n> j").
     await selectPeriod(renderer, '3 mois');
     texts = allTexts(renderer);
-    expect(texts).toContain('Répartition mois par mois sur 3 mois');
+    // The old "Répartition mois par mois sur 3 mois" subtitle is gone from the flow card on purpose. The selected period must still be identifiable:
+    //  - in the selector (the "3 mois" button is the selected one) and on the symptoms card ("Fréquence et évolution sur 3 mois"),
+    //  - and the flow card itself shows exactly the months of that period (rows below).
+    const selectedButtons = renderer.root.findAll(node => node.props.accessibilityRole === 'button' && node.props.accessibilityState?.selected === true);
+    // (the same button appears once per wrapper node: compare the distinct labels)
+    expect([...new Set(selectedButtons.map(button => button.findAllByType(Text).map(text => [text.props.children].flat(Infinity).join('')).join('')))]).toEqual(['3 mois']);
+    expect(texts).toContain('Fréquence et évolution sur 3 mois');
     expect(texts).toContain('Juillet 2026');
     expect(texts).toContain('Septembre 2026');
     expect(texts).not.toContain('Mars 2026');

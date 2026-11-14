@@ -123,7 +123,12 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
       key: 'symptoms',
       icon: 'heart-outline',
       label: i18n.t('dailyJournal.symptoms'),
-      value: symptomNames.length > 0 ? symptomNames.map(name => journalOptionLabel('cycleSymptom', name, i18n.t)).join(', ') : i18n.t('calendar.dayCard.rows.symptomsNone'),
+      // Nothing declared that day (no symptoms section) is not the same as an explicit "no symptoms" (an empty list).
+      value: !entry?.symptoms
+        ? notProvided
+        : symptomNames.length > 0
+          ? symptomNames.map(name => journalOptionLabel('cycleSymptom', name, i18n.t)).join(', ')
+          : i18n.t('calendar.dayCard.rows.symptomsNone'),
     },
     {
       key: 'mood',

@@ -10,7 +10,7 @@ import {
 } from '../../state/onboardingPreferences';
 import {getConceptionPreferences} from '../../state/conceptionPreferences';
 import {getIrregularPreferences} from '../../state/irregularPreferences';
-import {getConfirmedPeriodHistory} from '../../state/confirmedPeriodHistoryStore';
+import {getConfirmedPeriodHistory, hydrateConfirmedPeriodHistory} from '../../state/confirmedPeriodHistoryStore';
 import {fakeNotifeeState, notifee as fakeNotifee, resetFakeNotifee} from '../../testUtils/fakeNotifee';
 
 // The TTC and SOPK syncs are requested from many places at once (app start, a preference/objective/period change, a
@@ -186,6 +186,10 @@ describe('syncConceptionReminders', () => {
   });
 });
 
+// A run of syncIrregularReminders loads the confirmed period history exactly once. (getActiveObjective cannot count runs any more: the daily journal
+// key now depends on the objective, so one run reads it, and hydrates it, several times.)
+const runsStarted = () => (hydrateConfirmedPeriodHistory as jest.Mock).mock.calls.length;
+
 describe('syncIrregularReminders', () => {
   beforeEach(() => {
     (getActiveObjective as jest.Mock).mockReturnValue('irregular');
@@ -206,8 +210,8 @@ describe('syncIrregularReminders', () => {
       held.restore();
     }
 
-    // (each run reads the objective exactly once, first thing: that counts the runs)
-    expect((getActiveObjective as jest.Mock).mock.calls.length).toBe(2); // in-flight run + ONE follow-up
+    // (each run loads the confirmed period history exactly once: that counts the runs)
+    expect(runsStarted()).toBe(2); // in-flight run + ONE follow-up
     const trigger = fakeNotifeeState.triggers.get(SOPK_DAILY_ID);
     expect(trigger).toBeDefined();
     expect(new Date(trigger?.trigger.timestamp ?? 0).getHours()).toBe(21);
@@ -262,7 +266,7 @@ describe('syncIrregularReminders', () => {
     try {
       const inFlight = syncIrregularReminders();
       await held.untilHeld(1);
-      expect((getActiveObjective as jest.Mock).mock.calls.length).toBe(1);
+      expect(runsStarted()).toBe(1);
 
       const explicit = syncIrregularReminders(new Date(2026, 8, 20, 21, 0, 0)).then(() => {
         explicitDone = true;
@@ -271,7 +275,7 @@ describe('syncIrregularReminders', () => {
         await new Promise<void>(resolve => setImmediate(resolve));
       }
       expect(explicitDone).toBe(false);
-      expect((getActiveObjective as jest.Mock).mock.calls.length).toBe(1); // it has not even started: waiting its turn
+      expect(runsStarted()).toBe(1); // it has not even started: waiting its turn
 
       await held.releaseAll();
       await Promise.all([inFlight, explicit]);
@@ -280,7 +284,7 @@ describe('syncIrregularReminders', () => {
     }
 
     expect(explicitDone).toBe(true);
-    expect((getActiveObjective as jest.Mock).mock.calls.length).toBe(2);
+    expect(runsStarted()).toBe(2);
     expect(fakeNotifeeState.triggers.has(SOPK_DAILY_ID)).toBe(true);
   });
 

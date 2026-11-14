@@ -104,20 +104,13 @@ describe('CycleHomeScreen — "today" refreshes without reopening the app', () =
   });
 });
 
-describe('CycleHomeScreen — "Voir plus"', () => {
-  it('opens the existing Calendar tab (no dead link)', async () => {
+describe('CycleHomeScreen — cycle overview', () => {
+  it('has no "Voir plus" button any more', async () => {
     jest.setSystemTime(new Date(2026, 8, 12, 10, 0, 0));
-    const {renderer, navigation} = await renderCycleHome();
+    const {renderer} = await renderCycleHome();
 
-    const more = renderer.root.findAll(node => node.props.children === 'Voir plus')[0];
-    expect(more).toBeTruthy();
-    let pressable = more;
-    while (pressable && typeof pressable.props.onPress !== 'function') {
-      pressable = pressable.parent as ReactTestRenderer.ReactTestInstance;
-    }
-    act(() => pressable.props.onPress());
-
-    expect(navigation.navigate).toHaveBeenCalledWith('Calendar');
+    expect(textsOf(renderer)).toContain('Aperçu de ton cycle');
+    expect(renderer.root.findAll(node => node.props.children === 'Voir plus')).toHaveLength(0);
   });
 });
 
@@ -133,12 +126,13 @@ describe('CycleHomeScreen — predictions never contradict the window', () => {
     expect(texts).toContain('28 jours');
   });
 
-  it('IRREGULAR cycle: the next period is a window, so no single ovulation / fertile date is shown', async () => {
+  it('IRREGULAR cycle: the next period is a window, so fertile window and ovulation are wide ranges labelled "Cycle variable", never a single date', async () => {
     jest.setSystemTime(new Date(2026, 8, 3, 10, 0, 0));
     confirmedCycle('no');
     const {renderer} = await renderCycleHome();
     const texts = textsOf(renderer);
-    expect(texts.filter(text => text === 'Non estimable')).toHaveLength(2);
+    expect(texts).not.toContain('Non estimable');
+    expect(texts.filter(text => text === 'Cycle variable').length).toBeGreaterThanOrEqual(2);
     expect(texts).not.toContain('15 septembre');
     expect(texts).toContain('26–32 jours');
   });
@@ -334,7 +328,7 @@ describe('CycleHomeScreen — localization (English)', () => {
     expect(texts).toContain('Tip of the day');
     // CycleOverviewCard.
     expect(texts).toContain('Your cycle overview');
-    expect(texts).toContain('See more');
+    expect(texts).not.toContain('See more');
     // QuickActionsGrid.
     expect(texts).toContain('Quick actions');
     expect(texts).toContain('Press and hold to customize');
@@ -366,7 +360,8 @@ describe('CycleHomeScreen — localization (English)', () => {
     confirmedCycle('no');
     const {renderer: irregularRenderer} = await renderCycleHome();
     const irregularTexts = textsOf(irregularRenderer);
-    expect(irregularTexts.filter(text => text === 'Not estimable')).toHaveLength(2);
+    expect(irregularTexts).not.toContain('Not estimable');
+    expect(irregularTexts.filter(text => text === 'Variable cycle')).toHaveLength(3);
     expect(irregularTexts).toContain('26–32 days');
   });
 

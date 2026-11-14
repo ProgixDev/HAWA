@@ -5,7 +5,7 @@ import {calculateAverageCycleDuration} from './cycleStatisticsMath';
 import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 import {getIrregularPreferences, type IrregularPreferences} from '../state/irregularPreferences';
 import {getConfirmedPeriodHistory, hydrateConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
-import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {currentDailyJournalBase, getAllJournalEntries} from '../state/dailyJournalStore';
 import {isOwnerActive} from '../state/activeProfileStore';
 import {
   getAllIrregularJournalEntries,
@@ -204,7 +204,7 @@ async function syncIrregularRemindersOnce(now: Date): Promise<void> {
   // existing reminders are left untouched and nothing is derived from the default state.
   if (areReminderSourcesUnavailable({
     ownerBases: ['@hawa/irregular-preferences/v1', '@hawa/irregular-journal/v1'],
-    profileBases: ['@hawa/daily-journal/v1', '@hawa/confirmed-period-history'],
+    profileBases: [currentDailyJournalBase(), '@hawa/confirmed-period-history'],
   })) {
     return;
   }

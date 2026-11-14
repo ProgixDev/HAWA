@@ -1,5 +1,5 @@
 import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
@@ -257,6 +257,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const [regularity, setRegularity] = useState<Regularity>(() => initialCyclePreferences.regularity);
   const [errors, setErrors] = useState<{start?: string; end?: string}>({});
   const [submitting, setSubmitting] = useState(false);
+  // Synchronous guard of the habits-only save: `submitting` only changes at the next render, so two taps in the same tick (or a second one
+  // while the write is pending) would otherwise both run and call goBack() twice.
+  const habitsSaveInFlight = useRef(false);
 
   const activeCalendarDate = datePicker === 'end' ? (actualPeriodEnd ?? new Date()) : actualPeriodStart;
 
@@ -319,6 +322,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
     if (submitting) {return;}
 
     if (habitsOnly) {
+      if (habitsSaveInFlight.current) {return;}
+      habitsSaveInFlight.current = true;
+      setSubmitting(true);
       // Same setter as the full save below, fed the CURRENT lastPeriodStart
       // (read at save time, exactly like confirmPeriodStart does) so the
       // period start, period history and journal data stay untouched;
@@ -330,6 +336,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         // Not persisted (services/saveFailure.ts): stay here with the values intact, no navigation.
         presentSaveFailure(saveError);
         return;
+      } finally {
+        habitsSaveInFlight.current = false;
+        setSubmitting(false);
       }
       navigation.goBack();
       return;

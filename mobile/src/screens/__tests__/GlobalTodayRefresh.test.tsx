@@ -152,6 +152,12 @@ describe('Journal screens — "save today\'s entry" always uses the CURRENT day'
       jest.advanceTimersByTime(5 * 60_000);
     });
 
+    // An untouched mood cannot be saved any more: she chooses a mood on the NEW day first (the first card).
+    const firstMood = renderer.root.findAll(node => node.props.accessibilityRole === 'radio' && typeof node.props.onPress === 'function')[0];
+    await act(async () => {
+      firstMood.props.onPress();
+    });
+
     const save = renderer.root.findAll(
       node => node.props.accessibilityLabel === "Enregistrer l'humeur" && typeof node.props.onPress === 'function',
     )[0];

@@ -19,8 +19,9 @@ import {useTranslation} from 'react-i18next';
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getFloatingTabBarClearance, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 import HomeHeader from '../home/HomeHeader';
+import DiscoverSection from '../home/DiscoverSection';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
@@ -268,7 +269,6 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
           contentContainerStyle={[
             styles.scrollContent,
             {
-              paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA,
               paddingBottom: getFloatingTabBarClearance(insets.bottom, 22),
             },
           ]}
@@ -482,6 +482,8 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
             onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
             onSeeAll={() => navigation.navigate('Library')}
           />
+          {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
+          <DiscoverSection />
         </ScrollView>
       </View>
     </LinearGradient>

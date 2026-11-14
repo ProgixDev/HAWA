@@ -25,7 +25,7 @@ import {AwaCard} from '../components/ui/AwaCard';
 import {AwaText} from '../components/ui/AwaText';
 import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
-import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {currentDailyJournalBase, getAllJournalEntries} from '../state/dailyJournalStore';
 import {getRecordedPeriodHistory, hydrateCyclePreferences} from '../state/onboardingPreferences';
 import {getActiveProfileId, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {isActiveProfileDataUnavailable, useStructuredDataAvailability} from '../hooks/useStructuredDataAvailability';
@@ -241,7 +241,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const loading = data.profileId === null;
   // Records that could not be READ are not an empty history: say so instead of showing "no statistics yet".
   const availability = useStructuredDataAvailability();
-  const statsUnavailable = data.failed || availability.anyUnavailable && isActiveProfileDataUnavailable(['@hawa/daily-journal/v1', '@hawa/confirmed-period-history', '@hawa/cycle-preferences']);
+  const statsUnavailable = data.failed || availability.anyUnavailable && isActiveProfileDataUnavailable([currentDailyJournalBase(), '@hawa/confirmed-period-history', '@hawa/cycle-preferences']);
   const hasAnyData = data.entries.length > 0 || data.history.length > 0 || data.recordedStarts.length > 0;
 
   const handleSelectPeriod = (target: StatisticsPeriod): void => {
@@ -358,7 +358,6 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
           <View style={styles.sectionHeading}>
             <AwaText variant="titleLarge">{t('statistics.cycleOverviewTitle')}</AwaText>
-            <AwaText colorRole="onSurfaceVariant" style={styles.sectionDescription} variant="bodySmall">{t('statistics.summaryOver', {period: monthsLabel})}</AwaText>
           </View>
 
           {averageCycleDuration ? (
@@ -413,9 +412,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           <AwaCard style={styles.card}>
             <SectionHeader
               icon="calendar-multiselect"
-              subtitle={t('statistics.cycleDetailsSubtitle')}
               title={t('statistics.cycleDetailsTitle')}
             />
+            {/* When there are not enough cycles, the notice at the top of the page already says so: no second copy here. */}
             {cycleLengthRange ? (
               <View style={styles.chipRow}>
                 <View style={styles.chip}>
@@ -425,13 +424,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('statistics.longestCycle', {count: cycleLengthRange.longestDays})}</AwaText>
                 </View>
               </View>
-            ) : (
-              <DataNotice
-                detail={missingAverageDetail}
-                icon="calendar-clock-outline"
-                title={t('statistics.notEnoughCyclesTitle')}
-              />
-            )}
+            ) : null}
             {averagePeriodDuration ? (
               <View style={styles.chipRow}>
                 <View style={styles.chip}>
@@ -456,11 +449,6 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           <AwaCard style={styles.card}>
             <SectionHeader
               icon="water-outline"
-              subtitle={
-                showLongitudinalView
-                  ? t('statistics.monthByMonthOver', {period: monthsLabel})
-                  : t('statistics.recordedIntensityBreakdown')
-              }
               title={t('statistics.flowEvolutionTitle')}
             />
 
@@ -817,6 +805,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    // keeps the card's title + subtitle clear of the content (cards, chips, charts) that follows it
+    marginBottom: 16,
   },
 
   sectionIcon: {

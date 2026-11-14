@@ -1,10 +1,9 @@
 import React, {memo, useMemo} from 'react';
-import {StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
 import {AwaText} from '../ui/AwaText';
 import '../../i18n';
@@ -29,20 +28,17 @@ export type OverviewItem = {
 
 type Props = {
   items: OverviewItem[];
-  onPressMore?: () => void;
 };
 
 function OverviewColumn({
   item,
-  compact,
   styles,
 }: {
   item: OverviewItem;
-  compact: boolean;
   styles: ReturnType<typeof createStyles>;
 }) {
   return (
-    <View style={[styles.column, compact ? styles.columnCompact : styles.columnWide]}>
+    <View style={styles.column}>
       <View style={[styles.iconCircle, {backgroundColor: item.iconBg}]}>
         <MaterialDesignIcons color={item.iconColor} name={item.icon} size={17} />
       </View>
@@ -53,35 +49,26 @@ function OverviewColumn({
   );
 }
 
-function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
+// The four items sit in ONE row that scrolls sideways: every column is wide enough for its label, date range and caption to stay
+// on one or two lines (side by side in a 4-column grid they were squeezed into many short lines).
+function CycleOverviewCard({items}: Props): React.JSX.Element {
   const {t} = useTranslation();
-  const {width} = useWindowDimensions();
-  const compact = width < 380;
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <AwaCard style={styles.card}>
-      <View style={styles.header}>
-        <AwaText style={styles.title} variant="titleMedium">{t('cycleHome.overview.title')}</AwaText>
-        {/* Only rendered when there is somewhere to go — never a link that
-            looks tappable but does nothing. */}
-        {onPressMore ? (
-          <AwaButton
-            hitSlop={8}
-            label={t('cycleHome.overview.seeMore')}
-            onPress={onPressMore}
-            size="compact"
-            variant="text"
-          />
-        ) : null}
-      </View>
+      <AwaText style={styles.title} variant="titleMedium">{t('cycleHome.overview.title')}</AwaText>
 
-      <View style={styles.row}>
+      <ScrollView
+        contentContainerStyle={styles.row}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.scroll}>
         {items.map(item => (
-          <OverviewColumn compact={compact} item={item} key={item.key} styles={styles} />
+          <OverviewColumn item={item} key={item.key} styles={styles} />
         ))}
-      </View>
+      </ScrollView>
     </AwaCard>
   );
 }
@@ -89,12 +76,10 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     card: {marginTop: 16},
-    header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
     title: {flexShrink: 1},
-    row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
-    column: {alignItems: 'center', paddingHorizontal: 3},
-    columnWide: {flexBasis: '20%', flexGrow: 1},
-    columnCompact: {flexBasis: '42%', flexGrow: 1},
+    scroll: {marginTop: 14},
+    row: {flexDirection: 'row', gap: 12},
+    column: {width: 128, alignItems: 'center', paddingHorizontal: 4},
     iconCircle: {
       width: 34,
       height: 34,

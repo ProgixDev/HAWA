@@ -54,9 +54,7 @@ const STATISTICS = [
 ];
 
 const JOURNALS = [
-  // Cycle / shared
-  'screens/journal/JournalMoodScreen.tsx',
-  'screens/journal/JournalSleepScreen.tsx',
+  // Cycle / shared (Mood and Sleep have their own day switcher: see JOURNALS_WITH_DAY_SWITCHER below)
   'screens/journal/JournalActivityScreen.tsx',
   'screens/journal/JournalSymptomsScreen.tsx',
   'screens/journal/JournalNoteScreen.tsx',
@@ -92,6 +90,13 @@ const OTHER_DAY_DEPENDENT = [
 
 // Prayer / Hijri / Qadaa features follow the same shared current day as the
 // rest of AWA (they are kept, not exempt).
+// The journals that let her fill in a previous day (arrows next to the date) read the day from useJournalDay(), which is built ON the shared
+// useToday() hook: the day being edited is `today - offset`, so it still follows midnight and the return from the background.
+const JOURNALS_WITH_DAY_SWITCHER = [
+  'screens/journal/JournalMoodScreen.tsx',
+  'screens/journal/JournalSleepScreen.tsx',
+];
+
 const SPIRITUAL = [
   'screens/HijriCalendarScreen.tsx',
   'hooks/useQadaaStatus.ts',
@@ -110,6 +115,22 @@ describe.each([
     const source = read(file);
     expect(source).toMatch(/useToday\(\)/);
     expect(source).toMatch(/hooks\/useToday/);
+  });
+});
+
+describe('journals with a day switcher read the day from useJournalDay(), which is built on the shared useToday()', () => {
+  it.each(JOURNALS_WITH_DAY_SWITCHER)('%s', file => {
+    const source = read(file);
+    expect(source).toMatch(/useJournalDay\(\)/);
+    expect(source).toMatch(/hooks\/useJournalDay/);
+    expect(source).toMatch(/JournalDaySwitcher/);
+  });
+
+  it('useJournalDay itself takes "today" from useToday() (so the reactive-day guarantee holds), and never from a one-off new Date()', () => {
+    const source = read('hooks/useJournalDay.ts');
+    expect(source).toMatch(/useToday\(\)/);
+    expect(source).toMatch(/from '\.\/useToday'/);
+    expect(source).not.toMatch(/new Date\(\)/);
   });
 });
 

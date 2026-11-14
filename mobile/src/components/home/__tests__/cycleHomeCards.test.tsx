@@ -60,49 +60,24 @@ describe('HeroCycleCard — theme reactivity + semantic phase colors', () => {
     expect(flattenStyle(title.props.style).color).toBe('#4A2E37');
   });
 
-  it('the menstruation phase ring color stays fixed across palette changes', async () => {
-    const renderer = await renderWithTheme(
-      <HeroCycleCard currentDay={2} cycleLength={28} phase="menstruation" />,
-    );
-    // the name is wrapped on two lines in the ring: it is found by its accessibility name, not by its text
-    const phaseLabel = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Phase menstruelle')[0];
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#DC7B82');
+  it.each([
+    ['menstruation', 2, 'Phase menstruelle', '#DC7B82', 'ocean-calm'],
+    ['ovulation', 14, 'Ovulation', '#6D4AE8', 'warm-sand'],
+    ['fertile', 12, 'Fenêtre fertile', '#8B6FD1', 'sage-serenity'],
+  ] as const)('the ring shows only the cycle day, not the %s phase name, and keeps its fixed phase color', async (phase, day, phaseName, color, otherTheme) => {
+    const renderer = await renderWithTheme(<HeroCycleCard currentDay={day} cycleLength={28} phase={phase} />);
+    const ringHasPhaseName = () => renderer.root.findAll(node => node.props.accessibilityLabel === phaseName || node.props.children === phaseName).length > 0;
+    const ringHasColor = () => renderer.root.findAll(node => flattenStyle(node.props.style)?.backgroundColor === color).length > 0;
+    expect(ringHasPhaseName()).toBe(false);
+    expect(ringHasColor()).toBe(true);
 
     await act(async () => {
-      await setSelectedThemeId('ocean-calm');
+      await setSelectedThemeId(otherTheme);
     });
 
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#DC7B82');
-  });
-
-  it('the ovulation phase ring color stays fixed even though it currently equals the brand primary', async () => {
-    const renderer = await renderWithTheme(
-      <HeroCycleCard currentDay={14} cycleLength={28} phase="ovulation" />,
-    );
-    const phaseLabel = () => renderer.root.findAll(node => node.props.children === 'Ovulation')[0];
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#6D4AE8');
-
-    await act(async () => {
-      await setSelectedThemeId('warm-sand');
-    });
-
-    // Must NOT silently follow warm-sand's own primary (#B08A5C) — it's a
-    // fixed cycle-phase identity color, not a decorative brand reference.
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#6D4AE8');
-  });
-
-  it('the fertile phase ring color stays fixed across palette changes', async () => {
-    const renderer = await renderWithTheme(
-      <HeroCycleCard currentDay={12} cycleLength={28} phase="fertile" />,
-    );
-    const phaseLabel = () => renderer.root.findAll(node => node.props.children === 'Fenêtre fertile')[0];
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#8B6FD1');
-
-    await act(async () => {
-      await setSelectedThemeId('sage-serenity');
-    });
-
-    expect(flattenStyle(phaseLabel().props.style).color).toBe('#8B6FD1');
+    // A fixed cycle-phase identity color: it must NOT follow the palette's own primary.
+    expect(ringHasPhaseName()).toBe(false);
+    expect(ringHasColor()).toBe(true);
   });
 });
 
@@ -164,23 +139,21 @@ describe('MotivationCard — theme reactivity, fixed text over fixed image', () 
   });
 });
 
-describe('CycleOverviewCard — "Voir plus" is never a dead link', () => {
+describe('CycleOverviewCard — layout', () => {
   const items: OverviewItem[] = [
     {key: 'next-period', icon: 'water', iconColor: '#DC7B82', iconBg: '#F7D7D6', label: 'Prochaines règles', value: '12 mars', subtitle: 'Dans 3 jours'},
   ];
 
-  it('is rendered and pressable when a destination is supplied', async () => {
-    const onPressMore = jest.fn();
-    const renderer = await renderWithTheme(<CycleOverviewCard items={items} onPressMore={onPressMore} />);
-    const more = renderer.root.findAll(node => node.props.children === 'Voir plus');
-    expect(more.length).toBeGreaterThan(0);
-    const pressable = renderer.root.findAll(node => node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
-    act(() => pressable.props.onPress());
-    expect(onPressMore).toHaveBeenCalledTimes(1);
-  });
-
-  it('is not rendered at all when there is nowhere to go', async () => {
+  it('has no "Voir plus" button', async () => {
     const renderer = await renderWithTheme(<CycleOverviewCard items={items} />);
     expect(renderer.root.findAll(node => node.props.children === 'Voir plus')).toHaveLength(0);
+  });
+
+  it('scrolls sideways, with columns wide enough to keep their text on few lines', async () => {
+    const renderer = await renderWithTheme(<CycleOverviewCard items={items} />);
+    const scroll = renderer.root.findAll(node => node.props.horizontal === true)[0];
+    expect(scroll).toBeTruthy();
+    const column = renderer.root.findAll(node => flattenStyle(node.props.style)?.width === 128)[0];
+    expect(column).toBeTruthy();
   });
 });
