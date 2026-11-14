@@ -1816,7 +1816,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     shadowOpacity: 0.14,
 
-    elevation: 3,
+    // No Android elevation: its shadow is drawn behind a translucent fill and showed through as a dark rounded square inside the
+    // circle. The red ring and the tint already mark the selection.
+    elevation: 0,
   },
 
   qualityLabel: {

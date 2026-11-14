@@ -9,11 +9,13 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../navigation/JournalSheetContext';
+import DailyJournalCard from '../../components/home/DailyJournalCard';
 import JournalMoodScreen from '../journal/JournalMoodScreen';
 import PregnancySymptomsScreen from '../pregnancy/PregnancySymptomsScreen';
 import PostpartumJournalEntryScreen from '../PostpartumJournalEntryScreen';
 import PeriodStartBottomSheet from '../../components/calendar/PeriodStartBottomSheet';
 import {getRecordedPeriodHistory, setCyclePreferences} from '../../state/onboardingPreferences';
+import {hydrateActiveProfileId} from '../../state/activeProfileStore';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getPregnancyJournalState, savePregnancySymptoms} from '../../state/pregnancyJournalStore';
 import {
@@ -172,6 +174,9 @@ const pressByText = async (renderer: ReactTestRenderer.ReactTestRenderer, label:
 
 describe('a refused period start (cycle): not announced as recorded, memory rolled back, retry works', () => {
   it('PeriodStartBottomSheet keeps the sheet open, alerts once, and a second tap records the period', async () => {
+    // The app reads the active profile once at launch, long before any cycle write. AwaThemeProvider now also asks for it when it mounts: if this were
+    // its first read, the late notification would re-read the (corrupted) cycle record and rightly take over from the rollback.
+    await hydrateActiveProfileId();
     await setCyclePreferences({lastPeriodStart: new Date(2026, 8, 10, 12), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
     await settle();
     const historyBefore = getRecordedPeriodHistory();
@@ -221,6 +226,13 @@ describe('a refused journal save: no success, a localized pointer to recovery, d
     const saveLabel = i18n.t('journalMood.saveMood');
     const successToast = i18n.t('journalMood.savedToast');
 
+    // An untouched mood cannot be saved any more (only the proposed values): she chooses one on purpose first.
+    const goodMood = renderer.root.find(
+      node => node.props.accessibilityRole === 'radio' && node.findAllByType(Text).some(text => textOf(text) === i18n.t('cycleHome.mood.good')),
+    );
+    await act(async () => {
+      goodMood.props.onPress();
+    });
     await press(renderer, saveLabel);
 
     // localized error that points to the recovery options; no success toast
@@ -236,10 +248,25 @@ describe('a refused journal save: no success, a localized pointer to recovery, d
     dismissAlert();
     await recover(DAILY_KEY, original);
     await press(renderer, saveLabel);
-    expect(textsOf(renderer)).toContain(successToast);
+    // The mood screen no longer shows a toast of its own: on success it simply leaves (goBack), so the proof of success is the persisted record below, the absence of any alert, and the updated "Suivi du jour" card at the end of this test.
     expect((await getJournalEntry(todayKey()))?.mood).toBeDefined();
     expect((await getJournalEntry(OTHER_DAY))?.sleep).toBeDefined(); // nothing else was lost
     expect(alertSpy).not.toHaveBeenCalled();
+
+    // What she sees back on the previous screen: the Cycle "Suivi du jour" card (fed by the same stored entry) now marks the mood as done and counts it.
+    const savedEntry = await getJournalEntry(todayKey());
+    let card!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      card = ReactTestRenderer.create(
+        <AwaThemeProvider>
+          <DailyJournalCard entry={savedEntry} onNavigate={jest.fn()} />
+        </AwaThemeProvider>,
+      );
+    });
+    activeRenderers.push(card);
+    expect(textsOf(card)).toContain(i18n.t('dailyJournal.completedOf', {completed: 1, total: 8}));
+    const moodDone = `${i18n.t('dailyJournal.mood')}${i18n.t('dailyJournal.completedSuffix')}`;
+    expect(card.root.findAll(node => node.props.accessibilityLabel === moodDone).length).toBeGreaterThan(0);
   });
 
   it('Pregnancy symptoms', async () => {

@@ -388,6 +388,14 @@ describe('E4 Journal family — save payload is identical across a theme switch'
       await setTrueBlackEnabled(true);
     });
 
+    // An untouched mood cannot be saved any more: she confirms the proposed mood on purpose first.
+    const proposedMood = renderer.root.findAll(
+      node => node.props.accessibilityRole === 'radio' && typeof node.props.onPress === 'function' && node.findAll(child => child.props.children === 'Très bien').length > 0,
+    )[0];
+    await act(async () => {
+      proposedMood.props.onPress();
+    });
+
     const saveButton = renderer.root.findAll(node => node.props.accessibilityLabel === "Enregistrer l'humeur")[0];
     await act(async () => {
       saveButton.props.onPress();

@@ -191,7 +191,7 @@ const SCENARIOS: Scenario[] = [
   },
   {
     name: 'irregular (SOPK)',
-    sources: ['@hawa/irregular-preferences/v1', '@hawa/irregular-journal/v1', '@hawa/daily-journal/v1', '@hawa/confirmed-period-history', OBJECTIVE_KEY],
+    sources: ['@hawa/irregular-preferences/v1', '@hawa/irregular-journal/v1', '@hawa/daily-journal/v1/irregular', '@hawa/confirmed-period-history', OBJECTIVE_KEY],
     seed: async () => {
       await M.onboarding().setActiveObjective('irregular');
       await M.irregularPrefs().setIrregularPreferences({
