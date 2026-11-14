@@ -718,7 +718,9 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
       <Modal
         animationType="fade"
+        navigationBarTranslucent
         onRequestClose={closeTimePicker}
+        statusBarTranslucent
         transparent
         visible={activeTimeField !== null}>
         <View style={styles.modalOverlay}>

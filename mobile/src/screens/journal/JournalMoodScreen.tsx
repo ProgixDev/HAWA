@@ -1,7 +1,7 @@
 import {useJournalDay} from '../../hooks/useJournalDay';
 import {JournalDaySwitcher} from '../../components/journal/JournalDaySwitcher';
 import {useDaughterJournal} from '../../hooks/useDaughterJournal';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
@@ -109,7 +109,11 @@ export default function JournalMoodScreen(): React.JSX.Element {
   const [irritability, setIrritability] = useState(2);
   const [motivation, setMotivation] = useState(4);
   const [note, setNote] = useState('');
+  // The values above are only what the screen proposes. Nothing is saved until she has changed something (or reopened a saved entry).
+  const [touched, setTouched] = useState(false);
   const [saving, setSaving] = useState(false);
+  // Synchronous guard: `saving` only changes at the next render, so two presses in the same tick would both write and both leave the screen.
+  const saveInFlight = useRef(false);
   // M25: true only while a saved mood exists for today (shows "Effacer").
   const [hasSaved, setHasSaved] = useState(false);
 
@@ -128,6 +132,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
     setIrritability(2);
     setMotivation(4);
     setNote('');
+    setTouched(false);
     setHasSaved(false);
     getJournalEntry(todayKey).then(entry => {
       const saved = entry?.mood;
@@ -160,10 +165,14 @@ export default function JournalMoodScreen(): React.JSX.Element {
     navigation.goBack();
   };
 
+  // A saved entry can be re-saved as it is; an untouched day (only the proposed values) cannot be saved at all.
+  const canSave = touched || hasSaved;
+
   const save = async () => {
-    if (saving) {
+    if (!canSave || saving || saveInFlight.current) {
       return;
     }
+    saveInFlight.current = true;
 
     try {
       setSaving(true);
@@ -185,6 +194,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
     } catch (saveError) {
       presentSaveFailure(saveError, {title: t('journalMood.errorTitle'), message: tx('journalMood.errorMessage', 'mood.errorMessage')});
     } finally {
+      saveInFlight.current = false;
       setSaving(false);
     }
   };
@@ -229,7 +239,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
           </View>
           <AwaIconButton
             accessibilityLabel={t('journalMood.saveMood')}
-            disabled={saving}
+            disabled={saving || !canSave}
             icon="check"
             onPress={save}
             variant="filled"
@@ -256,7 +266,10 @@ export default function JournalMoodScreen(): React.JSX.Element {
                     key={option.value}
                     accessibilityRole="radio"
                     accessibilityState={{checked: selected}}
-                    onPress={() => setMood(option.value)}
+                    onPress={() => {
+                      setMood(option.value);
+                      setTouched(true);
+                    }}
                     style={({pressed}) => [styles.moodCard, selected && styles.moodCardSelected, pressed && styles.pressed]}>
                     <MaterialDesignIcons color={selected ? theme.colors.primary : theme.colors.textMuted} name={option.icon} size={30} style={styles.moodIcon} />
                     <Text numberOfLines={2} style={[styles.moodLabel, selected && styles.moodLabelSelected]}>{t(option.labelKey)}</Text>
@@ -270,10 +283,10 @@ export default function JournalMoodScreen(): React.JSX.Element {
             <View style={styles.sectionHeading}>
               <Text style={styles.sectionTitleFlush}>{t('journalMood.levelsSectionTitle')}</Text>
             </View>
-            <LevelRow label={t('cycleHome.energyChipLabel')} onChange={setEnergy} value={energy} />
-            <LevelRow label={t('journalMood.stressLabel')} onChange={setStress} value={stress} />
-            <LevelRow label={t('journalMood.irritabilityLabel')} onChange={setIrritability} value={irritability} />
-            <LevelRow label={t('journalMood.motivationLabel')} onChange={setMotivation} value={motivation} />
+            <LevelRow label={t('cycleHome.energyChipLabel')} onChange={level => { setEnergy(level); setTouched(true); }} value={energy} />
+            <LevelRow label={t('journalMood.stressLabel')} onChange={level => { setStress(level); setTouched(true); }} value={stress} />
+            <LevelRow label={t('journalMood.irritabilityLabel')} onChange={level => { setIrritability(level); setTouched(true); }} value={irritability} />
+            <LevelRow label={t('journalMood.motivationLabel')} onChange={level => { setMotivation(level); setTouched(true); }} value={motivation} />
           </AwaCard>
 
           <AwaCard padding="compact" variant="outlined">
@@ -286,7 +299,10 @@ export default function JournalMoodScreen(): React.JSX.Element {
                 accessibilityLabel={tx('journalMood.commentAccessibility', 'mood.commentAccessibility')}
                 maxLength={300}
                 multiline
-                onChangeText={setNote}
+                onChangeText={value => {
+                  setNote(value);
+                  setTouched(true);
+                }}
                 placeholder={t('journalMood.commentPlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.noteInput}
@@ -299,6 +315,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
 
           <AwaButton
             accessibilityLabel={t('journalMood.saveMood')}
+            disabled={!canSave}
             label={saving ? t('periodStartSheet.saving') : t('common.save')}
             loading={saving}
             onPress={save}

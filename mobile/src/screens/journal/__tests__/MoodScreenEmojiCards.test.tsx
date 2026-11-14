@@ -16,7 +16,7 @@ import i18n from '../../../i18n';
 import {setAppLanguage} from '../../../state/themePreferences';
 import type {MoodLevel} from '../../../types/journal';
 
-// Mood screen: the emoji sits directly on its rounded card (no circular badge behind it), every mood stays selectable and
+// Mood screen: the mood's vector icon (the cards used emoji before) sits directly on its rounded card (no circular badge behind it), every mood stays selectable and
 // saves its own value, and the "Niveaux du jour" heading is the title alone (no icon before it).
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -26,16 +26,17 @@ const TEST_METRICS: Metrics = {
 };
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
-const MOODS: Array<{value: MoodLevel; emoji: string; labelKey: string}> = [
-  {value: 'veryGood', emoji: '😊', labelKey: 'cycleHome.mood.veryGood'},
-  {value: 'good', emoji: '🙂', labelKey: 'cycleHome.mood.good'},
-  {value: 'neutral', emoji: '😐', labelKey: 'cycleHome.mood.neutral'},
-  {value: 'stressed', emoji: '😟', labelKey: 'cycleHome.mood.stressed'},
-  {value: 'irritable', emoji: '😠', labelKey: 'cycleHome.mood.irritable'},
-  {value: 'anxious', emoji: '😰', labelKey: 'cycleHome.mood.anxious'},
-  {value: 'sad', emoji: '😢', labelKey: 'cycleHome.mood.sad'},
-  {value: 'tired', emoji: '😴', labelKey: 'cycleHome.mood.tired'},
-  {value: 'motivated', emoji: '🤩', labelKey: 'cycleHome.mood.motivated'},
+// `icon` = the MaterialDesignIcons name JournalMoodScreen draws for the mood (the screen replaced the emoji by vector icons).
+const MOODS: Array<{value: MoodLevel; icon: string; labelKey: string}> = [
+  {value: 'veryGood', icon: 'emoticon-happy-outline', labelKey: 'cycleHome.mood.veryGood'},
+  {value: 'good', icon: 'emoticon-outline', labelKey: 'cycleHome.mood.good'},
+  {value: 'neutral', icon: 'emoticon-neutral-outline', labelKey: 'cycleHome.mood.neutral'},
+  {value: 'stressed', icon: 'emoticon-confused-outline', labelKey: 'cycleHome.mood.stressed'},
+  {value: 'irritable', icon: 'emoticon-angry-outline', labelKey: 'cycleHome.mood.irritable'},
+  {value: 'anxious', icon: 'emoticon-frown-outline', labelKey: 'cycleHome.mood.anxious'},
+  {value: 'sad', icon: 'emoticon-cry-outline', labelKey: 'cycleHome.mood.sad'},
+  {value: 'tired', icon: 'sleep', labelKey: 'cycleHome.mood.tired'},
+  {value: 'motivated', icon: 'emoticon-excited-outline', labelKey: 'cycleHome.mood.motivated'},
 ];
 const LANGUAGES = ['fr', 'en', 'es', 'it', 'de', 'ru', 'tr', 'zh'] as const;
 
@@ -96,14 +97,17 @@ afterEach(() => {
 });
 
 describe('Mood emoji cards', () => {
-  it('shows all nine moods, each emoji directly on its card with no circular badge', async () => {
+  it('shows all nine moods, each vector icon and its label directly on its card with no circular badge', async () => {
     const renderer = await renderMood();
     const cards = radios(renderer);
     expect(cards).toHaveLength(MOODS.length);
     cards.forEach((card, index) => {
       const texts = card.findAllByType(Text).map(textOf);
-      expect(texts).toContain(MOODS[index].emoji);
-      // No child View carrying a radius (the old 39 x 39 circle): the emoji and the label are the card's only content.
+      // the card's content is exactly its icon (a glyph, drawn from the expected icon set entry) and its current-language label
+      expect(card.findAll(node => node.props.name === MOODS[index].icon).length).toBeGreaterThan(0);
+      expect(texts).toContain(i18n.t(MOODS[index].labelKey));
+      expect(texts).toHaveLength(2);
+      // No child View carrying a radius (the old 39 x 39 circle): the icon and the label are the card's only content.
       const host = card.findAll(node => String(node.type) === 'View')[0];
       const rounded = host.findAll(node => {
         if (node === host || String(node.type) !== 'View') {return false;}
@@ -112,11 +116,9 @@ describe('Mood emoji cards', () => {
       });
       expect(rounded.length).toBe(0);
     });
-    // The emoji is bigger than before (was 25) and has its own line height so it is never clipped.
-    const emojiNode = cards[0].findAllByType(Text).find(node => textOf(node) === MOODS[0].emoji)!;
-    const style = StyleSheet.flatten(emojiNode.props.style) as {fontSize: number; lineHeight: number};
-    expect(style.fontSize).toBeGreaterThanOrEqual(30);
-    expect(style.lineHeight).toBeGreaterThanOrEqual(style.fontSize);
+    // The icon keeps the large size the emoji had (30) so the cards stay easy to read and to hit.
+    const iconNode = cards[0].findAll(node => node.props.name === MOODS[0].icon)[0];
+    expect(iconNode.props.size).toBeGreaterThanOrEqual(30);
   });
 
   it('every mood stays selectable (one checked at a time) and saves its own value', async () => {

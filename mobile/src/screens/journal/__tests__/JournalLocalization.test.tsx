@@ -157,11 +157,19 @@ describe('JournalSleepScreen — localization (chrome AND quality/feeling displa
     expect(texts).toContain('Sleep');
     expect(texts).toContain('Sleep hours');
     expect(texts).toContain('Sleep quality');
-    expect(texts).toContain('Night awakenings');
+    // The sleep screen has no night-awakenings counter any more; its fourth section is "Tiredness on waking", four levels.
+    expect(texts).toContain('Tiredness on waking');
+    expect(texts).not.toContain('Night awakenings');
     // PHASE 7H: display-only translation via journalOptionLabel(); the
     // underlying stored/selected value is still the French string.
     expect(texts).toContain('Good');
     expect(texts).not.toContain('Bonne');
+    for (const level of ['No', 'Light', 'Average', 'A lot']) {
+      expect(texts).toContain(level); // the four levels, in English
+    }
+    for (const french of ['Légère', 'Moyenne', 'Beaucoup', 'Fatigue au réveil']) {
+      expect(texts).not.toContain(french);
+    }
   });
 });
 

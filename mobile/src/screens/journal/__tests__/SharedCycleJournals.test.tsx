@@ -21,6 +21,7 @@ import {encryptIntimacySection, resolveIntimacySection} from '../../../services/
 import {resolveNoteSection} from '../../../services/privateNotesEncryption';
 import {addDays} from '../../../utils/cycleMath';
 import i18n from '../../../i18n';
+import {journalOptionLabel} from '../../../utils/journalOptionLabels';
 import {setAppLanguage} from '../../../state/themePreferences';
 
 // Shared Cycle journal entry screens (also reused by Pregnancy for Humeur /
@@ -312,8 +313,9 @@ describe('M13 - Humeur reopens with today\'s saved values', () => {
 describe('M13 - Symptômes reopens with today\'s saved values', () => {
   it('save non-default values, leave, reopen: values shown; Save unchanged keeps the stored values identical', async () => {
     const first = await renderScreen(<JournalSymptomsScreen />);
+    // nothing is pre-ticked any more: she ticks the two symptoms herself
+    await press(byLabel(first, 'Douleurs menstruelles'));
     await press(byLabel(first, 'Migraines'));
-    await press(byLabel(first, 'Fatigue')); // default -> off
     await press(byLabel(first, 'Intensité Modérée. Gênante dans certaines activités'));
     await press(byLabel(first, 'Dos'));
     await typeInto(first, 'Pire le soir');
@@ -358,6 +360,9 @@ describe('M13 - Symptômes reopens with today\'s saved values', () => {
   });
 });
 
+// "Fatigue au réveil" has four levels (Non / Légère / Moyenne / Beaucoup) and the screen has no night-awakenings counter any more.
+const wakeFatigue = (value: string) => i18n.t('journalSleep.wakeFatigueAccessibility', {label: journalOptionLabel('cycleSleepFeeling', value, i18n.t)});
+
 describe('M13 - Sommeil reopens with today\'s saved values', () => {
   it('save non-default values, leave, reopen: values shown; Save unchanged keeps the stored values identical', async () => {
     const first = await renderScreen(<JournalSleepScreen />);
@@ -366,9 +371,8 @@ describe('M13 - Sommeil reopens with today\'s saved values', () => {
     await press(byLabel(first, 'Heure du réveil, 07:15'));
     await press(byRoleText(first, 'radio', '06:45'));
     await press(byLabel(first, 'Qualité du sommeil : Mauvaise'));
-    await press(byLabel(first, 'Sensation au réveil : Fatiguée'));
-    await press(byLabel(first, 'Augmenter le nombre de réveils'));
-    await press(byLabel(first, 'Augmenter le nombre de réveils'));
+    expect(isOn(byLabel(first, wakeFatigue('Non')))).toBe(true); // the proposed level
+    await press(byLabel(first, wakeFatigue('Beaucoup')));
     await typeInto(first, 'Nuit agitée');
     await press(byLabel(first, 'Enregistrer'));
 
@@ -378,10 +382,10 @@ describe('M13 - Sommeil reopens with today\'s saved values', () => {
       wakeTime: '06:45',
       duration: '7 h 15 min',
       quality: 'Mauvaise',
-      awakenings: 3,
-      wakeFeeling: 'Fatiguée',
+      wakeFeeling: 'Beaucoup',
       note: 'Nuit agitée',
     });
+    expect(saved).not.toHaveProperty('awakenings'); // no counter on screen: nothing is invented
     leave(first);
 
     const reopened = await renderScreen(<JournalSleepScreen />);
@@ -390,12 +394,26 @@ describe('M13 - Sommeil reopens with today\'s saved values', () => {
     expect(allTexts(reopened)).toContain('7 h 15 min');
     expect(isOn(byLabel(reopened, 'Qualité du sommeil : Mauvaise'))).toBe(true);
     expect(isOn(byLabel(reopened, 'Qualité du sommeil : Bonne'))).toBe(false);
-    expect(isOn(byLabel(reopened, 'Sensation au réveil : Fatiguée'))).toBe(true);
-    expect(allTexts(reopened)).toContain('3');
+    expect(isOn(byLabel(reopened, wakeFatigue('Beaucoup')))).toBe(true);
+    expect(isOn(byLabel(reopened, wakeFatigue('Non')))).toBe(false);
     expect(inputValue(reopened)).toBe('Nuit agitée');
 
     await press(byLabel(reopened, 'Enregistrer'));
     expect((await getJournalEntry(todayKey()))?.sleep).toEqual(saved);
+  });
+
+  it.each([
+    ['Reposée', 'Non'],
+    ['Fatiguée', 'Beaucoup'],
+    ['Moyenne', 'Moyenne'],
+  ])('an entry saved before the four levels (feeling "%s") reopens on "%s", and a night-awakenings count saved earlier is kept by a save', async (stored, shown) => {
+    await saveJournalSection(todayKey(), 'sleep', {bedtime: '23:00', wakeTime: '07:00', duration: '8 h 0 min', quality: 'Bonne', awakenings: 3, wakeFeeling: stored, note: ''});
+    const renderer = await renderScreen(<JournalSleepScreen />);
+    expect(isOn(byLabel(renderer, wakeFatigue(shown)))).toBe(true);
+    await press(byLabel(renderer, 'Enregistrer'));
+    const saved = (await getJournalEntry(todayKey()))?.sleep;
+    expect(saved?.awakenings).toBe(3); // the old counter value is not erased
+    expect(saved?.wakeFeeling).toBe(shown);
   });
 });
 

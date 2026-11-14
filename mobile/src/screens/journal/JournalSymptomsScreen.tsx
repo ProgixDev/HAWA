@@ -215,12 +215,14 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   const locationGlowAnimation = useRef(new Animated.Value(0)).current;
   const locationDirectionRef = useRef(1);
 
-  const [selected, setSelected] = useState<string[]>([
-    'Douleurs menstruelles',
-    'Fatigue',
-  ]);
+  // Nothing is proposed as already felt: a symptom is only recorded because she ticked it, or because she said "no symptoms" herself.
+  const [selected, setSelected] = useState<string[]>([]);
+  // The explicit declaration "no symptoms" (stored as an empty list) — different from not having declared anything.
+  const [noSymptoms, setNoSymptoms] = useState(false);
 
-  const [intensityIndex, setIntensityIndex] = useState(2);
+  // Intensity and zone are only recorded when she chose them (the zone drawing below still shows a default picture).
+  const [intensityIndex, setIntensityIndex] = useState<number | null>(null);
+  const [locationChosen, setLocationChosen] = useState(false);
 
   const [location, setLocation] =
     useState('Bas ventre');
@@ -328,6 +330,8 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   ]);
 
   const changeLocation = (nextLocation: string) => {
+    setNoSymptoms(false);
+    setLocationChosen(true);
     if (nextLocation === location) {
       return;
     }
@@ -408,12 +412,28 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   };
 
   const toggleSymptom = (item: string) => {
+    setNoSymptoms(false);
     setSelected(current =>
       current.includes(item)
         ? current.filter(value => value !== item)
         : [...current, item],
     );
   };
+
+  // "No symptoms" replaces the list (and the intensity / zone that only make sense with symptoms); ticking it again withdraws the declaration.
+  const toggleNoSymptoms = () => {
+    if (noSymptoms) {
+      setNoSymptoms(false);
+      return;
+    }
+    setNoSymptoms(true);
+    setSelected([]);
+    setIntensityIndex(null);
+    setLocationChosen(false);
+  };
+
+  // Saving needs a declaration: at least one symptom, or "no symptoms". An untouched screen records nothing.
+  const canSave = noSymptoms || selected.length > 0;
 
   useEffect(() => {
     return () => {
@@ -439,6 +459,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
       setHasSaved(true);
       if (Array.isArray(saved.names)) {
         setSelected(saved.names);
+        setNoSymptoms(saved.names.length === 0);
       }
       const savedIntensityIndex = INTENSITIES.findIndex(
         option => option.value === saved.severity,
@@ -449,6 +470,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
       if (saved.painLocation && LOCATIONS.includes(saved.painLocation)) {
         setLocation(saved.painLocation);
         setDisplayedLocation(saved.painLocation);
+        setLocationChosen(true);
       }
       setNote(saved.note ?? '');
     });
@@ -525,7 +547,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   };
 
   const save = async () => {
-    if (saving) {
+    if (!canSave || saving) {
       return;
     }
 
@@ -536,10 +558,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
         todayKey,
         'symptoms',
         {
-          names: selected,
-          severity:
-            INTENSITIES[intensityIndex].value,
-          painLocation: location,
+          names: noSymptoms ? [] : selected,
+          // intensity and zone only when she chose them (and only with symptoms)
+          ...(!noSymptoms && intensityIndex !== null ? {severity: INTENSITIES[intensityIndex].value} : {}),
+          ...(!noSymptoms && locationChosen ? {painLocation: location} : {}),
           note: note.trim(),
         },
       );
@@ -593,7 +615,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           {/* CHECK */}
           <AwaIconButton
             accessibilityLabel={t('journalSymptoms.saveSymptoms')}
-            disabled={saving}
+            disabled={saving || !canSave}
             icon="check"
             onPress={save}
             variant="filled"
@@ -649,6 +671,29 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
             </View>
 
             <View style={styles.symptomsList}>
+              <Pressable
+                accessibilityLabel={t('journalSymptoms.noSymptoms')}
+                accessibilityRole="checkbox"
+                accessibilityState={{checked: noSymptoms}}
+                onPress={toggleNoSymptoms}
+                style={({pressed}) => [
+                  styles.symptomRow,
+                  noSymptoms && styles.symptomRowActive,
+                  pressed && styles.symptomRowPressed,
+                ]}>
+                <View style={[styles.symptomIconContainer, noSymptoms && styles.symptomIconContainerActive]}>
+                  <MaterialDesignIcons
+                    color={noSymptoms ? onPrimaryTextColor(theme) : theme.colors.primary}
+                    name="close-circle-outline"
+                    size={22}
+                  />
+                </View>
+                <View style={styles.symptomCopy}>
+                  <Text style={[styles.symptomText, noSymptoms && styles.symptomTextActive]}>
+                    {t('journalSymptoms.noSymptoms')}
+                  </Text>
+                </View>
+              </Pressable>
               {SYMPTOMS.map(item => {
                 const active = selected.includes(item.label);
 
@@ -788,11 +833,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                       accessibilityState={{
                         checked: active,
                       }}
-                      onPress={() =>
-                        setIntensityIndex(
-                          index,
-                        )
-                      }
+                      onPress={() => {
+                        setNoSymptoms(false);
+                        setIntensityIndex(index);
+                      }}
                       style={({pressed}) => [
                         styles.intensityCard,
 
@@ -1000,7 +1044,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
               <View style={styles.locationOptionsModern}>
                 {LOCATIONS.map(item => {
-                  const active = item === location;
+                  const active = locationChosen && item === location;
 
                   return (
                     <Pressable
@@ -1097,6 +1141,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           {/* BOUTON ENREGISTRER */}
           <AwaButton
             accessibilityLabel={t('journalSymptoms.saveMySymptoms')}
+            disabled={!canSave}
             icon="content-save-outline"
             label={saving ? t('periodStartSheet.saving') : t('common.save')}
             loading={saving}

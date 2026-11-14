@@ -271,7 +271,7 @@ export default function HydrationScreen(): React.JSX.Element {
     return () => {mounted = false;};
   }, [selectedDate]);
 
-  const persistHydration = useCallback(async (intake: number, goal: number) => {
+  const persistHydration = useCallback(async (intake: number, goal: number): Promise<boolean> => {
     try {
       await saveJournalSection(
         selectedDate.toLocaleDateString('en-CA'),
@@ -284,6 +284,7 @@ export default function HydrationScreen(): React.JSX.Element {
         },
       );
       persistedHydrationRef.current = {intake, goal};
+      return true;
     } catch (error) {
       // Not persisted: the counter and goal go back to what storage holds, and the person is told.
       const persisted = persistedHydrationRef.current;
@@ -292,6 +293,7 @@ export default function HydrationScreen(): React.JSX.Element {
       setPendingGoal(persisted.goal);
       setSuccessVisible(false);
       presentSaveFailure(error);
+      return false;
     }
   }, [selectedDate]);
 
@@ -331,7 +333,12 @@ export default function HydrationScreen(): React.JSX.Element {
       withSpring(1, {damping: 15, stiffness: 230}),
     );
     if (next >= dailyGoal) {setSuccessVisible(true);}
-    persistHydration(next, dailyGoal).catch(() => {});
+    // Once the glass is saved, the screen closes by itself (a short pause lets the tap feedback show); a failed save stays on screen.
+    persistHydration(next, dailyGoal)
+      .then(saved => {
+        if (saved) {setTimeout(() => navigation.goBack(), 450);}
+      })
+      .catch(() => {});
   };
 
   const saveGoal = () => {
