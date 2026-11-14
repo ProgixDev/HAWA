@@ -7,20 +7,20 @@ The full per-file matrix, including routes and states, is `COVERAGE.json`.
 
 | Metric | Value |
 |---|---:|
-| files | 339 |
+| files | 352 |
 | screens | 183 |
 | routes | 138 |
-| sheets | 10 |
+| sheets | 15 |
 | dialogs | 1 |
 | toasts | 2 |
-| modalHosts | 58 |
-| alertSites | 34 |
-| hexLiterals | 577 |
-| fontSizeLiterals | 860 |
+| modalHosts | 61 |
+| alertSites | 33 |
+| hexLiterals | 594 |
+| fontSizeLiterals | 868 |
 | fontSizeBelow11 | 0 |
-| borderRadiusLiterals | 1665 |
-| serifTitles | 25 |
-| withoutAwaTheme | 33 |
+| borderRadiusLiterals | 1676 |
+| serifTitles | 26 |
+| withoutAwaTheme | 38 |
 
 ## Status definitions
 
@@ -33,7 +33,7 @@ The full per-file matrix, including routes and states, is `COVERAGE.json`.
 
 | Status | Files |
 |---|---:|
-| not-started | 326 |
+| not-started | 339 |
 | tokens | 11 |
 | migrated | 2 |
 | exception | 0 |
@@ -49,7 +49,7 @@ The full per-file matrix, including routes and states, is `COVERAGE.json`.
 | components:conceive | 2 | 0 | 25 | 13 | 0 | 29 | 0 | 0 |
 | components:contraception | 2 | 0 | 25 | 19 | 0 | 47 | 0 | 0 |
 | components:hijri | 1 | 0 | 0 | 3 | 0 | 2 | 0 | 0 |
-| components:home | 15 | 0 | 47 | 13 | 0 | 34 | 0 | 3 |
+| components:home | 16 | 0 | 47 | 14 | 0 | 35 | 0 | 3 |
 | components:irregular | 2 | 0 | 23 | 7 | 0 | 27 | 0 | 0 |
 | components:journal | 8 | 0 | 11 | 4 | 0 | 9 | 0 | 2 |
 | components:library | 15 | 0 | 13 | 1 | 0 | 36 | 0 | 2 |
@@ -58,17 +58,17 @@ The full per-file matrix, including routes and states, is `COVERAGE.json`.
 | components:navigation | 3 | 0 | 0 | 1 | 0 | 4 | 0 | 0 |
 | components:notifications | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | components:onboarding | 4 | 0 | 0 | 5 | 0 | 12 | 0 | 0 |
-| components:postpartum | 7 | 0 | 14 | 17 | 0 | 56 | 1 | 1 |
+| components:postpartum | 7 | 0 | 14 | 17 | 0 | 54 | 1 | 1 |
 | components:prayer | 4 | 0 | 1 | 1 | 0 | 8 | 0 | 0 |
-| components:pregnancy | 7 | 0 | 11 | 69 | 0 | 43 | 3 | 1 |
-| components:premium | 2 | 0 | 30 | 26 | 0 | 22 | 2 | 0 |
-| components:profile | 3 | 0 | 0 | 1 | 0 | 2 | 0 | 0 |
+| components:pregnancy | 10 | 0 | 11 | 73 | 0 | 46 | 3 | 2 |
+| components:premium | 3 | 0 | 53 | 29 | 0 | 26 | 3 | 1 |
+| components:profile | 5 | 0 | 0 | 1 | 0 | 6 | 0 | 0 |
 | components:qadaa | 3 | 0 | 0 | 3 | 0 | 7 | 0 | 0 |
 | components:root | 1 | 0 | 0 | 0 | 0 | 2 | 0 | 1 |
-| components:security | 2 | 0 | 0 | 2 | 0 | 2 | 0 | 0 |
+| components:security | 8 | 0 | 2 | 2 | 0 | 4 | 0 | 3 |
 | components:statistics | 1 | 0 | 0 | 0 | 0 | 2 | 0 | 0 |
-| components:ui | 12 | 0 | 1 | 0 | 0 | 1 | 0 | 3 |
-| navigation:root | 6 | 2 | 8 | 0 | 0 | 0 | 0 | 5 |
+| components:ui | 12 | 0 | 0 | 0 | 0 | 1 | 0 | 3 |
+| navigation:root | 6 | 2 | 1 | 0 | 0 | 0 | 0 | 5 |
 | screens:awaADeux | 26 | 14 | 4 | 24 | 0 | 33 | 0 | 7 |
 | screens:conceive | 1 | 0 | 2 | 3 | 0 | 26 | 0 | 0 |
 | screens:contraception | 6 | 5 | 17 | 10 | 0 | 40 | 0 | 0 |
@@ -79,8 +79,8 @@ The full per-file matrix, including routes and states, is `COVERAGE.json`.
 | screens:menopause | 2 | 1 | 26 | 12 | 0 | 22 | 1 | 0 |
 | screens:miscarriage | 1 | 0 | 1 | 3 | 0 | 28 | 0 | 0 |
 | screens:postpartum | 1 | 0 | 2 | 2 | 0 | 15 | 0 | 0 |
-| screens:pregnancy | 12 | 11 | 1 | 130 | 0 | 104 | 1 | 0 |
-| screens:root | 67 | 75 | 125 | 199 | 0 | 379 | 12 | 3 |
+| screens:pregnancy | 12 | 11 | 1 | 133 | 0 | 103 | 1 | 0 |
+| screens:root | 67 | 75 | 125 | 196 | 0 | 379 | 12 | 3 |
 
 ## Routes
 
