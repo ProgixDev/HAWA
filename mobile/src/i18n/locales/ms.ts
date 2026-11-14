@@ -233,9 +233,24 @@ export const ms = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Tukar ke profil {{name}}',
+    backToMine: 'Kembali ke profil saya',
+    herSpace: 'Ruang {{name}}',
+    separateSpace: 'Ruangnya sendiri, berasingan daripada ruang anda',
+  },
+
+  discover: {
+    title: 'Terokai',
+    daughterTitle: 'AWA untuk anak perempuan saya',
+    partnerTitle: 'AWA untuk suami saya',
+    daughterCaption: 'Ikuti kitarannya dalam ruangnya sendiri',
+    partnerCaption: 'Kongsi penanda yang anda pilih',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Tubuh anda, rentak anda, iman anda ✨',
+    subtitleOwner: 'Tubuh anda, rentak anda, iman anda',
     subtitleDaughter: 'Profil anak perempuan saya',
     nextPeriodLabel: 'Haid seterusnya',
     fertileWindowLabel: 'Tempoh subur',
@@ -257,13 +272,13 @@ export const ms = {
     moodChipLabel: 'Emosi',
     tipChipLabel: 'Tip hari ini',
     phase: {
-      menstruation: {message: 'Tenaga anda mungkin terasa lebih rendah sekarang — luangkan masa untuk berehat dan berlembutlah dengan diri sendiri.', energy: 'Rendah', mood: 'Sensitif', tip: 'Rehat & kehangatan'},
-      follicular: {message: 'Tenaga anda beransur-ansur meningkat — masa yang sesuai untuk berhubung semula dengan diri sendiri.', energy: 'Meningkat', mood: 'Tenang', tip: 'Kekal terhidrat'},
-      fertile: {message: 'Tempoh subur anda telah bermula — peka terhadap isyarat tubuh anda.', energy: 'Tinggi', mood: 'Yakin', tip: 'Dengarlah diri anda'},
-      ovulation: {message: 'Ovulasi dijangka hari ini, dan tenaga anda berada di kemuncak.', energy: 'Tinggi', mood: 'Berseri', tip: 'Bergerak dengan lembut'},
-      luteal: {message: 'Tubuh anda sedang bersiap untuk kitaran baharu — berlembutlah dengan diri sendiri.', energy: 'Berubah-ubah', mood: 'Reflektif', tip: 'Kelembutan & ketenangan'},
-      pregnancy: {message: 'Tubuh anda menyokong setiap langkah dengan penuh perhatian — jagalah diri anda dengan baik.', energy: 'Berubah-ubah', mood: 'Peka', tip: 'Rehat yang kerap'},
-      postpartum: {message: 'Tubuh anda sedang terus pulih — bersabarlah dengan diri sendiri.', energy: 'Lembut', mood: 'Sabar', tip: 'Sokongan & rehat'},
+      menstruation: {message: 'Tenaga lebih rendah: berehatlah.', energy: 'Rendah', mood: 'Sensitif', tip: 'Rehat & kehangatan'},
+      follicular: {message: 'Tenaga anda kembali perlahan-lahan.', energy: 'Meningkat', mood: 'Tenang', tip: 'Kekal terhidrat'},
+      fertile: {message: 'Tempoh subur anda telah bermula.', energy: 'Tinggi', mood: 'Yakin', tip: 'Dengarlah diri anda'},
+      ovulation: {message: 'Ovulasi dijangka hari ini.', energy: 'Tinggi', mood: 'Berseri', tip: 'Bergerak dengan lembut'},
+      luteal: {message: 'Badan anda menyediakan kitaran baharu.', energy: 'Berubah-ubah', mood: 'Reflektif', tip: 'Kelembutan & ketenangan'},
+      pregnancy: {message: 'Jaga diri anda, selangkah demi selangkah.', energy: 'Berubah-ubah', mood: 'Peka', tip: 'Rehat yang kerap'},
+      postpartum: {message: 'Badan anda sedang pulih: berikan diri anda rehat.', energy: 'Lembut', mood: 'Sabar', tip: 'Sokongan & rehat'},
     },
     mood: {
       veryGood: 'Sangat baik',
@@ -528,6 +543,7 @@ export const ms = {
     additionalNotesSubtitle: 'Tambah komen jika anda mahu.',
     notesPlaceholder: 'Tulis di sini...',
     saveMySymptoms: 'Simpan simptom saya',
+    noSymptoms: 'Tiada simptom',
     clearSubject: 'simptom ini',
     savedToast: 'Simptom berjaya disimpan ✨',
   },
@@ -1404,6 +1420,12 @@ export const ms = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA untuk anak perempuan saya',
+      daughterText: 'Ikuti kitaran anak perempuan anda dalam profilnya sendiri: datanya kekal berasingan daripada data anda. Tukar profil dengan satu ketikan.',
+      partnerTitle: 'AWA untuk suami saya',
+      partnerText: 'Kongsi dengan suami anda hanya penanda yang anda pilih. Tiada apa-apa dikongsi kecuali anda mengaktifkannya.',
+    },
     aboutAwaSubtitle: 'Versi, notis undang-undang, privasi dan nilai aplikasi',
     aboutAwaTitle: 'Tentang AWA',
     appearanceSubtitle: 'Tema, warna, paparan dan bahasa',
@@ -1427,12 +1449,13 @@ export const ms = {
     moreSectionSubtitle: 'Bantuan, maklumat tentang AWA dan pengurusan sesi anda.',
     moreSectionTitle: 'Lagi',
     myInformationSubtitle: 'Semua maklumat penting anda, disusun dengan mudah.',
-    myInformationTitle: 'Maklumat saya',
+    myInformationTitle: 'Tetapan',
     myObjective: 'Objektif saya',
     myProfileEyebrow: 'PROFIL SAYA',
     none: 'Tiada',
     notConfigured: 'Belum dikonfigurasikan',
     notProvided: 'Tidak disediakan',
+    optional: 'Pilihan',
     notProvidedFeminine: 'Tidak disediakan',
     predictionsUnavailable: 'Ramalan tidak tersedia — data tidak mencukupi',
     notProvidedPlural: 'Tidak disediakan',
@@ -6949,6 +6972,7 @@ export const ms = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Terlalu banyak percubaan. Cuba lagi dalam {{minutes}} min.',
     incorrectCode: 'PIN salah. Cuba lagi.',
     genericError: 'Sesuatu telah berlaku. Cuba lagi.',
     codesDontMatch: 'Kod tidak sepadan. Mulakan semula.',
@@ -7034,6 +7058,16 @@ export const ms = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrik untuk bahagian peribadi',
+    privateBiometricSubtitle: 'Buka kehidupan intim, nota dan foto peribadi tanpa menaip kod. Kod kekal tersedia sebagai sandaran.',
+    crashReports: {
+      title: 'Laporan ralat',
+      subtitle: 'Hantar laporan tanpa nama jika AWA terhenti.',
+      sheetTitle: 'Bantu menambah baik AWA?',
+      sheetBody: 'Jika AWA terhenti tiba-tiba, laporan teknikal tanpa nama boleh dihantar kepada kami untuk membaiki masalah. Tidak pernah data kesihatan anda atau apa yang anda taip. Anda boleh mengubah fikiran dalam Privasi & Keselamatan.',
+      sheetEnable: 'Hidupkan',
+      sheetDecline: 'Tidak, terima kasih',
+    },
     backA11y: 'Kembali',
     title: 'Privasi & Keselamatan',
     subtitle: 'Data anda, privasi anda, pilihan anda',
@@ -7273,8 +7307,8 @@ export const ms = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Maklumat peribadi',
-    subtitle: 'Urus maklumat asas anda 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Urus maklumat asas anda',
+    greeting: 'Salam!',
     intro: 'Maklumat ini digunakan untuk memperibadikan pengalaman anda dalam AWA.',
     addPhoto: 'Tambah foto',
     editPhoto: 'Sunting foto',

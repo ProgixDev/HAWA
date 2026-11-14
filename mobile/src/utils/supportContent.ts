@@ -263,6 +263,29 @@ export function getCycleTrackingFaqItems(t: TranslateFn): FaqItem[] {
     .concat(journalFaqForDaughter(t));
 }
 
+// The questions actually shown to the owner: the five of her current objective plus the few general ones about the journal and her
+// data — never the full 57-question catalogue (too much to read, most of it about objectives she does not follow).
+// `getFaqItems()` itself still holds everything (FAQDetail, the article screens…).
+const GENERAL_HELP_FAQ_IDS: FaqId[] = ['security-private-data', 'security-export'];
+const OTHER_GENERAL_FAQ_IDS: FaqId[] = ['journal-what-can-track', 'security-delete'];
+
+function faqItemsForIds(t: TranslateFn, ids: readonly FaqId[]): FaqItem[] {
+  const all = getFaqItems(t);
+  return ids.map(id => all.find(item => item.id === id)).filter((item): item is FaqItem => Boolean(item));
+}
+
+/** "Aide & support" list: 4 questions about her objective + 2 about her data (6 in all). */
+export function getHelpFaqItems(t: TranslateFn, objective: ObjectiveId): FaqItem[] {
+  const own = getFaqItems(t).filter(item => item.objective === objective).slice(0, 4);
+  return own.concat(faqItemsForIds(t, GENERAL_HELP_FAQ_IDS));
+}
+
+/** The "Questions fréquentes" screen: all 5 of her objective + the 4 general ones (9 in all, never more than 10). */
+export function getCuratedFaqItems(t: TranslateFn, objective: ObjectiveId): FaqItem[] {
+  const own = getFaqItems(t).filter(item => item.objective === objective);
+  return own.concat(faqItemsForIds(t, [...GENERAL_HELP_FAQ_IDS, ...OTHER_GENERAL_FAQ_IDS]));
+}
+
 export function getFeaturedFaqItems(t: TranslateFn): FaqItem[] {
   return getFaqItems(t).filter(item => item.featured);
 }

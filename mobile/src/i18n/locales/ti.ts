@@ -223,9 +223,24 @@ export const ti = {
       systemDescription: 'ቋንቋ መሳርሒ ተጠቐም'
     }
   },
+  profileSwitch: {
+    switchTo: 'ናብ ፕሮፋይል {{name}} ቀይሪ',
+    backToMine: 'ናብ ፕሮፋይለይ ተመለሲ',
+    herSpace: 'ቦታ {{name}}',
+    separateSpace: 'ናይ ባዕላ ቦታ፣ ካባኺ ዝተፈልየ',
+  },
+
+  discover: {
+    title: 'ሃሰሲ',
+    daughterTitle: 'AWA ንጓለይ',
+    partnerTitle: 'AWA ንበዓለይ',
+    daughterCaption: 'ዑደታ ኣብ ናይ ባዕላ ቦታ ሰዓቢ',
+    partnerCaption: 'እትመርጽዮም ምልክታት ኣካፍሊ',
+  },
+
   cycleHome: {
     greeting: 'ኣሰላሙ ዓለይኩም፣',
-    subtitleOwner: 'ኣካልኪ፣ ሪትምኪ፣ እምነትኪ ✨',
+    subtitleOwner: 'ኣካልኪ፣ ሪትምኪ፣ እምነትኪ',
     subtitleDaughter: 'ፕሮፋይል ጓለይ',
     nextPeriodLabel: 'ዝቕጽል ወርሓዊ ደም',
     fertileWindowLabel: 'ግዜ ጽንሲ',
@@ -248,43 +263,43 @@ export const ti = {
     tipChipLabel: 'ምኽሪ መዓልቲ',
     phase: {
       menstruation: {
-        message: 'ጉልበትኪ ሕጂ ትሑት ክስምዓኪ ይኽእል — ዕረፊ፣ ንባዕልኪ ድማ ለይበኒ።',
+        message: 'ትሑት ሓይሊ፡ ዕረፊ።',
         energy: 'ትሑት',
         mood: 'ተንከርካሪ',
         tip: 'ዕረፍትን ቁሩብ ምዕሞትን'
       },
       follicular: {
-        message: 'ጉልበትኪ ቀስ ብቐስ ይውሕዝ ኣሎ — ምስ ባዕልኪ ንምርኻብ ጽቡቕ እዋን።',
+        message: 'ሓይልኪ ቀስ ብቀስ ይምለስ ኣሎ።',
         energy: 'ዝውሕዝ',
         mood: 'ህዱእ',
         tip: 'ማይ ስተዪ'
       },
       fertile: {
-        message: 'ግዜ ጽንስኪ ጀሚሩ ኣሎ — ንምልክታት ኣካልኪ ኣስተውዕሊ።',
+        message: 'ግዜ ወሊድኪ ጀሚሩ እዩ።',
         energy: 'ሓያል',
         mood: 'ብርታዐ',
         tip: 'ንባዕልኪ ስምዒ'
       },
       ovulation: {
-        message: 'ሎሚ ኦቭዩላሽን ይጽበ፣ ጉልበትኪ ድማ ኣብ ላዕለዋይ ደረጃ እዩ።',
+        message: 'ሎሚ ምፍራይ ሕቆ ይጽበ።',
         energy: 'ሓያል',
         mood: 'ብርሃን',
         tip: 'ብለዪብ ንቐሳቐሲ'
       },
       luteal: {
-        message: 'ኣካልኪ ንሓድሽ ዑደት ይዳሎ ኣሎ — ንባዕልኪ ለይበኒ።',
+        message: 'ኣካልኪ ሓዱሽ ዑደት የዳሉ ኣሎ።',
         energy: 'ዝለዋወጥ',
         mood: 'ናብ ውሽጢ ዝጥምት',
         tip: 'ልዕልናን ህድኣትን'
       },
       pregnancy: {
-        message: 'ኣካልኪ ነፍሲ ወከፍ ስጉምቲ ብጥንቃቐ ይድግፍ ኣሎ — ንባዕልኪ ጽቡቕ ተጠንቀቒ።',
+        message: 'ንባዕልኪ ተጠንቀቒ፣ ሓደ ሓደ ስጉምቲ።',
         energy: 'ዝለዋወጥ',
         mood: 'ጥንቁቕ',
         tip: 'ተኸታታሊ ዕረፍቲ'
       },
       postpartum: {
-        message: 'ኣካልኪ ምሕዋይ ይቕጽል ኣሎ — ንባዕልኪ ትዕግስቲ ሃቢ።',
+        message: 'ኣካልኪ ይሓዊ ኣሎ፡ ዕረፍቲ ሃቢ።',
         energy: 'ለዪብ',
         mood: 'ትዕግስተኛ',
         tip: 'ሓገዝን ዕረፍትን'
@@ -555,6 +570,7 @@ export const ti = {
     additionalNotesSubtitle: 'እንተደሊኺ ርእይቶ ወስኺ።',
     notesPlaceholder: 'ኣብዚ ጽሓፊ...',
     saveMySymptoms: 'ምልክታተይ ኣቐምጥ',
+    noSymptoms: 'ምልክት የለን',
     clearSubject: 'እዞም ምልክታት',
     savedToast: 'ምልክታት ብዓወት ተቐሚጦም ✨'
   },
@@ -1458,6 +1474,12 @@ export const ti = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA ንጓለይ',
+      daughterText: 'ዑደት ጓልኪ ኣብ ናይ ባዕላ ፕሮፋይል ሰዓቢ፡ ሓበሬታኣ ካብ ናትኪ ዝተፈልየ እዩ። ብሓንቲ ጥብቕ ፕሮፋይል ቀይሪ።',
+      partnerTitle: 'AWA ንበዓለይ',
+      partnerText: 'እትመርጽዮም ምልክታት ጥራይ ምስ በዓልኪ ኣካፍሊ። እንተዘይኣንቢርኪዮ ዋላ ሓንቲ ኣይትካፈልን።',
+    },
     aboutAwaSubtitle: 'ሕታም፣ ሕጋዊ ምልክታታት፣ ብሕታውነትን ዕቤትን ናይ ኣፕ',
     aboutAwaTitle: 'ብዛዕባ AWA',
     appearanceSubtitle: 'ገጽታታት፣ ሕብርታት፣ ኣመልካትን ቋንቋን',
@@ -1481,12 +1503,13 @@ export const ti = {
     moreSectionSubtitle: 'ሓገዝ፣ ሓበሬታ ብዛዕባ AWA ከምኡውን ናይ ሰሽንኪ ምሕደራ።',
     moreSectionTitle: 'ብዙሕ',
     myInformationSubtitle: 'ኩሉ ኣገዳሲ ሓበሬታኺ፣ ብቐሊሉ ተጻሒፉ።',
-    myInformationTitle: 'ሓበሬታይ',
+    myInformationTitle: 'ቅጥዕታት',
     myObjective: 'ዕላማይ',
     myProfileEyebrow: 'ፕሮፋይለይ',
     none: 'የለን',
     notConfigured: 'ኣይተቐመጠን',
     notProvided: 'ኣይተሰጠን',
+    optional: 'ኣማራጺ',
     notProvidedFeminine: 'ኣይተሰጠን',
     predictionsUnavailable: 'ትንበያታት የለን — ሓበሬታ ኣይበቅዕን',
     notProvidedPlural: 'ኣይተሰጡን',
@@ -7459,6 +7482,7 @@ export const ti = {
       helpModalCloseAccessibility: 'ዕጸዊ'
     }
   },  security: {
+    tooManyAttempts: 'ብዙሕ ፈተነ። ድሕሪ {{minutes}} ደቒቕ እንደገና ፈትን።',
     incorrectCode: 'PIN ጌጋ እዩ። ደጊምኪ ፈትኒ።',
     genericError: 'ገለ ጌጋ ተፈጢሩ። ደጊምኪ ፈትኒ።',
     codesDontMatch: 'ኮዳት ኣይተመሳሰሉን። ካብ መጀመርታ ጀምሪ።',
@@ -7536,6 +7560,16 @@ export const ti = {
     disableAction: '{{label}} ኣጥፍእ'
   },
   privacySecurity: {
+    privateBiometricTitle: 'ንናይ ውልቂ ክፍልታት ባዮሜትሪክ',
+    privateBiometricSubtitle: 'ኮድ ከይጸሓፍካ ቀረባ ሂወት፣ መዘኻኸሪታትን ውልቃዊ ስእልታትን ክፈት። እቲ ኮድ ከም ተወሳኺ ይተርፍ።',
+    crashReports: {
+      title: 'ሪፖርታት ስሕተት',
+      subtitle: 'AWA እንተ ተዓጽዩ ስሙ ዘይፍለጥ ሪፖርት ለኣኽ።',
+      sheetTitle: 'AWA ንምምሕያሽ ክትሕግዝ ትደሊ ዲኻ?',
+      sheetBody: 'AWA ብዘይተጸበናዮ እንተ ተዓጽዩ፣ ጸገሙ ንምጽጋን ስሙ ዘይፍለጥ ቴክኒካዊ ሪፖርት ክለኣኸና ይኽእል። ሓበሬታ ጥዕናኻ ወይ ዝጽሕፍዎ ብፍጹም ኣይለኣኽን እዩ። ውሳኔኻ ኣብ ውልቀሰባዊነትን ድሕነትን ክትቕይሮ ትኽእል።',
+      sheetEnable: 'ኣብራሕ',
+      sheetDecline: 'ኖ፣ የቐንየለይ',
+    },
     backA11y: 'ተመለስ',
     title: 'ብሕትውናን ድሕነትን',
     subtitle: 'ሓበሬታኺ፣ ብሕትውናኺ፣ ምርጫኺ',
@@ -7751,8 +7785,8 @@ export const ti = {
   },
   personalInformation: {
     title: 'ውልቃዊ ሓበሬታ',
-    subtitle: 'መሰረታዊ ሓበሬታኺ ኣመሓድሪ 🌸',
-    greeting: 'ሰላም! 💜',
+    subtitle: 'መሰረታዊ ሓበሬታኺ ኣመሓድሪ',
+    greeting: 'ሰላም!',
     intro: 'እዚ ሓበሬታ ተሞክሮኺ ኣብ AWA ንዓኺ ንምምቅራብ ይጥቀም።',
     addPhoto: 'ስእሊ ወስኺ',
     editPhoto: 'ስእሊ ኣመሓይሺ',

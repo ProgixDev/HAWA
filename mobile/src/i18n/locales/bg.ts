@@ -241,9 +241,24 @@ export const bg = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Превключи към профила на {{name}}',
+    backToMine: 'Обратно към моя профил',
+    herSpace: 'Пространството на {{name}}',
+    separateSpace: 'Нейно собствено пространство, отделено от твоето',
+  },
+
+  discover: {
+    title: 'Открий',
+    daughterTitle: 'AWA за дъщеря ми',
+    partnerTitle: 'AWA за съпруга ми',
+    daughterCaption: 'Следи цикъла ѝ в собствено пространство',
+    partnerCaption: 'Споделяй показателите, които избереш',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Тялото ти, ритъмът ти, вярата ти ✨',
+    subtitleOwner: 'Тялото ти, ритъмът ти, вярата ти',
     subtitleDaughter: 'Профилът на дъщеря ми',
     nextPeriodLabel: 'Следваща менструация',
     fertileWindowLabel: 'Плодовит прозорец',
@@ -265,13 +280,13 @@ export const bg = {
     moodChipLabel: 'Настроение',
     tipChipLabel: 'Съвет за деня',
     phase: {
-      menstruation: {message: 'Енергията ти може да е по-ниска в момента — отдели време за почивка и бъди нежна към себе си.', energy: 'Ниска', mood: 'Чувствителна', tip: 'Почивка и топлина'},
-      follicular: {message: 'Енергията ти нежно се повишава — подходящ момент да се свържеш със себе си.', energy: 'Нарастваща', mood: 'Спокойна', tip: 'Пий достатъчно вода'},
-      fertile: {message: 'Плодовитият ти прозорец започна — бъди в синхрон със сигналите на тялото си.', energy: 'Висока', mood: 'Уверена', tip: 'Вслушвай се в себе си'},
-      ovulation: {message: 'Днес се очаква овулация, а енергията ти е във върха.', energy: 'Висока', mood: 'Сияйна', tip: 'Движи се нежно'},
-      luteal: {message: 'Тялото ти се подготвя за нов цикъл — бъди нежна към себе си.', energy: 'Променлива', mood: 'Замислена', tip: 'Нежност и спокойствие'},
-      pregnancy: {message: 'Тялото ти те подкрепя на всяка стъпка с грижа — грижи се добре за себе си.', energy: 'Променлива', mood: 'Внимателна', tip: 'Редовна почивка'},
-      postpartum: {message: 'Тялото ти продължава да се възстановява — бъди търпелива със себе си.', energy: 'Нежна', mood: 'Търпелива', tip: 'Подкрепа и почивка'},
+      menstruation: {message: 'По-ниска енергия: почини си.', energy: 'Ниска', mood: 'Чувствителна', tip: 'Почивка и топлина'},
+      follicular: {message: 'Енергията ти бавно се възвръща.', energy: 'Нарастваща', mood: 'Спокойна', tip: 'Пий достатъчно вода'},
+      fertile: {message: 'Плодовитият ти прозорец започна.', energy: 'Висока', mood: 'Уверена', tip: 'Вслушвай се в себе си'},
+      ovulation: {message: 'Очаква се овулация днес.', energy: 'Висока', mood: 'Сияйна', tip: 'Движи се нежно'},
+      luteal: {message: 'Тялото ти подготвя нов цикъл.', energy: 'Променлива', mood: 'Замислена', tip: 'Нежност и спокойствие'},
+      pregnancy: {message: 'Грижи се за себе си, стъпка по стъпка.', energy: 'Променлива', mood: 'Внимателна', tip: 'Редовна почивка'},
+      postpartum: {message: 'Тялото ти се възстановява: дай си почивка.', energy: 'Нежна', mood: 'Търпелива', tip: 'Подкрепа и почивка'},
     },
     mood: {
       veryGood: 'Много добро',
@@ -536,6 +551,7 @@ export const bg = {
     additionalNotesSubtitle: 'Добави коментар, ако желаеш.',
     notesPlaceholder: 'Напиши тук...',
     saveMySymptoms: 'Запази симптомите ми',
+    noSymptoms: 'Няма симптоми',
     clearSubject: 'тези симптоми',
     savedToast: 'Симптомите са запазени успешно ✨',
   },
@@ -1412,6 +1428,12 @@ export const bg = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA за дъщеря ми',
+      daughterText: 'Следи цикъла на дъщеря си в нейн профил: данните ѝ остават отделени от твоите. Превключвай между профилите с едно докосване.',
+      partnerTitle: 'AWA за съпруга ми',
+      partnerText: 'Споделяй със съпруга си само показателите, които избереш. Нищо не се споделя, ако не го включиш.',
+    },
     aboutAwaSubtitle: 'Версия, правна информация, поверителност и ценностите на приложението',
     aboutAwaTitle: 'За AWA',
     appearanceSubtitle: 'Теми, цветове, показване и език',
@@ -1435,12 +1457,13 @@ export const bg = {
     moreSectionSubtitle: 'Помощ, информация за AWA и управление на сесията.',
     moreSectionTitle: 'Още',
     myInformationSubtitle: 'Цялата ти важна информация, организирана просто.',
-    myInformationTitle: 'Моята информация',
+    myInformationTitle: 'Настройки',
     myObjective: 'Моята цел',
     myProfileEyebrow: 'МОЯТ ПРОФИЛ',
     none: 'Няма',
     notConfigured: 'Не е настроено',
     notProvided: 'Не е посочено',
+    optional: 'По желание',
     notProvidedFeminine: 'Не е посочена',
     predictionsUnavailable: 'Прогнозите не са налични — недостатъчно данни',
     notProvidedPlural: 'Не са посочени',
@@ -6957,6 +6980,7 @@ export const bg = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Твърде много опити. Опитай отново след {{minutes}} мин.',
     incorrectCode: 'Неверен PIN. Опитай отново.',
     genericError: 'Нещо се обърка. Опитай отново.',
     codesDontMatch: 'Кодовете не съвпадат. Започни отначало.',
@@ -7042,6 +7066,16 @@ export const bg = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Биометрия за личните раздели',
+    privateBiometricSubtitle: 'Отваряй интимния живот, бележките и личните снимки без въвеждане на код. Кодът остава като резервен вариант.',
+    crashReports: {
+      title: 'Доклади за грешки',
+      subtitle: 'Изпращане на анонимен доклад, ако AWA се срине.',
+      sheetTitle: 'Ще помогнеш ли за подобряването на AWA?',
+      sheetBody: 'Ако AWA се срине, може да ни бъде изпратен анонимен технически доклад, за да поправим проблема. Никога здравните ти данни или това, което въвеждаш. Можеш да промениш решението си в „Поверителност и сигурност“.',
+      sheetEnable: 'Включи',
+      sheetDecline: 'Не, благодаря',
+    },
     backA11y: 'Назад',
     title: 'Поверителност и сигурност',
     subtitle: 'Данните ти, поверителността ти, изборът ти',
@@ -7281,8 +7315,8 @@ export const bg = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Лична информация',
-    subtitle: 'Управлявай основната си информация 🌸',
-    greeting: 'Салам! 💜',
+    subtitle: 'Управлявай основната си информация',
+    greeting: 'Салам!',
     intro: 'Тази информация се използва, за да персонализира преживяването ти в AWA.',
     addPhoto: 'Добави снимка',
     editPhoto: 'Промени снимката',

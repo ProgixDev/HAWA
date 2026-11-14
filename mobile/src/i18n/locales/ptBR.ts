@@ -64,16 +64,22 @@ export const ptBR = {
     },
     phase: {
       follicular: {
-        message: 'A sua energia está aumentando suavemente — um bom momento para se reencontrar consigo.',
+        message: 'A sua energia está aumentando suavemente.',
         energy: 'Subindo',
       },
       ovulation: {
-        message: 'A ovulação é esperada para hoje, e a sua energia está no auge.',
+        message: 'A ovulação é esperada para hoje.',
         tip: 'Movimente-se com suavidade',
       },
       luteal: {
-        message: 'O seu corpo está se preparando para um novo ciclo — seja gentil consigo.',
+        message: 'O seu corpo está preparando um novo ciclo.',
         mood: 'Introspectiva',
+      },
+      pregnancy: {
+        message: 'Cuide de você, um passo de cada vez.',
+      },
+      postpartum: {
+        message: 'O seu corpo está se recuperando: dê-se descanso.',
       },
     },
     mood: {
@@ -3484,7 +3490,7 @@ export const ptBR = {
     providerError: 'A AWA Premium ainda não está disponível neste dispositivo. Tente novamente mais tarde.',
   },
   personalInformation: {
-    subtitle: 'Gerencie suas informações básicas 🌸',
+    subtitle: 'Gerencie suas informações básicas',
     addPhoto: 'Adicionar uma foto',
     editPhoto: 'Editar foto',
     changePhoto: 'Alterar foto',

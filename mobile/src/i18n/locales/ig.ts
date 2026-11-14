@@ -223,9 +223,24 @@ export const ig = {
       systemDescription: 'Jiri asụsụ ngwaọrụ'
     }
   },
+  profileSwitch: {
+    switchTo: 'Gafee na profaịlụ {{name}}',
+    backToMine: 'Laghachi na profaịlụ m',
+    herSpace: 'Ebe {{name}}',
+    separateSpace: 'Ebe nke ya, dị iche na nke gị',
+  },
+
+  discover: {
+    title: 'Chọpụta',
+    daughterTitle: 'AWA maka nwa m nwanyị',
+    partnerTitle: 'AWA maka di m',
+    daughterCaption: 'Soro okirikiri ya n’ebe nke ya',
+    partnerCaption: 'Kekọrịta akara ndị ị họọrọ',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Ahụ gị, usoro gị, okwukwe gị ✨',
+    subtitleOwner: 'Ahụ gị, usoro gị, okwukwe gị',
     subtitleDaughter: 'Profaịlụ nwa m nwanyị',
     nextPeriodLabel: 'Nsọ ọnwa na-esote',
     fertileWindowLabel: 'Oge ịtụrụ ime',
@@ -248,43 +263,43 @@ export const ig = {
     tipChipLabel: 'Ndụmọdụ taa',
     phase: {
       menstruation: {
-        message: 'Ume gị nwere ike ịdị ala ugbu a — were oge zuru ike ma nwee obi ọma n\'onwe gị.',
+        message: 'Ume dị ala: zuru ike.',
         energy: 'Dị ala',
         mood: 'Na-adị mfe imetụ',
         tip: 'Zuru ike na ọkụ'
       },
       follicular: {
-        message: 'Ume gị na-eji nwayọọ na-abawanye — oge ọma ịmaliteghachi na onwe gị.',
+        message: 'Ume gị na-alọghachi nke nta nke nta.',
         energy: 'Na-abawanye',
         mood: 'Udo',
         tip: 'Nọgide na-aṅụ mmiri'
       },
       fertile: {
-        message: 'Oge ịtụrụ ime gị amalitela — gee ntị n\'ihe ahụ gị na-egosi.',
+        message: 'Oge ọmụmụ gị amalitela.',
         energy: 'Dị elu',
         mood: 'Nwere obi ike',
         tip: 'Gee onwe gị ntị'
       },
       ovulation: {
-        message: 'A tụrụ anya ovulation taa, ume gị dị n\'elu kachasị.',
+        message: 'A na-atụ anya ovulation taa.',
         energy: 'Dị elu',
         mood: 'Na-egbu amaghị',
         tip: 'Mee mmegharị nwayọọ'
       },
       luteal: {
-        message: 'Ahụ gị na-akwado maka okirikiri ọhụrụ — nwee obi ọma n\'onwe gị.',
+        message: 'Ahụ gị na-akwado okirikiri ọhụrụ.',
         energy: 'Na-agbanwe',
         mood: 'Na-atụgharị uche',
         tip: 'Nwayọọ na udo'
       },
       pregnancy: {
-        message: 'Ahụ gị na-akwado nzọụkwụ ọ bụla n\'nlekọta — lekọta onwe gị nke ọma.',
+        message: 'Lekọta onwe gị, nzọụkwụ otu otu.',
         energy: 'Na-agbanwe',
         mood: 'Na-ejide ntị',
         tip: 'Zuru ike mgbe niile'
       },
       postpartum: {
-        message: 'Ahụ gị ka na-agwọ — nwee ndidi n\'onwe gị.',
+        message: 'Ahụ gị na-agbake: nye onwe gị izu ike.',
         energy: 'Nwayọọ',
         mood: 'Nwee ndidi',
         tip: 'Enyemaka na izu ike'
@@ -555,6 +570,7 @@ export const ig = {
     additionalNotesSubtitle: 'Tinye nkwupụta ma ịchọrọ.',
     notesPlaceholder: 'Dee ebe a...',
     saveMySymptoms: 'Chekwaa ihe mgbaàmà m',
+    noSymptoms: 'Enweghị ihe mgbaàmà',
     clearSubject: 'ihe mgbaàmà ndị a',
     savedToast: 'Echekwara ihe mgbaàmà nke ọma ✨'
   },
@@ -1458,6 +1474,12 @@ export const ig = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA maka nwa m nwanyị',
+      daughterText: 'Soro okirikiri nwa gị nwanyị na profaịlụ nke ya: data ya na-anọ iche n’ime nke gị. Gbanwee profaịlụ site n’otu mmetụ.',
+      partnerTitle: 'AWA maka di m',
+      partnerText: 'Kekọrịta naanị akara ndị ị họọrọ na di gị. Ọ dịghị ihe a na-ekekọrịta ọ bụrụ na ị agbanyeghị ya.',
+    },
     aboutAwaSubtitle: 'Ụdị, ọkwa iwu, nzuzo na ụkpụrụ nke app',
     aboutAwaTitle: 'Banyere AWA',
     appearanceSubtitle: 'Isiokwu, ụcha, ngosi na asụsụ',
@@ -1481,12 +1503,13 @@ export const ig = {
     moreSectionSubtitle: 'Enyemaka, ozi banyere AWA na ijikwa oge ị banyere.',
     moreSectionTitle: 'Ndị ọzọ',
     myInformationSubtitle: 'Ozi niile dị mkpa nke gị, hazie n’ụzọ dị mfe.',
-    myInformationTitle: 'Ozi m',
+    myInformationTitle: 'Ntọala',
     myObjective: 'Ebumnuche m',
     myProfileEyebrow: 'PROFAỊLỤ M',
     none: 'Ọ dịghị',
     notConfigured: 'Ahazibeghị',
     notProvided: 'Enyeghị',
+    optional: 'Nhọrọ',
     notProvidedFeminine: 'Enyeghị',
     predictionsUnavailable: 'Amụma adịghị — data zuru ezu adịghị',
     notProvidedPlural: 'Enyeghị',
@@ -7459,6 +7482,7 @@ export const ig = {
       helpModalCloseAccessibility: 'Mechie'
     }
   },  security: {
+    tooManyAttempts: 'Ọtụtụ nnwale. Nwalee ọzọ n\'ime nkeji {{minutes}}.',
     incorrectCode: 'PIN ezighi ezi. Nwaa ọzọ.',
     genericError: 'Ihe jisiri ike. Nwaa ọzọ.',
     codesDontMatch: 'Koodu ndị a adịghị otu. Malitegharịa.',
@@ -7536,6 +7560,16 @@ export const ig = {
     disableAction: 'Gbanyụọ {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics maka akụkụ nzuzo',
+    privateBiometricSubtitle: 'Meghee ndụ nzuzo, ihe edeturu na foto nzuzo na-ede koodu gị. Koodu ga-adịgide dị ka nkwado.',
+    crashReports: {
+      title: 'Akụkọ njehie',
+      subtitle: 'Zipu akụkọ na-enweghị aha ma AWA emechie.',
+      sheetTitle: 'Nyere aka melite AWA?',
+      sheetBody: 'Ọ bụrụ na AWA emechie na mberede, enwere ike izitere anyị akụkọ teknụzụ na-enweghị aha ka anyị dozie nsogbu ahụ. Ọ bụghị data ahụike gị ma ọ bụ ihe ị na-edeba ma ọlị. Ị nwere ike ịgbanwe mkpebi gị na Nzuzo na Nchekwa.',
+      sheetEnable: 'Mepee',
+      sheetDecline: 'Mba, daalụ',
+    },
     backA11y: 'Laghachi',
     title: 'Nzuzo & Nchekwa',
     subtitle: 'Data gị, nzuzo gị, nhọrọ gị',
@@ -7751,8 +7785,8 @@ export const ig = {
   },
   personalInformation: {
     title: 'Ozi nke onwe',
-    subtitle: 'Jikwaa ozi ntọala gị 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Jikwaa ozi ntọala gị',
+    greeting: 'Salam!',
     intro: 'A na-eji ozi a mee ka ahụmahụ gị na AWA bụrụ nke gị.',
     addPhoto: 'Tinye foto',
     editPhoto: 'Dezie foto',

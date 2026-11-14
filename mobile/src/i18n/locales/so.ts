@@ -234,9 +234,24 @@ export const so = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'U beddel astaanta {{name}}',
+    backToMine: 'Ku noqo astaantayda',
+    herSpace: 'Meesha {{name}}',
+    separateSpace: 'Meesheeda gaarka ah, kaaga ka gaar ah',
+  },
+
+  discover: {
+    title: 'Ogow',
+    daughterTitle: 'AWA gabadhayda',
+    partnerTitle: 'AWA ninkayga',
+    daughterCaption: 'Raac wareegeeda meel u gaar ah',
+    partnerCaption: 'La wadaag tilmaamayaasha aad dooratid',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Jidhkaaga, hannaankaaga, iimaankaaga ✨',
+    subtitleOwner: 'Jidhkaaga, hannaankaaga, iimaankaaga',
     subtitleDaughter: 'Profayl-ka gabadhayda',
     nextPeriodLabel: 'Caadada soo socota',
     fertileWindowLabel: 'Muddada bacriminta',
@@ -258,13 +273,13 @@ export const so = {
     moodChipLabel: 'Dareenka',
     tipChipLabel: 'Talada maanta',
     phase: {
-      menstruation: {message: 'Tamartaadu way yaraan kartaa hadda — waqti u qaado nasasho oo naftaada u roon.', energy: 'Hooseeya', mood: 'Dareen xasaasi ah', tip: 'Nasasho & kulayl'},
-      follicular: {message: 'Tamartaadu si tartiib ah ayay kor ugu kacaysaa — waqti wanaagsan oo aad naftaada dib ugu xirto.', energy: 'Kordhaysa', mood: 'Degan', tip: 'Biyo cab'},
-      fertile: {message: 'Muddada bacriminta waa bilaabatay — dhegayso calaamadaha jidhkaaga.', energy: 'Sare', mood: 'Is-kalsooni', tip: 'Naftaada dhegayso'},
-      ovulation: {message: 'Ukun-sii-deyntu waxay la filayaa maanta, tamartaaduna waa heerka ugu sarreeya.', energy: 'Sare', mood: 'Dhalaalaysa', tip: 'Si tartiib ah u dhaqaaq'},
-      luteal: {message: 'Jidhkaagu wuxuu u diyaar garoobayaa wareeg cusub — naftaada u roon.', energy: 'Isbeddelaysa', mood: 'Is-fiirinaya', tip: 'Qaboojin & degenaansho'},
-      pregnancy: {message: 'Jidhkaagu wuxuu talaabo kasta ku taageerayaa daryeel — si fiican isu daryeel.', energy: 'Isbeddelaysa', mood: 'Feejignaan', tip: 'Nasasho joogto ah'},
-      postpartum: {message: 'Jidhkaagu wuu sii bogsanayaa — samir naftaada la qabo.', energy: 'Debecsan', mood: 'Samir', tip: 'Taageero & nasasho'},
+      menstruation: {message: 'Tamar yar: nasasho.', energy: 'Hooseeya', mood: 'Dareen xasaasi ah', tip: 'Nasasho & kulayl'},
+      follicular: {message: 'Tamartaadu si tartiib ah ayay soo noqonaysaa.', energy: 'Kordhaysa', mood: 'Degan', tip: 'Biyo cab'},
+      fertile: {message: 'Daaqadaada bacriminta way bilaabatay.', energy: 'Sare', mood: 'Is-kalsooni', tip: 'Naftaada dhegayso'},
+      ovulation: {message: 'Ukun-bax waxaa la filayaa maanta.', energy: 'Sare', mood: 'Dhalaalaysa', tip: 'Si tartiib ah u dhaqaaq'},
+      luteal: {message: 'Jidhkaagu wuxuu diyaarinayaa wareeg cusub.', energy: 'Isbeddelaysa', mood: 'Is-fiirinaya', tip: 'Qaboojin & degenaansho'},
+      pregnancy: {message: 'Naftaada xaggeeda ka dhig, tallaabo tallaabo.', energy: 'Isbeddelaysa', mood: 'Feejignaan', tip: 'Nasasho joogto ah'},
+      postpartum: {message: 'Jidhkaagu wuu bogsanayaa: naftaada nasasho sii.', energy: 'Debecsan', mood: 'Samir', tip: 'Taageero & nasasho'},
     },
     mood: {
       veryGood: 'Aad u fiican',
@@ -529,6 +544,7 @@ export const so = {
     additionalNotesSubtitle: 'Ku dar faallo haddii aad rabto.',
     notesPlaceholder: 'Halkan ku qor...',
     saveMySymptoms: 'Kaydi astaamahayga',
+    noSymptoms: 'Astaamo ma jiraan',
     clearSubject: 'astaamahan',
     savedToast: 'Astaamaha si guul leh ayaa loo kaydiyey ✨',
   },
@@ -1405,6 +1421,12 @@ export const so = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA gabadhayda',
+      daughterText: 'Raac wareegga gabadhaada astaanteeda gaarka ah: xogteeda way ka go’an tahay taada. U beddel astaamaha taabasho keliya.',
+      partnerTitle: 'AWA ninkayga',
+      partnerText: 'La wadaag ninkaaga tilmaamayaasha aad dooratid oo keliya. Waxba lama wadaagayo haddii aadan shidin.',
+    },
     aboutAwaSubtitle: 'Nooca, ogeysiisyada sharciga, qarsoodinimada iyo qiyamka app-ka',
     aboutAwaTitle: 'Ku saabsan AWA',
     appearanceSubtitle: 'Mawduucyo, midabo, muuqaal iyo luqad',
@@ -1428,12 +1450,13 @@ export const so = {
     moreSectionSubtitle: 'Caawimaad, macluumaad ku saabsan AWA iyo maaraynta fadhigaaga.',
     moreSectionTitle: 'Wax dheeraad ah',
     myInformationSubtitle: 'Macluumaadkaaga muhiimka ah oo dhan, si fudud loo habeeyey.',
-    myInformationTitle: 'Macluumaadkayga',
+    myInformationTitle: 'Habaynta',
     myObjective: 'Hadafkayga',
     myProfileEyebrow: 'PROFAYL-KAYGA',
     none: 'Midna',
     notConfigured: 'Lama dejin',
     notProvided: 'Lama bixin',
+    optional: 'Ikhtiyaari',
     notProvidedFeminine: 'Lama bixin',
     predictionsUnavailable: 'Saadaal lama heli karo — xog ku filan ma jirto',
     notProvidedPlural: 'Lama bixin',
@@ -6950,6 +6973,7 @@ export const so = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Isku day aad u badan. Mar kale isku day {{minutes}} daqiiqo kadib.',
     incorrectCode: 'PIN khaldan. Mar kale isku day.',
     genericError: 'Wax qalad ah ayaa dhacay. Mar kale isku day.',
     codesDontMatch: 'Koodhadhku isma waafaqaan. Dib u bilow.',
@@ -7035,6 +7059,16 @@ export const so = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics qaybaha gaarka ah',
+    privateBiometricSubtitle: 'Fur nolosha qarsoodiga ah, qoraallada iyo sawirada gaarka ah adigoon kuu qorin koodhka. Koodhku wuxuu ahaanayaa kayd.',
+    crashReports: {
+      title: 'Warbixinnada khaladka',
+      subtitle: 'Dir warbixin aan magac lahayn haddii AWA xirmo.',
+      sheetTitle: 'Ma caawinaysaa horumarinta AWA?',
+      sheetBody: 'Haddii AWA si lama filaan u xirmo, warbixin farsamo oo aan magac lahayn ayaa naloo diri karaa si aan dhibaatada u hagaajino. Marnaba xogtaada caafimaadka ama wixii aad gelisid. Go\'aankaaga waad beddeli kartaa gudaha Asturnaanta iyo Amniga.',
+      sheetEnable: 'Daar',
+      sheetDecline: 'Maya, mahadsanid',
+    },
     backA11y: 'Dib',
     title: 'Asturnaan & Amni',
     subtitle: 'Xogtaada, asturnaantaada, doorashadaada',
@@ -7274,8 +7308,8 @@ export const so = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Macluumaad shakhsi ah',
-    subtitle: 'Maamul macluumaadkaaga aasaasiga ah 🌸',
-    greeting: 'Salaam! 💜',
+    subtitle: 'Maamul macluumaadkaaga aasaasiga ah',
+    greeting: 'Salaam!',
     intro: 'Macluumaadkani waxaa loo isticmaalaa in lagu habeeyo khibradaada AWA.',
     addPhoto: 'Ku dar sawir',
     editPhoto: 'Wax ka beddel sawirka',

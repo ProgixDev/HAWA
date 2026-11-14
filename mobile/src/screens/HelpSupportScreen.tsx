@@ -9,8 +9,9 @@ import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
-import {getCycleTrackingFaqItems, getFaqItems} from '../utils/supportContent';
+import {getCycleTrackingFaqItems, getHelpFaqItems} from '../utils/supportContent';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
+import {getActiveObjective} from '../state/onboardingPreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -26,7 +27,7 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Form = 'feedback' | 'bug' | null;
 
 function HelpRow({icon, title, subtitle, onPress, last}: {
-  icon: IconName; title: string; subtitle: string; onPress: () => void; last?: boolean;
+  icon: IconName; title: string; subtitle?: string; onPress: () => void; last?: boolean;
 }) {
   return (
     <AwaInfoRow
@@ -74,7 +75,8 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
   // topics (CLAUDE.md §4 objective isolation) — see getCycleTrackingFaqItems()'
   // own header comment. getFaqItems() itself is never filtered/deleted globally.
   const isManagedProfile = getActiveProfileIdentity().isManagedProfile;
-  const faqItems = isManagedProfile ? getCycleTrackingFaqItems(t) : getFaqItems(t);
+  // The owner sees six questions (4 about her objective + 2 about her data), not the whole catalogue; "Voir tout" opens the short full list.
+  const faqItems = isManagedProfile ? getCycleTrackingFaqItems(t) : getHelpFaqItems(t, getActiveObjective());
 
   const showToast = (value: string) => {
     setToast(value);
@@ -84,9 +86,10 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
     const address = APP_METADATA.contactEmail;
     if (!address) {showToast(t('help.helpSupport.toastEmailUnavailable')); return;}
     const url = `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // No canOpenURL() pre-check: on Android 11+ it answers false for "mailto:" unless the app declares the package query, which made a
+    // working mail app look unavailable. openURL itself fails (and shows the message) only when no app can handle the address.
     try {
-      if (await Linking.canOpenURL(url)) {await Linking.openURL(url);}
-      else {showToast(t('help.helpSupport.toastCantOpenEmail'));}
+      await Linking.openURL(url);
     } catch {
       showToast(t('help.helpSupport.toastCantOpenEmail'));
     }
@@ -137,7 +140,6 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
           </View>
           <View style={styles.methods}>
             <Method helper={t('help.helpSupport.emailMethodHelper')} icon="email-outline" onPress={() => openEmail()} styles={styles} theme={theme} title={t('help.helpSupport.emailMethodTitle')} value={APP_METADATA.contactEmail ?? t('help.helpSupport.emailUnavailable')} />
-            <Method helper={t('help.helpSupport.faqMethodHelper')} icon="help-circle-outline" onPress={() => navigation.navigate('FAQ')} styles={styles} theme={theme} title={t('help.helpSupport.faqMethodTitle')} value={t('help.helpSupport.faqMethodValue')} />
           </View>
           </AwaCard>
         </Animated.View>
@@ -151,7 +153,7 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
             <HelpRow
               icon={item.icon as never} key={item.id} last={index === faqItems.length - 1}
               onPress={() => navigation.navigate('FAQDetail', {id: item.id})}
-              subtitle={item.subtitle} title={item.question}
+              title={item.question}
             />
           ))}
         </AwaCard>
@@ -182,16 +184,30 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
             </AwaCard>
           </>
         ) : null}
+
+        {/* Legal documents, at the very bottom (same screens and wording as "À propos de AWA"). */}
+        <AwaText accessibilityRole="header" variant="titleMedium">{t('about.sectionLegal')}</AwaText>
+        <AwaCard padding="none" style={styles.card} variant="filled">
+          <HelpRow icon="file-document-outline" onPress={() => navigation.navigate('TermsOfUse')} title={t('about.termsOfUse')} />
+          <HelpRow last icon="shield-lock-outline" onPress={() => navigation.navigate('PrivacyPolicy')} title={t('about.privacyPolicy')} />
+        </AwaCard>
       </ScrollView>
 
-      <Modal animationType="slide" onRequestClose={() => setForm(null)} statusBarTranslucent transparent visible={form !== null}>
+      {/* navigationBarTranslucent: the sheet reaches the bottom of the screen, under the Android navigation bar, instead of leaving a strip
+          that shows the page behind it. The form scrolls inside the sheet, so on a short screen nothing is squeezed (the category chips were
+          being clipped) and the buttons stay reachable above the navigation bar. */}
+      <Modal animationType="slide" navigationBarTranslucent onRequestClose={() => setForm(null)} statusBarTranslucent transparent visible={form !== null}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalRoot}>
           <Pressable onPress={() => setForm(null)} style={styles.backdrop} />
-          <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
+          <View style={styles.sheet}>
             <View style={styles.handle} />
+            <ScrollView
+              contentContainerStyle={{paddingBottom: Math.max(insets.bottom, 18) + 8}}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}>
             <AwaText accessibilityRole="header" style={styles.sheetTitle} variant="titleLarge">{form === 'bug' ? t('help.helpSupport.modal.bugTitle') : t('help.helpSupport.modal.feedbackTitle')}</AwaText>
             <AwaText colorRole="onSurfaceVariant" emphasized style={styles.inputLabel} variant="labelMedium">{form === 'bug' ? t('help.helpSupport.modal.categoryLabelBug') : t('help.helpSupport.modal.categoryLabelFeedback')}</AwaText>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips} style={styles.chipsScroll}>
               {(form === 'bug'
                 ? [
                     t('help.helpSupport.modal.bugCategories.display'),
@@ -239,6 +255,7 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
             />
             <AwaButton fullWidth label={form === 'bug' ? t('help.helpSupport.modal.sendBug') : t('help.helpSupport.modal.send')} onPress={submit} size="large" style={styles.send} />
             <AwaButton fullWidth label={t('common.cancel')} onPress={() => setForm(null)} style={styles.cancel} variant="text" />
+            </ScrollView>
           </View>
         </KeyboardAvoidingView>
       </Modal>
@@ -290,7 +307,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     handle: {alignSelf: 'center', width: '14%', aspectRatio: 8, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.25)},
     sheetTitle: {marginTop: 16, textAlign: 'center'},
     inputLabel: {marginTop: 13, marginBottom: 7},
-    chips: {gap: 7},
+    chips: {gap: 7, paddingVertical: 2},
+    // never shrinks: in a column that is too tall, a horizontal ScrollView is squeezed first and its chips get cut
+    chipsScroll: {flexGrow: 0, flexShrink: 0},
     field: {marginTop: 13},
     chip: {minHeight: 40, justifyContent: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8},
     chipSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},

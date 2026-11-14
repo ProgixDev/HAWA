@@ -242,9 +242,24 @@ export const sr = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Пређи на профил: {{name}}',
+    backToMine: 'Назад на мој профил',
+    herSpace: 'Простор: {{name}}',
+    separateSpace: 'Њен сопствени простор, одвојен од твог',
+  },
+
+  discover: {
+    title: 'Откриј',
+    daughterTitle: 'AWA за моју ћерку',
+    partnerTitle: 'AWA за мог мужа',
+    daughterCaption: 'Прати њен циклус у њеном простору',
+    partnerCaption: 'Подели показатеље које изабереш',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Твоје тело, твој ритам, твоја вера ✨',
+    subtitleOwner: 'Твоје тело, твој ритам, твоја вера',
     subtitleDaughter: 'Профил моје ћерке',
     nextPeriodLabel: 'Следећа менструација',
     fertileWindowLabel: 'Плодни прозор',
@@ -266,13 +281,13 @@ export const sr = {
     moodChipLabel: 'Расположење',
     tipChipLabel: 'Савет дана',
     phase: {
-      menstruation: {message: 'Енергија ти је сада можда мања — одвоји време за одмор и буди нежна према себи.', energy: 'Ниска', mood: 'Осетљиво', tip: 'Одмор и топлина'},
-      follicular: {message: 'Енергија ти се полако враћа — добар тренутак да се поново повежеш са собом.', energy: 'Расте', mood: 'Мирно', tip: 'Пиј довољно воде'},
-      fertile: {message: 'Твој плодни прозор је почео — буди у складу са сигналима свог тела.', energy: 'Висока', mood: 'Самоуверено', tip: 'Слушај себе'},
-      ovulation: {message: 'Данас се очекује овулација, а енергија ти је на врхунцу.', energy: 'Висока', mood: 'Блиставо', tip: 'Крећи се нежно'},
-      luteal: {message: 'Твоје тело се припрема за нови циклус — буди нежна према себи.', energy: 'Променљива', mood: 'Рефлексивно', tip: 'Нежност и мир'},
-      pregnancy: {message: 'Твоје тело брижно подржава сваки корак — добро се чувај.', energy: 'Променљива', mood: 'Пажљиво', tip: 'Редован одмор'},
-      postpartum: {message: 'Твоје тело се и даље опоравља — буди стрпљива са собом.', energy: 'Блага', mood: 'Стрпљиво', tip: 'Подршка и одмор'},
+      menstruation: {message: 'Мање енергије: одмори се.', energy: 'Ниска', mood: 'Осетљиво', tip: 'Одмор и топлина'},
+      follicular: {message: 'Твоја енергија се полако враћа.', energy: 'Расте', mood: 'Мирно', tip: 'Пиј довољно воде'},
+      fertile: {message: 'Твој плодни прозор је почео.', energy: 'Висока', mood: 'Самоуверено', tip: 'Слушај себе'},
+      ovulation: {message: 'Овулација се очекује данас.', energy: 'Висока', mood: 'Блиставо', tip: 'Крећи се нежно'},
+      luteal: {message: 'Твоје тело припрема нови циклус.', energy: 'Променљива', mood: 'Рефлексивно', tip: 'Нежност и мир'},
+      pregnancy: {message: 'Брини о себи, корак по корак.', energy: 'Променљива', mood: 'Пажљиво', tip: 'Редован одмор'},
+      postpartum: {message: 'Твоје тело се опоравља: приушти себи одмор.', energy: 'Блага', mood: 'Стрпљиво', tip: 'Подршка и одмор'},
     },
     mood: {
       veryGood: 'Веома добро',
@@ -543,6 +558,7 @@ export const sr = {
     additionalNotesSubtitle: 'Додај коментар ако желиш.',
     notesPlaceholder: 'Напиши овде...',
     saveMySymptoms: 'Сачувај моје симптоме',
+    noSymptoms: 'Нема симптома',
     clearSubject: 'ове симптоме',
     savedToast: 'Симптоми су успешно сачувани ✨',
   },
@@ -1434,6 +1450,12 @@ export const sr = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA за моју ћерку',
+      daughterText: 'Прати циклус своје ћерке у њеном профилу: њени подаци остају одвојени од твојих. Између профила прелазиш једним додиром.',
+      partnerTitle: 'AWA за мог мужа',
+      partnerText: 'Са мужем дели само показатеље које изабереш. Ништа се не дели ако то не укључиш.',
+    },
     aboutAwaSubtitle: 'Верзија, правна обавештења, приватност и вредности апликације',
     aboutAwaTitle: 'О апликацији AWA',
     appearanceSubtitle: 'Теме, боје, приказ и језик',
@@ -1457,12 +1479,13 @@ export const sr = {
     moreSectionSubtitle: 'Помоћ, информације о AWA и управљање сесијом.',
     moreSectionTitle: 'Још',
     myInformationSubtitle: 'Све твоје важне информације, једноставно организоване.',
-    myInformationTitle: 'Моје информације',
+    myInformationTitle: 'Подешавања',
     myObjective: 'Мој циљ',
     myProfileEyebrow: 'МОЈ ПРОФИЛ',
     none: 'Нема',
     notConfigured: 'Није подешено',
     notProvided: 'Није наведено',
+    optional: 'Необавезно',
     notProvidedFeminine: 'Није наведена',
     predictionsUnavailable: 'Предвиђања нису доступна — нема довољно података',
     notProvidedPlural: 'Нису наведени',
@@ -7031,6 +7054,7 @@ export const sr = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Превише покушаја. Покушај поново за {{minutes}} мин.',
     incorrectCode: 'Нетачан ПИН. Покушај поново.',
     genericError: 'Нешто је пошло наопако. Покушај поново.',
     codesDontMatch: 'Кодови се не поклапају. Почни испочетка.',
@@ -7116,6 +7140,16 @@ export const sr = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Биометрија за приватне делове',
+    privateBiometricSubtitle: 'Отварај интимни живот, белешке и приватне фотографије без уноса кода. Код остаје доступан као резерва.',
+    crashReports: {
+      title: 'Извештаји о грешкама',
+      subtitle: 'Пошаљи анонимни извештај ако се AWA затвори.',
+      sheetTitle: 'Желиш ли да помогнеш у побољшању AWA?',
+      sheetBody: 'Ако се AWA неочекивано затвори, може нам бити послат анонимни технички извештај да исправимо проблем. Никада твоје здравствене податке нити оно што уносиш. Одлуку можеш променити у „Приватност и безбедност“.',
+      sheetEnable: 'Укључи',
+      sheetDecline: 'Не, хвала',
+    },
     backA11y: 'Назад',
     title: 'Приватност и безбедност',
     subtitle: 'Твоји подаци, твоја приватност, твој избор',
@@ -7357,8 +7391,8 @@ export const sr = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Лични подаци',
-    subtitle: 'Управљај својим основним подацима 🌸',
-    greeting: 'Салам! 💜',
+    subtitle: 'Управљај својим основним подацима',
+    greeting: 'Салам!',
     intro: 'Ови подаци се користе да прилагоде твоје искуство у AWA.',
     addPhoto: 'Додај фотографију',
     editPhoto: 'Измени фотографију',

@@ -244,9 +244,24 @@ export const fil = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Lumipat sa profile ni {{name}}',
+    backToMine: 'Bumalik sa aking profile',
+    herSpace: 'Espasyo ni {{name}}',
+    separateSpace: 'Sarili niyang espasyo, hiwalay sa iyo',
+  },
+
+  discover: {
+    title: 'Tuklasin',
+    daughterTitle: 'AWA para sa anak kong babae',
+    partnerTitle: 'AWA para sa asawa ko',
+    daughterCaption: 'Subaybayan ang kanyang cycle sa sarili niyang espasyo',
+    partnerCaption: 'Ibahagi ang mga marker na pipiliin mo',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Ang iyong katawan, ang iyong ritmo, ang iyong pananampalataya ✨',
+    subtitleOwner: 'Ang iyong katawan, ang iyong ritmo, ang iyong pananampalataya',
     subtitleDaughter: 'Profile ng aking anak na babae',
     nextPeriodLabel: 'Susunod na regla',
     fertileWindowLabel: 'Panahon ng pagkamayabong',
@@ -268,13 +283,13 @@ export const fil = {
     moodChipLabel: 'Mood',
     tipChipLabel: 'Payo ng araw',
     phase: {
-      menstruation: {message: 'Maaaring mas mababa ang iyong enerhiya ngayon — maglaan ng oras para magpahinga at maging mabait sa sarili.', energy: 'Mababa', mood: 'Sensitibo', tip: 'Pahinga at init'},
-      follicular: {message: 'Dahan-dahang bumabalik ang iyong enerhiya — magandang panahon para makipag-ugnayan muli sa sarili.', energy: 'Tumataas', mood: 'Kalmado', tip: 'Uminom ng sapat na tubig'},
-      fertile: {message: 'Nagsimula na ang iyong panahon ng pagkamayabong — makinig sa mga senyales ng iyong katawan.', energy: 'Mataas', mood: 'Kumpiyansa', tip: 'Makinig sa sarili'},
-      ovulation: {message: 'Inaasahan ang obulasyon ngayon, at nasa pinakamataas ang iyong enerhiya.', energy: 'Mataas', mood: 'Masigla', tip: 'Dahan-dahang kumilos'},
-      luteal: {message: 'Naghahanda ang iyong katawan para sa bagong siklo — maging mahinahon sa sarili.', energy: 'Nagbabago', mood: 'Mapagnilay', tip: 'Lambing at kalmado'},
-      pregnancy: {message: 'Inaalagaan ng iyong katawan ang bawat hakbang — alagaan mo nang mabuti ang sarili.', energy: 'Nagbabago', mood: 'Mapagmatyag', tip: 'Regular na pahinga'},
-      postpartum: {message: 'Patuloy na gumagaling ang iyong katawan — maging matiyaga sa sarili.', energy: 'Banayad', mood: 'Matiyaga', tip: 'Suporta at pahinga'},
+      menstruation: {message: 'Mas mababang enerhiya: magpahinga.', energy: 'Mababa', mood: 'Sensitibo', tip: 'Pahinga at init'},
+      follicular: {message: 'Dahan-dahang bumabalik ang iyong enerhiya.', energy: 'Tumataas', mood: 'Kalmado', tip: 'Uminom ng sapat na tubig'},
+      fertile: {message: 'Nagsimula na ang iyong fertile window.', energy: 'Mataas', mood: 'Kumpiyansa', tip: 'Makinig sa sarili'},
+      ovulation: {message: 'Inaasahan ang ovulation ngayon.', energy: 'Mataas', mood: 'Masigla', tip: 'Dahan-dahang kumilos'},
+      luteal: {message: 'Naghahanda ang iyong katawan ng bagong cycle.', energy: 'Nagbabago', mood: 'Mapagnilay', tip: 'Lambing at kalmado'},
+      pregnancy: {message: 'Alagaan ang sarili, isang hakbang sa bawat oras.', energy: 'Nagbabago', mood: 'Mapagmatyag', tip: 'Regular na pahinga'},
+      postpartum: {message: 'Gumagaling ang iyong katawan: magpahinga ka.', energy: 'Banayad', mood: 'Matiyaga', tip: 'Suporta at pahinga'},
     },
     mood: {
       veryGood: 'Napakaganda',
@@ -539,6 +554,7 @@ export const fil = {
     additionalNotesSubtitle: 'Magdagdag ng komento kung gusto mo.',
     notesPlaceholder: 'Isulat dito...',
     saveMySymptoms: 'I-save ang aking mga sintomas',
+    noSymptoms: 'Walang sintomas',
     clearSubject: 'ang mga sintomas na ito',
     savedToast: 'Matagumpay na na-save ang mga sintomas ✨',
   },
@@ -1415,6 +1431,12 @@ export const fil = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA para sa anak kong babae',
+      daughterText: 'Subaybayan ang cycle ng anak mong babae sa sarili niyang profile: hiwalay ang kanyang data sa iyo. Magpalit ng profile sa isang tap.',
+      partnerTitle: 'AWA para sa asawa ko',
+      partnerText: 'Ibahagi sa asawa mo ang mga marker lang na pipiliin mo. Walang ibabahagi kung hindi mo ito io-on.',
+    },
     aboutAwaSubtitle: 'Bersyon, mga legal na paunawa, privacy at mga pinahahalagahan ng app',
     aboutAwaTitle: 'Tungkol sa AWA',
     appearanceSubtitle: 'Mga tema, kulay, display at wika',
@@ -1438,12 +1460,13 @@ export const fil = {
     moreSectionSubtitle: 'Tulong, impormasyon tungkol sa AWA at pamamahala ng iyong session.',
     moreSectionTitle: 'Higit pa',
     myInformationSubtitle: 'Lahat ng iyong mahahalagang impormasyon, simpleng nakaayos.',
-    myInformationTitle: 'Aking impormasyon',
+    myInformationTitle: 'Mga setting',
     myObjective: 'Aking layunin',
     myProfileEyebrow: 'AKING PROFILE',
     none: 'Wala',
     notConfigured: 'Hindi naka-configure',
     notProvided: 'Hindi nakasaad',
+    optional: 'Opsyonal',
     notProvidedFeminine: 'Hindi nakasaad',
     predictionsUnavailable: 'Hindi available ang mga hula — kulang ang data',
     notProvidedPlural: 'Hindi nakasaad',
@@ -6960,6 +6983,7 @@ export const fil = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Napakaraming pagsubok. Subukan ulit pagkalipas ng {{minutes}} min.',
     incorrectCode: 'Maling PIN. Subukan muli.',
     genericError: 'May nangyaring mali. Subukan muli.',
     codesDontMatch: 'Hindi magkatugma ang mga code. Magsimulang muli.',
@@ -7045,6 +7069,16 @@ export const fil = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics para sa mga pribadong seksyon',
+    privateBiometricSubtitle: 'Buksan ang pribadong buhay, mga tala at larawan nang hindi tina-type ang code. Mananatiling available ang code bilang backup.',
+    crashReports: {
+      title: 'Mga ulat ng error',
+      subtitle: 'Magpadala ng anonymous na ulat kung magsara ang AWA.',
+      sheetTitle: 'Tulungang pagbutihin ang AWA?',
+      sheetBody: 'Kung magsara ang AWA nang biglaan, maaaring ipadala sa amin ang anonymous na teknikal na ulat para maayos ang problema. Hindi kailanman ang iyong datos pangkalusugan o ang inilalagay mo. Maaari mong baguhin ang isip mo sa Privacy at Seguridad.',
+      sheetEnable: 'I-on',
+      sheetDecline: 'Hindi, salamat',
+    },
     backA11y: 'Bumalik',
     title: 'Privacy at Seguridad',
     subtitle: 'Ang iyong data, ang iyong privacy, ang iyong pagpili',
@@ -7284,8 +7318,8 @@ export const fil = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Personal na impormasyon',
-    subtitle: 'Pamahalaan ang iyong pangunahing impormasyon 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Pamahalaan ang iyong pangunahing impormasyon',
+    greeting: 'Salam!',
     intro: 'Ginagamit ang impormasyong ito para i-personalize ang iyong karanasan sa AWA.',
     addPhoto: 'Magdagdag ng larawan',
     editPhoto: 'I-edit ang larawan',

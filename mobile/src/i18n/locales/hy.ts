@@ -243,9 +243,24 @@ export const hy = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Անցնել {{name}}֊ի պրոֆիլին',
+    backToMine: 'Վերադառնալ իմ պրոֆիլին',
+    herSpace: '{{name}}֊ի տարածքը',
+    separateSpace: 'Նրա սեփական տարածքը՝ քոնից առանձին',
+  },
+
+  discover: {
+    title: 'Բացահայտիր',
+    daughterTitle: 'AWA իմ աղջկա համար',
+    partnerTitle: 'AWA իմ ամուսնու համար',
+    daughterCaption: 'Հետևիր նրա ցիկլին իր սեփական տարածքում',
+    partnerCaption: 'Կիսվիր քո ընտրած ցուցանիշներով',
+  },
+
   cycleHome: {
     greeting: 'Ասսալամու ալեյքում,',
-    subtitleOwner: 'Ձեր մարմինը, ձեր ռիթմը, ձեր հավատքը ✨',
+    subtitleOwner: 'Ձեր մարմինը, ձեր ռիթմը, ձեր հավատքը',
     subtitleDaughter: 'Իմ դստեր պրոֆիլը',
     nextPeriodLabel: 'Հաջորդ դաշտանը',
     fertileWindowLabel: 'Բեղմնավոր պատուհան',
@@ -267,13 +282,13 @@ export const hy = {
     moodChipLabel: 'Տրամադրություն',
     tipChipLabel: 'Օրվա խորհուրդ',
     phase: {
-      menstruation: {message: 'Ձեր էներգիան այժմ կարող է ցածր լինել. հանգստացեք և մեղմ եղեք ինքներդ ձեր հանդեպ:', energy: 'Ցածր', mood: 'Զգայուն', tip: 'Հանգիստ և ջերմություն'},
-      follicular: {message: 'Ձեր էներգիան մեղմորեն աճում է. լավ պահ է ինքներդ ձեզ հետ վերամիանալու համար:', energy: 'Աճող', mood: 'Հանգիստ', tip: 'Խմեք բավարար ջուր'},
-      fertile: {message: 'Ձեր բեղմնավոր պատուհանը սկսվեց. լսեք ձեր մարմնի ազդանշանները:', energy: 'Բարձր', mood: 'Ինքնավստահ', tip: 'Լսեք ինքներդ ձեզ'},
-      ovulation: {message: 'Այսօր ակնկալվում է ձվազատում, և ձեր էներգիան գագաթնակետում է:', energy: 'Բարձր', mood: 'Փայլուն', tip: 'Շարժվեք մեղմ'},
-      luteal: {message: 'Ձեր մարմինը պատրաստվում է նոր ցիկլի. մեղմ եղեք ինքներդ ձեր հանդեպ:', energy: 'Փոփոխական', mood: 'Ներհայաց', tip: 'Մեղմություն և հանգստություն'},
-      pregnancy: {message: 'Ձեր մարմինը հոգատարությամբ ուղեկցում է ամեն քայլին. լավ հոգ տարեք ձեր մասին:', energy: 'Փոփոխական', mood: 'Ուշադիր', tip: 'Կանոնավոր հանգիստ'},
-      postpartum: {message: 'Ձեր մարմինը շարունակում է վերականգնվել. համբերատար եղեք ինքներդ ձեր հանդեպ:', energy: 'Մեղմ', mood: 'Համբերատար', tip: 'Աջակցություն և հանգիստ'},
+      menstruation: {message: 'Քիչ էներգիա. հանգստացիր։', energy: 'Ցածր', mood: 'Զգայուն', tip: 'Հանգիստ և ջերմություն'},
+      follicular: {message: 'Քո էներգիան կամաց-կամաց վերադառնում է։', energy: 'Աճող', mood: 'Հանգիստ', tip: 'Խմեք բավարար ջուր'},
+      fertile: {message: 'Քո պտղաբեր շրջանը սկսվել է։', energy: 'Բարձր', mood: 'Ինքնավստահ', tip: 'Լսեք ինքներդ ձեզ'},
+      ovulation: {message: 'Ովուլյացիան սպասվում է այսօր։', energy: 'Բարձր', mood: 'Փայլուն', tip: 'Շարժվեք մեղմ'},
+      luteal: {message: 'Քո մարմինը նոր ցիկլ է պատրաստում։', energy: 'Փոփոխական', mood: 'Ներհայաց', tip: 'Մեղմություն և հանգստություն'},
+      pregnancy: {message: 'Հոգ տար քո մասին, քայլ առ քայլ։', energy: 'Փոփոխական', mood: 'Ուշադիր', tip: 'Կանոնավոր հանգիստ'},
+      postpartum: {message: 'Քո մարմինը վերականգնվում է. հանգիստ տուր քեզ։', energy: 'Մեղմ', mood: 'Համբերատար', tip: 'Աջակցություն և հանգիստ'},
     },
     mood: {
       veryGood: 'Շատ լավ',
@@ -538,6 +553,7 @@ export const hy = {
     additionalNotesSubtitle: 'Ավելացրեք մեկնաբանություն, եթե ցանկանում եք:',
     notesPlaceholder: 'Գրեք այստեղ...',
     saveMySymptoms: 'Պահպանել իմ ախտանիշները',
+    noSymptoms: 'Ախտանիշներ չկան',
     clearSubject: 'այս ախտանիշները',
     savedToast: 'Ախտանիշները հաջողությամբ պահպանվեցին ✨',
   },
@@ -1414,6 +1430,12 @@ export const hy = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA իմ աղջկա համար',
+      daughterText: 'Հետևիր աղջկադ ցիկլին նրա սեփական պրոֆիլում․ նրա տվյալները մնում են քոնից առանձին։ Պրոֆիլների միջև անցիր մեկ հպումով։',
+      partnerTitle: 'AWA իմ ամուսնու համար',
+      partnerText: 'Ամուսնուդ հետ կիսվիր միայն քո ընտրած ցուցանիշներով։ Ոչինչ չի կիսվում, քանի դեռ չես միացրել։',
+    },
     aboutAwaSubtitle: 'Տարբերակ, իրավական ծանուցումներ, գաղտնիություն և հավելվածի արժեքները',
     aboutAwaTitle: 'AWA-ի մասին',
     appearanceSubtitle: 'Թեմաներ, գույներ, ցուցադրում և լեզու',
@@ -1437,12 +1459,13 @@ export const hy = {
     moreSectionSubtitle: 'Օգնություն, տեղեկություն AWA-ի մասին և ձեր աշխատաշրջանի կառավարում:',
     moreSectionTitle: 'Ավելին',
     myInformationSubtitle: 'Ձեր բոլոր կարևոր տեղեկությունները՝ պարզ կազմակերպված:',
-    myInformationTitle: 'Իմ տեղեկությունը',
+    myInformationTitle: 'Կարգավորումներ',
     myObjective: 'Իմ նպատակը',
     myProfileEyebrow: 'ԻՄ ՊՐՈՖԻԼԸ',
     none: 'Չկա',
     notConfigured: 'Կարգավորված չէ',
     notProvided: 'Նշված չէ',
+    optional: 'Ըստ ցանկության',
     notProvidedFeminine: 'Նշված չէ',
     predictionsUnavailable: 'Կանխատեսումները հասանելի չեն. տվյալները բավարար չեն',
     notProvidedPlural: 'Նշված չեն',
@@ -6961,6 +6984,7 @@ export const hy = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Չափազանց շատ փորձեր: Կրկին փորձիր {{minutes}} ր-ից:',
     incorrectCode: 'Սխալ PIN կոդ: Փորձեք կրկին:',
     genericError: 'Ինչ-որ բան սխալ ընթացավ: Փորձեք կրկին:',
     codesDontMatch: 'Կոդերը չեն համընկնում: Սկսեք նորից:',
@@ -7046,6 +7070,16 @@ export const hy = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Կենսաչափություն անձնական բաժինների համար',
+    privateBiometricSubtitle: 'Բացիր ինտիմ կյանքը, նշումներն ու անձնական լուսանկարները՝ առանց կոդը մուտքագրելու: Կոդը մնում է որպես պահուստ:',
+    crashReports: {
+      title: 'Սխալների հաշվետվություններ',
+      subtitle: 'Ուղարկել անանուն հաշվետվություն, եթե AWA-ն փակվի:',
+      sheetTitle: 'Օգնե՞ս բարելավել AWA-ն',
+      sheetBody: 'Եթե AWA-ն անսպասելիորեն փակվի, խնդիրը շտկելու համար մեզ կարող է ուղարկվել անանուն տեխնիկական հաշվետվություն: Երբեք քո առողջական տվյալները կամ մուտքագրածը: Կարող ես փոխել որոշումդ «Գաղտնիություն և անվտանգություն» բաժնում:',
+      sheetEnable: 'Միացնել',
+      sheetDecline: 'Ոչ, շնորհակալություն',
+    },
     backA11y: 'Հետ',
     title: 'Գաղտնիություն և անվտանգություն',
     subtitle: 'Ձեր տվյալները, ձեր գաղտնիությունը, ձեր ընտրությունը',
@@ -7285,8 +7319,8 @@ export const hy = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Անձնական տեղեկություն',
-    subtitle: 'Կառավարեք ձեր հիմնական տեղեկությունը 🌸',
-    greeting: 'Սալամ: 💜',
+    subtitle: 'Կառավարեք ձեր հիմնական տեղեկությունը',
+    greeting: 'Սալամ:',
     intro: 'Այս տեղեկությունը օգտագործվում է AWA-ում ձեր փորձն անհատականացնելու համար:',
     addPhoto: 'Ավելացնել լուսանկար',
     editPhoto: 'Փոփոխել լուսանկարը',

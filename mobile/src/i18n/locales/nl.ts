@@ -241,9 +241,24 @@ export const nl = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Overschakelen naar het profiel van {{name}}',
+    backToMine: 'Terug naar mijn profiel',
+    herSpace: 'Ruimte van {{name}}',
+    separateSpace: 'Haar eigen ruimte, gescheiden van de jouwe',
+  },
+
+  discover: {
+    title: 'Ontdekken',
+    daughterTitle: 'AWA voor mijn dochter',
+    partnerTitle: 'AWA voor mijn man',
+    daughterCaption: 'Volg haar cyclus in een eigen ruimte',
+    partnerCaption: 'Deel de kenmerken die je kiest',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Jouw lichaam, jouw ritme, jouw geloof ✨',
+    subtitleOwner: 'Jouw lichaam, jouw ritme, jouw geloof',
     subtitleDaughter: 'Het profiel van mijn dochter',
     nextPeriodLabel: 'Volgende menstruatie',
     fertileWindowLabel: 'Vruchtbare periode',
@@ -265,13 +280,13 @@ export const nl = {
     moodChipLabel: 'Stemming',
     tipChipLabel: 'Tip van de dag',
     phase: {
-      menstruation: {message: 'Je energie kan op dit moment lager aanvoelen — neem de tijd om te rusten en wees zacht voor jezelf.', energy: 'Laag', mood: 'Gevoelig', tip: 'Rust & warmte'},
-      follicular: {message: 'Je energie neemt langzaam toe — een goed moment om weer contact met jezelf te maken.', energy: 'Stijgend', mood: 'Kalm', tip: 'Blijf goed drinken'},
-      fertile: {message: 'Je vruchtbare periode is begonnen — blijf afgestemd op de signalen van je lichaam.', energy: 'Hoog', mood: 'Zelfverzekerd', tip: 'Luister naar jezelf'},
-      ovulation: {message: 'De eisprong wordt vandaag verwacht en je energie is op zijn hoogtepunt.', energy: 'Hoog', mood: 'Stralend', tip: 'Beweeg rustig'},
-      luteal: {message: 'Je lichaam bereidt zich voor op een nieuwe cyclus — wees zacht voor jezelf.', energy: 'Wisselend', mood: 'Introspectief', tip: 'Zachtheid & rust'},
-      pregnancy: {message: 'Je lichaam ondersteunt elke stap met zorg — zorg goed voor jezelf.', energy: 'Wisselend', mood: 'Aandachtig', tip: 'Regelmatig rusten'},
-      postpartum: {message: 'Je lichaam blijft herstellen — heb geduld met jezelf.', energy: 'Zacht', mood: 'Geduldig', tip: 'Steun & rust'},
+      menstruation: {message: 'Minder energie: rust uit.', energy: 'Laag', mood: 'Gevoelig', tip: 'Rust & warmte'},
+      follicular: {message: 'Je energie komt langzaam terug.', energy: 'Stijgend', mood: 'Kalm', tip: 'Blijf goed drinken'},
+      fertile: {message: 'Je vruchtbare periode is begonnen.', energy: 'Hoog', mood: 'Zelfverzekerd', tip: 'Luister naar jezelf'},
+      ovulation: {message: 'Vandaag wordt de eisprong verwacht.', energy: 'Hoog', mood: 'Stralend', tip: 'Beweeg rustig'},
+      luteal: {message: 'Je lichaam bereidt een nieuwe cyclus voor.', energy: 'Wisselend', mood: 'Introspectief', tip: 'Zachtheid & rust'},
+      pregnancy: {message: 'Zorg goed voor jezelf, stap voor stap.', energy: 'Wisselend', mood: 'Aandachtig', tip: 'Regelmatig rusten'},
+      postpartum: {message: 'Je lichaam herstelt: gun jezelf rust.', energy: 'Zacht', mood: 'Geduldig', tip: 'Steun & rust'},
     },
     mood: {
       veryGood: 'Heel goed',
@@ -536,6 +551,7 @@ export const nl = {
     additionalNotesSubtitle: 'Voeg een opmerking toe als je wilt.',
     notesPlaceholder: 'Schrijf hier...',
     saveMySymptoms: 'Mijn symptomen opslaan',
+    noSymptoms: 'Geen symptomen',
     clearSubject: 'deze symptomen',
     savedToast: 'Symptomen opgeslagen ✨',
   },
@@ -1412,6 +1428,12 @@ export const nl = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA voor mijn dochter',
+      daughterText: 'Volg de cyclus van je dochter in haar eigen profiel: haar gegevens blijven gescheiden van die van jou. Met één tik wissel je van profiel.',
+      partnerTitle: 'AWA voor mijn man',
+      partnerText: 'Deel met je man alleen de kenmerken die je kiest. Er wordt niets gedeeld tenzij je het inschakelt.',
+    },
     aboutAwaSubtitle: 'Versie, juridische vermeldingen, privacy en de waarden van de app',
     aboutAwaTitle: 'Over AWA',
     appearanceSubtitle: 'Thema’s, kleuren, weergave en taal',
@@ -1435,12 +1457,13 @@ export const nl = {
     moreSectionSubtitle: 'Hulp, informatie over AWA en het beheren van je sessie.',
     moreSectionTitle: 'Meer',
     myInformationSubtitle: 'Al je belangrijke gegevens, eenvoudig georganiseerd.',
-    myInformationTitle: 'Mijn gegevens',
+    myInformationTitle: 'Instellingen',
     myObjective: 'Mijn doel',
     myProfileEyebrow: 'MIJN PROFIEL',
     none: 'Geen',
     notConfigured: 'Niet ingesteld',
     notProvided: 'Niet opgegeven',
+    optional: 'Optioneel',
     notProvidedFeminine: 'Niet opgegeven',
     predictionsUnavailable: 'Voorspellingen niet beschikbaar — onvoldoende gegevens',
     notProvidedPlural: 'Niet opgegeven',
@@ -6957,6 +6980,7 @@ export const nl = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Te veel pogingen. Probeer het over {{minutes}} min opnieuw.',
     incorrectCode: 'Onjuiste pincode. Probeer het opnieuw.',
     genericError: 'Er is iets misgegaan. Probeer het opnieuw.',
     codesDontMatch: 'De codes komen niet overeen. Begin opnieuw.',
@@ -7042,6 +7066,16 @@ export const nl = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrie voor privé-onderdelen',
+    privateBiometricSubtitle: 'Open intiem leven, notities en privéfoto’s zonder je code te typen. De code blijft beschikbaar als reserve.',
+    crashReports: {
+      title: 'Foutrapporten',
+      subtitle: 'Stuur een anoniem rapport als AWA crasht.',
+      sheetTitle: 'Help je mee AWA te verbeteren?',
+      sheetBody: 'Als AWA crasht, kan er een anoniem technisch rapport naar ons worden gestuurd zodat we het probleem kunnen verhelpen. Nooit je gezondheidsgegevens of wat je invoert. Je kunt van gedachten veranderen bij Privacy en beveiliging.',
+      sheetEnable: 'Aanzetten',
+      sheetDecline: 'Nee, bedankt',
+    },
     backA11y: 'Terug',
     title: 'Privacy & beveiliging',
     subtitle: 'Je gegevens, je privacy, jouw keuze',
@@ -7281,8 +7315,8 @@ export const nl = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Persoonlijke gegevens',
-    subtitle: 'Beheer je basisgegevens 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Beheer je basisgegevens',
+    greeting: 'Salam!',
     intro: 'Deze informatie wordt gebruikt om je ervaring in AWA te personaliseren.',
     addPhoto: 'Een foto toevoegen',
     editPhoto: 'Foto bewerken',

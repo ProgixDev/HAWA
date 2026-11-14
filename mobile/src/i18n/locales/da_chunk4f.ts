@@ -271,6 +271,7 @@ export const daChunk4f = {
     },
   },
   security: {
+    tooManyAttempts: 'For mange forsøg. Prøv igen om {{minutes}} min.',
     incorrectCode: 'Forkert PIN. Prøv igen.',
     genericError: 'Noget gik galt. Prøv igen.',
     codesDontMatch: 'Koderne stemmer ikke overens. Start forfra.',
@@ -356,6 +357,16 @@ export const daChunk4f = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometri til private områder',
+    privateBiometricSubtitle: 'Åbn intimt liv, noter og private billeder uden at skrive din kode. Koden er stadig tilgængelig som reserve.',
+    crashReports: {
+      title: 'Fejlrapporter',
+      subtitle: 'Send en anonym rapport, hvis AWA går ned.',
+      sheetTitle: 'Vil du hjælpe med at forbedre AWA?',
+      sheetBody: 'Hvis AWA går ned, kan en anonym teknisk rapport blive sendt til os, så vi kan rette fejlen. Aldrig dine sundhedsdata eller det, du skriver. Du kan ombestemme dig under Privatliv og sikkerhed.',
+      sheetEnable: 'Slå til',
+      sheetDecline: 'Nej tak',
+    },
     backA11y: 'Tilbage',
     title: 'Privatliv og sikkerhed',
     subtitle: 'Dine data, dit privatliv, dit valg 💜',
@@ -578,8 +589,8 @@ export const daChunk4f = {
 
   personalInformation: {
     title: 'Personlige oplysninger',
-    subtitle: 'Administrer dine grundlæggende oplysninger 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Administrer dine grundlæggende oplysninger',
+    greeting: 'Salam!',
     intro: 'Disse oplysninger bruges til at personalisere din oplevelse i AWA.',
     addPhoto: 'Tilføj et foto',
     editPhoto: 'Rediger foto',

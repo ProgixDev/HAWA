@@ -233,9 +233,24 @@ export const nb = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Bytt til {{name}}s profil',
+    backToMine: 'Tilbake til min profil',
+    herSpace: '{{name}}s rom',
+    separateSpace: 'Hennes eget rom, adskilt fra ditt',
+  },
+
+  discover: {
+    title: 'Oppdag',
+    daughterTitle: 'AWA for datteren min',
+    partnerTitle: 'AWA for mannen min',
+    daughterCaption: 'Følg syklusen hennes i hennes eget rom',
+    partnerCaption: 'Del markørene du velger',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Kroppen din, rytmen din, troen din ✨',
+    subtitleOwner: 'Kroppen din, rytmen din, troen din',
     subtitleDaughter: 'Datterens profil',
     nextPeriodLabel: 'Neste mens',
     fertileWindowLabel: 'Fruktbart vindu',
@@ -257,13 +272,13 @@ export const nb = {
     moodChipLabel: 'Humør',
     tipChipLabel: 'Dagens tips',
     phase: {
-      menstruation: {message: 'Energien din kan føles lavere akkurat nå – ta deg tid til å hvile og vær snill mot deg selv.', energy: 'Lav', mood: 'Følsom', tip: 'Hvile og varme'},
-      follicular: {message: 'Energien din tar seg forsiktig opp – en god tid til å få kontakt med deg selv igjen.', energy: 'Økende', mood: 'Rolig', tip: 'Drikk nok vann'},
-      fertile: {message: 'Det fruktbare vinduet ditt har startet – lytt til signalene fra kroppen din.', energy: 'Høy', mood: 'Selvsikker', tip: 'Lytt til deg selv'},
-      ovulation: {message: 'Eggløsning forventes i dag, og energien din er på topp.', energy: 'Høy', mood: 'Strålende', tip: 'Beveg deg rolig'},
-      luteal: {message: 'Kroppen din gjør seg klar til en ny syklus – vær snill mot deg selv.', energy: 'Varierende', mood: 'Innadvendt', tip: 'Mykhet og ro'},
-      pregnancy: {message: 'Kroppen din støtter hvert steg med omsorg – ta godt vare på deg selv.', energy: 'Varierende', mood: 'Oppmerksom', tip: 'Regelmessig hvile'},
-      postpartum: {message: 'Kroppen din fortsetter å komme seg – ha tålmodighet med deg selv.', energy: 'Rolig', mood: 'Tålmodig', tip: 'Støtte og hvile'},
+      menstruation: {message: 'Lavere energi: hvil deg.', energy: 'Lav', mood: 'Følsom', tip: 'Hvile og varme'},
+      follicular: {message: 'Energien din vender sakte tilbake.', energy: 'Økende', mood: 'Rolig', tip: 'Drikk nok vann'},
+      fertile: {message: 'Det fruktbare vinduet ditt har startet.', energy: 'Høy', mood: 'Selvsikker', tip: 'Lytt til deg selv'},
+      ovulation: {message: 'Eggløsning forventes i dag.', energy: 'Høy', mood: 'Strålende', tip: 'Beveg deg rolig'},
+      luteal: {message: 'Kroppen din forbereder en ny syklus.', energy: 'Varierende', mood: 'Innadvendt', tip: 'Mykhet og ro'},
+      pregnancy: {message: 'Ta vare på deg selv, ett skritt av gangen.', energy: 'Varierende', mood: 'Oppmerksom', tip: 'Regelmessig hvile'},
+      postpartum: {message: 'Kroppen din kommer seg: gi deg selv hvile.', energy: 'Rolig', mood: 'Tålmodig', tip: 'Støtte og hvile'},
     },
     mood: {
       veryGood: 'Veldig bra',
@@ -528,6 +543,7 @@ export const nb = {
     additionalNotesSubtitle: 'Legg til en kommentar hvis du ønsker.',
     notesPlaceholder: 'Skriv her …',
     saveMySymptoms: 'Lagre symptomene mine',
+    noSymptoms: 'Ingen symptomer',
     clearSubject: 'disse symptomene',
     savedToast: 'Symptomene er lagret ✨',
   },
@@ -1404,6 +1420,12 @@ export const nb = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA for datteren min',
+      daughterText: 'Følg datterens syklus i hennes egen profil: dataene hennes holdes adskilt fra dine. Bytt mellom profiler med ett trykk.',
+      partnerTitle: 'AWA for mannen min',
+      partnerText: 'Del bare markørene du velger med mannen din. Ingenting deles med mindre du slår det på.',
+    },
     aboutAwaSubtitle: 'Versjon, juridiske merknader, personvern og appens verdier',
     aboutAwaTitle: 'Om AWA',
     appearanceSubtitle: 'Temaer, farger, visning og språk',
@@ -1427,12 +1449,13 @@ export const nb = {
     moreSectionSubtitle: 'Hjelp, informasjon om AWA og administrasjon av økten din.',
     moreSectionTitle: 'Mer',
     myInformationSubtitle: 'All viktig informasjon om deg, enkelt organisert.',
-    myInformationTitle: 'Min informasjon',
+    myInformationTitle: 'Innstillinger',
     myObjective: 'Målet mitt',
     myProfileEyebrow: 'MIN PROFIL',
     none: 'Ingen',
     notConfigured: 'Ikke konfigurert',
     notProvided: 'Ikke oppgitt',
+    optional: 'Valgfritt',
     notProvidedFeminine: 'Ikke oppgitt',
     predictionsUnavailable: 'Prediksjoner er utilgjengelige – ikke nok data',
     notProvidedPlural: 'Ikke oppgitt',
@@ -6915,6 +6938,7 @@ export const nb = {
     },
   },
   security: {
+    tooManyAttempts: 'For mange forsøk. Prøv igjen om {{minutes}} min.',
     incorrectCode: 'Feil PIN-kode. Prøv igjen.',
     genericError: 'Noe gikk galt. Prøv igjen.',
     codesDontMatch: 'Kodene stemmer ikke overens. Start på nytt.',
@@ -7000,6 +7024,16 @@ export const nb = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometri for private deler',
+    privateBiometricSubtitle: 'Åpne intimt liv, notater og private bilder uten å skrive koden din. Koden er fortsatt tilgjengelig som reserve.',
+    crashReports: {
+      title: 'Feilrapporter',
+      subtitle: 'Send en anonym rapport hvis AWA krasjer.',
+      sheetTitle: 'Vil du hjelpe til med å forbedre AWA?',
+      sheetBody: 'Hvis AWA krasjer, kan en anonym teknisk rapport sendes til oss slik at vi kan rette feilen. Aldri helsedataene dine eller det du skriver. Du kan ombestemme deg under Personvern og sikkerhet.',
+      sheetEnable: 'Slå på',
+      sheetDecline: 'Nei takk',
+    },
     backA11y: 'Tilbake',
     title: 'Personvern og sikkerhet',
     subtitle: 'Dataene dine, personvernet ditt, ditt valg',
@@ -7222,8 +7256,8 @@ export const nb = {
 
   personalInformation: {
     title: 'Personlig informasjon',
-    subtitle: 'Administrer grunnleggende informasjon om deg 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Administrer grunnleggende informasjon om deg',
+    greeting: 'Salam!',
     intro: 'Denne informasjonen brukes til å tilpasse opplevelsen din i AWA.',
     addPhoto: 'Legg til et bilde',
     editPhoto: 'Rediger bilde',

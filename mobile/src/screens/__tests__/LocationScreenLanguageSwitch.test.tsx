@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Text} from 'react-native';
+import {Text, TextInput} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
@@ -105,6 +105,9 @@ async function renderLocationScreen(mode: 'onboarding' | 'edit' = 'onboarding') 
 const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
   renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
 
+// The chosen position is no longer written out in a "Localisation sélectionnée" card: the search field above the map holds it.
+const searchValue = (renderer: ReactTestRenderer.ReactTestRenderer): string => renderer.root.findAllByType(TextInput)[0].props.value;
+
 beforeEach(async () => {
   await resetSelectedLocationForTests();
   await resetAppLanguageForTests();
@@ -195,7 +198,7 @@ describe('TEST 12 — a language switch never mutates location data', () => {
 
     // The saved place name is DATA, never translated — "Paris, France" stays
     // exactly as stored, even though the surrounding chrome is now English.
-    expect(textsOf(renderer)).toContain('Paris, France');
+    expect(searchValue(renderer)).toBe('Paris, France');
   });
 });
 
@@ -211,7 +214,7 @@ describe('No saved location → London, unconditionally, in every shipped langua
 
     const {renderer} = await renderLocationScreen();
 
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 });
@@ -226,8 +229,8 @@ describe('A saved location (Annaba, Algeria) wins over London, in every shipped 
 
     const {renderer} = await renderLocationScreen('edit');
 
-    expect(textsOf(renderer)).toContain('Annaba, Algeria');
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('Annaba, Algeria');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
   });
 });
 
@@ -241,7 +244,7 @@ describe('An invalid/corrupt app-language value never affects the location fallb
 
     const {renderer} = await renderLocationScreen();
 
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
@@ -251,6 +254,6 @@ describe('An invalid/corrupt app-language value never affects the location fallb
 
     const {renderer} = await renderLocationScreen('edit');
 
-    expect(textsOf(renderer)).toContain('Annaba, Algeria');
+    expect(searchValue(renderer)).toBe('Annaba, Algeria');
   });
 });

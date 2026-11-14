@@ -242,9 +242,24 @@ export const sw = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Badili kwenda wasifu wa {{name}}',
+    backToMine: 'Rudi kwenye wasifu wangu',
+    herSpace: 'Nafasi ya {{name}}',
+    separateSpace: 'Nafasi yake mwenyewe, tofauti na yako',
+  },
+
+  discover: {
+    title: 'Gundua',
+    daughterTitle: 'AWA kwa binti yangu',
+    partnerTitle: 'AWA kwa mume wangu',
+    daughterCaption: 'Fuatilia mzunguko wake katika nafasi yake mwenyewe',
+    partnerCaption: 'Shiriki viashiria unavyochagua',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Mwili wako, mdundo wako, imani yako ✨',
+    subtitleOwner: 'Mwili wako, mdundo wako, imani yako',
     subtitleDaughter: 'Wasifu wa binti yangu',
     nextPeriodLabel: 'Hedhi ijayo',
     fertileWindowLabel: 'Kipindi cha rutuba',
@@ -266,13 +281,13 @@ export const sw = {
     moodChipLabel: 'Hali ya moyo',
     tipChipLabel: 'Ushauri wa leo',
     phase: {
-      menstruation: {message: 'Nguvu zako zinaweza kuwa chini kwa sasa — chukua muda kupumzika na ujipe upole.', energy: 'Chini', mood: 'Hisia nyingi', tip: 'Pumziko na joto'},
-      follicular: {message: 'Nguvu zako zinaongezeka taratibu — wakati mzuri wa kujiunganisha tena na nafsi yako.', energy: 'Zinaongezeka', mood: 'Utulivu', tip: 'Kunywa maji ya kutosha'},
-      fertile: {message: 'Kipindi chako cha rutuba kimeanza — sikiliza ishara za mwili wako.', energy: 'Juu', mood: 'Kujiamini', tip: 'Jisikilize'},
-      ovulation: {message: 'Utoaji wa yai unatarajiwa leo, na nguvu zako ziko kilele.', energy: 'Juu', mood: 'Mng’ao', tip: 'Songa kwa upole'},
-      luteal: {message: 'Mwili wako unajiandaa kwa mzunguko mpya — jipe upole.', energy: 'Hubadilika', mood: 'Tafakuri', tip: 'Upole na utulivu'},
-      pregnancy: {message: 'Mwili wako unaunga mkono kila hatua kwa uangalifu — jitunze vyema.', energy: 'Hubadilika', mood: 'Makini', tip: 'Pumziko la mara kwa mara'},
-      postpartum: {message: 'Mwili wako unaendelea kupona — jipe subira.', energy: 'Nyepesi', mood: 'Subira', tip: 'Msaada na pumziko'},
+      menstruation: {message: 'Nguvu ni ndogo: pumzika.', energy: 'Chini', mood: 'Hisia nyingi', tip: 'Pumziko na joto'},
+      follicular: {message: 'Nguvu zako zinarudi polepole.', energy: 'Zinaongezeka', mood: 'Utulivu', tip: 'Kunywa maji ya kutosha'},
+      fertile: {message: 'Dirisha lako la uzazi limeanza.', energy: 'Juu', mood: 'Kujiamini', tip: 'Jisikilize'},
+      ovulation: {message: 'Ovulation inatarajiwa leo.', energy: 'Juu', mood: 'Mng’ao', tip: 'Songa kwa upole'},
+      luteal: {message: 'Mwili wako unaandaa mzunguko mpya.', energy: 'Hubadilika', mood: 'Tafakuri', tip: 'Upole na utulivu'},
+      pregnancy: {message: 'Jitunze, hatua kwa hatua.', energy: 'Hubadilika', mood: 'Makini', tip: 'Pumziko la mara kwa mara'},
+      postpartum: {message: 'Mwili wako unapona: jipe mapumziko.', energy: 'Nyepesi', mood: 'Subira', tip: 'Msaada na pumziko'},
     },
     mood: {
       veryGood: 'Nzuri sana',
@@ -537,6 +552,7 @@ export const sw = {
     additionalNotesSubtitle: 'Ongeza maoni ukipenda.',
     notesPlaceholder: 'Andika hapa...',
     saveMySymptoms: 'Hifadhi dalili zangu',
+    noSymptoms: 'Hakuna dalili',
     clearSubject: 'dalili hizi',
     savedToast: 'Dalili zimehifadhiwa ✨',
   },
@@ -1413,6 +1429,12 @@ export const sw = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA kwa binti yangu',
+      daughterText: 'Fuatilia mzunguko wa binti yako katika wasifu wake mwenyewe: data yake hubaki tofauti na yako. Badilisha wasifu kwa mguso mmoja.',
+      partnerTitle: 'AWA kwa mume wangu',
+      partnerText: 'Shiriki na mume wako viashiria ulivyochagua tu. Hakuna kinachoshirikiwa usipowasha.',
+    },
     aboutAwaSubtitle: 'Toleo, notisi za kisheria, faragha na maadili ya programu',
     aboutAwaTitle: 'Kuhusu AWA',
     appearanceSubtitle: 'Mandhari, rangi, onyesho na lugha',
@@ -1436,12 +1458,13 @@ export const sw = {
     moreSectionSubtitle: 'Msaada, taarifa kuhusu AWA na kusimamia kipindi chako.',
     moreSectionTitle: 'Zaidi',
     myInformationSubtitle: 'Taarifa zako zote muhimu, zimepangwa kwa urahisi.',
-    myInformationTitle: 'Taarifa zangu',
+    myInformationTitle: 'Mipangilio',
     myObjective: 'Lengo langu',
     myProfileEyebrow: 'WASIFU WANGU',
     none: 'Hakuna',
     notConfigured: 'Haijawekwa',
     notProvided: 'Haijatolewa',
+    optional: 'Si lazima',
     notProvidedFeminine: 'Haijatolewa',
     predictionsUnavailable: 'Utabiri haupatikani — data haitoshi',
     notProvidedPlural: 'Hazijatolewa',
@@ -6958,6 +6981,7 @@ export const sw = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Majaribio mengi mno. Jaribu tena baada ya dakika {{minutes}}.',
     incorrectCode: 'PIN si sahihi. Jaribu tena.',
     genericError: 'Kuna kitu kilienda vibaya. Jaribu tena.',
     codesDontMatch: 'Misimbo haifanani. Anza upya.',
@@ -7043,6 +7067,16 @@ export const sw = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometriki kwa sehemu za faragha',
+    privateBiometricSubtitle: 'Fungua maisha ya karibu, maelezo na picha za faragha bila kuandika msimbo wako. Msimbo unabaki kama mbadala.',
+    crashReports: {
+      title: 'Ripoti za hitilafu',
+      subtitle: 'Tuma ripoti isiyo na jina AWA ikizimika.',
+      sheetTitle: 'Saidia kuboresha AWA?',
+      sheetBody: 'AWA ikizimika ghafla, ripoti ya kiufundi isiyo na jina inaweza kutumwa kwetu ili turekebishe tatizo. Kamwe si data yako ya afya wala ulichoandika. Unaweza kubadilisha uamuzi katika Faragha na Usalama.',
+      sheetEnable: 'Washa',
+      sheetDecline: 'Hapana, asante',
+    },
     backA11y: 'Rudi',
     title: 'Faragha na Usalama',
     subtitle: 'Data yako, faragha yako, uchaguzi wako',
@@ -7282,8 +7316,8 @@ export const sw = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Taarifa binafsi',
-    subtitle: 'Simamia taarifa zako za msingi 🌸',
-    greeting: 'Salaam! 💜',
+    subtitle: 'Simamia taarifa zako za msingi',
+    greeting: 'Salaam!',
     intro: 'Taarifa hii hutumika kubinafsisha matumizi yako katika AWA.',
     addPhoto: 'Weka picha',
     editPhoto: 'Hariri picha',

@@ -223,9 +223,24 @@ export const ln = {
       systemDescription: 'Salela lokota ya téléphone'
     }
   },
+  profileSwitch: {
+    switchTo: 'Bongola na profil ya {{name}}',
+    backToMine: 'Zonga na profil na ngai',
+    herSpace: 'Esika ya {{name}}',
+    separateSpace: 'Esika na ye moko, ekeseni na na yo',
+  },
+
+  discover: {
+    title: 'Boma',
+    daughterTitle: 'AWA mpo na mwana na ngai ya mwasi',
+    partnerTitle: 'AWA mpo na mobali na ngai',
+    daughterCaption: 'Landa ekeke na ye na esika na ye moko',
+    partnerCaption: 'Kabola bilembo oponi',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Nzoto na yo, molongo na yo, kondima na yo ✨',
+    subtitleOwner: 'Nzoto na yo, molongo na yo, kondima na yo',
     subtitleDaughter: 'Profile ya mwana na ngai ya mwasi',
     nextPeriodLabel: 'Sanza ekoya',
     fertileWindowLabel: 'Ntango ya kozwa zemi',
@@ -248,43 +263,43 @@ export const ln = {
     tipChipLabel: 'Toli ya mokolo',
     phase: {
       menstruation: {
-        message: 'Makasi na yo ekoki kokita sikoyo — pema mpe bokebi nzoto na yo na boboto.',
+        message: 'Makasi mazali moke: pema.',
         energy: 'Moke',
         mood: 'Motema ya pete',
         tip: 'Kopema mpe kozwa moto'
       },
       follicular: {
-        message: 'Makasi na yo ezali kobanda kobakisama moke moke — ntango ya malamu ya kozonga epai ya yo moko.',
+        message: 'Makasi na yo ezali kozonga malembe malembe.',
         energy: 'Ezali komata',
         mood: 'Kimya',
         tip: 'Meka mai mingi'
       },
       fertile: {
-        message: 'Ntango na yo ya kozwa zemi ebandi — yoka bilembo ya nzoto na yo.',
+        message: 'Tango na yo ya kobota ebandi.',
         energy: 'Makasi',
         mood: 'Elikya',
         tip: 'Yoka nzoto na yo'
       },
       ovulation: {
-        message: 'Ovulation ekanisami lelo, mpe makasi na yo ezali na likoló.',
+        message: 'Ovulation elingi kobima lelo.',
         energy: 'Makasi',
         mood: 'Esengo',
         tip: 'Tambola malembe'
       },
       luteal: {
-        message: 'Nzoto na yo ezali kobongisa molongo mosusu — bokebi yo moko na boboto.',
+        message: 'Nzoto na yo ezali kobongisa ekeke ya sika.',
         energy: 'Ebongwanaka',
         mood: 'Kokanisa mingi',
         tip: 'Boboto mpe kimya'
       },
       pregnancy: {
-        message: 'Nzoto na yo ezali kosunga likambo nyonso na bokebi — keba na yo malamu.',
+        message: 'Batela yo moko, litambe na litambe.',
         energy: 'Ebongwanaka',
         mood: 'Bokebi',
         tip: 'Kopema mbala na mbala'
       },
       postpartum: {
-        message: 'Nzoto na yo ezali kokoba kobiká — pesa yo moko molende.',
+        message: 'Nzoto na yo ezali kobika: pesa yo kopema.',
         energy: 'Malembe',
         mood: 'Molende',
         tip: 'Lisungi mpe kopema'
@@ -555,6 +570,7 @@ export const ln = {
     additionalNotesSubtitle: 'Bakisa likanisi soki olingi.',
     notesPlaceholder: 'Koma awa...',
     saveMySymptoms: 'Kobomba bilembo na ngai',
+    noSymptoms: 'Symptôme moko te',
     clearSubject: 'bilembo oyo',
     savedToast: 'Bilembo ebombami malamu ✨'
   },
@@ -1458,6 +1474,12 @@ export const ln = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA mpo na mwana na ngai ya mwasi',
+      daughterText: 'Landa ekeke ya mwana na yo ya mwasi na profil na ye moko: makambo na ye ezali na libanda ya na yo. Bongola profil na mbala moko.',
+      partnerTitle: 'AWA mpo na mobali na ngai',
+      partnerText: 'Kabola na mobali na yo kaka bilembo oponi. Eloko ekabolami te soki obimisi yango te.',
+    },
     aboutAwaSubtitle: 'Version, ba lisanga ya mibeko, sekele mpe ba motuya ya application',
     aboutAwaTitle: 'Mpo na AWA',
     appearanceSubtitle: 'Ba thème, ba couleur, emoniseli mpe monɔkɔ',
@@ -1481,12 +1503,13 @@ export const ln = {
     moreSectionSubtitle: 'Lisalisi, ba informations mpo na AWA mpe bokɛngi ya session na yo.',
     moreSectionTitle: 'Mingi mosusu',
     myInformationSubtitle: 'Ba informations na yo nyonso ya ntina, ebongisami malamu.',
-    myInformationTitle: 'Ba informations na ngai',
+    myInformationTitle: 'Mabongisi',
     myObjective: 'Mokano na ngai',
     myProfileEyebrow: 'PROFIL NA NGAI',
     none: 'Moko te',
     notConfigured: 'Ebongisami te',
     notProvided: 'Epesami te',
+    optional: 'Ya malakisi',
     notProvidedFeminine: 'Epesami te',
     predictionsUnavailable: 'Bonsomi ezali te — ba données ekoki te',
     notProvidedPlural: 'Epesami te',
@@ -7459,6 +7482,7 @@ export const ln = {
       helpModalCloseAccessibility: 'Kanga'
     }
   },  security: {
+    tooManyAttempts: 'Mbala mingi mingi. Meka lisusu nsima ya miniti {{minutes}}.',
     incorrectCode: 'PIN ezali malamu te. Meka lisusu.',
     genericError: 'Likambo ebimi. Meka lisusu.',
     codesDontMatch: 'Bikode ekokani te. Banda lisusu.',
@@ -7536,6 +7560,16 @@ export const ln = {
     disableAction: 'Kanga {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biométrie mpo na biteni ya kobombama',
+    privateBiometricSubtitle: 'Fungola bomoi ya kobombama, mikanda mpe bafoto ya kobombama kozanga kokoma kode na yo. Kode ekotikala lokola libondeli.',
+    crashReports: {
+      title: 'Bansango ya mabunga',
+      subtitle: 'Tinda rapport ya nkombo te soki AWA esukoli.',
+      sheetTitle: 'Osunga mpo na kobongisa AWA?',
+      sheetBody: 'Soki AWA esukoli na kozela te, rapport ya technique ya nkombo te ekoki kotindama epai na biso mpo tobongisa mokakatano. Ata mbala moko bansango na yo ya bokolongono to oyo okomi te. Okoki kobongola makanisi na yo na Bosolo mpe Libateli.',
+      sheetEnable: 'Pelisa',
+      sheetDecline: 'Te, matondi',
+    },
     backA11y: 'Zonga',
     title: 'Sekele & libateli',
     subtitle: 'Makambo na yo, sekele na yo, ponaponi na yo',
@@ -7751,8 +7785,8 @@ export const ln = {
   },
   personalInformation: {
     title: 'Makambo na ngai',
-    subtitle: 'Bongisa makambo na yo ya ebandeli 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Bongisa makambo na yo ya ebandeli',
+    greeting: 'Salam!',
     intro: 'Makambo oyo esalelami mpo na kobongisa ndenge na yo ya AWA.',
     addPhoto: 'Bakisa foto',
     editPhoto: 'Bongisa foto',

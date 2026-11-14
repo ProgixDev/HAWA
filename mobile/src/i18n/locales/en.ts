@@ -249,9 +249,24 @@ export const en = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Switch to {{name}}’s profile',
+    backToMine: 'Back to my profile',
+    herSpace: '{{name}}’s space',
+    separateSpace: 'Her own space, separate from yours',
+  },
+
+  discover: {
+    title: 'Discover',
+    daughterTitle: 'AWA for my daughter',
+    partnerTitle: 'AWA for my husband',
+    daughterCaption: 'Follow her cycle in a space of her own',
+    partnerCaption: 'Share the markers you choose',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Your body, your rhythm, your faith ✨',
+    subtitleOwner: 'Your body, your rhythm, your faith',
     subtitleDaughter: 'My daughter’s profile',
     nextPeriodLabel: 'Next period',
     fertileWindowLabel: 'Fertile window',
@@ -273,13 +288,13 @@ export const en = {
     moodChipLabel: 'Mood',
     tipChipLabel: 'Tip of the day',
     phase: {
-      menstruation: {message: 'Your energy may feel lower right now — take time to rest and be gentle with yourself.', energy: 'Low', mood: 'Sensitive', tip: 'Rest & warmth'},
-      follicular: {message: 'Your energy is gently picking up — a good time to reconnect with yourself.', energy: 'Rising', mood: 'Calm', tip: 'Stay hydrated'},
-      fertile: {message: 'Your fertile window has started — stay in tune with your body’s signals.', energy: 'High', mood: 'Confident', tip: 'Listen to yourself'},
-      ovulation: {message: 'Ovulation is expected today, and your energy is at its peak.', energy: 'High', mood: 'Radiant', tip: 'Move gently'},
-      luteal: {message: 'Your body is getting ready for a new cycle — be gentle with yourself.', energy: 'Variable', mood: 'Introspective', tip: 'Softness & calm'},
-      pregnancy: {message: 'Your body is supporting every step with care — take good care of yourself.', energy: 'Variable', mood: 'Attentive', tip: 'Regular rest'},
-      postpartum: {message: 'Your body is continuing to recover — give yourself patience.', energy: 'Gentle', mood: 'Patient', tip: 'Support & rest'},
+      menstruation: {message: 'Lower energy: rest up.', energy: 'Low', mood: 'Sensitive', tip: 'Rest & warmth'},
+      follicular: {message: 'Your energy is gently picking up.', energy: 'Rising', mood: 'Calm', tip: 'Stay hydrated'},
+      fertile: {message: 'Your fertile window has started.', energy: 'High', mood: 'Confident', tip: 'Listen to yourself'},
+      ovulation: {message: 'Ovulation is expected today.', energy: 'High', mood: 'Radiant', tip: 'Move gently'},
+      luteal: {message: 'Your body is preparing a new cycle.', energy: 'Variable', mood: 'Introspective', tip: 'Softness & calm'},
+      pregnancy: {message: 'Take care of yourself, one step at a time.', energy: 'Variable', mood: 'Attentive', tip: 'Regular rest'},
+      postpartum: {message: 'Your body is recovering: give yourself rest.', energy: 'Gentle', mood: 'Patient', tip: 'Support & rest'},
     },
     mood: {
       veryGood: 'Very good',
@@ -544,6 +559,7 @@ export const en = {
     additionalNotesSubtitle: 'Add a comment if you’d like.',
     notesPlaceholder: 'Write here...',
     saveMySymptoms: 'Save my symptoms',
+    noSymptoms: 'No symptoms',
     clearSubject: 'these symptoms',
     savedToast: 'Symptoms saved successfully ✨',
   },
@@ -1420,6 +1436,12 @@ export const en = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA for my daughter',
+      daughterText: 'Follow your daughter’s cycle in a profile of her own: her data stays separate from yours. Switch between profiles in one tap.',
+      partnerTitle: 'AWA for my husband',
+      partnerText: 'Share with your husband only the markers you choose. Nothing is shared unless you turn it on.',
+    },
     aboutAwaSubtitle: 'Discover AWA and its features',
     aboutAwaTitle: 'About AWA',
     appearanceSubtitle: 'Themes, colors, display and language',
@@ -1443,12 +1465,13 @@ export const en = {
     moreSectionSubtitle: 'Help, information about AWA and managing your session.',
     moreSectionTitle: 'More',
     myInformationSubtitle: 'All your important information, organized simply.',
-    myInformationTitle: 'My information',
+    myInformationTitle: 'Settings',
     myObjective: 'My objective',
     myProfileEyebrow: 'MY PROFILE',
     none: 'None',
     notConfigured: 'Not configured',
     notProvided: 'Not provided',
+    optional: 'Optional',
     notProvidedFeminine: 'Not provided',
     predictionsUnavailable: 'Predictions unavailable — not enough data',
     notProvidedPlural: 'Not provided',
@@ -6965,6 +6988,7 @@ export const en = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Too many attempts. Try again in {{minutes}} min.',
     incorrectCode: 'Incorrect PIN. Try again.',
     genericError: 'Something went wrong. Try again.',
     codesDontMatch: 'The codes don’t match. Start over.',
@@ -7050,6 +7074,16 @@ export const en = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics for private sections',
+    privateBiometricSubtitle: 'Open private life, notes and photos without typing your code. The code stays available as a backup.',
+    crashReports: {
+      title: 'Error reports',
+      subtitle: 'Send an anonymous report if AWA crashes.',
+      sheetTitle: 'Help improve AWA?',
+      sheetBody: 'If AWA crashes, an anonymous technical report can be sent to us so we can fix the problem. Never your health data or what you enter. You can change your mind in Privacy & Security.',
+      sheetEnable: 'Turn on',
+      sheetDecline: 'No thanks',
+    },
     backA11y: 'Back',
     title: 'Privacy & Security',
     subtitle: 'Your data, your privacy, your choice',
@@ -7289,8 +7323,8 @@ export const en = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Personal information',
-    subtitle: 'Manage your basic information 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Manage your basic information',
+    greeting: 'Salam!',
     intro: 'This information is used to personalize your experience in AWA.',
     addPhoto: 'Add a photo',
     editPhoto: 'Edit photo',

@@ -243,9 +243,24 @@ export const ro = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Treci la profilul lui {{name}}',
+    backToMine: 'Înapoi la profilul meu',
+    herSpace: 'Spațiul lui {{name}}',
+    separateSpace: 'Spațiul ei, separat de al tău',
+  },
+
+  discover: {
+    title: 'Descoperă',
+    daughterTitle: 'AWA pentru fiica mea',
+    partnerTitle: 'AWA pentru soțul meu',
+    daughterCaption: 'Urmărește-i ciclul într-un spațiu doar al ei',
+    partnerCaption: 'Partajează indicatorii pe care îi alegi',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Corpul tău, ritmul tău, credința ta ✨',
+    subtitleOwner: 'Corpul tău, ritmul tău, credința ta',
     subtitleDaughter: 'Profilul fiicei mele',
     nextPeriodLabel: 'Următoarea menstruație',
     fertileWindowLabel: 'Fereastra fertilă',
@@ -267,13 +282,13 @@ export const ro = {
     moodChipLabel: 'Stare',
     tipChipLabel: 'Sfatul zilei',
     phase: {
-      menstruation: {message: 'Energia ta poate fi mai scăzută acum — acordă-ți timp să te odihnești și fii blândă cu tine.', energy: 'Scăzută', mood: 'Sensibilă', tip: 'Odihnă și căldură'},
-      follicular: {message: 'Energia ta crește ușor — un moment bun să te reconectezi cu tine.', energy: 'În creștere', mood: 'Calmă', tip: 'Hidratează-te'},
-      fertile: {message: 'Fereastra ta fertilă a început — fii atentă la semnalele corpului tău.', energy: 'Ridicată', mood: 'Încrezătoare', tip: 'Ascultă-te'},
-      ovulation: {message: 'Ovulația este așteptată astăzi, iar energia ta este la apogeu.', energy: 'Ridicată', mood: 'Radiantă', tip: 'Mișcare blândă'},
-      luteal: {message: 'Corpul tău se pregătește pentru un nou ciclu — fii blândă cu tine.', energy: 'Variabilă', mood: 'Introspectivă', tip: 'Blândețe și calm'},
-      pregnancy: {message: 'Corpul tău te susține la fiecare pas cu grijă — ai grijă de tine.', energy: 'Variabilă', mood: 'Atentă', tip: 'Odihnă regulată'},
-      postpartum: {message: 'Corpul tău continuă să se refacă — fii răbdătoare cu tine.', energy: 'Blândă', mood: 'Răbdătoare', tip: 'Sprijin și odihnă'},
+      menstruation: {message: 'Mai puțină energie: odihnește-te.', energy: 'Scăzută', mood: 'Sensibilă', tip: 'Odihnă și căldură'},
+      follicular: {message: 'Energia ta revine treptat.', energy: 'În creștere', mood: 'Calmă', tip: 'Hidratează-te'},
+      fertile: {message: 'Fereastra ta fertilă a început.', energy: 'Ridicată', mood: 'Încrezătoare', tip: 'Ascultă-te'},
+      ovulation: {message: 'Ovulația este așteptată astăzi.', energy: 'Ridicată', mood: 'Radiantă', tip: 'Mișcare blândă'},
+      luteal: {message: 'Corpul tău pregătește un nou ciclu.', energy: 'Variabilă', mood: 'Introspectivă', tip: 'Blândețe și calm'},
+      pregnancy: {message: 'Ai grijă de tine, pas cu pas.', energy: 'Variabilă', mood: 'Atentă', tip: 'Odihnă regulată'},
+      postpartum: {message: 'Corpul tău își revine: acordă-ți odihnă.', energy: 'Blândă', mood: 'Răbdătoare', tip: 'Sprijin și odihnă'},
     },
     mood: {
       veryGood: 'Foarte bună',
@@ -544,6 +559,7 @@ export const ro = {
     additionalNotesSubtitle: 'Adaugă un comentariu dacă dorești.',
     notesPlaceholder: 'Scrie aici...',
     saveMySymptoms: 'Salvează-mi simptomele',
+    noSymptoms: 'Niciun simptom',
     clearSubject: 'aceste simptome',
     savedToast: 'Simptomele au fost salvate ✨',
   },
@@ -1435,6 +1451,12 @@ export const ro = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA pentru fiica mea',
+      daughterText: 'Urmărește ciclul fiicei tale într-un profil doar al ei: datele ei rămân separate de ale tale. Treci de la un profil la altul cu o atingere.',
+      partnerTitle: 'AWA pentru soțul meu',
+      partnerText: 'Partajează cu soțul tău doar indicatorii pe care îi alegi. Nimic nu se partajează dacă nu activezi.',
+    },
     aboutAwaSubtitle: 'Versiune, informații juridice, confidențialitate și valorile aplicației',
     aboutAwaTitle: 'Despre AWA',
     appearanceSubtitle: 'Teme, culori, afișare și limbă',
@@ -1458,12 +1480,13 @@ export const ro = {
     moreSectionSubtitle: 'Ajutor, informații despre AWA și gestionarea sesiunii.',
     moreSectionTitle: 'Mai multe',
     myInformationSubtitle: 'Toate informațiile tale importante, organizate simplu.',
-    myInformationTitle: 'Informațiile mele',
+    myInformationTitle: 'Setări',
     myObjective: 'Obiectivul meu',
     myProfileEyebrow: 'PROFILUL MEU',
     none: 'Niciunul',
     notConfigured: 'Neconfigurat',
     notProvided: 'Necompletat',
+    optional: 'Opțional',
     notProvidedFeminine: 'Necompletată',
     predictionsUnavailable: 'Previziuni indisponibile — date insuficiente',
     notProvidedPlural: 'Necompletate',
@@ -7032,6 +7055,7 @@ export const ro = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Prea multe încercări. Încearcă din nou peste {{minutes}} min.',
     incorrectCode: 'PIN incorect. Încearcă din nou.',
     genericError: 'Ceva nu a mers bine. Încearcă din nou.',
     codesDontMatch: 'Codurile nu se potrivesc. Începe din nou.',
@@ -7117,6 +7141,16 @@ export const ro = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrie pentru secțiunile private',
+    privateBiometricSubtitle: 'Deschide viața intimă, notițele și pozele private fără să scrii codul. Codul rămâne disponibil ca rezervă.',
+    crashReports: {
+      title: 'Rapoarte de erori',
+      subtitle: 'Trimite un raport anonim dacă AWA se oprește.',
+      sheetTitle: 'Ajuți la îmbunătățirea AWA?',
+      sheetBody: 'Dacă AWA se oprește brusc, ni se poate trimite un raport tehnic anonim pentru a remedia problema. Niciodată datele tale de sănătate sau ce introduci. Te poți răzgândi în Confidențialitate și securitate.',
+      sheetEnable: 'Activează',
+      sheetDecline: 'Nu, mulțumesc',
+    },
     backA11y: 'Înapoi',
     title: 'Confidențialitate și securitate',
     subtitle: 'Datele tale, confidențialitatea ta, alegerea ta',
@@ -7358,8 +7392,8 @@ export const ro = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Informații personale',
-    subtitle: 'Gestionează-ți informațiile de bază 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Gestionează-ți informațiile de bază',
+    greeting: 'Salam!',
     intro: 'Aceste informații sunt folosite pentru a-ți personaliza experiența în AWA.',
     addPhoto: 'Adaugă o fotografie',
     editPhoto: 'Modifică fotografia',

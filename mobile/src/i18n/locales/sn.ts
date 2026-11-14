@@ -223,9 +223,24 @@ export const sn = {
       systemDescription: 'Shandisa mutauro wefoni'
     }
   },
+  profileSwitch: {
+    switchTo: 'Chinjira kuprofile ya {{name}}',
+    backToMine: 'Dzokera kuprofile yangu',
+    herSpace: 'Nzvimbo ya {{name}}',
+    separateSpace: 'Nzvimbo yake pachake, yakasiyana neyako',
+  },
+
+  discover: {
+    title: 'Wana',
+    daughterTitle: 'AWA yemwanasikana wangu',
+    partnerTitle: 'AWA yemurume wangu',
+    daughterCaption: 'Tevera kutenderera kwake munzvimbo yake pachake',
+    partnerCaption: 'Govana zviratidzo zvaunosarudza',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Muviri wako, rudzi rwako, kutenda kwako ✨',
+    subtitleOwner: 'Muviri wako, rudzi rwako, kutenda kwako',
     subtitleDaughter: 'Profile yemwanasikana wangu',
     nextPeriodLabel: 'Period inotevera',
     fertileWindowLabel: 'Nguva yekubata pamuviri',
@@ -248,43 +263,43 @@ export const sn = {
     tipChipLabel: 'Zano rezuva',
     phase: {
       menstruation: {
-        message: 'Simba rako rinogona kunzwika riri pasi parizvino — tora nguva yekuzorora uye uzvibate zvinyoronyoro.',
+        message: 'Simba shoma: zorora.',
         energy: 'Pasi',
         mood: 'Unonzwa nekukurumidza',
         tip: 'Zorora nekudziya'
       },
       follicular: {
-        message: 'Simba rako ririkukwira zvishoma nezvishoma — ino ndiyo nguva yakanaka yekuzvibatanidza.',
+        message: 'Simba rako rinodzoka zvishoma nezvishoma.',
         energy: 'Ririkukwira',
         mood: 'Runyararo',
         tip: 'Nwa mvura yakakwana'
       },
       fertile: {
-        message: 'Nguva yako yekubata pamuviri yatanga — teerera zviratidzo zvemuviri wako.',
+        message: 'Nguva yako yekubata nhumbu yatanga.',
         energy: 'Repamusoro',
         mood: 'Kuvimba',
         tip: 'Zvinzwire'
       },
       ovulation: {
-        message: 'Ovulation inotarisirwa nhasi, uye simba rako rinenge riri repamusoro.',
+        message: 'Ovulation inotarisirwa nhasi.',
         energy: 'Repamusoro',
         mood: 'Kubwinya',
         tip: 'Famba zvinyoronyoro'
       },
       luteal: {
-        message: 'Muviri wako uri kugadzirira kutenderera kutsva — uzvibate zvinyoronyoro.',
+        message: 'Muviri wako unogadzirira kutenderera kutsva.',
         energy: 'Rinochinja',
         mood: 'Kuzvifunga',
         tip: 'Unyoro nerunyararo'
       },
       pregnancy: {
-        message: 'Muviri wako uri kutsigira nhanho dzese nehushamwari — uzvichengete zvakanaka.',
+        message: 'Zvichengete, nhanho nenhanho.',
         energy: 'Rinochinja',
         mood: 'Kutarira',
         tip: 'Kuzorora nguva dzese'
       },
       postpartum: {
-        message: 'Muviri wako uchiri kupora — uzvipe mwoyo murefu.',
+        message: 'Muviri wako uri kupora: ipe zororo.',
         energy: 'Rinyoro',
         mood: 'Mwoyo murefu',
         tip: 'Rubatsiro nekuzorora'
@@ -555,6 +570,7 @@ export const sn = {
     additionalNotesSubtitle: 'Wedzera ngano kana uchida.',
     notesPlaceholder: 'Nyora pano...',
     saveMySymptoms: 'Chengetedza zviratidzo zvangu',
+    noSymptoms: 'Hapana zviratidzo',
     clearSubject: 'zviratidzo izvi',
     savedToast: 'Zviratidzo zvachengetedzwa zvakanaka ✨'
   },
@@ -1458,6 +1474,12 @@ export const sn = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA yemwanasikana wangu',
+      daughterText: 'Tevera kutenderera kwemwanasikana wako muprofile yake pachake: dhata yake inogara yakaparadzaniswa neyako. Chinja maprofile nekubaya kamwe.',
+      partnerTitle: 'AWA yemurume wangu',
+      partnerText: 'Govana nemurume wako zviratidzo zvaunosarudza chete. Hapana chinogovaniswa kana usina kuvhura.',
+    },
     aboutAwaSubtitle: 'Vhezheni, zvinyorwa zvemutemo, kuvanzika nenheyo dzeapp',
     aboutAwaTitle: 'Pamusoro pe AWA',
     appearanceSubtitle: 'Matheme, mavara, kuratidzwa nemutauro',
@@ -1481,12 +1503,13 @@ export const sn = {
     moreSectionSubtitle: 'Rubatsiro, ruzivo pamusoro pe AWA nekuronga session yako.',
     moreSectionTitle: 'Zvimwe',
     myInformationSubtitle: 'Ruzivo rwako rwose rwakakosha, rwakarongwa zvakapfava.',
-    myInformationTitle: 'Ruzivo rwangu',
+    myInformationTitle: 'Zvirongwa',
     myObjective: 'Chinangwa changu',
     myProfileEyebrow: 'PROFILE YANGU',
     none: 'Hapana',
     notConfigured: 'Hazvina kugadziriswa',
     notProvided: 'Hazvina kupiwa',
+    optional: 'Hazvisi nemanyuko',
     notProvidedFeminine: 'Hazvina kupiwa',
     predictionsUnavailable: 'Zvinofungidzirwa hazvipo — data haina kukwana',
     notProvidedPlural: 'Hazvina kupiwa',
@@ -7459,6 +7482,7 @@ export const sn = {
       helpModalCloseAccessibility: 'Vhara'
     }
   },  security: {
+    tooManyAttempts: 'Kuyedza kwakawanda zvakanyanya. Edza zvakare mushure memaminitsi {{minutes}}.',
     incorrectCode: 'PIN haina kururama. Edza zvakare.',
     genericError: 'Pane chakaenda zvisina kunaka. Edza zvakare.',
     codesDontMatch: 'Makodhi haafanani. Tanga patsva.',
@@ -7536,6 +7560,16 @@ export const sn = {
     disableAction: 'Vhara {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics yezvikamu zvakavanzika',
+    privateBiometricSubtitle: 'Vhura hupenyu hwakavanzika, manotsi nemifananidzo yakavanzika usingatyipi kodhi yako. Kodhi inogara sechirongwa chekutsigira.',
+    crashReports: {
+      title: 'Mishumo yezvikanganiso',
+      subtitle: 'Tumira mushumo usina zita kana AWA yavhara.',
+      sheetTitle: 'Batsira kuvandudza AWA?',
+      sheetBody: 'Kana AWA yavhara pakarepo, mushumo wehunyanzvi usina zita unogona kutumirwa kwatiri kuti tigadzirise dambudziko. Hapana data yako yehutano kana zvaunonyora zvachose. Unogona kushandura pfungwa dzako muPrivacy neKuchengetedzeka.',
+      sheetEnable: 'Vhura',
+      sheetDecline: 'Aiwa, ndatenda',
+    },
     backA11y: 'Dzokera',
     title: 'Kuvanzika & Kuchengetedza',
     subtitle: 'Data yako, kuvanzika kwako, sarudzo yako',
@@ -7751,8 +7785,8 @@ export const sn = {
   },
   personalInformation: {
     title: 'Ruzivo rwako',
-    subtitle: 'Bata ruzivo rwako rwekutanga 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Bata ruzivo rwako rwekutanga',
+    greeting: 'Salam!',
     intro: 'Ruzivo urwu runoshandiswa kugadzirira ruzivo rwako muAWA.',
     addPhoto: 'Wedzera mufananidzo',
     editPhoto: 'Gadzirisa mufananidzo',

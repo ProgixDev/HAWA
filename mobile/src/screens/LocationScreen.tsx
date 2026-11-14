@@ -43,10 +43,9 @@ import {getHasConfirmedCycleData, getSelectedObjective, setSelectedLocation as s
 import {getAppLanguage, normalizeAppLanguage} from '../state/themePreferences';
 import {spacing} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {presentSaveFailure} from '../services/saveFailure';
 import {AwaButton} from '../components/ui/AwaButton';
-import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
 
@@ -489,7 +488,8 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             styles.content,
             // The status bar is translucent, so the screen itself must reserve the top inset (floored for devices/tests reporting 0).
             {paddingTop: Math.max(insets.top, 16) + spacing.sm},
-            insets.bottom > 20 ? styles.contentBottomNotched : styles.contentBottomRegular,
+            // The button now sits at the very bottom: keep it clear of the Android navigation bar (the old fixed 10 / 18 ignored its height).
+            {paddingBottom: insets.bottom + 18},
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
@@ -505,6 +505,8 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             <AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodyMedium">{t('location.subtitle')}</AwaText>
           </View>
 
+          {/* The search field and the map sit together right under the header; the button stays at the bottom. */}
+          <View style={styles.middle}>
           <View style={styles.searchArea}>
             <View style={styles.searchBox}>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="magnify" size={22} />
@@ -585,21 +587,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             )}
           </View>
 
-          <AwaCard padding="compact" style={styles.locationCard} variant="filled">
-            <Image source={LOCATION_PIN} style={styles.locationPin} />
-            <View style={styles.locationCopy}>
-              <AwaText colorRole="onSurfaceVariant" emphasized variant="labelMedium">{t('location.selectedTitle')}</AwaText>
-              <AwaText numberOfLines={2} style={styles.locationName} variant="titleMedium">
-                {resolving || localizing ? t('location.resolvingLocation') : selectedText ?? t('location.noPositionSelected')}
-              </AwaText>
-              {selectedLocation && !resolving && !localizing ? (
-                <AwaText colorRole="onSurfaceVariant" style={styles.locationHint} variant="bodySmall">{t('location.selectedHint')}</AwaText>
-              ) : null}
-            </View>
-            {resolving || localizing ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
-              <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
-            ) : null}
-          </AwaCard>
+          {/* The "Localisation sélectionnée" card is gone: the chosen position (selectedLocation) is still tracked and saved exactly as
+              before, it is just no longer written out here. Only a small spinner remains while it is being resolved. */}
+          {resolving || localizing ? <ActivityIndicator color={theme.colors.primary} size="small" style={styles.resolvingSpinner} /> : null}
 
           {feedback ? (
             <AwaText
@@ -609,6 +599,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
               {feedback.text}
             </AwaText>
           ) : null}
+          </View>
 
           <AwaButton
             disabled={!selectedLocation}
@@ -633,8 +624,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
 
     content: {flexGrow: 1, paddingHorizontal: spacing.lg},
-    contentBottomNotched: {paddingBottom: 10},
-    contentBottomRegular: {paddingBottom: 18},
     backButton: {alignSelf: 'flex-start'},
     header: {alignItems: 'center', marginTop: 4, marginBottom: 16},
     title: {textAlign: 'center'},
@@ -658,14 +647,12 @@ function createStyles(theme: ResolvedAwaTheme) {
     mapUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28},
     mapUnavailableTitle: {marginTop: 8, textAlign: 'center'},
     mapUnavailableText: {marginTop: 4, textAlign: 'center'},
-    locationCard: {minHeight: 72, flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingHorizontal: 16},
-    locationName: {marginTop: 2},
-    locationPin: {width: 25, height: 30},
-    locationCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-    locationHint: {marginTop: 4},
-    checkCircle: {width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primary},
+    resolvingSpinner: {alignSelf: 'center', marginTop: 12},
     errorText: {marginTop: 8, textAlign: 'center'},
     infoText: {marginTop: 8, textAlign: 'center'},
+    // takes the free height between the header and the button; the search field + map start a little below the header (not centred),
+    // so the empty space ends up between the map and the button
+    middle: {flex: 1, justifyContent: 'flex-start', paddingTop: 20},
     nextButton: {marginTop: 16},
   });
 }

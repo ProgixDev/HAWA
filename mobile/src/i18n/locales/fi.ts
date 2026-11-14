@@ -244,9 +244,24 @@ export const fi = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Vaihda profiiliin: {{name}}',
+    backToMine: 'Takaisin omaan profiiliini',
+    herSpace: 'Käyttäjän {{name}} tila',
+    separateSpace: 'Hänen oma tilansa, erillään omastasi',
+  },
+
+  discover: {
+    title: 'Tutustu',
+    daughterTitle: 'AWA tyttärelleni',
+    partnerTitle: 'AWA miehelleni',
+    daughterCaption: 'Seuraa hänen kiertoaan omassa tilassaan',
+    partnerCaption: 'Jaa valitsemasi merkit',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Kehosi, rytmisi, uskosi ✨',
+    subtitleOwner: 'Kehosi, rytmisi, uskosi',
     subtitleDaughter: 'Tyttäreni profiili',
     nextPeriodLabel: 'Seuraavat kuukautiset',
     fertileWindowLabel: 'Hedelmällinen ajanjakso',
@@ -268,13 +283,13 @@ export const fi = {
     moodChipLabel: 'Mieliala',
     tipChipLabel: 'Päivän vinkki',
     phase: {
-      menstruation: {message: 'Energiasi voi tuntua nyt vähäisemmältä — varaa aikaa levolle ja ole lempeä itsellesi.', energy: 'Matala', mood: 'Herkkä', tip: 'Lepo ja lämpö'},
-      follicular: {message: 'Energiasi kasvaa hiljalleen — hyvä hetki palata itsesi luo.', energy: 'Nousussa', mood: 'Rauhallinen', tip: 'Juo riittävästi'},
-      fertile: {message: 'Hedelmällinen ajanjaksosi on alkanut — kuuntele kehosi viestejä.', energy: 'Korkea', mood: 'Itsevarma', tip: 'Kuuntele itseäsi'},
-      ovulation: {message: 'Ovulaation odotetaan tapahtuvan tänään, ja energiasi on huipussaan.', energy: 'Korkea', mood: 'Hehkuva', tip: 'Liiku lempeästi'},
-      luteal: {message: 'Kehosi valmistautuu uuteen kiertoon — ole lempeä itsellesi.', energy: 'Vaihteleva', mood: 'Mietteliäs', tip: 'Pehmeyttä ja rauhaa'},
-      pregnancy: {message: 'Kehosi tukee jokaista vaihetta huolellisesti — pidä hyvää huolta itsestäsi.', energy: 'Vaihteleva', mood: 'Tarkkaavainen', tip: 'Säännöllinen lepo'},
-      postpartum: {message: 'Kehosi jatkaa toipumista — anna itsellesi aikaa.', energy: 'Hellävarainen', mood: 'Kärsivällinen', tip: 'Tuki ja lepo'},
+      menstruation: {message: 'Vähemmän energiaa: lepää.', energy: 'Matala', mood: 'Herkkä', tip: 'Lepo ja lämpö'},
+      follicular: {message: 'Energiasi palaa hiljalleen.', energy: 'Nousussa', mood: 'Rauhallinen', tip: 'Juo riittävästi'},
+      fertile: {message: 'Hedelmällinen aikasi on alkanut.', energy: 'Korkea', mood: 'Itsevarma', tip: 'Kuuntele itseäsi'},
+      ovulation: {message: 'Ovulaatiota odotetaan tänään.', energy: 'Korkea', mood: 'Hehkuva', tip: 'Liiku lempeästi'},
+      luteal: {message: 'Kehosi valmistelee uutta kiertoa.', energy: 'Vaihteleva', mood: 'Mietteliäs', tip: 'Pehmeyttä ja rauhaa'},
+      pregnancy: {message: 'Pidä itsestäsi huolta, askel kerrallaan.', energy: 'Vaihteleva', mood: 'Tarkkaavainen', tip: 'Säännöllinen lepo'},
+      postpartum: {message: 'Kehosi toipuu: anna itsellesi lepoa.', energy: 'Hellävarainen', mood: 'Kärsivällinen', tip: 'Tuki ja lepo'},
     },
     mood: {
       veryGood: 'Erittäin hyvä',
@@ -539,6 +554,7 @@ export const fi = {
     additionalNotesSubtitle: 'Lisää kommentti, jos haluat.',
     notesPlaceholder: 'Kirjoita tähän...',
     saveMySymptoms: 'Tallenna oireeni',
+    noSymptoms: 'Ei oireita',
     clearSubject: 'nämä oireet',
     savedToast: 'Oireet tallennettu ✨',
   },
@@ -1415,6 +1431,12 @@ export const fi = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA tyttärelleni',
+      daughterText: 'Seuraa tyttäresi kiertoa hänen omassa profiilissaan: hänen tietonsa pysyvät erillään omistasi. Profiilien välillä vaihdat yhdellä napautuksella.',
+      partnerTitle: 'AWA miehelleni',
+      partnerText: 'Jaa miehesi kanssa vain valitsemasi merkit. Mitään ei jaeta, ellet ota sitä käyttöön.',
+    },
     aboutAwaSubtitle: 'Versio, oikeudelliset tiedot, yksityisyys ja sovelluksen arvot',
     aboutAwaTitle: 'Tietoa AWA:sta',
     appearanceSubtitle: 'Teemat, värit, näyttö ja kieli',
@@ -1438,12 +1460,13 @@ export const fi = {
     moreSectionSubtitle: 'Ohje, tietoa AWA:sta ja istunnon hallinta.',
     moreSectionTitle: 'Lisää',
     myInformationSubtitle: 'Kaikki tärkeät tietosi, järjestettynä yksinkertaisesti.',
-    myInformationTitle: 'Tietoni',
+    myInformationTitle: 'Asetukset',
     myObjective: 'Tavoitteeni',
     myProfileEyebrow: 'PROFIILINI',
     none: 'Ei mitään',
     notConfigured: 'Ei määritetty',
     notProvided: 'Ei ilmoitettu',
+    optional: 'Valinnainen',
     notProvidedFeminine: 'Ei ilmoitettu',
     predictionsUnavailable: 'Ennusteet eivät ole saatavilla — ei riittävästi tietoja',
     notProvidedPlural: 'Ei ilmoitettu',
@@ -6960,6 +6983,7 @@ export const fi = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Liian monta yritystä. Yritä uudelleen {{minutes}} min kuluttua.',
     incorrectCode: 'Virheellinen PIN-koodi. Yritä uudelleen.',
     genericError: 'Jokin meni pieleen. Yritä uudelleen.',
     codesDontMatch: 'Koodit eivät täsmää. Aloita alusta.',
@@ -7045,6 +7069,16 @@ export const fi = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometria yksityisille osioille',
+    privateBiometricSubtitle: 'Avaa intiimi elämä, muistiinpanot ja yksityiset kuvat kirjoittamatta koodia. Koodi säilyy varavaihtoehtona.',
+    crashReports: {
+      title: 'Virheraportit',
+      subtitle: 'Lähetä nimetön raportti, jos AWA kaatuu.',
+      sheetTitle: 'Autatko parantamaan AWA:ta?',
+      sheetBody: 'Jos AWA kaatuu, meille voidaan lähettää nimetön tekninen raportti ongelman korjaamiseksi. Ei koskaan terveystietojasi tai kirjoittamaasi. Voit muuttaa päätöstäsi kohdassa Yksityisyys ja turvallisuus.',
+      sheetEnable: 'Ota käyttöön',
+      sheetDecline: 'Ei kiitos',
+    },
     backA11y: 'Takaisin',
     title: 'Yksityisyys ja turvallisuus',
     subtitle: 'Tietosi, yksityisyytesi, sinun valintasi',
@@ -7284,8 +7318,8 @@ export const fi = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Henkilötiedot',
-    subtitle: 'Hallitse perustietojasi 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Hallitse perustietojasi',
+    greeting: 'Salam!',
     intro: 'Näitä tietoja käytetään AWA-kokemuksesi mukauttamiseen.',
     addPhoto: 'Lisää valokuva',
     editPhoto: 'Muokkaa valokuvaa',

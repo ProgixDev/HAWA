@@ -233,9 +233,24 @@ export const vi = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Chuyển sang hồ sơ của {{name}}',
+    backToMine: 'Quay lại hồ sơ của tôi',
+    herSpace: 'Không gian của {{name}}',
+    separateSpace: 'Không gian riêng của con, tách biệt với của bạn',
+  },
+
+  discover: {
+    title: 'Khám phá',
+    daughterTitle: 'AWA cho con gái tôi',
+    partnerTitle: 'AWA cho chồng tôi',
+    daughterCaption: 'Theo dõi chu kỳ của con trong không gian riêng',
+    partnerCaption: 'Chia sẻ các chỉ số bạn chọn',
+  },
+
   cycleHome: {
     greeting: 'Assalamu alaikum,',
-    subtitleOwner: 'Cơ thể bạn, nhịp điệu của bạn, đức tin của bạn ✨',
+    subtitleOwner: 'Cơ thể bạn, nhịp điệu của bạn, đức tin của bạn',
     subtitleDaughter: 'Hồ sơ của con gái tôi',
     nextPeriodLabel: 'Kỳ kinh tiếp theo',
     fertileWindowLabel: 'Giai đoạn dễ thụ thai',
@@ -257,13 +272,13 @@ export const vi = {
     moodChipLabel: 'Tâm trạng',
     tipChipLabel: 'Mẹo trong ngày',
     phase: {
-      menstruation: {message: 'Năng lượng của bạn có thể đang thấp hơn — hãy nghỉ ngơi và dịu dàng với chính mình.', energy: 'Thấp', mood: 'Nhạy cảm', tip: 'Nghỉ ngơi & giữ ấm'},
-      follicular: {message: 'Năng lượng của bạn đang dần tăng lên — đây là lúc tốt để kết nối lại với bản thân.', energy: 'Tăng dần', mood: 'Bình tĩnh', tip: 'Uống đủ nước'},
-      fertile: {message: 'Giai đoạn dễ thụ thai của bạn đã bắt đầu — hãy lắng nghe tín hiệu từ cơ thể.', energy: 'Cao', mood: 'Tự tin', tip: 'Lắng nghe bản thân'},
-      ovulation: {message: 'Hôm nay dự kiến là ngày rụng trứng và năng lượng của bạn đang ở mức cao nhất.', energy: 'Cao', mood: 'Rạng rỡ', tip: 'Vận động nhẹ nhàng'},
-      luteal: {message: 'Cơ thể bạn đang chuẩn bị cho một chu kỳ mới — hãy dịu dàng với chính mình.', energy: 'Thay đổi', mood: 'Hướng nội', tip: 'Êm dịu & bình yên'},
-      pregnancy: {message: 'Cơ thể bạn đang chăm sóc từng bước một cách tận tâm — hãy chăm sóc tốt cho bản thân.', energy: 'Thay đổi', mood: 'Chu đáo', tip: 'Nghỉ ngơi đều đặn'},
-      postpartum: {message: 'Cơ thể bạn vẫn đang hồi phục — hãy kiên nhẫn với chính mình.', energy: 'Nhẹ nhàng', mood: 'Kiên nhẫn', tip: 'Hỗ trợ & nghỉ ngơi'},
+      menstruation: {message: 'Năng lượng thấp hơn: hãy nghỉ ngơi.', energy: 'Thấp', mood: 'Nhạy cảm', tip: 'Nghỉ ngơi & giữ ấm'},
+      follicular: {message: 'Năng lượng của bạn đang dần trở lại.', energy: 'Tăng dần', mood: 'Bình tĩnh', tip: 'Uống đủ nước'},
+      fertile: {message: 'Giai đoạn dễ thụ thai của bạn đã bắt đầu.', energy: 'Cao', mood: 'Tự tin', tip: 'Lắng nghe bản thân'},
+      ovulation: {message: 'Dự kiến hôm nay rụng trứng.', energy: 'Cao', mood: 'Rạng rỡ', tip: 'Vận động nhẹ nhàng'},
+      luteal: {message: 'Cơ thể bạn đang chuẩn bị chu kỳ mới.', energy: 'Thay đổi', mood: 'Hướng nội', tip: 'Êm dịu & bình yên'},
+      pregnancy: {message: 'Hãy chăm sóc bản thân, từng bước một.', energy: 'Thay đổi', mood: 'Chu đáo', tip: 'Nghỉ ngơi đều đặn'},
+      postpartum: {message: 'Cơ thể bạn đang hồi phục: hãy cho mình nghỉ ngơi.', energy: 'Nhẹ nhàng', mood: 'Kiên nhẫn', tip: 'Hỗ trợ & nghỉ ngơi'},
     },
     mood: {
       veryGood: 'Rất tốt',
@@ -528,6 +543,7 @@ export const vi = {
     additionalNotesSubtitle: 'Thêm nhận xét nếu bạn muốn.',
     notesPlaceholder: 'Viết vào đây...',
     saveMySymptoms: 'Lưu triệu chứng của tôi',
+    noSymptoms: 'Không có triệu chứng',
     clearSubject: 'các triệu chứng này',
     savedToast: 'Đã lưu triệu chứng thành công ✨',
   },
@@ -1404,6 +1420,12 @@ export const vi = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA cho con gái tôi',
+      daughterText: 'Theo dõi chu kỳ của con gái trong hồ sơ riêng của con: dữ liệu của con được tách biệt với dữ liệu của bạn. Chuyển hồ sơ chỉ với một lần chạm.',
+      partnerTitle: 'AWA cho chồng tôi',
+      partnerText: 'Chỉ chia sẻ với chồng các chỉ số bạn chọn. Sẽ không có gì được chia sẻ nếu bạn không bật.',
+    },
     aboutAwaSubtitle: 'Phiên bản, thông báo pháp lý, quyền riêng tư và giá trị của ứng dụng',
     aboutAwaTitle: 'Về AWA',
     appearanceSubtitle: 'Giao diện, màu sắc, hiển thị và ngôn ngữ',
@@ -1427,12 +1449,13 @@ export const vi = {
     moreSectionSubtitle: 'Trợ giúp, thông tin về AWA và quản lý phiên đăng nhập.',
     moreSectionTitle: 'Khác',
     myInformationSubtitle: 'Mọi thông tin quan trọng của bạn, được sắp xếp đơn giản.',
-    myInformationTitle: 'Thông tin của tôi',
+    myInformationTitle: 'Cài đặt',
     myObjective: 'Mục tiêu của tôi',
     myProfileEyebrow: 'HỒ SƠ CỦA TÔI',
     none: 'Không có',
     notConfigured: 'Chưa thiết lập',
     notProvided: 'Chưa cung cấp',
+    optional: 'Không bắt buộc',
     notProvidedFeminine: 'Chưa cung cấp',
     predictionsUnavailable: 'Chưa có dự đoán — chưa đủ dữ liệu',
     notProvidedPlural: 'Chưa cung cấp',
@@ -6949,6 +6972,7 @@ export const vi = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Thử quá nhiều lần. Hãy thử lại sau {{minutes}} phút.',
     incorrectCode: 'Mã PIN không đúng. Hãy thử lại.',
     genericError: 'Đã xảy ra lỗi. Hãy thử lại.',
     codesDontMatch: 'Hai mã không khớp nhau. Hãy bắt đầu lại.',
@@ -7034,6 +7058,16 @@ export const vi = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Sinh trắc học cho phần riêng tư',
+    privateBiometricSubtitle: 'Mở đời sống thân mật, ghi chú và ảnh riêng tư mà không cần nhập mã. Mã vẫn dùng được làm phương án dự phòng.',
+    crashReports: {
+      title: 'Báo cáo lỗi',
+      subtitle: 'Gửi báo cáo ẩn danh nếu AWA bị đóng đột ngột.',
+      sheetTitle: 'Giúp cải thiện AWA?',
+      sheetBody: 'Nếu AWA bị đóng đột ngột, một báo cáo kỹ thuật ẩn danh có thể được gửi cho chúng tôi để khắc phục sự cố. Không bao giờ gồm dữ liệu sức khỏe hay những gì bạn nhập. Bạn có thể đổi ý trong Quyền riêng tư & Bảo mật.',
+      sheetEnable: 'Bật',
+      sheetDecline: 'Không, cảm ơn',
+    },
     backA11y: 'Quay lại',
     title: 'Quyền riêng tư & Bảo mật',
     subtitle: 'Dữ liệu của bạn, quyền riêng tư của bạn, lựa chọn của bạn',
@@ -7273,8 +7307,8 @@ export const vi = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Thông tin cá nhân',
-    subtitle: 'Quản lý thông tin cơ bản của bạn 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Quản lý thông tin cơ bản của bạn',
+    greeting: 'Salam!',
     intro: 'Thông tin này được dùng để cá nhân hóa trải nghiệm của bạn trong AWA.',
     addPhoto: 'Thêm ảnh',
     editPhoto: 'Sửa ảnh',

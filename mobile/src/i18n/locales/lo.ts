@@ -245,9 +245,24 @@ export const lo = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'ປ່ຽນໄປໂປຣໄຟລ໌ຂອງ {{name}}',
+    backToMine: 'ກັບຄືນໂປຣໄຟລ໌ຂອງຂ້ອຍ',
+    herSpace: 'ພື້ນທີ່ຂອງ {{name}}',
+    separateSpace: 'ພື້ນທີ່ສ່ວນຕົວຂອງນາງ ແຍກຈາກເຈົ້າ',
+  },
+
+  discover: {
+    title: 'ຄົ້ນພົບ',
+    daughterTitle: 'AWA ສຳລັບລູກສາວຂ້ອຍ',
+    partnerTitle: 'AWA ສຳລັບຜົວຂ້ອຍ',
+    daughterCaption: 'ຕິດຕາມຮອບຂອງນາງໃນພື້ນທີ່ຂອງນາງເອງ',
+    partnerCaption: 'ແບ່ງປັນຕົວຊີ້ວັດທີ່ເຈົ້າເລືອກ',
+  },
+
   cycleHome: {
     greeting: 'ອັສຊະລາມູ ອະໄລກຸມ,',
-    subtitleOwner: 'ຮ່າງກາຍຂອງທ່ານ ຈັງຫວະຂອງທ່ານ ສັດທາຂອງທ່ານ ✨',
+    subtitleOwner: 'ຮ່າງກາຍຂອງທ່ານ ຈັງຫວະຂອງທ່ານ ສັດທາຂອງທ່ານ',
     subtitleDaughter: 'ໂປຣໄຟລ໌ຂອງລູກສາວຂ້ອຍ',
     nextPeriodLabel: 'ປະຈຳເດືອນຄັ້ງຕໍ່ໄປ',
     fertileWindowLabel: 'ໄລຍະມີໂອກາດຕັ້ງຄັນສູງ',
@@ -269,13 +284,13 @@ export const lo = {
     moodChipLabel: 'ອາລົມ',
     tipChipLabel: 'ເຄັດລັບປະຈຳວັນ',
     phase: {
-      menstruation: {message: 'ພະລັງງານຂອງທ່ານອາດຮູ້ສຶກຕ່ຳລົງໃນຕອນນີ້ — ໃຊ້ເວລາພັກຜ່ອນ ແລະ ອ່ອນໂຍນກັບຕົນເອງ.', energy: 'ຕ່ຳ', mood: 'ອ່ອນໄຫວ', tip: 'ພັກຜ່ອນ ແລະ ຄວາມອົບອຸ່ນ'},
-      follicular: {message: 'ພະລັງງານຂອງທ່ານຄ່ອຍໆເພີ່ມຂຶ້ນ — ເປັນເວລາທີ່ດີທີ່ຈະກັບມາເຊື່ອມຕໍ່ກັບຕົນເອງ.', energy: 'ກຳລັງເພີ່ມຂຶ້ນ', mood: 'ສະຫງົບ', tip: 'ດື່ມນ້ຳໃຫ້ພຽງພໍ'},
-      fertile: {message: 'ໄລຍະມີໂອກາດຕັ້ງຄັນສູງຂອງທ່ານໄດ້ເລີ່ມຂຶ້ນແລ້ວ — ຮັບຟັງສັນຍານຈາກຮ່າງກາຍຂອງທ່ານ.', energy: 'ສູງ', mood: 'ໝັ້ນໃຈ', tip: 'ຮັບຟັງຕົນເອງ'},
-      ovulation: {message: 'ຄາດວ່າຈະມີການຕົກໄຂ່ໃນມື້ນີ້ ແລະ ພະລັງງານຂອງທ່ານຢູ່ໃນຈຸດສູງສຸດ.', energy: 'ສູງ', mood: 'ເປັ່ງປະກາຍ', tip: 'ເຄື່ອນໄຫວຢ່າງອ່ອນໂຍນ'},
-      luteal: {message: 'ຮ່າງກາຍຂອງທ່ານກຳລັງກຽມຕົວສຳລັບຮອບເດືອນໃໝ່ — ອ່ອນໂຍນກັບຕົນເອງ.', energy: 'ປ່ຽນແປງ', mood: 'ຄິດພິຈາລະນາຕົນເອງ', tip: 'ຄວາມອ່ອນໂຍນ ແລະ ຄວາມສະຫງົບ'},
-      pregnancy: {message: 'ຮ່າງກາຍຂອງທ່ານກຳລັງຮອງຮັບທຸກຂັ້ນຕອນດ້ວຍຄວາມເອົາໃຈໃສ່ — ດູແລຕົນເອງໃຫ້ດີ.', energy: 'ປ່ຽນແປງ', mood: 'ເອົາໃຈໃສ່', tip: 'ພັກຜ່ອນສະໝ່ຳສະເໝີ'},
-      postpartum: {message: 'ຮ່າງກາຍຂອງທ່ານກຳລັງຟື້ນຕົວຕໍ່ໄປ — ໃຫ້ຄວາມອົດທົນກັບຕົນເອງ.', energy: 'ອ່ອນໂຍນ', mood: 'ອົດທົນ', tip: 'ການຊ່ວຍເຫຼືອ ແລະ ການພັກຜ່ອນ'},
+      menstruation: {message: 'ພະລັງງານຕ່ຳ: ພັກຜ່ອນ.', energy: 'ຕ່ຳ', mood: 'ອ່ອນໄຫວ', tip: 'ພັກຜ່ອນ ແລະ ຄວາມອົບອຸ່ນ'},
+      follicular: {message: 'ພະລັງງານຂອງເຈົ້າກຳລັງກັບຄືນມາຊ້າໆ.', energy: 'ກຳລັງເພີ່ມຂຶ້ນ', mood: 'ສະຫງົບ', tip: 'ດື່ມນ້ຳໃຫ້ພຽງພໍ'},
+      fertile: {message: 'ຊ່ວງຕັ້ງຄັນຂອງເຈົ້າເລີ່ມແລ້ວ.', energy: 'ສູງ', mood: 'ໝັ້ນໃຈ', tip: 'ຮັບຟັງຕົນເອງ'},
+      ovulation: {message: 'ຄາດວ່າຈະມີການຕົກໄຂ່ມື້ນີ້.', energy: 'ສູງ', mood: 'ເປັ່ງປະກາຍ', tip: 'ເຄື່ອນໄຫວຢ່າງອ່ອນໂຍນ'},
+      luteal: {message: 'ຮ່າງກາຍຂອງເຈົ້າກຳລັງກຽມຮອບໃໝ່.', energy: 'ປ່ຽນແປງ', mood: 'ຄິດພິຈາລະນາຕົນເອງ', tip: 'ຄວາມອ່ອນໂຍນ ແລະ ຄວາມສະຫງົບ'},
+      pregnancy: {message: 'ດູແລຕົນເອງ ເທື່ອລະບາດກ້າວ.', energy: 'ປ່ຽນແປງ', mood: 'ເອົາໃຈໃສ່', tip: 'ພັກຜ່ອນສະໝ່ຳສະເໝີ'},
+      postpartum: {message: 'ຮ່າງກາຍກຳລັງຟື້ນຕົວ: ໃຫ້ຕົນເອງໄດ້ພັກຜ່ອນ.', energy: 'ອ່ອນໂຍນ', mood: 'ອົດທົນ', tip: 'ການຊ່ວຍເຫຼືອ ແລະ ການພັກຜ່ອນ'},
     },
     mood: {
       veryGood: 'ດີຫຼາຍ',
@@ -540,6 +555,7 @@ export const lo = {
     additionalNotesSubtitle: 'ເພີ່ມຄວາມເຫັນໄດ້ຫາກທ່ານຕ້ອງການ.',
     notesPlaceholder: 'ຂຽນທີ່ນີ້...',
     saveMySymptoms: 'ບັນທຶກອາການຂອງຂ້ອຍ',
+    noSymptoms: 'ບໍ່ມີອາການ',
     clearSubject: 'ອາການເຫຼົ່ານີ້',
     savedToast: 'ບັນທຶກອາການສຳເລັດແລ້ວ ✨',
   },
@@ -1415,6 +1431,12 @@ export const lo = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA ສຳລັບລູກສາວຂ້ອຍ',
+      daughterText: 'ຕິດຕາມຮອບຂອງລູກສາວເຈົ້າໃນໂປຣໄຟລ໌ຂອງນາງເອງ: ຂໍ້ມູນຂອງນາງແຍກຈາກຂອງເຈົ້າ. ປ່ຽນໂປຣໄຟລ໌ດ້ວຍການແຕະຄັ້ງດຽວ.',
+      partnerTitle: 'AWA ສຳລັບຜົວຂ້ອຍ',
+      partnerText: 'ແບ່ງປັນກັບຜົວສະເພາະຕົວຊີ້ວັດທີ່ເຈົ້າເລືອກ. ບໍ່ມີຫຍັງຖືກແບ່ງປັນຖ້າເຈົ້າບໍ່ເປີດ.',
+    },
     aboutAwaSubtitle: 'ເວີຊັນ, ຂໍ້ມູນທາງກົດໝາຍ, ຄວາມເປັນສ່ວນຕົວ ແລະ ຄຸນຄ່າຂອງແອັບ',
     aboutAwaTitle: 'ກ່ຽວກັບ AWA',
     appearanceSubtitle: 'ຮູບແບບ, ສີ, ການສະແດງຜົນ ແລະ ພາສາ',
@@ -1438,12 +1460,13 @@ export const lo = {
     moreSectionSubtitle: 'ຄວາມຊ່ວຍເຫຼືອ, ຂໍ້ມູນກ່ຽວກັບ AWA ແລະ ການຈັດການເຊດຊັນຂອງທ່ານ.',
     moreSectionTitle: 'ເພີ່ມເຕີມ',
     myInformationSubtitle: 'ຂໍ້ມູນສຳຄັນທັງໝົດຂອງທ່ານ, ຈັດລະບຽບຢ່າງງ່າຍດາຍ.',
-    myInformationTitle: 'ຂໍ້ມູນຂອງຂ້ອຍ',
+    myInformationTitle: 'ການຕັ້ງຄ່າ',
     myObjective: 'ເປົ້າໝາຍຂອງຂ້ອຍ',
     myProfileEyebrow: 'ໂປຣໄຟລ໌ຂອງຂ້ອຍ',
     none: 'ບໍ່ມີ',
     notConfigured: 'ຍັງບໍ່ໄດ້ຕັ້ງຄ່າ',
     notProvided: 'ບໍ່ໄດ້ລະບຸ',
+    optional: 'ບໍ່ບັງຄັບ',
     notProvidedFeminine: 'ບໍ່ໄດ້ລະບຸ',
     predictionsUnavailable: 'ບໍ່ມີການຄາດຄະເນ — ຂໍ້ມູນບໍ່ພຽງພໍ',
     notProvidedPlural: 'ບໍ່ໄດ້ລະບຸ',
@@ -6955,6 +6978,7 @@ export const lo = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'ລອງຫຼາຍເກີນໄປ. ລອງໃໝ່ອີກຄັ້ງໃນ {{minutes}} ນາທີ.',
     incorrectCode: 'PIN ບໍ່ຖືກຕ້ອງ. ລອງໃໝ່.',
     genericError: 'ມີບາງຢ່າງຜິດພາດ. ລອງໃໝ່.',
     codesDontMatch: 'ລະຫັດບໍ່ກົງກັນ. ເລີ່ມໃໝ່.',
@@ -7040,6 +7064,16 @@ export const lo = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'ຊີວະມິຕິສຳລັບສ່ວນສ່ວນຕົວ',
+    privateBiometricSubtitle: 'ເປີດຊີວິດສ່ວນຕົວ, ບັນທຶກ ແລະ ຮູບສ່ວນຕົວໂດຍບໍ່ຕ້ອງພິມລະຫັດ. ລະຫັດຍັງໃຊ້ເປັນສຳຮອງໄດ້.',
+    crashReports: {
+      title: 'ລາຍງານຂໍ້ຜິດພາດ',
+      subtitle: 'ສົ່ງລາຍງານແບບບໍ່ລະບຸຕົວຕົນຖ້າ AWA ປິດ.',
+      sheetTitle: 'ຊ່ວຍປັບປຸງ AWA ບໍ?',
+      sheetBody: 'ຖ້າ AWA ປິດຕົວແບບບໍ່ຄາດຄິດ, ອາດມີລາຍງານດ້ານເຕັກນິກແບບບໍ່ລະບຸຕົວຕົນສົ່ງມາໃຫ້ພວກເຮົາເພື່ອແກ້ໄຂບັນຫາ. ບໍ່ມີຂໍ້ມູນສຸຂະພາບ ຫຼື ສິ່ງທີ່ເຈົ້າພິມເລີຍ. ເຈົ້າປ່ຽນໃຈໄດ້ໃນ ຄວາມເປັນສ່ວນຕົວ ແລະ ຄວາມປອດໄພ.',
+      sheetEnable: 'ເປີດ',
+      sheetDecline: 'ບໍ່, ຂອບໃຈ',
+    },
     backA11y: 'ກັບຄືນ',
     title: 'ຄວາມເປັນສ່ວນຕົວ ແລະ ຄວາມປອດໄພ',
     subtitle: 'ຂໍ້ມູນຂອງທ່ານ, ຄວາມເປັນສ່ວນຕົວຂອງທ່ານ, ທາງເລືອກຂອງທ່ານ',
@@ -7279,8 +7313,8 @@ export const lo = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'ຂໍ້ມູນສ່ວນຕົວ',
-    subtitle: 'ຈັດການຂໍ້ມູນພື້ນຖານຂອງທ່ານ 🌸',
-    greeting: 'ຊະລາມ! 💜',
+    subtitle: 'ຈັດການຂໍ້ມູນພື້ນຖານຂອງທ່ານ',
+    greeting: 'ຊະລາມ!',
     intro: 'ຂໍ້ມູນນີ້ໃຊ້ເພື່ອປັບປະສົບການຂອງທ່ານໃນ AWA ໃຫ້ເໝາະກັບທ່ານ.',
     addPhoto: 'ເພີ່ມຮູບ',
     editPhoto: 'ແກ້ໄຂຮູບ',

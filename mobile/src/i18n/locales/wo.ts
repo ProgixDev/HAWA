@@ -237,9 +237,24 @@ export const wo = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Soppi ci profil {{name}}',
+    backToMine: 'Dellu ci sama profil',
+    herSpace: 'Barab {{name}}',
+    separateSpace: 'Barabam bopp, ñuy ko tàggat ak sa bi',
+  },
+
+  discover: {
+    title: 'Gis',
+    daughterTitle: 'AWA ngir sama doom bu jigéen',
+    partnerTitle: 'AWA ngir sama jëkkër',
+    daughterCaption: 'Toppal ay jamono ci barabam bopp',
+    partnerCaption: 'Séddoo li nga tànn',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Sa yaram, sa ritm, sa ngëm ✨',
+    subtitleOwner: 'Sa yaram, sa ritm, sa ngëm',
     subtitleDaughter: 'Kontu sama doom ju jigéen',
     nextPeriodLabel: 'Règle bu toftal',
     fertileWindowLabel: 'Jamono ju bind',
@@ -261,13 +276,13 @@ export const wo = {
     moodChipLabel: 'Xol',
     tipChipLabel: 'Ndigal bés bi',
     phase: {
-      menstruation: {message: 'Sa doole mën na wàññiku léegi — jël jamono nga noppalu te lewet ci sa bopp.', energy: 'Ndaw', mood: 'Mu am yaakaar', tip: 'Noppalu ak tàngoor'},
-      follicular: {message: 'Sa doole dafay yokku tuuti-tuuti — jamono ju baax ngir dellusi ci sa bopp.', energy: 'Di yokku', mood: 'Dal', tip: 'Naan ndox'},
-      fertile: {message: 'Sa jamono ju bind tàmbali na — déglul say màndarga yaram.', energy: 'Kawe', mood: 'Am kóolute', tip: 'Dégg sa bopp'},
-      ovulation: {message: 'Ñu ngi xaar ovilasiyoŋ tey, te sa doole ngi ci kaw.', energy: 'Kawe', mood: 'Leer', tip: 'Yëngu ak lewet'},
-      luteal: {message: 'Sa yaram dafay waajal wërsëg bu bees — nanga ko lewet.', energy: 'Di soppiku', mood: 'Di xalaat', tip: 'Lewet ak dal'},
-      pregnancy: {message: 'Sa yaram dafay la topp ci yoon wu nekk ak yër — yër sa bopp.', energy: 'Di soppiku', mood: 'Di seetlu', tip: 'Noppalu bu bari'},
-      postpartum: {message: 'Sa yaram di na wér — sant sa bopp muñ.', energy: 'Lewet', mood: 'Muñ', tip: 'Dimble ak noppalu'},
+      menstruation: {message: 'Doole bu ndaw: noppalu.', energy: 'Ndaw', mood: 'Mu am yaakaar', tip: 'Noppalu ak tàngoor'},
+      follicular: {message: 'Sa doole di na dellusi ndank-ndank.', energy: 'Di yokku', mood: 'Dal', tip: 'Naan ndox'},
+      fertile: {message: 'Sa jamono bu ndox mi tambali na.', energy: 'Kawe', mood: 'Am kóolute', tip: 'Dégg sa bopp'},
+      ovulation: {message: 'Ovulation a ngi koy xaar tay.', energy: 'Kawe', mood: 'Leer', tip: 'Yëngu ak lewet'},
+      luteal: {message: 'Sa yaram di na waajal tukki bu bees.', energy: 'Di soppiku', mood: 'Di xalaat', tip: 'Lewet ak dal'},
+      pregnancy: {message: 'Wattu sa bopp, ndank-ndank.', energy: 'Di soppiku', mood: 'Di seetlu', tip: 'Noppalu bu bari'},
+      postpartum: {message: 'Sa yaram di na wér: jox sa bopp noppalu.', energy: 'Lewet', mood: 'Muñ', tip: 'Dimble ak noppalu'},
     },
     mood: {
       veryGood: 'Baax lool',
@@ -532,6 +547,7 @@ export const wo = {
     additionalNotesSubtitle: 'Yokk kàddu bu nga ko bëgg.',
     notesPlaceholder: 'Bind fii...',
     saveMySymptoms: 'Denc sama màndarga',
+    noSymptoms: 'Amul màndarga',
     clearSubject: 'màndarga yii',
     savedToast: 'Màndarga yi dencu nañu ✨',
   },
@@ -1408,6 +1424,12 @@ export const wo = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA ngir sama doom bu jigéen',
+      daughterText: 'Toppal jamonoy sa doom bu jigéen ci profilam bopp: xibaaram yi wéet nañu ak yaw. Soppi profil ak benn laal.',
+      partnerTitle: 'AWA ngir sama jëkkër',
+      partnerText: 'Séddoo ak sa jëkkër rekk li nga tànn. Dara du ñu séddoo su ngay ko tooñ.',
+    },
     aboutAwaSubtitle: 'Wersiyoŋ, mbind yu yoon, cér-bopp ak njariñi appli bi',
     aboutAwaTitle: 'Ci AWA',
     appearanceSubtitle: 'Tem, kuloor, wone ak làkku',
@@ -1431,12 +1453,13 @@ export const wo = {
     moreSectionSubtitle: 'Dimbali, xibaar ci AWA ak yoru sa dem.',
     moreSectionTitle: 'Lu ëpp',
     myInformationSubtitle: 'Sa xibaar yu am solo, jëkkëlu ak yomb.',
-    myInformationTitle: 'Sama xibaar',
+    myInformationTitle: 'Teggin',
     myObjective: 'Sama ndimbal',
     myProfileEyebrow: 'SAMA KONTU',
     none: 'Amul',
     notConfigured: 'Defuñu ko',
     notProvided: 'Duñu ko joxe',
+    optional: 'Bu ñu bëgg',
     notProvidedFeminine: 'Duñu ko joxe',
     predictionsUnavailable: 'Gisaat yi amul — xibaar yu doy amul',
     notProvidedPlural: 'Duñu ko joxe',
@@ -6930,6 +6953,7 @@ export const wo = {
   // PrivateAccess, SecuritySetup. Deliberately separate from the
   // `privateSectionAuth`/`privateIntimacy*` namespaces above.
   security: {
+    tooManyAttempts: 'Yëfi jéem bu bari. Jéemaat ci {{minutes}} simili.',
     incorrectCode: 'PIN bi jubul. Jéemaatal.',
     genericError: 'Lenn dafa deme ñaaw. Jéemaatal.',
     codesDontMatch: 'Kod yi bokkul. Tàmbaliwaat.',
@@ -7015,6 +7039,16 @@ export const wo = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biyometri ngir pàcci yu sutura',
+    privateBiometricSubtitle: 'Ubbil dundu bu jege, ndaw-ñi ak nataal yu sutura te du nga bind sa kod. Kod bi day des muy ndimbal.',
+    crashReports: {
+      title: 'Raportu njuumte yi',
+      subtitle: 'Yónnee raportu bu dul tudd kenn su AWA tëjee.',
+      sheetTitle: 'Dimbali ngir AWA jëme kanam?',
+      sheetBody: 'Su AWA tëjee ci anam bu dul bëgg, raportu teknik bu dul tudd kenn mën na nu ko yónnee ngir defar jafe-jafe bi. Mukk sa xibaar ci wér-gi-yaram walla li nga bind. Mën nga soppi say xalaat ci Suturaal ak Kaarange.',
+      sheetEnable: 'Tëb',
+      sheetDecline: 'Déet, jërëjëf',
+    },
     backA11y: 'Dellu',
     title: 'Cér-bopp ak aar',
     subtitle: 'Sa xibaar, sa cér-bopp, sa tànn',
@@ -7243,8 +7277,8 @@ export const wo = {
   // Phase 7E — residual localization for Personal Information, General Health, and Appearance theme descriptions.
   personalInformation: {
     title: 'Xibaar yu sa bopp',
-    subtitle: 'Yor sa xibaar yu njëkk 🌸',
-    greeting: 'Salaam! 💜',
+    subtitle: 'Yor sa xibaar yu njëkk',
+    greeting: 'Salaam!',
     intro: 'Xibaar yii dañuy jëfandikoo ngir defar sa dund ci AWA.',
     addPhoto: 'Yokk benn nataal',
     editPhoto: 'Soppi nataal bi',

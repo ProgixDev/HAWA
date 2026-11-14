@@ -243,9 +243,24 @@ export const tg = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Гузариш ба профили {{name}}',
+    backToMine: 'Бозгашт ба профили ман',
+    herSpace: 'Фазои {{name}}',
+    separateSpace: 'Фазои худии ӯ, ҷудо аз фазои ту',
+  },
+
+  discover: {
+    title: 'Кашф кун',
+    daughterTitle: 'AWA барои духтарам',
+    partnerTitle: 'AWA барои шавҳарам',
+    daughterCaption: 'Давраи ӯро дар фазои худаш пайгирӣ кун',
+    partnerCaption: 'Нишондиҳандаҳои интихобкардаатро мубодила кун',
+  },
+
   cycleHome: {
     greeting: 'Ассалому алайкум,',
-    subtitleOwner: 'Бадани шумо, ритми шумо, имони шумо ✨',
+    subtitleOwner: 'Бадани шумо, ритми шумо, имони шумо',
     subtitleDaughter: 'Профили духтарам',
     nextPeriodLabel: 'Ҳайзи оянда',
     fertileWindowLabel: 'Равзанаи ҳосилхезӣ',
@@ -267,13 +282,13 @@ export const tg = {
     moodChipLabel: 'Кайфият',
     tipChipLabel: 'Маслиҳати рӯз',
     phase: {
-      menstruation: {message: 'Энергияатон ҳоло шояд камтар бошад — барои истироҳат вақт ҷудо кунед ва бо худ меҳрубон бошед.', energy: 'Паст', mood: 'Ҳассос', tip: 'Истироҳат ва гармӣ'},
-      follicular: {message: 'Энергияатон оҳиста боло меравад — вақти хуб барои бозгашт ба худ.', energy: 'Афзоишёбанда', mood: 'Ором', tip: 'Обро фаромӯш накунед'},
-      fertile: {message: 'Равзанаи ҳосилхезии шумо оғоз шуд — ба сигналҳои баданатон гӯш диҳед.', energy: 'Баланд', mood: 'Боэътимод', tip: 'Ба худ гӯш диҳед'},
-      ovulation: {message: 'Имрӯз овуляция интизор меравад ва энергияатон дар авҷ аст.', energy: 'Баланд', mood: 'Дурахшон', tip: 'Оҳиста ҳаракат кунед'},
-      luteal: {message: 'Баданатон ба давраи нав тайёр мешавад — бо худ меҳрубон бошед.', energy: 'Тағйирёбанда', mood: 'Андешаманд', tip: 'Мулоимӣ ва оромӣ'},
-      pregnancy: {message: 'Баданатон ҳар қадамро бо ғамхорӣ дастгирӣ мекунад — аз худ хуб нигоҳубин кунед.', energy: 'Тағйирёбанда', mood: 'Диққатманд', tip: 'Истироҳати мунтазам'},
-      postpartum: {message: 'Баданатон ба барқароршавӣ идома медиҳад — ба худ сабр бидиҳед.', energy: 'Мулоим', mood: 'Сабур', tip: 'Дастгирӣ ва истироҳат'},
+      menstruation: {message: 'Энергияи камтар: истироҳат кун.', energy: 'Паст', mood: 'Ҳассос', tip: 'Истироҳат ва гармӣ'},
+      follicular: {message: 'Энергияи ту оҳиста бармегардад.', energy: 'Афзоишёбанда', mood: 'Ором', tip: 'Обро фаромӯш накунед'},
+      fertile: {message: 'Давраи борвариат оғоз шуд.', energy: 'Баланд', mood: 'Боэътимод', tip: 'Ба худ гӯш диҳед'},
+      ovulation: {message: 'Имрӯз овулятсия интизор меравад.', energy: 'Баланд', mood: 'Дурахшон', tip: 'Оҳиста ҳаракат кунед'},
+      luteal: {message: 'Баданат давраи нав омода мекунад.', energy: 'Тағйирёбанда', mood: 'Андешаманд', tip: 'Мулоимӣ ва оромӣ'},
+      pregnancy: {message: 'Аз худат ғамхорӣ кун, қадам ба қадам.', energy: 'Тағйирёбанда', mood: 'Диққатманд', tip: 'Истироҳати мунтазам'},
+      postpartum: {message: 'Баданат барқарор мешавад: ба худат истироҳат деҳ.', energy: 'Мулоим', mood: 'Сабур', tip: 'Дастгирӣ ва истироҳат'},
     },
     mood: {
       veryGood: 'Хеле хуб',
@@ -538,6 +553,7 @@ export const tg = {
     additionalNotesSubtitle: 'Агар хоҳед, шарҳ илова кунед.',
     notesPlaceholder: 'Дар ин ҷо нависед...',
     saveMySymptoms: 'Захира кардани нишонаҳои ман',
+    noSymptoms: 'Нишонаҳо нест',
     clearSubject: 'ин нишонаҳо',
     savedToast: 'Нишонаҳо бомуваффақият захира шуданд ✨',
   },
@@ -1414,6 +1430,12 @@ export const tg = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA барои духтарам',
+      daughterText: 'Давраи духтаратро дар профили худаш пайгирӣ кун: маълумоти ӯ аз маълумоти ту ҷудо мемонад. Байни профилҳо бо як ламс мегузарӣ.',
+      partnerTitle: 'AWA барои шавҳарам',
+      partnerText: 'Бо шавҳарат танҳо нишондиҳандаҳои интихобкардаатро мубодила кун. То ки фаъол накунӣ, чизе мубодила намешавад.',
+    },
     aboutAwaSubtitle: 'Версия, огоҳиҳои ҳуқуқӣ, махфият ва арзишҳои барнома',
     aboutAwaTitle: 'Дар бораи AWA',
     appearanceSubtitle: 'Мавзӯъҳо, рангҳо, нишондиҳӣ ва забон',
@@ -1437,12 +1459,13 @@ export const tg = {
     moreSectionSubtitle: 'Кумак, маълумот дар бораи AWA ва идораи сессияи шумо.',
     moreSectionTitle: 'Бештар',
     myInformationSubtitle: 'Тамоми маълумоти муҳими шумо, ба таври оддӣ ташкилшуда.',
-    myInformationTitle: 'Маълумоти ман',
+    myInformationTitle: 'Танзимот',
     myObjective: 'Ҳадафи ман',
     myProfileEyebrow: 'ПРОФИЛИ МАН',
     none: 'Нест',
     notConfigured: 'Танзим нашудааст',
     notProvided: 'Нишон дода нашудааст',
+    optional: 'Ихтиёрӣ',
     notProvidedFeminine: 'Нишон дода нашудааст',
     predictionsUnavailable: 'Пешгӯиҳо дастнорасанд — маълумот кофӣ нест',
     notProvidedPlural: 'Нишон дода нашудаанд',
@@ -6960,6 +6983,7 @@ export const tg = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Кӯшишҳои аз ҳад зиёд. Пас аз {{minutes}} дақиқа дубора кӯшиш кун.',
     incorrectCode: 'Рамз нодуруст аст. Боз кӯшиш кунед.',
     genericError: 'Хатое рух дод. Боз кӯшиш кунед.',
     codesDontMatch: 'Рамзҳо мувофиқат намекунанд. Аз нав оғоз кунед.',
@@ -7045,6 +7069,16 @@ export const tg = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Биометрия барои бахшҳои шахсӣ',
+    privateBiometricSubtitle: 'Ҳаёти наздик, ёддоштҳо ва аксҳои шахсиро бе ворид кардани код кушо. Код ҳамчун эҳтиётӣ мемонад.',
+    crashReports: {
+      title: 'Ҳисоботҳои хато',
+      subtitle: 'Агар AWA баста шавад, ҳисоботи беном фиристед.',
+      sheetTitle: 'Дар беҳтар кардани AWA кӯмак мекунӣ?',
+      sheetBody: 'Агар AWA ногаҳон баста шавад, барои ислоҳи мушкил ба мо ҳисоботи беноми техникӣ фиристода шуданаш мумкин аст. Ҳаргиз маълумоти саломатии ту ё он чӣ ворид мекунӣ не. Ту метавонӣ қарорро дар «Махфият ва амният» тағйир диҳӣ.',
+      sheetEnable: 'Фаъол кардан',
+      sheetDecline: 'Не, ташаккур',
+    },
     backA11y: 'Бозгашт',
     title: 'Махфият ва амният',
     subtitle: 'Маълумоти шумо, махфияти шумо, интихоби шумо',
@@ -7284,8 +7318,8 @@ export const tg = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Маълумоти шахсӣ',
-    subtitle: 'Маълумоти асосии худро идора кунед 🌸',
-    greeting: 'Салом! 💜',
+    subtitle: 'Маълумоти асосии худро идора кунед',
+    greeting: 'Салом!',
     intro: 'Ин маълумот барои шахсӣ кардани таҷрибаи шумо дар AWA истифода мешавад.',
     addPhoto: 'Илова кардани акс',
     editPhoto: 'Таҳрири акс',

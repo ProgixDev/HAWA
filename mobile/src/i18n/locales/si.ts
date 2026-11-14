@@ -241,9 +241,24 @@ export const si = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} ගේ පැතිකඩට මාරු වන්න',
+    backToMine: 'මගේ පැතිකඩට ආපසු යන්න',
+    herSpace: '{{name}} ගේ අවකාශය',
+    separateSpace: 'ඇගේම අවකාශය, ඔබගෙන් වෙන්ව',
+  },
+
+  discover: {
+    title: 'සොයා ගන්න',
+    daughterTitle: 'මගේ දියණිය සඳහා AWA',
+    partnerTitle: 'මගේ ස්වාමිපුරුෂයා සඳහා AWA',
+    daughterCaption: 'ඇගේ චක්‍රය ඇගේම අවකාශයේ අනුගමනය කරන්න',
+    partnerCaption: 'ඔබ තෝරන දර්ශක බෙදාගන්න',
+  },
+
   cycleHome: {
     greeting: 'අස්සලාමු අලෛකුම්,',
-    subtitleOwner: 'ඔබේ ශරීරය, ඔබේ රිද්මය, ඔබේ ඇදහිල්ල ✨',
+    subtitleOwner: 'ඔබේ ශරීරය, ඔබේ රිද්මය, ඔබේ ඇදහිල්ල',
     subtitleDaughter: 'මගේ දියණියගේ පැතිකඩ',
     nextPeriodLabel: 'ඊළඟ ඔසප්',
     fertileWindowLabel: 'සාරවත් කාලය',
@@ -265,13 +280,13 @@ export const si = {
     moodChipLabel: 'මනෝභාවය',
     tipChipLabel: 'අදට උපදෙස',
     phase: {
-      menstruation: {message: 'දැන් ඔබේ ශක්තිය අඩු බව දැනෙන්නට පුළුවන් — විවේක ගැනීමට කාලය ගන්න සහ ඔබට ම මෘදු වන්න.', energy: 'අඩු', mood: 'සංවේදී', tip: 'විවේකය සහ උණුසුම'},
-      follicular: {message: 'ඔබේ ශක්තිය සෙමින් ඉහළ යමින් පවතී — ඔබ සමඟ නැවත සම්බන්ධ වීමට හොඳ වේලාවකි.', energy: 'ඉහළ යමින්', mood: 'සන්සුන්', tip: 'හොඳින් ජලය පානය කරන්න'},
-      fertile: {message: 'ඔබේ සාරවත් කාලය ආරම්භ වී ඇත — ඔබේ ශරීරයේ සංඥාවලට සවන් දෙන්න.', energy: 'ඉහළ', mood: 'විශ්වාසවන්ත', tip: 'ඔබට ම සවන් දෙන්න'},
-      ovulation: {message: 'අද ඩිම්බ මෝචනය අපේක්ෂා කෙරේ, ඔබේ ශක්තිය උපරිමයේ පවතී.', energy: 'ඉහළ', mood: 'දීප්තිමත්', tip: 'මෘදුවට ඇවිදින්න'},
-      luteal: {message: 'ඔබේ ශරීරය නව චක්‍රයක් සඳහා සූදානම් වෙමින් පවතී — ඔබට ම මෘදු වන්න.', energy: 'වෙනස් වන', mood: 'අන්තර්මුඛ', tip: 'මෘදුකම සහ සන්සුන්කම'},
-      pregnancy: {message: 'ඔබේ ශරීරය සෑම පියවරකටම රැකවරණයෙන් සහාය වේ — ඔබව හොඳින් බලා ගන්න.', energy: 'වෙනස් වන', mood: 'අවධානයෙන්', tip: 'නිතිපතා විවේකය'},
-      postpartum: {message: 'ඔබේ ශරීරය දිගටම සුවය ලබමින් පවතී — ඔබටම ඉවසීමක් දෙන්න.', energy: 'මෘදු', mood: 'ඉවසිලිවන්ත', tip: 'සහාය සහ විවේකය'},
+      menstruation: {message: 'අඩු ශක්තිය: විවේක ගන්න.', energy: 'අඩු', mood: 'සංවේදී', tip: 'විවේකය සහ උණුසුම'},
+      follicular: {message: 'ඔබේ ශක්තිය සෙමෙන් ආපසු එයි.', energy: 'ඉහළ යමින්', mood: 'සන්සුන්', tip: 'හොඳින් ජලය පානය කරන්න'},
+      fertile: {message: 'ඔබේ සාරවත් කාලය ආරම්භ වී ඇත.', energy: 'ඉහළ', mood: 'විශ්වාසවන්ත', tip: 'ඔබට ම සවන් දෙන්න'},
+      ovulation: {message: 'අද ඩිම්බ මුදා හැරීම අපේක්ෂා කෙරේ.', energy: 'ඉහළ', mood: 'දීප්තිමත්', tip: 'මෘදුවට ඇවිදින්න'},
+      luteal: {message: 'ඔබේ ශරීරය නව චක්‍රයක් සූදානම් කරයි.', energy: 'වෙනස් වන', mood: 'අන්තර්මුඛ', tip: 'මෘදුකම සහ සන්සුන්කම'},
+      pregnancy: {message: 'පියවරෙන් පියවර ඔබ ගැන සැලකිලිමත් වන්න.', energy: 'වෙනස් වන', mood: 'අවධානයෙන්', tip: 'නිතිපතා විවේකය'},
+      postpartum: {message: 'ඔබේ ශරීරය යථා තත්ත්වයට පත් වෙමින්: විවේක ගන්න.', energy: 'මෘදු', mood: 'ඉවසිලිවන්ත', tip: 'සහාය සහ විවේකය'},
     },
     mood: {
       veryGood: 'ඉතා හොඳයි',
@@ -536,6 +551,7 @@ export const si = {
     additionalNotesSubtitle: 'කැමති නම් අදහසක් එක් කරන්න.',
     notesPlaceholder: 'මෙහි ලියන්න...',
     saveMySymptoms: 'මගේ රෝග ලක්ෂණ සුරකින්න',
+    noSymptoms: 'රෝග ලක්ෂණ නැත',
     clearSubject: 'මෙම රෝග ලක්ෂණ',
     savedToast: 'රෝග ලක්ෂණ සාර්ථකව සුරැකිණි ✨',
   },
@@ -1412,6 +1428,12 @@ export const si = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'මගේ දියණිය සඳහා AWA',
+      daughterText: 'ඔබේ දියණියගේ චක්‍රය ඇගේම පැතිකඩේ අනුගමනය කරන්න: ඇගේ දත්ත ඔබේ දත්තවලින් වෙන්ව පවතී. එක් තට්ටුවකින් පැතිකඩ මාරු කරන්න.',
+      partnerTitle: 'මගේ ස්වාමිපුරුෂයා සඳහා AWA',
+      partnerText: 'ඔබ තෝරන දර්ශක පමණක් ස්වාමිපුරුෂයා සමඟ බෙදාගන්න. ඔබ ක්‍රියාත්මක නොකළහොත් කිසිවක් බෙදාගනු නොලැබේ.',
+    },
     aboutAwaSubtitle: 'අනුවාදය, නීතිමය දැන්වීම්, පෞද්ගලිකත්වය සහ යෙදුමේ වටිනාකම්',
     aboutAwaTitle: 'AWA ගැන',
     appearanceSubtitle: 'තේමා, වර්ණ, දර්ශනය සහ භාෂාව',
@@ -1435,12 +1457,13 @@ export const si = {
     moreSectionSubtitle: 'උදව්, AWA පිළිබඳ තොරතුරු සහ ඔබේ සැසිය කළමනාකරණය.',
     moreSectionTitle: 'තවත්',
     myInformationSubtitle: 'ඔබේ සියලු වැදගත් තොරතුරු, සරලව සංවිධානය කර ඇත.',
-    myInformationTitle: 'මගේ තොරතුරු',
+    myInformationTitle: 'සැකසුම්',
     myObjective: 'මගේ අරමුණ',
     myProfileEyebrow: 'මගේ පැතිකඩ',
     none: 'නැත',
     notConfigured: 'සකසා නැත',
     notProvided: 'සපයා නැත',
+    optional: 'විකල්ප',
     notProvidedFeminine: 'සපයා නැත',
     predictionsUnavailable: 'පුරෝකථන ලබාගත නොහැක — ප්‍රමාණවත් දත්ත නැත',
     notProvidedPlural: 'සපයා නැත',
@@ -6956,6 +6979,7 @@ export const si = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'උත්සාහ කිහිපයක් වැඩියි. විනාඩි {{minutes}} කට පසු නැවත උත්සාහ කරන්න.',
     incorrectCode: 'වැරදි PIN. නැවත උත්සාහ කරන්න.',
     genericError: 'යමක් වැරදී ගියේය. නැවත උත්සාහ කරන්න.',
     codesDontMatch: 'කේත ගැළපෙන්නේ නැත. නැවත ආරම්භ කරන්න.',
@@ -7041,6 +7065,16 @@ export const si = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'පෞද්ගලික කොටස් සඳහා ජෛවමිතික',
+    privateBiometricSubtitle: 'කේතය ටයිප් නොකර සමීප ජීවිතය, සටහන් සහ පෞද්ගලික ඡායාරූප විවෘත කරන්න. කේතය උපස්ථයක් ලෙස පවතී.',
+    crashReports: {
+      title: 'දෝෂ වාර්තා',
+      subtitle: 'AWA වැසී ගියහොත් නිර්නාමික වාර්තාවක් යවන්න.',
+      sheetTitle: 'AWA වැඩිදියුණු කිරීමට උදව් කරනවාද?',
+      sheetBody: 'AWA හදිසියේ වැසී ගියහොත්, ගැටලුව විසඳීමට අපට නිර්නාමික තාක්ෂණික වාර්තාවක් එවිය හැක. ඔබේ සෞඛ්‍ය දත්ත හෝ ඔබ ටයිප් කරන දේ කිසිදා නොවේ. ඔබට රහස්‍යතාව සහ ආරක්ෂාව තුළ තීරණය වෙනස් කළ හැක.',
+      sheetEnable: 'සක්‍රිය කරන්න',
+      sheetDecline: 'එපා, ස්තූතියි',
+    },
     backA11y: 'ආපසු',
     title: 'පෞද්ගලිකත්වය සහ ආරක්ෂාව',
     subtitle: 'ඔබේ දත්ත, ඔබේ පෞද්ගලිකත්වය, ඔබේ තේරීම',
@@ -7280,8 +7314,8 @@ export const si = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'පෞද්ගලික තොරතුරු',
-    subtitle: 'ඔබේ මූලික තොරතුරු කළමනාකරණය කරන්න 🌸',
-    greeting: 'සලාම්! 💜',
+    subtitle: 'ඔබේ මූලික තොරතුරු කළමනාකරණය කරන්න',
+    greeting: 'සලාම්!',
     intro: 'මෙම තොරතුරු AWA හි ඔබේ අත්දැකීම පුද්ගලීකරණය කිරීමට භාවිතා කෙරේ.',
     addPhoto: 'ඡායාරූපයක් එක් කරන්න',
     editPhoto: 'ඡායාරූපය සංස්කරණය කරන්න',

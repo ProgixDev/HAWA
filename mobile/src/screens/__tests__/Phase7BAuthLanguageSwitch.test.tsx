@@ -83,8 +83,10 @@ describe('TEST 1 — AuthScreen follows the app language; the frontend-only bypa
 describe('TEST 2 — RegistrationScreen follows the app language; password rules and the dynamic toggle label stay correct', () => {
   it('French: field labels/placeholders and the "Masquer : Mot de passe" toggle label', () => {
     const renderer = renderDirect(<RegistrationScreen navigation={{navigate: jest.fn(), replace: jest.fn()} as never} route={{} as never} />);
-    expect(textsOf(renderer)).toContain('Prénom');
-    expect(textsOf(renderer)).toContain('Créer votre compte');
+    // first name + the login form's two fields (e-mail + password); the label is the input's accessibility label
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'Prénom'}).length).toBeGreaterThan(0);
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'Adresse e-mail'}).length).toBeGreaterThan(0);
+    expect(textsOf(renderer)).toContain('Créer un compte');
     const toggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Mot de passe'});
     expect(toggle).toBeTruthy();
   });
@@ -93,8 +95,9 @@ describe('TEST 2 — RegistrationScreen follows the app language; password rules
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
     const renderer = renderDirect(<RegistrationScreen navigation={{navigate: jest.fn(), replace: jest.fn()} as never} route={{} as never} />);
-    expect(textsOf(renderer)).toContain('First name');
-    expect(textsOf(renderer)).toContain('Create your account');
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'First name'}).length).toBeGreaterThan(0);
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'Email address'}).length).toBeGreaterThan(0);
+    expect(textsOf(renderer)).toContain('Create an account');
     expect(renderer.root.findByProps({accessibilityLabel: 'Show: Password'})).toBeTruthy();
     expect(textsOf(renderer)).not.toContain('Prénom');
   });

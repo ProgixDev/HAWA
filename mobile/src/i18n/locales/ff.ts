@@ -223,9 +223,24 @@ export const ff = {
       systemDescription: 'Huutin wolde telefon'
     }
   },
+  profileSwitch: {
+    switchTo: 'Yaltin e profil {{name}}',
+    backToMine: 'Ruttito e profil am',
+    herSpace: 'Nokkuure {{name}}',
+    separateSpace: 'Nokkuure mum, ceertunde e maaɗa',
+  },
+
+  discover: {
+    title: 'Tawtu',
+    daughterTitle: 'AWA ngam ɓiɗɗo am debbo',
+    partnerTitle: 'AWA ngam gorko am',
+    daughterCaption: 'Ndaaru geɗal mum e nokkuure mum',
+    partnerCaption: 'Tawtu maandeeji ɗi cuɓataa',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Ɓanndu maa, laawol maa, diina maa ✨',
+    subtitleOwner: 'Ɓanndu maa, laawol maa, diina maa',
     subtitleDaughter: 'Profil debbo am',
     nextPeriodLabel: 'Mensturasiyoŋ jokkotoondi',
     fertileWindowLabel: 'Wakkati ɓesngu',
@@ -248,43 +263,43 @@ export const ff = {
     tipChipLabel: 'Anndinol ñalnde',
     phase: {
       menstruation: {
-        message: 'Semmbe maa hoyni jooni — nyaamu, reenee hoore maa e moƴƴere.',
+        message: 'Semmbe ɗon ɓuri famɗude: hoolu.',
         energy: 'Famɗi',
         mood: 'Ɓuuɓri',
         tip: 'Nyaamu e wulɓe'
       },
       follicular: {
-        message: 'Semmbe maa fuɗɗii ɓeydaago ndanndaa — wakkati moƴƴum ngam huunde hoore maa.',
+        message: 'Semmbe maaɗa ɗon ruttito seeɗa seeɗa.',
         energy: 'Ɓeydoto',
         mood: 'Ɓuuɓɗum',
         tip: 'Yarnu ndiyam'
       },
       fertile: {
-        message: 'Wakkati ɓesngu maa fuɗɗii — hoolaa e ko ɓanndu maa hollata.',
+        message: 'Wakkati ɓiyaago maaɗa fuɗɗii.',
         energy: 'Ɓurɗum',
         mood: 'Hoolaaɗum',
         tip: 'Heɓu hoore maa'
       },
       ovulation: {
-        message: 'Ovulasiyoŋ ɗon ndaarata hannde, semmbe maa ɗon e ɓurngo.',
+        message: 'Ovulation ina yiɗaa hannde.',
         energy: 'Ɓurɗum',
         mood: 'Nuurɗum',
         tip: 'Yahu ɓuuɓri'
       },
       luteal: {
-        message: 'Ɓanndu maa ɗon taskaa sikl hesere — reenee hoore maa.',
+        message: 'Ɓanndu maaɗa ɗon taskano ndungu kesum.',
         energy: 'Ɗon wayla',
         mood: 'Miijo hoore',
         tip: 'Ɓuuɓri e deeƴre'
       },
       pregnancy: {
-        message: 'Ɓanndu maa ɗon wallita nder koo ko ngaɗata — reenee hoore maa no haani.',
+        message: 'Reen ko ɓanndu maaɗa, laawol e laawol.',
         energy: 'Ɗon wayla',
         mood: 'Hakkiilo',
         tip: 'Nyaamu foti'
       },
       postpartum: {
-        message: 'Ɓanndu maa ɗon jokkita cellugo — hoolaa e munyal.',
+        message: 'Ɓanndu maaɗa ɗon sellitoo: hoolu e fowtaago.',
         energy: 'Ɓuuɓɗum',
         mood: 'Munyaaɗum',
         tip: 'Walliinde e nyaamu'
@@ -555,6 +570,7 @@ export const ff = {
     additionalNotesSubtitle: 'Ɓeydu wiɣtere si a yiɗi.',
     notesPlaceholder: 'Winndu ɗo...',
     saveMySymptoms: 'Mooftu maandeeji am',
+    noSymptoms: 'Alaa maande',
     clearSubject: 'maandeeji ɗin',
     savedToast: 'Maandeeji mooftaama moƴƴum ✨'
   },
@@ -1458,6 +1474,12 @@ export const ff = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA ngam ɓiɗɗo am debbo',
+      daughterText: 'Ndaaru geɗal ɓiɗɗo maaɗa e profil mum: keɓal mum ceerdi e maaɗa. Yaltin hakkunde profil e tuttugol gootol.',
+      partnerTitle: 'AWA ngam gorko am',
+      partnerText: 'Tawtu e gorko maaɗa tan maandeeji ɗi cuɓataa. Walaa ko tawtotoo si a ɓiiɗaaki.',
+    },
     aboutAwaSubtitle: 'Verisoŋ, ɗabaaɗi sariya, suuɗal e ko app ndee yiɗi',
     aboutAwaTitle: 'Ko jowi AWA',
     appearanceSubtitle: 'Temmaaji, ɓaleeji, hollirgo e ɗemngal',
@@ -1481,12 +1503,13 @@ export const ff = {
     moreSectionSubtitle: 'Walliinde, habaru ko jowi AWA e hoodugo sesiyon maa.',
     moreSectionTitle: 'Ko ɓuri',
     myInformationSubtitle: 'Habaru maa fuu ko ɓuri nafugo, ɗaɓɓitaama bɔɗɗum.',
-    myInformationTitle: 'Habaru am',
+    myInformationTitle: 'Teelte',
     myObjective: 'Ko mi yiɗi',
     myProfileEyebrow: 'PROFIL AM',
     none: 'Alaa',
     notConfigured: 'Waɗaaka',
     notProvided: 'Waatiraaka',
+    optional: 'A yiɗi tan',
     notProvidedFeminine: 'Waatiraaka',
     predictionsUnavailable: 'Ko wayli jaŋtaaka — data ɓuri walaa',
     notProvidedPlural: 'Waatiraaka',
@@ -7459,6 +7482,7 @@ export const ff = {
       helpModalCloseAccessibility: 'Maɗɗu'
     }
   },  security: {
+    tooManyAttempts: 'Jarribooji ɗuuɗɗi ko. Jarrib ɓuy ɓaawo minti {{minutes}}.',
     incorrectCode: 'PIN wooɗaa. Haɓɓitin.',
     genericError: 'Ko woni waɗii. Haɓɓitin.',
     codesDontMatch: 'Koode ɗiin ngaddaaki. Fuɗɗu fahin.',
@@ -7536,6 +7560,16 @@ export const ff = {
     disableAction: 'Maaya {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biyometirik ngam geɗe sutaaɗe',
+    privateBiometricSubtitle: 'Uddit nguurndam suturaaɗam, ɗerewol e foto sutaaɗe, a winndaay koode maa. Koode ndee hoosay wonnde ballal.',
+    crashReports: {
+      title: 'Ɗerewol fitinaaji',
+      subtitle: 'Nelaa ɗerewol lollirɗo to AWA maɓɓi.',
+      sheetTitle: 'Wallitu hesɗitingo AWA?',
+      sheetBody: 'To AWA maɓɓi ɓaawo anndaaki, ɗerewol teknik lollirɗo hoosay nelaama e amen ngam hesɗitingo ko woni. Walla fote kabaaruuji cellal maa walla ko winndu maa. A waawi hesɗitinde miijo maa nder Suturo e Reeneego.',
+      sheetEnable: 'Huutinirgo',
+      sheetDecline: 'Aa’a, a jaaraama',
+    },
     backA11y: 'Rutto',
     title: 'Suuɗu & Hisnugol',
     subtitle: 'Data maa, suuɗu maa, suɓtal maa',
@@ -7751,8 +7785,8 @@ export const ff = {
   },
   personalInformation: {
     title: 'Humpito maa',
-    subtitle: 'Hakkil humpito maa adannde 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Hakkil humpito maa adannde',
+    greeting: 'Salam!',
     intro: 'Humpito ndee ɗon kuutiniree ngam waɗugo AWA maa.',
     addPhoto: 'Ɓeydu foto',
     editPhoto: 'Wutta foto',

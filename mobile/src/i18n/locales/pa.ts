@@ -247,9 +247,24 @@ export const pa = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} ਦੀ ਪ੍ਰੋਫਾਈਲ \'ਤੇ ਜਾਓ',
+    backToMine: 'ਮੇਰੀ ਪ੍ਰੋਫਾਈਲ \'ਤੇ ਵਾਪਸ ਜਾਓ',
+    herSpace: '{{name}} ਦੀ ਥਾਂ',
+    separateSpace: 'ਉਸ ਦੀ ਆਪਣੀ ਥਾਂ, ਤੁਹਾਡੇ ਤੋਂ ਵੱਖਰੀ',
+  },
+
+  discover: {
+    title: 'ਖੋਜੋ',
+    daughterTitle: 'ਮੇਰੀ ਧੀ ਲਈ AWA',
+    partnerTitle: 'ਮੇਰੇ ਪਤੀ ਲਈ AWA',
+    daughterCaption: 'ਉਸ ਦਾ ਚੱਕਰ ਉਸ ਦੀ ਆਪਣੀ ਥਾਂ ਵਿੱਚ ਵੇਖੋ',
+    partnerCaption: 'ਤੁਹਾਡੇ ਚੁਣੇ ਸੰਕੇਤਕ ਸਾਂਝੇ ਕਰੋ',
+  },
+
   cycleHome: {
     greeting: 'ਅਸਸਲਾਮੁ ਅਲੈਕੁਮ,',
-    subtitleOwner: 'ਤੁਹਾਡਾ ਸਰੀਰ, ਤੁਹਾਡੀ ਲੈਅ, ਤੁਹਾਡਾ ਈਮਾਨ ✨',
+    subtitleOwner: 'ਤੁਹਾਡਾ ਸਰੀਰ, ਤੁਹਾਡੀ ਲੈਅ, ਤੁਹਾਡਾ ਈਮਾਨ',
     subtitleDaughter: 'ਮੇਰੀ ਧੀ ਦੀ ਪ੍ਰੋਫ਼ਾਈਲ',
     nextPeriodLabel: 'ਅਗਲੀ ਮਾਹਵਾਰੀ',
     fertileWindowLabel: 'ਉਪਜਾਊ ਸਮਾਂ',
@@ -271,13 +286,13 @@ export const pa = {
     moodChipLabel: 'ਮੂਡ',
     tipChipLabel: 'ਅੱਜ ਦੀ ਸਲਾਹ',
     phase: {
-      menstruation: {message: 'ਇਸ ਵੇਲੇ ਤੁਹਾਡੀ ਤਾਕਤ ਘੱਟ ਮਹਿਸੂਸ ਹੋ ਸਕਦੀ ਹੈ — ਆਰਾਮ ਕਰਨ ਲਈ ਸਮਾਂ ਕੱਢੋ ਅਤੇ ਆਪਣੇ ਨਾਲ ਨਰਮੀ ਨਾਲ ਪੇਸ਼ ਆਓ।', energy: 'ਘੱਟ', mood: 'ਸੰਵੇਦਨਸ਼ੀਲ', tip: 'ਆਰਾਮ ਅਤੇ ਗਰਮਾਹਟ'},
-      follicular: {message: 'ਤੁਹਾਡੀ ਤਾਕਤ ਹੌਲੀ-ਹੌਲੀ ਵਧ ਰਹੀ ਹੈ — ਆਪਣੇ ਆਪ ਨਾਲ ਦੁਬਾਰਾ ਜੁੜਨ ਦਾ ਚੰਗਾ ਸਮਾਂ ਹੈ।', energy: 'ਵਧ ਰਹੀ', mood: 'ਸ਼ਾਂਤ', tip: 'ਪਾਣੀ ਪੀਂਦੇ ਰਹੋ'},
-      fertile: {message: 'ਤੁਹਾਡਾ ਉਪਜਾਊ ਸਮਾਂ ਸ਼ੁਰੂ ਹੋ ਗਿਆ ਹੈ — ਆਪਣੇ ਸਰੀਰ ਦੇ ਸੰਕੇਤਾਂ ਵੱਲ ਧਿਆਨ ਦਿੰਦੇ ਰਹੋ।', energy: 'ਜ਼ਿਆਦਾ', mood: 'ਆਤਮ-ਵਿਸ਼ਵਾਸ ਭਰਪੂਰ', tip: 'ਆਪਣੀ ਸੁਣੋ'},
-      ovulation: {message: 'ਅੱਜ ਓਵੂਲੇਸ਼ਨ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਹੈ ਅਤੇ ਤੁਹਾਡੀ ਤਾਕਤ ਸਿਖਰ ਤੇ ਹੈ।', energy: 'ਜ਼ਿਆਦਾ', mood: 'ਖਿੜਿਆ ਹੋਇਆ', tip: 'ਹੌਲੀ-ਹੌਲੀ ਹਿਲੋ-ਜੁਲੋ'},
-      luteal: {message: 'ਤੁਹਾਡਾ ਸਰੀਰ ਨਵੇਂ ਚੱਕਰ ਲਈ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ — ਆਪਣੇ ਨਾਲ ਨਰਮੀ ਨਾਲ ਪੇਸ਼ ਆਓ।', energy: 'ਬਦਲਦੀ', mood: 'ਅੰਤਰਮੁਖੀ', tip: 'ਨਰਮੀ ਅਤੇ ਸ਼ਾਂਤੀ'},
-      pregnancy: {message: 'ਤੁਹਾਡਾ ਸਰੀਰ ਹਰ ਕਦਮ ਤੇ ਦੇਖਭਾਲ ਨਾਲ ਸਾਥ ਦੇ ਰਿਹਾ ਹੈ — ਆਪਣਾ ਚੰਗੀ ਤਰ੍ਹਾਂ ਖ਼ਿਆਲ ਰੱਖੋ।', energy: 'ਬਦਲਦੀ', mood: 'ਸੁਚੇਤ', tip: 'ਨਿਯਮਿਤ ਆਰਾਮ'},
-      postpartum: {message: 'ਤੁਹਾਡਾ ਸਰੀਰ ਠੀਕ ਹੋਣਾ ਜਾਰੀ ਰੱਖ ਰਿਹਾ ਹੈ — ਆਪਣੇ ਆਪ ਨੂੰ ਸਮਾਂ ਦਿਓ।', energy: 'ਹਲਕੀ', mood: 'ਸਬਰ ਵਾਲਾ', tip: 'ਸਹਾਰਾ ਅਤੇ ਆਰਾਮ'},
+      menstruation: {message: 'ਘੱਟ ਊਰਜਾ: ਆਰਾਮ ਕਰੋ।', energy: 'ਘੱਟ', mood: 'ਸੰਵੇਦਨਸ਼ੀਲ', tip: 'ਆਰਾਮ ਅਤੇ ਗਰਮਾਹਟ'},
+      follicular: {message: 'ਤੁਹਾਡੀ ਊਰਜਾ ਹੌਲੀ-ਹੌਲੀ ਵਾਪਸ ਆ ਰਹੀ ਹੈ।', energy: 'ਵਧ ਰਹੀ', mood: 'ਸ਼ਾਂਤ', tip: 'ਪਾਣੀ ਪੀਂਦੇ ਰਹੋ'},
+      fertile: {message: 'ਤੁਹਾਡੀ ਉਪਜਾਊ ਵਿੰਡੋ ਸ਼ੁਰੂ ਹੋ ਗਈ ਹੈ।', energy: 'ਜ਼ਿਆਦਾ', mood: 'ਆਤਮ-ਵਿਸ਼ਵਾਸ ਭਰਪੂਰ', tip: 'ਆਪਣੀ ਸੁਣੋ'},
+      ovulation: {message: 'ਅੱਜ ਓਵੂਲੇਸ਼ਨ ਦੀ ਉਮੀਦ ਹੈ।', energy: 'ਜ਼ਿਆਦਾ', mood: 'ਖਿੜਿਆ ਹੋਇਆ', tip: 'ਹੌਲੀ-ਹੌਲੀ ਹਿਲੋ-ਜੁਲੋ'},
+      luteal: {message: 'ਤੁਹਾਡਾ ਸਰੀਰ ਨਵੇਂ ਚੱਕਰ ਦੀ ਤਿਆਰੀ ਕਰ ਰਿਹਾ ਹੈ।', energy: 'ਬਦਲਦੀ', mood: 'ਅੰਤਰਮੁਖੀ', tip: 'ਨਰਮੀ ਅਤੇ ਸ਼ਾਂਤੀ'},
+      pregnancy: {message: 'ਆਪਣਾ ਖ਼ਿਆਲ ਰੱਖੋ, ਇੱਕ-ਇੱਕ ਕਦਮ।', energy: 'ਬਦਲਦੀ', mood: 'ਸੁਚੇਤ', tip: 'ਨਿਯਮਿਤ ਆਰਾਮ'},
+      postpartum: {message: 'ਤੁਹਾਡਾ ਸਰੀਰ ਠੀਕ ਹੋ ਰਿਹਾ ਹੈ: ਆਪਣੇ ਆਪ ਨੂੰ ਆਰਾਮ ਦਿਓ।', energy: 'ਹਲਕੀ', mood: 'ਸਬਰ ਵਾਲਾ', tip: 'ਸਹਾਰਾ ਅਤੇ ਆਰਾਮ'},
     },
     mood: {
       veryGood: 'ਬਹੁਤ ਵਧੀਆ',
@@ -542,6 +557,7 @@ export const pa = {
     additionalNotesSubtitle: 'ਜੇ ਚਾਹੋ ਤਾਂ ਟਿੱਪਣੀ ਜੋੜੋ।',
     notesPlaceholder: 'ਇੱਥੇ ਲਿਖੋ...',
     saveMySymptoms: 'ਮੇਰੇ ਲੱਛਣ ਸੰਭਾਲੋ',
+    noSymptoms: 'ਕੋਈ ਲੱਛਣ ਨਹੀਂ',
     clearSubject: 'ਇਹ ਲੱਛਣ',
     savedToast: 'ਲੱਛਣ ਸਫ਼ਲਤਾ ਨਾਲ ਸੰਭਾਲੇ ਗਏ ✨',
   },
@@ -1418,6 +1434,12 @@ export const pa = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'ਮੇਰੀ ਧੀ ਲਈ AWA',
+      daughterText: 'ਆਪਣੀ ਧੀ ਦਾ ਚੱਕਰ ਉਸ ਦੀ ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਵਿੱਚ ਵੇਖੋ: ਉਸ ਦਾ ਡੇਟਾ ਤੁਹਾਡੇ ਡੇਟਾ ਤੋਂ ਵੱਖਰਾ ਰਹਿੰਦਾ ਹੈ। ਇੱਕ ਟੈਪ ਵਿੱਚ ਪ੍ਰੋਫਾਈਲ ਬਦਲੋ।',
+      partnerTitle: 'ਮੇਰੇ ਪਤੀ ਲਈ AWA',
+      partnerText: 'ਪਤੀ ਨਾਲ ਸਿਰਫ਼ ਆਪਣੇ ਚੁਣੇ ਸੰਕੇਤਕ ਸਾਂਝੇ ਕਰੋ। ਤੁਸੀਂ ਚਾਲੂ ਨਾ ਕਰੋ ਤਾਂ ਕੁਝ ਵੀ ਸਾਂਝਾ ਨਹੀਂ ਹੁੰਦਾ।',
+    },
     aboutAwaSubtitle: 'ਵਰਜ਼ਨ, ਕਾਨੂੰਨੀ ਸੂਚਨਾਵਾਂ, ਨਿੱਜਤਾ ਅਤੇ ਐਪ ਦੇ ਮੁੱਲ',
     aboutAwaTitle: 'AWA ਬਾਰੇ',
     appearanceSubtitle: 'ਥੀਮ, ਰੰਗ, ਡਿਸਪਲੇ ਅਤੇ ਭਾਸ਼ਾ',
@@ -1441,12 +1463,13 @@ export const pa = {
     moreSectionSubtitle: 'ਮਦਦ, AWA ਬਾਰੇ ਜਾਣਕਾਰੀ ਅਤੇ ਆਪਣਾ ਸੈਸ਼ਨ ਸੰਭਾਲਣਾ।',
     moreSectionTitle: 'ਹੋਰ',
     myInformationSubtitle: 'ਤੁਹਾਡੀ ਸਾਰੀ ਜ਼ਰੂਰੀ ਜਾਣਕਾਰੀ, ਸਾਦੇ ਢੰਗ ਨਾਲ ਸਜਾਈ ਹੋਈ।',
-    myInformationTitle: 'ਮੇਰੀ ਜਾਣਕਾਰੀ',
+    myInformationTitle: 'ਸੈਟਿੰਗਾਂ',
     myObjective: 'ਮੇਰਾ ਉਦੇਸ਼',
     myProfileEyebrow: 'ਮੇਰੀ ਪ੍ਰੋਫ਼ਾਈਲ',
     none: 'ਕੋਈ ਨਹੀਂ',
     notConfigured: 'ਸੈੱਟ ਨਹੀਂ ਕੀਤਾ',
     notProvided: 'ਦਿੱਤਾ ਨਹੀਂ ਗਿਆ',
+    optional: 'ਵਿਕਲਪਿਕ',
     notProvidedFeminine: 'ਦਿੱਤੀ ਨਹੀਂ ਗਈ',
     predictionsUnavailable: 'ਅੰਦਾਜ਼ੇ ਉਪਲਬਧ ਨਹੀਂ — ਲੋੜੀਂਦਾ ਡਾਟਾ ਨਹੀਂ',
     notProvidedPlural: 'ਦਿੱਤੇ ਨਹੀਂ ਗਏ',
@@ -6964,6 +6987,7 @@ export const pa = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'ਬਹੁਤ ਜ਼ਿਆਦਾ ਕੋਸ਼ਿਸ਼ਾਂ। {{minutes}} ਮਿੰਟ ਬਾਅਦ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
     incorrectCode: 'PIN ਗਲਤ ਹੈ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
     genericError: 'ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
     codesDontMatch: 'ਕੋਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ। ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ।',
@@ -7049,6 +7073,16 @@ export const pa = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'ਨਿੱਜੀ ਹਿੱਸਿਆਂ ਲਈ ਬਾਇਓਮੈਟ੍ਰਿਕ',
+    privateBiometricSubtitle: 'ਕੋਡ ਲਿਖੇ ਬਿਨਾਂ ਅੰਤਰੰਗ ਜੀਵਨ, ਨੋਟ ਅਤੇ ਨਿੱਜੀ ਫ਼ੋਟੋਆਂ ਖੋਲ੍ਹੋ। ਕੋਡ ਬੈਕਅੱਪ ਵਜੋਂ ਉਪਲਬਧ ਰਹਿੰਦਾ ਹੈ।',
+    crashReports: {
+      title: 'ਗਲਤੀ ਰਿਪੋਰਟਾਂ',
+      subtitle: 'AWA ਬੰਦ ਹੋਵੇ ਤਾਂ ਗੁਮਨਾਮ ਰਿਪੋਰਟ ਭੇਜੋ।',
+      sheetTitle: 'AWA ਨੂੰ ਬਿਹਤਰ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰੋਗੇ?',
+      sheetBody: 'ਜੇ AWA ਅਚਾਨਕ ਬੰਦ ਹੋ ਜਾਵੇ, ਤਾਂ ਸਮੱਸਿਆ ਠੀਕ ਕਰਨ ਲਈ ਸਾਨੂੰ ਗੁਮਨਾਮ ਤਕਨੀਕੀ ਰਿਪੋਰਟ ਭੇਜੀ ਜਾ ਸਕਦੀ ਹੈ। ਤੁਹਾਡਾ ਸਿਹਤ ਡੇਟਾ ਜਾਂ ਤੁਹਾਡੀ ਲਿਖੀ ਜਾਣਕਾਰੀ ਕਦੇ ਨਹੀਂ। ਤੁਸੀਂ ਗੋਪਨੀਯਤਾ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿੱਚ ਫ਼ੈਸਲਾ ਬਦਲ ਸਕਦੇ ਹੋ।',
+      sheetEnable: 'ਚਾਲੂ ਕਰੋ',
+      sheetDecline: 'ਨਹੀਂ, ਧੰਨਵਾਦ',
+    },
     backA11y: 'ਪਿੱਛੇ',
     title: 'ਨਿੱਜਤਾ ਅਤੇ ਸੁਰੱਖਿਆ',
     subtitle: 'ਤੁਹਾਡਾ ਡੇਟਾ, ਤੁਹਾਡੀ ਨਿੱਜਤਾ, ਤੁਹਾਡੀ ਚੋਣ',
@@ -7289,8 +7323,8 @@ export const pa = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'ਨਿੱਜੀ ਜਾਣਕਾਰੀ',
-    subtitle: 'ਆਪਣੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਸੰਭਾਲੋ 🌸',
-    greeting: 'ਸਲਾਮ! 💜',
+    subtitle: 'ਆਪਣੀ ਮੁੱਢਲੀ ਜਾਣਕਾਰੀ ਸੰਭਾਲੋ',
+    greeting: 'ਸਲਾਮ!',
     intro: 'ਇਹ ਜਾਣਕਾਰੀ AWA ਵਿੱਚ ਤੁਹਾਡੇ ਅਨੁਭਵ ਨੂੰ ਤੁਹਾਡੇ ਅਨੁਸਾਰ ਢਾਲਣ ਲਈ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।',
     addPhoto: 'ਫੋਟੋ ਜੋੜੋ',
     editPhoto: 'ਫੋਟੋ ਬਦਲੋ',

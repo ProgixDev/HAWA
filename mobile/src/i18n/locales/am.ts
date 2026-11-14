@@ -237,9 +237,24 @@ export const am = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'ወደ የ{{name}} መገለጫ ቀይር',
+    backToMine: 'ወደ መገለጫዬ ተመለስ',
+    herSpace: 'የ{{name}} ቦታ',
+    separateSpace: 'የራሷ ቦታ፣ ከአንቺ የተለየ',
+  },
+
+  discover: {
+    title: 'አግኝ',
+    daughterTitle: 'AWA ለልጄ',
+    partnerTitle: 'AWA ለባሌ',
+    daughterCaption: 'ዑደቷን በራሷ ቦታ ተከታተይ',
+    partnerCaption: 'የምትመርጪያቸውን ምልክቶች አጋሪ',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'ሰውነትሽ፣ ሪትምሽ፣ እምነትሽ ✨',
+    subtitleOwner: 'ሰውነትሽ፣ ሪትምሽ፣ እምነትሽ',
     subtitleDaughter: 'የልጄ መገለጫ',
     nextPeriodLabel: 'የሚቀጥለው የወር አበባ',
     fertileWindowLabel: 'ለም ጊዜ',
@@ -261,13 +276,13 @@ export const am = {
     moodChipLabel: 'ስሜት',
     tipChipLabel: 'የዕለቱ ምክር',
     phase: {
-      menstruation: {message: 'ጉልበትሽ አሁን ዝቅ ሊል ይችላል — ዕረፊ እና ለራስሽ ገር ሁኚ።', energy: 'ዝቅተኛ', mood: 'ስሜታዊ', tip: 'እረፍት እና ሙቀት'},
-      follicular: {message: 'ጉልበትሽ ቀስ በቀስ እየጨመረ ነው — ከራስሽ ጋር ለመገናኘት ጥሩ ጊዜ።', energy: 'እየጨመረ', mood: 'ረጋ ያለ', tip: 'በቂ ውሃ ጠጪ'},
-      fertile: {message: 'ለም ጊዜሽ ጀምሯል — የሰውነትሽን ምልክቶች ተከታተዪ።', energy: 'ከፍተኛ', mood: 'በራስ መተማመን', tip: 'ራስሽን አዳምጪ'},
-      ovulation: {message: 'እንቁላል መልቀቅ ዛሬ ይጠበቃል፣ ጉልበትሽም ከፍተኛ ላይ ነው።', energy: 'ከፍተኛ', mood: 'ብሩህ', tip: 'በቀስታ ተንቀሳቀሺ'},
-      luteal: {message: 'ሰውነትሽ ለአዲስ ዑደት እየተዘጋጀ ነው — ለራስሽ ገር ሁኚ።', energy: 'ተለዋዋጭ', mood: 'ውስጠ-ተመልካች', tip: 'ልስላሴ እና መረጋጋት'},
-      pregnancy: {message: 'ሰውነትሽ እያንዳንዱን ደረጃ በእንክብካቤ እየደገፈ ነው — ራስሽን በደንብ ተንከባከቢ።', energy: 'ተለዋዋጭ', mood: 'ትኩረት ያለው', tip: 'መደበኛ እረፍት'},
-      postpartum: {message: 'ሰውነትሽ ማገገሙን ቀጥሏል — ለራስሽ ትዕግሥት ስጪ።', energy: 'ለስላሳ', mood: 'ታጋሽ', tip: 'ድጋፍ እና እረፍት'},
+      menstruation: {message: 'ኃይል ዝቅተኛ ነው፤ አርፊ።', energy: 'ዝቅተኛ', mood: 'ስሜታዊ', tip: 'እረፍት እና ሙቀት'},
+      follicular: {message: 'ኃይልሽ ቀስ በቀስ እየጨመረ ነው።', energy: 'እየጨመረ', mood: 'ረጋ ያለ', tip: 'በቂ ውሃ ጠጪ'},
+      fertile: {message: 'የለምነት ጊዜሽ ጀምሯል።', energy: 'ከፍተኛ', mood: 'በራስ መተማመን', tip: 'ራስሽን አዳምጪ'},
+      ovulation: {message: 'እንቁላል መውጣት ዛሬ ይጠበቃል።', energy: 'ከፍተኛ', mood: 'ብሩህ', tip: 'በቀስታ ተንቀሳቀሺ'},
+      luteal: {message: 'ሰውነትሽ አዲስ ዑደት እያዘጋጀ ነው።', energy: 'ተለዋዋጭ', mood: 'ውስጠ-ተመልካች', tip: 'ልስላሴ እና መረጋጋት'},
+      pregnancy: {message: 'ራስሽን ተንከባከቢ፤ አንድ እርምጃ በአንድ ጊዜ።', energy: 'ተለዋዋጭ', mood: 'ትኩረት ያለው', tip: 'መደበኛ እረፍት'},
+      postpartum: {message: 'ሰውነትሽ እያገገመ ነው፤ እረፍት ስጪው።', energy: 'ለስላሳ', mood: 'ታጋሽ', tip: 'ድጋፍ እና እረፍት'},
     },
     mood: {
       veryGood: 'በጣም ጥሩ',
@@ -532,6 +547,7 @@ export const am = {
     additionalNotesSubtitle: 'ከፈለግሽ አስተያየት ጨምሪ።',
     notesPlaceholder: 'እዚህ ጻፊ...',
     saveMySymptoms: 'ምልክቶቼን አስቀምጪ',
+    noSymptoms: 'ምንም ምልክት የለም',
     clearSubject: 'እነዚህ ምልክቶች',
     savedToast: 'ምልክቶች በተሳካ ሁኔታ ተቀምጠዋል ✨',
   },
@@ -1408,6 +1424,12 @@ export const am = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA ለልጄ',
+      daughterText: 'የልጅሽን ዑደት በራሷ መገለጫ ተከታተይ፤ መረጃዋ ከአንቺ የተለየ ነው። በአንድ ንክኪ በመገለጫዎች መካከል ቀይሪ።',
+      partnerTitle: 'AWA ለባሌ',
+      partnerText: 'የምትመርጪያቸውን ምልክቶች ብቻ ከባልሽ ጋር አጋሪ። ካላበሩት ምንም አይጋራም።',
+    },
     aboutAwaSubtitle: 'ስሪት፣ ሕጋዊ ማሳሰቢያዎች፣ ግላዊነት እና የመተግበሪያው እሴቶች',
     aboutAwaTitle: 'ስለ AWA',
     appearanceSubtitle: 'ገጽታዎች፣ ቀለሞች፣ ማሳያ እና ቋንቋ',
@@ -1431,12 +1453,13 @@ export const am = {
     moreSectionSubtitle: 'እገዛ፣ ስለ AWA መረጃ እና ክፍለ ጊዜሽን ማስተዳደር።',
     moreSectionTitle: 'ተጨማሪ',
     myInformationSubtitle: 'ሁሉም አስፈላጊ መረጃዎችሽ፣ በቀላሉ የተደራጁ።',
-    myInformationTitle: 'መረጃዬ',
+    myInformationTitle: 'ቅንብሮች',
     myObjective: 'ዓላማዬ',
     myProfileEyebrow: 'መገለጫዬ',
     none: 'የለም',
     notConfigured: 'አልተዘጋጀም',
     notProvided: 'አልተሰጠም',
+    optional: 'አማራጭ',
     notProvidedFeminine: 'አልተሰጠም',
     predictionsUnavailable: 'ትንበያዎች አይገኙም — በቂ መረጃ የለም',
     notProvidedPlural: 'አልተሰጡም',
@@ -6919,6 +6942,7 @@ export const am = {
     },
   },
   security: {
+    tooManyAttempts: 'በጣም ብዙ ሙከራዎች። ከ{{minutes}} ደቂቃ በኋላ እንደገና ሞክር።',
     incorrectCode: 'የተሳሳተ ፒን። እንደገና ሞክሪ።',
     genericError: 'የሆነ ስህተት ተፈጥሯል። እንደገና ሞክሪ።',
     codesDontMatch: 'ኮዶቹ አይመሳሰሉም። እንደገና ጀምሪ።',
@@ -7004,6 +7028,16 @@ export const am = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'ለግል ክፍሎች ባዮሜትሪክ',
+    privateBiometricSubtitle: 'ኮድህን ሳትጽፍ የቅርብ ሕይወትን፣ ማስታወሻዎችንና የግል ፎቶዎችን ክፈት። ኮዱ እንደ ተጠባባቂ ይቀራል።',
+    crashReports: {
+      title: 'የስህተት ሪፖርቶች',
+      subtitle: 'AWA ከተዘጋ ስሙ የማይታወቅ ሪፖርት ላክ።',
+      sheetTitle: 'AWAን ለማሻሻል ትረዳለህ?',
+      sheetBody: 'AWA ባልታሰበ ሁኔታ ከተዘጋ፣ ችግሩን ለማስተካከል ስሙ የማይታወቅ የቴክኒክ ሪፖርት ሊላክልን ይችላል። የጤና መረጃህ ወይም የምትጽፈው ፈጽሞ አይላክም። ውሳኔህን በግላዊነትና ደህንነት ውስጥ መቀየር ትችላለህ።',
+      sheetEnable: 'አብራ',
+      sheetDecline: 'አይ፣ አመሰግናለሁ',
+    },
     backA11y: 'ተመለሺ',
     title: 'ግላዊነት እና ደህንነት',
     subtitle: 'መረጃሽ፣ ግላዊነትሽ፣ ምርጫሽ',
@@ -7226,8 +7260,8 @@ export const am = {
 
   personalInformation: {
     title: 'የግል መረጃ',
-    subtitle: 'መሠረታዊ መረጃሽን አስተዳድሪ 🌸',
-    greeting: 'ሰላም! 💜',
+    subtitle: 'መሠረታዊ መረጃሽን አስተዳድሪ',
+    greeting: 'ሰላም!',
     intro: 'ይህ መረጃ በAWA ውስጥ ተሞክሮሽን ለማበጀት ያገለግላል።',
     addPhoto: 'ፎቶ ጨምሪ',
     editPhoto: 'ፎቶ አርሚ',

@@ -223,9 +223,24 @@ export const kab = {
       systemDescription: 'Seqdec tutlayt n tiliɣri'
     }
   },
+  profileSwitch: {
+    switchTo: 'Beddel ɣer umaɣnu n {{name}}',
+    backToMine: 'Uɣal ɣer umaɣnu-iw',
+    herSpace: 'Tallunt n {{name}}',
+    separateSpace: 'Tallunt-is, ur tt-yețțemlil ara d tin-ik',
+  },
+
+  discover: {
+    title: 'Af-d',
+    daughterTitle: 'AWA i yelli',
+    partnerTitle: 'AWA i uḍeggal-iw',
+    daughterCaption: 'Ḍfer azgen-is deg tallunt-is',
+    partnerCaption: 'Bḍu iṭṭafaren i textareḍ',
+  },
+
   cycleHome: {
     greeting: 'Ssalamu ɛlaykum,',
-    subtitleOwner: 'Lǧism-ik, azgen-ik, laman-ik ✨',
+    subtitleOwner: 'Lǧism-ik, azgen-ik, laman-ik',
     subtitleDaughter: 'Amaɣnu n yelli',
     nextPeriodLabel: 'Lḥiḍ d-iteddun',
     fertileWindowLabel: 'Tazmert n usɣal',
@@ -248,43 +263,43 @@ export const kab = {
     tipChipLabel: 'Ladvis n wass',
     phase: {
       menstruation: {
-        message: 'Tazmert-ik tezmer ad tili ddaw tura — eǧǧ iman-ik ad ṛuḥen, ttili d tin yelhan i yiman-ik.',
+        message: 'Tazmert drus: steraḥ.',
         energy: 'Ddaw',
         mood: 'Yewḥel',
         tip: 'Aɣerbal d tazeggaɣt'
       },
       follicular: {
-        message: 'Tazmert-ik tettalay s wudem aleɣwa — ddeqs n lehna i usemlil d yiman-ik.',
+        message: 'Tazmert-ik tettuɣal s wawway.',
         energy: 'Tettalay',
         mood: 'Lehna',
         tip: 'Swu aman'
       },
       fertile: {
-        message: 'Tazmert-ik n usɣal tebda — ɣer lǧism-ik d tiwelhiwin-is.',
+        message: 'Akud n tazmert-ik yebda.',
         energy: 'Tamɛezzut',
         mood: 'S wuḥeqqi',
         tip: 'Ɣer iman-ik'
       },
       ovulation: {
-        message: 'Ovulation yettwarǧa ass-a, tazmert-ik tezga deg uswir ufella.',
+        message: 'Taggelt n tmellalt tettwarǧa ass-a.',
         energy: 'Tamɛezzut',
         mood: 'Yettafaṛ',
         tip: 'Aɣ s ubrid'
       },
       luteal: {
-        message: 'Lǧism-ik yettheggi i usikel amaynut — ttili d tin yelhan i yiman-ik.',
+        message: 'Aɣanib-ik ittheggi azgen amaynut.',
         energy: 'Yettbeddil',
         mood: 'Yettxemmim',
         tip: 'Lehna d usgunfu'
       },
       pregnancy: {
-        message: 'Lǧism-ik yettɛawan yal tamnaḍt s lɛnaya — ɛass ɣef yiman-ik.',
+        message: 'Ɛass iman-ik, aḥric s uḥric.',
         energy: 'Yettbeddil',
         mood: 'Yettɛassa',
         tip: 'Ugdal d yiman'
       },
       postpartum: {
-        message: 'Lǧism-ik yettkemmil ad yeẓẓi — ṣbeṛ i yiman-ik.',
+        message: 'Aɣanib-ik yettuɣal ɣer lehna: efk iman-ik astraḥ.',
         energy: 'Aleɣwa',
         mood: 'Yeṣṣbeṛ',
         tip: 'Tallelt d uɣerbal'
@@ -555,6 +570,7 @@ export const kab = {
     additionalNotesSubtitle: 'Rnu awennit ma tebɣiḍ.',
     notesPlaceholder: 'Aru dagi...',
     saveMySymptoms: 'Sekles tilɣa-inu',
+    noSymptoms: 'Ulac izmalen',
     clearSubject: 'tilɣa-a',
     savedToast: 'Tilɣa ttwaseklasent ✨'
   },
@@ -1458,6 +1474,12 @@ export const kab = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA i yelli',
+      daughterText: 'Ḍfer azgen n yelli-k deg umaɣnu-ines: isefka-ines ttwabeddan ɣef yiwen-ik. Beddel gar yimaɣnuten s yiwen n tmerrit.',
+      partnerTitle: 'AWA i uḍeggal-iw',
+      partnerText: 'Bḍu d uḍeggal-ik kan iṭṭafaren i textareḍ. Ulac ayen ibeddun ma ur tessenfaliḍ ara.',
+    },
     aboutAwaSubtitle: 'Lqem, ilɣa unadi, tabaḍnit d yiqiman n usnas',
     aboutAwaTitle: 'Ɣef AWA',
     appearanceSubtitle: 'Isental, initen, askan d tutlayt',
@@ -1481,12 +1503,13 @@ export const kab = {
     moreSectionSubtitle: 'Tallelt, talɣut ɣef AWA d usefrek n tɣimit-ik.',
     moreSectionTitle: 'Ugar',
     myInformationSubtitle: 'Talɣut-ik meqqren, yettwarrun s wudem fessus.',
-    myInformationTitle: 'Talɣut-iw',
+    myInformationTitle: 'Iɣewwaren',
     myObjective: 'Taɣawsa-iw',
     myProfileEyebrow: 'AMAƔNU-IW',
     none: 'Ulac',
     notConfigured: 'Ur yettwasbadu ara',
     notProvided: 'Ur yettwaḍfer ara',
+    optional: 'Ur yelzem ara',
     notProvidedFeminine: 'Ur yettwaḍfer ara',
     predictionsUnavailable: 'Iceggiɛen ulac-iten — ulac isefka yaɣen',
     notProvidedPlural: 'Ur ttwaḍfern ara',
@@ -7459,6 +7482,7 @@ export const kab = {
       helpModalCloseAccessibility: 'Mdel'
     }
   },  security: {
+    tooManyAttempts: 'Aṭas n tikkal. Ɛreḍ i tikkelt-nniḍen deg {{minutes}} n tisdidin.',
     incorrectCode: 'PIN ur iṣeḥḥ ara. Ɛreḍ tikelt-nniḍen.',
     genericError: 'Yella wayen ur nteddu ara. Ɛreḍ tikelt-nniḍen.',
     codesDontMatch: 'Tingalin ur mṣadent ara. Bdu i tikelt-nniḍen.',
@@ -7536,6 +7560,16 @@ export const kab = {
     disableAction: 'Sens {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biyumitriya i yiḥricen uffiren',
+    privateBiometricSubtitle: 'Ldi tudert tuffirt, tizmilin d tewlafin tuffirin war ma tketbeḍ tangalt. Tangalt tețqim d ameḥrab.',
+    crashReports: {
+      title: 'Iznan n tuccḍiwin',
+      subtitle: 'Azen aneqqis ur nesɛi ara isem ma yețwagem AWA.',
+      sheetTitle: 'Tɛawnem ad nesnerni AWA?',
+      sheetBody: 'Ma yețwagem AWA s wudem uffir, yezmer ad aɣ-yettwazen uneqqis uzmir ur nesɛi ara isem i wakken ad nesewwi ugur. Werǧin isefka-inek n tezmert neɣ ayen i tummeḍ. Tzemreḍ ad tbeddleḍ ṛṛay-ik deg Tabaḍnit d Tɣellist.',
+      sheetEnable: 'Rmed',
+      sheetDecline: 'Ala, tanemmirt',
+    },
     backA11y: 'Uɣal',
     title: 'Tuffirt & aɣellsan',
     subtitle: 'Isefka-nnem, tuffirt-nnem, afran-nnem',
@@ -7751,8 +7785,8 @@ export const kab = {
   },
   personalInformation: {
     title: 'Talɣut tudmawant',
-    subtitle: 'Sefrek talɣut-nnem tazwarant 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Sefrek talɣut-nnem tazwarant',
+    greeting: 'Salam!',
     intro: 'Talɣut-agi tettwaseqdac i usagen n tarmit-nnem deg AWA.',
     addPhoto: 'Rnu tawlaft',
     editPhoto: 'Beddel tawlaft',

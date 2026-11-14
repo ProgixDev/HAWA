@@ -177,7 +177,7 @@ export const daChunk1 = {
 
   cycleHome: {
     greeting: "As-salamu 'alaykum,",
-    subtitleOwner: 'Din krop, din rytme, din tro ✨',
+    subtitleOwner: 'Din krop, din rytme, din tro',
     subtitleDaughter: 'Min datters profil',
     nextPeriodLabel: 'Næste menstruation',
     fertileWindowLabel: 'Fertilt vindue',

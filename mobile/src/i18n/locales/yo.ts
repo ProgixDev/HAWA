@@ -223,9 +223,24 @@ export const yo = {
       systemDescription: 'Lo èdè ẹ̀rọ rẹ'
     }
   },
+  profileSwitch: {
+    switchTo: 'Yipada si profaili {{name}}',
+    backToMine: 'Pada si profaili mi',
+    herSpace: 'Àyè {{name}}',
+    separateSpace: 'Àyè tirẹ̀, yàtọ̀ sí tìrẹ',
+  },
+
+  discover: {
+    title: 'Ṣàwárí',
+    daughterTitle: 'AWA fún ọmọbìnrin mi',
+    partnerTitle: 'AWA fún ọkọ mi',
+    daughterCaption: 'Tẹ̀lé ìyípo rẹ̀ ní àyè tirẹ̀',
+    partnerCaption: 'Pín àwọn àmì tí o yàn',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Ara rẹ, ìrìn rẹ, ìgbàgbọ́ rẹ ✨',
+    subtitleOwner: 'Ara rẹ, ìrìn rẹ, ìgbàgbọ́ rẹ',
     subtitleDaughter: 'Àkọsílẹ̀ ọmọbìnrin mi',
     nextPeriodLabel: 'Oṣù tó ń bọ̀',
     fertileWindowLabel: 'Àkókò ìbímọ',
@@ -248,43 +263,43 @@ export const yo = {
     tipChipLabel: 'Ìmọ̀ràn òní',
     phase: {
       menstruation: {
-        message: 'Agbára rẹ lè dínkù báyìí — gba ìsinmi, kí o sì ṣàánú ara rẹ.',
+        message: 'Agbára kéré: sinmi.',
         energy: 'Kéré',
         mood: 'Ọkàn jẹ́jẹ́',
         tip: 'Ìsinmi àti ooru'
       },
       follicular: {
-        message: 'Agbára rẹ ń padà bọ̀ díẹ̀díẹ̀ — àkókò tó dára láti padà bá ara rẹ ṣe ọ̀rẹ́.',
+        message: 'Agbára rẹ ń padà díẹ̀díẹ̀.',
         energy: 'Ń pọ̀ síi',
         mood: 'Ìbàlẹ̀',
         tip: 'Mu omi dáadáa'
       },
       fertile: {
-        message: 'Àkókò ìbímọ rẹ ti bẹ̀rẹ̀ — fiyè sí àwọn àmì ara rẹ.',
+        message: 'Àkókò ìbímọ rẹ ti bẹ̀rẹ̀.',
         energy: 'Ga',
         mood: 'Ìgbọ́kànlé',
         tip: 'Fetí sí ara rẹ'
       },
       ovulation: {
-        message: 'A retí ovulation lónìí, agbára rẹ sì wà ní òkè.',
+        message: 'A retí ovulation lónìí.',
         energy: 'Ga',
         mood: 'Ayọ̀ tí ń tàn',
         tip: 'Rìn jẹ́jẹ́'
       },
       luteal: {
-        message: 'Ara rẹ ń múra sílẹ̀ fún ìyípo oṣù tuntun — ṣàánú ara rẹ.',
+        message: 'Ara rẹ ń múra àyípo tuntun sílẹ̀.',
         energy: 'Ń yípadà',
         mood: 'Ìrònú inú',
         tip: 'Ìrọ̀rùn àti ìbàlẹ̀'
       },
       pregnancy: {
-        message: 'Ara rẹ ń ṣe atilẹyin fún ìgbésẹ̀ kọ̀ọ̀kan pẹ̀lú ìtọ́jú — tọ́jú ara rẹ dáadáa.',
+        message: 'Tọ́jú ara rẹ, ìgbésẹ̀ kan lẹ́kan.',
         energy: 'Ń yípadà',
         mood: 'Ìfarabalẹ̀',
         tip: 'Ìsinmi déédéé'
       },
       postpartum: {
-        message: 'Ara rẹ ń tẹ̀síwájú láti sàn — ní sùúrù fún ara rẹ.',
+        message: 'Ara rẹ ń gbà ara dà: fún ara rẹ ní ìsinmi.',
         energy: 'Jẹ́jẹ́',
         mood: 'Sùúrù',
         tip: 'Ìrànlọ́wọ́ àti ìsinmi'
@@ -555,6 +570,7 @@ export const yo = {
     additionalNotesSubtitle: 'Fi àkíyèsí kún un tí o bá fẹ́.',
     notesPlaceholder: 'Kọ síbí...',
     saveMySymptoms: 'Fi àwọn àmì àìsàn mi pamọ́',
+    noSymptoms: 'Kò sí àmì àìsàn',
     clearSubject: 'àwọn àmì àìsàn wọ̀nyí',
     savedToast: 'A ti fi àwọn àmì àìsàn pamọ́ ✨'
   },
@@ -1458,6 +1474,12 @@ export const yo = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA fún ọmọbìnrin mi',
+      daughterText: 'Tẹ̀lé ìyípo ọmọbìnrin rẹ ní profaili tirẹ̀: dátà rẹ̀ wà lọ́tọ̀ sí tìrẹ. Yípadà láàrin àwọn profaili pẹ̀lú ìfọwọ́kan kan.',
+      partnerTitle: 'AWA fún ọkọ mi',
+      partnerText: 'Pín àwọn àmì tí o yàn nìkan pẹ̀lú ọkọ rẹ. A kò pín nǹkan kan bí o kò bá tan án.',
+    },
     aboutAwaSubtitle: 'Àtúnse, ìkéde ofin, àṣírí àti àwọn ìlànà app náà',
     aboutAwaTitle: 'Nípa AWA',
     appearanceSubtitle: 'Àwọn àkòrí, àwọ̀, ìfihàn àti èdè',
@@ -1481,12 +1503,13 @@ export const yo = {
     moreSectionSubtitle: 'Ìrànlọ́wọ́, ìsọfúnni nípa AWA àti ṣíṣàkóso àkókò rẹ.',
     moreSectionTitle: 'Àfikún',
     myInformationSubtitle: 'Gbogbo ìsọfúnni pàtàkì rẹ, tí a tò lọ́nà tó rọrùn.',
-    myInformationTitle: 'Ìsọfúnni mi',
+    myInformationTitle: 'Ètò',
     myObjective: 'Ète mi',
     myProfileEyebrow: 'PROFAILI MI',
     none: 'Kò sí',
     notConfigured: 'A kò tíì ṣètò',
     notProvided: 'A kò fi sí',
+    optional: 'Àṣàyàn',
     notProvidedFeminine: 'A kò fi sí',
     predictionsUnavailable: 'Àwọn àsọtẹ́lẹ̀ kò sí — ìsọfúnni kò pọ̀ tó',
     notProvidedPlural: 'A kò fi sí',
@@ -7459,6 +7482,7 @@ export const yo = {
       helpModalCloseAccessibility: 'Padé'
     }
   },  security: {
+    tooManyAttempts: 'Àwọn ìgbìyànjú pọ̀jù. Tún gbìyànjú lẹ́yìn ìṣẹ́jú {{minutes}}.',
     incorrectCode: 'PIN kò tọ̀nà. Gbìyànjú lẹ́ẹ̀kan sí i.',
     genericError: 'Nǹkan kan kò lọ bó ṣe yẹ. Gbìyànjú lẹ́ẹ̀kan sí i.',
     codesDontMatch: 'Àwọn kóòdù kò dọ́gba. Bẹ̀rẹ̀ lẹ́ẹ̀kan sí i.',
@@ -7536,6 +7560,16 @@ export const yo = {
     disableAction: 'Pa {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics fún àwọn ẹ̀ka àṣírí',
+    privateBiometricSubtitle: 'Ṣí ayé àdáni, àkọsílẹ̀ àti àwọn fọ́tò àṣírí láì tẹ kóòdù rẹ. Kóòdù náà wà bí ìrànlọ́wọ́ àfikún.',
+    crashReports: {
+      title: 'Àwọn ìròyìn àṣìṣe',
+      subtitle: 'Fi ìròyìn aláìlórúkọ ránṣẹ́ tí AWA bá tìpa.',
+      sheetTitle: 'Ṣèrànwọ́ láti mú AWA dára síi?',
+      sheetBody: 'Tí AWA bá tìpa lójijì, a lè fi ìròyìn ìmọ̀-ẹ̀rọ aláìlórúkọ ránṣẹ́ sí wa kí a lè tún ìṣòro náà ṣe. Kò jẹ́ dátà ìlera rẹ tàbí ohun tí o kọ láéláé. O lè yí ìpinnu rẹ padà nínú Àṣírí àti Ààbò.',
+      sheetEnable: 'Tàn án',
+      sheetDecline: 'Rárá, ẹ ṣé',
+    },
     backA11y: 'Padà',
     title: 'Àṣírí àti Ààbò',
     subtitle: 'Ìwífún rẹ, àṣírí rẹ, yíyàn rẹ',
@@ -7751,8 +7785,8 @@ export const yo = {
   },
   personalInformation: {
     title: 'Ìwífún ara ẹni',
-    subtitle: 'Ṣàkóso ìwífún ipilẹ̀ rẹ 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Ṣàkóso ìwífún ipilẹ̀ rẹ',
+    greeting: 'Salam!',
     intro: 'A ń lo ìwífún yìí láti ṣe ìrírí rẹ nínú AWA ní àdáni.',
     addPhoto: 'Fi fọ́tò kún un',
     editPhoto: 'Ṣàtúnṣe fọ́tò',

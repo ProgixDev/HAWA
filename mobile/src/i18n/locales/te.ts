@@ -248,9 +248,24 @@ export const te = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} ప్రొఫైల్‌కు మారండి',
+    backToMine: 'నా ప్రొఫైల్‌కు తిరిగి వెళ్లండి',
+    herSpace: '{{name}} స్థలం',
+    separateSpace: 'ఆమె సొంత స్థలం, మీ నుండి వేరుగా',
+  },
+
+  discover: {
+    title: 'కనుగొనండి',
+    daughterTitle: 'నా కూతురి కోసం AWA',
+    partnerTitle: 'నా భర్త కోసం AWA',
+    daughterCaption: 'ఆమె చక్రాన్ని ఆమె సొంత స్థలంలో అనుసరించండి',
+    partnerCaption: 'మీరు ఎంచుకున్న సూచికలను పంచుకోండి',
+  },
+
   cycleHome: {
     greeting: 'అస్సలాము అలైకుమ్,',
-    subtitleOwner: 'మీ శరీరం, మీ లయ, మీ విశ్వాసం ✨',
+    subtitleOwner: 'మీ శరీరం, మీ లయ, మీ విశ్వాసం',
     subtitleDaughter: 'నా కూతురి ప్రొఫైల్',
     nextPeriodLabel: 'తర్వాతి నెలసరి',
     fertileWindowLabel: 'సారవంతమైన కాలం',
@@ -272,13 +287,13 @@ export const te = {
     moodChipLabel: 'మానసిక స్థితి',
     tipChipLabel: 'ఈ రోజు చిట్కా',
     phase: {
-      menstruation: {message: 'ఇప్పుడు మీ శక్తి తక్కువగా అనిపించవచ్చు — విశ్రాంతి తీసుకోండి, మీ పట్ల మృదువుగా ఉండండి.', energy: 'తక్కువ', mood: 'సున్నితం', tip: 'విశ్రాంతి & వెచ్చదనం'},
-      follicular: {message: 'మీ శక్తి మెల్లగా పెరుగుతోంది — మీతో మీరు తిరిగి కలవడానికి ఇది మంచి సమయం.', energy: 'పెరుగుతోంది', mood: 'ప్రశాంతం', tip: 'తగినంత నీరు తాగండి'},
-      fertile: {message: 'మీ సారవంతమైన కాలం మొదలైంది — మీ శరీర సంకేతాలను గమనిస్తూ ఉండండి.', energy: 'ఎక్కువ', mood: 'ఆత్మవిశ్వాసం', tip: 'మీ మాట వినండి'},
-      ovulation: {message: 'ఈ రోజు అండోత్సర్గం అంచనా, మీ శక్తి శిఖరంలో ఉంది.', energy: 'ఎక్కువ', mood: 'ప్రకాశవంతం', tip: 'మెల్లగా కదలండి'},
-      luteal: {message: 'మీ శరీరం కొత్త చక్రానికి సిద్ధమవుతోంది — మీ పట్ల మృదువుగా ఉండండి.', energy: 'మారుతూ', mood: 'అంతర్ముఖం', tip: 'మృదుత్వం & ప్రశాంతత'},
-      pregnancy: {message: 'మీ శరీరం ప్రతి అడుగులో శ్రద్ధగా తోడుగా ఉంటోంది — మిమ్మల్ని బాగా చూసుకోండి.', energy: 'మారుతూ', mood: 'అప్రమత్తం', tip: 'క్రమమైన విశ్రాంతి'},
-      postpartum: {message: 'మీ శరీరం కోలుకుంటూనే ఉంది — మీకు మీరు ఓపిక ఇచ్చుకోండి.', energy: 'మృదువుగా', mood: 'ఓపిక', tip: 'తోడు & విశ్రాంతి'},
+      menstruation: {message: 'తక్కువ శక్తి: విశ్రాంతి తీసుకోండి.', energy: 'తక్కువ', mood: 'సున్నితం', tip: 'విశ్రాంతి & వెచ్చదనం'},
+      follicular: {message: 'మీ శక్తి నెమ్మదిగా తిరిగి వస్తోంది.', energy: 'పెరుగుతోంది', mood: 'ప్రశాంతం', tip: 'తగినంత నీరు తాగండి'},
+      fertile: {message: 'మీ సారవంతమైన కాలం మొదలైంది.', energy: 'ఎక్కువ', mood: 'ఆత్మవిశ్వాసం', tip: 'మీ మాట వినండి'},
+      ovulation: {message: 'ఈరోజు అండోత్సర్గం ఆశించబడుతోంది.', energy: 'ఎక్కువ', mood: 'ప్రకాశవంతం', tip: 'మెల్లగా కదలండి'},
+      luteal: {message: 'మీ శరీరం కొత్త చక్రానికి సిద్ధమవుతోంది.', energy: 'మారుతూ', mood: 'అంతర్ముఖం', tip: 'మృదుత్వం & ప్రశాంతత'},
+      pregnancy: {message: 'మిమ్మల్ని మీరు చూసుకోండి, ఒక్కో అడుగు.', energy: 'మారుతూ', mood: 'అప్రమత్తం', tip: 'క్రమమైన విశ్రాంతి'},
+      postpartum: {message: 'మీ శరీరం కోలుకుంటోంది: విశ్రాంతి తీసుకోండి.', energy: 'మృదువుగా', mood: 'ఓపిక', tip: 'తోడు & విశ్రాంతి'},
     },
     mood: {
       veryGood: 'చాలా బాగుంది',
@@ -543,6 +558,7 @@ export const te = {
     additionalNotesSubtitle: 'మీకు ఇష్టమైతే వ్యాఖ్యను జోడించండి.',
     notesPlaceholder: 'ఇక్కడ రాయండి...',
     saveMySymptoms: 'నా లక్షణాలను సేవ్ చేయండి',
+    noSymptoms: 'లక్షణాలు లేవు',
     clearSubject: 'ఈ లక్షణాలు',
     savedToast: 'లక్షణాలు విజయవంతంగా సేవ్ అయ్యాయి ✨',
   },
@@ -1419,6 +1435,12 @@ export const te = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'నా కూతురి కోసం AWA',
+      daughterText: 'మీ కూతురి చక్రాన్ని ఆమె సొంత ప్రొఫైల్‌లో అనుసరించండి: ఆమె డేటా మీ డేటా నుండి వేరుగా ఉంటుంది. ఒక్క ట్యాప్‌తో ప్రొఫైల్‌లు మారండి.',
+      partnerTitle: 'నా భర్త కోసం AWA',
+      partnerText: 'మీరు ఎంచుకున్న సూచికలను మాత్రమే భర్తతో పంచుకోండి. మీరు ఆన్ చేయకపోతే ఏదీ పంచబడదు.',
+    },
     aboutAwaSubtitle: 'వెర్షన్, చట్టపరమైన నోటీసులు, గోప్యత, యాప్ విలువలు',
     aboutAwaTitle: 'AWA గురించి',
     appearanceSubtitle: 'థీమ్‌లు, రంగులు, డిస్‌ప్లే, భాష',
@@ -1442,12 +1464,13 @@ export const te = {
     moreSectionSubtitle: 'సహాయం, AWA గురించిన సమాచారం, మీ సెషన్ నిర్వహణ.',
     moreSectionTitle: 'మరిన్ని',
     myInformationSubtitle: 'మీ ముఖ్యమైన సమాచారమంతా, సరళంగా అమర్చబడింది.',
-    myInformationTitle: 'నా సమాచారం',
+    myInformationTitle: 'సెట్టింగ్‌లు',
     myObjective: 'నా లక్ష్యం',
     myProfileEyebrow: 'నా ప్రొఫైల్',
     none: 'లేదు',
     notConfigured: 'సెట్ చేయలేదు',
     notProvided: 'పేర్కొనలేదు',
+    optional: 'ఐచ్ఛికం',
     notProvidedFeminine: 'పేర్కొనలేదు',
     predictionsUnavailable: 'అంచనాలు అందుబాటులో లేవు — తగినంత డేటా లేదు',
     notProvidedPlural: 'పేర్కొనలేదు',
@@ -6964,6 +6987,7 @@ export const te = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'చాలా ప్రయత్నాలు. {{minutes}} నిమిషాల తర్వాత మళ్లీ ప్రయత్నించండి.',
     incorrectCode: 'PIN తప్పు. మళ్లీ ప్రయత్నించండి.',
     genericError: 'ఏదో తప్పు జరిగింది. మళ్లీ ప్రయత్నించండి.',
     codesDontMatch: 'కోడ్‌లు సరిపోలడం లేదు. మళ్లీ మొదలుపెట్టండి.',
@@ -7049,6 +7073,16 @@ export const te = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'ప్రైవేట్ విభాగాలకు బయోమెట్రిక్',
+    privateBiometricSubtitle: 'కోడ్ టైప్ చేయకుండా అంతరంగిక జీవితం, గమనికలు, ప్రైవేట్ ఫోటోలను తెరవండి. కోడ్ బ్యాకప్‌గా అందుబాటులో ఉంటుంది.',
+    crashReports: {
+      title: 'లోపం నివేదికలు',
+      subtitle: 'AWA మూసుకుంటే పేరు లేని నివేదికను పంపండి.',
+      sheetTitle: 'AWA మెరుగుపరచడంలో సహాయం చేస్తారా?',
+      sheetBody: 'AWA అకస్మాత్తుగా మూసుకుంటే, సమస్యను సరిచేయడానికి మాకు పేరు లేని సాంకేతిక నివేదిక పంపబడవచ్చు. మీ ఆరోగ్య డేటా లేదా మీరు నమోదు చేసినవి ఎప్పుడూ కాదు. మీ నిర్ణయాన్ని గోప్యత & భద్రతలో మార్చుకోవచ్చు.',
+      sheetEnable: 'ఆన్ చేయండి',
+      sheetDecline: 'వద్దు, ధన్యవాదాలు',
+    },
     backA11y: 'వెనక్కి',
     title: 'గోప్యత & భద్రత',
     subtitle: 'మీ డేటా, మీ గోప్యత, మీ ఎంపిక',
@@ -7288,8 +7322,8 @@ export const te = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'వ్యక్తిగత సమాచారం',
-    subtitle: 'మీ ప్రాథమిక సమాచారాన్ని నిర్వహించండి 🌸',
-    greeting: 'సలామ్! 💜',
+    subtitle: 'మీ ప్రాథమిక సమాచారాన్ని నిర్వహించండి',
+    greeting: 'సలామ్!',
     intro: 'AWAలో మీ అనుభవాన్ని వ్యక్తిగతీకరించడానికి ఈ సమాచారం ఉపయోగించబడుతుంది.',
     addPhoto: 'ఫోటోను జోడించండి',
     editPhoto: 'ఫోటోను సవరించండి',

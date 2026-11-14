@@ -238,9 +238,24 @@ export const ha = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Canja zuwa bayanin {{name}}',
+    backToMine: 'Koma zuwa bayanina',
+    herSpace: 'Wurin {{name}}',
+    separateSpace: 'Wurinta na kanta, daban da naki',
+  },
+
+  discover: {
+    title: 'Gano',
+    daughterTitle: 'AWA don ’yata',
+    partnerTitle: 'AWA don mijina',
+    daughterCaption: 'Bi zagayenta a wurinta na kanta',
+    partnerCaption: 'Raba alamun da kika zaɓa',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Jikinki, yanayinki, imaninki ✨',
+    subtitleOwner: 'Jikinki, yanayinki, imaninki',
     subtitleDaughter: 'Bayanin ’yata',
     nextPeriodLabel: 'Haila mai zuwa',
     fertileWindowLabel: 'Lokacin haihuwa',
@@ -262,13 +277,13 @@ export const ha = {
     moodChipLabel: 'Yanayi',
     tipChipLabel: 'Shawarar yau',
     phase: {
-      menstruation: {message: 'Ƙarfinki na iya raguwa yanzu — ki huta ki kuma yi wa kanki sauƙi.', energy: 'Kaɗan', mood: 'Mai rauni', tip: 'Hutu da ɗumi'},
-      follicular: {message: 'Ƙarfinki na ƙaruwa a hankali — lokaci ne mai kyau na dawowa kan kanki.', energy: 'Yana ƙaruwa', mood: 'Natsuwa', tip: 'Ki sha ruwa'},
-      fertile: {message: 'Lokacin haihuwarki ya fara — ki saurari alamomin jikinki.', energy: 'Mai yawa', mood: 'Kwarin gwiwa', tip: 'Ki saurari kanki'},
-      ovulation: {message: 'Ana sa ran fitar ƙwai yau, ƙarfinki yana kololuwa.', energy: 'Mai yawa', mood: 'Annuri', tip: 'Ki yi motsi a hankali'},
-      luteal: {message: 'Jikinki yana shirin sabon zagaye — ki yi wa kanki sauƙi.', energy: 'Mai sauyawa', mood: 'Tunani', tip: 'Sauƙi da natsuwa'},
-      pregnancy: {message: 'Jikinki yana tallafa wa kowane mataki da kulawa — ki kula da kanki sosai.', energy: 'Mai sauyawa', mood: 'Mai kula', tip: 'Hutu akai-akai'},
-      postpartum: {message: 'Jikinki yana ci gaba da warkewa — ki yi haƙuri da kanki.', energy: 'Mai sauƙi', mood: 'Mai haƙuri', tip: 'Taimako da hutu'},
+      menstruation: {message: 'Ƙarancin kuzari: ki huta.', energy: 'Kaɗan', mood: 'Mai rauni', tip: 'Hutu da ɗumi'},
+      follicular: {message: 'Kuzarinki yana dawowa a hankali.', energy: 'Yana ƙaruwa', mood: 'Natsuwa', tip: 'Ki sha ruwa'},
+      fertile: {message: 'Lokacin haihuwarki ya fara.', energy: 'Mai yawa', mood: 'Kwarin gwiwa', tip: 'Ki saurari kanki'},
+      ovulation: {message: 'Ana sa ran fitar ƙwai yau.', energy: 'Mai yawa', mood: 'Annuri', tip: 'Ki yi motsi a hankali'},
+      luteal: {message: 'Jikinki yana shirya sabon zagaye.', energy: 'Mai sauyawa', mood: 'Tunani', tip: 'Sauƙi da natsuwa'},
+      pregnancy: {message: 'Ki kula da kanki, mataki bayan mataki.', energy: 'Mai sauyawa', mood: 'Mai kula', tip: 'Hutu akai-akai'},
+      postpartum: {message: 'Jikinki yana warkewa: ki ba kanki hutu.', energy: 'Mai sauƙi', mood: 'Mai haƙuri', tip: 'Taimako da hutu'},
     },
     mood: {
       veryGood: 'Da kyau sosai',
@@ -533,6 +548,7 @@ export const ha = {
     additionalNotesSubtitle: 'Ƙara sharhi idan kina so.',
     notesPlaceholder: 'Rubuta nan...',
     saveMySymptoms: 'Ajiye alamomina',
+    noSymptoms: 'Babu alamomi',
     clearSubject: 'waɗannan alamomi',
     savedToast: 'An ajiye alamomi cikin nasara ✨',
   },
@@ -1409,6 +1425,12 @@ export const ha = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA don ’yata',
+      daughterText: 'Bi zagayen ’yarki a bayaninta na kanta: bayananta suna nan daban da naki. Canja tsakanin bayanai da taɓawa ɗaya.',
+      partnerTitle: 'AWA don mijina',
+      partnerText: 'Raba da mijinki alamun da kika zaɓa kaɗai. Ba a raba komai sai kin kunna.',
+    },
     aboutAwaSubtitle: 'Fasali, sanarwar doka, sirri da dabi’un manhajar',
     aboutAwaTitle: 'Game da AWA',
     appearanceSubtitle: 'Jigogi, launuka, nuni da harshe',
@@ -1432,12 +1454,13 @@ export const ha = {
     moreSectionSubtitle: 'Taimako, bayani game da AWA da sarrafa zamanki.',
     moreSectionTitle: 'Ƙari',
     myInformationSubtitle: 'Duk muhimman bayananki, an tsara su cikin sauƙi.',
-    myInformationTitle: 'Bayanaina',
+    myInformationTitle: 'Saituna',
     myObjective: 'Manufata',
     myProfileEyebrow: 'BAYANINA',
     none: 'Babu',
     notConfigured: 'Ba a saita ba',
     notProvided: 'Ba a bayar ba',
+    optional: 'Na zaɓi',
     notProvidedFeminine: 'Ba a bayar ba',
     predictionsUnavailable: 'Hasashe ba ya samuwa — bayanai ba su isa ba',
     notProvidedPlural: 'Ba a bayar ba',
@@ -6931,6 +6954,7 @@ export const ha = {
   // PrivateAccess, SecuritySetup. Deliberately separate from the
   // `privateSectionAuth`/`privateIntimacy*` namespaces above.
   security: {
+    tooManyAttempts: 'Gwaje-gwaje da yawa. Sake gwadawa nan da minti {{minutes}}.',
     incorrectCode: 'PIN ba daidai ba ne. Ki sake gwadawa.',
     genericError: 'Wani abu ya faru. Ki sake gwadawa.',
     codesDontMatch: 'Lambobin ba su yi daidai ba. Ki sake farawa.',
@@ -7016,6 +7040,16 @@ export const ha = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics don sassan sirri',
+    privateBiometricSubtitle: 'Buɗe rayuwa ta kusa, bayanai da hotuna na sirri ba tare da rubuta lambar ka ba. Lambar na nan a matsayin madadin.',
+    crashReports: {
+      title: 'Rahotannin kuskure',
+      subtitle: 'Aika rahoto maras suna idan AWA ta rufe.',
+      sheetTitle: 'Taimaka wajen inganta AWA?',
+      sheetBody: 'Idan AWA ta rufe ba zato ba tsammani, ana iya aiko mana rahoton fasaha maras suna don mu gyara matsalar. Ba bayanan lafiyarka ko abin da kake rubutawa ba. Za ka iya sauya shawara a Sirri da Tsaro.',
+      sheetEnable: 'Kunna',
+      sheetDecline: 'A\'a, na gode',
+    },
     backA11y: 'Koma',
     title: 'Sirri da Tsaro',
     subtitle: 'Bayananki, sirrinki, zaɓinki',
@@ -7244,8 +7278,8 @@ export const ha = {
   // Phase 7E — residual localization for Personal Information, General Health, and Appearance theme descriptions.
   personalInformation: {
     title: 'Bayanan sirri',
-    subtitle: 'Sarrafa muhimman bayananki 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Sarrafa muhimman bayananki',
+    greeting: 'Salam!',
     intro: 'Ana amfani da wannan bayani don keɓance ƙwarewarki a AWA.',
     addPhoto: 'Ƙara hoto',
     editPhoto: 'Gyara hoto',

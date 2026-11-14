@@ -228,9 +228,24 @@ export const ar = {
       systemDescription: 'استخدام لغة الجهاز'
     }
   },
+  profileSwitch: {
+    switchTo: 'التبديل إلى ملف {{name}}',
+    backToMine: 'العودة إلى ملفي',
+    herSpace: 'مساحة {{name}}',
+    separateSpace: 'مساحتها الخاصة، منفصلة عن مساحتك',
+  },
+
+  discover: {
+    title: 'اكتشفي',
+    daughterTitle: 'AWA لابنتي',
+    partnerTitle: 'AWA لزوجي',
+    daughterCaption: 'تابعي دورتها في مساحة خاصة بها',
+    partnerCaption: 'شاركي المؤشرات التي تختارينها',
+  },
+
   cycleHome: {
     greeting: 'السلام عليكم،',
-    subtitleOwner: 'جسمك، إيقاعك، إيمانك ✨',
+    subtitleOwner: 'جسمك، إيقاعك، إيمانك',
     subtitleDaughter: 'الملف الشخصي لابنتي',
     nextPeriodLabel: 'الحيض القادم',
     fertileWindowLabel: 'فترة الخصوبة',
@@ -253,43 +268,43 @@ export const ar = {
     tipChipLabel: 'نصيحة اليوم',
     phase: {
       menstruation: {
-        message: 'قد تشعرين بانخفاض طاقتك الآن — خذي وقتًا للراحة وارفقي بنفسك.',
+        message: 'طاقتك أقل: استريحي.',
         energy: 'منخفضة',
         mood: 'حساس',
         tip: 'الراحة والدفء'
       },
       follicular: {
-        message: 'تعود طاقتك تدريجيًا — وقت مناسب لتعيدي التواصل مع نفسك.',
+        message: 'طاقتك تعود تدريجيًا.',
         energy: 'في ازدياد',
         mood: 'هادئ',
         tip: 'اشربي الماء بانتظام'
       },
       fertile: {
-        message: 'بدأت فترة الخصوبة — أصغي إلى إشارات جسمك.',
+        message: 'بدأت فترة خصوبتك.',
         energy: 'مرتفعة',
         mood: 'واثق',
         tip: 'أصغي إلى نفسك'
       },
       ovulation: {
-        message: 'من المتوقع أن تحدث الإباضة اليوم، وطاقتك في ذروتها.',
+        message: 'من المتوقع الإباضة اليوم.',
         energy: 'مرتفعة',
         mood: 'مشرق',
         tip: 'تحرّكي برفق'
       },
       luteal: {
-        message: 'يستعد جسمك لدورة جديدة — ارفقي بنفسك.',
+        message: 'جسمك يستعد لدورة جديدة.',
         energy: 'متغيرة',
         mood: 'تأمّلي',
         tip: 'اللطف والهدوء'
       },
       pregnancy: {
-        message: 'يدعم جسمك كل خطوة بعناية — اعتني بنفسك جيدًا.',
+        message: 'اعتني بنفسكِ، خطوة بخطوة.',
         energy: 'متغيرة',
         mood: 'منتبه',
         tip: 'راحة منتظمة'
       },
       postpartum: {
-        message: 'يواصل جسمك التعافي — امنحي نفسك الصبر.',
+        message: 'جسمك يتعافى: امنحي نفسك الراحة.',
         energy: 'هادئة',
         mood: 'صبور',
         tip: 'الدعم والراحة'
@@ -584,6 +599,7 @@ export const ar = {
     additionalNotesSubtitle: 'أضيفي تعليقًا إن رغبتِ.',
     notesPlaceholder: 'اكتبي هنا...',
     saveMySymptoms: 'حفظ أعراضي',
+    noSymptoms: 'لا أعراض',
     clearSubject: 'هذه الأعراض',
     savedToast: 'تم حفظ الأعراض بنجاح ✨'
   },
@@ -1547,6 +1563,12 @@ export const ar = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA لابنتي',
+      daughterText: 'تابعي دورة ابنتك في ملف خاص بها: بياناتها منفصلة عن بياناتك. انتقلي بين الملفين بلمسة واحدة.',
+      partnerTitle: 'AWA لزوجي',
+      partnerText: 'شاركي مع زوجك فقط المؤشرات التي تختارينها. لا يُشارك شيء ما لم تفعّليه.',
+    },
     aboutAwaSubtitle: 'الإصدار والإشعارات القانونية والخصوصية وقيم التطبيق',
     aboutAwaTitle: 'حول AWA',
     appearanceSubtitle: 'السمات والألوان والعرض واللغة',
@@ -1570,12 +1592,13 @@ export const ar = {
     moreSectionSubtitle: 'المساعدة والمعلومات حول AWA وإدارة جلستك.',
     moreSectionTitle: 'المزيد',
     myInformationSubtitle: 'كل معلوماتك المهمة، منظّمة ببساطة.',
-    myInformationTitle: 'معلوماتي',
+    myInformationTitle: 'الإعدادات',
     myObjective: 'هدفي',
     myProfileEyebrow: 'ملفي الشخصي',
     none: 'لا شيء',
     notConfigured: 'غير مُعدّ',
     notProvided: 'غير مُدخَل',
+    optional: 'اختياري',
     notProvidedFeminine: 'غير مُدخَلة',
     predictionsUnavailable: 'التوقعات غير متاحة — البيانات غير كافية',
     notProvidedPlural: 'غير مُدخَلة',
@@ -7756,6 +7779,7 @@ export const ar = {
       helpModalCloseAccessibility: 'إغلاق'
     }
   },  security: {
+    tooManyAttempts: 'محاولات كثيرة جدًا. أعيدي المحاولة بعد {{minutes}} د.',
     incorrectCode: 'رمز PIN غير صحيح. حاولي مجددًا.',
     genericError: 'حدث خطأ ما. حاولي مجددًا.',
     codesDontMatch: 'الرمزان غير متطابقين. ابدئي من جديد.',
@@ -7833,6 +7857,16 @@ export const ar = {
     disableAction: 'إيقاف {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'القياسات الحيوية للأقسام الخاصة',
+    privateBiometricSubtitle: 'افتحي الحياة الحميمة والملاحظات والصور الخاصة دون كتابة الرمز. يبقى الرمز متاحًا كبديل.',
+    crashReports: {
+      title: 'تقارير الأخطاء',
+      subtitle: 'إرسال تقرير مجهول إذا توقف AWA.',
+      sheetTitle: 'هل تساعدين في تحسين AWA؟',
+      sheetBody: 'إذا توقف AWA فجأة، فقد يُرسَل إلينا تقرير تقني مجهول الهوية لإصلاح المشكلة. ولا تُرسَل بياناتك الصحية ولا ما تكتبينه أبدًا. يمكنك تغيير قرارك من «الخصوصية والأمان».',
+      sheetEnable: 'تفعيل',
+      sheetDecline: 'لا، شكرًا',
+    },
     backA11y: 'رجوع',
     title: 'الخصوصية والأمان',
     subtitle: 'بياناتك وخصوصيتك واختيارك',
@@ -8056,8 +8090,8 @@ export const ar = {
   },
   personalInformation: {
     title: 'المعلومات الشخصية',
-    subtitle: 'أدِيري معلوماتك الأساسية 🌸',
-    greeting: 'السلام عليكم! 💜',
+    subtitle: 'أدِيري معلوماتك الأساسية',
+    greeting: 'السلام عليكم!',
     intro: 'تُستخدم هذه المعلومات لتخصيص تجربتك في AWA.',
     addPhoto: 'إضافة صورة',
     editPhoto: 'تعديل الصورة',

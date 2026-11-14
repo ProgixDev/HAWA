@@ -241,9 +241,24 @@ export const ne = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} को प्रोफाइलमा जाऊ',
+    backToMine: 'मेरो प्रोफाइलमा फर्क',
+    herSpace: '{{name}} को ठाउँ',
+    separateSpace: 'उसको आफ्नै ठाउँ, तिम्रोबाट अलग',
+  },
+
+  discover: {
+    title: 'पत्ता लगाऊ',
+    daughterTitle: 'मेरी छोरीका लागि AWA',
+    partnerTitle: 'मेरो श्रीमान्का लागि AWA',
+    daughterCaption: 'उसको चक्र उसकै ठाउँमा हेर',
+    partnerCaption: 'तिमीले रोजेका सूचक साझा गर',
+  },
+
   cycleHome: {
     greeting: 'अस्सलामु अलैकुम,',
-    subtitleOwner: 'तपाईंको शरीर, तपाईंको लय, तपाईंको आस्था ✨',
+    subtitleOwner: 'तपाईंको शरीर, तपाईंको लय, तपाईंको आस्था',
     subtitleDaughter: 'मेरी छोरीको प्रोफाइल',
     nextPeriodLabel: 'अर्को महिनावारी',
     fertileWindowLabel: 'उर्वर अवधि',
@@ -265,13 +280,13 @@ export const ne = {
     moodChipLabel: 'मनोदशा',
     tipChipLabel: 'आजको सुझाव',
     phase: {
-      menstruation: {message: 'अहिले तपाईंको ऊर्जा कम महसुस हुन सक्छ — आराम गर्न समय निकाल्नुहोस् र आफूसँग नरम बन्नुहोस्।', energy: 'कम', mood: 'संवेदनशील', tip: 'आराम र न्यानोपन'},
-      follicular: {message: 'तपाईंको ऊर्जा बिस्तारै बढ्दै छ — आफूसँग फेरि जोडिन राम्रो समय।', energy: 'बढ्दै', mood: 'शान्त', tip: 'पर्याप्त पानी पिउनुहोस्'},
-      fertile: {message: 'तपाईंको उर्वर अवधि सुरु भएको छ — आफ्नो शरीरका संकेतहरूसँग तालमेल राख्नुहोस्।', energy: 'उच्च', mood: 'आत्मविश्वासी', tip: 'आफ्नो कुरा सुन्नुहोस्'},
-      ovulation: {message: 'आज अण्डोत्सर्ग हुने अपेक्षा गरिएको छ, र तपाईंको ऊर्जा शिखरमा छ।', energy: 'उच्च', mood: 'उज्यालो', tip: 'हल्का चलायमान हुनुहोस्'},
-      luteal: {message: 'तपाईंको शरीर नयाँ चक्रको तयारी गर्दै छ — आफूसँग नरम बन्नुहोस्।', energy: 'फेरिने', mood: 'अन्तर्मुखी', tip: 'कोमलता र शान्ति'},
-      pregnancy: {message: 'तपाईंको शरीरले हरेक चरणलाई हेरचाहका साथ साथ दिइरहेको छ — आफ्नो राम्रो ख्याल राख्नुहोस्।', energy: 'फेरिने', mood: 'सजग', tip: 'नियमित आराम'},
-      postpartum: {message: 'तपाईंको शरीर निरन्तर निको हुँदै छ — आफूलाई धैर्य दिनुहोस्।', energy: 'कोमल', mood: 'धैर्यवान्', tip: 'सहयोग र आराम'},
+      menstruation: {message: 'कम ऊर्जा: आराम गर।', energy: 'कम', mood: 'संवेदनशील', tip: 'आराम र न्यानोपन'},
+      follicular: {message: 'तिम्रो ऊर्जा बिस्तारै फर्कँदैछ।', energy: 'बढ्दै', mood: 'शान्त', tip: 'पर्याप्त पानी पिउनुहोस्'},
+      fertile: {message: 'तिम्रो प्रजनन अवधि सुरु भएको छ।', energy: 'उच्च', mood: 'आत्मविश्वासी', tip: 'आफ्नो कुरा सुन्नुहोस्'},
+      ovulation: {message: 'आज ओभुलेसन अपेक्षित छ।', energy: 'उच्च', mood: 'उज्यालो', tip: 'हल्का चलायमान हुनुहोस्'},
+      luteal: {message: 'तिम्रो शरीरले नयाँ चक्रको तयारी गर्दैछ।', energy: 'फेरिने', mood: 'अन्तर्मुखी', tip: 'कोमलता र शान्ति'},
+      pregnancy: {message: 'आफ्नो ख्याल राख, एक-एक पाइला।', energy: 'फेरिने', mood: 'सजग', tip: 'नियमित आराम'},
+      postpartum: {message: 'तिम्रो शरीर निको हुँदैछ: आफूलाई आराम देऊ।', energy: 'कोमल', mood: 'धैर्यवान्', tip: 'सहयोग र आराम'},
     },
     mood: {
       veryGood: 'धेरै राम्रो',
@@ -536,6 +551,7 @@ export const ne = {
     additionalNotesSubtitle: 'चाहनुहुन्छ भने टिप्पणी थप्नुहोस्।',
     notesPlaceholder: 'यहाँ लेख्नुहोस्...',
     saveMySymptoms: 'मेरा लक्षणहरू सुरक्षित गर्नुहोस्',
+    noSymptoms: 'कुनै लक्षण छैन',
     clearSubject: 'यी लक्षणहरू',
     savedToast: 'लक्षणहरू सफलतापूर्वक सुरक्षित भए ✨',
   },
@@ -1412,6 +1428,12 @@ export const ne = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'मेरी छोरीका लागि AWA',
+      daughterText: 'छोरीको चक्र उसकै प्रोफाइलमा हेर: उसको डेटा तिम्रो डेटाबाट अलग रहन्छ। एक ट्यापमा प्रोफाइल बदल।',
+      partnerTitle: 'मेरो श्रीमान्का लागि AWA',
+      partnerText: 'श्रीमान्सँग तिमीले रोजेका सूचक मात्र साझा गर। तिमीले खोलेनौ भने केही साझा हुँदैन।',
+    },
     aboutAwaSubtitle: 'संस्करण, कानुनी सूचना, गोपनीयता र एपका मूल्यहरू',
     aboutAwaTitle: 'AWA बारे',
     appearanceSubtitle: 'थिम, रङ, प्रदर्शन र भाषा',
@@ -1435,12 +1457,13 @@ export const ne = {
     moreSectionSubtitle: 'सहायता, AWA बारे जानकारी र आफ्नो सत्रको व्यवस्थापन।',
     moreSectionTitle: 'थप',
     myInformationSubtitle: 'तपाईंका सबै महत्त्वपूर्ण जानकारी, सरल रूपमा व्यवस्थित।',
-    myInformationTitle: 'मेरो जानकारी',
+    myInformationTitle: 'सेटिङहरू',
     myObjective: 'मेरो लक्ष्य',
     myProfileEyebrow: 'मेरो प्रोफाइल',
     none: 'छैन',
     notConfigured: 'सेट गरिएको छैन',
     notProvided: 'उपलब्ध छैन',
+    optional: 'ऐच्छिक',
     notProvidedFeminine: 'उपलब्ध छैन',
     predictionsUnavailable: 'पूर्वानुमान उपलब्ध छैन — पर्याप्त डेटा छैन',
     notProvidedPlural: 'उपलब्ध छैन',
@@ -6957,6 +6980,7 @@ export const ne = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'धेरै प्रयास भए। {{minutes}} मिनेटपछि फेरि प्रयास गर्नुहोस्।',
     incorrectCode: 'गलत PIN। फेरि प्रयास गर्नुहोस्।',
     genericError: 'केही गडबड भयो। फेरि प्रयास गर्नुहोस्।',
     codesDontMatch: 'कोडहरू मेल खाँदैनन्। फेरि सुरु गर्नुहोस्।',
@@ -7042,6 +7066,16 @@ export const ne = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'निजी भागका लागि बायोमेट्रिक',
+    privateBiometricSubtitle: 'कोड नलेखी अन्तरङ्ग जीवन, नोट र निजी फोटो खोल्नुहोस्। कोड ब्याकअपका रूपमा उपलब्ध रहन्छ।',
+    crashReports: {
+      title: 'त्रुटि रिपोर्टहरू',
+      subtitle: 'AWA बन्द भए गुमनाम रिपोर्ट पठाउनुहोस्।',
+      sheetTitle: 'AWA सुधार्न मद्दत गर्नुहुन्छ?',
+      sheetBody: 'AWA अचानक बन्द भएमा, समस्या समाधान गर्न हामीलाई गुमनाम प्राविधिक रिपोर्ट पठाइन सक्छ। तपाईंको स्वास्थ्य तथ्याङ्क वा तपाईंले लेखेको कुरा कहिल्यै होइन। तपाईं गोपनीयता र सुरक्षामा निर्णय बदल्न सक्नुहुन्छ।',
+      sheetEnable: 'सक्रिय गर्नुहोस्',
+      sheetDecline: 'पर्दैन, धन्यवाद',
+    },
     backA11y: 'पछाडि',
     title: 'गोपनीयता र सुरक्षा',
     subtitle: 'तपाईंको डेटा, तपाईंको गोपनीयता, तपाईंको छनोट',
@@ -7281,8 +7315,8 @@ export const ne = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'व्यक्तिगत जानकारी',
-    subtitle: 'आफ्नो आधारभूत जानकारी व्यवस्थापन गर्नुहोस् 🌸',
-    greeting: 'सलाम! 💜',
+    subtitle: 'आफ्नो आधारभूत जानकारी व्यवस्थापन गर्नुहोस्',
+    greeting: 'सलाम!',
     intro: 'यो जानकारी AWA मा तपाईंको अनुभव अनुकूलन गर्न प्रयोग गरिन्छ।',
     addPhoto: 'फोटो थप्नुहोस्',
     editPhoto: 'फोटो सम्पादन गर्नुहोस्',

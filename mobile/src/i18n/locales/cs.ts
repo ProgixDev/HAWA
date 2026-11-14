@@ -243,9 +243,24 @@ export const cs = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Přepnout na profil uživatelky {{name}}',
+    backToMine: 'Zpět na můj profil',
+    herSpace: 'Prostor uživatelky {{name}}',
+    separateSpace: 'Její vlastní prostor, oddělený od tvého',
+  },
+
+  discover: {
+    title: 'Objevuj',
+    daughterTitle: 'AWA pro mou dceru',
+    partnerTitle: 'AWA pro mého manžela',
+    daughterCaption: 'Sleduj její cyklus v jejím vlastním prostoru',
+    partnerCaption: 'Sdílej ukazatele, které si vybereš',
+  },
+
   cycleHome: {
     greeting: 'As-salámu ‘alajkum,',
-    subtitleOwner: 'Vaše tělo, váš rytmus, vaše víra ✨',
+    subtitleOwner: 'Vaše tělo, váš rytmus, vaše víra',
     subtitleDaughter: 'Profil mé dcery',
     nextPeriodLabel: 'Další menstruace',
     fertileWindowLabel: 'Plodné období',
@@ -267,13 +282,13 @@ export const cs = {
     moodChipLabel: 'Nálada',
     tipChipLabel: 'Tip dne',
     phase: {
-      menstruation: {message: 'Vaše energie může být teď nižší — věnujte si čas na odpočinek a buďte na sebe jemná.', energy: 'Nízká', mood: 'Citlivá', tip: 'Odpočinek a teplo'},
-      follicular: {message: 'Vaše energie se jemně zvyšuje — je to dobrá chvíle, abyste se znovu propojila sama se sebou.', energy: 'Roste', mood: 'Klidná', tip: 'Pijte dostatek tekutin'},
-      fertile: {message: 'Vaše plodné období začalo — vnímejte signály svého těla.', energy: 'Vysoká', mood: 'Sebevědomá', tip: 'Naslouchejte sobě'},
-      ovulation: {message: 'Ovulace se očekává dnes a vaše energie je na vrcholu.', energy: 'Vysoká', mood: 'Zářivá', tip: 'Jemný pohyb'},
-      luteal: {message: 'Vaše tělo se připravuje na nový cyklus — buďte na sebe jemná.', energy: 'Proměnlivá', mood: 'Zamyšlená', tip: 'Jemnost a klid'},
-      pregnancy: {message: 'Vaše tělo vás v každém kroku pečlivě podporuje — dobře se o sebe starejte.', energy: 'Proměnlivá', mood: 'Pozorná', tip: 'Pravidelný odpočinek'},
-      postpartum: {message: 'Vaše tělo se dál zotavuje — mějte se sebou trpělivost.', energy: 'Jemná', mood: 'Trpělivá', tip: 'Podpora a odpočinek'},
+      menstruation: {message: 'Nižší energie: odpočívej.', energy: 'Nízká', mood: 'Citlivá', tip: 'Odpočinek a teplo'},
+      follicular: {message: 'Tvoje energie se pomalu vrací.', energy: 'Roste', mood: 'Klidná', tip: 'Pijte dostatek tekutin'},
+      fertile: {message: 'Tvoje plodné období začalo.', energy: 'Vysoká', mood: 'Sebevědomá', tip: 'Naslouchejte sobě'},
+      ovulation: {message: 'Ovulace se očekává dnes.', energy: 'Vysoká', mood: 'Zářivá', tip: 'Jemný pohyb'},
+      luteal: {message: 'Tvé tělo připravuje nový cyklus.', energy: 'Proměnlivá', mood: 'Zamyšlená', tip: 'Jemnost a klid'},
+      pregnancy: {message: 'Pečuj o sebe, krok za krokem.', energy: 'Proměnlivá', mood: 'Pozorná', tip: 'Pravidelný odpočinek'},
+      postpartum: {message: 'Tvé tělo se zotavuje: dopřej si odpočinek.', energy: 'Jemná', mood: 'Trpělivá', tip: 'Podpora a odpočinek'},
     },
     mood: {
       veryGood: 'Velmi dobrá',
@@ -550,6 +565,7 @@ export const cs = {
     additionalNotesSubtitle: 'Pokud chcete, přidejte komentář.',
     notesPlaceholder: 'Napište sem...',
     saveMySymptoms: 'Uložit mé příznaky',
+    noSymptoms: 'Žádné příznaky',
     clearSubject: 'tyto příznaky',
     savedToast: 'Příznaky byly úspěšně uloženy ✨',
   },
@@ -1456,6 +1472,12 @@ export const cs = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA pro mou dceru',
+      daughterText: 'Sleduj cyklus své dcery v jejím vlastním profilu: její data zůstávají oddělená od tvých. Mezi profily přepínáš jedním klepnutím.',
+      partnerTitle: 'AWA pro mého manžela',
+      partnerText: 'S manželem sdílej jen ukazatele, které si vybereš. Nic se nesdílí, dokud to nezapneš.',
+    },
     aboutAwaSubtitle: 'Verze, právní informace, soukromí a hodnoty aplikace',
     aboutAwaTitle: 'O aplikaci AWA',
     appearanceSubtitle: 'Motivy, barvy, zobrazení a jazyk',
@@ -1479,12 +1501,13 @@ export const cs = {
     moreSectionSubtitle: 'Nápověda, informace o AWA a správa vaší relace.',
     moreSectionTitle: 'Více',
     myInformationSubtitle: 'Všechny vaše důležité informace, přehledně uspořádané.',
-    myInformationTitle: 'Moje informace',
+    myInformationTitle: 'Nastavení',
     myObjective: 'Můj cíl',
     myProfileEyebrow: 'MŮJ PROFIL',
     none: 'Žádné',
     notConfigured: 'Nenastaveno',
     notProvided: 'Neuvedeno',
+    optional: 'Nepovinné',
     notProvidedFeminine: 'Neuvedeno',
     predictionsUnavailable: 'Předpovědi nejsou dostupné — nedostatek údajů',
     notProvidedPlural: 'Neuvedeno',
@@ -7105,6 +7128,7 @@ export const cs = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Příliš mnoho pokusů. Zkus to znovu za {{minutes}} min.',
     incorrectCode: 'Nesprávný PIN. Zkuste to znovu.',
     genericError: 'Něco se pokazilo. Zkuste to znovu.',
     codesDontMatch: 'Kódy se neshodují. Začněte znovu.',
@@ -7190,6 +7214,16 @@ export const cs = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometrie pro soukromé sekce',
+    privateBiometricSubtitle: 'Otevírej intimní život, poznámky a soukromé fotky bez zadávání kódu. Kód zůstává k dispozici jako záloha.',
+    crashReports: {
+      title: 'Hlášení o chybách',
+      subtitle: 'Odeslat anonymní hlášení, když AWA spadne.',
+      sheetTitle: 'Pomoci vylepšit AWA?',
+      sheetBody: 'Pokud AWA spadne, může nám být odesláno anonymní technické hlášení, abychom problém opravili. Nikdy ne tvé zdravotní údaje ani to, co zadáváš. Své rozhodnutí můžeš změnit v Soukromí a zabezpečení.',
+      sheetEnable: 'Zapnout',
+      sheetDecline: 'Ne, děkuji',
+    },
     backA11y: 'Zpět',
     title: 'Soukromí a zabezpečení',
     subtitle: 'Vaše data, vaše soukromí, vaše volba',
@@ -7433,8 +7467,8 @@ export const cs = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Osobní údaje',
-    subtitle: 'Spravujte své základní informace 🌸',
-    greeting: 'Salám! 💜',
+    subtitle: 'Spravujte své základní informace',
+    greeting: 'Salám!',
     intro: 'Tyto informace slouží k přizpůsobení vašeho zážitku v AWA.',
     addPhoto: 'Přidat fotografii',
     editPhoto: 'Upravit fotografii',

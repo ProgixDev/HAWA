@@ -242,9 +242,24 @@ export const hu = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Váltás {{name}} profiljára',
+    backToMine: 'Vissza a saját profilomhoz',
+    herSpace: '{{name}} tere',
+    separateSpace: 'Az ő saját tere, a tiédtől elkülönítve',
+  },
+
+  discover: {
+    title: 'Fedezd fel',
+    daughterTitle: 'AWA a lányomnak',
+    partnerTitle: 'AWA a férjemnek',
+    daughterCaption: 'Kövesd a ciklusát a saját terében',
+    partnerCaption: 'Oszd meg a választott jelzőket',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'A tested, a ritmusod, a hited ✨',
+    subtitleOwner: 'A tested, a ritmusod, a hited',
     subtitleDaughter: 'A lányom profilja',
     nextPeriodLabel: 'Következő menstruáció',
     fertileWindowLabel: 'Termékeny időszak',
@@ -266,13 +281,13 @@ export const hu = {
     moodChipLabel: 'Hangulat',
     tipChipLabel: 'A nap tippje',
     phase: {
-      menstruation: {message: 'Az energiád most alacsonyabbnak tűnhet — szánj időt a pihenésre, és légy gyengéd magadhoz.', energy: 'Alacsony', mood: 'Érzékeny', tip: 'Pihenés és melegség'},
-      follicular: {message: 'Az energiád szelíden emelkedik — jó alkalom arra, hogy újra kapcsolatba kerülj önmagaddal.', energy: 'Emelkedő', mood: 'Nyugodt', tip: 'Igyál eleget'},
-      fertile: {message: 'Megkezdődött a termékeny időszakod — figyelj a tested jelzéseire.', energy: 'Magas', mood: 'Magabiztos', tip: 'Figyelj magadra'},
-      ovulation: {message: 'Ma várható a peteérés, és az energiád a csúcson van.', energy: 'Magas', mood: 'Sugárzó', tip: 'Mozogj kíméletesen'},
-      luteal: {message: 'A tested egy új ciklusra készül — légy gyengéd magadhoz.', energy: 'Változó', mood: 'Befelé forduló', tip: 'Szelídség és nyugalom'},
-      pregnancy: {message: 'A tested gondosan támogat minden lépést — vigyázz jól magadra.', energy: 'Változó', mood: 'Figyelmes', tip: 'Rendszeres pihenés'},
-      postpartum: {message: 'A tested tovább regenerálódik — légy türelmes magaddal.', energy: 'Szelíd', mood: 'Türelmes', tip: 'Támogatás és pihenés'},
+      menstruation: {message: 'Kevesebb energia: pihenj.', energy: 'Alacsony', mood: 'Érzékeny', tip: 'Pihenés és melegség'},
+      follicular: {message: 'Az energiád lassan visszatér.', energy: 'Emelkedő', mood: 'Nyugodt', tip: 'Igyál eleget'},
+      fertile: {message: 'A termékeny ablakod elkezdődött.', energy: 'Magas', mood: 'Magabiztos', tip: 'Figyelj magadra'},
+      ovulation: {message: 'Ma peteérés várható.', energy: 'Magas', mood: 'Sugárzó', tip: 'Mozogj kíméletesen'},
+      luteal: {message: 'A tested új ciklust készít elő.', energy: 'Változó', mood: 'Befelé forduló', tip: 'Szelídség és nyugalom'},
+      pregnancy: {message: 'Vigyázz magadra, lépésről lépésre.', energy: 'Változó', mood: 'Figyelmes', tip: 'Rendszeres pihenés'},
+      postpartum: {message: 'A tested regenerálódik: engedj magadnak pihenést.', energy: 'Szelíd', mood: 'Türelmes', tip: 'Támogatás és pihenés'},
     },
     mood: {
       veryGood: 'Nagyon jó',
@@ -537,6 +552,7 @@ export const hu = {
     additionalNotesSubtitle: 'Ha szeretnéd, fűzz hozzá megjegyzést.',
     notesPlaceholder: 'Írd ide...',
     saveMySymptoms: 'Tüneteim mentése',
+    noSymptoms: 'Nincs tünet',
     clearSubject: 'ezeket a tüneteket',
     savedToast: 'A tünetek sikeresen mentve ✨',
   },
@@ -1413,6 +1429,12 @@ export const hu = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA a lányomnak',
+      daughterText: 'Kövesd a lányod ciklusát a saját profiljában: az adatai elkülönülnek a tieidtől. Egy érintéssel válthatsz a profilok között.',
+      partnerTitle: 'AWA a férjemnek',
+      partnerText: 'A férjeddel csak a választott jelzőket oszd meg. Semmi sem lesz megosztva, amíg be nem kapcsolod.',
+    },
     aboutAwaSubtitle: 'Verzió, jogi közlemények, adatvédelem és az alkalmazás értékei',
     aboutAwaTitle: 'Az AWA-ról',
     appearanceSubtitle: 'Témák, színek, megjelenítés és nyelv',
@@ -1436,12 +1458,13 @@ export const hu = {
     moreSectionSubtitle: 'Súgó, tudnivalók az AWA-ról és a munkamenet kezelése.',
     moreSectionTitle: 'Továbbiak',
     myInformationSubtitle: 'Minden fontos információd, egyszerűen rendszerezve.',
-    myInformationTitle: 'Az adataim',
+    myInformationTitle: 'Beállítások',
     myObjective: 'A célom',
     myProfileEyebrow: 'A PROFILOM',
     none: 'Nincs',
     notConfigured: 'Nincs beállítva',
     notProvided: 'Nincs megadva',
+    optional: 'Nem kötelező',
     notProvidedFeminine: 'Nincs megadva',
     predictionsUnavailable: 'Az előrejelzések nem érhetők el — nincs elég adat',
     notProvidedPlural: 'Nincs megadva',
@@ -6958,6 +6981,7 @@ export const hu = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Túl sok próbálkozás. Próbáld újra {{minutes}} perc múlva.',
     incorrectCode: 'Hibás PIN-kód. Próbáld újra.',
     genericError: 'Valami hiba történt. Próbáld újra.',
     codesDontMatch: 'A kódok nem egyeznek. Kezdd újra.',
@@ -7043,6 +7067,16 @@ export const hu = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometria a privát szakaszokhoz',
+    privateBiometricSubtitle: 'Nyisd meg az intim életet, a jegyzeteket és a privát fotókat a kódod beírása nélkül. A kód tartalékként továbbra is elérhető.',
+    crashReports: {
+      title: 'Hibajelentések',
+      subtitle: 'Névtelen jelentés küldése, ha az AWA összeomlik.',
+      sheetTitle: 'Segítesz az AWA fejlesztésében?',
+      sheetBody: 'Ha az AWA összeomlik, névtelen technikai jelentés küldhető nekünk a hiba kijavításához. Soha nem az egészségügyi adataid vagy amit beírsz. Bármikor meggondolhatod magad az Adatvédelem és biztonság menüben.',
+      sheetEnable: 'Bekapcsolás',
+      sheetDecline: 'Köszönöm, nem',
+    },
     backA11y: 'Vissza',
     title: 'Adatvédelem és biztonság',
     subtitle: 'Az adataid, a magánéleted, a te döntésed',
@@ -7282,8 +7316,8 @@ export const hu = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Személyes adatok',
-    subtitle: 'Kezeld az alapvető adataidat 🌸',
-    greeting: 'Szia! 💜',
+    subtitle: 'Kezeld az alapvető adataidat',
+    greeting: 'Szia!',
     intro: 'Ezek az információk az AWA-élményed személyre szabására szolgálnak.',
     addPhoto: 'Fénykép hozzáadása',
     editPhoto: 'Fénykép szerkesztése',

@@ -292,14 +292,14 @@ describe('PART A/1 — Onboarding (NameOnboardingScreen) renders genuine Spanish
 });
 
 describe('PART A/2 — Home (CycleHomeScreen) renders genuine Spanish', () => {
-  it('shows the Spanish owner subtitle "Tu cuerpo, tu ritmo, tu fe ✨"', async () => {
+  it('shows the Spanish owner subtitle "Tu cuerpo, tu ritmo, tu fe"', async () => {
     await switchToSpanish();
     const renderer = await renderScreen(
       <JournalSheetProvider>
         <CycleHomeScreen navigation={{navigate: jest.fn()} as never} route={{key: 'k', name: 'CycleHome'} as never} />
       </JournalSheetProvider>,
     );
-    expect(textsOf(renderer)).toContain('Tu cuerpo, tu ritmo, tu fe ✨');
+    expect(textsOf(renderer)).toContain('Tu cuerpo, tu ritmo, tu fe');
   });
 });
 

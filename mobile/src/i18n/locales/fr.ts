@@ -262,9 +262,24 @@ export const fr = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Basculer sur le profil de {{name}}',
+    backToMine: 'Revenir à mon profil',
+    herSpace: 'Espace de {{name}}',
+    separateSpace: 'Son espace, séparé du tien',
+  },
+
+  discover: {
+    title: 'Découvrir',
+    daughterTitle: 'AWA pour ma fille',
+    partnerTitle: 'AWA pour mon mari',
+    daughterCaption: 'Suis son cycle dans un espace à elle',
+    partnerCaption: 'Partage les repères que tu choisis',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Ton corps, ton rythme, ta foi ✨',
+    subtitleOwner: 'Ton corps, ton rythme, ta foi',
     subtitleDaughter: 'Profil de ma fille',
     nextPeriodLabel: 'Prochaines règles',
     fertileWindowLabel: 'Fenêtre fertile',
@@ -288,13 +303,13 @@ export const fr = {
     // HeroCycleCard's per-phase message/energy/mood/tip — the phase NAME
     // itself is the shared cyclePhase.* key above, never duplicated here.
     phase: {
-      menstruation: {message: 'Ton énergie sera plus faible. Prends le temps de te reposer et prends soin de toi.', energy: 'Faible', mood: 'Sensible', tip: 'Repos & chaleur'},
-      follicular: {message: 'Ton énergie remonte doucement, c’est un bon moment pour te reconnecter à toi-même.', energy: 'Croissante', mood: 'Sereine', tip: 'Bonne hydratation'},
-      fertile: {message: 'Ta fenêtre fertile a commencé, reste à l’écoute des signaux de ton corps.', energy: 'Élevée', mood: 'Confiante', tip: 'Écoute-toi'},
-      ovulation: {message: 'L’ovulation est prévue aujourd’hui, ton énergie est à son maximum.', energy: 'Élevée', mood: 'Rayonnante', tip: 'Bouge en douceur'},
-      luteal: {message: 'Ton corps se prépare à un nouveau cycle, sois douce avec toi-même.', energy: 'Variable', mood: 'Introspective', tip: 'Douceur & calme'},
-      pregnancy: {message: 'Ton corps accompagne chaque étape avec attention, prends soin de toi.', energy: 'Variable', mood: 'Attentive', tip: 'Repos régulier'},
-      postpartum: {message: 'Ton corps poursuit sa récupération, accorde-toi de la patience.', energy: 'Douce', mood: 'Patiente', tip: 'Soutien & repos'},
+      menstruation: {message: 'Énergie plus faible : repose-toi.', energy: 'Faible', mood: 'Sensible', tip: 'Repos & chaleur'},
+      follicular: {message: 'Ton énergie remonte doucement.', energy: 'Croissante', mood: 'Sereine', tip: 'Bonne hydratation'},
+      fertile: {message: 'Ta fenêtre fertile a commencé.', energy: 'Élevée', mood: 'Confiante', tip: 'Écoute-toi'},
+      ovulation: {message: 'Ovulation prévue aujourd’hui.', energy: 'Élevée', mood: 'Rayonnante', tip: 'Bouge en douceur'},
+      luteal: {message: 'Ton corps prépare un nouveau cycle.', energy: 'Variable', mood: 'Introspective', tip: 'Douceur & calme'},
+      pregnancy: {message: 'Prends soin de toi, une étape à la fois.', energy: 'Variable', mood: 'Attentive', tip: 'Repos régulier'},
+      postpartum: {message: 'Ton corps récupère : accorde-toi du repos.', energy: 'Douce', mood: 'Patiente', tip: 'Soutien & repos'},
     },
     mood: {
       veryGood: 'Très bien',
@@ -559,6 +574,7 @@ export const fr = {
     additionalNotesSubtitle: 'Ajoute un commentaire si tu le souhaites.',
     notesPlaceholder: 'Écris ici...',
     saveMySymptoms: 'Enregistrer mes symptômes',
+    noSymptoms: 'Aucun symptôme',
     clearSubject: 'ces symptômes',
     savedToast: 'Symptômes enregistrés avec succès ✨',
   },
@@ -1435,6 +1451,12 @@ export const fr = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA pour ma fille',
+      daughterText: 'Suis le cycle de ta fille dans un profil à elle : ses données restent séparées des tiennes. Tu passes d’un profil à l’autre en un geste.',
+      partnerTitle: 'AWA pour mon mari',
+      partnerText: 'Partage avec ton mari uniquement les repères que tu choisis. Rien n’est partagé sans que tu l’actives.',
+    },
     aboutAwaSubtitle: 'Découvrez AWA et ses fonctionnalités',
     aboutAwaTitle: 'À propos de AWA',
     appearanceSubtitle: 'Thèmes, couleurs, affichage et langue',
@@ -1458,12 +1480,13 @@ export const fr = {
     moreSectionSubtitle: 'Aide, informations sur AWA et gestion de ta session.',
     moreSectionTitle: 'Plus',
     myInformationSubtitle: 'Toutes tes informations importantes, organisées simplement.',
-    myInformationTitle: 'Mes informations',
+    myInformationTitle: 'Réglages',
     myObjective: 'Mon objectif',
     myProfileEyebrow: 'MON PROFIL',
     none: 'Aucun',
     notConfigured: 'Non configuré',
     notProvided: 'Non renseigné',
+    optional: 'Facultatif',
     notProvidedFeminine: 'Non renseignée',
     predictionsUnavailable: 'Prévisions indisponibles — données insuffisantes',
     notProvidedPlural: 'Non renseignées',
@@ -7044,6 +7067,7 @@ export const fr = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Trop d’essais. Réessaie dans {{minutes}} min.',
     incorrectCode: 'Code incorrect. Réessaie.',
     genericError: 'Une erreur est survenue. Réessaie.',
     codesDontMatch: 'Les codes ne correspondent pas. Recommence.',
@@ -7129,6 +7153,16 @@ export const fr = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biométrie pour les sections privées',
+    privateBiometricSubtitle: 'Ouvre la vie intime, les notes et les photos privées sans taper ton code. Le code reste disponible en secours.',
+    crashReports: {
+      title: 'Rapports d’erreurs',
+      subtitle: 'Envoyer un rapport anonyme si AWA plante.',
+      sheetTitle: 'Aider à améliorer AWA ?',
+      sheetBody: 'Si AWA plante, un rapport technique anonyme peut nous être envoyé pour corriger le problème. Jamais tes données de santé ni tes saisies. Tu peux changer d’avis dans Confidentialité & Sécurité.',
+      sheetEnable: 'Activer',
+      sheetDecline: 'Non merci',
+    },
     backA11y: 'Retour',
     title: 'Confidentialité & Sécurité',
     subtitle: 'Tes données, ta vie privée, ton choix',
@@ -7377,8 +7411,8 @@ export const fr = {
   // excludes. See each file's own comment for the full reasoning.
   personalInformation: {
     title: 'Informations personnelles',
-    subtitle: 'Gère tes informations de base 🌸',
-    greeting: 'Salam ! 💜',
+    subtitle: 'Gère tes informations de base',
+    greeting: 'Salam !',
     intro: 'Ces informations sont utilisées pour personnaliser ton expérience dans AWA.',
     addPhoto: 'Ajouter une photo',
     editPhoto: 'Modifier la photo',

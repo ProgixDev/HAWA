@@ -116,8 +116,9 @@ async function renderLocationScreen(mode: 'onboarding' | 'edit' = 'onboarding') 
   return {renderer, navigation};
 }
 
-const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
-  renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
+
+// The chosen position is no longer written out in a "Localisation sélectionnée" card: the search field above the map holds it.
+const searchValue = (renderer: ReactTestRenderer.ReactTestRenderer): string => renderer.root.findAllByType(TextInput)[0].props.value;
 
 const cameraCenter = (renderer: ReactTestRenderer.ReactTestRenderer): [number, number] | null =>
   JSON.parse(renderer.root.findByProps({testID: 'camera-center'}).props.children as string);
@@ -153,7 +154,7 @@ describe('LocationScreen — saved location vs. the London default', () => {
 
     const {renderer} = await renderLocationScreen('edit');
 
-    expect(textsOf(renderer)).toContain('Paris, France');
+    expect(searchValue(renderer)).toBe('Paris, France');
     expect(cameraCenter(renderer)).toEqual([2.3522, 48.8566]);
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
@@ -163,7 +164,7 @@ describe('LocationScreen — saved location vs. the London default', () => {
 
     const {renderer} = await renderLocationScreen();
 
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
@@ -173,8 +174,8 @@ describe('LocationScreen — saved location vs. the London default', () => {
 
     const {renderer} = await renderLocationScreen();
 
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
-    expect(textsOf(renderer)).not.toContain('Algiers, Algeria');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
+    expect(searchValue(renderer)).not.toBe('Algiers, Algeria');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
   });
 });
@@ -186,7 +187,7 @@ describe('TEST 11/12 — searching and confirming another city', () => {
     mockSearchPlaces.mockResolvedValue([newYork]);
 
     const {renderer} = await renderLocationScreen();
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
 
     await act(async () => {
       searchInput(renderer).props.onChangeText('New York');
@@ -208,7 +209,7 @@ describe('TEST 11/12 — searching and confirming another city', () => {
       suggestion.props.onPress();
     });
 
-    expect(textsOf(renderer)).toContain('New York, United States');
+    expect(searchValue(renderer)).toBe('New York, United States');
     // The map was already mounted on the initial (London) suggestion, so the
     // move to New York happens via the camera ref's easeTo() — exactly like
     // real MapLibre, initialViewState only ever applies on first mount.
@@ -262,7 +263,7 @@ describe('TEST 13 — the GPS button remains functional', () => {
     }
 
     expect(mockGetCurrentPosition).toHaveBeenCalledTimes(1);
-    expect(textsOf(renderer)).toContain('Montréal, Canada');
+    expect(searchValue(renderer)).toBe('Montréal, Canada');
   });
 });
 

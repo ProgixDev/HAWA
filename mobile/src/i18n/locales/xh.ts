@@ -223,9 +223,24 @@ export const xh = {
       systemDescription: 'Sebenzisa ulwimi lwesixhobo'
     }
   },
+  profileSwitch: {
+    switchTo: 'Tshintshela kwiprofayile ka-{{name}}',
+    backToMine: 'Buyela kwiprofayile yam',
+    herSpace: 'Indawo ka-{{name}}',
+    separateSpace: 'Indawo yakhe, eyahlukileyo kweyakho',
+  },
+
+  discover: {
+    title: 'Fumana',
+    daughterTitle: 'I-AWA yentombi yam',
+    partnerTitle: 'I-AWA yendoda yam',
+    daughterCaption: 'Landela umjikelo wakhe kwindawo yakhe',
+    partnerCaption: 'Yabelana ngezikhombisi ozikhethayo',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Umzimba wakho, isingqi sakho, ukholo lwakho ✨',
+    subtitleOwner: 'Umzimba wakho, isingqi sakho, ukholo lwakho',
     subtitleDaughter: 'Iprofayile yentombi yam',
     nextPeriodLabel: 'Ixesha lenyanga elilandelayo',
     fertileWindowLabel: 'Ixesha lokuzala',
@@ -248,43 +263,43 @@ export const xh = {
     tipChipLabel: 'Icebiso losuku',
     phase: {
       menstruation: {
-        message: 'Amandla akho angaziva ephantsi ngoku — thatha ixesha lokuphumla kwaye uzithobele.',
+        message: 'Amandla asezantsi: phumla.',
         energy: 'Aphantsi',
         mood: 'Uvakalisa lula',
         tip: 'Phumla uhlale uvuthiwe'
       },
       follicular: {
-        message: 'Amandla akho aya ngokunyuka kancinci — ixesha elilungileyo lokuzibuyisela kuwe.',
+        message: 'Amandla akho abuya kancinci kancinci.',
         energy: 'Ayanyuka',
         mood: 'Uzolile',
         tip: 'Sela amanzi anele'
       },
       fertile: {
-        message: 'Ixesha lakho lokuzala liqalile — mamela imiqondiso yomzimba wakho.',
+        message: 'Ifestile yakho yokuzala iqalile.',
         energy: 'Aphezulu',
         mood: 'Unesiqinisekiso',
         tip: 'Zimamele'
       },
       ovulation: {
-        message: 'I-ovulation iyalindelwa namhlanje, kwaye amandla akho aphezulu kakhulu.',
+        message: 'I-ovulation ilindelwe namhlanje.',
         energy: 'Aphezulu',
         mood: 'Uyakhanya',
         tip: 'Hamba ngobunono'
       },
       luteal: {
-        message: 'Umzimba wakho uzilungiselela umjikelo omtsha — zithobele.',
+        message: 'Umzimba wakho ulungiselela umjikelo omtsha.',
         energy: 'Ayatshintsha',
         mood: 'Uyazijonga',
         tip: 'Ubunono nokuzola'
       },
       pregnancy: {
-        message: 'Umzimba wakho uxhasa isinyathelo ngasinye ngenyameko — zinike kakuhle.',
+        message: 'Zinakekele, inyathelo ngenyathelo.',
         energy: 'Ayatshintsha',
         mood: 'Unenyameko',
         tip: 'Ukuphumla rhoqo'
       },
       postpartum: {
-        message: 'Umzimba wakho uyaqhubeka nokuphila — zinike intlalo yomonde.',
+        message: 'Umzimba wakho uyapholisa: zinike ukuphumla.',
         energy: 'Ahlukileyo kancinci',
         mood: 'Unomonde',
         tip: 'Inkxaso nokuphumla'
@@ -555,6 +570,7 @@ export const xh = {
     additionalNotesSubtitle: 'Yongeza ingxelo ukuba uyathanda.',
     notesPlaceholder: 'Bhala apha...',
     saveMySymptoms: 'Gcina iimpawu zam',
+    noSymptoms: 'Akukho mpawu',
     clearSubject: 'ezi mpawu',
     savedToast: 'Iimpawu zigcinwe ngempumelelo ✨'
   },
@@ -1458,6 +1474,12 @@ export const xh = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'I-AWA yentombi yam',
+      daughterText: 'Landela umjikelo wentombi yakho kwiprofayile yayo: idatha yayo ihlala yahlukile kweyakho. Tshintsha iiprofayile ngokuchukumisa kanye.',
+      partnerTitle: 'I-AWA yendoda yam',
+      partnerText: 'Yabelana nomyeni wakho ngezikhombisi ozikhethayo kuphela. Akukho nto yabelwanayo ukuba awuyivulanga.',
+    },
     aboutAwaSubtitle: 'Uhlelo, izaziso zomthetho, ubumfihlo nemilinganiselo yeapp',
     aboutAwaTitle: 'Malunga ne-AWA',
     appearanceSubtitle: 'Iindlela zokubonakala, imibala, ukubonisa nolwimi',
@@ -1481,12 +1503,13 @@ export const xh = {
     moreSectionSubtitle: 'Uncedo, ulwazi ngeAWA nokulawula iseshoni yakho.',
     moreSectionTitle: 'Okungakumbi',
     myInformationSubtitle: 'Lonke ulwazi lwakho olubalulekileyo, lulungiswe lula.',
-    myInformationTitle: 'Ulwazi lwam',
+    myInformationTitle: 'Useto',
     myObjective: 'Injongo yam',
     myProfileEyebrow: 'IPROFAYILE YAM',
     none: 'Akukho',
     notConfigured: 'Ayilungiselelwanga',
     notProvided: 'Akunikiwe',
+    optional: 'Akunyanzelekanga',
     notProvidedFeminine: 'Akunikiwe',
     predictionsUnavailable: 'Uqikelelo alufumaneki — idatha ayanelanga',
     notProvidedPlural: 'Akunikiwe',
@@ -7459,6 +7482,7 @@ export const xh = {
       helpModalCloseAccessibility: 'Vala'
     }
   },  security: {
+    tooManyAttempts: 'Iinzame ezininzi kakhulu. Zama kwakhona kwimizuzu engama-{{minutes}}.',
     incorrectCode: 'I-PIN ayilunganga. Zama kwakhona.',
     genericError: 'Kukho into engahambanga kakuhle. Zama kwakhona.',
     codesDontMatch: 'Iikhowudi azifani. Qala kwakhona.',
@@ -7536,6 +7560,16 @@ export const xh = {
     disableAction: 'Vala i-{{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'I-biometrics yamacandelo abucala',
+    privateBiometricSubtitle: 'Vula ubomi obuyimfihlo, amanqaku neefoto zabucala ngaphandle kokuchwetheza ikhowudi. Ikhowudi iqhubeka njengesixhobo sokuhlangula.',
+    crashReports: {
+      title: 'Iingxelo zeempazamo',
+      subtitle: 'Thumela ingxelo engaziwa igama ukuba i-AWA ivala.',
+      sheetTitle: 'Nceda ukuphucula i-AWA?',
+      sheetBody: 'Ukuba i-AWA ivala ngequbuliso, ingxelo yobugcisa engaziwa igama inokuthunyelwa kuthi ukuze silungise ingxaki. Ayisoze ibe yidatha yakho yempilo okanye oko uchwetheza. Unokutshintsha ingqondo kwi-Imfihlo kunye noKhuseleko.',
+      sheetEnable: 'Vula',
+      sheetDecline: 'Hayi, enkosi',
+    },
     backA11y: 'Buya',
     title: 'Ubumfihlo nokhuseleko',
     subtitle: 'Idatha yakho, ubumfihlo bakho, ukhetho lwakho',
@@ -7751,8 +7785,8 @@ export const xh = {
   },
   personalInformation: {
     title: 'Ulwazi lobuqu',
-    subtitle: 'Lawula ulwazi lwakho olusisiseko 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Lawula ulwazi lwakho olusisiseko',
+    greeting: 'Salam!',
     intro: 'Olu lwazi lusetyenziselwa ukwenza amava akho ngokwakho kwi-AWA.',
     addPhoto: 'Yongeza ifoto',
     editPhoto: 'Hlela ifoto',

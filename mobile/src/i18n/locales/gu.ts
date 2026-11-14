@@ -248,9 +248,24 @@ export const gu = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} ની પ્રોફાઇલ પર જાઓ',
+    backToMine: 'મારી પ્રોફાઇલ પર પાછા જાઓ',
+    herSpace: '{{name}} ની જગ્યા',
+    separateSpace: 'તેની પોતાની જગ્યા, તમારાથી અલગ',
+  },
+
+  discover: {
+    title: 'શોધો',
+    daughterTitle: 'મારી દીકરી માટે AWA',
+    partnerTitle: 'મારા પતિ માટે AWA',
+    daughterCaption: 'તેનું ચક્ર તેની પોતાની જગ્યામાં અનુસરો',
+    partnerCaption: 'તમે પસંદ કરેલા સૂચકો શેર કરો',
+  },
+
   cycleHome: {
     greeting: 'અસ્સલામુ અલયકુમ,',
-    subtitleOwner: 'તમારું શરીર, તમારી લય, તમારી શ્રદ્ધા ✨',
+    subtitleOwner: 'તમારું શરીર, તમારી લય, તમારી શ્રદ્ધા',
     subtitleDaughter: 'મારી દીકરીની પ્રોફાઇલ',
     nextPeriodLabel: 'આગામી માસિક',
     fertileWindowLabel: 'ફળદ્રુપ સમયગાળો',
@@ -272,13 +287,13 @@ export const gu = {
     moodChipLabel: 'મૂડ',
     tipChipLabel: 'આજની ટીપ',
     phase: {
-      menstruation: {message: 'હમણાં તમારી ઊર્જા ઓછી લાગી શકે છે — આરામ કરો અને પોતાની સાથે નમ્રતાથી વર્તો.', energy: 'ઓછી', mood: 'સંવેદનશીલ', tip: 'આરામ અને હૂંફ'},
-      follicular: {message: 'તમારી ઊર્જા ધીમે ધીમે વધી રહી છે — પોતાની સાથે ફરી જોડાવા માટે આ સારો સમય છે.', energy: 'વધતી', mood: 'શાંત', tip: 'પૂરતું પાણી પીઓ'},
-      fertile: {message: 'તમારો ફળદ્રુપ સમયગાળો શરૂ થયો છે — તમારા શરીરના સંકેતો પર ધ્યાન રાખો.', energy: 'વધુ', mood: 'આત્મવિશ્વાસુ', tip: 'પોતાનું સાંભળો'},
-      ovulation: {message: 'આજે અંડોત્સર્જનની અપેક્ષા છે અને તમારી ઊર્જા શિખરે છે.', energy: 'વધુ', mood: 'તેજસ્વી', tip: 'હળવેથી હલનચલન કરો'},
-      luteal: {message: 'તમારું શરીર નવા ચક્ર માટે તૈયાર થઈ રહ્યું છે — પોતાની સાથે નમ્રતાથી વર્તો.', energy: 'બદલાતી', mood: 'આત્મચિંતનશીલ', tip: 'કોમળતા અને શાંતિ'},
-      pregnancy: {message: 'તમારું શરીર દરેક તબક્કે કાળજીપૂર્વક સાથ આપી રહ્યું છે — પોતાની સારી કાળજી લો.', energy: 'બદલાતી', mood: 'સજાગ', tip: 'નિયમિત આરામ'},
-      postpartum: {message: 'તમારું શરીર સાજું થઈ રહ્યું છે — પોતાને ધીરજ આપો.', energy: 'ધીમી', mood: 'ધીરજવાળી', tip: 'સહારો અને આરામ'},
+      menstruation: {message: 'ઓછી ઊર્જા: આરામ કરો.', energy: 'ઓછી', mood: 'સંવેદનશીલ', tip: 'આરામ અને હૂંફ'},
+      follicular: {message: 'તમારી ઊર્જા ધીમે ધીમે પાછી આવી રહી છે.', energy: 'વધતી', mood: 'શાંત', tip: 'પૂરતું પાણી પીઓ'},
+      fertile: {message: 'તમારી ફળદ્રુપ વિન્ડો શરૂ થઈ ગઈ છે.', energy: 'વધુ', mood: 'આત્મવિશ્વાસુ', tip: 'પોતાનું સાંભળો'},
+      ovulation: {message: 'આજે ઓવ્યુલેશન અપેક્ષિત છે.', energy: 'વધુ', mood: 'તેજસ્વી', tip: 'હળવેથી હલનચલન કરો'},
+      luteal: {message: 'તમારું શરીર નવા ચક્રની તૈયારી કરી રહ્યું છે.', energy: 'બદલાતી', mood: 'આત્મચિંતનશીલ', tip: 'કોમળતા અને શાંતિ'},
+      pregnancy: {message: 'પોતાની સંભાળ રાખો, એક પગલું એક સમયે.', energy: 'બદલાતી', mood: 'સજાગ', tip: 'નિયમિત આરામ'},
+      postpartum: {message: 'તમારું શરીર સાજું થઈ રહ્યું છે: પોતાને આરામ આપો.', energy: 'ધીમી', mood: 'ધીરજવાળી', tip: 'સહારો અને આરામ'},
     },
     mood: {
       veryGood: 'ખૂબ સારી',
@@ -543,6 +558,7 @@ export const gu = {
     additionalNotesSubtitle: 'ઇચ્છો તો ટિપ્પણી ઉમેરો.',
     notesPlaceholder: 'અહીં લખો...',
     saveMySymptoms: 'મારાં લક્ષણો સાચવો',
+    noSymptoms: 'કોઈ લક્ષણ નથી',
     clearSubject: 'આ લક્ષણો',
     savedToast: 'લક્ષણો સફળતાપૂર્વક સાચવાયાં ✨',
   },
@@ -1419,6 +1435,12 @@ export const gu = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'મારી દીકરી માટે AWA',
+      daughterText: 'તમારી દીકરીનું ચક્ર તેની પોતાની પ્રોફાઇલમાં અનુસરો: તેનો ડેટા તમારા ડેટાથી અલગ રહે છે. એક ટેપમાં પ્રોફાઇલ બદલો.',
+      partnerTitle: 'મારા પતિ માટે AWA',
+      partnerText: 'તમે પસંદ કરેલા સૂચકો જ પતિ સાથે શેર કરો. તમે ચાલુ ન કરો ત્યાં સુધી કંઈ શેર થતું નથી.',
+    },
     aboutAwaSubtitle: 'આવૃત્તિ, કાનૂની સૂચનાઓ, ગોપનીયતા અને એપનાં મૂલ્યો',
     aboutAwaTitle: 'AWA વિશે',
     appearanceSubtitle: 'થીમ, રંગો, ડિસ્પ્લે અને ભાષા',
@@ -1442,12 +1464,13 @@ export const gu = {
     moreSectionSubtitle: 'મદદ, AWA વિશે માહિતી અને તમારું સત્ર વ્યવસ્થાપિત કરવું.',
     moreSectionTitle: 'વધુ',
     myInformationSubtitle: 'તમારી બધી મહત્ત્વની માહિતી, સરળ રીતે ગોઠવેલી.',
-    myInformationTitle: 'મારી માહિતી',
+    myInformationTitle: 'સેટિંગ્સ',
     myObjective: 'મારું ધ્યેય',
     myProfileEyebrow: 'મારી પ્રોફાઇલ',
     none: 'નથી',
     notConfigured: 'સેટ કરેલ નથી',
     notProvided: 'આપેલ નથી',
+    optional: 'વૈકલ્પિક',
     notProvidedFeminine: 'આપેલ નથી',
     predictionsUnavailable: 'અંદાજો ઉપલબ્ધ નથી — પૂરતો ડેટા નથી',
     notProvidedPlural: 'આપેલ નથી',
@@ -6948,6 +6971,7 @@ export const gu = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'ઘણા બધા પ્રયાસો. {{minutes}} મિનિટ પછી ફરી પ્રયાસ કરો.',
     incorrectCode: 'PIN ખોટો છે. ફરી પ્રયાસ કરો.',
     genericError: 'કંઈક ખોટું થયું. ફરી પ્રયાસ કરો.',
     codesDontMatch: 'કોડ મેળ ખાતા નથી. ફરી શરૂ કરો.',
@@ -7033,6 +7057,16 @@ export const gu = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'ખાનગી વિભાગો માટે બાયોમેટ્રિક',
+    privateBiometricSubtitle: 'કોડ લખ્યા વગર અંતરંગ જીવન, નોંધો અને ખાનગી ફોટા ખોલો. કોડ બેકઅપ તરીકે ઉપલબ્ધ રહે છે.',
+    crashReports: {
+      title: 'ભૂલ અહેવાલો',
+      subtitle: 'AWA બંધ થાય તો અજ્ઞાત અહેવાલ મોકલો.',
+      sheetTitle: 'AWA સુધારવામાં મદદ કરશો?',
+      sheetBody: 'AWA અચાનક બંધ થઈ જાય, તો સમસ્યા સુધારવા માટે અમને અજ્ઞાત તકનીકી અહેવાલ મોકલવામાં આવી શકે છે. તમારો આરોગ્ય ડેટા અથવા તમે લખેલી માહિતી ક્યારેય નહીં. તમે ગોપનીયતા અને સુરક્ષા માં નિર્ણય બદલી શકો છો.',
+      sheetEnable: 'ચાલુ કરો',
+      sheetDecline: 'ના, આભાર',
+    },
     backA11y: 'પાછા',
     title: 'ગોપનીયતા અને સુરક્ષા',
     subtitle: 'તમારો ડેટા, તમારી ગોપનીયતા, તમારી પસંદગી',
@@ -7272,8 +7306,8 @@ export const gu = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'વ્યક્તિગત માહિતી',
-    subtitle: 'તમારી મૂળભૂત માહિતી સંભાળો 🌸',
-    greeting: 'સલામ! 💜',
+    subtitle: 'તમારી મૂળભૂત માહિતી સંભાળો',
+    greeting: 'સલામ!',
     intro: 'આ માહિતી AWA માં તમારો અનુભવ તમને અનુકૂળ બનાવવા માટે વપરાય છે.',
     addPhoto: 'ફોટો ઉમેરો',
     editPhoto: 'ફોટો બદલો',

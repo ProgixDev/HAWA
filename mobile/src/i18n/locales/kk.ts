@@ -242,9 +242,24 @@ export const kk = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} профиліне ауысу',
+    backToMine: 'Менің профиліме оралу',
+    herSpace: '{{name}} кеңістігі',
+    separateSpace: 'Оның жеке кеңістігі, сенікінен бөлек',
+  },
+
+  discover: {
+    title: 'Ашу',
+    daughterTitle: 'Қызыма арналған AWA',
+    partnerTitle: 'Күйеуіме арналған AWA',
+    daughterCaption: 'Оның циклін өз кеңістігінде бақыла',
+    partnerCaption: 'Таңдаған көрсеткіштеріңмен бөліс',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Денеңіз, ырғағыңыз, сеніміңіз ✨',
+    subtitleOwner: 'Денеңіз, ырғағыңыз, сеніміңіз',
     subtitleDaughter: 'Қызымның профилі',
     nextPeriodLabel: 'Келесі етеккір',
     fertileWindowLabel: 'Құнарлы кезең',
@@ -266,13 +281,13 @@ export const kk = {
     moodChipLabel: 'Көңіл-күй',
     tipChipLabel: 'Күн кеңесі',
     phase: {
-      menstruation: {message: 'Қазір қуатыңыз төмен болуы мүмкін — демалуға уақыт бөліп, өзіңізге жұмсақ болыңыз.', energy: 'Төмен', mood: 'Сезімтал', tip: 'Демалыс және жылу'},
-      follicular: {message: 'Қуатыңыз біртіндеп артып келеді — өзіңізбен қайта байланысудың тамаша уақыты.', energy: 'Артуда', mood: 'Тыныш', tip: 'Су ішіп тұрыңыз'},
-      fertile: {message: 'Құнарлы кезеңіңіз басталды — дене сигналдарына құлақ асыңыз.', energy: 'Жоғары', mood: 'Сенімді', tip: 'Өзіңізді тыңдаңыз'},
-      ovulation: {message: 'Бүгін овуляция күтіледі, қуатыңыз шарықтау шегінде.', energy: 'Жоғары', mood: 'Нұрлы', tip: 'Жеңіл қозғалыңыз'},
-      luteal: {message: 'Денеңіз жаңа циклге дайындалуда — өзіңізге жұмсақ болыңыз.', energy: 'Өзгермелі', mood: 'Ойшыл', tip: 'Жұмсақтық және тыныштық'},
-      pregnancy: {message: 'Денеңіз әр қадамды қамқорлықпен қолдап жатыр — өзіңізге жақсы қамқор болыңыз.', energy: 'Өзгермелі', mood: 'Зейінді', tip: 'Тұрақты демалыс'},
-      postpartum: {message: 'Денеңіз қалпына келуін жалғастыруда — өзіңізге шыдамдылық танытыңыз.', energy: 'Жұмсақ', mood: 'Шыдамды', tip: 'Қолдау және демалыс'},
+      menstruation: {message: 'Энергия төмен: демал.', energy: 'Төмен', mood: 'Сезімтал', tip: 'Демалыс және жылу'},
+      follicular: {message: 'Энергияң баяу қайтып келе жатыр.', energy: 'Артуда', mood: 'Тыныш', tip: 'Су ішіп тұрыңыз'},
+      fertile: {message: 'Құнарлы кезеңің басталды.', energy: 'Жоғары', mood: 'Сенімді', tip: 'Өзіңізді тыңдаңыз'},
+      ovulation: {message: 'Бүгін овуляция күтіледі.', energy: 'Жоғары', mood: 'Нұрлы', tip: 'Жеңіл қозғалыңыз'},
+      luteal: {message: 'Денең жаңа циклге дайындалып жатыр.', energy: 'Өзгермелі', mood: 'Ойшыл', tip: 'Жұмсақтық және тыныштық'},
+      pregnancy: {message: 'Өзіңе қамқор бол, қадам сайын.', energy: 'Өзгермелі', mood: 'Зейінді', tip: 'Тұрақты демалыс'},
+      postpartum: {message: 'Денең қалпына келіп жатыр: өзіңе демалыс бер.', energy: 'Жұмсақ', mood: 'Шыдамды', tip: 'Қолдау және демалыс'},
     },
     mood: {
       veryGood: 'Өте жақсы',
@@ -537,6 +552,7 @@ export const kk = {
     additionalNotesSubtitle: 'Қаласаңыз, түсініктеме қосыңыз.',
     notesPlaceholder: 'Осында жазыңыз...',
     saveMySymptoms: 'Белгілерімді сақтау',
+    noSymptoms: 'Белгілер жоқ',
     clearSubject: 'осы белгілерді',
     savedToast: 'Белгілер сәтті сақталды ✨',
   },
@@ -1413,6 +1429,12 @@ export const kk = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'Қызыма арналған AWA',
+      daughterText: 'Қызыңның циклін оның жеке профилінде бақыла: оның деректері сенікінен бөлек сақталады. Профильдер арасында бір түртумен ауысасың.',
+      partnerTitle: 'Күйеуіме арналған AWA',
+      partnerText: 'Күйеуіңмен тек таңдаған көрсеткіштеріңді бөліс. Қоспасаң, ештеңе бөлісілмейді.',
+    },
     aboutAwaSubtitle: 'Нұсқа, құқықтық ескертпелер, құпиялылық және қолданбаның құндылықтары',
     aboutAwaTitle: 'AWA туралы',
     appearanceSubtitle: 'Тақырыптар, түстер, көрсету және тіл',
@@ -1436,12 +1458,13 @@ export const kk = {
     moreSectionSubtitle: 'Көмек, AWA туралы ақпарат және сессияны басқару.',
     moreSectionTitle: 'Қосымша',
     myInformationSubtitle: 'Барлық маңызды ақпаратыңыз, қарапайым тәртіппен.',
-    myInformationTitle: 'Менің ақпаратым',
+    myInformationTitle: 'Параметрлер',
     myObjective: 'Менің мақсатым',
     myProfileEyebrow: 'МЕНІҢ ПРОФИЛІМ',
     none: 'Жоқ',
     notConfigured: 'Бапталмаған',
     notProvided: 'Көрсетілмеген',
+    optional: 'Міндетті емес',
     notProvidedFeminine: 'Көрсетілмеген',
     predictionsUnavailable: 'Болжамдар қолжетімсіз — деректер жеткіліксіз',
     notProvidedPlural: 'Көрсетілмеген',
@@ -6958,6 +6981,7 @@ export const kk = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Тым көп әрекет. {{minutes}} минуттан кейін қайта көр.',
     incorrectCode: 'PIN қате. Қайталап көріңіз.',
     genericError: 'Бірдеңе дұрыс болмады. Қайталап көріңіз.',
     codesDontMatch: 'Кодтар сәйкес келмейді. Қайтадан бастаңыз.',
@@ -7043,6 +7067,16 @@ export const kk = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Жеке бөлімдерге арналған биометрия',
+    privateBiometricSubtitle: 'Жақын өмірді, жазбалар мен жеке суреттерді кодты енгізбей аш. Код қосалқы әдіс ретінде қалады.',
+    crashReports: {
+      title: 'Қате туралы есептер',
+      subtitle: 'AWA жабылса, анонимді есеп жіберу.',
+      sheetTitle: 'AWA-ны жақсартуға көмектесесің бе?',
+      sheetBody: 'AWA күтпеген жерден жабылса, мәселені түзету үшін бізге анонимді техникалық есеп жіберілуі мүмкін. Денсаулығың туралы деректер немесе енгізгенің ешқашан жіберілмейді. Шешіміңді «Құпиялылық және қауіпсіздік» бөлімінде өзгерте аласың.',
+      sheetEnable: 'Қосу',
+      sheetDecline: 'Жоқ, рахмет',
+    },
     backA11y: 'Артқа',
     title: 'Құпиялылық және қауіпсіздік',
     subtitle: 'Деректеріңіз, құпиялылығыңыз, таңдауыңыз',
@@ -7282,8 +7316,8 @@ export const kk = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Жеке ақпарат',
-    subtitle: 'Негізгі ақпаратыңызды басқарыңыз 🌸',
-    greeting: 'Сәлем! 💜',
+    subtitle: 'Негізгі ақпаратыңызды басқарыңыз',
+    greeting: 'Сәлем!',
     intro: 'Бұл ақпарат AWA-дағы тәжірибеңізді жекелендіру үшін қолданылады.',
     addPhoto: 'Фото қосу',
     editPhoto: 'Фотоны өңдеу',

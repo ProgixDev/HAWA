@@ -100,8 +100,9 @@ const settle = async (ticks = 5) => {
   }
 };
 
-const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
-  renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
+
+// The chosen position is no longer written out in a "Localisation sélectionnée" card: the search field above the map holds it.
+const searchValue = (renderer: ReactTestRenderer.ReactTestRenderer): string => renderer.root.findAllByType(TextInput)[0].props.value;
 
 const searchInput = (renderer: ReactTestRenderer.ReactTestRenderer) => renderer.root.findByType(TextInput);
 
@@ -130,7 +131,7 @@ describe('A late-resolving initial suggestion never overwrites an explicit user 
     const {renderer} = await renderLocationScreen();
     // The initial resolution is still pending — the map/location card show
     // the "resolving" state, never a half-applied London.
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
 
     await act(async () => {
       searchInput(renderer).props.onChangeText('New York');
@@ -146,7 +147,7 @@ describe('A late-resolving initial suggestion never overwrites an explicit user 
     await act(async () => {
       suggestion.props.onPress();
     });
-    expect(textsOf(renderer)).toContain('New York, United States');
+    expect(searchValue(renderer)).toBe('New York, United States');
 
     // ONLY NOW does the slow initial suggestion (London) finally resolve —
     // it must be silently dropped, never overwriting the explicit choice.
@@ -155,7 +156,7 @@ describe('A late-resolving initial suggestion never overwrites an explicit user 
     });
     await settle();
 
-    expect(textsOf(renderer)).toContain('New York, United States');
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('New York, United States');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
   });
 });

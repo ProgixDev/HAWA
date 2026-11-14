@@ -235,9 +235,24 @@ export const pl = {
     },
   },
 
+  profileSwitch: {
+    switchTo: 'Przełącz na profil: {{name}}',
+    backToMine: 'Wróć do mojego profilu',
+    herSpace: 'Przestrzeń: {{name}}',
+    separateSpace: 'Jej własna przestrzeń, oddzielona od twojej',
+  },
+
+  discover: {
+    title: 'Odkryj',
+    daughterTitle: 'AWA dla mojej córki',
+    partnerTitle: 'AWA dla mojego męża',
+    daughterCaption: 'Śledź jej cykl w jej własnej przestrzeni',
+    partnerCaption: 'Udostępniaj wskaźniki, które wybierzesz',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Twoje ciało, Twój rytm, Twoja wiara ✨',
+    subtitleOwner: 'Twoje ciało, Twój rytm, Twoja wiara',
     subtitleDaughter: 'Profil mojej córki',
     nextPeriodLabel: 'Następny okres',
     fertileWindowLabel: 'Okno płodności',
@@ -259,13 +274,13 @@ export const pl = {
     moodChipLabel: 'Nastrój',
     tipChipLabel: 'Wskazówka dnia',
     phase: {
-      menstruation: {message: 'Twoja energia może być teraz niższa — odpocznij i bądź dla siebie łagodna.', energy: 'Niska', mood: 'Wrażliwy', tip: 'Odpoczynek i ciepło'},
-      follicular: {message: 'Twoja energia delikatnie rośnie — to dobry moment, by na nowo połączyć się ze sobą.', energy: 'Rosnąca', mood: 'Spokojny', tip: 'Pij dużo wody'},
-      fertile: {message: 'Zaczęło się Twoje okno płodności — wsłuchuj się w sygnały swojego ciała.', energy: 'Wysoka', mood: 'Pewny siebie', tip: 'Słuchaj siebie'},
-      ovulation: {message: 'Owulacja spodziewana jest dziś, a Twoja energia jest na szczycie.', energy: 'Wysoka', mood: 'Promienny', tip: 'Poruszaj się delikatnie'},
-      luteal: {message: 'Twoje ciało przygotowuje się do nowego cyklu — bądź dla siebie łagodna.', energy: 'Zmienna', mood: 'Zamyślony', tip: 'Łagodność i spokój'},
-      pregnancy: {message: 'Twoje ciało z troską wspiera każdy etap — zadbaj o siebie.', energy: 'Zmienna', mood: 'Uważny', tip: 'Regularny odpoczynek'},
-      postpartum: {message: 'Twoje ciało wciąż dochodzi do siebie — zachowaj cierpliwość.', energy: 'Łagodna', mood: 'Cierpliwy', tip: 'Wsparcie i odpoczynek'},
+      menstruation: {message: 'Mniej energii: odpocznij.', energy: 'Niska', mood: 'Wrażliwy', tip: 'Odpoczynek i ciepło'},
+      follicular: {message: 'Twoja energia powoli wraca.', energy: 'Rosnąca', mood: 'Spokojny', tip: 'Pij dużo wody'},
+      fertile: {message: 'Twoje płodne okno się zaczęło.', energy: 'Wysoka', mood: 'Pewny siebie', tip: 'Słuchaj siebie'},
+      ovulation: {message: 'Owulacja spodziewana jest dzisiaj.', energy: 'Wysoka', mood: 'Promienny', tip: 'Poruszaj się delikatnie'},
+      luteal: {message: 'Twoje ciało przygotowuje nowy cykl.', energy: 'Zmienna', mood: 'Zamyślony', tip: 'Łagodność i spokój'},
+      pregnancy: {message: 'Dbaj o siebie, krok po kroku.', energy: 'Zmienna', mood: 'Uważny', tip: 'Regularny odpoczynek'},
+      postpartum: {message: 'Twoje ciało się regeneruje: daj sobie odpocząć.', energy: 'Łagodna', mood: 'Cierpliwy', tip: 'Wsparcie i odpoczynek'},
     },
     mood: {
       veryGood: 'Bardzo dobry',
@@ -542,6 +557,7 @@ export const pl = {
     additionalNotesSubtitle: 'Dodaj komentarz, jeśli chcesz.',
     notesPlaceholder: 'Napisz tutaj…',
     saveMySymptoms: 'Zapisz moje objawy',
+    noSymptoms: 'Brak objawów',
     clearSubject: 'te objawy',
     savedToast: 'Objawy zostały zapisane ✨',
   },
@@ -1448,6 +1464,12 @@ export const pl = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA dla mojej córki',
+      daughterText: 'Śledź cykl córki w jej własnym profilu: jej dane pozostają oddzielone od twoich. Między profilami przełączasz się jednym dotknięciem.',
+      partnerTitle: 'AWA dla mojego męża',
+      partnerText: 'Z mężem udostępniaj tylko wskaźniki, które wybierzesz. Nic nie jest udostępniane, dopóki tego nie włączysz.',
+    },
     aboutAwaSubtitle: 'Wersja, informacje prawne, prywatność i wartości aplikacji',
     aboutAwaTitle: 'O AWA',
     appearanceSubtitle: 'Motywy, kolory, wyświetlanie i język',
@@ -1471,12 +1493,13 @@ export const pl = {
     moreSectionSubtitle: 'Pomoc, informacje o AWA i zarządzanie sesją.',
     moreSectionTitle: 'Więcej',
     myInformationSubtitle: 'Wszystkie Twoje ważne informacje, prosto uporządkowane.',
-    myInformationTitle: 'Moje informacje',
+    myInformationTitle: 'Ustawienia',
     myObjective: 'Mój cel',
     myProfileEyebrow: 'MÓJ PROFIL',
     none: 'Brak',
     notConfigured: 'Nie skonfigurowano',
     notProvided: 'Nie podano',
+    optional: 'Opcjonalne',
     notProvidedFeminine: 'Nie podano',
     predictionsUnavailable: 'Prognozy niedostępne — za mało danych',
     notProvidedPlural: 'Nie podano',
@@ -7063,6 +7086,7 @@ export const pl = {
     },
   },
   security: {
+    tooManyAttempts: 'Zbyt wiele prób. Spróbuj ponownie za {{minutes}} min.',
     incorrectCode: 'Nieprawidłowy PIN. Spróbuj ponownie.',
     genericError: 'Coś poszło nie tak. Spróbuj ponownie.',
     codesDontMatch: 'Kody nie są takie same. Zacznij od początku.',
@@ -7148,6 +7172,16 @@ export const pl = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Biometria dla sekcji prywatnych',
+    privateBiometricSubtitle: 'Otwieraj życie intymne, notatki i prywatne zdjęcia bez wpisywania kodu. Kod pozostaje dostępny jako zapasowy.',
+    crashReports: {
+      title: 'Raporty o błędach',
+      subtitle: 'Wyślij anonimowy raport, jeśli AWA ulegnie awarii.',
+      sheetTitle: 'Pomóc ulepszyć AWA?',
+      sheetBody: 'Jeśli AWA ulegnie awarii, może zostać do nas wysłany anonimowy raport techniczny, abyśmy mogli naprawić problem. Nigdy Twoich danych o zdrowiu ani tego, co wpisujesz. Możesz zmienić zdanie w Prywatności i bezpieczeństwie.',
+      sheetEnable: 'Włącz',
+      sheetDecline: 'Nie, dziękuję',
+    },
     backA11y: 'Wstecz',
     title: 'Prywatność i bezpieczeństwo',
     subtitle: 'Twoje dane, Twoja prywatność, Twój wybór',
@@ -7374,8 +7408,8 @@ export const pl = {
 
   personalInformation: {
     title: 'Dane osobowe',
-    subtitle: 'Zarządzaj swoimi podstawowymi informacjami 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Zarządzaj swoimi podstawowymi informacjami',
+    greeting: 'Salam!',
     intro: 'Te informacje służą do personalizacji Twojego doświadczenia w AWA.',
     addPhoto: 'Dodaj zdjęcie',
     editPhoto: 'Edytuj zdjęcie',

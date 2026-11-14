@@ -224,9 +224,24 @@ export const rn = {
       systemDescription: 'Koresha ururimi rwa telefone'
     }
   },
+  profileSwitch: {
+    switchTo: 'Hindura kuri profile ya {{name}}',
+    backToMine: 'Subira kuri profile yanje',
+    herSpace: 'Ahantu ha {{name}}',
+    separateSpace: 'Ahantu hiwe bwite, hatandukanye n’ahawe',
+  },
+
+  discover: {
+    title: 'Rondera',
+    daughterTitle: 'AWA y’umukobwa wanje',
+    partnerTitle: 'AWA y’umugabo wanje',
+    daughterCaption: 'Kurikira ukwezi kwiwe ahantu hiwe bwite',
+    partnerCaption: 'Sangira ibimenyetso wahisemwo',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Umubiri wawe, injana yawe, ukwemera kwawe ✨',
+    subtitleOwner: 'Umubiri wawe, injana yawe, ukwemera kwawe',
     subtitleDaughter: 'Profile y\'umukobwa wanje',
     nextPeriodLabel: 'Imihango ikurikira',
     fertileWindowLabel: 'Igihe co gusama',
@@ -249,43 +264,43 @@ export const rn = {
     tipChipLabel: 'Inama y\'uyu musi',
     phase: {
       menstruation: {
-        message: 'Imbaraga zawe zishobora kuba nke ubu — fata umwanya wo kuruhuka kandi wiyiteho n\'ubwitonzi.',
+        message: 'Imbaraga nke: ruhuka.',
         energy: 'Nke',
         mood: 'Woroshe',
         tip: 'Kuruhuka & ubushuhe'
       },
       follicular: {
-        message: 'Imbaraga zawe ziriko ziragaruka buhorobuhoro — ni igihe ciza co kwisubiraho.',
+        message: 'Imbaraga zawe zirasubira buhoro buhoro.',
         energy: 'Ziriko ziriyongera',
         mood: 'Utuje',
         tip: 'Nywa amazi ahagije'
       },
       fertile: {
-        message: 'Igihe cawe co gusama catanguye — ita ku bimenyetso vy\'umubiri wawe.',
+        message: 'Igihe cawe co gusama caratanguye.',
         energy: 'Nyinshi',
         mood: 'Wizeye',
         tip: 'Wumve umubiri wawe'
       },
       ovulation: {
-        message: 'Ovulation iravugwa uyu musi, kandi imbaraga zawe ziri hejuru cane.',
+        message: 'Ovulation iragereranywa none.',
         energy: 'Nyinshi',
         mood: 'Urabagirana',
         tip: 'Rembera buhorobuhoro'
       },
       luteal: {
-        message: 'Umubiri wawe uriko wiyegura uruziga rushasha — wiyiteho n\'ubwitonzi.',
+        message: 'Umubiri wawe uriko urategura uruziga rushasha.',
         energy: 'Zihindagurika',
         mood: 'Wiyumvira',
         tip: 'Ubworohe & agahenge'
       },
       pregnancy: {
-        message: 'Umubiri wawe urashigikira intambwe zose n\'ubwitonzi — wiyiteho neza.',
+        message: 'Wiyiteho, intambwe ku yindi.',
         energy: 'Zihindagurika',
         mood: 'Witonda',
         tip: 'Kuruhuka kenshi'
       },
       postpartum: {
-        message: 'Umubiri wawe uracariko urakira — wigire umwihangane.',
+        message: 'Umubiri wawe uriko urakira: wihe akaruhuko.',
         energy: 'Zoroshe',
         mood: 'Umwihangane',
         tip: 'Inkunga & kuruhuka'
@@ -561,6 +576,7 @@ export const rn = {
     additionalNotesSubtitle: 'Ongera igitekerezo nimba ubishaka.',
     notesPlaceholder: 'Andika hano...',
     saveMySymptoms: 'Bika ibimenyetso vyanje',
+    noSymptoms: 'Nta bimenyetso',
     clearSubject: 'ivyo bimenyetso',
     savedToast: 'Ibimenyetso vyabitswe neza ✨',
     selectedCount_many: '{{count}} vyahisemwo'
@@ -1480,6 +1496,12 @@ export const rn = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA y’umukobwa wanje',
+      daughterText: 'Kurikira ukwezi k’umukobwa wawe muri profile yiwe bwite: amakuru yiwe aguma atandukanye n’ayawe. Hindura profile ukoze rimwe.',
+      partnerTitle: 'AWA y’umugabo wanje',
+      partnerText: 'Sangira n’umugabo wawe gusa ibimenyetso wahisemwo. Nta kintu gisangizwa utabifunguye.',
+    },
     aboutAwaSubtitle: 'Verisiyo, amategeko, ibanga n\'indangagaciro za porogaramu',
     aboutAwaTitle: 'Ibijanye na AWA',
     appearanceSubtitle: 'Insanganyamatsiko, amabara, ukwerekana n\'ururimi',
@@ -1503,12 +1525,13 @@ export const rn = {
     moreSectionSubtitle: 'Infashanyo, ibijanye na AWA no gucunga seshoni yawe.',
     moreSectionTitle: 'Ibindi',
     myInformationSubtitle: 'Amakuru yawe yose y\'ingenzi, atunganijwe neza.',
-    myInformationTitle: 'Amakuru yanje',
+    myInformationTitle: 'Igenamiterere',
     myObjective: 'Intumbero yanje',
     myProfileEyebrow: 'PROFIL YANJE',
     none: 'Nta na kimwe',
     notConfigured: 'Ntivyateguwe',
     notProvided: 'Ntivyanditswe',
+    optional: 'Si ngombwa',
     notProvidedFeminine: 'Ntivyanditswe',
     predictionsUnavailable: 'Ivyo tuteganya ntibiboneka — nta makuru ahagije',
     notProvidedPlural: 'Ntivyanditswe',
@@ -7533,6 +7556,7 @@ export const rn = {
       helpModalCloseAccessibility: 'Funga'
     }
   },  security: {
+    tooManyAttempts: 'Wagerageje kenshi. Ongera ugerageze inyuma y’iminuta {{minutes}}.',
     incorrectCode: 'PIN si yo. Ongera ugerageze.',
     genericError: 'Hari ikitagenze neza. Ongera ugerageze.',
     codesDontMatch: 'Amakode ntahuye. Subira gutangura.',
@@ -7610,6 +7634,16 @@ export const rn = {
     disableAction: 'Zimya {{label}}'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biometrics y’ibice vyihariye',
+    privateBiometricSubtitle: 'Ugurure ubuzima bwihariye, inyandiko n’amafoto vyihariye utanditse kode. Kode iguma ari iy’ubutabazi.',
+    crashReports: {
+      title: 'Raporo z’amakosa',
+      subtitle: 'Ohereza raporo itagira izina AWA ifunze.',
+      sheetTitle: 'Wokwumviriza gufasha kuvugurura AWA?',
+      sheetBody: 'Iyo AWA ifunze itateguwe, raporo y’ikoranabuhanga idafise izina irashobora kutwoherezwa kugira dukosore ikibazo. Ntivyigera bitumwa amakuru yawe y’amagara canke ivyo wandika. Urashobora guhindura icemezo muri Ibanga n’Umutekano.',
+      sheetEnable: 'Gufungura',
+      sheetDecline: 'Oya, murakoze',
+    },
     backA11y: 'Subira inyuma',
     title: 'Ibanga n\'Umutekano',
     subtitle: 'Amakuru yawe, ibanga ryawe, ico wahisemwo',
@@ -7827,8 +7861,8 @@ export const rn = {
   },
   personalInformation: {
     title: 'Amakuru bwite',
-    subtitle: 'Cunga amakuru yawe y\'ibanze 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Cunga amakuru yawe y\'ibanze',
+    greeting: 'Salam!',
     intro: 'Aya makuru akoreshwa mu kugukorera uburambe bukujanye muri AWA.',
     addPhoto: 'Shiramwo ifoto',
     editPhoto: 'Hindura ifoto',

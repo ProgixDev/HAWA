@@ -131,10 +131,10 @@ describe('LocationScreen — "use my location"', () => {
 
     expect(reverseGeocode).toHaveBeenCalledWith(48.85, 2.35, expect.anything());
     expect(searchValue(renderer)).toBe('Paris, France');
+    // the position is kept (search field above, Next button enabled) but no longer written out in a "Localisation sélectionnée" card
     const texts = textsOf(renderer);
-    expect(texts).toContain('Localisation sélectionnée');
-    expect(texts).toContain('Paris, France');
-    expect(texts).toContain('Cette position sera utilisée pour calculer tes horaires de prière.');
+    expect(texts).not.toContain('Localisation sélectionnée');
+    expect(texts).not.toContain('Cette position sera utilisée pour calculer tes horaires de prière.');
   });
 
   it('a refusal shows a clear message and leaves manual search available', async () => {
@@ -223,7 +223,7 @@ describe('LocationScreen — one selection, kept in sync', () => {
 
     expect(reverseGeocode).not.toHaveBeenCalled();
     expect(searchValue(renderer)).toBe('Lyon, France');
-    expect(textsOf(renderer)).toContain('Lyon, France');
-    expect(textsOf(renderer)).not.toContain('Villeurbanne, France');
+    expect(searchValue(renderer)).toBe('Lyon, France');
+    expect(searchValue(renderer)).not.toBe('Villeurbanne, France');
   });
 });

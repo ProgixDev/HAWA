@@ -248,9 +248,24 @@ export const mr = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} च्या प्रोफाइलवर जा',
+    backToMine: 'माझ्या प्रोफाइलवर परत जा',
+    herSpace: '{{name}} ची जागा',
+    separateSpace: 'तिची स्वतःची जागा, तुमच्यापासून वेगळी',
+  },
+
+  discover: {
+    title: 'शोधा',
+    daughterTitle: 'माझ्या मुलीसाठी AWA',
+    partnerTitle: 'माझ्या पतीसाठी AWA',
+    daughterCaption: 'तिचे चक्र तिच्या स्वतःच्या जागेत पाहा',
+    partnerCaption: 'तुम्ही निवडलेले निर्देशक शेअर करा',
+  },
+
   cycleHome: {
     greeting: 'अस्सलामु अलैकुम,',
-    subtitleOwner: 'तुमचे शरीर, तुमची लय, तुमची श्रद्धा ✨',
+    subtitleOwner: 'तुमचे शरीर, तुमची लय, तुमची श्रद्धा',
     subtitleDaughter: 'माझ्या मुलीचे प्रोफाइल',
     nextPeriodLabel: 'पुढील पाळी',
     fertileWindowLabel: 'सुपीक कालावधी',
@@ -272,13 +287,13 @@ export const mr = {
     moodChipLabel: 'मनःस्थिती',
     tipChipLabel: 'आजची टीप',
     phase: {
-      menstruation: {message: 'सध्या तुमची ऊर्जा कमी वाटू शकते — विश्रांती घ्या आणि स्वतःशी नम्रतेने वागा.', energy: 'कमी', mood: 'संवेदनशील', tip: 'विश्रांती आणि ऊब'},
-      follicular: {message: 'तुमची ऊर्जा हळूहळू वाढत आहे — स्वतःशी पुन्हा जोडले जाण्यासाठी हा चांगला काळ आहे.', energy: 'वाढती', mood: 'शांत', tip: 'भरपूर पाणी प्या'},
-      fertile: {message: 'तुमचा सुपीक कालावधी सुरू झाला आहे — तुमच्या शरीराच्या संकेतांकडे लक्ष ठेवा.', energy: 'जास्त', mood: 'आत्मविश्वासू', tip: 'स्वतःचे ऐका'},
-      ovulation: {message: 'आज बीजोत्सर्जनाची अपेक्षा आहे आणि तुमची ऊर्जा शिखरावर आहे.', energy: 'जास्त', mood: 'तेजस्वी', tip: 'हळुवार हालचाल करा'},
-      luteal: {message: 'तुमचे शरीर नव्या पाळीसाठी तयार होत आहे — स्वतःशी नम्रतेने वागा.', energy: 'बदलती', mood: 'आत्मचिंतनशील', tip: 'मृदुता आणि शांतता'},
-      pregnancy: {message: 'तुमचे शरीर प्रत्येक टप्प्यावर काळजीपूर्वक साथ देत आहे — स्वतःची चांगली काळजी घ्या.', energy: 'बदलती', mood: 'सजग', tip: 'नियमित विश्रांती'},
-      postpartum: {message: 'तुमचे शरीर बरे होत आहे — स्वतःला संयम द्या.', energy: 'मंद', mood: 'संयमी', tip: 'आधार आणि विश्रांती'},
+      menstruation: {message: 'कमी ऊर्जा: विश्रांती घ्या.', energy: 'कमी', mood: 'संवेदनशील', tip: 'विश्रांती आणि ऊब'},
+      follicular: {message: 'तुमची ऊर्जा हळूहळू परत येत आहे.', energy: 'वाढती', mood: 'शांत', tip: 'भरपूर पाणी प्या'},
+      fertile: {message: 'तुमची फलनक्षम वेळ सुरू झाली आहे.', energy: 'जास्त', mood: 'आत्मविश्वासू', tip: 'स्वतःचे ऐका'},
+      ovulation: {message: 'आज ओव्ह्युलेशन अपेक्षित आहे.', energy: 'जास्त', mood: 'तेजस्वी', tip: 'हळुवार हालचाल करा'},
+      luteal: {message: 'तुमचे शरीर नवीन चक्राची तयारी करत आहे.', energy: 'बदलती', mood: 'आत्मचिंतनशील', tip: 'मृदुता आणि शांतता'},
+      pregnancy: {message: 'स्वतःची काळजी घ्या, एक पाऊल एक वेळी.', energy: 'बदलती', mood: 'सजग', tip: 'नियमित विश्रांती'},
+      postpartum: {message: 'तुमचे शरीर बरे होत आहे: स्वतःला विश्रांती द्या.', energy: 'मंद', mood: 'संयमी', tip: 'आधार आणि विश्रांती'},
     },
     mood: {
       veryGood: 'खूप छान',
@@ -543,6 +558,7 @@ export const mr = {
     additionalNotesSubtitle: 'हवे असल्यास टिप्पणी जोडा.',
     notesPlaceholder: 'इथे लिहा...',
     saveMySymptoms: 'माझी लक्षणे सेव्ह करा',
+    noSymptoms: 'कोणतीही लक्षणे नाहीत',
     clearSubject: 'ही लक्षणे',
     savedToast: 'लक्षणे यशस्वीरित्या सेव्ह झाली ✨',
   },
@@ -1419,6 +1435,12 @@ export const mr = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'माझ्या मुलीसाठी AWA',
+      daughterText: 'तुमच्या मुलीचे चक्र तिच्या स्वतःच्या प्रोफाइलमध्ये पाहा: तिचा डेटा तुमच्यापासून वेगळा राहतो. एका टॅपमध्ये प्रोफाइल बदला.',
+      partnerTitle: 'माझ्या पतीसाठी AWA',
+      partnerText: 'तुम्ही निवडलेले निर्देशकच पतीसोबत शेअर करा. तुम्ही चालू केल्याशिवाय काहीही शेअर होत नाही.',
+    },
     aboutAwaSubtitle: 'आवृत्ती, कायदेशीर सूचना, गोपनीयता आणि अ‍ॅपची मूल्ये',
     aboutAwaTitle: 'AWA बद्दल',
     appearanceSubtitle: 'थीम, रंग, डिस्प्ले आणि भाषा',
@@ -1442,12 +1464,13 @@ export const mr = {
     moreSectionSubtitle: 'मदत, AWA बद्दल माहिती आणि तुमचे सत्र व्यवस्थापित करणे.',
     moreSectionTitle: 'अधिक',
     myInformationSubtitle: 'तुमची सर्व महत्त्वाची माहिती, सोप्या पद्धतीने मांडलेली.',
-    myInformationTitle: 'माझी माहिती',
+    myInformationTitle: 'सेटिंग्ज',
     myObjective: 'माझे उद्दिष्ट',
     myProfileEyebrow: 'माझे प्रोफाइल',
     none: 'नाही',
     notConfigured: 'सेट केलेले नाही',
     notProvided: 'दिलेले नाही',
+    optional: 'ऐच्छिक',
     notProvidedFeminine: 'दिलेले नाही',
     predictionsUnavailable: 'अंदाज उपलब्ध नाहीत — पुरेसा डेटा नाही',
     notProvidedPlural: 'दिलेले नाही',
@@ -6930,6 +6953,7 @@ export const mr = {
     },
   },
   security: {
+    tooManyAttempts: 'खूप प्रयत्न झाले. {{minutes}} मिनिटांनी पुन्हा प्रयत्न करा.',
     incorrectCode: 'चुकीचा पिन. पुन्हा प्रयत्न करा.',
     genericError: 'काहीतरी चूक झाली. पुन्हा प्रयत्न करा.',
     codesDontMatch: 'कोड जुळत नाहीत. पुन्हा सुरुवात करा.',
@@ -7015,6 +7039,16 @@ export const mr = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'खाजगी भागांसाठी बायोमेट्रिक',
+    privateBiometricSubtitle: 'कोड न टाकता अंतरंग जीवन, नोंदी आणि खाजगी फोटो उघडा. कोड बॅकअप म्हणून उपलब्ध राहतो.',
+    crashReports: {
+      title: 'त्रुटी अहवाल',
+      subtitle: 'AWA बंद पडल्यास निनावी अहवाल पाठवा.',
+      sheetTitle: 'AWA सुधारण्यास मदत कराल का?',
+      sheetBody: 'AWA अचानक बंद पडल्यास, समस्या सोडवण्यासाठी आम्हाला निनावी तांत्रिक अहवाल पाठवला जाऊ शकतो. तुमचा आरोग्य डेटा किंवा तुम्ही लिहिलेली माहिती कधीच नाही. तुम्ही गोपनीयता आणि सुरक्षा मध्ये निर्णय बदलू शकता.',
+      sheetEnable: 'चालू करा',
+      sheetDecline: 'नको, धन्यवाद',
+    },
     backA11y: 'मागे',
     title: 'गोपनीयता आणि सुरक्षा',
     subtitle: 'तुमचा डेटा, तुमची गोपनीयता, तुमची निवड',
@@ -7237,8 +7271,8 @@ export const mr = {
 
   personalInformation: {
     title: 'वैयक्तिक माहिती',
-    subtitle: 'तुमची मूलभूत माहिती व्यवस्थापित करा 🌸',
-    greeting: 'सलाम! 💜',
+    subtitle: 'तुमची मूलभूत माहिती व्यवस्थापित करा',
+    greeting: 'सलाम!',
     intro: 'ही माहिती AWA मधील तुमचा अनुभव तुमच्यासाठी जुळवण्यासाठी वापरली जाते.',
     addPhoto: 'फोटो जोडा',
     editPhoto: 'फोटो बदला',

@@ -331,7 +331,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'body2': 'Antes de chegar o seu primeiro período, é comum notar um corrimento leve, esbranquiçado ou levemente amarelado, na roupa íntima. É um fenômeno normal, associado à atividade hormonal que começa no seu corpo.',
     'tipText': 'Não há como prever o dia exato. Levar sempre proteção com você desde os primeiros sinais é o melhor hábito a adotar.',
     'body4': 'Assim que notar estes sinais, ou sempre que tiver uma dúvida ou uma preocupação, você pode falar com a sua mãe, uma irmã, alguém próximo ou um profissional de saúde de sua confiança. Nunca é a hora errada para pedir ajuda.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
     'shareMessage': 'Como saber se o meu primeiro período está chegando? — AWA',
   },
   FirstPeriodDailyLife: {
@@ -344,7 +344,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'body2': 'Um pequeno kit com um ou dois absorventes, uma calcinha extra e alguns lenços umedecidos cabe facilmente em uma mochila escolar ou esportiva. Ajuda você a se sentir tranquila aconteça o que acontecer.',
     'tip1Text': 'Ter sempre um absorvente com você evita o estresse de ser pega de surpresa.',
     'body3': 'Isto acontece com frequência, sobretudo no início. Uma enfermeira da escola, uma professora ou uma amiga quase sempre têm algo que pode ajudar. Amarrar uma peça de roupa na cintura também pode resolver enquanto você procura um absorvente.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
     'related[0].title': 'Que absorvente devo escolher para o meu primeiro período?',
   },
   FirstPeriodFaq: {
@@ -356,7 +356,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'faq[3].answer': 'Sim, você pode continuar praticando esportes durante o período. Basta adaptar a intensidade ao que o seu corpo sente nesse dia.',
     'faq[4].answer': 'Sim, você pode continuar nadando com a proteção adequada. Muitas pessoas preferem simplesmente esperar até se sentirem mais à vontade com a ideia.',
     'tipText': 'Não existem perguntas constrangedoras: cada corpo é diferente e você sempre pode conversar com alguém em quem confie.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
   },
   FirstPeriodIrregular: {
     'metaValidated': 'Conteúdo revisado',
@@ -367,7 +367,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'body2': 'O ciclo pode levar de um a dois anos, às vezes um pouco mais, para se tornar mais regular. Este período de adaptação varia muito de pessoa para pessoa, sem que isso seja um problema.',
     'tip1Text': 'Um ciclo irregular no início nunca é considerado um atraso: o seu corpo está apenas levando o tempo de que precisa.',
     'alertText': 'Não tiver período há vários meses, tiver dor muito intensa ou um sangramento muito intenso.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
   },
   FirstPeriodProtection: {
     'metaValidated': 'Conteúdo revisado',
@@ -382,7 +382,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'body2': 'Não há proteção certa ou errada: cada uma serve para corpos, hábitos e níveis de conforto diferentes. Os absorventes internos, por exemplo, são inseridos dentro do corpo e exigem um pouco mais de familiaridade com ele — nada diz que você precisa usá-los logo no primeiro período.',
     'tipText': 'Experimentar diferentes tipos de proteção ao longo do tempo ajuda a encontrar a que combina melhor com você, sem pressão.',
     'body3': 'Em média, a proteção deve ser trocada a cada 4 a 6 horas, com maior frequência nos dias de fluxo mais intenso. Trocá-la com regularidade ajuda a se manter confortável e a ter uma boa higiene íntima.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
   },
   FirstPeriodSigns: {
     'metaValidated': 'Conteúdo revisado',
@@ -394,7 +394,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'signs[2].text': 'Você pode sentir uma leve tensão ou pontadas na parte inferior da barriga.',
     'signs[3].text': 'É comum se sentir mais sensível ou irritável do que o habitual.',
     'signs[4].text': 'Você pode notar uma leve sensibilidade ou inchaço.',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
     'related[1].title': 'Como saber se o meu primeiro período está chegando?',
   },
   FlowColorsTextures: {
@@ -424,7 +424,7 @@ export const PT_BR_ARTICLE_OVERLAY: Readonly<Record<string, Readonly<Record<stri
     'consultReasons[2]': 'Dor significativa ou sintomas que preocupem você',
     'tipText': 'O seu corpo já tem um mecanismo natural de equilíbrio. Uma lavagem suave normalmente é suficiente.',
     'takeaways[1]': 'Trocar com regularidade',
-    'relatedTitle': '♥  Você também pode gostar',
+    'relatedTitle': 'Você também pode gostar',
   },
   HormonalTreatmentsPanorama: {
     'title': 'Panorama dos tratamentos contraceptivos hormonais',

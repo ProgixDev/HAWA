@@ -165,8 +165,8 @@ describe('the neutral London default follows the app language', () => {
     const {renderer} = await renderLocationScreen();
 
     expect(searchValue(renderer)).toBe('Grand Londres, Royaume-Uni');
-    expect(textsOf(renderer)).toContain('Grand Londres, Royaume-Uni');
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('Grand Londres, Royaume-Uni');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
     expect(mockLocalize).toHaveBeenCalledTimes(1);
     expect(mockLocalize.mock.calls[0][1]).toMatchObject({language: 'fr'});
     expect(mockLocalize.mock.calls[0][0]).toMatchObject({latitude: 51.5074, longitude: -0.1278});
@@ -180,7 +180,7 @@ describe('the neutral London default follows the app language', () => {
     const {renderer} = await renderLocationScreen();
     const names = LONDON_NAMES[language === 'pt-PT' || language === 'pt-BR' ? 'pt' : language];
     expect(searchValue(renderer)).toBe(`${names.city}, ${names.country}`);
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
   });
 
@@ -196,7 +196,7 @@ describe('the neutral London default follows the app language', () => {
     mockLocalize.mockImplementation(() => new Promise<MapPlace>(resolve => { release = resolve; }));
     const {renderer} = await renderLocationScreen();
     expect(searchValue(renderer)).toBe('');
-    expect(textsOf(renderer)).not.toContain('London, United Kingdom');
+    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
     await act(async () => {
       release({city: 'Grand Londres', country: 'Royaume-Uni', latitude: 51.5074, longitude: -0.1278, language: 'fr'});
     });
@@ -218,7 +218,6 @@ describe('switching language while keeping the same location', () => {
     await useLanguage('ja');
 
     expect(searchValue(renderer)).toBe('グレーター・ロンドン, イギリス');
-    expect(textsOf(renderer)).toContain('グレーター・ロンドン, イギリス');
     const lastCall = mockLocalize.mock.calls[mockLocalize.mock.calls.length - 1];
     expect(lastCall[1]).toMatchObject({language: 'ja'});
     expect(lastCall[0]).toMatchObject({latitude: 51.5074, longitude: -0.1278, language: 'fr'}); // the SAME coordinates went in
@@ -275,7 +274,8 @@ describe('search and reverse geocoding use the active language', () => {
   it('dragging the map reverse-geocodes the new centre in the active language, and again in the new language after a switch', async () => {
     const mockReverse = mapProvider.reverseGeocode as jest.Mock;
     mockReverse.mockReset().mockResolvedValue({id: 'place.1', city: 'Chinatown', country: 'Royaume-Uni', latitude: 51.5117, longitude: -0.1305, language: 'fr'});
-    const {renderer} = await renderLocationScreen();
+    await renderLocationScreen();
+    // (the dragged place is no longer displayed anywhere on the screen: only the language of the request is checked)
     const drag = async (center: [number, number]) => {
       await act(async () => {
         mockMapProps.current?.onRegionDidChange?.({nativeEvent: {userInteraction: true, center}});
@@ -286,12 +286,10 @@ describe('search and reverse geocoding use the active language', () => {
     };
     await drag([-0.1305, 51.5117]);
     expect(mockReverse).toHaveBeenLastCalledWith(51.5117, -0.1305, {language: 'fr'});
-    expect(textsOf(renderer)).toContain('Chinatown, Royaume-Uni'); // an untranslated proper name next to a localized country: the provider's own data
     mockReverse.mockResolvedValue({id: 'place.1', city: 'Chinatown', country: 'イギリス', latitude: 51.5117, longitude: -0.1305, language: 'ja'});
     await useLanguage('ja');
     await drag([-0.1305, 51.5117]);
     expect(mockReverse).toHaveBeenLastCalledWith(51.5117, -0.1305, {language: 'ja'});
-    expect(textsOf(renderer)).toContain('Chinatown, イギリス');
   });
 
   it('a search that is superseded is aborted (the request is cancelled, not left running)', async () => {
@@ -322,7 +320,7 @@ describe('failures and cancellation never break the screen', () => {
     mockLocalize.mockRejectedValue(error);
     const {renderer} = await renderLocationScreen();
     expect(searchValue(renderer)).toBe('London, United Kingdom');
-    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('London, United Kingdom');
     expect(textsOf(renderer)).not.toContain('Recherche du lieu…');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
   });

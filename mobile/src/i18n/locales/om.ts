@@ -223,9 +223,24 @@ export const om = {
       systemDescription: 'Afaan meeshaa fayyadami'
     }
   },
+  profileSwitch: {
+    switchTo: 'Gara piroofayilii {{name}} jijjiiri',
+    backToMine: 'Gara piroofayilii kootti deebi’i',
+    herSpace: 'Iddoo {{name}}',
+    separateSpace: 'Iddoo ishee mataa isheetii, kan kee irraa addaan',
+  },
+
+  discover: {
+    title: 'Argadhu',
+    daughterTitle: 'AWA intala koof',
+    partnerTitle: 'AWA abbaa warraa koof',
+    daughterCaption: 'Marsaa ishee iddoo ishee mataa isheetti hordofi',
+    partnerCaption: 'Mallattoo ati filattu qooddadhu',
+  },
+
   cycleHome: {
     greeting: 'As-salamu ‘alaykum,',
-    subtitleOwner: 'Qaamni kee, sirni kee, amantiin kee ✨',
+    subtitleOwner: 'Qaamni kee, sirni kee, amantiin kee',
     subtitleDaughter: 'Piroofaayilii intala koo',
     nextPeriodLabel: 'Ji\'a ji\'aa itti aanu',
     fertileWindowLabel: 'Yeroo ulfaa\'uu danda\'u',
@@ -248,43 +263,43 @@ export const om = {
     tipChipLabel: 'Gorsa guyyaa',
     phase: {
       menstruation: {
-        message: 'Humni kee amma gadi bu\'uu danda\'a — boqonnaa fudhadhu, of tolchiis.',
+        message: 'Humna gadi aanaa: boqodhu.',
         energy: 'Gadi bu\'aa',
         mood: 'Hamilee',
         tip: 'Boqonnaa fi ho\'a'
       },
       follicular: {
-        message: 'Humni kee suuta ol ka\'aa jira — ofiin deebi\'ee wal-argachuuf yeroo gaarii.',
+        message: 'Humni kee suuta deebi’aa jira.',
         energy: 'Ol ka\'aa',
         mood: 'Calaqqisaa',
         tip: 'Bishaan dhugi'
       },
       fertile: {
-        message: 'Yeroon ulfaa\'uu danda\'u jalqabeera — mallattoolee qaama kee dhaggeeffadhu.',
+        message: 'Yeroon da’umsaa kee jalqabeera.',
         energy: 'Ol\'aanaa',
         mood: 'Of amanaa',
         tip: 'Of dhaggeeffadhu'
       },
       ovulation: {
-        message: 'Ovuleeshiniin har\'a eegama, humni kees ol\'aanaadha.',
+        message: 'Har’a ovulation eegama.',
         energy: 'Ol\'aanaa',
         mood: 'Ifaa',
         tip: 'Suutaan sochooyi'
       },
       luteal: {
-        message: 'Qaamni kee marsaa haaraaf of qopheessaa jira — of tolchi.',
+        message: 'Qaamni kee marsaa haaraa qopheessaa jira.',
         energy: 'Jijjiiramaa',
         mood: 'Of ilaaluu',
         tip: 'Laafina fi tasgabbii'
       },
       pregnancy: {
-        message: 'Qaamni kee tarkaanfii hunda of eeggannoodhaan deeggaraa jira — of eegi.',
+        message: 'Of eegi, tarkaanfii tokko tokkoon.',
         energy: 'Jijjiiramaa',
         mood: 'Of eeggataa',
         tip: 'Boqonnaa idaa'
       },
       postpartum: {
-        message: 'Qaamni kee fayyaa itti fufaa jira — of obsi.',
+        message: 'Qaamni kee fayyaa jira: boqonnaa of kenni.',
         energy: 'Laafaa',
         mood: 'Obsaa',
         tip: 'Deggersa fi boqonnaa'
@@ -555,6 +570,7 @@ export const om = {
     additionalNotesSubtitle: 'Yoo barbaadde yaada dabali.',
     notesPlaceholder: 'Asitti barreessi...',
     saveMySymptoms: 'Mallattoolee koo olkaa\'i',
+    noSymptoms: 'Mallattoon hin jiru',
     clearSubject: 'mallattoolee kana',
     savedToast: 'Mallattooleen milkaa\'inaan olkaa\'aman ✨'
   },
@@ -1458,6 +1474,12 @@ export const om = {
     }
   },
   profile: {
+    familySpace: {
+      daughterTitle: 'AWA intala koof',
+      daughterText: 'Marsaa intala kee piroofayilii ishee mataa isheetti hordofi: daataan ishee kee irraa adda ta’ee turaa. Tuqaa tokkoon piroofayilii jijjiiri.',
+      partnerTitle: 'AWA abbaa warraa koof',
+      partnerText: 'Abbaa warraa kee wajjin mallattoo ati filatte qofa qooddadhu. Yoo ati hin banne homaa hin qooddatamu.',
+    },
     aboutAwaSubtitle: 'Gosa, beeksisa seeraa, dhuunfaa fi gatiiwwan appii',
     aboutAwaTitle: 'Waa\'ee AWA',
     appearanceSubtitle: 'Teemaa, halluu, agarsiisa fi afaan',
@@ -1481,12 +1503,13 @@ export const om = {
     moreSectionSubtitle: 'Gargaarsa, odeeffannoo waa\'ee AWA fi bulchiinsa seensa kee.',
     moreSectionTitle: 'Kan biraa',
     myInformationSubtitle: 'Odeeffannoon kee barbaachisaan hundi, salphaatti qindaa\'ee.',
-    myInformationTitle: 'Odeeffannoo koo',
+    myInformationTitle: 'Qindaa’inoota',
     myObjective: 'Kaayyoo koo',
     myProfileEyebrow: 'PIROOFAYILII KOO',
     none: 'Hin jiru',
     notConfigured: 'Hin qindaa\'ne',
     notProvided: 'Hin kennamne',
+    optional: 'Yoo barbaadde',
     notProvidedFeminine: 'Hin kennamne',
     predictionsUnavailable: 'Tilmaamni hin jiru — daataan gahaan hin jiru',
     notProvidedPlural: 'Hin kennamne',
@@ -7459,6 +7482,7 @@ export const om = {
       helpModalCloseAccessibility: 'Cufi'
     }
   },  security: {
+    tooManyAttempts: 'Yaalii baay\'ee. Daqiiqaa {{minutes}} booda irra deebi\'ii yaali.',
     incorrectCode: 'PIN sirrii miti. Irra deebi\'i yaali.',
     genericError: 'Wanti tokko dogoggore. Irra deebi\'i yaali.',
     codesDontMatch: 'Koodiiwwan wal hin gitan. Irra deebi\'ii jalqabi.',
@@ -7536,6 +7560,16 @@ export const om = {
     disableAction: '{{label}} cufi'
   },
   privacySecurity: {
+    privateBiometricTitle: 'Biometrikii kutaalee dhuunfaaf',
+    privateBiometricSubtitle: 'Jireenya dhuunfaa, yaadannoo fi suuraa dhuunfaa koodii barreessuu malee bani. Koodiin akka waan kuufamaatti ni jira.',
+    crashReports: {
+      title: 'Gabaasa dogoggoraa',
+      subtitle: 'AWA yoo cufame gabaasa maqaa hin qabne ergi.',
+      sheetTitle: 'AWA fooyyessuuf nu gargaartaa?',
+      sheetBody: 'AWA yoo tasumaa cufame, rakkoo sirreessuuf gabaasni teeknikaa maqaa hin qabne nutti ergamuu danda\'a. Odeeffannoon fayyaa kee ykn wanta ati barreessitu gonkumaa hin ergamu. Murtoo kee Iccitii fi Nageenya keessatti jijjiiruu dandeessa.',
+      sheetEnable: 'Banuu',
+      sheetDecline: 'Lakki, galatoomi',
+    },
     backA11y: 'Duubatti',
     title: 'Dhoksaa fi Nageenya',
     subtitle: 'Deetaan kee, dhoksaan kee, filannoon kee',
@@ -7751,8 +7785,8 @@ export const om = {
   },
   personalInformation: {
     title: 'Odeeffannoo dhuunfaa',
-    subtitle: 'Odeeffannoo bu\'uuraa kee to\'adhu 🌸',
-    greeting: 'Salaam! 💜',
+    subtitle: 'Odeeffannoo bu\'uuraa kee to\'adhu',
+    greeting: 'Salaam!',
     intro: 'Odeeffannoon kun muuxannoo AWA kee siif ta\'uuf fayyada.',
     addPhoto: 'Suuraa dabali',
     editPhoto: 'Suuraa sirreessi',

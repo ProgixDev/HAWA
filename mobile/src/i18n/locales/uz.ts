@@ -242,9 +242,24 @@ export const uz = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} profiliga o‘tish',
+    backToMine: 'Profilimga qaytish',
+    herSpace: '{{name}} maydoni',
+    separateSpace: 'Uning o‘z maydoni, seningnikidan alohida',
+  },
+
+  discover: {
+    title: 'Kashf et',
+    daughterTitle: 'Qizim uchun AWA',
+    partnerTitle: 'Erim uchun AWA',
+    daughterCaption: 'Uning siklini o‘z maydonida kuzat',
+    partnerCaption: 'Tanlagan ko‘rsatkichlaringni ulash',
+  },
+
   cycleHome: {
     greeting: 'Assalomu alaykum,',
-    subtitleOwner: 'Tanangiz, ritmingiz, imoningiz ✨',
+    subtitleOwner: 'Tanangiz, ritmingiz, imoningiz',
     subtitleDaughter: 'Qizimning profili',
     nextPeriodLabel: 'Keyingi hayz',
     fertileWindowLabel: 'Unumdorlik davri',
@@ -266,13 +281,13 @@ export const uz = {
     moodChipLabel: 'Kayfiyat',
     tipChipLabel: 'Kun maslahati',
     phase: {
-      menstruation: {message: 'Hozir energiyangiz pastroq boʻlishi mumkin — dam oling va oʻzingizga mehribon boʻling.', energy: 'Past', mood: 'Nozik', tip: 'Dam va iliqlik'},
-      follicular: {message: 'Energiyangiz asta-sekin koʻtarilmoqda — oʻzingiz bilan qayta bogʻlanish uchun yaxshi vaqt.', energy: 'Oshmoqda', mood: 'Xotirjam', tip: 'Suv ichishni unutmang'},
-      fertile: {message: 'Unumdorlik davringiz boshlandi — tanangiz signallariga quloq soling.', energy: 'Yuqori', mood: 'Ishonchli', tip: 'Oʻzingizni tinglang'},
-      ovulation: {message: 'Ovulyatsiya bugun kutilmoqda, energiyangiz eng yuqori choʻqqida.', energy: 'Yuqori', mood: 'Nurli', tip: 'Muloyim harakat qiling'},
-      luteal: {message: 'Tanangiz yangi siklga tayyorlanmoqda — oʻzingizga mehribon boʻling.', energy: 'Oʻzgaruvchan', mood: 'Oʻz-oʻzini kuzatuvchi', tip: 'Yumshoqlik va xotirjamlik'},
-      pregnancy: {message: 'Tanangiz har bir bosqichni gʻamxoʻrlik bilan qoʻllab-quvvatlamoqda — oʻzingizga yaxshi qarang.', energy: 'Oʻzgaruvchan', mood: 'Diqqatli', tip: 'Muntazam dam'},
-      postpartum: {message: 'Tanangiz tiklanishda davom etmoqda — oʻzingizga sabr qiling.', energy: 'Muloyim', mood: 'Sabrli', tip: 'Yordam va dam'},
+      menstruation: {message: 'Energiya past: dam ol.', energy: 'Past', mood: 'Nozik', tip: 'Dam va iliqlik'},
+      follicular: {message: 'Energiyang sekin-asta qaytmoqda.', energy: 'Oshmoqda', mood: 'Xotirjam', tip: 'Suv ichishni unutmang'},
+      fertile: {message: 'Hosildorlik davring boshlandi.', energy: 'Yuqori', mood: 'Ishonchli', tip: 'Oʻzingizni tinglang'},
+      ovulation: {message: 'Bugun ovulyatsiya kutilmoqda.', energy: 'Yuqori', mood: 'Nurli', tip: 'Muloyim harakat qiling'},
+      luteal: {message: 'Tanang yangi sikl tayyorlamoqda.', energy: 'Oʻzgaruvchan', mood: 'Oʻz-oʻzini kuzatuvchi', tip: 'Yumshoqlik va xotirjamlik'},
+      pregnancy: {message: 'O‘zingga g‘amxo‘rlik qil, qadamma-qadam.', energy: 'Oʻzgaruvchan', mood: 'Diqqatli', tip: 'Muntazam dam'},
+      postpartum: {message: 'Tanang tiklanmoqda: o‘zingga dam ber.', energy: 'Muloyim', mood: 'Sabrli', tip: 'Yordam va dam'},
     },
     mood: {
       veryGood: 'Juda yaxshi',
@@ -537,6 +552,7 @@ export const uz = {
     additionalNotesSubtitle: 'Xohlasangiz izoh qoʻshing.',
     notesPlaceholder: 'Shu yerga yozing...',
     saveMySymptoms: 'Alomatlarimni saqlash',
+    noSymptoms: 'Alomat yoʻq',
     clearSubject: 'bu alomatlarni',
     savedToast: 'Alomatlar muvaffaqiyatli saqlandi ✨',
   },
@@ -1413,6 +1429,12 @@ export const uz = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'Qizim uchun AWA',
+      daughterText: 'Qizingning siklini uning o‘z profilida kuzat: uning ma’lumotlari seningnikidan alohida qoladi. Profillar orasida bir bosishda o‘tasan.',
+      partnerTitle: 'Erim uchun AWA',
+      partnerText: 'Eringga faqat tanlagan ko‘rsatkichlaringni ulash. Yoqmaguningcha hech narsa ulashilmaydi.',
+    },
     aboutAwaSubtitle: 'Versiya, huquqiy eslatmalar, maxfiylik va ilova qadriyatlari',
     aboutAwaTitle: 'AWA haqida',
     appearanceSubtitle: 'Mavzular, ranglar, koʻrinish va til',
@@ -1436,12 +1458,13 @@ export const uz = {
     moreSectionSubtitle: 'Yordam, AWA haqida maʼlumot va seansni boshqarish.',
     moreSectionTitle: 'Koʻproq',
     myInformationSubtitle: 'Barcha muhim maʼlumotlaringiz, oddiy tartibda.',
-    myInformationTitle: 'Maʼlumotlarim',
+    myInformationTitle: 'Sozlamalar',
     myObjective: 'Maqsadim',
     myProfileEyebrow: 'PROFILIM',
     none: 'Yoʻq',
     notConfigured: 'Sozlanmagan',
     notProvided: 'Koʻrsatilmagan',
+    optional: 'Ixtiyoriy',
     notProvidedFeminine: 'Koʻrsatilmagan',
     predictionsUnavailable: 'Prognozlar mavjud emas — maʼlumot yetarli emas',
     notProvidedPlural: 'Koʻrsatilmagan',
@@ -6958,6 +6981,7 @@ export const uz = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Juda koʻp urinish. {{minutes}} daqiqadan keyin qayta urinib koʻring.',
     incorrectCode: 'PIN-kod notoʻgʻri. Qayta urinib koʻring.',
     genericError: 'Nimadir notoʻgʻri ketdi. Qayta urinib koʻring.',
     codesDontMatch: 'Kodlar mos kelmadi. Qaytadan boshlang.',
@@ -7043,6 +7067,16 @@ export const uz = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Shaxsiy boʻlimlar uchun biometriya',
+    privateBiometricSubtitle: 'Kodni kiritmasdan yaqin hayot, qaydlar va shaxsiy suratlarni oching. Kod zaxira sifatida mavjud boʻladi.',
+    crashReports: {
+      title: 'Xatolik hisobotlari',
+      subtitle: 'AWA yopilsa, anonim hisobot yuborish.',
+      sheetTitle: 'AWA’ni yaxshilashga yordam berasizmi?',
+      sheetBody: 'AWA kutilmaganda yopilsa, muammoni tuzatish uchun bizga anonim texnik hisobot yuborilishi mumkin. Sogʻligʻingiz haqidagi maʼlumotlar yoki kiritganlaringiz hech qachon yuborilmaydi. Qarorni Maxfiylik va xavfsizlik boʻlimida oʻzgartirishingiz mumkin.',
+      sheetEnable: 'Yoqish',
+      sheetDecline: 'Yoʻq, rahmat',
+    },
     backA11y: 'Orqaga',
     title: 'Maxfiylik va xavfsizlik',
     subtitle: 'Maʼlumotlaringiz, maxfiyligingiz, tanlovingiz',
@@ -7282,8 +7316,8 @@ export const uz = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Shaxsiy maʼlumotlar',
-    subtitle: 'Asosiy maʼlumotlaringizni boshqaring 🌸',
-    greeting: 'Assalomu alaykum! 💜',
+    subtitle: 'Asosiy maʼlumotlaringizni boshqaring',
+    greeting: 'Assalomu alaykum!',
     intro: 'Bu maʼlumotlar AWA dagi tajribangizni moslashtirish uchun ishlatiladi.',
     addPhoto: 'Surat qoʻshish',
     editPhoto: 'Suratni tahrirlash',

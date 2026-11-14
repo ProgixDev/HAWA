@@ -242,9 +242,24 @@ export const az = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} profilinə keç',
+    backToMine: 'Profilimə qayıt',
+    herSpace: '{{name}} məkanı',
+    separateSpace: 'Onun öz məkanı, səninkindən ayrı',
+  },
+
+  discover: {
+    title: 'Kəşf et',
+    daughterTitle: 'Qızım üçün AWA',
+    partnerTitle: 'Həyat yoldaşım üçün AWA',
+    daughterCaption: 'Onun dövrünü öz məkanında izlə',
+    partnerCaption: 'Seçdiyin göstəriciləri paylaş',
+  },
+
   cycleHome: {
     greeting: 'Əssəlamu aleykum,',
-    subtitleOwner: 'Bədəniniz, ritminiz, imanınız ✨',
+    subtitleOwner: 'Bədəniniz, ritminiz, imanınız',
     subtitleDaughter: 'Qızımın profili',
     nextPeriodLabel: 'Növbəti aybaşı',
     fertileWindowLabel: 'Münbit dövr',
@@ -266,13 +281,13 @@ export const az = {
     moodChipLabel: 'Əhval',
     tipChipLabel: 'Günün məsləhəti',
     phase: {
-      menstruation: {message: 'Enerjiniz hazırda aşağı ola bilər — istirahət edin və özünüzə qarşı mülayim olun.', energy: 'Aşağı', mood: 'Həssas', tip: 'İstirahət və istilik'},
-      follicular: {message: 'Enerjiniz yavaş-yavaş artır — özünüzlə yenidən əlaqə qurmaq üçün yaxşı vaxtdır.', energy: 'Artır', mood: 'Sakit', tip: 'Su içməyi unutmayın'},
-      fertile: {message: 'Münbit dövrünüz başladı — bədəninizin siqnallarını dinləyin.', energy: 'Yüksək', mood: 'Arxayın', tip: 'Özünüzü dinləyin'},
-      ovulation: {message: 'Ovulyasiyanın bu gün olacağı gözlənilir və enerjiniz zirvədədir.', energy: 'Yüksək', mood: 'Parlaq', tip: 'Yüngül hərəkət edin'},
-      luteal: {message: 'Bədəniniz yeni dövrə hazırlaşır — özünüzə qarşı mülayim olun.', energy: 'Dəyişkən', mood: 'İçəbaxan', tip: 'Yumşaqlıq və sakitlik'},
-      pregnancy: {message: 'Bədəniniz hər addımı qayğı ilə dəstəkləyir — özünüzə yaxşı qulluq edin.', energy: 'Dəyişkən', mood: 'Diqqətli', tip: 'Müntəzəm istirahət'},
-      postpartum: {message: 'Bədəniniz bərpa olunmaqda davam edir — özünüzə səbr göstərin.', energy: 'Yumşaq', mood: 'Səbirli', tip: 'Dəstək və istirahət'},
+      menstruation: {message: 'Enerji aşağıdır: dincəl.', energy: 'Aşağı', mood: 'Həssas', tip: 'İstirahət və istilik'},
+      follicular: {message: 'Enerjin yavaş-yavaş artır.', energy: 'Artır', mood: 'Sakit', tip: 'Su içməyi unutmayın'},
+      fertile: {message: 'Məhsuldarlıq pəncərən başladı.', energy: 'Yüksək', mood: 'Arxayın', tip: 'Özünüzü dinləyin'},
+      ovulation: {message: 'Ovulyasiya bu gün gözlənilir.', energy: 'Yüksək', mood: 'Parlaq', tip: 'Yüngül hərəkət edin'},
+      luteal: {message: 'Bədənin yeni dövr hazırlayır.', energy: 'Dəyişkən', mood: 'İçəbaxan', tip: 'Yumşaqlıq və sakitlik'},
+      pregnancy: {message: 'Özünə qayğı göstər, addım-addım.', energy: 'Dəyişkən', mood: 'Diqqətli', tip: 'Müntəzəm istirahət'},
+      postpartum: {message: 'Bədənin bərpa olunur: özünə istirahət ver.', energy: 'Yumşaq', mood: 'Səbirli', tip: 'Dəstək və istirahət'},
     },
     mood: {
       veryGood: 'Çox yaxşı',
@@ -537,6 +552,7 @@ export const az = {
     additionalNotesSubtitle: 'İstəsəniz, şərh əlavə edin.',
     notesPlaceholder: 'Bura yazın...',
     saveMySymptoms: 'Simptomlarımı yadda saxla',
+    noSymptoms: 'Simptom yoxdur',
     clearSubject: 'bu simptomlar',
     savedToast: 'Simptomlar uğurla yadda saxlanıldı ✨',
   },
@@ -1413,6 +1429,12 @@ export const az = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'Qızım üçün AWA',
+      daughterText: 'Qızının dövrünü onun öz profilində izlə: məlumatları səninkindən ayrı qalır. Profillər arasında bir toxunuşla keç.',
+      partnerTitle: 'Həyat yoldaşım üçün AWA',
+      partnerText: 'Yalnız seçdiyin göstəriciləri həyat yoldaşınla paylaş. Sən aktiv etməyincə heç nə paylaşılmır.',
+    },
     aboutAwaSubtitle: 'Versiya, hüquqi bildirişlər, məxfilik və tətbiqin dəyərləri',
     aboutAwaTitle: 'AWA haqqında',
     appearanceSubtitle: 'Mövzular, rənglər, ekran və dil',
@@ -1436,12 +1458,13 @@ export const az = {
     moreSectionSubtitle: 'Yardım, AWA haqqında məlumat və sessiyanızın idarə olunması.',
     moreSectionTitle: 'Daha çox',
     myInformationSubtitle: 'Bütün vacib məlumatlarınız sadə şəkildə təşkil olunub.',
-    myInformationTitle: 'Məlumatlarım',
+    myInformationTitle: 'Parametrlər',
     myObjective: 'Məqsədim',
     myProfileEyebrow: 'PROFİLİM',
     none: 'Yoxdur',
     notConfigured: 'Konfiqurasiya edilməyib',
     notProvided: 'Göstərilməyib',
+    optional: 'Könüllü',
     notProvidedFeminine: 'Göstərilməyib',
     predictionsUnavailable: 'Proqnozlar əlçatan deyil — kifayət qədər məlumat yoxdur',
     notProvidedPlural: 'Göstərilməyib',
@@ -6958,6 +6981,7 @@ export const az = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Çox cəhd. {{minutes}} dəq. sonra yenidən yoxla.',
     incorrectCode: 'PİN-kod yanlışdır. Yenidən cəhd edin.',
     genericError: 'Nəsə səhv getdi. Yenidən cəhd edin.',
     codesDontMatch: 'Kodlar uyğun gəlmir. Yenidən başlayın.',
@@ -7043,6 +7067,16 @@ export const az = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Şəxsi bölmələr üçün biometriya',
+    privateBiometricSubtitle: 'Kodu yazmadan intim həyat, qeydlər və şəxsi şəkilləri aç. Kod ehtiyat üsul kimi qalır.',
+    crashReports: {
+      title: 'Xəta hesabatları',
+      subtitle: 'AWA bağlanarsa anonim hesabat göndər.',
+      sheetTitle: 'AWA-nın yaxşılaşdırılmasına kömək edirsən?',
+      sheetBody: 'AWA qəfil bağlanarsa, problemi düzəltmək üçün bizə anonim texniki hesabat göndərilə bilər. Sağlamlıq məlumatların və yazdıqların heç vaxt göndərilmir. Qərarını Məxfilik və Təhlükəsizlik bölməsində dəyişə bilərsən.',
+      sheetEnable: 'Aç',
+      sheetDecline: 'Xeyr, təşəkkürlər',
+    },
     backA11y: 'Geri',
     title: 'Məxfilik və Təhlükəsizlik',
     subtitle: 'Məlumatlarınız, məxfiliyiniz, seçiminiz',
@@ -7282,8 +7316,8 @@ export const az = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Şəxsi məlumat',
-    subtitle: 'Əsas məlumatlarınızı idarə edin 🌸',
-    greeting: 'Əssəlamu aleykum! 💜',
+    subtitle: 'Əsas məlumatlarınızı idarə edin',
+    greeting: 'Əssəlamu aleykum!',
     intro: 'Bu məlumatlar AWA-dakı təcrübənizi fərdiləşdirmək üçün istifadə olunur.',
     addPhoto: 'Foto əlavə et',
     editPhoto: 'Fotonu redaktə et',

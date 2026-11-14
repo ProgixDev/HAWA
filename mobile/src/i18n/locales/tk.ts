@@ -243,9 +243,24 @@ export const tk = {
     },
   },
 
+  profileSwitch: {
+    switchTo: '{{name}} profiline geç',
+    backToMine: 'Profilime gaýt',
+    herSpace: '{{name}} giňişligi',
+    separateSpace: 'Onuň öz giňişligi, seniňkiden aýry',
+  },
+
+  discover: {
+    title: 'Açyş',
+    daughterTitle: 'Gyzym üçin AWA',
+    partnerTitle: 'Äräm üçin AWA',
+    daughterCaption: 'Onuň siklini öz giňişliginde yzarla',
+    partnerCaption: 'Saýlan görkezijiňi paýlaş',
+  },
+
   cycleHome: {
     greeting: 'Esselawmaleýkim,',
-    subtitleOwner: 'Bedeniňiz, ritmiňiz, ynanjyňyz ✨',
+    subtitleOwner: 'Bedeniňiz, ritmiňiz, ynanjyňyz',
     subtitleDaughter: 'Gyzymyň profili',
     nextPeriodLabel: 'Indiki aýbaşy',
     fertileWindowLabel: 'Göwreli bolmak penjiresi',
@@ -267,13 +282,13 @@ export const tk = {
     moodChipLabel: 'Keýp',
     tipChipLabel: 'Günüň maslahaty',
     phase: {
-      menstruation: {message: 'Energiýaňyz şu wagt pes bolup biler — dynç almaga wagt aýryň we özüňize mylaýym boluň.', energy: 'Pes', mood: 'Duýgur', tip: 'Dynç we ýylylyk'},
-      follicular: {message: 'Energiýaňyz ýuwaş-ýuwaşdan artýar — özüňiz bilen gaýtadan baglanyşmak üçin gowy wagt.', energy: 'Artýar', mood: 'Asuda', tip: 'Suwy köp içiň'},
-      fertile: {message: 'Göwreli bolmak penjiräňiz başlandy — bedeniňiziň alamatlaryna gulak asyň.', energy: 'Ýokary', mood: 'Ynamly', tip: 'Özüňize gulak asyň'},
-      ovulation: {message: 'Şu gün ovulýasiýa garaşylýar we energiýaňyz iň ýokary derejede.', energy: 'Ýokary', mood: 'Ýagtylykly', tip: 'Ýuwaşlyk bilen hereket ediň'},
-      luteal: {message: 'Bedeniňiz täze sikle taýýarlanýar — özüňize mylaýym boluň.', energy: 'Üýtgäp durýar', mood: 'Içine seredýän', tip: 'Mylaýymlyk we asudalyk'},
-      pregnancy: {message: 'Bedeniňiz her ädimde ideg bilen goldaw berýär — özüňize gowy ideg ediň.', energy: 'Üýtgäp durýar', mood: 'Üns berýän', tip: 'Yzygiderli dynç'},
-      postpartum: {message: 'Bedeniňiz gaýtadan dikelmegini dowam etdirýär — özüňize sabyr ediň.', energy: 'Ýumşak', mood: 'Sabyrly', tip: 'Goldaw we dynç'},
+      menstruation: {message: 'Energiýa pes: dynç al.', energy: 'Pes', mood: 'Duýgur', tip: 'Dynç we ýylylyk'},
+      follicular: {message: 'Energiýaň ýuwaş-ýuwaşdan gaýdyp gelýär.', energy: 'Artýar', mood: 'Asuda', tip: 'Suwy köp içiň'},
+      fertile: {message: 'Önelgeli döwrüň başlandy.', energy: 'Ýokary', mood: 'Ynamly', tip: 'Özüňize gulak asyň'},
+      ovulation: {message: 'Şu gün ovulýasiýa garaşylýar.', energy: 'Ýokary', mood: 'Ýagtylykly', tip: 'Ýuwaşlyk bilen hereket ediň'},
+      luteal: {message: 'Bedeniň täze sikl taýýarlaýar.', energy: 'Üýtgäp durýar', mood: 'Içine seredýän', tip: 'Mylaýymlyk we asudalyk'},
+      pregnancy: {message: 'Özüňe ideg et, ädimme-ädim.', energy: 'Üýtgäp durýar', mood: 'Üns berýän', tip: 'Yzygiderli dynç'},
+      postpartum: {message: 'Bedeniň dikelýär: özüňe dynç ber.', energy: 'Ýumşak', mood: 'Sabyrly', tip: 'Goldaw we dynç'},
     },
     mood: {
       veryGood: 'Örän gowy',
@@ -538,6 +553,7 @@ export const tk = {
     additionalNotesSubtitle: 'Isleseňiz, teswir goşuň.',
     notesPlaceholder: 'Şu ýere ýazyň...',
     saveMySymptoms: 'Alamatlarymy sakla',
+    noSymptoms: 'Alamat ýok',
     clearSubject: 'bu alamatlar',
     savedToast: 'Alamatlar üstünlikli saklandy ✨',
   },
@@ -1414,6 +1430,12 @@ export const tk = {
   },
 
   profile: {
+    familySpace: {
+      daughterTitle: 'Gyzym üçin AWA',
+      daughterText: 'Gyzyňyň siklini onuň öz profilinde yzarla: onuň maglumatlary seniňkiden aýry galýar. Profiller arasynda bir degişde geçýärsiň.',
+      partnerTitle: 'Äräm üçin AWA',
+      partnerText: 'Äriň bilen diňe saýlan görkezijiňi paýlaş. Işjeňleşdirmeseň, hiç zat paýlaşylmaýar.',
+    },
     aboutAwaSubtitle: 'Wersiýa, hukuk bildirişleri, gizlinlik we programmanyň gymmatlyklary',
     aboutAwaTitle: 'AWA barada',
     appearanceSubtitle: 'Temalar, reňkler, görnüş we dil',
@@ -1437,12 +1459,13 @@ export const tk = {
     moreSectionSubtitle: 'Kömek, AWA barada maglumat we sessiýaňyzy dolandyrmak.',
     moreSectionTitle: 'Has köp',
     myInformationSubtitle: 'Ähli möhüm maglumatlaryňyz, ýönekeý tertipde.',
-    myInformationTitle: 'Maglumatlarym',
+    myInformationTitle: 'Sazlamalar',
     myObjective: 'Maksadym',
     myProfileEyebrow: 'PROFILIM',
     none: 'Ýok',
     notConfigured: 'Sazlanmady',
     notProvided: 'Görkezilmedi',
+    optional: 'Hökman däl',
     notProvidedFeminine: 'Görkezilmedi',
     predictionsUnavailable: 'Çaklamalar elýeterli däl — maglumat ýeterlik däl',
     notProvidedPlural: 'Görkezilmedi',
@@ -6959,6 +6982,7 @@ export const tk = {
   // Keychain service, a different copy voice) — see each service's own
   // header comment for why these two security systems are never merged.
   security: {
+    tooManyAttempts: 'Gaty köp synanyşyk. {{minutes}} min soň gaýtadan synanyş.',
     incorrectCode: 'PIN nädogry. Gaýtadan synanyşyň.',
     genericError: 'Bir zat ýalňyş boldy. Gaýtadan synanyşyň.',
     codesDontMatch: 'Kodlar gabat gelenok. Täzeden başlaň.',
@@ -7044,6 +7068,16 @@ export const tk = {
   },
 
   privacySecurity: {
+    privateBiometricTitle: 'Şahsy bölümler üçin biometriýa',
+    privateBiometricSubtitle: 'Kody ýazmazdan ýakyn durmuşy, bellikleri we şahsy suratlary aç. Kod ätiýaçlyk hökmünde galýar.',
+    crashReports: {
+      title: 'Ýalňyşlyk hasabatlary',
+      subtitle: 'AWA ýapylsa, anonim hasabat iber.',
+      sheetTitle: 'AWA-ny gowulandyrmaga kömek edýärsiňmi?',
+      sheetBody: 'AWA garaşylmadyk ýagdaýda ýapylsa, meseläni düzetmek üçin bize anonim tehniki hasabat iberilip bilner. Saglyk maglumatlaryň ýa-da ýazýan zatlaryň hiç haçan iberilmeýär. Kararyňy «Gizlinlik we howpsuzlyk» bölüminde üýtgedip bilersiň.',
+      sheetEnable: 'Işjeňleşdir',
+      sheetDecline: 'Ýok, sag bol',
+    },
     backA11y: 'Yza',
     title: 'Gizlinlik we howpsuzlyk',
     subtitle: 'Maglumatyňyz, gizlinligiňiz, saýlawyňyz',
@@ -7283,8 +7317,8 @@ export const tk = {
   // the display string exists for them yet).
   personalInformation: {
     title: 'Şahsy maglumat',
-    subtitle: 'Esasy maglumatlaryňyzy dolandyryň 🌸',
-    greeting: 'Salam! 💜',
+    subtitle: 'Esasy maglumatlaryňyzy dolandyryň',
+    greeting: 'Salam!',
     intro: 'Bu maglumat AWA-daky tejribäňizi şahsylaşdyrmak üçin ulanylýar.',
     addPhoto: 'Surat goş',
     editPhoto: 'Suraty üýtget',

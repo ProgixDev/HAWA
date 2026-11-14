@@ -44,6 +44,10 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] => ren
 const tr = (key: string, lng: AwaAppLanguage, options: Record<string, unknown> = {}) => i18n.t(key, {lng, ...options}) as string;
 const LANGUAGES = ['en', 'fr', 'es', 'it', 'tr'] as const;
 
+// The first test of this file mounts LibraryScreen, ProfileScreen and several others cold (module transform included): it passes alone in about
+// 3 s, but exceeded the default 5 s when the suite ran with coverage next to other workers. Only this file's budget is raised, not the global one.
+jest.setTimeout(30_000);
+
 const settle = async () => {
   for (let index = 0; index < 8; index += 1) {
     await act(async () => {

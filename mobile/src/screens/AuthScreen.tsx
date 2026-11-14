@@ -17,13 +17,14 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAuthTopPadding} from '../theme/spacing';
 import type {AwaRoles} from '../theme/semanticRoles';
 import {useAwaTokens} from '../theme/useAwaTokens';
 import {AwaButton} from '../components/ui/AwaButton';
@@ -47,7 +48,9 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const {height, width, fontScale} = useWindowDimensions();
 
   const dense = height < 700 || width < 360 || fontScale > 1.15;
-  const styles = useMemo(() => createStyles(theme, roles, dense), [theme, roles, dense]);
+  const insets = useSafeAreaInsets();
+  const topPadding = getAuthTopPadding(dense, height, insets.top);
+  const styles = useMemo(() => createStyles(theme, roles, dense, topPadding), [theme, roles, dense, topPadding]);
 
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
@@ -60,7 +63,6 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
-  const [legalHeight, setLegalHeight] = useState(0);
 
   useEffect(() => {
     const show = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', () => setKeyboardVisible(true));
@@ -109,7 +111,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
             overScrollMode="never"
             scrollEnabled={keyboardVisible || overflows}
             showsVerticalScrollIndicator={false}>
-            <View style={[styles.main, !dense && {paddingTop: legalHeight}]}>
+            <View style={styles.main}>
               <View style={styles.brandArea}>
                 <Text maxFontSizeMultiplier={1.2} style={styles.brand}>AWA</Text>
                 <Text maxFontSizeMultiplier={1.2} numberOfLines={1} style={styles.tagline}>
@@ -275,7 +277,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
               </View>
             </View>
 
-            <Text maxFontSizeMultiplier={1.2} onLayout={event => setLegalHeight(event.nativeEvent.layout.height + styles.legal.marginTop)} style={styles.legal}>
+            <Text maxFontSizeMultiplier={1.2} style={styles.legal}>
               {t('auth.login.legalPrefix')} {t('auth.shared.legalTerms')}
             </Text>
           </ScrollView>
@@ -285,7 +287,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles, dense: boolean) {
+function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles, dense: boolean, topPadding: number) {
   // Every vertical gap shrinks first when the room is short.
   const gap = dense ? 8 : 12;
   const fieldHeight = dense ? 42 : 46;
@@ -309,23 +311,23 @@ function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles, dense: boolean) 
       flexGrow: 1,
       justifyContent: 'space-between',
       paddingHorizontal: 20,
-      paddingTop: dense ? 8 : 20,
+      paddingTop: topPadding,
       paddingBottom: 8,
     },
 
-    // takes the free height and centres the form in it (the legal line stays at the bottom; on a roomy screen an equal space above the
-    // form makes it sit in the middle of the WHOLE screen, not just of what is left above the legal line)
+    // takes the free height; the logo, tabs and fields start at a fixed distance from the top — the same as on "Créer un compte"
+    // (RegistrationScreen), so they stay put when switching between the two (the legal line stays at the bottom)
     main: {
       flex: 1,
-      justifyContent: 'center',
       width: '100%',
       maxWidth: 440,
       alignSelf: 'center',
     },
 
+    // the extra bottom margin keeps the logo + tagline a little above the tabs
     brandArea: {
       alignItems: 'center',
-      marginBottom: gap,
+      marginBottom: gap + (dense ? 6 : 36),
     },
 
     brand: {
@@ -480,8 +482,9 @@ function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles, dense: boolean) 
       resizeMode: 'contain',
     },
 
+    // set apart from the social buttons so "Continuer sans compte" sits lower
     skip: {
-      marginTop: gap,
+      marginTop: gap + (dense ? 12 : 36),
     },
 
     legal: {
