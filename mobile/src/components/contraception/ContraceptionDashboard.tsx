@@ -1985,6 +1985,7 @@ function ContraceptionDashboard({
 
         <Modal
           animationType="slide"
+          navigationBarTranslucent
           onRequestClose={() => setHistoryVisible(false)}
           statusBarTranslucent
           transparent
@@ -3163,8 +3164,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     historyModalSheet: {
-      height: '55%',
-      minHeight: 390,
+      maxHeight: '75%',
       overflow: 'hidden',
       borderTopLeftRadius: 28,
       borderTopRightRadius: 28,
@@ -3311,7 +3311,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     historyModalScroll: {
-      flex: 1,
+      flexGrow: 0,
+      flexShrink: 1,
     },
 
     historyModalList: {

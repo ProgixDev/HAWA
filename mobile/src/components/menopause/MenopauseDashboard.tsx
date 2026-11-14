@@ -1473,6 +1473,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   stageBody: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 14,
 
     marginTop: 5,
     paddingVertical: 10,
