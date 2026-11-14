@@ -9,15 +9,44 @@ import {
   restoreSealedFields,
   withCarriedSealedFields,
 } from '../services/atRestFieldEncryption';
-import {getActiveProfileId} from './activeProfileStore';
+import {getActiveProfileId, OWNER_PROFILE_ID} from './activeProfileStore';
+import {getActiveObjective, hydrateActiveObjective, type ObjectiveId} from './onboardingPreferences';
 import {profileScopedKey} from './profileScopedStorage';
+import {MIGRATION_STATE_PREFIX} from '../services/storageKeyClassifier';
 
 const STORAGE_KEY_BASE = '@hawa/daily-journal/v1';
+
+// One daily journal PER OBJECTIVE: what is recorded under "Suivre mon cycle" (flow, mood, "Vie intime", notes, photos…) is never shown under
+// "Essayer de concevoir" or any other objective, and each objective's records come back when she returns to it. 'cycle' keeps the
+// ORIGINAL key (byte-identical, so existing data and every daughter profile — always "Suivre mon cycle" — need no migration); the
+// other objectives get their own key. The storage key is bound into the encryption (structuredEncryption.ts), which is why moving
+// records between keys re-encrypts them (see migrateDailyJournalToObjectives).
+export const DAILY_JOURNAL_BASE_BY_OBJECTIVE: Readonly<Record<ObjectiveId, string>> = {
+  cycle: '@hawa/daily-journal/v1',
+  conceive: '@hawa/daily-journal/v1/conceive',
+  contraception: '@hawa/daily-journal/v1/contraception',
+  irregular: '@hawa/daily-journal/v1/irregular',
+  menopause: '@hawa/daily-journal/v1/menopause',
+  pregnancy: '@hawa/daily-journal/v1/pregnancy',
+  postpartum: '@hawa/daily-journal/v1/postpartum',
+  loss: '@hawa/daily-journal/v1/loss',
+};
+
+/** The objective whose journal is in use: the owner's current objective; a managed (daughter) profile only ever has "Suivre mon cycle". */
+export const dailyJournalObjective = (): ObjectiveId => (getActiveProfileId() === OWNER_PROFILE_ID ? getActiveObjective() : 'cycle');
+
+/** Base storage key (without profile suffix) of the journal in use. */
+export const currentDailyJournalBase = (): string => DAILY_JOURNAL_BASE_BY_OBJECTIVE[dailyJournalObjective()];
 // Profile-scoped (see profileScopedStorage.ts) — the mother's journal stays under
 // the exact key above (no migration needed); every read/write below resolves the
 // key FRESH from the CURRENT active profile, so this store needs no separate
 // cache-invalidation-on-switch step (it never caches in memory — see readEntries()).
-const currentStorageKey = () => profileScopedKey(STORAGE_KEY_BASE, getActiveProfileId());
+const currentStorageKey = () => profileScopedKey(currentDailyJournalBase(), getActiveProfileId());
+// The owner's objective is read from storage at startup: wait for it so a read can never go to the wrong objective's journal.
+const currentStorageKeyReady = async (): Promise<string> => {
+  if (getActiveProfileId() === OWNER_PROFILE_ID) {await hydrateActiveObjective();}
+  return currentStorageKey();
+};
 
 // Only these 9 nested per-category free-text `note` fields are sensitive
 // narrative content — every other DailyJournalEntry field (severity/level/
@@ -80,7 +109,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Da
 }
 
 const readEntries = async (): Promise<DailyJournalEntry[]> => {
-  const raw = await AsyncStorage.getItem(currentStorageKey());
+  const raw = await AsyncStorage.getItem(await currentStorageKeyReady());
   if (!raw) {return [];}
   try {
     const parsed = JSON.parse(raw) as Record<string, unknown>[];
@@ -90,7 +119,7 @@ const readEntries = async (): Promise<DailyJournalEntry[]> => {
 
 const writeEntries = async (entries: DailyJournalEntry[]): Promise<void> => {
   const serializable = await Promise.all(entries.map(entry => encryptEntryForStorage(entry)));
-  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(serializable));
+  await AsyncStorage.setItem(await currentStorageKeyReady(), JSON.stringify(serializable));
 };
 
 export async function saveJournalSection<K extends JournalSection>(
@@ -142,7 +171,7 @@ export async function deleteJournalSection(date: string, section: JournalSection
  * services/legacyFieldMigration.ts. Unreadable/unavailable record -> nothing is written, the next launch retries.
  */
 export async function migrateLegacyPlainDailyJournalNotes(): Promise<void> {
-  await migrateRecordSafely(currentStorageKey(), async parsed => {
+  await migrateRecordSafely(await currentStorageKeyReady(), async parsed => {
     if (!Array.isArray(parsed)) {return null;}
     let changed = false;
     const next: unknown[] = [];
@@ -165,4 +194,56 @@ export async function migrateLegacyPlainDailyJournalNotes(): Promise<void> {
     }
     return changed ? next : null;
   });
+}
+
+// ============================================================================
+// ONE-SHOT SPLIT OF THE FORMER SHARED JOURNAL
+// ============================================================================
+
+const ACTIVE_OBJECTIVE_STORAGE_KEY = '@hawa/active-objective';
+const SPLIT_DONE_KEY = `${MIGRATION_STATE_PREFIX}daily-journal-objective-split/v1`;
+
+export type DailyJournalSplitOutcome = 'not-needed' | 'migrated' | 'skipped' | 'conflict';
+
+/**
+ * Until now every objective shared the original journal key, which now belongs to "Suivre mon cycle". Run once at startup, this
+ * re-attributes the OWNER's existing records to the objective she is on right now (a daughter's journal is always "Suivre mon
+ * cycle", so it stays where it is), and the other objectives start empty. When she is on "Suivre mon cycle" nothing moves.
+ *
+ * Moving a record means reading it (decrypted) and writing it under the new key (encrypted for that key — the key is part of the
+ * encryption), reading it back to prove it is identical, and only then removing the original. Anything unexpected leaves the
+ * original untouched and the flag unset, so the next launch retries; no record is ever deleted before its copy is verified.
+ */
+export async function migrateDailyJournalToObjectives(): Promise<DailyJournalSplitOutcome> {
+  try {
+    if (await AsyncStorage.getItem(SPLIT_DONE_KEY)) {return 'not-needed';}
+
+    // Read the stored objective ourselves: an unreadable record must never be mistaken for "no objective chosen yet".
+    const storedObjective = await AsyncStorage.getItem(ACTIVE_OBJECTIVE_STORAGE_KEY);
+    const objective = (storedObjective ?? 'cycle') as ObjectiveId;
+    const target = DAILY_JOURNAL_BASE_BY_OBJECTIVE[objective];
+    if (!target) {return 'skipped';}
+
+    let outcome: DailyJournalSplitOutcome = 'not-needed';
+    if (objective !== 'cycle') {
+      const legacy = await AsyncStorage.getItem(STORAGE_KEY_BASE);
+      if (legacy) {
+        const existing = await AsyncStorage.getItem(target);
+        if (existing && existing !== legacy) {return 'conflict';}
+        if (!existing) {
+          await AsyncStorage.setItem(target, legacy);
+          if ((await AsyncStorage.getItem(target)) !== legacy) {
+            await AsyncStorage.removeItem(target);
+            return 'skipped';
+          }
+        }
+        await AsyncStorage.removeItem(STORAGE_KEY_BASE);
+        outcome = 'migrated';
+      }
+    }
+    await AsyncStorage.setItem(SPLIT_DONE_KEY, 'done');
+    return outcome;
+  } catch {
+    return 'skipped';
+  }
 }
