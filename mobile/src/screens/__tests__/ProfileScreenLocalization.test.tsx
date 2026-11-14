@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,12 +15,12 @@ import {setMenopauseStage} from '../../state/menopausePreferences';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {resetActiveProfileForTests} from '../../state/activeProfileStore';
 
-// Phase 2 localization — a representative bilingual sample across Profile's
+// Phase 2 localization â€” a representative bilingual sample across Profile's
 // distinct areas (not exhaustive, same scope as StatisticsScreenLocalization/
 // JournalLocalization): header/menu chrome, an objective-preference display
-// map (menopause stage — semantic enum persisted elsewhere, safe to
+// map (menopause stage â€” semantic enum persisted elsewhere, safe to
 // translate, see ProfileScreen.tsx's own header comments), spiritual
-// markers, the "Se déconnecter ?" confirmation dialog, and "Gérer les
+// markers, the "Se dÃ©connecter ?" confirmation dialog, and "GÃ©rer les
 // profils" for a managed (daughter) profile.
 
 const Stack = createNativeStackNavigator();
@@ -81,8 +81,8 @@ afterEach(() => {
   });
 });
 
-describe('ProfileScreen — localization (chrome)', () => {
-  // PHASE 7M: the app's default language is now English (not French) — this
+describe('ProfileScreen â€” localization (chrome)', () => {
+  // PHASE 7M: the app's default language is now English (not French) â€” this
   // test originally asserted French without ever selecting a language,
   // which was correct under the old French default. Flipped to assert the
   // now-correct English default; French-when-selected is covered by the
@@ -91,7 +91,7 @@ describe('ProfileScreen — localization (chrome)', () => {
     const texts = textsOf(await renderScreen());
     expect(texts).toContain('Profile');
     expect(texts).toContain('Manage your information and preferences');
-    expect(texts).toContain('My information');
+    expect(texts).toContain('Settings');
     expect(texts).toContain('Sign out');
   });
 
@@ -100,10 +100,10 @@ describe('ProfileScreen — localization (chrome)', () => {
     const texts = textsOf(await renderScreen());
     expect(texts).toContain('Profile');
     expect(texts).toContain('Manage your information and preferences');
-    expect(texts).toContain('My information');
+    expect(texts).toContain('Settings');
     expect(texts).toContain('Sign out');
     expect(texts).not.toContain('Profil');
-    expect(texts).not.toContain('Se déconnecter');
+    expect(texts).not.toContain('Se dÃ©connecter');
   });
 
   it('translates the objective label shown under "Mon objectif" / "My objective"', async () => {
@@ -116,28 +116,28 @@ describe('ProfileScreen — localization (chrome)', () => {
   });
 });
 
-describe('ProfileScreen — localization (menopause display map)', () => {
+describe('ProfileScreen â€” localization (menopause display map)', () => {
   it('translates the saved menopause stage (a persisted enum, safe to translate) in English', async () => {
     await setSelectedObjective('menopause');
     await setMenopauseStage('perimenopause');
     await setAppLanguage('en');
     const texts = textsOf(await renderScreen());
     expect(texts).toContain('Perimenopause');
-    expect(texts).not.toContain('Périménopause');
+    expect(texts).not.toContain('PÃ©rimÃ©nopause');
   });
 });
 
-describe('ProfileScreen — localization (spiritual markers)', () => {
+describe('ProfileScreen â€” localization (spiritual markers)', () => {
   it('translates the spiritual markers section in English', async () => {
     await setAppLanguage('en');
     const texts = textsOf(await renderScreen());
     expect(texts).toContain('Spiritual markers');
     expect(texts).toContain('Hijri calendar, prayers, purity, fasting and reminders.');
-    expect(texts).not.toContain('Repères spirituels');
+    expect(texts).not.toContain('RepÃ¨res spirituels');
   });
 });
 
-describe('ProfileScreen — localization (sign-out confirmation)', () => {
+describe('ProfileScreen â€” localization (sign-out confirmation)', () => {
   it('opens the "Sign out?" dialog in English with the translated body and reassurance', async () => {
     await setAppLanguage('en');
     const renderer = await renderScreen();
@@ -149,12 +149,12 @@ describe('ProfileScreen — localization (sign-out confirmation)', () => {
     expect(texts).toContain('Sign out?');
     expect(texts).toContain('Are you sure you want to sign out of your AWA account?');
     expect(texts).toContain('You can sign back in anytime.');
-    expect(texts).not.toContain('Se déconnecter ?');
+    expect(texts).not.toContain('Se dÃ©connecter ?');
   });
 });
 
-describe('ProfileScreen — localization (managed profiles)', () => {
-  it('translates "Gérer les profils" / "Manage profiles" and a daughter row in English', async () => {
+describe('ProfileScreen â€” localization (managed profiles)', () => {
+  it('translates "GÃ©rer les profils" / "Manage profiles" and a daughter row in English', async () => {
     await addManagedProfile({
       type: 'daughter',
       firstName: 'Lina',
@@ -169,14 +169,14 @@ describe('ProfileScreen — localization (managed profiles)', () => {
     const texts = textsOf(renderer);
     expect(texts).toContain('Manage profiles');
     expect(texts).toContain('My daughter');
-    expect(texts).not.toContain('Gérer les profils');
+    expect(texts).not.toContain('GÃ©rer les profils');
     expect(texts).not.toContain('Ma fille');
   });
 });
 
-// LOCALIZATION FIX — the avatar-edit button's accessibilityLabel was a hardcoded French ternary (never routed through t()), so a screen
+// LOCALIZATION FIX â€” the avatar-edit button's accessibilityLabel was a hardcoded French ternary (never routed through t()), so a screen
 // reader always announced French regardless of the app language. Now localized via profile.editAvatarAccessibility.
-describe('ProfileScreen — localization (avatar-edit accessibility)', () => {
+describe('ProfileScreen â€” localization (avatar-edit accessibility)', () => {
   it('announces the French label in French on the avatar button', async () => {
     await setAppLanguage('fr');
     const renderer = await renderScreen();

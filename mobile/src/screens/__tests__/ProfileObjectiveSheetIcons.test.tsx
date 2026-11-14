@@ -50,15 +50,21 @@ async function renderProfile() {
 
 const textOf = (node: ReactTestRenderer.ReactTestInstance): string => [node.props.children].flat(Infinity).join('');
 
+// The picker is reached through the "Mon objectif" card (which opens the objective's settings sheet) and then its
+// "Modifier mon objectif" row.
 async function openSheet(renderer: ReactTestRenderer.ReactTestRenderer) {
-  const label = renderer.root.findAllByType(Text).find(node => textOf(node) === i18n.t('profile.myObjective'))!;
-  let node: ReactTestRenderer.ReactTestInstance | null = label;
-  while (node && typeof node.props.onPress !== 'function') {
-    node = node.parent;
-  }
-  await act(async () => {
-    node!.props.onPress();
-  });
+  const pressTextOwner = async (text: string) => {
+    const label = renderer.root.findAllByType(Text).find(node => textOf(node) === text)!;
+    let node: ReactTestRenderer.ReactTestInstance | null = label;
+    while (node && typeof node.props.onPress !== 'function') {
+      node = node.parent;
+    }
+    await act(async () => {
+      node!.props.onPress();
+    });
+  };
+  await pressTextOwner(i18n.t('profile.myObjective'));
+  await pressTextOwner(i18n.t('profile.objectivePicker.title'));
 }
 
 // Each option is a Pressable (composite + host nodes carry the same role): keep only the outermost node of each option.

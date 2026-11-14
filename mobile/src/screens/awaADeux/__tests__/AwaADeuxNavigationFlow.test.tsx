@@ -162,7 +162,7 @@ const enterName = async (renderer: ReactTestRenderer.ReactTestRenderer, times = 
 };
 
 const walkToAssociation = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
-  await press(renderer, 'AWA à deux');
+  await press(renderer, 'AWA pour mon mari');
   await press(renderer, 'Découvrir AWA à deux');
   await enterName(renderer);
   await press(renderer, 'Continuer');
@@ -211,7 +211,7 @@ describe('Entry from Profile', () => {
   it('Profile → AWA à deux opens the introduction (not connected); a double tap does not stack a second copy', async () => {
     const renderer = await renderApp();
     expect(stack()).toEqual(['Profile']);
-    await press(renderer, 'AWA à deux', 2);
+    await press(renderer, 'AWA pour mon mari', 2);
     expect(stack()).toEqual(INTRO);
     expect(textsOf(renderer)).toContain('Avancez ensemble,\nà votre rythme.');
   });
@@ -219,7 +219,7 @@ describe('Entry from Profile', () => {
   it('when a partner is (demo-)connected, Profile → AWA à deux opens "Partenaire associé" directly, never the introduction', async () => {
     simulatePartnerConnected();
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected']);
     expect(awaADeuxEntryRoute(true)).toBe('AwaADeuxPartnerConnected');
     expect(awaADeuxEntryRoute(false)).toBe('AwaADeuxIntro');
@@ -229,7 +229,7 @@ describe('Entry from Profile', () => {
 describe('ONE linear onboarding path', () => {
   it('Intro → Prénom → 1 → 2 → 3 → 4 builds exactly one stack, with no duplicate screens (also on double taps)', async () => {
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     await press(renderer, 'Découvrir AWA à deux', 2);
     expect(stack()).toEqual([...INTRO, 'AwaADeuxPartnerName']);
     await enterName(renderer, 2);
@@ -388,7 +388,7 @@ describe('Manage shared information (the SAME permissions screen, in "manage" mo
 
   it('the onboarding permissions step still says "Continuer" and leads to the association screen', async () => {
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     await press(renderer, 'Découvrir AWA à deux');
     await enterName(renderer);
     await press(renderer, 'Continuer');
@@ -401,7 +401,7 @@ describe('Manage shared information (the SAME permissions screen, in "manage" mo
 describe('Permission state: one source of truth', () => {
   it('choices made in the onboarding step show in "Informations partagées" and in the partner preview; later changes show at once', async () => {
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     await press(renderer, 'Découvrir AWA à deux');
     await enterName(renderer);
     await press(renderer, 'Continuer');
@@ -451,7 +451,7 @@ describe('Partner preview (no button-based entry point anywhere anymore — remo
 
   it('neither the permissions screen ("Choisissez ce que vous souhaitez partager") nor "Partenaire associé" offer a preview button anymore', async () => {
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     await press(renderer, 'Découvrir AWA à deux');
     await enterName(renderer);
     await press(renderer, 'Continuer');
@@ -514,14 +514,14 @@ describe('Stop sharing', () => {
     await settle();
     for (let index = 0; index < 8 && stack().length > 1; index += 1) {await androidBack();}
     expect(stack()).toEqual(['Profile']);
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     expect(stack()).toEqual(INTRO);
   });
 
   it('a partner screen entered directly from Profile: stopping the sharing rebuilds the association stack there too (no stale "Partenaire associé" behind)', async () => {
     simulatePartnerConnected();
     const renderer = await renderApp();
-    await press(renderer, 'AWA à deux');
+    await press(renderer, 'AWA pour mon mari');
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected']);
     await press(renderer, 'Arrêter le partage');
     const confirm = openModal(renderer)!.findAll(node => node.props.accessibilityLabel === 'Arrêter le partage' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];

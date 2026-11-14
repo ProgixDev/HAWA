@@ -157,21 +157,17 @@ describe('HelpSupportScreen — "Comment pouvons-nous t\'aider ?" no longer offe
     expect(renderer.root.findAll(node => node.props.name === 'chat-processing-outline').length).toBe(0);
   });
 
-  it('keeps exactly the two remaining contact methods, E-mail and FAQ, evenly balanced (flex: 1 each)', async () => {
+  it('keeps one contact method, E-mail (the FAQ tile was a duplicate of the FAQ list right below), filling the row', async () => {
     const navigation = {goBack: jest.fn(), navigate: jest.fn()};
     const renderer = await renderStandalone(HelpSupportScreen, navigation);
 
     // Default app language is English (Phase 7M): the Email method title is
-    // i18n-driven ("E-mail" -> "Email"); "FAQ" is unchanged across languages.
+    // i18n-driven ("E-mail" -> "Email").
     expect(renderer.root.findAll(node => node.props.children === 'Email').length).toBeGreaterThan(0);
-    expect(renderer.root.findAll(node => node.props.children === 'FAQ').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'FAQ').length).toBe(0);
 
-    const methodTitles = renderer.root.findAll(
-      node => node.props.children === 'Email' || node.props.children === 'FAQ',
-    );
-    // Both remaining Method cards share the exact same flex:1 sizing rule —
-    // the layout naturally rebalances from 3 -> 2 without a dedicated
-    // "2-card" style variant.
+    const methodTitles = renderer.root.findAll(node => node.props.children === 'Email');
+    // The remaining Method card keeps its flex:1 rule, so it fills the row.
     for (const titleNode of methodTitles) {
       let node: ReactTestRenderer.ReactTestInstance | null = titleNode;
       while (node && !flattenStyle(node.props.style).flex) {

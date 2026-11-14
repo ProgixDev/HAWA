@@ -7,6 +7,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import ProfileScreen from '../ProfileScreen';
+import {openProfileObjectiveSheet} from './profileObjectiveSheet';
 import CycleInformationScreen from '../CycleInformationScreen';
 import {IrregularLastPeriodScreen, IrregularTrackedItemsScreen} from '../irregular/IrregularOnboardingScreens';
 import ContraceptionInformationScreen from '../contraception/ContraceptionInformationScreen';
@@ -181,6 +182,8 @@ async function renderProfile(objective: ObjectiveId) {
   });
   activeRenderers.push(renderer);
   await settle();
+  // the objective's rows live in the "Mon objectif" sheet
+  await openProfileObjectiveSheet(renderer);
   return {renderer, navigate};
 }
 

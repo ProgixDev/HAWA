@@ -192,22 +192,39 @@ describe('ProfileScreen — content preserved', () => {
 const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
 
+// The objective's settings (cycle length, period length, regularity, pregnancy dating, reminders…) live in the sheet opened by the
+// "Mon objectif" card under the identity card — open it before looking for one of its rows.
+const openObjectiveSheet = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
+  await act(async () => {
+    renderer.root
+      .findAll(node => typeof node.props.accessibilityLabel === 'string' && node.props.accessibilityLabel.startsWith('Mon objectif') && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0]
+      .props.onPress();
+  });
+};
+
+// "Gérer les profils" opens from the "AWA pour ma fille" section: its button reads "Ajouter le profil de ma fille" until a daughter exists.
+const MANAGE_PROFILES_BUTTON = /^(Gérer les profils|Ajouter le profil de ma fille)$/;
+
 describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)', () => {
-  it('shows the manage-profiles icon button in the header, closed by default', async () => {
+  it('no longer has a "Gérer les profils" button in the header: it opens from the "AWA pour ma fille" section at the bottom, closed by default', async () => {
     const renderer = await renderScreen();
-    const button = renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function');
+    const texts = textsOf(renderer);
+    expect(texts).toContain('AWA pour ma fille');
+    // no daughter yet: the section offers to add her profile; the profiles sheet itself is closed
+    expect(texts).toContain('Ajouter le profil de ma fille');
+    expect(texts).not.toContain('Gérer les profils');
+    const button = renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function');
     expect(button.length).toBeGreaterThan(0);
-    expect(textsOf(renderer)).not.toContain('Gérer les profils');
     // The existing header title/subtitle are neither pushed off nor truncated.
-    expect(textsOf(renderer)).toContain('Profil');
-    expect(textsOf(renderer)).toContain('Gère tes informations et préférences');
+    expect(texts).toContain('Profil');
+    expect(texts).toContain('Gère tes informations et préférences');
   });
 
   it('opens a bottom sheet with the exact title/subtitle, showing the REAL current first name as selected (never a fake daughter)', async () => {
     await updatePersonalInformation({firstName: 'Nourhene'});
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     const texts = textsOf(renderer);
     expect(texts).toContain('Gérer les profils');
@@ -244,7 +261,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     activeRenderers.push(renderer);
 
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     expect(textsOf(renderer)).toContain('Gérer les profils');
 
@@ -263,7 +280,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     const texts = textsOf(renderer);
     expect(texts).toContain('Nourhene');
@@ -279,7 +296,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
 
     const motherRow = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Mon profil' && node.props.accessibilityRole === 'radio')[0];
@@ -301,7 +318,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     await setActiveProfileId(lina.id);
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
 
     const motherRow = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Mon profil' && node.props.accessibilityRole === 'radio')[0];
@@ -324,7 +341,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     // for the genuinely-fresh-module version of this same guarantee).
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     const linaRow = renderer.root.findAll(node => node.props.accessibilityLabel === 'Profil de Lina' && node.props.accessibilityRole === 'radio')[0];
     expect(linaRow.props.accessibilityState).toEqual({checked: true});
@@ -334,7 +351,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     const linaRow = renderer.root.findAll(node => node.props.accessibilityLabel === 'Profil de Lina')[0];
     const avatar = linaRow.findAllByType(Image)[0];
@@ -353,7 +370,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     });
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     const linaRow = renderer.root.findAll(node => node.props.accessibilityLabel === 'Profil de Lina')[0];
     const avatar = linaRow.findAllByType(Image)[0];
@@ -371,7 +388,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
     await updatePersonalInformation({firstName: 'Nourhene'});
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     expect(textsOf(renderer)).toContain('Gérer les profils');
 
@@ -386,7 +403,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
   it('works in both light and dark mode (theme-driven, nothing hardcoded)', async () => {
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     // DESIGN.md: lookups follow the Material 3 radii now written in the source (sheet top corners 28, dialog card 12).
     const light = resolveAwaTheme('awa-original', false, false);
@@ -404,7 +421,7 @@ describe('ProfileScreen — "Gérer les profils" (manage-profiles entry point)',
   it('does not modify unrelated ProfileScreen sections/actions (still there after opening and closing the sheet)', async () => {
     const renderer = await renderScreen();
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
     await act(async () => {
       renderer.root.findAll(node => node.props.accessibilityLabel === 'Fermer')[0].props.onPress();
@@ -469,7 +486,7 @@ const pressButton = async (renderer: ReactTestRenderer.ReactTestRenderer, label:
 describe('ProfileScreen — managed-profile swipe-to-delete', () => {
   const openManageProfiles = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
     await act(async () => {
-      renderer.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button')[0].props.onPress();
+      renderer.root.findAll(node => MANAGE_PROFILES_BUTTON.test(node.props.accessibilityLabel ?? '') && node.props.accessibilityRole === 'button')[0].props.onPress();
     });
   };
   const pressTrash = async (renderer: ReactTestRenderer.ReactTestRenderer, firstName: string) => {
@@ -714,7 +731,7 @@ describe('ProfileScreen — SOPK confirmed-period date rendering (regression)', 
   });
 });
 
-describe('ProfileScreen — "AWA à deux" entry (UI only)', () => {
+describe('ProfileScreen — "AWA pour mon mari" section (UI only)', () => {
   const navigate = jest.fn();
 
   async function renderWithNavigation() {
@@ -738,69 +755,48 @@ describe('ProfileScreen — "AWA à deux" entry (UI only)', () => {
     return renderer;
   }
 
-  const textOf = (node: ReactTestRenderer.ReactTestInstance): string => [node.props.children].flat(Infinity).join('');
-  const row = (renderer: ReactTestRenderer.ReactTestRenderer) =>
-    renderer.root.findAll(node => node.props.accessibilityLabel === 'AWA à deux' && node.props.accessibilityRole === 'button')[0];
+  // the section's call to action: reads "Découvrir", announced as "AWA pour mon mari"
+  const discoverButton = (renderer: ReactTestRenderer.ReactTestRenderer) =>
+    renderer.root.findAll(node => node.props.accessibilityLabel === 'AWA pour mon mari' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
 
   beforeEach(() => {
     navigate.mockClear();
   });
 
-  it('shows the section title, the row, its subtitle and its status', async () => {
+  it('shows its own section: title, a clear explanation, the three benefits and the call to action', async () => {
     const renderer = await renderWithNavigation();
     const texts = textsOf(renderer);
-    expect(texts).toContain('AWA À DEUX');
-    expect(texts).toContain('AWA à deux');
-    expect(texts).toContain('Partagez certains repères avec votre partenaire');
-    expect(texts).toContain('Non configuré');
+    expect(texts).toContain('AWA pour mon mari');
+    expect(texts).toContain('Partage avec ton mari uniquement les repères que tu choisis. Rien n’est partagé sans que tu l’actives.');
+    expect(texts).toContain('Aidez-le à mieux comprendre votre cycle et vos différentes étapes');
+    expect(texts).toContain('Recevez plus de soutien au quotidien');
+    expect(texts).toContain('Vous gardez toujours le contrôle de vos informations');
+    expect(discoverButton(renderer)).toBeTruthy();
   });
 
-  it('sits directly below the backup row and before the Spiritual markers card', async () => {
+  it('sits near the bottom of the page: after "AWA pour ma fille", right before "Se déconnecter"', async () => {
     const renderer = await renderWithNavigation();
     const texts = textsOf(renderer);
-    const backup = texts.indexOf('Sauvegarde');
-    const section = texts.indexOf('AWA À DEUX');
-    const spiritual = texts.findIndex(text => text.includes('Repères spirituels'));
-    expect(backup).toBeGreaterThan(-1);
-    expect(section).toBeGreaterThan(backup);
-    expect(spiritual).toBeGreaterThan(section);
-    // Nothing else sits between the backup row and the new section.
-    // (icon glyphs are rendered as one-character texts: ignored)
-    const between = texts.slice(backup + 1, section).filter(text => text.length > 2);
-    expect(between).toEqual(['Sauvegarde cloud et restauration de tes données']);
+    const daughter = texts.indexOf('AWA pour ma fille');
+    const partner = texts.indexOf('AWA pour mon mari');
+    const signOut = texts.lastIndexOf('Se déconnecter');
+    const plus = texts.indexOf('Plus');
+    expect(plus).toBeGreaterThan(-1);
+    expect(daughter).toBeGreaterThan(plus);
+    expect(partner).toBeGreaterThan(daughter);
+    expect(signOut).toBeGreaterThan(partner);
+    // the former "AWA à deux" row between the backup row and the spiritual markers is gone
+    expect(texts).not.toContain('AWA À DEUX');
+    expect(texts).not.toContain('Partagez certains repères avec votre partenaire');
   });
 
-  it('uses the heart icon of the icon library AWA already uses, on a button row with the shared chevron', async () => {
+  it('tapping "Découvrir" opens the AWA à deux introduction screen — and only that', async () => {
     const renderer = await renderWithNavigation();
-    const iconNames = renderer.root.findAll(node => typeof node.props.name === 'string').map(node => node.props.name);
-    expect(iconNames.filter(name => name === 'heart-multiple-outline').length).toBeGreaterThanOrEqual(2); // header + row
-    const rowNode = row(renderer);
-    expect(rowNode.props.accessibilityRole).toBe('button');
-    const chevrons = rowNode.findAll(node => node.props.name === 'chevron-right');
-    expect(chevrons.length).toBeGreaterThan(0);
-  });
-
-  it('tapping it opens the AWA à deux introduction screen — and only that', async () => {
-    const renderer = await renderWithNavigation();
-    const rowNode = row(renderer);
     await act(async () => {
-      rowNode.props.onPress?.();
+      discoverButton(renderer).props.onPress();
     });
     expect(navigate).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledWith('AwaADeuxIntro');
-  });
-
-  it('the status uses the theme (Light and Dark) — no fixed colour', async () => {
-    const renderer = await renderWithNavigation();
-    const statusColor = () => {
-      const node = renderer.root.findAllByType(Text).find(item => textOf(item) === 'Non configuré')!;
-      return flattenStyle(node.props.style).color;
-    };
-    expect(statusColor()).toBe(resolveAwaTheme('awa-original', false, false).colors.primary);
-    await act(async () => {
-      await setAppearanceMode('dark');
-    });
-    expect(statusColor()).toBe(resolveAwaTheme('awa-original', true, false).colors.primary);
   });
 
   it('the existing Profile rows are still there', async () => {
@@ -814,18 +810,35 @@ describe('ProfileScreen — "AWA à deux" entry (UI only)', () => {
   it('is hidden while a managed (daughter) profile is active, and reappears once the mother switches back', async () => {
     const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     const renderer = await renderWithNavigation();
-    expect(textsOf(renderer)).toContain('AWA à deux');
+    expect(textsOf(renderer)).toContain('AWA pour mon mari');
 
     await act(async () => {
       await setActiveProfileId(lina.id);
     });
-    expect(textsOf(renderer)).not.toContain('AWA à deux');
-    expect(textsOf(renderer)).not.toContain('AWA À DEUX');
+    expect(textsOf(renderer)).not.toContain('AWA pour mon mari');
+    // her own section stays, to go back to the other profile
+    expect(textsOf(renderer)).toContain('AWA pour ma fille');
 
     await act(async () => {
       await setActiveProfileId(OWNER_PROFILE_ID);
     });
-    expect(textsOf(renderer)).toContain('AWA à deux');
+    expect(textsOf(renderer)).toContain('AWA pour mon mari');
+  });
+});
+
+describe('ProfileScreen — "AWA pour ma fille" section', () => {
+  it('explains the feature and opens "Gérer les profils"; lists her daughters\' first names once they exist', async () => {
+    const renderer = await renderScreen();
+    expect(textsOf(renderer)).toContain('AWA pour ma fille');
+    expect(textsOf(renderer).some(text => text.startsWith('Suis le cycle de ta fille dans un profil à elle'))).toBe(true);
+
+    await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
+    const withDaughter = await renderScreen();
+    expect(textsOf(withDaughter)).toContain('Lina');
+    await act(async () => {
+      withDaughter.root.findAll(node => node.props.accessibilityLabel === 'Gérer les profils' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0].props.onPress();
+    });
+    expect(textsOf(withDaughter)).toContain('Suivez votre cycle ou celui d’un profil que vous gérez.'); // the sheet is open
   });
 });
 
@@ -874,23 +887,23 @@ describe('ProfileScreen — managed daughter profile: forced "Suivre mon cycle" 
     await setSelectedObjective('cycle');
   });
 
-  it('"Mon objectif" shows "Suivre mon cycle" and is READ-ONLY for a daughter, even when the mother\'s own real objective is something else', async () => {
+  it('"Mon objectif" shows "Suivre mon cycle" and its sheet cannot change the objective for a daughter, even when the mother\'s own real objective is something else', async () => {
     await setSelectedObjective('pregnancy');
     const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     await setActiveProfileId(lina.id);
     const renderer = await renderScreen();
-    const texts = textsOf(renderer);
-    expect(texts).toContain('Suivre mon cycle');
-    expect(texts).not.toContain('Suivi de grossesse');
-    const row = renderer.root.findAll(node => node.props.accessibilityLabel === 'Mon objectif' && node.props.accessibilityRole === 'button')[0];
-    expect(row.props.onPress).toBeUndefined();
+    expect(textsOf(renderer)).toContain('Suivre mon cycle');
+    expect(textsOf(renderer)).not.toContain('Suivi de grossesse');
+    await openObjectiveSheet(renderer);
+    expect(textsOf(renderer)).not.toContain('Modifier mon objectif'); // no "change objective" row for a daughter
   });
 
-  it('"Mes informations" shows Cycle-shaped rows (Durée du cycle/des règles/Régularité) for a daughter, never the mother\'s pregnancy rows', async () => {
+  it('the objective sheet shows Cycle-shaped rows (Durée du cycle/des règles/Régularité) for a daughter, never the mother\'s pregnancy rows', async () => {
     await setSelectedObjective('pregnancy');
     const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     await setActiveProfileId(lina.id);
     const renderer = await renderScreen();
+    await openObjectiveSheet(renderer);
     const texts = textsOf(renderer);
     expect(texts).toContain('Durée du cycle');
     expect(texts).toContain('Durée des règles');
@@ -899,17 +912,17 @@ describe('ProfileScreen — managed daughter profile: forced "Suivre mon cycle" 
     expect(texts).not.toContain('Préférences de suivi');
   });
 
-  it('switching back to the mother restores her REAL objective everywhere, unaffected, and "Mon objectif" is interactive again', async () => {
+  it('switching back to the mother restores her REAL objective everywhere, unaffected, and she can change it again from the sheet', async () => {
     await setSelectedObjective('pregnancy');
     const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
     await setActiveProfileId(lina.id);
     await setActiveProfileId(OWNER_PROFILE_ID);
     const renderer = await renderScreen();
+    expect(textsOf(renderer)).toContain('Suivi de grossesse');
+    await openObjectiveSheet(renderer);
     const texts = textsOf(renderer);
-    expect(texts).toContain('Suivi de grossesse');
     expect(texts).toContain('Datation de ma grossesse');
-    const row = renderer.root.findAll(node => node.props.accessibilityLabel === 'Mon objectif' && node.props.accessibilityRole === 'button')[0];
-    expect(typeof row.props.onPress).toBe('function');
+    expect(texts).toContain('Modifier mon objectif');
   });
 });
 
@@ -949,8 +962,8 @@ describe('ProfileScreen — managed daughter profile: AWA Premium offer hidden',
     const daughterTexts = textsOf(daughterRenderer);
     expect(daughterTexts).not.toContain('AWA Premium');
     expect(daughterTexts).not.toContain('Découvrir Premium');
-    // The rest of the screen is unaffected — "Mes informations" moved up cleanly.
-    expect(daughterTexts).toContain('Mes informations');
+    // The rest of the screen is unaffected — the settings section ("Réglages", formerly "Mes informations") moved up cleanly.
+    expect(daughterTexts).toContain('Réglages');
 
     await setActiveProfileId(OWNER_PROFILE_ID);
     const ownerRenderer = await renderScreen();
@@ -975,12 +988,33 @@ describe('ProfileScreen — managed daughter profile: "Repères spirituels" hidd
     const ownerRenderer = await renderScreen();
     const ownerTexts = textsOf(ownerRenderer);
     expect(ownerTexts).toContain('Repères spirituels');
-    expect(ownerTexts).toContain('Gérer les repères');
+    // a single on/off switch now, no "Gérer les repères" button
+    expect(ownerTexts).not.toContain('Gérer les repères');
+    expect(ownerRenderer.root.findAll(node => node.props.accessibilityLabel === 'Repères spirituels' && typeof node.props.onValueChange === 'function').length).toBeGreaterThan(0);
+  });
+
+  it('the owner turns the markers off and on with the switch (the stored setting follows)', async () => {
+    const renderer = await renderScreen();
+    const toggle = () => renderer.root.findAll(node => node.props.accessibilityLabel === 'Repères spirituels' && typeof node.props.onValueChange === 'function')[0];
+    const before = Boolean(toggle().props.value);
+    await act(async () => {
+      toggle().props.onValueChange(!before);
+    });
+    expect(Boolean(toggle().props.value)).toBe(!before);
+    await act(async () => {
+      toggle().props.onValueChange(before);
+    });
+    expect(Boolean(toggle().props.value)).toBe(before);
   });
 });
 
 describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Durée des règles" / "Régularité du cycle" editors', () => {
+  // The three rows live in the "Mon objectif" sheet (which closes when a row is pressed): open it first.
+  const OBJECTIVE_ROWS = ['Durée du cycle', 'Durée des règles', 'Régularité du cycle'];
   const pressByLabel = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string, role = 'button') => {
+    if (role === 'button' && OBJECTIVE_ROWS.includes(label)) {
+      await openObjectiveSheet(renderer);
+    }
     await act(async () => {
       renderer.root
         .findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === role && typeof node.props.onPress === 'function')
@@ -998,6 +1032,7 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
     await setActiveProfileId(hanane.id);
     await seedManagedProfileCycleIfNeeded(hanane.id);
     const renderer = await renderScreen();
+    await openObjectiveSheet(renderer);
     const texts = textsOf(renderer);
     expect(texts).toContain('28 jours');
     expect(texts).toContain('7 jours');
@@ -1012,6 +1047,7 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
     await setActiveProfileId(lina.id);
     await seedManagedProfileCycleIfNeeded(lina.id); // no-op — she has no declared period
     const renderer = await renderScreen();
+    await openObjectiveSheet(renderer);
     const texts = textsOf(renderer);
     // The three "Mes informations" rows (Durée du cycle / Durée des règles /
     // Régularité du cycle) all read "Non renseignée" — the top stats-grid tile
@@ -1130,6 +1166,7 @@ describe('ProfileScreen — managed daughter profile: "Durée du cycle" / "Duré
     await pressByLabel(renderer, 'Régularité du cycle');
     await pressByLabel(renderer, 'Non', 'radio');
     await pressByLabel(renderer, 'Enregistrer');
+    await openObjectiveSheet(renderer);
     expect(textsOf(renderer)).toContain('Irrégulier');
     expect(getCyclePreferences().regularity).toBe('no');
     expect(getCyclePreferences().cycleDuration).toBe(28); // untouched by the regularity edit
@@ -1218,9 +1255,9 @@ describe('ProfileScreen — managed daughter profile: Confidentialité & Sécuri
     });
     await setActiveProfileId(lina.id);
     const renderer = await renderScreen();
-    const texts = textsOf(renderer);
-    expect(texts).toContain('Sauvegarde');
-    expect(texts).toContain('Notifications & rappels');
+    expect(textsOf(renderer)).toContain('Sauvegarde');
+    await openObjectiveSheet(renderer);
+    expect(textsOf(renderer)).toContain('Notifications & rappels');
   });
 
 });

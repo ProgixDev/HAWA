@@ -16,6 +16,7 @@ import ManagedProfileSuccessScreen from '../ManagedProfileSuccessScreen';
 import CycleHomeScreen from '../../CycleHomeScreen';
 import CalendarScreen from '../../CalendarScreen';
 import ProfileScreen from '../../ProfileScreen';
+import {openProfileObjectiveSheet} from '../../__tests__/profileObjectiveSheet';
 import {getManagedProfiles, resetManagedProfilesForTests} from '../../../state/managedProfilesStore';
 import {OWNER_PROFILE_ID, getActiveProfileId, resetActiveProfileForTests, setActiveProfileId} from '../../../state/activeProfileStore';
 import {
@@ -176,8 +177,12 @@ async function renderScreen(element: React.ReactElement) {
 }
 const renderDashboard = () => renderScreen(<CycleHomeScreen navigation={{navigate: jest.fn()} as never} route={{key: 'home', name: 'CycleHome'}} />);
 const renderCalendar = () => renderScreen(<CalendarScreen navigation={{navigate: jest.fn()} as never} route={{key: 'cal', name: 'Calendar'}} />);
-const renderProfile = () =>
-  renderScreen(<ProfileScreen navigation={{navigate: jest.fn(), getParent: jest.fn()} as never} route={{key: 'prof', name: 'Profile'}} />);
+// The cycle rows (Durée du cycle / des règles / Régularité) live in the "Mon objectif" sheet: open it.
+const renderProfile = async () => {
+  const renderer = await renderScreen(<ProfileScreen navigation={{navigate: jest.fn(), getParent: jest.fn()} as never} route={{key: 'prof', name: 'Profile'}} />);
+  await openProfileObjectiveSheet(renderer);
+  return renderer;
+};
 
 type Selection = {
   name: string;
@@ -366,8 +371,9 @@ describe('irregular and unknown regularity', () => {
     expect(texts).toContain('Cycle variable');
     expect(texts).toContain('26–32 jours');
     expect(texts).not.toContain('2 juillet'); // her 31 declared days are not turned into one exact date
-    // no single fertile / ovulation date for an irregular cycle
-    expect(texts.filter(text => text === 'Non estimable')).toHaveLength(2);
+    // no single fertile / ovulation date for an irregular cycle: wide ranges labelled "Cycle variable" instead of "Non estimable"
+    expect(texts).not.toContain('Non estimable');
+    expect(texts.filter(text => text === 'Cycle variable').length).toBeGreaterThanOrEqual(3);
 
     const profile = textsOf(await renderProfile());
     expect(profile[profile.indexOf('Régularité du cycle') + 1]).toBe('Irrégulier');
@@ -641,8 +647,8 @@ describe('Hala — the reported case, through the real onboarding', () => {
     expect(getRecordedPeriodHistory()).toEqual([{id: '2026-10-16', startDate: '2026-10-16', endDate: '2026-10-22'}]);
 
     // what her dashboard shows right away — no visit to ProfileScreen, no second entry
-    const texts = textsOf(renderer).map(text => text.replace(/\n/g, ' ')); // the ring wraps "Phase menstruelle" on two lines
-    expect(texts).toEqual(expect.arrayContaining(['Jour du cycle', '5', 'Phase menstruelle']));
+    const texts = textsOf(renderer).map(text => text.replace(/\n/g, ' '));
+    expect(texts).toEqual(expect.arrayContaining(['Jour du cycle', '5'])); // the ring shows the cycle day only (no phase name)
     expect(texts).toEqual(expect.arrayContaining(['Prochaines règles', '13 novembre', 'Dans 24 jours'])); // 16 Oct + 28 days
     expect(texts).toEqual(expect.arrayContaining(['Fenêtre fertile', '25 – 31 octobre', 'Ovulation prévue', '30 octobre']));
     expect(texts).toEqual(expect.arrayContaining(['Durée habituelle', '28 jours', 'Renseignée par toi']));

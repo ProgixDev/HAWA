@@ -2,7 +2,9 @@ import {getContraceptionReminderIndicator} from '../utils/contraceptionReminderS
 import {useToday} from '../hooks/useToday';
 import {CYCLE_RETURN_DATE_TO_CHECK, classifyStoredCycleReturnDate} from '../utils/lossDateValidation';
 import React, {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -153,6 +155,8 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaButton} from '../components/ui/AwaButton';
 import {SettingsCard} from '../components/profile/SettingsCard';
+import {DaughterSpaceSection, PartnerSpaceSection} from '../components/profile/FamilySpaceSections';
+import {SettingsRow} from './PrivacySecuritySubScreens';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {ObjectiveIcon} from '../components/onboarding/ObjectiveIcon';
 import {AwaText} from '../components/ui/AwaText';
@@ -331,35 +335,6 @@ function objectivesList(t: (key: string) => string): Array<{
 }
 
 /* ============================================================
- * REPÈRES SPIRITUELS
- * ============================================================ */
-
-function spiritualFeatures(t: (key: string) => string) {
-  return [
-    {
-      icon: 'calendar-month-outline' as const,
-      label: t('profile.spiritualMarkers.hijriCalendar.label'),
-      description: t('profile.spiritualMarkers.hijriCalendar.description'),
-    },
-    {
-      icon: 'hands-pray' as const,
-      label: t('profile.spiritualMarkers.prayersPurity.label'),
-      description: t('profile.spiritualMarkers.prayersPurity.description'),
-    },
-    {
-      icon: 'moon-waning-crescent' as const,
-      label: t('profile.spiritualMarkers.fasting.label'),
-      description: t('profile.spiritualMarkers.fasting.description'),
-    },
-    {
-      icon: 'bell-outline' as const,
-      label: t('profile.spiritualMarkers.prayerReminders.label'),
-      description: t('profile.spiritualMarkers.prayerReminders.description'),
-    },
-  ];
-}
-
-/* ============================================================
  * HELPERS
  * ============================================================ */
 
@@ -494,6 +469,10 @@ type MenuRowProps = {
   tone?: MenuTone;
 };
 
+// Provided by the "Mon objectif" sheet: a row pressed inside it first closes the sheet, then does what it did in the list (opens another
+// screen or editor), so two modals are never open at once. Null everywhere else.
+const ObjectiveSheetCloseContext = createContext<(() => void) | null>(null);
+
 // PHASE E2 — kept as fixed literals, deliberately NOT theme-driven. Each
 // One entry of the settings lists: a SettingsCard (same look for every category).
 function MenuRow({
@@ -503,8 +482,15 @@ function MenuRow({
   status,
   onPress,
 }: MenuRowProps): React.JSX.Element {
+  const closeObjectiveSheet = useContext(ObjectiveSheetCloseContext);
+  const handlePress = onPress && closeObjectiveSheet
+    ? () => {
+        closeObjectiveSheet();
+        onPress();
+      }
+    : onPress;
   // Every settings entry is the same SettingsCard (components/profile/SettingsCard.tsx): icon in a glass circle, title + description, chevron.
-  return <SettingsCard description={subtitle} icon={icon} onPress={onPress} status={status} title={title} />;
+  return <SettingsCard description={subtitle} icon={icon} onPress={handlePress} status={status} title={title} />;
 }
 
 /**
@@ -562,7 +548,7 @@ function LogoutConfirmModal({
               label={t('profile.signOut')}
               onPress={confirm}
               style={styles.logoutDialogButton}
-              variant="destructive"
+              variant="destructiveFilled"
             />
           </View>
         </View>
@@ -576,7 +562,8 @@ function SectionHeader({
   title,
   subtitle,
 }: {
-  icon: IconName;
+  /** Optional: "AWA à deux" and "Plus" have no icon next to their title. */
+  icon?: IconName;
   title: string;
   subtitle?: string;
 }): React.JSX.Element {
@@ -585,14 +572,16 @@ function SectionHeader({
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionHeaderTopRow}>
-        <View style={styles.sectionHeaderIcon}>
-          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-        </View>
+        {icon ? (
+          <View style={styles.sectionHeaderIcon}>
+            <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
+          </View>
+        ) : null}
 
-        <AwaText style={styles.sectionTitle} variant="titleMedium">{title}</AwaText>
+        <AwaText style={icon ? styles.sectionTitle : undefined} variant="titleMedium">{title}</AwaText>
       </View>
 
-      {subtitle ? <AwaText colorRole="onSurfaceVariant" style={styles.sectionSubtitle} variant="bodySmall">{subtitle}</AwaText> : null}
+      {subtitle ? <AwaText colorRole="onSurfaceVariant" style={icon ? styles.sectionSubtitle : styles.sectionSubtitleFlush} variant="bodySmall">{subtitle}</AwaText> : null}
     </View>
   );
 }
@@ -797,6 +786,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const effectiveObjective: ObjectiveId = isManagedProfileActive ? 'cycle' : objective;
 
   const [objectiveModalVisible, setObjectiveModalVisible] = useState(false);
+  const [objectiveSettingsVisible, setObjectiveSettingsVisible] = useState(false);
 
   /* ========================================================
    * REPÈRES
@@ -806,7 +796,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     getSpiritualMarkersEnabled(),
   );
 
-  const [spiritualModalVisible, setSpiritualModalVisible] = useState(false);
 
   const [cycle, setCycle] = useState(getCyclePreferences);
 
@@ -1307,14 +1296,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 {t('profile.headerSubtitle')}
               </Text>
             </View>
-
-            <AwaButton
-              accessibilityLabel={t('profile.managedProfiles.sheetTitle')}
-              label={t('profile.managedProfiles.sheetTitle')}
-              onPress={() => setManageProfilesVisible(true)}
-              size="compact"
-              variant="outlined"
-            />
           </View>
 
           {/* =================================================
@@ -1324,7 +1305,11 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           ================================================= */}
 
           {/* DESIGN.md: a plain surface card — no gradient fill on cards. */}
-          <View style={styles.identityCard}>
+          <Pressable
+            accessibilityLabel={t('profile.personalInfo.title')}
+            accessibilityRole="button"
+            onPress={() => (isManagedProfileActive ? setManagedProfileInfoModalVisible(true) : navigation.navigate('PersonalInformation'))}
+            style={({pressed}) => [styles.identityCard, pressed && styles.pressed]}>
 
             <View style={styles.identityTopRow}>
               <View style={styles.avatarOuterRing}>
@@ -1396,20 +1381,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     <View style={styles.nameRow}>
                       <Text style={styles.name}>{firstName || t('profile.notProvided')}</Text>
 
-                      <Pressable
-                        accessibilityLabel={t('profile.editProfile')}
-                        hitSlop={12}
-                        onPress={() => navigation.navigate('PersonalInformation')}
-                        style={({pressed}) => [
-                          styles.identityEditButton,
-                          pressed && styles.pressed,
-                        ]}>
-                        <MaterialDesignIcons
-                          color={theme.colors.primary}
-                          name="pencil-outline"
-                          size={14}
-                        />
-                      </Pressable>
                     </View>
 
                     <Text style={styles.identitySubtitle}>
@@ -1419,8 +1390,36 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 )}
 
               </View>
+
+              {/* the whole card opens "Informations personnelles" (the pencil that did the same was removed as redundant) */}
+              <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={24} />
             </View>
-          </View>
+          </Pressable>
+
+          {/* =================================================
+              OBJECTIVE CARD — "Mon objectif" at the top of the profile; opens the
+              sheet holding every setting linked to the objective (cycle / period
+              length, pregnancy dating, reminders…) and the objective picker.
+          ================================================= */}
+
+          <Pressable
+            accessibilityHint={t('profile.objectivePicker.subtitle')}
+            accessibilityLabel={`${t('profile.myObjective')} : ${objectiveLabelsMap[effectiveObjective]}`}
+            accessibilityRole="button"
+            onPress={() => setObjectiveSettingsVisible(true)}
+            style={({pressed}) => [styles.objectiveCard, pressed && styles.pressed]}>
+            <ObjectiveIcon objective={effectiveObjective} selected />
+
+            <View style={styles.objectiveCardCopy}>
+              <Text style={styles.objectiveCardEyebrow}>{t('profile.myObjective')}</Text>
+              <Text numberOfLines={2} style={styles.objectiveCardTitle}>{objectiveLabelsMap[effectiveObjective]}</Text>
+              <Text numberOfLines={2} style={styles.objectiveCardSubtitle}>
+                {t(`profile.objectivePicker.subtitles.${effectiveObjective}`)}
+              </Text>
+            </View>
+
+            <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
+          </Pressable>
 
           {/* STATS */}
 
@@ -1708,395 +1707,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {/* MES INFORMATIONS */}
 
-          <SectionHeader
-            icon="account-cog-outline"
-            title={t('profile.myInformationTitle')}
-            subtitle={t('profile.myInformationSubtitle')}
-          />
+          <SectionHeader title={t('profile.myInformationTitle')} />
 
+          {/* No "Informations personnelles" row any more: the "Mon profil" card above opens that page. */}
           <View style={styles.menuCard}>
-            <MenuRow
-              icon="account-outline"
-              onPress={() =>
-                isManagedProfileActive
-                  ? setManagedProfileInfoModalVisible(true)
-                  : navigation.navigate('PersonalInformation')
-              }
-              subtitle={
-                isManagedProfileActive
-                  ? t('profile.personalInfo.daughterSubtitle')
-                  : t('profile.personalInfo.ownerSubtitle')
-              }
-              title={t('profile.personalInfo.title')}
-              tone="personal"
-            />
-
-            <MenuRow
-              icon="target"
-              onPress={isManagedProfileActive ? undefined : () => setObjectiveModalVisible(true)}
-              subtitle={objectiveLabelsMap[effectiveObjective]}
-              title={t('profile.myObjective')}
-              tone="objective"
-            />
-
-            {/* Post-onboarding configuration rows (M11). Each one opens the SAME
-                screen the onboarding chain uses, in {mode:'edit'}: prefilled from
-                the current store, saves only its own group, then goBack() —
-                never continues the chain. Shown only for the matching objective. */}
-            {effectiveObjective === 'cycle' ? (
-              <>
-                <MenuRow
-                  icon="calendar-month-outline"
-                  onPress={() =>
-                    isManagedProfileActive
-                      ? openCycleDurationEditor()
-                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
-                  }
-                  subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.cycleDuration}) : t('profile.notProvidedFeminine')}
-                  title={t('profile.cycleLengthLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="water-outline"
-                  onPress={() =>
-                    isManagedProfileActive
-                      ? openPeriodDurationEditor()
-                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
-                  }
-                  subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.periodDuration}) : t('profile.notProvidedFeminine')}
-                  title={t('profile.periodLengthLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="chart-line"
-                  onPress={() =>
-                    isManagedProfileActive
-                      ? openRegularityEditor()
-                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
-                  }
-                  subtitle={
-                    !getHasConfirmedCycleData()
-                      ? t('profile.notProvidedFeminine')
-                      : cycle.regularity === 'yes'
-                        ? t('profile.regularity.ratherRegular')
-                        : cycle.regularity === 'no'
-                          ? t('profile.regularity.irregular')
-                          // Regularity is never asked during daughter creation — for a
-                          // managed profile, 'unknown' means "not yet provided", worded
-                          // as such, rather than the mother's own "Je ne sais pas encore"
-                          // (a real answer she gave during her onboarding).
-                          : isManagedProfileActive
-                            ? t('profile.notProvidedFeminine')
-                            : t('profile.regularity.dontKnowYet')
-                  }
-                  title={t('profile.cycleRegularityLabel')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'conceive' ? (
-              <>
-                <MenuRow
-                  icon="calendar-clock"
-                  onPress={() => navigation.navigate('ConceptionTryingDuration', {mode: 'edit'})}
-                  subtitle={t('profile.conceive.tryingDurationSubtitle')}
-                  title={t('profile.conceive.tryingDurationTitle')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="target"
-                  onPress={() => navigation.navigate('ConceptionOvulationAwareness', {mode: 'edit'})}
-                  subtitle={t('profile.conceive.ovulationAwarenessSubtitle')}
-                  title={t('profile.conceive.ovulationAwarenessTitle')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="chart-timeline-variant"
-                  onPress={() => navigation.navigate('ConceptionIndicators', {mode: 'edit'})}
-                  subtitle={t('profile.conceive.indicatorsSubtitle')}
-                  title={t('profile.conceive.indicatorsTitle')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'irregular' ? (
-              <>
-                <MenuRow
-                  icon="calendar-edit"
-                  onPress={() => navigation.navigate('IrregularLastPeriod', {mode: 'edit'})}
-                  subtitle={t('profile.miscarriage.provideOrCorrectDate')}
-                  title={t('profile.lastPeriodLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="clipboard-pulse-outline"
-                  onPress={() => navigation.navigate('IrregularTrackedItems', {mode: 'edit'})}
-                  subtitle={
-                    irregularPrefs.trackedItems.length > 0
-                      ? t('profile.irregular.trackedItemsCount', {count: irregularPrefs.trackedItems.length})
-                      : t('profile.irregular.noTrackedItems')
-                  }
-                  title={t('profile.irregular.trackedItemsLabel')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'contraception' ? (
-              <>
-                <MenuRow
-                  icon="calendar-check-outline"
-                  onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
-                  subtitle={(() => {
-                    const parsed = parseStoredDateOnly(contraception.methodStartDate);
-                    return parsed ? formatFullDate(parsed) : t('profile.notProvided');
-                  })()}
-                  title={t('profile.contraception.treatmentStartLabel')}
-                  tone="default"
-                />
-                {contraception.method === 'pill' ? (
-                  <MenuRow
-                    icon="clock-outline"
-                    onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
-                    subtitle={
-                      contraception.hasTreatmentBreak === null
-                        ? t('profile.notProvidedFeminine')
-                        : contraception.hasTreatmentBreak
-                          ? t('profile.contraception.withBreak')
-                          : t('profile.contraception.withoutBreak')
-                    }
-                    title={t('profile.contraception.treatmentBreakLabel')}
-                    tone="default"
-                  />
-                ) : null}
-              </>
-            ) : null}
-
-            {effectiveObjective === 'pregnancy' ? (
-              <>
-                <MenuRow
-                  icon="calendar-heart"
-                  onPress={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
-                  subtitle={t('profile.pregnancy.datingSubtitle')}
-                  title={t('profile.pregnancy.datingTitle')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="clipboard-pulse-outline"
-                  onPress={() => navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})}
-                  subtitle={t('profile.pregnancy.trackingPreferencesSubtitle')}
-                  title={t('profile.pregnancy.trackingPreferencesTitle')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'pregnancy' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('PregnancyNotifications')}
-                subtitle={t('profile.pregnancy.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'contraception' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('ContraceptionReminders', {mode: 'edit'})}
-                subtitle={t('profile.contraception.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'cycle' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('CycleReminders', {mode: 'edit'})}
-                subtitle={t('profile.cycle.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'conceive' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('ConceptionReminders', {mode: 'edit'})}
-                subtitle={t('profile.conceive.manageReminders')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'menopause' ? (
-              <>
-                <MenuRow
-                  icon="flower-outline"
-                  onPress={() => navigation.navigate('MenopauseStage', {mode: 'edit'})}
-                  subtitle={menopause.stage ? menopauseStageLabelsMap[menopause.stage] : t('profile.notProvidedFeminine')}
-                  title={t('profile.menopause.currentStageLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="clipboard-pulse-outline"
-                  onPress={() => navigation.navigate('MenopauseSymptoms', {mode: 'edit'})}
-                  subtitle={
-                    menopause.trackedSymptoms.length > 0
-                      ? t('profile.menopause.symptomsTrackedCount', {count: menopause.trackedSymptoms.length})
-                      : t('profile.menopause.noSymptomsTracked')
-                  }
-                  title={t('profile.menopause.trackedSymptomsLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="pill"
-                  onPress={() => navigation.navigate('MenopauseHormonalTreatment', {mode: 'edit'})}
-                  subtitle={
-                    menopause.hormonalTreatmentStatus
-                      ? menopauseHormonalTreatmentLabelsMap[menopause.hormonalTreatmentStatus]
-                      : t('profile.notProvided')
-                  }
-                  title={t('profile.menopause.hormonalTreatmentLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="flask-outline"
-                  onPress={() => navigation.navigate('MenopauseLabTracking', {mode: 'edit'})}
-                  subtitle={
-                    menopause.labTracking ? menopauseLabTrackingLabelsMap[menopause.labTracking] : t('profile.notProvided')
-                  }
-                  title={t('profile.menopause.labTrackingLabel')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'menopause' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
-                subtitle={t('profile.menopause.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'postpartum' ? (
-              <>
-                <MenuRow
-                  icon="calendar-heart"
-                  onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
-                  subtitle={t('profile.postpartum.correctDeliveryDate')}
-                  title={t('profile.postpartum.deliveryDateLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="medical-bag"
-                  onPress={() => navigation.navigate('PostpartumDeliveryType', {mode: 'edit'})}
-                  subtitle={t('profile.postpartum.deliveryTypeLabel')}
-                  title={t('profile.postpartum.myDeliveryLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="baby-bottle-outline"
-                  onPress={() => navigation.navigate('PostpartumFeeding', {mode: 'edit'})}
-                  subtitle={t('profile.postpartum.feedingSubtitle')}
-                  title={t('profile.postpartum.babyFeedingLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="sync"
-                  onPress={() => navigation.navigate('PostpartumCycleReturn')}
-                  subtitle={t('profile.postpartum.cycleReturnSubtitle')}
-                  title={t('profile.miscarriage.cycleReturnLabel')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'postpartum' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
-                subtitle={t('profile.postpartum.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'irregular' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('IrregularReminders', {mode: 'edit'})}
-                subtitle={t('profile.irregular.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'loss' ? (
-              <MenuRow
-                icon="calendar-edit"
-                onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
-                subtitle={t('profile.miscarriage.provideOrCorrectDate')}
-                title={t('profile.miscarriage.dateLabel')}
-                tone="default"
-              />
-            ) : null}
-
-            {effectiveObjective === 'loss' ? (
-              <>
-                <MenuRow
-                  icon="water-outline"
-                  onPress={() => navigation.navigate('MiscarriageBleeding', {mode: 'edit'})}
-                  subtitle={
-                    miscarriage.bleedingStatus
-                      ? t('profile.currentlyValue', {value: bleedingStatusLabelsMap[miscarriage.bleedingStatus]})
-                      : t('profile.notProvided')
-                  }
-                  title={t('profile.miscarriage.currentBleedingLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="sync-circle"
-                  onPress={() => navigation.navigate('MiscarriageCycleReturn', {mode: 'edit'})}
-                  subtitle={
-                    miscarriage.cycleReturnStatus
-                      ? t('profile.currentlyValue', {value: miscarriageCycleReturnLabelsMap[miscarriage.cycleReturnStatus]})
-                      : t('profile.notProvided')
-                  }
-                  title={t('profile.miscarriage.cycleReturnLabel')}
-                  tone="default"
-                />
-                <MenuRow
-                  icon="heart-outline"
-                  onPress={() => navigation.navigate('MiscarriageTryingAgain', {mode: 'edit'})}
-                  subtitle={
-                    miscarriage.tryingAgainStatus
-                      ? t('profile.currentlyValue', {value: miscarriageTryingAgainLabelsMap[miscarriage.tryingAgainStatus]})
-                      : t('profile.notProvided')
-                  }
-                  title={t('profile.miscarriage.tryingAgainLabel')}
-                  tone="default"
-                />
-              </>
-            ) : null}
-
-            {effectiveObjective === 'loss' ? (
-              <MenuRow
-                icon="bell-outline"
-                onPress={() => navigation.navigate('MiscarriageReminders', {mode: 'edit'})}
-                subtitle={t('profile.miscarriage.remindersSubtitle')}
-                title={t('profile.notificationsAndReminders')}
-                tone="default"
-              />
-            ) : null}
-
             <MenuRow
               icon="palette-outline"
               onPress={() => navigation.navigate('Appearance')}
@@ -2129,31 +1743,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               tone="backup"
             />
           </View>
-
-          {/* AWA À DEUX — opens the introduction screen only; the partner feature
-              itself (pairing, sharing, permissions) is not implemented.
-              Account-level, owner-only (CLAUDE.md §18's classification: AWA à deux
-              belongs to the mother's own account, never a managed profile's identity)
-              — hidden while a daughter is active so her cycle data can never be read
-              by AWA à deux's partner-cycle-info computation, which resolves from
-              onboardingPreferences.ts's shared (profile-scoped) cycle preferences. */}
-
-          {!isManagedProfileActive ? (
-            <>
-              <SectionHeader icon="heart-multiple-outline" title={t('profile.awaADeuxSectionTitle')} />
-
-              <View style={styles.menuCard}>
-                <MenuRow
-                  icon="heart-multiple-outline"
-                  onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
-                  status={t('profile.notConfigured')}
-                  subtitle={t('profile.awaADeuxSubtitle')}
-                  title={t('profile.awaADeuxTitle')}
-                  tone="default"
-                />
-              </View>
-            </>
-          ) : null}
 
           {/* Only shown while genuinely unprotected — once PIN/biométrie is on, this card disappears rather than nag. */}
           {!securityLocked ? (
@@ -2198,133 +1787,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           ================================================= */}
 
           {!isManagedProfileActive ? (
-          <View
-            style={[
-              styles.spiritualCard,
-
-              !spiritualEnabled && styles.spiritualCardDisabled,
-            ]}
-          >
-            <View style={styles.spiritualHeader}>
-              <View
-                style={[
-                  styles.spiritualIconCircle,
-
-                  !spiritualEnabled && styles.spiritualIconCircleDisabled,
-                ]}
-              >
-                <MaterialDesignIcons
-                  color={theme.colors.primary}
-                  name="moon-waning-crescent"
-                  size={22}
-                  style={!spiritualEnabled && styles.emojiDisabled}
-                />
-              </View>
-
-              <View style={styles.spiritualCopy}>
-                <View style={styles.spiritualTitleRow}>
-                  <Text
-                    style={[
-                      styles.spiritualTitle,
-
-                      !spiritualEnabled && styles.spiritualTitleDisabled,
-                    ]}
-                  >
-                    {t('profile.spiritualMarkers.sectionTitle')}
-                  </Text>
-
-                  <View
-                    style={[
-                      styles.statusBadge,
-
-                      spiritualEnabled
-                        ? styles.statusBadgeActive
-                        : styles.statusBadgeInactive,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.statusBadgeText,
-
-                        spiritualEnabled
-                          ? styles.statusBadgeTextActive
-                          : styles.statusBadgeTextInactive,
-                      ]}
-                    >
-                      {spiritualEnabled ? t('profile.spiritualMarkers.active') : t('profile.spiritualMarkers.inactive')}
-                    </Text>
-                  </View>
-                </View>
-
-                <Text
-                  style={[
-                    styles.spiritualText,
-
-                    !spiritualEnabled && styles.spiritualTextDisabled,
-                  ]}
-                >
-                  {t('profile.spiritualMarkers.summaryText')}
-                </Text>
-              </View>
+            <View style={styles.spiritualToggle}>
+              <SettingsRow
+                icon="moon-waning-crescent"
+                onToggle={changeSpiritualMarkers}
+                subtitle={t('profile.spiritualMarkers.summaryText')}
+                title={t('profile.spiritualMarkers.sectionTitle')}
+                toggle={spiritualEnabled}
+              />
             </View>
-
-            <View style={styles.spiritualMiniFeatures}>
-              {spiritualFeatures(t).map(feature => (
-                <View
-                  key={feature.label}
-                  style={[
-                    styles.spiritualMiniFeature,
-
-                    !spiritualEnabled && styles.spiritualMiniFeatureDisabled,
-                  ]}
-                >
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name={feature.icon}
-                    size={18}
-                    style={[styles.spiritualMiniIcon, !spiritualEnabled && styles.emojiDisabled]}
-                  />
-
-                  <Text
-                    style={[
-                      styles.spiritualMiniText,
-
-                      !spiritualEnabled && styles.spiritualMiniTextDisabled,
-                    ]}
-                  >
-                    {feature.label}
-                  </Text>
-                </View>
-              ))}
-            </View>
-
-            <AwaButton
-              fullWidth
-              label={t('profile.spiritualMarkers.manageMarkers')}
-              onPress={() => setSpiritualModalVisible(true)}
-              style={styles.manageButton}
-              trailingIcon="tune-variant"
-            />
-          </View>
           ) : null}
 
           {/* PLUS */}
 
-          <SectionHeader
-            icon="dots-horizontal-circle-outline"
-            title={t('profile.moreSectionTitle')}
-            subtitle={t('profile.moreSectionSubtitle')}
-          />
+          <SectionHeader title={t('profile.moreSectionTitle')} />
 
           <View style={[styles.menuCard, styles.moreMenuCard]}>
-            <MenuRow
-              icon="information-outline"
-              onPress={() => navigation.navigate('About')}
-              subtitle={t('profile.aboutAwaSubtitle')}
-              title={t('profile.aboutAwaTitle')}
-              tone="about"
-            />
-
             <MenuRow
               icon="headset"
               onPress={() => navigation.navigate('HelpSupport')}
@@ -2334,6 +1812,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             />
           </View>
 
+          {/* =================================================
+              FAMILY SPACES, at the bottom of the page — "AWA pour ma fille" (her own profile; opens "Gérer les profils") and
+              "AWA pour mon mari" (AWA à deux: sharing chosen markers with the husband). The partner feature is account-level,
+              owner-only (CLAUDE.md §18): hidden while a daughter is active so her cycle data can never be read by AWA à deux's
+              partner-cycle-info computation, which resolves from onboardingPreferences.ts's shared (profile-scoped) cycle preferences.
+          ================================================= */}
+          <DaughterSpaceSection
+            names={managedProfiles.map(profile => profile.firstName)}
+            onPress={() => setManageProfilesVisible(true)}
+          />
+          {!isManagedProfileActive ? (
+            <PartnerSpaceSection
+              onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
+            />
+          ) : null}
+
           <AwaButton
             accessibilityLabel={t('profile.signOut')}
             fullWidth
@@ -2341,7 +1835,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             label={t('profile.signOut')}
             onPress={confirmSignOut}
             style={styles.accountButton}
-            variant="destructive"
+            variant="destructiveFilled"
           />
         </ScrollView>
         <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
@@ -2363,6 +1857,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setManageProfilesVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={manageProfilesVisible}
@@ -2524,12 +2019,425 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         />
 
         {/* =====================================================
+            OBJECTIVE SETTINGS SHEET — every setting linked to the objective
+        ===================================================== */}
+
+        <Modal
+          animationType="slide"
+          navigationBarTranslucent
+          onRequestClose={() => setObjectiveSettingsVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={objectiveSettingsVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              accessibilityLabel={t('common.close')}
+              onPress={() => setObjectiveSettingsVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>{t('profile.myObjective')}</Text>
+                  <Text style={styles.sheetSubtitle}>{objectiveLabelsMap[effectiveObjective]}</Text>
+                </View>
+
+                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setObjectiveSettingsVisible(false)} />
+              </View>
+
+              <ScrollView
+                contentContainerStyle={{paddingBottom: Math.max(insets.bottom, 14) + 14}}
+                showsVerticalScrollIndicator={false}
+              >
+                {/* Each row closes the sheet before doing what it did in the list (see MenuRow). */}
+                <ObjectiveSheetCloseContext.Provider value={() => setObjectiveSettingsVisible(false)}>
+                  <View style={styles.menuCard}>
+                  {/* Post-onboarding configuration rows (M11). Each one opens the SAME
+                      screen the onboarding chain uses, in {mode:'edit'}: prefilled from
+                      the current store, saves only its own group, then goBack() —
+                      never continues the chain. Shown only for the matching objective. */}
+                  {effectiveObjective === 'cycle' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-month-outline"
+                        onPress={() =>
+                          isManagedProfileActive
+                            ? openCycleDurationEditor()
+                            : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                        }
+                        subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.cycleDuration}) : t('profile.notProvidedFeminine')}
+                        title={t('profile.cycleLengthLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="water-outline"
+                        onPress={() =>
+                          isManagedProfileActive
+                            ? openPeriodDurationEditor()
+                            : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                        }
+                        subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.periodDuration}) : t('profile.notProvidedFeminine')}
+                        title={t('profile.periodLengthLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="chart-line"
+                        onPress={() =>
+                          isManagedProfileActive
+                            ? openRegularityEditor()
+                            : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                        }
+                        subtitle={
+                          !getHasConfirmedCycleData()
+                            ? t('profile.notProvidedFeminine')
+                            : cycle.regularity === 'yes'
+                              ? t('profile.regularity.ratherRegular')
+                              : cycle.regularity === 'no'
+                                ? t('profile.regularity.irregular')
+                                // Regularity is never asked during daughter creation — for a
+                                // managed profile, 'unknown' means "not yet provided", worded
+                                // as such, rather than the mother's own "Je ne sais pas encore"
+                                // (a real answer she gave during her onboarding).
+                                : isManagedProfileActive
+                                  ? t('profile.notProvidedFeminine')
+                                  : t('profile.regularity.dontKnowYet')
+                        }
+                        title={t('profile.cycleRegularityLabel')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'conceive' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-clock"
+                        onPress={() => navigation.navigate('ConceptionTryingDuration', {mode: 'edit'})}
+                        subtitle={t('profile.conceive.tryingDurationSubtitle')}
+                        title={t('profile.conceive.tryingDurationTitle')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="target"
+                        onPress={() => navigation.navigate('ConceptionOvulationAwareness', {mode: 'edit'})}
+                        subtitle={t('profile.conceive.ovulationAwarenessSubtitle')}
+                        title={t('profile.conceive.ovulationAwarenessTitle')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="chart-timeline-variant"
+                        onPress={() => navigation.navigate('ConceptionIndicators', {mode: 'edit'})}
+                        subtitle={t('profile.conceive.indicatorsSubtitle')}
+                        title={t('profile.conceive.indicatorsTitle')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'irregular' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-edit"
+                        onPress={() => navigation.navigate('IrregularLastPeriod', {mode: 'edit'})}
+                        subtitle={t('profile.miscarriage.provideOrCorrectDate')}
+                        title={t('profile.lastPeriodLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="clipboard-pulse-outline"
+                        onPress={() => navigation.navigate('IrregularTrackedItems', {mode: 'edit'})}
+                        subtitle={
+                          irregularPrefs.trackedItems.length > 0
+                            ? t('profile.irregular.trackedItemsCount', {count: irregularPrefs.trackedItems.length})
+                            : t('profile.irregular.noTrackedItems')
+                        }
+                        title={t('profile.irregular.trackedItemsLabel')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'contraception' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-check-outline"
+                        onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
+                        subtitle={(() => {
+                          const parsed = parseStoredDateOnly(contraception.methodStartDate);
+                          return parsed ? formatFullDate(parsed) : t('profile.notProvided');
+                        })()}
+                        title={t('profile.contraception.treatmentStartLabel')}
+                        tone="default"
+                      />
+                      {contraception.method === 'pill' ? (
+                        <MenuRow
+                          icon="clock-outline"
+                          onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
+                          subtitle={
+                            contraception.hasTreatmentBreak === null
+                              ? t('profile.notProvidedFeminine')
+                              : contraception.hasTreatmentBreak
+                                ? t('profile.contraception.withBreak')
+                                : t('profile.contraception.withoutBreak')
+                          }
+                          title={t('profile.contraception.treatmentBreakLabel')}
+                          tone="default"
+                        />
+                      ) : null}
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'pregnancy' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-heart"
+                        onPress={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
+                        subtitle={t('profile.pregnancy.datingSubtitle')}
+                        title={t('profile.pregnancy.datingTitle')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="clipboard-pulse-outline"
+                        onPress={() => navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})}
+                        subtitle={t('profile.pregnancy.trackingPreferencesSubtitle')}
+                        title={t('profile.pregnancy.trackingPreferencesTitle')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'pregnancy' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('PregnancyNotifications')}
+                      subtitle={t('profile.pregnancy.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'contraception' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('ContraceptionReminders', {mode: 'edit'})}
+                      subtitle={t('profile.contraception.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'cycle' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('CycleReminders', {mode: 'edit'})}
+                      subtitle={t('profile.cycle.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'conceive' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('ConceptionReminders', {mode: 'edit'})}
+                      subtitle={t('profile.conceive.manageReminders')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'menopause' ? (
+                    <>
+                      <MenuRow
+                        icon="flower-outline"
+                        onPress={() => navigation.navigate('MenopauseStage', {mode: 'edit'})}
+                        subtitle={menopause.stage ? menopauseStageLabelsMap[menopause.stage] : t('profile.notProvidedFeminine')}
+                        title={t('profile.menopause.currentStageLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="clipboard-pulse-outline"
+                        onPress={() => navigation.navigate('MenopauseSymptoms', {mode: 'edit'})}
+                        subtitle={
+                          menopause.trackedSymptoms.length > 0
+                            ? t('profile.menopause.symptomsTrackedCount', {count: menopause.trackedSymptoms.length})
+                            : t('profile.menopause.noSymptomsTracked')
+                        }
+                        title={t('profile.menopause.trackedSymptomsLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="pill"
+                        onPress={() => navigation.navigate('MenopauseHormonalTreatment', {mode: 'edit'})}
+                        subtitle={
+                          menopause.hormonalTreatmentStatus
+                            ? menopauseHormonalTreatmentLabelsMap[menopause.hormonalTreatmentStatus]
+                            : t('profile.notProvided')
+                        }
+                        title={t('profile.menopause.hormonalTreatmentLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="flask-outline"
+                        onPress={() => navigation.navigate('MenopauseLabTracking', {mode: 'edit'})}
+                        subtitle={
+                          menopause.labTracking ? menopauseLabTrackingLabelsMap[menopause.labTracking] : t('profile.notProvided')
+                        }
+                        title={t('profile.menopause.labTrackingLabel')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'menopause' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
+                      subtitle={t('profile.menopause.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'postpartum' ? (
+                    <>
+                      <MenuRow
+                        icon="calendar-heart"
+                        onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
+                        subtitle={t('profile.postpartum.correctDeliveryDate')}
+                        title={t('profile.postpartum.deliveryDateLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="medical-bag"
+                        onPress={() => navigation.navigate('PostpartumDeliveryType', {mode: 'edit'})}
+                        subtitle={t('profile.postpartum.deliveryTypeLabel')}
+                        title={t('profile.postpartum.myDeliveryLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="baby-bottle-outline"
+                        onPress={() => navigation.navigate('PostpartumFeeding', {mode: 'edit'})}
+                        subtitle={t('profile.postpartum.feedingSubtitle')}
+                        title={t('profile.postpartum.babyFeedingLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="sync"
+                        onPress={() => navigation.navigate('PostpartumCycleReturn')}
+                        subtitle={t('profile.postpartum.cycleReturnSubtitle')}
+                        title={t('profile.miscarriage.cycleReturnLabel')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'postpartum' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
+                      subtitle={t('profile.postpartum.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'irregular' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('IrregularReminders', {mode: 'edit'})}
+                      subtitle={t('profile.irregular.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'loss' ? (
+                    <MenuRow
+                      icon="calendar-edit"
+                      onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
+                      subtitle={t('profile.miscarriage.provideOrCorrectDate')}
+                      title={t('profile.miscarriage.dateLabel')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                  {effectiveObjective === 'loss' ? (
+                    <>
+                      <MenuRow
+                        icon="water-outline"
+                        onPress={() => navigation.navigate('MiscarriageBleeding', {mode: 'edit'})}
+                        subtitle={
+                          miscarriage.bleedingStatus
+                            ? t('profile.currentlyValue', {value: bleedingStatusLabelsMap[miscarriage.bleedingStatus]})
+                            : t('profile.notProvided')
+                        }
+                        title={t('profile.miscarriage.currentBleedingLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="sync-circle"
+                        onPress={() => navigation.navigate('MiscarriageCycleReturn', {mode: 'edit'})}
+                        subtitle={
+                          miscarriage.cycleReturnStatus
+                            ? t('profile.currentlyValue', {value: miscarriageCycleReturnLabelsMap[miscarriage.cycleReturnStatus]})
+                            : t('profile.notProvided')
+                        }
+                        title={t('profile.miscarriage.cycleReturnLabel')}
+                        tone="default"
+                      />
+                      <MenuRow
+                        icon="heart-outline"
+                        onPress={() => navigation.navigate('MiscarriageTryingAgain', {mode: 'edit'})}
+                        subtitle={
+                          miscarriage.tryingAgainStatus
+                            ? t('profile.currentlyValue', {value: miscarriageTryingAgainLabelsMap[miscarriage.tryingAgainStatus]})
+                            : t('profile.notProvided')
+                        }
+                        title={t('profile.miscarriage.tryingAgainLabel')}
+                        tone="default"
+                      />
+                    </>
+                  ) : null}
+
+                  {effectiveObjective === 'loss' ? (
+                    <MenuRow
+                      icon="bell-outline"
+                      onPress={() => navigation.navigate('MiscarriageReminders', {mode: 'edit'})}
+                      subtitle={t('profile.miscarriage.remindersSubtitle')}
+                      title={t('profile.notificationsAndReminders')}
+                      tone="default"
+                    />
+                  ) : null}
+
+                    {isManagedProfileActive ? null : (
+                      <MenuRow
+                        icon="swap-horizontal"
+                        onPress={() => setObjectiveModalVisible(true)}
+                        subtitle={t('profile.objectivePicker.subtitle')}
+                        title={t('profile.objectivePicker.title')}
+                        tone="objective"
+                      />
+                    )}
+                  </View>
+                </ObjectiveSheetCloseContext.Provider>
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
+
+        {/* =====================================================
             OBJECTIVE MODAL
         ===================================================== */}
 
         <Modal
           animationType="fade"
           onRequestClose={() => setObjectiveModalVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={objectiveModalVisible}
@@ -2626,299 +2534,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         </Modal>
 
         {/* =====================================================
-            SPIRITUAL MODAL
-        ===================================================== */}
-
-        <Modal
-          animationType="fade"
-          onRequestClose={() => setSpiritualModalVisible(false)}
-          statusBarTranslucent
-          transparent
-          visible={spiritualModalVisible}
-        >
-          <View style={styles.modalOverlay}>
-            <Pressable
-              onPress={() => setSpiritualModalVisible(false)}
-              style={StyleSheet.absoluteFill}
-            />
-
-            <View style={styles.spiritualSheet}>
-              <View style={styles.sheetHandle} />
-
-              <View style={styles.sheetHeader}>
-                <View style={styles.spiritualSheetTitleIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={23} />
-                </View>
-
-                <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>{t('profile.spiritualMarkers.sectionTitle')}</Text>
-
-                  <Text style={styles.sheetSubtitle}>
-                    {t('profile.spiritualMarkers.modalSubtitle')}
-                  </Text>
-                </View>
-
-                <AwaIconButton accessibilityLabel={t('common.close')} icon="close" onPress={() => setSpiritualModalVisible(false)} />
-              </View>
-
-              <ScrollView
-                contentContainerStyle={[
-                  styles.spiritualSheetContent,
-
-                  {
-                    paddingBottom: Math.max(insets.bottom, 16) + 16,
-                  },
-                ]}
-                showsVerticalScrollIndicator={false}
-              >
-                <Text style={styles.activationLabel}>{t('profile.spiritualMarkers.markersStateLabel')}</Text>
-
-                <View style={styles.activationChoices}>
-                  <Pressable
-                    accessibilityRole="radio"
-                    accessibilityState={{
-                      checked: spiritualEnabled,
-                    }}
-                    onPress={() => changeSpiritualMarkers(true)}
-                    style={({ pressed }) => [
-                      styles.activationChoice,
-
-                      spiritualEnabled && styles.activationChoiceActive,
-
-                      pressed && styles.optionPressed,
-                    ]}
-                  >
-                    <View
-                      style={[
-                        styles.activationRadio,
-
-                        spiritualEnabled && styles.activationRadioActive,
-                      ]}
-                    >
-                      {spiritualEnabled ? (
-                        <View style={styles.activationRadioDot} />
-                      ) : null}
-                    </View>
-
-                    <View style={styles.activationCopy}>
-                      <Text
-                        style={[
-                          styles.activationTitle,
-
-                          spiritualEnabled && styles.activationTitleActive,
-                        ]}
-                      >
-                        {t('profile.spiritualMarkers.yesActivate')}
-                      </Text>
-
-                      <Text
-                        style={[
-                          styles.activationDescription,
-
-                          spiritualEnabled &&
-                            styles.activationDescriptionActive,
-                        ]}
-                      >
-                        {t('profile.spiritualMarkers.showFeatures')}
-                      </Text>
-                    </View>
-
-                    {spiritualEnabled ? (
-                      <View style={styles.activationCheck}>
-                        <MaterialDesignIcons
-                          color={theme.colors.primary}
-                          name="check"
-                          size={17}
-                        />
-                      </View>
-                    ) : null}
-                  </Pressable>
-
-                  <Pressable
-                    accessibilityRole="radio"
-                    accessibilityState={{
-                      checked: !spiritualEnabled,
-                    }}
-                    onPress={() => changeSpiritualMarkers(false)}
-                    style={({ pressed }) => [
-                      styles.activationChoice,
-
-                      !spiritualEnabled && styles.activationChoiceActive,
-
-                      pressed && styles.optionPressed,
-                    ]}
-                  >
-                    <View
-                      style={[
-                        styles.activationRadio,
-
-                        !spiritualEnabled && styles.activationRadioActive,
-                      ]}
-                    >
-                      {!spiritualEnabled ? (
-                        <View style={styles.activationRadioDot} />
-                      ) : null}
-                    </View>
-
-                    <View style={styles.activationCopy}>
-                      <Text
-                        style={[
-                          styles.activationTitle,
-
-                          !spiritualEnabled && styles.activationTitleActive,
-                        ]}
-                      >
-                        {t('profile.spiritualMarkers.noDeactivate')}
-                      </Text>
-
-                      <Text
-                        style={[
-                          styles.activationDescription,
-
-                          !spiritualEnabled &&
-                            styles.activationDescriptionActive,
-                        ]}
-                      >
-                        {t('profile.spiritualMarkers.hideFeatures')}
-                      </Text>
-                    </View>
-
-                    {!spiritualEnabled ? (
-                      <View style={styles.activationCheck}>
-                        <MaterialDesignIcons
-                          color={theme.colors.primary}
-                          name="check"
-                          size={17}
-                        />
-                      </View>
-                    ) : null}
-                  </Pressable>
-                </View>
-
-                <View style={styles.featuresHeader}>
-                  <Text style={styles.featuresTitle}>
-                    {t('profile.spiritualMarkers.relatedFeaturesTitle')}
-                  </Text>
-
-                  <View
-                    style={[
-                      styles.featuresStatus,
-
-                      spiritualEnabled
-                        ? styles.featuresStatusActive
-                        : styles.featuresStatusDisabled,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.featuresStatusText,
-
-                        spiritualEnabled
-                          ? styles.featuresStatusTextActive
-                          : styles.featuresStatusTextDisabled,
-                      ]}
-                    >
-                      {spiritualEnabled ? t('profile.spiritualMarkers.enabledPlural') : t('profile.spiritualMarkers.disabledPlural')}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={styles.spiritualFeatures}>
-                  {spiritualFeatures(t).map(feature => (
-                    <View
-                      key={feature.label}
-                      style={[
-                        styles.spiritualFeatureCard,
-
-                        !spiritualEnabled &&
-                          styles.spiritualFeatureCardDisabled,
-                      ]}
-                    >
-                      <View
-                        style={[
-                          styles.spiritualFeatureIcon,
-
-                          !spiritualEnabled &&
-                            styles.spiritualFeatureIconDisabled,
-                        ]}
-                      >
-                        <MaterialDesignIcons
-                          color={theme.colors.primary}
-                          name={feature.icon}
-                          size={22}
-                          style={!spiritualEnabled && styles.emojiDisabled}
-                        />
-                      </View>
-
-                      <View style={styles.spiritualFeatureCopy}>
-                        <Text
-                          style={[
-                            styles.spiritualFeatureTitle,
-
-                            !spiritualEnabled &&
-                              styles.spiritualFeatureTitleDisabled,
-                          ]}
-                        >
-                          {feature.label}
-                        </Text>
-
-                        <Text
-                          style={[
-                            styles.spiritualFeatureDescription,
-
-                            !spiritualEnabled &&
-                              styles.spiritualFeatureDescriptionDisabled,
-                          ]}
-                        >
-                          {feature.description}
-                        </Text>
-                      </View>
-
-                      <View
-                        style={[
-                          styles.featureStateIcon,
-
-                          spiritualEnabled
-                            ? styles.featureStateIconActive
-                            : styles.featureStateIconDisabled,
-                        ]}
-                      >
-                        <MaterialDesignIcons
-                          color={spiritualEnabled ? onPrimaryTextColor(theme) : theme.colors.textMuted}
-                          name={spiritualEnabled ? 'check' : 'minus'}
-                          size={14}
-                        />
-                      </View>
-                    </View>
-                  ))}
-                </View>
-
-                <View style={styles.spiritualInfoBox}>
-                  <MaterialDesignIcons
-                    color={theme.colors.primary}
-                    name="information-outline"
-                    size={19}
-                  />
-
-                  <Text style={styles.spiritualInfoText}>
-                    {t('profile.spiritualMarkers.canChangeAnytime')}
-                  </Text>
-                </View>
-
-                <AwaButton
-                  fullWidth
-                  icon="check"
-                  label={t('cycleHome.quickActions.done')}
-                  onPress={() => setSpiritualModalVisible(false)}
-                  size="large"
-                  style={styles.doneButton}
-                />
-              </ScrollView>
-            </View>
-          </View>
-        </Modal>
-
-        {/* =====================================================
             DAUGHTER CYCLE-SETTINGS EDITORS — "Durée du cycle" /
             "Durée des règles" / "Régularité du cycle" for a managed
             profile. Reuses the SAME sheet chrome as every other modal
@@ -2930,6 +2545,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setCycleDurationEditorVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={cycleDurationEditorVisible}
@@ -2983,6 +2599,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setPeriodDurationEditorVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={periodDurationEditorVisible}
@@ -3036,6 +2653,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setRegularityEditorVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={regularityEditorVisible}
@@ -3125,6 +2743,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setManagedProfileInfoModalVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={managedProfileInfoModalVisible}
@@ -3201,6 +2820,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         <Modal
           animationType="fade"
           onRequestClose={() => setPhotoSheetVisible(false)}
+          navigationBarTranslucent
           statusBarTranslucent
           transparent
           visible={photoSheetVisible}
@@ -3742,9 +3362,61 @@ function createStyles(theme: ResolvedAwaTheme) {
     marginLeft: 46,
   },
 
+  // A header without an icon: the subtitle lines up with the title.
+  sectionSubtitleFlush: {
+    marginTop: 4,
+  },
+
   menuCard: {
     gap: 8,
     backgroundColor: 'transparent',
+  },
+
+  // "Mon objectif" card under the identity card — same surface as identityCard.
+  objectiveCard: {
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.18),
+    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: theme.shadow.shadowColor,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
+  },
+
+  objectiveCardCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+
+  objectiveCardEyebrow: {
+    color: theme.colors.primary,
+    fontSize: 11,
+    lineHeight: 16,
+    fontWeight: '800',
+    letterSpacing: 0.9,
+  },
+
+  objectiveCardTitle: {
+    marginTop: 1,
+    color: theme.colors.text,
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: '700',
+  },
+
+  objectiveCardSubtitle: {
+    marginTop: 2,
+    color: theme.colors.textSecondary,
+    fontSize: 12,
+    lineHeight: 16,
   },
 
   moreMenuCard: {
@@ -4037,6 +3709,11 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   accountButton: {
     marginTop: 16,
+  },
+
+  // Keeps the "Repères spirituels" switch row clear of the card above it ("Verrouillage recommandé", AWA à deux…).
+  spiritualToggle: {
+    marginTop: 14,
   },
 
   /* ========================================================

@@ -91,12 +91,15 @@ describe('HelpSupportScreen — "Aide & support" limited to cycle-tracking topic
     expect(texts).not.toContain('Un cycle long est-il considéré comme un retard ?'); // SOPK
   });
 
-  it('shows the FULL, unfiltered FAQ list for the owner', async () => {
+  it('shows the owner a short list: the questions of HER objective (cycle) and two about her data — not the whole catalogue', async () => {
     const renderer = await renderHelpSupport();
     const texts = textsOf(renderer);
     expect(texts).toContain('Comment enregistrer mes règles ?');
-    expect(texts).toContain('Comment connaître ma fenêtre fertile ?');
-    expect(texts).toContain('Comment fonctionne le calendrier hijri ?');
+    expect(texts).not.toContain('Comment connaître ma fenêtre fertile ?'); // another objective
+    expect(texts).not.toContain('Comment fonctionne le calendrier hijri ?');
+    // the legal documents close the page
+    expect(texts).toContain('Conditions d’utilisation');
+    expect(texts).toContain('Politique de confidentialité');
   });
 });
 
@@ -112,6 +115,8 @@ describe('FAQScreen (full list) — same cycle-tracking-only filtering for a man
 
     await setActiveProfileId(OWNER_PROFILE_ID);
     const ownerTexts = textsOf(await renderFAQ());
-    expect(ownerTexts).toContain('Comment connaître ma fenêtre fertile ?');
+    // the owner gets the questions of her own objective + a few general ones (9), not the whole catalogue
+    expect(ownerTexts).toContain('Comment enregistrer mes règles ?');
+    expect(ownerTexts).not.toContain('Comment connaître ma fenêtre fertile ?');
   });
 });

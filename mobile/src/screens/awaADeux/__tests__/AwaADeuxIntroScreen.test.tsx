@@ -83,11 +83,11 @@ afterEach(() => {
 describe('Navigation: Profile → AWA à deux → back', () => {
   it('"AWA à deux" appears in Profile, tapping it opens the introduction, Retour returns to Profile', async () => {
     const renderer = await renderApp('Profile');
-    expect(textsOf(renderer)).toContain('AWA à deux');
+    expect(textsOf(renderer)).toContain('AWA pour mon mari');
     expect(currentRoute()).toBe('Profile');
 
     await act(async () => {
-      button(renderer, 'AWA à deux').props.onPress();
+      button(renderer, 'AWA pour mon mari').props.onPress();
     });
     await settle();
     expect(currentRoute()).toBe('AwaADeuxIntro');
@@ -98,13 +98,13 @@ describe('Navigation: Profile → AWA à deux → back', () => {
     });
     await settle();
     expect(currentRoute()).toBe('Profile');
-    expect(textsOf(renderer)).toContain('AWA À DEUX');
+    expect(textsOf(renderer)).toContain('AWA pour mon mari');
   });
 
   it('the Android back action (goBack) also returns to Profile', async () => {
     const renderer = await renderApp('Profile');
     await act(async () => {
-      button(renderer, 'AWA à deux').props.onPress();
+      button(renderer, 'AWA pour mon mari').props.onPress();
     });
     await settle();
     expect(currentRoute()).toBe('AwaADeuxIntro');
@@ -226,7 +226,7 @@ describe('Profile is not disturbed', () => {
   it('the section, its status and the existing rows are still shown; the theme still switches', async () => {
     const renderer = await renderApp('Profile');
     const texts = textsOf(renderer);
-    for (const label of ['AWA À DEUX', 'Non configuré', 'Sauvegarde', 'Apparence', 'Confidentialité & Sécurité']) {
+    for (const label of ['AWA pour mon mari', 'Sauvegarde', 'Apparence', 'Confidentialité & Sécurité']) {
       expect(texts).toContain(label);
     }
     await act(async () => {

@@ -10,6 +10,7 @@ import {JournalSheetProvider} from '../../navigation/JournalSheetContext';
 import CycleHomeScreen from '../CycleHomeScreen';
 import CalendarScreen from '../CalendarScreen';
 import ProfileScreen from '../ProfileScreen';
+import {openProfileObjectiveSheet} from './profileObjectiveSheet';
 import {
   getCyclePreferences,
   hydrateCyclePreferences,
@@ -60,7 +61,12 @@ async function renderScreen(element: React.ReactElement) {
 }
 const renderDashboard = () => renderScreen(<CycleHomeScreen navigation={{navigate: jest.fn()} as never} route={{key: 'd', name: 'CycleHome'}} />);
 const renderCalendar = () => renderScreen(<CalendarScreen navigation={{navigate: jest.fn()} as never} route={{key: 'c', name: 'Calendar'}} />);
-const renderProfile = () => renderScreen(<ProfileScreen navigation={{navigate: jest.fn()} as never} route={{key: 'p', name: 'Profile'}} />);
+// The cycle rows (Durée du cycle / des règles / Régularité) live in the "Mon objectif" sheet: open it.
+const renderProfile = async () => {
+  const renderer = await renderScreen(<ProfileScreen navigation={{navigate: jest.fn()} as never} route={{key: 'p', name: 'Profile'}} />);
+  await openProfileObjectiveSheet(renderer);
+  return renderer;
+};
 
 const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
   renderer.root

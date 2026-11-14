@@ -37,6 +37,13 @@ const rootOf = (root: Root) => ('root' in root ? root.root : root);
 const textOf = (node: ReactTestRenderer.ReactTestInstance): string => [node.props.children].flat(Infinity).map(child => (typeof child === 'string' ? child : '')).join('');
 const textsOf = (root: Root) => rootOf(root).findAllByType(Text).map(textOf);
 const route = () => (navRef.getCurrentRoute() as {name: string} | undefined)?.name;
+// Relative to the real "today": a fixed calendar date makes the fertile-window status ("Dans N jours" / "En cours" / ended) depend on the day the suite runs.
+const daysFromToday = (days: number): Date => {
+  const date = new Date();
+  date.setHours(12, 0, 0, 0);
+  date.setDate(date.getDate() + days);
+  return date;
+};
 // The root STACK's current route (as opposed to route(), which reports the deepest active
 // route — e.g. "PartnerHome" once inside the nested PartnerMainTabs tab navigator).
 const stackRoute = () => {
@@ -253,9 +260,9 @@ describe('PartnerHomeScreen — sharing permissions control what is shown', () =
       nextPeriod: '5 novembre',
       nextPeriodDate: new Date(2026, 10, 5),
       fertileWindow: '8 novembre – 13 novembre',
-      fertileWindowRange: {start: new Date(2026, 10, 8), end: new Date(2026, 10, 13)},
+      fertileWindowRange: {start: daysFromToday(3), end: daysFromToday(8)}, // starts in 3 days: "Dans 3 jours"
       ovulation: '12 novembre',
-      ovulationDate: new Date(2026, 10, 12),
+      ovulationDate: daysFromToday(7),
     });
     await setSharingToggle('cycleDay', true);
     await setSharingToggle('nextPeriod', false);
@@ -295,9 +302,9 @@ describe('PartnerHomeScreen — sharing permissions control what is shown', () =
       nextPeriod: '6 décembre',
       nextPeriodDate: new Date(2026, 11, 6),
       fertileWindow: '10 novembre – 15 novembre',
-      fertileWindowRange: {start: new Date(2026, 10, 10), end: new Date(2026, 10, 15)},
+      fertileWindowRange: {start: daysFromToday(-1), end: daysFromToday(4)}, // running now: "En cours"
       ovulation: '14 novembre',
-      ovulationDate: new Date(2026, 10, 14),
+      ovulationDate: daysFromToday(2),
     });
     await setSharingToggle('cycleDay', false);
     await setSharingToggle('nextPeriod', false);
