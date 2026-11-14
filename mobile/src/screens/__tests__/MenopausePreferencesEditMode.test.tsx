@@ -11,6 +11,7 @@ import MenopauseSymptomsScreen from '../MenopauseSymptomsScreen';
 import MenopauseHormonalTreatmentScreen from '../MenopauseHormonalTreatmentScreen';
 import MenopauseLabTrackingScreen from '../MenopauseLabTrackingScreen';
 import ProfileScreen from '../ProfileScreen';
+import {openProfileObjectiveSheet} from './profileObjectiveSheet';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {setAppLanguage} from '../../state/themePreferences';
@@ -267,6 +268,7 @@ describe('Profile — every Menopause preference has an edit entry point (edit m
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
 
     await act(async () => {
       buttonWithText(renderer, title).props.onPress();
