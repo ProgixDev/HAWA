@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Modal, Pressable, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, Modal, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {setCrashReportsEnabled} from '../../services/sentry';
 import {getAppLockState, subscribeAppLock} from '../../state/appLockStore';
@@ -13,9 +12,12 @@ import {
   type CrashReportsChoice,
 } from '../../state/crashReportsPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaButton} from '../ui/AwaButton';
+import {AwaSwitch} from '../ui/AwaSwitch';
 import {AwaText} from '../ui/AwaText';
+
+const AWA_LOGO = require('../../assets/images/hawa-logo.png');
 
 // Wait a moment after the main screens appear so the invitation never competes with the first render.
 const SHOW_DELAY_MS = 1500;
@@ -34,6 +36,8 @@ export function CrashReportsInviteSheet({visible, onEnable, onDecline, onOpenPol
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  // Privacy by default: nothing is switched on unless the person picks "Activer" and then confirms.
+  const [wantsReports, setWantsReports] = useState(false);
 
   return (
     <Modal
@@ -50,15 +54,14 @@ export function CrashReportsInviteSheet({visible, onEnable, onDecline, onOpenPol
           <View style={styles.handle} />
 
           <ScrollView bounces={false} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+            <Image accessibilityIgnoresInvertColors resizeMode="contain" source={AWA_LOGO} style={styles.logo} />
+
             <AwaText accessibilityRole="header" style={styles.title} variant="titleLarge" weight="700">
               {t('privacySecurity.crashReports.sheetTitle')}
             </AwaText>
 
             <View style={styles.card}>
               <View style={styles.cardRow}>
-                <View style={styles.cardIcon}>
-                  <MaterialDesignIcons color={theme.colors.primary} name="shield-bug-outline" size={22} />
-                </View>
                 <View style={styles.cardCopy}>
                   <AwaText variant="titleSmall" weight="700">
                     {t('privacySecurity.crashReports.title')}
@@ -67,6 +70,11 @@ export function CrashReportsInviteSheet({visible, onEnable, onDecline, onOpenPol
                     {t('privacySecurity.crashReports.subtitle')}
                   </AwaText>
                 </View>
+                <AwaSwitch
+                  accessibilityLabel={t('privacySecurity.crashReports.title')}
+                  onValueChange={setWantsReports}
+                  value={wantsReports}
+                />
               </View>
 
               <Pressable accessibilityRole="link" hitSlop={8} onPress={onOpenPolicy} style={styles.policyLink}>
@@ -77,8 +85,7 @@ export function CrashReportsInviteSheet({visible, onEnable, onDecline, onOpenPol
             </View>
 
             <View style={styles.actions}>
-              <AwaButton fullWidth label={t('privacySecurity.crashReports.sheetEnable')} onPress={onEnable} />
-              <AwaButton fullWidth label={t('privacySecurity.crashReports.sheetDecline')} onPress={onDecline} variant="tonal" />
+              <AwaButton fullWidth label={t('common.continue')} onPress={wantsReports ? onEnable : onDecline} />
             </View>
           </ScrollView>
         </View>
@@ -148,7 +155,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     handle: {width: 36, height: 4, alignSelf: 'center', borderRadius: 2, backgroundColor: theme.colors.border},
     content: {flexGrow: 1, paddingTop: 16, paddingBottom: 8},
-    title: {textAlign: 'center'},
+    logo: {alignSelf: 'center', width: 140, height: 56},
+    title: {marginTop: 12, textAlign: 'center'},
     card: {
       marginTop: 18,
       padding: 14,
@@ -158,17 +166,9 @@ function createStyles(theme: ResolvedAwaTheme) {
       borderColor: withAlpha(theme.colors.primary, 0.16),
     },
     cardRow: {flexDirection: 'row', alignItems: 'center', gap: 12},
-    cardIcon: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: withAlpha(theme.colors.primary, 0.14),
-    },
     cardCopy: {flex: 1},
     cardSubtitle: {marginTop: 2},
-    policyLink: {alignSelf: 'flex-start', marginTop: 10, marginLeft: 52},
+    policyLink: {alignSelf: 'flex-start', marginTop: 10},
     policyText: {color: theme.colors.primary, textDecorationLine: 'underline'},
     actions: {marginTop: 18, gap: 8},
   });
