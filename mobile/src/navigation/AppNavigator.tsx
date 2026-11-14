@@ -327,7 +327,18 @@ function AppNavigator({
   const navigationTheme = useMemo(() => toReactNavigationTheme(theme), [theme]);
 
   return (
-    <NavigationContainer onReady={onReady} onStateChange={restoreObjectiveIfSetupAbandoned} ref={navigationRef} theme={navigationTheme}>
+    <NavigationContainer
+      onReady={onReady}
+      onStateChange={restoreObjectiveIfSetupAbandoned}
+      // Un retour sans écran précédent (pile vide) ne doit pas déclencher d'erreur.
+      onUnhandledAction={action => {
+        if (action.type === 'GO_BACK') {
+          return;
+        }
+        console.error(`The action '${action.type}' was not handled by any navigator.`);
+      }}
+      ref={navigationRef}
+      theme={navigationTheme}>
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{ headerShown: false, animation: 'fade' }}
