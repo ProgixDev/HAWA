@@ -19,6 +19,11 @@ import { handleConceptionReminderBackgroundNotification } from './src/services/c
 import { handleGenericReminderBackgroundNotification } from './src/services/genericReminderBackgroundHandler';
 import reminderRescheduleTask, { REMINDER_RESCHEDULE_TASK_NAME } from './src/services/reminderRescheduleTask';
 
+import { initSentry } from './src/services/sentry';
+
+// Crash reporting: starts only if the person agreed (see src/services/sentry.ts); a no-op in development and without a DSN.
+initSentry().catch(() => {});
+
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   if (type === EventType.DELIVERED) {
     await handlePostpartumNifasBackgroundNotification(

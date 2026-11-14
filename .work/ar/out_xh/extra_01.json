@@ -1,0 +1,44 @@
+{
+  "terms": [
+    {
+      "title": "Injongo",
+      "body": "Olu xwebhu lubonisa isakhiwo esisezantsi seAWA ⁇ s."
+    },
+    {
+      "title": "Ukusetyenziswa kwesicelo",
+      "body": "I-AWA inika izixhobo zokulandelela abantu kunye nolonwabo. Umxholo wokugqibela ochaza amalungelo neembopheleleko zabasebenzisi ⁇  uza kongezelelwa xa kugqitywe ukuqinisekiswa ngokusemthethweni."
+    },
+    {
+      "title": "Ukufumaneka kwenkonzo",
+      "body": "Imiqathango yokugqibela elawula ukufumaneka, ulondolozo kunye nokuvela kwenkonzo isamele iqinisekiswe."
+    },
+    {
+      "title": "Unxibelelwano",
+      "body": "Iinkcukacha zoqhagamshelwano ezisemthethweni ziya kongezelelwa xa sele zilungiselelwe yiqela leAWA."
+    }
+  ],
+  "privacy": [
+    {
+      "title": "Idatha echaphazelekayo",
+      "body": "Eli candelo liya kuchaza ngokuchanekileyo idatha eqhutywa yi-AWA kunye nenjongo yayo, xa sele igqityiwe ukuqinisekiswa ngokusemthethweni."
+    },
+    {
+      "title": "Ukugcinwa nokhuseleko",
+      "body": "Uxwebhu lokugqibela luya kuchaza amanyathelo okugcina, ukhuseleko kunye nexesha lokugcina."
+    },
+    {
+      "title": "Amalungelo akho",
+      "body": "Iinkqubo zokufikelela, ukulungisa okanye ukucima idatha yakho ziya kuchazwa kwiinguqulelo eziqinisekisiweyo."
+    },
+    {
+      "title": "Ukudibana nobomi",
+      "body": "Idilesi yokunxibelelana esemthethweni yomphathi wobumfihlo iya kufakwa ngaphambi kokupapashwa."
+    }
+  ],
+  "imageAlts": [
+    "Umzekeliso: ugqirha nomfazi okhulelweyo xa behlolwa nge-ultrasound.",
+    "Umzekeliso: ibhinqa elikhulelweyo lizinze kumatrasi weyoga. Umbhalo: Hamba ukuze ukhulelwe kakuhle. Iphosta: Umama onempilo ukuze umntwana aphile kakuhle.",
+    "Umzekeliso: ibhinqa elisesithendeni elincamathelayo kumatrasi weyoga."
+  ],
+  "selectorSubtitle": "Sebenzisa i-AWA ngesiXhosa"
+}

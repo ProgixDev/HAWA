@@ -87,7 +87,7 @@ import {migrateLegacyPlainPregnancyMedicalEventNotes} from './src/state/pregnanc
 import {migrateLegacyPlainPersonalInformation} from './src/state/personalInformationStore';
 import {migrateLegacyPlainIrregularNotes} from './src/state/irregularJournalStore';
 import {migrateLegacyPlainMenopauseNotes} from './src/state/menopauseJournalStore';
-import {migrateLegacyPlainDailyJournalNotes} from './src/state/dailyJournalStore';
+import {migrateDailyJournalToObjectives, migrateLegacyPlainDailyJournalNotes} from './src/state/dailyJournalStore';
 import {migrateLegacyPlainContraceptionNotes} from './src/state/contraceptionJournalStore';
 import {migrateLegacyPlainPostpartumLochiaNotes} from './src/state/postpartumLochiaStore';
 import {migrateLegacyPlainPregnancyCustomReminders} from './src/state/pregnancyCustomRemindersStore';
@@ -129,7 +129,9 @@ migrateLegacyPlainPregnancyMedicalEventNotes().catch(() => {});
 migrateLegacyPlainPersonalInformation().catch(() => {});
 migrateLegacyPlainIrregularNotes().catch(() => {});
 migrateLegacyPlainMenopauseNotes().catch(() => {});
-migrateLegacyPlainDailyJournalNotes().catch(() => {});
+// One journal per objective: the owner's former shared journal is first re-attributed to her current objective (once), then the
+// legacy-plaintext-notes migration runs on the journal now in use.
+migrateDailyJournalToObjectives().then(() => migrateLegacyPlainDailyJournalNotes()).catch(() => {});
 migrateLegacyPlainContraceptionNotes().catch(() => {});
 migrateLegacyPlainPostpartumLochiaNotes().catch(() => {});
 migrateLegacyPlainPregnancyCustomReminders().catch(() => {});

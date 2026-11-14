@@ -1,0 +1,2445 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "BabyBlues",
+   "items": [
+    {
+     "i": 0,
+     "path": "badgeText",
+     "en": "POSTPARTUM • EMOTIONAL HEALTH"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Baby blues and postpartum\nemotional health"
+    },
+    {
+     "i": 2,
+     "path": "subtitle",
+     "en": "Understanding what can change emotionally after birth and knowing when to seek support."
+    },
+    {
+     "i": 3,
+     "path": "metaItems[0]",
+     "en": "10 min read"
+    },
+    {
+     "i": 4,
+     "path": "metaItems[1]",
+     "en": "Article"
+    },
+    {
+     "i": 5,
+     "path": "metaItems[2]",
+     "en": "Beginner"
+    },
+    {
+     "i": 6,
+     "path": "metaItems[3]",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 7,
+     "path": "introTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 8,
+     "path": "introText",
+     "en": "After giving birth, it’s common to go through a period of heightened emotional sensitivity. The baby blues is usually temporary, but distress that persists or intensifies deserves professional attention."
+    },
+    {
+     "i": 9,
+     "path": "contentsEyebrow",
+     "en": "GUIDE"
+    },
+    {
+     "i": 10,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 11,
+     "path": "contents[0]",
+     "en": "Understanding the baby blues"
+    },
+    {
+     "i": 12,
+     "path": "contents[1]",
+     "en": "The most common signs"
+    },
+    {
+     "i": 13,
+     "path": "contents[2]",
+     "en": "What helps day to day"
+    },
+    {
+     "i": 14,
+     "path": "contents[3]",
+     "en": "Baby blues or postpartum depression?"
+    },
+    {
+     "i": 15,
+     "path": "contents[4]",
+     "en": "When to ask for help"
+    },
+    {
+     "i": 16,
+     "path": "contents[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 17,
+     "path": "section1Kicker",
+     "en": "UNDERSTANDING"
+    },
+    {
+     "i": 18,
+     "path": "section1Title",
+     "en": "What is the baby blues?"
+    },
+    {
+     "i": 19,
+     "path": "section1Body1",
+     "en": "The baby blues is a period of emotional changes that can occur in the first few days after giving birth. Hormonal shifts, fatigue, lack of sleep, and adjusting to this new stage can all contribute to this sensitivity."
+    },
+    {
+     "i": 20,
+     "path": "section1Body2",
+     "en": "This is not a failure and it does not mean you are a bad mother. Everyone experiences the first days of postpartum in their own way."
+    },
+    {
+     "i": 21,
+     "path": "statTitle",
+     "en": "A common experience"
+    },
+    {
+     "i": 22,
+     "path": "statText",
+     "en": "The baby blues is common after childbirth and tends to improve on its own within a few days."
+    },
+    {
+     "i": 23,
+     "path": "section2Kicker",
+     "en": "THE SIGNS"
+    },
+    {
+     "i": 24,
+     "path": "section2Title",
+     "en": "What you may feel"
+    },
+    {
+     "i": 25,
+     "path": "section2Body",
+     "en": "What people experience varies. Some mainly feel fatigue and sensitivity, while others may have more noticeable mood changes."
+    },
+    {
+     "i": 26,
+     "path": "commonSigns[0].title",
+     "en": "Emotionality"
+    },
+    {
+     "i": 27,
+     "path": "commonSigns[0].description",
+     "en": "Crying more easily or feeling particularly sensitive."
+    },
+    {
+     "i": 28,
+     "path": "commonSigns[1].title",
+     "en": "Hypersensitivity"
+    },
+    {
+     "i": 29,
+     "path": "commonSigns[1].description",
+     "en": "Emotions can feel stronger and shift quickly."
+    },
+    {
+     "i": 30,
+     "path": "commonSigns[2].title",
+     "en": "Mood swings"
+    },
+    {
+     "i": 31,
+     "path": "commonSigns[2].description",
+     "en": "A sense of fragility can alternate with moments of well-being."
+    },
+    {
+     "i": 32,
+     "path": "commonSigns[3].title",
+     "en": "Fatigue"
+    },
+    {
+     "i": 33,
+     "path": "commonSigns[3].description",
+     "en": "Fatigue from the first days can amplify emotions."
+    },
+    {
+     "i": 34,
+     "path": "section3Kicker",
+     "en": "DAY TO DAY"
+    },
+    {
+     "i": 35,
+     "path": "section3Title",
+     "en": "What can help"
+    },
+    {
+     "i": 36,
+     "path": "section3Body",
+     "en": "During this period, the need for rest is significant. Small, simple things can make the days more comfortable."
+    },
+    {
+     "i": 37,
+     "path": "dailySupport[0].title",
+     "en": "Resting"
+    },
+    {
+     "i": 38,
+     "path": "dailySupport[0].description",
+     "en": "Taking advantage of any free moments to recover."
+    },
+    {
+     "i": 39,
+     "path": "dailySupport[1].title",
+     "en": "Accepting help"
+    },
+    {
+     "i": 40,
+     "path": "dailySupport[1].description",
+     "en": "Don’t hesitate to ask for support from those around you."
+    },
+    {
+     "i": 41,
+     "path": "dailySupport[2].title",
+     "en": "Drinking regularly"
+    },
+    {
+     "i": 42,
+     "path": "dailySupport[2].description",
+     "en": "Staying sufficiently hydrated throughout the day."
+    },
+    {
+     "i": 43,
+     "path": "dailySupport[3].title",
+     "en": "Eating enough"
+    },
+    {
+     "i": 44,
+     "path": "dailySupport[3].description",
+     "en": "Favoring regular, simple meals."
+    },
+    {
+     "i": 45,
+     "path": "quoteText",
+     "en": "“Asking for help during postpartum is a way of taking care of yourself and your baby.”"
+    },
+    {
+     "i": 46,
+     "path": "section4Kicker",
+     "en": "TELLING THEM APART"
+    },
+    {
+     "i": 47,
+     "path": "section4Title",
+     "en": "Baby blues or postpartum depression?"
+    },
+    {
+     "i": 48,
+     "path": "section4Body",
+     "en": "The baby blues is usually brief and improves gradually. Postpartum depression is different: it can be more persistent, more intense, and have a significant impact on daily life."
+    },
+    {
+     "i": 49,
+     "path": "compareTitle",
+     "en": "Two situations to distinguish"
+    },
+    {
+     "i": 50,
+     "path": "compareBabyBluesTitle",
+     "en": "Baby blues"
+    },
+    {
+     "i": 51,
+     "path": "compareBabyBluesText",
+     "en": "Often brief, with gradual improvement over the following days."
+    },
+    {
+     "i": 52,
+     "path": "comparePostpartumTitle",
+     "en": "Postpartum depression"
+    },
+    {
+     "i": 53,
+     "path": "comparePostpartumText",
+     "en": "Can last longer, intensify, and require professional support."
+    },
+    {
+     "i": 54,
+     "path": "section5Kicker",
+     "en": "STAYING ALERT"
+    },
+    {
+     "i": 55,
+     "path": "section5Title",
+     "en": "When to ask for help?"
+    },
+    {
+     "i": 56,
+     "path": "section5Body",
+     "en": "It’s important to talk to a healthcare professional if the emotional distress doesn’t improve, becomes more intense, or starts to make daily life harder."
+    },
+    {
+     "i": 57,
+     "path": "attentionTitle",
+     "en": "Warning signs to watch for"
+    },
+    {
+     "i": 58,
+     "path": "attentionSubtitle",
+     "en": "Talk to a professional if…"
+    },
+    {
+     "i": 59,
+     "path": "attentionSigns[0]",
+     "en": "Symptoms last more than two weeks."
+    },
+    {
+     "i": 60,
+     "path": "attentionSigns[1]",
+     "en": "Sadness or anxiety becomes more intense."
+    },
+    {
+     "i": 61,
+     "path": "attentionSigns[2]",
+     "en": "It becomes difficult to take care of yourself or your baby."
+    },
+    {
+     "i": 62,
+     "path": "attentionSigns[3]",
+     "en": "A significant feeling of distress appears."
+    },
+    {
+     "i": 63,
+     "path": "professionalTitle",
+     "en": "Support is available"
+    },
+    {
+     "i": 64,
+     "path": "professionalText",
+     "en": "A midwife, doctor, psychologist, or other healthcare professional can listen, assess the situation, and offer appropriate support."
+    },
+    {
+     "i": 65,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 66,
+     "path": "tipText",
+     "en": "Postpartum emotions are not a measure of how good a mother you are. You have the right to need rest, to be listened to, and to be supported."
+    },
+    {
+     "i": 67,
+     "path": "section6Kicker",
+     "en": "KEY POINTS"
+    },
+    {
+     "i": 68,
+     "path": "section6Title",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 69,
+     "path": "takeaways[0]",
+     "en": "The baby blues is common after giving birth."
+    },
+    {
+     "i": 70,
+     "path": "takeaways[1]",
+     "en": "Fatigue and hormonal changes can affect mood."
+    },
+    {
+     "i": 71,
+     "path": "takeaways[2]",
+     "en": "Support from those around you can make this period easier."
+    },
+    {
+     "i": 72,
+     "path": "takeaways[3]",
+     "en": "Persistent or significant distress deserves a professional evaluation."
+    },
+    {
+     "i": 73,
+     "path": "disclaimerText",
+     "en": "This article is for informational purposes and does not replace personalized medical advice. If in doubt or experiencing significant distress, speak with a healthcare professional."
+    },
+    {
+     "i": 74,
+     "path": "endText",
+     "en": "Taking care of yourself is also part of postpartum."
+    },
+    {
+     "i": 75,
+     "path": "shareTitle",
+     "en": "Baby blues and postpartum emotional health"
+    },
+    {
+     "i": 76,
+     "path": "shareMessage",
+     "en": "Baby blues and postpartum emotional health — AWA\n\nA guide to understanding the emotional changes that are common after giving birth."
+    }
+   ]
+  },
+  {
+   "id": "BabyDevelopment",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PREGNANCY • DEVELOPMENT"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Your baby’s development\nin utero"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "How your baby grows, trimester by trimester."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "The first trimester: the early days"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "The second trimester: the senses awaken"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "The third trimester: the home stretch"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key milestones at a glance"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Common myths"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "What to remember"
+    },
+    {
+     "i": 14,
+     "path": "body1",
+     "en": "From as early as week 6, a tiny heart already begins to beat. Over the course of this first trimester, the main organs gradually form."
+    },
+    {
+     "i": 15,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 16,
+     "path": "tip1Text",
+     "en": "The baby’s heartbeat is one of the first visible signs on ultrasound, often a memorable moment in your care."
+    },
+    {
+     "i": 17,
+     "path": "body2",
+     "en": "Around week 20, you can usually feel the baby’s first movements. This is also when the senses start to develop."
+    },
+    {
+     "i": 18,
+     "path": "body3",
+     "en": "From the 3rd trimester onward, the baby gains weight quickly and gradually moves into position for birth."
+    },
+    {
+     "i": 19,
+     "path": "neutralText",
+     "en": "The pace of development varies from baby to baby: these milestones remain general averages."
+    },
+    {
+     "i": 20,
+     "path": "milestones[0]",
+     "en": "From 6 weeks: the heart begins to beat"
+    },
+    {
+     "i": 21,
+     "path": "milestones[1]",
+     "en": "Around 20 weeks: first movements felt"
+    },
+    {
+     "i": 22,
+     "path": "milestones[2]",
+     "en": "Around 24-26 weeks: hearing develops"
+    },
+    {
+     "i": 23,
+     "path": "milestones[3]",
+     "en": "Around 28 weeks: the eyes gradually open"
+    },
+    {
+     "i": 24,
+     "path": "myths[0]",
+     "en": "The baby “hears everything” from the start: hearing doesn’t really develop until the 2nd trimester"
+    },
+    {
+     "i": 25,
+     "path": "myths[1]",
+     "en": "The shape of the belly indicates the baby’s sex: no scientific evidence supports this"
+    },
+    {
+     "i": 26,
+     "path": "myths[2]",
+     "en": "An active baby is necessarily healthier: activity levels vary widely from one baby to another"
+    },
+    {
+     "i": 27,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 28,
+     "path": "tip2Text",
+     "en": "Each stage of the baby’s development follows its own pace; regular medical check-ups help confirm that everything is progressing normally."
+    },
+    {
+     "i": 29,
+     "path": "shareMessage",
+     "en": "Baby’s development in utero — AWA"
+    }
+   ]
+  },
+  {
+   "id": "BasalTemperature",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FERTILITY • BASAL BODY TEMPERATURE"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Tracking your\nbasal body temperature"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "A simple method to confirm, after the fact, that ovulation has occurred."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "What is basal body temperature?"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "When and how to measure it"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Spotting the rise after ovulation"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "What can skew a reading"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "The limits of this method"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "When to talk to a professional"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 15,
+     "path": "section1Body",
+     "en": "Basal body temperature is the temperature of your body at complete rest, before any activity. It varies very slightly over the course of the cycle, under the influence of your hormones."
+    },
+    {
+     "i": 16,
+     "path": "section2Body",
+     "en": "It’s measured every morning, before you get up, always at the same time and with the same thermometer."
+    },
+    {
+     "i": 17,
+     "path": "measuringTips[0].title",
+     "en": "The same thermometer"
+    },
+    {
+     "i": 18,
+     "path": "measuringTips[0].text",
+     "en": "Always use the same thermometer, ideally a basal one (more precise, to a tenth of a degree)."
+    },
+    {
+     "i": 19,
+     "path": "measuringTips[1].title",
+     "en": "The same time"
+    },
+    {
+     "i": 20,
+     "path": "measuringTips[1].text",
+     "en": "Measure at a fixed time, before getting up, after at least 3 hours of uninterrupted sleep."
+    },
+    {
+     "i": 21,
+     "path": "measuringTips[2].title",
+     "en": "Write it down right away"
+    },
+    {
+     "i": 22,
+     "path": "measuringTips[2].text",
+     "en": "Write down the reading immediately, before even getting up or speaking."
+    },
+    {
+     "i": 23,
+     "path": "section3Body",
+     "en": "Basal body temperature rises slightly (0.2 to 0.5°C) just after ovulation, under the effect of progesterone, and stays higher until your next period."
+    },
+    {
+     "i": 24,
+     "path": "curveTitle",
+     "en": "What the chart looks like"
+    },
+    {
+     "i": 25,
+     "path": "curveText",
+     "en": "Lower in the first part of the cycle, it steps up after ovulation and stays there — a pattern that only becomes clear after several days of readings."
+    },
+    {
+     "i": 26,
+     "path": "disruptingFactors[0]",
+     "en": "A short or restless night’s sleep"
+    },
+    {
+     "i": 27,
+     "path": "disruptingFactors[1]",
+     "en": "Waking up at an unusual time"
+    },
+    {
+     "i": 28,
+     "path": "disruptingFactors[2]",
+     "en": "Fever or illness"
+    },
+    {
+     "i": 29,
+     "path": "disruptingFactors[3]",
+     "en": "Alcohol the night before"
+    },
+    {
+     "i": 30,
+     "path": "disruptingFactors[4]",
+     "en": "Recent jet lag"
+    },
+    {
+     "i": 31,
+     "path": "section5Body",
+     "en": "This isn’t a predictive method but a confirmative one: it helps you better understand your own cycle, once ovulation has already happened — not to anticipate it."
+    },
+    {
+     "i": 32,
+     "path": "section5Caption",
+     "en": "Observing it alone over one or two cycles usually isn’t enough: the pattern emerges with repetition."
+    },
+    {
+     "i": 33,
+     "path": "warningTitle",
+     "en": "Worth mentioning to a professional"
+    },
+    {
+     "i": 34,
+     "path": "consultSituations[0]",
+     "en": "No temperature rise appears over several complete cycles"
+    },
+    {
+     "i": 35,
+     "path": "consultSituations[1]",
+     "en": "Temperatures stay very irregular despite careful measurement"
+    },
+    {
+     "i": 36,
+     "path": "consultSituations[2]",
+     "en": "You have questions about your fertility that this tracking alone can’t answer"
+    },
+    {
+     "i": 37,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 38,
+     "path": "tipText",
+     "en": "Combining basal body temperature with observing your cervical mucus or ovulation tests gives a more complete picture of your cycle."
+    },
+    {
+     "i": 39,
+     "path": "summaryPoints[0]",
+     "en": "Basal body temperature rises slightly (0.2 to 0.5°C) right after ovulation, under the effect of progesterone."
+    },
+    {
+     "i": 40,
+     "path": "summaryPoints[1]",
+     "en": "It’s measured every morning, before getting up, always at the same time and with the same thermometer."
+    },
+    {
+     "i": 41,
+     "path": "summaryPoints[2]",
+     "en": "This isn’t a predictive method but a confirmative one: it helps you better understand your own cycle."
+    },
+    {
+     "i": 42,
+     "path": "summaryPoints[3]",
+     "en": "Combining it with other signs (cervical mucus, ovulation tests) gives a more complete picture."
+    },
+    {
+     "i": 43,
+     "path": "disclaimerText",
+     "en": "Informational content. This article doesn’t replace personalized medical advice. If in doubt, ask a healthcare professional for guidance."
+    },
+    {
+     "i": 44,
+     "path": "shareMessage",
+     "en": "Tracking basal body temperature — AWA"
+    }
+   ]
+  },
+  {
+   "id": "BirthControlPills",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "BIRTH CONTROL PILL"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Understanding\nthe birth control pill"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "How the pill works, how to take it day to day, and its main advantages and limitations."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "How the pill works"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Taking it correctly every day"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Advantages and limitations"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 12,
+     "path": "body1",
+     "en": "The pill contains hormones — estrogen and/or progestin, depending on the type — that work mainly by preventing or blocking ovulation. It also changes cervical mucus, which makes it harder for sperm to pass through."
+    },
+    {
+     "i": 13,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 14,
+     "path": "tip1Text",
+     "en": "There are several types of pills, including combined pills and progestin-only pills. Their composition and how they’re taken can vary."
+    },
+    {
+     "i": 15,
+     "path": "body2",
+     "en": "Taking it consistently matters. Depending on the type of pill, what to do after a missed dose can differ — so it’s essential to check your medication’s package insert."
+    },
+    {
+     "i": 16,
+     "path": "routineTips[0]",
+     "en": "Pick a time of day that’s easy to remember (a meal, bedtime...)"
+    },
+    {
+     "i": 17,
+     "path": "routineTips[1]",
+     "en": "Use a reminder or an app if needed"
+    },
+    {
+     "i": 18,
+     "path": "routineTips[2]",
+     "en": "Keep the package insert on hand in case of doubt"
+    },
+    {
+     "i": 19,
+     "path": "sectionIntro",
+     "en": "Like any contraceptive method, the pill has advantages but also certain limitations to know about before choosing it."
+    },
+    {
+     "i": 20,
+     "path": "advantagesTitle",
+     "en": "Advantages"
+    },
+    {
+     "i": 21,
+     "path": "advantagesSubtitle",
+     "en": "What it can offer"
+    },
+    {
+     "i": 22,
+     "path": "advantages[0]",
+     "en": "Greatly reduces the risk of pregnancy when used correctly"
+    },
+    {
+     "i": 23,
+     "path": "advantages[1]",
+     "en": "May make periods more regular and predictable"
+    },
+    {
+     "i": 24,
+     "path": "advantages[2]",
+     "en": "May reduce pain and bleeding for some people"
+    },
+    {
+     "i": 25,
+     "path": "advantages[3]",
+     "en": "Can be adjusted or changed if it doesn’t suit you"
+    },
+    {
+     "i": 26,
+     "path": "limitationsTitle",
+     "en": "Limitations"
+    },
+    {
+     "i": 27,
+     "path": "limitationsSubtitle",
+     "en": "Points to be aware of"
+    },
+    {
+     "i": 28,
+     "path": "limitations[0]",
+     "en": "Requires regular intake depending on the type of pill"
+    },
+    {
+     "i": 29,
+     "path": "limitations[1]",
+     "en": "Missed doses can reduce its effectiveness"
+    },
+    {
+     "i": 30,
+     "path": "limitations[2]",
+     "en": "Some people may experience side effects"
+    },
+    {
+     "i": 31,
+     "path": "limitations[3]",
+     "en": "Does not protect against sexually transmitted infections (STIs)"
+    },
+    {
+     "i": 32,
+     "path": "takeawayTitle",
+     "en": "A method worth understanding"
+    },
+    {
+     "i": 33,
+     "path": "takeawayText",
+     "en": "The pill is an effective hormonal contraceptive method when used correctly. Taking it consistently, its possible side effects, and the lack of protection against STIs are important things to know."
+    },
+    {
+     "i": 34,
+     "path": "finalTipText",
+     "en": "If you’re considering contraception or your current method isn’t working for you, don’t hesitate to talk to a doctor, midwife, or another healthcare professional."
+    },
+    {
+     "i": 35,
+     "path": "shareMessage",
+     "en": "Understanding the birth control pill — AWA"
+    }
+   ]
+  },
+  {
+   "id": "BoneHealth",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "BONE HEALTH"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Taking care of\nyour bone health"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Why menopause increases the risk of osteoporosis, and how to protect your bones every day."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Why menopause weakens bones"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Osteopenia and osteoporosis"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Screening with bone densitometry"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "The pillars of prevention"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Factors that increase the risk"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "What to remember"
+    },
+    {
+     "i": 14,
+     "path": "body1",
+     "en": "Estrogen naturally helps protect bone density by slowing down bone turnover. The drop in estrogen during menopause speeds up bone loss, especially in the first few years after your periods stop."
+    },
+    {
+     "i": 15,
+     "path": "body2",
+     "en": "Osteopenia refers to bone density that’s lower than normal, without reaching the threshold for osteoporosis. Osteoporosis is a more pronounced bone fragility that increases the risk of fracture, particularly in the event of a fall."
+    },
+    {
+     "i": 16,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 17,
+     "path": "tip1Text",
+     "en": "Both terms describe a loss of bone density, not a fracture that has already happened — they’re a prompt for prevention, not a reason to worry."
+    },
+    {
+     "i": 18,
+     "path": "body3",
+     "en": "This painless exam measures bone mineral density. It may be offered based on your age, your personal and family history, or other risk factors identified with your doctor."
+    },
+    {
+     "i": 19,
+     "path": "preventionHabits[0]",
+     "en": "Calcium (dairy products, leafy greens)"
+    },
+    {
+     "i": 20,
+     "path": "preventionHabits[1]",
+     "en": "Vitamin D (moderate sun exposure, diet)"
+    },
+    {
+     "i": 21,
+     "path": "preventionHabits[2]",
+     "en": "Weight-bearing exercise (walking, strength training)"
+    },
+    {
+     "i": 22,
+     "path": "preventionHabits[3]",
+     "en": "Limit tobacco and alcohol"
+    },
+    {
+     "i": 23,
+     "path": "riskFactors[0]",
+     "en": "A family history of osteoporosis"
+    },
+    {
+     "i": 24,
+     "path": "riskFactors[1]",
+     "en": "Early menopause (before age 45)"
+    },
+    {
+     "i": 25,
+     "path": "riskFactors[2]",
+     "en": "Current or past smoking"
+    },
+    {
+     "i": 26,
+     "path": "riskFactors[3]",
+     "en": "A very slim build or very low physical activity"
+    },
+    {
+     "i": 27,
+     "path": "alertTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 28,
+     "path": "alertText",
+     "en": "Having one or more of these factors doesn’t mean you’ll develop osteoporosis — they’re mainly there to help guide the conversation with your doctor about possible screening."
+    },
+    {
+     "i": 29,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 30,
+     "path": "tip2Text",
+     "en": "Calcium, vitamin D, and weight-bearing physical activity remain the most useful everyday habits for preserving bone strength in the long run."
+    },
+    {
+     "i": 31,
+     "path": "shareMessage",
+     "en": "Taking care of your bone health — AWA"
+    }
+   ]
+  },
+  {
+   "id": "Breastfeeding",
+   "items": [
+    {
+     "i": 0,
+     "path": "shareMessage",
+     "en": "Starting breastfeeding with confidence — AWA"
+    },
+    {
+     "i": 1,
+     "path": "badge",
+     "en": "POSTPARTUM • BREASTFEEDING"
+    },
+    {
+     "i": 2,
+     "path": "title",
+     "en": "Starting breastfeeding\nwith confidence"
+    },
+    {
+     "i": 3,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 4,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 5,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 6,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 7,
+     "path": "intro",
+     "en": "The first days of breastfeeding are a learning period for both baby and mother. Latching, rhythm, positioning, and observation gradually help you find what feels comfortable."
+    },
+    {
+     "i": 8,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 9,
+     "path": "contentsSubtitle",
+     "en": "The essentials to get started"
+    },
+    {
+     "i": 10,
+     "path": "tocItems[0]",
+     "en": "The first steps"
+    },
+    {
+     "i": 11,
+     "path": "tocItems[1]",
+     "en": "Signs to watch for"
+    },
+    {
+     "i": 12,
+     "path": "tocItems[2]",
+     "en": "A good latch"
+    },
+    {
+     "i": 13,
+     "path": "tocItems[3]",
+     "en": "When to ask for help"
+    },
+    {
+     "i": 14,
+     "path": "tocItems[4]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 15,
+     "path": "h2Step1",
+     "en": "1. The first steps"
+    },
+    {
+     "i": 16,
+     "path": "body1",
+     "en": "Breastfeeding gets established gradually. The first hours, then the first days, give baby and mother time to learn together."
+    },
+    {
+     "i": 17,
+     "path": "timelineTitle",
+     "en": "Getting started, step by step"
+    },
+    {
+     "i": 18,
+     "path": "timelineSubtitle",
+     "en": "A simple guide, with no pressure"
+    },
+    {
+     "i": 19,
+     "path": "startingSteps[0].title",
+     "en": "After birth"
+    },
+    {
+     "i": 20,
+     "path": "startingSteps[0].text",
+     "en": "Skin-to-skin contact and an early latch can help breastfeeding get off to a good start."
+    },
+    {
+     "i": 21,
+     "path": "startingSteps[1].title",
+     "en": "The first hours"
+    },
+    {
+     "i": 22,
+     "path": "startingSteps[1].text",
+     "en": "Baby may feed frequently. It’s normal for the rhythm to vary."
+    },
+    {
+     "i": 23,
+     "path": "startingSteps[2].title",
+     "en": "The first days"
+    },
+    {
+     "i": 24,
+     "path": "startingSteps[2].text",
+     "en": "Feeds gradually become a shared rhythm for baby and mother."
+    },
+    {
+     "i": 25,
+     "path": "startingSteps[3].title",
+     "en": "Settling into a rhythm"
+    },
+    {
+     "i": 26,
+     "path": "startingSteps[3].text",
+     "en": "Milk supply gradually adjusts to baby’s needs."
+    },
+    {
+     "i": 27,
+     "path": "h2Step2",
+     "en": "2. Signs to watch for"
+    },
+    {
+     "i": 28,
+     "path": "body2",
+     "en": "Rather than focusing only on the clock, it can help to watch baby’s waking signs, feeds, and diaper patterns."
+    },
+    {
+     "i": 29,
+     "path": "signals[0].title",
+     "en": "A frequent rhythm"
+    },
+    {
+     "i": 30,
+     "path": "signals[0].text",
+     "en": "A newborn may ask to feed often, sometimes 8 to 12 times over 24 hours."
+    },
+    {
+     "i": 31,
+     "path": "signals[1].title",
+     "en": "Waking signs"
+    },
+    {
+     "i": 32,
+     "path": "signals[1].text",
+     "en": "Baby may move, open their mouth, or root for the breast when starting to feel hungry."
+    },
+    {
+     "i": 33,
+     "path": "signals[2].title",
+     "en": "Diapers"
+    },
+    {
+     "i": 34,
+     "path": "signals[2].text",
+     "en": "The number of wet and dirty diapers is one of the things to keep an eye on day to day."
+    },
+    {
+     "i": 35,
+     "path": "h2Step3",
+     "en": "3. A good latch"
+    },
+    {
+     "i": 36,
+     "path": "body3",
+     "en": "A comfortable position and an effective latch can make feeds easier. If pain is significant or persistent, a healthcare professional can check positioning and latch."
+    },
+    {
+     "i": 37,
+     "path": "latchTitle",
+     "en": "The 4 comfort markers"
+    },
+    {
+     "i": 38,
+     "path": "latchSubtitle",
+     "en": "A simple check during feeds"
+    },
+    {
+     "i": 39,
+     "path": "latchCenterTitle",
+     "en": "Baby + breast"
+    },
+    {
+     "i": 40,
+     "path": "latchCenterSubtitle",
+     "en": "Comfortable position"
+    },
+    {
+     "i": 41,
+     "path": "latchPoints[0].title",
+     "en": "Baby well positioned"
+    },
+    {
+     "i": 42,
+     "path": "latchPoints[0].text",
+     "en": "Baby is held close to the body, with their head in a comfortable alignment."
+    },
+    {
+     "i": 43,
+     "path": "latchPoints[1].title",
+     "en": "Mouth wide open"
+    },
+    {
+     "i": 44,
+     "path": "latchPoints[1].text",
+     "en": "Wait for a wide-enough mouth opening before offering the breast."
+    },
+    {
+     "i": 45,
+     "path": "latchPoints[2].title",
+     "en": "Comfortable latch"
+    },
+    {
+     "i": 46,
+     "path": "latchPoints[2].text",
+     "en": "An effective latch shouldn’t cause significant or persistent pain."
+    },
+    {
+     "i": 47,
+     "path": "latchPoints[3].title",
+     "en": "Regular suckling"
+    },
+    {
+     "i": 48,
+     "path": "latchPoints[3].text",
+     "en": "Suckling and swallowing movements can be observed during the feed."
+    },
+    {
+     "i": 49,
+     "path": "h2Step4",
+     "en": "4. When to ask for help?"
+    },
+    {
+     "i": 50,
+     "path": "body4",
+     "en": "There’s no need to wait until difficulties become serious. A trained professional can help check positioning, latch, or baby’s needs."
+    },
+    {
+     "i": 51,
+     "path": "supportOptions[0].title",
+     "en": "Midwife"
+    },
+    {
+     "i": 52,
+     "path": "supportOptions[0].text",
+     "en": "Can support you through the first latches."
+    },
+    {
+     "i": 53,
+     "path": "supportOptions[1].title",
+     "en": "Healthcare professional"
+    },
+    {
+     "i": 54,
+     "path": "supportOptions[1].text",
+     "en": "Can check on the health of baby and mother."
+    },
+    {
+     "i": 55,
+     "path": "supportOptions[2].title",
+     "en": "Lactation consultant"
+    },
+    {
+     "i": 56,
+     "path": "supportOptions[2].text",
+     "en": "Can help when latching proves difficult."
+    },
+    {
+     "i": 57,
+     "path": "infoTitle",
+     "en": "Every breastfeeding journey is different"
+    },
+    {
+     "i": 58,
+     "path": "infoText",
+     "en": "The first days can vary a great deal. The rhythm of feeds and the amount of milk may change gradually over time. If something worries you, ask a healthcare professional for advice."
+    },
+    {
+     "i": 59,
+     "path": "h2Summary",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 60,
+     "path": "summaryItems[0]",
+     "en": "The first feeds are a learning period for baby and mother."
+    },
+    {
+     "i": 61,
+     "path": "summaryItems[1]",
+     "en": "A newborn may ask to feed frequently."
+    },
+    {
+     "i": 62,
+     "path": "summaryItems[2]",
+     "en": "A comfortable position and a good latch matter."
+    },
+    {
+     "i": 63,
+     "path": "summaryItems[3]",
+     "en": "Watching baby’s cues is more useful than aiming for a perfectly fixed schedule."
+    },
+    {
+     "i": 64,
+     "path": "summaryItems[4]",
+     "en": "A midwife or lactation consultant can help you through early difficulties."
+    },
+    {
+     "i": 65,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace personalized guidance from a healthcare professional."
+    }
+   ]
+  },
+  {
+   "id": "CervicalMucus",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FERTILITY • CERVICAL MUCUS"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Observing your\ncervical mucus"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "A natural, free signal for spotting your fertile window."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "What is cervical mucus?"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "How it changes throughout the cycle"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Recognizing fertile mucus"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "How to observe it daily"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "What can affect your observations"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "The limits of this method"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 15,
+     "path": "section1Body",
+     "en": "It’s a natural secretion produced by the cervix. Cervical mucus changes texture throughout the cycle under the effect of estrogen and progesterone."
+    },
+    {
+     "i": 16,
+     "path": "cycleEvolution[0].title",
+     "en": "After your period"
+    },
+    {
+     "i": 17,
+     "path": "cycleEvolution[0].text",
+     "en": "Little mucus, often a feeling of dryness."
+    },
+    {
+     "i": 18,
+     "path": "cycleEvolution[1].title",
+     "en": "Before ovulation"
+    },
+    {
+     "i": 19,
+     "path": "cycleEvolution[1].text",
+     "en": "More abundant, cloudy, and sticky."
+    },
+    {
+     "i": 20,
+     "path": "cycleEvolution[2].title",
+     "en": "As ovulation approaches"
+    },
+    {
+     "i": 21,
+     "path": "cycleEvolution[2].text",
+     "en": "Clear, stretchy, and elastic, similar to raw egg white."
+    },
+    {
+     "i": 22,
+     "path": "cycleEvolution[3].title",
+     "en": "After ovulation"
+    },
+    {
+     "i": 23,
+     "path": "cycleEvolution[3].text",
+     "en": "Thicker, opaque, or much less present."
+    },
+    {
+     "i": 24,
+     "path": "section3Intro",
+     "en": "As ovulation approaches, it becomes:"
+    },
+    {
+     "i": 25,
+     "path": "fertileSigns[0]",
+     "en": "Clear or transparent"
+    },
+    {
+     "i": 26,
+     "path": "fertileSigns[1]",
+     "en": "Stretchy — it stretches between two fingers"
+    },
+    {
+     "i": 27,
+     "path": "fertileSigns[2]",
+     "en": "Elastic, similar to raw egg white"
+    },
+    {
+     "i": 28,
+     "path": "fertileSigns[3]",
+     "en": "More abundant than on other days"
+    },
+    {
+     "i": 29,
+     "path": "infoTitle",
+     "en": "A simple habit, every day"
+    },
+    {
+     "i": 30,
+     "path": "infoText",
+     "en": "Observe the appearance and texture using toilet paper or clean fingers, at roughly the same time of day, and note what you notice."
+    },
+    {
+     "i": 31,
+     "path": "modifyingFactors[0]",
+     "en": "Recent intercourse"
+    },
+    {
+     "i": 32,
+     "path": "modifyingFactors[1]",
+     "en": "Intimate hygiene products"
+    },
+    {
+     "i": 33,
+     "path": "modifyingFactors[2]",
+     "en": "Hormonal contraception or certain treatments"
+    },
+    {
+     "i": 34,
+     "path": "modifyingFactors[3]",
+     "en": "An infection or local imbalance"
+    },
+    {
+     "i": 35,
+     "path": "section6Body",
+     "en": "Everyone has a different profile, and recognizing your own takes practice over several cycles. Observing this change every day, alongside other signs, helps you better pinpoint your fertile window — but it never replaces medical advice if you’re concerned."
+    },
+    {
+     "i": 36,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 37,
+     "path": "tipText",
+     "en": "Combining cervical mucus with your basal body temperature or ovulation tests gives a fuller picture of your cycle."
+    },
+    {
+     "i": 38,
+     "path": "summaryPoints[0]",
+     "en": "Cervical mucus changes texture throughout the cycle under the effect of estrogen and progesterone."
+    },
+    {
+     "i": 39,
+     "path": "summaryPoints[1]",
+     "en": "As ovulation approaches, it becomes clear, stretchy, and elastic, similar to raw egg white."
+    },
+    {
+     "i": 40,
+     "path": "summaryPoints[2]",
+     "en": "Observing this change every day, alongside other signs, helps you better pinpoint your fertile window."
+    },
+    {
+     "i": 41,
+     "path": "summaryPoints[3]",
+     "en": "Recognizing your own pattern takes practice and several cycles of observation."
+    },
+    {
+     "i": 42,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace personalized medical advice. If in doubt, ask a healthcare professional for guidance."
+    },
+    {
+     "i": 43,
+     "path": "shareMessage",
+     "en": "Observing your cervical mucus — AWA"
+    }
+   ]
+  },
+  {
+   "id": "ChildbirthPrep",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PREGNANCY • CHILDBIRTH"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Preparing calmly\nfor childbirth"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Three pillars for approaching the big day with more confidence."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Preparing in 3 steps"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Your hospital bag"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Writing your birth plan"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Worth noting"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "What to remember"
+    },
+    {
+     "i": 13,
+     "path": "prepSteps[0]",
+     "en": "Childbirth preparation classes"
+    },
+    {
+     "i": 14,
+     "path": "prepSteps[1]",
+     "en": "Breathing and relaxation techniques"
+    },
+    {
+     "i": 15,
+     "path": "prepSteps[2]",
+     "en": "Hospital bag ready by month 8"
+    },
+    {
+     "i": 16,
+     "path": "body1",
+     "en": "Childbirth preparation classes help you understand the stages of labor and the breathing techniques that will support you on the big day."
+    },
+    {
+     "i": 17,
+     "path": "body2",
+     "en": "Packing your hospital bag by month 8 saves you last-minute stress. It usually includes:"
+    },
+    {
+     "i": 18,
+     "path": "bagItems[0]",
+     "en": "ID documents and your pregnancy record book"
+    },
+    {
+     "i": 19,
+     "path": "bagItems[1]",
+     "en": "Comfortable clothing for you and the baby"
+    },
+    {
+     "i": 20,
+     "path": "bagItems[2]",
+     "en": "Toiletries and postpartum pads"
+    },
+    {
+     "i": 21,
+     "path": "bagItems[3]",
+     "en": "An outfit for the baby to go home in"
+    },
+    {
+     "i": 22,
+     "path": "birthPlanPoints[0]",
+     "en": "Your preferences for managing pain"
+    },
+    {
+     "i": 23,
+     "path": "birthPlanPoints[1]",
+     "en": "Who you’d like present during labor"
+    },
+    {
+     "i": 24,
+     "path": "birthPlanPoints[2]",
+     "en": "Your expectations around skin-to-skin contact"
+    },
+    {
+     "i": 25,
+     "path": "neutralText",
+     "en": "A simple birth plan helps you share your wishes with the medical team, while staying open-minded: the actual course of events can change depending on the situation."
+    },
+    {
+     "i": 26,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 27,
+     "path": "tipText",
+     "en": "Preparing doesn’t mean controlling everything: it’s mainly about giving yourself the means to approach the big day with more confidence and less uncertainty."
+    },
+    {
+     "i": 28,
+     "path": "shareMessage",
+     "en": "Preparing calmly for childbirth — AWA"
+    }
+   ]
+  },
+  {
+   "id": "ChooseHormonalMethod",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "CHOOSING YOUR METHOD"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Choosing the treatment\nthat suits you"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "The right questions to ask yourself to find a contraceptive method suited to your daily life, your needs, and your plans."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Questions to ask yourself"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "No method is “best” in absolute terms"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Criteria that can make a difference"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Talking it over with a professional"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 13,
+     "path": "section1Body",
+     "en": "There is no single ideal contraceptive method for everyone. Before choosing a method, it can help to think about your habits, preferences, tolerance, and plans."
+    },
+    {
+     "i": 14,
+     "path": "questions[0]",
+     "en": "How does my body react to hormones?"
+    },
+    {
+     "i": 15,
+     "path": "questions[1]",
+     "en": "Do I need a daily or weekly action, or a long-acting solution?"
+    },
+    {
+     "i": 16,
+     "path": "questions[2]",
+     "en": "Do I have a medium-term pregnancy plan?"
+    },
+    {
+     "i": 17,
+     "path": "questions[3]",
+     "en": "What is my budget, and how accessible is this contraceptive method?"
+    },
+    {
+     "i": 18,
+     "path": "section2Body",
+     "en": "Two people can choose different methods and both have made a choice that is perfectly suited to their situation. The right choice depends in particular on how you want to use your contraception and on what you’re looking for."
+    },
+    {
+     "i": 19,
+     "path": "highlightTitle",
+     "en": "The key thing to remember"
+    },
+    {
+     "i": 20,
+     "path": "highlightText",
+     "en": "A method that looks appealing on paper isn’t necessarily the one that will be simplest or most comfortable for you day to day."
+    },
+    {
+     "i": 21,
+     "path": "section3Body",
+     "en": "To compare several options, you can look at different criteria. The goal isn’t to know everything by heart, but to identify what really matters to you."
+    },
+    {
+     "i": 22,
+     "path": "priorities[0].title",
+     "en": "Simplicity"
+    },
+    {
+     "i": 23,
+     "path": "priorities[0].text",
+     "en": "Some methods require a daily action, while others only need weekly attention, or far less often."
+    },
+    {
+     "i": 24,
+     "path": "priorities[1].title",
+     "en": "Tolerance"
+    },
+    {
+     "i": 25,
+     "path": "priorities[1].text",
+     "en": "The effects you feel can vary from person to person. It’s important to notice how your body reacts and to talk about it if something bothers you."
+    },
+    {
+     "i": 26,
+     "path": "priorities[2].title",
+     "en": "Pregnancy plans"
+    },
+    {
+     "i": 27,
+     "path": "priorities[2].text",
+     "en": "If you’re hoping for a pregnancy soon, the length of use and the return of fertility after stopping can be part of what you discuss."
+    },
+    {
+     "i": 28,
+     "path": "priorities[3].title",
+     "en": "Effectiveness"
+    },
+    {
+     "i": 29,
+     "path": "priorities[3].text",
+     "en": "Effectiveness depends not only on the method chosen, but also on using it correctly and consistently."
+    },
+    {
+     "i": 30,
+     "path": "rhythmTitle",
+     "en": "How often you need to use it"
+    },
+    {
+     "i": 31,
+     "path": "rhythmBody",
+     "en": "One important difference between methods is how often you need to think about your contraception."
+    },
+    {
+     "i": 32,
+     "path": "comparison[0].title",
+     "en": "Pill"
+    },
+    {
+     "i": 33,
+     "path": "comparison[0].detail",
+     "en": "Daily action"
+    },
+    {
+     "i": 34,
+     "path": "comparison[1].title",
+     "en": "Patch"
+    },
+    {
+     "i": 35,
+     "path": "comparison[1].detail",
+     "en": "Weekly change"
+    },
+    {
+     "i": 36,
+     "path": "comparison[2].title",
+     "en": "Ring"
+    },
+    {
+     "i": 37,
+     "path": "comparison[2].detail",
+     "en": "Cycle of several weeks"
+    },
+    {
+     "i": 38,
+     "path": "comparison[3].title",
+     "en": "Implant"
+    },
+    {
+     "i": 39,
+     "path": "comparison[3].detail",
+     "en": "Long-acting solution"
+    },
+    {
+     "i": 40,
+     "path": "comparison[4].title",
+     "en": "Hormonal IUD"
+    },
+    {
+     "i": 41,
+     "path": "comparison[4].detail",
+     "en": "Long-acting solution"
+    },
+    {
+     "i": 42,
+     "path": "bodyReactionTitle",
+     "en": "Watching how your body reacts"
+    },
+    {
+     "i": 43,
+     "path": "bodyReactionText",
+     "en": "A hormonal method can feel different from one person to another. Some notice changes in their cycle, bleeding, or other side effects. These reactions don’t automatically mean the method isn’t right for you, but they’re worth paying attention to."
+    },
+    {
+     "i": 44,
+     "path": "alertTitle",
+     "en": "Worth watching for"
+    },
+    {
+     "i": 45,
+     "path": "alertText",
+     "en": "If an effect is significant, persistent, or unusual, don’t stay alone with your questions. A doctor, midwife, or another healthcare professional can help you determine whether to continue, adjust, or change the method."
+    },
+    {
+     "i": 46,
+     "path": "projectsTitle",
+     "en": "Taking your plans into account"
+    },
+    {
+     "i": 47,
+     "path": "projectsBody",
+     "en": "Your pregnancy plans can also influence your choice. If you want to avoid pregnancy for several years, a long-acting method may be worth considering. If you’re thinking about a pregnancy sooner, other options may fit your timeline better."
+    },
+    {
+     "i": 48,
+     "path": "keepInMindTitle",
+     "en": "Worth keeping in mind"
+    },
+    {
+     "i": 49,
+     "path": "keepInMindText",
+     "en": "Talking about your pregnancy plans, even if they’re still distant or uncertain, helps the healthcare professional better guide the discussion."
+    },
+    {
+     "i": 50,
+     "path": "section4Body",
+     "en": "An appointment lets you weigh the benefits, constraints, and possible contraindications of each method. You can prepare a few questions beforehand so you don’t forget anything important."
+    },
+    {
+     "i": 51,
+     "path": "questionCardTitle",
+     "en": "Useful questions to ask"
+    },
+    {
+     "i": 52,
+     "path": "professionalQuestions[0]",
+     "en": "What are the benefits of this method for me?"
+    },
+    {
+     "i": 53,
+     "path": "professionalQuestions[1]",
+     "en": "What side effects might I experience?"
+    },
+    {
+     "i": 54,
+     "path": "professionalQuestions[2]",
+     "en": "How do I use it correctly?"
+    },
+    {
+     "i": 55,
+     "path": "professionalQuestions[3]",
+     "en": "What should I do if I forget it, if it shifts out of place, or if I want to stop it?"
+    },
+    {
+     "i": 56,
+     "path": "professionalQuestions[4]",
+     "en": "Does this method fit with my pregnancy plans?"
+    },
+    {
+     "i": 57,
+     "path": "professionalTipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 58,
+     "path": "professionalTipText",
+     "en": "A midwife or doctor can take your medical history, treatments, preferences, and lifestyle into account before recommending a method."
+    },
+    {
+     "i": 59,
+     "path": "summaryTitle",
+     "en": "The essentials"
+    },
+    {
+     "i": 60,
+     "path": "summaryItems[0]",
+     "en": "Choose a method that fits your daily life."
+    },
+    {
+     "i": 61,
+     "path": "summaryItems[1]",
+     "en": "Take your tolerance and preferences into account."
+    },
+    {
+     "i": 62,
+     "path": "summaryItems[2]",
+     "en": "Think about your pregnancy plans and your timeline."
+    },
+    {
+     "i": 63,
+     "path": "summaryItems[3]",
+     "en": "Ask a professional for advice if you’re unsure."
+    },
+    {
+     "i": 64,
+     "path": "finalTipTitle",
+     "en": "Remember"
+    },
+    {
+     "i": 65,
+     "path": "finalTipText",
+     "en": "The best method isn’t necessarily the one that seems most convenient or most popular. It’s the one that fits your situation, your needs, and your preferences, following an informed discussion with a healthcare professional."
+    },
+    {
+     "i": 66,
+     "path": "disclaimerText",
+     "en": "This article is for informational purposes only and does not replace personalized medical advice."
+    },
+    {
+     "i": 67,
+     "path": "shareMessage",
+     "en": "Choosing the treatment that suits you — AWA"
+    }
+   ]
+  },
+  {
+   "id": "ConceptionLifestyle",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "LIFESTYLE"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Lifestyle habits and\nyour conception journey"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Simple habits that can support your journey — no pressure."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "What can support fertility"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Stress, a factor not to overlook"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "What’s best to limit"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key takeaway"
+    },
+    {
+     "i": 12,
+     "path": "body1",
+     "en": "Some simple lifestyle habits can support a conception journey, though they can’t guarantee a result on their own."
+    },
+    {
+     "i": 13,
+     "path": "supportiveHabits[0]",
+     "en": "A balanced diet"
+    },
+    {
+     "i": 14,
+     "path": "supportiveHabits[1]",
+     "en": "Moderate physical activity"
+    },
+    {
+     "i": 15,
+     "path": "supportiveHabits[2]",
+     "en": "Quality sleep"
+    },
+    {
+     "i": 16,
+     "path": "supportiveHabits[3]",
+     "en": "Moments of relaxation"
+    },
+    {
+     "i": 17,
+     "path": "body2",
+     "en": "Chronic stress can affect hormonal balance and, in some women, cycle regularity. Giving yourself moments of calm is fully part of the journey."
+    },
+    {
+     "i": 18,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 19,
+     "path": "tip1Text",
+     "en": "Wanting to “do everything right” can itself become a source of stress: aiming for generally healthy habits is enough, without perfectionism."
+    },
+    {
+     "i": 20,
+     "path": "toLimit[0]",
+     "en": "Smoking, which may affect fertility in both partners"
+    },
+    {
+     "i": 21,
+     "path": "toLimit[1]",
+     "en": "Excessive alcohol consumption"
+    },
+    {
+     "i": 22,
+     "path": "toLimit[2]",
+     "en": "Intense, prolonged athletic training, which may conversely slow fertility"
+    },
+    {
+     "i": 23,
+     "path": "toLimit[3]",
+     "en": "Excess refined sugar, which may disrupt hormonal balance"
+    },
+    {
+     "i": 24,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 25,
+     "path": "tip2Text",
+     "en": "Generally balanced habits, without excess or perfectionism, are the best everyday support."
+    },
+    {
+     "i": 26,
+     "path": "shareMessage",
+     "en": "Lifestyle habits and conception journey — AWA"
+    }
+   ]
+  },
+  {
+   "id": "ConceptionStart",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "TRYING TO CONCEIVE"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Trying to conceive:\nwhere to start"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "The essential pointers to start your conception journey with confidence."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Identifying your fertile window"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "The rhythm of intercourse"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "How long it can take"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 12,
+     "path": "body1",
+     "en": "The most useful first step is identifying your fertile window using your cycle: cycle length, physical signs, and, if you’d like, tracking tools such as ovulation tests or basal body temperature."
+    },
+    {
+     "i": 13,
+     "path": "body2",
+     "en": "Having intercourse regularly, every 2 to 3 days, naturally covers your most fertile period without requiring overly rigid planning."
+    },
+    {
+     "i": 14,
+     "path": "rhythmPoints[0]",
+     "en": "No need to limit yourself to the day of ovulation alone"
+    },
+    {
+     "i": 15,
+     "path": "rhythmPoints[1]",
+     "en": "A regular rhythm is easier to keep up than strict planning"
+    },
+    {
+     "i": 16,
+     "path": "rhythmPoints[2]",
+     "en": "The couple’s well-being matters too during this time"
+    },
+    {
+     "i": 17,
+     "path": "body3",
+     "en": "Most couples conceive within 12 months of stopping contraception. This timeframe varies depending on many factors specific to each situation."
+    },
+    {
+     "i": 18,
+     "path": "alertTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 19,
+     "path": "alertText",
+     "en": "Beyond 12 months (or 6 months after age 35), it’s advisable to see a healthcare professional for a check-up, though this doesn’t necessarily mean there’s a problem."
+    },
+    {
+     "i": 20,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 21,
+     "path": "tipText",
+     "en": "Knowing your cycle, keeping a natural rhythm, and staying patient are the three pillars of a calm start to this journey."
+    },
+    {
+     "i": 22,
+     "path": "shareMessage",
+     "en": "Trying to conceive: where to start — AWA"
+    }
+   ]
+  }
+ ]
+}

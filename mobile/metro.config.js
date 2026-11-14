@@ -1,4 +1,6 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+// Adds Debug IDs to the bundle so release stack traces can be symbolicated with the uploaded source maps.
+const { withSentryConfig } = require('@sentry/react-native/metro');
 
 /**
  * Metro configuration
@@ -8,4 +10,4 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  */
 const config = {};
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = withSentryConfig(mergeConfig(getDefaultConfig(__dirname), config));

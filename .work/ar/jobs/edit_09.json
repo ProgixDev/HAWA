@@ -1,0 +1,2455 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "ReturningToPrayer",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "RETURN TO PRAYER"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Ghusl and the\nreturn to prayer"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "The general steps for resuming prayer after menstruation, with peace of mind."
+    },
+    {
+     "i": 7,
+     "path": "disclaimerTitle",
+     "en": "Important information"
+    },
+    {
+     "i": 8,
+     "path": "disclaimerText",
+     "en": "This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings."
+    },
+    {
+     "i": 9,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 10,
+     "path": "topics[0]",
+     "en": "Ghusl, return to ritual purity"
+    },
+    {
+     "i": 11,
+     "path": "topics[1]",
+     "en": "A method that can vary by school"
+    },
+    {
+     "i": 12,
+     "path": "topics[2]",
+     "en": "Resuming prayer, without making up missed prayers"
+    },
+    {
+     "i": 13,
+     "path": "topics[3]",
+     "en": "Practical points to remember"
+    },
+    {
+     "i": 14,
+     "path": "section1Body1",
+     "en": "Ghusl is a major ritual ablution: it consists of washing the entire body with the intention of returning to the state of ritual purity (tahara), necessary for performing prayer and other acts of worship."
+    },
+    {
+     "i": 15,
+     "path": "section1Body2",
+     "en": "Before performing the ghusl, it’s important to make sure that menstruation has truly ended: the ghusl should follow, not precede, the certainty that the bleeding has stopped. Generally speaking, this end is recognized by the total stopping of bleeding, observed over a sufficient period of time to rule out any doubt — a point covered in detail in the article dedicated to ritual purity."
+    },
+    {
+     "i": 16,
+     "path": "section1Body3",
+     "en": "This purification is what allows you to reconnect with the moments of worship suspended during menstruation."
+    },
+    {
+     "i": 17,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 18,
+     "path": "tip1Text",
+     "en": "There’s no need to feel rushed: the ghusl can be performed as soon as you’re ready, without pressure, once the end of menstruation has been confirmed with certainty."
+    },
+    {
+     "i": 19,
+     "path": "section2Body",
+     "en": "The ghusl is based on shared general principles: the intention to purify oneself, and the complete washing of the body, including the hair and skin. The precise details of the method, however, can vary according to the school of jurisprudence followed."
+    },
+    {
+     "i": 20,
+     "path": "alertTitle",
+     "en": "Important note"
+    },
+    {
+     "i": 21,
+     "path": "alertText",
+     "en": "No particular method is presented here as the only valid one: referring to the school or opinion you usually follow, or seeking advice from a qualified scholar, will help you learn the precise details suited to your situation."
+    },
+    {
+     "i": 22,
+     "path": "section3Body1",
+     "en": "Once menstruation has ended and the ghusl has been performed, prayer resumes normally, with no particular delay or additional condition."
+    },
+    {
+     "i": 23,
+     "path": "section3Body2",
+     "en": "It’s helpful to distinguish between two situations that follow different rules: prayers not performed during menstruation are generally not made up, whereas fasting days missed during Ramadan must be made up later (qadaa)."
+    },
+    {
+     "i": 24,
+     "path": "section3Body3",
+     "en": "For example, a woman who has had her period for 6 days resumes prayer normally after the ghusl, without having to make up the prayers from those 6 days. The corresponding 6 days of fasting, however, will be made up after Ramadan."
+    },
+    {
+     "i": 25,
+     "path": "practicalPoints[0]",
+     "en": "Recognizing the end of menstruation with certainty"
+    },
+    {
+     "i": 26,
+     "path": "practicalPoints[1]",
+     "en": "Performing the ghusl (major ablution) to return to ritual purity"
+    },
+    {
+     "i": 27,
+     "path": "practicalPoints[2]",
+     "en": "Resuming prayer normally, without delay"
+    },
+    {
+     "i": 28,
+     "path": "practicalPoints[3]",
+     "en": "Knowing that prayers missed during menstruation are generally not made up"
+    },
+    {
+     "i": 29,
+     "path": "practicalPoints[4]",
+     "en": "Seeking advice from a qualified scholar for any particular situation or persistent doubt"
+    },
+    {
+     "i": 30,
+     "path": "shareMessage",
+     "en": "Ghusl and the return to prayer — AWA"
+    }
+   ]
+  },
+  {
+   "id": "SideEffects",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "SIDE EFFECTS"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Recognizing possible\nside effects"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "8 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Some effects can be common and temporary. Others need more attention. Learn to tell the difference between usual reactions and signs that should be evaluated."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Common, mild effects"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "The body’s adjustment period"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Observing what changes"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "When to seek medical advice"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "When to seek care quickly"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 14,
+     "path": "body1",
+     "en": "When someone starts a new hormonal contraception method, the body may need some time to adjust. Small changes can appear in the cycle, mood, or physical comfort."
+    },
+    {
+     "i": 15,
+     "path": "body2",
+     "en": "These effects are often mild and may gradually decrease. Their presence doesn’t automatically mean the method is dangerous or that it needs to be stopped."
+    },
+    {
+     "i": 16,
+     "path": "commonEffects[0].title",
+     "en": "Minor bleeding"
+    },
+    {
+     "i": 17,
+     "path": "commonEffects[0].text",
+     "en": "Irregular bleeding can occur, especially at the start of a new method."
+    },
+    {
+     "i": 18,
+     "path": "commonEffects[1].title",
+     "en": "Breast tenderness"
+    },
+    {
+     "i": 19,
+     "path": "commonEffects[1].text",
+     "en": "Breast tightness or tenderness may be felt temporarily."
+    },
+    {
+     "i": 20,
+     "path": "commonEffects[2].title",
+     "en": "Mood"
+    },
+    {
+     "i": 21,
+     "path": "commonEffects[2].text",
+     "en": "Some people notice mood changes or increased emotional sensitivity."
+    },
+    {
+     "i": 22,
+     "path": "commonEffects[3].title",
+     "en": "Headaches"
+    },
+    {
+     "i": 23,
+     "path": "commonEffects[3].text",
+     "en": "Mild headaches can occur during the adjustment period."
+    },
+    {
+     "i": 24,
+     "path": "body3",
+     "en": "The first few weeks or cycles may be different from what you were used to before. The body can gradually adjust to the new hormonal balance."
+    },
+    {
+     "i": 25,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 26,
+     "path": "tip1Text",
+     "en": "An effect that appears shortly after starting a method is worth watching over time. If it becomes bothersome or persists, talk to a healthcare professional."
+    },
+    {
+     "i": 27,
+     "path": "body4",
+     "en": "It can be helpful to log symptoms in your app to better track how they change from one cycle to the next."
+    },
+    {
+     "i": 28,
+     "path": "trackingTitle",
+     "en": "Track how things evolve"
+    },
+    {
+     "i": 29,
+     "path": "trackingSubtitle",
+     "en": "A few markers can be helpful"
+    },
+    {
+     "i": 30,
+     "path": "trackingLines[0]",
+     "en": "Note the date the symptom appeared."
+    },
+    {
+     "i": 31,
+     "path": "trackingLines[1]",
+     "en": "Record its intensity and duration."
+    },
+    {
+     "i": 32,
+     "path": "trackingLines[2]",
+     "en": "Watch whether it improves or worsens."
+    },
+    {
+     "i": 33,
+     "path": "body5",
+     "en": "Not all symptoms are necessarily linked to contraception. Stress, sleep, diet, your cycle, or other treatments can also affect how you feel."
+    },
+    {
+     "i": 34,
+     "path": "body6",
+     "en": "To understand the situation, try to look at the overall context rather than a single symptom in isolation."
+    },
+    {
+     "i": 35,
+     "path": "worthMentioning[0]",
+     "en": "Marked, persistent mood changes"
+    },
+    {
+     "i": 36,
+     "path": "worthMentioning[1]",
+     "en": "A drop in libido that bothers you"
+    },
+    {
+     "i": 37,
+     "path": "worthMentioning[2]",
+     "en": "Irregular bleeding that lasts more than 3 cycles"
+    },
+    {
+     "i": 38,
+     "path": "worthMentioning[3]",
+     "en": "Nausea or headaches that remain bothersome"
+    },
+    {
+     "i": 39,
+     "path": "questionsTitle",
+     "en": "A few helpful questions"
+    },
+    {
+     "i": 40,
+     "path": "questions[0]",
+     "en": "How long have these symptoms been going on?"
+    },
+    {
+     "i": 41,
+     "path": "questions[1]",
+     "en": "Did they appear after starting or changing a contraception method?"
+    },
+    {
+     "i": 42,
+     "path": "questions[2]",
+     "en": "Are they mild, bothersome, or truly unusual for you?"
+    },
+    {
+     "i": 43,
+     "path": "questions[3]",
+     "en": "Are they improving over time or becoming more frequent?"
+    },
+    {
+     "i": 44,
+     "path": "body7",
+     "en": "Even when a symptom isn’t urgent, it can be worth discussing it if it becomes bothersome, persists, or genuinely affects your quality of life."
+    },
+    {
+     "i": 45,
+     "path": "infoTitle",
+     "en": "It may be worth getting advice if…"
+    },
+    {
+     "i": 46,
+     "path": "infoText",
+     "en": "symptoms persist, become more significant, or keep you from living normally."
+    },
+    {
+     "i": 47,
+     "path": "body8",
+     "en": "A doctor, midwife, or pharmacist can help you determine whether the symptoms may be linked to the method you’re using and whether it needs to be adjusted."
+    },
+    {
+     "i": 48,
+     "path": "body9",
+     "en": "Some signs are unusual and call for prompt medical evaluation. They don’t necessarily mean a complication is present, but they should not be ignored."
+    },
+    {
+     "i": 49,
+     "path": "alertTitle",
+     "en": "Seek care quickly"
+    },
+    {
+     "i": 50,
+     "path": "alertIntro",
+     "en": "Seek medical advice quickly if you experience, in particular:"
+    },
+    {
+     "i": 51,
+     "path": "urgentSigns[0]",
+     "en": "Significant or unusual chest pain"
+    },
+    {
+     "i": 52,
+     "path": "urgentSigns[1]",
+     "en": "Sudden difficulty breathing"
+    },
+    {
+     "i": 53,
+     "path": "urgentSigns[2]",
+     "en": "Unusual swelling or pain in a leg"
+    },
+    {
+     "i": 54,
+     "path": "urgentSigns[3]",
+     "en": "A sudden, very intense, or unusual headache"
+    },
+    {
+     "i": 55,
+     "path": "urgentSigns[4]",
+     "en": "Sudden trouble with vision, speech, or strength"
+    },
+    {
+     "i": 56,
+     "path": "emergencyTitle",
+     "en": "In case of a severe situation"
+    },
+    {
+     "i": 57,
+     "path": "emergencyText",
+     "en": "If symptoms are sudden, very severe, or come with difficulty breathing, feeling faint, or another serious sign, seek urgent medical help."
+    },
+    {
+     "i": 58,
+     "path": "summaryTitle",
+     "en": "The essentials"
+    },
+    {
+     "i": 59,
+     "path": "summaryItems[0]",
+     "en": "Some effects can appear at the start of a new hormonal contraception method."
+    },
+    {
+     "i": 60,
+     "path": "summaryItems[1]",
+     "en": "Many effects are temporary and may decrease over time."
+    },
+    {
+     "i": 61,
+     "path": "summaryItems[2]",
+     "en": "A bothersome or persistent symptom is worth discussing with a professional."
+    },
+    {
+     "i": 62,
+     "path": "summaryItems[3]",
+     "en": "Some unusual signs require prompt medical advice."
+    },
+    {
+     "i": 63,
+     "path": "finalTipTitle",
+     "en": "Key takeaway"
+    },
+    {
+     "i": 64,
+     "path": "finalTipText",
+     "en": "Listening to your body doesn’t necessarily mean stopping a method right away. Note what you’re feeling, watch how it evolves, and ask for advice whenever a symptom concerns you."
+    },
+    {
+     "i": 65,
+     "path": "disclaimerText",
+     "en": "This article is intended for information purposes and does not replace personalized medical advice. If you have a significant or unusual symptom, seek advice from a healthcare professional."
+    },
+    {
+     "i": 66,
+     "path": "shareMessage",
+     "en": "Recognizing possible side effects — AWA"
+    }
+   ]
+  },
+  {
+   "id": "SleepHormones",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "MENSTRUAL CYCLE • SLEEP"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Sleep and hormones:\nthe little-known link"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Why your sleep changes depending on your cycle phase, and at menopause."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Why hormones affect sleep"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Sleep across the phases of the cycle"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Stress and sleep quality"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "A soothing evening routine"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "When to see a professional"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 14,
+     "path": "section1Body",
+     "en": "Progesterone has a mild sedative effect; its drop at the end of the cycle can disrupt sleep, making it lighter or more fragmented."
+    },
+    {
+     "i": 15,
+     "path": "infoCard1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 16,
+     "path": "infoCard1Text",
+     "en": "The slight rise in body temperature after ovulation can also make falling asleep a little harder for some people."
+    },
+    {
+     "i": 17,
+     "path": "phaseSleep[0].title",
+     "en": "During your period"
+    },
+    {
+     "i": 18,
+     "path": "phaseSleep[0].text",
+     "en": "Physical discomfort and fatigue can make sleep lighter."
+    },
+    {
+     "i": 19,
+     "path": "phaseSleep[1].title",
+     "en": "Around ovulation"
+    },
+    {
+     "i": 20,
+     "path": "phaseSleep[1].text",
+     "en": "Sleep is generally more stable for most people."
+    },
+    {
+     "i": 21,
+     "path": "phaseSleep[2].title",
+     "en": "Before your period"
+    },
+    {
+     "i": 22,
+     "path": "phaseSleep[2].text",
+     "en": "The drop in progesterone can make sleep lighter, with possible wake-ups."
+    },
+    {
+     "i": 23,
+     "path": "section2Body",
+     "en": "At menopause, night sweats are a common cause of waking up, for similar hormonal reasons."
+    },
+    {
+     "i": 24,
+     "path": "section3Body",
+     "en": "Stress can amplify sleep disruptions during phases of the cycle that are already more sensitive. Simple relaxation techniques (breathing, gentle stretching) can help you unwind before bed."
+    },
+    {
+     "i": 25,
+     "path": "section4Body",
+     "en": "A stable bedtime routine and a cool bedroom help limit these disruptions, at any age."
+    },
+    {
+     "i": 26,
+     "path": "eveningRoutine[0].title",
+     "en": "Regular hours"
+    },
+    {
+     "i": 27,
+     "path": "eveningRoutine[0].text",
+     "en": "Going to bed and waking up at stable times helps regulate your internal clock."
+    },
+    {
+     "i": 28,
+     "path": "eveningRoutine[1].title",
+     "en": "Less screen time in the evening"
+    },
+    {
+     "i": 29,
+     "path": "eveningRoutine[1].text",
+     "en": "Blue light can delay falling asleep; a screen break helps you wind down."
+    },
+    {
+     "i": 30,
+     "path": "eveningRoutine[2].title",
+     "en": "A cool bedroom"
+    },
+    {
+     "i": 31,
+     "path": "eveningRoutine[2].text",
+     "en": "A moderate temperature makes falling asleep easier, at any age."
+    },
+    {
+     "i": 32,
+     "path": "section5Body",
+     "en": "Good habits aren’t always enough. It can be helpful to talk to a professional if:"
+    },
+    {
+     "i": 33,
+     "path": "warningTitle",
+     "en": "Signs worth getting checked"
+    },
+    {
+     "i": 34,
+     "path": "consultSigns[0]",
+     "en": "Sleep problems have lasted for several weeks"
+    },
+    {
+     "i": 35,
+     "path": "consultSigns[1]",
+     "en": "Fatigue is strongly affecting daily life"
+    },
+    {
+     "i": 36,
+     "path": "consultSigns[2]",
+     "en": "Insomnia persists despite good habits"
+    },
+    {
+     "i": 37,
+     "path": "infoCard2Title",
+     "en": "Preparing for this appointment"
+    },
+    {
+     "i": 38,
+     "path": "infoCard2Text",
+     "en": "Noting how long the problems have lasted and what seems to influence them can help your healthcare professional guide you better."
+    },
+    {
+     "i": 39,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 40,
+     "path": "tipText",
+     "en": "These sleep changes are common and usually temporary: they don’t mean something is wrong."
+    },
+    {
+     "i": 41,
+     "path": "summaryPoints[0]",
+     "en": "Progesterone has a mild sedative effect; its drop at the end of the cycle can disrupt sleep."
+    },
+    {
+     "i": 42,
+     "path": "summaryPoints[1]",
+     "en": "At menopause, night sweats are a common cause of waking up."
+    },
+    {
+     "i": 43,
+     "path": "summaryPoints[2]",
+     "en": "A stable bedtime routine and a cool bedroom help limit these disruptions, at any age."
+    },
+    {
+     "i": 44,
+     "path": "summaryPoints[3]",
+     "en": "Persistent sleep problems are worth discussing with a healthcare professional."
+    },
+    {
+     "i": 45,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional."
+    },
+    {
+     "i": 46,
+     "path": "shareMessage",
+     "en": "Sleep and hormones: the little-known link — AWA"
+    }
+   ]
+  },
+  {
+   "id": "UnderstandCycle",
+   "items": [
+    {
+     "i": 0,
+     "path": "shareTitle",
+     "en": "Comprendre ton cycle menstruel"
+    },
+    {
+     "i": 1,
+     "path": "shareMessage",
+     "en": "Comprendre ton cycle menstruel · AWA"
+    },
+    {
+     "i": 2,
+     "path": "pill",
+     "en": "Comprendre son cycle"
+    },
+    {
+     "i": 3,
+     "path": "title",
+     "en": "Comprendre ton cycle menstruel"
+    },
+    {
+     "i": 4,
+     "path": "duration",
+     "en": "6 min de lecture"
+    },
+    {
+     "i": 5,
+     "path": "type",
+     "en": "Guide"
+    },
+    {
+     "i": 6,
+     "path": "level",
+     "en": "Débutant"
+    },
+    {
+     "i": 7,
+     "path": "validated",
+     "en": "Contenu validé"
+    },
+    {
+     "i": 8,
+     "path": "summary",
+     "en": "Les grandes étapes de ton cycle, expliquées simplement."
+    },
+    {
+     "i": 9,
+     "path": "stats[0].title",
+     "en": "Durée moyenne"
+    },
+    {
+     "i": 10,
+     "path": "stats[0].text",
+     "en": "28 jours"
+    },
+    {
+     "i": 11,
+     "path": "stats[1].title",
+     "en": "Durée normale"
+    },
+    {
+     "i": 12,
+     "path": "stats[1].text",
+     "en": "21 à 35 jours"
+    },
+    {
+     "i": 13,
+     "path": "stats[2].title",
+     "en": "4 grandes phases"
+    },
+    {
+     "i": 14,
+     "path": "stats[2].text",
+     "en": "dans ton cycle"
+    },
+    {
+     "i": 15,
+     "path": "stats[3].title",
+     "en": "Chaque cycle"
+    },
+    {
+     "i": 16,
+     "path": "stats[3].text",
+     "en": "est unique"
+    },
+    {
+     "i": 17,
+     "path": "phasesEyebrow",
+     "en": "PHASES DU CYCLE"
+    },
+    {
+     "i": 18,
+     "path": "phasesTitle",
+     "en": "Les 4 grandes phases"
+    },
+    {
+     "i": 19,
+     "path": "phasesIntro",
+     "en": "Chaque phase a un rôle important dans ton corps et peut influencer ton énergie, ton humeur et tes symptômes."
+    },
+    {
+     "i": 20,
+     "path": "phases[0].title",
+     "en": "Les règles"
+    },
+    {
+     "i": 21,
+     "path": "phases[0].days",
+     "en": "Jours 1 à 5"
+    },
+    {
+     "i": 22,
+     "path": "phases[0].text",
+     "en": "Ton corps se libère de la muqueuse utérine."
+    },
+    {
+     "i": 23,
+     "path": "phases[1].title",
+     "en": "Phase folliculaire"
+    },
+    {
+     "i": 24,
+     "path": "phases[1].days",
+     "en": "Jours 6 à 13"
+    },
+    {
+     "i": 25,
+     "path": "phases[1].text",
+     "en": "Ton corps se prépare à l’ovulation."
+    },
+    {
+     "i": 26,
+     "path": "phases[2].title",
+     "en": "Ovulation"
+    },
+    {
+     "i": 27,
+     "path": "phases[2].days",
+     "en": "Jour 14 environ"
+    },
+    {
+     "i": 28,
+     "path": "phases[2].text",
+     "en": "L’ovule est libéré. C’est la période la plus fertile."
+    },
+    {
+     "i": 29,
+     "path": "phases[3].title",
+     "en": "Phase lutéale"
+    },
+    {
+     "i": 30,
+     "path": "phases[3].days",
+     "en": "Jours 15 à 28"
+    },
+    {
+     "i": 31,
+     "path": "phases[3].text",
+     "en": "Ton corps se prépare à une éventuelle grossesse."
+    },
+    {
+     "i": 32,
+     "path": "knowTitle",
+     "en": "À savoir"
+    },
+    {
+     "i": 33,
+     "path": "knowText",
+     "en": "Ton cycle peut varier d’un mois à l’autre. Stress, sommeil, alimentation ou maladie peuvent influencer sa durée et son rythme."
+    },
+    {
+     "i": 34,
+     "path": "reasonsEyebrow",
+     "en": "POURQUOI LE SUIVRE"
+    },
+    {
+     "i": 35,
+     "path": "reasonsTitle",
+     "en": "Mieux comprendre ton cycle"
+    },
+    {
+     "i": 36,
+     "path": "reasons[0]",
+     "en": "Mieux comprendre ton corps"
+    },
+    {
+     "i": 37,
+     "path": "reasons[1]",
+     "en": "Adapter ton énergie"
+    },
+    {
+     "i": 38,
+     "path": "reasons[2]",
+     "en": "Anticiper ton humeur"
+    },
+    {
+     "i": 39,
+     "path": "reasons[3]",
+     "en": "Prendre soin de ta santé"
+    },
+    {
+     "i": 40,
+     "path": "reasons[4]",
+     "en": "Suivre ton cycle facilement"
+    },
+    {
+     "i": 41,
+     "path": "wellTitle",
+     "en": "Conseil bien-être"
+    },
+    {
+     "i": 42,
+     "path": "wellText",
+     "en": "Écoute ton corps, reste attentive à tes ressentis et note ce qui change au fil des jours."
+    }
+   ]
+  },
+  {
+   "id": "UnderstandMenstrualFlow",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "MENSTRUAL CYCLE"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Understanding your period:\nwhat’s really happening"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 4,
+     "path": "intro",
+     "en": "Your period is part of a natural process that’s essential to hormonal and reproductive health. Understanding what’s happening in your body can help you feel more at ease with each cycle."
+    },
+    {
+     "i": 5,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 6,
+     "path": "topics[0]",
+     "en": "What is a period?"
+    },
+    {
+     "i": 7,
+     "path": "topics[1]",
+     "en": "How your period unfolds"
+    },
+    {
+     "i": 8,
+     "path": "topics[2]",
+     "en": "What’s normal (and what isn’t)"
+    },
+    {
+     "i": 9,
+     "path": "topics[3]",
+     "en": "Relieving pain naturally"
+    },
+    {
+     "i": 10,
+     "path": "body1",
+     "en": "A period is the shedding of the uterine lining when no fertilization has occurred. This happens on average once a month."
+    },
+    {
+     "i": 11,
+     "path": "knowTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 12,
+     "path": "knowText",
+     "en": "Every woman is unique: duration, intensity, and sensations can vary from one cycle to the next."
+    },
+    {
+     "i": 13,
+     "path": "body2",
+     "en": "Flow isn’t the same throughout your period. It usually changes from day to day, in intensity, color, and texture."
+    },
+    {
+     "i": 14,
+     "path": "flowSteps[0].title",
+     "en": "Start of your period"
+    },
+    {
+     "i": 15,
+     "path": "flowSteps[0].text",
+     "en": "Flow is often heavier during the first few days."
+    },
+    {
+     "i": 16,
+     "path": "flowSteps[1].title",
+     "en": "Middle of your period"
+    },
+    {
+     "i": 17,
+     "path": "flowSteps[1].text",
+     "en": "Flow generally starts to gradually decrease."
+    },
+    {
+     "i": 18,
+     "path": "flowSteps[2].title",
+     "en": "End of your period"
+    },
+    {
+     "i": 19,
+     "path": "flowSteps[2].text",
+     "en": "Flow becomes lighter and may take on a darker color."
+    },
+    {
+     "i": 20,
+     "path": "softInfoTitle",
+     "en": "Keep in mind"
+    },
+    {
+     "i": 21,
+     "path": "softInfoText",
+     "en": "This can vary from one cycle to another. What matters most is knowing your own usual rhythm."
+    },
+    {
+     "i": 22,
+     "path": "body3",
+     "en": "Some variations are common during your period. Other signs deserve more attention, especially when they’re new or very intense."
+    },
+    {
+     "i": 23,
+     "path": "normalSigns[0].title",
+     "en": "Duration"
+    },
+    {
+     "i": 24,
+     "path": "normalSigns[0].text",
+     "en": "A period that usually lasts a few days."
+    },
+    {
+     "i": 25,
+     "path": "normalSigns[1].title",
+     "en": "Varying flow"
+    },
+    {
+     "i": 26,
+     "path": "normalSigns[1].text",
+     "en": "Heavier flow at first, then lighter."
+    },
+    {
+     "i": 27,
+     "path": "normalSigns[2].title",
+     "en": "Color"
+    },
+    {
+     "i": 28,
+     "path": "normalSigns[2].text",
+     "en": "From bright red to dark red or brown toward the end of your period."
+    },
+    {
+     "i": 29,
+     "path": "normalSigns[3].title",
+     "en": "Sensations"
+    },
+    {
+     "i": 30,
+     "path": "normalSigns[3].text",
+     "en": "Mild to moderate cramps may be felt."
+    },
+    {
+     "i": 31,
+     "path": "warningTitle",
+     "en": "When to seek medical advice?"
+    },
+    {
+     "i": 32,
+     "path": "warningSigns[0]",
+     "en": "Very intense or unusual pain"
+    },
+    {
+     "i": 33,
+     "path": "warningSigns[1]",
+     "en": "Bleeding that soaks through a pad or tampon very quickly"
+    },
+    {
+     "i": 34,
+     "path": "warningSigns[2]",
+     "en": "Significant fatigue, feeling faint, or dizziness"
+    },
+    {
+     "i": 35,
+     "path": "warningSigns[3]",
+     "en": "A sudden and persistent change from your usual pattern"
+    },
+    {
+     "i": 36,
+     "path": "body4",
+     "en": "Simple habits can help ease discomfort and make the first days of your period more comfortable."
+    },
+    {
+     "i": 37,
+     "path": "tipsTitle",
+     "en": "Practical tips"
+    },
+    {
+     "i": 38,
+     "path": "tips[0]",
+     "en": "Drink enough\nwater to help\nlimit fatigue."
+    },
+    {
+     "i": 39,
+     "path": "tips[1]",
+     "en": "Apply heat\nto your lower\nabdomen if needed."
+    },
+    {
+     "i": 40,
+     "path": "tips[2]",
+     "en": "Try a gentle\nactivity: walking,\nyoga, stretching."
+    },
+    {
+     "i": 41,
+     "path": "tips[3]",
+     "en": "Give yourself\nrest and good-\nquality sleep."
+    },
+    {
+     "i": 42,
+     "path": "reliefTitle",
+     "en": "Listen to your body"
+    },
+    {
+     "i": 43,
+     "path": "reliefText",
+     "en": "Rest, heat, and gentle activity can help. If the pain remains very intense or unusual, seek medical advice."
+    },
+    {
+     "i": 44,
+     "path": "shareMessage",
+     "en": "Understanding your period: what’s really happening — AWA"
+    }
+   ]
+  },
+  {
+   "id": "VaginalRing",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "VAGINAL RING"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "The contraceptive\nvaginal ring"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "A flexible ring, worn for three weeks."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "How the ring works"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Insertion and removal"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "What you need to know"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 12,
+     "path": "body1",
+     "en": "The ring is a flexible device that continuously releases low doses of hormones directly in the vagina, with the same contraceptive action as a combined pill."
+    },
+    {
+     "i": 13,
+     "path": "flowTitle",
+     "en": "How it works"
+    },
+    {
+     "i": 14,
+     "path": "flowSteps[0].title",
+     "en": "Ring"
+    },
+    {
+     "i": 15,
+     "path": "flowSteps[0].text",
+     "en": "Placed in the vagina"
+    },
+    {
+     "i": 16,
+     "path": "flowSteps[1].title",
+     "en": "Hormones"
+    },
+    {
+     "i": 17,
+     "path": "flowSteps[1].text",
+     "en": "Continuous diffusion"
+    },
+    {
+     "i": 18,
+     "path": "flowSteps[2].title",
+     "en": "Protection"
+    },
+    {
+     "i": 19,
+     "path": "flowSteps[2].text",
+     "en": "Contraceptive action"
+    },
+    {
+     "i": 20,
+     "path": "body2",
+     "en": "You insert it yourself, it stays in place continuously for three weeks, then it’s removed for a one-week break during which your period occurs."
+    },
+    {
+     "i": 21,
+     "path": "calendarTitle",
+     "en": "A simple rhythm to follow"
+    },
+    {
+     "i": 22,
+     "path": "weekLabelActive",
+     "en": "Ring"
+    },
+    {
+     "i": 23,
+     "path": "weekLabelPause",
+     "en": "Break"
+    },
+    {
+     "i": 24,
+     "path": "legendActive",
+     "en": "Week with the ring"
+    },
+    {
+     "i": 25,
+     "path": "legendPause",
+     "en": "Break week"
+    },
+    {
+     "i": 26,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 27,
+     "path": "tip1Text",
+     "en": "Its exact position in the vagina doesn’t need to be precise for it to be effective, which makes it simple to use."
+    },
+    {
+     "i": 28,
+     "path": "body3",
+     "en": "The ring has several practical points worth knowing before choosing it."
+    },
+    {
+     "i": 29,
+     "path": "careTips[0].title",
+     "en": "Simple to use"
+    },
+    {
+     "i": 30,
+     "path": "careTips[0].text",
+     "en": "You insert and remove it yourself."
+    },
+    {
+     "i": 31,
+     "path": "careTips[1].title",
+     "en": "Regular rhythm"
+    },
+    {
+     "i": 32,
+     "path": "careTips[1].text",
+     "en": "It generally stays in place for three weeks."
+    },
+    {
+     "i": 33,
+     "path": "careTips[2].title",
+     "en": "Continuous action"
+    },
+    {
+     "i": 34,
+     "path": "careTips[2].text",
+     "en": "Hormones are released continuously throughout the period of use."
+    },
+    {
+     "i": 35,
+     "path": "careTips[3].title",
+     "en": "Doesn’t protect against STIs"
+    },
+    {
+     "i": 36,
+     "path": "careTips[3].text",
+     "en": "Additional protection may be needed depending on the situation."
+    },
+    {
+     "i": 37,
+     "path": "checkListTitle",
+     "en": "Good habits to keep"
+    },
+    {
+     "i": 38,
+     "path": "practicalSteps[0]",
+     "en": "Wash your hands before inserting or removing it"
+    },
+    {
+     "i": 39,
+     "path": "practicalSteps[1]",
+     "en": "Choose a time that’s easy to remember to keep track of the schedule"
+    },
+    {
+     "i": 40,
+     "path": "practicalSteps[2]",
+     "en": "Occasionally check that it’s still in place"
+    },
+    {
+     "i": 41,
+     "path": "practicalSteps[3]",
+     "en": "Check the leaflet if it shifts or is expelled"
+    },
+    {
+     "i": 42,
+     "path": "alertTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 43,
+     "path": "alertText",
+     "en": "An expulsion or prolonged displacement may require specific guidance. Always check the device’s leaflet or ask a healthcare professional if you’re unsure."
+    },
+    {
+     "i": 44,
+     "path": "summaryTitle",
+     "en": "The essentials in 4 points"
+    },
+    {
+     "i": 45,
+     "path": "summaryItems[0].title",
+     "en": "Simple insertion"
+    },
+    {
+     "i": 46,
+     "path": "summaryItems[0].text",
+     "en": "The ring can be inserted and removed by yourself."
+    },
+    {
+     "i": 47,
+     "path": "summaryItems[1].title",
+     "en": "Weekly rhythm"
+    },
+    {
+     "i": 48,
+     "path": "summaryItems[1].text",
+     "en": "It generally follows a three-week cycle with a one-week break."
+    },
+    {
+     "i": 49,
+     "path": "summaryItems[2].title",
+     "en": "Occasional check"
+    },
+    {
+     "i": 50,
+     "path": "summaryItems[2].text",
+     "en": "Checking regularly that it’s in place helps you use the device with peace of mind."
+    },
+    {
+     "i": 51,
+     "path": "summaryItems[3].title",
+     "en": "No protection against STIs"
+    },
+    {
+     "i": 52,
+     "path": "summaryItems[3].text",
+     "en": "Suitable protection may be needed depending on the situation."
+    },
+    {
+     "i": 53,
+     "path": "tip2Title",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 54,
+     "path": "tip2Text",
+     "en": "The vaginal ring combines continuous hormone release with a usage rhythm that avoids a daily dose. However, the choice of contraception should be tailored to each person and discussed with a healthcare professional."
+    },
+    {
+     "i": 55,
+     "path": "shareMessage",
+     "en": "The contraceptive vaginal ring — AWA"
+    }
+   ]
+  },
+  {
+   "id": "week1",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Pregnancy is dated from the first day of your last period, by medical convention. At this stage, fertilization has generally not yet taken place."
+    },
+    {
+     "i": 1,
+     "path": "bodyChanges[0]",
+     "en": "This period generally comes before conception; there usually isn’t yet any pregnancy-related physical change."
+    },
+    {
+     "i": 2,
+     "path": "toKnow[0]",
+     "en": "Counting pregnancy from the last period gives a standardized way of estimating a due date, even though conception actually happens a bit later."
+    },
+    {
+     "i": 3,
+     "path": "toKnow[1]",
+     "en": "It’s common not to notice any change at this stage."
+    }
+   ]
+  },
+  {
+   "id": "week2",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Ovulation and possible fertilization generally occur around this time, depending on each person’s cycle length."
+    },
+    {
+     "i": 1,
+     "path": "bodyChanges[0]",
+     "en": "The timing of ovulation can vary depending on cycle length, which affects the actual possible date of conception."
+    },
+    {
+     "i": 2,
+     "path": "bodyChanges[1]",
+     "en": "There is generally no pregnancy-specific physical change yet at this stage."
+    },
+    {
+     "i": 3,
+     "path": "toKnow[0]",
+     "en": "The exact timing of ovulation varies from person to person, which is why this period remains an estimate."
+    }
+   ]
+  },
+  {
+   "id": "week3",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "If fertilization has occurred, the egg begins dividing and moving toward the uterus, but nothing is detectable yet by a pregnancy test."
+    },
+    {
+     "i": 1,
+     "path": "bodyChanges[0]",
+     "en": "This week still falls within the medical dating period surrounding conception; no physical sign is generally noticeable at this stage."
+    },
+    {
+     "i": 2,
+     "path": "toKnow[0]",
+     "en": "Most urine pregnancy tests become reliable from around the following week, once implantation has begun."
+    }
+   ]
+  },
+  {
+   "id": "week4",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The embryo has just implanted in the uterine wall. The amniotic sac and the yolk sac, which will nourish it in the very first days, are forming."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 2 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Poppy seed"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Some people don’t notice any sign yet at this very early stage."
+    },
+    {
+     "i": 4,
+     "path": "bodyChanges[1]",
+     "en": "A urine pregnancy test can generally detect pregnancy from this week onward."
+    },
+    {
+     "i": 5,
+     "path": "toKnow[0]",
+     "en": "This is the usual time when a pregnancy test can start giving a positive result."
+    }
+   ]
+  },
+  {
+   "id": "week5",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The nervous system begins to form, and the heart, still tiny, is about to beat for the first time."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 2 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Sesame seed"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Unusual fatigue, mild nausea, or breast tenderness may appear."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "This is the recommended time to make an appointment with a healthcare professional to start pregnancy care."
+    }
+   ]
+  },
+  {
+   "id": "week6",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The buds of the arms and legs appear, along with small indentations where the ears will form. The heart can sometimes already be detected on ultrasound."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 6 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Pea"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Nausea and fatigue may intensify for some people during this period."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Heart activity can sometimes be visible as early as this week on an early ultrasound."
+    }
+   ]
+  },
+  {
+   "id": "week7",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The brain develops faster than the rest of the body, giving a prominent forehead. Small hand buds begin to appear at the ends of the arms."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 10 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Grape"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Particular food cravings, or conversely aversions to certain foods, are possible."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The neural tube, which gives rise to the brain and spinal cord, continues closing during these weeks."
+    }
+   ]
+  },
+  {
+   "id": "week8",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The embryo is now called a fetus. The arms are lengthening, the head begins to straighten slightly, and the placenta continues forming."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 16 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Raspberry"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Sensitivity to smells and morning sickness are common at this stage, though not universal."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The first dating ultrasound is generally scheduled between week 8 and week 14."
+    }
+   ]
+  },
+  {
+   "id": "week9",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Facial features become more defined, the eyelids protect the eyes, and the hands and feet are taking shape with the future fingers and toes."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 22 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Strawberry"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Marked fatigue and nausea may still be present; they often tend to ease off by the end of the first trimester."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The genital organs are just beginning to differentiate, but the sex generally isn’t identifiable until much later, at the anatomy ultrasound."
+    }
+   ]
+  },
+  {
+   "id": "week10",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The face becomes more recognizable, the eyelids react to light, and the heart beats at a fast rate, about three times faster than an adult’s."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 30 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Small apricot"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Your waistline may start to change slightly, even though the belly generally isn’t visible yet."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Combined first-trimester screening, when offered, is generally done between week 11 and week 14."
+    }
+   ]
+  },
+  {
+   "id": "week11",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The fingers and toes separate, tiny nails appear, and the placenta gradually takes over from the yolk sac in nourishing the fetus."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 41 mm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Fig"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "You may notice mood swings, linked in particular to hormonal changes."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The baby’s movements are beginning, but they generally aren’t felt yet at this stage."
+    }
+   ]
+  },
+  {
+   "id": "week12",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The internal organs and muscles have grown well, and the skeleton is starting to ossify. The reproductive organs have formed, though they aren’t visible on ultrasound yet."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 5.4 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Plum"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Nausea often tends to gradually ease around this time, though this varies a lot from person to person."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The end of the first trimester is often associated with a lower miscarriage risk compared with the preceding weeks."
+    }
+   ]
+  },
+  {
+   "id": "week13",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Movements, still jerky, become a little more coordinated. Some babies already show a thumb-sucking reflex."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 7.4 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Peach"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Many people gradually regain a bit more energy as the second trimester approaches."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The first trimester generally ends around this week; care continues with more widely spaced appointments."
+    }
+   ]
+  },
+  {
+   "id": "week14",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The head becomes more rounded and more proportionate with the rest of the body. The fetus swallows a little amniotic fluid, which passes through the stomach and kidneys."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 8.5 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Kiwi"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "The belly starts to round out more visibly for some people."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "A healthcare professional can sometimes start hearing the heartbeat with an ultrasound device placed on the belly."
+    }
+   ]
+  },
+  {
+   "id": "week15",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "A fine down called lanugo gradually covers the skin, and eyebrows and eyelashes begin to appear. The eyes become sensitive to light."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 10.1 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Apple"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Your appetite may change, sometimes with new food cravings or aversions."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Hearing begins developing around this time: your voice and the body’s internal sounds gradually become perceptible."
+    }
+   ]
+  },
+  {
+   "id": "week16",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The nervous system allows arm and leg movements. The hands can close into little fists."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 11.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Avocado"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Some people start feeling very light movements from around this time, often described as fluttering."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Feeling the first movements varies a lot from one pregnancy to another, particularly depending on whether it’s a first pregnancy."
+    }
+   ]
+  },
+  {
+   "id": "week17",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The eyes, still closed, can move, and the baby now reacts to loud sounds. Fingerprints are starting to form."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 12 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Pomegranate"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Mild back pain may appear as your center of gravity shifts."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Outside sounds are starting to be perceived, in muffled form, through the amniotic fluid."
+    }
+   ]
+  },
+  {
+   "id": "week18",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Hearing, touch, swallowing, and the sucking reflex continue developing. The baby is becoming more and more active, with more arm and leg movements."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 14.2 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Bell pepper"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "The belly is often clearly visible at this stage, and your center of gravity keeps shifting."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The anatomy ultrasound, which examines the baby’s overall development, is generally offered between week 18 and week 21."
+    }
+   ]
+  },
+  {
+   "id": "week19",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The future permanent teeth begin forming behind the baby teeth being prepared, and the baby continues gradually gaining weight."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 15.3 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Large tomato"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "A pulling sensation on the sides of the belly (round ligament pain) may occur as the uterus grows."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "This is a common time to start feeling the baby’s movements more distinctly."
+    }
+   ]
+  },
+  {
+   "id": "week20",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "From this week onward, length is measured from head to heel rather than head to bottom, since the legs can now be extended and measured — this explains a visible jump in the reference size compared with previous weeks."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 25.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Banana"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Your nicely rounded belly may start to affect your balance and posture."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The midpoint of pregnancy is often marked by a full check-up with the healthcare professional following your care."
+    }
+   ]
+  },
+  {
+   "id": "week21",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Movements become clearer and more coordinated, and it’s common to start feeling them clearly during this period."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 26.7 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Carrot"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Mild shortness of breath on exertion may appear as the uterus takes up more space."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Getting familiar with your baby’s usual movement pattern makes it easier to notice an unusual change."
+    }
+   ]
+  },
+  {
+   "id": "week22",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The lungs continue developing, and the baby practices small breathing movements. Taste buds are also forming."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 27.8 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Sweet potato"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Leg cramps, particularly at night, are possible for some people."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "What you eat can influence the amniotic fluid, which the baby regularly swallows."
+    }
+   ]
+  },
+  {
+   "id": "week23",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The limbs are now well proportioned. The baby practices breathing and begins alternating sleep and wake phases."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 28.9 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Large mango"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "More pronounced back pain may appear with gradual weight gain."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Observing the baby’s active and quiet periods helps you learn their own rhythm."
+    }
+   ]
+  },
+  {
+   "id": "week24",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby reaches the threshold of viability: in the event of a very premature birth at this stage, specialized neonatal medical care can allow for survival, with appropriate support."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 30 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Ear of corn"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Increased pressure on the bladder and frequent urges to urinate may appear."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Gestational diabetes screening is generally offered around this time."
+    }
+   ]
+  },
+  {
+   "id": "week25",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby now reacts to loud noises with a startle or a kick, and occasional hiccups may be felt. They urinate regularly into the amniotic fluid."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 34.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Zucchini"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Heartburn or acid reflux may become more frequent."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Fetal hiccups felt from time to time are generally considered normal."
+    }
+   ]
+  },
+  {
+   "id": "week26",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The eyes open for the first time. Their final color generally won’t be known until several months after birth."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 35.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Cucumber"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Mild swelling of the ankles or feet may appear, particularly by the end of the day."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The third trimester is approaching, with medical follow-up generally becoming more frequent."
+    }
+   ]
+  },
+  {
+   "id": "week27",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The lungs become capable of initiating breathing, and the baby continues filling out as fat deposits under the skin."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 36.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Cauliflower"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Fatigue may return as your body carries a growing amount of weight."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The start of the third trimester is often a good time to start thinking about your birth plan."
+    }
+   ]
+  },
+  {
+   "id": "week28",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The heart rate, faster in very early pregnancy, has stabilized at around 130 to 140 beats per minute and can now be heard with a stethoscope."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 37.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Eggplant"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Shortness of breath or heartburn may become more frequent as the uterus takes up more space."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The third trimester generally begins around this week, with appointments becoming more frequent."
+    }
+   ]
+  },
+  {
+   "id": "week29",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby is already well formed; the coming weeks will mainly be devoted to organ maturation and weight gain. The thin protective coating covering their skin begins to be reabsorbed."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 38.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Butternut squash"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Sleep may become harder to find because of your growing belly."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Resting on your left side is often recommended in late pregnancy to support circulation."
+    }
+   ]
+  },
+  {
+   "id": "week30",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "Vision continues developing; at birth, the baby will be able to make out nearby faces, before gradually learning to track moving objects."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 39.9 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Cabbage"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "A feeling of heaviness in the lower back or pelvis may increase."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Prenatal appointments generally become more frequent from this stage onward."
+    }
+   ]
+  },
+  {
+   "id": "week31",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby moves actively, sometimes sucks their fingers, and can make broad movements. Their skin becomes less wrinkled as fat accumulates."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 41.1 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Coconut"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Practice contractions, known as Braxton Hicks, may start being felt occasionally."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The baby is starting to recognize certain familiar voices heard regularly from outside."
+    }
+   ]
+  },
+  {
+   "id": "week32",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby is already well formed and is gradually settling head-down in preparation for birth. They mainly continue gaining weight during the remaining weeks."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 42.4 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Bunch of celery"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "More noticeable weight gain is common during this period, linked to the baby’s growth."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Head-down positioning (cephalic presentation) becomes more common as term approaches."
+    }
+   ]
+  },
+  {
+   "id": "week33",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The brain and nervous system are now well developed. The bones continue hardening, except for those of the skull, which stay flexible to make it easier to pass through during birth."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 43.7 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Pineapple"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Difficulty finding a comfortable sleeping position is common at this stage."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The flexibility of the skull bones at birth is temporary and gradually closes up during the first year."
+    }
+   ]
+  }
+ ]
+}

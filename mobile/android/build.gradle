@@ -15,6 +15,9 @@ buildscript {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        // Sentry: uploads the native debug symbols and the ProGuard/R8 mapping of release builds (applied in app/build.gradle only
+        // when SENTRY_AUTH_TOKEN is set, so builds never depend on it).
+        classpath("io.sentry:sentry-android-gradle-plugin:6.27.0")
     }
 }
 

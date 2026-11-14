@@ -1,0 +1,20 @@
+{
+"terms": [
+{"title": "Inhloso", "body": "Leli dokhumenti lethula isakhiwo sesikhashana semigomo yokusetshenziswa ye-AWA."},
+{"title": "Ukusebenzisa i-application", "body": "I-AWA inikeza amathuluzi okulandelela nokuphila kahle komuntu siqu. Okuqukethwe kokugcina okuchaza amalungelo nezibopho zabasebenzisi kuzongezwa uma ukuqinisekiswa komthetho sekuphelile."},
+{"title": "Ukutholakala kwenkonzo", "body": "Imigomo yokugcina elawula ukutholakala, ukulungiswa nokuguquka kwenkonzo isazoqinisekiswa."},
+{"title": "Xhumana", "body": "Imininingwane esemthethweni yokuxhumana izongezwa uma iqinisekiswe yithimba le-AWA."}
+],
+"privacy": [
+{"title": "Idatha ehlobene", "body": "Lesi sigaba sizochaza ngokucacile idatha ehlelwa yi-AWA nenhloso yayo, uma ukuqinisekiswa komthetho sekuphelile."},
+{"title": "Ukugcinwa nokuphepha", "body": "Imibhalo yokugcina izobeka ngokucacile izindlela zokugcina, izivikelo nezikhathi zokugcinwa."},
+{"title": "Amalungelo akho", "body": "Izinqubo zokufinyelela, ukulungisa noma ukususa idatha yakho zizochazwa kabanzi enguqulweni eqinisekisiwe."},
+{"title": "Ukuxhumana ngobumfihlo", "body": "Ikheli lokuxhumana elisemthethweni lesikhulu sobumfihlo lizongezwa ngaphambi kokushicilelwa."}
+],
+"imageAlts": [
+"Isithombe: udokotela nowesifazane okhulelwe ngesikhathi sokuhlolwa nge-ultrasound. Umbhalo: Ukunakekelwa kwezokwelapha phakathi nokukhulelwa, ngempilo kamama nokuphila kahle kwengane.",
+"Isithombe: owesifazane okhulelwe elula umzimba ngokunyathela phambili ekhaphethini le-yoga. Umbhalo: Nyakaza ukuze ukhulelwe kahle. Iphosta: umama onempilo ukuze ingane ikhule kahle.",
+"Isithombe: owesifazane elula umzimba ngokunyathela phambili ekhaphethini le-yoga. Umbhalo: Nyakaza ukuze uzizwe ukhululekile. Iphosta: umzimba, ibhalansi, amandla."
+],
+"selectorSubtitle": "Sebenzisa i-AWA ngesiZulu"
+}

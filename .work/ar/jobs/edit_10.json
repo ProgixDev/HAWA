@@ -1,0 +1,235 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "week34",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby, curled up for lack of space, generally keeps their legs folded toward the chest while continuing to move regularly."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 45 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Cantaloupe melon"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Despite the reduced space, the baby’s movements and the changing shape of your belly usually remain noticeable."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Continuing to pay attention to the baby’s usual movements remains relevant right up until birth."
+    }
+   ]
+  },
+  {
+   "id": "week35",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby keeps filling out, which will help them regulate their temperature once born. The available space in the uterus becomes more limited."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 46.2 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Honeydew melon"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "More pronounced pelvic pressure may appear as the baby gradually descends."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Despite the limited space, the baby should continue moving with a regularity similar to previous weeks."
+    }
+   ]
+  },
+  {
+   "id": "week36",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The lungs have generally matured enough to allow independent breathing, and the baby is able to suck and digest."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 47.4 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Romaine lettuce"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "You may sometimes feel shorter of breath, as the uterus takes up a lot of space under the ribs."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Pregnancy is considered full term between week 37 and week 42."
+    }
+   ]
+  },
+  {
+   "id": "week37",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby is considered mature enough to be born. The large majority of babies are now positioned head-down."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 48.6 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Leek"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "A feeling of growing pelvic pressure is common as the baby engages in the pelvis."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "From this week on, term is considered reached and birth can happen at any time."
+    }
+   ]
+  },
+  {
+   "id": "week38",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The fine down that covered the skin has largely disappeared, and the intestines are accumulating meconium, the newborn’s first stool."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 49.8 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Rhubarb stalk"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Getting familiar with the signs of labor can be useful as birth approaches."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "A scheduled birth, when considered without a medical indication, is generally not recommended before week 39."
+    }
+   ]
+  },
+  {
+   "id": "week39",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The skin, previously thinner, has thickened and now protects the baby better. A protective coating, the vernix, also eases their passage during birth."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 50.7 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Watermelon"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Impatience and a certain amount of fatigue are common as the due date approaches."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "The newborn’s blood circulation continues adjusting just after birth, which can temporarily give the hands or feet a slightly bluish tinge."
+    }
+   ]
+  },
+  {
+   "id": "week40",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby is fully developed and ready to be born. The due date is an estimate: many births happen in the days surrounding it, before or after."
+    },
+    {
+     "i": 1,
+     "path": "length",
+     "en": "About 51.2 cm"
+    },
+    {
+     "i": 2,
+     "path": "comparison",
+     "en": "Pumpkin"
+    },
+    {
+     "i": 3,
+     "path": "bodyChanges[0]",
+     "en": "Waiting for signs of labor (regular contractions, water breaking) is common during this period."
+    },
+    {
+     "i": 4,
+     "path": "toKnow[0]",
+     "en": "Going slightly past the due date remains common and doesn’t necessarily mean there’s a problem; closer monitoring is generally offered."
+    }
+   ]
+  },
+  {
+   "id": "week41",
+   "items": [
+    {
+     "i": 0,
+     "path": "babyDescription",
+     "en": "The baby remains fully developed. Beyond the due date, closer monitoring is generally offered to check on the baby’s wellbeing."
+    },
+    {
+     "i": 1,
+     "path": "bodyChanges[0]",
+     "en": "The prolonged wait may come with increased fatigue and impatience."
+    },
+    {
+     "i": 2,
+     "path": "toKnow[0]",
+     "en": "Going past term generally leads to increased monitoring by the medical team."
+    }
+   ]
+  }
+ ]
+}

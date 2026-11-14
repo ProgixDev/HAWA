@@ -72,6 +72,14 @@ jest.mock('@react-native-community/datetimepicker', () => ({
 // it exports.
 jest.mock('@notifee/react-native', () => require('@notifee/react-native/jest-mock'));
 
+// Crash reporting (src/services/sentry.ts): the real SDK is untransformed ESM plus a native module, so any suite that imports a screen reaching
+// it (Privacy & Security, the invitation sheet) would fail to load. Only what src/ calls is mocked, inert; sentryConsent.test.ts brings its own
+// mock to assert on the calls.
+jest.mock('@sentry/react-native', () => ({
+  init: jest.fn(),
+  close: jest.fn(() => Promise.resolve(true)),
+}));
+
 // Same require-time problem again, from 'react-native-image-picker' (used by
 // the profile/journal photo pickers) — its source ships as untransformed
 // ESM. Only the two functions actually called anywhere in the app

@@ -1,0 +1,45 @@
+{
+ "kind": "extra",
+ "terms": [
+  {
+   "title": "Purpose",
+   "body": "This document presents the provisional structure of AWA’s terms of use."
+  },
+  {
+   "title": "Use of the application",
+   "body": "AWA offers personal tracking and well-being tools. The final content describing users’ rights and responsibilities will be added once legal validation is complete."
+  },
+  {
+   "title": "Service availability",
+   "body": "The final terms governing the service’s availability, maintenance, and evolution are still to be confirmed."
+  },
+  {
+   "title": "Contact",
+   "body": "Official contact details will be added once validated by the AWA team."
+  }
+ ],
+ "privacy": [
+  {
+   "title": "Data concerned",
+   "body": "This section will precisely describe the data processed by AWA and its purpose, once legal validation is complete."
+  },
+  {
+   "title": "Storage and security",
+   "body": "The final documentation will specify the storage measures, protections, and retention periods."
+  },
+  {
+   "title": "Your rights",
+   "body": "The procedures for accessing, correcting, or deleting your data will be detailed in the validated version."
+  },
+  {
+   "title": "Privacy contact",
+   "body": "The official contact address for the privacy officer will be added before publication."
+  }
+ ],
+ "imageAlts": [
+  "Illustration: a doctor and a pregnant woman during a check-up with an ultrasound. Text: Medical care during pregnancy, for mom's health and baby's well-being.",
+  "Illustration: a pregnant woman in a lunge stretch on a yoga mat. Text: Move for a healthy pregnancy. Poster: a mom in good health for a thriving baby.",
+  "Illustration: a woman in a lunge stretch on a yoga mat. Text: Move to feel good. Poster: body, balance, energy."
+ ],
+ "selectorSubtitle": "Use AWA in <LANGUAGE NAME>"
+}

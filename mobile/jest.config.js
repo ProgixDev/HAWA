@@ -20,4 +20,18 @@ module.exports = {
   moduleNameMapper: {
     '\\.(png|webp|ttf)$': '<rootDir>/__mocks__/fileMock.js',
   },
+  // A helper that lives in a __tests__ folder is not a test: without this, Jest picks it up as an empty (failing) suite.
+  testPathIgnorePatterns: ['/node_modules/', '/src/screens/__tests__/profileObjectiveSheet\\.ts$'],
+  // Coverage (only used with --coverage, see "test:coverage"): every source file is measured, including those no test imports, so the figure
+  // is not inflated. The language dictionaries are data, not logic, and are left out. No threshold is set on purpose.
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    'App.tsx',
+    '!src/**/__tests__/**',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/i18n/locales/**',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['json-summary', 'text-summary', 'lcov'],
 };

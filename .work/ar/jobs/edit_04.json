@@ -1,0 +1,2175 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "Lochia",
+   "items": [
+    {
+     "i": 0,
+     "path": "badgeText",
+     "en": "POSTPARTUM • LOCHIA"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Understanding lochia\nafter birth"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Informational content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "After giving birth, lochia refers to the vaginal discharge linked to the natural process of uterine recovery. Its color and amount gradually change over the days and weeks that follow."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "What is lochia?"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "How does it change over time?"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "What can be normal"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Comfort tips"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "When to seek medical advice?"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 14,
+     "path": "section1Heading",
+     "en": "1. What is lochia?"
+    },
+    {
+     "i": 15,
+     "path": "section1Body1",
+     "en": "Lochia is vaginal discharge that appears after giving birth. It mainly consists of the gradual elimination of blood, secretions, and tissue from the uterus as it recovers."
+    },
+    {
+     "i": 16,
+     "path": "section1Body2",
+     "en": "It’s different from a regular period. It’s expected during the postpartum period and generally decreases progressively."
+    },
+    {
+     "i": 17,
+     "path": "infoTitle",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 18,
+     "path": "infoText",
+     "en": "Lochia doesn’t mean your period has already returned. The return of your period is a separate event that happens later."
+    },
+    {
+     "i": 19,
+     "path": "section2Heading",
+     "en": "2. How does lochia change over time?"
+    },
+    {
+     "i": 20,
+     "path": "section2Body",
+     "en": "Its appearance usually changes over the first few weeks. The color gradually becomes lighter and the amount tends to decrease."
+    },
+    {
+     "i": 21,
+     "path": "evolutionTitle",
+     "en": "A gradual progression"
+    },
+    {
+     "i": 22,
+     "path": "evolutionSubtitle",
+     "en": "The stages can vary from person to person"
+    },
+    {
+     "i": 23,
+     "path": "evolution[0].label",
+     "en": "Bright red"
+    },
+    {
+     "i": 24,
+     "path": "evolution[0].period",
+     "en": "The first days"
+    },
+    {
+     "i": 25,
+     "path": "evolution[0].text",
+     "en": "Discharge is usually red and can be heavier at the start."
+    },
+    {
+     "i": 26,
+     "path": "evolution[1].label",
+     "en": "Pink / brownish"
+    },
+    {
+     "i": 27,
+     "path": "evolution[1].period",
+     "en": "After a few days"
+    },
+    {
+     "i": 28,
+     "path": "evolution[1].text",
+     "en": "The color gradually becomes lighter and may shift toward pink or brown."
+    },
+    {
+     "i": 29,
+     "path": "evolution[2].label",
+     "en": "Whitish-yellow"
+    },
+    {
+     "i": 30,
+     "path": "evolution[2].period",
+     "en": "Over the following weeks"
+    },
+    {
+     "i": 31,
+     "path": "evolution[2].text",
+     "en": "Discharge usually becomes lighter, yellowish or whitish, before tapering off."
+    },
+    {
+     "i": 32,
+     "path": "section3Heading",
+     "en": "3. What can be normal"
+    },
+    {
+     "i": 33,
+     "path": "section3Body",
+     "en": "How lochia evolves isn’t exactly the same for everyone. Certain changes can naturally accompany recovery after birth."
+    },
+    {
+     "i": 34,
+     "path": "normalPoints[0].title",
+     "en": "A varying amount"
+    },
+    {
+     "i": 35,
+     "path": "normalPoints[0].text",
+     "en": "The amount can change over the first few days and then gradually decrease."
+    },
+    {
+     "i": 36,
+     "path": "normalPoints[1].title",
+     "en": "A color that changes"
+    },
+    {
+     "i": 37,
+     "path": "normalPoints[1].text",
+     "en": "Lochia usually moves from red toward lighter shades over time."
+    },
+    {
+     "i": 38,
+     "path": "normalPoints[2].title",
+     "en": "A varying duration"
+    },
+    {
+     "i": 39,
+     "path": "normalPoints[2].text",
+     "en": "It can persist for several weeks, and how it evolves differs from person to person."
+    },
+    {
+     "i": 40,
+     "path": "section4Heading",
+     "en": "4. Comfort and tracking tips"
+    },
+    {
+     "i": 41,
+     "path": "section4Body",
+     "en": "During this period, simple tracking can help you observe how your body is changing without comparing your experience to someone else’s."
+    },
+    {
+     "i": 42,
+     "path": "comfortTips[0].title",
+     "en": "Gentle hygiene"
+    },
+    {
+     "i": 43,
+     "path": "comfortTips[0].text",
+     "en": "Favor gentle, regular washing without irritating products."
+    },
+    {
+     "i": 44,
+     "path": "comfortTips[1].title",
+     "en": "Watch how it evolves"
+    },
+    {
+     "i": 45,
+     "path": "comfortTips[1].text",
+     "en": "You can note the color, amount, and progression of the discharge if that helps you track your recovery."
+    },
+    {
+     "i": 46,
+     "path": "comfortTips[2].title",
+     "en": "Allow yourself rest"
+    },
+    {
+     "i": 47,
+     "path": "comfortTips[2].text",
+     "en": "The postpartum period takes time. Listen to your body and respect your need to recover."
+    },
+    {
+     "i": 48,
+     "path": "section5Heading",
+     "en": "5. Lochia or the return of your period?"
+    },
+    {
+     "i": 49,
+     "path": "section5Body",
+     "en": "Lochia appears in the days following birth and gradually decreases. The return of your period, on the other hand, corresponds to the resumption of your menstrual cycle after this period."
+    },
+    {
+     "i": 50,
+     "path": "compareLochiaTitle",
+     "en": "Lochia"
+    },
+    {
+     "i": 51,
+     "path": "compareLochiaText",
+     "en": "Discharge linked to uterine recovery after birth."
+    },
+    {
+     "i": 52,
+     "path": "compareReturnTitle",
+     "en": "Return of your period"
+    },
+    {
+     "i": 53,
+     "path": "compareReturnText",
+     "en": "Resumption of the menstrual cycle, at a time that varies from person to person."
+    },
+    {
+     "i": 54,
+     "path": "section6Heading",
+     "en": "6. When to seek medical advice?"
+    },
+    {
+     "i": 55,
+     "path": "section6Body",
+     "en": "If the progression seems unusual to you, or if your overall condition is getting worse, it’s important to seek advice from a healthcare professional."
+    },
+    {
+     "i": 56,
+     "path": "warningTitle",
+     "en": "Signs that call for medical advice"
+    },
+    {
+     "i": 57,
+     "path": "warningSigns[0]",
+     "en": "A strong or unusual odor"
+    },
+    {
+     "i": 58,
+     "path": "warningSigns[1]",
+     "en": "Fever or a worsening general condition"
+    },
+    {
+     "i": 59,
+     "path": "warningSigns[2]",
+     "en": "A flow that suddenly becomes much heavier"
+    },
+    {
+     "i": 60,
+     "path": "warningSigns[3]",
+     "en": "Significant, persistent, or unusual pain"
+    },
+    {
+     "i": 61,
+     "path": "warningSigns[4]",
+     "en": "A new symptom that worries you"
+    },
+    {
+     "i": 62,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 63,
+     "path": "tipText",
+     "en": "Lochia usually evolves gradually: it can be red at first, then become lighter before tapering off. However, every recovery is individual."
+    },
+    {
+     "i": 64,
+     "path": "summaryHeading",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 65,
+     "path": "summaryPoints[0]",
+     "en": "Lochia is normal discharge after childbirth."
+    },
+    {
+     "i": 66,
+     "path": "summaryPoints[1]",
+     "en": "It usually changes in color and amount over the weeks."
+    },
+    {
+     "i": 67,
+     "path": "summaryPoints[2]",
+     "en": "Its duration and progression can vary from person to person."
+    },
+    {
+     "i": 68,
+     "path": "summaryPoints[3]",
+     "en": "An unusual odor, fever, significant pain, or a sudden, very heavy bleed require medical advice."
+    },
+    {
+     "i": 69,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace medical advice or an examination. If in doubt or if you notice a concerning symptom, seek advice from a healthcare professional."
+    },
+    {
+     "i": 70,
+     "path": "shareMessage",
+     "en": "Understanding lochia after birth — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MedicalExams",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PREGNANCY • MEDICAL FOLLOW-UP"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "The pregnancy exam\ncalendar"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Ultrasounds and essential tests, trimester by trimester."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Follow-up ultrasounds"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Essential blood tests"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Preparing for each appointment"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Worth noting"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 13,
+     "path": "body1",
+     "en": "Pregnancy generally includes three main ultrasounds, one per trimester, each with a different purpose."
+    },
+    {
+     "i": 14,
+     "path": "ultrasounds[0]",
+     "en": "1st trimester: dating and nuchal translucency"
+    },
+    {
+     "i": 15,
+     "path": "ultrasounds[1]",
+     "en": "2nd trimester: morphology ultrasound"
+    },
+    {
+     "i": 16,
+     "path": "ultrasounds[2]",
+     "en": "3rd trimester: growth and the baby’s position"
+    },
+    {
+     "i": 17,
+     "path": "body2",
+     "en": "Regular blood tests monitor several key markers throughout pregnancy:"
+    },
+    {
+     "i": 18,
+     "path": "bloodTests[0]",
+     "en": "Iron levels, to screen for possible anemia"
+    },
+    {
+     "i": 19,
+     "path": "bloodTests[1]",
+     "en": "Gestational diabetes screening, generally around the 2nd trimester"
+    },
+    {
+     "i": 20,
+     "path": "bloodTests[2]",
+     "en": "Blood type and irregular antibody screening"
+    },
+    {
+     "i": 21,
+     "path": "bloodTests[3]",
+     "en": "Serology tests (toxoplasmosis, rubella) depending on your immune status"
+    },
+    {
+     "i": 22,
+     "path": "prepTips[0]",
+     "en": "Write down your questions as they come to you, before you forget them"
+    },
+    {
+     "i": 23,
+     "path": "prepTips[1]",
+     "en": "Bring your pregnancy follow-up booklet to every appointment"
+    },
+    {
+     "i": 24,
+     "path": "prepTips[2]",
+     "en": "Mention any new symptom, even if it seems minor"
+    },
+    {
+     "i": 25,
+     "path": "neutralText",
+     "en": "The exact number and schedule of exams can vary depending on your care, your risk profile, and the practices of your country or care provider."
+    },
+    {
+     "i": 26,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 27,
+     "path": "tipText",
+     "en": "Don’t hesitate to write down your questions before each appointment so you don’t forget anything in the moment: no question is too small to ask."
+    },
+    {
+     "i": 28,
+     "path": "shareMessage",
+     "en": "The pregnancy exam calendar — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MenopauseHormones",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PERIMENOPAUSE & MENOPAUSE • HORMONES"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Hormones\nduring menopause"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "10 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Article"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "As menopause approaches, your hormones don’t stop abruptly: they fluctuate, which explains both the cycle changes and the variety of possible symptoms."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "The main hormones involved"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "What happens during perimenopause?"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "When estrogen fluctuates"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "The role of progesterone"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Why symptoms can vary"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "The most common symptoms"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "Hormones and sleep"
+    },
+    {
+     "i": 15,
+     "path": "topics[7]",
+     "en": "Hormones and mood"
+    },
+    {
+     "i": 16,
+     "path": "topics[8]",
+     "en": "Can hormones be measured?"
+    },
+    {
+     "i": 17,
+     "path": "topics[9]",
+     "en": "How to better track the changes"
+    },
+    {
+     "i": 18,
+     "path": "topics[10]",
+     "en": "When to see a professional?"
+    },
+    {
+     "i": 19,
+     "path": "topics[11]",
+     "en": "What solutions might be suggested?"
+    },
+    {
+     "i": 20,
+     "path": "topics[12]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 21,
+     "path": "section1Body",
+     "en": "Three major hormones change during this transition, each with a different role:"
+    },
+    {
+     "i": 22,
+     "path": "keyHormones[0].title",
+     "en": "Estrogen"
+    },
+    {
+     "i": 23,
+     "path": "keyHormones[0].text",
+     "en": "Influences the cycle, skin, bones, heart, and partly regulates sleep and mood."
+    },
+    {
+     "i": 24,
+     "path": "keyHormones[1].title",
+     "en": "Progesterone"
+    },
+    {
+     "i": 25,
+     "path": "keyHormones[1].text",
+     "en": "Produced after ovulation, it has a rather calming effect and prepares the body for a possible pregnancy."
+    },
+    {
+     "i": 26,
+     "path": "keyHormones[2].title",
+     "en": "FSH and LH"
+    },
+    {
+     "i": 27,
+     "path": "keyHormones[2].text",
+     "en": "Controlled by the brain, they stimulate the ovaries; their levels change as the ovaries respond differently."
+    },
+    {
+     "i": 28,
+     "path": "infoCard1Title",
+     "en": "Worth noting"
+    },
+    {
+     "i": 29,
+     "path": "infoCard1Text",
+     "en": "Hormone levels don’t decline in a perfectly linear way during perimenopause: they can fluctuate, rise and fall, before settling at a lower level after menopause."
+    },
+    {
+     "i": 30,
+     "path": "section2Body",
+     "en": "The ovaries gradually respond less regularly to the hormonal signals sent by the brain. This is what makes cycles irregular and explains why symptoms can change from month to month."
+    },
+    {
+     "i": 31,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 32,
+     "path": "tip1Text",
+     "en": "It’s entirely possible to have noticeable symptoms one month, then almost none the next. This isn’t abnormal: it simply reflects the hormonal fluctuations of this period."
+    },
+    {
+     "i": 33,
+     "path": "section3Body",
+     "en": "Changes in estrogen can be linked to several changes:"
+    },
+    {
+     "i": 34,
+     "path": "estrogenSymptoms[0]",
+     "en": "Hot flashes"
+    },
+    {
+     "i": 35,
+     "path": "estrogenSymptoms[1]",
+     "en": "Night sweats"
+    },
+    {
+     "i": 36,
+     "path": "estrogenSymptoms[2]",
+     "en": "Vaginal dryness"
+    },
+    {
+     "i": 37,
+     "path": "estrogenSymptoms[3]",
+     "en": "Cycle changes"
+    },
+    {
+     "i": 38,
+     "path": "estrogenSymptoms[4]",
+     "en": "Emotional sensitivity"
+    },
+    {
+     "i": 39,
+     "path": "estrogenSymptoms[5]",
+     "en": "Sleep changes"
+    },
+    {
+     "i": 40,
+     "path": "section3Body2",
+     "en": "These symptoms can have several causes: they aren’t always linked to hormones, and their intensity varies a lot from person to person."
+    },
+    {
+     "i": 41,
+     "path": "section4Body",
+     "en": "Progesterone is only produced after ovulation. But during perimenopause, ovulation itself becomes more irregular — which makes its production less predictable."
+    },
+    {
+     "i": 42,
+     "path": "section4Body2",
+     "en": "This irregularity partly explains the changes seen in the cycle: variable length, periods sometimes heavier or lighter than before."
+    },
+    {
+     "i": 43,
+     "path": "section5Body",
+     "en": "Beyond hormonal fluctuations, several other factors come into play: sleep quality, stress levels, lifestyle, and differences specific to each person."
+    },
+    {
+     "i": 44,
+     "path": "highlightText",
+     "en": "\"Every woman experiences the transition differently.\""
+    },
+    {
+     "i": 45,
+     "path": "commonSymptoms[0]",
+     "en": "Irregular cycles"
+    },
+    {
+     "i": 46,
+     "path": "commonSymptoms[1]",
+     "en": "Hot flashes"
+    },
+    {
+     "i": 47,
+     "path": "commonSymptoms[2]",
+     "en": "Night sweats"
+    },
+    {
+     "i": 48,
+     "path": "commonSymptoms[3]",
+     "en": "Sleep problems"
+    },
+    {
+     "i": 49,
+     "path": "commonSymptoms[4]",
+     "en": "Mood changes"
+    },
+    {
+     "i": 50,
+     "path": "commonSymptoms[5]",
+     "en": "Fatigue"
+    },
+    {
+     "i": 51,
+     "path": "commonSymptoms[6]",
+     "en": "Vaginal dryness"
+    },
+    {
+     "i": 52,
+     "path": "commonSymptoms[7]",
+     "en": "Changes in libido"
+    },
+    {
+     "i": 53,
+     "path": "commonSymptoms[8]",
+     "en": "Difficulty concentrating"
+    },
+    {
+     "i": 54,
+     "path": "section6Caption",
+     "en": "This list is for information only: it isn’t a diagnosis. Each person experiences a different combination of these changes."
+    },
+    {
+     "i": 55,
+     "path": "section7Body",
+     "en": "Night sweats can interrupt sleep, leading to fatigue and difficulty concentrating the next day — a pattern that’s common during this period."
+    },
+    {
+     "i": 56,
+     "path": "infoCard2Title",
+     "en": "Practical tip"
+    },
+    {
+     "i": 57,
+     "path": "infoCard2Text",
+     "en": "A cool bedroom, lightweight clothing, and a stable bedtime routine can help limit these wake-ups."
+    },
+    {
+     "i": 58,
+     "path": "section8Body",
+     "en": "Hormonal fluctuations can coincide with mood changes, without being the only explanation: sleep, stress, life changes, and physical symptoms also play a role."
+    },
+    {
+     "i": 59,
+     "path": "infoCard3Title",
+     "en": "To reassure you"
+    },
+    {
+     "i": 60,
+     "path": "infoCard3Text",
+     "en": "Feeling more emotional during this period doesn’t mean something is wrong: it’s a common experience that can have several causes at once."
+    },
+    {
+     "i": 61,
+     "path": "section9Body",
+     "en": "Hormone levels can vary considerably from one day to the next during perimenopause. A single test therefore doesn’t always give a complete picture of the situation."
+    },
+    {
+     "i": 62,
+     "path": "infoCard4Title",
+     "en": "Worth keeping in mind"
+    },
+    {
+     "i": 63,
+     "path": "infoCard4Text",
+     "en": "Medical assessment depends mainly on your age, your symptoms, and your cycle history — not just a single number."
+    },
+    {
+     "i": 64,
+     "path": "section10Body",
+     "en": "Writing down what you experience month after month helps you spot your own patterns rather than comparing yourself to others:"
+    },
+    {
+     "i": 65,
+     "path": "trackingItems[0]",
+     "en": "Your cycle dates"
+    },
+    {
+     "i": 66,
+     "path": "trackingItems[1]",
+     "en": "Your symptoms day by day"
+    },
+    {
+     "i": 67,
+     "path": "trackingItems[2]",
+     "en": "Your sleep"
+    },
+    {
+     "i": 68,
+     "path": "trackingItems[3]",
+     "en": "Your mood"
+    },
+    {
+     "i": 69,
+     "path": "trackingItems[4]",
+     "en": "Your hot flashes"
+    },
+    {
+     "i": 70,
+     "path": "trackingItems[5]",
+     "en": "Changes in your bleeding"
+    },
+    {
+     "i": 71,
+     "path": "trackingItems[6]",
+     "en": "What seems to trigger certain symptoms"
+    },
+    {
+     "i": 72,
+     "path": "tip2Title",
+     "en": "A helpful habit"
+    },
+    {
+     "i": 73,
+     "path": "tip2Text",
+     "en": "Tracking your cycle in AWA can help you spot your own patterns over the months, with no extra effort."
+    },
+    {
+     "i": 74,
+     "path": "section11Body",
+     "en": "Most of these situations call for a routine consultation, at your own pace:"
+    },
+    {
+     "i": 75,
+     "path": "warningTitle",
+     "en": "Worth mentioning to a professional"
+    },
+    {
+     "i": 76,
+     "path": "consultSituations[0]",
+     "en": "Symptoms that significantly affect your daily life"
+    },
+    {
+     "i": 77,
+     "path": "consultSituations[1]",
+     "en": "Persistent sleep problems"
+    },
+    {
+     "i": 78,
+     "path": "consultSituations[2]",
+     "en": "Very bothersome hot flashes"
+    },
+    {
+     "i": 79,
+     "path": "consultSituations[3]",
+     "en": "A new or unusual symptom"
+    },
+    {
+     "i": 80,
+     "path": "consultSituations[4]",
+     "en": "Significant changes in your bleeding"
+    },
+    {
+     "i": 81,
+     "path": "consultSituations[5]",
+     "en": "Questions about treatment options"
+    },
+    {
+     "i": 82,
+     "path": "consultSituations[6]",
+     "en": "Concerns related to vaginal dryness or your sex life"
+    },
+    {
+     "i": 83,
+     "path": "infoCard5Title",
+     "en": "A special case"
+    },
+    {
+     "i": 84,
+     "path": "infoCard5Text",
+     "en": "Very heavy or unusual bleeding, on the other hand, should be reported to a healthcare professional more quickly."
+    },
+    {
+     "i": 85,
+     "path": "section12Body",
+     "en": "Depending on the situation, a professional may suggest different options:"
+    },
+    {
+     "i": 86,
+     "path": "solutions[0].title",
+     "en": "Lifestyle measures"
+    },
+    {
+     "i": 87,
+     "path": "solutions[0].text",
+     "en": "Physical activity, diet, and managing stress and sleep."
+    },
+    {
+     "i": 88,
+     "path": "solutions[1].title",
+     "en": "Non-hormonal treatments"
+    },
+    {
+     "i": 89,
+     "path": "solutions[1].text",
+     "en": "Certain options can target specific symptoms, depending on the situation."
+    },
+    {
+     "i": 90,
+     "path": "solutions[2].title",
+     "en": "Hormonal treatments"
+    },
+    {
+     "i": 91,
+     "path": "solutions[2].text",
+     "en": "Discussed with a doctor when it fits your profile and needs."
+    },
+    {
+     "i": 92,
+     "path": "section12Caption",
+     "en": "These decisions remain individual: they depend on your history, your symptoms, the risks, and your personal preferences."
+    },
+    {
+     "i": 93,
+     "path": "summaryPoints[0]",
+     "en": "Hormonal changes are an integral part of the menopause transition."
+    },
+    {
+     "i": 94,
+     "path": "summaryPoints[1]",
+     "en": "Hormone levels can fluctuate significantly during perimenopause, without a perfectly linear decline."
+    },
+    {
+     "i": 95,
+     "path": "summaryPoints[2]",
+     "en": "Symptoms vary a lot from person to person, and from month to month."
+    },
+    {
+     "i": 96,
+     "path": "summaryPoints[3]",
+     "en": "Tracking your symptoms can help you better spot your own patterns."
+    },
+    {
+     "i": 97,
+     "path": "summaryPoints[4]",
+     "en": "A healthcare professional can support you if symptoms become difficult to manage."
+    },
+    {
+     "i": 98,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional."
+    },
+    {
+     "i": 99,
+     "path": "shareMessage",
+     "en": "Hormones during menopause — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MenopauseTransition",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PERIMENOPAUSE & MENOPAUSE"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Understanding the menopause transition"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "10 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "What changes gradually, years before periods stop, and how to approach this stage with more clarity."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Perimenopause and menopause: definitions"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Increasingly irregular cycles"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Sleep and mood"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Intimacy and vaginal dryness"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Weight and metabolism"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Common myths about menopause"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "Normal symptoms and signs to watch for"
+    },
+    {
+     "i": 15,
+     "path": "topics[7]",
+     "en": "Practical everyday tips"
+    },
+    {
+     "i": 16,
+     "path": "topics[8]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 17,
+     "path": "h1",
+     "en": "1. Perimenopause and menopause: definitions"
+    },
+    {
+     "i": 18,
+     "path": "body1a",
+     "en": "Perimenopause refers to the hormonal transition period that precedes menopause: it can begin several years earlier, generally from your forties onward, with estrogen levels fluctuating irregularly."
+    },
+    {
+     "i": 19,
+     "path": "body1b",
+     "en": "Menopause, on the other hand, is a specific point in time: it is confirmed after 12 consecutive months without a period, with no other cause. In France, it occurs on average around age 51, though this age naturally varies from woman to woman."
+    },
+    {
+     "i": 20,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 21,
+     "path": "tip1Text",
+     "en": "Every woman experiences this transition differently, both in duration and in the intensity of symptoms. Talking about it openly helps you anticipate it better."
+    },
+    {
+     "i": 22,
+     "path": "h2",
+     "en": "2. Increasingly irregular cycles"
+    },
+    {
+     "i": 23,
+     "path": "body2",
+     "en": "One of the first signs of perimenopause is often a change in cycle rhythm: cycles may become shorter, longer, more spaced out, or have a different flow from one month to the next."
+    },
+    {
+     "i": 24,
+     "path": "alert1Title",
+     "en": "Please note"
+    },
+    {
+     "i": 25,
+     "path": "alert1Text",
+     "en": "Very heavy bleeding, bleeding that occurs very close together, or bleeding that happens after a year without a period calls for medical advice, as these are not considered typical signs of the transition."
+    },
+    {
+     "i": 26,
+     "path": "h3",
+     "en": "3. Sleep and mood"
+    },
+    {
+     "i": 27,
+     "path": "body3a",
+     "en": "The decline and fluctuations in estrogen and progesterone can disrupt sleep (falling asleep, waking during the night) and may be accompanied by irritability, anxiety, or unusual mood swings."
+    },
+    {
+     "i": 28,
+     "path": "body3b",
+     "en": "These changes have a real biological explanation: they reflect neither a lack of willpower nor an isolated psychological problem."
+    },
+    {
+     "i": 29,
+     "path": "h4",
+     "en": "4. Intimacy and vaginal dryness"
+    },
+    {
+     "i": 30,
+     "path": "body4",
+     "en": "The decline in estrogen can lead to vaginal dryness, sometimes causing discomfort or pain during intercourse. Desire can also change, either increasing or decreasing, depending on the woman."
+    },
+    {
+     "i": 31,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 32,
+     "path": "tip2Text",
+     "en": "Simple solutions exist (lubricants, vaginal moisturizers, local treatments): talking to a healthcare professional can help you find the right solution, without taboo."
+    },
+    {
+     "i": 33,
+     "path": "h5",
+     "en": "5. Weight and metabolism"
+    },
+    {
+     "i": 34,
+     "path": "body5",
+     "en": "Metabolism can slow down slightly during this period, and fat distribution tends to shift toward the abdomen. These changes are common and do not depend solely on willpower."
+    },
+    {
+     "i": 35,
+     "path": "h6",
+     "en": "6. Common myths about menopause"
+    },
+    {
+     "i": 36,
+     "path": "myths[0]",
+     "en": "Menopause \"happens all at once\" — in reality, it is preceded by several years of transition (perimenopause)"
+    },
+    {
+     "i": 37,
+     "path": "myths[1]",
+     "en": "All symptoms are severe for everyone — their intensity varies enormously from woman to woman"
+    },
+    {
+     "i": 38,
+     "path": "myths[2]",
+     "en": "Nothing can be done — many solutions, hormonal or not, exist to relieve bothersome symptoms"
+    },
+    {
+     "i": 39,
+     "path": "myths[3]",
+     "en": "Intimate life comes to an end — it changes, but remains entirely possible and fulfilling with the right adjustments"
+    },
+    {
+     "i": 40,
+     "path": "h7",
+     "en": "7. Normal symptoms and signs to watch for"
+    },
+    {
+     "i": 41,
+     "path": "body7",
+     "en": "The vast majority of the changes described here are normal manifestations of the transition. However, certain signs warrant prompt medical attention."
+    },
+    {
+     "i": 42,
+     "path": "alert2Title",
+     "en": "See a doctor if"
+    },
+    {
+     "i": 43,
+     "path": "alert2Text",
+     "en": "Bleeding after confirmed menopause, unusual pelvic pain, symptoms that significantly disrupt daily life, or any persistent doubt."
+    },
+    {
+     "i": 44,
+     "path": "h8",
+     "en": "8. Practical everyday tips"
+    },
+    {
+     "i": 45,
+     "path": "dailyHabits[0]",
+     "en": "A diet rich in calcium and fiber"
+    },
+    {
+     "i": 46,
+     "path": "dailyHabits[1]",
+     "en": "Regular physical activity"
+    },
+    {
+     "i": 47,
+     "path": "dailyHabits[2]",
+     "en": "A stable sleep routine"
+    },
+    {
+     "i": 48,
+     "path": "dailyHabits[3]",
+     "en": "Daily moments of relaxation"
+    },
+    {
+     "i": 49,
+     "path": "h9",
+     "en": "9. Key takeaways"
+    },
+    {
+     "i": 50,
+     "path": "tip3Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 51,
+     "path": "tip3Text",
+     "en": "Perimenopause and menopause are natural stages, not an illness. Many solutions exist to help you go through this transition more comfortably: a healthcare professional remains the best resource to adapt them to your situation."
+    },
+    {
+     "i": 52,
+     "path": "shareMessage",
+     "en": "Understanding the menopause transition — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MenopauseTreatments",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "TREATMENTS"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Menopause\ntreatments"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Hormone replacement therapy and non-hormonal alternatives, to help you prepare for the conversation with your doctor."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Menopause hormone replacement therapy"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Benefits and precautions"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Non-hormonal approaches"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Talking to a healthcare professional"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "What to remember"
+    },
+    {
+     "i": 13,
+     "path": "body1",
+     "en": "Menopause hormone replacement therapy (HRT) compensates for the drop in estrogen and can relieve the most bothersome symptoms, such as hot flashes, sleep disturbances, or vaginal dryness."
+    },
+    {
+     "i": 14,
+     "path": "body2",
+     "en": "HRT can also help protect bone density. However, it isn’t suitable for every situation: a personal history of certain conditions (cardiovascular disease, some hormone-dependent cancers) may limit its use."
+    },
+    {
+     "i": 15,
+     "path": "alertTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 16,
+     "path": "alertText",
+     "en": "The benefit-risk balance of HRT depends on your age, when it is started relative to menopause, and your personal medical history: an individualized medical assessment is needed before any decision."
+    },
+    {
+     "i": 17,
+     "path": "body3",
+     "en": "When HRT isn’t wanted or isn’t suitable, other options exist to help relieve symptoms:"
+    },
+    {
+     "i": 18,
+     "path": "nonHormonal[0]",
+     "en": "Cognitive behavioral therapy (for managing stress and sleep)"
+    },
+    {
+     "i": 19,
+     "path": "nonHormonal[1]",
+     "en": "Herbal medicine, supervised by a healthcare professional"
+    },
+    {
+     "i": 20,
+     "path": "nonHormonal[2]",
+     "en": "Lifestyle adjustments (diet, physical activity, sleep)"
+    },
+    {
+     "i": 21,
+     "path": "nonHormonal[3]",
+     "en": "Vaginal lubricants and moisturizers for intimate dryness"
+    },
+    {
+     "i": 22,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 23,
+     "path": "tip1Text",
+     "en": "Even herbal medicine deserves professional advice: “natural” doesn’t mean “without possible interactions” with other treatments."
+    },
+    {
+     "i": 24,
+     "path": "body4",
+     "en": "Preparing a few points before an appointment helps you make the most of the conversation:"
+    },
+    {
+     "i": 25,
+     "path": "discussPoints[0]",
+     "en": "Your most bothersome day-to-day symptoms"
+    },
+    {
+     "i": 26,
+     "path": "discussPoints[1]",
+     "en": "Your personal and family medical history"
+    },
+    {
+     "i": 27,
+     "path": "discussPoints[2]",
+     "en": "Your preferences (hormonal or not, how long you’re considering)"
+    },
+    {
+     "i": 28,
+     "path": "discussPoints[3]",
+     "en": "Your questions and concerns — don’t hesitate to ask them"
+    },
+    {
+     "i": 29,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 30,
+     "path": "tip2Text",
+     "en": "Hormonal or not, no treatment is universal: what’s right for you depends on your personal situation, assessed with a healthcare professional."
+    },
+    {
+     "i": 31,
+     "path": "shareMessage",
+     "en": "Menopause treatments — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MenstruationPurity",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PERIOD & PURITY"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Purity status:\nthe basics"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Understanding the link between the cycle and ritual purity status, to approach this time with more clarity."
+    },
+    {
+     "i": 7,
+     "path": "disclaimerTitle",
+     "en": "Important information"
+    },
+    {
+     "i": 8,
+     "path": "disclaimerText",
+     "en": "This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings."
+    },
+    {
+     "i": 9,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 10,
+     "path": "topics[0]",
+     "en": "Understanding what ritual purity means"
+    },
+    {
+     "i": 11,
+     "path": "topics[1]",
+     "en": "Menstruation and exemption from worship"
+    },
+    {
+     "i": 12,
+     "path": "topics[2]",
+     "en": "After menstruation: recognizing the return to purity"
+    },
+    {
+     "i": 13,
+     "path": "topics[3]",
+     "en": "Ghusl: understanding its role"
+    },
+    {
+     "i": 14,
+     "path": "topics[4]",
+     "en": "What to do when you’re not sure?"
+    },
+    {
+     "i": 15,
+     "path": "topics[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 16,
+     "path": "section1Body",
+     "en": "In Islamic tradition, ritual purity (tahara) refers to the state required to perform certain acts of worship, such as prayer. It does not refer to cleanliness in the everyday sense, but to a specific state recognized by fiqh, which changes according to the stages of the female cycle."
+    },
+    {
+     "i": 17,
+     "path": "section2Body",
+     "en": "During menstruation, a woman is exempted from certain acts of worship, in particular prayer and the Ramadan fast, which can be made up later. This exemption is recognized as a relief, not as a punishment."
+    },
+    {
+     "i": 18,
+     "path": "checkList1Title",
+     "en": "What remains accessible during menstruation"
+    },
+    {
+     "i": 19,
+     "path": "duringPeriod[0]",
+     "en": "Dhikr (remembrance of God) and supplications (du’a)"
+    },
+    {
+     "i": 20,
+     "path": "duringPeriod[1]",
+     "en": "Listening to or reading educational and spiritual content"
+    },
+    {
+     "i": 21,
+     "path": "duringPeriod[2]",
+     "en": "Supporting the religious practice of those close to you"
+    },
+    {
+     "i": 22,
+     "path": "duringPeriod[3]",
+     "en": "Religious reflection and learning"
+    },
+    {
+     "i": 23,
+     "path": "noteTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 24,
+     "path": "noteText",
+     "en": "Some details (such as direct reading of the Quran or access to the mosque) may vary depending on the school of jurisprudence; it is best to refer to the opinion you usually follow or to a qualified scholar for these specific cases."
+    },
+    {
+     "i": 25,
+     "path": "section3Body",
+     "en": "The end of menstruation marks the gradual return to the state of ritual purity. Physically, this corresponds to the stopping of the bleeding, a marker that different scholarly traditions may define with slightly different nuances."
+    },
+    {
+     "i": 26,
+     "path": "visual1Title",
+     "en": "A physiological process"
+    },
+    {
+     "i": 27,
+     "path": "visual1Text",
+     "en": "Understanding the stages of the cycle helps you better identify the moment when menstruation actually ends."
+    },
+    {
+     "i": 28,
+     "path": "section3Body2",
+     "en": "Once this marker has been observed, the ghusl (major ablution) allows one to return to ritual purity and resume the acts of worship that had been suspended."
+    },
+    {
+     "i": 29,
+     "path": "section4Body",
+     "en": "Ghusl is a major ritual ablution that involves washing the entire body with the intention of purifying oneself. It marks the end of the exemption and allows prayer to resume normally, without it being necessary to make up the prayers missed during menstruation."
+    },
+    {
+     "i": 30,
+     "path": "visual2Title",
+     "en": "A purification ritual"
+    },
+    {
+     "i": 31,
+     "path": "visual2Text",
+     "en": "The precise way ghusl is carried out may vary slightly depending on the school of jurisprudence followed."
+    },
+    {
+     "i": 32,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 33,
+     "path": "tip1Text",
+     "en": "If you don’t know the precise steps followed in your school, someone you trust or a qualified scholar will be able to explain them to you clearly."
+    },
+    {
+     "i": 34,
+     "path": "section5Body",
+     "en": "It is common to feel doubt about when menstruation has truly ended, especially when the bleeding decreases gradually rather than stopping abruptly."
+    },
+    {
+     "i": 35,
+     "path": "checkList2Title",
+     "en": "Some useful markers"
+    },
+    {
+     "i": 36,
+     "path": "doubtMarkers[0]",
+     "en": "Observe the total absence of bleeding, not just a decrease"
+    },
+    {
+     "i": 37,
+     "path": "doubtMarkers[1]",
+     "en": "Allow enough time to pass before concluding that menstruation has ended"
+    },
+    {
+     "i": 38,
+     "path": "doubtMarkers[2]",
+     "en": "Rely on a clear observation rather than a mere impression"
+    },
+    {
+     "i": 39,
+     "path": "doubtMarkers[3]",
+     "en": "Take into account your own usual rhythm, which can vary from one cycle to another"
+    },
+    {
+     "i": 40,
+     "path": "alert2Title",
+     "en": "Important information"
+    },
+    {
+     "i": 41,
+     "path": "alert2Text",
+     "en": "In cases of prolonged or irregular bleeding, or persistent doubt, these situations deserve to be discussed with a qualified scholar, who can guide you according to your personal situation. This content remains informational and does not replace individualized religious guidance."
+    },
+    {
+     "i": 42,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 43,
+     "path": "tip2Text",
+     "en": "These markers are general educational reminders. Each situation can have its own particularities: in case of doubt, dialogue with a qualified scholar remains the best resource for an answer suited to your situation."
+    },
+    {
+     "i": 44,
+     "path": "shareMessage",
+     "en": "Purity status: the basics — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MiscarriageFertility",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "AFTER A MISCARRIAGE • FERTILITY"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Fertility and trying again after a loss"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Intermediate"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Informational content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "When and how to think about trying again, at your own pace and in full confidence."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "The return of fertility"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "What professionals generally say"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Feeling ready, at your own pace"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Follow-up care that can reassure you"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 13,
+     "path": "body1",
+     "en": "Fertility usually returns as early as the cycle following an early miscarriage. Ovulation can even occur before your period visibly returns."
+    },
+    {
+     "i": 14,
+     "path": "infoTitle",
+     "en": "Key takeaway"
+    },
+    {
+     "i": 15,
+     "path": "infoText",
+     "en": "Depending on the stage of the loss, physical recovery time can vary slightly from one situation to another."
+    },
+    {
+     "i": 16,
+     "path": "body2",
+     "en": "Many professionals consider that there’s no need to wait several cycles before trying again, unless your doctor or midwife advises otherwise."
+    },
+    {
+     "i": 17,
+     "path": "compareEarlyTitle",
+     "en": "Early loss"
+    },
+    {
+     "i": 18,
+     "path": "compareEarlyText",
+     "en": "Fertility often returns quickly, as early as the next cycle."
+    },
+    {
+     "i": 19,
+     "path": "compareLateTitle",
+     "en": "Later loss"
+    },
+    {
+     "i": 20,
+     "path": "compareLateText",
+     "en": "A slightly longer recovery time may be recommended by the medical team."
+    },
+    {
+     "i": 21,
+     "path": "body3",
+     "en": "Feeling ready, physically and emotionally, remains the most important guide — far more than any theoretical timeframe."
+    },
+    {
+     "i": 22,
+     "path": "readinessPoints[0].title",
+     "en": "Emotionally"
+    },
+    {
+     "i": 23,
+     "path": "readinessPoints[0].text",
+     "en": "Feeling ready within yourself matters just as much as physical recovery."
+    },
+    {
+     "i": 24,
+     "path": "readinessPoints[1].title",
+     "en": "Physically"
+    },
+    {
+     "i": 25,
+     "path": "readinessPoints[1].text",
+     "en": "A regular cycle and a sense of well-being are good indicators."
+    },
+    {
+     "i": 26,
+     "path": "readinessPoints[2].title",
+     "en": "As a couple or with support"
+    },
+    {
+     "i": 27,
+     "path": "readinessPoints[2].text",
+     "en": "Talking about it with your partner can help you move forward at the same pace."
+    },
+    {
+     "i": 28,
+     "path": "body4",
+     "en": "Before trying again, a medical appointment can help you move forward with more peace of mind:"
+    },
+    {
+     "i": 29,
+     "path": "followUpSteps[0].title",
+     "en": "Taking stock"
+    },
+    {
+     "i": 30,
+     "path": "followUpSteps[0].text",
+     "en": "A conversation with a professional allows you to revisit what happened."
+    },
+    {
+     "i": 31,
+     "path": "followUpSteps[1].title",
+     "en": "An assessment if needed"
+    },
+    {
+     "i": 32,
+     "path": "followUpSteps[1].text",
+     "en": "Depending on the situation, additional tests may be offered."
+    },
+    {
+     "i": 33,
+     "path": "followUpSteps[2].title",
+     "en": "A new attempt"
+    },
+    {
+     "i": 34,
+     "path": "followUpSteps[2].text",
+     "en": "Follow-up care can then calmly support you as you try again."
+    },
+    {
+     "i": 35,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 36,
+     "path": "tipText",
+     "en": "An isolated miscarriage generally does not indicate a fertility problem. Your medical team remains best placed to answer your personal questions."
+    },
+    {
+     "i": 37,
+     "path": "summaryPoints[0]",
+     "en": "Fertility usually returns as early as the cycle following an early miscarriage."
+    },
+    {
+     "i": 38,
+     "path": "summaryPoints[1]",
+     "en": "Many professionals consider that there’s no need to wait several cycles, unless advised otherwise."
+    },
+    {
+     "i": 39,
+     "path": "summaryPoints[2]",
+     "en": "Feeling ready, physically and emotionally, remains the most important guide."
+    },
+    {
+     "i": 40,
+     "path": "summaryPoints[3]",
+     "en": "Medical follow-up can support and reassure you before trying again."
+    },
+    {
+     "i": 41,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace personalized medical advice. Your doctor or midwife remains the reference for your situation."
+    },
+    {
+     "i": 42,
+     "path": "shareMessage",
+     "en": "Fertility and trying again after a loss — AWA"
+    }
+   ]
+  },
+  {
+   "id": "MiscarriageGrief",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "AFTER A MISCARRIAGE • EMOTIONAL SUPPORT"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Moving through grief\nemotionally"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Informational content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "There’s no right way to go through this. Everyone moves through it in her own way, at her own pace."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "A real and legitimate grief"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Emotions that vary from person to person"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "What may help day to day"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Support from loved ones"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "When to seek professional help"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 14,
+     "path": "section1Body",
+     "en": "Sadness, anger, or a feeling of emptiness are normal reactions to this loss, whatever the stage of the pregnancy. What you’re feeling deserves to be acknowledged."
+    },
+    {
+     "i": 15,
+     "path": "section1InfoTitle",
+     "en": "Keep in mind"
+    },
+    {
+     "i": 16,
+     "path": "section1InfoText",
+     "en": "There is no right or wrong way to go through this. Every emotion you feel is valid."
+    },
+    {
+     "i": 17,
+     "path": "section2Body",
+     "en": "You may feel one or more of these, sometimes all at once:"
+    },
+    {
+     "i": 18,
+     "path": "feelings[0].title",
+     "en": "Sadness"
+    },
+    {
+     "i": 19,
+     "path": "feelings[0].text",
+     "en": "A sorrow that can come and go, sometimes unexpectedly."
+    },
+    {
+     "i": 20,
+     "path": "feelings[1].title",
+     "en": "Anger"
+    },
+    {
+     "i": 21,
+     "path": "feelings[1].text",
+     "en": "Toward yourself, the situation, or a sense of unfairness — and that’s nothing to worry about."
+    },
+    {
+     "i": 22,
+     "path": "feelings[2].title",
+     "en": "A feeling of emptiness"
+    },
+    {
+     "i": 23,
+     "path": "feelings[2].text",
+     "en": "A sense of emptiness or confusion about what just happened."
+    },
+    {
+     "i": 24,
+     "path": "section3Body",
+     "en": "Giving yourself time, without pressure or comparison, is an essential part of healing."
+    },
+    {
+     "i": 25,
+     "path": "dailySupport[0].title",
+     "en": "Giving yourself time"
+    },
+    {
+     "i": 26,
+     "path": "dailySupport[0].text",
+     "en": "Without pressure or a deadline for “feeling better.”"
+    },
+    {
+     "i": 27,
+     "path": "dailySupport[1].title",
+     "en": "Not comparing yourself to others"
+    },
+    {
+     "i": 28,
+     "path": "dailySupport[1].text",
+     "en": "Every grief is unique; there’s no right way to go through it."
+    },
+    {
+     "i": 29,
+     "path": "dailySupport[2].title",
+     "en": "Putting it into words"
+    },
+    {
+     "i": 30,
+     "path": "dailySupport[2].text",
+     "en": "Writing or talking about what you feel can help lighten the weight of your emotions."
+    },
+    {
+     "i": 31,
+     "path": "section4Body",
+     "en": "Talking to someone close to you, a support group, or a professional can help lighten this weight. Here’s how loved ones can help:"
+    },
+    {
+     "i": 32,
+     "path": "supportTitle",
+     "en": "How a loved one can offer support"
+    },
+    {
+     "i": 33,
+     "path": "howToSupport[0]",
+     "en": "Listen without judgment, even without having the perfect words"
+    },
+    {
+     "i": 34,
+     "path": "howToSupport[1]",
+     "en": "Avoid minimizing the experience (“it wasn’t a big deal,” “you can try again”)"
+    },
+    {
+     "i": 35,
+     "path": "howToSupport[2]",
+     "en": "Offer your presence rather than solutions"
+    },
+    {
+     "i": 36,
+     "path": "howToSupport[3]",
+     "en": "Keep checking in during the weeks that follow"
+    },
+    {
+     "i": 37,
+     "path": "section5Body",
+     "en": "Some signs may indicate that professional support could be helpful:"
+    },
+    {
+     "i": 38,
+     "path": "warningTitle",
+     "en": "Signs to watch for"
+    },
+    {
+     "i": 39,
+     "path": "attentionSigns[0]",
+     "en": "Sadness lasts a long time and intensifies rather than easing"
+    },
+    {
+     "i": 40,
+     "path": "attentionSigns[1]",
+     "en": "It becomes difficult to function day to day"
+    },
+    {
+     "i": 41,
+     "path": "attentionSigns[2]",
+     "en": "A significant sense of isolation sets in"
+    },
+    {
+     "i": 42,
+     "path": "attentionSigns[3]",
+     "en": "Intrusive thoughts or significant distress appear"
+    },
+    {
+     "i": 43,
+     "path": "section5InfoTitle",
+     "en": "Support is available"
+    },
+    {
+     "i": 44,
+     "path": "section5InfoText",
+     "en": "A midwife, doctor, psychologist, or support group can listen and support you, without judgment."
+    },
+    {
+     "i": 45,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 46,
+     "path": "tipText",
+     "en": "Asking for help isn’t a sign of weakness — it’s a way of taking care of yourself during this time."
+    },
+    {
+     "i": 47,
+     "path": "summaryPoints[0]",
+     "en": "There is no right or wrong way to go through this experience."
+    },
+    {
+     "i": 48,
+     "path": "summaryPoints[1]",
+     "en": "Sadness, anger, or a feeling of emptiness are normal reactions."
+    },
+    {
+     "i": 49,
+     "path": "summaryPoints[2]",
+     "en": "Giving yourself time, without pressure or comparison, is part of healing."
+    },
+    {
+     "i": 50,
+     "path": "summaryPoints[3]",
+     "en": "Talking to someone close to you, a support group, or a professional can help lighten this weight."
+    },
+    {
+     "i": 51,
+     "path": "disclaimerText",
+     "en": "Informational content. This article does not replace professional advice. If you’re going through a difficult time, don’t hesitate to talk to a healthcare professional."
+    },
+    {
+     "i": 52,
+     "path": "shareMessage",
+     "en": "Moving through grief, emotionally — AWA"
+    }
+   ]
+  }
+ ]
+}

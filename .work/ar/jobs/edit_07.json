@@ -1,0 +1,1725 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "PcosSkinHair",
+   "items": [
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Skin, hair, and\nvisible symptoms"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "9 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "PCOS can cause visible changes in the skin, body hair, or scalp hair. Understanding where they come from makes it easier to recognize them and to know what solutions may be considered."
+    },
+    {
+     "i": 7,
+     "path": "infoBannerText",
+     "en": "These signs are common, but on their own they are neither required nor enough to diagnose PCOS."
+    },
+    {
+     "i": 8,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 9,
+     "path": "contents[0]",
+     "en": "Why these symptoms appear"
+    },
+    {
+     "i": 10,
+     "path": "contents[1]",
+     "en": "Hormonal acne"
+    },
+    {
+     "i": 11,
+     "path": "contents[2]",
+     "en": "Excess hair growth"
+    },
+    {
+     "i": 12,
+     "path": "contents[3]",
+     "en": "Hair thinning"
+    },
+    {
+     "i": 13,
+     "path": "contents[4]",
+     "en": "Taking care of your skin"
+    },
+    {
+     "i": 14,
+     "path": "contents[5]",
+     "en": "Taking care of your hair"
+    },
+    {
+     "i": 15,
+     "path": "contents[6]",
+     "en": "What can help day to day"
+    },
+    {
+     "i": 16,
+     "path": "contents[7]",
+     "en": "When to see a doctor"
+    },
+    {
+     "i": 17,
+     "path": "contents[8]",
+     "en": "Common misconceptions"
+    },
+    {
+     "i": 18,
+     "path": "contents[9]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 19,
+     "path": "section1Body1",
+     "en": "PCOS can involve increased production or activity of androgens, hormones that are also naturally present in women. When their effect is more pronounced, they can influence the sebaceous glands, the hair follicles, and the hair growth cycle."
+    },
+    {
+     "i": 20,
+     "path": "section1Body2",
+     "en": "This hormonal influence is largely what can explain the appearance of persistent acne, increased hair growth, or, in some women, hair thinning."
+    },
+    {
+     "i": 21,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 22,
+     "path": "tip1Text",
+     "en": "Visible symptoms don’t necessarily reflect how severe PCOS is. One woman may have several visible symptoms, while another may have few or none at all."
+    },
+    {
+     "i": 23,
+     "path": "section2Body1",
+     "en": "Acne linked to hormonal changes can appear or persist beyond adolescence. It tends to affect the chin, jawline, lower cheeks, or sometimes the neck."
+    },
+    {
+     "i": 24,
+     "path": "section2Body2",
+     "en": "In some people, the lesions are deep, tender, and recurring. They can also leave pigmented marks or scars when they’re picked at or when they’re especially inflamed."
+    },
+    {
+     "i": 25,
+     "path": "skinSignsTitle",
+     "en": "Possible skin signs"
+    },
+    {
+     "i": 26,
+     "path": "skinSigns[0]",
+     "en": "Persistent acne, especially on the lower face"
+    },
+    {
+     "i": 27,
+     "path": "skinSigns[1]",
+     "en": "Skin that is oilier than before"
+    },
+    {
+     "i": 28,
+     "path": "skinSigns[2]",
+     "en": "Acne flare-ups that sometimes follow hormonal changes"
+    },
+    {
+     "i": 29,
+     "path": "skinSigns[3]",
+     "en": "Marks or scars left after flare-ups"
+    },
+    {
+     "i": 30,
+     "path": "section3Body1",
+     "en": "Hirsutism refers to increased terminal hair growth in areas not usually affected in women. In the context of PCOS, it can be linked to the effect of androgens on the hair follicles."
+    },
+    {
+     "i": 31,
+     "path": "section3Body2",
+     "en": "The areas most commonly affected are the chin, upper lip, chest, abdomen, or back. How much hair growth occurs varies considerably from person to person."
+    },
+    {
+     "i": 32,
+     "path": "hairSignsTitle",
+     "en": "Possible signs"
+    },
+    {
+     "i": 33,
+     "path": "hairSigns[0]",
+     "en": "More visible hair growth on the face"
+    },
+    {
+     "i": 34,
+     "path": "hairSigns[1]",
+     "en": "Coarser hair on the chin or upper lip"
+    },
+    {
+     "i": 35,
+     "path": "hairSigns[2]",
+     "en": "Hair growth that can appear on the chest, abdomen, or back"
+    },
+    {
+     "i": 36,
+     "path": "hairSigns[3]",
+     "en": "Gradual thinning of hair at the crown of the head"
+    },
+    {
+     "i": 37,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 38,
+     "path": "tip2Text",
+     "en": "Hair growth also depends on genetic and individual factors. Noticeable hair growth doesn’t automatically mean PCOS is present."
+    },
+    {
+     "i": 39,
+     "path": "section4Body1",
+     "en": "Some women with PCOS also notice a decrease in hair density. The thinning can be especially visible at the crown of the head or along the center part."
+    },
+    {
+     "i": 40,
+     "path": "section4Body2",
+     "en": "This can develop gradually. It’s important to distinguish hormone-related hair loss from other possible causes, such as a deficiency, a thyroid issue, certain medications, or a period of significant stress."
+    },
+    {
+     "i": 41,
+     "path": "alert1Title",
+     "en": "Worth noting"
+    },
+    {
+     "i": 42,
+     "path": "alert1Text",
+     "en": "Hair loss that is significant, rapid, or unusual deserves a medical evaluation to look into the cause."
+    },
+    {
+     "i": 43,
+     "path": "section5Body",
+     "en": "A simple, consistent routine is generally better than layering on many products. The goal is to cleanse, hydrate, and protect the skin while limiting anything that can keep irritation going."
+    },
+    {
+     "i": 44,
+     "path": "careHabits[0]",
+     "en": "A gentle, consistent skincare routine"
+    },
+    {
+     "i": 45,
+     "path": "careHabits[1]",
+     "en": "Daily sun protection"
+    },
+    {
+     "i": 46,
+     "path": "careHabits[2]",
+     "en": "A balanced diet"
+    },
+    {
+     "i": 47,
+     "path": "careHabits[3]",
+     "en": "Patience: results take time"
+    },
+    {
+     "i": 48,
+     "path": "section6Body1",
+     "en": "When hair becomes finer, it can help to limit repeated stress on it: excessive heat, very tight hairstyles, or frequent chemical treatments."
+    },
+    {
+     "i": 49,
+     "path": "section6Body2",
+     "en": "A dermatology consultation can be worthwhile if hair density keeps decreasing, to help determine the cause and discuss available treatments."
+    },
+    {
+     "i": 50,
+     "path": "practicalTitle",
+     "en": "Practical tips"
+    },
+    {
+     "i": 51,
+     "path": "practicalTips[0]",
+     "en": "Choose gentle products and avoid layering on multiple irritating treatments"
+    },
+    {
+     "i": 52,
+     "path": "practicalTips[1]",
+     "en": "Cleanse the skin without stripping it, morning and evening if needed"
+    },
+    {
+     "i": 53,
+     "path": "practicalTips[2]",
+     "en": "Use sun protection when the skin is exposed"
+    },
+    {
+     "i": 54,
+     "path": "practicalTips[3]",
+     "en": "Avoid picking at blemishes to limit marks and scarring"
+    },
+    {
+     "i": 55,
+     "path": "practicalTips[4]",
+     "en": "Ask a professional for advice if symptoms persist or get worse"
+    },
+    {
+     "i": 56,
+     "path": "section7Body",
+     "en": "Management depends on the symptoms, how intense they are, their impact on quality of life, and each woman’s goals. It can help to work on several fronts rather than looking for a single solution."
+    },
+    {
+     "i": 57,
+     "path": "miniCards[0].title",
+     "en": "Skin"
+    },
+    {
+     "i": 58,
+     "path": "miniCards[0].text",
+     "en": "A suitable routine and dermatology advice if needed."
+    },
+    {
+     "i": 59,
+     "path": "miniCards[1].title",
+     "en": "Hair growth"
+    },
+    {
+     "i": 60,
+     "path": "miniCards[1].text",
+     "en": "Cosmetic or medical solutions depending on the situation."
+    },
+    {
+     "i": 61,
+     "path": "miniCards[2].title",
+     "en": "Hair"
+    },
+    {
+     "i": 62,
+     "path": "miniCards[2].text",
+     "en": "Identify the cause before choosing a treatment."
+    },
+    {
+     "i": 63,
+     "path": "miniCards[3].title",
+     "en": "Well-being"
+    },
+    {
+     "i": 64,
+     "path": "miniCards[3].text",
+     "en": "Take the emotional impact of symptoms into account."
+    },
+    {
+     "i": 65,
+     "path": "section8Body1",
+     "en": "It’s a good idea to talk to a healthcare professional when acne becomes persistent or painful, when hair growth increases quickly, when hair thins noticeably, or when these changes come with very irregular cycles."
+    },
+    {
+     "i": 66,
+     "path": "section8Body2",
+     "en": "A dermatologist can manage skin and hair symptoms. A gynecologist or another qualified professional can also assess the hormonal context and any other possible signs of PCOS."
+    },
+    {
+     "i": 67,
+     "path": "alert2Title",
+     "en": "See a doctor if needed"
+    },
+    {
+     "i": 68,
+     "path": "alert2Text",
+     "en": "Rapid, significant hair growth, sudden hair loss, or unusual hormonal changes call for medical advice."
+    },
+    {
+     "i": 69,
+     "path": "ideasReceived[0]",
+     "en": "Having acne doesn’t automatically mean you have PCOS"
+    },
+    {
+     "i": 70,
+     "path": "ideasReceived[1]",
+     "en": "Visible hair growth isn’t necessarily linked to hormones alone"
+    },
+    {
+     "i": 71,
+     "path": "ideasReceived[2]",
+     "en": "PCOS can affect women of any body type"
+    },
+    {
+     "i": 72,
+     "path": "ideasReceived[3]",
+     "en": "Symptoms can change over time and aren’t the same for every woman"
+    },
+    {
+     "i": 73,
+     "path": "quoteText",
+     "en": "The visible symptoms of PCOS can be frustrating, but they don’t define your femininity, your worth, or your hygiene."
+    },
+    {
+     "i": 74,
+     "path": "summaryTitle",
+     "en": "The essentials"
+    },
+    {
+     "i": 75,
+     "path": "summaryItems[0]",
+     "en": "PCOS can affect the skin, body hair, and scalp hair."
+    },
+    {
+     "i": 76,
+     "path": "summaryItems[1]",
+     "en": "Symptoms vary widely from woman to woman."
+    },
+    {
+     "i": 77,
+     "path": "summaryItems[2]",
+     "en": "A single symptom isn’t enough to diagnose PCOS."
+    },
+    {
+     "i": 78,
+     "path": "summaryItems[3]",
+     "en": "Solutions exist to help improve symptoms."
+    },
+    {
+     "i": 79,
+     "path": "summaryItems[4]",
+     "en": "Medical support can help you choose the right approach for you."
+    },
+    {
+     "i": 80,
+     "path": "finalTipTitle",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 81,
+     "path": "finalTipText",
+     "en": "Acne, excess hair growth, or hair loss can be symptoms of PCOS, but they aren’t inevitable. A personalized approach can help you manage symptoms better and feel more comfortable day to day."
+    },
+    {
+     "i": 82,
+     "path": "disclaimerText",
+     "en": "This article is for information only and doesn’t replace a medical consultation, diagnosis, or personalized treatment."
+    },
+    {
+     "i": 83,
+     "path": "shareMessage",
+     "en": "Skin, hair, and visible PCOS symptoms — AWA"
+    }
+   ]
+  },
+  {
+   "id": "PerineumStrengthening",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "POSTPARTUM • RECOVERY"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Strengthening your pelvic floor\nafter childbirth"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "8 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "After pregnancy and childbirth, the pelvic floor needs time to recover. Simple, regular, and gradual exercises can help you regain strength, control, and confidence, without trying to rush things."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Understanding the role of the perineum"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Why childbirth puts it under strain"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "When to start pelvic floor rehabilitation"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Learning to contract correctly"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Building a gradual routine"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "Mistakes to avoid"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "When to ask for help"
+    },
+    {
+     "i": 15,
+     "path": "topics[7]",
+     "en": "Gradually resuming sport"
+    },
+    {
+     "i": 16,
+     "path": "topics[8]",
+     "en": "Preparing for an appointment"
+    },
+    {
+     "i": 17,
+     "path": "topics[9]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 18,
+     "path": "shareMessage",
+     "en": "Strengthening your pelvic floor after childbirth — AWA"
+    },
+    {
+     "i": 19,
+     "path": "s1Heading",
+     "en": "Understanding the role of the perineum"
+    },
+    {
+     "i": 20,
+     "path": "s1Body1",
+     "en": "The perineum, also called the pelvic floor, is a group of muscles located at the base of the pelvis. It plays a role in bladder and bowel control and helps support the pelvic organs."
+    },
+    {
+     "i": 21,
+     "path": "s1Body2",
+     "en": "During pregnancy, these muscles have to carry extra weight for several months. They are also put under considerable strain during childbirth."
+    },
+    {
+     "i": 22,
+     "path": "s1HighlightTitle",
+     "en": "A discreet but essential muscle"
+    },
+    {
+     "i": 23,
+     "path": "s1HighlightText",
+     "en": "The pelvic floor is involved in several everyday functions: holding in urine and stool, controlling gas, supporting the pelvic organs, and playing a role in certain sexual functions."
+    },
+    {
+     "i": 24,
+     "path": "benefitsHeading",
+     "en": "The benefits of a stronger pelvic floor"
+    },
+    {
+     "i": 25,
+     "path": "benefitsIntro",
+     "en": "Gradual, correctly performed strengthening can help improve pelvic floor control and support."
+    },
+    {
+     "i": 27,
+     "path": "benefits[0].title",
+     "en": "Better bladder control"
+    },
+    {
+     "i": 28,
+     "path": "benefits[0].text",
+     "en": "The pelvic floor plays a role in bladder control. Strengthening it gradually may help reduce certain urinary leaks."
+    },
+    {
+     "i": 30,
+     "path": "benefits[1].title",
+     "en": "Supporting bowel function"
+    },
+    {
+     "i": 31,
+     "path": "benefits[1].text",
+     "en": "These muscles also help control gas and stool and contribute to supporting the pelvic organs."
+    },
+    {
+     "i": 33,
+     "path": "benefits[2].title",
+     "en": "Supporting the pelvic organs"
+    },
+    {
+     "i": 34,
+     "path": "benefits[2].text",
+     "en": "The pelvic floor forms a genuine muscular base that helps support the bladder, uterus, and intestine."
+    },
+    {
+     "i": 36,
+     "path": "benefits[3].title",
+     "en": "Gradually regaining sensation"
+    },
+    {
+     "i": 37,
+     "path": "benefits[3].text",
+     "en": "Suitable rehabilitation can also help you regain better awareness and control of this area."
+    },
+    {
+     "i": 38,
+     "path": "s2Heading",
+     "en": "Why pregnancy and childbirth put it under strain"
+    },
+    {
+     "i": 39,
+     "path": "s2Body1",
+     "en": "Pregnancy gradually places more pressure on the pelvic floor. Vaginal childbirth can then stretch the muscles and tissues in this area significantly."
+    },
+    {
+     "i": 40,
+     "path": "s2Body2",
+     "en": "A cesarean section does not completely spare the pelvic floor either: pregnancy itself remains a significant period for these muscles."
+    },
+    {
+     "i": 41,
+     "path": "s2Body3",
+     "en": "After birth, it is therefore normal for recovery to take time. Some women feel almost no symptoms, while others may notice leaks, a feeling of heaviness, or reduced muscle control."
+    },
+    {
+     "i": 42,
+     "path": "s2TipTitle",
+     "en": "Every recovery is different"
+    },
+    {
+     "i": 43,
+     "path": "s2TipText",
+     "en": "The type of delivery, a tear or episiotomy, the presence of pain, and your general condition after birth can all influence recovery."
+    },
+    {
+     "i": 44,
+     "path": "s3Heading",
+     "en": "When to start pelvic floor rehabilitation?"
+    },
+    {
+     "i": 45,
+     "path": "s3Body1",
+     "en": "After an uncomplicated birth, gentle pelvic floor contractions can usually be resumed gradually. It remains important to adapt the exercises to your situation and to seek advice if you experienced a complication, significant pain, or a specific procedure."
+    },
+    {
+     "i": 46,
+     "path": "s3Body2",
+     "en": "If you have a urinary catheter, some recommendations suggest waiting until it is removed and normal urination has resumed before starting perineum exercises."
+    },
+    {
+     "i": 47,
+     "path": "s3AlertTitle",
+     "en": "Do not push through pain"
+    },
+    {
+     "i": 48,
+     "path": "s3AlertText",
+     "en": "Significant pain, worsening symptoms, a wound that is healing poorly, or any particular concern call for advice from a midwife, doctor, or rehabilitation professional."
+    },
+    {
+     "i": 49,
+     "path": "s4Heading",
+     "en": "Learning to contract correctly"
+    },
+    {
+     "i": 50,
+     "path": "s4Body1",
+     "en": "To identify the movement, imagine trying to hold in gas and the urge to urinate at the same time. The movement you’re looking for is a sensation of contraction and lifting inward."
+    },
+    {
+     "i": 51,
+     "path": "s4Body2",
+     "en": "The goal is not to tense your entire body tightly. Your buttocks, thighs, and abdominals should stay as relaxed as possible, while breathing continues normally."
+    },
+    {
+     "i": 53,
+     "path": "exercises[0].label",
+     "en": "Breathing"
+    },
+    {
+     "i": 55,
+     "path": "exercises[1].label",
+     "en": "Gentle contraction"
+    },
+    {
+     "i": 57,
+     "path": "exercises[2].label",
+     "en": "Long contraction"
+    },
+    {
+     "i": 59,
+     "path": "exercises[3].label",
+     "en": "Quick contractions"
+    },
+    {
+     "i": 60,
+     "path": "s4HighlightTitle",
+     "en": "Relaxing matters just as much"
+    },
+    {
+     "i": 61,
+     "path": "s4HighlightText",
+     "en": "After each contraction, let the muscles relax completely. Good rehabilitation does not mean keeping the perineum contracted all day."
+    },
+    {
+     "i": 62,
+     "path": "s5Heading",
+     "en": "Building a gradual routine"
+    },
+    {
+     "i": 63,
+     "path": "s5Body1",
+     "en": "At first, the most important thing is learning to identify the muscles and perform the movement correctly. Consistency matters more than intensity."
+    },
+    {
+     "i": 64,
+     "path": "s5h3a",
+     "en": "Long contractions"
+    },
+    {
+     "i": 65,
+     "path": "s5Body2",
+     "en": "Gently contract the pelvic floor, then hold the contraction for a few seconds without holding your breath. Then release completely before starting again."
+    },
+    {
+     "i": 66,
+     "path": "s5h3b",
+     "en": "Short contractions"
+    },
+    {
+     "i": 67,
+     "path": "s5Body3",
+     "en": "Once the movement is mastered, small quick contractions can be added. They help train your ability to contract the muscles quickly when abdominal pressure increases, for example just before coughing or sneezing."
+    },
+    {
+     "i": 69,
+     "path": "dailyTips[0].label",
+     "en": "Pair the exercises with a daily habit"
+    },
+    {
+     "i": 71,
+     "path": "dailyTips[1].label",
+     "en": "Start in a comfortable position"
+    },
+    {
+     "i": 73,
+     "path": "dailyTips[2].label",
+     "en": "Breathe normally during contractions"
+    },
+    {
+     "i": 75,
+     "path": "dailyTips[3].label",
+     "en": "Respect the relaxation phases"
+    },
+    {
+     "i": 77,
+     "path": "dailyTips[4].label",
+     "en": "Gradually increase the difficulty"
+    },
+    {
+     "i": 79,
+     "path": "dailyTips[5].label",
+     "en": "Ask for advice if you’re unsure"
+    },
+    {
+     "i": 80,
+     "path": "s5TipTitle",
+     "en": "Consistency above all"
+    },
+    {
+     "i": 81,
+     "path": "s5TipText",
+     "en": "Pairing the exercises with a habit already part of your day can make it easier to stay consistent: after a feeding, after brushing your teeth, or at another time that suits you."
+    },
+    {
+     "i": 82,
+     "path": "s6Heading",
+     "en": "Common mistakes to avoid"
+    },
+    {
+     "i": 83,
+     "path": "s6Body1",
+     "en": "Perineum exercises may look simple, but it’s easy to compensate with other muscles or push too hard."
+    },
+    {
+     "i": 84,
+     "path": "commonMistakes[0]",
+     "en": "Tensing the buttocks or thighs instead of the pelvic floor"
+    },
+    {
+     "i": 85,
+     "path": "commonMistakes[1]",
+     "en": "Holding your breath during the contraction"
+    },
+    {
+     "i": 86,
+     "path": "commonMistakes[2]",
+     "en": "Keeping the muscles contracted constantly without letting them relax"
+    },
+    {
+     "i": 87,
+     "path": "commonMistakes[3]",
+     "en": "Doing the exercises for only a few days and then stopping"
+    },
+    {
+     "i": 88,
+     "path": "commonMistakes[4]",
+     "en": "Deliberately stopping the urine stream to check the contraction"
+    },
+    {
+     "i": 89,
+     "path": "s6TipTitle",
+     "en": "What not to do"
+    },
+    {
+     "i": 90,
+     "path": "s6TipText",
+     "en": "It is not recommended to practice the exercises by deliberately stopping your urine stream. This method does not train the perineum correctly and can disrupt normal bladder function."
+    },
+    {
+     "i": 91,
+     "path": "s7Heading",
+     "en": "What symptoms should prompt a consultation?"
+    },
+    {
+     "i": 92,
+     "path": "s7Body1",
+     "en": "Minor leaks or an unusual sensation can sometimes appear after childbirth. However, they should not be ignored if they persist, worsen, or interfere with your daily life."
+    },
+    {
+     "i": 93,
+     "path": "warningSigns[0]",
+     "en": "Urinary leaks when you cough, sneeze, laugh, or strain"
+    },
+    {
+     "i": 94,
+     "path": "warningSigns[1]",
+     "en": "A feeling of heaviness or pressure in the lower pelvis"
+    },
+    {
+     "i": 95,
+     "path": "warningSigns[2]",
+     "en": "A feeling that a lump or something is dropping into the vagina"
+    },
+    {
+     "i": 96,
+     "path": "warningSigns[3]",
+     "en": "Difficulty holding in gas or stool"
+    },
+    {
+     "i": 97,
+     "path": "warningSigns[4]",
+     "en": "Persistent pain in the perineum"
+    },
+    {
+     "i": 98,
+     "path": "warningSigns[5]",
+     "en": "Pain during or after sexual intercourse"
+    },
+    {
+     "i": 99,
+     "path": "warningSigns[6]",
+     "en": "Difficulty identifying or correctly contracting the perineal muscles"
+    },
+    {
+     "i": 100,
+     "path": "consultLabel",
+     "en": "When should you seek advice?"
+    },
+    {
+     "i": 101,
+     "path": "s7Body2",
+     "en": "A midwife, doctor, or physiotherapist specializing in pelvic floor rehabilitation can check muscle function and suggest a suitable program."
+    },
+    {
+     "i": 102,
+     "path": "s8Heading",
+     "en": "And after a tear, an episiotomy, or a cesarean section?"
+    },
+    {
+     "i": 103,
+     "path": "s8Body1",
+     "en": "A tear or episiotomy requires particular care during healing. Resuming activities should take into account pain, the condition of the scar, and the guidance given after childbirth."
+    },
+    {
+     "i": 104,
+     "path": "s8Body2",
+     "en": "After a cesarean section, recovery also involves the abdominal wall and the scar. Even if the birth was not vaginal, pregnancy itself still placed strain on the pelvic floor."
+    },
+    {
+     "i": 105,
+     "path": "s8HighlightTitle",
+     "en": "Personalized care can help"
+    },
+    {
+     "i": 106,
+     "path": "s8HighlightText",
+     "en": "In the case of a significant tear, pain, urinary or bowel symptoms, or persistent difficulties, an assessment with a healthcare professional can be especially helpful."
+    },
+    {
+     "i": 107,
+     "path": "s9Heading",
+     "en": "Gradually resuming sport"
+    },
+    {
+     "i": 108,
+     "path": "s9Body1",
+     "en": "Resuming movement after childbirth should be gradual. Walking and gentle movements can generally resume based on how you feel, while high-impact activities call for more caution."
+    },
+    {
+     "i": 109,
+     "path": "s9Body2",
+     "en": "Before resuming running, jumping, or very intense training, it’s best to assess pelvic floor recovery and take any symptoms into account."
+    },
+    {
+     "i": 110,
+     "path": "s9AlertTitle",
+     "en": "Don’t rush the stages"
+    },
+    {
+     "i": 111,
+     "path": "s9AlertText",
+     "en": "Leaks, a feeling of heaviness, or pain during or after exercise are signs that you should slow down and seek advice before increasing intensity."
+    },
+    {
+     "i": 112,
+     "path": "s10Heading",
+     "en": "When to see a specialist?"
+    },
+    {
+     "i": 113,
+     "path": "s10Body1",
+     "en": "Pelvic floor rehabilitation with a midwife or physiotherapist can be helpful if you’re unsure whether you’re contracting correctly, if your symptoms persist, or if you want to resume certain physical activities with confidence."
+    },
+    {
+     "i": 114,
+     "path": "questionCardTitle",
+     "en": "Helpful questions to ask"
+    },
+    {
+     "i": 115,
+     "path": "appointmentQuestions[0]",
+     "en": "Are my symptoms consistent with pelvic floor weakness?"
+    },
+    {
+     "i": 116,
+     "path": "appointmentQuestions[1]",
+     "en": "Am I performing the contractions correctly?"
+    },
+    {
+     "i": 117,
+     "path": "appointmentQuestions[2]",
+     "en": "How many repetitions should I do each day?"
+    },
+    {
+     "i": 118,
+     "path": "appointmentQuestions[3]",
+     "en": "Can I go back to running, sport, or high-impact exercise?"
+    },
+    {
+     "i": 119,
+     "path": "appointmentQuestions[4]",
+     "en": "Do I need rehabilitation with a midwife or physiotherapist?"
+    },
+    {
+     "i": 120,
+     "path": "appointmentQuestions[5]",
+     "en": "Does my scar, tear, or cesarean section require any particular precautions?"
+    },
+    {
+     "i": 121,
+     "path": "s10TipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 122,
+     "path": "s10TipText",
+     "en": "Seeing a professional doesn’t necessarily mean something is wrong. A session can simply help check your technique, assess your recovery, and learn to progress correctly."
+    },
+    {
+     "i": 123,
+     "path": "s11Heading",
+     "en": "A recovery that takes time"
+    },
+    {
+     "i": 124,
+     "path": "s11Body1",
+     "en": "After giving birth, it’s normal not to immediately regain the same sensations or muscle strength you had before pregnancy."
+    },
+    {
+     "i": 125,
+     "path": "s11Body2",
+     "en": "The goal is not to do as many contractions as possible. It’s more about gradually regaining good coordination between contraction and relaxation, and then being able to use these muscles naturally in everyday activities."
+    },
+    {
+     "i": 126,
+     "path": "s11HighlightTitle",
+     "en": "Small progress is real progress"
+    },
+    {
+     "i": 127,
+     "path": "s11HighlightText",
+     "en": "Better awareness of the movement, a few extra seconds of contraction, or a reduction in leaks are already encouraging signs."
+    },
+    {
+     "i": 128,
+     "path": "s12Heading",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 129,
+     "path": "summaryTitle",
+     "en": "The essentials"
+    },
+    {
+     "i": 130,
+     "path": "summaryItems[0]",
+     "en": "Pregnancy and childbirth place significant strain on the pelvic floor."
+    },
+    {
+     "i": 131,
+     "path": "summaryItems[1]",
+     "en": "Gradual recovery is normal after giving birth."
+    },
+    {
+     "i": 132,
+     "path": "summaryItems[2]",
+     "en": "Exercises should prioritize movement quality over strength."
+    },
+    {
+     "i": 133,
+     "path": "summaryItems[3]",
+     "en": "Breathing and relaxation matter just as much as contraction."
+    },
+    {
+     "i": 134,
+     "path": "summaryItems[4]",
+     "en": "Urinary leaks, heaviness, or persistent pain deserve a professional opinion."
+    },
+    {
+     "i": 135,
+     "path": "summaryItems[5]",
+     "en": "Rehabilitation with a midwife or physiotherapist can help you regain better control."
+    },
+    {
+     "i": 136,
+     "path": "summaryItems[6]",
+     "en": "Returning to sport should be gradual, especially for high-impact activities."
+    },
+    {
+     "i": 137,
+     "path": "finalTipTitle",
+     "en": "Take the time to recover"
+    },
+    {
+     "i": 138,
+     "path": "finalTipText",
+     "en": "After childbirth, your body has been through a lot of changes. The perineum deserves the same attention as the rest of your body: gradually, regularly, and without pressure."
+    },
+    {
+     "i": 139,
+     "path": "disclaimerText",
+     "en": "This article is for informational purposes only and does not replace personalized medical advice. If you experience pain, persistent symptoms, or have any concerns about your recovery, seek advice from a healthcare professional."
+    }
+   ]
+  },
+  {
+   "id": "PeriodPain",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "PAIN"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Managing period\npain"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Heat, gentle movement, diet: habits that really bring relief."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Understanding period pain"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Effective natural solutions"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "When should you see a doctor?"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Practical everyday tips"
+    },
+    {
+     "i": 12,
+     "path": "section1Text",
+     "en": "Cramps come from uterine contractions that help shed the uterine lining. They’re caused by prostaglandins. Every body reacts differently."
+    },
+    {
+     "i": 13,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 14,
+     "path": "tip1Text",
+     "en": "Pain can vary from one cycle to the next and isn’t always the same."
+    },
+    {
+     "i": 15,
+     "path": "solutions[0].title",
+     "en": "Heat"
+    },
+    {
+     "i": 16,
+     "path": "solutions[0].text",
+     "en": "A hot water bottle on your lower abdomen can relax the muscles."
+    },
+    {
+     "i": 17,
+     "path": "solutions[1].title",
+     "en": "Gentle movement"
+    },
+    {
+     "i": 18,
+     "path": "solutions[1].text",
+     "en": "Yoga, stretching, and light walking relieve tension."
+    },
+    {
+     "i": 19,
+     "path": "solutions[2].title",
+     "en": "Diet"
+    },
+    {
+     "i": 20,
+     "path": "solutions[2].text",
+     "en": "Magnesium, omega-3s, and anti-inflammatory foods."
+    },
+    {
+     "i": 21,
+     "path": "solutions[3].title",
+     "en": "Hydration"
+    },
+    {
+     "i": 22,
+     "path": "solutions[3].text",
+     "en": "Drinking enough water helps limit bloating."
+    },
+    {
+     "i": 23,
+     "path": "solutions[4].title",
+     "en": "Massage"
+    },
+    {
+     "i": 24,
+     "path": "solutions[4].text",
+     "en": "A circular massage on your lower abdomen helps you relax."
+    },
+    {
+     "i": 25,
+     "path": "section3Text",
+     "en": "If the pain keeps you from living normally every month despite these solutions, it’s important to talk to a healthcare professional."
+    },
+    {
+     "i": 26,
+     "path": "alertTitle",
+     "en": "See a doctor if"
+    },
+    {
+     "i": 27,
+     "path": "alertText",
+     "en": "Very intense pain, heavy bleeding, extreme fatigue, or abnormal symptoms."
+    },
+    {
+     "i": 28,
+     "path": "dailyTips[0]",
+     "en": "Gently warm up your body when you wake up"
+    },
+    {
+     "i": 29,
+     "path": "dailyTips[1]",
+     "en": "Favor a balanced diet"
+    },
+    {
+     "i": 30,
+     "path": "dailyTips[2]",
+     "en": "Take time to breathe and relax"
+    },
+    {
+     "i": 31,
+     "path": "dailyTips[3]",
+     "en": "Track your cycle to better understand your pain"
+    },
+    {
+     "i": 32,
+     "path": "shareMessage",
+     "en": "Managing period pain — AWA"
+    }
+   ]
+  },
+  {
+   "id": "Pms",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "CYCLE & WELLBEING"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Premenstrual syndrome (PMS):\nunderstanding it better"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "4 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 4,
+     "path": "intro",
+     "en": "PMS affects up to 8 in 10 women. Fatigue, irritability, bloating… Understanding its causes and adopting the right habits can greatly improve this time of the month."
+    },
+    {
+     "i": 5,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 6,
+     "path": "contents[0]",
+     "en": "What is PMS?"
+    },
+    {
+     "i": 7,
+     "path": "contents[1]",
+     "en": "Common symptoms"
+    },
+    {
+     "i": 8,
+     "path": "contents[2]",
+     "en": "Possible causes"
+    },
+    {
+     "i": 9,
+     "path": "contents[3]",
+     "en": "Tips to feel better"
+    },
+    {
+     "i": 10,
+     "path": "contents[4]",
+     "en": "When to see a doctor?"
+    },
+    {
+     "i": 11,
+     "path": "section1Body",
+     "en": "Premenstrual syndrome brings together physical and emotional symptoms that usually appear 5 to 10 days before your period and go away at the start of the menstrual cycle."
+    },
+    {
+     "i": 12,
+     "path": "visual1Title",
+     "en": "A phase tied to your cycle"
+    },
+    {
+     "i": 13,
+     "path": "visual1Text",
+     "en": "Symptoms appear before your period and usually ease once it starts."
+    },
+    {
+     "i": 14,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 15,
+     "path": "tip1Text",
+     "en": "The intensity and type of symptoms can vary widely from one woman to another, and from one cycle to the next."
+    },
+    {
+     "i": 16,
+     "path": "symptoms[0].title",
+     "en": "Emotions"
+    },
+    {
+     "i": 17,
+     "path": "symptoms[0].text",
+     "en": "Irritability, anxiety, sadness, mood swings"
+    },
+    {
+     "i": 18,
+     "path": "symptoms[1].title",
+     "en": "Physical"
+    },
+    {
+     "i": 19,
+     "path": "symptoms[1].text",
+     "en": "Bloating, pain, fatigue, headaches"
+    },
+    {
+     "i": 20,
+     "path": "symptoms[2].title",
+     "en": "Behavior"
+    },
+    {
+     "i": 21,
+     "path": "symptoms[2].text",
+     "en": "Sugar cravings, appetite changes, fatigue"
+    },
+    {
+     "i": 22,
+     "path": "symptoms[3].title",
+     "en": "Sleep"
+    },
+    {
+     "i": 23,
+     "path": "symptoms[3].text",
+     "en": "Trouble sleeping or less restful sleep"
+    },
+    {
+     "i": 24,
+     "path": "section3Body",
+     "en": "Hormonal fluctuations, particularly in progesterone and estrogen, affect brain neurotransmitters (serotonin, dopamine), which may explain the emotional and physical symptoms of PMS."
+    },
+    {
+     "i": 25,
+     "path": "tip2Title",
+     "en": "Hormones play a key role"
+    },
+    {
+     "i": 26,
+     "path": "tip2Text",
+     "en": "Hormonal fluctuations can affect mood, energy, sleep, and certain physical sensations."
+    },
+    {
+     "i": 27,
+     "path": "tips[0].title",
+     "en": "Stay hydrated"
+    },
+    {
+     "i": 28,
+     "path": "tips[0].text",
+     "en": "Drinking enough water helps reduce bloating."
+    },
+    {
+     "i": 29,
+     "path": "tips[1].title",
+     "en": "Eat a balanced diet"
+    },
+    {
+     "i": 30,
+     "path": "tips[1].text",
+     "en": "Favor foods rich in magnesium, omega-3s, and B vitamins."
+    },
+    {
+     "i": 31,
+     "path": "tips[2].title",
+     "en": "Stay active"
+    },
+    {
+     "i": 32,
+     "path": "tips[2].text",
+     "en": "Physical activity releases endorphins and reduces stress."
+    },
+    {
+     "i": 33,
+     "path": "tips[3].title",
+     "en": "Manage your stress"
+    },
+    {
+     "i": 34,
+     "path": "tips[3].text",
+     "en": "Breathing exercises, meditation, journaling… Find what works for you."
+    },
+    {
+     "i": 35,
+     "path": "tips[4].title",
+     "en": "Get enough sleep"
+    },
+    {
+     "i": 36,
+     "path": "tips[4].text",
+     "en": "Quality sleep supports hormonal balance."
+    },
+    {
+     "i": 37,
+     "path": "consultTitle",
+     "en": "When should you seek medical advice?"
+    },
+    {
+     "i": 38,
+     "path": "consultText",
+     "en": "If symptoms are very intense and affect your daily life, it may be premenstrual dysphoric disorder (PMDD). Don’t hesitate to consult a healthcare professional."
+    },
+    {
+     "i": 39,
+     "path": "shareMessage",
+     "en": "Premenstrual syndrome (PMS): understanding it better — AWA"
+    }
+   ]
+  },
+  {
+   "id": "PostpartumPeriodReturn",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FREEMIUM • POSTPARTUM"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Return of periods after birth,\nwhat to expect"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "intro",
+     "en": "After giving birth, the return of your period can take some time. The timing varies depending on breastfeeding, among other things, and each person may experience this period differently."
+    },
+    {
+     "i": 5,
+     "path": "shareMessage",
+     "en": "Return of periods after birth, what to expect — AWA"
+    },
+    {
+     "i": 6,
+     "path": "h2_1",
+     "en": "1. What is the return of periods after birth?"
+    },
+    {
+     "i": 7,
+     "path": "body1",
+     "en": "The “return of periods” refers to your period coming back after giving birth. The menstrual cycle doesn’t necessarily return to its usual rhythm right away."
+    },
+    {
+     "i": 8,
+     "path": "highlightTitle",
+     "en": "Key point"
+    },
+    {
+     "i": 9,
+     "path": "highlightText",
+     "en": "There’s no single timeline that applies to everyone."
+    },
+    {
+     "i": 10,
+     "path": "h2_2",
+     "en": "2. When can your period come back?"
+    },
+    {
+     "i": 11,
+     "path": "body2",
+     "en": "The timing largely depends on breastfeeding. Without breastfeeding, your period can generally return around 6 to 8 weeks. With exclusive breastfeeding, it may be delayed by several months."
+    },
+    {
+     "i": 12,
+     "path": "simpleInfoTitle1",
+     "en": "Without breastfeeding"
+    },
+    {
+     "i": 13,
+     "path": "simpleInfoText1",
+     "en": "Generally around 6 to 8 weeks."
+    },
+    {
+     "i": 14,
+     "path": "simpleInfoTitle2",
+     "en": "With exclusive breastfeeding"
+    },
+    {
+     "i": 15,
+     "path": "simpleInfoText2",
+     "en": "The return can be delayed by several months."
+    },
+    {
+     "i": 16,
+     "path": "h2_3",
+     "en": "3. The pattern of the cycle’s return"
+    },
+    {
+     "i": 17,
+     "path": "body3",
+     "en": "The cycle returns gradually after giving birth. Breastfeeding can influence when your period reappears."
+    },
+    {
+     "i": 18,
+     "path": "schemaTitle",
+     "en": "Gradual return of the cycle"
+    },
+    {
+     "i": 19,
+     "path": "schemaSubtitle",
+     "en": "A general guide, step by step"
+    },
+    {
+     "i": 20,
+     "path": "cycleStages[0].title",
+     "en": "After giving birth"
+    },
+    {
+     "i": 21,
+     "path": "cycleStages[0].text",
+     "en": "The menstrual cycle pauses temporarily after birth."
+    },
+    {
+     "i": 22,
+     "path": "cycleStages[1].title",
+     "en": "Postpartum period"
+    },
+    {
+     "i": 23,
+     "path": "cycleStages[1].text",
+     "en": "The body recovers gradually and hormone levels shift."
+    },
+    {
+     "i": 24,
+     "path": "cycleStages[2].title",
+     "en": "Breastfeeding"
+    },
+    {
+     "i": 25,
+     "path": "cycleStages[2].text",
+     "en": "Breastfeeding may delay the return of your period, but its effect varies from person to person."
+    },
+    {
+     "i": 26,
+     "path": "cycleStages[3].title",
+     "en": "Return of periods"
+    },
+    {
+     "i": 27,
+     "path": "cycleStages[3].text",
+     "en": "Your first period may return after a few weeks or several months."
+    },
+    {
+     "i": 28,
+     "path": "cycleStages[4].title",
+     "en": "First cycles"
+    },
+    {
+     "i": 29,
+     "path": "cycleStages[4].text",
+     "en": "Cycles may be irregular before gradually settling back into their usual rhythm."
+    },
+    {
+     "i": 30,
+     "path": "schemaNoteText",
+     "en": "There’s no identical timeline for everyone. When your period returns can vary from person to person, particularly depending on breastfeeding."
+    },
+    {
+     "i": 31,
+     "path": "h2_4",
+     "en": "4. The first cycles"
+    },
+    {
+     "i": 32,
+     "path": "body4",
+     "en": "When your period returns, the first cycles may differ from those before pregnancy. In particular, they may be irregular at first."
+    },
+    {
+     "i": 33,
+     "path": "card1Title",
+     "en": "Variable rhythm"
+    },
+    {
+     "i": 34,
+     "path": "card1Text",
+     "en": "The cycle may take time to settle back into a familiar rhythm."
+    },
+    {
+     "i": 35,
+     "path": "card2Title",
+     "en": "Different flow"
+    },
+    {
+     "i": 36,
+     "path": "card2Text",
+     "en": "The flow may be different from what you observed before pregnancy."
+    },
+    {
+     "i": 37,
+     "path": "h2_5",
+     "en": "5. What can you observe?"
+    },
+    {
+     "i": 38,
+     "path": "body5",
+     "en": "Simple tracking helps you better observe how your cycle evolves over time."
+    },
+    {
+     "i": 39,
+     "path": "observations[0].title",
+     "en": "Dates"
+    },
+    {
+     "i": 40,
+     "path": "observations[0].text",
+     "en": "Note the first day of your period."
+    },
+    {
+     "i": 41,
+     "path": "observations[1].title",
+     "en": "Rhythm"
+    },
+    {
+     "i": 42,
+     "path": "observations[1].text",
+     "en": "Gradually observe the interval between cycles."
+    },
+    {
+     "i": 43,
+     "path": "observations[2].title",
+     "en": "Flow"
+    },
+    {
+     "i": 44,
+     "path": "observations[2].text",
+     "en": "Simply observe any changes compared to what’s usual for you."
+    },
+    {
+     "i": 45,
+     "path": "h2_6",
+     "en": "6. When should you seek advice?"
+    },
+    {
+     "i": 46,
+     "path": "body6",
+     "en": "If something seems unusual, persistent, or concerning, seek advice from a healthcare professional."
+    },
+    {
+     "i": 47,
+     "path": "warningSigns[0]",
+     "en": "Bleeding that seems unusual to you"
+    },
+    {
+     "i": 48,
+     "path": "warningSigns[1]",
+     "en": "Significant or persistent pain"
+    },
+    {
+     "i": 49,
+     "path": "warningSigns[2]",
+     "en": "Fever or significant discomfort"
+    },
+    {
+     "i": 50,
+     "path": "warningSigns[3]",
+     "en": "Any new symptom that worries you"
+    },
+    {
+     "i": 51,
+     "path": "summaryTitle",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 52,
+     "path": "summaryPoints[0]",
+     "en": "The return of periods after birth refers to your period coming back after giving birth."
+    },
+    {
+     "i": 53,
+     "path": "summaryPoints[1]",
+     "en": "Breastfeeding may delay the return of your period."
+    },
+    {
+     "i": 54,
+     "path": "summaryPoints[2]",
+     "en": "The first cycles may be irregular."
+    },
+    {
+     "i": 55,
+     "path": "summaryPoints[3]",
+     "en": "Noting the dates can help you track how your cycle evolves."
+    },
+    {
+     "i": 56,
+     "path": "disclaimerText",
+     "en": "Informational content. Timelines may vary depending on each situation and do not replace medical advice."
+    }
+   ]
+  }
+ ]
+}

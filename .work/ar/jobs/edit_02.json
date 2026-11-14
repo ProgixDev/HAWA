@@ -1,0 +1,2140 @@
+{
+ "kind": "editorial",
+ "units": [
+  {
+   "id": "CyclePhases",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "Menstrual cycle"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "The different phases\nof the cycle explained"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 4,
+     "path": "intro",
+     "en": "Your menstrual cycle is made up of several phases, each playing an essential role in your hormonal balance and your health."
+    },
+    {
+     "i": 5,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 6,
+     "path": "topics[0]",
+     "en": "The 4 phases of the cycle"
+    },
+    {
+     "i": 7,
+     "path": "topics[1]",
+     "en": "How your body changes"
+    },
+    {
+     "i": 8,
+     "path": "topics[2]",
+     "en": "Why understanding your cycle matters"
+    },
+    {
+     "i": 9,
+     "path": "topics[3]",
+     "en": "Frequently asked questions"
+    },
+    {
+     "i": 10,
+     "path": "body1",
+     "en": "Your cycle is generally divided into four main phases. Their length can vary from person to person: every body has its own rhythm."
+    },
+    {
+     "i": 11,
+     "path": "diagram.menstrual.name",
+     "en": "Menstrual phase"
+    },
+    {
+     "i": 12,
+     "path": "diagram.menstrual.days",
+     "en": "Days 1 to 5"
+    },
+    {
+     "i": 13,
+     "path": "diagram.follicular.name",
+     "en": "Follicular phase"
+    },
+    {
+     "i": 14,
+     "path": "diagram.follicular.days",
+     "en": "Days 1 to 13"
+    },
+    {
+     "i": 15,
+     "path": "diagram.luteal.name",
+     "en": "Luteal phase"
+    },
+    {
+     "i": 16,
+     "path": "diagram.luteal.days",
+     "en": "Days 15 to 28"
+    },
+    {
+     "i": 17,
+     "path": "diagram.ovulatory.name",
+     "en": "Ovulatory phase"
+    },
+    {
+     "i": 18,
+     "path": "diagram.ovulatory.days",
+     "en": "Around day 14"
+    },
+    {
+     "i": 19,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 20,
+     "path": "tip1Text",
+     "en": "Every woman is unique: observe your body and learn your own rhythm."
+    },
+    {
+     "i": 21,
+     "path": "body2",
+     "en": "Hormonal changes can influence your energy, mood, sleep, and certain physical sensations throughout the cycle."
+    },
+    {
+     "i": 22,
+     "path": "bodyChanges[0].title",
+     "en": "During your period"
+    },
+    {
+     "i": 23,
+     "path": "bodyChanges[0].text",
+     "en": "Your energy may be lower and your body may need more rest."
+    },
+    {
+     "i": 24,
+     "path": "bodyChanges[1].title",
+     "en": "Follicular phase"
+    },
+    {
+     "i": 25,
+     "path": "bodyChanges[1].text",
+     "en": "Energy gradually rises and you may feel more energized."
+    },
+    {
+     "i": 26,
+     "path": "bodyChanges[2].title",
+     "en": "Around ovulation"
+    },
+    {
+     "i": 27,
+     "path": "bodyChanges[2].text",
+     "en": "Some women feel more energy, motivation, and confidence."
+    },
+    {
+     "i": 28,
+     "path": "bodyChanges[3].title",
+     "en": "Luteal phase"
+    },
+    {
+     "i": 29,
+     "path": "bodyChanges[3].text",
+     "en": "Fatigue, bloating, or mood changes may appear."
+    },
+    {
+     "i": 30,
+     "path": "softTipTitle",
+     "en": "Listen to your body"
+    },
+    {
+     "i": 31,
+     "path": "softTipText",
+     "en": "There isn’t just one way to experience each phase. Your own sensations remain the best guide."
+    },
+    {
+     "i": 32,
+     "path": "body3",
+     "en": "Getting to know your cycle better can help you anticipate certain periods and understand the changes you notice day to day."
+    },
+    {
+     "i": 33,
+     "path": "whyItems[0]",
+     "en": "Better understand your body’s signals"
+    },
+    {
+     "i": 34,
+     "path": "whyItems[1]",
+     "en": "Anticipate your period and its different phases"
+    },
+    {
+     "i": 35,
+     "path": "whyItems[2]",
+     "en": "Understand certain mood changes"
+    },
+    {
+     "i": 36,
+     "path": "whyItems[3]",
+     "en": "Adjust your activity to your energy level"
+    },
+    {
+     "i": 37,
+     "path": "whyItems[4]",
+     "en": "Improve your daily tracking"
+    },
+    {
+     "i": 38,
+     "path": "body4",
+     "en": "Here are a few answers to questions commonly asked about the different phases of the cycle."
+    },
+    {
+     "i": 39,
+     "path": "faq[0].question",
+     "en": "Is it normal that my cycle doesn’t last exactly 28 days?"
+    },
+    {
+     "i": 40,
+     "path": "faq[0].answer",
+     "en": "Yes. The length of a cycle can vary from person to person, and even slightly from month to month."
+    },
+    {
+     "i": 41,
+     "path": "faq[1].question",
+     "en": "Does ovulation always happen on day 14?"
+    },
+    {
+     "i": 42,
+     "path": "faq[1].answer",
+     "en": "No. Day 14 is a common estimate for a 28-day cycle, but ovulation can happen earlier or later."
+    },
+    {
+     "i": 43,
+     "path": "faq[2].question",
+     "en": "Why do my symptoms change depending on the phase?"
+    },
+    {
+     "i": 44,
+     "path": "faq[2].answer",
+     "en": "Hormonal changes throughout the cycle can influence energy, mood, sleep, and certain physical sensations."
+    },
+    {
+     "i": 45,
+     "path": "faq[3].question",
+     "en": "Is it useful to track my symptoms?"
+    },
+    {
+     "i": 46,
+     "path": "faq[3].answer",
+     "en": "Yes. Noting them regularly can help you recognize your own patterns and better understand your rhythm."
+    },
+    {
+     "i": 47,
+     "path": "endTitle",
+     "en": "Your cycle, your rhythm"
+    },
+    {
+     "i": 48,
+     "path": "endText",
+     "en": "The more you observe your cycle, the more you can understand what’s typical for you."
+    },
+    {
+     "i": 49,
+     "path": "shareMessage",
+     "en": "The different phases of the cycle explained — AWA"
+    }
+   ]
+  },
+  {
+   "id": "CycleVitalSign",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "CYCLE & PERIODS"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Your cycle, an excellent\nhealth indicator"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Why the cycle is sometimes called the “fifth vital sign.”"
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Your cycle: a reflection of your body"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "What is a “normal” cycle?"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Changes to watch for"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "What can these changes reveal?"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Tracking your cycle to know yourself better"
+    },
+    {
+     "i": 13,
+     "path": "topics[5]",
+     "en": "When to seek advice?"
+    },
+    {
+     "i": 14,
+     "path": "topics[6]",
+     "en": "Good to know"
+    },
+    {
+     "i": 15,
+     "path": "observeLabels[0]",
+     "en": "Cycle length"
+    },
+    {
+     "i": 16,
+     "path": "observeLabels[1]",
+     "en": "Period length"
+    },
+    {
+     "i": 17,
+     "path": "observeLabels[2]",
+     "en": "Menstrual flow"
+    },
+    {
+     "i": 18,
+     "path": "observeLabels[3]",
+     "en": "Pain"
+    },
+    {
+     "i": 19,
+     "path": "observeLabels[4]",
+     "en": "Vaginal discharge"
+    },
+    {
+     "i": 20,
+     "path": "observeLabels[5]",
+     "en": "Mood"
+    },
+    {
+     "i": 21,
+     "path": "observeLabels[6]",
+     "en": "Energy / fatigue"
+    },
+    {
+     "i": 22,
+     "path": "observeLabels[7]",
+     "en": "Other recurring symptoms"
+    },
+    {
+     "i": 23,
+     "path": "factorLabels[0]",
+     "en": "Stress"
+    },
+    {
+     "i": 24,
+     "path": "factorLabels[1]",
+     "en": "Lack of sleep"
+    },
+    {
+     "i": 25,
+     "path": "factorLabels[2]",
+     "en": "Significant weight changes"
+    },
+    {
+     "i": 26,
+     "path": "factorLabels[3]",
+     "en": "Very intense physical activity"
+    },
+    {
+     "i": 27,
+     "path": "factorLabels[4]",
+     "en": "Hormonal changes"
+    },
+    {
+     "i": 28,
+     "path": "factorLabels[5]",
+     "en": "Contraception"
+    },
+    {
+     "i": 29,
+     "path": "factorLabels[6]",
+     "en": "Certain medical conditions"
+    },
+    {
+     "i": 30,
+     "path": "s1Body1",
+     "en": "The menstrual cycle is influenced by the body’s hormonal activity throughout the month. Learning to observe it can help you better understand how your body works, without needing to analyze everything in detail."
+    },
+    {
+     "i": 31,
+     "path": "s1Body2",
+     "en": "Here are the most useful things to notice:"
+    },
+    {
+     "i": 32,
+     "path": "s2Body1",
+     "en": "There’s no single perfect cycle: every body has its own rhythm, and that rhythm can also vary slightly from month to month. A cycle is generally considered regular when it lasts between 21 and 35 days, and periods most often last 3 to 7 days."
+    },
+    {
+     "i": 33,
+     "path": "s2Body2",
+     "en": "These figures are averages: slight variations remain completely normal, especially after puberty, after giving birth, or as menopause approaches."
+    },
+    {
+     "i": 34,
+     "path": "s3Body1",
+     "en": "Some changes are worth watching a little more closely, such as:"
+    },
+    {
+     "i": 35,
+     "path": "changesToWatch[0]",
+     "en": "A marked change in cycle regularity"
+    },
+    {
+     "i": 36,
+     "path": "changesToWatch[1]",
+     "en": "Periods noticeably heavier than usual"
+    },
+    {
+     "i": 37,
+     "path": "changesToWatch[2]",
+     "en": "Unusually strong or persistent pain"
+    },
+    {
+     "i": 38,
+     "path": "changesToWatch[3]",
+     "en": "A prolonged absence of periods"
+    },
+    {
+     "i": 39,
+     "path": "changesToWatch[4]",
+     "en": "Bleeding between periods"
+    },
+    {
+     "i": 40,
+     "path": "changesToWatch[5]",
+     "en": "A significant change that repeats over several cycles"
+    },
+    {
+     "i": 41,
+     "path": "s3Body2",
+     "en": "A single, isolated unusual cycle doesn’t automatically mean a health problem: the body can react temporarily to many different factors."
+    },
+    {
+     "i": 42,
+     "path": "s4Body1",
+     "en": "These changes can sometimes be linked to several factors, without necessarily being a problem:"
+    },
+    {
+     "i": 43,
+     "path": "s4Body2",
+     "en": "These are just some possible explanations among others: they never replace the advice of a healthcare professional."
+    },
+    {
+     "i": 44,
+     "path": "s5VisualTitle",
+     "en": "Observing your own rhythm"
+    },
+    {
+     "i": 45,
+     "path": "s5VisualText",
+     "en": "Noting your dates, flow, or how you feel helps you get to know your habits, month after month."
+    },
+    {
+     "i": 46,
+     "path": "s5Body",
+     "en": "The first day of your period, its length, the flow, pain, mood, energy, or vaginal discharge are all things you can note over time. The goal isn’t to compare your cycle to someone else’s, but to better recognize what’s usual for you, and what differs from it."
+    },
+    {
+     "i": 47,
+     "path": "s6Body1",
+     "en": "It’s completely normal to have questions about your cycle. Seeking medical advice can be helpful in certain situations, for example:"
+    },
+    {
+     "i": 48,
+     "path": "whenToAsk[0]",
+     "en": "Significant changes that persist over several cycles"
+    },
+    {
+     "i": 49,
+     "path": "whenToAsk[1]",
+     "en": "Pain that keeps you from your usual activities"
+    },
+    {
+     "i": 50,
+     "path": "whenToAsk[2]",
+     "en": "Very heavy periods"
+    },
+    {
+     "i": 51,
+     "path": "whenToAsk[3]",
+     "en": "A prolonged absence of periods"
+    },
+    {
+     "i": 52,
+     "path": "whenToAsk[4]",
+     "en": "Unusual bleeding"
+    },
+    {
+     "i": 53,
+     "path": "whenToAsk[5]",
+     "en": "Any persistent symptom that worries you"
+    },
+    {
+     "i": 54,
+     "path": "s6Body2",
+     "en": "Talking to a healthcare professional can help put your mind at ease or, if needed, get you the right support — it’s never a reason for concern in itself."
+    },
+    {
+     "i": 55,
+     "path": "tipText",
+     "en": "A cycle doesn’t need to be perfectly regular to be normal. Knowing your own usual rhythm is often more useful than looking for an ideal length."
+    },
+    {
+     "i": 56,
+     "path": "finalBody",
+     "en": "Your menstrual cycle is one of many indicators of your health. Tracking it regularly can help you better understand your body and, over time, notice changes that deserve particular attention."
+    },
+    {
+     "i": 57,
+     "path": "shareMessage",
+     "en": "Your cycle, an excellent health indicator — AWA"
+    }
+   ]
+  },
+  {
+   "id": "ExerciseCycleSupport",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "CYCLE • PHYSICAL ACTIVITY"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Move to\nsupport your cycle"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "8 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Educational content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Why regular physical activity may support your cycle’s balance, which types of movement to favor, and how to adapt your pace without pressure or guilt."
+    },
+    {
+     "i": 7,
+     "path": "introSecondary",
+     "en": "It’s not about doing more, but about moving in a way that suits you and that you can keep up over time."
+    },
+    {
+     "i": 8,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 9,
+     "path": "topics[0]",
+     "en": "Why moving may support your cycle"
+    },
+    {
+     "i": 10,
+     "path": "topics[1]",
+     "en": "What benefits for your cycle?"
+    },
+    {
+     "i": 11,
+     "path": "topics[2]",
+     "en": "Which type of activity to choose?"
+    },
+    {
+     "i": 12,
+     "path": "topics[3]",
+     "en": "How much should you move?"
+    },
+    {
+     "i": 13,
+     "path": "topics[4]",
+     "en": "Adapting activity to your cycle"
+    },
+    {
+     "i": 14,
+     "path": "topics[5]",
+     "en": "Moving when you have PCOS"
+    },
+    {
+     "i": 15,
+     "path": "topics[6]",
+     "en": "Mistakes to avoid"
+    },
+    {
+     "i": 16,
+     "path": "topics[7]",
+     "en": "When to ask for advice"
+    },
+    {
+     "i": 17,
+     "path": "topics[8]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 18,
+     "path": "section1Body1",
+     "en": "Regular physical activity influences many of the body’s systems, including those involved in hormonal regulation and how the menstrual cycle functions. It acts in particular on insulin sensitivity, stress management, and sleep quality — three factors that interact with hormonal balance."
+    },
+    {
+     "i": 19,
+     "path": "section1Body2",
+     "en": "Moving regularly doesn’t guarantee a “perfect” cycle, but it’s one of the habits that supports good overall health, with effects that may be reflected in the cycle for some women."
+    },
+    {
+     "i": 20,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 21,
+     "path": "tip1Text",
+     "en": "The link between physical activity and the cycle is individual: some women notice clear effects, others less so. Either way, it remains a beneficial habit."
+    },
+    {
+     "i": 22,
+     "path": "section2Intro",
+     "en": "Regular activity may contribute on several levels, without these effects being guaranteed or identical for everyone:"
+    },
+    {
+     "i": 23,
+     "path": "benefits[0]",
+     "en": "Supporting metabolic health"
+    },
+    {
+     "i": 24,
+     "path": "benefits[1]",
+     "en": "Helping regulate blood sugar"
+    },
+    {
+     "i": 25,
+     "path": "benefits[2]",
+     "en": "Supporting hormonal balance"
+    },
+    {
+     "i": 26,
+     "path": "benefits[3]",
+     "en": "Improving energy levels"
+    },
+    {
+     "i": 27,
+     "path": "benefits[4]",
+     "en": "Reducing stress"
+    },
+    {
+     "i": 28,
+     "path": "benefits[5]",
+     "en": "Supporting sleep quality"
+    },
+    {
+     "i": 29,
+     "path": "benefits[6]",
+     "en": "Promoting, in some women, better cycle regularity"
+    },
+    {
+     "i": 30,
+     "path": "neutral1Text",
+     "en": "These benefits build up gradually: this isn’t an immediate effect after a single session."
+    },
+    {
+     "i": 31,
+     "path": "section3Intro",
+     "en": "No activity is “better” than another: the most effective one is the one you enjoy practicing regularly."
+    },
+    {
+     "i": 32,
+     "path": "activities[0]",
+     "en": "Walking"
+    },
+    {
+     "i": 33,
+     "path": "activities[1]",
+     "en": "Yoga / gentle mobility"
+    },
+    {
+     "i": 34,
+     "path": "activities[2]",
+     "en": "Strength training"
+    },
+    {
+     "i": 35,
+     "path": "activities[3]",
+     "en": "Cycling"
+    },
+    {
+     "i": 36,
+     "path": "activities[4]",
+     "en": "Swimming"
+    },
+    {
+     "i": 37,
+     "path": "activities[5]",
+     "en": "Dance"
+    },
+    {
+     "i": 38,
+     "path": "section4Body1",
+     "en": "There’s no universal rule: what matters most is regularity rather than performance. Fitting short bursts of movement into your day (walking, taking the stairs, stretching) counts just as much as a planned workout."
+    },
+    {
+     "i": 39,
+     "path": "section4Body2",
+     "en": "The right intensity depends on your fitness level, your health, your energy at the time, and your personal goals: what works for one person doesn’t necessarily work for another."
+    },
+    {
+     "i": 40,
+     "path": "highlightTitle",
+     "en": "Prioritize regularity"
+    },
+    {
+     "i": 41,
+     "path": "highlightText",
+     "en": "Three short sessions a week, kept up over time, are often more beneficial than an ambitious goal abandoned after a few days."
+    },
+    {
+     "i": 42,
+     "path": "section5Body",
+     "en": "Energy and physical comfort can vary throughout the cycle. Adjusting the intensity of your activity based on how you feel is entirely legitimate."
+    },
+    {
+     "i": 43,
+     "path": "cyclePhases[0]",
+     "en": "During your period: gentle movement if that suits you"
+    },
+    {
+     "i": 44,
+     "path": "cyclePhases[1]",
+     "en": "After your period: gradually increase if your energy allows"
+    },
+    {
+     "i": 45,
+     "path": "cyclePhases[2]",
+     "en": "Around ovulation: maintain normal activity according to your comfort"
+    },
+    {
+     "i": 46,
+     "path": "cyclePhases[3]",
+     "en": "Before your period: favor manageable movement, and rest if needed"
+    },
+    {
+     "i": 47,
+     "path": "neutral2Text",
+     "en": "These are not strict physiological rules: every woman experiences her cycle differently, and these examples are reference points, not obligations."
+    },
+    {
+     "i": 48,
+     "path": "section6Body",
+     "en": "For women with PCOS, regular physical activity can be particularly helpful: it supports insulin sensitivity, a mechanism often affected in this context, and may contribute to better metabolic and hormonal balance over the long term."
+    },
+    {
+     "i": 49,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 50,
+     "path": "tip2Text",
+     "en": "This isn’t a cure, but a complementary support to overall care, to be adapted with a healthcare professional."
+    },
+    {
+     "i": 51,
+     "path": "section7Intro",
+     "en": "Some misconceptions or habits can do more harm than good:"
+    },
+    {
+     "i": 52,
+     "path": "mistakes[0]",
+     "en": "Wanting to exercise excessively"
+    },
+    {
+     "i": 53,
+     "path": "mistakes[1]",
+     "en": "Thinking that only intense workouts are useful"
+    },
+    {
+     "i": 54,
+     "path": "mistakes[2]",
+     "en": "Exercising only with a weight-loss goal in mind"
+    },
+    {
+     "i": 55,
+     "path": "mistakes[3]",
+     "en": "Ignoring fatigue or pain"
+    },
+    {
+     "i": 56,
+     "path": "mistakes[4]",
+     "en": "Feeling guilty after a missed session"
+    },
+    {
+     "i": 57,
+     "path": "section8Intro",
+     "en": "In certain situations, a healthcare professional’s advice is particularly useful before resuming or adapting a physical activity:"
+    },
+    {
+     "i": 58,
+     "path": "consultReasons[0]",
+     "en": "Persistent pain"
+    },
+    {
+     "i": 59,
+     "path": "consultReasons[1]",
+     "en": "Unusual bleeding"
+    },
+    {
+     "i": 60,
+     "path": "consultReasons[2]",
+     "en": "Dizziness"
+    },
+    {
+     "i": 61,
+     "path": "consultReasons[3]",
+     "en": "Significant, unusual fatigue"
+    },
+    {
+     "i": 62,
+     "path": "consultReasons[4]",
+     "en": "A specific medical condition"
+    },
+    {
+     "i": 63,
+     "path": "consultReasons[5]",
+     "en": "Resuming activity after a pregnancy or childbirth"
+    },
+    {
+     "i": 64,
+     "path": "consultReasons[6]",
+     "en": "Any situation where activity has been medically restricted"
+    },
+    {
+     "i": 65,
+     "path": "tip3Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 66,
+     "path": "tip3Text",
+     "en": "Movement doesn’t need to be intense or perfect to be beneficial. A regular, enjoyable, and sustainable activity may support your overall health and contribute, in some women, to better cycle management."
+    },
+    {
+     "i": 67,
+     "path": "finalNoteTitle",
+     "en": "A guide to help you understand"
+    },
+    {
+     "i": 68,
+     "path": "finalNoteText",
+     "en": "This article is intended for general information and does not replace medical advice. Always adapt physical activity to your personal situation, and seek advice from a healthcare professional if in doubt."
+    },
+    {
+     "i": 69,
+     "path": "shareMessage",
+     "en": "Move to support your cycle — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FastingQadaa",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FASTING & QADAA"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Fasting and exemption:\nthe make-up (Qadaa)"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "FAQ"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "How and when to make up missed fasting days, at your own pace and without guilt."
+    },
+    {
+     "i": 7,
+     "path": "disclaimerTitle",
+     "en": "Important information"
+    },
+    {
+     "i": 8,
+     "path": "disclaimerText",
+     "en": "This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings."
+    },
+    {
+     "i": 9,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 10,
+     "path": "topics[0]",
+     "en": "When to make up the missed days?"
+    },
+    {
+     "i": 11,
+     "path": "topics[1]",
+     "en": "A common timeframe: before the next Ramadan"
+    },
+    {
+     "i": 12,
+     "path": "topics[2]",
+     "en": "Pregnancy and breastfeeding"
+    },
+    {
+     "i": 13,
+     "path": "topics[3]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 14,
+     "path": "section1Body",
+     "en": "Qadaa refers to making up, at a later time, the fasting days missed during Ramadan — notably because of menstruation. These days must be made up because the Ramadan fast remains a pillar of the month, and the days suspended due to menstruation are counted as owed, without this being any fault of yours."
+    },
+    {
+     "i": 15,
+     "path": "section1Body2",
+     "en": "The make-up can generally begin as soon as Ramadan ends, as soon as your situation allows it. You can organize these days at your own pace: some people prefer to group them together soon after Ramadan, while others spread them out gradually over the following months."
+    },
+    {
+     "i": 16,
+     "path": "noteTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 17,
+     "path": "noteText",
+     "en": "Making up the days consecutively or spreading them out may be viewed differently depending on the school of jurisprudence; neither approach is presented here as the only valid one."
+    },
+    {
+     "i": 18,
+     "path": "recordTips[0]",
+     "en": "Write down the total number of days to make up as soon as Ramadan ends"
+    },
+    {
+     "i": 19,
+     "path": "recordTips[1]",
+     "en": "Choose a simple method: calendar, app, notebook"
+    },
+    {
+     "i": 20,
+     "path": "recordTips[2]",
+     "en": "Check off each day as it is made up"
+    },
+    {
+     "i": 21,
+     "path": "section1Body3",
+     "en": "For example, a person with 6 days to make up can choose to fast one per week for six weeks, or group them into the same period if that suits them better."
+    },
+    {
+     "i": 22,
+     "path": "section2Body",
+     "en": "It is common to try to make up the missed days before the next Ramadan. This practice is not systematically mandatory in every case, but it makes organizing easier and avoids accumulating a large number of pending days."
+    },
+    {
+     "i": 23,
+     "path": "visual1Title",
+     "en": "A pace that adapts to you"
+    },
+    {
+     "i": 24,
+     "path": "visual1Text",
+     "en": "Spreading out the days to make up according to your schedule lets you move forward calmly, without pressure."
+    },
+    {
+     "i": 25,
+     "path": "section2Body2",
+     "en": "Planning ahead helps avoid last-minute stress. A simple tip is to count the number of days remaining before the next Ramadan and spread the days to make up over the available weeks or months."
+    },
+    {
+     "i": 26,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 27,
+     "path": "tip1Text",
+     "en": "If a lasting or recurring reason prevents fasting (a prolonged health condition, for example), the situation may fall under a different framework; it is then especially useful to discuss it with a qualified scholar."
+    },
+    {
+     "i": 28,
+     "path": "alert2Title",
+     "en": "Important information"
+    },
+    {
+     "i": 29,
+     "path": "alert2Text",
+     "en": "The precise rules in case the timeframe is exceeded can differ depending on interpretation. For any complicated situation, the opinion of a qualified scholar remains the reference."
+    },
+    {
+     "i": 30,
+     "path": "section2Body3",
+     "en": "For example, if the next Ramadan begins in 8 months and 6 days remain to be made up, one possibility is to plan for about one day per month, with flexibility for unforeseen circumstances."
+    },
+    {
+     "i": 31,
+     "path": "section3Body",
+     "en": "Pregnancy and breastfeeding can affect the ability to fast, particularly when fasting poses a risk to the health of the mother or the child. Physical well-being and the real ability to fast are important factors to take into account."
+    },
+    {
+     "i": 32,
+     "path": "visual2Title",
+     "en": "A situation that is taken into account"
+    },
+    {
+     "i": 33,
+     "path": "visual2Text",
+     "en": "These circumstances are recognized by religious tradition as potentially giving rise to an exemption."
+    },
+    {
+     "i": 34,
+     "path": "section3Body2",
+     "en": "Religious opinions regarding fasting not carried out during pregnancy or breastfeeding can vary depending on the school, particularly on the question of whether a simple make-up is sufficient or whether a compensation is also involved. The precise reason for not fasting and the personal situation can influence the applicable answer."
+    },
+    {
+     "i": 35,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 36,
+     "path": "tip2Text",
+     "en": "Qadaa allows you to calmly make up the missed fasting days, at your own pace. In case of a particular situation (exceeded timeframe, pregnancy, breastfeeding, lasting impediment), the opinion of a qualified scholar remains the best resource."
+    },
+    {
+     "i": 37,
+     "path": "shareMessage",
+     "en": "Fasting and exemption: the make-up (Qadaa) — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FertilityWindow",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FERTILE WINDOW"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "The fertile window:\nhow it works"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "6 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Why the days around ovulation matter most for conceiving."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "What is the fertile window?"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Why these days matter most"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "How to identify your fertile window"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 12,
+     "path": "section1Body",
+     "en": "The fertile window refers to the period in your cycle during which pregnancy is possible. It spans about 6 days: the 5 days before ovulation, plus the day of ovulation itself."
+    },
+    {
+     "i": 13,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 14,
+     "path": "tip1Text",
+     "en": "Every cycle is different: the fertile window doesn’t necessarily fall on the same calendar day from one month to the next."
+    },
+    {
+     "i": 15,
+     "path": "section2Body1",
+     "en": "Sperm can survive for up to 5 days in the reproductive tract, which widens the period during which conception is possible. The egg, meanwhile, remains fertilizable for only about 24 hours after it’s released."
+    },
+    {
+     "i": 16,
+     "path": "section2Body2",
+     "en": "For example, intercourse that happens 3 days before ovulation can lead to conception, while intercourse the day after ovulation often comes too late."
+    },
+    {
+     "i": 17,
+     "path": "section3Intro",
+     "en": "Several signs, observed together, help you better pinpoint this period:"
+    },
+    {
+     "i": 18,
+     "path": "trackingSigns[0]",
+     "en": "Tracking your cycle length"
+    },
+    {
+     "i": 19,
+     "path": "trackingSigns[1]",
+     "en": "Observing your cervical mucus"
+    },
+    {
+     "i": 20,
+     "path": "trackingSigns[2]",
+     "en": "Measuring your basal body temperature"
+    },
+    {
+     "i": 21,
+     "path": "trackingSigns[3]",
+     "en": "Using ovulation (LH) tests"
+    },
+    {
+     "i": 22,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 23,
+     "path": "tip2Text",
+     "en": "Combining several signs (cycle, mucus, temperature) gives a more reliable picture of your fertile window than any single sign on its own."
+    },
+    {
+     "i": 24,
+     "path": "shareMessage",
+     "en": "The fertile window: how it works — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FiqhWomenIntro",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "WOMEN’S FIQH"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Women’s fiqh:\nan introduction"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "7 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "A comprehensive overview of the main topics covered in women’s fiqh, between religious practice and daily life."
+    },
+    {
+     "i": 7,
+     "path": "disclaimerTitle",
+     "en": "Important information"
+    },
+    {
+     "i": 8,
+     "path": "disclaimerText",
+     "en": "This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings."
+    },
+    {
+     "i": 9,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 10,
+     "path": "topics[0]",
+     "en": "What women’s fiqh covers"
+    },
+    {
+     "i": 11,
+     "path": "topics[1]",
+     "en": "Why is women’s fiqh important?"
+    },
+    {
+     "i": 12,
+     "path": "topics[2]",
+     "en": "Schools of jurisprudence (madhab)"
+    },
+    {
+     "i": 13,
+     "path": "topics[3]",
+     "en": "Fiqh, health, and daily practice"
+    },
+    {
+     "i": 14,
+     "path": "topics[4]",
+     "en": "AWA’s educational role"
+    },
+    {
+     "i": 15,
+     "path": "topics[5]",
+     "en": "When to seek advice from a qualified person?"
+    },
+    {
+     "i": 16,
+     "path": "topics[6]",
+     "en": "Key takeaways"
+    },
+    {
+     "i": 17,
+     "path": "section1Body",
+     "en": "Women’s fiqh is the field of Islamic jurisprudence (fiqh) concerned with practical questions related to women’s bodies and worship. It helps in understanding how to reconcile daily religious life with the different stages of the female cycle."
+    },
+    {
+     "i": 18,
+     "path": "dailyTopics[0]",
+     "en": "Menstruation and the menstrual cycle"
+    },
+    {
+     "i": 19,
+     "path": "dailyTopics[1]",
+     "en": "Menstrual blood and its status"
+    },
+    {
+     "i": 20,
+     "path": "dailyTopics[2]",
+     "en": "Ritual purity"
+    },
+    {
+     "i": 21,
+     "path": "dailyTopics[3]",
+     "en": "Ghusl after menstruation"
+    },
+    {
+     "i": 22,
+     "path": "dailyTopics[4]",
+     "en": "Prayer during and after menstruation"
+    },
+    {
+     "i": 23,
+     "path": "dailyTopics[5]",
+     "en": "The Ramadan fast and days to make up"
+    },
+    {
+     "i": 24,
+     "path": "dailyTopics[6]",
+     "en": "Irregular bleeding (istihâda)"
+    },
+    {
+     "i": 25,
+     "path": "dailyTopics[7]",
+     "en": "Nifas after childbirth"
+    },
+    {
+     "i": 26,
+     "path": "dailyTopics[8]",
+     "en": "Daily life and religious practice"
+    },
+    {
+     "i": 27,
+     "path": "section1Body2",
+     "en": "Fiqh is a field of legal interpretation: some questions are subject to different opinions depending on the scholars and schools of thought, without any single opinion being absolute on its own."
+    },
+    {
+     "i": 28,
+     "path": "section2Body",
+     "en": "Understanding women’s fiqh makes it possible to live one’s religious practice with more serenity, without confusion, at times when the body goes through specific stages (menstruation, pregnancy, postpartum, menopause). It also helps distinguish what falls under an obligation, an exemption, or a simple recommendation."
+    },
+    {
+     "i": 29,
+     "path": "visual1Title",
+     "en": "A more peaceful religious practice"
+    },
+    {
+     "i": 30,
+     "path": "visual1Text",
+     "en": "Knowing what is expected at each stage of the cycle makes it possible to approach one’s faith with more confidence."
+    },
+    {
+     "i": 31,
+     "path": "section3Body",
+     "en": "A madhab refers to a school of legal thought, that is, a structured method that scholars use to interpret religious sources (Quran, Sunnah, consensus, reasoning) and answer practical questions of daily life. Several schools exist, because scholars have not always followed the same methodology or interpreted the same texts in the same way."
+    },
+    {
+     "i": 32,
+     "path": "section3Body2",
+     "en": "This is why some questions related to menstruation, ritual purity, prayer, or fasting may be subject to different opinions depending on the scholars consulted. A difference of opinion does not mean that one opinion is “wrong”: it reflects different methodologies and readings of the same sources."
+    },
+    {
+     "i": 33,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 34,
+     "path": "tip1Text",
+     "en": "It is common to follow the approach or madhab traditionally followed in one’s family or community."
+    },
+    {
+     "i": 35,
+     "path": "noteTitle",
+     "en": "Please note"
+    },
+    {
+     "i": 36,
+     "path": "noteText",
+     "en": "When a specific religious situation remains uncertain, it is entirely appropriate to ask for the opinion of a qualified scholar."
+    },
+    {
+     "i": 37,
+     "path": "section4Body",
+     "en": "Medical information about the cycle (duration, symptoms, hormonal phases) and the religious rules that follow from it (purity, prayer, fasting) respond to two different logics: one describes a biological phenomenon, the other defines a framework for spiritual practice. The two can complement each other, but must not be confused."
+    },
+    {
+     "i": 38,
+     "path": "visual2Title",
+     "en": "Two complementary perspectives"
+    },
+    {
+     "i": 39,
+     "path": "visual2Text",
+     "en": "Medical tracking of the cycle and the religious markers that follow from it each provide useful insight."
+    },
+    {
+     "i": 40,
+     "path": "tip2Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 41,
+     "path": "tip2Text",
+     "en": "A healthcare professional can answer medical questions; a qualified scholar remains the reference for religious questions."
+    },
+    {
+     "i": 42,
+     "path": "section5Body",
+     "en": "AWA supports users in understanding their cycle, at the intersection of health and religious practice, with an educational approach that respects differences between schools."
+    },
+    {
+     "i": 43,
+     "path": "awaRole[0]",
+     "en": "Understand the basic concepts of women’s fiqh"
+    },
+    {
+     "i": 44,
+     "path": "awaRole[1]",
+     "en": "Better understand one’s cycle, from both a medical and religious point of view"
+    },
+    {
+     "i": 45,
+     "path": "awaRole[2]",
+     "en": "Identify questions that require the opinion of a qualified scholar"
+    },
+    {
+     "i": 46,
+     "path": "awaRole[3]",
+     "en": "Find one’s way among differences between madhahib without confusion"
+    },
+    {
+     "i": 47,
+     "path": "awaRole[4]",
+     "en": "Access clear and neutral educational explanations"
+    },
+    {
+     "i": 48,
+     "path": "awaRole[5]",
+     "en": "Distinguish medical information from a religious decision"
+    },
+    {
+     "i": 49,
+     "path": "awaRole[6]",
+     "en": "Follow information useful to one’s religious practice, if needed"
+    },
+    {
+     "i": 50,
+     "path": "awaRole[7]",
+     "en": "Prepare specific questions to ask a qualified scholar"
+    },
+    {
+     "i": 51,
+     "path": "alert3Title",
+     "en": "Important information"
+    },
+    {
+     "i": 52,
+     "path": "alert3Text",
+     "en": "AWA is an educational and informational tool: it does not replace, under any circumstances, the opinion of a qualified scholar or religious authority."
+    },
+    {
+     "i": 53,
+     "path": "section6Body",
+     "en": "Some situations deserve to be raised directly with a trusted scholar, particularly when:"
+    },
+    {
+     "i": 54,
+     "path": "whenToAsk[0]",
+     "en": "A personal situation does not match any typical case (unusual bleeding, prolonged doubt...)"
+    },
+    {
+     "i": 55,
+     "path": "whenToAsk[1]",
+     "en": "Several opinions seem to contradict each other and you don’t know which one to follow"
+    },
+    {
+     "i": 56,
+     "path": "whenToAsk[2]",
+     "en": "A religious decision has a significant impact on your daily practice"
+    },
+    {
+     "i": 57,
+     "path": "whenToAsk[3]",
+     "en": "You feel the need for guidance suited to your personal situation"
+    },
+    {
+     "i": 58,
+     "path": "tip3Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 59,
+     "path": "tip3Text",
+     "en": "Women’s fiqh is a living field of interpretation, with opinions that sometimes differ between schools. AWA helps you understand the basics and structure your questions, but the opinion of a qualified scholar remains the reference for any personal religious decision."
+    },
+    {
+     "i": 60,
+     "path": "shareMessage",
+     "en": "Women’s fiqh, an introduction — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FirstPeriod",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FIRST PERIOD"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Your first period:\nwhat to expect"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "What’s normal, what’s reassuring, and what you need to know."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "When does your first period arrive?"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "What’s normal"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "How it works"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "Taking care of yourself"
+    },
+    {
+     "i": 12,
+     "path": "topics[4]",
+     "en": "Talking about it and getting support"
+    },
+    {
+     "i": 13,
+     "path": "details[0].title",
+     "en": "When does your first period arrive?"
+    },
+    {
+     "i": 14,
+     "path": "details[0].text",
+     "en": "It most often arrives between ages 10 and 15, about two years after the first signs of puberty."
+    },
+    {
+     "i": 15,
+     "path": "details[1].title",
+     "en": "What’s completely normal"
+    },
+    {
+     "i": 16,
+     "path": "details[1].text",
+     "en": "At first, cycles can be irregular, short, or long. Your body is simply taking its time to find its rhythm."
+    },
+    {
+     "i": 17,
+     "path": "details[2].title",
+     "en": "Understanding how it works"
+    },
+    {
+     "i": 18,
+     "path": "details[2].text",
+     "en": "Periods usually last 3 to 7 days. The flow and color can change from one day to the next."
+    },
+    {
+     "i": 19,
+     "path": "details[3].title",
+     "en": "Taking care of yourself"
+    },
+    {
+     "i": 20,
+     "path": "details[3].text",
+     "en": "Change your protection regularly, wash gently, and choose comfortable clothing so you feel at ease."
+    },
+    {
+     "i": 21,
+     "path": "details[4].title",
+     "en": "Talking about it and getting support"
+    },
+    {
+     "i": 22,
+     "path": "details[4].text",
+     "en": "You can talk to your mother, a sister, someone close to you, a teacher, or a healthcare professional you trust."
+    },
+    {
+     "i": 23,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 24,
+     "path": "tip1Text",
+     "en": "An irregular cycle at first is completely normal. Your body is still learning how to find its rhythm."
+    },
+    {
+     "i": 25,
+     "path": "tip2Title",
+     "en": "You’re not alone"
+    },
+    {
+     "i": 26,
+     "path": "tip2Text",
+     "en": "Every body is unique. Take your time, be patient, and don’t hesitate to ask for help from someone you trust."
+    },
+    {
+     "i": 27,
+     "path": "shareTitle",
+     "en": "First period · AWA"
+    },
+    {
+     "i": 28,
+     "path": "shareMessage",
+     "en": "Your first period: what to expect · AWA"
+    }
+   ]
+  },
+  {
+   "id": "FirstPeriodComing",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FIRST PERIOD"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "How can I tell if my\nfirst period is coming?"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "A few concrete signs can help you recognize that your first period is really on its way."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Signs to watch for"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "First discharge: what does it look like?"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "Vaginal discharge or menstrual blood?"
+    },
+    {
+     "i": 11,
+     "path": "topics[3]",
+     "en": "When should you talk to an adult?"
+    },
+    {
+     "i": 12,
+     "path": "observe[0].title",
+     "en": "Whitish discharge"
+    },
+    {
+     "i": 13,
+     "path": "observe[0].text",
+     "en": "Light, clear discharge often appears a few months beforehand."
+    },
+    {
+     "i": 14,
+     "path": "observe[1].title",
+     "en": "Breast development"
+    },
+    {
+     "i": 15,
+     "path": "observe[1].text",
+     "en": "A common sign that usually appears well before your period."
+    },
+    {
+     "i": 16,
+     "path": "observe[2].title",
+     "en": "Mild tummy twinges"
+    },
+    {
+     "i": 17,
+     "path": "observe[2].text",
+     "en": "Small sensations like these can signal that your period is coming soon."
+    },
+    {
+     "i": 18,
+     "path": "body2",
+     "en": "Before your very first period arrives, it’s common to notice light whitish or slightly yellowish discharge in your underwear. This is a normal phenomenon, linked to the hormonal activity getting underway in your body."
+    },
+    {
+     "i": 19,
+     "path": "body3",
+     "en": "Vaginal discharge is clear or whitish, without a strong smell. Menstrual blood, on the other hand, is red to brownish in color and marks the true start of your period. If you’re ever unsure, it’s never a big deal to talk about it."
+    },
+    {
+     "i": 20,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 21,
+     "path": "tipText",
+     "en": "There’s no way to predict the exact day. Keeping protection with you from the very first signs is the best habit to have."
+    },
+    {
+     "i": 22,
+     "path": "body4",
+     "en": "As soon as you notice these signs, or whenever you have a question or a worry, you can talk to your mother, a sister, someone close to you, or a healthcare professional you trust. There’s never a wrong time to ask for help."
+    },
+    {
+     "i": 23,
+     "path": "relatedTitle",
+     "en": "♥  You might also like"
+    },
+    {
+     "i": 24,
+     "path": "related[0].title",
+     "en": "The first signs before your period"
+    },
+    {
+     "i": 25,
+     "path": "related[0].meta",
+     "en": "5 min  ·  Article"
+    },
+    {
+     "i": 26,
+     "path": "related[1].title",
+     "en": "Which protection should I choose for my first period?"
+    },
+    {
+     "i": 27,
+     "path": "related[1].meta",
+     "en": "6 min  ·  Guide"
+    },
+    {
+     "i": 28,
+     "path": "related[2].title",
+     "en": "Your first period: what to expect"
+    },
+    {
+     "i": 29,
+     "path": "related[2].meta",
+     "en": "5 min  ·  Guide"
+    },
+    {
+     "i": 30,
+     "path": "shareMessage",
+     "en": "How can I tell if my first period is coming? — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FirstPeriodDailyLife",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FIRST PERIOD"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "How to manage your\nfirst period day to day?"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "5 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "Guide"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "With a few small habits, your first period fits easily into your daily life, at school and beyond."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "topics[0]",
+     "en": "Getting organized day to day"
+    },
+    {
+     "i": 9,
+     "path": "topics[1]",
+     "en": "Putting together a small emergency kit"
+    },
+    {
+     "i": 10,
+     "path": "topics[2]",
+     "en": "If your period arrives unexpectedly"
+    },
+    {
+     "i": 11,
+     "path": "body1",
+     "en": "School, sports, sleep: your period doesn’t stop you from continuing your usual activities. You just need to adjust a few habits to stay comfortable throughout the day."
+    },
+    {
+     "i": 12,
+     "path": "dailyTips[0]",
+     "en": "School or activities: keep a pad or tampon in your bag"
+    },
+    {
+     "i": 13,
+     "path": "dailyTips[1]",
+     "en": "Sports: you can still play sports, just adjust your pace"
+    },
+    {
+     "i": 14,
+     "path": "dailyTips[2]",
+     "en": "Sleep: a suitable overnight pad is enough"
+    },
+    {
+     "i": 15,
+     "path": "body2",
+     "en": "A small kit with one or two pads or tampons, a spare pair of underwear, and some wipes can easily fit into a school or sports bag. It helps you feel at ease no matter what happens."
+    },
+    {
+     "i": 16,
+     "path": "tip1Title",
+     "en": "Good to know"
+    },
+    {
+     "i": 17,
+     "path": "tip1Text",
+     "en": "Always keeping a pad or tampon with you avoids the stress of being caught off guard."
+    },
+    {
+     "i": 18,
+     "path": "body3",
+     "en": "This happens often, especially at first. A school nurse, a teacher, or a friend almost always has something that can help. Tying a piece of clothing around your waist can also work while you find a pad or tampon."
+    },
+    {
+     "i": 19,
+     "path": "relatedTitle",
+     "en": "♥  You might also like"
+    },
+    {
+     "i": 20,
+     "path": "related[0].title",
+     "en": "Which pad or tampon should I choose for my first period?"
+    },
+    {
+     "i": 21,
+     "path": "related[0].meta",
+     "en": "6 min  ·  Guide"
+    },
+    {
+     "i": 22,
+     "path": "related[1].title",
+     "en": "Managing period pain"
+    },
+    {
+     "i": 23,
+     "path": "related[1].meta",
+     "en": "7 min  ·  Guide"
+    },
+    {
+     "i": 24,
+     "path": "related[2].title",
+     "en": "My first periods are irregular: is that normal?"
+    },
+    {
+     "i": 25,
+     "path": "related[2].meta",
+     "en": "5 min  ·  Guide"
+    },
+    {
+     "i": 26,
+     "path": "shareMessage",
+     "en": "How to manage your first period day to day? — AWA"
+    }
+   ]
+  },
+  {
+   "id": "FirstPeriodFaq",
+   "items": [
+    {
+     "i": 0,
+     "path": "badge",
+     "en": "FIRST PERIOD"
+    },
+    {
+     "i": 1,
+     "path": "title",
+     "en": "Frequently asked questions\nabout your first period"
+    },
+    {
+     "i": 2,
+     "path": "metaDuration",
+     "en": "4 min read"
+    },
+    {
+     "i": 3,
+     "path": "metaType",
+     "en": "FAQ"
+    },
+    {
+     "i": 4,
+     "path": "metaLevel",
+     "en": "Beginner"
+    },
+    {
+     "i": 5,
+     "path": "metaValidated",
+     "en": "Reviewed content"
+    },
+    {
+     "i": 6,
+     "path": "intro",
+     "en": "Simple answers to the most common questions about your first period."
+    },
+    {
+     "i": 7,
+     "path": "contentsTitle",
+     "en": "In this article"
+    },
+    {
+     "i": 8,
+     "path": "faq[0].question",
+     "en": "“Is it normal to have very little blood?”"
+    },
+    {
+     "i": 9,
+     "path": "faq[0].answer",
+     "en": "Yes. The very first cycles often have a light flow. The flow can vary from one cycle to the next, especially at the start."
+    },
+    {
+     "i": 10,
+     "path": "faq[1].question",
+     "en": "“Is it normal to have a lot of blood?”"
+    },
+    {
+     "i": 11,
+     "path": "faq[1].answer",
+     "en": "A heavier flow can also happen, especially during the first two days. If you need to change your protection more than once an hour for several hours in a row, it’s a good idea to talk to a healthcare professional about it."
+    },
+    {
+     "i": 12,
+     "path": "faq[2].question",
+     "en": "“Is it normal to have cramps?”"
+    },
+    {
+     "i": 13,
+     "path": "faq[2].answer",
+     "en": "Mild cramps in the lower belly are common and usually nothing to worry about. A hot water bottle or a bit of rest can help. Very intense pain is worth mentioning to someone."
+    },
+    {
+     "i": 14,
+     "path": "faq[3].question",
+     "en": "“Can I play sports?”"
+    },
+    {
+     "i": 15,
+     "path": "faq[3].answer",
+     "en": "Yes, you can still play sports during your period. Just adjust the intensity to how your body feels that day."
+    },
+    {
+     "i": 16,
+     "path": "faq[4].question",
+     "en": "“Can I go swimming?”"
+    },
+    {
+     "i": 17,
+     "path": "faq[4].answer",
+     "en": "Yes, you can still go swimming with the right protection. Many people simply choose to wait until they feel more comfortable with the idea."
+    },
+    {
+     "i": 18,
+     "path": "tipTitle",
+     "en": "Good to know"
+    },
+    {
+     "i": 19,
+     "path": "tipText",
+     "en": "There’s no such thing as an embarrassing question: every body is different, and you can always talk to someone you trust."
+    },
+    {
+     "i": 20,
+     "path": "relatedTitle",
+     "en": "♥  You might also like"
+    },
+    {
+     "i": 21,
+     "path": "related[0].title",
+     "en": "Your first period: what to expect"
+    },
+    {
+     "i": 22,
+     "path": "related[0].meta",
+     "en": "5 min  ·  Guide"
+    },
+    {
+     "i": 23,
+     "path": "related[1].title",
+     "en": "Which protection should I choose for my first period?"
+    },
+    {
+     "i": 24,
+     "path": "related[1].meta",
+     "en": "6 min  ·  Guide"
+    },
+    {
+     "i": 25,
+     "path": "related[2].title",
+     "en": "Managing period pain"
+    },
+    {
+     "i": 26,
+     "path": "related[2].meta",
+     "en": "7 min  ·  Guide"
+    },
+    {
+     "i": 27,
+     "path": "shareMessage",
+     "en": "Frequently asked questions about your first period — AWA"
+    }
+   ]
+  }
+ ]
+}

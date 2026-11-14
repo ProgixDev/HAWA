@@ -2,6 +2,24 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+// Sentry crash reporting: debug files (Hermes source maps with Debug IDs, native symbols, mapping) for release-like builds.
+// Applied ONLY when SENTRY_AUTH_TOKEN is in the environment (an organization token, never stored in the repo): without it every
+// build works exactly as before and nothing is uploaded. Organization / project / EU region come from android/sentry.properties.
+if (System.getenv("SENTRY_AUTH_TOKEN")) {
+    apply from: new File(["node", "--print", "require.resolve('@sentry/react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getPath() + "/sentry.gradle"
+    apply plugin: "io.sentry.android.gradle"
+    sentry {
+        // @sentry/react-native pins its own sentry-android version: the plugin must not override it.
+        autoInstallation {
+            enabled = false
+        }
+        // Only the debug files are uploaded: no source context (it would send the app's source code to Sentry).
+        includeSourceContext = false
+        autoUploadProguardMapping = true
+        uploadNativeSymbols = true
+    }
+}
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
