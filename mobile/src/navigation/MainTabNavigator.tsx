@@ -16,6 +16,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ObjectiveAwareCalendarScreen from '../screens/ObjectiveAwareCalendarScreen';
 import ObjectiveAwareStatisticsScreen from '../screens/ObjectiveAwareStatisticsScreen';
 import DataAvailabilityBanner from '../components/security/DataAvailabilityBanner';
+import CrashReportsInviteHost from '../components/security/CrashReportsInviteSheet';
 import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
@@ -343,6 +344,7 @@ function MainTabNavigator({navigation}: Props): React.JSX.Element {
         <Tab.Screen component={ProfileScreen} name="Profile" />
       </Tab.Navigator>
       <JournalSheetHost navigation={navigation} />
+      <CrashReportsInviteHost onOpenPolicy={() => navigation.navigate('PrivacyPolicy')} />
     </JournalSheetProvider>
   );
 }
