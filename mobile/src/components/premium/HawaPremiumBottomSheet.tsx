@@ -366,6 +366,7 @@ export function HawaPremiumBottomSheet({
   return (
     <Modal
       animationType="none"
+      navigationBarTranslucent
       onRequestClose={onClose}
       statusBarTranslucent
       transparent

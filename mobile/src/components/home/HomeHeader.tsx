@@ -9,6 +9,7 @@ import '../../i18n';
 import { type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import { AwaText } from '../ui/AwaText';
 import InAppNotificationCenter from './InAppNotificationCenter';
+import ProfileSwitchBanner from '../profile/ProfileSwitchBanner';
 import {
   getUnreadInAppNotificationCountForActiveProfile,
   hydrateInAppNotifications,
@@ -78,6 +79,7 @@ function HomeHeader({
   const topSpacing = Math.max(insets.top + 9, 16);
 
   return (
+    <View>
     <View
       style={[
         styles.header,
@@ -152,6 +154,9 @@ function HomeHeader({
         onClose={() => setPanelVisible(false)}
         visible={panelVisible}
       />
+    </View>
+    {/* "Basculer sur le profil de …" / "Revenir à mon profil" — only when a daughter profile exists. */}
+    <ProfileSwitchBanner />
     </View>
   );
 }

@@ -10,6 +10,7 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import MiscarriageDashboard from '../MiscarriageDashboard';
 import MiscarriageDateScreen from '../../../screens/MiscarriageDateScreen';
 import ProfileScreen from '../../../screens/ProfileScreen';
+import {openProfileObjectiveSheet} from '../../../screens/__tests__/profileObjectiveSheet';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {
   getActiveObjective,
@@ -257,6 +258,7 @@ describe('G — correcting an existing loss date', () => {
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
     await act(async () => {
       button(renderer, 'Date de la fausse couche').props.onPress();
     });

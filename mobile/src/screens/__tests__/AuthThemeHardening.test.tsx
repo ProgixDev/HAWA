@@ -321,11 +321,13 @@ describe('Auth family — form/behavior untouched', () => {
 ============================================================ */
 
 describe('RegistrationScreen — accessibility parity with AuthScreen (Phase 3 fix)', () => {
-  it('the password visibility toggle exposes a distinguishing accessibilityLabel and role (the form has no confirm-password field any more)', async () => {
+  it('the password and the confirm-password visibility toggles each expose a distinguishing accessibilityLabel and role', async () => {
     const renderer = await renderScreen(RegistrationScreen, 'Registration');
     const passwordToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Mot de passe'});
     expect(passwordToggle.props.accessibilityRole).toBe('button');
-    expect(renderer.root.findAllByProps({accessibilityLabel: 'Afficher : Confirmer le mot de passe'})).toHaveLength(0);
+    // the form asks for the password twice again (a mismatch blocks the submission): its toggle must be as accessible as the first one
+    const confirmToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Confirmer le mot de passe'});
+    expect(confirmToggle.props.accessibilityRole).toBe('button');
   });
 
   it('tapping a visibility toggle flips its label between Afficher/Masquer', async () => {

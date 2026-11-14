@@ -12,7 +12,11 @@ import {
   subscribeThemePreferences,
   type AwaAppearanceMode,
 } from '../state/themePreferences';
+import {hydrateActiveProfileId, isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {resolveAwaTheme, type ResolvedAwaTheme} from './awaThemeTokens';
+
+// The palette a daughter's space is drawn in (a managed profile being active), whatever palette the mother chose for herself.
+const CHILD_SPACE_THEME_ID: AwaThemeId = 'rose-quartz';
 
 // ============================================================================
 // PHASE A — GLOBAL THEME FOUNDATION
@@ -63,6 +67,22 @@ export function AwaThemeProvider({children}: {children: React.ReactNode}): React
   const [selectedThemeId, setSelectedThemeIdState] = useState<AwaThemeId>(getSelectedThemeId);
   const [appearanceMode, setAppearanceModeState] = useState<AwaAppearanceMode>(getAppearanceMode);
   const [trueBlackEnabled, setTrueBlackEnabledState] = useState<boolean>(getTrueBlackEnabled);
+  const [childSpaceActive, setChildSpaceActive] = useState<boolean>(() => !isOwnerActive());
+
+  // Follows the active profile: a managed (daughter) profile active = the child space.
+  useEffect(() => {
+    let active = true;
+    hydrateActiveProfileId().then(() => {
+      if (active) {setChildSpaceActive(!isOwnerActive());}
+    });
+    const unsubscribe = subscribeActiveProfileId(() => {
+      if (active) {setChildSpaceActive(!isOwnerActive());}
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
 
   // Hydration: reuses themePreferences.ts's own memoized hydrate*() promises
   // (calling them again elsewhere, e.g. from AppearanceScreen, is a no-op
@@ -103,9 +123,12 @@ export function AwaThemeProvider({children}: {children: React.ReactNode}): React
   // that might immediately flip once purchaseService.ts reports the real
   // entitlement — avoids the "initial flash of the wrong palette" Phase A
   // is required to avoid, using the exact same rule this app already ships.
-  const effectiveThemeId = premiumInitialized
+  const savedThemeId = premiumInitialized
     ? resolveEffectiveThemeId(selectedThemeId, isPremium)
     : selectedThemeId;
+  // A daughter's space is drawn in the rosy palette so it is recognised at a glance (also dark mode: the palette has both variants).
+  // Only the EFFECTIVE palette changes while her profile is active — the saved choice is never written to or lost.
+  const effectiveThemeId: AwaThemeId = childSpaceActive ? CHILD_SPACE_THEME_ID : savedThemeId;
 
   // Deliberately NEVER writes `effectiveThemeId` back to storage here. Doing
   // so (AppearanceScreen.tsx has its own such effect, but that one only runs

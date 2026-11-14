@@ -112,7 +112,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
 
         <GlassIcon icon={item.icon} size={44} />
 
-        <AwaText style={styles.tileLabel} variant="labelMedium">{item.label}</AwaText>
+        <AwaText numberOfLines={2} style={styles.tileLabel} variant="labelMedium">{item.label}</AwaText>
       </Pressable>
     </Animated.View>
   );
@@ -258,7 +258,8 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 4,
     },
     tile: {
-      minHeight: 96,
+      // one fixed height for every tile, so a two-line label ("Horaires de prière") does not make its card taller than the others
+      height: 116,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,

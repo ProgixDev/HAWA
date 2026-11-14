@@ -44,6 +44,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
 type SheetType = FieldKey | 'country' | 'calendar' | 'timeFormat' | 'avatar' | null;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+const OPTIONAL_FIELDS: readonly FieldKey[] = ['email', 'phone', 'preferredName'];
 
 // Country names are deliberately NOT translated — the stored `profile.country`
 // value IS this display string itself (no separate technical id exists, the
@@ -76,14 +77,15 @@ function formatBirthDate(value: string, notProvided: string): string {
   return Number.isNaN(date.getTime()) ? value : formatFullDate(date);
 }
 
-function InfoRow({icon, label, value, onPress, last, theme, styles}: {
-  icon: IconName; label: string; value: string; onPress?: () => void; last?: boolean;
+function InfoRow({icon, label, value, onPress, last, hint, theme, styles}: {
+  icon: IconName; label: string; value: string; onPress?: () => void; last?: boolean; hint?: string;
   theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <Pressable disabled={!onPress} onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && onPress && styles.pressed]}>
       <View style={styles.rowIcon}><MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} /></View>
       <View style={styles.rowCopy}><AwaText colorRole="onSurfaceVariant" variant="labelMedium">{label}</AwaText><AwaText emphasized style={styles.rowValue} variant="bodyMedium">{value}</AwaText></View>
+      {hint ? <View style={styles.rowHint}><AwaText colorRole="onSurfaceVariant" variant="labelSmall">{hint}</AwaText></View> : null}
       {onPress ? <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={23} /> : null}
     </Pressable>
   );
@@ -94,6 +96,8 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const CALENDARS = useMemo(() => calendarsOf(t), [t]);
+  // Dedicated key: "Facultatif" / its natural equivalent in each language.
+  const optionalHint = t('profile.optional');
   const FIELD_META = useMemo(() => fieldMetaOf(t), [t]);
 
   const insets = useSafeAreaInsets();
@@ -132,7 +136,9 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     if (!sheet || !['firstName', 'lastName', 'email', 'phone', 'preferredName'].includes(sheet)) {return;}
     const key = sheet as FieldKey;
     const value = draft.trim();
-    if (!value) {setError(t('personalInformation.requiredField')); return;}
+    // Optional fields (e-mail, phone, preferred name) can be emptied: an empty value is saved as "not provided". First and last name are required.
+    if (!value && !OPTIONAL_FIELDS.includes(key)) {setError(t('personalInformation.requiredField')); return;}
+    if (!value) {persist({[key]: ''}); return;}
     if (key === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {setError(t('personalInformation.invalidEmail')); return;}
     if (key === 'phone' && value.replace(/\D/g, '').length < 8) {setError(t('personalInformation.invalidPhone')); return;}
     persist({[key]: value});
@@ -332,11 +338,12 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
       <ScrollView contentContainerStyle={[styles.content, compact && styles.contentCompact, {paddingTop: Math.max(insets.top, 18) + 8, paddingBottom: Math.max(insets.bottom, 18) + 24}]} showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
           <AwaIconButton accessibilityLabel={t('common.back')} icon="chevron-left" onPress={navigation.goBack} variant="tonal" />
-          <View style={styles.headerCopy}><AwaText accessibilityRole="header" variant="headlineSmall">{t('personalInformation.title')}</AwaText><AwaText colorRole="onSurfaceVariant" style={styles.subtitle} variant="bodySmall">{t('personalInformation.subtitle')}</AwaText></View>
+          <View style={styles.headerCopy}><AwaText accessibilityRole="header" adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} variant="headlineSmall">{t('personalInformation.title')}</AwaText></View>
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(80).duration(420)}>
-          <AwaCard style={styles.profileCard} variant="elevated">
+          {/* No card behind the avatar and no greeting: only the profile circle, centred. */}
+          <View style={styles.profileCard}>
           <View style={styles.profileTopRow}>
             <View style={styles.avatarOuterRing}>
               <Pressable
@@ -358,7 +365,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                     <MaterialDesignIcons
                       color={theme.colors.primary}
                       name="account-outline"
-                      size={28}
+                      size={42}
                     />
                   </View>
                 )}
@@ -367,30 +374,13 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                   <MaterialDesignIcons
                     color={onPrimaryTextColor(theme)}
                     name={profile.avatarUri ? 'camera-outline' : 'camera-plus-outline'}
-                    size={12}
+                    size={18}
                   />
                 </View>
               </Pressable>
             </View>
-
-            <View style={styles.profileCopy}>
-              <AwaText style={styles.greeting} variant="titleLarge">{t('personalInformation.greeting')}</AwaText>
-              <AwaText colorRole="onSurfaceVariant" style={styles.profileText} variant="bodySmall">
-                {t('personalInformation.intro')}
-              </AwaText>
-
-              <AwaButton
-                accessibilityLabel={profile.avatarUri ? t('personalInformation.changeMyPhoto') : t('personalInformation.addPhoto')}
-                icon={profile.avatarUri ? 'image-edit-outline' : 'image-plus-outline'}
-                label={profile.avatarUri ? t('personalInformation.changePhoto') : t('personalInformation.addPhoto')}
-                onPress={() => openField('avatar')}
-                size="compact"
-                style={styles.photoAction}
-                variant="tonal"
-              />
-            </View>
           </View>
-          </AwaCard>
+          </View>
         </Animated.View>
 
         <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">{t('personalInformation.basicInfoSection')}</AwaText>
@@ -399,8 +389,8 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <InfoRow icon="account-outline" label={t('personalInformation.firstNameLabel')} value={profile.firstName || t('profile.notProvided')} onPress={() => openField('firstName')} styles={styles} theme={theme} />
           <InfoRow icon="account-outline" label={t('personalInformation.lastNameLabel')} value={profile.lastName || t('profile.notProvided')} onPress={() => openField('lastName')} styles={styles} theme={theme} />
           <InfoRow icon="calendar-month-outline" label={t('personalInformation.birthDateLabel')} value={formatBirthDate(profile.birthDate, t('profile.notProvided'))} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
-          <InfoRow icon="email-outline" label={t('personalInformation.emailLabel')} value={profile.email || t('profile.notProvided')} onPress={() => openField('email')} styles={styles} theme={theme} />
-          <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone || t('profile.notProvided')} onPress={() => openField('phone')} styles={styles} theme={theme} />
+          <InfoRow icon="email-outline" label={t('personalInformation.emailLabel')} value={profile.email || t('profile.notProvided')} hint={optionalHint} onPress={() => openField('email')} styles={styles} theme={theme} />
+          <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone || t('profile.notProvided')} hint={optionalHint} onPress={() => openField('phone')} styles={styles} theme={theme} />
           <InfoRow icon="map-marker-outline" label={t('personalInformation.countryLabel')} value={profile.country || t('profile.notProvided')} onPress={() => openField('country')} styles={styles} theme={theme} />
           <InfoRow icon="web" label={t('personalInformation.languageLabel')} value={languageDisplayValue} last styles={styles} theme={theme} />
         </AwaCard>
@@ -409,7 +399,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         <AwaText accessibilityRole="header" style={styles.sectionTitle} variant="titleMedium">{t('personalInformation.preferencesSection')}</AwaText>
         <Animated.View entering={FadeInUp.delay(220).duration(420)}>
         <AwaCard padding="none" style={styles.card} variant="filled">
-          <InfoRow icon="gender-female" label={t('personalInformation.preferredNameQuestion')} value={profile.preferredName || t('profile.notProvided')} onPress={() => openField('preferredName')} styles={styles} theme={theme} />
+          <InfoRow icon="gender-female" label={t('personalInformation.preferredNameQuestion')} value={profile.preferredName || t('profile.notProvided')} hint={optionalHint} onPress={() => openField('preferredName')} styles={styles} theme={theme} />
           <InfoRow icon="weather-night" label={t('personalInformation.mainCalendarLabel')} value={calendarLabel} onPress={() => openField('calendar')} styles={styles} theme={theme} />
           <InfoRow icon="clock-outline" label={t('personalInformation.timeFormatLabel')} value={profile.timeFormat === '24h' ? t('personalInformation.time24h') : t('personalInformation.time12h')} last onPress={() => openField('timeFormat')} styles={styles} theme={theme} />
         </AwaCard>
@@ -420,7 +410,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
 
       {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={birthDatePickerValue} /> : null}
 
-      <Modal animationType="slide" onRequestClose={() => setSheet(null)} statusBarTranslucent transparent visible={sheet !== null}>
+      <Modal animationType="slide" navigationBarTranslucent onRequestClose={() => setSheet(null)} statusBarTranslucent transparent visible={sheet !== null}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalRoot}>
           <Pressable style={styles.backdrop} onPress={() => setSheet(null)} />
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
@@ -473,15 +463,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     header: {flexDirection: 'row', alignItems: 'center'},
     headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 10},
     subtitle: {marginTop: 3},
-    profileCard: {overflow: 'hidden'},
-    profileTopRow: {flexDirection: 'row', alignItems: 'center'},
-    avatarOuterRing: {width: 74, height: 74, alignItems: 'center', justifyContent: 'center', flexShrink: 0, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.15), borderRadius: 37, backgroundColor: withAlpha(theme.colors.surface, 0.72)},
-    avatarWrap: {width: 64, height: 64, borderRadius: 32},
-    avatar: {width: 64, height: 64, borderRadius: 32, backgroundColor: theme.colors.primarySoft, borderWidth: 2, borderColor: theme.colors.surface},
-    avatarPlaceholder: {width: 64, height: 64, alignItems: 'center', justifyContent: 'center', borderRadius: 32, borderWidth: 2, borderColor: theme.colors.surface, backgroundColor: theme.colors.primarySoft},
+    profileCard: {paddingVertical: 4},
+    profileTopRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'},
+    avatarOuterRing: {width: 112, height: 112, alignItems: 'center', justifyContent: 'center', flexShrink: 0, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.15), borderRadius: 56, backgroundColor: withAlpha(theme.colors.surface, 0.72)},
+    avatarWrap: {width: 96, height: 96, borderRadius: 48},
+    avatar: {width: 96, height: 96, borderRadius: 48, backgroundColor: theme.colors.primarySoft, borderWidth: 2, borderColor: theme.colors.surface},
+    avatarPlaceholder: {width: 96, height: 96, alignItems: 'center', justifyContent: 'center', borderRadius: 48, borderWidth: 2, borderColor: theme.colors.surface, backgroundColor: theme.colors.primarySoft},
     camera: {
-      position: 'absolute', right: -1, bottom: -1, width: 23, height: 23, alignItems: 'center', justifyContent: 'center',
-      borderWidth: 2, borderColor: theme.colors.surface, borderRadius: 12, backgroundColor: theme.colors.primary,
+      position: 'absolute', right: 0, bottom: 0, width: 34, height: 34, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 2, borderColor: theme.colors.surface, borderRadius: 17, backgroundColor: theme.colors.primary,
       elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOpacity: 0.15, shadowRadius: 3, shadowOffset: {width: 0, height: 2},
     },
     profileCopy: {flex: 1, minWidth: 0, marginLeft: 14},
@@ -495,6 +485,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     rowIcon: {alignItems: 'center', justifyContent: 'center', padding: 9},
     rowCopy: {flex: 1, minWidth: 0, marginHorizontal: 11},
     rowValue: {marginTop: 2},
+    rowHint: {borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, marginRight: 4, backgroundColor: theme.colors.primarySoft},
     infoCard: {flexDirection: 'row', alignItems: 'center', gap: 10},
     infoText: {flex: 1},
     pressed: {opacity: 0.78, transform: [{scale: 0.985}]},

@@ -104,7 +104,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bon à savoir',
     tipText: 'Il n’existe pas de question gênante : chaque corps est différent, et il est toujours possible d’en parler à une personne de confiance.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
       {title: 'Quelle protection choisir pour mes premières règles ?', meta: '6 min  ·  Guide'},
@@ -150,7 +150,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Good to know',
     tipText: 'There’s no such thing as an embarrassing question: every body is different, and you can always talk to someone you trust.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
       {title: 'Which protection should I choose for my first period?', meta: '6 min  ·  Guide'},
@@ -196,7 +196,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'DATO ÚTIL',
     tipText: 'No existen las preguntas incómodas: cada cuerpo es diferente, y siempre puedes hablar de ello con una persona de confianza.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
       {title: '¿Qué protección elegir para mi primera menstruación?', meta: '6 min  ·  Guía'},
@@ -237,7 +237,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Da sapere',
     tipText: 'Non esistono domande imbarazzanti: ogni corpo è diverso e puoi sempre parlarne con qualcuno di cui ti fidi.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Il tuo primo ciclo: cosa aspettarti',
@@ -287,7 +287,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bilmekte fayda var',
     tipText: 'Utanılacak soru diye bir şey yoktur: her beden farklıdır ve güvendiğin biriyle her zaman konuşabilirsin.',
-    relatedTitle: '♥  Bunlar da hoşuna gidebilir',
+    relatedTitle: 'Bunlar da hoşuna gidebilir',
     related: [
       {
         title: 'İlk adetin: neyle karşılaşabilirsin',
@@ -337,7 +337,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ПОЛЕЗНО ЗНАТЬ',
     tipText: 'Неловких вопросов не бывает: каждый организм индивидуален, и вы всегда можете поговорить с тем, кому доверяете.',
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {
         title: 'Ваши первые месячные: чего ожидать',
@@ -392,7 +392,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Gut zu wissen',
     tipText: 'Es gibt keine peinlichen Fragen: Jeder Körper ist anders, und du kannst jederzeit mit einer Person sprechen, der du vertraust.',
-    relatedTitle: '♥  Das könnte dich auch interessieren',
+    relatedTitle: 'Das könnte dich auch interessieren',
     related: [
       {
         title: 'Deine erste Periode: Was dich erwartet',
@@ -442,7 +442,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
       ],
       tipTitle: '小贴士',
       tipText: '没有什么问题是难为情的：每个人的身体都不一样，你随时可以与信任的人聊一聊。',
-      relatedTitle: '♥  你可能还想看',
+      relatedTitle: '你可能还想看',
       related: [
         {
           title: '你的初潮：会发生什么',
@@ -492,7 +492,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
       ],
       tipTitle: '小提醒',
       tipText: '沒有什麼問題是難為情的：每個人的身體都不一樣，你隨時可以與信任的人聊一聊。',
-      relatedTitle: '♥  你可能還想看',
+      relatedTitle: '你可能還想看',
       related: [
         {
           title: '你的初潮：會發生什麼',
@@ -547,7 +547,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'من المفيد أن تعرفي',
     tipText: 'لا يوجد سؤال محرج: فكل جسم مختلف، ويمكنك دائمًا التحدث إلى شخص تثقين به.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'أول حيض لديك: ماذا تتوقعين', meta: '5 د  ·  دليل'},
       {title: 'أي وسيلة حماية أختار لأول حيض؟', meta: '6 د  ·  دليل'},
@@ -593,7 +593,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Yelha ad tezwareḍ',
     tipText: 'Ulac asteqsi ur nelhi ara: yal lǧism yemxalaf, u tzemreḍ dima ad tmeslayeḍ d win i tettkelleḍ fell-as.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Lḥid-ik amezwaru: acu ara tṛǧuḍ', meta: '5 n tesdatin  ·  Amawal'},
       {title: 'Anwa aḥerres ara fren i lḥid-iw amezwaru?', meta: '6 n tesdatin  ·  Amawal'},
@@ -639,7 +639,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Beekuun gaarii dha',
     tipText: 'Gaaffiin ibsuu hin mijoofne hin jiru: qaamni hundi garaagara, yeroo hunda nama amantu waliin haasa\'uu dandeessa.',
-    relatedTitle: '♥  Kunis sitti tolu ta\'a',
+    relatedTitle: 'Kunis sitti tolu ta\'a',
     related: [
       {title: 'Dhiita ji\'aa kee jalqabaa: maal eeguu', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
       {title: 'Dhiita ji\'aa kee jalqabaaf eegumsa kam filachuu qabda?', meta: 'Daqiiqaa 6  ·  Qajeelfama'},
@@ -685,7 +685,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ርዳእ እዚ',
     tipText: 'ዘሕፍር ሕቶ ዝበሃል የለን፦ ነፍስ ወከፍ ኣካል ፍሉይ እዩ፣ እትኣምንዮ ሰብ ድማ ኩሉ ግዜ ክትዛረቢ ትኽእሊ።',
-    relatedTitle: '♥  ክትፈትይዮም ትኽእሊ',
+    relatedTitle: 'ክትፈትይዮም ትኽእሊ',
     related: [
       {title: 'ቀዳማይ ወርሓዊ ደምኪ፦ እንታይ ክትጽበዪ', meta: '5 ደቒቕ  ·  መምርሒ'},
       {title: 'ንቀዳማይ ወርሓዊ ደመይ ኣየነይቲ ከላኻሊ ክምረጽ?', meta: '6 ደቒቕ  ·  መምርሒ'},
@@ -731,7 +731,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ni byiza kubimenya',
     tipText: 'Nta kibazo giteye isoni kiriho: buri mubiri uratandukanye, kandi ushobora buri gihe kuvugana n’umuntu wizeye.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Imihango yawe ya mbere: ibyo witeze', meta: 'Iminota 5  ·  Igitabo'},
       {title: 'Ni ikihe gikoresho nahitamo ku mihango yanjye ya mbere?', meta: 'Iminota 6  ·  Igitabo'},
@@ -777,7 +777,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ni vyiza kubimenya',
     tipText: 'Nta kibazo gitera isoni kibaho: umubiri wose uratandukanye, kandi ushobora buri gihe kuvugana n’umuntu wizeye.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Imihango yawe ya mbere: ivyo utegereje', meta: 'Iminuta 5  ·  Ubuyobozi'},
       {title: 'Ni ikihe gikoresho nahitamwo ku mihango yanje ya mbere?', meta: 'Iminuta 6  ·  Ubuyobozi'},
@@ -823,7 +823,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ọ dị mma ịmara',
     tipText: 'Ọ nweghị ajụjụ na-eme ihere: ahụ ọ bụla dị iche, ị nwekwara ike ịgwa onye ị tụkwasịrị obi okwu mgbe niile.',
-    relatedTitle: '♥  Ị nwere ike ịkpọkwa ndị a',
+    relatedTitle: 'Ị nwere ike ịkpọkwa ndị a',
     related: [
       {title: 'Nsọ ọnwa mbụ gị: ihe ị ga-atụ anya ya', meta: 'Nkeji 5  ·  Ntuziaka'},
       {title: 'Kedu ihe nchebe m ga-ahọrọ maka nsọ ọnwa mbụ m?', meta: 'Nkeji 6  ·  Ntuziaka'},
@@ -869,7 +869,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ohun tó yẹ kí o mọ̀',
     tipText: 'Kò sí ìbéèrè tó ń dójútì: gbogbo ara yàtọ̀, o sì lè máa bá ẹni tí o gbẹ́kẹ̀lé sọ̀rọ̀ nígbà gbogbo.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí náà',
+    relatedTitle: 'O lè fẹ́ràn èyí náà',
     related: [
       {title: 'Nǹkan oṣù rẹ àkọ́kọ́: ohun tí o lè retí', meta: '5 min  ·  Ìtọ́sọ́nà'},
       {title: 'Ohun ìdáàbòbò wo ni kí n yàn fún nǹkan oṣù àkọ́kọ́ mi?', meta: '6 min  ·  Ìtọ́sọ́nà'},
@@ -915,7 +915,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Kuhle ukwazi',
     tipText: 'Akukho umbuzo ongajabulisi: umzimba ngamunye uhlukile, futhi ungahlala ukhuluma nomuntu omthembayo.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Isikhathi sakho sokuqala: okufanele ukulindele', meta: 'Imizuzu eyi-5  ·  Isikhokelo'},
       {title: 'Ukhetha muphi uvikelo esikhathini sami sokuqala?', meta: 'Imizuzu eyi-6  ·  Isikhokelo'},
@@ -961,7 +961,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Kulungile ukwazi',
     tipText: 'Akukho mbuzo ucaphukisayo: umzimba ngamnye wahlukile, kwaye usoloko unokuthetha nomntu omthembayo.',
-    relatedTitle: '♥  Usenokuthanda ke nale',
+    relatedTitle: 'Usenokuthanda ke nale',
     related: [
       {title: 'Ixesha lakho lokuqala lenyanga: oko ekufuneka ukulindele', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
       {title: 'Ndikhethe ukhuseleko olunjani kwixesha lam lokuqala lenyanga?', meta: 'Imizuzu emi-6  ·  Isikhokelo'},
@@ -1007,7 +1007,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Zvakanaka kuziva',
     tipText: 'Hapana mubvunzo unonyadzisa: muviri wega wega wakasiyana, uye unogona kutaura nguva dzose nemunhu waunovimba naye.',
-    relatedTitle: '♥  Unogona kufarirawo',
+    relatedTitle: 'Unogona kufarirawo',
     related: [
       {title: 'Kumwedzi kwako kwekutanga: zvekutarisira', meta: 'Maminetsi 5  ·  Gwara'},
       {title: 'Ndisarudze chekuzvidzivirira chipi pakumwedzi kwangu kwekutanga?', meta: 'Maminetsi 6  ·  Gwara'},
@@ -1053,7 +1053,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ezali malamu koyeba',
     tipText: 'Motuna ya nsoni ezali te: nzoto na nzoto ezali ekeseni, mpe okoki ntango nyonso kosolola na moto oyo ondimi.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Sanza na yo ya liboso: oyo ozali kozela', meta: 'Min 5  ·  Buku ya bokambi'},
       {title: 'Biloko nini ya kobatela ya kopona mpo na sanza na ngai ya liboso?', meta: 'Min 6  ·  Buku ya bokambi'},
@@ -1099,7 +1099,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Ko haani anndugo',
     tipText: 'Walaa naamndal huunde nyiiɓu: kala ɓanndu ko feere, e a waaway fahin haalugo e goɗɗo ɗo yoɓaa.',
-    relatedTitle: '♥  A waaway yiɗugo fahin',
+    relatedTitle: 'A waaway yiɗugo fahin',
     related: [
       {title: 'Regles maaɗa adannde: ko haani yiɗugo', meta: 'Minti 5  ·  Paltirgel'},
       {title: 'Takkaadu reenugo ɗume mi suɓtay ngam regles am adannde?', meta: 'Minti 6  ·  Paltirgel'},
@@ -1140,7 +1140,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Perlu diketahui',
     tipText: 'Tidak ada pertanyaan yang memalukan: setiap tubuh berbeda, dan kamu selalu bisa bercerita kepada orang yang kamu percaya.',
-    relatedTitle: '♥  Mungkin kamu juga suka',
+    relatedTitle: 'Mungkin kamu juga suka',
     related: [
       {
         title: 'Haid pertamamu: apa yang bisa diharapkan',
@@ -1190,7 +1190,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'जानना अच्छा रहेगा',
     tipText: 'कोई सवाल शर्मिंदगी भरा नहीं होता: हर शरीर अलग होता है, और आप हमेशा किसी भरोसेमंद व्यक्ति से बात कर सकती हैं।',
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
@@ -1240,7 +1240,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Mirë është ta dish',
     tipText: 'Nuk ka pyetje të turpshme: çdo trup është i ndryshëm dhe mund të flasësh gjithmonë me dikë që i beson.',
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Menstruacioni yt i parë: çfarë të presësh',
@@ -1290,7 +1290,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: '知っておきたいこと',
     tipText: '恥ずかしい質問というものはありません。体は人それぞれ違います。信頼できる人にいつでも話してみてください。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '初めての生理：知っておきたいこと',
@@ -1340,7 +1340,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: '알아 두면 좋아요',
     tipText: '부끄러운 질문이란 없어요. 몸은 모두 다르고, 믿을 수 있는 사람에게 언제든 이야기해도 괜찮아요.',
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '첫 생리, 무엇을 기대해야 할까요',
@@ -1390,7 +1390,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bom saber',
     tipText: 'Não existem perguntas embaraçosas: cada corpo é diferente e pode sempre falar com alguém em quem confie.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'O seu primeiro período: o que esperar',
@@ -1440,7 +1440,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'জেনে রাখা ভালো',
     tipText: '“লজ্জাজনক প্রশ্ন” বলে কিছু নেই: প্রতিটি শরীর আলাদা, আর আপনি সবসময় বিশ্বস্ত কারও সঙ্গে কথা বলতে পারেন।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
@@ -1490,7 +1490,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Godt at vide',
     tipText: 'Der findes ingen "pinlige spørgsmål": enhver krop er forskellig, og du kan altid tale med nogen du stoler på.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Din første menstruation: hvad du kan forvente',
@@ -1540,7 +1540,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Godt at vide',
     tipText: 'Der findes ingen "pinlige spörgsmål": enhver krop ar forskellig, och du kan alltid tale med nogen du stoler på.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Din förste menstruation: hvad du kan forvente',
@@ -1595,7 +1595,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Godt å vite',
     tipText: 'Det finnes ikke noe pinlig spørsmål: hver kropp er forskjellig, og du kan alltid snakke med noen du stoler på.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'Din første mens: hva du kan forvente', meta: '5 min  ·  Veiledning'},
       {title: 'Hvilken beskyttelse bør jeg velge til den første mensen?', meta: '6 min  ·  Veiledning'},
@@ -1641,7 +1641,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Warto wiedzieć',
     tipText: 'Nie ma czegoś takiego jak wstydliwe pytanie: każde ciało jest inne i zawsze możesz porozmawiać z kimś, komu ufasz.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Twoja pierwsza miesiączka: czego się spodziewać', meta: '5 min  ·  Poradnik'},
       {title: 'Jaki środek ochrony wybrać na pierwszą miesiączkę?', meta: '6 min  ·  Poradnik'},
@@ -1687,7 +1687,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Варто знати',
     tipText: 'Не існує незручних запитань: кожне тіло різне, і ви завжди можете поговорити з тим, кому довіряєте.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Ваша перша менструація: чого очікувати', meta: '5 хв  ·  Посібник'},
       {title: 'Який засіб гігієни обрати для першої менструації?', meta: '6 хв  ·  Посібник'},
@@ -1733,7 +1733,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Stojí za to vědět',
     tipText: 'Neexistuje trapná otázka: každé tělo je jiné a vždy si můžete promluvit s někým, komu důvěřujete.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'Vaše první menstruace: co očekávat', meta: '5 min  ·  Průvodce'},
       {title: 'Jakou ochranu zvolit při první menstruaci?', meta: '6 min  ·  Průvodce'},
@@ -1779,7 +1779,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Stojí za to vedieť',
     tipText: 'Neexistuje trápna otázka: každé telo je iné a vždy sa môžete porozprávať s niekým, komu dôverujete.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Vaša prvá menštruácia: čo očakávať', meta: '5 min  ·  Sprievodca'},
       {title: 'Ktorú hygienickú pomôcku si vybrať na prvú menštruáciu?', meta: '6 min  ·  Sprievodca'},
@@ -1825,7 +1825,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Érdemes tudni',
     tipText: 'Nincs olyan, hogy kínos kérdés: minden test más, és bármikor beszélhetsz valakivel, akiben megbízol.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'Az első menstruációd: mire számíts', meta: '5 perc  ·  Útmutató'},
       {title: 'Melyik higiéniai terméket válasszam az első menstruációmra?', meta: '6 perc  ·  Útmutató'},
@@ -1871,7 +1871,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bine de știut',
     tipText: 'Nu există întrebări jenante: fiecare corp este diferit și poți oricând să vorbești cu o persoană în care ai încredere.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Prima ta menstruație: la ce să te aștepți', meta: '5 min  ·  Ghid'},
       {title: 'Ce protecție să aleg pentru prima menstruație?', meta: '6 min  ·  Ghid'},
@@ -1917,7 +1917,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Добре е да знаеш',
     tipText: 'Няма неловки въпроси: всяко тяло е различно и винаги можеш да поговориш с човек, на когото се доверяваш.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Първата ти менструация: какво да очакваш', meta: '5 мин  ·  Ръководство'},
       {title: 'Каква защита да избера за първата си менструация?', meta: '6 мин  ·  Ръководство'},
@@ -1963,7 +1963,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Добро је знати',
     tipText: 'Не постоји непријатно питање: свако тело је другачије, а увек можеш разговарати са неким коме верујеш.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Твоја прва менструација: шта да очекујеш', meta: '5 мин  ·  Водич'},
       {title: 'Коју заштиту да изаберем за прву менструацију?', meta: '6 мин  ·  Водич'},
@@ -2009,7 +2009,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Dobro je znati',
     tipText: 'Ne postoji neugodno pitanje: svako je tijelo drugačije i uvijek možeš razgovarati s osobom kojoj vjeruješ.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
       {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
@@ -2055,7 +2055,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Dobro je znati',
     tipText: 'Ne postoji neugodno pitanje: svako je tijelo drugačije i uvijek možeš razgovarati s osobom kojoj vjeruješ.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
       {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
@@ -2101,7 +2101,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Vredno vedeti',
     tipText: 'Ne obstaja nerodno vprašanje: vsako telo je drugačno in vedno se lahko pogovoriš z osebo, ki ji zaupaš.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Tvoja prva menstruacija: kaj pričakovati', meta: '5 min  ·  Vodnik'},
       {title: 'Katero zaščito izbrati za prvo menstruacijo?', meta: '6 min  ·  Vodnik'},
@@ -2147,7 +2147,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'जान्न लायक',
     tipText: 'लाज लाग्ने प्रश्न भन्ने कुनै कुरा हुँदैन: हरेक शरीर फरक हुन्छ, र तपाईं जहिले पनि विश्वास गर्ने कसैसँग कुरा गर्न सक्नुहुन्छ।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'तपाईंको पहिलो महिनावारी: के अपेक्षा गर्ने', meta: '5 मिनेट  ·  मार्गदर्शन'},
       {title: 'पहिलो महिनावारीका लागि कुन सुरक्षा छान्ने?', meta: '6 मिनेट  ·  मार्गदर्शन'},
@@ -2193,7 +2193,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'දැනගත යුතු දේ',
     tipText: 'ලැජ්ජා සහගත ප්‍රශ්නයක් යැයි කිසිවක් නැත: සෑම ශරීරයක්ම වෙනස්, සහ ඔබට සැමවිටම ඔබ විශ්වාස කරන කෙනෙකු සමඟ කතා කළ හැක.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'ඔබේ පළමු ඔසප්: අපේක්ෂා කළ යුත්තේ කුමක්ද', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
       {title: 'මගේ පළමු ඔසප් සඳහා කුමන ආරක්ෂාව තෝරා ගත යුතුද?', meta: 'මිනි. 6  ·  මාර්ගෝපදේශය'},
@@ -2239,7 +2239,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ควรรู้',
     tipText: 'ไม่มีคำถามที่น่าอายเลย: ร่างกายแต่ละคนต่างกัน และคุณพูดคุยกับคนที่คุณไว้ใจได้เสมอ',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'ประจำเดือนครั้งแรกของคุณ: สิ่งที่คาดหวังได้', meta: '5 นาที  ·  คู่มือ'},
       {title: 'ฉันควรเลือกอุปกรณ์แบบไหนสำหรับประจำเดือนครั้งแรก?', meta: '6 นาที  ·  คู่มือ'},
@@ -2285,7 +2285,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Nên biết',
     tipText: 'Không có câu hỏi nào là đáng ngại: mỗi cơ thể đều khác nhau và bạn luôn có thể nói chuyện với người bạn tin tưởng.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Kỳ kinh đầu tiên của bạn: điều cần biết', meta: '5 phút  ·  Hướng dẫn'},
       {title: 'Nên chọn sản phẩm vệ sinh nào cho kỳ kinh đầu tiên?', meta: '6 phút  ·  Hướng dẫn'},
@@ -2331,7 +2331,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bilish foydali',
     tipText: 'Xijolatli savol degan narsa yoʻq: har bir tana boshqacha va ishongan kishingiz bilan har doim gaplashishingiz mumkin.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Birinchi hayzingiz: nimalarni kutish kerak', meta: '5 daq  ·  Qoʻllanma'},
       {title: 'Birinchi hayzim uchun qaysi vositani tanlashim kerak?', meta: '6 daq  ·  Qoʻllanma'},
@@ -2377,7 +2377,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bilmək faydalıdır',
     tipText: 'Utandırıcı sual yoxdur: hər bədən fərqlidir və etibar etdiyiniz biri ilə həmişə danışa bilərsiniz.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'İlk aybaşınız: nələri gözləmək olar', meta: '5 dəq  ·  Bələdçi'},
       {title: 'İlk aybaşım üçün hansı qoruyucu vasitəni seçməliyəm?', meta: '6 dəq  ·  Bələdçi'},
@@ -2423,7 +2423,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'კარგია ვიცოდეთ',
     tipText: '„უხერხული“ კითხვა არ არსებობს: ყველა სხეული განსხვავებულია და ყოველთვის შეგიძლიათ ესაუბროთ ადამიანს, რომელსაც ენდობით.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'თქვენი პირველი მენსტრუაცია: რას უნდა ელოდეთ', meta: '5 წთ  ·  გზამკვლევი'},
       {title: 'რომელი დამცავი საშუალება ავირჩიო პირველი მენსტრუაციისთვის?', meta: '6 წთ  ·  გზამკვლევი'},
@@ -2469,7 +2469,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Լավ է իմանալ',
     tipText: 'Ամաչելի հարց գոյություն չունի. յուրաքանչյուր մարմին տարբեր է, և դուք միշտ կարող եք խոսել ձեր վստահած մարդու հետ:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Ձեր առաջին դաշտանը. ինչ սպասել', meta: '5 ր  ·  Ուղեցույց'},
       {title: 'Ի՞նչ պաշտպանություն ընտրել առաջին դաշտանիս համար', meta: '6 ր  ·  Ուղեցույց'},
@@ -2515,7 +2515,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Донистан хуб аст',
     tipText: 'Саволи шармовар вуҷуд надорад: ҳар бадан гуногун аст ва шумо ҳамеша метавонед бо касе, ки ба ӯ боварӣ доред, гап занед.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Ҳайзи аввали шумо: чӣ интизор шудан лозим аст', meta: '5 дақ  ·  Роҳнамо'},
       {title: 'Барои ҳайзи аввалам кадом воситаи муҳофизатро интихоб кунам?', meta: '6 дақ  ·  Роҳнамо'},
@@ -2561,7 +2561,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Билүү пайдалуу',
     tipText: 'Уялтуучу суроо деген жок: ар бир дене ар башка жана ишенген адамыңыз менен ар дайым сүйлөшө аласыз.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Биринчи етек кирим: эмне күтүү керек', meta: '5 мүн  ·  Колдонмо'},
       {title: 'Биринчи етек кирим үчүн кайсы коргонууну тандоо керек?', meta: '6 мүн  ·  Колдонмо'},
@@ -2607,7 +2607,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Bilmek peýdaly',
     tipText: 'Utandyryjy sorag ýok: her bedeniň özboluşlylygy bar we hemişe ynanýan adamyňyz bilen gürleşip bilersiňiz.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Ilkinji aýbaşyňyz: nämä garaşmaly', meta: '5 min  ·  Gollanma'},
       {title: 'Ilkinji aýbaşym üçin haýsy goranyş serişdesini saýlamaly?', meta: '6 min  ·  Gollanma'},
@@ -2653,7 +2653,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Elok diketahui',
     tipText: 'Tiada soalan yang memalukan: setiap tubuh berbeza, dan anda sentiasa boleh berbincang dengan seseorang yang anda percayai.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Haid pertama anda: apa yang dijangka', meta: '5 min  ·  Panduan'},
       {title: 'Perlindungan manakah yang patut saya pilih untuk haid pertama?', meta: '6 min  ·  Panduan'},
@@ -2699,7 +2699,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Waxtar leh in la ogaado',
     tipText: 'Su’aal ceeb ah ma jirto: jidh kastaa waa kala duwan yahay, mar walbana waad la hadli kartaa qof aad aamintid.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Caadadaada ugu horreysa: waxa la filayo', meta: '5 daq  ·  Hage'},
       {title: 'Waa kuwee ilaalin ah ee aan dooran lahaa caadadayda ugu horreysa?', meta: '6 daq  ·  Hage'},
@@ -2745,7 +2745,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Vyema kujua',
     tipText: 'Hakuna swali la aibu: kila mwili ni tofauti, na unaweza daima kuzungumza na mtu unayemwamini.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Hedhi yako ya kwanza: nini cha kutarajia', meta: 'Dakika 5  ·  Mwongozo'},
       {title: 'Nichague kinga gani kwa hedhi yangu ya kwanza?', meta: 'Dakika 6  ·  Mwongozo'},
@@ -2791,7 +2791,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Білуге тиісті',
     tipText: 'Ұят сұрақ деген жоқ: әр дене әртүрлі, сенетін адаммен әрқашан сөйлесе аласыз.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Алғашқы етеккіріңіз: нені күту керек', meta: '5 мин  ·  Нұсқаулық'},
       {title: 'Алғашқы етеккірім үшін қандай қорғаныс таңдауым керек?', meta: '6 мин  ·  Нұсқаулық'},
@@ -2837,7 +2837,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Lu baax a xam',
     tipText: 'Amul laaj bu rus: yaram bu nekk wuute na, te mën nga wax saa su ne ak kenn ku nga wóolu.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Sa règle bu njëkk: lu ñuy xaar', meta: '5 simili  ·  Ndigal'},
       {title: 'Ban aar laay tànn ngir sama règle bu njëkk?', meta: '6 simili  ·  Ndigal'},
@@ -2883,7 +2883,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Abin da ya dace a sani',
     tipText: 'Babu tambayar da ke kunyatarwa: kowane jiki daban ne, kuma kullum za ki iya magana da wanda kike amincewa da shi.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Hailarki ta farko: abin da za ki tsammata', meta: 'minti 5  ·  Jagora'},
       {title: 'Wace kariya zan zaɓa don hailata ta farko?', meta: 'minti 6  ·  Jagora'},
@@ -2929,7 +2929,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ማወቅ ጠቃሚ ነው',
     tipText: 'ሐፍረት የሚያስከትል ጥያቄ የለም፦ እያንዳንዱ አካል የተለየ ነው፣ ሁልጊዜም ከምታምኚው ሰው ጋር መነጋገር ትችያለሽ።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'የመጀመሪያ የወር አበባሽ፦ ምን መጠበቅ', meta: '5 ደቂቃ  ·  መመሪያ'},
       {title: 'ለመጀመሪያ የወር አበባዬ የትኛውን መከላከያ ልምረጥ?', meta: '6 ደቂቃ  ·  መመሪያ'},
@@ -2975,7 +2975,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Goed om te weten',
     tipText: 'Er bestaat niet zoiets als een gênante vraag: elk lichaam is anders en je kunt altijd met iemand praten die je vertrouwt.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'Je eerste menstruatie: wat je kunt verwachten', meta: '5 min  ·  Gids'},
       {title: 'Welke bescherming kies ik voor mijn eerste menstruatie?', meta: '6 min  ·  Gids'},
@@ -3021,7 +3021,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Hyvä tietää',
     tipText: 'Kiusallista kysymystä ei ole: jokainen keho on erilainen, ja voit aina puhua jollekulle, johon luotat.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Ensimmäiset kuukautisesi: mitä odottaa', meta: '5 min  ·  Opas'},
       {title: 'Minkä suojan valitsen ensimmäisiin kuukautisiini?', meta: '6 min  ·  Opas'},
@@ -3067,7 +3067,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Καλό είναι να γνωρίζεις',
     tipText: 'Δεν υπάρχει ερώτηση που να ντρέπεσαι να κάνεις: κάθε σώμα είναι διαφορετικό και μπορείς πάντα να μιλήσεις με κάποιον που εμπιστεύεσαι.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Η πρώτη σου περίοδος: τι να περιμένεις', meta: '5 λεπτά  ·  Οδηγός'},
       {title: 'Ποια προστασία να επιλέξω για την πρώτη μου περίοδο;', meta: '6 λεπτά  ·  Οδηγός'},
@@ -3113,7 +3113,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'Mabuting malaman',
     tipText: 'Walang katanungang nakakahiya: magkakaiba ang bawat katawan, at maaari kang palaging makipag-usap sa taong pinagkakatiwalaan mo.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Ang iyong unang regla: ano ang aasahan', meta: '5 min  ·  Gabay'},
       {title: 'Anong proteksyon ang pipiliin ko para sa unang regla?', meta: '6 min  ·  Gabay'},
@@ -3159,7 +3159,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'தெரிந்துகொள்ளுங்கள்',
     tipText: 'சங்கடமான கேள்வி என்று எதுவும் இல்லை: ஒவ்வொரு உடலும் வேறுபட்டது, நீங்கள் எப்போதும் நீங்கள் நம்பும் ஒருவரிடம் பேசலாம்.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'உங்கள் முதல் மாதவிடாய்: என்ன எதிர்பார்ப்பது', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
       {title: 'என் முதல் மாதவிடாய்க்கு எந்தப் பாதுகாப்பைத் தேர்ந்தெடுப்பது?', meta: '6 நிமிடம்  ·  வழிகாட்டி'},
@@ -3205,7 +3205,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'తెలుసుకోవాల్సినవి',
     tipText: 'ఇబ్బందికరమైన ప్రశ్న అంటూ ఏదీ లేదు: ప్రతి శరీరం భిన్నమైనది, మీరు ఎల్లప్పుడూ మీరు నమ్మే వ్యక్తితో మాట్లాడవచ్చు.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'మీ మొదటి నెలసరి: ఏమి ఆశించాలి', meta: '5 ని  ·  గైడ్'},
       {title: 'నా మొదటి నెలసరికి ఏ రక్షణను ఎంచుకోవాలి?', meta: '6 ని  ·  గైడ్'},
@@ -3251,7 +3251,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'हे जाणून घ्या',
     tipText: 'लाजिरवाणा प्रश्न असा काही नसतो: प्रत्येक शरीर वेगळे असते आणि तुम्ही तुमचा विश्वास असलेल्या व्यक्तीशी नेहमी बोलू शकता.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'तुमची पहिली पाळी: काय अपेक्षित आहे', meta: '5 मिनिटे  ·  मार्गदर्शक'},
       {title: 'माझ्या पहिल्या पाळीसाठी मी कोणते संरक्षण निवडावे?', meta: '6 मिनिटे  ·  मार्गदर्शक'},
@@ -3297,7 +3297,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'જાણવા જેવું',
     tipText: 'શરમજનક પ્રશ્ન જેવું કંઈ હોતું નથી: દરેક શરીર અલગ હોય છે, અને તમે હંમેશાં તમારા વિશ્વાસુ કોઈ વ્યક્તિ સાથે વાત કરી શકો છો.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'તમારું પ્રથમ માસિક: શું અપેક્ષા રાખવી', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
       {title: 'મારા પ્રથમ માસિક માટે મારે કયું સંરક્ષણ પસંદ કરવું?', meta: '6 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -3343,7 +3343,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ਜਾਣਨ ਯੋਗ',
     tipText: 'ਸ਼ਰਮਿੰਦਗੀ ਵਾਲਾ ਸਵਾਲ ਕੋਈ ਨਹੀਂ ਹੁੰਦਾ: ਹਰ ਸਰੀਰ ਵੱਖਰਾ ਹੈ, ਅਤੇ ਤੁਸੀਂ ਹਮੇਸ਼ਾ ਕਿਸੇ ਭਰੋਸੇਯੋਗ ਵਿਅਕਤੀ ਨਾਲ ਗੱਲ ਕਰ ਸਕਦੇ ਹੋ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ: ਕੀ ਉਮੀਦ ਰੱਖੀਏ', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
       {title: 'ਮੈਨੂੰ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਲਈ ਕਿਹੜਾ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ?', meta: '6 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -3389,7 +3389,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'သိထားသင့်သည်',
     tipText: 'ရှက်စရာမေးခွန်းဟူ၍ မရှိပါ - ခန္ဓာကိုယ်တိုင်း မတူညီပြီး သင်ယုံကြည်ရသူနှင့် အမြဲပြောဆိုနိုင်သည်။',
-    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    relatedTitle: 'သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
     related: [
       {title: 'သင့်ပထမဆုံးရာသီ၊ ဘာတွေမျှော်လင့်ရမလဲ', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
       {title: 'ပထမဆုံးရာသီအတွက် မည်သည့်ကာကွယ်ရေးပစ္စည်းကို ရွေးသင့်သနည်း။', meta: '6 မိနစ်  ·  လမ်းညွှန်'},
@@ -3435,7 +3435,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'គួរដឹង',
     tipText: 'គ្មានសំណួរណាដែលគួរឱ្យអៀនខ្មាសនោះទេ៖ រាងកាយមនុស្សម្នាក់ៗខុសគ្នា ហើយអ្នកអាចនិយាយជាមួយអ្នកដែលអ្នកទុកចិត្តបានជានិច្ច។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'រដូវដំបូងរបស់អ្នក៖ អ្វីដែលត្រូវរំពឹងទុក', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
       {title: 'តើខ្ញុំគួរជ្រើសរើសសម្ភារៈការពារអ្វីសម្រាប់រដូវដំបូងរបស់ខ្ញុំ?', meta: '6 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -3481,7 +3481,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodFaq', {
     ],
     tipTitle: 'ຄວນຮູ້',
     tipText: 'ບໍ່ມີຄຳຖາມທີ່ໜ້າອາຍ: ທຸກຮ່າງກາຍແຕກຕ່າງກັນ ແລະ ທ່ານສາມາດລົມກັບຄົນທີ່ທ່ານໄວ້ວາງໃຈໄດ້ສະເໝີ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ: ສິ່ງທີ່ຄວນຄາດຫວັງ', meta: '5 ນາທີ  ·  ຄູ່ມື'},
       {title: 'ຄວນເລືອກຜ້າອະນາໄມແບບໃດສຳລັບປະຈຳເດືອນຄັ້ງທຳອິດ?', meta: '6 ນາທີ  ·  ຄູ່ມື'},

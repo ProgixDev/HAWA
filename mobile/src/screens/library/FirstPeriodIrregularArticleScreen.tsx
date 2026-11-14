@@ -79,7 +79,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Dans la grande majorité des cas, il n’y a rien d’inquiétant à observer. Un avis médical reste toutefois utile si les règles sont absentes pendant plusieurs mois après leur apparition, ou en cas de doute persistant.',
     alertTitle: 'Consulter si',
     alertText: 'Absence de règles pendant plusieurs mois, douleurs très intenses, ou saignements très abondants.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Cycle régulier ou irrégulier : quelles différences ?', meta: '5 min  ·  Guide'},
       {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
@@ -108,7 +108,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'In the vast majority of cases, there’s nothing to worry about. That said, it’s a good idea to see a doctor if your period is absent for several months after it first appears, or if you have ongoing doubts.',
     alertTitle: 'See a doctor if',
     alertText: 'No period for several months, very intense pain, or very heavy bleeding.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'Regular or irregular cycle: what’s the difference?', meta: '5 min  ·  Guide'},
       {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
@@ -137,7 +137,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'En la gran mayoría de los casos, no hay nada preocupante que observar. Aun así, conviene pedir una opinión médica si la menstruación está ausente durante varios meses después de su aparición, o si persisten las dudas.',
     alertTitle: 'Consulta si',
     alertText: 'Ausencia de menstruación durante varios meses, dolores muy intensos o sangrados muy abundantes.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {title: 'Ciclo regular o irregular: ¿qué diferencias hay?', meta: '5 min  ·  Guía'},
       {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
@@ -166,7 +166,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Nella grande maggioranza dei casi non c’è nulla di cui preoccuparsi. Detto questo, è una buona idea rivolgersi al medico se il ciclo è assente per diversi mesi dopo la prima comparsa, o se hai dubbi che persistono.',
     alertTitle: 'Rivolgiti al medico se',
     alertText: 'Il ciclo manca da diversi mesi, hai un dolore molto intenso o un sanguinamento molto abbondante.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Ciclo regolare o irregolare: qual è la differenza?',
@@ -204,7 +204,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Vakaların büyük çoğunluğunda endişelenecek bir şey yoktur. Yine de adetin ilk görüldükten sonra birkaç ay boyunca gelmiyorsa ya da aklında süren şüpheler varsa doktora görünmen iyi olur.',
     alertTitle: 'Şu durumlarda doktora git',
     alertText: 'Birkaç ay boyunca adet görmeme, çok şiddetli ağrı ya da çok yoğun kanama.',
-    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    relatedTitle: 'Bunlar da ilgini çekebilir',
     related: [
       {
         title: 'Düzenli ya da düzensiz döngü: fark nedir?',
@@ -242,7 +242,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'В подавляющем большинстве случаев поводов для беспокойства нет. Тем не менее стоит обратиться к врачу, если месячные отсутствуют в течение нескольких месяцев после первых или если сомнения не проходят.',
     alertTitle: 'Обратитесь к врачу, если',
     alertText: 'Месячных нет в течение нескольких месяцев, очень сильная боль или очень обильные кровотечения.',
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {
         title: 'Регулярный или нерегулярный цикл: в чём разница?',
@@ -280,7 +280,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'In den allermeisten Fällen gibt es keinen Grund zur Sorge. Dennoch ist es ratsam, ärztlichen Rat einzuholen, wenn deine Periode nach dem ersten Auftreten mehrere Monate ausbleibt oder wenn du weiterhin Zweifel hast.',
     alertTitle: 'Geh zur Ärztin oder zum Arzt, wenn',
     alertText: 'die Periode mehrere Monate ausbleibt, du sehr starke Schmerzen hast oder die Blutung sehr stark ist.',
-    relatedTitle: '♥  Das könnte dich auch interessieren',
+    relatedTitle: 'Das könnte dich auch interessieren',
     related: [
       {
         title: 'Regelmäßiger oder unregelmäßiger Zyklus: Was ist der Unterschied?',
@@ -318,7 +318,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
       body3: '绝大多数情况下，不需要担心。不过，如果初潮之后月经连续几个月没有来，或者你一直心存疑虑，最好去看医生。',
       alertTitle: '出现以下情况请就医',
       alertText: '连续几个月没有月经、疼痛非常剧烈，或出血量非常大。',
-      relatedTitle: '♥  你可能还想看',
+      relatedTitle: '你可能还想看',
       related: [
         {
           title: '月经周期规律还是不规律：有什么区别？',
@@ -356,7 +356,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
       body3: '絕大多數情況下，不需要擔心。不過，如果初潮之後月經連續幾個月沒有來，或者你一直心存疑慮，最好去看醫生。',
       alertTitle: '出現以下情況請就醫',
       alertText: '連續幾個月沒有月經、疼痛非常劇烈，或出血量非常大。',
-      relatedTitle: '♥  你可能還想看',
+      relatedTitle: '你可能還想看',
       related: [
         {
           title: '月經週期規律還是不規律：有什麼區別？',
@@ -394,7 +394,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'في الغالبية العظمى من الحالات، لا يوجد ما يدعو للقلق. ومع ذلك، من الجيد مراجعة الطبيب إذا غاب الحيض عدة أشهر بعد ظهوره لأول مرة، أو إذا استمرت لديك الشكوك.',
     alertTitle: 'راجعي الطبيب إذا',
     alertText: 'غاب الحيض عدة أشهر، أو كان الألم شديدًا جدًا، أو كان النزف غزيرًا جدًا.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'دورة منتظمة أم غير منتظمة: ما الفرق؟', meta: '5 دقائق  ·  دليل'},
       {title: 'حيضك الأول: ماذا تتوقعين', meta: '5 دقائق  ·  دليل'},
@@ -423,7 +423,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Deg tuget n tezmert, ulac wayen ara yeḥmem. Maca, yelha ad teẓreḍ ṭṭbib ma yella lḥiḍ ur d-yettili ara deg waṭas n wayyuren sakin ma yella tzeddiḍ deg tikli n lḥiḍ-ik, neɣ ma yella ɣur-k ceṭṭ i d-yettuɣalen.',
     alertTitle: 'Ẓer ṭṭbib ma',
     alertText: 'Ulac lḥiḍ deg waṭas n wayyuren, ticki iḥerceyen ɣezzifen aṭas, neɣ yettazzal waman aṭas n idammen.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Azray amagnu neɣ ur yelli ara d amagnu: d acu i d lfeṛq?', meta: '5 tesdidin  ·  Amusnaw'},
       {title: 'Lḥiḍ-ik amezwaru: d acu ara tarmeḍ', meta: '5 tesdidin  ·  Amusnaw'},
@@ -452,7 +452,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Yeroo baay\'ee dhiphachuu barbaachisu hin jiru. Haa ta\'u malee, laguun erga jalqabee booda ji\'oota baay\'ee yoo hafe, ykn yoo yaaddoon si hordofe, doktora argachuun gaarii dha.',
     alertTitle: 'Doktora argadhu yoo',
     alertText: 'Ji\'oota baay\'ee laguun yoo hafe, ciniinsuun baay\'ee cimaa yoo ta\'e, ykn dhiigni baay\'ee yoo ba\'e.',
-    relatedTitle: '♥  Kunis si ni gammachiisa',
+    relatedTitle: 'Kunis si ni gammachiisa',
     related: [
       {title: 'Marsaa sirrii fi sirrii hin taane: garaagarummaan isaanii maali?', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
       {title: 'Laguu kee isa jalqabaa: maal eegamu', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
@@ -481,7 +481,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ኣብ ብዙሕ ኩነታት ዘለዎ ዘሰክፍ ነገር የለን። እንተኾነ ቀዳማይ ወርሓዊ ደምኪ ምስ ተራእየ ንብዙሓት ኣዋርሕ እንተጠፍአ፡ ወይ ቀጻሊ ጥርጣረ እንተለኪ፡ ዶክተር ምርኣይ ጽቡቕ እዩ።',
     alertTitle: 'ዶክተር እዩ ዘድሊ እንተ',
     alertText: 'ንብዙሓት ኣዋርሕ ወርሓዊ ደም ምጥፋእ፡ ኣዝዩ ብርቱዕ ቁርቁስ፡ ወይ ኣዝዩ ብዙሕ ደም ምፍሳስ።',
-    relatedTitle: '♥  እዚ እውን ክትፈትዊ ትኽእሊ',
+    relatedTitle: 'እዚ እውን ክትፈትዊ ትኽእሊ',
     related: [
       {title: 'ንቡር ወይስ ዘይንቡር ዑደት፡ እንታይ ፍልልይ ኣለዎ?', meta: '5 ደቒቕ  ·  መምርሒ'},
       {title: 'ቀዳማይ ወርሓዊ ደምኪ፡ እንታይ ትጽበዪ', meta: '5 ደቒቕ  ·  መምርሒ'},
@@ -510,7 +510,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Mu bihe byinshi cyane, nta cyo guhangayikira. Icyakora, ni byiza kujya kureba muganga niba imihango yawe imaze amezi menshi idaza nyuma yo kuza bwa mbere, cyangwa niba ugifite impungenge zidashira.',
     alertTitle: 'Reba muganga niba',
     alertText: 'Imihango itaza mu mezi menshi, ububabare bukabije cyane, cyangwa kuva amaraso menshi cyane.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Uruhererekane rusanzwe cyangwa rudasanzwe: ni irihe tandukaniro?', meta: 'iminota 5  ·  Ubuyobozi'},
       {title: 'Imihango yawe ya mbere: icyo witegura', meta: 'iminota 5  ·  Ubuyobozi'},
@@ -539,7 +539,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Mu bihe vyinshi cane, nta co guhagarika umutima. Ariko ni vyiza kubona muganga nimba imihango yawe idaza mu mezi menshi nyuma y\'uko itangura, canke nimba ufise amakenga akomeza.',
     alertTitle: 'Raba muganga nimba',
     alertText: 'Nta mihango mu mezi menshi, ububabare bukomeye cane, canke kuva amaraso menshi cane.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Uruziga rusanzwe canke rutari rusanzwe: itandukaniro ni irihe?', meta: 'Iminota 5  ·  Ubuyobozi'},
       {title: 'Imihango yawe ya mbere: ivyo gutegereza', meta: 'Iminota 5  ·  Ubuyobozi'},
@@ -568,7 +568,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'N\'ọtụtụ ọnọdụ, ọ nweghị ihe ị ga-echegbu onwe gị. Ọ bụ ezie na ọ dị mma ịhụ dọkịta ma ọ bụrụ na nsọ gị apụtaghị ọnwa ole na ole mgbe o pụtara mbụ, ma ọ bụ ma ọ bụrụ na ị nwere obi abụọ na-adịgide adịgide.',
     alertTitle: 'Hụ dọkịta ma ọ bụrụ na',
     alertText: 'Ị hụghị nsọ ọnwa ole na ole, mgbu siri ike nke ukwuu, ma ọ bụ ọbara na-asọpụta nke ukwuu.',
-    relatedTitle: '♥  Ị nwekwara ike ịmasị',
+    relatedTitle: 'Ị nwekwara ike ịmasị',
     related: [
       {title: 'Usoro nsọ dị n\'usoro ma ọ bụ nke na-adịghị n\'usoro: gịnị bụ ọdịiche?', meta: 'Nkeji 5  ·  Nduzi'},
       {title: 'Nsọ gị nke mbụ: ihe ị ga-atụ anya', meta: 'Nkeji 5  ·  Nduzi'},
@@ -597,7 +597,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Ní ọ̀pọ̀ ìgbà, kò sí ohun tó yẹ kí o páyà nípa rẹ̀. Bó ti wù kó rí, ó dára kí o lọ rí dókítà tí nǹkan oṣù rẹ kò bá wá fún oṣù mélòó kan lẹ́yìn tí ó kọ́kọ́ farahàn, tàbí tí ìṣiyèméjì bá ń bá a lọ.',
     alertTitle: 'Lọ rí dókítà tí',
     alertText: 'Nǹkan oṣù kò wá fún oṣù mélòó kan, ìrora tó lágbára gan-an, tàbí ẹ̀jẹ̀ tó pọ̀ gan-an.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí pẹ̀lú',
+    relatedTitle: 'O lè fẹ́ràn èyí pẹ̀lú',
     related: [
       {title: 'Ìyípo nǹkan oṣù tó tọ̀nà àti èyí tí kò tọ̀nà: kí ni ìyàtọ̀?', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
       {title: 'Nǹkan oṣù àkọ́kọ́ rẹ: ohun tí o lè retí', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
@@ -626,7 +626,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Ezimweni eziningi kakhulu, akukho okufanele ukukhathazele. Nokho, kungaba kuhle ukubona udokotela uma ungayi esikhathini izinyanga ezimbalwa ngemva kokuthi uqale ukuya, noma uma une-shwa eliqhubekayo.',
     alertTitle: 'Bona udokotela uma',
     alertText: 'Ungayi esikhathini izinyanga ezimbalwa, unobuhlungu obukhulu kakhulu, noma ukopha kakhulu kakhulu.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Umjikelezo ohlelekile noma ongahlelekile: umehluko uyini?', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
       {title: 'Ukuya kwakho esikhathini kokuqala: okufanele ukulindele', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
@@ -655,7 +655,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Kuninzi lweemeko, akukho nto ekufanele ukuba ikukhathaze. Noko ke, kulungile ukubona ugqirha ukuba ixesha lakho lenyanga alibonakali iinyanga ezininzi emva kokuba liqale ukubonakala, okanye ukuba unamathandabuzo aqhubekayo.',
     alertTitle: 'Bona ugqirha ukuba',
     alertText: 'Akukho xesha lenyanga iinyanga ezininzi, intlungu enamandla kakhulu, okanye ukopha kakhulu.',
-    relatedTitle: '♥  Unokuthanda nale',
+    relatedTitle: 'Unokuthanda nale',
     related: [
       {title: 'Umjikelo olandelanayo okanye ongalandelaniyo: yintoni umahluko?', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
       {title: 'Ixesha lakho lokuqala lenyanga: ukuba ulindele ntoni', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
@@ -684,7 +684,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Mumisoro yakawanda, hapana chekuvhunduka. Zvisinei, zvakanaka kuona chiremba kana kuenda kwako kumwedzi kusingaoneki kwemwedzi yakawanda mushure mekutanga kuoneka, kana uine kusava nechokwadi kunoramba kuripo.',
     alertTitle: 'Ona chiremba kana',
     alertText: 'Usina kuenda kumwedzi kwemwedzi yakawanda, kurwadziwa kukuru kwazvo, kana kubuda ropa rakawanda kwazvo.',
-    relatedTitle: '♥  Unogona kunakidzwawo nezvi',
+    relatedTitle: 'Unogona kunakidzwawo nezvi',
     related: [
       {title: 'Cycle inorongeka kana isingarongeki: musiyano ndeupi?', meta: 'maminetsi 5  ·  Gwaro'},
       {title: 'Kuenda kwako kumwedzi kwekutanga: zvekutarisira', meta: 'maminetsi 5  ·  Gwaro'},
@@ -713,7 +713,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Na makambo mingi mpenza, eloko ya kobanga ezali te. Nzokande, ezali malamu kokende epai ya monganga soki sanza na yo ezali te na sanza mingi sima ya kobima ya liboso, to soki ozali naino na makanisi.',
     alertTitle: 'Kende epai ya monganga soki',
     alertText: 'Sanza ezali te na sanza mingi, mpasi makasi mpenza, to makila mingi mpenza.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Cycle ya malamu to oyo esalaka ndenge moko te: bokeseni nini?', meta: 'Miniti 5  ·  Malako'},
       {title: 'Sanza na yo ya liboso: ntina nini ya kolikya', meta: 'Miniti 5  ·  Malako'},
@@ -742,7 +742,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Nder ɗuuɗal ɓurooji, walaa ko woodi ngam jaŋde hakkiilo. Kono ko ɓuri moyyude yahde e dokotoro to lewru maaɗa woodaa nder lewru ɗuɗɗe caggal ko artii, malla to ko woodi ngam miɗo wondi hakkiilo.',
     alertTitle: 'Yah e dokotoro to',
     alertText: 'Walaa lewru nder lewru ɗuɗɗe, muusu mawngu masin, malla ndiyam ɗam ɓuri ɗuuɗugo masin.',
-    relatedTitle: '♥  Ɗum ko jooɗi kadi ɗum yiɗa',
+    relatedTitle: 'Ɗum ko jooɗi kadi ɗum yiɗa',
     related: [
       {title: 'Doggol lewru jaaɓaaɗo malla jaaɓaaɗo wonaa: ko woni ceedugol?', meta: 'Minti 5  ·  Jannginoore'},
       {title: 'Lewru maaɗa artungo: ko haani yiɗde', meta: 'Minti 5  ·  Jannginoore'},
@@ -771,7 +771,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Pada sebagian besar kasus, tidak ada yang perlu dikhawatirkan. Meski begitu, sebaiknya temui dokter jika haidmu tidak datang selama beberapa bulan setelah pertama kali muncul, atau jika kamu terus merasa ragu.',
     alertTitle: 'Temui dokter jika',
     alertText: 'Tidak haid selama beberapa bulan, nyeri yang sangat hebat, atau perdarahan yang sangat deras.',
-    relatedTitle: '♥  Mungkin kamu juga suka',
+    relatedTitle: 'Mungkin kamu juga suka',
     related: [
       {
         title: 'Siklus teratur atau tidak teratur: apa bedanya?',
@@ -809,7 +809,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ज़्यादातर मामलों में चिंता की कोई बात नहीं होती। फिर भी, अगर पहला पीरियड आने के बाद कई महीनों तक पीरियड न आए, या आपके मन में लगातार शंका हो, तो डॉक्टर को दिखाना अच्छा रहेगा।',
     alertTitle: 'इन स्थितियों में डॉक्टर को दिखाएँ',
     alertText: 'कई महीनों तक पीरियड न आना, बहुत तेज़ दर्द, या बहुत ज़्यादा रक्तस्राव।',
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'नियमित या अनियमित चक्र: क्या फ़र्क़ है?',
@@ -847,7 +847,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Në shumicën dërrmuese të rasteve, nuk ka arsye shqetësimi. Megjithatë, është mirë të shkosh te mjeku nëse menstruacioni mungon për disa muaj pasi ka ardhur për herë të parë, ose nëse ke dyshime të vazhdueshme.',
     alertTitle: 'Shko te mjeku nëse',
     alertText: 'Nuk ke menstruacione për disa muaj, ke dhimbje shumë të forta ose gjakderdhje shumë të bollshme.',
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Cikël i rregullt apo i parregullt: cili është ndryshimi?',
@@ -885,7 +885,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ほとんどの場合、心配はいりません。ただし、生理が始まってから数か月来ない場合や、不安が続く場合は、医師に相談するとよいでしょう。',
     alertTitle: '次のようなときは医師に相談を',
     alertText: '数か月間生理が来ない、とても強い痛みがある、出血量がとても多い。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '規則的な周期と不規則な周期：何が違う？',
@@ -923,7 +923,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: '대부분의 경우 걱정할 필요는 없어요. 다만 첫 생리가 시작된 뒤 몇 달 동안 생리가 없거나 계속 의문이 든다면 의사에게 진료받는 것이 좋아요.',
     alertTitle: '이럴 때는 의사에게 진료받으세요',
     alertText: '몇 달 동안 생리가 없을 때, 통증이 아주 심할 때, 출혈이 아주 많을 때.',
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '규칙적인 주기와 불규칙한 주기: 무엇이 다를까요?',
@@ -961,7 +961,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Na grande maioria dos casos, não há motivo para preocupação. Ainda assim, é aconselhável consultar um médico se o período estiver ausente durante vários meses depois de ter surgido pela primeira vez, ou se tiver dúvidas persistentes.',
     alertTitle: 'Consulte um médico se',
     alertText: 'Não tiver período há vários meses, tiver dor muito intensa ou uma hemorragia muito abundante.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'Ciclo regular ou irregular: qual é a diferença?',
@@ -999,7 +999,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'অধিকাংশ ক্ষেত্রেই দুশ্চিন্তার কিছু নেই। তবে প্রথম মাসিক শুরু হওয়ার পর যদি কয়েক মাস মাসিক বন্ধ থাকে, অথবা আপনার মনে ক্রমাগত সন্দেহ থাকে, তাহলে ডাক্তার দেখানো ভালো।',
     alertTitle: 'ডাক্তার দেখান যদি',
     alertText: 'কয়েক মাস মাসিক না হয়, খুব তীব্র ব্যথা হয়, অথবা খুব বেশি রক্তক্ষরণ হয়।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'নিয়মিত না অনিয়মিত চক্র: পার্থক্য কী?',
@@ -1037,7 +1037,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'I de fleste tilfælde er der intet at bekymre sig om. Men hvis menstruationen stopper i et par måneder efter din første cyklus, eller du løbende er i tvivl, er det en god idé at gå til lægen.',
     alertTitle: 'Gå til lægen hvis',
     alertText: 'Menstruationen udebliver i et par måneder, smerten er meget kraftig, eller blødningen er meget kraftig.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Regelmæssig eller uregelmæssig cyklus: hvad er forskellen?',
@@ -1075,7 +1075,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'I de fleste tilfälde ar der intet at bekymre sig om. Men hvis menstruationen stopper i et par måneder efter din förste cyklus, eller du löbende ar i tvivl, ar det en god idé at gå till lägen.',
     alertTitle: 'Gå till lägen hvis',
     alertText: 'Menstruationen udebliver i et par måneder, smerten ar mycket kraftig, eller blödningen ar mycket kraftig.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Regelmässig eller uregelmässig cyklus: hvad ar forskellen?',
@@ -1113,7 +1113,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'I de aller fleste tilfeller er det ikke noe å bekymre seg for. Likevel er det lurt å gå til lege hvis mensen uteblir i flere måneder etter at den først kom, eller hvis du har vedvarende tvil.',
     alertTitle: 'Gå til lege hvis',
     alertText: 'Ingen mens på flere måneder, svært sterke smerter eller svært kraftig blødning.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'Regelmessig eller uregelmessig syklus: hva er forskjellen?', meta: '5 min  ·  Veiledning'},
       {title: 'Din første mens: hva du kan forvente', meta: '5 min  ·  Veiledning'},
@@ -1142,7 +1142,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'W zdecydowanej większości przypadków nie ma powodów do niepokoju. Warto jednak zgłosić się do lekarza, jeśli miesiączka nie pojawia się przez kilka miesięcy po pierwszej lub jeśli masz uporczywe wątpliwości.',
     alertTitle: 'Zgłoś się do lekarza, jeśli',
     alertText: 'Brak miesiączki przez kilka miesięcy, bardzo silny ból lub bardzo obfite krwawienie.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Cykl regularny czy nieregularny: jaka jest różnica?', meta: '5 min  ·  Poradnik'},
       {title: 'Twoja pierwsza miesiączka: czego się spodziewać', meta: '5 min  ·  Poradnik'},
@@ -1171,7 +1171,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'У переважній більшості випадків турбуватися нема про що. Проте варто звернутися до лікаря, якщо менструація відсутня кілька місяців після першої або якщо у вас є постійні сумніви.',
     alertTitle: 'Зверніться до лікаря, якщо',
     alertText: 'Немає менструації кілька місяців, дуже сильний біль або дуже рясна кровотеча.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Регулярний чи нерегулярний цикл: у чому різниця?', meta: '5 хв  ·  Посібник'},
       {title: 'Ваша перша менструація: чого очікувати', meta: '5 хв  ·  Посібник'},
@@ -1200,7 +1200,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Ve velké většině případů není důvod k obavám. Přesto je dobré navštívit lékaře, pokud menstruace několik měsíců po prvním objevení chybí nebo pokud máte trvalé pochybnosti.',
     alertTitle: 'Navštivte lékaře, pokud',
     alertText: 'Menstruace chybí několik měsíců, máte velmi intenzivní bolest nebo velmi silné krvácení.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'Pravidelný, nebo nepravidelný cyklus: v čem je rozdíl?', meta: '5 min  ·  Průvodce'},
       {title: 'Vaše první menstruace: co očekávat', meta: '5 min  ·  Průvodce'},
@@ -1229,7 +1229,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Vo veľkej väčšine prípadov niet dôvodu na obavy. Napriek tomu je dobré navštíviť lekára, ak menštruácia chýba niekoľko mesiacov po tom, čo sa prvýkrát objavila, alebo ak máte pretrvávajúce pochybnosti.',
     alertTitle: 'Navštívte lekára, ak',
     alertText: 'Menštruácia chýba niekoľko mesiacov, bolesť je veľmi silná alebo krvácanie veľmi silné.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Pravidelný alebo nepravidelný cyklus: aký je rozdiel?', meta: '5 min  ·  Sprievodca'},
       {title: 'Vaša prvá menštruácia: čo očakávať', meta: '5 min  ·  Sprievodca'},
@@ -1258,7 +1258,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'A legtöbb esetben nincs ok aggodalomra. Ennek ellenére érdemes orvoshoz fordulni, ha a menstruáció első megjelenése után több hónapig elmarad, vagy ha tartós kétségeid vannak.',
     alertTitle: 'Fordulj orvoshoz, ha',
     alertText: 'Több hónapig nincs menstruáció, nagyon erős a fájdalom, vagy nagyon erős a vérzés.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'Rendszeres vagy szabálytalan ciklus: mi a különbség?', meta: '5 perc  ·  Útmutató'},
       {title: 'Az első menstruációd: mire számíts', meta: '5 perc  ·  Útmutató'},
@@ -1287,7 +1287,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'În marea majoritate a cazurilor, nu este niciun motiv de îngrijorare. Cu toate acestea, este bine să mergi la medic dacă menstruația lipsește mai multe luni după prima apariție sau dacă ai îndoieli persistente.',
     alertTitle: 'Mergi la medic dacă',
     alertText: 'Nu ai menstruație timp de mai multe luni, ai dureri foarte intense sau sângerări foarte abundente.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Ciclu regulat sau neregulat: care este diferența?', meta: '5 min  ·  Ghid'},
       {title: 'Prima ta menstruație: la ce să te aștepți', meta: '5 min  ·  Ghid'},
@@ -1316,7 +1316,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'В огромното мнозинство от случаите няма за какво да се тревожиш. Въпреки това е добре да отидеш на лекар, ако менструацията ти отсъства няколко месеца след първата ѝ поява или ако имаш упорити съмнения.',
     alertTitle: 'Иди на лекар, ако',
     alertText: 'Няма менструация няколко месеца, имаш много силна болка или много обилно кървене.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Редовен или нередовен цикъл: каква е разликата?', meta: '5 мин  ·  Ръководство'},
       {title: 'Първата ти менструация: какво да очакваш', meta: '5 мин  ·  Ръководство'},
@@ -1345,7 +1345,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'У огромној већини случајева нема разлога за бригу. Ипак, добро је посетити лекара ако ти менструација изостане неколико месеци након што се први пут појави или ако имаш трајне сумње.',
     alertTitle: 'Посети лекара ако',
     alertText: 'Нема менструације неколико месеци, имаш веома јак бол или веома обилно крварење.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Редовни или нередовни циклус: каква је разлика?', meta: '5 мин  ·  Водич'},
       {title: 'Твоја прва менструација: шта да очекујеш', meta: '5 мин  ·  Водич'},
@@ -1374,7 +1374,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'U velikoj većini slučajeva nema razloga za zabrinutost. Ipak, dobro je posjetiti liječnika ako menstruacije nema nekoliko mjeseci nakon što se prvi put pojavila ili ako imaš trajne nedoumice.',
     alertTitle: 'Posjeti liječnika ako',
     alertText: 'Nema menstruacije nekoliko mjeseci, imaš vrlo jaku bol ili vrlo obilno krvarenje.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Pravilan ili nepravilan ciklus: u čemu je razlika?', meta: '5 min  ·  Vodič'},
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
@@ -1403,7 +1403,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'U velikoj većini slučajeva nema razloga za zabrinutost. Ipak, dobro je posjetiti ljekara ako menstruacije nema nekoliko mjeseci nakon što se prvi put pojavila ili ako imaš trajne nedoumice.',
     alertTitle: 'Posjeti ljekara ako',
     alertText: 'Nema menstruacije nekoliko mjeseci, imaš vrlo jaku bol ili vrlo obilno krvarenje.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Pravilan ili nepravilan ciklus: u čemu je razlika?', meta: '5 min  ·  Vodič'},
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
@@ -1432,7 +1432,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'V veliki večini primerov ni razloga za zaskrbljenost. Kljub temu je dobro obiskati zdravnika, če menstruacije ni več mesecev, potem ko se je prvič pojavila, ali če imaš trajne dvome.',
     alertTitle: 'Obišči zdravnika, če',
     alertText: 'Menstruacije ni več mesecev, imaš zelo hudo bolečino ali zelo obilno krvavitev.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Reden ali nereden cikel: v čem je razlika?', meta: '5 min  ·  Vodnik'},
       {title: 'Tvoja prva menstruacija: kaj pričakovati', meta: '5 min  ·  Vodnik'},
@@ -1461,7 +1461,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'अधिकांश अवस्थामा चिन्ता गर्नुपर्ने केही हुँदैन। यद्यपि, महिनावारी पहिलो पटक देखिएपछि धेरै महिनासम्म नआएमा, वा लगातार शङ्का भएमा चिकित्सकलाई देखाउनु राम्रो हुन्छ।',
     alertTitle: 'यस्तो भए चिकित्सकलाई देखाउनुहोस्',
     alertText: 'धेरै महिनासम्म महिनावारी नआउनु, निकै तीव्र दुखाइ, वा निकै धेरै रक्तस्राव।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'नियमित वा अनियमित चक्र: के फरक छ?', meta: '5 मिनेट  ·  मार्गदर्शन'},
       {title: 'तपाईंको पहिलो महिनावारी: के अपेक्षा गर्ने', meta: '5 मिनेट  ·  मार्गदर्शन'},
@@ -1490,7 +1490,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'බහුතර අවස්ථාවලදී, කනස්සල්ලට කරුණක් නැත. එසේ වුවද, ඔබේ ඔසප් පළමුව දිස්වී මාස කිහිපයක් නොපැමිණෙන්නේ නම්, හෝ ඔබට දිගටම සැකයක් ඇත්නම්, වෛද්‍යවරයෙකු හමුවීම හොඳ අදහසකි.',
     alertTitle: 'මෙසේ නම් වෛද්‍යවරයෙකු හමුවන්න',
     alertText: 'මාස කිහිපයක් ඔසප් නැත, ඉතා දැඩි වේදනාව, හෝ ඉතා වැඩි ලේ ගැලීම.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'නිතිපතා හෝ අක්‍රමවත් චක්‍රය: වෙනස කුමක්ද?', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
       {title: 'ඔබේ පළමු ඔසප්: අපේක්ෂා කළ යුත්තේ කුමක්ද', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
@@ -1519,7 +1519,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ในกรณีส่วนใหญ่ ไม่มีอะไรต้องกังวล อย่างไรก็ตาม ควรพบแพทย์หากประจำเดือนขาดหายไปหลายเดือนหลังจากมาครั้งแรก หรือหากมีความสงสัยต่อเนื่อง',
     alertTitle: 'พบแพทย์หาก',
     alertText: 'ไม่มีประจำเดือนหลายเดือน ปวดรุนแรงมาก หรือเลือดออกมากผิดปกติ',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'รอบเดือนสม่ำเสมอหรือไม่สม่ำเสมอ: ต่างกันอย่างไร?', meta: '5 นาที  ·  คู่มือ'},
       {title: 'ประจำเดือนครั้งแรกของคุณ: สิ่งที่คาดหวังได้', meta: '5 นาที  ·  คู่มือ'},
@@ -1548,7 +1548,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Trong đại đa số trường hợp, không có gì đáng lo. Tuy vậy, nên đi khám bác sĩ nếu kỳ kinh vắng mặt nhiều tháng sau khi xuất hiện lần đầu, hoặc nếu bạn vẫn còn nghi ngờ.',
     alertTitle: 'Hãy đi khám bác sĩ nếu',
     alertText: 'Không có kinh trong nhiều tháng, đau rất dữ dội hoặc ra máu rất nhiều.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Chu kỳ đều hay không đều: khác nhau thế nào?', meta: '5 phút  ·  Hướng dẫn'},
       {title: 'Kỳ kinh đầu tiên của bạn: điều cần biết', meta: '5 phút  ·  Hướng dẫn'},
@@ -1577,7 +1577,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Aksariyat hollarda xavotirga hech narsa yoʻq. Shunga qaramay, agar hayz birinchi marta paydo boʻlganidan keyin bir necha oy boʻlmasa yoki doimiy shubhalaringiz boʻlsa, shifokorga murojaat qilgan yaxshi.',
     alertTitle: 'Quyidagi hollarda shifokorga boring',
     alertText: 'Bir necha oy hayz boʻlmasa, juda kuchli ogʻriq yoki juda koʻp qon ketishi boʻlsa.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Muntazam yoki notekis sikl: farqi nimada?', meta: '5 daq  ·  Qoʻllanma'},
       {title: 'Birinchi hayzingiz: nimalarni kutish kerak', meta: '5 daq  ·  Qoʻllanma'},
@@ -1606,7 +1606,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Əksər hallarda narahat olmağa əsas yoxdur. Bununla belə, aybaşı ilk dəfə göründükdən sonra bir neçə ay yoxdursa və ya davamlı şübhələriniz varsa, həkimə müraciət etmək yaxşıdır.',
     alertTitle: 'Bu hallarda həkimə müraciət edin',
     alertText: 'Bir neçə ay aybaşının olmaması, çox şiddətli ağrı və ya çox bol qanaxma.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'Müntəzəm və ya qeyri-müntəzəm dövr: fərq nədir?', meta: '5 dəq  ·  Bələdçi'},
       {title: 'İlk aybaşınız: nələri gözləmək olar', meta: '5 dəq  ·  Bələdçi'},
@@ -1635,7 +1635,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'შემთხვევათა აბსოლუტურ უმრავლესობაში საფიქრალი არაფერია. ამასთან, კარგია ექიმთან მისვლა, თუ მენსტრუაცია პირველი გამოჩენის შემდეგ რამდენიმე თვის განმავლობაში არ მოდის ან გაქვთ გაგრძელებული ეჭვები.',
     alertTitle: 'მიმართეთ ექიმს, თუ',
     alertText: 'მენსტრუაცია რამდენიმე თვის განმავლობაში არ მოდის, ძალიან ძლიერი ტკივილია ან ძალიან უხვი სისხლდენაა.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'რეგულარული თუ არარეგულარული ციკლი: რა არის განსხვავება?', meta: '5 წთ  ·  გზამკვლევი'},
       {title: 'თქვენი პირველი მენსტრუაცია: რას უნდა ელოდეთ', meta: '5 წთ  ·  გზამკვლევი'},
@@ -1664,7 +1664,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Դեպքերի ճնշող մեծամասնությունում անհանգստանալու պատճառ չկա: Այդուհանդերձ, լավ է դիմել բժշկի, եթե դաշտանը առաջին անգամ հայտնվելուց հետո բացակայում է մի քանի ամիս կամ եթե շարունակական կասկածներ ունեք:',
     alertTitle: 'Դիմեք բժշկի, եթե',
     alertText: 'Մի քանի ամիս դաշտան չկա, շատ ուժեղ ցավ կամ շատ առատ արյունահոսություն:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Կանոնավոր թե անկանոն ցիկլ. ո՞րն է տարբերությունը', meta: '5 ր  ·  Ուղեցույց'},
       {title: 'Ձեր առաջին դաշտանը. ինչ սպասել', meta: '5 ր  ·  Ուղեցույց'},
@@ -1693,7 +1693,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Дар аксари мутлақи ҳолатҳо чизе нест, ки нигарон кунад. Бо вуҷуди ин, хуб аст ба табиб муроҷиат кунед, агар ҳайз пас аз аввалин пайдо шуданаш чанд моҳ набошад ё шубҳаҳои идомадор дошта бошед.',
     alertTitle: 'Ба табиб муроҷиат кунед, агар',
     alertText: 'Чанд моҳ ҳайз нест, дарди хеле шадид ё хунравии хеле зиёд.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Давраи мунтазам ё номунтазам: фарқ дар чист?', meta: '5 дақ  ·  Роҳнамо'},
       {title: 'Ҳайзи аввали шумо: чӣ интизор шудан лозим аст', meta: '5 дақ  ·  Роҳнамо'},
@@ -1722,7 +1722,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Абдан көп учурларда тынчсыздануунун кереги жок. Ошентсе да, етек кирим биринчи жолу пайда болгондон кийин бир нече ай болбосо же дайыма күмөн болсо, дарыгерге барган жакшы.',
     alertTitle: 'Дарыгерге барыңыз, эгер',
     alertText: 'Бир нече ай етек кирим болбосо, абдан күчтүү оору же абдан көп кан кетүү болсо.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Туура же туура эмес цикл: айырмасы эмнеде?', meta: '5 мүн  ·  Колдонмо'},
       {title: 'Биринчи етек кирим: эмне күтүү керек', meta: '5 мүн  ·  Колдонмо'},
@@ -1751,7 +1751,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Aglaba köp ýagdaýda alada üçin sebäp ýok. Şeýle-de bolsa, aýbaşyňyz ilkinji gezek peýda bolandan soň birnäçe aý bolmasa ýa-da dowamly şübheleriňiz bar bolsa, lukmana ýüz tutmak maslahat berilýär.',
     alertTitle: 'Şu ýagdaýda lukmana ýüz tutuň',
     alertText: 'Birnäçe aý aýbaşy bolmasa, gaty güýçli agyry ýa-da gaty köp gan akma bolsa.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Yzygiderli ýa-da düzgünsiz sikl: tapawudy näme?', meta: '5 min  ·  Gollanma'},
       {title: 'Ilkinji aýbaşyňyz: nämä garaşmaly', meta: '5 min  ·  Gollanma'},
@@ -1780,7 +1780,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Dalam sebahagian besar kes, tiada apa yang perlu dibimbangkan. Walau bagaimanapun, adalah baik untuk berjumpa doktor jika haid anda tidak muncul selama beberapa bulan selepas ia mula-mula muncul, atau jika anda terus ragu-ragu.',
     alertTitle: 'Berjumpa doktor jika',
     alertText: 'Tiada haid selama beberapa bulan, sakit yang sangat kuat atau pendarahan yang sangat banyak.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Kitaran teratur atau tidak teratur: apa bezanya?', meta: '5 min  ·  Panduan'},
       {title: 'Haid pertama anda: apa yang dijangka', meta: '5 min  ·  Panduan'},
@@ -1809,7 +1809,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Inta badan kiisaska, wax laga walaacsan yahay ma jiraan. Si kastaba ha ahaatee, waa fikrad wanaagsan in dhakhtar la arko haddii caadadaadu ka maqan tahay dhowr bilood ka dib marka ay markii ugu horreysay soo muuqatay, ama haddii aad haysato shaki sii socda.',
     alertTitle: 'Arag dhakhtar haddii',
     alertText: 'Caado dhowr bilood ah la’aan, xanuun aad u xoog badan, ama dhiigbax aad u culus.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Wareeg joogto ah ama aan joogto ahayn: maxay kala duwan yihiin?', meta: '5 daq  ·  Hage'},
       {title: 'Caadadaada ugu horreysa: waxa la filayo', meta: '5 daq  ·  Hage'},
@@ -1838,7 +1838,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Katika hali nyingi sana, hakuna cha kuwa na wasiwasi nacho. Hata hivyo, ni vyema kumwona daktari ikiwa hedhi yako haipo kwa miezi kadhaa baada ya kuonekana mara ya kwanza, au ikiwa una shaka zinazoendelea.',
     alertTitle: 'Mwone daktari ikiwa',
     alertText: 'Hakuna hedhi kwa miezi kadhaa, maumivu makali sana, au kutokwa damu nyingi sana.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Mzunguko wa mpangilio au usio wa mpangilio: kuna tofauti gani?', meta: 'Dakika 5  ·  Mwongozo'},
       {title: 'Hedhi yako ya kwanza: nini cha kutarajia', meta: 'Dakika 5  ·  Mwongozo'},
@@ -1867,7 +1867,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Көп жағдайда алаңдайтын ештеңе жоқ. Дегенмен, етеккіріңіз алғаш пайда болғаннан кейін бірнеше ай болмаса немесе күмәндарыңыз жалғасса, дәрігерге бару жақсы.',
     alertTitle: 'Мына жағдайда дәрігерге барыңыз',
     alertText: 'Бірнеше ай етеккір болмаса, өте қатты ауыру немесе өте мол қан кету болса.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Тұрақты немесе тұрақсыз цикл: айырмашылығы неде?', meta: '5 мин  ·  Нұсқаулық'},
       {title: 'Алғашқы етеккіріңіз: нені күту керек', meta: '5 мин  ·  Нұсқаулық'},
@@ -1896,7 +1896,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Ci ñaar fuñ yu bari, amul lu war a tiital. Waaye baax na nga seet doktoor bu amul sa règle ay weer ginnaaw bi mu njëkkee feeñ, walla bu am nga xel-ñaar bu sax.',
     alertTitle: 'Seetal doktoor bu',
     alertText: 'Amul règle ay weer, metit bu metti lool, walla deret bu bari lool.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Wërsëg bu jub walla bu jubul: lan mooy wuute?', meta: '5 simili  ·  Ndigal'},
       {title: 'Sa règle bu njëkk: lu ñuy xaar', meta: '5 simili  ·  Ndigal'},
@@ -1925,7 +1925,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'A mafi yawan lokuta, babu abin damuwa. Duk da haka, yana da kyau a ga likita idan hailarki ba ta zo ba tsawon watanni da dama bayan ta fara bayyana, ko idan kina da shakka mai dorewa.',
     alertTitle: 'Ga likita idan',
     alertText: 'Babu haila na watanni da dama, ciwo mai ƙarfi sosai, ko zubar jini mai yawa sosai.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Zagaye mai tsari ko mara tsari: menene bambancin?', meta: 'minti 5  ·  Jagora'},
       {title: 'Hailarki ta farko: abin da za ki tsammata', meta: 'minti 5  ·  Jagora'},
@@ -1954,7 +1954,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'በአብዛኛዎቹ ሁኔታዎች የሚያሳስብ ነገር የለም። ያም ሆኖ፣ የወር አበባሽ ከመጀመሪያው ከታየ በኋላ ለበርካታ ወራት ከቀረ፣ ወይም የሚቀጥል ጥርጣሬ ካለሽ ሐኪም ማየት ጥሩ ነው።',
     alertTitle: 'ሐኪም ማየት ያለብሽ ከሆነ',
     alertText: 'ለበርካታ ወራት የወር አበባ ከሌለ፣ በጣም ከባድ ህመም፣ ወይም በጣም ብዙ ደም መፍሰስ።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'ወጥ ወይም ወጥ ያልሆነ ዑደት፦ ልዩነቱ ምንድን ነው?', meta: '5 ደቂቃ  ·  መመሪያ'},
       {title: 'የመጀመሪያ የወር አበባሽ፦ ምን መጠበቅ', meta: '5 ደቂቃ  ·  መመሪያ'},
@@ -1983,7 +1983,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'In de overgrote meerderheid van de gevallen is er niets om je zorgen over te maken. Toch is het verstandig een arts te zien als je menstruatie gedurende meerdere maanden uitblijft nadat ze voor het eerst is verschenen, of als je blijvend twijfelt.',
     alertTitle: 'Zie een arts als',
     alertText: 'Je menstruatie meerdere maanden uitblijft, bij zeer hevige pijn of zeer hevig bloedverlies.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'Regelmatige of onregelmatige cyclus: wat is het verschil?', meta: '5 min  ·  Gids'},
       {title: 'Je eerste menstruatie: wat je kunt verwachten', meta: '5 min  ·  Gids'},
@@ -2012,7 +2012,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Valtaosassa tapauksista ei ole syytä huoleen. Siitä huolimatta on hyvä mennä lääkäriin, jos kuukautiset puuttuvat useita kuukausia ensimmäisen ilmaantumisen jälkeen tai jos epäilyt jatkuvat.',
     alertTitle: 'Mene lääkäriin, jos',
     alertText: 'Kuukautisia ei ole useaan kuukauteen, kipu on hyvin voimakasta tai vuoto on hyvin runsasta.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Säännöllinen vai epäsäännöllinen kierto: mikä ero?', meta: '5 min  ·  Opas'},
       {title: 'Ensimmäiset kuukautisesi: mitä odottaa', meta: '5 min  ·  Opas'},
@@ -2041,7 +2041,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Στη συντριπτική πλειονότητα των περιπτώσεων, δεν υπάρχει λόγος ανησυχίας. Παρ’ όλα αυτά, είναι καλή ιδέα να επισκεφθείς γιατρό αν η περίοδός σου απουσιάζει για αρκετούς μήνες αφού εμφανιστεί για πρώτη φορά ή αν έχεις επίμονες αμφιβολίες.',
     alertTitle: 'Επισκέψου γιατρό αν',
     alertText: 'Δεν έχεις περίοδο για αρκετούς μήνες, έχεις πολύ έντονο πόνο ή πολύ έντονη αιμορραγία.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Κανονικός ή ακανόνιστος κύκλος: ποια η διαφορά;', meta: '5 λεπτά  ·  Οδηγός'},
       {title: 'Η πρώτη σου περίοδος: τι να περιμένεις', meta: '5 λεπτά  ·  Οδηγός'},
@@ -2070,7 +2070,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'Sa karamihan ng kaso, walang dapat ikabahala. Gayunpaman, mabuting magpatingin sa doktor kung wala kang regla sa loob ng ilang buwan pagkatapos itong unang lumitaw, o kung patuloy ang iyong mga alinlangan.',
     alertTitle: 'Magpatingin sa doktor kung',
     alertText: 'Walang regla sa loob ng ilang buwan, napakatinding sakit, o napakalakas na pagdurugo.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Regular o hindi regular na siklo: ano ang pagkakaiba?', meta: '5 min  ·  Gabay'},
       {title: 'Ang iyong unang regla: ano ang aasahan', meta: '5 min  ·  Gabay'},
@@ -2099,7 +2099,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'பெரும்பாலான வழக்குகளில், கவலைப்பட எதுவும் இல்லை. இருப்பினும், உங்கள் மாதவிடாய் முதலில் தோன்றிய பின் பல மாதங்கள் இல்லாவிட்டால், அல்லது உங்களுக்குத் தொடர்ந்த சந்தேகங்கள் இருந்தால், மருத்துவரைப் பார்ப்பது நல்லது.',
     alertTitle: 'மருத்துவரைப் பாருங்கள், இவை இருந்தால்',
     alertText: 'பல மாதங்கள் மாதவிடாய் இல்லாமை, மிகத் தீவிரமான வலி அல்லது மிக அதிகமான இரத்தப்போக்கு.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'ஒழுங்கான அல்லது ஒழுங்கற்ற சுழற்சி: என்ன வித்தியாசம்?', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
       {title: 'உங்கள் முதல் மாதவிடாய்: என்ன எதிர்பார்ப்பது', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
@@ -2128,7 +2128,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'అత్యధిక సందర్భాల్లో, ఆందోళన చెందాల్సిన అవసరం లేదు. అయినా, మీ నెలసరి మొదట కనిపించిన తర్వాత అనేక నెలలు లేకపోతే, లేదా సందేహాలు కొనసాగితే, వైద్యుడిని కలవడం మంచిది.',
     alertTitle: 'ఇవి ఉంటే వైద్యుడిని కలవండి',
     alertText: 'అనేక నెలలు నెలసరి లేకపోవడం, చాలా తీవ్రమైన నొప్పి, లేదా చాలా ఎక్కువ రక్తస్రావం.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'క్రమబద్ధ లేదా అస్తవ్యస్త చక్రం: తేడా ఏమిటి?', meta: '5 ని  ·  గైడ్'},
       {title: 'మీ మొదటి నెలసరి: ఏమి ఆశించాలి', meta: '5 ని  ·  గైడ్'},
@@ -2157,7 +2157,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'बहुतेक प्रसंगी काळजी करण्यासारखे काही नसते. तरीही, पहिली पाळी आल्यानंतर अनेक महिने पाळी न आल्यास किंवा तुम्हाला सतत शंका असल्यास डॉक्टरांना भेटणे चांगले.',
     alertTitle: 'याप्रसंगी डॉक्टरांना भेटा',
     alertText: 'अनेक महिने पाळी नाही, खूप तीव्र वेदना किंवा खूप जास्त रक्तस्राव.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'नियमित की अनियमित पाळी: फरक काय?', meta: '5 मिनिटे  ·  मार्गदर्शक'},
       {title: 'तुमची पहिली पाळी: काय अपेक्षित आहे', meta: '5 मिनिटे  ·  मार्गदर्शक'},
@@ -2186,7 +2186,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'મોટા ભાગના કિસ્સાઓમાં ચિંતા કરવા જેવું કંઈ હોતું નથી. તેમ છતાં, જો માસિક પ્રથમ વાર દેખાયા પછી ઘણા મહિના સુધી ન આવે, અથવા તમને સતત શંકા રહે, તો ડૉક્ટરને મળવું સારું છે.',
     alertTitle: 'ડૉક્ટરને મળો જો',
     alertText: 'ઘણા મહિના સુધી માસિક ન આવે, ખૂબ તીવ્ર દુખાવો થાય, અથવા ખૂબ વધારે રક્તસ્રાવ થાય.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'નિયમિત કે અનિયમિત ચક્ર: શું તફાવત છે?', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
       {title: 'તમારું પ્રથમ માસિક: શું અપેક્ષા રાખવી', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -2215,7 +2215,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ਬਹੁਤੇ ਮਾਮਲਿਆਂ ਵਿੱਚ ਚਿੰਤਾ ਦੀ ਕੋਈ ਗੱਲ ਨਹੀਂ ਹੁੰਦੀ। ਫਿਰ ਵੀ, ਜੇ ਮਾਹਵਾਰੀ ਪਹਿਲੀ ਵਾਰ ਆਉਣ ਤੋਂ ਬਾਅਦ ਕਈ ਮਹੀਨੇ ਨਾ ਆਵੇ, ਜਾਂ ਲਗਾਤਾਰ ਸ਼ੱਕ ਰਹੇ, ਤਾਂ ਡਾਕਟਰ ਨੂੰ ਮਿਲਣਾ ਚੰਗਾ ਹੈ।',
     alertTitle: 'ਡਾਕਟਰ ਨੂੰ ਮਿਲੋ ਜੇ',
     alertText: 'ਕਈ ਮਹੀਨੇ ਮਾਹਵਾਰੀ ਨਾ ਆਵੇ, ਬਹੁਤ ਤੇਜ਼ ਦਰਦ ਹੋਵੇ, ਜਾਂ ਬਹੁਤ ਜ਼ਿਆਦਾ ਖ਼ੂਨ ਆਵੇ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਨਿਯਮਿਤ ਜਾਂ ਬੇਨਿਯਮੀ ਵਾਲਾ ਚੱਕਰ: ਫ਼ਰਕ ਕੀ ਹੈ?', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
       {title: 'ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ: ਕੀ ਉਮੀਦ ਰੱਖੀਏ', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -2244,7 +2244,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'အများစုသော ကိစ္စများတွင် စိုးရိမ်စရာမရှိပါ။ သို့ရာတွင် ရာသီပထမဆုံးပေါ်ပြီးနောက် လအနည်းငယ်ကြာ ရာသီမလာလျှင် သို့မဟုတ် ဆက်လက်သံသယရှိနေလျှင် ဆရာဝန်နှင့် ပြသခြင်းသည် ကောင်းမွန်သည်။',
     alertTitle: 'အောက်ပါအခြေအနေတွင် ဆရာဝန်နှင့် ပြသပါ',
     alertText: 'လအနည်းငယ်ကြာ ရာသီမလာခြင်း၊ အလွန်ပြင်းထန်သော နာကျင်မှု သို့မဟုတ် အလွန်များပြားသော သွေးထွက်ခြင်း။',
-    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    relatedTitle: 'သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
     related: [
       {title: 'ပုံမှန် သို့မဟုတ် မပုံမှန်ရာသီစက်ဝန်း၊ ကွာခြားချက်ကား အဘယ်နည်း။', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
       {title: 'သင့်ပထမဆုံးရာသီ၊ ဘာတွေမျှော်လင့်ရမလဲ', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
@@ -2273,7 +2273,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ក្នុងករណីភាគច្រើន គ្មានអ្វីត្រូវព្រួយបារម្ភទេ។ ទោះជាយ៉ាងនេះក្តី វាជាការល្អដែលជួបវេជ្ជបណ្ឌិត ប្រសិនបើរដូវរបស់អ្នកអវត្តមានជាច្រើនខែបន្ទាប់ពីវាលេចឡើងលើកដំបូង ឬប្រសិនបើអ្នកនៅតែមានការសង្ស័យ។',
     alertTitle: 'ជួបវេជ្ជបណ្ឌិត ប្រសិនបើ',
     alertText: 'គ្មានរដូវជាច្រើនខែ ការឈឺចាប់ខ្លាំងណាស់ ឬការហូរឈាមច្រើនខ្លាំង។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'វដ្តរដូវទៀងទាត់ ឬមិនទៀងទាត់៖ តើមានអ្វីខុសគ្នា?', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
       {title: 'រដូវដំបូងរបស់អ្នក៖ អ្វីដែលត្រូវរំពឹងទុក', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -2302,7 +2302,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodIrregular', {
     body3: 'ໃນສ່ວນໃຫຍ່ຂອງກໍລະນີ ບໍ່ມີຫຍັງຕ້ອງກັງວົນ. ຢ່າງໃດກໍຕາມ ຄວນພົບແພດຖ້າປະຈຳເດືອນຂາດໄປຫຼາຍເດືອນຫຼັງຈາກມາຄັ້ງທຳອິດ ຫຼື ຖ້າທ່ານມີຄວາມສົງໄສຢ່າງຕໍ່ເນື່ອງ.',
     alertTitle: 'ພົບແພດຖ້າ',
     alertText: 'ປະຈຳເດືອນບໍ່ມາຫຼາຍເດືອນ, ເຈັບຮຸນແຮງຫຼາຍ ຫຼື ເລືອດອອກຫຼາຍຜິດປົກກະຕິ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ຮອບເດືອນສະໝ່ຳສະເໝີ ຫຼື ບໍ່ສະໝ່ຳສະເໝີ: ແຕກຕ່າງກັນແນວໃດ?', meta: '5 ນາທີ  ·  ຄູ່ມື'},
       {title: 'ປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ: ສິ່ງທີ່ຄວນຄາດຫວັງ', meta: '5 ນາທີ  ·  ຄູ່ມື'},

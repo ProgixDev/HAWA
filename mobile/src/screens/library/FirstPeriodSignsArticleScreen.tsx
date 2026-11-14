@@ -96,7 +96,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ces signes annoncent généralement l’arrivée des premières règles dans les mois qui suivent, sans qu’on puisse prédire une date exacte. Garder une protection à portée de main devient alors une bonne habitude.',
     alertTitle: 'À noter',
     alertText: 'Ces signes restent des repères généraux, jamais une prédiction précise. Chaque corps suit son propre rythme.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
       {title: 'Comment savoir si mes premières règles arrivent ?', meta: '5 min  ·  Guide'},
@@ -131,7 +131,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'These signs usually mean your first period will arrive in the following months, though it’s impossible to predict an exact date. Keeping protection close at hand becomes a good habit at this point.',
     alertTitle: 'Please note',
     alertText: 'These signs are general guides, never a precise prediction. Every body follows its own pace.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
       {title: 'How do I know if my first period is coming?', meta: '5 min  ·  Guide'},
@@ -166,7 +166,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Estas señales suelen anunciar la llegada de la primera menstruación en los meses siguientes, aunque no se pueda predecir una fecha exacta. Tener protección a mano se convierte entonces en un buen hábito.',
     alertTitle: 'Ten en cuenta',
     alertText: 'Estas señales son solo indicios generales, nunca una predicción exacta. Cada cuerpo sigue su propio ritmo.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
       {title: '¿Cómo saber si se acerca mi primera menstruación?', meta: '5 min  ·  Guía'},
@@ -216,7 +216,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Questi segnali indicano di solito che il primo ciclo arriverà nei mesi successivi, anche se è impossibile prevedere una data esatta. Tenere a portata di mano una protezione diventa a questo punto una buona abitudine.',
     alertTitle: 'Attenzione',
     alertText: 'Questi segnali sono indicazioni generali, mai una previsione precisa. Ogni corpo segue il proprio ritmo.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Il tuo primo ciclo: cosa aspettarti',
@@ -275,7 +275,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Bu belirtiler genellikle ilk adetinin önümüzdeki aylarda geleceğini gösterir; ancak kesin bir tarih öngörmek mümkün değildir. Bu dönemde yanında koruyucu ped bulundurmak iyi bir alışkanlık olur.',
     alertTitle: 'Lütfen unutma',
     alertText: 'Bu belirtiler genel bir rehberdir, asla kesin bir tahmin değildir. Her beden kendi temposunda ilerler.',
-    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    relatedTitle: 'Bunlar da ilgini çekebilir',
     related: [
       {
         title: 'İlk adetin: neler beklemeli?',
@@ -319,7 +319,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Эти признаки обычно означают, что первые месячные придут в ближайшие месяцы, хотя точную дату предсказать невозможно. Держать средства гигиены под рукой в этот период — хорошая привычка.',
     alertTitle: 'Обратите внимание',
     alertText: 'Эти признаки — общие ориентиры, а не точный прогноз. У каждого организма свой темп.',
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {title: 'Ваши первые месячные: чего ожидать', meta: '5 мин  ·  Руководство'},
       {title: 'Как понять, что скоро начнутся первые месячные?', meta: '5 мин  ·  Руководство'},
@@ -354,7 +354,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Diese Anzeichen bedeuten meist, dass deine erste Periode in den folgenden Monaten kommt – ein genauer Termin lässt sich aber nicht vorhersagen. Schutz griffbereit zu haben, wird jetzt zu einer guten Gewohnheit.',
     alertTitle: 'Bitte beachte',
     alertText: 'Diese Anzeichen sind allgemeine Orientierungshilfen und nie eine genaue Vorhersage. Jeder Körper hat sein eigenes Tempo.',
-    relatedTitle: '♥  Das könnte dir auch gefallen',
+    relatedTitle: 'Das könnte dir auch gefallen',
     related: [
       {title: 'Deine erste Periode: Was dich erwartet', meta: '5 Min.  ·  Ratgeber'},
       {title: 'Woran erkenne ich, dass meine erste Periode bald kommt?', meta: '5 Min.  ·  Ratgeber'},
@@ -404,7 +404,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
       body2: '这些信号通常意味着初潮会在接下来的几个月内到来，但无法预测确切的日期。这时，随身备好卫生用品会是个好习惯。',
       alertTitle: '请注意',
       alertText: '这些信号只是一般性的参考，绝不是精确的预测。每个人的身体都有自己的节奏。',
-      relatedTitle: '♥  你可能还想看',
+      relatedTitle: '你可能还想看',
       related: [
         {
           title: '你的初潮：会有什么变化',
@@ -463,7 +463,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
       body2: '這些訊號通常意味著初潮會在接下來的幾個月內到來，但無法預測確切的日期。這時，隨身備好衛生用品會是個好習慣。',
       alertTitle: '請注意',
       alertText: '這些訊號只是一般性的參考，絕不是精確的預測。每個人的身體都有自己的節奏。',
-      relatedTitle: '♥  你可能還想看',
+      relatedTitle: '你可能還想看',
       related: [
         {
           title: '你的初潮：會有什麼變化',
@@ -507,7 +507,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'تعني هذه العلامات عادةً أن حيضك الأول سيأتي في الأشهر التالية، مع أنه يستحيل التنبؤ بموعد دقيق. ويصبح إبقاء وسيلة الحماية في متناول يدك عادة جيدة في هذه المرحلة.',
     alertTitle: 'تنبيه',
     alertText: 'هذه العلامات إرشادات عامة، وليست تنبؤًا دقيقًا أبدًا. لكل جسم وتيرته الخاصة.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'حيضك الأول: ماذا تتوقعين', meta: '5 دقائق  ·  دليل'},
       {title: 'كيف أعرف أن حيضي الأول قادم؟', meta: '5 دقائق  ·  دليل'},
@@ -542,7 +542,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Tizmilin-a ttbeggnent ayen akk belli lḥiḍ-ik amezwaru ad d-yaweḍ deg wayyuren i d-yetteddun, maca ulac anamek ad yettwassen wass ṣaḥiḥ. Ma tesḥafḍeḍ aḥfaḍ ɣer ufus, ad yuɣal d aɛadda yelhan deg waya.',
     alertTitle: 'Ɛiwen',
     alertText: 'Tizmilin-a d ineggaren imagnuyen, ur d-ttbeggnent ara ayen ara yeḍran s lebɣi. Yal ugris yettṭafar abrid-is.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Lḥiḍ-ik amezwaru: d acu ara tarmeḍ', meta: '5 tesdidin  ·  Amusnaw'},
       {title: 'Amek ara ẓreɣ ma lḥiḍ-iw amezwaru yettwali-d?', meta: '5 tesdidin  ·  Amusnaw'},
@@ -577,7 +577,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Mallattoowwan kunneen yeroo baay\'ee laguun kee isa jalqabaa ji\'oota itti aanan keessatti akka dhufu agarsiisu, guyyaan sirrii garuu tilmaamamuu hin danda\'u. Wanta ittisu dhiyeenyatti qabaachuun yeroo kana amala gaarii ta\'a.',
     alertTitle: 'Of eeggannoo godhi',
     alertText: 'Mallattoowwan kunneen qajeelfama waliigalaa dha, tilmaama sirrii gonkumaa miti. Qaamni hundi saffisa isaa mataa isaatiin deema.',
-    relatedTitle: '♥  Kunis si ni gammachiisa',
+    relatedTitle: 'Kunis si ni gammachiisa',
     related: [
       {title: 'Laguu kee isa jalqabaa: maal eegamu', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
       {title: 'Laguun koo isa jalqabaa dhufuu isaa akkamitti beeka?', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
@@ -612,7 +612,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'እዞም ምልክታት ብዙሓት ግዜ ቀዳማይ ወርሓዊ ደምኪ ኣብ ዝቕጽሉ ኣዋርሕ ከም ዝመጽእ የመልክቱ፡ ትኽክለኛ ዕለት ምግማት ግን ዘይከኣል እዩ። ሓለዋ ኣብ ቅርቢ ምሓዝ ኣብዚ እዋን ጽቡቕ ልምዲ እዩ።',
     alertTitle: 'ብጥንቃቐ ርአዪ',
     alertText: 'እዞም ምልክታት ሓፈሻዊ መምርሒ እዮም፡ ፈጺሞ ትኽክለኛ ትንቢት ኣይኮኑን። ነፍሲ ወከፍ ኣካል ናይ ባዕላ ፍጥነት ትስዕብ።',
-    relatedTitle: '♥  እዚ እውን ክትፈትዊ ትኽእሊ',
+    relatedTitle: 'እዚ እውን ክትፈትዊ ትኽእሊ',
     related: [
       {title: 'ቀዳማይ ወርሓዊ ደምኪ፡ እንታይ ትጽበዪ', meta: '5 ደቒቕ  ·  መምርሒ'},
       {title: 'ቀዳማይ ወርሓዊ ደመይ ከም ዝመጽእ ከመይ ይፈልጥ?', meta: '5 ደቒቕ  ·  መምርሒ'},
@@ -647,7 +647,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ibi bimenyetso bikunze kuvuga ko imihango yawe ya mbere izaza mu mezi akurikira, nubwo bidashoboka guhanura itariki nyayo. Kugira ikikurinda hafi bihinduka akamenyero keza muri iki gihe.',
     alertTitle: 'Icyitonderwa',
     alertText: 'Ibi bimenyetso ni ibyerekana muri rusange, ntabwo ari ihanura rinoze. Buri mubiri ugira umuvuduko wawo.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Imihango yawe ya mbere: icyo witegura', meta: 'iminota 5  ·  Ubuyobozi'},
       {title: 'Nabwirwa n\'iki ko imihango yanjye ya mbere iri hafi kuza?', meta: 'iminota 5  ·  Ubuyobozi'},
@@ -682,7 +682,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ibi bimenyetso kenshi bivuga ko imihango yawe ya mbere izoza mu mezi akurikira, naho bidashoboka kumenya itarike nyayo. Kugira ikinga hafi bihinduka akamenyero keza muri iki gihe.',
     alertTitle: 'Rabira',
     alertText: 'Ibi bimenyetso ni ibiyobora rusangi, ntibigera biba ukuvuga neza igihe. Buri mubiri ukurikiza umuvuduko wawo.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Imihango yawe ya mbere: ivyo gutegereza', meta: 'Iminota 5  ·  Ubuyobozi'},
       {title: 'Nzi gute ko imihango yanje ya mbere iri hafi kuza?', meta: 'Iminota 5  ·  Ubuyobozi'},
@@ -717,7 +717,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ihe ịrịba ama ndị a na-egosikarị na nsọ gị nke mbụ ga-abịa n\'ọnwa ndị na-esote, ọ bụ ezie na o nweghị ụzọ a ga-esi buru amụma ụbọchị ya kpọmkwem. Idebe ihe nche nso na-abụ omume ọma n\'oge a.',
     alertTitle: 'Biko cheta',
     alertText: 'Ihe ịrịba ama ndị a bụ ntụzịaka n\'ozuzu, ọ bụghị amụma kpọmkwem. Ahụ nke ọ bụla na-eso ọsọ nke ya.',
-    relatedTitle: '♥  Ị nwekwara ike ịmasị',
+    relatedTitle: 'Ị nwekwara ike ịmasị',
     related: [
       {title: 'Nsọ gị nke mbụ: ihe ị ga-atụ anya', meta: 'Nkeji 5  ·  Nduzi'},
       {title: 'Kedu ka m ga-esi mara na nsọ m nke mbụ na-abịa?', meta: 'Nkeji 5  ·  Nduzi'},
@@ -752,7 +752,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Àwọn àmì wọ̀nyí sábà máa ń túmọ̀ sí pé nǹkan oṣù àkọ́kọ́ rẹ yóò dé ní àwọn oṣù tó ń bọ̀, bí ó tilẹ̀ jẹ́ pé a kò lè sọ ọjọ́ gan-an tẹ́lẹ̀. Fífi ìdáàbòbò pa mọ́ sí tòsí di àṣà rere ní àkókò yìí.',
     alertTitle: 'Jọ̀wọ́ kíyèsí',
     alertText: 'Àwọn àmì wọ̀nyí jẹ́ ìtọ́sọ́nà gbogbogbò, kì í ṣe àsọtẹ́lẹ̀ pàtó láéláé. Gbogbo ara ló ń tẹ̀lé ìrìn tirẹ̀.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí pẹ̀lú',
+    relatedTitle: 'O lè fẹ́ràn èyí pẹ̀lú',
     related: [
       {title: 'Nǹkan oṣù àkọ́kọ́ rẹ: ohun tí o lè retí', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
       {title: 'Báwo ni mo ṣe lè mọ̀ bóyá nǹkan oṣù àkọ́kọ́ mi ń bọ̀?', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
@@ -787,7 +787,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Lezi zimpawu zivame ukusho ukuthi isikhathi sakho sokuqala sizofika ezinyangeni ezilandelayo, nakuba kungenakwenzeka ukubikezela usuku oluqondile. Ukugcina uvikelo eduze kuba yisijwayezo esihle ngalesi sikhathi.',
     alertTitle: 'Qaphela',
     alertText: 'Lezi zimpawu ziyizinkomba ezijwayelekile, hhayi isibikezelo esiqondile. Umzimba ngamunye ulandela ijubane lawo.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Ukuya kwakho esikhathini kokuqala: okufanele ukulindele', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
       {title: 'Ngazi kanjani ukuthi isikhathi sami sokuqala siyeza?', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
@@ -822,7 +822,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Le miqondiso ngokuqhelekileyo ithetha ukuba ixesha lakho lokuqala lenyanga liza kufika kwiinyanga ezilandelayo, nangona kungenzeki ukuxela umhla ochanekileyo. Ukugcina into yokuzikhusela usondele kuba sisiqhelo esihle ngeli xesha.',
     alertTitle: 'Qaphela',
     alertText: 'Le miqondiso ziindlela zokukhokela ngokubanzi, ayisosiqikelelo esichanekileyo. Umzimba ngamnye ulandela isantya sawo.',
-    relatedTitle: '♥  Unokuthanda nale',
+    relatedTitle: 'Unokuthanda nale',
     related: [
       {title: 'Ixesha lakho lokuqala lenyanga: ukuba ulindele ntoni', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
       {title: 'Ndazi njani ukuba ixesha lam lokuqala lenyanga liyeza?', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
@@ -857,7 +857,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Zviratidzo izvi zvinowanzoreva kuti kuenda kwako kumwedzi kwekutanga kuchasvika mumwedzi inotevera, kunyange zvazvo zvisingaite kuti zuva chairo rizivikanwe. Kuchengeta chinodzivirira pedyo kunova tsika yakanaka panguva ino.',
     alertTitle: 'Ziva izvi',
     alertText: 'Zviratidzo izvi ihungwaru hwakazara, hapana kana nguva dzinoreva zuva chairo. Muviri wese unotevera kumhanya kwawo.',
-    relatedTitle: '♥  Unogona kunakidzwawo nezvi',
+    relatedTitle: 'Unogona kunakidzwawo nezvi',
     related: [
       {title: 'Kuenda kwako kumwedzi kwekutanga: zvekutarisira', meta: 'maminetsi 5  ·  Gwaro'},
       {title: 'Ndingaziva sei kuti kuenda kwangu kumwedzi kwekutanga kuri kuuya?', meta: 'maminetsi 5  ·  Gwaro'},
@@ -892,7 +892,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Bilembo oyo elimbolaka mbala mingi ete sanza na yo ya liboso ekoya na sanza oyo ekolanda, atako kolobela mokolo ya mpenza ekoki te. Kobatela eloko ya kobatela pene na yo ekomi momesano malamu na ntango oyo.',
     alertTitle: 'Tala malamu',
     alertText: 'Bilembo oyo ezali bilembo ya mobimba, ezali tango moko te kolobela mpenza. Nzoto moko na moko elandaka lombangu na yango.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Sanza na yo ya liboso: ntina nini ya kolikya', meta: 'Miniti 5  ·  Malako'},
       {title: 'Ndenge nini ya koyeba soki sanza na ngai ya liboso ezali koya?', meta: 'Miniti 5  ·  Malako'},
@@ -927,7 +927,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ɓaleeji ɗin ɗon wi\'a lewru maaɗa artungo ɗon ara nder lewru ɗi ndi ɓaawo, kono walaa ko anndi ndey ɗum ara. Wondude e hisnude maaɗa nder juude ko ɗum moyyere hoore.',
     alertTitle: 'Jaabawol',
     alertText: 'Ɓaleeji ɗin ko ɗum ɓaleeji fu, wonaa ko anndi ndey. Kala ɓanndu ɗon yaha ko ɗum wakkati maɗɗum.',
-    relatedTitle: '♥  Ɗum ko jooɗi kadi ɗum yiɗa',
+    relatedTitle: 'Ɗum ko jooɗi kadi ɗum yiɗa',
     related: [
       {title: 'Lewru maaɗa artungo: ko haani yiɗde', meta: 'Minti 5  ·  Jannginoore'},
       {title: 'No mi anndira to lewru am artungo ɗon ara?', meta: 'Minti 5  ·  Jannginoore'},
@@ -977,7 +977,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Tanda-tanda ini biasanya berarti haid pertamamu akan datang dalam beberapa bulan ke depan, meski tanggal pastinya mustahil diprediksi. Menyiapkan pelindung di dekatmu menjadi kebiasaan yang baik pada tahap ini.',
     alertTitle: 'Harap diperhatikan',
     alertText: 'Tanda-tanda ini hanyalah panduan umum, bukan prediksi yang pasti. Setiap tubuh punya kecepatannya sendiri.',
-    relatedTitle: '♥  Kamu mungkin juga suka',
+    relatedTitle: 'Kamu mungkin juga suka',
     related: [
       {
         title: 'Haid pertamamu: apa yang bisa diharapkan',
@@ -1036,7 +1036,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'इन संकेतों का आमतौर पर मतलब होता है कि आपका पहला पीरियड अगले कुछ महीनों में आएगा, हालाँकि सटीक तारीख़ बताना संभव नहीं है। इस समय अपने पास सैनिटरी प्रोटेक्शन रखना एक अच्छी आदत है।',
     alertTitle: 'ध्यान दें',
     alertText: 'ये संकेत केवल सामान्य मार्गदर्शन हैं, सटीक अनुमान नहीं। हर शरीर अपनी रफ़्तार से चलता है।',
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'आपका पहला पीरियड: क्या उम्मीद रखें',
@@ -1095,7 +1095,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Këto shenja zakonisht tregojnë se menstruacioni yt i parë do të vijë në muajt në vijim, megjithëse është e pamundur të parashikohet një datë e saktë. Të kesh mbrojtje afër bëhet një zakon i mirë në këtë moment.',
     alertTitle: 'Kujdes',
     alertText: 'Këto shenja janë orientime të përgjithshme, kurrë një parashikim i saktë. Çdo trup ndjek ritmin e vet.',
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Menstruacioni yt i parë: çfarë të presësh',
@@ -1154,7 +1154,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'これらのサインは、たいてい数か月以内に初めての生理が来ることを示していますが、正確な日を予測することはできません。この時期から、ナプキンなどを手元に用意しておく習慣をつけると安心です。',
     alertTitle: 'ご注意',
     alertText: 'これらのサインはあくまでおおよその目安で、正確な予測ではありません。体のペースは人それぞれです。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '初めての生理：知っておきたいこと',
@@ -1213,7 +1213,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: '이런 신호가 보이면 보통 앞으로 몇 달 안에 첫 생리가 찾아와요. 다만 정확한 날짜를 예측하는 것은 불가능해요. 이 시기부터는 생리용품을 가까이에 두는 습관을 들이면 좋아요.',
     alertTitle: '참고하세요',
     alertText: '이런 신호는 일반적인 참고 사항일 뿐, 정확한 예측이 아니에요. 몸마다 각자의 속도가 있어요.',
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '첫 생리, 무엇을 기대해야 할까요',
@@ -1272,7 +1272,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Estes sinais significam, normalmente, que o primeiro período chegará nos meses seguintes, embora seja impossível prever uma data exata. Ter proteção à mão passa a ser um bom hábito nesta fase.',
     alertTitle: 'Atenção',
     alertText: 'Estes sinais são orientações gerais, nunca uma previsão precisa. Cada corpo segue o seu próprio ritmo.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'O seu primeiro período: o que esperar',
@@ -1331,7 +1331,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'এই লক্ষণগুলো সাধারণত বোঝায় যে পরবর্তী কয়েক মাসের মধ্যে আপনার প্রথম মাসিক শুরু হবে, তবে সঠিক তারিখ আগে থেকে বলা সম্ভব নয়। এই সময়ে সুরক্ষা সামগ্রী হাতের কাছে রাখা একটি ভালো অভ্যাস।',
     alertTitle: 'লক্ষ্য করুন',
     alertText: 'এই লক্ষণগুলো সাধারণ ধারণা মাত্র, কখনোই নির্ভুল পূর্বাভাস নয়। প্রতিটি শরীর নিজের গতিতে চলে।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'আপনার প্রথম মাসিক: কী আশা করবেন',
@@ -1390,7 +1390,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Disse tegn indikerer generelt, at din første menstruation sandsynligvis vil komme inden for de næste par måneder, men det er ikke muligt at forudsige den nøjagtige dato på forhånd. Det er en god vane at have beskyttelse ved hånden i denne periode.',
     alertTitle: 'Bemærk',
     alertText: 'Disse tegn er generelle vejledende informationer, aldrig præcise forudsigelser. Enhver krop bevæger sig i sit eget tempo.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Din første menstruation: hvad du kan forvente',
@@ -1449,7 +1449,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Disse tegn indikerer generelt, at din förste menstruation sandsynligvis vil komme inden for de näste par måneder, men det ar inte muligt at forudsige den nöjagtige dato på forhånd. Det ar en god vane at have beskyttelse ved hånden i denne periode.',
     alertTitle: 'Bemärk',
     alertText: 'Disse tegn ar generelle vejledende informationer, aldrig präcise forudsigelser. Enhver krop beväger sig i sit eget tempo.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Din förste menstruation: hvad du kan forvente',
@@ -1493,7 +1493,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Disse tegnene betyr vanligvis at den første mensen kommer i løpet av de følgende månedene, selv om det er umulig å forutsi en nøyaktig dato. Å ha beskyttelse for hånden blir en god vane nå.',
     alertTitle: 'Merk',
     alertText: 'Disse tegnene er generelle pekepinner, aldri en presis prediksjon. Hver kropp følger sitt eget tempo.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'Din første mens: hva du kan forvente', meta: '5 min  ·  Veiledning'},
       {title: 'Hvordan vet jeg at den første mensen er på vei?', meta: '5 min  ·  Veiledning'},
@@ -1528,7 +1528,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Te oznaki zwykle oznaczają, że pierwsza miesiączka pojawi się w najbliższych miesiącach, choć nie da się przewidzieć dokładnej daty. Trzymanie środków ochrony pod ręką staje się teraz dobrym nawykiem.',
     alertTitle: 'Zwróć uwagę',
     alertText: 'Te oznaki są ogólnymi wskazówkami, nigdy dokładną prognozą. Każde ciało podąża własnym tempem.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Twoja pierwsza miesiączka: czego się spodziewać', meta: '5 min  ·  Poradnik'},
       {title: 'Jak rozpoznać, że zbliża się moja pierwsza miesiączka?', meta: '5 min  ·  Poradnik'},
@@ -1563,7 +1563,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ці ознаки зазвичай означають, що перша менструація настане в найближчі місяці, хоча точну дату передбачити неможливо. Тримати засоби гігієни під рукою тепер стає доброю звичкою.',
     alertTitle: 'Зверніть увагу',
     alertText: 'Ці ознаки — загальні орієнтири, ніколи не точний прогноз. Кожне тіло йде власним темпом.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Ваша перша менструація: чого очікувати', meta: '5 хв  ·  Посібник'},
       {title: 'Як зрозуміти, що наближається моя перша менструація?', meta: '5 хв  ·  Посібник'},
@@ -1598,7 +1598,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Tyto příznaky obvykle znamenají, že první menstruace přijde v následujících měsících, i když přesné datum nelze předpovědět. Mít ochranu poblíž se v této době stává dobrým návykem.',
     alertTitle: 'Upozornění',
     alertText: 'Tyto příznaky jsou obecnými vodítky, nikdy přesnou předpovědí. Každé tělo postupuje vlastním tempem.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'Vaše první menstruace: co očekávat', meta: '5 min  ·  Průvodce'},
       {title: 'Jak poznám, že se blíží moje první menstruace?', meta: '5 min  ·  Průvodce'},
@@ -1633,7 +1633,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Tieto znaky zvyčajne znamenajú, že prvá menštruácia príde v nasledujúcich mesiacoch, hoci presný dátum nemožno predpovedať. V tejto chvíli sa dobrým návykom stáva mať hygienické pomôcky po ruke.',
     alertTitle: 'Upozornenie',
     alertText: 'Tieto znaky sú všeobecné orientačné body, nikdy nie presná predpoveď. Každé telo sleduje svoje vlastné tempo.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Vaša prvá menštruácia: čo očakávať', meta: '5 min  ·  Sprievodca'},
       {title: 'Ako zistím, či sa blíži moja prvá menštruácia?', meta: '5 min  ·  Sprievodca'},
@@ -1668,7 +1668,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ezek a jelek általában azt jelentik, hogy az első menstruációd a következő hónapokban megjön, bár pontos dátumot lehetetlen megjósolni. Ebben a szakaszban jó szokássá válik, hogy kéznél tartod a higiéniai terméket.',
     alertTitle: 'Figyelem',
     alertText: 'Ezek a jelek általános támpontok, soha nem pontos előrejelzések. Minden test a saját ütemében halad.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'Az első menstruációd: mire számíts', meta: '5 perc  ·  Útmutató'},
       {title: 'Honnan tudom, hogy közeleg az első menstruációm?', meta: '5 perc  ·  Útmutató'},
@@ -1703,7 +1703,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Aceste semne înseamnă de obicei că prima menstruație va sosi în lunile următoare, deși este imposibil de prezis o dată exactă. A avea o protecție la îndemână devine acum un obicei bun.',
     alertTitle: 'Atenție',
     alertText: 'Aceste semne sunt repere generale, niciodată o previziune precisă. Fiecare corp își urmează propriul ritm.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Prima ta menstruație: la ce să te aștepți', meta: '5 min  ·  Ghid'},
       {title: 'Cum îmi dau seama că prima menstruație se apropie?', meta: '5 min  ·  Ghid'},
@@ -1738,7 +1738,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Тези признаци обикновено означават, че първата ти менструация ще дойде през следващите месеци, макар да е невъзможно да се предвиди точна дата. Да имаш защита подръка става добър навик в този момент.',
     alertTitle: 'Обърни внимание',
     alertText: 'Тези признаци са общи ориентири, никога точна прогноза. Всяко тяло следва своя ритъм.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Първата ти менструация: какво да очакваш', meta: '5 мин  ·  Ръководство'},
       {title: 'Как да разбера, че първата ми менструация идва?', meta: '5 мин  ·  Ръководство'},
@@ -1773,7 +1773,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ови знаци обично значе да ће твоја прва менструација стићи у наредним месецима, мада је немогуће предвидети тачан датум. Држање заштите при руци у овом тренутку постаје добра навика.',
     alertTitle: 'Обрати пажњу',
     alertText: 'Ови знаци су општи оријентири, никада прецизно предвиђање. Свако тело прати свој темпо.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Твоја прва менструација: шта да очекујеш', meta: '5 мин  ·  Водич'},
       {title: 'Како да знам да ми долази прва менструација?', meta: '5 мин  ·  Водич'},
@@ -1808,7 +1808,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ti znakovi obično znače da će prva menstruacija stići u sljedećim mjesecima, iako je nemoguće predvidjeti točan datum. Držati zaštitu pri ruci u ovom trenutku postaje dobra navika.',
     alertTitle: 'Napomena',
     alertText: 'Ti su znakovi opće smjernice, nikad precizno predviđanje. Svako tijelo slijedi vlastiti tempo.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
       {title: 'Kako mogu znati da mi stiže prva menstruacija?', meta: '5 min  ·  Vodič'},
@@ -1843,7 +1843,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ti znakovi obično znače da će prva menstruacija stići u sljedećim mjesecima, iako je nemoguće predvidjeti točan datum. Držati zaštitu pri ruci u ovom trenutku postaje dobra navika.',
     alertTitle: 'Napomena',
     alertText: 'Ti su znakovi opće smjernice, nikad precizno predviđanje. Svako tijelo slijedi vlastiti tempo.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Tvoja prva menstruacija: što očekivati', meta: '5 min  ·  Vodič'},
       {title: 'Kako mogu znati da mi stiže prva menstruacija?', meta: '5 min  ·  Vodič'},
@@ -1878,7 +1878,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ti znaki običajno pomenijo, da bo prva menstruacija prišla v naslednjih mesecih, čeprav je natančnega datuma nemogoče napovedati. Imeti zaščito pri roki v tem trenutku postane dobra navada.',
     alertTitle: 'Opomba',
     alertText: 'Ti znaki so splošne smernice, nikoli natančna napoved. Vsako telo sledi lastnemu tempu.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Tvoja prva menstruacija: kaj pričakovati', meta: '5 min  ·  Vodnik'},
       {title: 'Kako lahko vem, da prihaja moja prva menstruacija?', meta: '5 min  ·  Vodnik'},
@@ -1913,7 +1913,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'यी संकेतहरूले सामान्यतया तपाईंको पहिलो महिनावारी आगामी महिनाहरूमा आउनेछ भन्ने जनाउँछन्, यद्यपि सही मिति पूर्वानुमान गर्न असम्भव छ। यस बेला सुरक्षा हातमा राख्नु राम्रो बानी बन्छ।',
     alertTitle: 'कृपया ध्यान दिनुहोस्',
     alertText: 'यी संकेतहरू सामान्य मार्गदर्शक हुन्, कहिल्यै सही पूर्वानुमान होइनन्। हरेक शरीरले आफ्नै गति पछ्याउँछ।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'तपाईंको पहिलो महिनावारी: के अपेक्षा गर्ने', meta: '5 मिनेट  ·  मार्गदर्शन'},
       {title: 'मेरो पहिलो महिनावारी आउँदै छ भनेर कसरी थाहा पाउने?', meta: '5 मिनेट  ·  मार्गदर्शन'},
@@ -1948,7 +1948,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'මෙම සලකුණුවලින් සාමාන්‍යයෙන් අදහස් වන්නේ ඔබේ පළමු ඔසප් ඉදිරි මාසවලදී පැමිණෙන බවයි, නමුත් නිවැරදි දිනයක් පුරෝකථනය කළ නොහැක. ආරක්ෂාව ළඟින් තබාගැනීම මෙම අවස්ථාවේදී හොඳ පුරුද්දක් බවට පත් වේ.',
     alertTitle: 'කරුණාකර සටහන් කරන්න',
     alertText: 'මෙම සලකුණු සාමාන්‍ය මාර්ගෝපදේශ මිස කිසිවිටෙකත් නිවැරදි පුරෝකථනයක් නොවේ. සෑම ශරීරයක්ම තමන්ගේම වේගය අනුගමනය කරයි.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'ඔබේ පළමු ඔසප්: අපේක්ෂා කළ යුත්තේ කුමක්ද', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
       {title: 'මගේ පළමු ඔසප් පැමිණෙන බව දැනගන්නේ කෙසේද?', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
@@ -1983,7 +1983,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'สัญญาณเหล่านี้มักหมายความว่าประจำเดือนครั้งแรกจะมาในเดือนถัดไป แม้ไม่สามารถทำนายวันที่แน่นอนได้ การเก็บอุปกรณ์ไว้ใกล้มือกลายเป็นนิสัยที่ดีในช่วงนี้',
     alertTitle: 'โปรดทราบ',
     alertText: 'สัญญาณเหล่านี้เป็นแนวทางทั่วไป ไม่ใช่การทำนายที่แม่นยำ ร่างกายแต่ละคนมีจังหวะของตัวเอง',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'ประจำเดือนครั้งแรกของคุณ: สิ่งที่คาดหวังได้', meta: '5 นาที  ·  คู่มือ'},
       {title: 'ฉันรู้ได้อย่างไรว่าประจำเดือนครั้งแรกใกล้มา?', meta: '5 นาที  ·  คู่มือ'},
@@ -2018,7 +2018,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Những dấu hiệu này thường có nghĩa là kỳ kinh đầu tiên sẽ đến trong những tháng tiếp theo, dù không thể dự đoán chính xác ngày. Để sản phẩm vệ sinh gần tầm tay trở thành một thói quen tốt vào lúc này.',
     alertTitle: 'Xin lưu ý',
     alertText: 'Những dấu hiệu này chỉ là hướng dẫn chung, không bao giờ là dự đoán chính xác. Mỗi cơ thể đi theo nhịp độ riêng.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Kỳ kinh đầu tiên của bạn: điều cần biết', meta: '5 phút  ·  Hướng dẫn'},
       {title: 'Làm sao biết kỳ kinh đầu tiên của tôi sắp đến?', meta: '5 phút  ·  Hướng dẫn'},
@@ -2053,7 +2053,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Bu belgilar odatda birinchi hayz keyingi oylarda boshlanishini bildiradi, ammo aniq sanani aytib boʻlmaydi. Himoya vositasini yaqin joyda saqlash shu paytda yaxshi odatga aylanadi.',
     alertTitle: 'Eʼtibor bering',
     alertText: 'Bu belgilar umumiy yoʻl-yoʻriq, hech qachon aniq bashorat emas. Har bir tana oʻz surʼatida harakat qiladi.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Birinchi hayzingiz: nimalarni kutish kerak', meta: '5 daq  ·  Qoʻllanma'},
       {title: 'Birinchi hayz yaqinlashayotganini qanday bilaman?', meta: '5 daq  ·  Qoʻllanma'},
@@ -2088,7 +2088,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Bu əlamətlər adətən ilk aybaşınızın sonrakı aylarda başlayacağını göstərir, lakin dəqiq tarixi əvvəlcədən demək mümkün deyil. Bu mərhələdə qoruyucu vasitəni əlinizin altında saxlamaq yaxşı vərdişə çevrilir.',
     alertTitle: 'Nəzərə alın',
     alertText: 'Bu əlamətlər ümumi istiqamətlərdir, heç vaxt dəqiq proqnoz deyil. Hər bədən öz tempi ilə irəliləyir.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'İlk aybaşınız: nələri gözləmək olar', meta: '5 dəq  ·  Bələdçi'},
       {title: 'İlk aybaşımın yaxınlaşdığını necə anlaya bilərəm?', meta: '5 dəq  ·  Bələdçi'},
@@ -2123,7 +2123,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ეს ნიშნები, როგორც წესი, ნიშნავს, რომ თქვენი პირველი მენსტრუაცია მომდევნო თვეებში მოვა, თუმცა ზუსტი თარიღის განჭვრეტა შეუძლებელია. ამ დროს დამცავი საშუალების ხელთ ქონა კარგ ჩვევად იქცევა.',
     alertTitle: 'გაითვალისწინეთ',
     alertText: 'ეს ნიშნები ზოგადი მიმართულებებია და არასდროს ზუსტი პროგნოზი. ყველა სხეული საკუთარ ტემპს მისდევს.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'თქვენი პირველი მენსტრუაცია: რას უნდა ელოდეთ', meta: '5 წთ  ·  გზამკვლევი'},
       {title: 'როგორ გავიგო, რომ ჩემი პირველი მენსტრუაცია მოდის?', meta: '5 წთ  ·  გზამკვლევი'},
@@ -2158,7 +2158,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Այս նշանները սովորաբար նշանակում են, որ ձեր առաջին դաշտանը կգա հաջորդ ամիսների ընթացքում, թեև ճշգրիտ ամսաթիվը կանխատեսել անհնար է: Այս պահից պաշտպանության միջոց ձեռքի տակ պահելը դառնում է լավ սովորություն:',
     alertTitle: 'Խնդրում ենք ուշադրություն դարձնել',
     alertText: 'Այս նշանները ընդհանուր ուղենիշներ են, երբեք ճշգրիտ կանխատեսում: Յուրաքանչյուր մարմին հետևում է իր տեմպին:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Ձեր առաջին դաշտանը. ինչ սպասել', meta: '5 ր  ·  Ուղեցույց'},
       {title: 'Ինչպե՞ս իմանալ, որ առաջին դաշտանս մոտենում է', meta: '5 ր  ·  Ուղեցույց'},
@@ -2193,7 +2193,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Ин нишонаҳо одатан маънои онро доранд, ки ҳайзи аввали шумо дар моҳҳои оянда меояд, гарчанде ки пешгӯии санаи дақиқ имконнопазир аст. Воситаи муҳофизатро дар дастрас доштан дар ин лаҳза одати хуб мешавад.',
     alertTitle: 'Таваҷҷӯҳ кунед',
     alertText: 'Ин нишонаҳо роҳнамоҳои умумӣ мебошанд, ҳеҷ гоҳ пешгӯии дақиқ нестанд. Ҳар бадан суръати худро пайравӣ мекунад.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Ҳайзи аввали шумо: чӣ интизор шудан лозим аст', meta: '5 дақ  ·  Роҳнамо'},
       {title: 'Чӣ тавр бифаҳмам, ки ҳайзи аввалам меояд?', meta: '5 дақ  ·  Роҳнамо'},
@@ -2228,7 +2228,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Бул белгилер адатта биринчи етек кирим кийинки айларда келерин билдирет, бирок так күндү алдын ала айтуу мүмкүн эмес. Коргонуу каражатын жакын жерде сактоо бул учурда жакшы адатка айланат.',
     alertTitle: 'Көңүл буруңуз',
     alertText: 'Бул белгилер жалпы багыт, эч качан так болжолдоо эмес. Ар бир дене өз темпин ээрчийт.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Биринчи етек кирим: эмне күтүү керек', meta: '5 мүн  ·  Колдонмо'},
       {title: 'Биринчи етек кирим келе жатканын кантип билем?', meta: '5 мүн  ·  Колдонмо'},
@@ -2263,7 +2263,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Bu alamatlar adatça ilkinji aýbaşyňyzyň indiki aýlarda geljekdigini aňladýar, ýöne takyk senäni öňünden aýtmak mümkin däl. Goranyş serişdesini el ýetimde saklamak bu wagt gowy endige öwrülýär.',
     alertTitle: 'Üns beriň',
     alertText: 'Bu alamatlar umumy ugrukdyrmalar, hiç haçan takyk çaklama däl. Her beden öz ritmine eýerýär.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Ilkinji aýbaşyňyz: nämä garaşmaly', meta: '5 min  ·  Gollanma'},
       {title: 'Ilkinji aýbaşymyň gelýändigini nädip bilmeli?', meta: '5 min  ·  Gollanma'},
@@ -2298,7 +2298,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Tanda-tanda ini biasanya bermakna haid pertama anda akan tiba dalam beberapa bulan berikutnya, walaupun mustahil untuk meramal tarikh yang tepat. Menyimpan perlindungan berdekatan menjadi tabiat yang baik pada masa ini.',
     alertTitle: 'Sila ambil perhatian',
     alertText: 'Tanda-tanda ini ialah panduan umum, bukan ramalan yang tepat. Setiap tubuh mengikut rentaknya sendiri.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Haid pertama anda: apa yang dijangka', meta: '5 min  ·  Panduan'},
       {title: 'Bagaimana saya tahu haid pertama saya akan datang?', meta: '5 min  ·  Panduan'},
@@ -2333,7 +2333,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Calaamadahani inta badan waxay muujiyaan in caadadaada ugu horreysa ay imaanayso bilaha soo socda, in kasta oo aan suurtagal ahayn in la saadaaliyo taariikh sax ah. Haysashada ilaalin dhow waxay noqotaa caado wanaagsan heerkan.',
     alertTitle: 'Fadlan ogow',
     alertText: 'Calaamadahani waa tilmaamo guud, marnaba saadaal sax ah. Jidh kastaa wuxuu raacaa xawaarihiisa.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Caadadaada ugu horreysa: waxa la filayo', meta: '5 daq  ·  Hage'},
       {title: 'Sidee ayaan u ogaadaa in caadadaydii ugu horreysay imaanayso?', meta: '5 daq  ·  Hage'},
@@ -2368,7 +2368,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Dalili hizi kwa kawaida humaanisha hedhi yako ya kwanza itafika katika miezi inayofuata, ingawa haiwezekani kutabiri tarehe kamili. Kuweka kinga karibu inakuwa tabia nzuri katika hatua hii.',
     alertTitle: 'Tafadhali zingatia',
     alertText: 'Dalili hizi ni miongozo ya jumla, kamwe si utabiri sahihi. Kila mwili hufuata mwendo wake.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Hedhi yako ya kwanza: nini cha kutarajia', meta: 'Dakika 5  ·  Mwongozo'},
       {title: 'Nitajuaje kama hedhi yangu ya kwanza inakuja?', meta: 'Dakika 5  ·  Mwongozo'},
@@ -2403,7 +2403,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Бұл белгілер әдетте алғашқы етеккіріңіздің келесі айларда келетінін білдіреді, дегенмен нақты күнді болжау мүмкін емес. Қорғаныс құралын қолда ұстау бұл кезеңде жақсы әдетке айналады.',
     alertTitle: 'Назар аударыңыз',
     alertText: 'Бұл белгілер — жалпы бағдар, ешқашан нақты болжам емес. Әр дене өз қарқынымен жүреді.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Алғашқы етеккіріңіз: нені күту керек', meta: '5 мин  ·  Нұсқаулық'},
       {title: 'Алғашқы етеккірімнің келетінін қалай білемін?', meta: '5 мин  ·  Нұсқаулық'},
@@ -2438,7 +2438,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Màndarga yii dañuy wone ne sa règle bu njëkk dina dikk ci weer yi toftal, waaye mënul a xamni benn bés bu wóor. Denc sa aar ci sa wet nekk na léegi benn yoon bu baax.',
     alertTitle: 'Teg',
     alertText: 'Màndarga yii ay ndigal yu yaatu lañu, du xayma bu jub. Yaram bu nekk dafay topp ritmam.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Sa règle bu njëkk: lu ñuy xaar', meta: '5 simili  ·  Ndigal'},
       {title: 'Naka laay xam ne sama règle bu njëkk dafay dikk?', meta: '5 simili  ·  Ndigal'},
@@ -2473,7 +2473,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Waɗannan alamomi yawanci suna nufin hailarki ta farko za ta zo a cikin watanni masu zuwa, ko da yake ba shi yiwuwa a hasashen ainihin kwanan wata. Rike kariya kusa da ke ya zama kyakkyawar dabi’a a wannan lokaci.',
     alertTitle: 'Ki lura',
     alertText: 'Waɗannan alamomi jagorori ne gama gari, ba hasashe takamaimai ba. Kowane jiki yana bin saurinsa.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Hailarki ta farko: abin da za ki tsammata', meta: 'minti 5  ·  Jagora'},
       {title: 'Ta yaya zan san hailata ta farko tana zuwa?', meta: 'minti 5  ·  Jagora'},
@@ -2508,7 +2508,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'እነዚህ ምልክቶች ብዙውን ጊዜ የመጀመሪያ የወር አበባሽ በሚቀጥሉት ወራት እንደሚመጣ ያመለክታሉ፣ ምንም እንኳን ትክክለኛ ቀንን መተንበይ የማይቻል ቢሆንም። መከላከያን በቅርበት መያዝ በዚህ ጊዜ ጥሩ ልማድ ይሆናል።',
     alertTitle: 'ልብ በይ',
     alertText: 'እነዚህ ምልክቶች አጠቃላይ መመሪያዎች ናቸው እንጂ ትክክለኛ ትንበያ አይደሉም። እያንዳንዱ አካል የራሱን ፍጥነት ይከተላል።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'የመጀመሪያ የወር አበባሽ፦ ምን መጠበቅ', meta: '5 ደቂቃ  ·  መመሪያ'},
       {title: 'የመጀመሪያ የወር አበባዬ እየመጣ መሆኑን እንዴት አውቃለሁ?', meta: '5 ደቂቃ  ·  መመሪያ'},
@@ -2543,7 +2543,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Deze tekenen betekenen meestal dat je eerste menstruatie in de volgende maanden komt, al is het onmogelijk een exacte datum te voorspellen. Bescherming binnen handbereik houden wordt op dit moment een goede gewoonte.',
     alertTitle: 'Let op',
     alertText: 'Deze tekenen zijn algemene richtlijnen, nooit een precieze voorspelling. Elk lichaam volgt zijn eigen tempo.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'Je eerste menstruatie: wat je kunt verwachten', meta: '5 min  ·  Gids'},
       {title: 'Hoe weet ik of mijn eerste menstruatie eraan komt?', meta: '5 min  ·  Gids'},
@@ -2578,7 +2578,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Nämä merkit tarkoittavat yleensä, että ensimmäiset kuukautisesi tulevat seuraavien kuukausien aikana, vaikka tarkkaa päivää on mahdoton ennustaa. Suojan pitäminen lähellä on tässä vaiheessa hyvä tapa.',
     alertTitle: 'Huomaa',
     alertText: 'Nämä merkit ovat yleisiä suuntaviivoja, eivät koskaan tarkka ennuste. Jokainen keho etenee omaa tahtiaan.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Ensimmäiset kuukautisesi: mitä odottaa', meta: '5 min  ·  Opas'},
       {title: 'Mistä tiedän, että ensimmäiset kuukautiseni ovat tulossa?', meta: '5 min  ·  Opas'},
@@ -2613,7 +2613,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Αυτά τα σημάδια σημαίνουν συνήθως ότι η πρώτη σου περίοδος θα έρθει τους επόμενους μήνες, αν και είναι αδύνατο να προβλεφθεί μια ακριβής ημερομηνία. Το να έχεις προστασία πρόχειρη γίνεται καλή συνήθεια σε αυτό το σημείο.',
     alertTitle: 'Σημείωση',
     alertText: 'Αυτά τα σημάδια είναι γενικοί οδηγοί, ποτέ ακριβής πρόβλεψη. Κάθε σώμα ακολουθεί τον δικό του ρυθμό.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Η πρώτη σου περίοδος: τι να περιμένεις', meta: '5 λεπτά  ·  Οδηγός'},
       {title: 'Πώς καταλαβαίνω ότι έρχεται η πρώτη μου περίοδος;', meta: '5 λεπτά  ·  Οδηγός'},
@@ -2648,7 +2648,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'Karaniwang ipinapahiwatig ng mga senyales na ito na darating ang iyong unang regla sa mga susunod na buwan, bagaman imposibleng hulaan ang eksaktong petsa. Magandang gawi na ngayon ang pagkakaroon ng proteksyon sa malapit.',
     alertTitle: 'Pakitandaan',
     alertText: 'Pangkalahatang gabay lamang ang mga senyales na ito, hindi kailanman eksaktong prediksyon. May sariling bilis ang bawat katawan.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Ang iyong unang regla: ano ang aasahan', meta: '5 min  ·  Gabay'},
       {title: 'Paano ko malalaman na parating na ang aking unang regla?', meta: '5 min  ·  Gabay'},
@@ -2683,7 +2683,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'இந்த அறிகுறிகள் பொதுவாக உங்கள் முதல் மாதவிடாய் அடுத்த மாதங்களில் வரும் என்பதைக் குறிக்கின்றன, இருப்பினும் சரியான தேதியைக் கணிக்க இயலாது. இந்தக் கட்டத்தில் பாதுகாப்பை அருகிலேயே வைத்திருப்பது ஒரு நல்ல பழக்கமாகிறது.',
     alertTitle: 'கவனத்தில் கொள்ளவும்',
     alertText: 'இந்த அறிகுறிகள் பொது வழிகாட்டிகள், துல்லியமான கணிப்பு ஒருபோதும் அல்ல. ஒவ்வொரு உடலும் தன் சொந்த வேகத்தைப் பின்பற்றுகிறது.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'உங்கள் முதல் மாதவிடாய்: என்ன எதிர்பார்ப்பது', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
       {title: 'என் முதல் மாதவிடாய் வருகிறது என்பதை எப்படி அறிவது?', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
@@ -2718,7 +2718,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ఈ సంకేతాలు సాధారణంగా మీ మొదటి నెలసరి తర్వాతి నెలల్లో వస్తుందని అర్థం, అయితే ఖచ్చితమైన తేదీని అంచనా వేయడం అసాధ్యం. ఈ దశలో రక్షణను దగ్గర ఉంచుకోవడం మంచి అలవాటు అవుతుంది.',
     alertTitle: 'గమనించండి',
     alertText: 'ఈ సంకేతాలు సాధారణ మార్గదర్శకాలు, ఎప్పటికీ ఖచ్చితమైన అంచనా కాదు. ప్రతి శరీరం తన సొంత వేగాన్ని అనుసరిస్తుంది.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'మీ మొదటి నెలసరి: ఏమి ఆశించాలి', meta: '5 ని  ·  గైడ్'},
       {title: 'నా మొదటి నెలసరి రాబోతోందని నాకు ఎలా తెలుస్తుంది?', meta: '5 ని  ·  గైడ్'},
@@ -2753,7 +2753,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ही चिन्हे सहसा दर्शवतात की तुमची पहिली पाळी पुढील काही महिन्यांत येईल, मात्र नेमकी तारीख सांगणे अशक्य आहे. या टप्प्यावर संरक्षण हाताशी ठेवणे ही एक चांगली सवय बनते.',
     alertTitle: 'कृपया लक्षात घ्या',
     alertText: 'ही चिन्हे सर्वसाधारण मार्गदर्शक आहेत, कधीही अचूक अंदाज नाहीत. प्रत्येक शरीर स्वतःच्या गतीने चालते.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'तुमची पहिली पाळी: काय अपेक्षित आहे', meta: '5 मिनिटे  ·  मार्गदर्शक'},
       {title: 'माझी पहिली पाळी येणार आहे हे मला कसे कळेल?', meta: '5 मिनिटे  ·  मार्गदर्शक'},
@@ -2788,7 +2788,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'આ સંકેતોનો સામાન્ય રીતે અર્થ થાય છે કે તમારું પ્રથમ માસિક પછીના મહિનાઓમાં આવશે, જોકે ચોક્કસ તારીખની આગાહી કરવી અશક્ય છે. આ તબક્કે સંરક્ષણ હાથવગું રાખવું એક સારી ટેવ બની જાય છે.',
     alertTitle: 'કૃપા કરીને નોંધો',
     alertText: 'આ સંકેતો સામાન્ય માર્ગદર્શક છે, ક્યારેય ચોક્કસ આગાહી નથી. દરેક શરીર પોતાની ગતિએ ચાલે છે.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'તમારું પ્રથમ માસિક: શું અપેક્ષા રાખવી', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
       {title: 'મારું પ્રથમ માસિક આવી રહ્યું છે એ કેવી રીતે ખબર પડે?', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -2823,7 +2823,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ਇਨ੍ਹਾਂ ਸੰਕੇਤਾਂ ਦਾ ਆਮ ਤੌਰ \'ਤੇ ਮਤਲਬ ਹੁੰਦਾ ਹੈ ਕਿ ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਅਗਲੇ ਮਹੀਨਿਆਂ ਵਿੱਚ ਆਵੇਗੀ, ਹਾਲਾਂਕਿ ਸਹੀ ਤਾਰੀਖ਼ ਦਾ ਅੰਦਾਜ਼ਾ ਲਾਉਣਾ ਸੰਭਵ ਨਹੀਂ। ਇਸ ਸਮੇਂ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਹੱਥ ਦੇ ਨੇੜੇ ਰੱਖਣਾ ਇੱਕ ਚੰਗੀ ਆਦਤ ਬਣ ਜਾਂਦੀ ਹੈ।',
     alertTitle: 'ਕਿਰਪਾ ਕਰਕੇ ਧਿਆਨ ਦਿਓ',
     alertText: 'ਇਹ ਸੰਕੇਤ ਆਮ ਮਾਰਗ-ਦਰਸ਼ਕ ਹਨ, ਕਦੇ ਵੀ ਸਹੀ ਭਵਿੱਖਬਾਣੀ ਨਹੀਂ। ਹਰ ਸਰੀਰ ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ ਚੱਲਦਾ ਹੈ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਤੁਹਾਡੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ: ਕੀ ਉਮੀਦ ਰੱਖੀਏ', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
       {title: 'ਮੈਨੂੰ ਕਿਵੇਂ ਪਤਾ ਲੱਗੇ ਕਿ ਮੇਰੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਆਉਣ ਵਾਲੀ ਹੈ?', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -2858,7 +2858,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ဤလက္ခဏာများသည် များသောအားဖြင့် သင့်ပထမဆုံး ရာသီသွေး နောက်လများတွင် လာမည်ဟု ဆိုလိုသော်လည်း တိကျသောရက်စွဲကို ခန့်မှန်း၍ မရနိုင်ပါ။ ဤအချိန်တွင် ကာကွယ်ရေးပစ္စည်းကို လက်လှမ်းမီရာတွင် ထားခြင်းသည် အလေ့အကျင့်ကောင်းတစ်ခု ဖြစ်လာသည်။',
     alertTitle: 'ကျေးဇူးပြု၍ သတိပြုပါ',
     alertText: 'ဤလက္ခဏာများသည် ယေဘုယျလမ်းညွှန်ချက်များသာဖြစ်ပြီး တိကျသော ခန့်မှန်းချက် မဟုတ်ပါ။ ခန္ဓာကိုယ်တိုင်းသည် ကိုယ်ပိုင်အရှိန်အတိုင်း ဖြစ်ပေါ်သည်။',
-    relatedTitle: '♥  သင်နှစ်သက်နိုင်သည့် အခြားဆောင်းပါးများ',
+    relatedTitle: 'သင်နှစ်သက်နိုင်သည့် အခြားဆောင်းပါးများ',
     related: [
       {title: 'သင့်ပထမဆုံး ရာသီသွေး၊ မျှော်လင့်ရမည့်အရာများ', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
       {title: 'ပထမဆုံး ရာသီသွေး လာတော့မည်ကို ဘယ်လိုသိနိုင်မလဲ။', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
@@ -2893,7 +2893,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'សញ្ញាទាំងនេះជាទូទៅមានន័យថារដូវលើកដំបូងរបស់អ្នកនឹងមកដល់ក្នុងប៉ុន្មានខែបន្ទាប់ ទោះបីមិនអាចទាយកាលបរិច្ឆេទជាក់លាក់បានក៏ដោយ។ ការមានគ្រឿងការពារនៅជិតខ្លួនក្លាយជាទម្លាប់ល្អនៅពេលនេះ។',
     alertTitle: 'សូមកត់សម្គាល់',
     alertText: 'សញ្ញាទាំងនេះជាការណែនាំទូទៅ មិនមែនជាការទស្សន៍ទាយច្បាស់លាស់ឡើយ។ រាងកាយនីមួយៗមានចង្វាក់ផ្ទាល់ខ្លួន។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'រដូវលើកដំបូងរបស់អ្នក៖ អ្វីដែលត្រូវរំពឹងទុក', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
       {title: 'តើខ្ញុំដឹងដោយរបៀបណាថារដូវលើកដំបូងជិតមកដល់?', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -2928,7 +2928,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodSigns', {
     body2: 'ສັນຍານເຫຼົ່ານີ້ມັກໝາຍຄວາມວ່າປະຈຳເດືອນຄັ້ງທຳອິດຈະມາໃນຫຼາຍເດືອນຂ້າງໜ້າ ເຖິງແມ່ນວ່າຈະບໍ່ສາມາດຄາດເດົາວັນທີ່ແນ່ນອນໄດ້. ການມີອຸປະກອນປ້ອງກັນໄວ້ໃກ້ມືຈຶ່ງເປັນນິໄສທີ່ດີໃນຕອນນີ້.',
     alertTitle: 'ກະລຸນາສັງເກດ',
     alertText: 'ສັນຍານເຫຼົ່ານີ້ເປັນພຽງຄຳແນະນຳທົ່ວໄປ ບໍ່ແມ່ນການຄາດຄະເນທີ່ແນ່ນອນ. ແຕ່ລະຮ່າງກາຍມີຈັງຫວະຂອງຕົນເອງ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ປະຈຳເດືອນຄັ້ງທຳອິດຂອງທ່ານ: ສິ່ງທີ່ຄາດໝາຍໄດ້', meta: '5 ນາທີ  ·  ຄູ່ມື'},
       {title: 'ຈະຮູ້ໄດ້ແນວໃດວ່າປະຈຳເດືອນຄັ້ງທຳອິດກຳລັງຈະມາ?', meta: '5 ນາທີ  ·  ຄູ່ມື'},

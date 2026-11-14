@@ -92,7 +92,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bon à savoir',
     tipText: 'Il n’existe pas de moyen de prédire le jour exact. Garder une protection avec toi dès les premiers signes reste la meilleure habitude.',
     body4: 'Dès que tu observes ces signes, ou dès que tu as une question ou une inquiétude, tu peux en parler à ta mère, une sœur, une proche ou un professionnel de santé de confiance. Il n’y a jamais de mauvais moment pour demander de l’aide.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Les premiers signes avant les règles', meta: '5 min  ·  Article'},
       {title: 'Quelle protection choisir pour mes premières règles ?', meta: '6 min  ·  Guide'},
@@ -125,7 +125,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Good to know',
     tipText: 'There’s no way to predict the exact day. Keeping protection with you from the very first signs is the best habit to have.',
     body4: 'As soon as you notice these signs, or whenever you have a question or a worry, you can talk to your mother, a sister, someone close to you, or a healthcare professional you trust. There’s never a wrong time to ask for help.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'The first signs before your period', meta: '5 min  ·  Article'},
       {title: 'Which protection should I choose for my first period?', meta: '6 min  ·  Guide'},
@@ -158,7 +158,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'DATO ÚTIL',
     tipText: 'No existe ninguna forma de predecir el día exacto. Llevar protección contigo desde las primeras señales sigue siendo el mejor hábito.',
     body4: 'En cuanto observes estas señales, o en cuanto tengas una pregunta o una preocupación, puedes hablar de ello con tu madre, una hermana, alguien cercano o un profesional de la salud de confianza. Nunca hay un mal momento para pedir ayuda.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {title: 'Las primeras señales antes de la menstruación', meta: '5 min  ·  Artículo'},
       {title: '¿Qué protección elegir para mi primera menstruación?', meta: '6 min  ·  Guía'},
@@ -200,7 +200,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Da sapere',
     tipText: 'Non c’è modo di prevedere il giorno esatto. Tenere con te un assorbente fin dai primi segnali è la migliore abitudine da avere.',
     body4: 'Non appena noti questi segnali, o ogni volta che hai una domanda o una preoccupazione, puoi parlarne con tua madre, una sorella, una persona a te vicina o un professionista sanitario di cui ti fidi. Non c’è mai un momento sbagliato per chiedere aiuto.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'I primi segnali prima del ciclo',
@@ -251,7 +251,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bilmekte fayda var',
     tipText: 'Tam günü önceden tahmin etmenin bir yolu yoktur. İlk işaretlerden itibaren yanında koruma bulundurmak, edinebileceğin en iyi alışkanlıktır.',
     body4: 'Bu işaretleri fark ettiğin anda ya da aklına bir soru veya endişe geldiğinde annenle, bir kız kardeşinle, yakınındaki biriyle veya güvendiğin bir sağlık profesyoneliyle konuşabilirsin. Yardım istemek için yanlış bir zaman yoktur.',
-    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    relatedTitle: 'Bunlar da ilgini çekebilir',
     related: [
       {
         title: 'Adetinden önceki ilk işaretler',
@@ -293,7 +293,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Полезно знать',
     tipText: 'Предсказать точный день невозможно. Лучшая привычка — носить с собой средство гигиены с самых первых признаков.',
     body4: 'Как только вы заметите эти признаки или у вас появится вопрос или беспокойство, вы можете поговорить с мамой, сестрой, близким человеком или врачом, которому доверяете. Просить о помощи никогда не бывает неуместно.',
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {title: 'Первые признаки перед месячными', meta: '5 мин  ·  Статья'},
       {title: 'Какое средство гигиены выбрать для первых месячных?', meta: '6 мин  ·  Руководство'},
@@ -326,7 +326,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Gut zu wissen',
     tipText: 'Der genaue Tag lässt sich nicht vorhersagen. Es ist am besten, schon ab den ersten Anzeichen Schutz dabeizuhaben.',
     body4: 'Sobald du diese Anzeichen bemerkst oder immer dann, wenn du eine Frage oder eine Sorge hast, kannst du mit deiner Mutter, einer Schwester, einer dir nahestehenden Person oder medizinischem Fachpersonal sprechen, dem du vertraust. Es gibt nie einen falschen Zeitpunkt, um Hilfe zu holen.',
-    relatedTitle: '♥  Das könnte dir auch gefallen',
+    relatedTitle: 'Das könnte dir auch gefallen',
     related: [
       {title: 'Die ersten Anzeichen vor der Periode', meta: '5 Min.  ·  Artikel'},
       {title: 'Welchen Schutz soll ich für meine erste Periode wählen?', meta: '6 Min.  ·  Ratgeber'},
@@ -368,7 +368,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
       tipTitle: '小贴士',
       tipText: '没有办法预测确切的日期。从最初出现迹象时起就随身带好防护用品，是最好的习惯。',
       body4: '一旦你注意到这些迹象，或者有任何疑问和担心，都可以和妈妈、姐姐、身边亲近的人，或你信任的医疗专业人员聊聊。任何时候寻求帮助都不算晚。',
-      relatedTitle: '♥  你可能还喜欢',
+      relatedTitle: '你可能还喜欢',
       related: [
         {
           title: '月经来潮前的最初迹象',
@@ -419,7 +419,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
       tipTitle: '小提醒',
       tipText: '沒有辦法預測確切的日期。從最初出現跡象時起就隨身帶好防護用品，是最好的習慣。',
       body4: '一旦你注意到這些跡象，或者有任何疑問和擔心，都可以和媽媽、姐姐、身邊親近的人，或你信任的醫療專業人員聊聊。任何時候尋求幫助都不算晚。',
-      relatedTitle: '♥  你可能還喜歡',
+      relatedTitle: '你可能還喜歡',
       related: [
         {
           title: '月經來潮前的最初跡象',
@@ -461,7 +461,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'من المفيد أن تعرفي',
     tipText: 'لا توجد طريقة للتنبؤ باليوم بالضبط. واصطحاب وسيلة الحماية معك منذ أولى العلامات هو أفضل عادة.',
     body4: 'بمجرد أن تلاحظي هذه العلامات، أو كلما كان لديك سؤال أو قلق، يمكنك التحدث إلى أمك أو أختك أو شخص مقرّب منك أو مختص في الرعاية الصحية تثقين به. ليس هناك وقت غير مناسب لطلب المساعدة.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'أولى العلامات قبل الحيض', meta: '5 د  ·  مقال'},
       {title: 'أي وسيلة حماية أختار لأول حيض؟', meta: '6 د  ·  دليل'},
@@ -494,7 +494,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Yelha ad tezwareḍ',
     tipText: 'Ulac abrid ad tissneḍ wass ummid. Ad tesɛuḍ aḥerres yidek seg tiwsatin timezwura d aɣawas ilhan akk.',
     body4: 'S tutlayt n tiwsatin-a, neɣ ma tesɛiḍ asteqsi neɣ uḥezzeb, tzemreḍ ad tmeslayeḍ d yemma-k, d weltma-k, d wid i k-yezzin, neɣ d unaẓur n tezmert i tettkelleḍ fell-as. Ulac wakud ur nelhi ara ad tessutureḍ tallelt.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Tiwsatin timezwura uqbel lḥid-ik', meta: '5 n tesdatin  ·  Amagrad'},
       {title: 'Anwa aḥerres ara fren i lḥid-iw amezwaru?', meta: '6 n tesdatin  ·  Amawal'},
@@ -527,7 +527,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Beekuun gaarii dha',
     tipText: 'Guyyaa sirrii dura beekuuf mala hin jiru. Mallattoowwan jalqabaa irraa eegalee eegumsa si bira qabachuun amala gaarii kan qabdu dha.',
     body4: 'Yeroo mallattoowwan kana argitu, ykn yeroo gaaffii ykn yaaddoo qabdu, haadha kee, obboleettii kee, nama si bira jiru, ykn ogeessa fayyaa kan amantu waliin haasa\'uu dandeessa. Gargaarsa gaafachuuf yeroon dogoggoraa gonkumaa hin jiru.',
-    relatedTitle: '♥  Kunis sitti tolu ta\'a',
+    relatedTitle: 'Kunis sitti tolu ta\'a',
     related: [
       {title: 'Mallattoowwan jalqabaa dhiita ji\'aa kee dura', meta: 'Daqiiqaa 5  ·  Barreeffama'},
       {title: 'Dhiita ji\'aa kee jalqabaaf eegumsa kam filachuu qabda?', meta: 'Daqiiqaa 6  ·  Qajeelfama'},
@@ -560,7 +560,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'ርዳእ እዚ',
     tipText: 'ትኽክለኛ መዓልቲ ንምግማት ዝኾነ መገዲ የለን። ካብ ቀዳሞት ምልክታት ጀሚርካ ከላኻሊ ምሓዝ እቲ ዝበለጸ ልምዲ እዩ።',
     body4: 'እዘን ምልክታት ምስ ረኣኽዮም ወይ ሕቶ ወይ ጭንቀት ምስ ኣሎኪ፣ ምስ ኣደኺ፣ ሓብትኪ፣ ቀረባኺ ወይ እትኣምንዮ ሞያዊ ጥዕና ሰራሒ ክትዛረቢ ትኽእሊ። ሓገዝ ንምሕታት ጌጋ ግዜ ፈጺሙ የለን።',
-    relatedTitle: '♥  ክትፈትይዮም ትኽእሊ',
+    relatedTitle: 'ክትፈትይዮም ትኽእሊ',
     related: [
       {title: 'ቀዳሞት ምልክታት ቅድሚ ወርሓዊ ደምኪ', meta: '5 ደቒቕ  ·  ጽሑፍ'},
       {title: 'ንቀዳማይ ወርሓዊ ደመይ ኣየነይቲ ከላኻሊ ክምረጽ?', meta: '6 ደቒቕ  ·  መምርሒ'},
@@ -593,7 +593,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ni byiza kubimenya',
     tipText: 'Nta buryo bwo guhanura umunsi nyawo. Guhorana igikoresho cyo kwirinda guhera ku bimenyetso bya mbere ni ingeso nziza.',
     body4: 'Ukimara kubona ibi bimenyetso, cyangwa igihe cyose ufite ikibazo cyangwa impungenge, ushobora kuvugana na nyoko, mushiki wawe, umuntu ukuri hafi, cyangwa umuganga wizeye. Nta gihe kiba kibi cyo gusaba ubufasha.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Ibimenyetso bya mbere mbere y’imihango yawe', meta: 'Iminota 5  ·  Inkuru'},
       {title: 'Ni ikihe gikoresho nahitamo ku mihango yanjye ya mbere?', meta: 'Iminota 6  ·  Igitabo'},
@@ -626,7 +626,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ni vyiza kubimenya',
     tipText: 'Nta buryo bwo guhanura umusi nyawo. Guhorana ico wambaye ngo ukingire kuva ku bimenyetso vya mbere ni yo ngeso nziza.',
     body4: 'Ukimara kubona ibyo bimenyetso, canke igihe cose ufise ikibazo canke impungenge, ushobora kuvugana na mama wawe, mushiki wawe, umuntu wo hafi yawe, canke umuganga wizeye. Nta gihe kidakwiriye co gusaba ubufasha.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Ibimenyetso vya mbere imbere y’imihango yawe', meta: 'Iminuta 5  ·  Inkuru'},
       {title: 'Ni ikihe gikoresho nahitamwo ku mihango yanje ya mbere?', meta: 'Iminuta 6  ·  Ubuyobozi'},
@@ -659,7 +659,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ọ dị mma ịmara',
     tipText: 'Enweghị ụzọ isi buru amụma ụbọchị kpọmkwem. Ịnọgide na-ebu ihe nchebe site na ihe ịrịba ama mbụ bụ omume kacha mma.',
     body4: 'Ozugbo ị chọpụtara ihe ịrịba ama ndị a, ma ọ bụ mgbe ọ bụla ị nwere ajụjụ ma ọ bụ nchegbu, ị nwere ike ịgwa nne gị, nwanne nwanyị, onye dị gị nso, ma ọ bụ ọkachamara ahụike ị tụkwasịrị obi. Oge adịghị njọ ịrịọ enyemaka.',
-    relatedTitle: '♥  Ị nwere ike ịkpọkwa ndị a',
+    relatedTitle: 'Ị nwere ike ịkpọkwa ndị a',
     related: [
       {title: 'Ihe ịrịba ama mbụ tupu nsọ ọnwa gị', meta: 'Nkeji 5  ·  Edemede'},
       {title: 'Kedu ihe nchebe m ga-ahọrọ maka nsọ ọnwa mbụ m?', meta: 'Nkeji 6  ·  Ntuziaka'},
@@ -692,7 +692,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ohun tó yẹ kí o mọ̀',
     tipText: 'Kò sí ọ̀nà láti sọ ọjọ́ gan-an tẹ́lẹ̀. Níní ohun ìdáàbòbò pẹ̀lú rẹ láti àwọn àmì àkọ́kọ́ ni àṣà tó dára jù láti ní.',
     body4: 'Ní kété tí o bá kíyèsí àwọn àmì wọ̀nyí, tàbí nígbàkigbà tí o bá ní ìbéèrè tàbí àníyàn, o lè bá ìyá rẹ, ẹ̀gbọ́n tàbí àbúrò rẹ obìnrin, ẹnì kan tó sún mọ́ ọ, tàbí onímọ̀ ìlera tí o gbẹ́kẹ̀lé sọ̀rọ̀. Kò sí àkókò tí kò tọ́ láti bèèrè ìrànlọ́wọ́.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí náà',
+    relatedTitle: 'O lè fẹ́ràn èyí náà',
     related: [
       {title: 'Àwọn àmì àkọ́kọ́ ṣáájú nǹkan oṣù rẹ', meta: '5 min  ·  Àpilẹ̀kọ'},
       {title: 'Ohun ìdáàbòbò wo ni kí n yàn fún nǹkan oṣù àkọ́kọ́ mi?', meta: '6 min  ·  Ìtọ́sọ́nà'},
@@ -725,7 +725,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Kuhle ukwazi',
     tipText: 'Ayikho indlela yokubikezela usuku oluqondile. Ukuhlala nokuvikela nawe kusukela ezimpawini zokuqala kungumkhuba ongcono kakhulu.',
     body4: 'Ngokushesha lapho ubona lezi zimpawu, noma noma nini lapho unombuzo noma ukukhathazeka, ungakhuluma nonyoko, udadewenu, umuntu osondelene nawe, noma uchwepheshe wezempilo omthembayo. Akukaze kube nesikhathi esingalungile sokucela usizo.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Izimpawu zokuqala ngaphambi kwesikhathi sakho', meta: 'Imizuzu eyi-5  ·  Isihloko'},
       {title: 'Ukhetha muphi uvikelo esikhathini sami sokuqala?', meta: 'Imizuzu eyi-6  ·  Isikhokelo'},
@@ -758,7 +758,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Kulungile ukwazi',
     tipText: 'Akukho ndlela yokuqikelela usuku oluchanekileyo. Ukugcina ukhuseleko nawe ukususela kwiimpawu zokuqala yeyona nkqubo ilungileyo.',
     body4: 'Kamsinya nje ukuba uphawule ezi mpawu, okanye nanini na xa unombuzo okanye inkxalabo, unokuthetha nomama wakho, udade wenu, umntu okufutshane nawe, okanye uchwephesha kwezempilo omthembayo. Akukho xesha elingalunganga lokucela uncedo.',
-    relatedTitle: '♥  Usenokuthanda ke nale',
+    relatedTitle: 'Usenokuthanda ke nale',
     related: [
       {title: 'Iimpawu zokuqala phambi kwexesha lakho lenyanga', meta: 'Imizuzu emi-5  ·  Inqaku'},
       {title: 'Ndikhethe ukhuseleko olunjani kwixesha lam lokuqala lenyanga?', meta: 'Imizuzu emi-6  ·  Isikhokelo'},
@@ -791,7 +791,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Zvakanaka kuziva',
     tipText: 'Hapana nzira yekufanotaura zuva chairo. Kuramba une chekuzvidzivirira newe kubva pazviratidzo zvekutanga ndiyo tsika yakanakisa.',
     body4: 'Pakarepo painocherechedza zviratidzo izvi, kana pose paunenge uine mubvunzo kana kushushikana, unogona kutaura naamai vako, hanzvadzi, munhu wepedyo newe, kana munhu ane unyanzvi muutano waunovimba naye. Hapana nguva isina kukodzera yekukumbira rubatsiro.',
-    relatedTitle: '♥  Unogona kufarirawo',
+    relatedTitle: 'Unogona kufarirawo',
     related: [
       {title: 'Zviratidzo zvekutanga pamberi pekumwedzi kwako', meta: 'Maminetsi 5  ·  Chinyorwa'},
       {title: 'Ndisarudze chekuzvidzivirira chipi pakumwedzi kwangu kwekutanga?', meta: 'Maminetsi 6  ·  Gwara'},
@@ -824,7 +824,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ezali malamu koyeba',
     tipText: 'Nzela ya koyeba mokolo ya mpenza ezali te. Kobatela biloko ya kobatela elongo na yo banda bilembo ya liboso ezali momeseno ya malamu koleka.',
     body4: 'Wana omoni bilembo oyo, to ntango nyonso ozali na motuna to bobangi, okoki kosolola na mama na yo, ndeko na yo ya mwasi, moto oyo azali pene na yo, to moto ya mosala ya bolamu oyo ondimi. Ntango ya mabe ya kosenga lisungi ezali te.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Bilembo ya liboso liboso ya sanza na yo', meta: 'Min 5  ·  Lisolo'},
       {title: 'Biloko nini ya kobatela ya kopona mpo na sanza na ngai ya liboso?', meta: 'Min 6  ·  Buku ya bokambi'},
@@ -857,7 +857,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Ko haani anndugo',
     tipText: 'Walaa laawol anndugo nyalde pamaare. Hoosugo takkaadu reenugo e maaɗa diga maandeeji adannde ko ɗum ɓurɗum moƴƴugo.',
     body4: 'Saa\'i fuu a tawi maandeeji ɗin, malla a woodi naamndal malla hulɗe, a waaway haalugo e inna maaɗa, jaaɓaaɗo, goɗɗo ɓenndi e maaɗa, malla jaɓɓitaaɗo cellal ɗo yoɓaa. Walaa saa\'i ɗo ɗaɓɓitaago walliinde wonaa moƴƴum.',
-    relatedTitle: '♥  A waaway yiɗugo fahin',
+    relatedTitle: 'A waaway yiɗugo fahin',
     related: [
       {title: 'Maandeeji adannde adii regles maaɗa', meta: 'Minti 5  ·  Winndannde'},
       {title: 'Takkaadu reenugo ɗume mi suɓtay ngam regles am adannde?', meta: 'Minti 6  ·  Paltirgel'},
@@ -899,7 +899,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Perlu diketahui',
     tipText: 'Tidak ada cara untuk memprediksi hari yang pasti. Membawa pelindung sejak tanda-tanda pertama adalah kebiasaan terbaik.',
     body4: 'Begitu kamu melihat tanda-tanda ini, atau kapan pun kamu punya pertanyaan atau kekhawatiran, kamu bisa bicara dengan ibumu, kakak perempuanmu, orang terdekat, atau tenaga kesehatan yang kamu percaya. Tidak pernah ada waktu yang salah untuk meminta bantuan.',
-    relatedTitle: '♥  Kamu mungkin juga suka',
+    relatedTitle: 'Kamu mungkin juga suka',
     related: [
       {
         title: 'Tanda-tanda pertama sebelum haidmu',
@@ -950,7 +950,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'जानने लायक बात',
     tipText: 'सही दिन का अनुमान लगाने का कोई तरीक़ा नहीं है। पहले संकेतों से ही प्रोटेक्शन अपने साथ रखना सबसे अच्छी आदत है।',
     body4: 'जैसे ही आपको ये संकेत दिखें, या जब भी कोई सवाल या चिंता हो, आप अपनी माँ, बहन, किसी करीबी या अपने भरोसे के स्वास्थ्य विशेषज्ञ से बात कर सकती हैं। मदद माँगने का कभी कोई ग़लत समय नहीं होता।',
-    relatedTitle: '♥  आपको ये भी पसंद आ सकते हैं',
+    relatedTitle: 'आपको ये भी पसंद आ सकते हैं',
     related: [
       {
         title: 'पीरियड से पहले के पहले संकेत',
@@ -1001,7 +1001,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Mirë është ta dish',
     tipText: 'Nuk ka asnjë mënyrë për ta parashikuar ditën e saktë. Të mbash mbrojtëse me vete që nga shenjat e para është zakoni më i mirë që mund të kesh.',
     body4: 'Sapo t’i vësh re këto shenja, ose sa herë që ke një pyetje apo një shqetësim, mund të flasësh me nënën tënde, me një motër, me dikë të afërt ose me një profesionist të shëndetësisë që i beson. Nuk është kurrë koha e gabuar për të kërkuar ndihmë.',
-    relatedTitle: '♥  Mund të të pëlqejë edhe',
+    relatedTitle: 'Mund të të pëlqejë edhe',
     related: [
       {
         title: 'Shenjat e para përpara menstruacioneve',
@@ -1052,7 +1052,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: '知っておきたいこと',
     tipText: '正確な日を予測する方法はありません。最初のサインが出たころから生理用品を持ち歩いておくのが、いちばんよい習慣です。',
     body4: 'これらのサインに気づいたときや、疑問や心配があるときはいつでも、お母さん、姉妹、身近な人、または信頼できる医療従事者に話してみましょう。助けを求めるのに遅すぎるときはありません。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '生理の前に現れる最初のサイン',
@@ -1103,7 +1103,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: '알아 두면 좋아요',
     tipText: '정확한 날짜를 예측할 방법은 없어요. 첫 신호가 보이는 때부터 생리용품을 갖고 다니는 것이 가장 좋은 습관이에요.',
     body4: '이런 신호가 보이거나 궁금한 점, 걱정되는 점이 생기면 언제든 엄마, 언니나 여동생, 가까운 사람, 또는 믿을 수 있는 의료 전문가에게 이야기해도 좋아요. 도움을 청하기에 잘못된 때는 없어요.',
-    relatedTitle: '♥  이런 글도 좋아할 거예요',
+    relatedTitle: '이런 글도 좋아할 거예요',
     related: [
       {
         title: '생리 전에 나타나는 첫 신호',
@@ -1154,7 +1154,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bom saber',
     tipText: 'Não há maneira de prever o dia exato. Ter sempre proteção consigo desde os primeiros sinais é o melhor hábito a adotar.',
     body4: 'Assim que notar estes sinais, ou sempre que tiver uma dúvida ou uma preocupação, pode falar com a sua mãe, uma irmã, alguém próximo ou um profissional de saúde da sua confiança. Nunca há uma má altura para pedir ajuda.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'Os primeiros sinais antes do período',
@@ -1205,7 +1205,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'জেনে রাখা ভালো',
     tipText: 'সঠিক দিনটি আগে থেকে বলে দেওয়ার কোনো উপায় নেই। একেবারে প্রথম লক্ষণ থেকেই সঙ্গে সুরক্ষা রাখা সবচেয়ে ভালো অভ্যাস।',
     body4: 'এই লক্ষণগুলো টের পেলেই, অথবা যখনই কোনো প্রশ্ন বা দুশ্চিন্তা থাকে, আপনি আপনার মা, বোন, কাছের কারও বা আপনার বিশ্বাসী একজন স্বাস্থ্যসেবা পেশাজীবীর সঙ্গে কথা বলতে পারেন। সাহায্য চাওয়ার জন্য কখনোই ভুল সময় বলে কিছু নেই।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'মাসিকের আগের প্রথম লক্ষণগুলো',
@@ -1256,7 +1256,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Godt at vide',
     tipText: 'Der er ingen måde at forudsige den præcise dato på forhånd. Den bedste vane er at have beskyttelse med sig fra de allerførste tegn.',
     body4: 'Når du mærker disse tegn, eller når du har spørgsmål eller bekymringer, kan du tale med din mor, søster, en nær person eller en betroet sundhedsprofessionel. Det er aldrig det forkerte tidspunkt at søge hjælp.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Tidlige tegn inden menstruationen',
@@ -1307,7 +1307,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Godt at vide',
     tipText: 'Der ar ingen måde at forudsige den präcise dato på forhånd. Den bedste vane ar at have beskyttelse med sig fran de allerförste tegn.',
     body4: 'Når du märker disse tegn, eller når du har spörgsmål eller bekymringer, kan du tale med din mor, söster, en när person eller en betroet halsasprofessionel. Det ar aldrig det forkerte tidspunkt at söge hjälp.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Tidlige tegn inden menstruationen',
@@ -1349,7 +1349,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Godt å vite',
     tipText: 'Det er ikke mulig å forutsi nøyaktig dag. Å ha beskyttelse med seg fra de aller første tegnene er den beste vanen å ha.',
     body4: 'Så snart du legger merke til disse tegnene, eller når du har et spørsmål eller en bekymring, kan du snakke med moren din, en søster, noen du står nær eller helsepersonell du stoler på. Det er aldri feil tidspunkt å be om hjelp.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'De første tegnene før mensen', meta: '5 min  ·  Artikkel'},
       {title: 'Hvilken beskyttelse bør jeg velge til den første mensen?', meta: '6 min  ·  Veiledning'},
@@ -1382,7 +1382,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Warto wiedzieć',
     tipText: 'Nie da się przewidzieć dokładnego dnia. Noszenie przy sobie środka ochrony od pierwszych oznak to najlepszy nawyk.',
     body4: 'Gdy tylko zauważysz te oznaki albo gdy masz pytanie lub obawy, możesz porozmawiać z mamą, siostrą, bliską osobą lub specjalistą, któremu ufasz. Nigdy nie jest zły moment, by poprosić o pomoc.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Pierwsze oznaki przed miesiączką', meta: '5 min  ·  Artykuł'},
       {title: 'Jaki środek ochrony wybrać na pierwszą miesiączkę?', meta: '6 min  ·  Poradnik'},
@@ -1415,7 +1415,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Варто знати',
     tipText: 'Передбачити точний день неможливо. Тримати засіб гігієни при собі від перших ознак — найкраща звичка.',
     body4: 'Щойно ви помітили ці ознаки або коли у вас є запитання чи тривога, ви можете поговорити з мамою, сестрою, близькою людиною або лікарем, якому довіряєте. Нема поганого моменту, щоб попросити допомоги.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Перші ознаки перед менструацією', meta: '5 хв  ·  Стаття'},
       {title: 'Який засіб гігієни обрати для першої менструації?', meta: '6 хв  ·  Посібник'},
@@ -1448,7 +1448,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Stojí za to vědět',
     tipText: 'Přesný den nelze předpovědět. Nosit u sebe ochranu už od prvních příznaků je nejlepší návyk.',
     body4: 'Jakmile si těchto příznaků všimnete, nebo kdykoli máte otázku či obavu, můžete si promluvit s maminkou, sestrou, někým blízkým nebo zdravotnickým pracovníkem, kterému důvěřujete. Nikdy není špatná chvíle požádat o pomoc.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'První příznaky před menstruací', meta: '5 min  ·  Článek'},
       {title: 'Jakou ochranu zvolit při první menstruaci?', meta: '6 min  ·  Průvodce'},
@@ -1481,7 +1481,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Stojí za to vedieť',
     tipText: 'Presný deň sa predpovedať nedá. Najlepším návykom je mať pri sebe hygienické pomôcky už od prvých znakov.',
     body4: 'Hneď ako si tieto znaky všimnete, alebo kedykoľvek máte otázku či obavu, môžete sa porozprávať s mamou, sestrou, blízkou osobou alebo zdravotníckym pracovníkom, ktorému dôverujete. Nikdy nie je zlý čas požiadať o pomoc.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Prvé znaky pred menštruáciou', meta: '5 min  ·  Článok'},
       {title: 'Ktorú hygienickú pomôcku si vybrať na prvú menštruáciu?', meta: '6 min  ·  Sprievodca'},
@@ -1514,7 +1514,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Érdemes tudni',
     tipText: 'A pontos napot nem lehet megjósolni. A legjobb szokás, ha már az első jelektől kezdve magadnál tartod a higiéniai terméket.',
     body4: 'Amint észreveszed ezeket a jeleket, vagy bármikor, amikor kérdésed vagy aggodalmad van, beszélhetsz az anyáddal, egy testvéreddel, egy közeli személlyel vagy egy egészségügyi szakemberrel, akiben bízol. Soha nincs rossz pillanat segítséget kérni.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'Az első jelek a menstruáció előtt', meta: '5 perc  ·  Cikk'},
       {title: 'Melyik higiéniai terméket válasszam az első menstruációmra?', meta: '6 perc  ·  Útmutató'},
@@ -1547,7 +1547,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bine de știut',
     tipText: 'Nu există nicio modalitate de a prezice ziua exactă. Obiceiul cel mai bun este să ai la tine o protecție încă de la primele semne.',
     body4: 'De îndată ce observi aceste semne, sau oricând ai o întrebare ori o îngrijorare, poți vorbi cu mama ta, cu o soră, cu o persoană apropiată sau cu un profesionist din domeniul sănătății în care ai încredere. Nu există niciodată un moment nepotrivit pentru a cere ajutor.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Primele semne dinaintea menstruației', meta: '5 min  ·  Articol'},
       {title: 'Ce protecție să aleg pentru prima menstruație?', meta: '6 min  ·  Ghid'},
@@ -1580,7 +1580,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Добре е да знаеш',
     tipText: 'Няма начин да се предвиди точният ден. Да имаш защита подръка още от първите признаци е най-добрият навик.',
     body4: 'Щом забележиш тези признаци или когато имаш въпрос или притеснение, можеш да поговориш с майка си, сестра, близък човек или здравен специалист, на когото имаш доверие. Никога не е неподходящ момент да поискаш помощ.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Първите признаци преди менструацията', meta: '5 мин  ·  Статия'},
       {title: 'Каква защита да избера за първата си менструация?', meta: '6 мин  ·  Ръководство'},
@@ -1613,7 +1613,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Добро је знати',
     tipText: 'Не постоји начин да се предвиди тачан дан. Носити заштиту са собом од првих знакова најбоља је навика.',
     body4: 'Чим приметиш ове знакове, или кад год имаш питање или бригу, можеш разговарати са мајком, сестром, блиском особом или здравственим радником коме верујеш. Никада није погрешно време да се затражи помоћ.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Први знаци пре менструације', meta: '5 мин  ·  Чланак'},
       {title: 'Коју заштиту да изаберем за прву менструацију?', meta: '6 мин  ·  Водич'},
@@ -1646,7 +1646,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Dobro je znati',
     tipText: 'Nemoguće je predvidjeti točan dan. Nositi zaštitu sa sobom od prvih znakova najbolja je navika.',
     body4: 'Čim primijetiš te znakove, ili kad god imaš pitanje ili brigu, možeš razgovarati s majkom, sestrom, bliskom osobom ili zdravstvenim djelatnikom kojem vjeruješ. Nikad nije pogrešno vrijeme za traženje pomoći.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Prvi znakovi prije menstruacije', meta: '5 min  ·  Članak'},
       {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
@@ -1679,7 +1679,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Dobro je znati',
     tipText: 'Nemoguće je predvidjeti točan dan. Nositi zaštitu sa sobom od prvih znakova najbolja je navika.',
     body4: 'Čim primijetiš te znakove, ili kad god imaš pitanje ili brigu, možeš razgovarati s majkom, sestrom, bliskom osobom ili zdravstvenim radnikom kojem vjeruješ. Nikad nije pogrešno vrijeme za traženje pomoći.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Prvi znakovi prije menstruacije', meta: '5 min  ·  Članak'},
       {title: 'Koju zaštitu odabrati za prvu menstruaciju?', meta: '6 min  ·  Vodič'},
@@ -1712,7 +1712,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Vredno vedeti',
     tipText: 'Natančnega dne ni mogoče napovedati. Nositi zaščito s seboj že od prvih znakov je najboljša navada.',
     body4: 'Takoj ko opaziš te znake ali kadar koli imaš vprašanje ali skrb, se lahko pogovoriš z mamo, sestro, bližnjo osebo ali zdravstvenim delavcem, ki mu zaupaš. Nikoli ni napačen čas za prošnjo za pomoč.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Prvi znaki pred menstruacijo', meta: '5 min  ·  Članek'},
       {title: 'Katero zaščito izbrati za prvo menstruacijo?', meta: '6 min  ·  Vodnik'},
@@ -1745,7 +1745,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'जान्न लायक',
     tipText: 'सही दिनको पूर्वानुमान गर्ने कुनै उपाय छैन। पहिला संकेतहरूदेखि नै आफूसँग सुरक्षा राख्नु सबैभन्दा राम्रो बानी हो।',
     body4: 'यी संकेतहरू देख्नेबित्तिकै, वा कुनै प्रश्न वा चिन्ता हुँदा, तपाईं आफ्नी आमा, दिदीबहिनी, नजिकको कोही वा आफूले विश्वास गर्ने स्वास्थ्यकर्मीसँग कुरा गर्न सक्नुहुन्छ। मद्दत माग्ने कुनै गलत समय हुँदैन।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'महिनावारीअघिका पहिला संकेतहरू', meta: '5 मिनेट  ·  लेख'},
       {title: 'पहिलो महिनावारीका लागि कुन सुरक्षा छान्ने?', meta: '6 मिनेट  ·  मार्गदर्शन'},
@@ -1778,7 +1778,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'දැනගත යුතු දේ',
     tipText: 'නිවැරදි දිනය පුරෝකථනය කිරීමට ක්‍රමයක් නැත. පළමු සලකුණුවල සිටම ඔබ සමඟ ආරක්ෂාව තබාගැනීම ඇති හොඳම පුරුද්දයි.',
     body4: 'ඔබ මෙම සලකුණු දුටු විගස, හෝ ඔබට ප්‍රශ්නයක් හෝ කනස්සල්ලක් ඇති ඕනෑම වේලාවක, ඔබට ඔබේ අම්මා, සහෝදරියක්, ඔබට සමීප කෙනෙක්, හෝ ඔබ විශ්වාස කරන සෞඛ්‍ය වෘත්තිකයෙකු සමඟ කතා කළ හැක. උදව් ඉල්ලීමට වැරදි වේලාවක් කිසිවිටෙක නැත.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'ඔබේ ඔසප්වලට පෙර පළමු සලකුණු', meta: 'මිනි. 5  ·  ලිපිය'},
       {title: 'මගේ පළමු ඔසප් සඳහා කුමන ආරක්ෂාව තෝරා ගත යුතුද?', meta: 'මිනි. 6  ·  මාර්ගෝපදේශය'},
@@ -1811,7 +1811,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'ควรรู้',
     tipText: 'ไม่มีวิธีทำนายวันที่แน่นอน การพกอุปกรณ์ติดตัวตั้งแต่สัญญาณแรกเป็นนิสัยที่ดีที่สุด',
     body4: 'ทันทีที่คุณสังเกตเห็นสัญญาณเหล่านี้ หรือเมื่อใดก็ตามที่มีคำถามหรือความกังวล คุณพูดคุยกับแม่ พี่สาว คนใกล้ชิด หรือบุคลากรทางการแพทย์ที่คุณไว้ใจได้ ไม่มีเวลาที่ไม่เหมาะสมในการขอความช่วยเหลือ',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'สัญญาณแรกก่อนประจำเดือนจะมา', meta: '5 นาที  ·  บทความ'},
       {title: 'ฉันควรเลือกอุปกรณ์แบบไหนสำหรับประจำเดือนครั้งแรก?', meta: '6 นาที  ·  คู่มือ'},
@@ -1844,7 +1844,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Nên biết',
     tipText: 'Không có cách nào dự đoán chính xác ngày. Mang theo sản phẩm vệ sinh từ những dấu hiệu đầu tiên là thói quen tốt nhất.',
     body4: 'Ngay khi bạn nhận thấy những dấu hiệu này, hoặc bất cứ khi nào bạn có thắc mắc hay lo lắng, bạn có thể nói chuyện với mẹ, chị em gái, một người thân thiết hoặc một nhân viên y tế mà bạn tin tưởng. Không bao giờ có thời điểm sai để nhờ giúp đỡ.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Những dấu hiệu đầu tiên trước kỳ kinh', meta: '5 phút  ·  Bài viết'},
       {title: 'Nên chọn sản phẩm vệ sinh nào cho kỳ kinh đầu tiên?', meta: '6 phút  ·  Hướng dẫn'},
@@ -1877,7 +1877,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bilish foydali',
     tipText: 'Aniq kunni oldindan aytib boʻlmaydi. Dastlabki belgilardanoq yoningizda himoya vositasini olib yurish eng yaxshi odat.',
     body4: 'Bu belgilarni sezishingiz bilan yoki savol yoki xavotiringiz boʻlganda onangiz, opangiz, yaqin kishingiz yoki ishongan shifokoringiz bilan gaplashishingiz mumkin. Yordam soʻrash uchun hech qachon notoʻgʻri vaqt boʻlmaydi.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Hayzdan oldingi dastlabki belgilar', meta: '5 daq  ·  Maqola'},
       {title: 'Birinchi hayzim uchun qaysi vositani tanlashim kerak?', meta: '6 daq  ·  Qoʻllanma'},
@@ -1910,7 +1910,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bilmək faydalıdır',
     tipText: 'Dəqiq günü əvvəlcədən bilmək mümkün deyil. İlk əlamətlərdən etibarən qoruyucu vasitəni özünüzlə gəzdirmək ən yaxşı vərdişdir.',
     body4: 'Bu əlamətləri görən kimi və ya sualınız, narahatlığınız olanda ananızla, bacınızla, yaxın biri ilə və ya etibar etdiyiniz tibb işçisi ilə danışa bilərsiniz. Kömək istəmək üçün heç vaxt yanlış vaxt yoxdur.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'Aybaşından əvvəlki ilk əlamətlər', meta: '5 dəq  ·  Məqalə'},
       {title: 'İlk aybaşım üçün hansı qoruyucu vasitəni seçməliyəm?', meta: '6 dəq  ·  Bələdçi'},
@@ -1943,7 +1943,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'კარგია ვიცოდეთ',
     tipText: 'ზუსტი დღის განჭვრეტა შეუძლებელია. პირველივე ნიშნებიდან დამცავი საშუალების თან ქონა საუკეთესო ჩვევაა.',
     body4: 'როგორც კი ამ ნიშნებს შეამჩნევთ, ან როცა გაქვთ შეკითხვა ან შეშფოთება, შეგიძლიათ ესაუბროთ დედას, დას, ახლობელ ადამიანს ან ჯანდაცვის სპეციალისტს, რომელსაც ენდობით. დახმარების თხოვნისთვის არასწორი დრო არასდროს არის.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'პირველი ნიშნები მენსტრუაციამდე', meta: '5 წთ  ·  სტატია'},
       {title: 'რომელი დამცავი საშუალება ავირჩიო პირველი მენსტრუაციისთვის?', meta: '6 წთ  ·  გზამკვლევი'},
@@ -1976,7 +1976,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Լավ է իմանալ',
     tipText: 'Ճշգրիտ օրը կանխատեսել հնարավոր չէ: Առաջին նշաններից սկսած պաշտպանության միջոց ձեզ հետ պահելը լավագույն սովորությունն է:',
     body4: 'Հենց նկատեք այս նշանները, կամ երբ հարց կամ անհանգստություն ունեք, կարող եք խոսել մոր, քրոջ, ձեզ մոտ մարդու կամ ձեր վստահած առողջապահության մասնագետի հետ: Օգնություն խնդրելու համար երբեք սխալ ժամանակ չկա:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Առաջին նշանները դաշտանից առաջ', meta: '5 ր  ·  Հոդված'},
       {title: 'Ի՞նչ պաշտպանություն ընտրել առաջին դաշտանիս համար', meta: '6 ր  ·  Ուղեցույց'},
@@ -2009,7 +2009,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Донистан хуб аст',
     tipText: 'Рӯзи дақиқро пешгӯӣ кардан имконнопазир аст. Аз аввалин нишонаҳо воситаи муҳофизатро бо худ доштан беҳтарин одат аст.',
     body4: 'Ҳамин ки ин нишонаҳоро мушоҳида кунед ё ҳар вақт савол ё нигаронӣ дошта бошед, метавонед бо модар, хоҳар, шахси наздик ё мутахассиси соҳаи тибе, ки ба ӯ боварӣ доред, гап занед. Ҳеҷ гоҳ вақти нодуруст барои кумак пурсидан нест.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Нишонаҳои аввал пеш аз ҳайз', meta: '5 дақ  ·  Мақола'},
       {title: 'Барои ҳайзи аввалам кадом воситаи муҳофизатро интихоб кунам?', meta: '6 дақ  ·  Роҳнамо'},
@@ -2042,7 +2042,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Билүү пайдалуу',
     tipText: 'Так күндү алдын ала айтуунун жолу жок. Эң алгачкы белгилерден баштап коргонуу каражатын жаныңызда алып жүрүү — эң жакшы адат.',
     body4: 'Бул белгилерди байкаган замат, же суроо же тынчсыздануу пайда болгондо, апаңыз, эжеңиз, жакын адамыңыз же ишенген ден соолук сактоо адиси менен сүйлөшө аласыз. Жардам сурап кайрылуу үчүн эч качан туура эмес убакыт жок.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Етек кирим башталардан мурунку алгачкы белгилер', meta: '5 мүн  ·  Макала'},
       {title: 'Биринчи етек кирим үчүн кайсы коргонууну тандоо керек?', meta: '6 мүн  ·  Колдонмо'},
@@ -2075,7 +2075,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Bilmek peýdaly',
     tipText: 'Takyk güni öňünden aýtmagyň ýoly ýok. Ilkinji alamatlardan başlap goranyş serişdesini ýanyňyzda saklamak iň gowy endik.',
     body4: 'Bu alamatlary görenden ýa-da soragyňyz ýa-da alada bolan wagtyňyz, eneňiz, uýaňyz, ýakyn adamyňyz ýa-da ynanýan saglyk hünärmeniňiz bilen gürleşip bilersiňiz. Kömek soramak üçin hiç haçan nädogry wagt ýok.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Aýbaşydan öňki ilkinji alamatlar', meta: '5 min  ·  Makala'},
       {title: 'Ilkinji aýbaşym üçin haýsy goranyş serişdesini saýlamaly?', meta: '6 min  ·  Gollanma'},
@@ -2108,7 +2108,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Elok diketahui',
     tipText: 'Tiada cara untuk meramal hari yang tepat. Menyimpan perlindungan bersama anda sejak tanda pertama ialah tabiat terbaik untuk dimiliki.',
     body4: 'Sebaik sahaja anda perasan tanda-tanda ini, atau bila-bila masa anda ada soalan atau kebimbangan, anda boleh berbincang dengan ibu anda, kakak, orang yang rapat dengan anda atau pengamal penjagaan kesihatan yang anda percayai. Tidak pernah ada masa yang salah untuk meminta bantuan.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Tanda-tanda pertama sebelum haid anda', meta: '5 min  ·  Artikel'},
       {title: 'Perlindungan manakah yang patut saya pilih untuk haid pertama?', meta: '6 min  ·  Panduan'},
@@ -2141,7 +2141,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Waxtar leh in la ogaado',
     tipText: 'Habka lagu saadaalin karo maalinta saxda ah ma jiro. Haysashada ilaalin adiga kula jirta laga bilaabo calaamadaha ugu horreeya waa caadada ugu fiican.',
     body4: 'Isla marka aad ogaato calaamadahan, ama marka aad qabto su’aal ama walaac, waxaad la hadli kartaa hooyadaa, walaashaa, qof kuu dhow, ama xirfadle caafimaad oo aad ku kalsoon tahay. Waqti khaldan oo la weydiiyo caawimaad ma jiro.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Calaamadaha ugu horreeya ka hor intaan caadadaadu iman', meta: '5 daq  ·  Maqaal'},
       {title: 'Waa kuwee ilaalin ah ee aan dooran lahaa caadadayda ugu horreysa?', meta: '6 daq  ·  Hage'},
@@ -2174,7 +2174,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Vyema kujua',
     tipText: 'Hakuna njia ya kutabiri siku kamili. Kubeba kinga nawe tangu dalili za kwanza ni tabia bora ya kuwa nayo.',
     body4: 'Mara tu unapoona dalili hizi, au wakati wowote unapokuwa na swali au wasiwasi, unaweza kuzungumza na mama yako, dada, mtu wa karibu nawe, au mtaalamu wa afya unayemwamini. Hakuna wakati usio sahihi wa kuomba msaada.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Dalili za kwanza kabla ya hedhi yako', meta: 'Dakika 5  ·  Makala'},
       {title: 'Nichague kinga gani kwa hedhi yangu ya kwanza?', meta: 'Dakika 6  ·  Mwongozo'},
@@ -2207,7 +2207,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Білуге тиісті',
     tipText: 'Нақты күнді болжаудың жолы жоқ. Алғашқы белгілерден бастап қорғаныс құралын жаныңызда алып жүру — жақсы әдет.',
     body4: 'Осы белгілерді байқаған бойда немесе сұрағыңыз не алаңдаушылығыңыз болған кез келген уақытта анаңызбен, әпкеңізбен, жақын адамыңызбен немесе сенетін медицина маманымен сөйлесе аласыз. Көмек сұрауға ешқашан қолайсыз уақыт болмайды.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Етеккір алдындағы алғашқы белгілер', meta: '5 мин  ·  Мақала'},
       {title: 'Алғашқы етеккірім үшін қандай қорғаныс таңдауым керек?', meta: '6 мин  ·  Нұсқаулық'},
@@ -2240,7 +2240,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Lu baax a xam',
     tipText: 'Amul anam bu ñuy xam bés bu leer. Denc sa aar ci sa wet ba ci màndarga yu njëkk mooy yoon bi gëna baax.',
     body4: 'Bu nga gisee màndarga yii, walla bu am nga benn laaj walla tiitaange, mën nga wax ak sa yaay, benn rakk, benn nit ku jegeel la walla benn liggéeykatu wér bu nga wóolu. Amul jamono bu bon ngir ñaan dimbali.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Màndarga yu njëkk balaa sa règle', meta: '5 simili  ·  Bind'},
       {title: 'Ban aar laay tànn ngir sama règle bu njëkk?', meta: '6 simili  ·  Ndigal'},
@@ -2273,7 +2273,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Abin da ya dace a sani',
     tipText: 'Babu hanyar hasashen ainihin ranar. Rike kariya tare da ke tun daga alamomi na farko ita ce mafi kyawun dabi’a.',
     body4: 'Da zarar kin lura da waɗannan alamomi, ko duk lokacin da kike da tambaya ko damuwa, za ki iya magana da mahaifiyarki, ’yar’uwa, wani na kusa da ke, ko ma’aikacin lafiya da kike amincewa da shi. Babu lokacin da bai dace a nemi taimako ba.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Alamomin farko kafin hailarki', meta: 'minti 5  ·  Labari'},
       {title: 'Wace kariya zan zaɓa don hailata ta farko?', meta: 'minti 6  ·  Jagora'},
@@ -2306,7 +2306,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'ማወቅ ጠቃሚ ነው',
     tipText: 'ትክክለኛውን ቀን ለመተንበይ የሚቻልበት መንገድ የለም። ከመጀመሪያዎቹ ምልክቶች ጀምሮ መከላከያ ከአንቺ ጋር መያዝ ምርጡ ልማድ ነው።',
     body4: 'እነዚህን ምልክቶች ባስተዋልሽ ጊዜ፣ ወይም ጥያቄ ወይም ስጋት ባለሽ ጊዜ ሁሉ፣ ከእናትሽ፣ ከእህትሽ፣ ከቅርብ ሰው ወይም ከምታምኚው የጤና ባለሙያ ጋር መነጋገር ትችያለሽ። እርዳታ ለመጠየቅ የማይሆን ጊዜ የለም።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'ከወር አበባሽ በፊት የሚታዩ የመጀመሪያ ምልክቶች', meta: '5 ደቂቃ  ·  ጽሑፍ'},
       {title: 'ለመጀመሪያ የወር አበባዬ የትኛውን መከላከያ ልምረጥ?', meta: '6 ደቂቃ  ·  መመሪያ'},
@@ -2339,7 +2339,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Goed om te weten',
     tipText: 'Het is niet mogelijk de exacte dag te voorspellen. Vanaf de eerste tekenen bescherming bij je hebben is de beste gewoonte.',
     body4: 'Zodra je deze tekenen opmerkt, of wanneer je een vraag of zorg hebt, kun je praten met je moeder, een zus, iemand in je omgeving of een zorgverlener die je vertrouwt. Er is nooit een verkeerd moment om hulp te vragen.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'De eerste tekenen vóór je menstruatie', meta: '5 min  ·  Artikel'},
       {title: 'Welke bescherming kies ik voor mijn eerste menstruatie?', meta: '6 min  ·  Gids'},
@@ -2372,7 +2372,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Hyvä tietää',
     tipText: 'Tarkkaa päivää ei voi ennustaa. Suojan pitäminen mukana ensimmäisistä merkeistä lähtien on paras tapa.',
     body4: 'Heti kun huomaat nämä merkit tai sinulla on kysymys tai huoli, voit puhua äidillesi, siskollesi, läheiselle tai luottamallesi terveydenhuollon ammattilaiselle. Avun pyytämiseen ei ole koskaan väärää hetkeä.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Ensimmäiset merkit ennen kuukautisia', meta: '5 min  ·  Artikkeli'},
       {title: 'Minkä suojan valitsen ensimmäisiin kuukautisiini?', meta: '6 min  ·  Opas'},
@@ -2405,7 +2405,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Καλό είναι να γνωρίζεις',
     tipText: 'Δεν υπάρχει τρόπος να προβλέψεις την ακριβή ημέρα. Το να έχεις μαζί σου προστασία από τα πρώτα σημάδια είναι η καλύτερη συνήθεια.',
     body4: 'Μόλις προσέξεις αυτά τα σημάδια, ή όποτε έχεις μια ερώτηση ή μια ανησυχία, μπορείς να μιλήσεις με τη μητέρα σου, μια αδελφή, κάποιον κοντινό σου ή έναν επαγγελματία υγείας που εμπιστεύεσαι. Δεν υπάρχει ποτέ λάθος στιγμή να ζητήσεις βοήθεια.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Τα πρώτα σημάδια πριν την περίοδο', meta: '5 λεπτά  ·  Άρθρο'},
       {title: 'Ποια προστασία να επιλέξω για την πρώτη μου περίοδο;', meta: '6 λεπτά  ·  Οδηγός'},
@@ -2438,7 +2438,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'Mabuting malaman',
     tipText: 'Walang paraan para hulaan ang eksaktong araw. Ang pagdadala ng proteksyon mula sa mga unang senyales ang pinakamainam na gawi.',
     body4: 'Sa sandaling mapansin mo ang mga senyales na ito, o kapag may tanong o alalahanin ka, maaari kang makipag-usap sa iyong ina, kapatid na babae, isang taong malapit sa iyo, o isang propesyonal sa kalusugan na pinagkakatiwalaan mo. Walang maling oras para humingi ng tulong.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Ang mga unang senyales bago ang iyong regla', meta: '5 min  ·  Artikulo'},
       {title: 'Anong proteksyon ang pipiliin ko para sa unang regla?', meta: '6 min  ·  Gabay'},
@@ -2471,7 +2471,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'தெரிந்துகொள்ளுங்கள்',
     tipText: 'சரியான நாளைக் கணிக்க வழி இல்லை. முதல் அறிகுறிகளிலிருந்தே பாதுகாப்பை உங்களுடன் வைத்திருப்பதே சிறந்த பழக்கம்.',
     body4: 'இந்த அறிகுறிகளை நீங்கள் கவனித்தவுடன், அல்லது ஒரு கேள்வி அல்லது கவலை இருக்கும்போதெல்லாம், உங்கள் தாய், சகோதரி, உங்களுக்கு நெருக்கமான ஒருவர் அல்லது நீங்கள் நம்பும் ஒரு சுகாதார நிபுணரிடம் பேசலாம். உதவி கேட்பதற்குத் தவறான நேரம் என்று எதுவும் இல்லை.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'உங்கள் மாதவிடாய்க்கு முந்தைய முதல் அறிகுறிகள்', meta: '5 நிமிடம்  ·  கட்டுரை'},
       {title: 'என் முதல் மாதவிடாய்க்கு எந்தப் பாதுகாப்பைத் தேர்ந்தெடுப்பது?', meta: '6 நிமிடம்  ·  வழிகாட்டி'},
@@ -2504,7 +2504,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'తెలుసుకోవాల్సినవి',
     tipText: 'ఖచ్చితమైన రోజును అంచనా వేయడానికి మార్గం లేదు. మొదటి సంకేతాల నుండే రక్షణను మీ వెంట ఉంచుకోవడం ఉత్తమ అలవాటు.',
     body4: 'మీరు ఈ సంకేతాలను గమనించిన వెంటనే, లేదా మీకు ఏదైనా ప్రశ్న లేదా ఆందోళన ఉన్నప్పుడు, మీ తల్లితో, ఒక సోదరితో, మీకు దగ్గరి వ్యక్తితో లేదా మీరు నమ్మే ఆరోగ్య నిపుణుడితో మాట్లాడవచ్చు. సహాయం కోరడానికి ఎప్పుడూ తప్పు సమయం ఉండదు.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'మీ నెలసరికి ముందు మొదటి సంకేతాలు', meta: '5 ని  ·  వ్యాసం'},
       {title: 'నా మొదటి నెలసరికి ఏ రక్షణను ఎంచుకోవాలి?', meta: '6 ని  ·  గైడ్'},
@@ -2537,7 +2537,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'हे जाणून घ्या',
     tipText: 'नेमका दिवस सांगण्याचा कोणताही मार्ग नाही. पहिल्या चिन्हांपासूनच संरक्षण सोबत ठेवणे ही सर्वोत्तम सवय आहे.',
     body4: 'ही चिन्हे दिसताच, किंवा तुम्हाला कधीही प्रश्न किंवा काळजी असल्यास, तुम्ही तुमच्या आईशी, बहिणीशी, जवळच्या व्यक्तीशी किंवा तुमचा विश्वास असलेल्या आरोग्य व्यावसायिकाशी बोलू शकता. मदत मागण्यासाठी कोणतीही वेळ चुकीची नसते.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'पाळीपूर्वीची पहिली चिन्हे', meta: '5 मिनिटे  ·  लेख'},
       {title: 'माझ्या पहिल्या पाळीसाठी मी कोणते संरक्षण निवडावे?', meta: '6 मिनिटे  ·  मार्गदर्शक'},
@@ -2570,7 +2570,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'જાણવા જેવું',
     tipText: 'ચોક્કસ દિવસની આગાહી કરવાનો કોઈ રસ્તો નથી. પ્રથમ સંકેતોથી જ સંરક્ષણ સાથે રાખવું એ શ્રેષ્ઠ ટેવ છે.',
     body4: 'આ સંકેતો દેખાય કે તરત જ, અથવા જ્યારે પણ તમને કોઈ પ્રશ્ન કે ચિંતા હોય, ત્યારે તમે તમારી માતા, બહેન, નજીકની વ્યક્તિ કે તમે જેના પર વિશ્વાસ કરો છો તે આરોગ્ય વ્યાવસાયિક સાથે વાત કરી શકો છો. મદદ માંગવા માટે ક્યારેય ખોટો સમય હોતો નથી.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'માસિક પહેલાંના પ્રથમ સંકેતો', meta: '5 મિનિટ  ·  લેખ'},
       {title: 'મારા પ્રથમ માસિક માટે મારે કયું સંરક્ષણ પસંદ કરવું?', meta: '6 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -2603,7 +2603,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'ਜਾਣਨ ਯੋਗ',
     tipText: 'ਸਹੀ ਦਿਨ ਦਾ ਅੰਦਾਜ਼ਾ ਲਾਉਣ ਦਾ ਕੋਈ ਤਰੀਕਾ ਨਹੀਂ ਹੈ। ਪਹਿਲੇ ਸੰਕੇਤਾਂ ਤੋਂ ਹੀ ਆਪਣਾ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਕੋਲ ਰੱਖਣਾ ਸਭ ਤੋਂ ਵਧੀਆ ਆਦਤ ਹੈ।',
     body4: 'ਜਿਵੇਂ ਹੀ ਤੁਹਾਨੂੰ ਇਹ ਸੰਕੇਤ ਦਿਸਣ, ਜਾਂ ਜਦੋਂ ਵੀ ਕੋਈ ਸਵਾਲ ਜਾਂ ਚਿੰਤਾ ਹੋਵੇ, ਤੁਸੀਂ ਆਪਣੀ ਮਾਂ, ਭੈਣ, ਕਿਸੇ ਨੇੜਲੇ ਜਾਂ ਕਿਸੇ ਭਰੋਸੇਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰ ਸਕਦੇ ਹੋ। ਮਦਦ ਮੰਗਣ ਲਈ ਕਦੇ ਵੀ ਗ਼ਲਤ ਸਮਾਂ ਨਹੀਂ ਹੁੰਦਾ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਮਾਹਵਾਰੀ ਤੋਂ ਪਹਿਲਾਂ ਦੇ ਪਹਿਲੇ ਸੰਕੇਤ', meta: '5 ਮਿੰਟ  ·  ਲੇਖ'},
       {title: 'ਮੈਨੂੰ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਲਈ ਕਿਹੜਾ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ?', meta: '6 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -2636,7 +2636,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'သိထားသင့်သည်',
     tipText: 'တိကျသောနေ့ကို ခန့်မှန်းနိုင်သော နည်းလမ်းမရှိပါ။ ပထမဆုံးလက္ခဏာများမှစ၍ ကာကွယ်ရေးပစ္စည်းကို ယူထားခြင်းသည် အကောင်းဆုံး အလေ့အထဖြစ်သည်။',
     body4: 'ဤလက္ခဏာများကို သတိထားမိသည်နှင့် သို့မဟုတ် မေးခွန်း သို့မဟုတ် စိုးရိမ်စရာရှိသည့်အခါတိုင်း သင့်မိခင်၊ အစ်မ၊ သင်နှင့်ရင်းနှီးသူ သို့မဟုတ် သင်ယုံကြည်ရသော ကျန်းမာရေးပညာရှင်တစ်ဦးနှင့် ပြောဆိုနိုင်သည်။ အကူအညီတောင်းရန် မသင့်လျော်သော အချိန်ဟူ၍ မရှိပါ။',
-    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    relatedTitle: 'သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
     related: [
       {title: 'ရာသီမလာမီ ပထမဆုံးလက္ခဏာများ', meta: '5 မိနစ်  ·  ဆောင်းပါး'},
       {title: 'ပထမဆုံးရာသီအတွက် မည်သည့်ကာကွယ်ရေးပစ္စည်းကို ရွေးသင့်သနည်း။', meta: '6 မိနစ်  ·  လမ်းညွှန်'},
@@ -2669,7 +2669,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'គួរដឹង',
     tipText: 'គ្មានវិធីទស្សន៍ទាយថ្ងៃច្បាស់លាស់ទេ។ ការមានសម្ភារៈការពារជាប់ខ្លួនតាំងពីសញ្ញាដំបូង គឺជាទម្លាប់ដ៏ល្អបំផុត។',
     body4: 'ភ្លាមៗនៅពេលអ្នកកត់សម្គាល់ឃើញសញ្ញាទាំងនេះ ឬនៅពេលណាដែលអ្នកមានសំណួរ ឬកង្វល់ អ្នកអាចនិយាយជាមួយម្តាយ បងស្រី ឬប្អូនស្រី អ្នកជិតស្និទ្ធ ឬអ្នកជំនាញសុខាភិបាលដែលអ្នកទុកចិត្ត។ គ្មានពេលណាខុសក្នុងការសុំជំនួយទេ។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'សញ្ញាដំបូងមុនរដូវរបស់អ្នក', meta: '5 នាទី  ·  អត្ថបទ'},
       {title: 'តើខ្ញុំគួរជ្រើសរើសសម្ភារៈការពារអ្វីសម្រាប់រដូវដំបូងរបស់ខ្ញុំ?', meta: '6 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -2702,7 +2702,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodComing', {
     tipTitle: 'ຄວນຮູ້',
     tipText: 'ບໍ່ມີວິທີທຳນາຍວັນທີ່ແນ່ນອນ. ການພົກຜ້າອະນາໄມຕິດຕົວຕັ້ງແຕ່ສັນຍານທຳອິດເປັນນິໄສທີ່ດີທີ່ສຸດ.',
     body4: 'ທັນທີທີ່ທ່ານສັງເກດເຫັນສັນຍານເຫຼົ່ານີ້ ຫຼື ເມື່ອໃດກໍຕາມທີ່ທ່ານມີຄຳຖາມ ຫຼື ຄວາມກັງວົນ ທ່ານສາມາດລົມກັບແມ່, ເອື້ອຍ ຫຼື ນ້ອງສາວ, ຄົນໃກ້ຊິດ ຫຼື ຜູ້ຊ່ຽວຊານດ້ານສຸຂະພາບທີ່ທ່ານໄວ້ວາງໃຈ. ບໍ່ມີເວລາທີ່ບໍ່ເໝາະສົມທີ່ຈະຂໍຄວາມຊ່ວຍເຫຼືອ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ສັນຍານທຳອິດກ່ອນປະຈຳເດືອນ', meta: '5 ນາທີ  ·  ບົດຄວາມ'},
       {title: 'ຄວນເລືອກຜ້າອະນາໄມແບບໃດສຳລັບປະຈຳເດືອນຄັ້ງທຳອິດ?', meta: '6 ນາທີ  ·  ຄູ່ມື'},

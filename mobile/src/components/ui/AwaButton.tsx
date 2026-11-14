@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
   label: {flexShrink: 1, textAlign: 'center'},
 });
 
-export type AwaButtonVariant = 'filled' | 'tonal' | 'outlined' | 'text' | 'destructive';
+// 'destructive' is the outlined danger button (confirmations, secondary actions); 'destructiveFilled' is the solid red one for a main
+// destructive action such as "Se déconnecter".
+export type AwaButtonVariant = 'filled' | 'tonal' | 'outlined' | 'text' | 'destructive' | 'destructiveFilled';
 export type AwaButtonSize = 'compact' | 'default' | 'large';
 
 export type AwaButtonProps = Omit<PressableProps, 'children' | 'disabled' | 'accessibilityLabel'> & {
@@ -93,6 +95,10 @@ export function AwaButton({
     case 'destructive':
       content = roles.accessible.dangerText;
       borderColor = withAlpha(roles.error, 0.35);
+      break;
+    case 'destructiveFilled':
+      background = roles.error;
+      content = roles.onError;
       break;
     default:
       content = roles.accessible.primaryAsText;

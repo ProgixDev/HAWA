@@ -24,6 +24,21 @@ export function getTopPadding(insetsTop: number, compact = false): number {
   return Math.max(insetsTop, minInset) + extra;
 }
 
+// Approximate height of the "Connexion" / "Créer un compte" content (logo, tabs, fields, button, social row…): the two screens differ by
+// a few dp only, so one reference value is enough to centre both the same way.
+const AUTH_CONTENT_REFERENCE_HEIGHT = 520;
+
+// Top padding (below the safe-area inset) of the "Connexion" and "Créer un compte" screens. It centres the form vertically in the
+// window, and both screens use the same value so the logo, the tabs and the fields start at the same place and do not jump when
+// switching between the two. On a short screen (`dense`) the content starts right under the inset.
+export function getAuthTopPadding(dense: boolean, windowHeight: number, insetTop: number): number {
+  if (dense) {
+    return 8;
+  }
+  // 28 dp above the exact centre: the logo and its tagline sit a little higher on the page.
+  return Math.max(8, Math.round((windowHeight - AUTH_CONTENT_REFERENCE_HEIGHT) / 2 - insetTop) - 28);
+}
+
 const BOTTOM_SPACING_MIN_INSET = 16;
 
 // Mirrors getTopPadding for the bottom edge: insets.bottom (floored so

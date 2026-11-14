@@ -12,6 +12,7 @@ import InlineCalendarPickerModal from '../../../components/onboarding/InlineCale
 import PregnancyDatingSetupScreen from '../PregnancyDatingSetupScreen';
 import PregnancyTrackingPreferencesScreen from '../PregnancyTrackingPreferencesScreen';
 import ProfileScreen from '../../ProfileScreen';
+import {openProfileObjectiveSheet} from '../../__tests__/profileObjectiveSheet';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
 import {
@@ -268,6 +269,7 @@ describe('Profile / Dashboard entry points are edit mode', () => {
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
     await act(async () => {
       button(renderer, title).props.onPress();
     });

@@ -86,7 +86,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bon à savoir',
     tip1Text: 'Garder toujours une protection avec toi évite le stress d’être prise au dépourvu.',
     body3: 'Cela arrive souvent, surtout au début. Une infirmière scolaire, une enseignante ou une amie a presque toujours de quoi dépanner. Un vêtement noué autour de la taille peut aussi suffire en attendant de trouver une protection.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {
         title: 'Quelle protection choisir pour mes premières règles ?',
@@ -127,7 +127,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Good to know',
     tip1Text: 'Always keeping a pad or tampon with you avoids the stress of being caught off guard.',
     body3: 'This happens often, especially at first. A school nurse, a teacher, or a friend almost always has something that can help. Tying a piece of clothing around your waist can also work while you find a pad or tampon.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {
         title: 'Which pad or tampon should I choose for my first period?',
@@ -168,7 +168,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'DATO ÚTIL',
     tip1Text: 'Llevar siempre una protección contigo evita el estrés de que te pille desprevenida.',
     body3: 'Esto ocurre a menudo, sobre todo al principio. Una enfermera escolar, una profesora o una amiga casi siempre tienen algo que puede ayudarte. Una prenda anudada alrededor de la cintura también puede servir mientras encuentras una protección.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {
         title: '¿Qué protección elegir para mi primera menstruación?',
@@ -209,7 +209,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Da sapere',
     tip1Text: 'Avere sempre con te un assorbente o un tampone evita lo stress di essere colta alla sprovvista.',
     body3: 'Succede spesso, soprattutto all’inizio. Un’infermiera della scuola, un’insegnante o un’amica ha quasi sempre qualcosa che può aiutare. Anche legarti un indumento intorno alla vita può funzionare mentre trovi un assorbente o un tampone.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Quale assorbente o tampone scegliere per il mio primo ciclo?',
@@ -250,7 +250,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bilmekte fayda var',
     tip1Text: 'Yanında her zaman bir ped ya da tampon bulundurmak, hazırlıksız yakalanma stresini önler.',
     body3: 'Bu sık olur, özellikle başlangıçta. Okul hemşiresinde, bir öğretmende ya da bir arkadaşta neredeyse her zaman işe yarayacak bir şey bulunur. Ped ya da tampon bulana kadar belinin etrafına bir giysi bağlamak da işe yarayabilir.',
-    relatedTitle: '♥  Bunlar da hoşuna gidebilir',
+    relatedTitle: 'Bunlar da hoşuna gidebilir',
     related: [
       {
         title: 'İlk adetim için hangi ped ya da tamponu seçmeliyim?',
@@ -291,7 +291,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Полезно знать',
     tip1Text: 'Если прокладка или тампон всегда под рукой, вы избежите стресса из-за неожиданной ситуации.',
     body3: 'Такое случается нередко, особенно в начале. Школьная медсестра, учительница или подруга почти всегда могут чем-то помочь. Пока вы не нашли прокладку или тампон, можно также повязать на талию кофту или куртку.',
-    relatedTitle: '♥  Вам может понравиться',
+    relatedTitle: 'Вам может понравиться',
     related: [
       {
         title: 'Какую прокладку или тампон выбрать для первых месячных?',
@@ -332,7 +332,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Gut zu wissen',
     tip1Text: 'Wenn du immer eine Binde oder einen Tampon dabeihast, erspart dir das den Stress, überrascht zu werden.',
     body3: 'Das passiert oft, besonders am Anfang. Die Schulkrankenschwester, eine Lehrerin oder eine Freundin hat fast immer etwas, das helfen kann. Auch ein um die Taille gebundenes Kleidungsstück kann helfen, bis du eine Binde oder einen Tampon findest.',
-    relatedTitle: '♥  Das könnte dir auch gefallen',
+    relatedTitle: 'Das könnte dir auch gefallen',
     related: [
       {
         title: 'Welche Binde oder welchen Tampon wähle ich für meine erste Periode?',
@@ -373,7 +373,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
       tip1Title: '小贴士',
       tip1Text: '随身带着一片卫生巾或卫生棉条，就不必担心措手不及。',
       body3: '这种情况很常见，尤其是刚开始的时候。校医、老师或朋友几乎总能帮上忙。在找到卫生巾或卫生棉条之前，把一件衣服系在腰间也是个办法。',
-      relatedTitle: '♥  你可能还喜欢',
+      relatedTitle: '你可能还喜欢',
       related: [
         {
           title: '初潮时该选择卫生巾还是卫生棉条？',
@@ -414,7 +414,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
       tip1Title: '小提醒',
       tip1Text: '隨身帶著一片衛生棉或衛生棉條，就不必擔心措手不及。',
       body3: '這種情況很常見，尤其是剛開始的時候。校醫、老師或朋友幾乎總能幫上忙。在找到衛生棉或衛生棉條之前，把一件衣服系在腰間也是個辦法。',
-      relatedTitle: '♥  你可能還喜歡',
+      relatedTitle: '你可能還喜歡',
       related: [
         {
           title: '初潮時該選擇衛生棉還是衛生棉條？',
@@ -455,7 +455,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'من المفيد أن تعرفي',
     tip1Text: 'حمل فوطة أو سدادة قطنية معك دائمًا يجنّبك قلق المفاجأة.',
     body3: 'هذا يحدث كثيرًا، خاصة في البداية. فالممرضة المدرسية أو المعلّمة أو الصديقة تملك دائمًا تقريبًا ما يفيد. كما قد ينفع ربط قطعة ملابس حول خصرك ريثما تجدين فوطة أو سدادة قطنية.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {
         title: 'أي فوطة أو سدادة قطنية أختار لأول حيض؟',
@@ -496,7 +496,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Yelha ad tezwareḍ',
     tip1Text: 'Ad tesɛuḍ dima aḥerres neɣ tampon yidek ad yeḥrez aḥezzeb n tfaja.',
     body3: 'Wagi yeḍra aṭas, s wudem uslig deg tazwara. Tamsiwelt n uɣerbaz, aselmad, neɣ ameddakel almi ar yesɛa kra n wayen izemren ad yɛawen. Ad tessiwḍeḍ aqeṭṭun n ukudiy ɣef yiri-ik izemmer daɣen ad yelhu alamma ara tafeḍ aḥerres neɣ tampon.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {
         title: 'Anwa aḥerres neɣ tampon ara fren i lḥid-iw amezwaru?',
@@ -537,7 +537,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Beekuun gaarii dha',
     tip1Text: 'Yeroo hunda paadii ykn tampoon si bira qabachuun yaaddoo hin eegamne irraa ittisa.',
     body3: 'Kun yeroo baay\'ee ta\'a, keessumaa jalqabarratti. Nurse mana barumsaa, barsiisaan, ykn hiriyyaan yeroo hundumaa gargaaruu danda\'u waa qaba. Uffata biraa mudhii kee irratti hidhuunis yeroo paadii ykn tampoon barbaaddu hojjechuu danda\'a.',
-    relatedTitle: '♥  Kunis sitti tolu ta\'a',
+    relatedTitle: 'Kunis sitti tolu ta\'a',
     related: [
       {
         title: 'Dhiita ji\'aa kee jalqabaaf paadii ykn tampoon kam filachuu qabda?',
@@ -578,7 +578,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'ርዳእ እዚ',
     tip1Text: 'ኩሉ ግዜ ፓድ ወይ ታምፖን ምሓዝ ብዘይተጸበኽዮ ምትእትታው ጭንቀት የስዕር።',
     body3: 'እዚ ብተደጋጋሚ ይፍጸም፣ ብፍላይ ኣብ መጀመሪያ። ኣብ ቤት ትምህርቲ ኖርስ፣ መምህር ወይ ዓርከ ኩሉ ግዜ ዝሕግዝ ገለ ነገር ኣለዎ። ፓድ ወይ ታምፖን ክትረኽቢ ከሎኺ ክዳን ኣብ ክሳድኪ ምእሳር እውን ክሰርሕ ይኽእል።',
-    relatedTitle: '♥  ክትፈትይዮም ትኽእሊ',
+    relatedTitle: 'ክትፈትይዮም ትኽእሊ',
     related: [
       {
         title: 'ንቀዳማይ ወርሓዊ ደመይ ኣየናይ ፓድ ወይ ታምፖን ክምረጽ?',
@@ -619,7 +619,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ni byiza kubimenya',
     tip1Text: 'Guhorana igitambaro cyangwa tampon bikurinda guhangayika wafashwe n’igitunguranye.',
     body3: 'Ibi bikunze kubaho, cyane cyane mu ntangiriro. Umuforomo w’ishuri, umwarimu, cyangwa inshuti hafi buri gihe agira ikintu cyafasha. Kuboha umwenda mu rukenyerero nabyo bishobora gufasha mu gihe ushaka igitambaro cyangwa tampon.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {
         title: 'Ni igitambaro cyangwa tampon iyihe nahitamo ku mihango yanjye ya mbere?',
@@ -660,7 +660,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ni vyiza kubimenya',
     tip1Text: 'Guhorana igitambaro canke tampon bikurinda guhagarika umutima ko wokubitwa utiteguye.',
     body3: 'Ivyo bikunda, cane cane mu ntango. Umuforoma w’ishure, umwarimu, canke incuti hafi buri gihe bafise ikintu cashobora gufasha. Kuboha ikintu c’imyambaro mu rukenyerero na ko birashobora gufasha mu gihe urondera igitambaro canke tampon.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {
         title: 'Ni igitambaro canke tampon ikihe nahitamwo ku mihango yanje ya mbere?',
@@ -701,7 +701,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ọ dị mma ịmara',
     tip1Text: 'Ịnọgide na-ebu pad ma ọ bụ tampon na-egbochi nrụgide nke ịdaba n’enweghị nkwadebe.',
     body3: 'Nke a na-eme ugboro ugboro, karịsịa na mbụ. Onye nọọsụ ụlọ akwụkwọ, onye nkụzi, ma ọ bụ enyi fọrọ nke nta ka ọ bụrụ mgbe niile nwere ihe nwere ike inye aka. Ịkekọ otu uwe n’úkwù gị nwekwara ike ịrụ ọrụ ka ị na-achọ pad ma ọ bụ tampon.',
-    relatedTitle: '♥  Ị nwere ike ịkpọkwa ndị a',
+    relatedTitle: 'Ị nwere ike ịkpọkwa ndị a',
     related: [
       {
         title: 'Kedu pad ma ọ bụ tampon m ga-ahọrọ maka nsọ ọnwa mbụ m?',
@@ -742,7 +742,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ohun tó yẹ kí o mọ̀',
     tip1Text: 'Níní pádì tàbí tampon pẹ̀lú rẹ nígbà gbogbo ń yẹra fún ìdààmú pé a mú ọ láìmọ̀.',
     body3: 'Èyí máa ń ṣẹlẹ̀ nígbà púpọ̀, pàápàá ní àkọ́kọ́. Nọ́ọ̀sì ilé ẹ̀kọ́, olùkọ́, tàbí ọ̀rẹ́ kan fẹ́rẹ̀ẹ́ máa ní ohun kan tó lè ranni lọ́wọ́ nígbà gbogbo. Fífi aṣọ kan dì mọ́ ìbàdí rẹ náà lè ṣiṣẹ́ nígbà tí o bá ń wá pádì tàbí tampon.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí náà',
+    relatedTitle: 'O lè fẹ́ràn èyí náà',
     related: [
       {
         title: 'Pádì tàbí tampon wo ni kí n yàn fún nǹkan oṣù àkọ́kọ́ mi?',
@@ -783,7 +783,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Kuhle ukwazi',
     tip1Text: 'Ukuhlala unayo i-pad noma i-tampon kugwema ukucindezeleka kokubanjwa ungazilungisile.',
     body3: 'Lokhu kwenzeka kaningi, ikakhulukazi ekuqaleni. Umhlengikazi wesikole, uthisha, noma umngane cishe njalo unalokho okungasiza. Ukubophela ingubo okhalweni nakho kungasebenza ngenkathi uthola i-pad noma i-tampon.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {
         title: 'Ngikhetha iyiphi i-pad noma i-tampon esikhathini sami sokuqala?',
@@ -824,7 +824,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Kulungile ukwazi',
     tip1Text: 'Ukuhlala unepad okanye i-tampon kuphepha uxinzelelo lokubanjwa ungakhange ulungele.',
     body3: 'Oku kwenzeka rhoqo, ngakumbi ekuqaleni. Umongikazi wesikolo, utitshala, okanye umhlobo phantse rhoqo unento enokunceda. Ukubophelela isiqwenga seempahla esinqeni kunganceda nako ngoxa ufuna ipad okanye i-tampon.',
-    relatedTitle: '♥  Usenokuthanda ke nale',
+    relatedTitle: 'Usenokuthanda ke nale',
     related: [
       {
         title: 'Ndikhethe iyiphi ipad okanye i-tampon yexesha lam lokuqala lenyanga?',
@@ -865,7 +865,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Zvakanaka kuziva',
     tip1Text: 'Kugara une padhi kana tampon newe kunodzivisa kushushikana kwekubatwa usina kugadzirira.',
     body3: 'Izvi zvinoitika kazhinji, kunyanya pakutanga. Nesi wechikoro, mudzidzisi, kana shamwari zvinenge zvine chinogona kubatsira. Kusunga chidimbu chehembe muchiuno chako zvinogonawo kubatsira usati wawana padhi kana tampon.',
-    relatedTitle: '♥  Unogona kufarirawo',
+    relatedTitle: 'Unogona kufarirawo',
     related: [
       {
         title: 'Ndisarudze padhi kana tampon ipi pakumwedzi kwangu kwekutanga?',
@@ -906,7 +906,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ezali malamu koyeba',
     tip1Text: 'Kozala ntango nyonso na pad to tampon elongo na yo ekimisaka mpasi ya kokamwa.',
     body3: 'Oyo esalemaka mbala mingi, mingi mingi na ebandeli. Infirmière ya kelasi, molakisi, to moninga ayebi mbala mingi eloko ekoki kosalisa. Kokanga elamba na loketo ekoki mpe kosalisa tii omoni pad to tampon.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {
         title: 'Pad to tampon nini ya kopona mpo na sanza na ngai ya liboso?',
@@ -947,7 +947,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Ko haani anndugo',
     tip1Text: 'Hoosugo takkaadu malla tampon e maaɗa saa\'i fuu ɓoyɗina tampere ɗum ɗon wara bilaa anndugo.',
     body3: 'Ɗum saa\'i ɗuuɗum waɗa, ɓurɗum nder fuɗɗoode. Nurse lekkol, jannginoowo, malla jaaɓaaɗo saa\'i feere woodi ko walla. Haɓɓugo ngaayka dow hakkunde maaɗa waaway walla saa\'i ɗo a tawata takkaadu malla tampon.',
-    relatedTitle: '♥  A waaway yiɗugo fahin',
+    relatedTitle: 'A waaway yiɗugo fahin',
     related: [
       {
         title: 'Takkaadu malla tampon ɗume mi suɓtay ngam regles am adannde?',
@@ -988,7 +988,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Perlu diketahui',
     tip1Text: 'Selalu membawa pembalut atau tampon menghindarkanmu dari stres karena terlanjur tidak siap.',
     body3: 'Hal ini sering terjadi, terutama di awal. Petugas UKS, seorang guru, atau seorang teman hampir selalu punya sesuatu yang bisa membantu. Mengikatkan sepotong pakaian di pinggang juga bisa membantu sementara kamu mencari pembalut atau tampon.',
-    relatedTitle: '♥  Mungkin kamu juga suka',
+    relatedTitle: 'Mungkin kamu juga suka',
     related: [
       {
         title: 'Pembalut atau tampon apa yang sebaiknya kupilih untuk haid pertamaku?',
@@ -1029,7 +1029,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'जानना अच्छा रहेगा',
     tip1Text: 'हमेशा अपने पास एक पैड या टैम्पोन रखने से अचानक परेशानी में पड़ने का तनाव नहीं रहता।',
     body3: 'ऐसा अक्सर होता है, खासकर शुरुआत में। स्कूल की नर्स, कोई टीचर या कोई दोस्त लगभग हमेशा मदद के लिए कुछ न कुछ दे सकती है। जब तक आपको पैड या टैम्पोन न मिले, कमर के चारों ओर कोई कपड़ा बाँध लेना भी काम आ सकता है।',
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'पहले पीरियड के लिए कौन-सा पैड या टैम्पोन चुनूँ?',
@@ -1070,7 +1070,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Mirë është ta dish',
     tip1Text: 'Të kesh gjithmonë me vete një peshqir higjienik ose tampon të shmang stresin e të kapurit në befasi.',
     body3: 'Kjo ndodh shpesh, sidomos në fillim. Infermierja e shkollës, një mësuese ose një shoqe pothuajse gjithmonë ka diçka që mund të ndihmojë. Edhe lidhja e një rrobe rreth belit mund të funksionojë, derisa të gjesh një peshqir higjienik ose tampon.',
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Cilin peshqir higjienik ose tampon duhet të zgjedh për menstruacionin tim të parë?',
@@ -1111,7 +1111,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: '知っておきたいこと',
     tip1Text: 'ナプキンやタンポンをいつも持ち歩いておくと、不意を突かれる不安を避けられます。',
     body3: '特に最初のころは、よくあることです。保健室の先生、学校の先生、友だちなど、たいていは助けてくれる誰かが何か持っています。ナプキンやタンポンを見つけるまでのあいだ、上着を腰に巻いておく方法もあります。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '初めての生理には、ナプキンとタンポンのどちらを選べばいい？',
@@ -1152,7 +1152,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: '알아 두면 좋아요',
     tip1Text: '생리대나 탐폰을 항상 가지고 다니면 갑자기 당황하는 스트레스를 피할 수 있어요.',
     body3: '특히 처음에는 이런 일이 자주 있어요. 보건 선생님, 선생님, 친구 중 누군가는 거의 항상 도움이 될 만한 것을 가지고 있어요. 생리대나 탐폰을 구하는 동안 옷을 허리에 둘러 묶는 것도 방법이 될 수 있어요.',
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '첫 생리에는 어떤 생리대나 탐폰을 골라야 할까요?',
@@ -1193,7 +1193,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bom saber',
     tip1Text: 'Ter sempre um penso ou um tampão consigo evita o stress de ser apanhada de surpresa.',
     body3: 'Isto acontece com frequência, sobretudo no início. Uma enfermeira da escola, uma professora ou uma amiga quase sempre têm algo que pode ajudar. Atar uma peça de roupa à volta da cintura também pode resolver enquanto procura um penso ou um tampão.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'Que penso ou tampão devo escolher para o meu primeiro período?',
@@ -1234,7 +1234,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'জেনে রাখা ভালো',
     tip1Text: 'সবসময় সঙ্গে একটি প্যাড বা ট্যাম্পন রাখলে হঠাৎ অপ্রস্তুত হয়ে পড়ার দুশ্চিন্তা এড়ানো যায়।',
     body3: 'এমনটা প্রায়ই ঘটে, বিশেষ করে শুরুর দিকে। স্কুলের নার্স, কোনো শিক্ষক বা বান্ধবীর কাছে প্রায় সবসময়ই সাহায্য করার মতো কিছু থাকে। প্যাড বা ট্যাম্পন জোগাড় করার সময় কোমরে একটি কাপড় বেঁধে নিলেও কাজ চলে।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'প্রথম মাসিকের জন্য কোন প্যাড বা ট্যাম্পন বেছে নেব?',
@@ -1275,7 +1275,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Godt at vide',
     tip1Text: 'At have et bind eller en tampon med til enhver tid hjælper dig med at undgå bekymringen om at blive taget på sengen.',
     body3: 'Det sker tit, især i starten. Skolesygeplejersken, en lærer eller en veninde har næsten altid noget at hjælpe med. Mens du finder et bind eller en tampon, kan du binde et stykke stof om livet.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Hvilken beskyttelse skal jeg vælge til min første menstruation?',
@@ -1316,7 +1316,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Godt at vide',
     tip1Text: 'At have et bind eller en tampon med till enhver tid hjälper dig med at undgå bekymringen om at blive taget på sengen.',
     body3: 'Det sker tit, isär i starten. Skolesygeplejersken, en lärer eller en veninde har nästen alltid noget at hjälpe med. Mens du finder et bind eller en tampon, kan du binde et stykke stof om livet.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'Hvilken beskyttelse skal jag välge till min förste menstruation?',
@@ -1357,7 +1357,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Godt å vite',
     tip1Text: 'Å alltid ha et bind eller en tampong med seg unngår stresset ved å bli tatt på sengen.',
     body3: 'Dette skjer ofte, særlig i begynnelsen. Helsesykepleieren på skolen, en lærer eller en venninne har nesten alltid noe som kan hjelpe. Å knytte et klesplagg rundt livet kan også fungere mens du finner et bind eller en tampong.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {
         title: 'Hvilket bind eller hvilken tampong bør jeg velge til den første mensen?',
@@ -1398,7 +1398,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Warto wiedzieć',
     tip1Text: 'Zawsze mając przy sobie podpaskę lub tampon, unikasz stresu związanego z zaskoczeniem.',
     body3: 'Zdarza się to często, zwłaszcza na początku. Pielęgniarka szkolna, nauczycielka lub koleżanka prawie zawsze ma coś, co może pomóc. Zawiązanie ubrania wokół talii też może pomóc, zanim znajdziesz podpaskę lub tampon.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {
         title: 'Którą podpaskę lub tampon wybrać na pierwszą miesiączkę?',
@@ -1439,7 +1439,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Варто знати',
     tip1Text: 'Якщо завжди мати при собі прокладку або тампон, можна уникнути стресу від несподіванки.',
     body3: 'Таке трапляється часто, особливо спочатку. Шкільна медсестра, вчителька або подруга майже завжди має щось, що може допомогти. Зав’язаний навколо пояса одяг також може виручити, поки ви знайдете прокладку чи тампон.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {
         title: 'Яку прокладку чи тампон обрати для першої менструації?',
@@ -1480,7 +1480,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Stojí za to vědět',
     tip1Text: 'Mít vždy u sebe vložku nebo tampon vás ušetří stresu z toho, že budete zaskočena.',
     body3: 'Stává se to často, zejména zpočátku. Školní zdravotní sestra, učitelka nebo kamarádka má téměř vždy něco, co pomůže. Uvázat si oblečení kolem pasu může také pomoci, než seženete vložku nebo tampon.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {
         title: 'Jakou vložku nebo tampon zvolit při první menstruaci?',
@@ -1521,7 +1521,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Stojí za to vedieť',
     tip1Text: 'Ak máte vždy pri sebe vložku alebo tampón, vyhnete sa stresu z prekvapenia.',
     body3: 'Stáva sa to často, najmä spočiatku. Školská sestra, učiteľka alebo kamarátka majú takmer vždy niečo, čo môže pomôcť. Uviazanie kusu oblečenia okolo pása môže tiež fungovať, kým nájdete vložku alebo tampón.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {
         title: 'Ktorú vložku alebo tampón si vybrať na prvú menštruáciu?',
@@ -1562,7 +1562,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Érdemes tudni',
     tip1Text: 'Ha mindig van nálad betét vagy tampon, elkerülöd a meglepetés stresszét.',
     body3: 'Ez gyakran megesik, főleg az elején. Az iskolai ápolónőnél, egy tanárnál vagy egy barátnőnél szinte mindig van valami, ami segíthet. Egy ruhadarab a derekad köré kötve is megoldás lehet, amíg betétet vagy tampont találsz.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {
         title: 'Melyik betétet vagy tampont válasszam az első menstruációmra?',
@@ -1603,7 +1603,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bine de știut',
     tip1Text: 'Să ai mereu la tine un absorbant sau un tampon te scutește de stresul de a fi prinsă nepregătită.',
     body3: 'Se întâmplă des, mai ales la început. O asistentă școlară, o profesoară sau o prietenă are aproape întotdeauna ceva care te poate ajuta. Legarea unei haine în jurul taliei poate funcționa și ea cât timp găsești un absorbant sau un tampon.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {
         title: 'Ce absorbant sau tampon să aleg pentru prima menstruație?',
@@ -1644,7 +1644,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Добре е да знаеш',
     tip1Text: 'Да носиш винаги превръзка или тампон със себе си избягва стреса да бъдеш изненадана.',
     body3: 'Това се случва често, особено в началото. Училищната медицинска сестра, учителка или приятелка почти винаги има нещо, което може да помогне. Завързването на дреха около кръста също може да свърши работа, докато намериш превръзка или тампон.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {
         title: 'Каква превръзка или тампон да избера за първата си менструация?',
@@ -1685,7 +1685,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Добро је знати',
     tip1Text: 'Ако увек носиш улошак или тампон са собом, избегаваш стрес да те ствар затекне неприпремљену.',
     body3: 'Ово се често дешава, нарочито на почетку. Школска медицинска сестра, наставник или другарица готово увек има нешто што може помоћи. Привезивање комада одеће око струка такође може помоћи док не пронађеш улошак или тампон.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {
         title: 'Који улошак или тампон да изаберем за прву менструацију?',
@@ -1726,7 +1726,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Dobro je znati',
     tip1Text: 'Ako uvijek nosiš uložak ili tampon sa sobom, izbjeći ćeš stres zbog iznenađenja.',
     body3: 'To se često događa, osobito na početku. Školska medicinska sestra, učiteljica ili prijateljica gotovo uvijek ima nešto što može pomoći. Vezivanje odjevnog predmeta oko struka također može poslužiti dok ne nađeš uložak ili tampon.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {
         title: 'Koji uložak ili tampon odabrati za prvu menstruaciju?',
@@ -1767,7 +1767,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Dobro je znati',
     tip1Text: 'Ako uvijek nosiš uložak ili tampon sa sobom, izbjeći ćeš stres zbog iznenađenja.',
     body3: 'To se često događa, osobito na početku. Školska medicinska sestra, učiteljica ili prijateljica gotovo uvijek ima nešta što može pomoći. Vezivanje odjevnog predmeta oko struka također može poslužiti dok ne nađeš uložak ili tampon.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {
         title: 'Koji uložak ili tampon odabrati za prvu menstruaciju?',
@@ -1808,7 +1808,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Vredno vedeti',
     tip1Text: 'Če imaš vedno s seboj vložek ali tampon, se izogneš stresu zaradi presenečenja.',
     body3: 'To se pogosto dogaja, zlasti na začetku. Šolska medicinska sestra, učiteljica ali prijateljica ima skoraj vedno kaj, kar lahko pomaga. Tudi povezovanje oblačila okoli pasu lahko pomaga, dokler ne najdeš vložka ali tampona.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {
         title: 'Kateri vložek ali tampon izbrati za prvo menstruacijo?',
@@ -1849,7 +1849,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'जान्न लायक',
     tip1Text: 'सधैँ आफूसँग एउटा प्याड वा ट्याम्पोन राख्नाले अचानक पर्ने तनावबाट बचाउँछ।',
     body3: 'यस्तो प्रायः हुन्छ, विशेष गरी सुरुमा। विद्यालयको नर्स, शिक्षक वा साथीसँग लगभग सधैँ मद्दत गर्न सक्ने कुनै चीज हुन्छ। प्याड वा ट्याम्पोन खोज्दासम्म कम्मरमा लुगा बाँध्नु पनि काम लाग्न सक्छ।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {
         title: 'पहिलो महिनावारीका लागि कुन प्याड वा ट्याम्पोन छान्ने?',
@@ -1890,7 +1890,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'දැනගත යුතු දේ',
     tip1Text: 'සැමවිටම ඔබ සමඟ පෑඩ් එකක් හෝ ටැම්පන් එකක් තබාගැනීම අනපේක්ෂිතව අසුවීමේ ආතතිය වළක්වයි.',
     body3: 'මෙය බොහෝ විට, විශේෂයෙන් මුලදී, සිදුවේ. පාසල් හෙදියකට, ගුරුවරියකට, හෝ මිතුරියකට සෑම විටම පාහේ උපකාරී විය හැකි දෙයක් ඇත. ඔබ පෑඩ් එකක් හෝ ටැම්පන් එකක් සොයාගන්නා අතරතුර ඇඳුමක් ඔබේ ඉණ වටා බැඳීමද ක්‍රියා කළ හැක.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {
         title: 'මගේ පළමු ඔසප් සඳහා කුමන පෑඩ් හෝ ටැම්පන් තෝරා ගත යුතුද?',
@@ -1931,7 +1931,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'ควรรู้',
     tip1Text: 'การพกผ้าอนามัยแบบแผ่นหรือแบบสอดติดตัวเสมอช่วยหลีกเลี่ยงความเครียดจากการตั้งตัวไม่ทัน',
     body3: 'เหตุการณ์นี้เกิดขึ้นบ่อย โดยเฉพาะในช่วงแรก พยาบาลโรงเรียน ครู หรือเพื่อนเกือบทุกครั้งมีสิ่งที่ช่วยได้ การผูกเสื้อผ้าไว้รอบเอวก็ใช้ได้ระหว่างที่คุณหาผ้าอนามัยแบบแผ่นหรือแบบสอด',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {
         title: 'ฉันควรเลือกผ้าอนามัยแบบแผ่นหรือแบบสอดแบบไหนสำหรับประจำเดือนครั้งแรก?',
@@ -1972,7 +1972,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Nên biết',
     tip1Text: 'Luôn mang theo một miếng băng vệ sinh hoặc tampon giúp tránh nỗi lo bị bất ngờ.',
     body3: 'Điều này thường xảy ra, đặc biệt lúc ban đầu. Y tá trường, một giáo viên hoặc một người bạn gần như luôn có thứ gì đó có thể giúp. Buộc một chiếc áo quanh eo cũng có thể hữu ích trong lúc bạn tìm băng vệ sinh hoặc tampon.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {
         title: 'Nên chọn băng vệ sinh hay tampon nào cho kỳ kinh đầu tiên?',
@@ -2013,7 +2013,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bilish foydali',
     tip1Text: 'Yoningizda doim prokladka yoki tampon boʻlishi tayyorsiz qolish stressidan qutqaradi.',
     body3: 'Bu koʻp uchraydi, ayniqsa dastlab. Maktab hamshirasi, oʻqituvchi yoki doʻstingizda deyarli har doim yordam beradigan narsa topiladi. Prokladka yoki tampon topguningizcha belingizga kiyim bogʻlab olish ham yordam berishi mumkin.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {
         title: 'Birinchi hayzim uchun qaysi prokladka yoki tamponni tanlashim kerak?',
@@ -2054,7 +2054,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bilmək faydalıdır',
     tip1Text: 'Yanınızda həmişə gigiyenik bez və ya tampon saxlamaq hazırlıqsız yaxalanmaq stresindən qoruyur.',
     body3: 'Bu, xüsusilə əvvəlcə tez-tez baş verir. Məktəb tibb bacısında, müəllimdə və ya dostda demək olar ki, həmişə kömək edəcək bir şey tapılır. Gigiyenik bez və ya tampon tapana qədər belinizə bir geyim bağlamaq da kömək edə bilər.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {
         title: 'İlk aybaşım üçün hansı gigiyenik bezi və ya tamponu seçməliyəm?',
@@ -2095,7 +2095,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'კარგია ვიცოდეთ',
     tip1Text: 'საფენის ან ტამპონის ყოველთვის თან ქონა გაუთვალისწინებელი სიტუაციის სტრესს გარიდებთ.',
     body3: 'ეს ხშირად ხდება, განსაკუთრებით თავიდან. სკოლის ექთანს, მასწავლებელს ან მეგობარს თითქმის ყოველთვის აქვს რაიმე, რაც დაგეხმარებათ. წელზე ტანსაცმლის გადაკრვაც გამოდგება, სანამ საფენს ან ტამპონს იპოვით.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {
         title: 'რომელი საფენი ან ტამპონი ავირჩიო პირველი მენსტრუაციისთვის?',
@@ -2136,7 +2136,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Լավ է իմանալ',
     tip1Text: 'Միշտ միջադիր կամ տամպոն ձեզ հետ պահելը խուսափեցնում է անսպասելիության սթրեսից:',
     body3: 'Սա հաճախ է պատահում, հատկապես սկզբում: Դպրոցի բուժքույրը, ուսուցիչը կամ ընկերուհին գրեթե միշտ ունի ինչ-որ օգնող բան: Հագուստի մի կտոր գոտկատեղին կապելը նույնպես կարող է աշխատել, մինչ դուք միջադիր կամ տամպոն եք գտնում:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {
         title: 'Ո՞ր միջադիրը կամ տամպոնն ընտրել առաջին դաշտանիս համար',
@@ -2177,7 +2177,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Донистан хуб аст',
     tip1Text: 'Ҳамеша бо худ доштани пайванд ё тампон аз стресси ногаҳонӣ пешгирӣ мекунад.',
     body3: 'Ин зуд-зуд рух медиҳад, хусусан дар аввал. Ҳамшираи мактаб, муаллим ё дугона қариб ҳамеша чизе дорад, ки метавонад кумак кунад. Бастани пораи либос ба камар низ метавонад кор кунад, то пайванд ё тампон пайдо кунед.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {
         title: 'Барои ҳайзи аввалам кадом пайванд ё тампонро интихоб кунам?',
@@ -2218,7 +2218,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Билүү пайдалуу',
     tip1Text: 'Жаныңызда ар дайым прокладка же тампон болушу күтүлбөгөн жерден калуунун стрессинен сактайт.',
     body3: 'Бул көп болот, айрыкча башында. Мектептин медайымы, мугалим же дос дээрлик ар дайым жардам бере турган нерсеси болот. Прокладка же тампон тапканга чейин белге кийим байлап алуу да жардам бере алат.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {
         title: 'Биринчи етек кирим үчүн кайсы прокладканы же тампонду тандоо керек?',
@@ -2259,7 +2259,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Bilmek peýdaly',
     tip1Text: 'Hemişe ýanyňyzda prokladka ýa-da tampon saklamak garaşylmadyk ýagdaýa düşmegiň stresinden gaça durýar.',
     body3: 'Bu köplenç bolýar, aýratyn-da başda. Mekdep şepagat uýasynda, mugallymda ýa-da dostuňyzda hemişe diýen ýaly kömek edip biljek zat bolýar. Prokladka ýa-da tampon tapýança bir eşigi biliňize daňmak hem kömek edip biler.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {
         title: 'Ilkinji aýbaşym üçin haýsy prokladkany ýa-da tamponyny saýlamaly?',
@@ -2300,7 +2300,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Elok diketahui',
     tip1Text: 'Sentiasa membawa tuala wanita atau tampon mengelakkan tekanan apabila tiba-tiba terkejut.',
     body3: 'Ini kerap berlaku, terutamanya pada mulanya. Jururawat sekolah, guru atau rakan hampir selalu mempunyai sesuatu yang boleh membantu. Mengikat sehelai pakaian di pinggang juga boleh berkesan sementara anda mencari tuala wanita atau tampon.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {
         title: 'Tuala wanita atau tampon manakah yang patut saya pilih untuk haid pertama?',
@@ -2341,7 +2341,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Waxtar leh in la ogaado',
     tip1Text: 'Mar walba haysashada tuwaal ama tampoon waxay ka fogaysaa walaaca ah in lagu qabto si lama filaan ah.',
     body3: 'Tani inta badan way dhacdaa, gaar ahaan bilowga. Kalkaaliso dugsiga, macallin, ama saaxiib inta badan wuxuu hayaa wax kaa caawin kara. Xidhidhka dharka dhexdaada ayaa sidoo kale shaqayn kara intaad raadinayso tuwaal ama tampoon.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {
         title: 'Waa kuwee ilaalin ah ee aan dooran lahaa caadadayda ugu horreysa?',
@@ -2382,7 +2382,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Vyema kujua',
     tip1Text: 'Kubeba pedi au tamponi nawe daima kunaepusha msongo wa kushtukizwa.',
     body3: 'Hili hutokea mara nyingi, hasa mwanzoni. Muuguzi wa shule, mwalimu, au rafiki karibu kila mara ana kitu kinachoweza kusaidia. Kufunga nguo kiunoni pia kunaweza kufaa wakati unatafuta pedi au tamponi.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {
         title: 'Nichague pedi au tamponi gani kwa hedhi yangu ya kwanza?',
@@ -2423,7 +2423,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Білуге тиісті',
     tip1Text: 'Прокладка немесе тампонды әрқашан жаныңызда алып жүру күтпеген жерден қалып қоюдың күйзелісінен сақтайды.',
     body3: 'Бұл жиі болады, әсіресе алғашында. Мектеп медбикесінде, мұғалімде немесе достың қолында көбіне көмектесе алатын нәрсе болады. Прокладка немесе тампон тапқанша, белге киім байлау да көмектесуі мүмкін.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {
         title: 'Алғашқы етеккірім үшін қандай прокладка немесе тампон таңдауым керек?',
@@ -2464,7 +2464,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Lu baax a xam',
     tip1Text: 'Denc saa su ne benn pad walla tampoŋ ci sa wet dafay tee coono bu ñu la jàpp ci lu ñu xaarul.',
     body3: 'Loolu daa am, lool ci njëkk. Benn infirmier bu daara, benn jàngalekat walla benn xarit mën na am lu dimbli. Takk benn yéré ci sa ndiggu mën na dimbli itam ba nga gis benn pad walla tampoŋ.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {
         title: 'Ban pad walla tampoŋ laay tànn ngir sama règle bu njëkk?',
@@ -2505,7 +2505,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Abin da ya dace a sani',
     tip1Text: 'Kullum ajiye audugar haila ko tampon tare da ke yana guje wa damuwar kamu ba zato ba.',
     body3: 'Wannan yana faruwa sau da yawa, musamman a farko. Ma’aikaciyar jinya ta makaranta, malama, ko aboki kusan koyaushe suna da abin da zai taimaka. Daure wani kayan sawa a kugu kuma na iya aiki yayin da kike neman audugar haila ko tampon.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {
         title: 'Wace audugar haila ko tampon zan zaɓa don hailata ta farko?',
@@ -2546,7 +2546,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'ማወቅ ጠቃሚ ነው',
     tip1Text: 'ሁልጊዜ ሞዴስ ወይም ታምፖን ከአንቺ ጋር መያዝ ሳይታሰብ የመያዝ ውጥረትን ያስቀራል።',
     body3: 'ይህ ብዙ ጊዜ ይከሰታል፣ በተለይ በመጀመሪያ። የትምህርት ቤት ነርስ፣ መምህር ወይም ጓደኛ ማለት ይቻላል ሁልጊዜ ሊረዳ የሚችል ነገር አላቸው። ሞዴስ ወይም ታምፖን እስክታገኚ ድረስ ልብስ በወገብሽ ላይ ማሰርም ሊሠራ ይችላል።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {
         title: 'ለመጀመሪያ የወር አበባዬ የትኛውን ሞዴስ ወይም ታምፖን ልምረጥ?',
@@ -2587,7 +2587,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Goed om te weten',
     tip1Text: 'Altijd een maandverbandje of tampon bij je hebben voorkomt de stress van overvallen worden.',
     body3: 'Dit gebeurt vaak, vooral in het begin. Een schoolverpleegkundige, een leraar of een vriendin heeft bijna altijd iets dat kan helpen. Een kledingstuk om je middel knopen kan ook werken terwijl je een maandverbandje of tampon zoekt.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {
         title: 'Welk maandverband of welke tampon kies ik voor mijn eerste menstruatie?',
@@ -2628,7 +2628,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Hyvä tietää',
     tip1Text: 'Sivun tai tamponin pitäminen aina mukana välttää yllätetyksi tulemisen stressin.',
     body3: 'Näin käy usein, erityisesti alussa. Koulun terveydenhoitajalla, opettajalla tai ystävällä on lähes aina jotain, mikä voi auttaa. Vaatteen sitominen vyötärölle voi myös toimia, kunnes löydät siteen tai tamponin.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {
         title: 'Minkä siteen tai tamponin valitsen ensimmäisiin kuukautisiini?',
@@ -2669,7 +2669,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Καλό είναι να γνωρίζεις',
     tip1Text: 'Το να έχεις πάντα μαζί σου μια σερβιέτα ή ένα ταμπόν αποφεύγει το άγχος του να σε πιάσει απροετοίμαστη.',
     body3: 'Αυτό συμβαίνει συχνά, ειδικά στην αρχή. Η νοσηλεύτρια του σχολείου, μια δασκάλα ή μια φίλη σχεδόν πάντα έχει κάτι που μπορεί να βοηθήσει. Το να δέσεις ένα ρούχο γύρω από τη μέση σου μπορεί επίσης να βοηθήσει μέχρι να βρεις μια σερβιέτα ή ένα ταμπόν.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {
         title: 'Ποια σερβιέτα ή ταμπόν να επιλέξω για την πρώτη μου περίοδο;',
@@ -2710,7 +2710,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'Mabuting malaman',
     tip1Text: 'Ang palaging pagdadala ng napkin o tampon ay iniiwasan ang stress ng pagkabigla.',
     body3: 'Madalas itong mangyari, lalo na sa simula. Halos laging may mapagkukunan ng tulong ang nars ng paaralan, isang guro, o kaibigan. Maaari ring makatulong ang pagtali ng damit sa iyong baywang habang naghahanap ka ng napkin o tampon.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {
         title: 'Anong napkin o tampon ang pipiliin ko para sa unang regla?',
@@ -2751,7 +2751,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'தெரிந்துகொள்ளுங்கள்',
     tip1Text: 'எப்போதும் ஒரு நாப்கினையோ டேம்பனையோ உங்களுடன் வைத்திருப்பது திடீரென்று சிக்கிக்கொள்ளும் அழுத்தத்தைத் தவிர்க்கிறது.',
     body3: 'இது அடிக்கடி நடக்கிறது, குறிப்பாகத் தொடக்கத்தில். பள்ளிச் செவிலியர், ஓர் ஆசிரியர் அல்லது ஒரு நண்பரிடம் கிட்டத்தட்ட எப்போதும் உதவக்கூடிய ஏதாவது இருக்கும். நீங்கள் ஒரு நாப்கினையோ டேம்பனையோ கண்டறியும் வரை, உங்கள் இடுப்பைச் சுற்றி ஓர் ஆடையைக் கட்டுவதும் உதவலாம்.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {
         title: 'என் முதல் மாதவிடாய்க்கு எந்த நாப்கினையோ டேம்பனையோ தேர்ந்தெடுப்பது?',
@@ -2792,7 +2792,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'తెలుసుకోవాల్సినవి',
     tip1Text: 'ఎల్లప్పుడూ మీ వెంట ఒక ప్యాడ్ లేదా టాంపోన్ ఉంచుకోవడం అనుకోకుండా చిక్కుకునే ఒత్తిడిని నివారిస్తుంది.',
     body3: 'ఇది తరచుగా జరుగుతుంది, ముఖ్యంగా మొదట్లో. ఒక పాఠశాల నర్సు, ఒక ఉపాధ్యాయురాలు లేదా ఒక స్నేహితురాలి దగ్గర దాదాపు ఎల్లప్పుడూ సహాయపడేది ఏదో ఒకటి ఉంటుంది. మీరు ఒక ప్యాడ్ లేదా టాంపోన్ కనుగొనే వరకు నడుము చుట్టూ ఒక దుస్తును కట్టుకోవడం కూడా పనిచేస్తుంది.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {
         title: 'నా మొదటి నెలసరికి ఏ ప్యాడ్ లేదా టాంపోన్‌ను ఎంచుకోవాలి?',
@@ -2833,7 +2833,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'हे जाणून घ्या',
     tip1Text: 'नेहमी एक पॅड किंवा टॅम्पॉन सोबत ठेवल्याने अचानक पकडले जाण्याचा ताण टळतो.',
     body3: 'हे अनेकदा घडते, विशेषतः सुरुवातीला. शाळेची नर्स, एखादी शिक्षिका किंवा मैत्रीण यांच्याकडे जवळजवळ नेहमीच काही उपयोगी असते. तुम्ही पॅड किंवा टॅम्पॉन शोधेपर्यंत कंबरेभोवती एखादा कपडा बांधणेही उपयोगी ठरू शकते.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {
         title: 'माझ्या पहिल्या पाळीसाठी मी कोणता पॅड किंवा टॅम्पॉन निवडावा?',
@@ -2874,7 +2874,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'જાણવા જેવું',
     tip1Text: 'હંમેશાં એક પેડ કે ટેમ્પોન સાથે રાખવાથી અચાનક ફસાઈ જવાનો તણાવ ટળે છે.',
     body3: 'આવું ઘણી વાર થાય છે, ખાસ કરીને શરૂઆતમાં. શાળાની નર્સ, શિક્ષક કે મિત્ર પાસે લગભગ હંમેશાં કંઈક હોય છે જે મદદ કરી શકે. પેડ કે ટેમ્પોન મળે ત્યાં સુધી કમર પર કપડું બાંધી લેવું પણ કામ આવી શકે છે.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {
         title: 'મારા પ્રથમ માસિક માટે મારે કયું પેડ કે ટેમ્પોન પસંદ કરવું?',
@@ -2915,7 +2915,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'ਜਾਣਨ ਯੋਗ',
     tip1Text: 'ਹਮੇਸ਼ਾ ਆਪਣੇ ਕੋਲ ਇੱਕ ਪੈਡ ਜਾਂ ਟੈਂਪੂਨ ਰੱਖਣ ਨਾਲ ਅਚਾਨਕ ਫਸ ਜਾਣ ਦੀ ਚਿੰਤਾ ਤੋਂ ਬਚਾਅ ਹੁੰਦਾ ਹੈ।',
     body3: 'ਇਹ ਅਕਸਰ ਹੁੰਦਾ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਸ਼ੁਰੂ ਵਿੱਚ। ਸਕੂਲ ਦੀ ਨਰਸ, ਕੋਈ ਅਧਿਆਪਕਾ ਜਾਂ ਕੋਈ ਸਹੇਲੀ ਲਗਭਗ ਹਮੇਸ਼ਾ ਕੋਲ ਕੁਝ ਅਜਿਹਾ ਰੱਖਦੀ ਹੈ ਜੋ ਮਦਦ ਕਰ ਸਕੇ। ਜਦੋਂ ਤੱਕ ਪੈਡ ਜਾਂ ਟੈਂਪੂਨ ਨਹੀਂ ਮਿਲਦਾ, ਕਮਰ ਦੁਆਲੇ ਕੋਈ ਕੱਪੜਾ ਬੰਨ੍ਹ ਲੈਣਾ ਵੀ ਕੰਮ ਆ ਸਕਦਾ ਹੈ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {
         title: 'ਮੈਨੂੰ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਲਈ ਕਿਹੜਾ ਪੈਡ ਜਾਂ ਟੈਂਪੂਨ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ?',
@@ -2956,7 +2956,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'သိထားသင့်သည်',
     tip1Text: 'ရာသီသွေးစုပ်ပြား သို့မဟုတ် တမ်ပွန်ကို အမြဲယူထားခြင်းဖြင့် မမျှော်လင့်ဘဲ ကြုံရသည့် စိတ်ဖိစီးမှုကို ရှောင်ရှားနိုင်သည်။',
     body3: 'ဤအရာသည် မကြာခဏဖြစ်တတ်သည်၊ အထူးသဖြင့် အစပိုင်းတွင် ဖြစ်သည်။ ကျောင်းသူနာပြု၊ ဆရာမ သို့မဟုတ် သူငယ်ချင်းတစ်ဦးတွင် ကူညီနိုင်သည့်အရာ အမြဲနီးပါး ရှိသည်။ ရာသီသွေးစုပ်ပြား သို့မဟုတ် တမ်ပွန်ကို ရှာနေစဉ် အဝတ်အစားတစ်ခုကို ခါးတွင်ပတ်ချည်ထားခြင်းလည်း အသုံးဝင်နိုင်သည်။',
-    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    relatedTitle: 'သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
     related: [
       {
         title: 'ပထမဆုံးရာသီအတွက် မည်သည့်ရာသီသွေးစုပ်ပြား သို့မဟုတ် တမ်ပွန်ကို ရွေးသင့်သနည်း။',
@@ -2997,7 +2997,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'គួរដឹង',
     tip1Text: 'ការមានក្រណាត់អនាម័យ ឬថេមប៉ុងជាប់ខ្លួនជានិច្ច ជៀសវាងភាពតានតឹងដោយសារមិនបានត្រៀមខ្លួន។',
     body3: 'រឿងនេះកើតឡើងញឹកញាប់ ជាពិសេសនៅដំបូង។ គិលានុបដ្ឋាយិការបស់សាលា គ្រូបង្រៀន ឬមិត្តភក្តិស្ទើរតែតែងតែមានអ្វីមួយដែលអាចជួយបាន។ ការចងសម្លៀកបំពាក់មួយដុំជុំវិញចង្កេះក៏អាចជួយបានដែរ ខណៈពេលដែលអ្នករកក្រណាត់អនាម័យ ឬថេមប៉ុង។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {
         title: 'តើខ្ញុំគួរជ្រើសរើសក្រណាត់អនាម័យ ឬថេមប៉ុងអ្វីសម្រាប់រដូវដំបូងរបស់ខ្ញុំ?',
@@ -3038,7 +3038,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodDailyLife', {
     tip1Title: 'ຄວນຮູ້',
     tip1Text: 'ການພົກຜ້າອະນາໄມ ຫຼື ທຳປອນຕິດຕົວສະເໝີ ຊ່ວຍຫຼີກເວັ້ນຄວາມກັງວົນຈາກການຖືກຈັບໂຕບໍ່ທັນ.',
     body3: 'ເລື່ອງນີ້ເກີດຂຶ້ນເລື້ອຍໆ ໂດຍສະເພາະໃນຕອນທຳອິດ. ພະຍາບານໂຮງຮຽນ, ຄູ ຫຼື ໝູ່ເກືອບສະເໝີມີສິ່ງທີ່ຊ່ວຍໄດ້. ການຜູກເສື້ອຜ້າອ້ອມແອວກໍສາມາດໃຊ້ໄດ້ໃນຂະນະທີ່ທ່ານຊອກຫາຜ້າອະນາໄມ ຫຼື ທຳປອນ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {
         title: 'ຄວນເລືອກຜ້າອະນາໄມ ຫຼື ທຳປອນແບບໃດສຳລັບປະຈຳເດືອນຄັ້ງທຳອິດ?',

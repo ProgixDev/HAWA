@@ -100,7 +100,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bon à savoir',
     tipText: 'Tester différentes protections au fil du temps permet de trouver celle qui convient le mieux, sans pression.',
     body3: 'Une protection se change en moyenne toutes les 4 à 6 heures, davantage les jours de flux plus abondant. La changer régulièrement permet de rester à l’aise et de préserver l’hygiène intime.',
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Comprendre ton flux menstruel', meta: '7 min  ·  Guide'},
       {title: 'Comment gérer ses premières règles au quotidien ?', meta: '5 min  ·  Guide'},
@@ -141,7 +141,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Good to know',
     tipText: 'Trying different types of protection over time helps you find the one that suits you best, with no pressure.',
     body3: 'On average, protection should be changed every 4 to 6 hours, more often on heavier-flow days. Changing it regularly helps you stay comfortable and keep up good intimate hygiene.',
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'Understanding your menstrual flow', meta: '7 min  ·  Guide'},
       {title: 'How to manage your first period day to day?', meta: '5 min  ·  Guide'},
@@ -182,7 +182,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'DATO ÚTIL',
     tipText: 'Probar distintas protecciones con el tiempo te permite encontrar la que mejor te conviene, sin ninguna presión.',
     body3: 'Una protección se cambia, en promedio, cada 4 a 6 horas, con más frecuencia los días de flujo más abundante. Cambiarla con regularidad te ayuda a sentirte cómoda y a mantener una buena higiene íntima.',
-    relatedTitle: '♥  También te podría gustar',
+    relatedTitle: 'También te podría gustar',
     related: [
       {title: 'Comprende tu flujo menstrual', meta: '7 min  ·  Guía'},
       {title: '¿Cómo gestionar tu primera menstruación en el día a día?', meta: '5 min  ·  Guía'},
@@ -223,7 +223,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Da sapere',
     tipText: 'Provare nel tempo diversi tipi di protezione ti aiuta a trovare quella più adatta a te, senza alcuna pressione.',
     body3: 'In media, la protezione va cambiata ogni 4-6 ore, più spesso nei giorni di flusso più abbondante. Cambiarla regolarmente ti aiuta a stare comoda e a mantenere una buona igiene intima.',
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Capire il tuo flusso mestruale',
@@ -273,7 +273,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bilmekte fayda var',
     tipText: 'Zaman içinde farklı koruma ürünlerini denemek, kendine en uygun olanı baskı hissetmeden bulmana yardımcı olur.',
     body3: 'Ortalama olarak koruma ürünü her 4 ila 6 saatte bir değiştirilmelidir; kanamanın yoğun olduğu günlerde daha sık değiştirmen gerekebilir. Düzenli değiştirmek, rahat etmene ve genital hijyeni iyi korumana yardımcı olur.',
-    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    relatedTitle: 'Bunlar da ilgini çekebilir',
     related: [
       {
         title: 'Adet kanamanı anlamak',
@@ -323,7 +323,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Полезно знать',
     tipText: 'Пробуя разные средства гигиены со временем, вы найдёте то, что подходит вам лучше всего, — без всякого давления.',
     body3: 'В среднем средство гигиены нужно менять каждые 4–6 часов, а в дни с более обильными выделениями — чаще. Регулярная смена помогает чувствовать себя комфортно и соблюдать правила интимной гигиены.',
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {title: 'Как понять свои менструальные выделения', meta: '7 мин  ·  Руководство'},
       {title: 'Как справляться с первыми месячными изо дня в день?', meta: '5 мин  ·  Руководство'},
@@ -364,7 +364,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Gut zu wissen',
     tipText: 'Wenn du mit der Zeit verschiedene Schutzarten ausprobierst, findest du heraus, welche am besten zu dir passt – ganz ohne Druck.',
     body3: 'Im Durchschnitt sollte der Schutz alle 4 bis 6 Stunden gewechselt werden, an Tagen mit stärkerer Blutung häufiger. Regelmäßiges Wechseln hilft dir, dich wohlzufühlen und eine gute Intimhygiene einzuhalten.',
-    relatedTitle: '♥  Das könnte dir auch gefallen',
+    relatedTitle: 'Das könnte dir auch gefallen',
     related: [
       {title: 'Deine Menstruationsblutung verstehen', meta: '7 Min.  ·  Ratgeber'},
       {title: 'Wie gehst du im Alltag mit deiner ersten Periode um?', meta: '5 Min.  ·  Ratgeber'},
@@ -405,7 +405,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
       tipTitle: '小贴士',
       tipText: '随着时间慢慢尝试不同类型的卫生用品，有助于找到最适合你的那一种，没有任何压力。',
       body3: '一般来说，卫生用品应每 4 到 6 小时更换一次，经量多的日子更要勤换。定期更换有助于你保持舒适，并做好私处清洁。',
-      relatedTitle: '♥  你可能还想看',
+      relatedTitle: '你可能还想看',
       related: [
         {
           title: '了解你的经量',
@@ -455,7 +455,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
       tipTitle: '小提醒',
       tipText: '隨著時間慢慢嘗試不同型別的衛生用品，有助於找到最適合你的那一種，沒有任何壓力。',
       body3: '一般來說，衛生用品應每 4 到 6 小時更換一次，經量多的日子更要勤換。定期更換有助於你保持舒適，並做好私處清潔。',
-      relatedTitle: '♥  你可能還想看',
+      relatedTitle: '你可能還想看',
       related: [
         {
           title: '瞭解你的經量',
@@ -505,7 +505,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'من الجيد أن تعرفي',
     tipText: 'تجربة أنواع مختلفة من وسائل الحماية مع الوقت تساعدك على إيجاد ما يناسبك أكثر، دون أي ضغط.',
     body3: 'في المتوسط، ينبغي تغيير وسيلة الحماية كل 4 إلى 6 ساعات، وبوتيرة أكبر في أيام التدفق الغزير. ويساعدك تغييرها بانتظام على الشعور بالراحة والحفاظ على نظافة حميمة جيدة.',
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'فهم تدفّق الحيض لديك', meta: '7 دقائق  ·  دليل'},
       {title: 'كيف تتدبّرين حيضك الأول يومًا بيوم؟', meta: '5 دقائق  ·  دليل'},
@@ -546,7 +546,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Yelha ad teɛlmeḍ',
     tipText: 'Ma tɛerḍeḍ iswiren yemgaraden n uḥfaḍ akud, ad k-yɛawen ad tafeḍ win i k-iwulmen akk, war lɛaqaba.',
     body3: 'Deg umetti, ilaq ad tsenfaleḍ aḥfaḍ yal 4 ɣer 6 n tsaɛtin, tikwal ugar deg ussan n uzray ameqqran. Asenfel s lḥal ad k-yɛawen ad tḥessseḍ tazmert d ad tḥafḍeḍ ɣef tifnit tuffirt.',
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Tamyart n uzray-ik n lḥiḍ', meta: '7 tesdidin  ·  Amusnaw'},
       {title: 'Amek ara tseggmeḍ lḥiḍ-ik amezwaru ass ass?', meta: '5 tesdidin  ·  Amusnaw'},
@@ -587,7 +587,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Beekuun gaarii dha',
     tipText: 'Yeroo dheeraa keessatti gosoota wantoota ittisanii garaagaraa yaaluun isa si mijeessu argachuuf si gargaara, dhiibbaa tokko malee.',
     body3: 'Giddugaleessaan, wanti ittisu sa\'aatii 4 hanga 6 keessatti jijjiiramuu qaba, guyyoota dhiigni baay\'ee ba\'u irratti caalaatti. Yeroo yeroon jijjiiruun mijataa akka taatu fi qulqullina qaama dhokataa gaarii akka eegdu si gargaara.',
-    relatedTitle: '♥  Kunis si ni gammachiisa',
+    relatedTitle: 'Kunis si ni gammachiisa',
     related: [
       {title: 'Dhiigni laguu kee akkamitti akka ta\'e hubachuu', meta: 'Daqiiqaa 7  ·  Qajeelfama'},
       {title: 'Laguu kee isa jalqabaa guyyaa guyyaan akkamitti to\'attaa?', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
@@ -628,7 +628,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'ከተፍልጥዮ ዘለካ',
     tipText: 'ብግዜ ዝተፈላለየ ዓይነት ሓለዋ ምፍታን፡ ብዘይ ጸቕጢ ንዓኺ ዝበለጸ ንምርካብ ይሕግዘኪ።',
     body3: 'ብማእከላይ ሓለዋ ኣብ ነፍሲ ወከፍ 4 ክሳብ 6 ሰዓታት ክትቅየር ይግባእ፡ ኣብ ዝያዳ ደም ዝፈሰሰሉ መዓልታት ድማ ብዝያዳ። ብኣገባብ ምቅያር ምቾትኪ ንምሕላውን ጽቡቕ ናይ ውሽጣዊ ንጽህና ንምሕላውን ይሕግዘኪ።',
-    relatedTitle: '♥  እዚ እውን ክትፈትዊ ትኽእሊ',
+    relatedTitle: 'እዚ እውን ክትፈትዊ ትኽእሊ',
     related: [
       {title: 'ወርሓዊ ደመይ ምርዳእ', meta: '7 ደቒቕ  ·  መምርሒ'},
       {title: 'ቀዳማይ ወርሓዊ ደምኪ መዓልታዊ ከመይ ትማሓደሪ?', meta: '5 ደቒቕ  ·  መምርሒ'},
@@ -669,7 +669,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Byiza kumenya',
     tipText: 'Kugerageza ubwoko butandukanye bwo kwirinda uko iminsi igenda bigufasha kubona icyo ukwiriye cyane, nta gahato.',
     body3: 'Ugereranyije, ikikurinda gikwiye guhindurwa buri masaha 4 kugeza kuri 6, kenshi ku minsi y\'amaraso menshi. Kugihindura buri gihe bigufasha kumererwa neza no kwita ku isuku y\'ibice by\'ibanga.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Gusobanukirwa amaraso y\'imihango yawe', meta: 'iminota 7  ·  Ubuyobozi'},
       {title: 'Wakwita ute ku mihango ya mbere umunsi ku munsi?', meta: 'iminota 5  ·  Ubuyobozi'},
@@ -710,7 +710,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Ni vyiza kubimenya',
     tipText: 'Kugerageza ubwoko butandukanye bw\'ibikinga uko igihe gihita bigufasha kubona ikikubereye cane, nta gukanda.',
     body3: 'Ku rugero, ikinga rikwiye guhindurwa buri masaha 4 kugera kuri 6, kenshi cane mu minsi imihango iri myinshi. Kuhahindura buri kanya bigufasha kuguma wumva umerewe neza no kubungabunga isuku nziza y\'ibice vyawe vy\'ibanga.',
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Gusobanukirwa amaraso y\'imihango yawe', meta: 'Iminota 7  ·  Ubuyobozi'},
       {title: 'Ni gute wogenzura imihango yawe ya mbere buri musi?', meta: 'Iminota 5  ·  Ubuyobozi'},
@@ -751,7 +751,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Ihe ọ dị mma ịma',
     tipText: 'Ịnwale ụdị ihe nche dị iche iche n\'oge na-aga na-enyere gị aka ịchọta nke kacha dabara gị, na-enweghị nrụgide.',
     body3: 'N\'ozuzu, a ghaghị ịgbanwe ihe nche kwa awa 4 ruo 6, ugboro ugboro karị n\'ụbọchị ọbara na-asọpụta nke ukwuu. Ịgbanwe ya mgbe niile na-enyere gị aka ịnọ n\'udo na idebe ahụ ike ebe ndị nzuzo gị.',
-    relatedTitle: '♥  Ị nwekwara ike ịmasị',
+    relatedTitle: 'Ị nwekwara ike ịmasị',
     related: [
       {title: 'Ịghọta ọbara nsọ gị', meta: 'Nkeji 7  ·  Nduzi'},
       {title: 'Etu esi achịkwa nsọ gị nke mbụ kwa ụbọchị?', meta: 'Nkeji 5  ·  Nduzi'},
@@ -792,7 +792,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Ohun tó dára láti mọ̀',
     tipText: 'Gbígbìyànjú oríṣiríṣi ìdáàbòbò pẹ̀lú ìgbà ń ràn ọ́ lọ́wọ́ láti rí èyí tó bá ọ mu jù, láìsí ìfúnpá.',
     body3: 'Ní àpapọ̀, ó yẹ kí a pààrọ̀ ìdáàbòbò ní wákàtí 4 sí 6 kọ̀ọ̀kan, ní ìgbà púpọ̀ sí i ní àwọn ọjọ́ tí ẹ̀jẹ̀ bá pọ̀. Pípààrọ̀ rẹ̀ déédé ń ràn ọ́ lọ́wọ́ láti máa tura, àti láti ní ìmọ́tótó ara tó dára.',
-    relatedTitle: '♥  O lè fẹ́ràn èyí pẹ̀lú',
+    relatedTitle: 'O lè fẹ́ràn èyí pẹ̀lú',
     related: [
       {title: 'Òye ìṣàn nǹkan oṣù rẹ', meta: 'Ìṣẹ́jú 7  ·  Ìtọ́sọ́nà'},
       {title: 'Báwo ni a ṣe lè bójú tó nǹkan oṣù àkọ́kọ́ lójoojúmọ́?', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
@@ -833,7 +833,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Kuhle ukwazi',
     tipText: 'Ukuzama izinhlobo ezahlukene zovikelo ngokuhamba kwesikhathi kukusiza ukuthola olulingana nawe kangcono, ngaphandle kwengcindezi.',
     body3: 'Ngokwesilinganiso, uvikelo kufanele lushintshwe njalo ngamahora angu-4 kuya ku-6, kaningi ezinsukwini zokuhamba kakhulu. Ukulushintsha njalo kukusiza uzizwe ukhululekile futhi ugcine inhlanzeko enhle yezindawo zangasese.',
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Ukuqonda ukuhamba kwegazi lakho lesikhathi', meta: 'Imizuzu emi-7  ·  Umhlahlandlela'},
       {title: 'Ungakuphatha kanjani ukuya kwakho esikhathini kokuqala usuku nosuku?', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
@@ -874,7 +874,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Kulungile ukwazi',
     tipText: 'Ukuzama iindidi ezahlukeneyo zokuzikhusela ngokuhamba kwexesha kukunceda ufumane eyona ikulungeleyo, ngaphandle koxinzelelo.',
     body3: 'Ngokomndilili, into oyisebenzisayo kufuneka itshintshwe rhoqo emva kweeyure ezi-4 ukuya kwezi-6, rhoqo ngakumbi ngeentsuku zokopha kakhulu. Ukuyitshintsha rhoqo kukunceda uhlale ukhululekile kwaye ugcine inzulu yococeko lwengingqi yangasese.',
-    relatedTitle: '♥  Unokuthanda nale',
+    relatedTitle: 'Unokuthanda nale',
     related: [
       {title: 'Ukuqonda ukopha kwexesha lakho lenyanga', meta: 'Imizuzu emi-7  ·  Isikhokelo'},
       {title: 'Ungawulawula njani umhla ngomhla ixesha lakho lokuqala lenyanga?', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
@@ -915,7 +915,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Zvakanaka kuziva',
     tipText: 'Kuedza mhando dzakasiyana dzekuzvidzivirira nenguva kunokubatsira kuwana inokukodzera zvakanyanya, pasina kumanikidzwa.',
     body3: 'Pazvakajairika, chinodzivirira chinofanira kushandurwa mushure memaawa 4 kusvika ku 6 oga oga, kakawanda pamazuva ane ropa rakawanda. Kuchishandura nguva dzose kunokubatsira kunyaradzwa uye kuchengeta tsika dzakanaka dzekuchenjera hutsanana hwemuviri.',
-    relatedTitle: '♥  Unogona kunakidzwawo nezvi',
+    relatedTitle: 'Unogona kunakidzwawo nezvi',
     related: [
       {title: 'Kunzwisisa kuyerera kwako kwekuenda kumwedzi', meta: 'maminetsi 7  ·  Gwaro'},
       {title: 'Ungatarisira sei kuenda kwako kumwedzi kwekutanga zuva nezuva?', meta: 'maminetsi 5  ·  Gwaro'},
@@ -956,7 +956,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Eloko ya koyeba',
     tipText: 'Komeka ndenge ndenge ya kobatela na ntango esalisaka yo kozwa oyo ebongi na yo koleka, na bopusi moko te.',
     body3: 'Na kati-kati, esengeli kobongola eloko ya kobatela na ngonga 4 tii 6 nyonso, mbala mingi koleka na mikolo oyo makila ezali mingi. Kobongola yango mbala na mbala esalisi yo kozala na kimia mpe kobatela bopɛtɛ ya nzoto.',
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Kososola makila ya sanza na yo', meta: 'Miniti 7  ·  Malako'},
       {title: 'Ndenge nini ya kokamba sanza na yo ya liboso mokolo na mokolo?', meta: 'Miniti 5  ·  Malako'},
@@ -997,7 +997,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Ɗum ɓuri nafugo anndude',
     tipText: 'Ndaaru feere hisnude ɗuuɗɗe ko ɗum woni wakkati, ɗum wallay ma tawde ko ɗum wooɗi ma ɓuri, bannda ɓesngu.',
     body3: 'Ko ɗum yaha, hisnude maaɗa haani waylude ko ɗum woni hakkunde nga\'u 4 haa 6, e ɓuri ɗuuɗugo nyalaaje ko ndiyam ɗam ɗuuɗi. Waylugo ɗum wakkati ɗum wallay ma wondude e ɗum ɓanndu maaɗa nder kaddu.',
-    relatedTitle: '♥  Ɗum ko jooɗi kadi ɗum yiɗa',
+    relatedTitle: 'Ɗum ko jooɗi kadi ɗum yiɗa',
     related: [
       {title: 'Faamugo ndiyam lewru maaɗa', meta: 'Minti 7  ·  Jannginoore'},
       {title: 'No ɗum yaha lewru maaɗa artungo nyannde nyannde?', meta: 'Minti 5  ·  Jannginoore'},
@@ -1038,7 +1038,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Perlu diketahui',
     tipText: 'Mencoba berbagai jenis pelindung seiring waktu membantumu menemukan yang paling cocok untukmu, tanpa tekanan.',
     body3: 'Rata-rata, pelindung perlu diganti setiap 4 sampai 6 jam, lebih sering pada hari-hari dengan aliran darah yang lebih deras. Menggantinya secara teratur membantumu tetap nyaman dan menjaga kebersihan area kewanitaan dengan baik.',
-    relatedTitle: '♥  Kamu mungkin juga suka',
+    relatedTitle: 'Kamu mungkin juga suka',
     related: [
       {
         title: 'Memahami aliran darah haidmu',
@@ -1088,7 +1088,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'जानना अच्छा रहेगा',
     tipText: 'समय के साथ अलग-अलग प्रकार के प्रोटेक्शन आज़माने से आपको वह मिल जाता है जो आपके लिए सबसे अच्छा हो, और इसमें कोई दबाव नहीं है।',
     body3: 'औसतन प्रोटेक्शन हर 4 से 6 घंटे में बदलना चाहिए, और ज़्यादा फ़्लो वाले दिनों में और जल्दी-जल्दी। नियमित रूप से बदलने से आप आरामदायक रहती हैं और निजी स्वच्छता बनी रहती है।',
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'अपने माहवारी के फ़्लो को समझें',
@@ -1138,7 +1138,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Mirë është ta dish',
     tipText: 'Të provosh lloje të ndryshme mbrojtjeje me kalimin e kohës të ndihmon të gjesh atë që të përshtatet më mirë, pa presion.',
     body3: 'Mesatarisht, mbrojtja duhet ndërruar çdo 4 deri në 6 orë, më shpesh në ditët me rrjedhje më të bollshme. Ndërrimi i rregullt të ndihmon të ndihesh rehat dhe të ruash higjienën e mirë intime.',
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Kuptimi i rrjedhjes sate menstruale',
@@ -1188,7 +1188,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: '知っておきたいこと',
     tipText: '時間をかけていろいろな種類を試すことで、自分に合ったものが見つかります。無理をする必要はありません。',
     body3: '生理用品は、平均して4〜6時間ごとに交換します。経血量が多い日は、もっとこまめに交換しましょう。定期的に交換すると、快適に過ごせて、デリケートゾーンを清潔に保てます。',
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '経血量について知ろう',
@@ -1238,7 +1238,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: '알아 두면 좋아요',
     tipText: '시간을 두고 여러 종류를 써 보면 나에게 가장 잘 맞는 것을 찾을 수 있어요. 부담 가질 필요 없어요.',
     body3: '평균적으로 생리용품은 4~6시간마다 갈아야 해요. 출혈량이 많은 날에는 더 자주 갈아 주세요. 정기적으로 갈아 주면 편안하게 지내고 질 주변 위생을 잘 지키는 데 도움이 돼요.',
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '생리 출혈량 이해하기',
@@ -1288,7 +1288,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bom saber',
     tipText: 'Experimentar diferentes tipos de proteção ao longo do tempo ajuda a encontrar a que melhor lhe convém, sem pressão.',
     body3: 'Em média, a proteção deve ser mudada a cada 4 a 6 horas, com maior frequência nos dias de fluxo mais abundante. Mudá-la com regularidade ajuda a manter-se confortável e a ter uma boa higiene íntima.',
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'Compreender o seu fluxo menstrual',
@@ -1338,7 +1338,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'জেনে রাখা ভালো',
     tipText: 'সময়ের সঙ্গে বিভিন্ন ধরনের সুরক্ষা সামগ্রী চেষ্টা করলে আপনার জন্য সবচেয়ে উপযুক্তটি খুঁজে পাওয়া যায়, কোনো চাপ ছাড়াই।',
     body3: 'গড়ে প্রতি 4 থেকে 6 ঘণ্টায় সুরক্ষা সামগ্রী বদলানো উচিত; রক্তক্ষরণ বেশি হলে আরও ঘন ঘন বদলাতে হবে। নিয়মিত বদলালে আপনি স্বাচ্ছন্দ্যে থাকবেন এবং ব্যক্তিগত পরিচ্ছন্নতাও বজায় থাকবে।',
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'আপনার মাসিকের রক্তক্ষরণ বোঝা',
@@ -1388,7 +1388,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Godt at vide',
     tipText: 'At prøve forskellige typer beskyttelse over tid hjælper dig med at finde den, der passer bedst til dig, uden pres.',
     body3: 'Generelt bør du skifte beskyttelse hvert 4. til 6. time; hyppigere ved kraftig blødning. Regelmæssig skift holder dig komfortabel og opretholder personlig hygiejne.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'At forstå din menstruationsblødning',
@@ -1438,7 +1438,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Godt at vide',
     tipText: 'At pröve forskellige typer beskyttelse over tid hjälper dig med at finde den, der passer bedst till dig, uden pres.',
     body3: 'Generelt bör du skifte beskyttelse hvert 4. till 6. time; hyppigere ved kraftig blödning. Regelmässig skift holder dig komfortabel och opretholder personlig hygiejne.',
-    relatedTitle: '♥  Du vil måske også synes om',
+    relatedTitle: 'Du vil måske også synes om',
     related: [
       {
         title: 'At forstå din menstruationsblödning',
@@ -1488,7 +1488,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Godt å vite',
     tipText: 'Å prøve ulike typer beskyttelse over tid hjelper deg å finne den som passer deg best, uten press.',
     body3: 'I gjennomsnitt bør beskyttelsen byttes hver 4. til 6. time, oftere på dager med kraftigere blødning. Å bytte jevnlig hjelper deg å føle deg komfortabel og holde god intim hygiene.',
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'Forstå menstruasjonsblødningen din', meta: '7 min  ·  Veiledning'},
       {title: 'Hvordan håndterer du den første mensen i hverdagen?', meta: '5 min  ·  Veiledning'},
@@ -1529,7 +1529,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Warto wiedzieć',
     tipText: 'Wypróbowywanie z czasem różnych środków ochrony pomaga znaleźć ten, który pasuje Ci najbardziej, bez presji.',
     body3: 'Średnio środek ochrony należy zmieniać co 4 do 6 godzin, częściej w dni z obfitszym krwawieniem. Regularna zmiana pomaga czuć się komfortowo i dbać o dobrą higienę intymną.',
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Zrozumieć swoje krwawienie miesiączkowe', meta: '7 min  ·  Poradnik'},
       {title: 'Jak radzić sobie z pierwszą miesiączką na co dzień?', meta: '5 min  ·  Poradnik'},
@@ -1570,7 +1570,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Варто знати',
     tipText: 'Пробуючи з часом різні засоби гігієни, ви знайдете той, що підходить вам найкраще, — без тиску.',
     body3: 'У середньому засіб гігієни слід змінювати кожні 4–6 годин, частіше — у дні з рясними виділеннями. Регулярна зміна допомагає почуватися комфортно й підтримувати гарну інтимну гігієну.',
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Розуміння ваших менструальних виділень', meta: '7 хв  ·  Посібник'},
       {title: 'Як упоратися з першою менструацією щодня?', meta: '5 хв  ·  Посібник'},
@@ -1611,7 +1611,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Stojí za to vědět',
     tipText: 'Zkoušení různých druhů ochrany v průběhu času vám pomůže najít tu, která vám vyhovuje nejlépe, bez tlaku.',
     body3: 'V průměru by se ochrana měla měnit každé 4 až 6 hodin, ve dnech silnějšího krvácení častěji. Pravidelná výměna vám pomůže cítit se pohodlně a dodržovat dobrou intimní hygienu.',
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'Pochopení menstruačního krvácení', meta: '7 min  ·  Průvodce'},
       {title: 'Jak zvládat první menstruaci v každodenním životě?', meta: '5 min  ·  Průvodce'},
@@ -1652,7 +1652,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Stojí za to vedieť',
     tipText: 'Vyskúšanie rôznych druhov pomôcok v priebehu času vám pomôže nájsť tú, ktorá vám vyhovuje najviac, bez tlaku.',
     body3: 'V priemere by sa pomôcka mala meniť každé 4 až 6 hodín, v dňoch so silnejším krvácaním častejšie. Pravidelná výmena vám pomáha zostať v pohodlí a udržiavať dobrú intímnu hygienu.',
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Pochopenie menštruačného krvácania', meta: '7 min  ·  Sprievodca'},
       {title: 'Ako zvládať prvú menštruáciu v každodennom živote?', meta: '5 min  ·  Sprievodca'},
@@ -1693,7 +1693,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Érdemes tudni',
     tipText: 'Az idők során különböző típusok kipróbálása segít megtalálni a legjobban illőt, nyomás nélkül.',
     body3: 'Átlagosan 4–6 óránként kell cserélni a terméket, az erősebb vérzésű napokon gyakrabban. A rendszeres csere segít a kényelem megőrzésében és a jó intim higiénia fenntartásában.',
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'A menstruációs vérzésed megértése', meta: '7 perc  ·  Útmutató'},
       {title: 'Hogyan kezeljem az első menstruációmat a mindennapokban?', meta: '5 perc  ·  Útmutató'},
@@ -1734,7 +1734,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bine de știut',
     tipText: 'Încercarea în timp a diferitelor tipuri de protecție te ajută să o găsești pe cea care ți se potrivește cel mai bine, fără presiune.',
     body3: 'În medie, protecția trebuie schimbată la fiecare 4-6 ore, mai des în zilele cu flux mai abundent. Schimbarea ei regulată te ajută să rămâi confortabilă și să menții o bună igienă intimă.',
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Înțelegerea fluxului tău menstrual', meta: '7 min  ·  Ghid'},
       {title: 'Cum îți gestionezi prima menstruație zi de zi?', meta: '5 min  ·  Ghid'},
@@ -1775,7 +1775,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Добре е да знаеш',
     tipText: 'Изпробването на различни видове защита във времето ти помага да намериш онази, която ти подхожда най-добре, без натиск.',
     body3: 'Средно защитата трябва да се сменя на всеки 4 до 6 часа, по-често в дните с по-обилен поток. Редовната смяна ти помага да останеш комфортна и да поддържаш добра интимна хигиена.',
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Разбиране на менструалния ти поток', meta: '7 мин  ·  Ръководство'},
       {title: 'Как да се справяш с първата си менструация в ежедневието?', meta: '5 мин  ·  Ръководство'},
@@ -1816,7 +1816,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Добро је знати',
     tipText: 'Пробање различитих врста заштите током времена помаже ти да пронађеш ону која ти најбоље одговара, без притиска.',
     body3: 'У просеку, заштиту треба мењати сваких 4 до 6 сати, чешће у дане обилнијег протока. Редовна промена помаже ти да останеш удобно и одржаваш добру интимну хигијену.',
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Разумевање твог менструалног протока', meta: '7 мин  ·  Водич'},
       {title: 'Како да организујеш прву менструацију из дана у дан?', meta: '5 мин  ·  Водич'},
@@ -1857,7 +1857,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Dobro je znati',
     tipText: 'Isprobavanje različitih vrsta zaštite tijekom vremena pomaže ti pronaći onu koja ti najbolje odgovara, bez pritiska.',
     body3: 'U prosjeku zaštitu treba mijenjati svaka 4 do 6 sati, a češće onih dana kad je protok obilniji. Redovita zamjena pomaže ti da ostaneš ugodno i održavaš dobru intimnu higijenu.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Razumijevanje menstrualnog protoka', meta: '7 min  ·  Vodič'},
       {title: 'Kako se nositi s prvom menstruacijom iz dana u dan?', meta: '5 min  ·  Vodič'},
@@ -1898,7 +1898,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Dobro je znati',
     tipText: 'Isprobavanje različitih vrsta zaštite tokom vremena pomaže ti pronaći onu koja ti najbolje odgovara, bez pritiska.',
     body3: 'U prosjeku zaštitu treba mijenjati svaka 4 do 6 sati, a češće onih dana kad je protok obilniji. Redovita zamjena pomaže ti da ostaneš ugodno i održavaš dobru intimnu higijenu.',
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Razumijevanje menstrualnog protoka', meta: '7 min  ·  Vodič'},
       {title: 'Kako se nositi s prvom menstruacijom iz dana u dan?', meta: '5 min  ·  Vodič'},
@@ -1939,7 +1939,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Vredno vedeti',
     tipText: 'Preizkušanje različnih vrst zaščite skozi čas ti pomaga najti tisto, ki ti najbolj ustreza, brez pritiska.',
     body3: 'V povprečju je treba zaščito menjati vsakih 4 do 6 ur, pogosteje na dneve z obilnejšim tokom. Redna menjava ti pomaga ostati udobno in vzdrževati dobro intimno higieno.',
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Razumevanje menstrualnega toka', meta: '7 min  ·  Vodnik'},
       {title: 'Kako se soočiti s prvo menstruacijo iz dneva v dan?', meta: '5 min  ·  Vodnik'},
@@ -1980,7 +1980,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'जान्न लायक',
     tipText: 'समयसँगै विभिन्न प्रकारका सुरक्षा प्रयास गर्नाले कुनै दबाबबिना तपाईंलाई सबैभन्दा मिल्ने भेट्टाउन मद्दत गर्छ।',
     body3: 'औसतमा, सुरक्षा हरेक 4 देखि 6 घण्टामा बदल्नुपर्छ, बढी बहाव हुने दिनहरूमा अझ बारम्बार। नियमित रूपमा बदल्नाले तपाईंलाई सहज रहन र राम्रो निजी सरसफाइ कायम राख्न मद्दत गर्छ।',
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'आफ्नो महिनावारीको बहाव बुझ्नुहोस्', meta: '7 मिनेट  ·  मार्गदर्शन'},
       {title: 'आफ्नो पहिलो महिनावारी दैनिक जीवनमा कसरी सम्हाल्ने?', meta: '5 मिनेट  ·  मार्गदर्शन'},
@@ -2021,7 +2021,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'දැනගත යුතු දේ',
     tipText: 'කාලයත් සමඟ විවිධ ආරක්ෂා වර්ග උත්සාහ කිරීම, කිසිදු පීඩනයකින් තොරව ඔබට වඩාත්ම ගැළපෙන එක සොයාගැනීමට උපකාරී වේ.',
     body3: 'සාමාන්‍යයෙන්, ආරක්ෂාව පැය 4 සිට 6 දක්වා වරක් වෙනස් කළ යුතු අතර, වැඩි ගලනය සහිත දිනවල ඊට වඩා නිතර. එය නිතිපතා වෙනස් කිරීම ඔබට සුවපහසුව පවත්වා ගැනීමට සහ හොඳ සමීප සනීපාරක්ෂාව පවත්වා ගැනීමට උපකාරී වේ.',
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'ඔබේ ඔසප් ගලනය තේරුම් ගැනීම', meta: 'මිනි. 7  ·  මාර්ගෝපදේශය'},
       {title: 'ඔබේ පළමු ඔසප් දිනපතා කළමනාකරණය කරන්නේ කෙසේද?', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
@@ -2062,7 +2062,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'ควรรู้',
     tipText: 'การลองอุปกรณ์หลายแบบตามเวลาช่วยให้คุณหาแบบที่เหมาะกับคุณที่สุด โดยไม่มีแรงกดดัน',
     body3: 'โดยเฉลี่ยควรเปลี่ยนอุปกรณ์ทุก 4 ถึง 6 ชั่วโมง และบ่อยขึ้นในวันที่มีปริมาณมาก การเปลี่ยนเป็นประจำช่วยให้คุณสบายตัวและรักษาสุขอนามัยในจุดซ่อนเร้นที่ดี',
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'ทำความเข้าใจปริมาณประจำเดือนของคุณ', meta: '7 นาที  ·  คู่มือ'},
       {title: 'วิธีจัดการประจำเดือนครั้งแรกในชีวิตประจำวัน', meta: '5 นาที  ·  คู่มือ'},
@@ -2103,7 +2103,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Nên biết',
     tipText: 'Thử các loại sản phẩm vệ sinh khác nhau theo thời gian giúp bạn tìm ra loại phù hợp nhất, không áp lực.',
     body3: 'Trung bình, nên thay sản phẩm vệ sinh mỗi 4 đến 6 giờ, thường xuyên hơn vào những ngày ra nhiều máu. Thay đều đặn giúp bạn thoải mái và giữ vệ sinh vùng kín tốt.',
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Hiểu lượng kinh nguyệt của bạn', meta: '7 phút  ·  Hướng dẫn'},
       {title: 'Cách xử lý kỳ kinh đầu tiên mỗi ngày?', meta: '5 phút  ·  Hướng dẫn'},
@@ -2144,7 +2144,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bilish foydali',
     tipText: 'Vaqt oʻtishi bilan turli himoya vositalarini sinab koʻrish bosimsiz oʻzingizga eng mosini topishga yordam beradi.',
     body3: 'Oʻrtacha hisobda himoya vositasini har 4 soatdan 6 soatgacha almashtirish kerak, oqim koʻp kunlarda esa tez-tezroq. Uni muntazam almashtirish oʻzingizni qulay his qilishga va intim gigiyenani yaxshi saqlashga yordam beradi.',
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Hayz oqimini tushunish', meta: '7 daq  ·  Qoʻllanma'},
       {title: 'Birinchi hayzni kundalik hayotda qanday boshqarish kerak?', meta: '5 daq  ·  Qoʻllanma'},
@@ -2185,7 +2185,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bilmək faydalıdır',
     tipText: 'Zamanla müxtəlif qoruyucu vasitələri sınamaq, heç bir təzyiq olmadan sizə ən uyğun olanı tapmağa kömək edir.',
     body3: 'Orta hesabla qoruyucu vasitə hər 4–6 saatdan bir dəyişdirilməlidir, axının bol olduğu günlərdə daha tez-tez. Müntəzəm dəyişmək özünüzü rahat hiss etməyə və intim gigiyenanı yaxşı saxlamağa kömək edir.',
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'Aybaşı axınınızı anlamaq', meta: '7 dəq  ·  Bələdçi'},
       {title: 'İlk aybaşınızı gündəlik həyatda necə idarə etmək olar?', meta: '5 dəq  ·  Bələdçi'},
@@ -2226,7 +2226,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'კარგია ვიცოდეთ',
     tipText: 'დამცავი საშუალებების სხვადასხვა ტიპის დროთა განმავლობაში ცდა გეხმარებათ იპოვოთ თქვენთვის საუკეთესო, ზეწოლის გარეშე.',
     body3: 'საშუალოდ, დამცავი საშუალება ყოველ 4-დან 6 საათში უნდა შეიცვალოს, უფრო უხვი ნაკადის დღეებში უფრო ხშირად. რეგულარულმა შეცვლამ დაგეხმარებათ კომფორტულად იყოთ და ინტიმური ჰიგიენა კარგად შეინარჩუნოთ.',
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'თქვენი მენსტრუაციული ნაკადის გაგება', meta: '7 წთ  ·  გზამკვლევი'},
       {title: 'როგორ გავუმკლავდეთ პირველ მენსტრუაციას ყოველდღიურად?', meta: '5 წთ  ·  გზამკვლევი'},
@@ -2267,7 +2267,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Լավ է իմանալ',
     tipText: 'Ժամանակի ընթացքում պաշտպանության տարբեր տեսակներ փորձելը օգնում է գտնել ձեզ ամենահարմարը՝ առանց ճնշման:',
     body3: 'Միջինում պաշտպանությունը պետք է փոխել յուրաքանչյուր 4–6 ժամը մեկ, ավելի առատ արտահոսքով օրերին՝ ավելի հաճախ: Այն կանոնավոր փոխելը օգնում է մնալ հարմար և պահպանել ինտիմ լավ հիգիենա:',
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Հասկանալ ձեր դաշտանային արտահոսքը', meta: '7 ր  ·  Ուղեցույց'},
       {title: 'Ինչպե՞ս հոգալ առաջին դաշտանը օրեցօր:', meta: '5 ր  ·  Ուղեցույց'},
@@ -2308,7 +2308,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Донистан хуб аст',
     tipText: 'Бо мурури замон санҷидани навъҳои гуногуни воситаҳои муҳофизат ба шумо кумак мекунад беҳтарини мувофиқи худро ёбед, бе фишор.',
     body3: 'Дар миёна воситаи муҳофизатро ҳар 4 то 6 соат иваз кардан лозим аст, дар рӯзҳои ҷараёни зиёд бештар. Мунтазам иваз кардан ба шумо кумак мекунад роҳат бимонед ва гигиенаи наздикиро хуб нигоҳ доред.',
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Фаҳмидани ҷараёни ҳайзи шумо', meta: '7 дақ  ·  Роҳнамо'},
       {title: 'Чӣ тавр ҳайзи аввалро дар ҳаёти ҳаррӯза идора кард?', meta: '5 дақ  ·  Роҳнамо'},
@@ -2349,7 +2349,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Билүү пайдалуу',
     tipText: 'Убакыттын өтүшү менен коргонуунун ар кандай түрлөрүн байкап көрүү кысымсыз өзүңүзгө эң ылайыктуусун табууга жардам берет.',
     body3: 'Орточо алганда, коргонуу каражаты ар 4–6 саат сайын алмаштырылышы керек, агым көп күндөрү көбүрөөк. Үзгүлтүксүз алмаштыруу ыңгайлуу болууга жана жакшы жакын гигиенаны сактоого жардам берет.',
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Етек кирим агымын түшүнүү', meta: '7 мүн  ·  Колдонмо'},
       {title: 'Биринчи етек киримди күнүмдүк жашоодо кантип башкаруу?', meta: '5 мүн  ·  Колдонмо'},
@@ -2390,7 +2390,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Bilmek peýdaly',
     tipText: 'Wagtyň geçmegi bilen dürli görnüşli goranyş serişdelerini synap görmek basyşsyz, size iň gowy laýyk gelenini tapmaga kömek edýär.',
     body3: 'Ortaça, goranyş serişdesi her 4–6 sagatdan çalşylmaly, köp gan akma günlerinde has ýygy. Ony yzygiderli çalşyp durmak rahat galmaga we ýakyn ýerleriň arassaçylygyny gowy saklamaga kömek edýär.',
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Aýbaşy gan akmaňyzy düşünmek', meta: '7 min  ·  Gollanma'},
       {title: 'Ilkinji aýbaşyňyzy gündelik durmuşda nähili dolandyrmaly?', meta: '5 min  ·  Gollanma'},
@@ -2431,7 +2431,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Elok diketahui',
     tipText: 'Mencuba pelbagai jenis perlindungan dari semasa ke semasa membantu anda menemui yang paling sesuai dengan anda, tanpa tekanan.',
     body3: 'Secara purata, perlindungan perlu ditukar setiap 4 hingga 6 jam, lebih kerap pada hari aliran yang lebih banyak. Menukarnya secara tetap membantu anda kekal selesa dan menjaga kebersihan intim yang baik.',
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Memahami aliran haid anda', meta: '7 min  ·  Panduan'},
       {title: 'Bagaimana menguruskan haid pertama anda sehari-hari?', meta: '5 min  ·  Panduan'},
@@ -2472,7 +2472,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Waxtar leh in la ogaado',
     tipText: 'Isku dayga noocyada kala duwan ee ilaalinta waqti ka dib wuxuu kaa caawinayaa inaad hesho midka kuugu habboon, cadaadis la’aan.',
     body3: 'Celcelis ahaan, ilaalinta waa in la beddelo 4 ilaa 6 saacadood kasta, mararka ka badan maalmaha socodku culus yahay. Beddelidda joogtada ahi waxay kaa caawisaa inaad raaxo ahaato oo aad hesho nadaafad gaar ah oo wanaagsan.',
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Fahamka socodka caadadaada', meta: '7 daq  ·  Hage'},
       {title: 'Sidee loo maamulaa caadadaada ugu horreysa maalin kasta?', meta: '5 daq  ·  Hage'},
@@ -2513,7 +2513,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Vyema kujua',
     tipText: 'Kujaribu aina tofauti za kinga kadiri muda unavyopita kunakusaidia kupata ile inayokufaa zaidi, bila shinikizo.',
     body3: 'Kwa wastani, kinga inapaswa kubadilishwa kila baada ya saa 4 hadi 6, mara nyingi zaidi katika siku za mtiririko mzito. Kuibadilisha mara kwa mara kunakusaidia kubaki na faraja na kudumisha usafi mzuri wa sehemu za siri.',
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Kuelewa mtiririko wako wa hedhi', meta: 'Dakika 7  ·  Mwongozo'},
       {title: 'Jinsi ya kusimamia hedhi yako ya kwanza kila siku?', meta: 'Dakika 5  ·  Mwongozo'},
@@ -2554,7 +2554,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Білуге тиісті',
     tipText: 'Қорғаныс құралдарының әртүрлі түрлерін уақыт өте байқап көру өзіңізге ең сайын қысымсыз табуға көмектеседі.',
     body3: 'Орта есеппен қорғаныс құралын әр 4-тен 6 сағат сайын, мол көлемді күндері жиірек ауыстыру керек. Оны тұрақты ауыстыру жайлы болуға және жақсы жеке гигиенаны сақтауға көмектеседі.',
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Етеккір көлемін түсіну', meta: '7 мин  ·  Нұсқаулық'},
       {title: 'Алғашқы етеккірді күнделікті қалай басқаруға болады?', meta: '5 мин  ·  Нұсқаулық'},
@@ -2595,7 +2595,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Lu baax a xam',
     tipText: 'Jéem ay xeetu aar ci jamono dafay la dimbli nga gis bi gëna méngoo, te coono amul.',
     body3: 'Ci digg-dóomu, war nañu soppi aar bi ci 4 ba 6 waxtu, gën a bari ci fan yu deret bi bari. Soppi ko ci yoon dafay dimbli nga nekk ci neex te des ci set bu baax.',
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Xam sa deret bu règle', meta: '7 simili  ·  Ndigal'},
       {title: 'Naka laay yor sama règle bu njëkk bés ak bés?', meta: '5 simili  ·  Ndigal'},
@@ -2636,7 +2636,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Abin da ya dace a sani',
     tipText: 'Gwada nau’ikan kariya daban-daban a kan lokaci yana taimaka miki ki sami wacce ta fi dacewa da ke, ba tare da matsi ba.',
     body3: 'A matsakaici, ya kamata a canza kariya kowane sa’a 4 zuwa 6, ya fi yawa a kwanakin da jini ya fi yawa. Canza ta akai-akai yana taimaka miki ki ji daɗi kuma ki kula da tsabtar al’aura mai kyau.',
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Fahimtar yawan jinin hailarki', meta: 'minti 7  ·  Jagora'},
       {title: 'Yadda za a gudanar da hailar farko kullum?', meta: 'minti 5  ·  Jagora'},
@@ -2677,7 +2677,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'ማወቅ ጠቃሚ ነው',
     tipText: 'በጊዜ ሂደት የተለያዩ የመከላከያ ዓይነቶችን መሞከር ያለ ጫና በጣም የሚስማማሽን እንድታገኚ ይረዳሻል።',
     body3: 'በአማካይ መከላከያ በየ4 እስከ 6 ሰዓት መቀየር አለበት፣ ፍሰት በሚበዛባቸው ቀናት ደግሞ በተደጋጋሚ። በየጊዜው መቀየር ምቾት እንዲሰማሽና ጥሩ የግል ንጽሕናን እንድትጠብቂ ይረዳሻል።',
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'የወር አበባ ፍሰትሽን መረዳት', meta: '7 ደቂቃ  ·  መመሪያ'},
       {title: 'የመጀመሪያ የወር አበባን በየቀኑ እንዴት መቆጣጠር?', meta: '5 ደቂቃ  ·  መመሪያ'},
@@ -2718,7 +2718,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Goed om te weten',
     tipText: 'Na verloop van tijd verschillende soorten bescherming proberen helpt je de soort te vinden die het best bij je past, zonder druk.',
     body3: 'Gemiddeld moet bescherming elke 4 tot 6 uur worden verwisseld, vaker op dagen met een hevigere bloeding. Regelmatig verwisselen helpt je comfortabel te blijven en een goede intieme hygiëne te behouden.',
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'Je menstruatiebloeding begrijpen', meta: '7 min  ·  Gids'},
       {title: 'Hoe beheer je je eerste menstruatie in het dagelijks leven?', meta: '5 min  ·  Gids'},
@@ -2759,7 +2759,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Hyvä tietää',
     tipText: 'Eri suojatyyppien kokeilu ajan myötä auttaa löytämään sinulle parhaiten sopivan ilman painetta.',
     body3: 'Keskimäärin suoja tulisi vaihtaa 4–6 tunnin välein, runsaampina vuotopäivinä useammin. Säännöllinen vaihto auttaa pysymään mukavana ja ylläpitämään hyvää intiimihygieniaa.',
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Kuukautisvuotosi ymmärtäminen', meta: '7 min  ·  Opas'},
       {title: 'Miten hallitset ensimmäiset kuukautisesi arjessa?', meta: '5 min  ·  Opas'},
@@ -2800,7 +2800,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Καλό είναι να γνωρίζεις',
     tipText: 'Η δοκιμή διαφορετικών τύπων προστασίας με τον καιρό σε βοηθά να βρεις αυτόν που σου ταιριάζει καλύτερα, χωρίς πίεση.',
     body3: 'Κατά μέσο όρο, η προστασία πρέπει να αλλάζεται κάθε 4 έως 6 ώρες, πιο συχνά τις ημέρες με πιο έντονη ροή. Η τακτική αλλαγή σε βοηθά να νιώθεις άνετα και να διατηρείς καλή ευαίσθητη υγιεινή.',
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Κατανοώντας την εμμηνορροϊκή ροή σου', meta: '7 λεπτά  ·  Οδηγός'},
       {title: 'Πώς να διαχειριστείς την πρώτη σου περίοδο στην καθημερινότητα;', meta: '5 λεπτά  ·  Οδηγός'},
@@ -2841,7 +2841,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'Mabuting malaman',
     tipText: 'Ang pagsubok ng iba’t ibang uri ng proteksyon sa paglipas ng panahon ay tumutulong sa iyong mahanap ang pinakaangkop sa iyo, walang pressure.',
     body3: 'Sa karaniwan, dapat palitan ang proteksyon tuwing 4 hanggang 6 na oras, mas madalas sa mga araw na mas malakas ang daloy. Ang regular na pagpapalit ay tumutulong na manatili kang komportable at mapanatili ang mabuting intimate hygiene.',
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Pag-unawa sa iyong daloy ng regla', meta: '7 min  ·  Gabay'},
       {title: 'Paano pangasiwaan ang iyong unang regla sa araw-araw?', meta: '5 min  ·  Gabay'},
@@ -2882,7 +2882,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'தெரிந்துகொள்ளுங்கள்',
     tipText: 'காலப்போக்கில் வெவ்வேறு வகைப் பாதுகாப்பை முயல்வது, அழுத்தம் இல்லாமல், உங்களுக்கு மிகப் பொருந்தும் ஒன்றைக் கண்டறிய உதவுகிறது.',
     body3: 'சராசரியாக, பாதுகாப்பை ஒவ்வொரு 4 முதல் 6 மணிநேரத்துக்கும் மாற்ற வேண்டும், அதிக ஓட்டமுள்ள நாட்களில் அடிக்கடி. தொடர்ந்து மாற்றுவது நீங்கள் வசதியாக இருக்கவும், நல்ல அந்தரங்கச் சுகாதாரத்தைப் பேணவும் உதவுகிறது.',
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'உங்கள் மாதவிடாய் ஓட்டத்தைப் புரிந்துகொள்ளுதல்', meta: '7 நிமிடம்  ·  வழிகாட்டி'},
       {title: 'உங்கள் முதல் மாதவிடாயை அன்றாடம் எப்படிக் கையாள்வது?', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
@@ -2923,7 +2923,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'తెలుసుకోవాల్సినవి',
     tipText: 'కాలక్రమేణా వేర్వేరు రక్షణ రకాలను ప్రయత్నించడం, ఒత్తిడి లేకుండా, మీకు బాగా సరిపోయేదాన్ని కనుగొనడానికి సహాయపడుతుంది.',
     body3: 'సగటున, రక్షణను ప్రతి 4 నుండి 6 గంటలకు మార్చాలి, ఎక్కువ రక్తస్రావం ఉన్న రోజుల్లో మరింత తరచుగా. దాన్ని క్రమం తప్పకుండా మార్చడం మీరు సౌకర్యంగా ఉండటానికి, మంచి సన్నిహిత పరిశుభ్రతను పాటించడానికి సహాయపడుతుంది.',
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'మీ నెలసరి రక్తస్రావాన్ని అర్థం చేసుకోవడం', meta: '7 ని  ·  గైడ్'},
       {title: 'మీ మొదటి నెలసరిని రోజువారీగా ఎలా నిర్వహించాలి?', meta: '5 ని  ·  గైడ్'},
@@ -2964,7 +2964,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'हे जाणून घ्या',
     tipText: 'कालांतराने संरक्षणाचे वेगवेगळे प्रकार वापरून पाहिल्याने तुम्हाला, कोणत्याही दबावाशिवाय, तुम्हाला सर्वात जुळणारे शोधण्यास मदत होते.',
     body3: 'सरासरी, संरक्षण दर 4 ते 6 तासांनी बदलले पाहिजे, जास्त स्रावाच्या दिवशी अधिक वेळा. ते नियमितपणे बदलल्याने तुम्हाला आरामात राहण्यास आणि खाजगी भागाची चांगली स्वच्छता राखण्यास मदत होते.',
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'तुमचा मासिक पाळीचा स्राव समजून घेणे', meta: '7 मिनिटे  ·  मार्गदर्शक'},
       {title: 'तुमची पहिली पाळी रोजच्या जीवनात कशी सांभाळावी?', meta: '5 मिनिटे  ·  मार्गदर्शक'},
@@ -3005,7 +3005,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'જાણવા જેવું',
     tipText: 'સમય જતાં સંરક્ષણના જુદા જુદા પ્રકારો અજમાવવાથી, કોઈ દબાણ વગર, તમને સૌથી અનુકૂળ હોય તે શોધવામાં મદદ મળે છે.',
     body3: 'સરેરાશ, સંરક્ષણ દર 4 થી 6 કલાકે બદલવું જોઈએ, વધુ સ્રાવવાળા દિવસોમાં વધુ વાર. નિયમિત બદલવાથી તમે આરામદાયક રહો છો અને અંગત સ્વચ્છતા સારી રીતે જળવાય છે.',
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'તમારા માસિકના સ્રાવને સમજવો', meta: '7 મિનિટ  ·  માર્ગદર્શિકા'},
       {title: 'તમારા પ્રથમ માસિકને રોજિંદા જીવનમાં કેવી રીતે સંભાળવું?', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -3046,7 +3046,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'ਜਾਣਨ ਯੋਗ',
     tipText: 'ਸਮੇਂ ਨਾਲ ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਅਜ਼ਮਾਉਣ ਨਾਲ ਤੁਹਾਨੂੰ ਉਹ ਲੱਭਣ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ ਜੋ ਤੁਹਾਡੇ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਹੈ, ਬਿਨਾਂ ਕਿਸੇ ਦਬਾਅ ਦੇ।',
     body3: 'ਔਸਤਨ, ਇਹ ਸਾਮਾਨ ਹਰ 4 ਤੋਂ 6 ਘੰਟਿਆਂ ਬਾਅਦ ਬਦਲਣਾ ਚਾਹੀਦਾ ਹੈ, ਵੱਧ ਵਹਾਅ ਵਾਲੇ ਦਿਨਾਂ ਵਿੱਚ ਹੋਰ ਵੱਧ ਵਾਰ। ਨਿਯਮਿਤ ਬਦਲਣ ਨਾਲ ਤੁਸੀਂ ਆਰਾਮਦਾਇਕ ਰਹਿੰਦੇ ਹੋ ਅਤੇ ਨਿੱਜੀ ਅੰਗਾਂ ਦੀ ਚੰਗੀ ਸਫ਼ਾਈ ਬਣੀ ਰਹਿੰਦੀ ਹੈ।',
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਆਪਣੇ ਮਾਹਵਾਰੀ ਦੇ ਵਹਾਅ ਨੂੰ ਸਮਝਣਾ', meta: '7 ਮਿੰਟ  ·  ਗਾਈਡ'},
       {title: 'ਆਪਣੀ ਪਹਿਲੀ ਮਾਹਵਾਰੀ ਨੂੰ ਰੋਜ਼ਾਨਾ ਕਿਵੇਂ ਸੰਭਾਲੀਏ?', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -3087,7 +3087,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'သိထားသင့်သည်',
     tipText: 'အချိန်ကြာလာသည်နှင့်အမျှ ကာကွယ်ရေးပစ္စည်းအမျိုးအစားအမျိုးမျိုးကို စမ်းသုံးကြည့်ခြင်းက ဖိအားမရှိဘဲ သင့်အတွက် အသင့်တော်ဆုံးကို ရှာဖွေရန် ကူညီသည်။',
     body3: 'ပျမ်းမျှအားဖြင့် ကာကွယ်ရေးပစ္စည်းကို ၄ နာရီမှ ၆ နာရီတိုင်း လဲသင့်သည်၊ သွေးထွက်ပမာဏများသောနေ့များတွင် ပိုမကြာခဏ လဲသင့်သည်။ ပုံမှန်လဲခြင်းက သက်တောင့်သက်သာရှိစေပြီး ကိုယ်ရေးကိုယ်တာနေရာ သန့်ရှင်းမှုကောင်းမွန်စေရန် ကူညီသည်။',
-    relatedTitle: '♥  သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
+    relatedTitle: 'သင်စိတ်ဝင်စားနိုင်သည့် အကြောင်းအရာများ',
     related: [
       {title: 'သင့်ရာသီသွေးထွက်ပမာဏကို နားလည်ခြင်း', meta: '7 မိနစ်  ·  လမ်းညွှန်'},
       {title: 'သင့်ပထမဆုံးရာသီကို နေ့စဉ်ဘဝတွင် မည်သို့စီမံမည်နည်း။', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
@@ -3128,7 +3128,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'គួរដឹង',
     tipText: 'ការសាកល្បងសម្ភារៈការពារប្រភេទផ្សេងៗតាមពេលវេលា ជួយអ្នករកប្រភេទដែលសមនឹងអ្នកបំផុត ដោយគ្មានសម្ពាធ។',
     body3: 'ជាមធ្យម គួរផ្លាស់ប្តូរសម្ភារៈការពាររៀងរាល់ 4 ដល់ 6 ម៉ោង ហើយញឹកញាប់ជាងនេះក្នុងថ្ងៃដែលមានបរិមាណឈាមរដូវច្រើន។ ការផ្លាស់ប្តូរជាប្រចាំជួយអ្នករក្សាភាពស្រួលខ្លួន និងរក្សាអនាម័យផ្នែកខាងក្នុងឱ្យបានល្អ។',
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'ការយល់ដឹងអំពីបរិមាណឈាមរដូវរបស់អ្នក', meta: '7 នាទី  ·  មគ្គុទ្ទេសក៍'},
       {title: 'តើត្រូវគ្រប់គ្រងរដូវដំបូងរបស់អ្នកប្រចាំថ្ងៃយ៉ាងដូចម្តេច?', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -3169,7 +3169,7 @@ const CONTENT = withBrazilianPortuguese('FirstPeriodProtection', {
     tipTitle: 'ຄວນຮູ້',
     tipText: 'ການລອງການປ້ອງກັນຫຼາຍປະເພດເມື່ອເວລາຜ່ານໄປ ຊ່ວຍໃຫ້ທ່ານຊອກຫາແບບທີ່ເໝາະກັບທ່ານທີ່ສຸດ ໂດຍບໍ່ມີຄວາມກົດດັນ.',
     body3: 'ໂດຍສະເລ່ຍ ຄວນປ່ຽນຜ້າອະນາໄມທຸກ 4 ຫາ 6 ຊົ່ວໂມງ ແລະ ບ່ອຍຂຶ້ນໃນມື້ທີ່ມີປະລິມານເລືອດປະຈຳເດືອນຫຼາຍ. ການປ່ຽນເປັນປະຈຳຊ່ວຍໃຫ້ທ່ານສະບາຍ ແລະ ຮັກສາສຸຂະອະນາໄມສ່ວນຕົວທີ່ດີ.',
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ເຂົ້າໃຈປະລິມານເລືອດປະຈຳເດືອນຂອງທ່ານ', meta: '7 ນາທີ  ·  ຄູ່ມື'},
       {title: 'ຈັດການປະຈຳເດືອນຄັ້ງທຳອິດໃນຊີວິດປະຈຳວັນແນວໃດ?', meta: '5 ນາທີ  ·  ຄູ່ມື'},

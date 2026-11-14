@@ -101,7 +101,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Éviter les produits parfumés',
       'Privilégier le coton',
     ],
-    relatedTitle: '♥  Tu pourrais aussi aimer',
+    relatedTitle: 'Tu pourrais aussi aimer',
     related: [
       {title: 'Comprendre les douleurs menstruelles', meta: '7 min  ·  Guide'},
       {title: 'Choisir la protection adaptée à ton corps', meta: '5 min  ·  Guide'},
@@ -151,7 +151,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Avoid scented products',
       'Choose cotton',
     ],
-    relatedTitle: '♥  You might also like',
+    relatedTitle: 'You might also like',
     related: [
       {title: 'Understanding menstrual pain', meta: '7 min  ·  Guide'},
       {title: 'Choosing the right protection for your body', meta: '5 min  ·  Guide'},
@@ -201,7 +201,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Evitar los productos perfumados',
       'Elegir el algodón',
     ],
-    relatedTitle: '♥  También te puede interesar',
+    relatedTitle: 'También te puede interesar',
     related: [
       {title: 'Entender los dolores menstruales', meta: '7 min  ·  Guía'},
       {title: 'Elegir la protección adecuada para tu cuerpo', meta: '5 min  ·  Guía'},
@@ -251,7 +251,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Evitare i prodotti profumati',
       'Scegliere il cotone',
     ],
-    relatedTitle: '♥  Potrebbe interessarti anche',
+    relatedTitle: 'Potrebbe interessarti anche',
     related: [
       {
         title: 'Capire il dolore mestruale',
@@ -310,7 +310,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Kokulu ürünlerden kaçınma',
       'Pamuklu olanı seçme',
     ],
-    relatedTitle: '♥  Bunlar da ilgini çekebilir',
+    relatedTitle: 'Bunlar da ilgini çekebilir',
     related: [
       {
         title: 'Adet ağrısını anlamak',
@@ -369,7 +369,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Избегайте ароматизированных средств',
       'Выбирайте хлопок',
     ],
-    relatedTitle: '♥  Вам также может понравиться',
+    relatedTitle: 'Вам также может понравиться',
     related: [
       {title: 'Как понять менструальную боль', meta: '7 мин  ·  Руководство'},
       {title: 'Как выбрать подходящее средство гигиены', meta: '5 мин  ·  Руководство'},
@@ -419,7 +419,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Parfümierte Produkte vermeiden',
       'Baumwolle wählen',
     ],
-    relatedTitle: '♥  Das könnte dir auch gefallen',
+    relatedTitle: 'Das könnte dir auch gefallen',
     related: [
       {title: 'Menstruationsschmerzen verstehen', meta: '7 Min.  ·  Ratgeber'},
       {title: 'Den passenden Schutz für deinen Körper wählen', meta: '5 Min.  ·  Ratgeber'},
@@ -469,7 +469,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
         '避免带香味的产品',
         '选择棉质',
       ],
-      relatedTitle: '♥  你可能还喜欢',
+      relatedTitle: '你可能还喜欢',
       related: [
         {
           title: '了解痛经',
@@ -528,7 +528,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
         '避免帶香味的產品',
         '選擇棉質',
       ],
-      relatedTitle: '♥  你可能還喜歡',
+      relatedTitle: '你可能還喜歡',
       related: [
         {
           title: '瞭解痛經',
@@ -587,7 +587,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'تجنّبي المنتجات المعطّرة',
       'اختاري القطن',
     ],
-    relatedTitle: '♥  قد يعجبك أيضًا',
+    relatedTitle: 'قد يعجبك أيضًا',
     related: [
       {title: 'فهم ألم الحيض', meta: '7 دقائق  ·  دليل'},
       {title: 'اختيار وسيلة الحماية المناسبة لجسمك', meta: '5 دقائق  ·  دليل'},
@@ -637,7 +637,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Ǧǧ tisabunin tisaɣalin',
       'Fren tacemlalt',
     ],
-    relatedTitle: '♥  Ahat ad k-yehwu daɣen',
+    relatedTitle: 'Ahat ad k-yehwu daɣen',
     related: [
       {title: 'Fehm aṭṭan n lḥiḍ', meta: '7 tesdidin  ·  Amusnaw'},
       {title: 'Afran n uḥfaḍ i yelhan i ugris-ik', meta: '5 tesdidin  ·  Amusnaw'},
@@ -687,7 +687,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Oomishaalee foolii qaban irraa fagaadhu',
       'Cottoona filadhu',
     ],
-    relatedTitle: '♥  Kunis si ni gammachiisa',
+    relatedTitle: 'Kunis si ni gammachiisa',
     related: [
       {title: 'Dhukkubbii laguu hubachuu', meta: 'Daqiiqaa 7  ·  Qajeelfama'},
       {title: 'Wanta ittisu qaama keetiif mijatu filachuu', meta: 'Daqiiqaa 5  ·  Qajeelfama'},
@@ -737,7 +737,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ጨና ዘለዎም ምርትታት ተወገዲ',
       'ጥጥ ምረጺ',
     ],
-    relatedTitle: '♥  እዚ እውን ክትፈትዊ ትኽእሊ',
+    relatedTitle: 'እዚ እውን ክትፈትዊ ትኽእሊ',
     related: [
       {title: 'ቁርቁስ ወርሓዊ ደም ምርዳእ', meta: '7 ደቒቕ  ·  መምርሒ'},
       {title: 'ንሰውነትኪ ቅኑዕ ሓለዋ ምምራጽ', meta: '5 ደቒቕ  ·  መምርሒ'},
@@ -787,7 +787,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Irinde ibintu bifite impumuro',
       'Hitamo ipamba',
     ],
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Gusobanukirwa ububabare bw\'imihango', meta: 'iminota 7  ·  Ubuyobozi'},
       {title: 'Guhitamo ikikurinda gikwiranye n\'umubiri wawe', meta: 'iminota 5  ·  Ubuyobozi'},
@@ -837,7 +837,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Irinde ibicuruzwa binuka',
       'Hitamwo ikoton',
     ],
-    relatedTitle: '♥  Ushobora no gukunda',
+    relatedTitle: 'Ushobora no gukunda',
     related: [
       {title: 'Gusobanukirwa ububabare bw\'imihango', meta: 'Iminota 7  ·  Ubuyobozi'},
       {title: 'Guhitamwo ikinga rikwiye umubiri wawe', meta: 'Iminota 5  ·  Ubuyobozi'},
@@ -887,7 +887,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Zere ihe ísì ụtọ',
       'Họrọ owu',
     ],
-    relatedTitle: '♥  Ị nwekwara ike ịmasị',
+    relatedTitle: 'Ị nwekwara ike ịmasị',
     related: [
       {title: 'Ịghọta mgbu nsọ', meta: 'Nkeji 7  ·  Nduzi'},
       {title: 'Ịhọrọ ihe nche kwesịrị ahụ gị', meta: 'Nkeji 5  ·  Nduzi'},
@@ -937,7 +937,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Yẹra fún àwọn ọjà olóòórùn dídùn',
       'Yan òwú',
     ],
-    relatedTitle: '♥  O lè fẹ́ràn èyí pẹ̀lú',
+    relatedTitle: 'O lè fẹ́ràn èyí pẹ̀lú',
     related: [
       {title: 'Òye ìrora nǹkan oṣù', meta: 'Ìṣẹ́jú 7  ·  Ìtọ́sọ́nà'},
       {title: 'Yíyan ìdáàbòbò tó tọ́ fún ara rẹ', meta: 'Ìṣẹ́jú 5  ·  Ìtọ́sọ́nà'},
@@ -987,7 +987,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Gweme imikhiqizo enephunga elimnandi',
       'Khetha ukotini',
     ],
-    relatedTitle: '♥  Ungathanda nalokhu',
+    relatedTitle: 'Ungathanda nalokhu',
     related: [
       {title: 'Ukuqonda ubuhlungu besikhathi', meta: 'Imizuzu emi-7  ·  Umhlahlandlela'},
       {title: 'Ukukhetha uvikelo olufanele umzimba wakho', meta: 'Imizuzu emi-5  ·  Umhlahlandlela'},
@@ -1037,7 +1037,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Phepha imveliso enevumba',
       'Khetha ikotoni',
     ],
-    relatedTitle: '♥  Unokuthanda nale',
+    relatedTitle: 'Unokuthanda nale',
     related: [
       {title: 'Ukuqonda intlungu yexesha lenyanga', meta: 'Imizuzu emi-7  ·  Isikhokelo'},
       {title: 'Ukukhetha into efanelekileyo yokuzikhusela emzimbeni wakho', meta: 'Imizuzu emi-5  ·  Isikhokelo'},
@@ -1087,7 +1087,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Dzivisa zvinhu zvinonhuhwirira',
       'Sarudza cotton',
     ],
-    relatedTitle: '♥  Unogona kunakidzwawo nezvi',
+    relatedTitle: 'Unogona kunakidzwawo nezvi',
     related: [
       {title: 'Kunzwisisa kurwadziwa kwekuenda kumwedzi', meta: 'maminetsi 7  ·  Gwaro'},
       {title: 'Kusarudza chinodzivirira chakakodzera muviri wako', meta: 'maminetsi 5  ·  Gwaro'},
@@ -1137,7 +1137,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Koboya biloko ya nsolo malamu',
       'Pona koton',
     ],
-    relatedTitle: '♥  Okoki mpe kolinga',
+    relatedTitle: 'Okoki mpe kolinga',
     related: [
       {title: 'Kososola mpasi ya sanza', meta: 'Miniti 7  ·  Malako'},
       {title: 'Kopona eloko ya kobatela oyo ebongi na nzoto na yo', meta: 'Miniti 5  ·  Malako'},
@@ -1187,7 +1187,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Ittu ko ɗum ɗon ɓuuɓa',
       'Suɓu coton',
     ],
-    relatedTitle: '♥  Ɗum ko jooɗi kadi ɗum yiɗa',
+    relatedTitle: 'Ɗum ko jooɗi kadi ɗum yiɗa',
     related: [
       {title: 'Faamugo muusu ndiyam lewru', meta: 'Minti 7  ·  Jannginoore'},
       {title: 'Suɓugo hisnude moyyere ngam ɓanndu maaɗa', meta: 'Minti 5  ·  Jannginoore'},
@@ -1237,7 +1237,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Hindari produk beraroma',
       'Pilih katun',
     ],
-    relatedTitle: '♥  Mungkin kamu juga suka',
+    relatedTitle: 'Mungkin kamu juga suka',
     related: [
       {
         title: 'Memahami nyeri haid',
@@ -1296,7 +1296,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'खुशबूदार उत्पादों से बचें',
       'सूती कपड़ा चुनें',
     ],
-    relatedTitle: '♥  ये भी आपको पसंद आ सकता है',
+    relatedTitle: 'ये भी आपको पसंद आ सकता है',
     related: [
       {
         title: 'माहवारी के दर्द को समझें',
@@ -1355,7 +1355,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Shmang produktet me aromë',
       'Zgjidh pambukun',
     ],
-    relatedTitle: '♥  Mund të të pëlqejnë edhe',
+    relatedTitle: 'Mund të të pëlqejnë edhe',
     related: [
       {
         title: 'Kuptimi i dhimbjes menstruale',
@@ -1414,7 +1414,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       '香りの強い製品は避ける',
       'コットンを選ぶ',
     ],
-    relatedTitle: '♥  こちらもおすすめ',
+    relatedTitle: 'こちらもおすすめ',
     related: [
       {
         title: '生理痛について知ろう',
@@ -1473,7 +1473,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       '향이 있는 제품 피하기',
       '면 소재 고르기',
     ],
-    relatedTitle: '♥  함께 보면 좋은 글',
+    relatedTitle: '함께 보면 좋은 글',
     related: [
       {
         title: '생리통 이해하기',
@@ -1532,7 +1532,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Evitar produtos perfumados',
       'Escolher algodão',
     ],
-    relatedTitle: '♥  Também pode gostar',
+    relatedTitle: 'Também pode gostar',
     related: [
       {
         title: 'Compreender a dor menstrual',
@@ -1591,7 +1591,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'সুগন্ধিযুক্ত পণ্য এড়িয়ে চলা',
       'সুতির কাপড় বেছে নেওয়া',
     ],
-    relatedTitle: '♥  আপনার আরও ভালো লাগতে পারে',
+    relatedTitle: 'আপনার আরও ভালো লাগতে পারে',
     related: [
       {
         title: 'মাসিকের ব্যথা বোঝা',
@@ -1650,7 +1650,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Undgå parfumerede produkter',
       'Vælg bomuld',
     ],
-    relatedTitle: '♥  Du kan også lide',
+    relatedTitle: 'Du kan også lide',
     related: [
       {
         title: 'Forstå menstruationssmerter',
@@ -1709,7 +1709,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Undgå parfumerede produkter',
       'Välg bomuld',
     ],
-    relatedTitle: '♥  Du kan også lide',
+    relatedTitle: 'Du kan også lide',
     related: [
       {
         title: 'Forstå menstruationssmerter',
@@ -1768,7 +1768,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Unngå parfymerte produkter',
       'Velg bomull',
     ],
-    relatedTitle: '♥  Dette liker du kanskje også',
+    relatedTitle: 'Dette liker du kanskje også',
     related: [
       {title: 'Forstå menstruasjonssmerter', meta: '7 min  ·  Veiledning'},
       {title: 'Velge riktig beskyttelse for kroppen din', meta: '5 min  ·  Veiledning'},
@@ -1818,7 +1818,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Unikanie produktów zapachowych',
       'Wybieranie bawełny',
     ],
-    relatedTitle: '♥  Może Cię też zainteresować',
+    relatedTitle: 'Może Cię też zainteresować',
     related: [
       {title: 'Zrozumieć ból miesiączkowy', meta: '7 min  ·  Poradnik'},
       {title: 'Wybór środka ochrony odpowiedniego dla Twojego ciała', meta: '5 min  ·  Poradnik'},
@@ -1868,7 +1868,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Уникайте ароматизованих засобів',
       'Обирайте бавовну',
     ],
-    relatedTitle: '♥  Вас також може зацікавити',
+    relatedTitle: 'Вас також може зацікавити',
     related: [
       {title: 'Розуміння менструального болю', meta: '7 хв  ·  Посібник'},
       {title: 'Вибір засобу гігієни, що підходить вашому тілу', meta: '5 хв  ·  Посібник'},
@@ -1918,7 +1918,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Vyhýbat se parfémovaným přípravkům',
       'Zvolit bavlnu',
     ],
-    relatedTitle: '♥  Mohlo by se vám líbit',
+    relatedTitle: 'Mohlo by se vám líbit',
     related: [
       {title: 'Pochopení menstruační bolesti', meta: '7 min  ·  Průvodce'},
       {title: 'Výběr správné ochrany pro vaše tělo', meta: '5 min  ·  Průvodce'},
@@ -1968,7 +1968,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Vyhnite sa parfumovaným výrobkom',
       'Zvoľte bavlnu',
     ],
-    relatedTitle: '♥  Mohlo by sa vám páčiť',
+    relatedTitle: 'Mohlo by sa vám páčiť',
     related: [
       {title: 'Pochopenie menštruačných bolestí', meta: '7 min  ·  Sprievodca'},
       {title: 'Výber správnej hygienickej pomôcky pre vaše telo', meta: '5 min  ·  Sprievodca'},
@@ -2018,7 +2018,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Kerüld az illatosított termékeket',
       'Válassz pamutot',
     ],
-    relatedTitle: '♥  Ez is tetszhet',
+    relatedTitle: 'Ez is tetszhet',
     related: [
       {title: 'A menstruációs fájdalom megértése', meta: '7 perc  ·  Útmutató'},
       {title: 'A tested számára megfelelő higiéniai termék kiválasztása', meta: '5 perc  ·  Útmutató'},
@@ -2068,7 +2068,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Evită produsele parfumate',
       'Alege bumbacul',
     ],
-    relatedTitle: '♥  Ți-ar putea plăcea și',
+    relatedTitle: 'Ți-ar putea plăcea și',
     related: [
       {title: 'Înțelegerea durerilor menstruale', meta: '7 min  ·  Ghid'},
       {title: 'Alegerea protecției potrivite pentru corpul tău', meta: '5 min  ·  Ghid'},
@@ -2118,7 +2118,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Избягвай ароматизираните продукти',
       'Избирай памук',
     ],
-    relatedTitle: '♥  Може да ти хареса и',
+    relatedTitle: 'Може да ти хареса и',
     related: [
       {title: 'Разбиране на менструалната болка', meta: '7 мин  ·  Ръководство'},
       {title: 'Избор на подходящата защита за тялото ти', meta: '5 мин  ·  Ръководство'},
@@ -2168,7 +2168,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Избегавај мирисне производе',
       'Изабери памук',
     ],
-    relatedTitle: '♥  Можда ће ти се свидети и',
+    relatedTitle: 'Можда ће ти се свидети и',
     related: [
       {title: 'Разумевање менструалног бола', meta: '7 мин  ·  Водич'},
       {title: 'Избор праве заштите за твоје тело', meta: '5 мин  ·  Водич'},
@@ -2218,7 +2218,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Izbjegavaj mirisne proizvode',
       'Odaberi pamuk',
     ],
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Razumijevanje menstrualne boli', meta: '7 min  ·  Vodič'},
       {title: 'Odabir prave zaštite za tvoje tijelo', meta: '5 min  ·  Vodič'},
@@ -2268,7 +2268,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Izbjegavaj mirisne proizvode',
       'Odaberi pamuk',
     ],
-    relatedTitle: '♥  Moglo bi ti se svidjeti',
+    relatedTitle: 'Moglo bi ti se svidjeti',
     related: [
       {title: 'Razumijevanje menstrualne boli', meta: '7 min  ·  Vodič'},
       {title: 'Odabir prave zaštite za tvoje tijelo', meta: '5 min  ·  Vodič'},
@@ -2318,7 +2318,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Izogibaj se dišečim izdelkom',
       'Izberi bombaž',
     ],
-    relatedTitle: '♥  Morda ti bo všeč tudi',
+    relatedTitle: 'Morda ti bo všeč tudi',
     related: [
       {title: 'Razumevanje menstrualne bolečine', meta: '7 min  ·  Vodnik'},
       {title: 'Izbira prave zaščite za tvoje telo', meta: '5 min  ·  Vodnik'},
@@ -2368,7 +2368,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'सुगन्धित उत्पादनहरू नजिकै नपार्नुहोस्',
       'सुती छान्नुहोस्',
     ],
-    relatedTitle: '♥  तपाईंलाई यी पनि मन पर्न सक्छन्',
+    relatedTitle: 'तपाईंलाई यी पनि मन पर्न सक्छन्',
     related: [
       {title: 'महिनावारीको दुखाइ बुझ्नुहोस्', meta: '7 मिनेट  ·  मार्गदर्शन'},
       {title: 'आफ्नो शरीरका लागि सही सुरक्षा छान्ने', meta: '5 मिनेट  ·  मार्गदर्शन'},
@@ -2418,7 +2418,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'සුවඳ ද්‍රව්‍ය වළක්වන්න',
       'කපු තෝරන්න',
     ],
-    relatedTitle: '♥  ඔබට මෙයද වුවමනා විය හැක',
+    relatedTitle: 'ඔබට මෙයද වුවමනා විය හැක',
     related: [
       {title: 'ඔසප් වේදනාව තේරුම් ගැනීම', meta: 'මිනි. 7  ·  මාර්ගෝපදේශය'},
       {title: 'ඔබේ ශරීරයට නිවැරදි ආරක්ෂාව තෝරා ගැනීම', meta: 'මිනි. 5  ·  මාර්ගෝපදේශය'},
@@ -2468,7 +2468,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'หลีกเลี่ยงผลิตภัณฑ์ที่มีกลิ่นหอม',
       'เลือกผ้าฝ้าย',
     ],
-    relatedTitle: '♥  คุณอาจสนใจ',
+    relatedTitle: 'คุณอาจสนใจ',
     related: [
       {title: 'ทำความเข้าใจอาการปวดประจำเดือน', meta: '7 นาที  ·  คู่มือ'},
       {title: 'เลือกอุปกรณ์ที่เหมาะกับร่างกายของคุณ', meta: '5 นาที  ·  คู่มือ'},
@@ -2518,7 +2518,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Tránh các sản phẩm có mùi thơm',
       'Chọn cotton',
     ],
-    relatedTitle: '♥  Có thể bạn cũng thích',
+    relatedTitle: 'Có thể bạn cũng thích',
     related: [
       {title: 'Hiểu về đau bụng kinh', meta: '7 phút  ·  Hướng dẫn'},
       {title: 'Chọn sản phẩm vệ sinh phù hợp với cơ thể bạn', meta: '5 phút  ·  Hướng dẫn'},
@@ -2568,7 +2568,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Xushboʻy vositalardan saqlanish',
       'Paxtani tanlash',
     ],
-    relatedTitle: '♥  Sizga yoqishi mumkin',
+    relatedTitle: 'Sizga yoqishi mumkin',
     related: [
       {title: 'Hayz ogʻriqlarini tushunish', meta: '7 daq  ·  Qoʻllanma'},
       {title: 'Tanangizga mos himoya vositasini tanlash', meta: '5 daq  ·  Qoʻllanma'},
@@ -2618,7 +2618,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Ətirli məhsullardan qaçmaq',
       'Pambıq seçmək',
     ],
-    relatedTitle: '♥  Bunlar da xoşunuza gələ bilər',
+    relatedTitle: 'Bunlar da xoşunuza gələ bilər',
     related: [
       {title: 'Aybaşı ağrısını anlamaq', meta: '7 dəq  ·  Bələdçi'},
       {title: 'Bədəniniz üçün düzgün qoruyucu vasitəni seçmək', meta: '5 dəq  ·  Bələdçi'},
@@ -2668,7 +2668,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'სურნელოვანი პროდუქტების თავიდან აცილება',
       'ბამბის არჩევა',
     ],
-    relatedTitle: '♥  შეიძლება მოგეწონოთ',
+    relatedTitle: 'შეიძლება მოგეწონოთ',
     related: [
       {title: 'მენსტრუაციული ტკივილის გაგება', meta: '7 წთ  ·  გზამკვლევი'},
       {title: 'თქვენი სხეულისთვის სწორი დამცავი საშუალების არჩევა', meta: '5 წთ  ·  გზამკვლევი'},
@@ -2718,7 +2718,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Խուսափել բուրավետ միջոցներից',
       'Ընտրել բամբակ',
     ],
-    relatedTitle: '♥  Ձեզ կարող է նաև հետաքրքրել',
+    relatedTitle: 'Ձեզ կարող է նաև հետաքրքրել',
     related: [
       {title: 'Հասկանալ դաշտանային ցավը', meta: '7 ր  ·  Ուղեցույց'},
       {title: 'Ձեր մարմնին հարմար պաշտպանության ընտրություն', meta: '5 ր  ·  Ուղեցույց'},
@@ -2768,7 +2768,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Аз маҳсулоти атрдор худдорӣ кунед',
       'Пахтаро интихоб кунед',
     ],
-    relatedTitle: '♥  Шояд ба шумо ҳам маъқул шавад',
+    relatedTitle: 'Шояд ба шумо ҳам маъқул шавад',
     related: [
       {title: 'Фаҳмидани дарди ҳайз', meta: '7 дақ  ·  Роҳнамо'},
       {title: 'Интихоби воситаи муҳофизати мувофиқ ба бадани шумо', meta: '5 дақ  ·  Роҳнамо'},
@@ -2818,7 +2818,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Жыттуу каражаттардан сактануу',
       'Пахтаны тандоо',
     ],
-    relatedTitle: '♥  Сизге дагы жагышы мүмкүн',
+    relatedTitle: 'Сизге дагы жагышы мүмкүн',
     related: [
       {title: 'Етек кирим оорусун түшүнүү', meta: '7 мүн  ·  Колдонмо'},
       {title: 'Денеңизге туура коргонууну тандоо', meta: '5 мүн  ·  Колдонмо'},
@@ -2868,7 +2868,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Ysly önümlerden gaça durmak',
       'Pagta saýlamak',
     ],
-    relatedTitle: '♥  Size ýarap biler',
+    relatedTitle: 'Size ýarap biler',
     related: [
       {title: 'Aýbaşy agyrysyny düşünmek', meta: '7 min  ·  Gollanma'},
       {title: 'Bedeniňize laýyk goranyş serişdesini saýlamak', meta: '5 min  ·  Gollanma'},
@@ -2918,7 +2918,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Elakkan produk berwangi',
       'Pilih kapas',
     ],
-    relatedTitle: '♥  Anda mungkin juga suka',
+    relatedTitle: 'Anda mungkin juga suka',
     related: [
       {title: 'Memahami sakit haid', meta: '7 min  ·  Panduan'},
       {title: 'Memilih perlindungan yang sesuai untuk tubuh anda', meta: '5 min  ·  Panduan'},
@@ -2968,7 +2968,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Ka fogow alaabta udgoon',
       'Dooro suufka',
     ],
-    relatedTitle: '♥  Waxaad sidoo kale jeclaan kartaa',
+    relatedTitle: 'Waxaad sidoo kale jeclaan kartaa',
     related: [
       {title: 'Fahamka xanuunka caadada', meta: '7 daq  ·  Hage'},
       {title: 'Doorashada ilaalinta ku habboon jidhkaaga', meta: '5 daq  ·  Hage'},
@@ -3018,7 +3018,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Epuka bidhaa zenye manukato',
       'Chagua pamba',
     ],
-    relatedTitle: '♥  Huenda pia ukapenda',
+    relatedTitle: 'Huenda pia ukapenda',
     related: [
       {title: 'Kuelewa maumivu ya hedhi', meta: 'Dakika 7  ·  Mwongozo'},
       {title: 'Kuchagua kinga inayofaa mwili wako', meta: 'Dakika 5  ·  Mwongozo'},
@@ -3068,7 +3068,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Хош иісті өнімдерден аулақ болу',
       'Мақтаны таңдау',
     ],
-    relatedTitle: '♥  Сізге де ұнауы мүмкін',
+    relatedTitle: 'Сізге де ұнауы мүмкін',
     related: [
       {title: 'Етеккір ауыруын түсіну', meta: '7 мин  ·  Нұсқаулық'},
       {title: 'Денеңізге сай қорғанысты таңдау', meta: '5 мин  ·  Нұсқаулық'},
@@ -3118,7 +3118,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Moytu jumtukaay yu xeeñ',
       'Tànn koton',
     ],
-    relatedTitle: '♥  Mën nga bëgg itam',
+    relatedTitle: 'Mën nga bëgg itam',
     related: [
       {title: 'Xam metitu règle', meta: '7 simili  ·  Ndigal'},
       {title: 'Tànn aar bu méngoo ak sa yaram', meta: '5 simili  ·  Ndigal'},
@@ -3168,7 +3168,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Guje wa kayayyaki masu ƙamshi',
       'Zaɓi auduga',
     ],
-    relatedTitle: '♥  Kila ma za ki so',
+    relatedTitle: 'Kila ma za ki so',
     related: [
       {title: 'Fahimtar ciwon haila', meta: 'minti 7  ·  Jagora'},
       {title: 'Zaɓar kariya mai dacewa da jikinki', meta: 'minti 5  ·  Jagora'},
@@ -3218,7 +3218,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ሽታ ያላቸውን ምርቶች ማስወገድ',
       'ጥጥ መምረጥ',
     ],
-    relatedTitle: '♥  ሊወዱትም ይችላሉ',
+    relatedTitle: 'ሊወዱትም ይችላሉ',
     related: [
       {title: 'የወር አበባ ህመምን መረዳት', meta: '7 ደቂቃ  ·  መመሪያ'},
       {title: 'ለሰውነትሽ ትክክለኛውን መከላከያ መምረጥ', meta: '5 ደቂቃ  ·  መመሪያ'},
@@ -3268,7 +3268,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Geparfumeerde producten vermijden',
       'Katoen kiezen',
     ],
-    relatedTitle: '♥  Misschien vind je dit ook leuk',
+    relatedTitle: 'Misschien vind je dit ook leuk',
     related: [
       {title: 'Menstruatiepijn begrijpen', meta: '7 min  ·  Gids'},
       {title: 'De juiste bescherming voor je lichaam kiezen', meta: '5 min  ·  Gids'},
@@ -3318,7 +3318,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Vältä hajustettuja tuotteita',
       'Valitse puuvilla',
     ],
-    relatedTitle: '♥  Saatat pitää myös näistä',
+    relatedTitle: 'Saatat pitää myös näistä',
     related: [
       {title: 'Kuukautiskivun ymmärtäminen', meta: '7 min  ·  Opas'},
       {title: 'Kehollesi sopivan suojan valinta', meta: '5 min  ·  Opas'},
@@ -3368,7 +3368,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Απόφυγε τα αρωματισμένα προϊόντα',
       'Επίλεξε βαμβάκι',
     ],
-    relatedTitle: '♥  Μπορεί επίσης να σου αρέσουν',
+    relatedTitle: 'Μπορεί επίσης να σου αρέσουν',
     related: [
       {title: 'Κατανοώντας τον εμμηνορροϊκό πόνο', meta: '7 λεπτά  ·  Οδηγός'},
       {title: 'Επιλέγοντας τη σωστή προστασία για το σώμα σου', meta: '5 λεπτά  ·  Οδηγός'},
@@ -3418,7 +3418,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'Iwasan ang mga produktong may pabango',
       'Pumili ng cotton',
     ],
-    relatedTitle: '♥  Maaaring magustuhan mo rin',
+    relatedTitle: 'Maaaring magustuhan mo rin',
     related: [
       {title: 'Pag-unawa sa sakit ng regla', meta: '7 min  ·  Gabay'},
       {title: 'Pagpili ng tamang proteksyon para sa iyong katawan', meta: '5 min  ·  Gabay'},
@@ -3468,7 +3468,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'வாசனைப் பொருட்களைத் தவிர்க்கவும்',
       'பருத்தியைத் தேர்ந்தெடுங்கள்',
     ],
-    relatedTitle: '♥  உங்களுக்குப் பிடிக்கக்கூடியவை',
+    relatedTitle: 'உங்களுக்குப் பிடிக்கக்கூடியவை',
     related: [
       {title: 'மாதவிடாய் வலியைப் புரிந்துகொள்ளுதல்', meta: '7 நிமிடம்  ·  வழிகாட்டி'},
       {title: 'உங்கள் உடலுக்குச் சரியான பாதுகாப்பைத் தேர்ந்தெடுத்தல்', meta: '5 நிமிடம்  ·  வழிகாட்டி'},
@@ -3518,7 +3518,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'సువాసన ఉత్పత్తులను తప్పించుకోండి',
       'కాటన్‌ను ఎంచుకోండి',
     ],
-    relatedTitle: '♥  మీకు ఇవి కూడా నచ్చవచ్చు',
+    relatedTitle: 'మీకు ఇవి కూడా నచ్చవచ్చు',
     related: [
       {title: 'నెలసరి నొప్పిని అర్థం చేసుకోవడం', meta: '7 ని  ·  గైడ్'},
       {title: 'మీ శరీరానికి సరైన రక్షణను ఎంచుకోవడం', meta: '5 ని  ·  గైడ్'},
@@ -3568,7 +3568,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'सुगंधी उत्पादने टाळा',
       'सुती कापड निवडा',
     ],
-    relatedTitle: '♥  तुम्हाला हे देखील आवडेल',
+    relatedTitle: 'तुम्हाला हे देखील आवडेल',
     related: [
       {title: 'पाळीतील वेदना समजून घेणे', meta: '7 मिनिटे  ·  मार्गदर्शक'},
       {title: 'तुमच्या शरीराला योग्य संरक्षण निवडणे', meta: '5 मिनिटे  ·  मार्गदर्शक'},
@@ -3618,7 +3618,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'સુગંધિત ઉત્પાદનો ટાળવા',
       'સુતરાઉ પસંદ કરવું',
     ],
-    relatedTitle: '♥  તમને આ પણ ગમી શકે',
+    relatedTitle: 'તમને આ પણ ગમી શકે',
     related: [
       {title: 'માસિકના દુખાવાને સમજવો', meta: '7 મિનિટ  ·  માર્ગદર્શિકા'},
       {title: 'તમારા શરીર માટે યોગ્ય સંરક્ષણ પસંદ કરવું', meta: '5 મિનિટ  ·  માર્ગદર્શિકા'},
@@ -3668,7 +3668,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ਖ਼ੁਸ਼ਬੂਦਾਰ ਉਤਪਾਦਾਂ ਤੋਂ ਬਚੋ',
       'ਸੂਤੀ ਕੱਪੜਾ ਚੁਣੋ',
     ],
-    relatedTitle: '♥  ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
+    relatedTitle: 'ਤੁਹਾਨੂੰ ਇਹ ਵੀ ਪਸੰਦ ਆ ਸਕਦਾ ਹੈ',
     related: [
       {title: 'ਮਾਹਵਾਰੀ ਦੇ ਦਰਦ ਨੂੰ ਸਮਝਣਾ', meta: '7 ਮਿੰਟ  ·  ਗਾਈਡ'},
       {title: 'ਆਪਣੇ ਸਰੀਰ ਲਈ ਸਹੀ ਬਚਾਅ ਵਾਲਾ ਸਾਮਾਨ ਚੁਣਨਾ', meta: '5 ਮਿੰਟ  ·  ਗਾਈਡ'},
@@ -3718,7 +3718,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ရနံ့ပါသော ထုတ်ကုန်များကို ရှောင်ပါ',
       'ချည်ထည်ကို ရွေးပါ',
     ],
-    relatedTitle: '♥  သင်နှစ်သက်နိုင်သည့် အခြားဆောင်းပါးများ',
+    relatedTitle: 'သင်နှစ်သက်နိုင်သည့် အခြားဆောင်းပါးများ',
     related: [
       {title: 'ရာသီလာချိန် နာကျင်ခြင်းကို နားလည်ခြင်း', meta: '7 မိနစ်  ·  လမ်းညွှန်'},
       {title: 'သင့်ခန္ဓာကိုယ်နှင့် သင့်လျော်သော ကာကွယ်ရေးပစ္စည်းကို ရွေးချယ်ခြင်း', meta: '5 မိနစ်  ·  လမ်းညွှန်'},
@@ -3768,7 +3768,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ជៀសវាងផលិតផលមានក្លិនក្រអូប',
       'ជ្រើសរើសសំឡីកប្បាស',
     ],
-    relatedTitle: '♥  អ្នកក៏អាចចូលចិត្ត',
+    relatedTitle: 'អ្នកក៏អាចចូលចិត្ត',
     related: [
       {title: 'ការយល់ដឹងអំពីការឈឺពោះរដូវ', meta: '7 នាទី  ·  មគ្គុទ្ទេសក៍'},
       {title: 'ការជ្រើសរើសគ្រឿងការពារដែលសមស្របនឹងរាងកាយរបស់អ្នក', meta: '5 នាទី  ·  មគ្គុទ្ទេសក៍'},
@@ -3818,7 +3818,7 @@ const CONTENT = withBrazilianPortuguese('FlowMenstrual', {
       'ຫຼີກລ່ຽງຜະລິດຕະພັນມີກິ່ນຫອມ',
       'ເລືອກຜ້າຝ້າຍ',
     ],
-    relatedTitle: '♥  ທ່ານອາດຈະມັກ',
+    relatedTitle: 'ທ່ານອາດຈະມັກ',
     related: [
       {title: 'ເຂົ້າໃຈອາການເຈັບທ້ອງປະຈຳເດືອນ', meta: '7 ນາທີ  ·  ຄູ່ມື'},
       {title: 'ເລືອກອຸປະກອນປ້ອງກັນທີ່ເໝາະກັບຮ່າງກາຍຂອງທ່ານ', meta: '5 ນາທີ  ·  ຄູ່ມື'},

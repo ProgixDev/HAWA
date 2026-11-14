@@ -6,8 +6,9 @@ import {useTranslation} from 'react-i18next';
 import '../i18n';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
-import {faqCategoryLabel, getCycleTrackingFaqItems, getFaqItems, getGuideItems} from '../utils/supportContent';
+import {faqCategoryLabel, getCuratedFaqItems, getCycleTrackingFaqItems, getFaqItems, getGuideItems} from '../utils/supportContent';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
+import {getActiveObjective} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {AwaCard} from '../components/ui/AwaCard';
@@ -39,10 +40,11 @@ export function FAQScreen({navigation}: NativeStackScreenProps<RootStackParamLis
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {t} = useTranslation();
-  const items = getActiveProfileIdentity().isManagedProfile ? getCycleTrackingFaqItems(t) : getFaqItems(t);
+  // The owner sees the questions about her own objective + a few general ones (9), not the whole catalogue; a question is shown on its
+  // own, without the extra descriptive line.
+  const items = getActiveProfileIdentity().isManagedProfile ? getCycleTrackingFaqItems(t) : getCuratedFaqItems(t, getActiveObjective());
   return (
     <Shell navigation={navigation} styles={styles} theme={theme} title={t('help.faqScreen.title')}>
-      <AwaText colorRole="onSurfaceVariant" style={styles.intro} variant="bodyMedium">{t('help.faqScreen.intro')}</AwaText>
       <AwaCard padding="none" variant="filled">
         {items.map((item, index) => (
           <AwaInfoRow
@@ -51,7 +53,6 @@ export function FAQScreen({navigation}: NativeStackScreenProps<RootStackParamLis
             key={item.id}
             last={index === items.length - 1}
             onPress={() => navigation.navigate('FAQDetail', {id: item.id})}
-            subtitle={item.subtitle}
             title={item.question}
           />
         ))}

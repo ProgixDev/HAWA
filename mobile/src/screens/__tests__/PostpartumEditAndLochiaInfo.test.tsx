@@ -14,6 +14,7 @@ import PostpartumDeliveryTypeScreen from '../PostpartumDeliveryTypeScreen';
 import PostpartumLochiaScreen from '../PostpartumLochiaScreen';
 import PostpartumCycleReturnScreen from '../PostpartumCycleReturnScreen';
 import ProfileScreen from '../ProfileScreen';
+import {openProfileObjectiveSheet} from './profileObjectiveSheet';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {
@@ -278,6 +279,7 @@ describe('D — edit mode returns to the normal app flow', () => {
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
     await act(async () => {
       button(renderer, title).props.onPress();
     });

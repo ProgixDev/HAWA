@@ -13,6 +13,7 @@ import MiscarriageCycleReturnScreen from '../MiscarriageCycleReturnScreen';
 import MiscarriageTryingAgainScreen from '../MiscarriageTryingAgainScreen';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import ProfileScreen from '../ProfileScreen';
+import {openProfileObjectiveSheet} from './profileObjectiveSheet';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {getActiveObjective, setActiveObjective, setSelectedObjective} from '../../state/onboardingPreferences';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
@@ -322,6 +323,7 @@ describe('H12 — entry points', () => {
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
 
     const texts = textsOf(renderer);
     expect(texts).toContain('Actuellement : Variable');
@@ -333,8 +335,12 @@ describe('H12 — entry points', () => {
       ['Retour du cycle', 'MiscarriageCycleReturn'],
       ['Reprise des essais', 'MiscarriageTryingAgain'],
     ];
-    for (const [title, route] of cases) {
+    for (const [index, [title, route]] of cases.entries()) {
       navigate.mockClear();
+      // pressing a row closes the sheet: reopen it for the next one
+      if (index > 0) {
+        await openProfileObjectiveSheet(renderer);
+      }
       await act(async () => {
         button(renderer, title).props.onPress();
       });
@@ -365,6 +371,7 @@ describe('H12 — entry points', () => {
     });
     activeRenderers.push(renderer);
     await settle();
+    await openProfileObjectiveSheet(renderer);
     expect(textsOf(renderer).some(text => text.startsWith('Actuellement :'))).toBe(false);
     await act(async () => {
       await setSelectedObjective('cycle');

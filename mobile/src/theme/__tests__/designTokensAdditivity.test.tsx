@@ -50,7 +50,7 @@ describe('the existing theme layer is unchanged', () => {
     expect(Object.keys(spacingModule).sort()).toEqual(
       [
         'READING_CONTROLS_SPACE', 'TOP_SPACING_EXTRA', 'TOP_SPACING_EXTRA_COMPACT', 'getBottomPadding',
-        'getFloatingTabBarClearance', 'getTopPadding', 'spacing',
+        'getAuthTopPadding', 'getFloatingTabBarClearance', 'getTopPadding', 'spacing',
       ].sort(),
     );
     expect(spacingModule.spacing).toEqual({xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48});

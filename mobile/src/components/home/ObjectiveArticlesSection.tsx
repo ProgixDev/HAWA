@@ -34,9 +34,7 @@ type Props = {
   onSeeAll: () => void;
 };
 
-function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color, tile}: {
-  /** Puts the icon in a soft rounded tile (the "Derniers articles" header). */
-  tile?: boolean;
+function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color}: {
   title: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   onSeeAll: () => void;
@@ -46,13 +44,7 @@ function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color, tile}
 }) {
   return (
     <View style={styles.header}>
-      {tile ? (
-        <View style={styles.iconTile}>
-          <MaterialDesignIcons color={color} name={icon} size={24} />
-        </View>
-      ) : (
-        <MaterialDesignIcons color={color} name={icon} size={28} />
-      )}
+      <MaterialDesignIcons color={color} name={icon} size={28} />
       <Text accessibilityRole="header" adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={styles.headerTitle}>{title}</Text>
       <View style={styles.seeAll}>
         <AwaButton hitSlop={8} label={seeAllLabel} onPress={onSeeAll} size="compact" variant="text" />
@@ -121,7 +113,6 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onOpenCategory, onS
             onSeeAll={onSeeAll}
             seeAllLabel={seeAll}
             styles={styles}
-            tile
             title={t('objectiveArticles.latestTitle')}
           />
 
@@ -161,7 +152,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     // the bottom margin keeps the last card clear of the raised "+" button of the floating tab bar
     root: {marginTop: 24, marginBottom: 24},
     header: {flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 4},
-    iconTile: {width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.colors.primary, 0.18)},
     seeAll: {flexShrink: 0, flexDirection: 'row', alignItems: 'center', marginRight: -4},
     headerTitle: {flex: 1, flexShrink: 1, minWidth: 0, color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 19, lineHeight: 26, fontWeight: '600'},
 
