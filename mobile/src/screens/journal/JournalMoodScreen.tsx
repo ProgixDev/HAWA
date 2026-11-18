@@ -352,7 +352,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   // A section title with no icon before it ("Niveaux du jour"): it starts at the card's own padding edge.
   sectionTitleFlush: {color: theme.colors.accent, fontSize: 15.5, fontWeight: '700'},
   moodGrid: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8},
-  moodCard: {width: '18.2%', minWidth: 67, minHeight: 88, alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 4, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary},
+  moodCard: {width: '30.5%', minWidth: 0, minHeight: 88, alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 4, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 12, backgroundColor: theme.colors.surfaceSecondary},
   moodCardSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
   // The line icon sits directly on the card (no circular badge).
   moodIcon: {marginBottom: 4},

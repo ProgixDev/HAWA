@@ -53,6 +53,7 @@ import {presentSaveFailure} from '../services/saveFailure';
 import {AwaCard} from '../components/ui/AwaCard';
 import {AwaIconButton} from '../components/ui/AwaIconButton';
 import {AwaText} from '../components/ui/AwaText';
+import {hourUnit} from '../utils/durationUnits';
 
 // Single generic entry screen for all 5 Postpartum daily-tracking categories
 // — reached from BOTH the shared "Journal quotidien" sheet AND the
@@ -938,7 +939,7 @@ function SleepContent({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const durationLabel =
-    duration !== null ? `${String(duration).replace('.', ',')} h` : '— h';
+    duration !== null ? `${String(duration).replace('.', ',')} ${hourUnit()}` : `— ${hourUnit()}`;
   return (
     <>
       <PostpartumJournalCard icon="weather-night" title={t('postpartumJournalEntry.sleep.durationTitle')}>

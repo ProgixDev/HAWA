@@ -581,6 +581,16 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               onSeeAll={() => navigation.navigate('Library')}
             />
           ) : null}
+          {/* The daughter's "Derniers articles": the same block as the main account's, fed by the first-period articles of the main library only. */}
+          {activeIdentity.isManagedProfile ? (
+            <ObjectiveArticlesSection
+              objective="cycle"
+              onlyCategoryId="firstPeriod"
+              onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onOpenCategory={categoryId => navigation.navigate('Library', {categoryId})}
+              onSeeAll={() => navigation.navigate('Library', {categoryId: 'firstPeriod'})}
+            />
+          ) : null}
           {/* "Découvrir": AWA pour ma fille / AWA pour mon mari */}
           <DiscoverSection />
         </ScrollView>

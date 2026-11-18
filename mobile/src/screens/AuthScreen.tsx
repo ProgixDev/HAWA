@@ -21,7 +21,20 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
+import {
+  getHasCompletedOnboarding,
+  hydrateHasCompletedOnboarding,
+  setHasCompletedOnboarding,
+} from '../state/onboardingPreferences';
+import {LOCAL_ACCOUNT_ID, getActiveAccountId, isSignedOut, whenAccountScopeReady} from '../state/accountScope';
+import {
+  activateProfile,
+  findLocalAccount,
+  isPlausibleEmail,
+  listLocalAccounts,
+  type LocalAccount,
+} from '../state/localAccounts';
+import {presentSaveFailure} from '../services/saveFailure';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getAuthTopPadding} from '../theme/spacing';
@@ -75,18 +88,70 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
 
   const overflows = contentHeight > viewportHeight + 1 && viewportHeight > 0;
 
-  // TEMP FRONTEND-ONLY AUTH BYPASS:
-  // Replace with real authentication once backend auth is connected. The single place "Se connecter" and "Continuer sans compte" enter
-  // the main app. An account is optional: nothing here creates one. Entering the app is the end of onboarding, so it is recorded here
-  // (state/onboardingPreferences.ts), otherwise the next launch would show Welcome again. emailError/passwordError state (and the
-  // field/JSX that renders them) are left in place, unused for now, so real validation drops back in cleanly once a backend exists.
+  // LOCAL PROFILES, NOT ONLINE ACCOUNTS (state/localAccounts.ts): nothing is sent anywhere, the e-mail is not verified and no password is
+  // checked. "Se connecter" opens a profile that already exists on THIS phone; "Continuer sans compte" opens the original profile (the data AWA
+  // already had). Entering the app is the end of onboarding for the profile in force, so it is recorded here (state/onboardingPreferences.ts) —
+  // otherwise the next launch would show Welcome again.
+  const [profiles, setProfiles] = useState<LocalAccount[]>([]);
+  const [busy, setBusy] = useState(false);
+
   const enterMainApp = () => {
     setHasCompletedOnboarding(true).catch(() => {});
     navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
-  const submit = () => {
-    enterMainApp();
+  // The end of the questionnaire of a profile that was just created lands here with that profile already active: nothing left to ask, enter.
+  useEffect(() => {
+    let cancelled = false;
+    whenAccountScopeReady()
+      .then(() => hydrateHasCompletedOnboarding())
+      .then(() => {
+        if (!cancelled && !isSignedOut() && getActiveAccountId() !== LOCAL_ACCOUNT_ID && !getHasCompletedOnboarding()) {
+          enterMainApp();
+        }
+      })
+      .catch(() => {});
+    listLocalAccounts().then(list => {
+      if (!cancelled) {setProfiles(list);}
+    });
+    return () => {cancelled = true;};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Makes `target` the active profile (every in-memory store re-reads its records), then opens its own main app or its own questionnaire.
+  const openProfile = async (target: string) => {
+    if (busy) {return;}
+    setBusy(true);
+    try {
+      await activateProfile(target);
+      const completed = await hydrateHasCompletedOnboarding();
+      if (target === LOCAL_ACCOUNT_ID) {
+        enterMainApp();
+      } else if (completed) {
+        navigation.reset({index: 0, routes: [{name: 'MainTabs', params: {screen: 'CycleHome'}}]});
+      } else {
+        navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
+      }
+    } catch (error) {
+      presentSaveFailure(error);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const submit = async () => {
+    setInfoMessage('');
+    if (!isPlausibleEmail(email)) {
+      setEmailError(t('auth.localProfiles.invalidEmail', {defaultValue: 'Saisis une adresse e-mail valide.'}));
+      return;
+    }
+    setEmailError('');
+    const account = await findLocalAccount(email);
+    if (!account) {
+      setEmailError(t('auth.localProfiles.unknownEmail', {defaultValue: 'Aucun profil local avec cet e-mail sur ce téléphone. Crée-en un d’abord.'}));
+      return;
+    }
+    await openProfile(account.id);
   };
 
   const withoutAccountLabel = t('auth.shared.continueWithoutAccount', {defaultValue: 'Continuer sans compte'});
@@ -221,7 +286,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   fullWidth
                   label={mode === 'login' ? t('auth.login.submit') : t('auth.shared.createAccount')}
                   minHeight={44}
-                  onPress={submit}
+                  onPress={() => {submit().catch(presentSaveFailure);}}
                 />
 
                 {infoMessage ? (
@@ -270,10 +335,29 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   fullWidth
                   label={withoutAccountLabel}
                   minHeight={44}
-                  onPress={enterMainApp}
+                  onPress={() => openProfile(LOCAL_ACCOUNT_ID)}
                   style={styles.skip}
                   variant="tonal"
                 />
+
+                {profiles.length > 0 ? (
+                  <View style={styles.profileList}>
+                    <AwaText colorRole="onSurfaceVariant" variant="labelMedium">
+                      {t('auth.localProfiles.selectorTitle', {defaultValue: 'Profils sur cet appareil'})}
+                    </AwaText>
+                    {profiles.map(profile => (
+                      <AwaButton
+                        accessibilityLabel={profile.label}
+                        key={profile.id}
+                        label={profile.label}
+                        minHeight={40}
+                        onPress={() => openProfile(profile.id)}
+                        size="compact"
+                        variant="outlined"
+                      />
+                    ))}
+                  </View>
+                ) : null}
               </View>
             </View>
 
@@ -485,6 +569,11 @@ function createStyles(theme: ResolvedAwaTheme, roles: AwaRoles, dense: boolean, 
     // set apart from the social buttons so "Continuer sans compte" sits lower
     skip: {
       marginTop: gap + (dense ? 12 : 36),
+    },
+
+    profileList: {
+      marginTop: gap,
+      gap: 6,
     },
 
     legal: {

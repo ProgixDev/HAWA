@@ -44,6 +44,7 @@ import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
+import {formatHoursMinutes} from '../../utils/durationUnits';
 
 // Category E — fixed visual island: this hero uses a real illustration
 // (sleep-header-woman.png) with overlay text hand-calibrated for contrast
@@ -135,9 +136,7 @@ function durationBetween(
 
   return {
     minutes,
-    label: `${Math.floor(minutes / 60)} h ${String(
-      minutes % 60,
-    ).padStart(2, '0')} min`,
+    label: formatHoursMinutes(minutes),
   };
 }
 

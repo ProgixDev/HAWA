@@ -356,12 +356,14 @@ function ChoiceTile({
   onPress,
   selected,
   tone = ACCENT,
+  twoPerRow = false,
 }: {
   icon: IconName;
   label: string;
   onPress: () => void;
   selected: boolean;
   tone?: string;
+  twoPerRow?: boolean;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -373,6 +375,7 @@ function ChoiceTile({
       onPress={onPress}
       style={({pressed}) => [
         styles.choiceTile,
+        twoPerRow && styles.choiceTileTwoPerRow,
         selected && {
           borderColor: `${tone}55`,
           backgroundColor: `${tone}0B`,
@@ -1592,6 +1595,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       index,
                     ) => (
                       <ChoiceTile
+                        twoPerRow
                         icon={
                           index === 0
                             ? 'battery-high'
@@ -2052,6 +2056,9 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderRadius: 20,
   },
+
+  // Four options laid out 2 x 2 (the default 22% basis wraps them 3 + 1 on a narrow phone).
+  choiceTileTwoPerRow: {flexBasis: '45%', minWidth: 0},
 
   choiceTileText: {
     color: theme.colors.text,

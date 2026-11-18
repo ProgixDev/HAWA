@@ -17,7 +17,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing} from '../theme/spacing';
 import {typography} from '../theme/typography';
 import {requiresAppLock} from '../state/securityPreferences';
-import {lockApp} from '../state/appLockStore';
+import {getAppLockState, lockApp} from '../state/appLockStore';
+import {isSignedOut, whenAccountScopeReady} from '../state/accountScope';
 import {hydrateHasCompletedOnboarding} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -89,14 +90,19 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
 
     let cancelled = false;
     const timer = setTimeout(async () => {
+      await whenAccountScopeReady();
       const completed = await completionHydration;
       if (cancelled) {return;}
-      if (requiresAppLock()) {lockApp();}
+      // App.tsx already locks at cold start. Re-locking here after the person typed her PIN during the 5 s splash asked for it twice.
+      if (requiresAppLock() && getAppLockState() === 'booting') {lockApp();}
       // A returning user who already finished onboarding once never sees
       // Welcome/onboarding again — goes straight into the app (App Lock, if
       // required, still applies on top via requiresAppLock()/lockApp() above,
       // unchanged ordering/behavior).
-      if (completed) {
+      // After "Se déconnecter" nobody is signed in: the next launch opens the sign-in screen, it never reconnects the previous profile.
+      if (isSignedOut()) {
+        navigation.replace('Auth');
+      } else if (completed) {
         navigation.replace('MainTabs', {screen: 'CycleHome'});
       } else {
         navigation.replace('Welcome');

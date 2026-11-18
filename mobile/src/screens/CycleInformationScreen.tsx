@@ -18,6 +18,8 @@ import {
   correctPeriodOccurrence,
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getHasCompletedOnboarding,
+  getHasExplicitPeriodDuration,
   getPeriodEndDateTime,
   getSelectedObjective,
   setCyclePreferences,
@@ -28,6 +30,7 @@ import {
   removeConfirmedPeriodOccurrence,
 } from '../state/confirmedPeriodHistoryStore';
 import {startOfDay, dateFormatLocale} from '../utils/cycleMath';
+import {isDefaultLocalProfile} from '../state/accountScope';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -213,6 +216,9 @@ const formatDate = (date: Date) =>
 const localDateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
+/** True while a local profile OTHER than the original one is still answering its onboarding questionnaire. */
+const isOnboardingOfAnotherLocalProfile = (): boolean => !isDefaultLocalProfile() && !getHasCompletedOnboarding();
+
 function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
@@ -253,6 +259,8 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const [datePicker, setDatePicker] = useState<DatePickerTarget>(null);
   const [durationPicker, setDurationPicker] = useState<DurationPicker>(null);
   const [periodDuration, setPeriodDuration] = useState(() => initialCyclePreferences.periodDuration);
+  // The usual period length counts as entered / confirmed only once she picks it here (or already did before): saving the proposed 5 days does not.
+  const [periodDurationPicked, setPeriodDurationPicked] = useState(getHasExplicitPeriodDuration);
   const [cycleDuration, setCycleDuration] = useState(() => initialCyclePreferences.cycleDuration);
   const [regularity, setRegularity] = useState<Regularity>(() => initialCyclePreferences.regularity);
   const [errors, setErrors] = useState<{start?: string; end?: string}>({});
@@ -305,6 +313,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const selectDuration = (duration: number) => {
     if (durationPicker === 'period') {
       setPeriodDuration(duration);
+      setPeriodDurationPicked(true);
     } else {
       setCycleDuration(duration);
     }
@@ -331,7 +340,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       // everything derived (predictions, statistics) recomputes from the
       // existing store subscriptions.
       try {
-        await setCyclePreferences({...getCyclePreferences(), periodDuration, cycleDuration, regularity});
+        await setCyclePreferences({...getCyclePreferences(), periodDuration, cycleDuration, regularity}, {periodDurationExplicit: periodDurationPicked});
       } catch (saveError) {
         // Not persisted (services/saveFailure.ts): stay here with the values intact, no navigation.
         presentSaveFailure(saveError);
@@ -384,7 +393,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         localDateKey(previousActualStart) !== localDateKey(actualPeriodStart);
       let corrected = false;
       if (isStartCorrection) {
-        await setCyclePreferences({lastPeriodStart: previousActualStart, periodDuration, cycleDuration, regularity});
+        await setCyclePreferences({lastPeriodStart: previousActualStart, periodDuration, cycleDuration, regularity}, {periodDurationExplicit: periodDurationPicked});
         try {
           await correctPeriodOccurrence(previousActualStart, actualPeriodStart);
           corrected = true;
@@ -395,7 +404,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         }
       }
       if (!corrected) {
-        await setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
+        await setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity}, {periodDurationExplicit: periodDurationPicked});
       }
 
       if (periodTerminated === 'yes' && actualPeriodEnd) {
@@ -405,9 +414,15 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         // history and the Purity/prayer feature both immediately agree this
         // period is over, with no separate/duplicate Ramadan or Qadaa logic.
         await setPeriodEndDateTime(actualPeriodEnd);
-        await recordConfirmedPeriodEnd(actualPeriodStart, actualPeriodEnd);
-        if (localDateKey(previousActualStart) !== localDateKey(actualPeriodStart)) {
-          await removeConfirmedPeriodOccurrence(previousActualStart);
+        // The questionnaire of a local profile other than the original one is an INITIALISATION, not a medical event: it must not append to — or
+        // remove from — the confirmed-period history shared by every profile of this device (the original profile's history stays untouched).
+        // Her answers are kept in her own (profile-scoped) cycle preferences and period end; a genuine confirmation made later, once her onboarding
+        // is complete, is recorded normally.
+        if (!isOnboardingOfAnotherLocalProfile()) {
+          await recordConfirmedPeriodEnd(actualPeriodStart, actualPeriodEnd);
+          if (localDateKey(previousActualStart) !== localDateKey(actualPeriodStart)) {
+            await removeConfirmedPeriodOccurrence(previousActualStart);
+          }
         }
       } else {
         // "Non": the CURRENT period's end-state must never be described by

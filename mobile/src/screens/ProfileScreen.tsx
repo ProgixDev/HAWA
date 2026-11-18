@@ -163,6 +163,7 @@ import {AwaText} from '../components/ui/AwaText';
 import '../i18n';
 import {upperCaseFor} from '../utils/textCase';
 import {presentSaveFailure} from '../services/saveFailure';
+import {signOutLocalProfile} from '../state/localAccounts';
 
 // Default illustration for a managed (daughter) profile row in "Gérer les profils"
 // when she has no custom photo yet — same asset as the managed-profile creation flow
@@ -864,7 +865,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   };
   const savePeriodDuration = async () => {
     try {
-      await setCyclePreferences({...cycle, periodDuration: draftPeriodDuration});
+      await setCyclePreferences({...cycle, periodDuration: draftPeriodDuration}, {periodDurationExplicit: true});
     } catch (saveError) {
       presentSaveFailure(saveError);
       return;
@@ -1248,16 +1249,23 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     setLogoutDialogVisible(false);
     lockIntimacy();
 
-    navigation
-      .getParent<NativeStackNavigationProp<RootStackParamList>>()
-      ?.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'Auth',
-          },
-        ],
-      });
+    // The session is cleared (saved information of every local profile stays) and the stores forget the profile that was open, THEN the
+    // navigation goes back to the sign-in screen. Reopening the app lands there too: it never reconnects the previous profile by itself.
+    // A failed save keeps the person where she is (the session is still the previous one): she is told, and can try again.
+    signOutLocalProfile()
+      .then(() => {
+        navigation
+          .getParent<NativeStackNavigationProp<RootStackParamList>>()
+          ?.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'Auth',
+              },
+            ],
+          });
+      })
+      .catch(error => presentSaveFailure(error));
   };
 
   return (

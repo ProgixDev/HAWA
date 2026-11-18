@@ -365,7 +365,8 @@ export default function AppLockScreen(): React.JSX.Element {
               ERROR
           ================================================== */}
 
-          {shownError ? (
+          {/* The PIN keypad shows the same message right above the digits: no second banner while it is on screen. */}
+          {shownError && !(showPin && pinEnabled) ? (
             <View
               accessibilityRole="alert"
               style={

@@ -87,6 +87,7 @@ import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaIconButton} from '../../components/ui/AwaIconButton';
 import {AwaText} from '../../components/ui/AwaText';
 import {AwaTextField} from '../../components/ui/AwaTextField';
+import {hourUnit} from '../../utils/durationUnits';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type RouteProps = RouteProp<RootStackParamList, 'MenopauseJournalEntry'>;
@@ -833,10 +834,9 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         />
         {visibleSymptomOptions.length > 0 ? (
           <>
-            <ChoiceGrid third>
+            <ChoiceGrid>
               {visibleSymptomOptions.map(option => (
                 <SelectableIconCard
-                  compact
                   icon={option.icon}
                   iconColor={option.iconColor}
                   key={option.id}
@@ -950,7 +950,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               style={styles.durationInput}
               value={sleepDuration}
             />
-            <AwaText variant="titleSmall" style={styles.durationSuffix}>h</AwaText>
+            <AwaText variant="titleSmall" style={styles.durationSuffix}>{hourUnit()}</AwaText>
           </View>
           <AwaIconButton
             accessibilityLabel={t('menopauseJournalEntry.sleep.increaseAccessibility')}

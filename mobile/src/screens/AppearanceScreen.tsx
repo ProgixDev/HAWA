@@ -1080,7 +1080,7 @@ function LanguageBottomSheet({
   }, [visible, currentLanguage]);
 
   return (
-    <Modal animationType="slide" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
+    <Modal animationType="slide" navigationBarTranslucent onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <View style={styles.langSheetRoot}>
         <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.langSheetBackdrop} />
 

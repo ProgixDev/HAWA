@@ -47,6 +47,7 @@ import {
 import '../../i18n';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaText} from '../../components/ui/AwaText';
+import {hourUnit} from '../../utils/durationUnits';
 
 type PeriodOption = {key: '1m' | '3m' | '6m' | '12m'; label: string; months: number};
 
@@ -394,7 +395,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
               <View style={styles.overviewGrid}>
                 <OverviewTile icon="calendar-check-outline" label={t('menopauseStatistics.overview.daysTracked')} value={String(daysTracked)} />
                 <OverviewTile icon="clipboard-pulse-outline" label={t('menopauseStatistics.overview.daysWithSymptoms')} value={String(totalSymptomEntries)} />
-                <OverviewTile icon="weather-night" label={t('menopauseStatistics.overview.averageSleep')} value={averageSleep !== null ? `${averageSleep.toFixed(1)} h` : '—'} />
+                <OverviewTile icon="weather-night" label={t('menopauseStatistics.overview.averageSleep')} value={averageSleep !== null ? `${averageSleep.toFixed(1)} ${hourUnit()}` : '—'} />
                 {showTreatment ? <OverviewTile icon="pill" label={t('menopauseStatistics.overview.treatmentTracked')} value={String(treatmentEntries.length)} /> : null}
               </View>
             </AwaCard>
@@ -491,7 +492,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
               <AwaText variant="titleMedium" style={styles.cardTitle}>{t('menopauseStatistics.sleep.cardTitle')}</AwaText>
               <View style={styles.statRowPlain}>
                 <AwaText variant="labelMedium" style={styles.statLabel}>{t('menopauseStatistics.sleep.averageLabel')}</AwaText>
-                <AwaText variant="labelMedium" style={styles.statValue}>{averageSleep !== null ? `${averageSleep.toFixed(1)} h` : t('menopauseStatistics.sleep.notProvided')}</AwaText>
+                <AwaText variant="labelMedium" style={styles.statValue}>{averageSleep !== null ? `${averageSleep.toFixed(1)} ${hourUnit()}` : t('menopauseStatistics.sleep.notProvided')}</AwaText>
               </View>
               {showLongitudinalView ? (
                 sleepMonthlyTrend.length < 2 ? (

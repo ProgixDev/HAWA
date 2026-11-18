@@ -26,16 +26,20 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import NextPrayerCard from '../components/prayer/NextPrayerCard';
 import PurityStatusCard from '../components/prayer/PurityStatusCard';
+import {getConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
 import PrayerScheduleList from '../components/prayer/PrayerScheduleList';
 import PeriodEndBottomSheet from '../components/prayer/PeriodEndBottomSheet';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
-import {capitalize, dateFormatLocale, formatFullDate, formatHijriDate} from '../utils/cycleMath';
+import {capitalize, dateFormatLocale, formatFullDate, formatHijriDate, predictedPeriodEndDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {objectiveShowsMenstrualPurity} from '../utils/spiritualObjectiveScope';
 import {displayUpperCase} from '../utils/textCase';
 import {
   getActiveObjective,
+  getHasExplicitPeriodDuration,
+  getHasRecordedFirstPeriod,
   getHijriAdjustmentDays,
+  getRecordedPeriodHistory,
   setHijriAdjustmentDays,
   subscribeHijriAdjustmentDays,
   type HijriAdjustmentDays,
@@ -86,6 +90,19 @@ function PrayerTimesScreen(): React.JSX.Element {
     nextWindow,
     refresh,
   } = usePrayerPurityStatus();
+
+  // Estimated end of the period in progress: only while she is declared menstruating, and only when it is a trustworthy forecast (see predictedPeriodEndDate).
+  const expectedPeriodEnd = useMemo(
+    () =>
+      purityResult.status === 'menstruating' && getHasRecordedFirstPeriod()
+        ? predictedPeriodEndDate(cyclePreferences, cyclePreferences.regularity, getRecordedPeriodHistory(), now, {
+            durationExplicit: getHasExplicitPeriodDuration(),
+            periodEndDateTime,
+            confirmedStartKeys: getConfirmedPeriodHistory().map(occurrence => occurrence.id),
+          })
+        : null,
+    [cyclePreferences, now, periodEndDateTime, purityResult.status],
+  );
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -179,6 +196,7 @@ function PrayerTimesScreen(): React.JSX.Element {
               error={error}
               loading={loading}
               onEdit={() => setSheetVisible(true)}
+              expectedEnd={expectedPeriodEnd}
               periodEndDateTime={periodEndDateTime}
               result={purityResult}
               timezone={schedule?.timezone}
@@ -283,6 +301,7 @@ function PrayerTimesScreen(): React.JSX.Element {
 
       <Modal
         animationType="slide"
+        navigationBarTranslucent
         onRequestClose={() => setHijriInfoVisible(false)}
         statusBarTranslucent
         transparent

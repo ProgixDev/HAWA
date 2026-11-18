@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getAuthTopPadding} from '../theme/spacing';
 import {updatePersonalInformation} from '../state/personalInformationStore';
-import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
+import {activateProfile, createLocalAccount, isPlausibleEmail} from '../state/localAccounts';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import type {AwaRoles} from '../theme/semanticRoles';
@@ -36,7 +36,7 @@ function Field({icon, label, placeholder, value, onChangeText, secure, visible, 
   return <View>
     <View style={[styles.field, error || invalid ? styles.fieldError : null]}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
-      <TextInput accessibilityLabel={label} autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} maxFontSizeMultiplier={1.2} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} secureTextEntry={secure && !visible} selectionColor={theme.colors.primary} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} />
+      <TextInput accessibilityLabel={label} autoCapitalize={keyboardType === 'email-address' || secure ? 'none' : 'words'} keyboardType={keyboardType} maxFontSizeMultiplier={1.2} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} secureTextEntry={secure && !visible} selectionColor={theme.colors.primary} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} />
       {secure && <AwaIconButton accessibilityLabel={t('auth.registration.toggleVisibilityLabel', {action: toggleAction, label})} accessibilityRole="button" icon={visible ? 'eye-outline' : 'eye-off-outline'} iconSize={18} onPress={onToggle} size="small" />}
     </View>
     {error ? <Text style={styles.fieldErrorText}>{error}</Text> : null}
@@ -52,7 +52,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   // same breakpoint as AuthScreen, so the two forms keep the same spacing and field height
   const dense = height < 700 || width < 360 || fontScale > 1.15;
   const styles = useMemo(() => createStyles(theme, roles, dense), [theme, roles, dense]);
-  const [firstName, setFirstName] = useState(''); const [lastName, setLastName] = useState(''); const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState(''); const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState(''); const [confirmVisible, setConfirmVisible] = useState(false);
   // The whole form fits on one page: the page only scrolls while the keyboard is open, or if the content still does not fit (small phone,
@@ -77,34 +77,37 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const rules = useMemo(() => [{label: t('auth.registration.ruleMinLength'), valid: password.length >= 8}, {label: t('auth.registration.ruleDigit'), valid: /\d/.test(password)}, {label: t('auth.registration.ruleUppercase'), valid: /[A-Z]/.test(password)}, {label: t('auth.registration.ruleSpecialChar'), valid: /[^A-Za-z0-9]/.test(password)}], [password, t]);
   const allRulesValid = rules.every(rule => rule.valid);
 
-  // TEMP FRONTEND-ONLY AUTH BYPASS:
-  // Replace with real authentication once backend auth is connected. The single place the final "Créer mon compte" CTA enters the main
-  // app. Entering the app is the end of onboarding, so it is recorded here (otherwise the next launch would show Welcome again).
-  // emailError/passwordError state (and the Field/JSX that render them) are left in place, unused for now, so real validation drops
-  // back in cleanly once a backend exists.
-  const enterMainApp = () => {
-    setHasCompletedOnboarding(true).catch(() => {});
-    navigation.replace('MainTabs', {screen: 'CycleHome'});
-  };
-
+  // LOCAL PROFILE, NOT AN ONLINE ACCOUNT (state/localAccounts.ts): "Créer mon compte" registers a profile on THIS phone only — nothing is sent, the
+  // e-mail is not verified, the password is not stored or checked. The new profile starts with its OWN, empty onboarding (the questionnaire is shown
+  // again and its answers are kept apart from every other profile's); the data of the original profile stays untouched and reachable through
+  // "Continuer sans compte" on the sign-in screen.
   const handleSubmit = async () => {
     if (submitting || confirmMismatch) {return;}
 
     try {
       setSubmitting(true);
+      if (!isPlausibleEmail(email)) {
+        setEmailError(t('auth.localProfiles.invalidEmail', {defaultValue: 'Saisis une adresse e-mail valide.'}));
+        return;
+      }
+      const created = await createLocalAccount(email);
+      if (!created.ok) {
+        setEmailError(
+          created.reason === 'exists'
+            ? t('auth.localProfiles.alreadyExists', {defaultValue: 'Un profil local existe déjà avec cet e-mail sur ce téléphone. Connecte-toi.'})
+            : t('auth.localProfiles.invalidEmail', {defaultValue: 'Saisis une adresse e-mail valide.'}),
+        );
+        return;
+      }
+      // Her first name belongs to the NEW profile: it is saved after that profile is active, never into the previous profile's record.
+      await activateProfile(created.account.id);
       const trimmedFirstName = firstName.trim();
-      const trimmedLastName = lastName.trim();
-      // Only persists her chosen name (same canonical store
-      // NameOnboardingScreen/PersonalInformationScreen use).
-      if (trimmedFirstName || trimmedLastName) {
-        await updatePersonalInformation({
-          ...(trimmedFirstName ? {firstName: trimmedFirstName} : {}),
-          ...(trimmedLastName ? {lastName: trimmedLastName} : {}),
-        });
+      if (trimmedFirstName) {
+        await updatePersonalInformation({firstName: trimmedFirstName});
       }
       // TODO(backend): attach the data already on the phone to the new account (does nothing today).
       await syncLocalDataToAccount();
-      enterMainApp();
+      navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
     } catch (saveError) {
       presentSaveFailure(saveError);
     } finally {
@@ -130,7 +133,6 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       </View>
       <View style={styles.form}>
         <Field icon="account-outline" label={t('auth.registration.firstNameLabel')} onChangeText={setFirstName} placeholder={t('auth.registration.firstNameLabel')} styles={styles} t={t} theme={theme} value={firstName} />
-        <Field icon="account-outline" label={t('auth.registration.lastNameLabel')} onChangeText={setLastName} placeholder={t('auth.registration.lastNameLabel')} styles={styles} t={t} theme={theme} value={lastName} />
         <Field error={emailError} icon="email-outline" keyboardType="email-address" label={t('auth.registration.emailLabel')} onChangeText={value => {setEmail(value); setEmailError(''); setInfoMessage('');}} placeholder={t('auth.login.emailPlaceholder')} styles={styles} t={t} theme={theme} value={email} />
         <Field error={passwordError} icon="lock-outline" label={t('auth.registration.passwordLabel')} onChangeText={value => {setPassword(value); setPasswordError(''); setInfoMessage('');}} onToggle={() => setPasswordVisible(v => !v)} placeholder={t('auth.login.passwordPlaceholder')} secure styles={styles} t={t} theme={theme} value={password} visible={passwordVisible} />
         <Field icon="lock-check-outline" invalid={confirmMismatch} label={t('auth.registration.confirmPasswordLabel')} onChangeText={setConfirmPassword} onToggle={() => setConfirmVisible(v => !v)} placeholder={t('auth.registration.confirmPasswordLabel')} secure styles={styles} t={t} theme={theme} value={confirmPassword} visible={confirmVisible} />

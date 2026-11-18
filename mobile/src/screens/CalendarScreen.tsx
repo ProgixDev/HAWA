@@ -606,7 +606,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
         </ScrollView>
 
         {editingPeriod ? (
-          <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}>
+          <View style={[styles.editBar, {bottom: getFloatingTabBarClearance(insets.bottom, 8)}]}>
             <View style={styles.editBarCopy}>
               <AwaText variant="titleSmall">{t('calendar.editPeriodTitle')}</AwaText>
               <AwaText colorRole="onSurfaceVariant" style={styles.editBarSubtitle} variant="bodySmall">{t('calendar.daysSelected', {count: draftPeriodDays.size})}</AwaText>

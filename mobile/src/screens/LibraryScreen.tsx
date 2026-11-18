@@ -48,6 +48,7 @@ import {
   getBottomPadding,
   getTopPadding,
 } from '../theme/spacing';
+import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {lowerCaseFor} from '../utils/textCase';
 import {AwaButton} from '../components/ui/AwaButton';
@@ -300,6 +301,9 @@ function getCategories(t: TranslateFn): CategoryCard[] {
 // Articles listed before "Voir tout" asks for more.
 const PAGE_SIZE = 20;
 
+// The only category of a managed daughter profile's library.
+const DAUGHTER_CATEGORY = 'firstPeriod';
+
 function LibraryScreen({
   navigation,
   route,
@@ -313,7 +317,16 @@ function LibraryScreen({
 
   const insets = useSafeAreaInsets();
 
-  const tabs = useMemo(() => getTabs(t), [t]);
+  // A managed DAUGHTER profile ("Ma fille") has a library of its own: the first-period articles only. One category, no religious content, no other
+  // topic — whatever the objective, the preferences or the route say. The owner's library is unchanged.
+  const [daughterMode, setDaughterMode] = useState(() => getActiveProfileIdentity().isManagedProfile);
+  useEffect(() => {
+    const sync = () => setDaughterMode(getActiveProfileIdentity().isManagedProfile);
+    sync();
+    return subscribeActiveProfileId(sync);
+  }, []);
+
+  const tabs = useMemo(() => getTabs(t).filter(tab => !daughterMode || tab.id === 'all' || tab.id === 'favorites'), [daughterMode, t]);
 
   const categories = useMemo(() => getCategories(t), [t]);
 
@@ -331,6 +344,11 @@ function LibraryScreen({
 
   const [activeTab, setActiveTab] =
     useState<TabId>('all');
+
+  // Entering the daughter's profile while a tab only the owner has (medical / religious) is open: back to "all".
+  useEffect(() => {
+    if (daughterMode && activeTab !== 'all' && activeTab !== 'favorites') {setActiveTab('all');}
+  }, [activeTab, daughterMode]);
 
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>(() =>
     route.params?.categoryId ? [route.params.categoryId] : [],
@@ -413,6 +431,10 @@ function LibraryScreen({
 
     return objectiveArticles.filter(
       article => {
+        if (daughterMode && article.categoryId !== DAUGHTER_CATEGORY) {
+          return false;
+        }
+
         const religious =
           categories.find(
             category =>
@@ -450,6 +472,7 @@ function LibraryScreen({
         }
 
         if (
+          !daughterMode &&
           selectedCategoryIds.length > 0 &&
           !categories.some(
             category =>
@@ -472,6 +495,7 @@ function LibraryScreen({
     activeTab,
     bookmarks,
     categories,
+    daughterMode,
     objectiveArticles,
     search,
     selectedCategoryIds,
@@ -486,6 +510,10 @@ function LibraryScreen({
       ]),
     );
 
+    if (daughterMode) {
+      return [byId.get(DAUGHTER_CATEGORY)!].filter(Boolean);
+    }
+
     const medical =
       libraryConfig.categoryOrder
         .map(id => byId.get(id)!)
@@ -499,6 +527,7 @@ function LibraryScreen({
       : medical;
   }, [
     categories,
+    daughterMode,
     libraryConfig,
     spiritualEnabled,
   ]);
@@ -526,7 +555,7 @@ function LibraryScreen({
   const chooseTab = (tab: TabId) => {
     if (
       tab === 'religious' &&
-      !spiritualEnabled
+      (!spiritualEnabled || daughterMode)
     ) {
       return;
     }
@@ -598,14 +627,16 @@ function LibraryScreen({
             </Pressable>
           ) : null}
 
-          <Pressable
-            accessibilityLabel={t('library.screen.categoriesTitle')}
-            hitSlop={8}
-            onPress={() => setSheetOpen(true)}
-            style={styles.filterButton}>
-            <MaterialDesignIcons color={theme.colors.textSecondary} name="tune-variant" size={22} />
-            {selectedCategoryIds.length > 0 ? <View style={styles.filterDot} /> : null}
-          </Pressable>
+          {daughterMode ? null : (
+            <Pressable
+              accessibilityLabel={t('library.screen.categoriesTitle')}
+              hitSlop={8}
+              onPress={() => setSheetOpen(true)}
+              style={styles.filterButton}>
+              <MaterialDesignIcons color={theme.colors.textSecondary} name="tune-variant" size={22} />
+              {selectedCategoryIds.length > 0 ? <View style={styles.filterDot} /> : null}
+            </Pressable>
+          )}
         </View>
 
         <View accessibilityRole="tablist" style={styles.tabsRow}>
@@ -632,7 +663,7 @@ function LibraryScreen({
           })}
         </View>
 
-        {selectedCategoryIds.length > 0 ? (
+        {!daughterMode && selectedCategoryIds.length > 0 ? (
           <ScrollView
             horizontal
             contentContainerStyle={styles.chipRow}
