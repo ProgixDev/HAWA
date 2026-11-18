@@ -167,15 +167,21 @@ describe('M8 — editing one actual period never redefines the habitual duration
     expect(onboarding.getCyclePreferences().periodDuration).toBe(5);
   });
 
-  it('the habitual period duration configured later still moves a never-edited (projected) end, but not an edited one', async () => {
+  // RULE CHANGE (decided by the product owner): the habitual duration used to move the end of a period that was only projected. It no longer does:
+  // a period that is already recorded keeps its end — projected, edited or confirmed — and the new habit applies to the periods that come NEXT.
+  it('the habitual period duration configured later does not move a period that is already recorded (projected or edited); it applies to the next period', async () => {
     onboarding.setCyclePreferences(prefs(new Date(2026, 7, 4), 5, 28));
     onboarding.confirmPeriodStart(new Date(2026, 8, 1));
+    expect(ranges()[1]).toBe('2026-09-01..2026-09-05');
     onboarding.setCyclePreferences(prefs(new Date(2026, 8, 1), 6, 28)); // same start, habit 6
-    expect(ranges()[1]).toBe('2026-09-01..2026-09-06');
+    expect(ranges()[1]).toBe('2026-09-01..2026-09-05'); // still the 5th, not the 6th
 
-    await onboarding.updateCurrentPeriodRange(new Date(2026, 8, 1), new Date(2026, 8, 9)); // user-set end
-    onboarding.setCyclePreferences(prefs(new Date(2026, 8, 1), 4, 28)); // habit changes again
-    expect(ranges()[1]).toBe('2026-09-01..2026-09-09');
+    onboarding.confirmPeriodStart(new Date(2026, 9, 1)); // the NEXT period follows the new habit
+    expect(ranges()[2]).toBe('2026-10-01..2026-10-06');
+
+    await onboarding.updateCurrentPeriodRange(new Date(2026, 9, 1), new Date(2026, 9, 9)); // user-set end
+    onboarding.setCyclePreferences(prefs(new Date(2026, 9, 1), 4, 28)); // habit changes again
+    expect(ranges()[2]).toBe('2026-10-01..2026-10-09');
   });
 });
 

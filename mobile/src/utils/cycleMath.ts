@@ -877,7 +877,7 @@ export const computeCyclePredictionStatus = (
 /** One recorded period (same shape as PeriodHistoryRecord, dates are local
  * 'YYYY-MM-DD' keys). Kept structural so this file stays free of a runtime
  * dependency on the store that owns the list. */
-export type RecordedPeriod = {startDate: string; endDate: string};
+export type RecordedPeriod = {startDate: string; endDate: string; endConfirmed?: boolean};
 
 const dayKeyOf = (date: Date): string =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -933,6 +933,38 @@ export const currentPeriodLength = (
   return record
     ? diffDays(dateOfDayKey(record.endDate), dateOfDayKey(record.startDate)) + 1
     : basics.periodDuration;
+};
+
+/**
+ * The ESTIMATED last day of the current period, for display only ("Fin prévue vers le …"). Built from what already exists — the start of the last
+ * period and its length (currentPeriodLength) — and shown ONLY when it can honestly be called a forecast:
+ *  - she declared a regular cycle (an irregular or unknown cycle has no trustworthy single date);
+ *  - the habitual period length was EXPLICITLY entered or confirmed (the proposed 5 days is not a value she chose);
+ *  - no end of this period was given by her: neither a declared end (`periodEndDateTime`), nor an end entered / edited / confirmed on its record
+ *    (`endConfirmed`, or a confirmed occurrence listed in `confirmedStartKeys`), nor an end that differs from the projection of the habitual length
+ *    (it was set by something other than the projection, so it is not presented as a forecast). A real end always wins over an estimate;
+ *  - the estimated day has not already passed while the period is still declared in progress (a forecast that has proved wrong is not shown).
+ * Returns `null` otherwise, and the caller keeps its current behaviour.
+ */
+export const predictedPeriodEndDate = (
+  basics: CycleBasics,
+  regularity: CycleRegularity,
+  recordedPeriods: readonly RecordedPeriod[],
+  today: Date,
+  options: {durationExplicit: boolean; periodEndDateTime: Date | null; confirmedStartKeys?: readonly string[]},
+): Date | null => {
+  if (regularity !== 'yes' || !options.durationExplicit) {return null;}
+  const declaredEnd = options.periodEndDateTime;
+  if (declaredEnd && declaredEnd.getTime() >= basics.lastPeriodStart.getTime()) {return null;}
+  const startKey = dayKeyOf(basics.lastPeriodStart);
+  const start = startOfDay(basics.lastPeriodStart);
+  const projectedEnd = addDays(start, Math.max(1, basics.periodDuration) - 1);
+  const record = recordedPeriods.find(period => period.startDate === startKey);
+  if (record && (record.endConfirmed === true || (options.confirmedStartKeys ?? []).includes(startKey) || record.endDate !== dayKeyOf(projectedEnd))) {
+    return null;
+  }
+  const end = projectedEnd;
+  return diffDays(end, startOfDay(today)) < 0 ? null : end;
 };
 
 /** True for a day BEFORE the projected cycle that contains `today` — the
