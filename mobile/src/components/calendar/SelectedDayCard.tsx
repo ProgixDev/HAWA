@@ -14,6 +14,7 @@ import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme, withAlpha} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
+import {minuteUnit} from '../../utils/durationUnits';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -149,7 +150,7 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
       value: entry?.activity?.none
         ? i18n.t('calendar.dayCard.rows.activityNone')
         : entry?.activity?.type
-          ? `${journalOptionLabel('cycleActivityType', entry.activity.type, i18n.t)}${entry.activity.durationMinutes ? ` · ${entry.activity.durationMinutes} min` : ''}`
+          ? `${journalOptionLabel('cycleActivityType', entry.activity.type, i18n.t)}${entry.activity.durationMinutes ? ` · ${entry.activity.durationMinutes} ${minuteUnit()}` : ''}`
           : notProvided,
     },
     {

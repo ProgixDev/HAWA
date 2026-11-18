@@ -88,6 +88,7 @@ import {GlassIcon} from '../ui/GlassIcon';
 import {AwaText} from '../ui/AwaText';
 import {AwaButton} from '../ui/AwaButton';
 import {AwaCard} from '../ui/AwaCard';
+import {hourUnit} from '../../utils/durationUnits';
 
 const RING_SIZE = 126;
 const RING_STROKE = 10;
@@ -574,7 +575,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
 
   const sleepValue =
     entry?.sleepDurationHours !== undefined
-      ? `${entry.sleepDurationHours} h${
+      ? `${entry.sleepDurationHours} ${hourUnit()}${
           entry.sleepQuality
             ? ` · ${MENOPAUSE_SLEEP_QUALITY_LABELS[entry.sleepQuality]}`
             : ''

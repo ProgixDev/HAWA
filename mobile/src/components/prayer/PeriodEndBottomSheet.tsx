@@ -143,7 +143,7 @@ function PeriodEndBottomSheet({
   };
 
   return (
-    <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
+    <Modal animationType="none" navigationBarTranslucent onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
           <Pressable accessibilityLabel={t('common.close')} onPress={close} style={StyleSheet.absoluteFill} />

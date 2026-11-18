@@ -496,8 +496,8 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                         </View>
                       ) : null}
                     </View>
-                    <AwaText variant="headlineSmall" style={styles.heroTitle}>{heroStatus.title}</AwaText>
-                    <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroDescription}>{heroStatus.description}</AwaText>
+                    <AwaText variant="titleLarge" style={styles.heroTitle}>{heroStatus.title}</AwaText>
+                    <AwaText variant="labelLarge" colorRole="onSurfaceVariant" style={styles.heroDescription}>{heroStatus.description}</AwaText>
                   </View>
                 </View>
 
@@ -541,7 +541,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                 <View style={styles.heroFooterRow}>
                   <View style={styles.heroFooterCopy}>
                     <AwaText variant="bodySmall" colorRole="onSurfaceVariant">{t('conceiveDashboard.nextPeriodLabel')}</AwaText>
-                    <AwaText variant="titleSmall" style={styles.heroFooterValue}>{nextPeriodTile.value}</AwaText>
+                    <AwaText variant="bodyMedium" weight="700" style={styles.heroFooterValue}>{nextPeriodTile.value}</AwaText>
                     <AwaText variant="bodySmall" colorRole="onSurfaceVariant" style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</AwaText>
                   </View>
                   <AwaButton

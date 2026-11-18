@@ -20,6 +20,8 @@ type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 type Props = {
   result: PurityPrayerResult;
   periodEndDateTime: Date | null;
+  /** Estimated last day of the period in progress (predictedPeriodEndDate), or null when no honest estimate exists. */
+  expectedEnd?: Date | null;
   timezone?: string;
   loading: boolean;
   error: boolean;
@@ -40,7 +42,7 @@ const formatDeclaredEnd = (t: TranslateFn, date: Date, timezone?: string): strin
   return t('prayerTimes.purity.dateAt', {date: dateLabel, time: formatTime(date, timezone)});
 };
 
-function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, onEdit}: Props): React.JSX.Element {
+function PurityStatusCard({result, periodEndDateTime, expectedEnd = null, timezone, loading, error, onEdit}: Props): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -80,6 +82,11 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
               <View style={[styles.discreetDot, styles.discreetDotPeriod]} />
               <AwaText variant="titleSmall">{t('prayerTimes.purity.menstruatingLabel')}</AwaText>
             </View>
+            {expectedEnd ? (
+              <AwaText variant="bodyMedium" style={styles.neutralHint}>
+                {t('prayerTimes.purity.expectedEnd', {date: new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long'}).format(expectedEnd)})}
+              </AwaText>
+            ) : null}
             <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.neutralHint}>
               {t('prayerTimes.purity.menstruatingHint')}
             </AwaText>
@@ -88,11 +95,11 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
 
         {result.status === 'unknown' ? (
           <View style={styles.unknownBlock}>
-            <View style={styles.discreetRow}>
+            <View style={[styles.discreetRow, styles.unknownRow]}>
               <View style={styles.discreetDot} />
               <AwaText variant="titleSmall" style={styles.unknownLabel}>{t('prayerTimes.purity.unknownLabel')}</AwaText>
             </View>
-            <AwaButton label={t('prayerTimes.purity.declareButton')} onPress={onEdit} size="compact" />
+            <AwaButton label={t('prayerTimes.purity.declareButton')} onPress={onEdit} size="compact" style={styles.unknownButton} />
           </View>
         ) : null}
 
@@ -166,7 +173,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     neutralHint: {marginTop: 8},
 
     unknownBlock: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginTop: 14},
+    // The label (dot + text) gives way and wraps; the button keeps its full width instead of being pushed out of the card.
+    unknownRow: {flex: 1, flexShrink: 1},
     unknownLabel: {flexShrink: 1},
+    unknownButton: {flexShrink: 0},
 
     pureHeadline: {flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 14},
     pureCheckCircle: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: withAlpha(theme.colors.success, 0.18)},

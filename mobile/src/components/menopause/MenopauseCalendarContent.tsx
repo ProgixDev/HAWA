@@ -74,6 +74,7 @@ import {AwaCard} from '../ui/AwaCard';
 import {AwaSwitch} from '../ui/AwaSwitch';
 import {AwaText} from '../ui/AwaText';
 import CalendarFilterChips from '../calendar/CalendarFilterChips';
+import {hourUnit} from '../../utils/durationUnits';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -635,7 +636,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     label={selectedRowLabels.sleep}
                     value={
                       selectedEntry?.sleepDurationHours !== undefined
-                        ? `${selectedEntry.sleepDurationHours} h${selectedEntry.sleepQuality ? ` · ${MENOPAUSE_SLEEP_QUALITY_LABELS[selectedEntry.sleepQuality]}` : ''}`
+                        ? `${selectedEntry.sleepDurationHours} ${hourUnit()}${selectedEntry.sleepQuality ? ` · ${MENOPAUSE_SLEEP_QUALITY_LABELS[selectedEntry.sleepQuality]}` : ''}`
                         : selectedEntry?.sleepQuality
                           ? MENOPAUSE_SLEEP_QUALITY_LABELS[selectedEntry.sleepQuality]
                           : ''
