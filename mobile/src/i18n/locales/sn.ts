@@ -8135,7 +8135,7 @@ export const sn = {
       sendCta: 'Tumira kokero'
     },
     pending: {
-      description: 'Uchakwanisa kutanga kugovera ruzivo rwakasarudzwa pakarepo apo {{partner}} anobatana neAWA Together.',
+      description: 'Uchakwanisa kutanga kugovera ruzivo rwasarudzwa pa{{partner}} achangogamuchira kukoka kwako.',
       title: 'Kokero yatumirwa\nkuna {{partner}}',
       statusTitle: 'Tichimirira kugamuchirwa',
       statusDescription: 'Tichakuzivisa pakarepo apo {{name}} anogamuchira kokero yako.',
@@ -8148,7 +8148,7 @@ export const sn = {
       previewDescription: 'Ona zvichaonekwa na{{partner}} paAWA Together.'
     },
     connected: {
-      title: 'Mudiwa wabatana 💜',
+      title: 'Mudiwa wabatana',
       since: 'Wabatana kubva nhasi',
       sharedInfoTitle: 'Ruzivo rwunogoverwa',
       emptyShared: 'Hapana ruzivo runogoverwa parizvino.',
@@ -8177,7 +8177,7 @@ export const sn = {
       supportTips: 'Mupe nguva yakadzikama nechinwiwa chinodziya.',
       phaseRecommendation: 'Chikamu chazvino: sarudza kuzorora nokunyoroveswa.',
       generalRecommendation: 'Chenjera uye upe rubatsiro rwako.',
-      greetingWithName: 'Mhoro {{name}} 💜',
+      greetingWithName: 'Mhoro {{name}}',
       greetingNeutral: 'Mhoro 💜',
       greetingText: 'Heano mazano mashoma okumutsigira zvirinani nhasi.',
       cycleDayLabel: 'Zuva rokutenderera',
@@ -8219,7 +8219,7 @@ export const sn = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Uri pano nokuda kwake 💜',
+        subtitle: 'Uri pano nokuda kwake',
         openProfileAccessibility: 'Vhura profile yangu',
         emptyShared: 'Hapana ruzivo runogoverwa newe parizvino.',
         cycleInfoAccessibility: 'Ruzivo rokutenderera rwanhasi',
@@ -8290,7 +8290,7 @@ export const sn = {
         title: 'Profile yangu',
         subtitle: 'Nzvimbo yako pachako muAWA Together',
         noNameAccessibility: 'Hapana zita rakanyorwa',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Mudiwa paAWA Together.',
         welcomeLine2: 'Ndatenda nokuva padivi pake.',
         personalInfoTitle: 'Ruzivo rwako',
@@ -8372,7 +8372,7 @@ export const sn = {
           contactSupportTitle: 'Bata rutsigiro',
           contactSupportDescription: 'Unoda rubatsiro rwakawanda here? Chikwata chedu chiri pano kukutsigira.',
           contactSupportParagraph1: 'Kana uine mubvunzo, wasangana nedambudziko, kana uchida kutipa maonero ako, unogona kubata chikwata cheAWA kubva muchikamu chino.',
-          contactSupportParagraph2: 'Ndatenda nokutibatsira kuvandudza AWA! 💜',
+          contactSupportParagraph2: 'Ndatenda nokutibatsira kuvandudza AWA!',
           contactButton: 'Tinyorere',
           contactAccessibility: 'Tibate neemail',
           contactEmailSubject: 'Rubatsiro — AWA Together'

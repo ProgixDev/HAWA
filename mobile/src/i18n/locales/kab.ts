@@ -8135,7 +8135,7 @@ export const kab = {
       sendCta: 'Azen tiyyiḍ'
     },
     pending: {
-      description: 'Tzemreḍ ad tebduḍ abeḍḍu n talɣut yettwafernen ticki {{partner}} ad yekcem ɣer AWA Together.',
+      description: 'Tzemreḍ ad tebduḍ amṣada n telɣut i d-yettwafernen imi kan {{partner}} yeqbel tinnubga-ik.',
       title: 'Tiyyiḍ tettwazen\nɣer {{partner}}',
       statusTitle: 'Asemmed n uqbal',
       statusDescription: 'Ad k-nini ticki {{name}} ad yeqbel tiyyiḍ-ik.',
@@ -8148,7 +8148,7 @@ export const kab = {
       previewDescription: 'Wali ayen ara iwali {{partner}} deg AWA Together.'
     },
     connected: {
-      title: 'Amdan yeqqen 💜',
+      title: 'Amdan yeqqen',
       since: 'Yeqqen seg ass-a',
       sharedInfoTitle: 'Talɣut yettwabḍan',
       emptyShared: 'Ulac talɣut yettwabḍan tura.',
@@ -8177,7 +8177,7 @@ export const kab = {
       supportTips: 'Efk-as akud n lehna d tizemmut tayemmast.',
       phaseRecommendation: 'Asurif n tura: ferrek taddukli d ubeddu n lehna.',
       generalRecommendation: 'Ɛass, efk-as tallalt-ik.',
-      greetingWithName: 'Azul {{name}} 💜',
+      greetingWithName: 'Azul {{name}}',
       greetingNeutral: 'Azul 💜',
       greetingText: 'Ha-t kra n talɣut i ak-yettɛawnen ad tɛiwneḍ yelli-s ass-a.',
       cycleDayLabel: 'Ass n cycle',
@@ -8219,7 +8219,7 @@ export const kab = {
       },
       home: {
         greeting: 'Salamu ɛalaykum,',
-        subtitle: 'Tella-d ɣer-s 💜',
+        subtitle: 'Tella-d ɣer-s',
         openProfileAccessibility: 'Ldi amaɣnu-inu',
         emptyShared: 'Ulac talɣut yettwabḍan yid-k tura.',
         cycleInfoAccessibility: 'Talɣut n cycle n ass-a',
@@ -8290,7 +8290,7 @@ export const kab = {
         title: 'Amaɣnu-inu',
         subtitle: 'Tallunt-ik tuffirt deg AWA Together',
         noNameAccessibility: 'Ulac isem amezwaru yettwaskcem',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Amdan deg AWA Together.',
         welcomeLine2: 'Tanemmirt imi tella-d ɣer-s.',
         personalInfoTitle: 'Talɣut tudmawant',
@@ -8372,7 +8372,7 @@ export const kab = {
           contactSupportTitle: 'Nermes asenfar',
           contactSupportDescription: 'Teḥwaǧeḍ ugar n tallalt? Tarbaɛt-nneɣ tella dagi ad k-tɛawen.',
           contactSupportParagraph1: 'Ma tesɛiḍ asteqsi, ma teffeḍ ɣer ugur, neɣ tebɣiḍ ad aɣ-d-tefkeḍ tamuɣli-ik, tzemreḍ ad tnermseḍ tarbaɛt n AWA seg tezɣelt-a.',
-          contactSupportParagraph2: 'Tanemmirt imi i aɣ-tɛawneḍ ad nesnerni AWA! 💜',
+          contactSupportParagraph2: 'Tanemmirt imi i aɣ-tɛawneḍ ad nesnerni AWA!',
           contactButton: 'Aru-aɣ-d',
           contactAccessibility: 'Nermes-aɣ s imayl',
           contactEmailSubject: 'Tallalt — AWA Together'

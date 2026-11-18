@@ -8135,7 +8135,7 @@ export const ig = {
       sendCta: 'Zipu òkù'
     },
     pending: {
-      description: 'Ị ga-amalite ikekọrịta ozi ahọrọ ozugbo {{partner}} sonyere AWA Ọnụ.',
+      description: 'Ị ga-amalite ịkekọrịta ozi ahọpụtara ozugbo {{partner}} nabatara oku gị.',
       title: 'Ezigara òkù\nna {{partner}}',
       statusTitle: 'Na-echere nnabata',
       statusDescription: 'Anyị ga-agwa gị ozugbo {{name}} nabatara òkù gị.',
@@ -8148,7 +8148,7 @@ export const ig = {
       previewDescription: 'Hụ ihe {{partner}} ga-ahụ na AWA Ọnụ.'
     },
     connected: {
-      title: 'Onye òtù jikọtara 💜',
+      title: 'Onye òtù jikọtara',
       since: 'Jikọtara site na taa',
       sharedInfoTitle: 'Ozi ekekọrịtara',
       emptyShared: 'Ọ dịghị ozi a na-ekekọrịta ugbu a.',
@@ -8177,7 +8177,7 @@ export const ig = {
       supportTips: 'Nye ya oge dị jụụ na ihe ọṅụṅụ na-ekpo ọkụ.',
       phaseRecommendation: 'Ọkwa ugbu a: buru ụzọ zuru ike ma dị nwayọọ.',
       generalRecommendation: 'Na-eche ihu ma nye enyemaka gị.',
-      greetingWithName: 'Ndewo {{name}} 💜',
+      greetingWithName: 'Ndewo {{name}}',
       greetingNeutral: 'Ndewo 💜',
       greetingText: 'Ndị a bụ ọtụtụ ozi ga-enyere gị aka ịkwado ya nke ọma taa.',
       cycleDayLabel: 'Ụbọchị okirikiri',
@@ -8219,7 +8219,7 @@ export const ig = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Ị nọ ebe a maka ya 💜',
+        subtitle: 'Ị nọ ebe a maka ya',
         openProfileAccessibility: 'Mepee profaịlụ m',
         emptyShared: 'Ọ dịghị ozi a na-ekekọrịta na gị ugbu a.',
         cycleInfoAccessibility: 'Ozi okirikiri nke taa',
@@ -8290,7 +8290,7 @@ export const ig = {
         title: 'Profaịlụ m',
         subtitle: 'Oghere nke gị na AWA Ọnụ',
         noNameAccessibility: 'Etinyeghị aha mbụ',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Onye òtù na AWA Ọnụ.',
         welcomeLine2: 'Daalụ maka ịnọ n’akụkụ ya.',
         personalInfoTitle: 'Ozi nkeonwe',
@@ -8372,7 +8372,7 @@ export const ig = {
           contactSupportTitle: 'Kpọtụrụ nkwado',
           contactSupportDescription: 'Ịchọrọ enyemaka ọzọ? Otu anyị nọ ebe a ịkwado gị.',
           contactSupportParagraph1: 'Ọ bụrụ na ị nwere ajụjụ, nwee nsogbu, ma ọ bụ chọọ inye anyị echiche, ị nwere ike ịkpọtụrụ otu AWA site n’ngalaba a.',
-          contactSupportParagraph2: 'Daalụ maka inyere anyị aka imeziwanye AWA! 💜',
+          contactSupportParagraph2: 'Daalụ maka inyere anyị aka imeziwanye AWA!',
           contactButton: 'Dee anyị',
           contactAccessibility: 'Kpọtụrụ anyị site n’email',
           contactEmailSubject: 'Enyemaka — AWA Ọnụ'

@@ -8135,7 +8135,7 @@ export const om = {
       sendCta: 'Affeerraa ergi'
     },
     pending: {
-      description: '{{partner}} AWA Waliin yeroo makamu odeeffannoo filatame qooduu jalqabuu dandeessa.',
+      description: 'Yeroo {{partner}} affeerraa kee fudhatu odeeffannoo filatame qooduu jalqabuu dandeessa.',
       title: 'Affeerraan\n{{partner}} ergameera',
       statusTitle: 'Fudhatamuu eegaa jira',
       statusDescription: '{{name}} yeroo affeerraa kee fudhatu sin beeksifna.',
@@ -8148,7 +8148,7 @@ export const om = {
       previewDescription: 'Wanta {{partner}} AWA Waliin keessatti arguu argi.'
     },
     connected: {
-      title: 'Hiriyaan wal quunnameera 💜',
+      title: 'Hiriyaan wal quunnameera',
       since: 'Har’aa jalqabee wal quunnameera',
       sharedInfoTitle: 'Odeeffannoo qoodame',
       emptyShared: 'Yeroo ammaa odeeffannoon hin qoodamne.',
@@ -8177,7 +8177,7 @@ export const om = {
       supportTips: 'Yeroo callisaa fi dhugaatii ho’aa kenniif.',
       phaseRecommendation: 'Sadarkaa ammaa: boqonnaa fi laafina filadhu.',
       generalRecommendation: 'Xiyyeeffannoo kenni, gargaarsa kee dhiyeessi.',
-      greetingWithName: 'Akkam {{name}} 💜',
+      greetingWithName: 'Akkam {{name}}',
       greetingNeutral: 'Akkam 💜',
       greetingText: 'Har’a ishee caalaatti deeggaruuf yaada muraasa asii jira.',
       cycleDayLabel: 'Guyyaa marsaa',
@@ -8219,7 +8219,7 @@ export const om = {
       },
       home: {
         greeting: 'Assalaamu ‘alaykum,',
-        subtitle: 'Ishee waliin jirta 💜',
+        subtitle: 'Ishee waliin jirta',
         openProfileAccessibility: 'Piroofayilii koo bani',
         emptyShared: 'Yeroo ammaa odeeffannoon si wajjin hin qoodamne.',
         cycleInfoAccessibility: 'Odeeffannoo marsaa har’aa',
@@ -8290,7 +8290,7 @@ export const om = {
         title: 'Piroofayilii koo',
         subtitle: 'Iddoo kee dhuunfaa AWA Waliin keessatti',
         noNameAccessibility: 'Maqaan jalqabaa hin galfamne',
-        greeting: 'Salaam {{name}}! 💜',
+        greeting: 'Salaam {{name}}!',
         welcomeLine1: 'Hiriyaa AWA Waliin irratti.',
         welcomeLine2: 'Cinaa ishee ta’uu keef galatoomi.',
         personalInfoTitle: 'Odeeffannoo dhuunfaa',
@@ -8372,7 +8372,7 @@ export const om = {
           contactSupportTitle: 'Deeggarsa quunnami',
           contactSupportDescription: 'Gargaarsa dabalataa barbaaddaa? Garee keenyi si deeggaruuf as jira.',
           contactSupportParagraph1: 'Yoo gaaffii qabaatte, rakkoo mudatte, ykn yaada nuuf kennuu barbaadde, kutaa kana irraa garee AWA quunnamuu dandeessa.',
-          contactSupportParagraph2: 'AWA fooyyessuuf nu gargaaruu keef galatoomi! 💜',
+          contactSupportParagraph2: 'AWA fooyyessuuf nu gargaaruu keef galatoomi!',
           contactButton: 'Nuuf barreessi',
           contactAccessibility: 'Imeeliin nu quunnami',
           contactEmailSubject: 'Gargaarsa — AWA Waliin'

@@ -8221,7 +8221,7 @@ export const rn = {
       sendCta: 'Ohereza ubutumire'
     },
     pending: {
-      description: 'Uzobasha gutangura gusangiza amakuru yatoranijwe ukimara {{partner}} kwifatanya na AWA Hamwe.',
+      description: 'Uzoshobora gutangura gusangira amakuru wahisemo akimara {{partner}} kwemera ubutumire bwawe.',
       title: 'Ubutumire bwoherejwe\nkuri {{partner}}',
       statusTitle: 'Turindiriye ko bwemerwa',
       statusDescription: 'Tuzokumenyesha ukimara {{name}} kwemera ubutumire bwawe.',
@@ -8234,7 +8234,7 @@ export const rn = {
       previewDescription: 'Raba ivyo {{partner}} azoraba muri AWA Hamwe.'
     },
     connected: {
-      title: 'Uwo mubana yamaze kwifatanya 💜',
+      title: 'Uwo mubana yamaze kwifatanya',
       since: 'Yifatanije uyu musi',
       sharedInfoTitle: 'Amakuru asangizwa',
       emptyShared: 'Nta makuru asangizwa none.',
@@ -8263,7 +8263,7 @@ export const rn = {
       supportTips: 'Mumuhe akanya ko gutuza n’ico kunywa gishushe.',
       phaseRecommendation: 'Igice ariko ubu: tanga imbere kuruhuka n’ubwuzu.',
       generalRecommendation: 'Guma wiyiteho kandi utange ubufasha bwawe.',
-      greetingWithName: 'Mwaramutse {{name}} 💜',
+      greetingWithName: 'Mwaramutse {{name}}',
       greetingNeutral: 'Mwaramutse 💜',
       greetingText: 'Ngizi inama zimwe zo kumufasha neza uyu musi.',
       cycleDayLabel: 'Umusi w’uruziga',
@@ -8305,7 +8305,7 @@ export const rn = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Uri hano kubwiwe 💜',
+        subtitle: 'Uri hano kubwiwe',
         openProfileAccessibility: 'Fungura profile yanje',
         emptyShared: 'Nta makuru agusangizwa none.',
         cycleInfoAccessibility: 'Amakuru y’uruziga y’uyu musi',
@@ -8378,7 +8378,7 @@ export const rn = {
         title: 'Profile yanje',
         subtitle: 'Ahantu hawe bwite muri AWA Hamwe',
         noNameAccessibility: 'Nta zina ryanditswe',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Uwubana muri AWA Hamwe.',
         welcomeLine2: 'Urakoze kuba iruhande rwiwe.',
         personalInfoTitle: 'Amakuru bwite',
@@ -8460,7 +8460,7 @@ export const rn = {
           contactSupportTitle: 'Vugana n’ubufasha',
           contactSupportDescription: 'Ukeneye ubufasha burushiriza? Itsinda ryacu ririho ngo rigufashe.',
           contactSupportParagraph1: 'Nimba ufise ikibazo, wahuye n’ikibazo, canke ushaka kuduha ivyo utekereza, ushobora kuvugana n’itsinda rya AWA muri iki gice.',
-          contactSupportParagraph2: 'Urakoze kudufasha kunonosora AWA! 💜',
+          contactSupportParagraph2: 'Urakoze kudufasha kunonosora AWA!',
           contactButton: 'Twandikire',
           contactAccessibility: 'Tuvugane kuri imeli',
           contactEmailSubject: 'Ubufasha — AWA Hamwe'

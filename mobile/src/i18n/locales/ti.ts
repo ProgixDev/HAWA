@@ -8135,7 +8135,7 @@ export const ti = {
       sendCta: 'ዕድመ ለኣኽ'
     },
     pending: {
-      description: '{{partner}} ኣብ AWA ብሓባር ምስ ተሓወሰ፣ ዝተመርጸ ሓበሬታ ምክፋል ክትጅምሪ ትኽእሊ።',
+      description: '{{partner}} ዕድመኽን ምስ ተቐበለ ዝተመርጸ ሓበሬታ ምክፋል ክትጅምሪ ኢኻ።',
       title: 'ዕድመ ናብ\n{{partner}} ተላኢኹ',
       statusTitle: 'ምቕባል ይጽበ ኣሎ',
       statusDescription: '{{name}} ዕድመኺ ምስ ተቐበሎ ክንሕብረኪ ኢና።',
@@ -8148,7 +8148,7 @@ export const ti = {
       previewDescription: '{{partner}} ኣብ AWA ብሓባር እንታይ ከም ዝርኢ ርአ።'
     },
     connected: {
-      title: 'ብጻይ ተኣሳሲሩ 💜',
+      title: 'ብጻይ ተኣሳሲሩ',
       since: 'ካብ ሎሚ ተኣሳሲሩ',
       sharedInfoTitle: 'ዝተኻፈለ ሓበሬታ',
       emptyShared: 'ሕጂ ዝኾነ ሓበሬታ ኣይተኻፈለን።',
@@ -8177,7 +8177,7 @@ export const ti = {
       supportTips: 'ህዱእ ግዜን ውዑይ መስተን ሃብዋ።',
       phaseRecommendation: 'ህሉው ደረጃ፦ ዕረፍትን ልስላሴን ምረጽ።',
       generalRecommendation: 'ተጠንቀቕ፣ ሓገዝካ ሃብ።',
-      greetingWithName: 'ሰላም {{name}} 💜',
+      greetingWithName: 'ሰላም {{name}}',
       greetingNeutral: 'ሰላም 💜',
       greetingText: 'ሎሚ ዝበለጸ ንኽትድግፍዋ ዝሕግዙ ሓያሎ ሓሳባት እዚኦም እዮም።',
       cycleDayLabel: 'መዓልቲ ዑደት',
@@ -8219,7 +8219,7 @@ export const ti = {
       },
       home: {
         greeting: 'ኣሰላሙ ዓለይኩም፣',
-        subtitle: 'ንኣኣ ኢኻ ዘለኻ 💜',
+        subtitle: 'ንኣኣ ኢኻ ዘለኻ',
         openProfileAccessibility: 'ፕሮፋይለይ ክፈት',
         emptyShared: 'ሕጂ ዝኾነ ሓበሬታ ምሳኻ ኣይተኻፈለን።',
         cycleInfoAccessibility: 'ናይ ሎሚ ሓበሬታ ዑደት',
@@ -8290,7 +8290,7 @@ export const ti = {
         title: 'ፕሮፋይለይ',
         subtitle: 'ውልቃዊ ቦታኻ ኣብ AWA ብሓባር',
         noNameAccessibility: 'ቀዳማይ ሽም ኣይተኣተወን',
-        greeting: 'ሰላም {{name}}! 💜',
+        greeting: 'ሰላም {{name}}!',
         welcomeLine1: 'ብጻይ ኣብ AWA ብሓባር።',
         welcomeLine2: 'ጎኒ ጎኒኣ ስለ ዘለኻ የቐንየልና።',
         personalInfoTitle: 'ውልቃዊ ሓበሬታ',
@@ -8372,7 +8372,7 @@ export const ti = {
           contactSupportTitle: 'ንደገፍ ርኸብ',
           contactSupportDescription: 'ተወሳኺ ሓገዝ የድልየካ ዶ? ጉጅለና ንኽድግፈካ ኣብዚ ኣሎ።',
           contactSupportParagraph1: 'ሕቶ እንተ ኣልዩካ፣ ጸገም እንተ ኣጋጢሙካ፣ ወይ ርእይቶ ክትህበና እንተ ደሊኻ፣ ካብዚ ክፍሊ ጉጅለ AWA ክትረኽቦ ትኽእል።',
-          contactSupportParagraph2: 'AWA ንኽነመሓይሽ ስለ ዝሓገዝካና የቐንየልና! 💜',
+          contactSupportParagraph2: 'AWA ንኽነመሓይሽ ስለ ዝሓገዝካና የቐንየልና!',
           contactButton: 'ጽሓፈልና',
           contactAccessibility: 'ብኢሜይል ርኸበና',
           contactEmailSubject: 'ሓገዝ — AWA ብሓባር'

@@ -8135,7 +8135,7 @@ export const xh = {
       sendCta: 'Thumela isimemo'
     },
     pending: {
-      description: 'Uya kukwazi ukuqala ukwabelana ngolwazi olukhethiweyo kwakuba u-{{partner}} edibene ne-AWA Together.',
+      description: 'Uya kukwazi ukuqala ukwabelana ngolwazi olukhethiweyo ngokukhawuleza xa {{partner}} ewamkela isimemo sakho.',
       title: 'Isimemo sithunyelwe\nku-{{partner}}',
       statusTitle: 'Silinde ukwamkelwa',
       statusDescription: 'Siza kukwazisa kwakuba u-{{name}} eyamkele imemo yakho.',
@@ -8148,7 +8148,7 @@ export const xh = {
       previewDescription: 'Jonga oko u-{{partner}} aya kukubona kwi-AWA Together.'
     },
     connected: {
-      title: 'Iqabane lidibene 💜',
+      title: 'Iqabane lidibene',
       since: 'Lidibene ukususela namhlanje',
       sharedInfoTitle: 'Ulwazi olwabelwanayo',
       emptyShared: 'Akukho lwazi lwabelwanayo okwangoku.',
@@ -8177,7 +8177,7 @@ export const xh = {
       supportTips: 'Mnike umzuzu wokuthula kunye nesiselo esifudumeleyo.',
       phaseRecommendation: 'Inqanaba langoku: khetha ukuphumla nobubele.',
       generalRecommendation: 'Hlala unengqalelo kwaye unikezele ngoncedo lwakho.',
-      greetingWithName: 'Molo {{name}} 💜',
+      greetingWithName: 'Molo {{name}}',
       greetingNeutral: 'Molo 💜',
       greetingText: 'Nanga amanye amacebiso okumxhasa ngcono namhlanje.',
       cycleDayLabel: 'Usuku lomjikelo',
@@ -8219,7 +8219,7 @@ export const xh = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Ukhona ngenxa yakhe 💜',
+        subtitle: 'Ukhona ngenxa yakhe',
         openProfileAccessibility: 'Vula iprofayile yam',
         emptyShared: 'Akukho lwazi olwabelwana nawe okwangoku.',
         cycleInfoAccessibility: 'Ulwazi lomjikelo lwanamhlanje',
@@ -8290,7 +8290,7 @@ export const xh = {
         title: 'Iprofayile yam',
         subtitle: 'Indawo yakho yobuqu kwi-AWA Together',
         noNameAccessibility: 'Akukho gama liphelele lifakiweyo',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Iqabane kwi-AWA Together.',
         welcomeLine2: 'Enkosi ngokuba ngakwicala lakhe.',
         personalInfoTitle: 'Ulwazi lobuqu',
@@ -8372,7 +8372,7 @@ export const xh = {
           contactSupportTitle: 'Unxibelelane nenkxaso',
           contactSupportDescription: 'Ufuna uncedo olungakumbi? Iqela lethu likho ukukuxhasa.',
           contactSupportParagraph1: 'Ukuba unombuzo, uhlangana nengxaki, okanye ufuna ukusinika izimvo, unokunxibelelana neqela le-AWA kweli candelo.',
-          contactSupportParagraph2: 'Enkosi ngokusinceda ukuba siphucule i-AWA! 💜',
+          contactSupportParagraph2: 'Enkosi ngokusinceda ukuba siphucule i-AWA!',
           contactButton: 'Sibhalele',
           contactAccessibility: 'Sinxibelele nge-imeyile',
           contactEmailSubject: 'Uncedo — AWA Together'

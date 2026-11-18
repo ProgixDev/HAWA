@@ -8135,7 +8135,7 @@ export const ln = {
       sendCta: 'Tinda libiangi'
     },
     pending: {
-      description: 'Okoki kobanda kokabola bansango oyo oponi soki {{partner}} asangani na AWA Elongo.',
+      description: 'Okokoka kobanda kokabola bansango oponi mbala moko {{partner}} andimi liboso na yo.',
       title: 'Libiangi etindami\nna {{partner}}',
       statusTitle: 'Ezali kozela eyano',
       statusDescription: 'Tokoyebisa yo soki {{name}} andimi libiangi na yo.',
@@ -8148,7 +8148,7 @@ export const ln = {
       previewDescription: 'Tala oyo {{partner}} akomona na AWA Elongo.'
     },
     connected: {
-      title: 'Partner asangani 💜',
+      title: 'Partner asangani',
       since: 'Asangani banda lelo',
       sharedInfoTitle: 'Bansango ekabolami',
       emptyShared: 'Bansango moko te ekabolami sikoyo.',
@@ -8177,7 +8177,7 @@ export const ln = {
       supportTips: 'Pesa ye ntango ya kimia mpe masanga ya molunge.',
       phaseRecommendation: 'Eteni ya sikoyo: pesa ye ntango ya kopema mpe bolembu.',
       generalRecommendation: 'Tia likebi mpe pesa lisungi na yo.',
-      greetingWithName: 'Mbote {{name}} 💜',
+      greetingWithName: 'Mbote {{name}}',
       greetingNeutral: 'Mbote 💜',
       greetingText: 'Tala toli moke mpo na kosunga ye malamu lelo.',
       cycleDayLabel: 'Mokolo ya sanza',
@@ -8219,7 +8219,7 @@ export const ln = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Ozali awa mpo na ye 💜',
+        subtitle: 'Ozali awa mpo na ye',
         openProfileAccessibility: 'Fungola profil na ngai',
         emptyShared: 'Bansango moko te ekabolami na yo sikoyo.',
         cycleInfoAccessibility: 'Bansango ya sanza ya lelo',
@@ -8290,7 +8290,7 @@ export const ln = {
         title: 'Profil na ngai',
         subtitle: 'Esika na yo ya ye moko na AWA Elongo',
         noNameAccessibility: 'Nkombo ya liboso ekomami te',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Partner na AWA Elongo.',
         welcomeLine2: 'Matondi mpo ozali pembeni na ye.',
         personalInfoTitle: 'Bansango ya ye moko',
@@ -8372,7 +8372,7 @@ export const ln = {
           contactSupportTitle: 'Solola na lisungi',
           contactSupportDescription: 'Olingi lisungi mingi? Etuka na biso ezali awa mpo na kosunga yo.',
           contactSupportParagraph1: 'Soki ozali na motuna, likambo, to olingi kopesa biso makanisi na yo, okoki kosolola na etuka ya AWA wuta na eteni oyo.',
-          contactSupportParagraph2: 'Matondi mpo na kosunga biso tobongisa AWA! 💜',
+          contactSupportParagraph2: 'Matondi mpo na kosunga biso tobongisa AWA!',
           contactButton: 'Koma na biso',
           contactAccessibility: 'Solola na biso na email',
           contactEmailSubject: 'Lisungi — AWA Elongo'

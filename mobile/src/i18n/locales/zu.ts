@@ -8135,7 +8135,7 @@ export const zu = {
       sendCta: 'Thumela isimemo'
     },
     pending: {
-      description: 'Uzokwazi ukuqala ukwabelana ngolwazi olukhethiwe ngokushesha nje lapho {{partner}} ejoyina i-AWA Together.',
+      description: 'Uzokwazi ukuqala ukwabelana ngolwazi olukhethiwe ngokushesha lapho {{partner}} ewamukela isimemo sakho.',
       title: 'Isimemo sithunyelwe\nku-{{partner}}',
       statusTitle: 'Kulindelwe ukwamukelwa',
       statusDescription: 'Sizokwazisa ngokushesha nje lapho {{name}} eyamukela isimemo sakho.',
@@ -8148,7 +8148,7 @@ export const zu = {
       previewDescription: 'Bona lokho {{partner}} ezokubona ku-AWA Together.'
     },
     connected: {
-      title: 'Umlingani uxhumekile 💜',
+      title: 'Umlingani uxhumekile',
       since: 'Uxhumeke kusukela namuhla',
       sharedInfoTitle: 'Ulwazi olwabiwe',
       emptyShared: 'Alukho ulwazi olwabelwana ngalo okwamanje.',
@@ -8177,7 +8177,7 @@ export const zu = {
       supportTips: 'Mnike isikhathi sokuthula nesiphuzo esishisayo.',
       phaseRecommendation: 'Isigaba samanje: nikeza ukuphumula nobumnene.',
       generalRecommendation: 'Hlala unakekela futhi unikeze usizo lwakho.',
-      greetingWithName: 'Sawubona {{name}} 💜',
+      greetingWithName: 'Sawubona {{name}}',
       greetingNeutral: 'Sawubona 💜',
       greetingText: 'Nanku amacebo ambalwa okumsekela kangcono namuhla.',
       cycleDayLabel: 'Usuku lomjikelezo',
@@ -8219,7 +8219,7 @@ export const zu = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Ukhona ngenxa yakhe 💜',
+        subtitle: 'Ukhona ngenxa yakhe',
         openProfileAccessibility: 'Vula iphrofayela yami',
         emptyShared: 'Alukho ulwazi olwabelwana nawe ngalo okwamanje.',
         cycleInfoAccessibility: 'Ulwazi lomjikelezo lwanamuhla',
@@ -8290,7 +8290,7 @@ export const zu = {
         title: 'Iphrofayela yami',
         subtitle: 'Isikhala sakho siqu ku-AWA Together',
         noNameAccessibility: 'Akukho gama lokuqala elifakiwe',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Umlingani ku-AWA Together.',
         welcomeLine2: 'Siyabonga ngokuba eceleni kwakhe.',
         personalInfoTitle: 'Ulwazi lomuntu siqu',
@@ -8372,7 +8372,7 @@ export const zu = {
           contactSupportTitle: 'Xhumana nosizo',
           contactSupportDescription: 'Udinga usizo olwengeziwe? Ithimba lethu lilapha ukukusekela.',
           contactSupportParagraph1: 'Uma unombuzo, uhlangana nenkinga, noma ufuna ukusinika impendulo, ungaxhumana nethimba le-AWA kulesi sigaba.',
-          contactSupportParagraph2: 'Siyabonga ngokusisiza ukuthuthukisa i-AWA! 💜',
+          contactSupportParagraph2: 'Siyabonga ngokusisiza ukuthuthukisa i-AWA!',
           contactButton: 'Sibhalele',
           contactAccessibility: 'Xhumana nathi nge-imeyili',
           contactEmailSubject: 'Usizo — AWA Together'

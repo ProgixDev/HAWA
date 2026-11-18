@@ -3633,13 +3633,13 @@ export const ptBR = {
       emailHelper: 'Enviaremos a {{partner}} um link de convite seguro por e-mail.',
     },
     pending: {
-      description: 'Você poderá começar a compartilhar as informações selecionadas assim que {{partner}} entrar na AWA Together.',
+      description: 'Você poderá começar a compartilhar as informações selecionadas assim que {{partner}} aceitar o seu convite.',
       title: 'Convite enviado\npara {{partner}}',
       statusTitle: 'Aguardando aceitação',
       previewTitle: 'Pré-visualizar a jornada do parceiro',
     },
     connected: {
-      title: 'Parceiro conectado 💜',
+      title: 'Parceiro conectado',
       since: 'Conectado desde hoje',
       sharedInfoTitle: 'Informações compartilhadas',
       emptyShared: 'Nenhuma informação está sendo compartilhada no momento.',

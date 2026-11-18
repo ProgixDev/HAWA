@@ -8135,7 +8135,7 @@ export const yo = {
       sendCta: 'Fi ìpè ránṣẹ́'
     },
     pending: {
-      description: 'O lè bẹ̀rẹ̀ sí í pín àwọn ìwífún tí o yàn ní kété tí {{partner}} bá darapọ̀ mọ́ AWA Together.',
+      description: 'Ìwọ yóò lè bẹ̀rẹ̀ sí í pín àwọn ìsọfúnni tí a yàn ní kété tí {{partner}} bá gba ìkésíni rẹ.',
       title: 'A ti fi ìpè ránṣẹ́\nsí {{partner}}',
       statusTitle: 'Ń dúró de ìgbà tí a ó gbà á',
       statusDescription: 'A ó sọ fún ọ ní kété tí {{name}} bá gba ìpè rẹ.',
@@ -8148,7 +8148,7 @@ export const yo = {
       previewDescription: 'Wo ohun tí {{partner}} yóò rí nínú AWA Together.'
     },
     connected: {
-      title: 'Alábàákẹ́gbẹ́ ti darapọ̀ 💜',
+      title: 'Alábàákẹ́gbẹ́ ti darapọ̀',
       since: 'Ó darapọ̀ láti òní',
       sharedInfoTitle: 'Ìwífún tí a pín',
       emptyShared: 'A kò pín ìwífún kankan lọ́wọ́lọ́wọ́.',
@@ -8177,7 +8177,7 @@ export const yo = {
       supportTips: 'Fún un ní àkókò ìdákẹ́jẹ́ẹ́ àti ohun mímu gbígbóná.',
       phaseRecommendation: 'Ipele lọ́wọ́lọ́wọ́: fi ìsinmi àti ìrọ̀rùn ṣáájú.',
       generalRecommendation: 'Máa fiyèsí, kí o sì múra láti ràn án lọ́wọ́.',
-      greetingWithName: 'Pẹ̀lẹ́ o {{name}} 💜',
+      greetingWithName: 'Pẹ̀lẹ́ o {{name}}',
       greetingNeutral: 'Pẹ̀lẹ́ o 💜',
       greetingText: 'Àwọn ìmọ̀ díẹ̀ nìyí láti ràn án lọ́wọ́ dáadáa lónìí.',
       cycleDayLabel: 'Ọjọ́ ìyípo',
@@ -8219,7 +8219,7 @@ export const yo = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'O wà níbí fún un 💜',
+        subtitle: 'O wà níbí fún un',
         openProfileAccessibility: 'Ṣí àkọsílẹ̀ mi',
         emptyShared: 'A kò pín ìwífún kankan pẹ̀lú rẹ lọ́wọ́lọ́wọ́.',
         cycleInfoAccessibility: 'Ìwífún ìyípo ọjọ́ òní',
@@ -8290,7 +8290,7 @@ export const yo = {
         title: 'Àkọsílẹ̀ mi',
         subtitle: 'Ààyè ara ẹni rẹ nínú AWA Together',
         noNameAccessibility: 'A kò kọ orúkọ àkọ́kọ́ sílẹ̀',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Alábàákẹ́gbẹ́ lórí AWA Together.',
         welcomeLine2: 'Ẹ ṣeun fún dídúró ti í.',
         personalInfoTitle: 'Ìwífún ara ẹni',
@@ -8372,7 +8372,7 @@ export const yo = {
           contactSupportTitle: 'Kàn sí ìtìlẹ́yìn',
           contactSupportDescription: 'Ṣé o nílò ìrànlọ́wọ́ sí i? Ẹgbẹ́ wa wà níbí láti ràn ọ́ lọ́wọ́.',
           contactSupportParagraph1: 'Bí o bá ní ìbéèrè, o pàdé ìṣòro, tàbí o fẹ́ fún wa ní èsì, o lè kàn sí ẹgbẹ́ AWA láti apá yìí.',
-          contactSupportParagraph2: 'Ẹ ṣeun fún ìrànlọ́wọ́ yín láti mú AWA dára sí i! 💜',
+          contactSupportParagraph2: 'Ẹ ṣeun fún ìrànlọ́wọ́ yín láti mú AWA dára sí i!',
           contactButton: 'Kọ̀wé sí wa',
           contactAccessibility: 'Kàn sí wa nípasẹ̀ ímeèlì',
           contactEmailSubject: 'Ìrànlọ́wọ́ — AWA Together'

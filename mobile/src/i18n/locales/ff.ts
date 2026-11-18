@@ -8135,7 +8135,7 @@ export const ff = {
       sendCta: 'Nelda weltaango'
     },
     pending: {
-      description: 'A waawan fuɗɗude seerndude habaruuji suɓaaɗi ndeye {{partner}} raartii e AWA Bote.',
+      description: 'A waaway fuɗɗaade senndugol anndinɗe suɓaaɗe saa’i {{partner}} jaɓi noddu maaɗa.',
       title: 'Weltaango neldaama\ne {{partner}}',
       statusTitle: 'E reeni yoɓɓugo',
       statusDescription: 'Min mbo’’ata ma ndeye {{name}} yoɓɓii weltaango maaɗa.',
@@ -8148,7 +8148,7 @@ export const ff = {
       previewDescription: 'Yiy ko {{partner}} yi’ata e AWA Bote.'
     },
     connected: {
-      title: 'Goriyaaru hawtii 💜',
+      title: 'Goriyaaru hawtii',
       since: 'Hawtii diga hannde',
       sharedInfoTitle: 'Habaruuji seerndaaɗi',
       emptyShared: 'Walaa habaruuji seerndaaɗi jooni.',
@@ -8177,7 +8177,7 @@ export const ff = {
       supportTips: 'Okkal mo nokku jam e ko ɗumɗum ngam yarugo.',
       phaseRecommendation: 'Dimɗo ko woni jooni: ɓeydu timmugo e moƴƴere.',
       generalRecommendation: 'Hoor-ma, e okkal walliinde maaɗa.',
-      greetingWithName: 'Sannu {{name}} 💜',
+      greetingWithName: 'Sannu {{name}}',
       greetingNeutral: 'Sannu 💜',
       greetingText: 'Ɗoo anndinooje seeɗa ngam wallude mo ɓuri moƴƴude hannde.',
       cycleDayLabel: 'Ñalnde cycle',
@@ -8219,7 +8219,7 @@ export const ff = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'A woni ɗo ngam mo 💜',
+        subtitle: 'A woni ɗo ngam mo',
         openProfileAccessibility: 'Uddit profil am',
         emptyShared: 'Walaa habaruuji seerndaaɗi e maaɗa jooni.',
         cycleInfoAccessibility: 'Habaruuji cycle hannde',
@@ -8290,7 +8290,7 @@ export const ff = {
         title: 'Profil am',
         subtitle: 'Nokku maaɗa e AWA Bote',
         noNameAccessibility: 'Innde winndaaka',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Goriyaaru e AWA Bote.',
         welcomeLine2: 'A jaaraama ngam wonde e jooɗorgal mum.',
         personalInfoTitle: 'Habaruuji hoore maaɗa',
@@ -8372,7 +8372,7 @@ export const ff = {
           contactSupportTitle: 'Haala e wallooɓe',
           contactSupportDescription: 'A ɗaɓɓiti walliinde ɓurnde? Giɗɗa amen ɗon ɗo ngam wallude ma.',
           contactSupportParagraph1: 'Si a woodi naamndal, a tawii ɗowroore, malla a yiɗi hollude min miijo maaɗa, a waawi haalaade e giɗɗa AWA diga ɗo.',
-          contactSupportParagraph2: 'A jaaraama ngam wallude min moƴƴinde AWA! 💜',
+          contactSupportParagraph2: 'A jaaraama ngam wallude min moƴƴinde AWA!',
           contactButton: 'Winndan en',
           contactAccessibility: 'Haala e en e imeel',
           contactEmailSubject: 'Walliinde — AWA Bote'

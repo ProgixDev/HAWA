@@ -6452,7 +6452,7 @@ export const ar = {
         label: 'الآثار الجانبية'
       },
       pcos: {
-        label: 'PCOS'
+        label: 'تكيّس المبايض'
       },
       hormones: {
         label: 'الهرمونات'
@@ -6873,7 +6873,7 @@ export const ar = {
           label: 'بعد\nالإجهاض'
         },
         pcos: {
-          label: 'PCOS'
+          label: 'تكيّس المبايض'
         },
         menopause: {
           label: 'ما قبل انقطاع الطمث\nوانقطاعه'
@@ -7720,6 +7720,13 @@ export const ar = {
     }
   },
   auth: {
+    localProfiles: {
+      notice: 'هذه ملفات محلية على هذا الجهاز وليست حسابات عبر الإنترنت: لا يتم التحقق من البريد الإلكتروني ولا يتم فحص كلمة المرور. تبقى سجلاتك الصحية مشتركة بين الملفات الموجودة على هذا الجهاز.',
+      selectorTitle: 'الملفات على هذا الجهاز',
+      invalidEmail: 'أدخلي بريدًا إلكترونيًا صالحًا.',
+      unknownEmail: 'لا يوجد ملف محلي بهذا البريد على هذا الهاتف. أنشئي واحدًا أولًا.',
+      alreadyExists: 'يوجد ملف محلي بهذا البريد على هذا الهاتف بالفعل. سجّلي الدخول بدلًا من ذلك.',
+    },
     shared: {
       tabLogin: 'تسجيل الدخول',
       tabRegister: 'إنشاء حساب',
@@ -7856,9 +7863,61 @@ export const ar = {
     footerHint: 'يمكنك إيقاف هذا في أي وقت من الإعدادات.',
     disableAction: 'إيقاف {{label}}'
   },
+  dataManagement: {
+    title: 'بياناتي',
+    subtitleLocal: 'كل شيء يبقى على هاتفك',
+    subtitleSignedIn: 'محفوظة في حسابك',
+    accountTitle: 'الحساب',
+    noAccount: 'لا يوجد حساب',
+    connected: 'متصلة',
+    lastBackup: 'آخر نسخة احتياطية:',
+    createAccount: 'إنشاء حساب',
+    createAccountHint: 'لحفظ بياناتك عبر الإنترنت.',
+    viewTitle: 'عرض بياناتي',
+    viewSubtitle: 'ما تم حفظه',
+    exportTitle: 'تصدير بياناتي',
+    exportSubtitle: 'نسخة في ملف',
+    signOut: 'تسجيل الخروج',
+    signOutSubtitle: 'تبقى البيانات على هذا الهاتف',
+    deleteAccountTitle: 'حذف حسابي',
+    deleteAccountSubtitle: 'الحساب والبيانات نهائيًا',
+    deleteDataTitle: 'حذف بياناتي',
+    deleteDataSubtitle: 'مسح كل شيء من هذا الهاتف',
+  },
   privacySecurity: {
     privateBiometricTitle: 'القياسات الحيوية للأقسام الخاصة',
     privateBiometricSubtitle: 'افتحي الحياة الحميمة والملاحظات والصور الخاصة دون كتابة الرمز. يبقى الرمز متاحًا كبديل.',
+    v2: {
+      statusActive: 'مفعّل',
+      protectedStatus_zero: 'لا شيء مفعّل',
+      protectedStatus_one: 'واحد مفعّل',
+      protectedStatus_two: 'اثنان مفعّلان',
+      protectedStatus_few: '{{count}} مفعّلة',
+      protectedStatus_many: '{{count}} مفعّلة',
+      protectedStatus_other: '{{count}} مفعّلة',
+      banner: 'اختاري وسائل الحماية التي تناسبك.',
+      appLockTitle: 'قفل التطبيق',
+      appLockSubtitle: 'رمز PIN، بصمة الإصبع',
+      appLockScreenSubtitle: 'اختاري كيف تحمين الدخول إلى AWA',
+      discretionTitle: 'التكتّم',
+      discretionRowSubtitle: 'وضع التحفظ، الإشعارات، الأيقونة',
+      discretionStatus: '{{count}} من 4',
+      discretionSubtitle: 'احتفظي بمتابعتك لنفسك',
+      discretionFooter: 'هذه الإعدادات لا تغيّر شيئًا في بياناتك.',
+      modestyTitle: 'وضع التحفظ',
+      modestySubtitle: 'إخفاء المحتوى الحساس',
+      discreetNotificationsSubtitle: 'نصوص محايدة',
+      hidePreviewTitle: 'إخفاء المعاينة',
+      hidePreviewSubtitle: 'لا شيء على شاشة القفل',
+      appearanceSubtitle: 'اسم التطبيق وأيقونته',
+      protectedTitle: 'المحتوى المحمي',
+      protectedSubtitle: 'الحياة الحميمة والملاحظات والصور',
+      protectedScreenSubtitle: 'اختاري ما يبقى مقفلًا',
+      protectedFooter: 'يستخدم القفل رمز PIN أو بصمتك الحيوية.',
+      myDataTitle: 'بياناتي',
+      myDataSubtitle: 'تصدير، حذف، حساب',
+      footer: 'يمكنك تعديل هذه الخيارات في أي وقت.',
+    },
     crashReports: {
       title: 'تقارير الأخطاء',
       subtitle: 'إرسال تقرير مجهول إذا توقف AWA.',
@@ -8203,6 +8262,7 @@ export const ar = {
       title: 'حالة الطهارة',
       menstruatingLabel: 'الحيض مستمر',
       menstruatingHint: 'ستتحدّث علامات طهارتك بمجرد أن تسجّلي انتهاء الحيض.',
+      expectedEnd: 'نهاية متوقعة تقريبًا في {{date}}',
       unknownLabel: 'لم يُسجَّل انتهاء الحيض',
       declareButton: 'سجّليه',
       pureTitle: 'عادت الطهارة',
@@ -8463,7 +8523,8 @@ export const ar = {
         title: 'الحمل',
         pregnancyWeek: 'أسبوع الحمل',
         dueDate: 'تاريخ الولادة المتوقع',
-        babyDevelopment: 'مرحلة الحمل ونموّ الجنين'
+        pregnancyStage: 'المرحلة الحالية من الحمل',
+        babyDevelopment: 'نموّ الجنين',
       },
       wellbeing: {
         title: 'الراحة النفسية والدعم',
@@ -8488,7 +8549,8 @@ export const ar = {
       sendCta: 'إرسال الدعوة'
     },
     pending: {
-      description: 'ستتمكنين من بدء مشاركة المعلومات المحدّدة فور انضمام {{partner}} إلى AWA معًا.',
+      backToHome: 'العودة إلى الرئيسية',
+      description: 'ستتمكنين من بدء مشاركة المعلومات المحدّدة فور قبول {{partner}} دعوتك.',
       title: 'تم إرسال الدعوة\nإلى {{partner}}',
       statusTitle: 'في انتظار القبول',
       statusDescription: 'سنخبرك فور قبول {{name}} دعوتك.',
@@ -8501,7 +8563,7 @@ export const ar = {
       previewDescription: 'اطلعي على ما سيراه {{partner}} في AWA معًا.'
     },
     connected: {
-      title: 'تم ربط الشريك 💜',
+      title: 'تم ربط الشريك',
       since: 'مرتبط منذ اليوم',
       sharedInfoTitle: 'المعلومات المشتركة',
       emptyShared: 'لا توجد معلومات مشتركة في الوقت الحالي.',
@@ -8530,7 +8592,7 @@ export const ar = {
       supportTips: 'امنحها لحظة هدوء ومشروبًا دافئًا.',
       phaseRecommendation: 'المرحلة الحالية: فضّل الراحة واللطف.',
       generalRecommendation: 'ابقَ منتبهًا وعرض مساعدتك.',
-      greetingWithName: 'مرحبًا {{name}} 💜',
+      greetingWithName: 'مرحبًا {{name}}',
       greetingNeutral: 'مرحبًا 💜',
       greetingText: 'إليك بعض المعلومات لدعمها بشكل أفضل اليوم.',
       cycleDayLabel: 'يوم الدورة',
@@ -8572,7 +8634,7 @@ export const ar = {
       },
       home: {
         greeting: 'السلام عليكم،',
-        subtitle: 'أنت هنا من أجلها 💜',
+        subtitle: 'أنت هنا من أجلها',
         openProfileAccessibility: 'فتح ملفي الشخصي',
         emptyShared: 'لا توجد معلومات مشتركة معك في الوقت الحالي.',
         cycleInfoAccessibility: 'معلومات دورة اليوم',
@@ -8593,6 +8655,12 @@ export const ar = {
         ovulationLabel: 'الإباضة المتوقعة',
         cycleDayValue: 'اليوم {{day}}',
         infoUnavailable: 'المعلومة غير متاحة',
+        pregnancyWeekValue: 'الأسبوع {{week}}',
+        pregnancyWeekCaption: 'الأسبوع',
+        pregnancyJourneyTitle: 'رحلة الحمل',
+        pregnancyTrimester1: 'الثلث الأول',
+        pregnancyTrimester2: 'الثلث الثاني',
+        pregnancyTrimester3: 'الثلث الثالث',
         periodInProgress: 'جارٍ',
         periodNotInProgress: 'غير جارٍ',
         inDays_one: 'بعد {{count}} يوم',
@@ -8651,7 +8719,7 @@ export const ar = {
         title: 'ملفي الشخصي',
         subtitle: 'مساحتك الشخصية في AWA معًا',
         noNameAccessibility: 'لم يتم إدخال اسم',
-        greeting: 'السلام عليكم {{name}}! 💜',
+        greeting: 'السلام عليكم {{name}}!',
         welcomeLine1: 'شريك على AWA معًا.',
         welcomeLine2: 'شكرًا لوقوفك إلى جانبها.',
         personalInfoTitle: 'المعلومات الشخصية',
@@ -8686,6 +8754,7 @@ export const ar = {
         accessExplanationPregnancyWeek: 'يمكنك رؤية أسبوع حملها.',
         accessExplanationDueDate: 'يمكنك رؤية تاريخ ولادتها المتوقع.',
         accessExplanationBabyDevelopment: 'يمكنك الاطلاع على معلومات حول نموّ الجنين.',
+        accessExplanationPregnancyStage: 'يمكنك الاطّلاع على المرحلة الحالية من حملها.',
         accessExplanationMood: 'يمكنك رؤية مزاجها اليوم.',
         accessExplanationDailyAdvice: 'تصلك نصيحة يومية لدعمها.',
         editNameModal: {
@@ -8702,7 +8771,10 @@ export const ar = {
           howItWorksTitle: 'كيف يعمل AWA معًا؟',
           howItWorksDescription: 'تعرّف على كيف يتيح لك التطبيق دعم شريكتك مع احترام خصوصيتها.',
           howItWorksParagraph1: 'يتيح لك AWA معًا رؤية المعلومات التي اختارت شريكتك مشاركتها معك فقط.',
-          howItWorksParagraph2: 'فمثلًا، قد ترى بعض المعلومات عن دورتها أو حيضها القادم أو فترة خصوبتها عندما تكون المشاركة مفعّلة لها.',
+          howItWorksParagraph2: 'يمكنك مثلًا رؤية يوم دورتها أو موعد حيضها القادم أو حالة الحيض عند تفعيل مشاركتها.',
+          howItWorksParagraph2Fertility: 'يمكنك مثلًا رؤية فترة خصوبتها أو إباضتها المقدّرة عند تفعيل مشاركتها.',
+          howItWorksParagraph2Pregnancy: 'يمكنك مثلًا رؤية أسبوع حملها أو موعد الولادة المتوقع أو نموّ الجنين عند تفعيل مشاركتها.',
+          howItWorksParagraph2Wellbeing: 'يمكنك مثلًا رؤية مزاجها اليوم أو نصيحة لدعمها عند تفعيل مشاركتها.',
           howItWorksParagraph3: 'تعتمد المعلومات الظاهرة دائمًا على خياراتها. ويمكنها تغيير ما تشاركه في أي وقت.',
           hiddenInfoTitle: 'لماذا بعض المعلومات مخفية؟',
           hiddenInfoDescription: 'تختار شريكتك ما تشاركه معك. ويمكنها تغيير هذه الخيارات في أي وقت.',
@@ -8724,6 +8796,21 @@ export const ar = {
           descriptionNextPeriod: 'التاريخ المتوقع لبداية حيضها القادم.',
           termPeriodStatus: 'حالة الحيض',
           descriptionPeriodStatus: 'يشير إلى ما إذا كان حيضها جاريًا حاليًا أو انتهى.',
+          understandingDescriptionFertility: 'شروحات بسيطة عن فترة الخصوبة والإباضة المقدّرة والمزاج ونصيحة اليوم.',
+          understandingDescriptionPregnancy: 'شروحات بسيطة عن أسبوع الحمل وموعد الولادة المتوقع والمرحلة الحالية ونموّ الجنين.',
+          understandingDescriptionWellbeing: 'شروحات بسيطة عن المزاج ونصيحة اليوم.',
+          termPregnancyWeek: 'أسبوع الحمل',
+          descriptionPregnancyWeek: 'يوضّح أسبوع الحمل الحالي محسوبًا منذ بداية الحمل.',
+          termDueDate: 'موعد الولادة المتوقع',
+          descriptionDueDate: 'تقدير لموعد الولادة، وقد يختلف ببضعة أيام.',
+          termPregnancyStage: 'المرحلة الحالية من الحمل',
+          descriptionPregnancyStage: 'يوضّح الثلث الحالي من الحمل.',
+          termBabyDevelopment: 'نموّ الجنين',
+          descriptionBabyDevelopment: 'معلومات عامة عن نموّ الجنين في الأسبوع الحالي، ولا تغني عن المتابعة الطبية.',
+          termMood: 'مزاج اليوم',
+          descriptionMood: 'يوضّح كيف تشعر اليوم، عندما تختار مشاركة ذلك.',
+          termDailyAdvice: 'نصيحة اليوم',
+          descriptionDailyAdvice: 'فكرة بسيطة لدعمها اليوم.',
           troubleshootingTitle: 'أواجه مشكلة في AWA معًا',
           troubleshootingDescription: 'ماذا تفعل إذا لم تظهر المعلومات، أو بدا أن الاتصال منقطع، أو واجهت مشكلة أخرى.',
           troubleshootingParagraph1: 'إذا لم تظهر بعض المعلومات، فابدأ بالتحقق من أن اتصالك بالإنترنت يعمل جيدًا.',
@@ -8733,7 +8820,7 @@ export const ar = {
           contactSupportTitle: 'التواصل مع الدعم',
           contactSupportDescription: 'هل تحتاج إلى مزيد من المساعدة؟ فريقنا هنا لدعمك.',
           contactSupportParagraph1: 'إذا كان لديك سؤال، أو واجهت مشكلة، أو أردت مشاركتنا ملاحظاتك، يمكنك التواصل مع فريق AWA من هذا القسم.',
-          contactSupportParagraph2: 'شكرًا لمساعدتنا على تحسين AWA! 💜',
+          contactSupportParagraph2: 'شكرًا لمساعدتنا على تحسين AWA!',
           contactButton: 'راسلنا',
           contactAccessibility: 'تواصل معنا عبر البريد الإلكتروني',
           contactEmailSubject: 'مساعدة — AWA معًا'

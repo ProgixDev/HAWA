@@ -8221,7 +8221,7 @@ export const rw = {
       sendCta: 'Ohereza ubutumire'
     },
     pending: {
-      description: 'Uzashobora gutangira gusangiza amakuru wahisemo {{partner}} namara kwinjira muri AWA Together.',
+      description: 'Uzashobora gutangira gusangira amakuru wahisemo akimara {{partner}} kwemera ubutumire bwawe.',
       title: 'Ubutumire bwoherejwe\nkuri {{partner}}',
       statusTitle: 'Dutegereje ko bwemerwa',
       statusDescription: 'Tuzakubwira {{name}} namara kwemera ubutumire bwawe.',
@@ -8234,7 +8234,7 @@ export const rw = {
       previewDescription: 'Reba ibyo {{partner}} azabona muri AWA Together.'
     },
     connected: {
-      title: 'Uwo mubana yahujwe 💜',
+      title: 'Uwo mubana yahujwe',
       since: 'Yahujwe uyu munsi',
       sharedInfoTitle: 'Amakuru asangizwa',
       emptyShared: 'Nta makuru ari gusangizwa ubu.',
@@ -8263,7 +8263,7 @@ export const rw = {
       supportTips: 'Mutegurire umwanya utuje n’ikinyobwa gishyushye.',
       phaseRecommendation: 'Intambwe y’ubu: shyira imbere kuruhuka n’ineza.',
       generalRecommendation: 'Komeza witonde kandi umutize ubufasha bwawe.',
-      greetingWithName: 'Muraho {{name}} 💜',
+      greetingWithName: 'Muraho {{name}}',
       greetingNeutral: 'Muraho 💜',
       greetingText: 'Dore amakuru make agufasha kumufasha neza uyu munsi.',
       cycleDayLabel: 'Umunsi w’ukwezi',
@@ -8305,7 +8305,7 @@ export const rw = {
       },
       home: {
         greeting: 'As-salamu ‘alaykum,',
-        subtitle: 'Uri hano kubera we 💜',
+        subtitle: 'Uri hano kubera we',
         openProfileAccessibility: 'Fungura umwirondoro wanjye',
         emptyShared: 'Nta makuru ari gusangizwa nawe ubu.',
         cycleInfoAccessibility: 'Amakuru y’ukwezi k’imihango y’uyu munsi',
@@ -8378,7 +8378,7 @@ export const rw = {
         title: 'Umwirondoro wanjye',
         subtitle: 'Umwanya wawe bwite muri AWA Together',
         noNameAccessibility: 'Nta zina rya mbere ryanditswe',
-        greeting: 'Salam {{name}}! 💜',
+        greeting: 'Salam {{name}}!',
         welcomeLine1: 'Uwo babana kuri AWA Together.',
         welcomeLine2: 'Urakoze kuba uri iruhande rwe.',
         personalInfoTitle: 'Amakuru bwite',
@@ -8460,7 +8460,7 @@ export const rw = {
           contactSupportTitle: 'Vugana n’ubufasha',
           contactSupportDescription: 'Ukeneye ubufasha bwisumbuyeho? Itsinda ryacu rirahari kugufasha.',
           contactSupportParagraph1: 'Niba ufite ikibazo, wahuye n’ikibazo cyangwa ushaka kutugezaho igitekerezo, ushobora kuvugana n’itsinda rya AWA uhereye muri iki gice.',
-          contactSupportParagraph2: 'Urakoze kudufasha kunoza AWA! 💜',
+          contactSupportParagraph2: 'Urakoze kudufasha kunoza AWA!',
           contactButton: 'Twandikire',
           contactAccessibility: 'Tuvugishe kuri imeri',
           contactEmailSubject: 'Ubufasha — AWA Together'
