@@ -32,6 +32,9 @@ type Props = {
   /** Opens the Library with this category already ticked. */
   onOpenCategory: (groupId: LibraryGroupId) => void;
   onSeeAll: () => void;
+  /** Only the "Derniers articles" block, taken from ONE Library category (the managed daughter's dashboard: the first-period articles), instead of the
+   * objective's category tiles + curated articles. Same block, same rows, same Library source. */
+  onlyCategoryId?: string;
 };
 
 function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color}: {
@@ -53,7 +56,7 @@ function SectionHeader({title, icon, onSeeAll, styles, seeAllLabel, color}: {
   );
 }
 
-function ObjectiveArticlesSection({objective, onOpenArticle, onOpenCategory, onSeeAll}: Props): React.JSX.Element | null {
+function ObjectiveArticlesSection({objective, onOpenArticle, onOpenCategory, onSeeAll, onlyCategoryId}: Props): React.JSX.Element | null {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -62,85 +65,121 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onOpenCategory, onS
 
   // The objective's own curated articles (never a second list), the newly published ones first.
   const latest = useMemo(() => {
-    const byId = new Map(getLibraryArticles(t).map(article => [article.id, article]));
-    return getLibraryConfigForObjective(objective).recommendedArticleIds
-      .map(id => byId.get(id))
-      .filter((article): article is LibraryArticle => Boolean(article))
+    const all = getLibraryArticles(t);
+    const byId = new Map(all.map(article => [article.id, article]));
+    const candidates: LibraryArticle[] = onlyCategoryId
+      ? all.filter(article => article.categoryId === onlyCategoryId)
+      : getLibraryConfigForObjective(objective).recommendedArticleIds
+          .map(id => byId.get(id))
+          .filter((article): article is LibraryArticle => Boolean(article));
+    return candidates
       .map((article, index) => ({article, index}))
       .sort((x, y) => Number(Boolean(y.article.isNew)) - Number(Boolean(x.article.isNew)) || x.index - y.index)
-      .slice(0, LATEST_COUNT)
+      .slice(0, onlyCategoryId ? undefined : LATEST_COUNT)
       .map(item => item.article);
-  }, [objective, t]);
+  }, [objective, onlyCategoryId, t]);
 
   const seeAll = t('objectiveArticles.seeAll');
 
   return (
     <View style={styles.root}>
-      <SectionHeader
-        color={theme.colors.primary}
-        icon="flower-outline"
-        onSeeAll={onSeeAll}
-        seeAllLabel={seeAll}
-        styles={styles}
-        title={t('objectiveArticles.title')}
-      />
+      {onlyCategoryId ? null : (
+        <>
+          <SectionHeader
+            color={theme.colors.primary}
+            icon="flower-outline"
+            onSeeAll={onSeeAll}
+            seeAllLabel={seeAll}
+            styles={styles}
+            title={t('objectiveArticles.title')}
+          />
 
-      <ScrollView contentContainerStyle={styles.tiles} horizontal showsHorizontalScrollIndicator={false} style={styles.tilesScroll}>
-        {groups.map(groupId => {
-          const label = t(`library.screen.categoryTiles.${groupId}.label`).replace('\n', ' ');
+          <ScrollView contentContainerStyle={styles.tiles} horizontal showsHorizontalScrollIndicator={false} style={styles.tilesScroll}>
+            {groups.map(groupId => {
+              const label = t(`library.screen.categoryTiles.${groupId}.label`).replace('\n', ' ');
 
-          return (
-            <Pressable
-              accessibilityLabel={label}
-              accessibilityRole="button"
-              key={groupId}
-              onPress={() => onOpenCategory(groupId)}
-              style={({pressed}) => [styles.tile, pressed && styles.pressed]}>
-              <Image resizeMode="cover" source={getGroupCover(groupId)} style={styles.tileImage} />
-              <View style={styles.tileLabelWrap}>
-                <Text numberOfLines={2} style={styles.tileLabel}>{label}</Text>
-              </View>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
+              return (
+                <Pressable
+                  accessibilityLabel={label}
+                  accessibilityRole="button"
+                  key={groupId}
+                  onPress={() => onOpenCategory(groupId)}
+                  style={({pressed}) => [styles.tile, pressed && styles.pressed]}>
+                  <Image resizeMode="cover" source={getGroupCover(groupId)} style={styles.tileImage} />
+                  <View style={styles.tileLabelWrap}>
+                    <Text numberOfLines={2} style={styles.tileLabel}>{label}</Text>
+                  </View>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </>
+      )}
 
       {latest.length > 0 ? (
         <>
           <SectionHeader
             color={theme.colors.primary}
             icon="newspaper-variant-outline"
-            onSeeAll={onSeeAll}
+            onSeeAll={onlyCategoryId ? () => onOpenCategory(onlyCategoryId as LibraryGroupId) : onSeeAll}
             seeAllLabel={seeAll}
             styles={styles}
             title={t('objectiveArticles.latestTitle')}
           />
 
-          {latest.map(article => (
-            <Pressable
-              accessibilityLabel={article.title}
-              accessibilityRole="button"
-              key={article.id}
-              onPress={() => onOpenArticle(article.id)}
-              style={({pressed}) => [styles.row, pressed && styles.pressed]}>
-              <View style={styles.rowImageBox}>
-                <Image resizeMode="cover" source={getArticleThumbnail(article.categoryId, article.id)} style={styles.rowImage} />
-              </View>
-
-              <View style={styles.rowCopy}>
-                <Text numberOfLines={2} style={styles.rowTitle}>{article.title}</Text>
-                <ArticlePremiumBadge article={article} />
-                <View style={styles.rowMeta}>
-                  <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={14} />
-                  <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
-                    {t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}
-                  </AwaText>
+          {onlyCategoryId ? (
+            // The daughter's block: every first-period article in one swipeable row.
+            <ScrollView contentContainerStyle={styles.cards} horizontal showsHorizontalScrollIndicator={false} style={styles.cardsScroll}>
+              {latest.map(article => (
+                <Pressable
+                  accessibilityLabel={article.title}
+                  accessibilityRole="button"
+                  key={article.id}
+                  onPress={() => onOpenArticle(article.id)}
+                  style={({pressed}) => [styles.card, pressed && styles.pressed]}>
+                  <Image resizeMode="cover" source={getArticleThumbnail(article.categoryId, article.id)} style={styles.cardImage} />
+                  <View style={styles.cardBody}>
+                    <Text numberOfLines={3} style={styles.cardTitle}>{article.title}</Text>
+                    <ArticlePremiumBadge article={article} />
+                    <View style={styles.rowMeta}>
+                      <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={14} />
+                      <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
+                        {t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}
+                      </AwaText>
+                    </View>
+                  </View>
+                </Pressable>
+              ))}
+            </ScrollView>
+          ) : (
+            <>
+            {latest.map(article => (
+              <Pressable
+                accessibilityLabel={article.title}
+                accessibilityRole="button"
+                key={article.id}
+                onPress={() => onOpenArticle(article.id)}
+                style={({pressed}) => [styles.row, pressed && styles.pressed]}>
+                <View style={styles.rowImageBox}>
+                  <Image resizeMode="cover" source={getArticleThumbnail(article.categoryId, article.id)} style={styles.rowImage} />
                 </View>
-              </View>
 
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} style={styles.chevron} />
-            </Pressable>
-          ))}
+                <View style={styles.rowCopy}>
+                  <Text numberOfLines={2} style={styles.rowTitle}>{article.title}</Text>
+                  <ArticlePremiumBadge article={article} />
+                  <View style={styles.rowMeta}>
+                    <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={14} />
+                    <AwaText colorRole="onSurfaceVariant" variant="bodySmall">
+                      {t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}
+                    </AwaText>
+                  </View>
+                </View>
+
+                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} style={styles.chevron} />
+              </Pressable>
+            ))}
+            </>
+          )}
         </>
       ) : null}
     </View>
@@ -181,6 +220,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     rowTitle: {flexShrink: 1, color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 17, lineHeight: 22, fontWeight: '600'},
     rowMeta: {marginTop: 8, flexDirection: 'row', alignItems: 'center', gap: 6},
     chevron: {marginHorizontal: 8, alignSelf: 'center'},
+
+    // horizontal article cards (the managed daughter's dashboard)
+    cardsScroll: {marginTop: 14, marginHorizontal: -16},
+    cards: {gap: 12, paddingHorizontal: 16, paddingBottom: 4},
+    card: {width: 188, borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, backgroundColor: withAlpha(theme.colors.surface, 0.6)},
+    cardImage: {width: '100%', height: 124, backgroundColor: theme.colors.surfaceSecondary},
+    cardBody: {minHeight: 112, padding: 12},
+    cardTitle: {color: theme.colors.text, fontFamily: AWA_DISPLAY_FONT, fontSize: 16, lineHeight: 21, fontWeight: '600'},
     pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
   });
 }
