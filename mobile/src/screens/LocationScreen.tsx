@@ -100,16 +100,12 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
 
-  // The map's initial camera position: resolved once, asynchronously, by
-  // resolveInitialLocation() (saved location, else always the neutral
-  // London default — IP/country detection is deliberately never consulted;
-  // see that module's header comment).
-  // Deliberately starts `null` and stays null until resolution completes, so
-  // the map/camera are never mounted with a wrong default center — see the
-  // render below, where the map card waits on this exactly like it already
-  // waits on `mapStyle`. This is what prevents the previous behavior where
-  // every user, worldwide, briefly or permanently saw Algiers.
+  // The map's initial camera position: resolved once, asynchronously, by resolveInitialLocation() (a saved location, else the region of
+  // the phone's own settings at country level, else a neutral world view — never a default city; see that module's header comment).
+  // Deliberately starts `undefined` and stays so until resolution completes, so the map/camera are never mounted with a wrong center —
+  // see the render below, where the map card waits on this exactly like it already waits on `mapStyle`.
   const [initialCenter, setInitialCenter] = useState<[number, number]>();
+  const [initialZoom, setInitialZoom] = useState(11);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<MapPlace[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<MapPlace | null>(null);
@@ -137,16 +133,20 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
   useEffect(() => {
     let cancelled = false;
-    resolveInitialLocation().then(location => {
+    resolveInitialLocation().then(initial => {
       if (cancelled) {return;}
       // A late-arriving initial suggestion must never overwrite a location
       // she already chose herself (search/GPS/map drag) while it was still
       // resolving — but `resolving` must still clear either way, or the
       // screen gets stuck showing the spinner forever instead of her choice.
       if (!userChangedLocation.current) {
-        setSelectedLocation(location);
-        setQuery(`${location.city}, ${location.country}`);
-        setInitialCenter([location.longitude, location.latitude]);
+        // With no saved location nothing is selected: the field stays empty and the button disabled until she chooses a place.
+        if (initial.place) {
+          setSelectedLocation(initial.place);
+          setQuery(`${initial.place.city}, ${initial.place.country}`);
+        }
+        setInitialCenter(initial.center);
+        setInitialZoom(initial.zoom);
       }
       setResolving(false);
     });
@@ -248,7 +248,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     };
   }, [query, showSuggestions, t, mapLanguage]);
 
-  // LANGUAGE FOLLOWS THE APP. A place whose names are not in the current language — the neutral London default (English literals), a
+  // LANGUAGE FOLLOWS THE APP. A place whose names are not in the current language — a
   // location saved by an older version, a result picked before switching language — gets its names re-asked from the provider in
   // the current language. Only city / country / address change: the coordinates (and so the camera and the marker) never move, nothing
   // is persisted until she confirms, and if the provider has no near match or fails she keeps seeing the names she already had.
@@ -562,7 +562,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                   mapStyle={mapStyle}
                   onRegionDidChange={handleMapIdle}
                   style={styles.map}>
-                  <Camera ref={cameraRef} initialViewState={{center: initialCenter, zoom: 11}} />
+                  <Camera ref={cameraRef} initialViewState={{center: initialCenter, zoom: initialZoom}} />
                   {locationPermission ? <UserLocation animated /> : null}
                 </MapLibreMap>
                 <View pointerEvents="none" style={styles.centerMarker}>

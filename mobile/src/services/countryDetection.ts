@@ -26,8 +26,8 @@ const isTwoLetterCode = (value: unknown): value is string =>
  * `null` if detection isn't possible for any reason — offline, the service
  * is unavailable, the request times out, or the response is malformed.
  * Every failure is swallowed here; callers always get a usable answer
- * (`null`) and fall back to the neutral London default (see
- * config/countryLocations.ts), never a thrown error or a blocking dialog.
+ * (`null`) and fall back to the neutral world view (see
+ * services/locationInitialization.ts), never a thrown error or a blocking dialog.
  */
 export async function detectCountryCode(): Promise<string | null> {
   if (!IS_MAPS_CONFIGURED) {

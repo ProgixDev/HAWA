@@ -1,7 +1,7 @@
 /**
  * ISO 3166-1 alpha-2 country code → one representative city, used ONLY to
- * seed LocationScreen.tsx's initial map suggestion when the user has no
- * saved location yet (see services/locationInitialization.ts).
+ * choose where LocationScreen.tsx's map OPENS (never a selected place) when
+ * the user has no saved location yet (see services/locationInitialization.ts).
  *
  * This is not a restriction list: city search (services/maps/mapProvider.ts)
  * stays global, and every one of these countries — and any country not
@@ -16,21 +16,9 @@ export type RepresentativeLocation = {
   longitude: number;
 };
 
-// The neutral, final fallback: used when there is no saved location, country
-// detection is unavailable/fails/times out, or the detected country isn't in
-// the table below. Deliberately NOT Algiers — see LocationScreen.tsx's
-// header comment for why a single-country default doesn't fit an
-// international, English-first app.
-export const LONDON_FALLBACK: RepresentativeLocation = {
-  city: 'London',
-  country: 'United Kingdom',
-  latitude: 51.5074,
-  longitude: -0.1278,
-};
-
 const REPRESENTATIVE_LOCATIONS: Record<string, RepresentativeLocation> = {
   FR: {city: 'Paris', country: 'France', latitude: 48.8566, longitude: 2.3522},
-  GB: LONDON_FALLBACK,
+  GB: {city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278},
   US: {city: 'New York', country: 'United States', latitude: 40.7128, longitude: -74.006},
   CA: {city: 'Toronto', country: 'Canada', latitude: 43.6532, longitude: -79.3832},
   DE: {city: 'Berlin', country: 'Germany', latitude: 52.52, longitude: 13.405},
@@ -50,14 +38,13 @@ const REPRESENTATIVE_LOCATIONS: Record<string, RepresentativeLocation> = {
   SA: {city: 'Riyadh', country: 'Saudi Arabia', latitude: 24.7136, longitude: 46.6753},
 };
 
-/** Looks up the representative city for a detected ISO alpha-2 country code
- * (case-insensitive). Falls back to London for a missing, unknown, or
- * unsupported code — never throws. */
+/** Looks up the representative city for an ISO alpha-2 country code (case-insensitive). `null` for a missing, unknown or unlisted code —
+ * there is deliberately NO default city: the caller then shows a neutral world view and the person picks a place herself. Never throws. */
 export function representativeLocationForCountryCode(
   countryCode: string | null | undefined,
-): RepresentativeLocation {
+): RepresentativeLocation | null {
   if (!countryCode) {
-    return LONDON_FALLBACK;
+    return null;
   }
-  return REPRESENTATIVE_LOCATIONS[countryCode.toUpperCase()] ?? LONDON_FALLBACK;
+  return REPRESENTATIVE_LOCATIONS[countryCode.toUpperCase()] ?? null;
 }

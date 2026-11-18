@@ -10,12 +10,13 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {mapProvider} from '../../services/maps/mapProvider';
 import {resolveInitialLocation} from '../../services/locationInitialization';
 import type {MapPlace} from '../../services/maps/types';
+import type {InitialLocation} from '../../services/locationInitialization';
 
-// LOCATION DEFAULT MUST ALWAYS BE LONDON — section "explicit GPS/user action
-// is not later overwritten by London": resolveInitialLocation() (saved
-// location, else London) can genuinely take a moment to settle (reading
+// A late initial resolution never overwrites an explicit choice — section "explicit GPS/user action
+// is not later overwritten": resolveInitialLocation() (a saved
+// location, else the empty state) can genuinely take a moment to settle (reading
 // AsyncStorage). If the user searches/selects/GPS's to a different city
-// WHILE that initial resolution is still pending, the late-arriving London
+// WHILE that initial resolution is still pending, the late-arriving saved location
 // (or saved-location) suggestion must never overwrite her explicit choice —
 // this is exactly what LocationScreen.tsx's `userChangedLocation` ref
 // guards against. This file controls that timing directly (a manually
@@ -119,10 +120,10 @@ afterEach(() => {
 });
 
 describe('A late-resolving initial suggestion never overwrites an explicit user action made while it was still pending', () => {
-  it('searching and selecting a city BEFORE the (slow) initial London suggestion resolves keeps the searched city, not London', async () => {
-    let releaseInitialResolution!: (place: MapPlace) => void;
+  it('searching and selecting a city BEFORE the (slow) initial resolution finishes keeps the searched city, not the late-arriving saved one', async () => {
+    let releaseInitialResolution!: (initial: InitialLocation) => void;
     mockResolveInitialLocation.mockImplementation(
-      () => new Promise<MapPlace>(resolve => {releaseInitialResolution = resolve;}),
+      () => new Promise<InitialLocation>(resolve => {releaseInitialResolution = resolve;}),
     );
 
     const newYork: MapPlace = {city: 'New York', country: 'United States', latitude: 40.7128, longitude: -74.006};
@@ -130,8 +131,8 @@ describe('A late-resolving initial suggestion never overwrites an explicit user 
 
     const {renderer} = await renderLocationScreen();
     // The initial resolution is still pending — the map/location card show
-    // the "resolving" state, never a half-applied London.
-    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
+    // the "resolving" state, never a half-applied saved place.
+    expect(searchValue(renderer)).not.toBe('Paris, France');
 
     await act(async () => {
       searchInput(renderer).props.onChangeText('New York');
@@ -149,14 +150,14 @@ describe('A late-resolving initial suggestion never overwrites an explicit user 
     });
     expect(searchValue(renderer)).toBe('New York, United States');
 
-    // ONLY NOW does the slow initial suggestion (London) finally resolve —
+    // ONLY NOW does the slow initial resolution (a saved Paris) finally resolve —
     // it must be silently dropped, never overwriting the explicit choice.
     await act(async () => {
-      releaseInitialResolution({city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278});
+      releaseInitialResolution({place: {city: 'Paris', country: 'France', latitude: 48.8566, longitude: 2.3522}, center: [2.3522, 48.8566], zoom: 11});
     });
     await settle();
 
     expect(searchValue(renderer)).toBe('New York, United States');
-    expect(searchValue(renderer)).not.toBe('London, United Kingdom');
+    expect(searchValue(renderer)).not.toBe('Paris, France');
   });
 });

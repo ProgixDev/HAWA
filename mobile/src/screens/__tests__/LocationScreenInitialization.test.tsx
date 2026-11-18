@@ -16,13 +16,14 @@ import {
   setSelectedLocation,
 } from '../../state/onboardingPreferences';
 import i18n from '../../i18n';
+import {readDeviceLocaleTags} from '../../utils/deviceLanguage';
 import {setAppLanguage} from '../../state/themePreferences';
 
 // Component-level coverage for LocationScreen.tsx's international
 // initialization (TEST 11-14 of the audited spec, plus the headline success
-// criteria rendered end-to-end): a saved location wins, London is ALWAYS the
-// default otherwise (IP/country detection is deliberately never consulted
-// for this initial suggestion — see locationInitialization.ts), searching
+// criteria rendered end-to-end): a saved location wins, otherwise NOTHING is
+// selected (no default city; the map opens on the phone's region or the world — IP/country detection is never consulted, see
+// locationInitialization.ts), searching
 // moves the map, confirming persists, the GPS button still works, and
 // MapLibre's [longitude, latitude] coordinate order is never reversed.
 
@@ -70,6 +71,11 @@ jest.mock('@maplibre/maplibre-react-native', () => {
     UserLocation: () => null,
   };
 });
+
+jest.mock('../../utils/deviceLanguage', () => ({
+  readDeviceLocaleTags: jest.fn(),
+}));
+const mockReadDeviceLocaleTags = readDeviceLocaleTags as jest.Mock;
 
 const mockDetectCountryCode = detectCountryCode as jest.Mock;
 const mockSearchPlaces = mapProvider.searchPlaces as jest.Mock;
@@ -123,6 +129,11 @@ const searchValue = (renderer: ReactTestRenderer.ReactTestRenderer): string => r
 const cameraCenter = (renderer: ReactTestRenderer.ReactTestRenderer): [number, number] | null =>
   JSON.parse(renderer.root.findByProps({testID: 'camera-center'}).props.children as string);
 
+const nextButton = (renderer: ReactTestRenderer.ReactTestRenderer) =>
+  renderer.root.findAll(
+    node => typeof node.props.onPress === 'function' && node.findAllByType(Text).some(text => [text.props.children].flat(Infinity).join('') === 'Suivant'),
+  )[0];
+
 const searchInput = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findByType(TextInput);
 
@@ -135,6 +146,7 @@ beforeEach(async () => {
   await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
   mockDetectCountryCode.mockReset();
+  mockReadDeviceLocaleTags.mockReset().mockResolvedValue([]);
   mockSearchPlaces.mockReset().mockResolvedValue([]);
   mockGetCurrentPosition.mockReset();
   mockRequestAuthorization.mockReset();
@@ -147,7 +159,7 @@ afterEach(() => {
   });
 });
 
-describe('LocationScreen — saved location vs. the London default', () => {
+describe('LocationScreen — saved location vs. nothing selected (no default city)', () => {
   it('a saved Paris opens directly on Paris, and country detection is never even consulted', async () => {
     await setSelectedLocation({city: 'Paris', country: 'France', latitude: 48.8566, longitude: 2.3522});
     mockDetectCountryCode.mockResolvedValue('GB');
@@ -159,35 +171,38 @@ describe('LocationScreen — saved location vs. the London default', () => {
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
-  it('no saved location opens on London, regardless of what IP/country detection would suggest', async () => {
+  it('no saved location and no device region: nothing is selected, the field is empty, the map opens on the world, the button is disabled', async () => {
     mockDetectCountryCode.mockResolvedValue('FR'); // must have zero effect — detection is never consulted
 
     const {renderer} = await renderLocationScreen();
 
-    expect(searchValue(renderer)).toBe('London, United Kingdom');
-    expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
+    expect(searchValue(renderer)).toBe('');
+    expect(searchValue(renderer)).not.toContain('London');
+    expect(cameraCenter(renderer)).toEqual([10, 25]);
+    expect(nextButton(renderer).props.disabled).toBe(true);
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
-  it('no saved location + an Algeria IP result still opens on London, never Algiers', async () => {
-    mockDetectCountryCode.mockResolvedValue('DZ');
+  it('no saved location + a device region (fr-DZ) only opens the map on that country: still nothing selected, never an IP result', async () => {
+    mockDetectCountryCode.mockResolvedValue('FR');
+    mockReadDeviceLocaleTags.mockResolvedValue(['fr-DZ']);
 
     const {renderer} = await renderLocationScreen();
 
-    expect(searchValue(renderer)).toBe('London, United Kingdom');
-    expect(searchValue(renderer)).not.toBe('Algiers, Algeria');
-    expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
+    expect(searchValue(renderer)).toBe('');
+    expect(cameraCenter(renderer)).toEqual([3.0588, 36.7538]);
+    expect(nextButton(renderer).props.disabled).toBe(true);
   });
 });
 
 describe('TEST 11/12 — searching and confirming another city', () => {
   it('selecting a search result moves the map and updates the location card; confirming persists it', async () => {
-    mockDetectCountryCode.mockResolvedValue(null); // starts on London
+    mockDetectCountryCode.mockResolvedValue(null); // starts with nothing selected
     const newYork = {city: 'New York', country: 'United States', latitude: 40.7128, longitude: -74.006};
     mockSearchPlaces.mockResolvedValue([newYork]);
 
     const {renderer} = await renderLocationScreen();
-    expect(searchValue(renderer)).toBe('London, United Kingdom');
+    expect(searchValue(renderer)).toBe('');
 
     await act(async () => {
       searchInput(renderer).props.onChangeText('New York');
@@ -210,7 +225,7 @@ describe('TEST 11/12 — searching and confirming another city', () => {
     });
 
     expect(searchValue(renderer)).toBe('New York, United States');
-    // The map was already mounted on the initial (London) suggestion, so the
+    // The map was already mounted on the initial (world) view, so the
     // move to New York happens via the camera ref's easeTo() — exactly like
     // real MapLibre, initialViewState only ever applies on first mount.
     expect(easeToCalls.at(-1)?.center).toEqual([-74.006, 40.7128]);
@@ -268,8 +283,9 @@ describe('TEST 13 — the GPS button remains functional', () => {
 });
 
 describe('TEST 14 — MapLibre coordinate order stays [longitude, latitude]', () => {
-  it('the London fallback camera center is [longitude, latitude], never [latitude, longitude]', async () => {
+  it('the camera center from a device region (en-GB) is [longitude, latitude], never [latitude, longitude]', async () => {
     mockDetectCountryCode.mockResolvedValue(null);
+    mockReadDeviceLocaleTags.mockResolvedValue(['en-GB']);
 
     const {renderer} = await renderLocationScreen();
 
@@ -279,5 +295,6 @@ describe('TEST 14 — MapLibre coordinate order stays [longitude, latitude]', ()
     expect(center).toEqual([-0.1278, 51.5074]);
     expect(center?.[0]).toBeLessThan(0);
     expect(center?.[1]).toBeGreaterThan(0);
+    expect(searchValue(renderer)).toBe(''); // the region only centres the map, it selects nothing
   });
 });

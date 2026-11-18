@@ -16,9 +16,28 @@ import {resetAppLanguageForTests, setAppLanguage, type AwaAppLanguage} from '../
 import i18n from '../../i18n';
 
 // The location screen follows the ACTIVE AWA language everywhere the provider can: the map's label layers (the served style is English),
-// the search results and reverse geocoding (the request language), and the names of the place already selected (the neutral London
-// default, a location saved by an older version, a result picked before a language switch) — re-asked from the provider in the new
+// the search results and reverse geocoding (the request language), and the names of the place already selected (a location saved by an older version, a result picked before a language switch) — re-asked from the provider in the new
 // language WITHOUT moving the selected coordinates, persisting anything, or downloading the style again.
+
+// The app no longer has a default city: with no saved location nothing is selected. This suite is about re-asking the names of a place that
+// IS selected but whose names are English literals (a location saved by an older version, a result picked before a language switch), so
+// when nothing is saved it starts from exactly such a place — the old London literals, marked as English.
+jest.mock('../../services/locationInitialization', () => {
+  const actual = jest.requireActual('../../services/locationInitialization');
+  return {
+    ...actual,
+    resolveInitialLocation: async () => {
+      const initial = await actual.resolveInitialLocation();
+      return initial.place
+        ? initial
+        : {
+            place: {city: 'London', country: 'United Kingdom', latitude: 51.5074, longitude: -0.1278, language: 'en'},
+            center: [-0.1278, 51.5074],
+            zoom: 11,
+          };
+    },
+  };
+});
 
 jest.mock('../../services/countryDetection', () => ({
   detectCountryCode: jest.fn().mockResolvedValue(null),
