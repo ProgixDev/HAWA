@@ -20,14 +20,14 @@ import {useAwaADeuxPartnerProfile} from '../../../hooks/useAwaADeuxPartnerProfil
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
 import {PARTNER_PROFILE_FIRST_NAME_MAX_LENGTH} from '../../../state/awaADeuxPartnerProfileStore';
-import {getFirstName} from '../../../state/onboardingPreferences';
 import type {SharingKey} from '../../../state/awaADeuxSharingStore';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing';
 import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
 import {awaShapes} from '../../../theme/shapes';
+import {sectionsForObjective, sharingKeysForObjective} from '../../../utils/awaADeuxObjective';
+import type {ObjectiveId} from '../../../state/onboardingPreferences';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
-import {partnerSubject} from '../../../utils/awaADeuxPartnerWording';
 import {APP_METADATA} from '../../../utils/appMetadata';
 import {upperCaseFor} from '../../../utils/textCase';
 import {sharingSections} from '../awaADeuxDemo';
@@ -89,10 +89,9 @@ export default function PartnerProfileScreen(): React.JSX.Element {
     setNameModalVisible(false);
   };
 
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
   const sharedItems = sharingSections().flatMap(section => section.items).filter(item => visibility.fields[item.key]);
-  const ownerLabel = partnerSubject(getFirstName().trim());
   const accessExplanations = accessExplanationsOf(t);
 
   const [expanded, setExpanded] = useState<'access' | 'privacy' | 'help' | null>(null);
@@ -154,7 +153,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           </View>
         </AwaCard>
 
-        <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.profile.personalInfoSubtitle')} title={t('awaADeux.partnerSide.profile.personalInfoTitle')} />
+        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.profile.personalInfoTitle')} />
         <AwaCard padding="none" style={styles.personalInfoCard} variant="filled">
           <InfoRow
             accessibilityLabel={t('awaADeux.partnerSide.profile.editFirstNameAccessibility')}
@@ -179,7 +178,21 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           visible={nameModalVisible}
         />
 
-        <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.profile.connectedToSubtitle', {owner: ownerLabel.toLowerCase()})} title={t('profile.awaADeuxTitle')} />
+        {/* "Apparence": the same screen as the owner's Profile (theme, colours, display, language) — one row, opened from here. */}
+        <SectionHeader styles={styles} title={t('appearance.headerTitle')} />
+        <AwaCard padding="none" style={styles.personalInfoCard} variant="filled">
+          <InfoRow
+            accessibilityLabel={t('appearance.headerTitle')}
+            icon="palette-outline"
+            label={t('appearance.headerTitle')}
+            onPress={() => navigation.getParent<NativeStackNavigationProp<RootStackParamList>>()?.navigate('Appearance')}
+            styles={styles}
+            theme={theme}
+            value={t('profile.appearanceSubtitle')}
+          />
+        </AwaCard>
+
+        <SectionHeader styles={styles} title={t('profile.awaADeuxTitle')} />
 
         {/* Same accordion component/visual system as Confidentialité below (Row +
             privacyRow/privacyIcon/privacyText/privacyDivider) — only the content differs:
@@ -288,7 +301,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
                 time) — including "Contacter le support", which also reveals a real,
                 separately-labelled action button (see FaqRow) instead of being a single
                 always-active row. */}
-            {helpFaqOf(t).map((faq, index) => (
+            {helpFaqOf(t, objective).map((faq, index) => (
               <FaqRow
                 key={faq.key}
                 expanded={expandedHelpItem === faq.key}
@@ -310,7 +323,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           label={t('awaADeux.partnerSide.profile.signOut')}
           onPress={() => setLogoutConfirmVisible(true)}
           style={styles.signOut}
-          variant="destructive"
+          variant="destructiveFilled"
         />
       </ScrollView>
 
@@ -337,6 +350,7 @@ const accessExplanationsOf = (t: TFunction): Partial<Record<SharingKey, string>>
   pregnancyWeek: t('awaADeux.partnerSide.profile.accessExplanationPregnancyWeek'),
   dueDate: t('awaADeux.partnerSide.profile.accessExplanationDueDate'),
   babyDevelopment: t('awaADeux.partnerSide.profile.accessExplanationBabyDevelopment'),
+  pregnancyStage: t('awaADeux.partnerSide.profile.accessExplanationPregnancyStage'),
   mood: t('awaADeux.partnerSide.profile.accessExplanationMood'),
   dailyAdvice: t('awaADeux.partnerSide.profile.accessExplanationDailyAdvice'),
 });
@@ -373,7 +387,53 @@ type FaqItem = {
   contact?: boolean;
 };
 
-const helpFaqOf = (t: TFunction): FaqItem[] => [
+// "Comprendre les informations partagées": only the definitions of what the objective can share (utils/awaADeuxObjective.ts), in a fixed order — the
+// partner of a pregnant woman reads about the week and the due date, never about a menstrual phase that does not exist for her.
+const UNDERSTANDING_DEFINITIONS: Array<{key: SharingKey; terms: Array<[string, string]>}> = [
+  {key: 'cycleDay', terms: [['termCycleDay', 'descriptionCycleDay'], ['termCurrentPhase', 'descriptionCurrentPhase']]},
+  {key: 'nextPeriod', terms: [['termNextPeriod', 'descriptionNextPeriod']]},
+  {key: 'periodStatus', terms: [['termPeriodStatus', 'descriptionPeriodStatus']]},
+  {key: 'fertileWindow', terms: [['termFertileWindow', 'descriptionFertileWindow']]},
+  {key: 'ovulation', terms: [['termOvulation', 'descriptionOvulation']]},
+  {key: 'pregnancyWeek', terms: [['termPregnancyWeek', 'descriptionPregnancyWeek']]},
+  {key: 'dueDate', terms: [['termDueDate', 'descriptionDueDate']]},
+  {key: 'pregnancyStage', terms: [['termPregnancyStage', 'descriptionPregnancyStage']]},
+  {key: 'babyDevelopment', terms: [['termBabyDevelopment', 'descriptionBabyDevelopment']]},
+  {key: 'mood', terms: [['termMood', 'descriptionMood']]},
+  {key: 'dailyAdvice', terms: [['termDailyAdvice', 'descriptionDailyAdvice']]},
+];
+
+/** Which kind of information the objective shares: it decides the examples the help texts give. */
+const infoGroupOf = (objective: ObjectiveId): 'pregnancy' | 'fertility' | 'cycle' | 'wellbeing' => {
+  const sections = sectionsForObjective(objective);
+  return sections.includes('pregnancy') ? 'pregnancy' : sections.includes('fertility') ? 'fertility' : sections.includes('cycle') ? 'cycle' : 'wellbeing';
+};
+
+const howItWorksExampleOf = (t: TFunction, objective: ObjectiveId): string => {
+  const group = infoGroupOf(objective);
+  const suffix = group === 'pregnancy' ? 'Pregnancy' : group === 'fertility' ? 'Fertility' : group === 'wellbeing' ? 'Wellbeing' : '';
+  return t(`awaADeux.partnerSide.profile.faq.howItWorksParagraph2${suffix}`);
+};
+
+const understandingOf = (t: TFunction, objective: ObjectiveId): {description: string; items: Array<{term: string; description: string}>} => {
+  const allowed = sharingKeysForObjective(objective);
+  const faq = (key: string) => t(`awaADeux.partnerSide.profile.faq.${key}`);
+  const items = UNDERSTANDING_DEFINITIONS.filter(entry => allowed.has(entry.key)).flatMap(entry =>
+    entry.terms.map(([term, description]) => ({term: faq(term), description: faq(description)})),
+  );
+  const group = infoGroupOf(objective);
+  const description =
+    group === 'pregnancy'
+      ? faq('understandingDescriptionPregnancy')
+      : group === 'fertility'
+        ? faq('understandingDescriptionFertility')
+        : group === 'cycle'
+          ? faq('understandingDescription')
+          : faq('understandingDescriptionWellbeing');
+  return {description, items};
+};
+
+const helpFaqOf = (t: TFunction, objective: ObjectiveId): FaqItem[] => [
   {
     key: 'how-it-works',
     icon: 'book-open-variant',
@@ -383,7 +443,7 @@ const helpFaqOf = (t: TFunction): FaqItem[] => [
       kind: 'paragraph',
       paragraphs: [
         t('awaADeux.partnerSide.profile.faq.howItWorksParagraph1'),
-        t('awaADeux.partnerSide.profile.faq.howItWorksParagraph2'),
+        howItWorksExampleOf(t, objective),
         t('awaADeux.partnerSide.profile.faq.howItWorksParagraph3'),
       ],
     },
@@ -406,18 +466,11 @@ const helpFaqOf = (t: TFunction): FaqItem[] => [
     key: 'understanding-shared-info',
     icon: 'format-list-bulleted',
     title: t('awaADeux.partnerSide.profile.faq.understandingTitle'),
-    description: t('awaADeux.partnerSide.profile.faq.understandingDescription'),
+    description: understandingOf(t, objective).description,
     answer: {
       kind: 'definitions',
       intro: t('awaADeux.partnerSide.profile.faq.understandingIntro'),
-      items: [
-        {term: t('awaADeux.partnerSide.profile.faq.termCycleDay'), description: t('awaADeux.partnerSide.profile.faq.descriptionCycleDay')},
-        {term: t('awaADeux.partnerSide.profile.faq.termCurrentPhase'), description: t('awaADeux.partnerSide.profile.faq.descriptionCurrentPhase')},
-        {term: t('awaADeux.partnerSide.profile.faq.termFertileWindow'), description: t('awaADeux.partnerSide.profile.faq.descriptionFertileWindow')},
-        {term: t('awaADeux.partnerSide.profile.faq.termOvulation'), description: t('awaADeux.partnerSide.profile.faq.descriptionOvulation')},
-        {term: t('awaADeux.partnerSide.profile.faq.termNextPeriod'), description: t('awaADeux.partnerSide.profile.faq.descriptionNextPeriod')},
-        {term: t('awaADeux.partnerSide.profile.faq.termPeriodStatus'), description: t('awaADeux.partnerSide.profile.faq.descriptionPeriodStatus')},
-      ],
+      items: understandingOf(t, objective).items,
     },
   },
   {
@@ -461,13 +514,13 @@ function SectionHeader({
   styles,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.sectionHeader}>
       <AwaText accessibilityRole="header" variant="titleMedium" style={styles.sectionTitle}>{title}</AwaText>
-      <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionSubtitle}>{subtitle}</AwaText>
+      {subtitle ? <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.sectionSubtitle}>{subtitle}</AwaText> : null}
     </View>
   );
 }
@@ -549,6 +602,7 @@ function EditFirstNameModal({
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const {t} = useTranslation();
+  const insets = useSafeAreaInsets();
   const [value, setValue] = useState(initialValue);
 
   // Re-seed from the current display value each time the sheet opens (never stale, never
@@ -566,10 +620,10 @@ function EditFirstNameModal({
   };
 
   return (
-    <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
+    <Modal animationType="fade" navigationBarTranslucent onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.nameModalRoot}>
         <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.nameModalOverlay} />
-        <View style={styles.nameModalCard}>
+        <View style={[styles.nameModalCard, {paddingBottom: 20 + insets.bottom}]}>
           <AwaText accessibilityRole="header" variant="titleLarge">{t('awaADeux.partnerSide.profile.editNameModal.title')}</AwaText>
           <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.nameModalSubtitle}>{t('awaADeux.partnerSide.profile.editNameModal.subtitle')}</AwaText>
 
@@ -633,7 +687,7 @@ function LogoutConfirmModal({
 }): React.JSX.Element {
   const {t} = useTranslation();
   return (
-    <Modal animationType="fade" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
+    <Modal animationType="fade" navigationBarTranslucent onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
       <View style={styles.logoutRoot}>
         <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" onPress={onCancel} style={styles.logoutBackdrop} />
         <View accessibilityViewIsModal style={styles.logoutCard}>
@@ -649,6 +703,7 @@ function LogoutConfirmModal({
             <AwaButton
               accessibilityLabel={t('common.cancel')}
               label={t('common.cancel')}
+              labelStyle={styles.logoutButtonLabel}
               onPress={onCancel}
               style={styles.logoutButton}
               variant="outlined"
@@ -656,9 +711,10 @@ function LogoutConfirmModal({
             <AwaButton
               accessibilityLabel={t('awaADeux.partnerSide.profile.signOut')}
               label={t('awaADeux.partnerSide.profile.signOut')}
+              labelStyle={styles.logoutButtonLabel}
               onPress={onConfirm}
               style={styles.logoutButton}
-              variant="destructive"
+              variant="destructiveFilled"
             />
           </View>
         </View>
@@ -1035,7 +1091,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     logoutBody: {marginTop: 10, textAlign: 'center'},
     logoutReassurance: {marginTop: 6, textAlign: 'center'},
     logoutActions: {marginTop: 20, flexDirection: 'row', gap: 10, alignSelf: 'stretch'},
-    logoutButton: {flex: 1},
+    logoutButton: {flex: 1, paddingHorizontal: 12},
+    logoutButtonLabel: {fontSize: 14},
     pressed: {opacity: 0.85},
   });
 }

@@ -242,12 +242,12 @@ describe('TEST 11 — a runtime FR → EN switch updates AwaADeuxIntroScreen wit
 describe('TEST 12 — a runtime FR → EN switch updates PartnerHomeScreen (inside PartnerMainTabs) without remounting', () => {
   it('the mounted instance re-renders in English after changeLanguage, same instance', async () => {
     const renderer = await renderFlow('PartnerMainTabs');
-    expect(textsOf(renderer)).toContain('Tu es là pour elle 💜');
+    expect(textsOf(renderer)).toContain('Tu es là pour elle');
 
     await switchLanguage('en');
 
-    expect(textsOf(renderer)).toContain('You’re here for her 💜');
-    expect(textsOf(renderer)).not.toContain('Tu es là pour elle 💜');
+    expect(textsOf(renderer)).toContain('You’re here for her');
+    expect(textsOf(renderer)).not.toContain('Tu es là pour elle');
   });
 });
 

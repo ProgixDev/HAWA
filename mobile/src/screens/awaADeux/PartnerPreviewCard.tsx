@@ -55,6 +55,7 @@ export default function PartnerPreviewCard({
     shown.fertilityStatus ? {key: 'fertilityStatus', label: t('awaADeux.demo.fertilityStatusLabel'), value: preview.fertilityStatus} : null,
     shown.pregnancyWeek ? {key: 'pregnancyWeek', label: t('awaADeux.demo.pregnancyWeekLabel'), value: preview.pregnancyWeek} : null,
     shown.dueDate ? {key: 'dueDate', label: t('awaADeux.demo.dueDateLabel'), value: preview.dueDate} : null,
+    shown.pregnancyStage ? {key: 'pregnancyStage', label: t('awaADeux.sections.pregnancy.pregnancyStage'), value: t('awaADeux.partnerSide.home.pregnancyTrimester2')} : null,
     shown.mood ? {key: 'mood', label: t('awaADeux.demo.moodLabel'), value: preview.mood} : null,
   ];
   const stats = candidates.filter((stat): stat is MiniStat => stat !== null);

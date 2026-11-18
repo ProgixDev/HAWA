@@ -51,7 +51,7 @@ export type PartnerCycleInfo = {
   ovulationDate: Date | null;
 };
 
-const CYCLE_OBJECTIVES = ['cycle', 'conceive'] as const;
+const CYCLE_OBJECTIVES = ['cycle', 'conceive', 'contraception', 'irregular'] as const;
 
 export function computePartnerCycleInfo(today: Date = new Date()): PartnerCycleInfo {
   const unavailable: PartnerCycleInfo = {

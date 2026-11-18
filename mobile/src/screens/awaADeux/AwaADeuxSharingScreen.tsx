@@ -15,6 +15,7 @@ import {AwaSwitch} from '../../components/ui/AwaSwitch';
 import {AwaText} from '../../components/ui/AwaText';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {sharingSections, supportContent} from './awaADeuxDemo';
+import {sectionsForObjective} from '../../utils/awaADeuxObjective';
 
 // "AWA à deux" — step 3: what she chooses to share, in four categories.
 //
@@ -36,7 +37,7 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const {toggles, isPregnant, setToggle} = useAwaADeuxSharing();
+  const {toggles, objective, setToggle} = useAwaADeuxSharing();
   const {partnerName} = useAwaADeuxPartnerName();
   // Two contexts, ONE screen (one route parameter, no duplicated screen):
   //  - "onboarding" (default): step 3 of the flow → the button continues to the association screen;
@@ -44,7 +45,7 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
   //    the button simply goes back there.
   const managing = route.params?.mode === 'manage';
 
-  const sections = sharingSections().filter(section => !section.pregnancyOnly || isPregnant);
+  const sections = sharingSections().filter(section => sectionsForObjective(objective).includes(section.id));
 
   return (
     <AwaADeuxStepLayout

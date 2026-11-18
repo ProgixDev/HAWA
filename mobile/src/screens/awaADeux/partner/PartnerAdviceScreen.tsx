@@ -14,6 +14,7 @@ import {AwaText} from '../../../components/ui/AwaText';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 import type {ComputedCyclePhase} from '../../../utils/cycleMath';
+import type {ObjectiveId} from '../../../state/onboardingPreferences';
 
 // The partner's read-only advice (PartnerMainTabs "Conseils"). PRIVACY RULE: advice must
 // NEVER reveal information the owner did not choose to share. It reuses the SAME
@@ -32,18 +33,18 @@ export default function PartnerAdviceScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
   const info = useMemo(() => computePartnerCycleInfo(), []);
-  const phaseTips = phaseTipsOf(t);
   const smallGestures = smallGesturesOf(t);
 
   // Only ever built from a phase that IS shared (visibility.fields.cycleDay) — never from
-  // a phase computed for internal use elsewhere.
-  const phaseTip =
-    visibility.recommendations === 'phase' && info.phase
-      ? phaseTips[info.phase]
-      : t('awaADeux.partnerSide.advice.generalSupportTip');
+  // a phase computed for internal use elsewhere. Hidden phase -> the generic chips.
+  const chipSets = chipsOf(t);
+  // The cycle objective keeps the advice of the phase she shares; every other objective has the support suited to it.
+  const chips = objective !== 'cycle'
+    ? chipSets[objective]
+    : chipSets[visibility.recommendations === 'phase' && info.phase ? info.phase : 'general'];
 
   return (
     <PartnerScreenBackground>
@@ -51,25 +52,22 @@ export default function PartnerAdviceScreen(): React.JSX.Element {
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
         <AwaText accessibilityRole="header" variant="headlineMedium" style={styles.title}>{t('awaADeux.partnerSide.advice.title')}</AwaText>
-        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.partnerSide.advice.subtitle')}</AwaText>
+        <View style={styles.subtitleRow}>
+          <MaterialDesignIcons color={theme.colors.textSecondary} name="lock-outline" size={14} />
+          <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.subtitle}>{t('awaADeux.partnerSide.advice.subtitleShort')}</AwaText>
+        </View>
 
-        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.supportSectionTitle')} />
-        <AwaCard padding="compact" style={styles.card} variant="filled">
-          <View style={styles.cardIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={24} />
-          </View>
-          <AwaText variant="bodyMedium" style={styles.cardText}>{phaseTip}</AwaText>
-        </AwaCard>
-
-        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.infoSectionTitle')} />
-        <AwaCard padding="compact" style={styles.card} variant="filled">
-          <View style={styles.cardIcon}>
-            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={24} />
-          </View>
-          <AwaText variant="bodyMedium" style={styles.cardText}>
-            {t('awaADeux.partnerSide.advice.infoText')}
-          </AwaText>
-        </AwaCard>
+        <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.todaySectionTitle')} />
+        <ScrollView contentContainerStyle={styles.chipRow} horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll}>
+          {chips.map(chip => (
+            <View key={chip.label} style={styles.chip}>
+              <View style={styles.chipIcon}>
+                <MaterialDesignIcons color={theme.colors.primary} name={chip.icon} size={22} />
+              </View>
+              <AwaText numberOfLines={2} variant="labelMedium" weight="700" style={styles.chipText}>{chip.label}</AwaText>
+            </View>
+          ))}
+        </ScrollView>
 
         <SectionHeader styles={styles} title={t('awaADeux.partnerSide.advice.gesturesSectionTitle')} />
         <AwaCard padding="none" style={styles.attentionCard} variant="filled">
@@ -96,25 +94,58 @@ function SectionHeader({title, styles}: {title: string; styles: ReturnType<typeo
   );
 }
 
-const phaseTipsOf = (t: (key: string) => string): Record<ComputedCyclePhase, string> => ({
-  menstruation: t('awaADeux.partnerSide.advice.phaseTipMenstruation'),
-  follicular: t('awaADeux.partnerSide.advice.phaseTipFollicular'),
-  fertile: t('awaADeux.partnerSide.advice.phaseTipFertile'),
-  ovulation: t('awaADeux.partnerSide.advice.phaseTipOvulation'),
-  luteal: t('awaADeux.partnerSide.advice.phaseTipLuteal'),
-});
+type Chip = {label: string; icon: IconName};
+type ChipSet = Record<ComputedCyclePhase | 'general' | Exclude<ObjectiveId, 'cycle'>, Chip[]>;
+
+const chipsOf = (t: (key: string) => string): ChipSet => {
+  const c = (key: string) => t(`awaADeux.partnerSide.advice.${key}`);
+  const gentleness = {label: c('chipGentleness'), icon: 'heart-outline'} as Chip;
+  const rest = {label: c('chipRest'), icon: 'moon-waning-crescent'} as Chip;
+  const presence = {label: c('chipPresence'), icon: 'account-heart-outline'} as Chip;
+  const listening = {label: c('chipListening'), icon: 'ear-hearing'} as Chip;
+  const help = {label: c('chipHelp'), icon: 'hand-heart-outline'} as Chip;
+  return {
+    menstruation: [gentleness, {label: c('chipHotDrink'), icon: 'coffee-outline'}, rest],
+    follicular: [{label: c('chipEnergy'), icon: 'flash-outline'}, {label: c('chipOuting'), icon: 'walk'}, {label: c('chipProject'), icon: 'lightbulb-outline'}],
+    fertile: [presence, listening, help],
+    ovulation: [{label: c('chipMessage'), icon: 'message-text-outline'}, gentleness, presence],
+    luteal: [{label: c('chipPatience'), icon: 'timer-sand'}, gentleness, rest],
+    general: [listening, help, presence],
+    conceive: [presence, listening, {label: c('chipMessage'), icon: 'message-text-outline'}],
+    contraception: [listening, help, presence],
+    irregular: [{label: c('chipPatience'), icon: 'timer-sand'}, listening, help],
+    pregnancy: [gentleness, rest, help],
+    postpartum: [rest, help, presence],
+    menopause: [{label: c('chipPatience'), icon: 'timer-sand'}, listening, gentleness],
+    loss: [presence, listening, gentleness],
+  };
+};
 
 const smallGesturesOf = (t: (key: string) => string): Array<{text: string; icon: IconName}> => [
-  {text: t('awaADeux.partnerSide.advice.gesture1'), icon: 'message-text-outline'},
-  {text: t('awaADeux.partnerSide.advice.gesture2'), icon: 'coffee-outline'},
-  {text: t('awaADeux.partnerSide.advice.gesture3'), icon: 'account-heart-outline'},
+  {text: t('awaADeux.partnerSide.advice.gestureShort1'), icon: 'message-text-outline'},
+  {text: t('awaADeux.partnerSide.advice.gestureShort2'), icon: 'checkbox-outline'},
+  {text: t('awaADeux.partnerSide.advice.gestureShort3'), icon: 'headphones'},
 ];
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     content: {paddingHorizontal: 20, paddingBottom: 20},
     title: {color: theme.colors.accent},
-    subtitle: {marginTop: 4},
+    subtitleRow: {marginTop: 4, flexDirection: 'row', alignItems: 'center', gap: 6},
+    subtitle: {flex: 1},
+    chipScroll: {marginHorizontal: -20},
+    chipRow: {paddingHorizontal: 20, gap: 10},
+    chip: {
+      width: 104,
+      alignItems: 'center',
+      gap: 10,
+      paddingVertical: 16,
+      paddingHorizontal: 8,
+      borderRadius: 20,
+      backgroundColor: theme.colors.surface,
+    },
+    chipIcon: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: theme.colors.primarySoft},
+    chipText: {textAlign: 'center'},
     sectionHeader: {marginTop: 18, marginBottom: 8, flexDirection: 'row', alignItems: 'center'},
     sectionTitle: {flex: 1, minWidth: 0},
     card: {flexDirection: 'row', alignItems: 'center', gap: 12},

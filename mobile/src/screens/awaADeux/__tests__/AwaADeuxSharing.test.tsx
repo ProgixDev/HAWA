@@ -108,6 +108,7 @@ const PREVIEW_LABEL: Record<SharingKey, string> = {
   pregnancyWeek: 'Grossesse',
   dueDate: 'Accouchement prévu',
   babyDevelopment: 'Développement de bébé',
+  pregnancyStage: 'Étape actuelle de la grossesse',
   mood: 'Humeur',
   dailyAdvice: 'Conseil du jour',
 };

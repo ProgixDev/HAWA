@@ -53,6 +53,11 @@ export function advanceToPending(navigation: Nav): void {
   navigation.dispatch(CommonActions.navigate('AwaADeuxPending'));
 }
 
+/** "Retour à l'accueil": leaves the whole AWA à deux flow in ONE step (the stack is reset to the main app), instead of walking back through every screen. */
+export function goBackToHome(navigation: Nav): void {
+  navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'MainTabs', params: {screen: 'CycleHome'}}]} as ResetState));
+}
+
 /** After "Arrêter le partage": the onboarding stack rebuilt up to "Associer votre partenaire". */
 export function rebuildStackToAssociation(navigation: Nav): void {
   const routes = navigation.getState().routes;

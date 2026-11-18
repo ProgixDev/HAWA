@@ -65,8 +65,8 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
   // FR→EN switch updates the month header immediately (same pattern as PrayerTimesScreen.tsx).
   const monthLabel = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'});
 
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
   const [monthCursor, setMonthCursor] = useState(() => startOfMonth(new Date()));
 
   const info = useMemo(() => computePartnerCycleInfo(), []);

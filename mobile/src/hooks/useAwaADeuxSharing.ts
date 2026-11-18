@@ -12,6 +12,7 @@ import {
   getActiveObjective,
   hydrateActiveObjective,
   subscribeActiveObjective,
+  type ObjectiveId,
 } from '../state/onboardingPreferences';
 
 /**
@@ -22,11 +23,13 @@ import {
 export function useAwaADeuxSharing(): {
   toggles: SharingToggles;
   isPregnant: boolean;
+  /** The objective chosen in the onboarding (it decides which choices exist, see utils/awaADeuxObjective.ts). */
+  objective: ObjectiveId;
   loaded: boolean;
   setToggle: (key: SharingKey, value: boolean) => void;
 } {
   const [toggles, setToggles] = useState<SharingToggles>(getSharingToggles);
-  const [isPregnant, setIsPregnant] = useState(() => getActiveObjective() === 'pregnancy');
+  const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -38,13 +41,13 @@ export function useAwaADeuxSharing(): {
       }
     });
     hydrateActiveObjective().then(value => {
-      if (active) {setIsPregnant(value === 'pregnancy');}
+      if (active) {setObjective(value);}
     });
     const unsubscribeToggles = subscribeSharingToggles(() => {
       if (active) {setToggles(getSharingToggles());}
     });
     const unsubscribeObjective = subscribeActiveObjective(() => {
-      if (active) {setIsPregnant(getActiveObjective() === 'pregnancy');}
+      if (active) {setObjective(getActiveObjective());}
     });
     return () => {
       active = false;
@@ -57,5 +60,5 @@ export function useAwaADeuxSharing(): {
     setSharingToggle(key, value).catch(error => console.warn('[AWA à deux] Unable to save a sharing choice:', error));
   }, []);
 
-  return {toggles, isPregnant, loaded, setToggle};
+  return {toggles, isPregnant: objective === 'pregnancy', objective, loaded, setToggle};
 }

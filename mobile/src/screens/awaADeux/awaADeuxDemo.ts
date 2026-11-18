@@ -43,12 +43,15 @@ export type SharingSection = {
   id: 'cycle' | 'fertility' | 'pregnancy' | 'wellbeing';
   title: string;
   pregnancyOnly?: boolean;
+  /** Menstrual / fertility choices: not offered while pregnancy mode is on. */
+  cycleOnly?: boolean;
   items: Array<{key: SharingKey; label: string; icon: string}>;
 };
 
 export const sharingSections = (): SharingSection[] => [
   {
     id: 'cycle',
+    cycleOnly: true,
     title: i18n.t('awaADeux.sections.cycle.title'),
     items: [
       {key: 'cycleDay', label: i18n.t('awaADeux.sections.cycle.cycleDay'), icon: 'calendar-month-outline'},
@@ -58,6 +61,7 @@ export const sharingSections = (): SharingSection[] => [
   },
   {
     id: 'fertility',
+    cycleOnly: true,
     title: i18n.t('awaADeux.sections.fertility.title'),
     items: [
       {key: 'fertileWindow', label: i18n.t('awaADeux.sections.fertility.fertileWindow'), icon: 'flower-outline'},
@@ -72,6 +76,7 @@ export const sharingSections = (): SharingSection[] => [
     items: [
       {key: 'pregnancyWeek', label: i18n.t('awaADeux.sections.pregnancy.pregnancyWeek'), icon: 'baby-face-outline'},
       {key: 'dueDate', label: i18n.t('awaADeux.sections.pregnancy.dueDate'), icon: 'calendar-heart'},
+      {key: 'pregnancyStage', label: i18n.t('awaADeux.sections.pregnancy.pregnancyStage'), icon: 'timeline-clock-outline'},
       {key: 'babyDevelopment', label: i18n.t('awaADeux.sections.pregnancy.babyDevelopment'), icon: 'human-pregnant'},
     ],
   },

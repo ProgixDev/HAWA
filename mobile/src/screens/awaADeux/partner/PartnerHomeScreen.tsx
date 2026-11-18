@@ -1,5 +1,5 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {Image, ScrollView, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
@@ -18,6 +18,7 @@ import {useAwaADeuxPartnerIdentity} from '../../../hooks/useAwaADeuxPartnerIdent
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import {useToday} from '../../../hooks/useToday';
 import {getJournalEntry} from '../../../state/dailyJournalStore';
+import {getPregnancyDating, hydratePregnancyDating, subscribePregnancyDating} from '../../../state/pregnancyPreferences';
 import type {SharingKey} from '../../../state/awaADeuxSharingStore';
 import type {DailyJournalEntry} from '../../../types/journal';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
@@ -25,8 +26,13 @@ import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing'
 import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
-import {diffDays, startOfDay, type ComputedCyclePhase} from '../../../utils/cycleMath';
+import {computePregnancyStatus} from '../../../utils/pregnancyTrackingUtils';
+import {getPregnancyWeekData} from '../../../data/pregnancyWeekData';
+import PregnancyWeekRing from '../../../components/pregnancy/PregnancyWeekRing';
+import {resolveEditorialLanguage} from '../../../i18n/editorialLanguage';
+import {diffDays, formatShortDate, startOfDay, type ComputedCyclePhase} from '../../../utils/cycleMath';
 import PartnerScreenBackground from './PartnerScreenBackground';
+
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -83,7 +89,7 @@ function accentColorFor(key: SharingKey, theme: ResolvedAwaTheme): string {
 }
 
 export default function PartnerHomeScreen(): React.JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   // Typed against the PARTNER tab navigator itself (not the root stack): this is a same-
@@ -98,9 +104,9 @@ export default function PartnerHomeScreen(): React.JSX.Element {
   const compact = width < 360;
   const styles = useMemo(() => createStyles(theme, compact), [compact, theme]);
 
-  const {toggles, isPregnant} = useAwaADeuxSharing();
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
   const {today} = useToday();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
   const info = useMemo(() => computePartnerCycleInfo(today), [today]);
 
   const showCycle = visibility.fields.cycleDay;
@@ -110,7 +116,39 @@ export default function PartnerHomeScreen(): React.JSX.Element {
   const showOvulation = visibility.fields.ovulation;
   const showMood = visibility.fields.mood;
   const showAdvice = visibility.fields.dailyAdvice;
-  const hasSharedCycleInformation = showCycle || showNextPeriod || showPeriodStatus || showFertileWindow || showOvulation;
+  // Pregnancy mode: the partner sees the pregnancy choices that are ON, never menstrual information (those are forced off by
+  // computePartnerVisibility while pregnant).
+  const showPregnancyWeek = visibility.fields.pregnancyWeek;
+  const showDueDate = visibility.fields.dueDate;
+  const showPregnancyStage = visibility.fields.pregnancyStage;
+  const showBabyDevelopment = visibility.fields.babyDevelopment;
+  const hasSharedCycleInformation = showCycle || showNextPeriod || showPeriodStatus || showFertileWindow || showOvulation || showPregnancyWeek || showDueDate || showPregnancyStage || showBabyDevelopment || showMood || showAdvice;
+
+  const readPregnancy = useCallback(() => {
+    const dating = getPregnancyDating();
+    return computePregnancyStatus(dating.method, dating.date ? new Date(dating.date) : null, today);
+  }, [today]);
+  const [pregnancy, setPregnancy] = useState(readPregnancy);
+  useEffect(() => {
+    if (!isPregnant) {return undefined;}
+    let active = true;
+    hydratePregnancyDating().then(() => {
+      if (active) {setPregnancy(readPregnancy());}
+    });
+    const unsubscribe = subscribePregnancyDating(() => {
+      if (active) {setPregnancy(readPregnancy());}
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, [isPregnant, readPregnancy]);
+
+  // Pregnancy card + baby development: only what her switches allow, only from her real dating (computePregnancyStatus); never invented when she has not set it.
+  const trimesterLabel = pregnancy.configured ? t(`awaADeux.partnerSide.home.pregnancyTrimester${pregnancy.trimester}`) : null;
+  const weekContent = pregnancy.configured ? getPregnancyWeekData(pregnancy.week, resolveEditorialLanguage(i18n.language)) : undefined;
+  const babySize = [weekContent?.comparison, weekContent?.length].filter(Boolean).join(' · ');
+  const showPregnancyCard = showPregnancyWeek || showPregnancyStage;
 
   // Real, today-only mood entry — only ever read when it is actually shared; never
   // fabricated when absent (the energy/mood chips simply don't render, see below).
@@ -139,7 +177,6 @@ export default function PartnerHomeScreen(): React.JSX.Element {
   // PartnerHome must use the same translated keys for the ring label; only
   // `ringColor` still comes from getCyclePhaseIdentity().
   const phaseIdentity = info.phase ? getCyclePhaseIdentity(info.phase) : null;
-  const phaseLabel = info.phase ? t(`cyclePhase.${info.phase}`) : null;
   const phaseMessage = info.phase
     ? partnerPhaseMessages[info.phase]
     : t('awaADeux.partnerSide.home.phaseMessageUnavailable');
@@ -174,6 +211,7 @@ export default function PartnerHomeScreen(): React.JSX.Element {
     // Same rule as fertileWindowStatusValue above: once ovulation is in the past,
     // formatFutureTiming() returns undefined on purpose — never fall back to the raw
     // `info.ovulation` date here.
+    showDueDate ? {key: 'dueDate', icon: 'calendar-heart', shortLabel: t('awaADeux.sections.pregnancy.dueDate'), value: pregnancy.estimatedDueDate ? formatShortDate(pregnancy.estimatedDueDate) : infoUnavailable} : null,
     showOvulation ? {key: 'ovulation', icon: 'water-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelOvulation'), value: ovulationTiming ?? infoUnavailable} : null,
   ].filter((tile): tile is {key: SharingKey; icon: IconName; shortLabel: string; value: string} => tile !== null);
 
@@ -185,6 +223,27 @@ export default function PartnerHomeScreen(): React.JSX.Element {
   const tileSize = compact ? TILE_SIZE_COMPACT : TILE_SIZE_REGULAR;
 
   const hasUpcomingEvents = showNextPeriod || showOvulation;
+
+  // Her mood / the day's advice, when shared: on the cycle card, or on a card of their own for the objectives that have no cycle.
+  const chipsBlock = (
+          (showMood && moodEntry) || showAdvice ? (
+            <View style={styles.chipsRow}>
+              {showMood && moodEntry ? (
+                <>
+                  <Chip icon="lightning-bolt-outline" label={t('awaADeux.partnerSide.home.energyLabel')} styles={styles} theme={theme} value={ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? infoUnavailable} />
+                  <View style={styles.chipDivider} />
+                  <Chip icon="emoticon-outline" label={t('awaADeux.partnerSide.home.moodLabel')} styles={styles} theme={theme} value={MOOD_LABELS[moodEntry.level]} />
+                </>
+              ) : null}
+              {showAdvice ? (
+                <>
+                  {showMood && moodEntry ? <View style={styles.chipDivider} /> : null}
+                  <Chip icon="heart-outline" label={t('awaADeux.partnerSide.home.adviceLabel')} styles={styles} theme={theme} value={tip} />
+                </>
+              ) : null}
+            </View>
+          ) : null
+  );
 
   return (
     <PartnerScreenBackground>
@@ -231,7 +290,7 @@ export default function PartnerHomeScreen(): React.JSX.Element {
                     accessibilityLabel={info.cycleDay === null ? t('awaADeux.partnerSide.home.cycleDayUnavailableAccessibility') : t('awaADeux.partnerSide.home.cycleDayAccessibility', {day: info.cycleDay})}
                     currentDay={info.cycleDay}
                     cycleLength={info.cycleLength ?? 1}
-                    phaseLabel={phaseLabel}
+                    phaseLabel={null}
                     ringColor={phaseIdentity?.ringColor ?? theme.colors.primary}
                     size={compact ? 100 : 116}
                   />
@@ -244,23 +303,75 @@ export default function PartnerHomeScreen(): React.JSX.Element {
                   </View>
                 </View>
 
-                {(showMood && moodEntry) || showAdvice ? (
-                  <View style={styles.chipsRow}>
-                    {showMood && moodEntry ? (
+                {chipsBlock}
+              </AwaCard>
+            ) : null}
+
+            {showPregnancyCard ? (
+              <AwaCard accessibilityLabel={t('awaADeux.partnerSide.home.pregnancyJourneyTitle')} padding="none" style={[styles.heroCard, styles.pregnancyCard]}>
+                {pregnancy.configured ? (
+                  <View style={styles.pregnancyRow}>
+                    {showPregnancyWeek ? (
                       <>
-                        <Chip icon="lightning-bolt-outline" label={t('awaADeux.partnerSide.home.energyLabel')} styles={styles} theme={theme} value={ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? infoUnavailable} />
-                        <View style={styles.chipDivider} />
-                        <Chip icon="emoticon-outline" label={t('awaADeux.partnerSide.home.moodLabel')} styles={styles} theme={theme} value={MOOD_LABELS[moodEntry.level]} />
+                        <PregnancyWeekRing
+                          accessibilityLabel={t('awaADeux.partnerSide.home.pregnancyWeekValue', {week: pregnancy.week})}
+                          caption={t('awaADeux.partnerSide.home.pregnancyWeekCaption')}
+                          size={compact ? 100 : 116}
+                          week={pregnancy.week}
+                        />
+                        <View style={styles.pregnancyDivider} />
                       </>
                     ) : null}
-                    {showAdvice ? (
-                      <>
-                        {showMood && moodEntry ? <View style={styles.chipDivider} /> : null}
-                        <Chip icon="heart-outline" label={t('awaADeux.partnerSide.home.adviceLabel')} styles={styles} theme={theme} value={tip} />
-                      </>
-                    ) : null}
+                    <View style={styles.pregnancyCopy}>
+                      <AwaText variant="titleMedium" style={styles.heroTitle}>{t('awaADeux.partnerSide.home.pregnancyJourneyTitle')}</AwaText>
+                      {showPregnancyStage && trimesterLabel ? (
+                        <View style={styles.pregnancyPill}>
+                          <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={16} />
+                          <AwaText variant="labelLarge" style={styles.pregnancyPillText}>{trimesterLabel}</AwaText>
+                        </View>
+                      ) : null}
+                    </View>
                   </View>
-                ) : null}
+                ) : (
+                  <>
+                    <AwaText variant="titleMedium" style={styles.heroTitle}>{t('awaADeux.partnerSide.home.pregnancyJourneyTitle')}</AwaText>
+                    <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.heroMessage}>{infoUnavailable}</AwaText>
+                  </>
+                )}
+              </AwaCard>
+            ) : null}
+
+            {!showCycle && chipsBlock ? (
+              <AwaCard padding="none" style={styles.heroCard}>
+                {chipsBlock}
+              </AwaCard>
+            ) : null}
+
+            {showBabyDevelopment ? (
+              <AwaCard accessibilityLabel={t('awaADeux.sections.pregnancy.babyDevelopment')} padding="none" style={styles.heroCard}>
+                <View style={styles.babyRow}>
+                  <View style={styles.babyCopy}>
+                    <AwaText variant="titleMedium" style={styles.heroTitle}>{t('awaADeux.sections.pregnancy.babyDevelopment')}</AwaText>
+                    {weekContent?.babyDescription ? (
+                      <>
+                        {babySize ? <AwaText colorRole="primary" variant="labelLarge" style={styles.heroMessage}>{babySize}</AwaText> : null}
+                        <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.heroMessage}>{weekContent.babyDescription}</AwaText>
+                      </>
+                    ) : (
+                      <AwaText colorRole="onSurfaceVariant" variant="bodyMedium" style={styles.heroMessage}>{infoUnavailable}</AwaText>
+                    )}
+                  </View>
+                  {weekContent?.babyImage != null ? (
+                    // The illustration of the week shown in her pregnancy (never an image of her own scan).
+                    <Image
+                      accessibilityIgnoresInvertColors
+                      accessibilityLabel={t('awaADeux.sections.pregnancy.babyDevelopment')}
+                      resizeMode="contain"
+                      source={weekContent.babyImage}
+                      style={styles.babyImage}
+                    />
+                  ) : null}
+                </View>
               </AwaCard>
             ) : null}
 
@@ -472,6 +583,16 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
     heroCopy: {flex: 1, minWidth: 0},
     heroTitleRow: {flexDirection: 'row', alignItems: 'center', gap: 6},
     heroTitle: {color: theme.colors.accent},
+    // "Parcours de grossesse": ring | divider | title + trimester pill | the pregnancy illustration, cropped at the card's edge
+    pregnancyCard: {overflow: 'hidden'},
+    pregnancyRow: {flexDirection: 'row', alignItems: 'center', gap: compact ? 10 : 14, minHeight: compact ? 120 : 136},
+    pregnancyDivider: {width: StyleSheet.hairlineWidth * 2, alignSelf: 'stretch', marginVertical: 14, backgroundColor: withAlpha(theme.colors.primary, 0.4)},
+    pregnancyCopy: {flex: 1, minWidth: 0},
+    pregnancyPill: {alignSelf: 'flex-start', maxWidth: '100%', marginTop: 10, flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 999, backgroundColor: withAlpha(theme.colors.primary, 0.14)},
+    pregnancyPillText: {flexShrink: 1},
+    babyRow: {flexDirection: 'row', alignItems: 'center', gap: 12},
+    babyCopy: {flex: 1, minWidth: 0},
+    babyImage: {width: compact ? 96 : 120, height: compact ? 96 : 120, flexShrink: 0},
     heroMessage: {marginTop: 6},
     chipsRow: {
       flexDirection: 'row',

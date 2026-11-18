@@ -46,8 +46,8 @@ export function PartnerPreviewModal({
 }): React.JSX.Element {
   const {styles} = useDialogStyles();
   const {partnerName} = useAwaADeuxPartnerName();
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
 
   return (
     <AwaADeuxModalFrame onClose={onClose} title="Aperçu du côté partenaire" visible={visible}>

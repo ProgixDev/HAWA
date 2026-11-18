@@ -12,10 +12,10 @@ import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {AwaButton} from '../../components/ui/AwaButton';
 import {AwaCard} from '../../components/ui/AwaCard';
 import {AwaText} from '../../components/ui/AwaText';
-import {partnerLabel, queBeforePartner} from '../../utils/awaADeuxPartnerWording';
+import {partnerLabel} from '../../utils/awaADeuxPartnerWording';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {getPendingLayout, type PendingLayout} from './awaADeuxPendingLayout';
-import {rebuildStackToAssociation} from './awaADeuxNavigation';
+import {goBackToHome, rebuildStackToAssociation} from './awaADeuxNavigation';
 import {useHeroEntrance} from './useEntrance';
 
 // "AWA à deux" — waiting screen (Pairing "Continuer" → here). FRONTEND DEMO ONLY: the
@@ -69,7 +69,7 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
   return (
     <AwaADeuxStepLayout
       description={t('awaADeux.pending.description', {partner: label})}
-      fit={{titleFontSize: layout.titleFontSize, titleLineHeight: layout.titleLineHeight, bodyMarginTop: layout.bodyMarginTop, bodyGap: layout.bodyGap, ctaHeight: layout.ctaHeight}}
+      compact={{titleFontSize: layout.titleFontSize, titleLineHeight: layout.titleLineHeight, bodyMarginTop: 22, bodyGap: 14}}
       hero={
         <Animated.View style={[styles.hero, heroEntrance]}>
           <Image
@@ -90,9 +90,6 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
           </View>
           <View style={styles.statusContent}>
             <AwaText variant="titleSmall">{t('awaADeux.pending.statusTitle')}</AwaText>
-            {/* FR needs the elided "dès qu'elle accepte" form (queBeforePartner); EN uses the
-                plain name instead — same dual-interpolation-key pattern as AwaADeuxPartnerViewScreen. */}
-            <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.statusDescription}>{t('awaADeux.pending.statusDescription', {quePartner: queBeforePartner(partnerName), name: label})}</AwaText>
             {partnerEmail ? <AwaText colorRole="onSurfaceVariant" variant="bodySmall" style={styles.statusEmail}>{t('awaADeux.pending.sentToEmail', {email: partnerEmail})}</AwaText> : null}
           </View>
         </AwaCard>
@@ -110,6 +107,18 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
       </Reveal>
 
       <Reveal index={2}>
+        <AwaButton
+          accessibilityLabel={t('awaADeux.pending.backToHome', {defaultValue: 'Retour à l’accueil'})}
+          fullWidth
+          icon="home-outline"
+          label={t('awaADeux.pending.backToHome', {defaultValue: 'Retour à l’accueil'})}
+          minHeight={layout.cancelHeight}
+          onPress={() => goBackToHome(navigation)}
+          variant="tonal"
+        />
+      </Reveal>
+
+      <Reveal index={3}>
         <AwaButton
           accessibilityLabel={t('awaADeux.pending.cancel')}
           fullWidth
@@ -176,7 +185,6 @@ function createStyles(theme: ResolvedAwaTheme, layout: PendingLayout) {
       backgroundColor: theme.colors.primarySoft,
     },
     statusContent: {flex: 1, minWidth: 0},
-    statusDescription: {marginTop: 2},
     statusEmail: {marginTop: 4},
 
     divider: {marginVertical: layout.dividerMarginVertical, flexDirection: 'row', alignItems: 'center', gap: 10},

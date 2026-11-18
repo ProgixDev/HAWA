@@ -1,10 +1,14 @@
 import type {SharingKey, SharingToggles} from '../state/awaADeuxSharingStore';
+import type {ObjectiveId} from '../state/onboardingPreferences';
+import {sharingKeysForObjective} from './awaADeuxObjective';
 
 // THE rule for what the partner may see. Whatever displays or transmits partner data —
 // the partner preview today, the partner view / sync later — must go through these two
 // functions, so a switch that is off can never leak information.
 
-const PREGNANCY_KEYS: readonly SharingKey[] = ['pregnancyWeek', 'dueDate', 'babyDevelopment'];
+const PREGNANCY_KEYS: readonly SharingKey[] = ['pregnancyWeek', 'dueDate', 'babyDevelopment', 'pregnancyStage'];
+// While pregnant there is no cycle: the menstrual / fertility choices are never offered and never visible to the partner.
+const CYCLE_KEYS: readonly SharingKey[] = ['cycleDay', 'nextPeriod', 'periodStatus', 'fertileWindow', 'ovulation', 'fertilityStatus'];
 
 export type PartnerVisibility = {
   /** Effective visibility of every choice: her switch AND (for pregnancy) pregnancy mode. */
@@ -22,6 +26,8 @@ export type PartnerVisibility = {
 export type PartnerContext = {
   /** Pregnancy mode is on (the active objective is pregnancy). */
   isPregnant: boolean;
+  /** The objective chosen in the onboarding: only the choices that belong to it can ever be visible. Omitted = the pregnancy rule alone. */
+  objective?: ObjectiveId;
 };
 
 export function computePartnerVisibility(toggles: SharingToggles, context: PartnerContext): PartnerVisibility {
@@ -29,6 +35,17 @@ export function computePartnerVisibility(toggles: SharingToggles, context: Partn
   if (!context.isPregnant) {
     PREGNANCY_KEYS.forEach(key => {
       fields[key] = false;
+    });
+  }
+  if (context.isPregnant) {
+    CYCLE_KEYS.forEach(key => {
+      fields[key] = false;
+    });
+  }
+  if (context.objective) {
+    const allowed = sharingKeysForObjective(context.objective);
+    (Object.keys(fields) as SharingKey[]).forEach(key => {
+      if (!allowed.has(key)) {fields[key] = false;}
     });
   }
   return {

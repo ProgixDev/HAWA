@@ -26,7 +26,7 @@ import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {StopSharingModal} from './AwaADeuxDialogs';
 import {sharingSections} from './awaADeuxDemo';
-import {rebuildStackToAssociation} from './awaADeuxNavigation';
+import {goBackToHome, rebuildStackToAssociation} from './awaADeuxNavigation';
 import {useEntrance} from './useEntrance';
 
 // "AWA à deux" — the partner management screen shown once a partner is "connected".
@@ -58,8 +58,8 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
   const styles = useMemo(() => createStyles(theme, heroHeight, short), [theme, heroHeight, short]);
 
   const {partnerName} = useAwaADeuxPartnerName();
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
 
   const [stopOpen, setStopOpen] = useState(false);
 
@@ -138,6 +138,18 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
       </Reveal>
 
       <Reveal index={4}>
+        <AwaButton
+          accessibilityLabel={t('awaADeux.pending.backToHome', {defaultValue: 'Retour à l’accueil'})}
+          fullWidth
+          icon="home-outline"
+          label={t('awaADeux.pending.backToHome', {defaultValue: 'Retour à l’accueil'})}
+          minHeight={short ? 50 : 54}
+          onPress={() => goBackToHome(navigation)}
+          variant="tonal"
+        />
+      </Reveal>
+
+      <Reveal index={5}>
         <AwaButton
           accessibilityLabel={t('awaADeux.connected.stopAction')}
           fullWidth

@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // The partner preview already goes through it, and so must the future partner view /
 // sync — the switches are never just hidden in the UI.
 //
-// Only these ten choices exist, on purpose: personal notes, intimacy, detailed
+// Only these twelve choices exist, on purpose: personal notes, intimacy, detailed
 // symptoms, medical results, medication, contraception adherence, loss bleeding,
 // lochia, Nifas and every religious / spiritual information (Qadaa, prayer, purity)
 // are outside this sharing design.
@@ -24,6 +24,7 @@ export type SharingKey =
   | 'pregnancyWeek'
   | 'dueDate'
   | 'babyDevelopment'
+  | 'pregnancyStage'
   | 'mood'
   | 'dailyAdvice';
 
@@ -40,6 +41,7 @@ export const DEFAULT_SHARING_TOGGLES: SharingToggles = {
   pregnancyWeek: false,
   dueDate: false,
   babyDevelopment: false,
+  pregnancyStage: false,
   mood: false,
   dailyAdvice: true,
 };

@@ -40,8 +40,8 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const {toggles, isPregnant} = useAwaADeuxSharing();
-  const visibility = computePartnerVisibility(toggles, {isPregnant});
+  const {toggles, isPregnant, objective} = useAwaADeuxSharing();
+  const visibility = computePartnerVisibility(toggles, {isPregnant, objective});
   const sharedItems = sharingSections().flatMap(section => section.items).filter(item => visibility.fields[item.key]);
   const heroEntrance = useHeroEntrance();
 

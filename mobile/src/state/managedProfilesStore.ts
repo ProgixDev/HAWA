@@ -1,4 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {scopeKey, whenAccountScopeReady} from './accountScope';
 import type {CycleRegularity} from './onboardingPreferences';
 
 // Profiles the main user MANAGES on someone else's behalf (today: a daughter whose
@@ -132,7 +134,10 @@ const parseProfiles = (raw: string | null): ManagedProfile[] => {
 // requested, so the last write on disk is always the latest in-memory state.
 const persist = (): Promise<void> => {
   const snapshot = JSON.stringify(profiles);
-  writeChain = writeChain.catch(() => undefined).then(() => AsyncStorage.setItem(MANAGED_PROFILES_STORAGE_KEY, snapshot));
+  writeChain = writeChain
+    .catch(() => undefined)
+    .then(() => whenAccountScopeReady())
+    .then(() => AsyncStorage.setItem(scopeKey(MANAGED_PROFILES_STORAGE_KEY), snapshot));
   return writeChain;
 };
 
@@ -149,7 +154,8 @@ export const subscribeManagedProfiles = (listener: () => void) => {
 export const hydrateManagedProfiles = (): Promise<ManagedProfile[]> => {
   if (hydrated) {return Promise.resolve(profiles);}
   if (!hydration) {
-    hydration = AsyncStorage.getItem(MANAGED_PROFILES_STORAGE_KEY)
+    hydration = whenAccountScopeReady()
+      .then(() => AsyncStorage.getItem(scopeKey(MANAGED_PROFILES_STORAGE_KEY)))
       .then(raw => {
         profiles = parseProfiles(raw);
         hydrated = true;
@@ -318,6 +324,15 @@ export const resetManagedProfileFirstPeriod = async (id: string): Promise<Manage
   return updated;
 };
 
+/** The active local profile changed (state/localAccounts.ts): forget the list in memory and read THAT profile's own list. Nothing is written. */
+export const reloadManagedProfilesForActiveAccount = async (): Promise<ManagedProfile[]> => {
+  profiles = [];
+  hydrated = false;
+  hydration = null;
+  notifyListeners();
+  return hydrateManagedProfiles();
+};
+
 /** Test-only reset — mirrors the reset helpers other AsyncStorage-backed stores in
  * this codebase expose for test isolation. */
 export const resetManagedProfilesForTests = async (): Promise<void> => {
@@ -327,7 +342,7 @@ export const resetManagedProfilesForTests = async (): Promise<void> => {
   reopenManageProfilesSheetRequested = false;
   notifyListeners();
   try {
-    await AsyncStorage.removeItem(MANAGED_PROFILES_STORAGE_KEY);
+    await AsyncStorage.removeItem(scopeKey(MANAGED_PROFILES_STORAGE_KEY));
   } catch {
     // best-effort cleanup only
   }

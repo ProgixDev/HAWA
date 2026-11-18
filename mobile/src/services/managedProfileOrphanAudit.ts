@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {OWNER_PROFILE_ID} from '../state/activeProfileStore';
+import {scopeKey, whenAccountScopeReady} from '../state/accountScope';
 import {MANAGED_PROFILES_STORAGE_KEY, getManagedProfiles} from '../state/managedProfilesStore';
 import {getDeletedManagedProfileIds} from '../state/deletedManagedProfiles';
 import {isAwaStorageKey, splitProfileKey} from './storageKeyClassifier';
@@ -59,7 +60,8 @@ export async function auditManagedProfileOrphans(): Promise<OrphanAuditReport> {
   // list, which here would turn every live profile's data into a false "orphan".
   let knownIds: Set<string>;
   try {
-    const raw = await AsyncStorage.getItem(MANAGED_PROFILES_STORAGE_KEY);
+    await whenAccountScopeReady();
+    const raw = await AsyncStorage.getItem(scopeKey(MANAGED_PROFILES_STORAGE_KEY));
     const stored = raw ? (JSON.parse(raw) as unknown) : [];
     if (!Array.isArray(stored)) {
       throw new Error('unexpected shape');
