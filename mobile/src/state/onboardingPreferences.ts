@@ -21,6 +21,9 @@ export type PeriodHistoryRecord = {
   id: string;
   startDate: string;
   endDate: string;
+  /** True once the END of this period was entered, edited or confirmed by the user (a range edited in the calendar, a confirmed end). Absent on
+   * every record written before this field existed and on every projected end: absent never means "confirmed". */
+  endConfirmed?: boolean;
 };
 
 export type SchoolId = 'hanafi' | 'maliki' | 'chafii' | 'hanbali' | 'unknown';
@@ -126,6 +129,10 @@ let hasConfirmedCycleData = false;
 // "Durée du cycle"/"Durée des règles" rows, describeAverageCycle() in
 // cycleMath.ts).
 let hasConfirmedCycleDuration = false;
+// True only once the usual PERIOD LENGTH was explicitly entered or confirmed by the user (picked in the duration picker, or edited in the profile). Distinct
+// from hasConfirmedCycleDuration above, which is also true when the configuration screen was merely saved with the proposed 5 days. Only the
+// predicted end of the period ("Fin prévue vers le …") reads it. Absent in a stored snapshot = false: no reliable evidence, nothing is assumed.
+let hasExplicitPeriodDuration = false;
 // Anchor date for the 'unknown' regularity observation window (see
 // computeCyclePredictionStatus() in cycleMath.ts). Deliberately NOT a fresh
 // "now" timestamp — it's derived from the same lastPeriodStart every other
@@ -151,6 +158,7 @@ const cycleSnapshot = () => ({
     : null,
   hasConfirmedCycleData,
   hasConfirmedCycleDuration,
+  hasExplicitPeriodDuration,
 });
 
 // hydrateCyclePreferences() seeds `periodHistory` from the still-unconfirmed
@@ -182,6 +190,7 @@ const resetCycleStateToNeutral = (): void => {
   periodHistory = [];
   hasConfirmedCycleData = false;
   hasConfirmedCycleDuration = false;
+  hasExplicitPeriodDuration = false;
   cycleObservationStartedAt = null;
 };
 
@@ -200,6 +209,7 @@ type CycleMemo = {
   periodHistory: PeriodHistoryRecord[];
   hasConfirmedCycleData: boolean;
   hasConfirmedCycleDuration: boolean;
+  hasExplicitPeriodDuration: boolean;
   cycleObservationStartedAt: Date | null;
 };
 const captureCycleState = (): CycleMemo => ({
@@ -207,6 +217,7 @@ const captureCycleState = (): CycleMemo => ({
   periodHistory,
   hasConfirmedCycleData,
   hasConfirmedCycleDuration,
+  hasExplicitPeriodDuration,
   cycleObservationStartedAt,
 });
 const restoreCycleState = (state: CycleMemo): void => {
@@ -214,6 +225,7 @@ const restoreCycleState = (state: CycleMemo): void => {
   periodHistory = state.periodHistory;
   hasConfirmedCycleData = state.hasConfirmedCycleData;
   hasConfirmedCycleDuration = state.hasConfirmedCycleDuration;
+  hasExplicitPeriodDuration = state.hasExplicitPeriodDuration;
   cycleObservationStartedAt = state.cycleObservationStartedAt;
   notifyCycleListeners();
 };
@@ -668,13 +680,6 @@ const latestRealStartKey = (): string | null => {
   );
 };
 
-/** True when this record's end is only the projection from the habitual
- * duration (never edited, never confirmed) — so it may follow a change of
- * that duration; a user-set / confirmed end must never be overwritten. */
-const hasProjectedEnd = (record: PeriodHistoryRecord, duration: number): boolean =>
-  record.endDate === projectedEndKey(record.startDate, duration) &&
-  !getConfirmedPeriodHistory().some(occurrence => occurrence.id === record.id);
-
 /** A confirmed periodEndDateTime that predates the (new) latest start belongs
  * to an earlier period and would be wrongly paired with this one. */
 const clearStalePeriodEnd = (previousLastPeriodStart: Date): void => {
@@ -688,7 +693,9 @@ const clearStalePeriodEnd = (previousLastPeriodStart: Date): void => {
   }
 };
 
-export const setCyclePreferences = (value: CyclePreferences): Promise<void> => {
+/** `options.periodDurationExplicit`: the person explicitly entered or confirmed the usual period length with this save (a value picked, or edited in
+ * the profile). Without it, a save never turns the proposed length into an explicit one; one that already was explicit stays so while it is unchanged. */
+export const setCyclePreferences = (value: CyclePreferences, options?: {periodDurationExplicit?: boolean}): Promise<void> => {
   const before = captureCycleState();
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
   const previousDuration = cyclePreferences.periodDuration;
@@ -702,6 +709,8 @@ export const setCyclePreferences = (value: CyclePreferences): Promise<void> => {
   };
   hasConfirmedCycleData = true;
   hasConfirmedCycleDuration = true;
+  hasExplicitPeriodDuration =
+    options?.periodDurationExplicit === true || (hasExplicitPeriodDuration && value.periodDuration === previousDuration);
 
   // Entering 'unknown' (freshly, or again after having left it) starts a new
   // observation window anchored to the real period start just declared;
@@ -729,15 +738,14 @@ export const setCyclePreferences = (value: CyclePreferences): Promise<void> => {
   if (isNewPeriod || !latestRecord) {
     periodHistory = sortHistory([...previousRecords.filter(item => item.id !== declaredKey), newRecord]);
   } else if (declaredKey === latestKey) {
-    // Same period: keep its (possibly user-set / confirmed) end. Only a
-    // still-projected end follows a change of the habitual duration.
-    const end = hasProjectedEnd(latestRecord, previousDuration) ? defaultEnd : latestRecord.endDate;
+    // Same period: it keeps its end (user-set, confirmed OR the projection recorded when it was created). Changing the habitual duration
+    // applies to the periods that come NEXT, never to a period that is already recorded.
+    const end = latestRecord.endDate;
     periodHistory = sortHistory([...previousRecords.filter(item => item.id !== latestKey), {...latestRecord, endDate: end}]);
   } else {
     const others = previousRecords.filter(item => item.id !== latestKey);
-    const end = hasProjectedEnd(latestRecord, previousDuration)
-      ? defaultEnd
-      : keyPlusDays(declaredKey, keyDiffDays(latestRecord.endDate, latestRecord.startDate));
+    // The latest period is restated at another start: it keeps the length it had (a habitual duration changed in the same save applies to the next periods).
+    const end = keyPlusDays(declaredKey, keyDiffDays(latestRecord.endDate, latestRecord.startDate));
     const overlaps = others.some(item => declaredKey <= item.endDate && end >= item.startDate);
     periodHistory = overlaps
       ? sortHistory([...previousRecords.filter(item => item.id !== declaredKey), newRecord])
@@ -866,6 +874,9 @@ export const getHasConfirmedCycleData = (): boolean => hasConfirmedCycleData;
  * displaying/exporting a periodDuration/cycleDuration NUMBER as confirmed. */
 export const getHasConfirmedCycleDuration = (): boolean => hasConfirmedCycleDuration;
 
+/** True only when the usual period length was explicitly entered or confirmed (see the field comment above). */
+export const getHasExplicitPeriodDuration = (): boolean => hasExplicitPeriodDuration;
+
 export const getPeriodHistory = (): PeriodHistoryRecord[] =>
   periodHistory.map(item => ({ ...item }));
 
@@ -966,6 +977,7 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
             observationStartedAt?: string | null;
             hasConfirmedCycleData?: boolean;
             hasConfirmedCycleDuration?: boolean;
+            hasExplicitPeriodDuration?: boolean;
           };
           const start = parsed.preferences?.lastPeriodStart
             ? new Date(parsed.preferences.lastPeriodStart)
@@ -1014,6 +1026,9 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
           // silently regresses to "Non renseignée".
           hasConfirmedCycleDuration =
             typeof parsed.hasConfirmedCycleDuration === 'boolean' ? parsed.hasConfirmedCycleDuration : hasConfirmedCycleData;
+          // NOT migrated the same way: a snapshot written before this flag existed holds no evidence that the period length was explicitly chosen (it may
+          // be the proposed 5 days), so it stays false until the person enters or confirms it.
+          hasExplicitPeriodDuration = parsed.hasExplicitPeriodDuration === true;
         }
         if (periodHistory.length === 0) {
           const start = cyclePreferences.lastPeriodStart;
@@ -1119,7 +1134,13 @@ export const correctPeriodOccurrence = async (
     throw new Error('OVERLAPPING_RANGE');
   }
   hasConfirmedCycleData = true;
-  periodHistory = sortHistory([...others, {id: newKey, startDate: newKey, endDate: endKey}]);
+  // An end the person gave (an edited range), or kept from a record whose end she had given, is hers; a length merely carried over from a projected
+  // end stays a projection.
+  const endGivenByUser = Boolean(newEnd) || old?.endConfirmed === true;
+  periodHistory = sortHistory([
+    ...others,
+    {id: newKey, startDate: newKey, endDate: endKey, ...(endGivenByUser ? {endConfirmed: true} : {})},
+  ]);
   const latestKey = periodHistory[periodHistory.length - 1].startDate;
   if (latestKey !== cycleDateKey(cyclePreferences.lastPeriodStart)) {
     cyclePreferences = {...cyclePreferences, lastPeriodStart: keyToDate(latestKey)};
@@ -1292,7 +1313,7 @@ subscribeConfirmedPeriodEndRecorded(occurrence => {
   }
   if (record.endDate === endKey) {return;}
   const before = captureCycleState();
-  periodHistory = periodHistory.map(item => (item.id === record.id ? {...item, endDate: endKey} : item));
+  periodHistory = periodHistory.map(item => (item.id === record.id ? {...item, endDate: endKey, endConfirmed: true} : item));
   notifyCycleListeners();
   persistCycleCommitted(before);
 });

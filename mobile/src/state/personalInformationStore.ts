@@ -74,6 +74,13 @@ function sanitizeInformation(merged: PersonalInformation): PersonalInformation {
   return output;
 }
 
+/** Forgets the in-memory copy (defaults, no storage read or write): used when the active local profile changes, so the next
+ * loadPersonalInformation() shows only THAT profile's record — a profile with none must never keep the previous one's names. */
+export function resetPersonalInformationMemory(): void {
+  cachedInformation = {...DEFAULT_INFORMATION};
+  setFirstName('');
+}
+
 export function getCachedPersonalInformation(): PersonalInformation {
   return {...cachedInformation};
 }
