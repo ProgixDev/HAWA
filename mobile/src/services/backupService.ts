@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {profileScopedKey} from '../state/profileScopedStorage';
 import {DELETED_MANAGED_PROFILES_STORAGE_KEY, parseDeletedManagedProfileIds} from '../state/deletedManagedProfiles';
 import {MANAGED_PROFILES_STORAGE_KEY} from '../state/managedProfilesStore';
+import {forgetSessionInMemory} from '../state/accountScope';
 import {OWNER_PROFILE_ID} from '../state/activeProfileStore';
 import {cancelCycleRemindersForProfile} from '../utils/cycleReminderScheduling';
 import {cancelAllLocalNotifications} from './pregnancyNotifications';
@@ -14,6 +15,7 @@ import {
   isDeletedWithProfileTrackedData,
   isIncludedInBackup,
   isIncludedInProfileBackup,
+  splitProfileKey,
 } from './storageKeyClassifier';
 import {applyWritesWithJournal, type RestoreWrite} from './restoreJournal';
 import {getRawItem, isStructuredEncryptionEnabled, withKeyLock} from './secureAsyncStorage';
@@ -166,7 +168,8 @@ export function planRestore(snapshot: BackupSnapshot, deletedIds: readonly strin
       writes.push({key, value: JSON.stringify(Array.from(new Set([...deletedIds, ...parseDeletedManagedProfileIds(value)])))});
       continue;
     }
-    if (!scope && key === MANAGED_PROFILES_STORAGE_KEY && deletedIds.length > 0) {
+    // by BASE key: a local profile's own list is `<key>:acct:<id>` and must get the same treatment
+    if (!scope && splitProfileKey(key).baseKey === MANAGED_PROFILES_STORAGE_KEY && deletedIds.length > 0) {
       try {
         const profiles = JSON.parse(value) as unknown;
         if (Array.isArray(profiles)) {
@@ -198,6 +201,8 @@ export async function deleteTrackedData(): Promise<void> {
   await cancelAllLocalNotifications();
   const keys = (await AsyncStorage.getAllKeys()).filter(isDeletedWithAllTrackedData);
   await Promise.all(keys.map(key => withKeyLock(key, () => AsyncStorage.removeItem(key))));
+  // The local profiles' session and registry went with the data: the original profile is the one in force again (memory only).
+  forgetSessionInMemory();
 }
 
 // ============================================================

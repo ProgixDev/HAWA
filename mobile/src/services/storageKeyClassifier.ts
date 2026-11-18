@@ -1,3 +1,4 @@
+import {ACCOUNT_KEY_MARKER} from '../state/accountScope';
 import {profileKeySuffix} from '../state/profileScopedStorage';
 
 // THE one place that decides what an AsyncStorage key is. Backup, restore, "delete my data", managed-profile
@@ -68,7 +69,16 @@ const PREFERENCE_PREFIXES = [
   '@hawa/notification',
 ];
 
+/** Local profiles (state/accountScope.ts): the session and the registry of profiles. Bookkeeping of THIS phone: never part of a backup (restoring
+ * another phone's session would sign someone in), removed with "delete my data". */
+const LOCAL_ACCOUNTS_PREFIX = '@awa/local-accounts/';
+
 export const splitProfileKey = (key: string): {baseKey: string; profileId: string | null} => {
+  // A local profile's copy of an onboarding record is `<key>:acct:<id>`: it is the OWNER's data (no managed profile), whose base key is `<key>`.
+  const accountAt = key.lastIndexOf(ACCOUNT_KEY_MARKER);
+  if (accountAt > 0 && accountAt + ACCOUNT_KEY_MARKER.length < key.length && !key.slice(accountAt).includes(PROFILE_MARKER)) {
+    return {baseKey: key.slice(0, accountAt), profileId: null};
+  }
   const at = key.lastIndexOf(PROFILE_MARKER);
   if (at <= 0) {return {baseKey: key, profileId: null};}
   const profileId = key.slice(at + PROFILE_MARKER.length);
@@ -85,7 +95,7 @@ export function classifyStorageKey(key: string): StorageKeyInfo {
   if (!(key.startsWith('@awa') || key.startsWith('@hawa'))) {return info('foreign');}
 
   if (baseKey === BACKUP_SLOT_KEY || baseKey === BACKUP_SETTINGS_KEY) {return info('backup-artifact');}
-  if (key === RESTORE_JOURNAL_KEY || key.startsWith(MIGRATION_STATE_PREFIX)) {return info('internal-state');}
+  if (key === RESTORE_JOURNAL_KEY || key.startsWith(MIGRATION_STATE_PREFIX) || key.startsWith(LOCAL_ACCOUNTS_PREFIX)) {return info('internal-state');}
   if (PROFILE_REGISTRY_BASES.has(baseKey)) {return info('profile-registry');}
   if (PREFERENCE_PREFIXES.some(prefix => baseKey.startsWith(prefix))) {return info('preferences');}
   return info('tracking-data');

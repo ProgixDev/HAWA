@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {scopeKey, whenAccountScopeReady} from '../state/accountScope';
 import {getActiveProfileId, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {profileScopedKey} from '../state/profileScopedStorage';
 import {classifyStorageKey, splitProfileKey} from './storageKeyClassifier';
@@ -148,7 +149,7 @@ export const getUnavailableStructuredKeys = (): {key: string; reason: Structured
 /** Are any of these storage bases (given WITHOUT the `:profile:<id>` suffix) unreadable for the ACTIVE profile? */
 export const isActiveProfileDataUnavailable = (bases: readonly string[]): boolean => {
   const profileId = getActiveProfileId();
-  const keys = new Set(bases.map(base => profileScopedKey(base, profileId)));
+  const keys = new Set(bases.map(base => scopeKey(profileScopedKey(base, profileId))));
   return [...unavailable.keys()].some(key => keys.has(key));
 };
 export const isStructuredKeyUnavailable = (key: string): boolean => unavailable.has(key);
@@ -253,7 +254,7 @@ async function readDecrypted(key: string, raw: string, fromStoreRead = true): Pr
   }
 }
 
-async function getItem(key: string): Promise<string | null> {
+async function getItemPhysical(key: string): Promise<string | null> {
   // A read of an encrypted record waits for the writes on that record that were STARTED before it. Without this, an
   // encrypted write (several async steps: read the old value, encrypt, store) could still be in flight when the read hits
   // storage, and the read would return the OLD value — a stale read a store would then adopt as the truth.
@@ -291,7 +292,7 @@ async function readItemLocked(key: string): Promise<string | null> {
   return readDecrypted(key, raw);
 }
 
-async function setItem(key: string, value: string): Promise<void> {
+async function setItemPhysical(key: string, value: string): Promise<void> {
   if (!isStructuredEncryptionEligible(key)) {
     await AsyncStorage.setItem(key, value);
     return;
@@ -320,7 +321,7 @@ async function setItem(key: string, value: string): Promise<void> {
   });
 }
 
-async function removeItem(key: string): Promise<void> {
+async function removeItemPhysical(key: string): Promise<void> {
   await withKeyLock(key, async () => {
     await AsyncStorage.removeItem(key);
     cacheDrop(key);
@@ -328,6 +329,39 @@ async function removeItem(key: string): Promise<void> {
     awaitingSuccessfulRead.delete(key);
     ownerHolds.delete(key); // the user explicitly gave the record up: nothing is left to protect
   });
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Local-profile scoping (state/accountScope.ts): the logical key a store uses becomes the physical key of the ACTIVE local profile for the eleven
+// onboarding records. Everything below the wrappers (locks, cache, failure registries, encryption) works on the physical key, so an account's copy is
+// encrypted, cached and write-protected exactly like the default profile's.
+// ---------------------------------------------------------------------------------------------------------------
+
+// Every write / removal in flight, so a profile switch can wait until nothing is half written (waitForPendingStorageWrites).
+const pendingWrites = new Set<Promise<unknown>>();
+const trackWrite = <T,>(operation: Promise<T>): Promise<T> => {
+  pendingWrites.add(operation);
+  const forget = () => {pendingWrites.delete(operation);};
+  operation.then(forget, forget);
+  return operation;
+};
+
+/** Resolves when every write / removal started so far has finished (successfully or not). Never rejects. */
+export const waitForPendingStorageWrites = async (): Promise<void> => {
+  while (pendingWrites.size > 0) {
+    await Promise.allSettled([...pendingWrites]);
+  }
+};
+
+async function getItem(key: string): Promise<string | null> {
+  await whenAccountScopeReady();
+  return getItemPhysical(scopeKey(key));
+}
+function setItem(key: string, value: string): Promise<void> {
+  return trackWrite(whenAccountScopeReady().then(() => setItemPhysical(scopeKey(key), value)));
+}
+function removeItem(key: string): Promise<void> {
+  return trackWrite(whenAccountScopeReady().then(() => removeItemPhysical(scopeKey(key))));
 }
 
 /** True for the error a failed read of an encrypted record throws (robust to the class being loaded twice). */
@@ -341,9 +375,11 @@ export const isStructuredUnavailableError = (error: unknown): error is Structure
  * "hydrated") is remembered for "Try again" and writes to the key stay refused until a later read through here has
  * succeeded. A store therefore never keeps fabricated defaults for good and never overwrites the real record with them.
  */
-export async function readOwnedItem(key: string, retry: () => Promise<unknown>): Promise<string | null> {
+export async function readOwnedItem(logicalKey: string, retry: () => Promise<unknown>): Promise<string | null> {
+  await whenAccountScopeReady();
+  const key = scopeKey(logicalKey);
   try {
-    const value = await getItem(key);
+    const value = await getItemPhysical(key);
     ownerHolds.delete(key);
     deferredRetries.delete(key);
     return value;
@@ -361,8 +397,10 @@ export async function readOwnedItem(key: string, retry: () => Promise<unknown>):
  * unavailable, ALL of them stay held (a sibling that happened to read fine is not adopted, so it must not become
  * writable from the store's default state either).
  */
-export async function readOwnedItems(keys: readonly string[], retry: () => Promise<unknown>): Promise<(string | null)[]> {
-  const settled = await Promise.allSettled(keys.map(key => getItem(key)));
+export async function readOwnedItems(logicalKeys: readonly string[], retry: () => Promise<unknown>): Promise<(string | null)[]> {
+  await whenAccountScopeReady();
+  const keys = logicalKeys.map(scopeKey);
+  const settled = await Promise.allSettled(keys.map(key => getItemPhysical(key)));
   const failed = settled.find((item): item is PromiseRejectedResult => item.status === 'rejected');
   if (!failed) {
     keys.forEach(key => {
