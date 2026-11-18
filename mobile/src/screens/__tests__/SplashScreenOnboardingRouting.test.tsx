@@ -10,7 +10,8 @@ import {
   setHasCompletedOnboarding,
 } from '../../state/onboardingPreferences';
 import {requiresAppLock} from '../../state/securityPreferences';
-import {lockApp} from '../../state/appLockStore';
+import {getAppLockState, lockApp} from '../../state/appLockStore';
+import {LOCAL_ACCOUNT_ID, SIGNED_OUT_SESSION, writeSession} from '../../state/accountScope';
 
 // Phase 2 — persistent onboarding completion. SplashScreen's routing
 // decision is the read boundary: a returning user who already finished
@@ -23,10 +24,12 @@ jest.mock('../../state/securityPreferences', () => ({
 }));
 jest.mock('../../state/appLockStore', () => ({
   lockApp: jest.fn(),
+  getAppLockState: jest.fn().mockReturnValue('booting'),
 }));
 
 const mockRequiresAppLock = requiresAppLock as jest.Mock;
 const mockLockApp = lockApp as jest.Mock;
+const mockGetAppLockState = getAppLockState as jest.Mock;
 
 const TEST_METRICS: Metrics = {
   frame: {x: 0, y: 0, width: 360, height: 740},
@@ -54,6 +57,7 @@ beforeEach(async () => {
   jest.useFakeTimers();
   mockRequiresAppLock.mockReturnValue(false);
   mockLockApp.mockClear();
+  mockGetAppLockState.mockReturnValue('booting');
   // onboardingPreferences.ts keeps an in-memory singleton — reset it to the
   // "not completed" state explicitly before each test rather than assuming
   // module-reset, same constraint every other onboarding-state test file
@@ -124,6 +128,44 @@ describe('SplashScreen — persistent onboarding completion routing', () => {
     // route is underneath — Splash must still route a completed user to
     // MainTabs; the lock screen intercepts it visually, not via routing.
     expect(navigation.replace).toHaveBeenCalledWith('MainTabs', {screen: 'CycleHome'});
+  });
+
+  it('APP LOCK ENABLED but already unlocked during the splash: does NOT lock a second time', async () => {
+    mockRequiresAppLock.mockReturnValue(true);
+    mockGetAppLockState.mockReturnValue('unlocked');
+    await setHasCompletedOnboarding(true);
+    const navigation = {replace: jest.fn()};
+    await renderSplash(navigation);
+
+    await act(async () => {
+      jest.advanceTimersByTime(5000);
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+
+    expect(mockLockApp).not.toHaveBeenCalled();
+    expect(navigation.replace).toHaveBeenCalledWith('MainTabs', {screen: 'CycleHome'});
+  });
+
+  it('SIGNED OUT: the next launch opens the sign-in screen even though onboarding was completed — the previous profile is never reconnected', async () => {
+    mockRequiresAppLock.mockReturnValue(false);
+    await setHasCompletedOnboarding(true);
+    await writeSession(SIGNED_OUT_SESSION);
+    try {
+      const navigation = {replace: jest.fn()};
+      await renderSplash(navigation);
+
+      await act(async () => {
+        jest.advanceTimersByTime(5000);
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+
+      expect(navigation.replace).toHaveBeenCalledWith('Auth');
+      expect(navigation.replace).not.toHaveBeenCalledWith('MainTabs', expect.anything());
+    } finally {
+      await writeSession(LOCAL_ACCOUNT_ID);
+    }
   });
 
   it('APP LOCK DISABLED + COMPLETED: routes to MainTabs without locking', async () => {

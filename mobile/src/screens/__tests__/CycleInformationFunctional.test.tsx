@@ -14,11 +14,14 @@ import {
   getRecordedPeriodHistory,
   reloadCycleStateFromStorage,
   setCyclePreferences,
+  setHasCompletedOnboarding,
   setPeriodEndDateTime,
   setSelectedObjective,
   type ObjectiveId,
 } from '../../state/onboardingPreferences';
 import {getConfirmedPeriodHistory, recordConfirmedPeriodEnd, removeConfirmedPeriodOccurrence} from '../../state/confirmedPeriodHistoryStore';
+import {LOCAL_ACCOUNT_ID} from '../../state/accountScope';
+import {activateProfile, createLocalAccount} from '../../state/localAccounts';
 import {setAppLanguage} from '../../state/themePreferences';
 import {resetSaveFailureForTests} from '../../services/saveFailure';
 import {computeCyclePredictionStatus} from '../../utils/cycleMath';
@@ -252,6 +255,48 @@ describe('what a save writes, and what it takes back', () => {
     expect(confirmed[0].id).toBe('2026-08-05');
     expect(dayKey(new Date(confirmed[0].periodEndDateTime))).toBe('2026-08-08');
     expect(navigation.goBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('the onboarding of ANOTHER local profile keeps its answers in its own records and never writes the shared confirmed-period history', async () => {
+    const sharedBefore = getConfirmedPeriodHistory();
+    const created = await createLocalAccount('onboarding@example.com');
+    if (!created.ok) {throw new Error('unreachable');}
+    try {
+      await activateProfile(created.account.id); // its onboarding is NOT complete
+      await setCyclePreferences({lastPeriodStart: START, periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+      await setPeriodEndDateTime(END);
+      const {renderer, navigation} = await mount({mode: 'edit'});
+      await press(renderer, endField());
+      await pickDay(renderer, 8);
+      await press(renderer, save());
+
+      expect(navigation.goBack).toHaveBeenCalledTimes(1);
+      expect(dayKey(getPeriodEndDateTime())).toBe('2026-08-08'); // its own period end
+      expect(getConfirmedPeriodHistory()).toEqual(sharedBefore); // the shared medical history: not appended, not edited
+    } finally {
+      await activateProfile(LOCAL_ACCOUNT_ID);
+    }
+    // the original profile still has exactly its own period end and the same shared history
+    expect(dayKey(getPeriodEndDateTime())).toBe('2026-08-09');
+    expect(getConfirmedPeriodHistory()).toEqual(sharedBefore);
+  });
+
+  it('once the local profile\'s onboarding is complete, a genuine confirmation IS recorded in the shared history (the guard is about initialisation only)', async () => {
+    const created = await createLocalAccount('genuine@example.com');
+    if (!created.ok) {throw new Error('unreachable');}
+    try {
+      await activateProfile(created.account.id);
+      await setHasCompletedOnboarding(true);
+      await setCyclePreferences({lastPeriodStart: START, periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+      await setPeriodEndDateTime(END);
+      const {renderer} = await mount({mode: 'edit'});
+      await press(renderer, endField());
+      await pickDay(renderer, 8);
+      await press(renderer, save());
+      expect(getConfirmedPeriodHistory().map(item => dayKey(new Date(item.periodEndDateTime)))).toContain('2026-08-08');
+    } finally {
+      await activateProfile(LOCAL_ACCOUNT_ID);
+    }
   });
 
   it('"no": the end is cleared and the confirmed occurrence of THIS period is retracted; an older confirmed period stays', async () => {

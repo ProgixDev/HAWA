@@ -57,15 +57,22 @@ afterEach(async () => {
 });
 
 describe('TEST 1 — AuthScreen follows the app language; the frontend-only bypass is unaffected', () => {
-  it('French: shows "Connexion"/"Se connecter" and the stub login enters MainTabs', () => {
-    const navigation = {navigate: jest.fn(), replace: jest.fn()};
+  it('French: shows "Connexion"/"Se connecter"; "Se connecter" with no e-mail asks for one in French, and "Continuer sans compte" enters MainTabs', async () => {
+    const navigation = {navigate: jest.fn(), replace: jest.fn(), reset: jest.fn()};
     const renderer = renderDirect(<AuthScreen navigation={navigation as never} route={{} as never} />);
     expect(textsOf(renderer)).toContain('Connexion');
 
-    const submit = renderer.root.find(n => typeof n.props.onPress === 'function' && n.findAllByType(Text).some(t => [t.props.children].flat(Infinity).join('') === 'Se connecter'));
-    act(() => {
-      submit.props.onPress();
-    });
+    const press = async (label: string) => {
+      const target = renderer.root.find(n => typeof n.props.onPress === 'function' && n.findAllByType(Text).some(t => [t.props.children].flat(Infinity).join('') === label));
+      await act(async () => {
+        await target.props.onPress();
+      });
+    };
+    await press('Se connecter');
+    expect(navigation.replace).not.toHaveBeenCalled();
+    expect(textsOf(renderer)).toContain('Saisis une adresse e-mail valide.');
+
+    await press('Continuer sans compte');
     expect(navigation.replace).toHaveBeenCalledWith('MainTabs', {screen: 'CycleHome'});
   });
 
@@ -83,7 +90,7 @@ describe('TEST 1 — AuthScreen follows the app language; the frontend-only bypa
 describe('TEST 2 — RegistrationScreen follows the app language; password rules and the dynamic toggle label stay correct', () => {
   it('French: field labels/placeholders and the "Masquer : Mot de passe" toggle label', () => {
     const renderer = renderDirect(<RegistrationScreen navigation={{navigate: jest.fn(), replace: jest.fn()} as never} route={{} as never} />);
-    // first name + the login form's two fields (e-mail + password); the label is the input's accessibility label
+    // first name + the e-mail and password fields; the label is the input's accessibility label
     expect(renderer.root.findAllByProps({accessibilityLabel: 'Prénom'}).length).toBeGreaterThan(0);
     expect(renderer.root.findAllByProps({accessibilityLabel: 'Adresse e-mail'}).length).toBeGreaterThan(0);
     expect(textsOf(renderer)).toContain('Créer un compte');

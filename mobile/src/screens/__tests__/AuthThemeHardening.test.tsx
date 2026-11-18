@@ -10,7 +10,11 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
-import {getHasCompletedOnboarding} from '../../state/onboardingPreferences';
+import {getHasCompletedOnboarding, hydrateHasCompletedOnboarding, setHasCompletedOnboarding} from '../../state/onboardingPreferences';
+import {LOCAL_ACCOUNT_ID, getActiveAccountId, resetAccountScopeForTests} from '../../state/accountScope';
+import {activateProfile, createLocalAccount, listLocalAccounts} from '../../state/localAccounts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {resetStructuredStorageForTests} from '../../services/secureAsyncStorage';
 
 import AuthScreen from '../AuthScreen';
 import RegistrationScreen from '../RegistrationScreen';
@@ -34,6 +38,8 @@ import i18n from '../../i18n';
 
 jest.mock('../../state/personalInformationStore', () => ({
   updatePersonalInformation: jest.fn().mockResolvedValue(undefined),
+  loadPersonalInformation: jest.fn().mockResolvedValue({}),
+  resetPersonalInformationMemory: jest.fn(),
 }));
 
 const Stack = createNativeStackNavigator();
@@ -55,6 +61,7 @@ const ALL_ROUTES: Array<[string, React.ComponentType<any>]> = [
   ['Registration', RegistrationScreen],
   ['ForgotPassword', ForgotPasswordScreen],
   ['MainTabs', MainTabsStub],
+  ['Welcome', MainTabsStub],
 ];
 
 async function renderScreen(Screen: React.ComponentType<any>, name: string) {
@@ -91,6 +98,11 @@ function gradientColors(renderer: ReactTestRenderer.ReactTestRenderer): unknown 
 }
 
 beforeEach(async () => {
+  await AsyncStorage.clear();
+  resetAccountScopeForTests();
+  resetStructuredStorageForTests();
+  await activateProfile(LOCAL_ACCOUNT_ID);
+  await setHasCompletedOnboarding(false);
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
@@ -410,21 +422,80 @@ function findPressableAncestor(node: ReactTestRenderer.ReactTestInstance): React
   return pressable;
 }
 
-describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () => {
-  it('Login: pressing "Se connecter" with empty fields enters MainTabs directly, no blocking alert/error', async () => {
+describe('Auth family — LOCAL PROFILES (frontend only: no backend, no real authentication)', () => {
+  const emailInput = (renderer: ReactTestRenderer.ReactTestRenderer, index: number) => renderer.root.findAllByType('TextInput' as never)[index];
+  const typeEmail = (renderer: ReactTestRenderer.ReactTestRenderer, index: number, value: string) => {
+    act(() => {
+      emailInput(renderer, index).props.onChangeText(value);
+    });
+  };
+  const press = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
+    const node = renderer.root.findAllByProps({children: label})[0];
+    await act(async () => {
+      await findPressableAncestor(node).props.onPress();
+    });
+  };
+  const currentRoute = () => (navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name;
+  const textExists = (renderer: ReactTestRenderer.ReactTestRenderer, text: string) =>
+    renderer.root.findAll(node => typeof node.props.children === 'string' && node.props.children.includes(text)).length > 0;
+
+  it('Login: "Se connecter" with empty fields no longer enters the app — it asks for a valid e-mail, with no blocking alert', async () => {
     const alertSpy = jest.spyOn(Alert, 'alert');
     const renderer = await renderScreen(AuthScreen, 'Auth');
-
-    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
-    act(() => {
-      findPressableAncestor(submitLabel).props.onPress();
-    });
-
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    await press(renderer, 'Se connecter');
+    expect(currentRoute()).toBe('Auth');
+    expect(textExists(renderer, 'Saisis une adresse e-mail valide.')).toBe(true);
     expect(alertSpy).not.toHaveBeenCalled();
-    expect(renderer.root.findAllByProps({children: 'Entre ton adresse e-mail.'}).length).toBe(0);
-    expect(renderer.root.findAllByProps({children: 'Entre ton mot de passe.'}).length).toBe(0);
+    expect(getHasCompletedOnboarding()).toBe(false);
     alertSpy.mockRestore();
+  });
+
+  it('Login: an e-mail without a local profile on this phone is refused (nothing is verified online, nothing is created)', async () => {
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+    typeEmail(renderer, 0, 'nobody@example.com');
+    await press(renderer, 'Se connecter');
+    expect(currentRoute()).toBe('Auth');
+    expect(textExists(renderer, 'Aucun profil local avec cet e-mail')).toBe(true);
+    expect(await listLocalAccounts()).toEqual([]);
+  });
+
+  it('Login: an e-mail that has a local profile opens ITS onboarding state — its main app when it was completed, its own questionnaire otherwise', async () => {
+    const done = await createLocalAccount('done@example.com');
+    const fresh = await createLocalAccount('fresh@example.com');
+    if (!done.ok || !fresh.ok) {throw new Error('unreachable');}
+    await activateProfile(done.account.id);
+    await setHasCompletedOnboarding(true);
+    await activateProfile(LOCAL_ACCOUNT_ID);
+
+    const first = await renderScreen(AuthScreen, 'Auth');
+    typeEmail(first, 0, 'done@example.com');
+    await press(first, 'Se connecter');
+    expect(currentRoute()).toBe('MainTabs');
+    expect(getActiveAccountId()).toBe(done.account.id);
+
+    await activateProfile(LOCAL_ACCOUNT_ID);
+    const second = await renderScreen(AuthScreen, 'Auth');
+    typeEmail(second, 0, 'fresh@example.com');
+    await press(second, 'Se connecter');
+    expect(currentRoute()).toBe('Welcome');
+    expect(getActiveAccountId()).toBe(fresh.account.id);
+    expect(await hydrateHasCompletedOnboarding()).toBe(false);
+  });
+
+  it('"Continuer sans compte" opens the original profile and records its onboarding as complete', async () => {
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+    await press(renderer, 'Continuer sans compte');
+    expect(currentRoute()).toBe('MainTabs');
+    expect(getActiveAccountId()).toBe(LOCAL_ACCOUNT_ID);
+    expect(getHasCompletedOnboarding()).toBe(true);
+  });
+
+  it('the local profiles on this phone are listed (the long explanatory notice is deliberately not displayed)', async () => {
+    await createLocalAccount('listed@example.com');
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+    expect(textExists(renderer, 'Profils sur cet appareil')).toBe(true);
+    expect(renderer.root.findAllByProps({accessibilityLabel: 'li***@example.com'}).length).toBeGreaterThan(0);
+    expect(textExists(renderer, 'pas des comptes en ligne')).toBe(false);
   });
 
   it('Login: "Créer un compte" tab still opens the Registration form instead of jumping to MainTabs', async () => {
@@ -433,22 +504,43 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     act(() => {
       findPressableAncestor(tab).props.onPress();
     });
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('Registration');
+    expect(currentRoute()).toBe('Registration');
   });
 
-  it('Registration: pressing the final "Créer mon compte" CTA with empty fields enters MainTabs directly, no blocking alert/error', async () => {
+  it('Registration: "Créer mon compte" with empty fields stays on the form and asks for a valid e-mail', async () => {
     const alertSpy = jest.spyOn(Alert, 'alert');
     const renderer = await renderScreen(RegistrationScreen, 'Registration');
-
-    const submitLabel = renderer.root.findAllByProps({children: 'Créer mon compte'})[0];
-    await act(async () => {
-      findPressableAncestor(submitLabel).props.onPress();
-    });
-
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    await press(renderer, 'Créer mon compte');
+    expect(currentRoute()).toBe('Registration');
+    expect(textExists(renderer, 'Saisis une adresse e-mail valide.')).toBe(true);
+    expect(await listLocalAccounts()).toEqual([]);
     expect(alertSpy).not.toHaveBeenCalled();
-    expect(renderer.root.findAllByProps({children: 'Entre ton adresse e-mail.'}).length).toBe(0);
     alertSpy.mockRestore();
+  });
+
+  it('Registration: a valid e-mail creates a NEW local profile with its own empty onboarding and sends the person to the questionnaire', async () => {
+    await setHasCompletedOnboarding(true); // the original profile already finished its onboarding
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    typeEmail(renderer, 1, 'new@example.com');
+    await press(renderer, 'Créer mon compte');
+
+    expect(currentRoute()).toBe('Welcome');
+    const [account] = await listLocalAccounts();
+    expect(account.label).toBe('ne***@example.com');
+    expect(getActiveAccountId()).toBe(account.id);
+    expect(await hydrateHasCompletedOnboarding()).toBe(false); // not the original profile's "completed"
+    await activateProfile(LOCAL_ACCOUNT_ID);
+    expect(await hydrateHasCompletedOnboarding()).toBe(true); // and the original profile is exactly as it was
+  });
+
+  it('Registration: an e-mail that already has a profile is refused (creating never reuses another profile)', async () => {
+    await createLocalAccount('twice@example.com');
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    typeEmail(renderer, 1, 'twice@example.com');
+    await press(renderer, 'Créer mon compte');
+    expect(currentRoute()).toBe('Registration');
+    expect(textExists(renderer, 'existe déjà')).toBe(true);
+    expect(await listLocalAccounts()).toHaveLength(1);
   });
 
   it('"Continuer en mode développement" no longer renders on either screen — the normal buttons are enough', async () => {
@@ -470,51 +562,11 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     }
   });
 
-  it('Login: "Se connecter" enters the app and records that onboarding is complete', async () => {
-    const renderer = await renderScreen(AuthScreen, 'Auth');
-
-    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
-    act(() => {
-      findPressableAncestor(submitLabel).props.onPress();
-    });
-
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-    expect(getHasCompletedOnboarding()).toBe(true);
-  });
-
-  it('Registration: the final "Créer mon compte" CTA enters the app and records that onboarding is complete', async () => {
-    const renderer = await renderScreen(RegistrationScreen, 'Registration');
-
-    const submitLabel = renderer.root.findAllByProps({children: 'Créer mon compte'})[0];
-    await act(async () => {
-      findPressableAncestor(submitLabel).props.onPress();
-    });
-
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-    expect(getHasCompletedOnboarding()).toBe(true);
-  });
-
-  it('navigation does not loop back to Auth after entering MainTabs (no auth guard re-routes)', async () => {
-    const renderer = await renderScreen(AuthScreen, 'Auth');
-    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
-    act(() => {
-      findPressableAncestor(submitLabel).props.onPress();
-    });
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-
-    // A further render pass (palette switch, same as every other test in
-    // this file) must not trigger any guard bouncing the route back to Auth.
-    await act(async () => {
-      await setAppearanceMode('dark');
-    });
-    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
-  });
-
-  it('static guard: the bypass is isolated behind a single documented comment, not scattered', () => {
+  it('static guard: each screen documents once that these are local profiles, not online accounts', () => {
     for (const relativePath of ['../AuthScreen.tsx', '../RegistrationScreen.tsx']) {
       const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
-      expect(source).toMatch(/TEMP FRONTEND-ONLY AUTH BYPASS/);
-      expect((source.match(/TEMP FRONTEND-ONLY AUTH BYPASS/g) ?? []).length).toBe(1);
+      expect((source.match(/NOT (AN )?ONLINE ACCOUNTS?/g) ?? []).length).toBe(1);
+      expect(source).not.toMatch(/TEMP FRONTEND-ONLY AUTH BYPASS/);
     }
   });
 });
